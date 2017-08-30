@@ -6,7 +6,7 @@ export default {
     'modules.config.locale': 'Język',
     'modules.dictionary.input.label': 'Szukaj w słowniku',
     'modules.dictionary.output.not-allowed': 'Słowo niedozwolone',
-    'modules.remaining-tiles.label': 'Remaining tiles ({numberOfTiles})',
+    'modules.remaining-tiles.label': 'Pozostałe płytki ({numberOfTiles})',
     'modules.results.filter.label': 'Filtruj wyniki ({numberOfResults})',
     'modules.results.list.points': 'Punkty',
     'modules.results.list.points-ratio': 'Indeks',
