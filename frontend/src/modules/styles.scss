@@ -1,0 +1,51 @@
+$left-width: 466px;
+$right-width: 635px;
+$spacing: 20px;
+
+.app {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 70px 0;
+
+  .content {
+    display: flex;
+    margin-bottom: $spacing;
+  }
+
+  .left {
+    max-width: $left-width;
+  }
+
+  .right {
+    max-width: $right-width;
+    margin-left: $spacing;
+  }
+
+  .left, .right {
+    > div {
+      margin: $spacing 0;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .bar {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: $left-width + $right-width + $spacing;
+
+    .remaining {
+      flex: 1 0 100%;
+      margin-bottom: $spacing;
+    }
+  }
+}

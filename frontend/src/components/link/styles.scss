@@ -1,0 +1,5 @@
+.link {
+  &:active, &:hover, &:focus, &:visited {
+    color: $primary;
+  }
+}

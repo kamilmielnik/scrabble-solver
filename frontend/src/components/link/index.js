@@ -1,0 +1,17 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import styles from './styles.scss';
+
+const Link = ({ children, className, ...restProps }) => (
+  <a className={classNames(styles.link, className)} {...restProps}>
+    {children}
+  </a>
+);
+
+Link.propTypes = {
+  children: PropTypes.string.isRequired,
+  className: PropTypes.string
+};
+
+export default Link;

@@ -1,0 +1,76 @@
+{
+  "name": "scrabble-solver",
+  "version": "1.0.0-beta.3",
+  "description": "Scrabble Solver",
+  "engines": {
+    "node": ">=7.9.0"
+  },
+  "scripts": {
+    "build": "better-npm-run build",
+    "start:backend": "better-npm-run start:backend",
+    "start:frontend": "better-npm-run start:frontend",
+    "lint": "better-npm-run lint",
+    "postinstall": "better-npm-run prepare-dictionary",
+    "prepare-dictionary": "better-npm-run prepare-dictionary",
+    "update-commons": "better-npm-run update-commons"
+  },
+  "betterScripts": {
+    "build": {
+      "command": "rimraf dist && npm run update-commons && babel-node scripts/build.js"
+    },
+    "start:backend": {
+      "command": "node dist/backend/index.js dictionary.json",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "start:frontend": {
+      "command": "http-server dist/frontend",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "lint": {
+      "command": "eslint commons backend frontend scripts --ext .js"
+    },
+    "prepare-dictionary": {
+      "command": "babel-node scripts/prepare-dictionary.js -- -i -o dictionary.json"
+    },
+    "update-commons": {
+      "command": "babel-node scripts/update-commons.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamilmielnik/scrabble-solver.git"
+  },
+  "author": {
+    "name": "Kamil Mielnik",
+    "email": "kamil.adam.mielnik@gmail.com",
+    "url": "https://kamilmielnik.github.io/"
+  },
+  "license": "CC BY-NC-ND 4.0",
+  "bugs": {
+    "url": "https://github.com/kamilmielnik/scrabble-solver/issues"
+  },
+  "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.0",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-1": "^6.22.0",
+    "better-npm-run": "0.0.15",
+    "cheerio": "^1.0.0-rc.2",
+    "eslint": "^4.5.0",
+    "eslint-plugin-react": "^7.3.0",
+    "fs-extra": "^4.0.1",
+    "request": "^2.81.0",
+    "rimraf": "^2.6.1",
+    "start-server-webpack-plugin": "^2.2.0",
+    "unzip": "^0.1.11",
+    "webpack-node-externals": "^1.6.0",
+    "yargs": "^8.0.2"
+  }
+}

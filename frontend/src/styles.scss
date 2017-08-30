@@ -1,0 +1,15 @@
+@import url('https://rsms.me/interface/interface.css');
+
+html, body {
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: $light-gray;
+  color: $black;
+  font-family: 'Interface', sans-serif;
+  font-size: 12px;
+}
+
+input {
+  font-family: 'Interface', sans-serif;
+}

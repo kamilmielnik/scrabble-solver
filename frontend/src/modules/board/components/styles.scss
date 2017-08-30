@@ -1,0 +1,138 @@
+$tile-size: 30px;
+
+.board {
+  display: table;
+  border-collapse: collapse;
+
+  .row {
+    display: table-row;
+  }
+
+  .cell {
+    display: table-cell;
+    background-color: $white;
+    border: $border;
+
+    &:not(.empty) {
+      .tile {
+        box-shadow: inset -1px -1px 1px 0px $dark-gray;
+      }
+    }
+
+    &.bonus-character-1 {
+      background-color: transparentize($yellow, $background-opacity);
+    }
+
+    &.bonus-character-2 {
+      background-color: transparentize($green, $background-opacity);
+    }
+
+    &.bonus-character-3 {
+      background-color: transparentize($blue, $background-opacity);
+    }
+
+    &.bonus-character-5 {
+      background-color: transparentize($red, $background-opacity);
+    }
+
+    &.bonus-character-multiplier-2 {
+      background-color: transparentize($light-blue, $background-opacity);
+    }
+
+    &.bonus-character-multiplier-3 {
+      background-color: transparentize($dark-blue, $background-opacity);
+    }
+
+    &.bonus-word-2 {
+      background-color: transparentize($gray, $background-opacity);
+
+      &:before {
+        content: "x2";
+      }
+    }
+
+    &.bonus-word-3 {
+      background-color: transparentize($gray, $background-opacity);
+
+      &:before {
+        content: "x3";
+      }
+    }
+
+    &.bonus-word-2,
+    &.bonus-word-3 {
+      position: relative;
+
+      &:before {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        font-size: 15px;
+        font-weight: bold;
+        color: $white;
+        pointer-events: none;
+      }
+    }
+
+    &.character-points-1 {
+      background-color: $yellow;
+    }
+
+    &.character-points-2 {
+      background-color: $green;
+    }
+
+    &.character-points-3 {
+      background-color: $blue;
+    }
+
+    &.character-points-5 {
+      background-color: $red;
+    }
+
+    &.candidate {
+      background-color: $primary;
+
+      .tile {
+        .character {
+          color: $white;
+        }
+      }
+
+      &:before {
+        display: none;
+      }
+    }
+
+    .tile {
+      position: relative;
+      width: $tile-size;
+      height: $tile-size;
+
+      &.blank {
+        background-color: $white;
+
+        .character {
+          color: $black;
+        }
+      }
+
+      .character {
+        width: $tile-size;
+        height: $tile-size;
+        box-sizing: border-box;
+        background-color: transparent;
+        border: 0;
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+      }
+    }
+  }
+}

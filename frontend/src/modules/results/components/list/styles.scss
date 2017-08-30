@@ -1,0 +1,77 @@
+.results {
+  position: relative;
+  background-color: $white;
+  border: $border;
+
+  .grid {
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .cell {
+    margin: 0 !important;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+
+    &:nth-child(3), &:nth-child(5) {
+      text-align: left;
+    }
+  }
+
+  .row {
+    user-select: none;
+
+    &:hover {
+      background-color: $primary;
+      color: $white;
+    }
+
+    &:focus {
+      background-color: $primary-active;
+      color: $white;
+      outline: none;
+    }
+  }
+
+  .header-row {
+    padding-right: 0 !important;
+    border-bottom: $border;
+    font-weight: normal;
+  }
+
+  .header-cell {
+    height: 100%;
+    margin: 0 !important;
+    font-size: 10px;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    box-sizing: border-box;
+
+    .header-cell-content {
+      display: flex;
+      align-items: center;
+      padding: 5px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $primary;
+        color: $white;
+
+        svg {
+          polygon {
+            fill: $white;
+          }
+        }
+      }
+
+      .icon-sort {
+        flex-shrink: 0;
+        margin-left: 5px;
+      }
+    }
+  }
+}

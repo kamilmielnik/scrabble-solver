@@ -1,0 +1,26 @@
+$height: 100px;
+
+.dictionary-output {
+  position: relative;
+  padding: 15px;
+  min-height: $height;
+  height: $height;
+  max-height: $height;
+  overflow: auto;
+  background-color: $white;
+  border: $border;
+
+  .word {
+    margin-bottom: 10px;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  &.is-allowed {
+    background-color: $green;
+  }
+
+  &.is-not-allowed {
+    background-color: $red;
+  }
+}

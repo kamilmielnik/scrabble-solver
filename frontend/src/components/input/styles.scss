@@ -1,0 +1,18 @@
+.input {
+  display: flex;
+
+  input {
+    flex-grow: 1;
+    padding: 5px;
+    border: $border;
+    border-right: none;
+    font-size: 16px;
+    color: $black;
+    text-transform: uppercase;
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+    }
+  }
+}

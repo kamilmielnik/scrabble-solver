@@ -1,0 +1,49 @@
+.remaining-tiles {
+  display: flex;
+  justify-content: space-between;
+
+  .tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 30px;
+    padding: 5px 0;
+    border: $border;
+
+    &.points-1 {
+      background-color: transparentize($yellow, $background-opacity);
+    }
+
+    &.points-2 {
+      background-color: transparentize($green, $background-opacity);
+    }
+
+    &.points-3 {
+      background-color: transparentize($blue, $background-opacity);
+    }
+
+    &.points-5-plus {
+      background-color: transparentize($red, $background-opacity);
+    }
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.no-more-left {
+      color: $gray;
+    }
+
+    &.error {
+      color: $red;
+    }
+
+    .character {
+      margin-bottom: 2px;
+    }
+  }
+}

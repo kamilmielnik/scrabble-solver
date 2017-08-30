@@ -1,0 +1,24 @@
+$black: #000000;
+$dark-gray: #222222;
+$gray: #cdcdcd;
+$light-gray: #f0f0f0;
+$white: #ffffff;
+
+$yellow: #efe3ae;
+$green: #bae3ba;
+$blue: #c7d8f9;
+$light-blue: #7bb5e5;
+$dark-blue: #1868ad;
+$red: #f7c2aa;
+
+/* primary color candidates */
+$facebook-blue: #3b5998;
+$violet: #78387f;
+$bright-pink: #ff5074;
+
+$primary: $violet;
+$primary-active: mix($primary, $black, 80%);
+$primary-hover: mix($primary, $white, 80%);
+$transparent-overlay: transparentize($black, 0.6);
+$border: 1px solid $gray;
+$background-opacity: 0.4;
