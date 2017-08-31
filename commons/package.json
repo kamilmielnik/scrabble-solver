@@ -1,6 +1,6 @@
 {
   "name": "scrabble-solver-commons",
-  "version": "0.0.2",
+  "version": "1.0.0-beta.4",
   "description": "Scrabble Solver - Commons",
   "engines": {
     "node": ">=7.9.0"

@@ -9,16 +9,15 @@ const initialState = {
   intl: en
 };
 
-export default function configureStore() {
+export default () => {
   const store = createStore(rootReducer, initialState, createEnhancer());
   sagaMiddleware.run(sagas);
   enableHmrForReducers(store);
   return store;
-}
+};
 
 const createEnhancer = () => compose(applyMiddleware(
-  sagaMiddleware,
-  require('redux-thunk').default
+  sagaMiddleware
 ));
 
 const enableHmrForReducers = (store) => {

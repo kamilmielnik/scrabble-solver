@@ -1,5 +1,7 @@
-﻿*.log
+﻿node_modules/
+*/dist/
 *.db
+*.log
+*.zip
 dictionary.json
-node_modules/
-dist/
+todo.txt

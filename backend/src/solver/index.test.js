@@ -7,35 +7,91 @@ import Trie from './trie';
 const collectionJson = fs.readFileSync('../dictionary.json', 'utf-8');
 const collection = Trie.fromJson(JSON.parse(collectionJson));
 const config = new Config(literaki);
-const board = Board.fromStringArray([
-  '               ',
-  '               ',
-  '               ',
-  '               ',
-  '               ',
-  '               ',
-  '               ',
-  '               ',
-  '               ',
-  '               ',
-  '               ',
-  '   żyło        ',
-  '               ',
-  '               ',
-  '               '
-]);
+
+const generateTiles = (characters) => characters.split('').map((character) => new Tile({
+  character,
+  isBlank: false
+}));
 
 describe('Solver', () => {
   const solver = new Solver(config, collection);
 
-  it('gives correct number of results for "lino"', () => {
-    const tiles = [
-      new Tile({ character: 'l', isBlank: false }),
-      new Tile({ character: 'i', isBlank: false }),
-      new Tile({ character: 'n', isBlank: false }),
-      new Tile({ character: 'o', isBlank: false })
-    ];
+  it('żyło', () => {
+    const board = Board.fromStringArray([
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '   żyło        ',
+      '               ',
+      '               ',
+      '               '
+    ]);
+    const tiles = generateTiles('lino');
     const results = solver.solve(board, tiles);
-    expect(results.length).toBe(58);
+    expect(results.length).toBe(59);
+  });
+
+  it('zmartwychwstałą x9', () => {
+    const board = Board.fromStringArray([
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '       n       ',
+      '       armia   ',
+      '       p   miot',
+      '       ośka   r',
+      '     boi  n   w',
+      ' deski   po  da',
+      ' or o    in fał',
+      ' m  twych s  ł ',
+      '               ',
+      '               '
+    ]);
+    const tiles = generateTiles('aaąrtwz');
+    const [ firstResult, ...results ] = solver.solve(board, tiles);
+    const bestResult = results.reduce(
+      (bestResult, result) => result.points > bestResult.points ? result : bestResult,
+      firstResult
+    );
+    expect(bestResult.word).toBe('zmartwychwstałą');
+    expect(bestResult.points).toBe(682);
+  });
+
+  it('zmartwychwstałą x24', () => {
+    const board = Board.fromStringArray([
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '       ś   miot',
+      '     s piska  r',
+      '     p i      w',
+      'j  fiolę j   da',
+      'as o iw  au  ał',
+      ' mar  y   stał ',
+      'da do    ot    ',
+      'ar  ń    m     '
+    ]);
+    const tiles = generateTiles('ąchtwwz');
+    const [ firstResult, ...results ] = solver.solve(board, tiles);
+    const bestResult = results.reduce(
+      (bestResult, result) => result.points > bestResult.points ? result : bestResult,
+      firstResult
+    );
+    expect(bestResult.word).toBe('zmartwychwstałą');
+    expect(bestResult.points).toBe(1157);
   });
 });

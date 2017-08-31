@@ -2,7 +2,7 @@ const END_WORD = '@';
 
 class Trie {
   constructor(words = []) {
-    this.trie = words.reduce((trie, word) => {
+    this.root = words.reduce((trie, word) => {
       let node = trie;
       for (const character of word) {
         if(!node[character]) {
@@ -16,7 +16,7 @@ class Trie {
   }
 
   has(word) {
-    let node = this.trie;
+    let node = this.root;
     for (const character of word) {
       if(!node[character]) {
         return false;
@@ -27,7 +27,7 @@ class Trie {
   }
 
   hasMore(word) {
-    let node = this.trie;
+    let node = this.root;
     for (const character of word) {
       if(!node[character]) {
         return false;
@@ -38,12 +38,12 @@ class Trie {
   }
 
   toJson() {
-    return this.trie;
+    return this.root;
   }
 
   static fromJson(json) {
     const trie = new Trie();
-    trie.trie = json;
+    trie.root = json;
     return trie;
   }
 }

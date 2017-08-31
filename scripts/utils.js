@@ -1,9 +1,9 @@
+import decompress from 'decompress';
 import fs from 'fs-extra';
 import http from 'http';
 import https from 'https';
 import path from 'path';
 import request from 'request';
-import unzip from 'unzip';
 import url from 'url';
 
 const YELLOW = '\x1b[33m%s\x1b[0m';
@@ -49,7 +49,7 @@ export const tryRemovingDirectory = (path) => {
 };
 
 export const downloadHtml = (url) => logAction(
-  `Downloading html from "${url}"`,
+  `Downloading HTML from "${url}"`,
   () => new Promise((resolve) => {
     const protocol = url.startsWith('https') ? https : http;
     protocol.get(url, (response) => {
@@ -73,19 +73,11 @@ export const downloadFile = (url, outputFilepath) => logAction(
   )
 );
 
-export const unzipFile = (zipfilepath, outputFilepath, filename) => logAction(
-  `Unzipping "${filename}" as "${outputFilepath}" from "${zipfilepath}"`,
-  () => new Promise((resolve) => fs.createReadStream(zipfilepath)
-    .pipe(unzip.Parse())
-    .on('entry', (entry) => {
-      if(entry.path === filename) {
-        entry.pipe(fs.createWriteStream(outputFilepath));
-      } else {
-        entry.autodrain();
-      }
-    })
-    .on('finish', resolve)
-  )
+export const unzipFile = (zipfilepath, filename) => logAction(
+  `Unzipping "${filename}" from "${zipfilepath}"`,
+  () => decompress(zipfilepath, '.', {
+    filter: (file) => file.path === filename
+  })
 );
 
 export const readFile = (filepath) => logAction(
@@ -93,12 +85,12 @@ export const readFile = (filepath) => logAction(
   () => fs.readFileSync(filepath, 'utf-8')
 );
 
-export const writeFile = (filepath, json) => logAction(
+export const writeFile = (filepath, data) => logAction(
   `Writing "${filepath}"`,
-  () => fs.writeFileSync(filepath, JSON.stringify(json))
+  () => fs.writeFileSync(filepath, data)
 );
 
 export const removeFile = (filepath) => logAction(
   `Removing "${filepath}"`,
-  () => fs.remove(filepath)
+  () => fs.removeSync(filepath)
 );

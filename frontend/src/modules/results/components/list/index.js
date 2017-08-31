@@ -30,7 +30,7 @@ const ResultsList = ({ className, isLoading, results, onMouseLeave, onRowClick, 
       headerClassName={styles.headerCell}
       width={633}
       height={683}
-      headerHeight={21}
+      headerHeight={20}
       rowHeight={23}
       rowCount={results.length}
       rowGetter={({ index }) => results[index]}

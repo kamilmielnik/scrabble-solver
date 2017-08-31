@@ -35,15 +35,17 @@ const { argv } = yargs
   })
   .help();
 
-const prepareDictionary = () => fetchZipUrl(argv.url)
-  .then((zipUrl) => {
-    const zipFilename = getFilenameFromUrl(zipUrl);
-    return downloadFile(zipUrl, zipFilename)
-      .then(() => unzipFile(zipFilename, argv.filename, argv.filename))
-      .then(() => removeFile(zipFilename))
-      .then(() => writeFile(argv.output, prepareFile(readFile(argv.filename))))
-      .then(() => removeFile(argv.filename));
-  });
+const prepareDictionary = async () => {
+  const zipUrl = await fetchZipUrl(argv.url);
+  const zipFilename = getFilenameFromUrl(zipUrl);
+  await downloadFile(zipUrl, zipFilename);
+  await unzipFile(zipFilename, argv.filename);
+  removeFile(zipFilename);
+  const file = readFile(argv.filename);
+  const preparedFile = prepareFile(file);
+  writeFile(argv.output, preparedFile);
+  removeFile(argv.filename);
+};
 
 const fetchZipUrl = (url) => downloadHtml(url)
   .then(parseZipContainingPage)
@@ -64,7 +66,7 @@ const prepareFile = (file) => {
     const trie = new Trie(words);
     json = trie.toJson();
   });
-  return json;
+  return JSON.stringify(json);
 };
 
 prepareDictionary();
