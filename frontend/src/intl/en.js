@@ -2,7 +2,6 @@ export default {
   locale: 'en',
   messages: {
     'components.no-results': 'No results',
-    'modules.board.clear-label': 'Clear',
     'modules.board.label': 'Board',
     'modules.config.config': 'Config',
     'modules.config.locale': 'Language',
@@ -20,6 +19,6 @@ export default {
     'modules.results.list.number-of-tiles': '#Tiles',
     'modules.results.list.number-of-blanks': '#Blanks',
     'modules.results.list.number-of-collisions': '#Collisions',
-    'modules.tiles.label': 'Characters ({numberOfTiles})'
+    'modules.tiles.label': 'Tiles ({numberOfTiles})'
   }
 };
