@@ -13,10 +13,10 @@ import HeaderCell from './header-cell';
 import styles from './styles.scss';
 
 const COLUMNS = [
-  { label: 'modules.results.list.points', dataKey: 'points', width: 64 },
-  { label: 'modules.results.list.points-ratio', dataKey: 'pointsRatio', width: 64 },
+  { label: 'modules.results.list.points', dataKey: 'points', width: 66 },
+  { label: 'modules.results.list.points-ratio', dataKey: 'pointsRatio', width: 66 },
   { label: 'modules.results.list.word', dataKey: 'word', width: 130 },
-  { label: 'modules.results.list.length', dataKey: 'length', width: 67 },
+  { label: 'modules.results.list.length', dataKey: 'length', width: 75 },
   { label: 'modules.results.list.tiles', dataKey: 'tilesCharacters', width: 80 },
   { label: 'modules.results.list.number-of-tiles', dataKey: 'numberOfTiles', width: 66 },
   { label: 'modules.results.list.number-of-blanks', dataKey: 'numberOfBlanks', width: 71 },
@@ -28,7 +28,7 @@ const ResultsList = ({ className, isLoading, results, onMouseLeave, onRowClick, 
     <Table
       gridClassName={styles.grid}
       headerClassName={styles.headerCell}
-      width={633}
+      width={645}
       height={683}
       headerHeight={20}
       rowHeight={23}
