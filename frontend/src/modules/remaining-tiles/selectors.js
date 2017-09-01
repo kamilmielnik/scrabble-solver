@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { BLANK } from 'scrabble-solver-commons/dist/constants';
 import { selectCells } from 'board/selectors';
 import { selectConfig } from 'config/selectors';
 import { selectInput } from 'tiles/selectors';
@@ -22,9 +23,25 @@ export const selectCharactersMap = createSelector(
     {}
   )
 );
+export const selectNumberOfUsedBlanks = createSelector(
+  [ selectCells ],
+  (cells) => cells.filter((cell) => cell.tile.isBlank).length
+);
+export const selectBlankStatistics = createSelector(
+  [ selectConfig, selectNumberOfUsedBlanks ],
+  ({ blankScore, numberOfBlanks }, numberOfUsedBlanks) => ({
+    character: BLANK,
+    count: numberOfBlanks,
+    points: blankScore,
+    usedCount: numberOfUsedBlanks
+  })
+);
 export const selectCharactersStatistics = createSelector(
-  [ selectCharactersMap, selectCells ],
-  (charactersStatistics, cells) => Object.values(cells.reduce(reduceCellStatistics, charactersStatistics))
+  [ selectBlankStatistics, selectCharactersMap, selectCells ],
+  (blankStatistics, charactersStatistics, cells) => [
+    ...Object.values(cells.reduce(reduceCellStatistics, charactersStatistics)),
+    blankStatistics
+  ]
 );
 export const selectNumberOfRemainingCharacters = createSelector(
   [ selectCharactersStatistics ],

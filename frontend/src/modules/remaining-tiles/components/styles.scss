@@ -10,6 +10,10 @@
     padding: 5px 0;
     border: $border;
 
+    &.points-0 {
+      background-color: $white;
+    }
+
     &.points-1 {
       background-color: transparentize($yellow, $background-opacity);
     }
@@ -44,6 +48,7 @@
 
     .character {
       margin-bottom: 2px;
+      white-space: pre;
     }
   }
 }
