@@ -44,6 +44,7 @@ const prepareDictionary = async () => {
   const file = readFile(argv.filename);
   const preparedFile = prepareFile(file);
   writeFile(argv.output, preparedFile);
+  writeFile(`dist/${argv.output}`, preparedFile);
   removeFile(argv.filename);
 };
 
