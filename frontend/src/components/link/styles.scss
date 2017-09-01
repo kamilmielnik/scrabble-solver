@@ -1,5 +1,9 @@
 .link {
+  color: $primary;
+  cursor: pointer;
+
   &:active, &:hover, &:focus, &:visited {
-    color: $primary;
+    color: $primary-active;
+    text-decoration: underline;
   }
 }

@@ -3,12 +3,14 @@ import { EMPTY_CELL } from 'scrabble-solver-commons/dist/constants';
 import { Board, Cell, Tile } from 'scrabble-solver-commons/dist/models';
 import { initialState as config } from 'modules/config/state';
 
-export const APPLY_RESULT = 'results/apply-result';
-export const CHANGE_CELL_VALUE = 'results/change-cell-value';
-export const TOGGLE_CELL_IS_BLANK = 'results/toggle-cell-is-blank';
+export const APPLY_RESULT = 'board/apply-result';
+export const CHANGE_CELL_VALUE = 'board/change-cell-value';
+export const CLEAR = 'board/clear';
+export const TOGGLE_CELL_IS_BLANK = 'board/toggle-cell-is-blank';
 
 export const applyResult = createAction(APPLY_RESULT);
 export const changeCellValue = createAction(CHANGE_CELL_VALUE, (x, y, value) => ({ x, y, value }));
+export const clear = createAction(CLEAR);
 export const toggleCellIsBlank = createAction(TOGGLE_CELL_IS_BLANK, (x, y) => ({ x, y }));
 
 const initialState = Board.fromStringArray(Array(config.boardHeight).fill(
@@ -41,6 +43,8 @@ export default handleActions({
       isEmpty
     }));
   },
+
+  [CLEAR]: () => initialState,
 
   [TOGGLE_CELL_IS_BLANK]: (state, { payload: { x, y } }) => updateBoardCell(state, y, x, (cell) => new Cell({
     ...cell,

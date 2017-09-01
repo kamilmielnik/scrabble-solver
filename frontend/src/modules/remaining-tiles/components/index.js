@@ -1,37 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import {
   selectCharactersStatistics,
   selectNumberOfRemainingCharacters
 } from 'remaining-tiles/selectors';
 import Section from 'components/section';
-import { getTileClassNames } from './tile-classnames';
+import Tile from './tile';
 import styles from './styles.scss';
 
-const RemainingTiles = ({ className, charactersStatistics, label }) => (
-  <Section className={className} label={label}>
+const RemainingTiles = ({ className, charactersStatistics, numberOfTiles }) => (
+  <Section
+    className={className}
+    label={(
+      <FormattedMessage
+        id="modules.remaining-tiles.label"
+        values={{
+          numberOfTiles: String(numberOfTiles)
+        }} />
+    )}>
     <div className={styles.remainingTiles}>
-      {charactersStatistics.map(({ character, count, points, usedCount }) => (
-        <div
-          key={character}
-          className={classNames(
-            styles.tile,
-            getTileClassNames({ count, points, usedCount }),
-            {
-              [styles.error]: usedCount > count,
-              [styles.noMoreLeft]: usedCount === count
-            }
-          )}>
-          <div className={styles.character}>
-            {`${character.toUpperCase()}`}
-          </div>
-          <div>
-            {`${count - usedCount}/${count}`}
-          </div>
-        </div>
+      {charactersStatistics.map((tile) => (
+        <Tile key={tile.character} {...tile} />
       ))}
     </div>
   </Section>
@@ -40,14 +31,12 @@ const RemainingTiles = ({ className, charactersStatistics, label }) => (
 RemainingTiles.propTypes = {
   charactersStatistics: PropTypes.array.isRequired,
   className: PropTypes.string,
-  label: PropTypes.string.isRequired
+  numberOfTiles: PropTypes.number.isRequired
 };
 
-const mapStateToProps = (state, { intl }) => ({
+const mapStateToProps = (state) => ({
   charactersStatistics: selectCharactersStatistics(state),
-  label: intl.formatMessage({ id: 'modules.remaining-tiles.label' }, {
-    numberOfTiles: String(selectNumberOfRemainingCharacters(state))
-  })
+  numberOfTiles: selectNumberOfRemainingCharacters(state)
 });
 
-export default injectIntl(connect(mapStateToProps)(RemainingTiles));
+export default connect(mapStateToProps)(RemainingTiles);

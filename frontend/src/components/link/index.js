@@ -10,7 +10,7 @@ const Link = ({ children, className, ...restProps }) => (
 );
 
 Link.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   className: PropTypes.string
 };
 

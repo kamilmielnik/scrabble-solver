@@ -11,40 +11,46 @@ import {
 } from 'dictionary/selectors';
 import Loading from 'components/loading';
 import NoResults from 'components/no-results';
+import Section from 'components/section';
 import styles from './styles.scss';
 
 const DictionaryOutput = ({ className, definitions, isAllowed, isLoading, word }) => (
-  <div
-    className={classNames(
-      styles.dictionaryOutput,
-      {
-        [styles.isAllowed]: isAllowed === true,
-        [styles.isNotAllowed]: isAllowed === false
-      },
-      className
+  <Section
+    className={className}
+    label={(
+      <FormattedMessage id="modules.dictionary.output.label" />
     )}>
-    <div className={styles.word}>
-      {word}
+    <div
+      className={classNames(
+        styles.dictionaryOutput,
+        {
+          [styles.isAllowed]: isAllowed === true,
+          [styles.isNotAllowed]: isAllowed === false
+        }
+      )}>
+      <div className={styles.word}>
+        {word}
+      </div>
+
+      {isAllowed === false && (
+        <div>
+          <FormattedMessage id="modules.dictionary.output.not-allowed" />
+        </div>
+      )}
+
+      {isAllowed === true && definitions.map((result, index) => (
+        <div key={index}>
+          - {result}
+        </div>
+      ))}
+
+      {isAllowed === null && (
+        <NoResults />
+      )}
+
+      <Loading isLoading={isLoading} />
     </div>
-
-    {isAllowed === false && (
-      <div>
-        <FormattedMessage id="modules.dictionary.output.not-allowed" />
-      </div>
-    )}
-
-    {isAllowed === true && definitions.map((result, index) => (
-      <div key={index}>
-        - {result}
-      </div>
-    ))}
-
-    {isAllowed === null && (
-      <NoResults />
-    )}
-
-    <Loading isLoading={isLoading} />
-  </div>
+  </Section>
 );
 
 DictionaryOutput.propTypes = {
