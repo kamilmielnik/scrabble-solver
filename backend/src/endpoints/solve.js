@@ -15,8 +15,8 @@ export default (filepath) => {
 };
 
 const createCollection = (filepath) => {
-  const collectionJson = fs.readFileSync(filepath, 'utf-8');
-  return Trie.fromJson(JSON.parse(collectionJson));
+  const compressed = fs.readFileSync(filepath, 'utf-8');
+  return Trie.decompress(compressed);
 };
 
 const parseRequest = ({ body }) => ({

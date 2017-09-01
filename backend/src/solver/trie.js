@@ -1,5 +1,6 @@
-export const WORD_END = '@';
-export const COMPRESS_SEPARATOR = ',';
+export const SEPARATOR = ',';
+export const OPEN_PARENS = '(';
+export const CLOSE_PARENS = ')';
 
 class Trie {
   constructor(words = []) {
@@ -11,7 +12,7 @@ class Trie {
         }
         node = node[character];
       }
-      node[WORD_END] = true;
+      node.wordEnd = true;
       return trie;
     }, {});
   }
@@ -24,7 +25,7 @@ class Trie {
       }
       node = node[character];
     }
-    return node[WORD_END];
+    return node.wordEnd;
   }
 
   hasMore(word) {
@@ -43,22 +44,20 @@ class Trie {
   }
 
   compress(node = this.root, character = '') {
-    const characters = Object.keys(node);
-    const letters = characters.filter((character) => character !== WORD_END);
-    const isWord = Boolean(node[WORD_END]);
+    const letters = Object.keys(node).filter((key) => key.length === 1);
     const hasMore = letters.length > 0;
     let compressed = '';
-    if(isWord) {
+    if(node.wordEnd) {
       compressed += character;
     }
-    if(isWord && hasMore) {
-      compressed += COMPRESS_SEPARATOR;
+    if(node.wordEnd && hasMore) {
+      compressed += SEPARATOR;
     }
     if(hasMore) {
       compressed += character;
-      compressed += '(';
-      compressed += letters.map((letter) => this.compress(node[letter], letter)).join(COMPRESS_SEPARATOR);
-      compressed += ')';
+      compressed += OPEN_PARENS;
+      compressed += letters.map((letter) => this.compress(node[letter], letter)).join(SEPARATOR);
+      compressed += CLOSE_PARENS;
     }
     return compressed;
   }
@@ -73,16 +72,16 @@ class Trie {
       const character = compressed[i];
       const nextCharacter = compressed[++i];
 
-      if(character === ')') {
+      if(character === CLOSE_PARENS) {
         node = stack.pop();
-      } else if(nextCharacter === COMPRESS_SEPARATOR) {
-        node[character] = { [WORD_END]: true };
+      } else if(nextCharacter === SEPARATOR) {
+        node[character] = { wordEnd: true };
         ++i;
-      } else if(nextCharacter === ')') {
-        node[character] = { [WORD_END]: true };
+      } else if(nextCharacter === CLOSE_PARENS) {
+        node[character] = { wordEnd: true };
         node = stack.pop();
         ++i;
-      } else if(nextCharacter === '(') {
+      } else if(nextCharacter === OPEN_PARENS) {
         stack.push(node);
         const newNode = node[character] || {};
         node[character] = newNode;

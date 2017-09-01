@@ -19,7 +19,7 @@
       "command": "rimraf dist && npm run update-commons && babel-node scripts/build.js"
     },
     "start:backend": {
-      "command": "node dist/backend/index.js dictionary.json",
+      "command": "node dist/backend/index.js dictionary.txt",
       "env": {
         "NODE_ENV": "production"
       }
@@ -34,7 +34,7 @@
       "command": "eslint commons backend frontend scripts --ext .js"
     },
     "prepare-dictionary": {
-      "command": "babel-node scripts/prepare-dictionary.js -- -i -o dictionary.json"
+      "command": "babel-node scripts/prepare-dictionary.js -- -i -o dictionary.txt"
     },
     "update-commons": {
       "command": "babel-node scripts/update-commons.js"

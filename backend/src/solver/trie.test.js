@@ -1,4 +1,4 @@
-import Trie, { WORD_END } from './trie';
+import Trie from './trie';
 
 describe('Trie', () => {
   const words = [ 'ab', 'abcd', 'abce', 'ace' ];
@@ -10,19 +10,19 @@ describe('Trie', () => {
   const trieJson = {
     a: {
       b: {
-        [WORD_END]: true,
+        wordEnd: true,
         c: {
           d: {
-            [WORD_END]: true
+            wordEnd: true
           },
           e: {
-            [WORD_END]: true
+            wordEnd: true
           }
         }
       },
       c: {
         e: {
-          [WORD_END]: true
+          wordEnd: true
         }
       }
     }

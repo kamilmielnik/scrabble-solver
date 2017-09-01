@@ -5,7 +5,7 @@ import { API_HOST, API_PORT } from 'scrabble-solver-commons/dist/constants';
 import searchInDictionary from 'endpoints/search-in-dictionary';
 import solve from 'endpoints/solve';
 
-const dictionaryFilepath = process.argv[2] || '../dictionary.json';
+const dictionaryFilepath = process.argv[2] || '../dictionary.txt';
 
 const app = express();
 

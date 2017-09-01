@@ -17,7 +17,7 @@ const { argv } = yargs
   .usage('$0 --output=[string] --url=[string] --filename=[string]')
   .option('output', {
     demandOption: false,
-    default: 'dictionary.json',
+    default: 'dictionary.txt',
     describe: 'output file',
     type: 'string'
   })
@@ -61,13 +61,13 @@ const parseZipContainingPage = (html) => {
 };
 
 const prepareFile = (file) => {
-  let json = null;
+  let compressed = null;
   logAction('Preparing file', () => {
-    const words = file.replace(/\r/g, '').split('\n');
+    const words = file.replace(/\r/g, '').split('\n').filter(Boolean);
     const trie = new Trie(words);
-    json = trie.toJson();
+    compressed = trie.compress();
   });
-  return JSON.stringify(json);
+  return compressed;
 };
 
 prepareDictionary();

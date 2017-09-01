@@ -4,13 +4,15 @@ import { execSync } from 'child_process';
 import { logAction } from './utils.js';
 
 const dirname = path.join(__dirname, '..');
+const DICTIONARY_FILENAME = 'dictionary.txt';
+const INPUT_DICTIONARY = path.join(dirname, DICTIONARY_FILENAME);
 const OUTPUT_DIRECTORY = path.join(dirname, 'dist');
-const DICTIONARY = path.join(dirname, 'dictionary.json');
+const OUTPUT_DICTIONARY = path.join(OUTPUT_DIRECTORY, DICTIONARY_FILENAME);
 
 const build = () => {
   buildModule('backend');
   buildModule('frontend');
-  fs.copySync(DICTIONARY, path.join(OUTPUT_DIRECTORY, 'dictionary.json'));
+  fs.copySync(INPUT_DICTIONARY, OUTPUT_DICTIONARY);
 };
 
 const buildModule = (moduleName) => {

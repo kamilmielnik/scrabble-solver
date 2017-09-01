@@ -4,8 +4,8 @@ import { Board, Config, Tile } from 'scrabble-solver-commons/dist/models';
 import Solver from './index';
 import Trie from './trie';
 
-const collectionJson = fs.readFileSync('../dictionary.json', 'utf-8');
-const collection = Trie.fromJson(JSON.parse(collectionJson));
+const compressedCollection = fs.readFileSync('../dictionary.txt', 'utf-8');
+const collection = Trie.decompress(compressedCollection);
 const config = new Config(literaki);
 
 const generateTiles = (characters) => characters.split('').map((character) => new Tile({
