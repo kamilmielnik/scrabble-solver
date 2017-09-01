@@ -1,8 +1,8 @@
 import fs from 'fs';
 import { literaki } from 'scrabble-solver-commons/dist/configs';
 import { Board, Config, Tile } from 'scrabble-solver-commons/dist/models';
-import Solver from './index';
-import Trie from './trie';
+import Solver from '../index';
+import Trie from '../trie';
 
 const compressedCollection = fs.readFileSync('../dictionary.txt', 'utf-8');
 const collection = Trie.decompress(compressedCollection);

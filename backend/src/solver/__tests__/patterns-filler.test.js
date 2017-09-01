@@ -1,6 +1,6 @@
 import { literaki } from 'scrabble-solver-commons/dist/configs';
 import { Board, Cell, Config, Tile, VerticalPattern } from 'scrabble-solver-commons/dist/models';
-import PatternsFiller from './patterns-filler';
+import PatternsFiller from '../patterns-filler';
 
 const board = Board.fromStringArray([
   ' t ',

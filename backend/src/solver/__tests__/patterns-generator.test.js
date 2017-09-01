@@ -1,6 +1,6 @@
 import { EMPTY_CELL } from 'scrabble-solver-commons/dist/constants';
 import { Board } from 'scrabble-solver-commons/dist/models';
-import PatternsGenerator from './patterns-generator';
+import PatternsGenerator from '../patterns-generator';
 
 const board = Board.fromStringArray([
   ' t ',

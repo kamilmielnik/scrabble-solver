@@ -1,6 +1,6 @@
 import { literaki } from 'scrabble-solver-commons/dist/configs';
 import { Board, Cell, Config, Pattern, Tile, VerticalPattern } from 'scrabble-solver-commons/dist/models';
-import ScoresCalculator from './scores-calculator';
+import ScoresCalculator from '../scores-calculator';
 
 const config = new Config(literaki);
 const scoresCalculator = new ScoresCalculator(config);
