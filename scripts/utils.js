@@ -37,17 +37,6 @@ export const logAction = (message, action) => {
 
 export const getFilenameFromUrl = (fileUrl) => path.basename(url.parse(fileUrl).pathname);
 
-export const tryRemovingDirectory = (path) => {
-  if(fs.existsSync(path)) {
-    logAction(
-      `Deleting directory: "${path}"`,
-      () => fs.removeSync(path)
-    );
-  } else {
-    logError(`"${path}" does not exist`);
-  }
-};
-
 export const downloadHtml = (url) => logAction(
   `Downloading HTML from "${url}"`,
   () => new Promise((resolve) => {

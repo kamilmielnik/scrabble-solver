@@ -11,7 +11,7 @@ import {
   unzipFile,
   writeFile
 } from './utils';
-import Trie from '../backend/src/solver/trie';
+import Trie from '../scrabble-solver-backend/src/solver/trie';
 
 const { argv } = yargs
   .usage('$0 --output=[string] --url=[string] --filename=[string]')

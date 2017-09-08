@@ -10,8 +10,8 @@ const OUTPUT_DIRECTORY = path.join(dirname, 'dist');
 const OUTPUT_DICTIONARY = path.join(OUTPUT_DIRECTORY, DICTIONARY_FILENAME);
 
 const build = () => {
-  buildModule('backend');
-  buildModule('frontend');
+  buildModule('scrabble-solver-backend');
+  buildModule('scrabble-solver-frontend');
   fs.copySync(INPUT_DICTIONARY, OUTPUT_DICTIONARY);
 };
 
