@@ -3,8 +3,10 @@
 ![alt frontend](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/screenshot.png)
 
 ### Usage
-- put your characters in the `CHARACTERS` input field and hit `Enter` to find possible solutions for it on the board
+- put your letters in the `TILES` input field and hit `Enter` to find possible solutions for them on the board
+- space (` `) means a blank tile (using blanks increases the time to find results)
 - sort results by clicking on table headers
+- `INDEX` is `POINTS` to `#TILES` ratio
 - hover over a result to see where it fits on the board and find the word definition
 - click on a result to put it on the board
 - filtering results works with regular expressions (e.g. `is$` for words ending with `is`)
@@ -14,8 +16,7 @@
   - hit `Backspace`, `Delete` or `Space` to remove a tile
   - hit `Ctrl + B` or `Command + B` to toggle tile blank (important, because blanks are worth `0` points)
   - hit `Enter` to search for results
-- put a word in `SEARCH DICTIONARY` input field and hit `Enter` to find its definition
-
+- put a word in `FIND WORD DEFINITION` input field and hit `Enter` to find its definition
 
 ### Works with
 - node 7.9.0
