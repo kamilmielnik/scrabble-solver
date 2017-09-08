@@ -4,33 +4,33 @@ const CLOSE_PARENS = ')';
 
 const wordEndNode = { wordEnd: true };
 
-export const compress = (node, character = '') => {
+export const serialize = (node, character = '') => {
   const letters = Object.keys(node).filter((key) => key.length === 1);
   const hasMore = letters.length > 0;
-  let compressed = '';
+  let serialized = '';
   if(node.wordEnd) {
-    compressed += character;
+    serialized += character;
   }
   if(node.wordEnd && hasMore) {
-    compressed += SEPARATOR;
+    serialized += SEPARATOR;
   }
   if(hasMore) {
-    compressed += character;
-    compressed += OPEN_PARENS;
-    compressed += letters.map((letter) => compress(node[letter], letter)).join(SEPARATOR);
-    compressed += CLOSE_PARENS;
+    serialized += character;
+    serialized += OPEN_PARENS;
+    serialized += letters.map((letter) => serialize(node[letter], letter)).join(SEPARATOR);
+    serialized += CLOSE_PARENS;
   }
-  return compressed;
+  return serialized;
 };
 
-export const decompress = (compressed) => {
+export const deserialize = (serialized) => {
   const stack = [];
   let node = {};
   let i = 1;
 
-  while (i < compressed.length - 1) {
-    const character = compressed[i];
-    const nextCharacter = compressed[++i];
+  while (i < serialized.length - 1) {
+    const character = serialized[i];
+    const nextCharacter = serialized[++i];
 
     if(character === CLOSE_PARENS) {
       node = stack.pop();

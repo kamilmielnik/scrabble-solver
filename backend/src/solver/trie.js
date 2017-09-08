@@ -1,4 +1,4 @@
-import { compress, decompress } from './trie-compressor';
+import { serialize, deserialize } from './trie-serializer';
 
 class Trie {
   constructor(words = []) {
@@ -37,17 +37,17 @@ class Trie {
     return Object.keys(node).length > 0;
   }
 
-  compress() {
-    return compress(this.root);
+  serialize() {
+    return serialize(this.root);
   }
 
   toJson() {
     return this.root;
   }
 
-  static decompress(compressed) {
+  static deserialize(serialized) {
     const trie = new Trie();
-    trie.root = decompress(compressed);
+    trie.root = deserialize(serialized);
     return trie;
   }
 

@@ -6,7 +6,7 @@ describe('Trie', () => {
   const otherWords = [ 'b', 'bc', 'ce', 'bcd', 'bce' ];
   const otherPrefixes = [ 'b', 'bc', 'ce', 'bcd', 'bce' ];
   const trie = new Trie(words);
-  const compressedTrie = '(a(b,b(c(d,e)),c(e)))';
+  const serializedTrie = '(a(b,b(c(d,e)),c(e)))';
   const trieJson = {
     a: {
       b: {
@@ -48,11 +48,11 @@ describe('Trie', () => {
     expect(trie.toJson()).toEqual(trieJson);
   });
 
-  it('properly compresses', () => {
-    expect(trie.compress()).toEqual(compressedTrie);
+  it('properly serializes', () => {
+    expect(trie.serialize()).toEqual(serializedTrie);
   });
 
-  it('properly decompresses', () => {
-    expect(Trie.decompress(compressedTrie).toJson()).toEqual(trieJson);
+  it('properly deserializes', () => {
+    expect(Trie.deserialize(serializedTrie).toJson()).toEqual(trieJson);
   });
 });

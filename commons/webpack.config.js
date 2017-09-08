@@ -37,7 +37,7 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
-      compress: {
+      serialize: {
         warnings: false
       }
     }),

@@ -49,7 +49,7 @@ module.exports = {
     IS_DEV_ENV && new webpack.HotModuleReplacementPlugin(),
     IS_DEV_ENV && new webpack.NamedModulesPlugin(),
     IS_PROD_ENV && new webpack.optimize.UglifyJsPlugin({
-      compress: {
+      serialize: {
         warnings: false
       }
     }),

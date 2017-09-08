@@ -142,7 +142,7 @@ if(IS_PROD_ENV) {
     extractSass,
     new StyleExtHtmlWebpackPlugin(),
     new webpack.optimize.UglifyJsPlugin({
-      compress: {
+      serialize: {
         warnings: false
       },
       mangle: true,
@@ -170,7 +170,7 @@ if(IS_DEV_ENV) {
   );
 
   config.devServer = {
-    compress: true,
+    serialize: true,
     hot: true,
     noInfo: true,
     open: true,

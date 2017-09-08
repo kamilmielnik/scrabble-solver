@@ -61,13 +61,13 @@ const parseZipContainingPage = (html) => {
 };
 
 const prepareFile = (file) => {
-  let compressed = null;
+  let serialized = null;
   logAction('Preparing file', () => {
     const words = file.replace(/\r/g, '').split('\n').filter(Boolean);
     const trie = new Trie(words);
-    compressed = trie.compress();
+    serialized = trie.serialize();
   });
-  return compressed;
+  return serialized;
 };
 
 prepareDictionary();
