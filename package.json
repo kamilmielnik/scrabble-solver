@@ -5,6 +5,9 @@
   "engines": {
     "node": ">=7.9.0"
   },
+  "bin": {
+    "scrabble-solver": "./bin/scrabble-solver.js"
+  },
   "scripts": {
     "build": "better-npm-run build",
     "start": "npm-run-all --parallel start:* open",
