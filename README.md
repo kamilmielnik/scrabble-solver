@@ -22,10 +22,9 @@
 
 ### Quick run
 1. `npm install`
-2. `npm run prepare-dictionary`
-3. `npm run start:backend` + `npm run start:frontend`
+2. `npm start`
 
 ### Full build
 1. `npm install`
 2. `npm run build`
-3. `npm run start:backend` + `npm run start:frontend`
+3. `npm start`
