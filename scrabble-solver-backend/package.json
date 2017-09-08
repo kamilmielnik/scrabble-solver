@@ -1,6 +1,6 @@
 {
   "name": "scrabble-solver-backend",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-rc.1",
   "description": "Scrabble Solver - Backend",
   "main": "src/index.js",
   "engines": {
