@@ -7,6 +7,7 @@ const IS_DEV_ENV = process.env.NODE_ENV === 'development';
 const IS_PROD_ENV = process.env.NODE_ENV === 'production';
 
 const SRC_DIR = path.resolve(__dirname, 'src');
+const ENTRY_FILE = path.resolve(SRC_DIR, 'index.js');
 const COMMONS_PARENT_DIR = path.resolve(__dirname, '..');
 const DIST_DIR = path.resolve(__dirname, 'dist');
 const BUNDLE_DIST = 'index.js';
@@ -18,7 +19,7 @@ module.exports = {
   },
   entry: [
     IS_DEV_ENV && 'webpack/hot/poll?1000',
-    './src/index'
+    ENTRY_FILE
   ].filter(Boolean),
   resolve: {
     modules: [
@@ -33,6 +34,7 @@ module.exports = {
   externals: [
     IS_DEV_ENV && nodeExternals({
       whitelist: [
+        /^scrabble-solver-commons/,
         'webpack/hot/poll?1000'
       ]
     })
@@ -40,7 +42,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        test: /\.js$/,
         use: 'babel-loader',
         exclude: /node_modules/
       }
