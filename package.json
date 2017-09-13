@@ -1,6 +1,6 @@
 {
   "name": "scrabble-solver",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0",
   "description": "Scrabble Solver",
   "engines": {
     "node": ">=7.9.0"

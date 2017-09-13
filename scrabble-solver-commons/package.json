@@ -1,6 +1,6 @@
 {
   "name": "scrabble-solver-commons",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0",
   "description": "Scrabble Solver - Commons",
   "repository": {
     "type": "git",
