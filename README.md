@@ -22,8 +22,8 @@
 - node 7.9.0
 
 ### Quick run
-1. `npm install`
-2. `npm start`
+1. `npm install -g scrabble-solver`
+2. `scrabble-solver`
 
 ### Full build
 1. `npm install`
