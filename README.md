@@ -2,6 +2,10 @@
 
 ![alt frontend](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/screenshot.png)
 
+### Quick run
+1. `npm install -g scrabble-solver`
+2. `scrabble-solver`
+
 ### Usage
 - put your letters in the `TILES` input field and hit `Enter` to find possible solutions for them on the board
 - space (` `) means a blank tile (using blanks increases the time to find results)
@@ -18,14 +22,10 @@
   - hit `Enter` to search for results
 - put a word in `FIND WORD DEFINITION` input field and hit `Enter` to find its definition
 
-### Works with
-- node 7.9.0
-
-### Quick run
-1. `npm install -g scrabble-solver`
-2. `scrabble-solver`
-
 ### Full build
 1. `npm install`
 2. `npm run build`
 3. `npm start`
+
+### Works with
+- node 7.9.0

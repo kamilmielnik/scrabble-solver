@@ -8,6 +8,7 @@ import RemainingTiles from './remaining-tiles/components';
 import ResultsFilter from './results/components/filter';
 import ResultsList from './results/components/list';
 import Tiles from './tiles/components';
+import Time from './time/components';
 import styles from './styles.scss';
 
 const App = () => (
@@ -30,6 +31,8 @@ const App = () => (
       <Copyright />
       <Config />
     </div>
+
+    <Time />
   </div>
 );
 

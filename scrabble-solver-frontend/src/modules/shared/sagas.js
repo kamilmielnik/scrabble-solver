@@ -9,6 +9,7 @@ import {
 import { HIGHLIGHT_RESULT, UNHIGHLIGHT_RESULT, changeResults, clearFilter } from 'results/state';
 import { APPLY_RESULT, changeResultCandidate } from 'shared/state';
 import { SUBMIT as SUBMIT_TILES, clearInput as clearTiles } from 'tiles/state';
+import { changeTime, resetTime } from 'time/state';
 import { selectBoard } from 'board/selectors';
 import { selectResultsList } from 'results/selectors';
 import { selectInputTiles } from 'tiles/selectors';
@@ -51,11 +52,15 @@ function* onTilesSubmit() {
   if(tiles.length > 0) {
     try {
       yield put(submitSolve());
+      yield put(resetTime());
+      const start = Date.now();
       const results = yield call(postSolve, {
         config: config.toJson(),
         board: board.toJson(),
         tiles: tiles.map((tile) => tile.toJson())
       });
+      const end = Date.now();
+      yield put(changeTime(end - start));
       yield put(submitSolveSuccess());
       yield put(changeResults(results.map(Result.fromJson)));
     } catch (error) {

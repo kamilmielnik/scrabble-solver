@@ -6,6 +6,7 @@ import dictionary from 'modules/dictionary/state';
 import results from 'modules/results/state';
 import shared from 'modules/shared/state';
 import tiles from 'modules/tiles/state';
+import time from 'modules/time/state';
 
 const rootReducer = combineReducers({
   board,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   intl,
   results,
   shared,
-  tiles
+  tiles,
+  time
 });
 
 export default rootReducer;
