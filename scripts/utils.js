@@ -83,3 +83,12 @@ export const removeFile = (filepath) => logAction(
   `Removing "${filepath}"`,
   () => fs.removeSync(filepath)
 );
+
+export const createDirectory = (filepath) => logAction(
+  `Making sure "${filepath}" directory exists`,
+  () => {
+    if(!fs.existsSync(filepath)) {
+      fs.mkdirSync(filepath);
+    }
+  }
+);

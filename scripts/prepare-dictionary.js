@@ -2,6 +2,7 @@ import { URL } from 'url';
 import yargs from 'yargs';
 import cheerio from 'cheerio';
 import {
+  createDirectory,
   downloadHtml,
   downloadFile,
   getFilenameFromUrl,
@@ -44,6 +45,7 @@ const prepareDictionary = async () => {
   const file = readFile(argv.filename);
   const preparedFile = prepareFile(file);
   writeFile(argv.output, preparedFile);
+  createDirectory('dist');
   writeFile(`dist/${argv.output}`, preparedFile);
   removeFile(argv.filename);
 };
