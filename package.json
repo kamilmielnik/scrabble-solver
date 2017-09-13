@@ -71,7 +71,7 @@
     "yargs": "^8.0.2"
   },
   "devDependencies": {
-    "babel-eslint": "^7.2.3",
+    "babel-eslint": "^8.0.0",
     "eslint": "^4.5.0",
     "eslint-plugin-react": "^7.3.0",
     "rimraf": "^2.6.1",
