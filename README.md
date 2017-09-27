@@ -1,5 +1,7 @@
 # scrabble-solver
 
+Available at: http://scrabble-solver.kamilmielnik.pl/ (use npm version for better performance, your machine is most likely faster than this server)
+
 ![alt frontend](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/screenshot.png)
 
 ### Quick run

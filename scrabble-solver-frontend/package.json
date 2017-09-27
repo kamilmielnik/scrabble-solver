@@ -1,6 +1,6 @@
 {
   "name": "scrabble-solver-frontend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Scrabble Solver - Frontend",
   "main": "src/index.js",
   "engines": {
@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "better-npm-run build",
+    "build:prod": "better-npm-run build:prod",
     "start": "better-npm-run start",
     "start:prod": "better-npm-run start:prod"
   },
@@ -16,6 +17,14 @@
       "command": "webpack",
       "env": {
         "NODE_ENV": "production"
+      }
+    },
+    "build:prod": {
+      "command": "webpack",
+      "env": {
+        "NODE_ENV": "production",
+        "API_HOST": "http://kamilmielnik.pl",
+        "API_PORT": "5000"
       }
     },
     "start": {
@@ -48,14 +57,14 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.5",
-    "prop-types": "^15.5.10",
+    "prop-types": "^15.6.0",
     "re-reselect": "^1.0.1",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "react-intl": "^2.4.0",
     "react-intl-redux": "^0.6.0",
     "react-redux": "^5.0.6",
-    "react-virtualized": "^9.9.0",
+    "react-virtualized": "^9.10.1",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-saga": "^0.15.6",
@@ -83,8 +92,8 @@
     "sass-loader": "^6.0.6",
     "style-ext-html-webpack-plugin": "^3.4.1",
     "style-loader": "^0.18.2",
-    "webpack": "^3.5.6",
-    "webpack-dev-server": "^2.8.0",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.8.2",
     "webpack-hot-middleware": "^2.19.1"
   }
 }

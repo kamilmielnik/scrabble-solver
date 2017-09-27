@@ -6,10 +6,12 @@ $spacing: 20px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: 40px 0;
+  margin: $spacing 0;
 
   .content {
     display: flex;
+    flex-wrap: wrap;
+    width: $left-width + $right-width + $spacing;
     margin-bottom: $spacing;
   }
 
@@ -23,6 +25,8 @@ $spacing: 20px;
   }
 
   .left, .right {
+    margin-bottom: $spacing;
+
     > div {
       margin: $spacing 0;
 
@@ -36,16 +40,23 @@ $spacing: 20px;
     }
   }
 
+  .remainingTiles, .bar, .time {
+    flex: 1 0 100%;
+  }
+
+  .remainingTiles {
+    margin-bottom: $spacing;
+  }
+
   .bar {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    width: 100%;
-    max-width: $left-width + $right-width + $spacing;
+  }
 
-    .remaining {
-      flex: 1 0 100%;
-      margin-bottom: $spacing;
-    }
+  .time {
+    display: flex;
+    justify-content: center;
   }
 }

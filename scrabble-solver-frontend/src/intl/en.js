@@ -4,7 +4,6 @@ export default {
     'components.no-results': 'No results',
     'modules.board.label': 'Board',
     'modules.config.config': 'Config',
-    'modules.config.locale': 'Language',
     'modules.dictionary.input.label': 'Find word definition',
     'modules.dictionary.output.label': 'Word definition',
     'modules.dictionary.output.not-allowed': 'Word not allowed',

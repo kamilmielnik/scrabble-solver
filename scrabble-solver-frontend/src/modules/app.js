@@ -24,15 +24,17 @@ const App = () => (
         <ResultsList />
         <ResultsFilter />
       </div>
+
+      <RemainingTiles className={styles.remainingTiles} />
+
+      <div className={styles.bar}>
+        <Copyright />
+        <Config />
+      </div>
+
+      <Time className={styles.time} />
     </div>
 
-    <div className={styles.bar}>
-      <RemainingTiles className={styles.remaining} />
-      <Copyright />
-      <Config />
-    </div>
-
-    <Time />
   </div>
 );
 

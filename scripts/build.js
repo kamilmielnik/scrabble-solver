@@ -3,6 +3,8 @@ import path from 'path';
 import { execSync } from 'child_process';
 import { logAction } from './utils.js';
 
+const env = process.argv[2] || '';
+
 const dirname = path.join(__dirname, '..');
 const DICTIONARY_FILENAME = 'dictionary.txt';
 const INPUT_DICTIONARY = path.join(dirname, DICTIONARY_FILENAME);
@@ -23,7 +25,8 @@ const buildModule = (moduleName) => {
     execSync('npm install');
   });
   logAction(`Building "${moduleName}"`, () => {
-    execSync('npm run build');
+    const npmScript = env ? `build:${env}` : 'build';
+    execSync(`npm run ${npmScript}`);
     fs.copySync(distDirectory, path.join(OUTPUT_DIRECTORY, moduleName));
   });
 };
