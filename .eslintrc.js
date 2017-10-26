@@ -192,12 +192,7 @@ module.exports = {
     }],
     'keyword-spacing': ['error', {
       'before': true,
-      'after': true,
-      'overrides': {
-        'if': {
-          'after': false
-        }
-      }
+      'after': true
     }],
     'linebreak-style': ['error', 'unix'],
     'lines-around-comment': 'off',
