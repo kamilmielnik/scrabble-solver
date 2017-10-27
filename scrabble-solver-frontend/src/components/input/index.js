@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { noop } from 'utils';
 import Button from 'components/button';
-import IconCross from 'components/icons/cross';
+import { Cross } from 'components/icons';
 import Section from 'components/section';
 import EventsDecorator from './events-decorator';
 import styles from './styles.scss';
@@ -17,7 +17,7 @@ const Input = ({ className, label, value, onChange = noop, onClear = noop, onKey
         onKeyDown={onKeyDown} />
 
       <Button onClick={onClear}>
-        <IconCross />
+        <Cross />
       </Button>
     </div>
   </Section>

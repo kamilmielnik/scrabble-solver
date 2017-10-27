@@ -2,16 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { updateIntl } from 'react-intl-redux';
-import * as intl from 'intl';
+import { changeLocale } from 'config/state';
 import { selectLocale } from 'config/selectors';
-import FlagGb from 'components/icons/flag-gb';
-import FlagPl from 'components/icons/flag-pl';
+import { FlagGb, FlagPl, FlagUs } from 'components/icons';
 import styles from './styles.scss';
 
 const locales = [
-  { locale: 'pl', FlagComponent: FlagPl },
-  { locale: 'en', FlagComponent: FlagGb }
+  { locale: 'pl-PL', FlagComponent: FlagPl },
+  { locale: 'en-GB', FlagComponent: FlagGb },
+  { locale: 'en-US', FlagComponent: FlagUs }
 ];
 
 const LocaleSetting = ({ value, onChange }) => (
@@ -40,7 +39,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onChange: (locale) => dispatch(updateIntl(intl[locale]))
+  onChange: (locale) => dispatch(changeLocale(locale))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LocaleSetting);

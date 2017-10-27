@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { changeSortedColumn } from 'results/state';
 import { selectSortedColumnName, selectSortingDirection } from 'results/selectors';
-import IconSort from 'components/icons/sort';
+import { Sort } from 'components/icons';
 import styles from './styles.scss';
 
 const HeaderCell = ({ dataKey, label, sortedColumnName, sortingDirection, onSort }) => (
@@ -14,7 +14,7 @@ const HeaderCell = ({ dataKey, label, sortedColumnName, sortingDirection, onSort
     </div>
 
     {dataKey === sortedColumnName && (
-      <IconSort className={styles.iconSort} sortingDirection={sortingDirection} />
+      <Sort className={styles.iconSort} sortingDirection={sortingDirection} />
     )}
   </div>
 );

@@ -1,7 +1,7 @@
 import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 import { Result } from 'scrabble-solver-commons/models';
 import { applyResult } from 'board/state';
-import { CHANGE_CONFIG } from 'config/state';
+import { CHANGE_CONFIG, CHANGE_LOCALE } from 'config/state';
 import {
   changeInput as changeDictionaryInput,
   submit as submitDictionary
@@ -13,7 +13,7 @@ import { changeTime, resetTime } from 'time/state';
 import { selectBoard } from 'board/selectors';
 import { selectResultsList } from 'results/selectors';
 import { selectInputTiles } from 'tiles/selectors';
-import { selectConfig } from 'config/selectors';
+import { selectConfig, selectLocale } from 'config/selectors';
 import { submitSolve, submitSolveFailure, submitSolveSuccess } from './state';
 import { postSolve } from 'api';
 
@@ -21,7 +21,7 @@ export default function* modulesSagas() {
   yield takeLatest(APPLY_RESULT, onApplyResult);
   yield takeLatest(HIGHLIGHT_RESULT, onHighlightResult);
   yield takeLatest(UNHIGHLIGHT_RESULT, onUnhighlightResult);
-  yield takeEvery([ SUBMIT_TILES, CHANGE_CONFIG ], onTilesSubmit);
+  yield takeEvery([ SUBMIT_TILES, CHANGE_CONFIG, CHANGE_LOCALE ], onTilesSubmit);
 }
 
 function* onApplyResult({ payload: id }) {
@@ -49,12 +49,13 @@ function* onTilesSubmit() {
   const config = yield select(selectConfig);
   const board = yield select(selectBoard);
   const tiles = yield select(selectInputTiles);
+  const locale = yield select(selectLocale);
   if (tiles.length > 0) {
     try {
       yield put(submitSolve());
       yield put(resetTime());
       const start = Date.now();
-      const results = yield call(postSolve, {
+      const results = yield call(postSolve, locale, {
         config: config.toJson(),
         board: board.toJson(),
         tiles: tiles.map((tile) => tile.toJson())

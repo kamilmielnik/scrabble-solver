@@ -14,40 +14,34 @@ import {
 } from './utils';
 import Trie from '../scrabble-solver-backend/src/solver/trie';
 
+const PAGE_URL = 'https://sjp.pl/slownik/growy/';
+const FILE_TO_EXTRACT_FROM_ZIP = 'slowa.txt';
+
 const { argv } = yargs
-  .usage('$0 --output=[string] --url=[string] --filename=[string]')
-  .option('output', {
+  .usage('$0 --output-dir=[string]')
+  .option('output-dir', {
     demandOption: false,
-    default: 'dictionary.txt',
-    describe: 'output file',
-    type: 'string'
-  })
-  .option('url', {
-    demandOption: false,
-    default: 'https://sjp.pl/slownik/growy/',
-    describe: 'url to webpage containing link to .zip with dictionary',
-    type: 'string'
-  })
-  .option('filename', {
-    demandOption: false,
-    default: 'slowa.txt',
-    describe: 'name of file to extract from zip',
+    default: 'dictionaries',
+    describe: 'output directory',
     type: 'string'
   })
   .help();
 
+const outputFile = `${argv.outputDir}/pl-PL.txt`;
+
 const prepareDictionary = async () => {
-  const zipUrl = await fetchZipUrl(argv.url);
+  const zipUrl = await fetchZipUrl(PAGE_URL);
   const zipFilename = getFilenameFromUrl(zipUrl);
   await downloadFile(zipUrl, zipFilename);
-  await unzipFile(zipFilename, argv.filename);
+  await unzipFile(zipFilename, FILE_TO_EXTRACT_FROM_ZIP);
   removeFile(zipFilename);
-  const file = readFile(argv.filename);
+  const file = readFile(FILE_TO_EXTRACT_FROM_ZIP);
   const preparedFile = prepareFile(file);
-  writeFile(argv.output, preparedFile);
-  createDirectory('dist');
-  writeFile(`dist/${argv.output}`, preparedFile);
-  removeFile(argv.filename);
+  createDirectory(argv.outputDir);
+  writeFile(outputFile, preparedFile);
+  createDirectory(`dist/${argv.outputDir}`);
+  writeFile(`dist/${outputFile}`, preparedFile);
+  removeFile(FILE_TO_EXTRACT_FROM_ZIP);
 };
 
 const fetchZipUrl = (url) => downloadHtml(url)
@@ -65,7 +59,8 @@ const parseZipContainingPage = (html) => {
 const prepareFile = (file) => {
   let serialized = null;
   logAction('Preparing file', () => {
-    const words = file.replace(/\r/g, '').split('\n').filter(Boolean);
+    const lines = file.replace(/\r/g, '').split('\n');
+    const words = lines.filter(Boolean);
     const trie = new Trie(words);
     serialized = trie.serialize();
   });

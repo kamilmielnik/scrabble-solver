@@ -17,8 +17,10 @@
     "lint": "better-npm-run lint",
     "lint:fix": "better-npm-run lint:fix",
     "open": "opn http://localhost:8080",
-    "postinstall": "better-npm-run prepare-dictionary",
-    "prepare-dictionary": "better-npm-run prepare-dictionary"
+    "postinstall": "better-npm-run install-dictionaries",
+    "install-dictionaries": "npm-run-all --parallel prepare-*",
+    "prepare-en-dictionaries": "better-npm-run prepare-en-dictionaries",
+    "prepare-pl-dictionary": "better-npm-run prepare-pl-dictionary"
   },
   "betterScripts": {
     "build": {
@@ -33,7 +35,7 @@
       }
     },
     "start:backend": {
-      "command": "node dist/scrabble-solver-backend/index.js dictionary.txt",
+      "command": "node dist/scrabble-solver-backend/index.js dictionaries/",
       "env": {
         "NODE_ENV": "production"
       }
@@ -50,8 +52,11 @@
     "lint:fix": {
       "command": "eslint scrabble-solver-commons scrabble-solver-backend scrabble-solver-frontend scripts --ext .js --fix"
     },
-    "prepare-dictionary": {
-      "command": "babel-node scripts/prepare-dictionary.js -- -i -o dictionary.txt"
+    "prepare-en-dictionaries": {
+      "command": "babel-node scripts/prepare-en-dictionaries.js -- --output-dir dictionaries"
+    },
+    "prepare-pl-dictionary": {
+      "command": "babel-node scripts/prepare-pl-dictionary.js -- --output-dir dictionaries"
     }
   },
   "repository": {

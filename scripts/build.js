@@ -6,15 +6,15 @@ import { logAction } from './utils.js';
 const env = process.argv[2] || '';
 
 const dirname = path.join(__dirname, '..');
-const DICTIONARY_FILENAME = 'dictionary.txt';
-const INPUT_DICTIONARY = path.join(dirname, DICTIONARY_FILENAME);
-const OUTPUT_DIRECTORY = path.join(dirname, 'dist');
-const OUTPUT_DICTIONARY = path.join(OUTPUT_DIRECTORY, DICTIONARY_FILENAME);
+const DICTIONARY_DIRECTORY_NAME = 'dictionaries';
+const DICTIONARIES_PATH = path.join(dirname, DICTIONARY_DIRECTORY_NAME);
+const TARGET_DIRECTORY = path.join(dirname, 'dist');
+const TARGET_DICTIONARIES_PATH = path.join(TARGET_DIRECTORY, DICTIONARY_DIRECTORY_NAME);
 
 const build = () => {
   buildModule('scrabble-solver-backend');
   buildModule('scrabble-solver-frontend');
-  fs.copySync(INPUT_DICTIONARY, OUTPUT_DICTIONARY);
+  fs.copySync(DICTIONARIES_PATH, TARGET_DICTIONARIES_PATH);
 };
 
 const buildModule = (moduleName) => {
@@ -27,7 +27,7 @@ const buildModule = (moduleName) => {
   logAction(`Building "${moduleName}"`, () => {
     const npmScript = env ? `build:${env}` : 'build';
     execSync(`npm run ${npmScript}`);
-    fs.copySync(distDirectory, path.join(OUTPUT_DIRECTORY, moduleName));
+    fs.copySync(distDirectory, path.join(TARGET_DIRECTORY, moduleName));
   });
 };
 

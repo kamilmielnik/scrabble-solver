@@ -1,12 +1,12 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { en } from 'intl';
+import intl from 'intl';
 import rootReducer from './reducers';
 import sagas from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 const initialState = {
-  intl: en
+  intl: intl['en-US']
 };
 
 export default () => {

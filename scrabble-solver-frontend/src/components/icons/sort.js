@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { black } from 'utils/colors';
 
-const IconSort = ({ className, fill = black, height = 8, sortingDirection, width = 12 }) => (
+const Sort = ({ className, fill = black, height = 8, sortingDirection, width = 12 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={className}
@@ -19,7 +19,7 @@ const IconSort = ({ className, fill = black, height = 8, sortingDirection, width
   </svg>
 );
 
-IconSort.propTypes = {
+Sort.propTypes = {
   className: PropTypes.string,
   fill: PropTypes.string,
   height: PropTypes.number,
@@ -27,4 +27,4 @@ IconSort.propTypes = {
   width: PropTypes.number
 };
 
-export default IconSort;
+export default Sort;

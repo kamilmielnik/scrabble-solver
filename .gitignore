@@ -3,5 +3,4 @@
 *.db
 *.log
 *.zip
-dictionary.txt
-todo.txt
+*.txt

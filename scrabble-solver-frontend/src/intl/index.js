@@ -6,4 +6,17 @@ import pl from './pl';
 
 addLocaleData([ ...enLocaleData, ...plLocaleData ]);
 
-export { en, pl };
+export default {
+  'en-US': {
+    messages: en,
+    locale: 'en-US'
+  },
+  'en-GB': {
+    messages: en,
+    locale: 'en-GB'
+  },
+  'pl-PL': {
+    messages: pl,
+    locale: 'pl-PL'
+  }
+};

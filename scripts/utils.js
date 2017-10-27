@@ -56,9 +56,10 @@ export const downloadHtml = (url) => logAction(
 
 export const downloadFile = (url, outputFilepath) => logAction(
   `Downloading file from "${url}"`,
-  () => new Promise((resolve) => request
-    .get(url, resolve)
-    .pipe(fs.createWriteStream(outputFilepath))
+  () => new Promise(
+    (resolve) => request
+      .get(url, resolve)
+      .pipe(fs.createWriteStream(outputFilepath))
   )
 );
 

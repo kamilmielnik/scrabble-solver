@@ -4,7 +4,7 @@ import { Board, Config, Tile } from 'scrabble-solver-commons/models';
 import Solver from '../index';
 import Trie from '../trie';
 
-const serializedCollection = fs.readFileSync('../dictionary.txt', 'utf-8');
+const serializedCollection = fs.readFileSync('./dictionaries/pl-PL.txt', 'utf-8');
 const collection = Trie.deserialize(serializedCollection);
 const config = new Config(literaki);
 

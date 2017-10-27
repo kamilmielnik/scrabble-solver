@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { white } from 'utils/colors';
 
-const IconCross = ({ className, height = 20, stroke = white, strokeWidth = 4, width = 20 }) => {
+const Icon = ({ className, height = 20, stroke = white, strokeWidth = 4, width = 20 }) => {
   const sharedProps = { stroke, strokeWidth };
 
   return (
@@ -20,7 +20,7 @@ const IconCross = ({ className, height = 20, stroke = white, strokeWidth = 4, wi
   );
 };
 
-IconCross.propTypes = {
+Icon.propTypes = {
   className: PropTypes.string,
   height: PropTypes.number,
   stroke: PropTypes.string,
@@ -28,4 +28,4 @@ IconCross.propTypes = {
   width: PropTypes.number
 };
 
-export default IconCross;
+export default Icon;
