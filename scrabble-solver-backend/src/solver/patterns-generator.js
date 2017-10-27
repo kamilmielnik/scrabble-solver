@@ -45,7 +45,7 @@ class PatternsGenerator {
               board,
               cells: cells.slice(startIndex, endIndex + 1)
             });
-            if(pattern.canBePlaced()) {
+            if (pattern.canBePlaced()) {
               patterns.push(pattern);
             }
             return patterns;

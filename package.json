@@ -15,6 +15,7 @@
     "start:backend": "better-npm-run start:backend",
     "start:frontend": "better-npm-run start:frontend",
     "lint": "better-npm-run lint",
+    "lint:fix": "better-npm-run lint:fix",
     "open": "opn http://localhost:8080",
     "postinstall": "better-npm-run prepare-dictionary",
     "prepare-dictionary": "better-npm-run prepare-dictionary"
@@ -45,6 +46,9 @@
     },
     "lint": {
       "command": "eslint scrabble-solver-commons scrabble-solver-backend scrabble-solver-frontend scripts --ext .js"
+    },
+    "lint:fix": {
+      "command": "eslint scrabble-solver-commons scrabble-solver-backend scrabble-solver-frontend scripts --ext .js --fix"
     },
     "prepare-dictionary": {
       "command": "babel-node scripts/prepare-dictionary.js -- -i -o dictionary.txt"

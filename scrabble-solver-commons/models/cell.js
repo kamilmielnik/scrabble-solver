@@ -39,7 +39,7 @@ class Cell {
   }
 
   static fromJson(json) {
-    if(!json) {
+    if (!json) {
       return NullCell;
     }
 

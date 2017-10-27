@@ -21,7 +21,7 @@ export default handleActions({
       (row, y) => row.map(
         (cell, x) => {
           const newCell = getCell(result.cells, x, y);
-          if(newCell) {
+          if (newCell) {
             return new Cell({
               ...newCell,
               isEmpty: false

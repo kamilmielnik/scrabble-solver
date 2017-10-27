@@ -24,13 +24,13 @@ class Config {
   }
 
   getCellBonusValue(cell) {
-    if(!cell.isEmpty) {
+    if (!cell.isEmpty) {
       return NO_BONUS;
     }
 
     const cellBonus = this.bonuses.find((bonus) => bonus.canApply(cell));
 
-    if(!cellBonus) {
+    if (!cellBonus) {
       return NO_BONUS;
     }
 

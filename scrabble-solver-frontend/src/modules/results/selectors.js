@@ -23,7 +23,7 @@ export const selectSortedResults = createSelector(
   [ selectFilteredResults, selectSortedColumnName, selectSortingDirection ],
   (results, sortedColumnName, sortingDirection) => {
     let comparator = createKeyComparator(sortedColumnName);
-    if(sortingDirection === 'descending') {
+    if (sortingDirection === 'descending') {
       comparator = reverseComparator(comparator);
     }
     return [ ...results ].sort(comparator);

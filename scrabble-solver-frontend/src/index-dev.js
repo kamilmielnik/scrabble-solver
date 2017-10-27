@@ -22,7 +22,7 @@ const render = (Component) => {
   );
 };
 
-if(module.hot) {
+if (module.hot) {
   module.hot.accept('modules/app', () => {
     const NextApp = require('modules/app').default;
     render(NextApp);

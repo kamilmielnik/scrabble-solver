@@ -1,7 +1,7 @@
 export const reduceCellStatistics = (charactersStatistics, cell) => {
   const character = !cell.isEmpty && cell.hasTile() && !cell.tile.isBlank && cell.tile.character;
   const characterStatistics = charactersStatistics[character];
-  if(characterStatistics) {
+  if (characterStatistics) {
     return incrementUsedCount(charactersStatistics, character);
   }
   return charactersStatistics;

@@ -8,11 +8,11 @@ export const createKeyComparator = (key) => (a, b) => {
 };
 const stringsComparator = (a, b) => a.localeCompare(b);
 const numbersComparator = (a, b) => {
-  if(a < b) {
+  if (a < b) {
     return -1;
   }
 
-  if(a > b) {
+  if (a > b) {
     return 1;
   }
 

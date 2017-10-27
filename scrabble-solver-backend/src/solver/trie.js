@@ -5,7 +5,7 @@ class Trie {
     this.root = words.reduce((trie, word) => {
       let node = trie;
       for (const character of word) {
-        if(!node[character]) {
+        if (!node[character]) {
           node[character] = {};
         }
         node = node[character];
@@ -18,7 +18,7 @@ class Trie {
   has(word) {
     let node = this.root;
     for (const character of word) {
-      if(!node[character]) {
+      if (!node[character]) {
         return false;
       }
       node = node[character];
@@ -29,7 +29,7 @@ class Trie {
   hasMore(word) {
     let node = this.root;
     for (const character of word) {
-      if(!node[character]) {
+      if (!node[character]) {
         return false;
       }
       node = node[character];

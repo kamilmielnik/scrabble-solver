@@ -19,9 +19,9 @@ export default (config) => {
 
   const getNextInputIndex = (inputIndex, offset) => {
     const nextInputIndex = inputIndex + offset;
-    if(nextInputIndex < 0) {
+    if (nextInputIndex < 0) {
       return nextInputIndex + boardSize;
-    } else if(nextInputIndex >= boardSize) {
+    } else if (nextInputIndex >= boardSize) {
       return nextInputIndex - boardSize;
     }
     return nextInputIndex;

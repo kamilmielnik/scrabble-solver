@@ -8,7 +8,7 @@ const classNamesPerPoints = {
 };
 
 export const getTileClassNames = ({ count, points, usedCount }) => {
-  if(usedCount >= count) {
+  if (usedCount >= count) {
     return null;
   }
 

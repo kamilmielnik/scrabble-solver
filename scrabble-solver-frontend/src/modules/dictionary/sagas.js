@@ -13,7 +13,7 @@ export default function* dictionarySagas() {
 function* onDictionarySubmit() {
   yield delay(SUBMIT_DELAY);
   const word = yield select(selectInput);
-  if(word.length > 0) {
+  if (word.length > 0) {
     try {
       yield put(search());
       const { isAllowed, definitions } = yield call(getWordDefinition, word);

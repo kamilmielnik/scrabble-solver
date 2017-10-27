@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { updateIntl } from 'react-intl-redux';
 import * as intl from 'intl';
 import { selectLocale } from 'config/selectors';
-import Setting from 'components/setting';
 import FlagGb from 'components/icons/flag-gb';
 import FlagPl from 'components/icons/flag-pl';
 import styles from './styles.scss';

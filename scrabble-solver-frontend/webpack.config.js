@@ -136,7 +136,7 @@ const config = {
   ]
 };
 
-if(IS_PROD_ENV) {
+if (IS_PROD_ENV) {
   config.plugins.push(
     extractSass,
     new StyleExtHtmlWebpackPlugin(),
@@ -155,7 +155,7 @@ if(IS_PROD_ENV) {
   );
 }
 
-if(IS_DEV_ENV) {
+if (IS_DEV_ENV) {
   config.devtool = 'eval';
   config.entry = [
     'webpack-hot-middleware/client',

@@ -25,7 +25,7 @@ class Tile {
   }
 
   static fromJson(json) {
-    if(!json) {
+    if (!json) {
       return NullTile;
     }
 

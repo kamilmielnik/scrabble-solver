@@ -21,7 +21,7 @@ const createEnhancer = () => compose(applyMiddleware(
 ));
 
 const enableHmrForReducers = (store) => {
-  if(module.hot) {
+  if (module.hot) {
     const replaceReducer = () => store.replaceReducer(require('./reducers').default);
     module.hot.accept('./reducers', replaceReducer);
   }

@@ -28,17 +28,17 @@ const CHARACTER_POINTS_CLASSNAMES = {
 export const getCharacterPointsClassname = (characterPoints) => CHARACTER_POINTS_CLASSNAMES[characterPoints];
 export const getBonusClassname = (cell, bonus) => {
   const shouldShowBonus = cell.isEmpty && bonus;
-  if(!shouldShowBonus) {
+  if (!shouldShowBonus) {
     return null;
   }
 
   const type = bonus.getType();
 
-  if(type === BONUS_WORD) {
+  if (type === BONUS_WORD) {
     return getWordBonusClassname(bonus);
   }
 
-  if(type === BONUS_CHARACTER) {
+  if (type === BONUS_CHARACTER) {
     return getCharacterBonusClassname(bonus);
   }
 
@@ -46,7 +46,7 @@ export const getBonusClassname = (cell, bonus) => {
 };
 const getWordBonusClassname = (bonus) => WORD_CLASSNAMES[bonus.multiplier];
 const getCharacterBonusClassname = (bonus) => {
-  if(bonus.score) {
+  if (bonus.score) {
     return CHARACTER_CLASSNAMES[bonus.score];
   }
 

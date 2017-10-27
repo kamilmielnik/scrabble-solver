@@ -66,18 +66,18 @@ const mergeProps = ({ config, ...stateProps }, { dispatch, ...dispatchProps }, o
     ...ownProps,
     onKeyDown: (event) => {
       const { key } = event;
-      if(isRemovingCharacter(event)) {
+      if (isRemovingCharacter(event)) {
         dispatch(changeCellValue(x, y, EMPTY_CELL));
-      } else if(isTogglingBlank(event)) {
+      } else if (isTogglingBlank(event)) {
         dispatch(toggleCellIsBlank(x, y));
-      } else if(isArrowKey(event)) {
+      } else if (isArrowKey(event)) {
         handleArrowKeys(event);
-      } else if(isCharacter(event)) {
+      } else if (isCharacter(event)) {
         dispatch(changeCellValue(x, y, key));
       }
     },
     onKeyUp: (event) => {
-      if(isSubmitting(event)) {
+      if (isSubmitting(event)) {
         dispatch(submit());
       }
     }

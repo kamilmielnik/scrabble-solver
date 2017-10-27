@@ -8,7 +8,7 @@ const Separators = ({ children, className }) => (
     {Children.toArray(children).reduce((newChildren, child, index) => {
       newChildren.push(child);
 
-      if(index < children.length - 1) {
+      if (index < children.length - 1) {
         newChildren.push((
           <span key={`separator-${index}`} className={styles.separator}>|</span>
         ));
@@ -20,8 +20,8 @@ const Separators = ({ children, className }) => (
 );
 
 Separators.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string
 };
 
 export default Separators;

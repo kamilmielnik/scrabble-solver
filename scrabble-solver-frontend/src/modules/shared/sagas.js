@@ -49,7 +49,7 @@ function* onTilesSubmit() {
   const config = yield select(selectConfig);
   const board = yield select(selectBoard);
   const tiles = yield select(selectInputTiles);
-  if(tiles.length > 0) {
+  if (tiles.length > 0) {
     try {
       yield put(submitSolve());
       yield put(resetTime());

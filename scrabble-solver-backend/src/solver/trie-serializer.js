@@ -8,13 +8,13 @@ export const serialize = (node, character = '') => {
   const letters = Object.keys(node).filter((key) => key.length === 1);
   const hasMore = letters.length > 0;
   let serialized = '';
-  if(node.wordEnd) {
+  if (node.wordEnd) {
     serialized += character;
   }
-  if(node.wordEnd && hasMore) {
+  if (node.wordEnd && hasMore) {
     serialized += SEPARATOR;
   }
-  if(hasMore) {
+  if (hasMore) {
     serialized += character;
     serialized += OPEN_PARENS;
     serialized += letters.map((letter) => serialize(node[letter], letter)).join(SEPARATOR);
@@ -32,16 +32,16 @@ export const deserialize = (serialized) => {
     const character = serialized[i];
     const nextCharacter = serialized[++i];
 
-    if(character === CLOSE_PARENS) {
+    if (character === CLOSE_PARENS) {
       node = stack.pop();
-    } else if(nextCharacter === SEPARATOR) {
+    } else if (nextCharacter === SEPARATOR) {
       node[character] = { ...wordEndNode };
       ++i;
-    } else if(nextCharacter === CLOSE_PARENS) {
+    } else if (nextCharacter === CLOSE_PARENS) {
       node[character] = { ...wordEndNode };
       node = stack.pop();
       ++i;
-    } else if(nextCharacter === OPEN_PARENS) {
+    } else if (nextCharacter === OPEN_PARENS) {
       stack.push(node);
       const newNode = node[character] || {};
       node[character] = newNode;
