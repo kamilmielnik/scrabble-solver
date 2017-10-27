@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { updateIntl } from 'react-intl-redux';
 import * as intl from 'intl';
@@ -15,14 +16,18 @@ const locales = [
 ];
 
 const LocaleSetting = ({ value, onChange }) => (
-  <div className={styles.locale}>
+  <div className={styles.locales}>
     {locales.map(({ locale, FlagComponent }) => (
-      value !== locale && (
-        <FlagComponent
-          key={locale}
-          onClick={() => onChange(locale)} />
-      )
-    )).filter(Boolean)}
+      <FlagComponent
+        key={locale}
+        className={classNames(
+          styles.locale,
+          {
+            [styles.selected]: value === locale
+          }
+        )}
+        onClick={() => onChange(locale)} />
+    ))}
   </div>
 );
 

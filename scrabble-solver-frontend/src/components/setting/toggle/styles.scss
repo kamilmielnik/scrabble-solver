@@ -1,0 +1,13 @@
+.toggle {
+  color: $gray;
+  cursor: pointer;
+
+  &.active {
+    color: $primary;
+    text-decoration: underline;
+  }
+
+  &:hover {
+    color: $primary;
+  }
+}

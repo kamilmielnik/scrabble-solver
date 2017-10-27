@@ -8,7 +8,7 @@ import styles from './styles.scss';
 const Setting = ({ className, label, options, value, onChange }) => (
   <div className={classNames(styles.setting, className)}>
     {label}:
-    <Separators>
+    <Separators className={styles.separators}>
       {options.map((option, index) => (
         <Toggle
           key={index}

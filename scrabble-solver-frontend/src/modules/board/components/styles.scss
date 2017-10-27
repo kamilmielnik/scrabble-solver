@@ -13,6 +13,10 @@ $tile-size: 30px;
     background-color: $white;
     border: $border;
 
+    transition:
+      background-color $micro-animation-duration,
+      color $micro-animation-duration;
+
     &:not(.empty) {
       .tile {
         box-shadow: inset -1px -1px 1px 0px $dark-gray;
