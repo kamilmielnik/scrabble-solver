@@ -1,0 +1,30 @@
+.locale {
+  display: flex;
+  flex-direction: column;
+
+  .flag {
+    height: 120px;
+    background-color: $white;
+    border: 1px solid $gray;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity $micro-animation-duration;
+  }
+
+  .explanation {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .credits {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+  }
+
+  &:hover {
+    .flag {
+      opacity: 1;
+    }
+  }
+}

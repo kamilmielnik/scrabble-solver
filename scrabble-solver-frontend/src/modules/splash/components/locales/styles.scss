@@ -1,0 +1,17 @@
+.locales {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  .locale {
+    margin: 0 20px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

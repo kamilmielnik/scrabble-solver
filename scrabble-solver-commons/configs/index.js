@@ -1,2 +1,2 @@
-export literaki from './literaki';
 export scrabble from './scrabble';
+export literaki from './literaki';

@@ -16,5 +16,8 @@ export default {
   'modules.results.list.number-of-tiles': '#Płytki',
   'modules.results.list.number-of-blanks': '#Blanki',
   'modules.results.list.number-of-collisions': '#Kolizje',
+  'modules.splash.definitions': 'Definicje',
+  'modules.splash.dictionary': 'Słownik',
+  'modules.splash.explanation': 'Kliknij flagę aby wybrać język',
   'modules.tiles.label': 'Płytki ({numberOfTiles})'
 };

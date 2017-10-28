@@ -24,6 +24,7 @@ const LocaleSetting = ({ value, onChange }) => (
             [styles.selected]: value === locale
           }
         )}
+        title={locale}
         onClick={() => onChange(locale)} />
     ))}
   </div>

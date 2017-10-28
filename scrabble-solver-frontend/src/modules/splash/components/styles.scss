@@ -1,0 +1,53 @@
+.splash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $light-gray;
+  opacity: 1;
+  transition: opacity $micro-animation-duration;
+
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .title {
+    margin-bottom: 100px;
+    color: $black;
+    font-size: 70px;
+  }
+
+  .locales {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    .locale {
+      margin: 0 20px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .copyright {
+    margin-top: 100px;
+    font-size: 14px;
+  }
+}

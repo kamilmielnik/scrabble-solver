@@ -7,6 +7,7 @@ import DictionaryOutput from './dictionary/components/output';
 import RemainingTiles from './remaining-tiles/components';
 import ResultsFilter from './results/components/filter';
 import ResultsList from './results/components/list';
+import Splash from './splash/components';
 import Tiles from './tiles/components';
 import Time from './time/components';
 import styles from './styles.scss';
@@ -35,6 +36,7 @@ const App = () => (
       <Time className={styles.time} />
     </div>
 
+    <Splash />
   </div>
 );
 

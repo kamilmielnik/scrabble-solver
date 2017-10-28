@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { selectMessage } from 'i18n/selectors';
-import { formatMessage } from 'i18n/utils';
 
-const Message = ({ message, values }) => formatMessage(message, values);
+const Message = ({ message }) => message;
 
 Message.propTypes = {
   id: PropTypes.string.isRequired,
-  message: PropTypes.node,
+  locale: PropTypes.string,
+  message: PropTypes.string,
   values: PropTypes.object
 };
 
-const mapStateToProps = (state, { id }) => ({
-  message: selectMessage(state, { id })
+const mapStateToProps = (state, { id, locale, values }) => ({
+  message: selectMessage(state, { id, locale, values })
 });
 
 export default connect(mapStateToProps)(Message);

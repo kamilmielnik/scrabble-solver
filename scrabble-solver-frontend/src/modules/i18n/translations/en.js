@@ -16,5 +16,8 @@ export default {
   'modules.results.list.number-of-tiles': '#Tiles',
   'modules.results.list.number-of-blanks': '#Blanks',
   'modules.results.list.number-of-collisions': '#Collisions',
+  'modules.splash.definitions': 'Definitions',
+  'modules.splash.dictionary': 'Dictionary',
+  'modules.splash.explanation': 'Click a flag to choose your language',
   'modules.tiles.label': 'Tiles ({numberOfTiles})'
 };

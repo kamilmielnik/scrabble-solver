@@ -1,4 +1,3 @@
-const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -19,13 +18,30 @@ const DIST_DIR = path.resolve(__dirname, 'dist');
 const BUNDLE_DIST = 'bundle.js';
 const CSS_DIST = 'styles.css';
 
-const extractSass = new ExtractTextPlugin({
-  filename: CSS_DIST,
-  allChunks: true,
-  disable: IS_DEV_ENV,
-  ignoreOrder: true
-});
-const sass = ({ use, fallback }) => IS_DEV_ENV ? use : extractSass.extract({ use, fallback });
+const postcssOptions = {
+  config: {
+    ctx: {
+      autoprefixer: {
+        browsers: [
+          '> 0.1%'
+        ]
+      }
+    }
+  }
+};
+
+const extractSass = (config) => {
+  if (IS_DEV_ENV) {
+    return [
+      {
+        loader: config.fallback
+      },
+      ...config.use
+    ];
+  }
+
+  return ExtractTextPlugin.extract(config);
+};
 
 const config = {
   output: {
@@ -47,11 +63,9 @@ const config = {
     rules: [
       {
         test: /\.css$/,
-        use: sass({
+        use: extractSass({
+          fallback: 'style-loader',
           use: [
-            IS_DEV_ENV && {
-              loader: 'style-loader'
-            },
             {
               loader: 'css-loader',
               options: {
@@ -59,42 +73,44 @@ const config = {
               }
             },
             {
-              loader: 'postcss-loader'
+              loader: 'postcss-loader',
+              options: postcssOptions
             }
-          ].filter(Boolean),
-          fallback: 'style-loader'
+          ]
         })
       },
       {
         test: /\.scss$/,
-        use: sass({
+        use: extractSass({
+          fallback: 'style-loader',
           use: [
-            IS_DEV_ENV && {
-              loader: 'style-loader'
-            },
             {
               loader: 'css-loader',
               options: {
                 camelCase: true,
-                minimize: true,
-                modules: true,
-                localIdentName: '[local]-[hash:base64:5]'
+                localIdentName: '[local]-[hash:base64:5]',
+                minimize: IS_PROD_ENV,
+                modules: true
               }
+            },
+            {
+              loader: 'postcss-loader',
+              options: postcssOptions
+            },
+            {
+              loader: 'resolve-url-loader'
             },
             {
               loader: 'sass-loader',
               options: {
-                data: '@import "globals.scss";',
-                includePaths: [ STYLES_DIR ],
-                sourceMap: false,
-                outputStyle: 'expanded'
+                data: '@import \'globals.scss\';',
+                includePaths: [
+                  STYLES_DIR
+                ],
+                sourceMap: false
               }
-            },
-            {
-              loader: 'postcss-loader'
             }
-          ].filter(Boolean),
-          fallback: 'style-loader'
+          ]
         })
       },
       {
@@ -120,25 +136,17 @@ const config = {
         css: [ CSS_DIST ],
         js: [ BUNDLE_DIST ]
       }
-    }),
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        postcss: [
-          require('postcss-modules')({
-            scopeBehaviour: 'local'
-          }),
-          autoprefixer({
-            browsers: [ '> 0.1%' ]
-          })
-        ]
-      }
     })
   ]
 };
 
 if (IS_PROD_ENV) {
   config.plugins.push(
-    extractSass,
+    new ExtractTextPlugin({
+      allChunks: true,
+      filename: CSS_DIST,
+      ignoreOrder: true
+    }),
     new StyleExtHtmlWebpackPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
