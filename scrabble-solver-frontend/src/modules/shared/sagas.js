@@ -1,19 +1,21 @@
 import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 import { Result } from 'scrabble-solver-commons/models';
 import { applyResult } from 'board/state';
-import { CHANGE_CONFIG, CHANGE_LOCALE } from 'config/state';
+import { CHANGE_CONFIG } from 'config/state';
 import {
   changeInput as changeDictionaryInput,
   submit as submitDictionary
 } from 'dictionary/state';
+import { CHANGE_LOCALE } from 'i18n/state';
 import { HIGHLIGHT_RESULT, UNHIGHLIGHT_RESULT, changeResults, clearFilter } from 'results/state';
 import { APPLY_RESULT, changeResultCandidate } from 'shared/state';
 import { SUBMIT as SUBMIT_TILES, clearInput as clearTiles } from 'tiles/state';
 import { changeTime, resetTime } from 'time/state';
 import { selectBoard } from 'board/selectors';
+import { selectConfig } from 'config/selectors';
+import { selectLocale } from 'i18n/selectors';
 import { selectResultsList } from 'results/selectors';
 import { selectInputTiles } from 'tiles/selectors';
-import { selectConfig, selectLocale } from 'config/selectors';
 import { submitSolve, submitSolveFailure, submitSolveSuccess } from './state';
 import { postSolve } from 'api';
 

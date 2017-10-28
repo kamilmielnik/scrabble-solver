@@ -1,17 +1,20 @@
 import { connect } from 'react-redux';
-import { injectIntl } from 'react-intl';
+import { changeFilter, clearFilter } from 'results/state';
 import {
   selectFilter,
   selectNumberOfFilteredResults,
   selectNumberOfResults
 } from 'results/selectors';
-import { changeFilter, clearFilter } from 'results/state';
+import { selectMessage } from 'i18n/selectors';
 import Input from 'components/input';
 
-const mapStateToProps = (state, { intl }) => ({
-  label: intl.formatMessage({ id: 'modules.results.filter.label' }, {
-    numberOfResults: String(selectNumberOfFilteredResults(state)),
-    totalNumberOfResults: String(selectNumberOfResults(state))
+const mapStateToProps = (state) => ({
+  label: selectMessage(state, {
+    id: 'modules.results.filter.label',
+    values: {
+      numberOfResults: selectNumberOfFilteredResults(state),
+      totalNumberOfResults: selectNumberOfResults(state)
+    }
   }),
   value: selectFilter(state)
 });
@@ -22,4 +25,4 @@ const mapDispatchToProps = (dispatch) => ({
   onSubmit: () => dispatch(clearFilter())
 });
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Input));
+export default connect(mapStateToProps, mapDispatchToProps)(Input);

@@ -1,5 +1,4 @@
 import { combineActions, createAction, handleActions } from 'redux-actions';
-import { literaki } from 'scrabble-solver-commons/configs';
 
 export const APPLY_RESULT = 'shared/apply-result';
 export const CHANGE_RESULT_CANDIDATE = 'shared/change-result-candidate';

@@ -1,6 +1,6 @@
 import { delay } from 'redux-saga';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { selectLocale } from 'config/selectors';
+import { selectLocale } from 'i18n/selectors';
 import { SUBMIT, clearInput, search, searchFailure, searchSuccess } from './state';
 import { selectInput } from './selectors';
 import { getWordDefinition } from 'api';

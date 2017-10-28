@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { changeLocale } from 'config/state';
-import { selectLocale } from 'config/selectors';
+import { changeLocale } from 'i18n/state';
+import { selectLocale } from 'i18n/selectors';
 import { FlagGb, FlagPl, FlagUs } from 'components/icons';
 import styles from './styles.scss';
 

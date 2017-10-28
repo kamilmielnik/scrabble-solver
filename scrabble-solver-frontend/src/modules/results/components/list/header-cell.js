@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import { changeSortedColumn } from 'results/state';
 import { selectSortedColumnName, selectSortingDirection } from 'results/selectors';
 import { Sort } from 'components/icons';
+import { Message } from 'i18n/components';
 import styles from './styles.scss';
 
 const HeaderCell = ({ dataKey, label, sortedColumnName, sortingDirection, onSort }) => (
   <div className={styles.headerCellContent} onClick={onSort}>
     <div>
-      <FormattedMessage id={label} />
+      <Message id={label} />
     </div>
 
     {dataKey === sortedColumnName && (

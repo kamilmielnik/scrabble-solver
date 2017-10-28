@@ -117,6 +117,11 @@ $tile-size: 30px;
       position: relative;
       width: $tile-size;
       height: $tile-size;
+      background-color: transparent;
+      color: $white;
+      transition:
+        background-color $micro-animation-duration,
+        color $micro-animation-duration;
 
       &.blank {
         background-color: $white;

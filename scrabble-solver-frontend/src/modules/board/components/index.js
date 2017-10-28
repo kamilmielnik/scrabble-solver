@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { selectRowsWithCandidate } from 'board/selectors';
 import Section from 'components/section';
-import { FormattedMessage } from 'react-intl';
+import { Message } from 'i18n/components';
 import Row from './row';
 import styles from './styles.scss';
 
@@ -11,7 +11,7 @@ const Board = ({ className, rows }) => (
   <Section
     className={className}
     label={(
-      <FormattedMessage id="modules.board.label" />
+      <Message id="modules.board.label" />
     )}>
     <div className={styles.board}>
       {rows.map((cells, index) => (

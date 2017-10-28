@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-intl-redux';
+import { Provider } from 'react-redux';
 import configureStore from 'store';
 import App from 'modules/app';
 import 'react-virtualized/styles.css';
