@@ -1,7 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
 import { EMPTY_CELL } from 'scrabble-solver-commons/constants';
 import { Board, Cell, Tile } from 'scrabble-solver-commons/models';
-import { initialState as config } from 'modules/config/state';
+import { initialState as config } from 'config/state';
+import { initialState as i18n } from 'i18n/state';
 
 export const APPLY_RESULT = 'board/apply-result';
 export const CHANGE_CELL_VALUE = 'board/change-cell-value';
@@ -11,8 +12,8 @@ export const applyResult = createAction(APPLY_RESULT);
 export const changeCellValue = createAction(CHANGE_CELL_VALUE, (x, y, value) => ({ x, y, value }));
 export const toggleCellIsBlank = createAction(TOGGLE_CELL_IS_BLANK, (x, y) => ({ x, y }));
 
-const initialState = Board.fromStringArray(Array(config.boardHeight).fill(
-  Array(config.boardWidth).fill(' ').join('')
+const initialState = Board.fromStringArray(Array(config[i18n.locale].boardHeight).fill(
+  Array(config[i18n.locale].boardWidth).fill(' ').join('')
 ));
 
 export default handleActions({

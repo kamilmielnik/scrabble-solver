@@ -8,7 +8,7 @@ const board = Board.fromStringArray([
   '   '
 ]);
 
-const config = new Config(literaki);
+const config = new Config(literaki['pl-PL']);
 const collection = {
   has: () => true,
   hasMore: () => true

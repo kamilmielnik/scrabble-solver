@@ -2,7 +2,7 @@ import { literaki } from 'scrabble-solver-commons/configs';
 import { Board, Cell, Config, Pattern, Tile, VerticalPattern } from 'scrabble-solver-commons/models';
 import ScoresCalculator from '../scores-calculator';
 
-const config = new Config(literaki);
+const config = new Config(literaki['pl-PL']);
 const scoresCalculator = new ScoresCalculator(config);
 const board = Board.fromStringArray([
   ' kasom         ',

@@ -4,9 +4,10 @@ import { Board, Config, Tile } from 'scrabble-solver-commons/models';
 import Solver from '../index';
 import Trie from '../trie';
 
-const serializedCollection = fs.readFileSync('./dictionaries/pl-PL.txt', 'utf-8');
+const locale = 'pl-PL';
+const serializedCollection = fs.readFileSync(`./dictionaries/${locale}.txt`, 'utf-8');
 const collection = Trie.deserialize(serializedCollection);
-const config = new Config(literaki);
+const config = new Config(literaki[locale]);
 
 const generateTiles = (characters) => characters.split('').map((character) => new Tile({
   character,
