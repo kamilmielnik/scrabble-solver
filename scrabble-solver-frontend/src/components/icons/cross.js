@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { white } from 'utils/colors';
 
-const Icon = ({ className, height = 20, stroke = white, strokeWidth = 4, width = 20 }) => {
-  const sharedProps = { stroke, strokeWidth };
+const Icon = ({ className, height = 20, strokeWidth = 4, width = 20 }) => {
+  const sharedProps = { stroke: 'currentColor', strokeWidth };
 
   return (
     <svg
@@ -23,7 +22,6 @@ const Icon = ({ className, height = 20, stroke = white, strokeWidth = 4, width =
 Icon.propTypes = {
   className: PropTypes.string,
   height: PropTypes.number,
-  stroke: PropTypes.string,
   strokeWidth: PropTypes.number,
   width: PropTypes.number
 };

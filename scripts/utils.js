@@ -63,9 +63,9 @@ export const downloadFile = (url, outputFilepath) => logAction(
   )
 );
 
-export const unzipFile = (zipfilepath, filename) => logAction(
-  `Unzipping "${filename}" from "${zipfilepath}"`,
-  () => decompress(zipfilepath, '.', {
+export const unzipFile = (zipFilepath, filename) => logAction(
+  `Unzipping "${filename}" from "${zipFilepath}"`,
+  () => decompress(zipFilepath, '.', {
     filter: (file) => file.path === filename
   })
 );

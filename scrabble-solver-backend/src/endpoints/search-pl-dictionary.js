@@ -1,5 +1,6 @@
 import proxy from 'express-http-proxy';
 import cheerio from 'cheerio';
+import { WordDefinition } from 'scrabble-solver-commons/models';
 
 const DICTIONARY_URL = 'https://sjp.pl';
 
@@ -15,10 +16,11 @@ const parseSjpResponse = (html) => {
   const $header = $($('h1')[0]);
   const $isAllowed = getIsAllowedNode($header);
   const $definitions = getDefinitionsNode($header);
-  return {
-    isAllowed: isAllowed($isAllowed),
-    definitions: getTrimmedDefinitions($definitions)
-  };
+  const wordDefinition = new WordDefinition({
+    definitions: getTrimmedDefinitions($definitions),
+    isAllowed: isAllowed($isAllowed)
+  });
+  return wordDefinition.toJson();
 };
 
 const getIsAllowedNode = ($header) => $header.next();

@@ -67,12 +67,6 @@
       &:hover {
         background-color: $primary;
         color: $white;
-
-        svg {
-          polygon {
-            fill: $white;
-          }
-        }
       }
 
       .icon-sort {

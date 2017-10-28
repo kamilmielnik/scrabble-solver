@@ -1,6 +1,5 @@
 import { combineActions, createAction, handleActions } from 'redux-actions';
 import { literaki } from 'scrabble-solver-commons/configs';
-import { Config } from 'scrabble-solver-commons/models';
 
 export const APPLY_RESULT = 'shared/apply-result';
 export const CHANGE_RESULT_CANDIDATE = 'shared/change-result-candidate';
@@ -15,7 +14,6 @@ export const submitSolveFailure = createAction(SUBMIT_SOLVE_FAILURE);
 export const submitSolveSuccess = createAction(SUBMIT_SOLVE_SUCCESS);
 
 const initialState = {
-  config: new Config(literaki),
   isLoading: false,
   resultCandidate: null
 };

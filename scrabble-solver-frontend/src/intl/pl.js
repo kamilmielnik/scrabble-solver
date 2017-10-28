@@ -4,7 +4,7 @@ export default {
   'modules.config.config': 'Konfiguracja',
   'modules.dictionary.input.label': 'Znajdź definicję słowa',
   'modules.dictionary.output.label': 'Definicja słowa',
-  'modules.dictionary.output.not-allowed': 'Słowo niedozwolone',
+  'modules.dictionary.output.cannot-find-definition': 'Nie udało się znaleźć definicji słowa',
   'modules.remaining-tiles.label': 'Pozostałe płytki ({numberOfTiles})',
   'modules.results.filter.label': 'Filtruj wyniki ({numberOfResults}/{totalNumberOfResults})',
   'modules.results.label': 'Wyniki',

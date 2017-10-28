@@ -34,7 +34,7 @@ const DictionaryOutput = ({ className, definitions, isAllowed, isLoading, word }
 
       {isAllowed === false && (
         <div>
-          <FormattedMessage id="modules.dictionary.output.not-allowed" />
+          <FormattedMessage id="modules.dictionary.output.cannot-find-definition" />
         </div>
       )}
 

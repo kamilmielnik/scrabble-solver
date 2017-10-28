@@ -6,3 +6,4 @@ export Pattern from './pattern';
 export Result from './result';
 export Tile from './tile';
 export VerticalPattern from './vertical-pattern';
+export WordDefinition, { NullWordDefinition } from './word-definition';

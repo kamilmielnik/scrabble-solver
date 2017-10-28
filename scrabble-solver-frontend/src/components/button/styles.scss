@@ -3,8 +3,9 @@
   justify-content: center;
   align-items: center;
   padding: 5px;
-  cursor: pointer;
   background-color: $primary;
+  color: $white;
+  cursor: pointer;
   transition: background-color $micro-animation-duration;
 
   &:hover {

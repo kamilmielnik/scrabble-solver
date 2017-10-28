@@ -1,6 +1,6 @@
 import { API_URL } from 'scrabble-solver-commons/constants';
 
-export const getWordDefinition = (word) => fetch(`${API_URL}/dictionary/${word}`)
+export const getWordDefinition = (locale, word) => fetch(`${API_URL}/${locale}/dictionary/${word.toLowerCase()}`)
   .then((response) => response.json());
 
 export const postSolve = (locale, payload) => fetch(`${API_URL}/${locale}/solve`, {
