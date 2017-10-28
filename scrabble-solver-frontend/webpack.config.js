@@ -7,16 +7,18 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const IS_DEV_ENV = process.env.NODE_ENV === 'development';
 const IS_PROD_ENV = process.env.NODE_ENV === 'production';
-
 const SRC_DIR = path.resolve(__dirname, 'src');
 const MODULES_DIR = path.resolve(SRC_DIR, 'modules');
 const COMMONS_PARENT_DIR = path.resolve(__dirname, '..');
 const STYLES_DIR = path.resolve(__dirname, 'src/styles');
 const ENTRY_FILE = path.resolve(SRC_DIR, 'index.js');
 const ENTRY_FILE_DEV = path.resolve(SRC_DIR, 'index-dev.js');
+const INDEX_FILE = path.resolve(__dirname, 'html', 'index.html');
+const FAVICON_FILE = path.resolve(__dirname, 'html', 'favicon-v2.ico');
 const DIST_DIR = path.resolve(__dirname, 'dist');
 const BUNDLE_DIST = 'bundle.js';
 const CSS_DIST = 'styles.css';
+const INDEX_DIST = 'index.html';
 
 const postcssOptions = {
   config: {
@@ -129,12 +131,18 @@ const config = {
       }
     }),
     new HtmlWebpackPlugin({
-      template: './index.html',
+      template: INDEX_FILE,
+      filename: INDEX_DIST,
+      favicon: FAVICON_FILE,
       inject: true,
       hash: true,
       files: {
-        css: [ CSS_DIST ],
-        js: [ BUNDLE_DIST ]
+        css: [
+          CSS_DIST
+        ],
+        js: [
+          BUNDLE_DIST
+        ]
       }
     })
   ]
@@ -157,7 +165,7 @@ if (IS_PROD_ENV) {
     }),
     new CopyWebpackPlugin([
       {
-        from: 'index.html'
+        from: INDEX_FILE
       }
     ])
   );
