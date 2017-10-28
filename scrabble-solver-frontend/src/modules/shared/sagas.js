@@ -20,10 +20,10 @@ import { submitSolve, submitSolveFailure, submitSolveSuccess } from './state';
 import { postSolve } from 'api';
 
 export default function* modulesSagas() {
-  yield takeLatest(APPLY_RESULT, onApplyResult);
-  yield takeLatest(HIGHLIGHT_RESULT, onHighlightResult);
-  yield takeLatest(UNHIGHLIGHT_RESULT, onUnhighlightResult);
-  yield takeEvery([ SUBMIT_TILES, CHANGE_CONFIG, CHANGE_LOCALE ], onTilesSubmit);
+  yield takeEvery(APPLY_RESULT, onApplyResult);
+  yield takeEvery(HIGHLIGHT_RESULT, onHighlightResult);
+  yield takeEvery(UNHIGHLIGHT_RESULT, onUnhighlightResult);
+  yield takeLatest([ SUBMIT_TILES, CHANGE_CONFIG, CHANGE_LOCALE ], onTilesSubmit);
 }
 
 function* onApplyResult({ payload: id }) {

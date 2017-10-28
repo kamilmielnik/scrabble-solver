@@ -1,20 +1,33 @@
 import { delay } from 'redux-saga';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { CHANGE_LOCALE } from 'i18n/state';
 import { selectLocale } from 'i18n/selectors';
 import { SUBMIT, clearInput, search, searchFailure, searchSuccess } from './state';
-import { selectInput } from './selectors';
+import { selectDefinitionsWord, selectInput } from './selectors';
 import { getWordDefinition } from 'api';
 
 const SUBMIT_DELAY = 100;
 
 export default function* dictionarySagas() {
   yield takeLatest(SUBMIT, onDictionarySubmit);
+  yield takeLatest(CHANGE_LOCALE, onLocaleChange);
+}
+
+function* onLocaleChange() {
+  yield delay(SUBMIT_DELAY);
+  const word = yield select(selectDefinitionsWord);
+  const locale = yield select(selectLocale);
+  yield* makeRequest(word, locale);
 }
 
 function* onDictionarySubmit() {
   yield delay(SUBMIT_DELAY);
   const word = yield select(selectInput);
   const locale = yield select(selectLocale);
+  yield* makeRequest(word, locale);
+}
+
+function* makeRequest(word, locale) {
   if (word.length > 0) {
     try {
       yield put(search());

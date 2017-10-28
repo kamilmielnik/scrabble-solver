@@ -9,6 +9,7 @@ $height: 100px;
   overflow: auto;
   background-color: $white;
   border: $border;
+  transition: background-color $micro-animation-duration;
 
   .word {
     margin-bottom: 10px;
