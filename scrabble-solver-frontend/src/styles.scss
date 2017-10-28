@@ -1,5 +1,4 @@
 @import 'normalize.css';
-@import url('https://rsms.me/interface/interface.css');
 
 html, body {
   margin: 0 auto;
@@ -13,4 +12,13 @@ html, body {
 
 input {
   font-family: 'Interface', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Sidebar from 'sidebar';
 import Copyright from 'components/copyright';
 import Board from './board/components';
 import Config from './config/components';
@@ -14,29 +15,31 @@ import styles from './styles.scss';
 
 const App = () => (
   <div className={styles.app}>
-    <div className={styles.content}>
-      <div className={styles.left}>
-        <Tiles />
-        <Board />
-        <DictionaryOutput />
-        <DictionaryInput />
+    <Sidebar contentClassName={styles.sidebarContent} triggerClassName={styles.sidebarTrigger}>
+      <div className={styles.content}>
+        <div className={styles.left}>
+          <Tiles />
+          <Board />
+          <DictionaryOutput />
+          <DictionaryInput />
+        </div>
+        <div className={styles.right}>
+          <ResultsList />
+          <ResultsFilter />
+        </div>
+
+        <RemainingTiles className={styles.remainingTiles} />
+
+        <div className={styles.bar}>
+          <Copyright />
+          <Config />
+        </div>
+
+        <Time className={styles.time} />
       </div>
-      <div className={styles.right}>
-        <ResultsList />
-        <ResultsFilter />
-      </div>
 
-      <RemainingTiles className={styles.remainingTiles} />
-
-      <div className={styles.bar}>
-        <Copyright />
-        <Config />
-      </div>
-
-      <Time className={styles.time} />
-    </div>
-
-    <Splash />
+      <Splash />
+    </Sidebar>
   </div>
 );
 

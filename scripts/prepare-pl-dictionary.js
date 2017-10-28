@@ -39,6 +39,7 @@ const prepareDictionary = async () => {
   const preparedFile = prepareFile(file);
   createDirectory(argv.outputDir);
   writeFile(outputFile, preparedFile);
+  createDirectory('dist');
   createDirectory(`dist/${argv.outputDir}`);
   writeFile(`dist/${outputFile}`, preparedFile);
   removeFile(FILE_TO_EXTRACT_FROM_ZIP);

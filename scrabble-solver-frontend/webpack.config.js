@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const StyleExtHtmlWebpackPlugin = require('style-ext-html-webpack-plugin');
@@ -8,8 +9,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const IS_DEV_ENV = process.env.NODE_ENV === 'development';
 const IS_PROD_ENV = process.env.NODE_ENV === 'production';
 const SRC_DIR = path.resolve(__dirname, 'src');
+const SIDEBAR_DIR = path.resolve(__dirname, 'node_modules', 'sidebar');
 const MODULES_DIR = path.resolve(SRC_DIR, 'modules');
 const COMMONS_PARENT_DIR = path.resolve(__dirname, '..');
+const COMMONS_DIR = path.resolve(COMMONS_PARENT_DIR, 'scrabble-solver-commons');
 const STYLES_DIR = path.resolve(__dirname, 'src/styles');
 const ENTRY_FILE = path.resolve(SRC_DIR, 'index.js');
 const ENTRY_FILE_DEV = path.resolve(SRC_DIR, 'index-dev.js');
@@ -64,6 +67,17 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          {
+            loader: 'file-loader'
+          },
+          {
+            loader: 'image-webpack-loader'
+          }
+        ]
+      },
+      {
         test: /\.css$/,
         use: extractSass({
           fallback: 'style-loader',
@@ -117,8 +131,14 @@ const config = {
       },
       {
         test: /\.js$/,
-        use: 'babel-loader',
-        exclude: /node_modules/
+        include: [
+          SRC_DIR,
+          COMMONS_DIR,
+          SIDEBAR_DIR
+        ],
+        use: {
+          loader: 'babel-loader'
+        }
       }
     ]
   },

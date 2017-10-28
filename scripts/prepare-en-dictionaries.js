@@ -29,6 +29,7 @@ const prepareDictionary = async ({ locale, url }) => {
   const preparedFile = prepareFile(file);
   createDirectory(argv.outputDir);
   writeFile(outputFile, preparedFile);
+  createDirectory('dist');
   createDirectory(`dist/${argv.outputDir}`);
   writeFile(`dist/${outputFile}`, preparedFile);
   removeFile(tempFile);

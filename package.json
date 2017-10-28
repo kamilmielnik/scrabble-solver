@@ -1,6 +1,6 @@
 {
   "name": "scrabble-solver",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Scrabble Solver",
   "engines": {
     "node": ">=7.9.0"
@@ -17,7 +17,7 @@
     "lint": "better-npm-run lint",
     "lint:fix": "better-npm-run lint:fix",
     "open": "opn http://localhost:8080",
-    "postinstall": "better-npm-run install-dictionaries",
+    "postinstall": "npm run install-dictionaries",
     "install-dictionaries": "npm-run-all --parallel prepare-*",
     "prepare-en-dictionaries": "better-npm-run prepare-en-dictionaries",
     "prepare-pl-dictionary": "better-npm-run prepare-pl-dictionary"
@@ -86,7 +86,7 @@
     "npm-run-all": "^4.1.1",
     "opn-cli": "^3.1.0",
     "request": "^2.83.0",
-    "yargs": "^9.0.1"
+    "yargs": "^10.0.3"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",

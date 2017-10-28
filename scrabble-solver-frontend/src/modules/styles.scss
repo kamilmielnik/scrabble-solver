@@ -3,60 +3,70 @@ $right-width: 647px;
 $spacing: 20px;
 
 .app {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: $spacing 0;
+  height: 100%;
 
-  .content {
-    display: flex;
-    flex-wrap: wrap;
-    width: $left-width + $right-width + $spacing;
-    margin-bottom: $spacing;
-  }
-
-  .left {
-    max-width: $left-width;
-  }
-
-  .right {
-    max-width: $right-width;
-    margin-left: $spacing;
-  }
-
-  .left, .right {
-    margin-bottom: $spacing;
-
-    > div {
-      margin: $spacing 0;
-
-      &:first-child {
-        margin-top: 0;
-      }
-
-      &:last-child {
-        margin-bottom: 0;
-      }
+  .sidebarTrigger {
+    @media screen and (max-width: 1300px) {
+      display: none;
     }
   }
 
-  .remainingTiles, .bar, .time {
-    flex: 1 0 100%;
-  }
-
-  .remainingTiles {
-    margin-bottom: $spacing;
-  }
-
-  .bar {
+  .sidebar-content {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
+    flex-direction: column;
 
-  .time {
-    display: flex;
-    justify-content: center;
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      width: $left-width + $right-width + $spacing;
+      margin-bottom: $spacing;
+      padding: $spacing 0;
+    }
+
+    .left {
+      max-width: $left-width;
+    }
+
+    .right {
+      max-width: $right-width;
+      margin-left: $spacing;
+    }
+
+    .left, .right {
+      margin-bottom: $spacing;
+
+      > div {
+        margin: $spacing 0;
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .remainingTiles, .bar, .time {
+      flex: 1 0 100%;
+    }
+
+    .remainingTiles {
+      margin-bottom: $spacing;
+    }
+
+    .bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .time {
+      display: flex;
+      justify-content: center;
+    }
   }
 }
