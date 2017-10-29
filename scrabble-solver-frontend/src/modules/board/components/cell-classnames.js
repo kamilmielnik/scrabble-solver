@@ -28,7 +28,7 @@ const CHARACTER_POINTS_CLASSNAMES = {
 
 export const getCharacterPointsClassname = (characterPoints) => {
   if (characterPoints > 5) {
-    styles.characterPoints5;
+    return styles.characterPoints5;
   }
   return CHARACTER_POINTS_CLASSNAMES[characterPoints];
 };
