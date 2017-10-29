@@ -1,6 +1,6 @@
 {
   "name": "scrabble-solver-frontend",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Scrabble Solver - Frontend",
   "main": "src/index.js",
   "engines": {

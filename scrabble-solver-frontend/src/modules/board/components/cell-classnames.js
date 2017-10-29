@@ -22,10 +22,17 @@ const CHARACTER_POINTS_CLASSNAMES = {
   1: styles.characterPoints1,
   2: styles.characterPoints2,
   3: styles.characterPoints3,
+  4: styles.characterPoints3,
   5: styles.characterPoints5
 };
 
-export const getCharacterPointsClassname = (characterPoints) => CHARACTER_POINTS_CLASSNAMES[characterPoints];
+export const getCharacterPointsClassname = (characterPoints) => {
+  if (characterPoints > 5) {
+    styles.characterPoints5;
+  }
+  return CHARACTER_POINTS_CLASSNAMES[characterPoints];
+};
+
 export const getBonusClassname = (cell, bonus) => {
   const shouldShowBonus = cell.isEmpty && bonus;
   if (!shouldShowBonus) {
