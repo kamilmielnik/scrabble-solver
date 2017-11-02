@@ -1,6 +1,6 @@
 {
   "name": "scrabble-solver-frontend",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Scrabble Solver - Frontend",
   "main": "src/index.js",
   "engines": {
@@ -73,6 +73,7 @@
   "devDependencies": {
     "better-npm-run": "0.1.0",
     "http-server": "^0.10.0",
+    "react-hot-loader": "^3.1.1",
     "webpack-wizard": "git://github.com/kamilmielnik/webpack-wizard.git"
   }
 }
