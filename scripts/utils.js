@@ -16,7 +16,7 @@ export const log = (message) => console.log(YELLOW, message);
 export const logError = (error) => console.log(RED, error);
 // eslint-disable-next-line no-console
 export const logSuccess = (message) => console.log(GREEN, message);
-export const logAction = (message, action) => {
+export const logAsyncAction = (message, action) => {
   let result = null;
   try {
     const start = Date.now();
@@ -34,10 +34,25 @@ export const logAction = (message, action) => {
   }
   return result;
 };
+export const logAction = (message, action) => {
+  let result = null;
+  try {
+    log(`${message}...`);
+    const start = Date.now();
+    result = action();
+    const end = Date.now();
+    const time = end - start;
+    logSuccess(`[${time}ms] ${message} successful`);
+  } catch (error) {
+    logError(`${message} failed\n\t${error}`);
+    throw error;
+  }
+  return result;
+};
 
 export const getFilenameFromUrl = (fileUrl) => path.basename(url.parse(fileUrl).pathname);
 
-export const downloadHtml = (url) => logAction(
+export const downloadHtml = (url) => logAsyncAction(
   `Downloading HTML from "${url}"`,
   () => new Promise((resolve) => {
     const protocol = url.startsWith('https') ? https : http;
@@ -54,7 +69,7 @@ export const downloadHtml = (url) => logAction(
   })
 );
 
-export const downloadFile = (url, outputFilepath) => logAction(
+export const downloadFile = (url, outputFilepath) => logAsyncAction(
   `Downloading file from "${url}"`,
   () => new Promise(
     (resolve) => request
@@ -63,7 +78,7 @@ export const downloadFile = (url, outputFilepath) => logAction(
   )
 );
 
-export const unzipFile = (zipFilepath, filename) => logAction(
+export const unzipFile = (zipFilepath, filename) => logAsyncAction(
   `Unzipping "${filename}" from "${zipFilepath}"`,
   () => decompress(zipFilepath, '.', {
     filter: (file) => file.path === filename
