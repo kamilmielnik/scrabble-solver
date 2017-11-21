@@ -1,6 +1,6 @@
 {
   "name": "scrabble-solver-frontend",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Scrabble Solver - Frontend",
   "main": "src/index.js",
   "engines": {
@@ -14,13 +14,13 @@
   },
   "betterScripts": {
     "build": {
-      "command": "webpack-wizard",
+      "command": "webpack-wizard build",
       "env": {
         "NODE_ENV": "production"
       }
     },
     "build:prod": {
-      "command": "webpack-wizard",
+      "command": "webpack-wizard build",
       "env": {
         "NODE_ENV": "production",
         "API_HOST": "http://kamilmielnik.com",
@@ -28,7 +28,7 @@
       }
     },
     "start": {
-      "command": "webpack-wizard-dev",
+      "command": "webpack-wizard start",
       "env": {
         "NODE_ENV": "development"
       }
@@ -59,10 +59,10 @@
     "normalize.css": "^7.0.0",
     "prop-types": "^15.6.0",
     "re-reselect": "^1.0.1",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
-    "react-virtualized": "^9.10.1",
+    "react-virtualized": "^9.12.0",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-saga": "^0.16.0",
@@ -73,7 +73,7 @@
   "devDependencies": {
     "better-npm-run": "0.1.0",
     "http-server": "^0.10.0",
-    "react-hot-loader": "^3.1.1",
-    "webpack-wizard": "git://github.com/kamilmielnik/webpack-wizard.git"
+    "react-hot-loader": "^3.1.3",
+    "webpack-wizard": "0.0.8"
   }
 }

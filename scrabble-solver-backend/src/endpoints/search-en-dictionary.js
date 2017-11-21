@@ -1,7 +1,7 @@
 import http from 'http';
 import { WordDefinition, NullWordDefinition } from 'scrabble-solver-commons/models';
 
-const API_KEY = 'a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5';
+const API_KEY = 'd0c21cb3cbc3415984a2a0486da075e54aa68091c33a680d9';
 const MAX_RESULTS = 10;
 const SOURCE_DICTIONARIES = 'all';
 

@@ -28,9 +28,9 @@ const prepareDictionary = async ({ locale, url }) => {
   const file = readFile(tempFile);
   const preparedFile = prepareFile(file);
   createDirectory(argv.outputDir);
-  writeFile(outputFile, preparedFile);
   createDirectory('dist');
   createDirectory(`dist/${argv.outputDir}`);
+  writeFile(outputFile, preparedFile);
   writeFile(`dist/${outputFile}`, preparedFile);
   removeFile(tempFile);
 };
