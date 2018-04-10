@@ -11,6 +11,12 @@ $spacing: 20px;
     }
   }
 
+  .buttons {
+    position: fixed;
+    left: 20px;
+    top: 90px;
+  }
+
   .sidebar-content {
     display: flex;
     align-items: center;

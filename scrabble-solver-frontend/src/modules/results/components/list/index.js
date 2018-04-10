@@ -12,6 +12,7 @@ import styles from './styles.scss';
 const ResultsList = ({ className, isLoading, onMouseLeave }) => (
   <Section
     className={className}
+    id="results"
     label={(
       <Message id="modules.results.label" />
     )}>

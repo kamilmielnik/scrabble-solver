@@ -5,6 +5,7 @@ import { selectInput, selectInputLength } from 'tiles/selectors';
 import Input from 'components/input';
 
 const mapStateToProps = (state) => ({
+  id: 'tiles',
   label: selectMessage(state, {
     id: 'modules.tiles.label',
     values: {

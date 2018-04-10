@@ -7,8 +7,8 @@ import Section from 'components/section';
 import EventsDecorator from './events-decorator';
 import styles from './styles.scss';
 
-const Input = ({ className, label, value, onChange = noop, onClear = noop, onKeyDown = noop }) => (
-  <Section className={className} label={label}>
+const Input = ({ className, id, label, value, onChange = noop, onClear = noop, onKeyDown = noop }) => (
+  <Section className={className} label={label} id={id}>
     <div className={styles.input}>
       <input
         type="text"
@@ -25,6 +25,7 @@ const Input = ({ className, label, value, onChange = noop, onClear = noop, onKey
 
 Input.propTypes = {
   className: PropTypes.string,
+  id: PropTypes.string,
   label: PropTypes.string,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func,

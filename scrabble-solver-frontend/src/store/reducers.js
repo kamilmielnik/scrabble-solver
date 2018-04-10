@@ -8,6 +8,7 @@ import shared from 'modules/shared/state';
 import splash from 'modules/splash/state';
 import tiles from 'modules/tiles/state';
 import time from 'modules/time/state';
+import walkthrough from 'modules/walkthrough/state';
 
 const rootReducer = combineReducers({
   board,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   shared,
   splash,
   tiles,
-  time
+  time,
+  walkthrough
 });
 
 export default rootReducer;

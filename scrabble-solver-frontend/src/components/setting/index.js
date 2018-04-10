@@ -5,8 +5,8 @@ import Separators from './separators';
 import Toggle from './toggle';
 import styles from './styles.scss';
 
-const Setting = ({ className, label, options, value, onChange }) => (
-  <div className={classNames(styles.setting, className)}>
+const Setting = ({ className, id, label, options, value, onChange }) => (
+  <div className={classNames(styles.setting, className)} id={id}>
     {label}:
     <Separators className={styles.separators}>
       {options.map((option, index) => (
@@ -23,6 +23,7 @@ const Setting = ({ className, label, options, value, onChange }) => (
 
 Setting.propTypes = {
   className: PropTypes.string,
+  id: PropTypes.string,
   label: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
   value: PropTypes.any.isRequired,
