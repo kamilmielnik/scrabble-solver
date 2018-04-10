@@ -17,6 +17,7 @@ import styles from './styles.scss';
 const DictionaryOutput = ({ className, definitions, isAllowed, isLoading, word }) => (
   <Section
     className={className}
+    id="dictionary-results"
     label={(
       <Message id="modules.dictionary.output.label" />
     )}>

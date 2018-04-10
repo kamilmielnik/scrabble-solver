@@ -10,6 +10,7 @@ import styles from './styles.scss';
 const Board = ({ className, rows }) => (
   <Section
     className={className}
+    id="board"
     label={(
       <Message id="modules.board.label" />
     )}>

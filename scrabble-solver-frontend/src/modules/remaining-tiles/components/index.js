@@ -13,6 +13,7 @@ import styles from './styles.scss';
 const RemainingTiles = ({ className, charactersStatistics, numberOfTiles }) => (
   <Section
     className={className}
+    id="remaining-tiles"
     label={(
       <Message
         id="modules.remaining-tiles.label"

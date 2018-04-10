@@ -1,0 +1,11 @@
+:global(.joyride-tooltip__button--primary) {
+  background-color: $primary !important;
+}
+
+:global(.joyride-tooltip__button--secondary) {
+  color: $primary !important;
+}
+
+:global(.joyride-tooltip__header) {
+  border-bottom: 1px solid $primary;
+}

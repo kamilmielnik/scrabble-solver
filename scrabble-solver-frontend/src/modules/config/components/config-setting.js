@@ -11,6 +11,7 @@ const options = Object.values(configs).map(({ id, name }) => ({
 }));
 
 const mapStateToProps = (state) => ({
+  id: 'config-setting',
   label: selectMessage(state, { id: 'modules.config.config' }),
   options,
   value: selectConfigId(state)

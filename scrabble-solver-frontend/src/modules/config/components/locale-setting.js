@@ -14,7 +14,7 @@ const locales = [
 ];
 
 const LocaleSetting = ({ value, onChange }) => (
-  <div className={styles.locales}>
+  <div className={styles.locales} id="locale-setting">
     {locales.map(({ locale, FlagComponent }) => (
       <FlagComponent
         key={locale}

@@ -9,6 +9,7 @@ import { selectMessage } from 'i18n/selectors';
 import Input from 'components/input';
 
 const mapStateToProps = (state) => ({
+  id: 'results-filter',
   label: selectMessage(state, {
     id: 'modules.results.filter.label',
     values: {
