@@ -26,7 +26,7 @@ export default {
   'modules.walkthrough.back': 'Back',
   'modules.walkthrough.close': 'Close',
   'modules.walkthrough.explanation.board': 'You can type letters directly onto the Board (for instance those placed by your opponent). Click on a cell to edit it. You can navigate the Board with arrow keys. While any of the cells is focused, press Enter to trigger a new search. Press Ctrl+B to toggle field as a blank.',
-  'modules.walkthrough.explanation.config-setting': 'This app supports both Literaki (Polish game with Polish rules) & Scrabble. Click here to select your game and apply its rules & Board.',
+  'modules.walkthrough.explanation.config-setting': 'This app supports both Literaki (Polish game with Polish rules) & Scrabble. Click here to select your game and apply its rules.',
   'modules.walkthrough.explanation.locale-setting': 'Click here to change the interface language & the game rules (e.g. English & Polish Scrabble have different sets of letters).',
   'modules.walkthrough.explanation.remaining-tiles': 'Here you can see how many of each letter is left in the game (in the "bag"), taking into account letters on the Board and in "Tiles" field.',
   'modules.walkthrough.explanation.results': 'Search results will appear here. You can sort results by clicking on column headers. Hover over a result to see where does it fit on the Board and search for the word definition. Click on it, to place it on the Board.',
