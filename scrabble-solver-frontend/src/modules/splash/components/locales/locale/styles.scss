@@ -9,6 +9,10 @@
     cursor: pointer;
     opacity: 0.8;
     transition: opacity $micro-animation-duration;
+
+    @media (max-width: 746px) {
+      height: auto;
+    }
   }
 
   .explanation {

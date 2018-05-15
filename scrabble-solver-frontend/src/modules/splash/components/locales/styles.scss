@@ -14,4 +14,22 @@
       margin-right: 0;
     }
   }
+
+  @media (max-width: 430px) {
+    flex-wrap: wrap;
+
+    .locale {
+      margin: 40px 20px;
+
+      &:first-child {
+        margin-left: 20px;
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-right: 20px;
+        margin-bottom: 0;
+      }
+    }
+  }
 }

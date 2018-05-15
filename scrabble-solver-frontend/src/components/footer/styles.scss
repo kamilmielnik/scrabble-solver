@@ -1,0 +1,29 @@
+.footer {
+  padding: 50px 0;
+  background-color: $black;
+  color: #aaa;
+  box-shadow: $box-shadow;
+  font-size: 14px;
+
+  a {
+    color: $light-gray;
+
+    &:hover {
+      color: $white;
+    }
+  }
+}
+
+.row {
+  margin: 12px 0;
+  text-align: center;
+  line-height: 18px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

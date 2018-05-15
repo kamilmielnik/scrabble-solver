@@ -328,7 +328,7 @@ module.exports = {
       'ignoreStateless': true
     }],
     'react/no-render-return-value': 'error',
-    'react/no-set-state': 'error',
+    // 'react/no-set-state': 'error',
     'react/no-string-refs': 'error',
     'react/no-unknown-property': 'error',
     'react/prefer-es6-class': 'error',

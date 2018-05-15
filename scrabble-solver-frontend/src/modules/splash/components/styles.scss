@@ -1,16 +1,18 @@
 .splash {
-  margin: 20px 0;
+  margin: 100px 0;
 
   .content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
 
   .title {
     margin-bottom: 100px;
     color: $black;
     font-size: 70px;
+    text-align: center;
   }
 
   .locales {
