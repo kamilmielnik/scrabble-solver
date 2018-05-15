@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 import { showWalkthrough } from 'walkthrough/state';
 import Button from 'components/button';
 import { QuestionMark } from 'components/icons';
+import styles from './styles.scss';
 
 const ShowWalkthrough = ({ onClick }) => (
-  <Button onClick={onClick}>
-    <QuestionMark />
-  </Button>
+  <QuestionMark className={styles.show} onClick={onClick} />
 );
 
 ShowWalkthrough.propTypes = {

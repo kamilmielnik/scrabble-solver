@@ -1,15 +1,5 @@
-$left-width: 466px;
-$right-width: 647px;
-$spacing: 20px;
-
 .app {
   height: 100%;
-
-  .buttons {
-    position: fixed;
-    left: 20px;
-    top: 90px;
-  }
 
   .content-container {
     display: flex;
@@ -19,7 +9,7 @@ $spacing: 20px;
     .content {
       display: flex;
       flex-wrap: wrap;
-      width: $left-width + $right-width + $spacing;
+      width: $app-width;
       margin-bottom: $spacing;
       padding: $spacing 0;
     }

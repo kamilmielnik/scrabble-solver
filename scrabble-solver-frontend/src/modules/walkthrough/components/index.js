@@ -6,7 +6,10 @@ import { hideWalkthrough } from 'walkthrough/state';
 import { selectShowWalkthrough, selectSteps, selectTranslations } from 'walkthrough/selectors';
 import 'react-joyride/lib/react-joyride-compiled.css';
 import './styles.scss';
+
 const JoyrideComponent = typeof Joyride.default === 'function' ? Joyride.default : Joyride;
+const LOCAL_STORAGE_KEY = 'scrabble-solver-tutorial-shown';
+const hasRunOnce = window.localStorage.getItem(LOCAL_STORAGE_KEY);
 
 class Walkthrough extends Component {
   static propTypes = {
@@ -19,17 +22,22 @@ class Walkthrough extends Component {
   constructor(props) {
     super(props);
     this.joyride = createRef();
+    this.state = {
+      isTouched: false
+    };
   }
 
   callback = ({ type }) => {
-    if (type === 'finished') {
+    if ([ 'beacon:before', 'finished' ].includes(type)) {
       this.joyride.current.reset(true);
       this.props.onFinished();
     }
+    this.setState({ isTouched: true });
   }
 
   render() {
     const { showWalkthrough, steps, translations } = this.props;
+    const { isTouched } = this.state;
 
     return (
       <JoyrideComponent
@@ -41,13 +49,13 @@ class Walkthrough extends Component {
           next: (<span>{translations.next}</span>),
           skip: (<span>{translations.skip}</span>)
         }}
-        autoStart={true}
+        autoStart={!hasRunOnce || isTouched}
         callback={this.callback}
         disableOverlay={true}
         holePadding={10}
         run={showWalkthrough}
         showOverlay={true}
-        showSkipButton={true}
+        showSkipButton={false}
         showStepsProgress={true}
         steps={steps}
         type="continuous" />
