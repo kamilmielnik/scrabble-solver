@@ -1,10 +1,11 @@
-@import 'normalize.css';
+@import '~normalize.css';
 
 html, body {
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
   background-color: $light-gray;
+  background-image: url('images/bg.png');
   color: $black;
   font-family: 'Interface', sans-serif;
   font-size: 12px;

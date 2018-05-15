@@ -6,15 +6,10 @@ module.exports = (webpackWizard, { resolveCwdPath }) => {
       modules: [
         resolveCwdPath('src'),
         resolveCwdPath('src/modules'),
-        resolveCwdPath('../scrabble-solver-commons'),
-        resolveCwdPath('node_modules/sidebar')
+        resolveCwdPath('../scrabble-solver-commons')
       ]
     }
   });
-
-  webpackConfig.resolve.alias = {
-    'scrabble-solver-commons': resolveCwdPath('../scrabble-solver-commons')
-  };
 
   return webpackConfig;
 };

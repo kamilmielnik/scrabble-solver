@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { createRef, Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Joyride from 'react-joyride';
@@ -6,6 +6,7 @@ import { hideWalkthrough } from 'walkthrough/state';
 import { selectShowWalkthrough, selectSteps, selectTranslations } from 'walkthrough/selectors';
 import 'react-joyride/lib/react-joyride-compiled.css';
 import './styles.scss';
+const JoyrideComponent = typeof Joyride.default === 'function' ? Joyride.default : Joyride;
 
 class Walkthrough extends Component {
   static propTypes = {
@@ -17,12 +18,12 @@ class Walkthrough extends Component {
 
   constructor(props) {
     super(props);
-    this.joyride = null;
+    this.joyride = createRef();
   }
 
   callback = ({ type }) => {
     if (type === 'finished') {
-      this.joyride.reset(true);
+      this.joyride.current.reset(true);
       this.props.onFinished();
     }
   }
@@ -31,8 +32,8 @@ class Walkthrough extends Component {
     const { showWalkthrough, steps, translations } = this.props;
 
     return (
-      <Joyride
-        ref={(ref) => (this.joyride = ref)}
+      <JoyrideComponent
+        ref={this.joyride}
         locale={{
           back: (<span>{translations.back}</span>),
           close: (<span>{translations.close}</span>),

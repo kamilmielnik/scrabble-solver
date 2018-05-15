@@ -1,21 +1,5 @@
 .splash {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: $light-gray;
-  opacity: 1;
-  z-index: 1;
-  transition: opacity $micro-animation-duration;
-
-  &.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
+  margin: 20px 0;
 
   .content {
     display: flex;

@@ -1,5 +1,7 @@
 import React from 'react';
-import Sidebar from 'sidebar';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { selectIsShown } from 'splash/selectors';
 import Copyright from 'components/copyright';
 import Board from './board/components';
 import Config from './config/components';
@@ -15,39 +17,52 @@ import Time from './time/components';
 import Walkthrough from './walkthrough/components';
 import styles from './styles.scss';
 
-const App = () => (
+const App = ({ isSplashShown }) => (
   <div className={styles.app}>
-    <Sidebar contentClassName={styles.sidebarContent} triggerClassName={styles.sidebarTrigger}>
-      <div className={styles.content}>
-        <div className={styles.left}>
-          <Tiles />
-          <Board />
-          <DictionaryOutput />
-          <DictionaryInput />
+    <div className={styles.contentContainer}>
+      {!isSplashShown && (
+        <div className={styles.content}>
+          <div className={styles.left}>
+            <Tiles />
+            <Board />
+            <DictionaryOutput />
+            <DictionaryInput />
+          </div>
+          <div className={styles.right}>
+            <ResultsList />
+            <ResultsFilter />
+          </div>
+
+          <RemainingTiles className={styles.remainingTiles} />
+
+          <div className={styles.bar}>
+            <Copyright />
+            <Config />
+          </div>
+
+          <Time className={styles.time} />
         </div>
-        <div className={styles.right}>
-          <ResultsList />
-          <ResultsFilter />
-        </div>
+      )}
 
-        <RemainingTiles className={styles.remainingTiles} />
+      {isSplashShown && (
+        <Splash />
+      )}
+    </div>
 
-        <div className={styles.bar}>
-          <Copyright />
-          <Config />
-        </div>
+    <div className={styles.buttons}>
+      <ShowWalkthrough />
+    </div>
 
-        <Time className={styles.time} />
-      </div>
-
-      <div className={styles.buttons}>
-        <ShowWalkthrough />
-      </div>
-
-      <Splash />
-    </Sidebar>
     <Walkthrough />
   </div>
 );
 
-export default App;
+App.propTypes = {
+  isSplashShown: PropTypes.bool
+};
+
+const mapStateToProps = (state) => ({
+  isSplashShown: selectIsShown(state)
+});
+
+export default connect(mapStateToProps)(App);

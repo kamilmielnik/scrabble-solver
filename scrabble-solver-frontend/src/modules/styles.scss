@@ -5,19 +5,13 @@ $spacing: 20px;
 .app {
   height: 100%;
 
-  .sidebarTrigger {
-    @media screen and (max-width: 1300px) {
-      display: none;
-    }
-  }
-
   .buttons {
     position: fixed;
     left: 20px;
     top: 90px;
   }
 
-  .sidebar-content {
+  .content-container {
     display: flex;
     align-items: center;
     flex-direction: column;

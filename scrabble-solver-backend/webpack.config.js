@@ -13,6 +13,7 @@ const DIST_DIR = path.resolve(__dirname, 'dist');
 const BUNDLE_DIST = 'index.js';
 
 module.exports = {
+  mode: process.env.NODE_ENV,
   output: {
     path: DIST_DIR,
     filename: BUNDLE_DIST
