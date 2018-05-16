@@ -1,11 +1,14 @@
 import fs from 'fs-extra';
 
-const directories = [
+const paths = [
+  './npm-debug.log',
   './dictionaries',
   './dist',
-  './npm-debug.log',
+  './scrabble-solver-backend/dist',
+  './scrabble-solver-frontend/dist',
   './scrabble-solver-backend/node_modules',
+  './scrabble-solver-commons/node_modules',
   './scrabble-solver-frontend/node_modules'
 ];
 
-directories.forEach((directory) => fs.remove(directory));
+paths.forEach((path) => fs.remove(path));

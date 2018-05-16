@@ -52,19 +52,12 @@ module.exports = {
   plugins: [
     IS_DEV_ENV && new StartServerPlugin(BUNDLE_DIST),
     IS_DEV_ENV && new webpack.HotModuleReplacementPlugin(),
-    IS_DEV_ENV && new webpack.NamedModulesPlugin(),
-    IS_PROD_ENV && new webpack.optimize.UglifyJsPlugin({
-      serialize: {
-        warnings: false
-      }
-    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         API_HOST: JSON.stringify(process.env.API_HOST),
         API_PORT: JSON.stringify(process.env.API_PORT)
       }
-    }),
-    new webpack.NoEmitOnErrorsPlugin()
+    })
   ].filter(Boolean)
 };
