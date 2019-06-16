@@ -16,10 +16,11 @@ const ResultsList = ({ className, isLoading, onMouseLeave }) => (
     label={(
       <Message id="modules.results.label" />
     )}>
-    <div className={styles.results} onMouseLeave={onMouseLeave}>
-      <ResultsTable />
-      <Loading isLoading={isLoading} />
-    </div>
+    <Loading isLoading={isLoading}>
+      <div className={styles.results} onMouseLeave={onMouseLeave}>
+        <ResultsTable />
+      </div>
+    </Loading>
   </Section>
 );
 

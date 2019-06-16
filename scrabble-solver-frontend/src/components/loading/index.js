@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Spinner from './spinner';
 import styles from './loading.module.scss';
 
-const Loading = ({ className, isLoading }) => isLoading ? (
+const Loading = ({ children, className, isLoading }) => (
   <div className={classNames(styles.loading, className)}>
-    <Spinner className={styles.spinner} />
+    {children}
+    {isLoading && (
+      <div className={styles.dim}>
+        <Spinner className={styles.spinner} />
+      </div>
+    )}
   </div>
-) : null;
+);
 
 Loading.propTypes = {
+  children: PropTypes.node,
   className: PropTypes.string,
   isLoading: PropTypes.bool
 };

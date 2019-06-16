@@ -21,36 +21,36 @@ const DictionaryOutput = ({ className, definitions, isAllowed, isLoading, word }
     label={(
       <Message id="modules.dictionary.output.label" />
     )}>
-    <div
-      className={classNames(
-        styles.dictionaryOutput,
-        {
-          [styles.isAllowed]: isAllowed === true,
-          [styles.isNotAllowed]: isAllowed === false
-        }
-      )}>
-      <div className={styles.word}>
-        {word}
+    <Loading isLoading={isLoading}>
+      <div
+        className={classNames(
+          styles.dictionaryOutput,
+          {
+            [styles.isAllowed]: isAllowed === true,
+            [styles.isNotAllowed]: isAllowed === false
+          }
+        )}>
+        <div className={styles.word}>
+          {word}
+        </div>
+
+        {isAllowed === false && (
+          <div>
+            <Message id="modules.dictionary.output.cannot-find-definition" />
+          </div>
+        )}
+
+        {isAllowed === true && definitions.map((result, index) => (
+          <div key={index}>
+            - {result}
+          </div>
+        ))}
+
+        {isAllowed === null && (
+          <NoResults />
+        )}
       </div>
-
-      {isAllowed === false && (
-        <div>
-          <Message id="modules.dictionary.output.cannot-find-definition" />
-        </div>
-      )}
-
-      {isAllowed === true && definitions.map((result, index) => (
-        <div key={index}>
-          - {result}
-        </div>
-      ))}
-
-      {isAllowed === null && (
-        <NoResults />
-      )}
-
-      <Loading isLoading={isLoading} />
-    </div>
+    </Loading>
   </Section>
 );
 
