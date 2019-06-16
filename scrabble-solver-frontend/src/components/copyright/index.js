@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import styles from './styles.scss';
+import styles from './copyright.module.scss';
 
 const getCurrentYear = () => new Date().getFullYear();
 const homepageUrl = 'http://kamilmielnik.com/';

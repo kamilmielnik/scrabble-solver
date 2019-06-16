@@ -1,4 +1,4 @@
-import styles from './styles.scss';
+import styles from './remaining-tiles.module.scss';
 
 const classNamesPerPoints = {
   0: styles.points0,

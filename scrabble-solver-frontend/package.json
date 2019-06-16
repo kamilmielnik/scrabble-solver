@@ -14,23 +14,26 @@
   },
   "betterScripts": {
     "build": {
-      "command": "webpack-wizard build",
+      "command": "react-scripts build",
       "env": {
-        "NODE_ENV": "production"
+        "NODE_ENV": "production",
+        "NODE_PATH": "src/:src/modules/"
       }
     },
     "build:prod": {
-      "command": "webpack-wizard build",
+      "command": "react-scripts build",
       "env": {
-        "NODE_ENV": "production",
         "API_HOST": "http://kamilmielnik.com",
-        "API_PORT": "5000"
+        "API_PORT": "5000",
+        "NODE_ENV": "production",
+        "NODE_PATH": "src/:src/modules/"
       }
     },
     "start": {
-      "command": "webpack-wizard start",
+      "command": "react-scripts start",
       "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "development",
+        "NODE_PATH": "src/:src/modules/"
       }
     },
     "start:prod": {
@@ -56,6 +59,7 @@
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
     "classnames": "^2.2.5",
+    "clipboard": "^2.0.4",
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.1",
     "re-reselect": "^2.1.0",
@@ -73,7 +77,13 @@
   "devDependencies": {
     "better-npm-run": "0.1.0",
     "http-server": "^0.11.1",
-    "react-hot-loader": "^4.1.3",
-    "webpack-wizard": "0.1.0-beta.22"
-  }
+    "node-sass": "^4.12.0",
+    "react-scripts": "^3.0.1"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

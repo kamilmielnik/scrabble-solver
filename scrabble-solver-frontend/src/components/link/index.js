@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import styles from './styles.scss';
+import styles from './link.module.scss';
 
 const Link = ({ children, className, ...restProps }) => (
   <a className={classNames(styles.link, className)} {...restProps}>

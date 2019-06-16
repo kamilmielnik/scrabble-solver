@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Copyright from 'components/copyright';
 import Link from 'components/link';
-import styles from './styles.scss';
+import styles from './footer.module.scss';
 
 const email = 'kamil.adam.mielnik@gmail.com';
 

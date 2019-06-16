@@ -1,2 +1,2 @@
-export scrabble from './scrabble';
-export literaki from './literaki';
+export { default as scrabble } from './scrabble';
+export { default as literaki } from './literaki';

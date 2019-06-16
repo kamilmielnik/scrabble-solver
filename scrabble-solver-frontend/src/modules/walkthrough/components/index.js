@@ -5,7 +5,7 @@ import Joyride from 'react-joyride';
 import { hideWalkthrough } from 'walkthrough/state';
 import { selectShowWalkthrough, selectSteps, selectTranslations } from 'walkthrough/selectors';
 import 'react-joyride/lib/react-joyride-compiled.css';
-import './styles.scss';
+import './walkthrough.module.scss';
 
 const JoyrideComponent = typeof Joyride.default === 'function' ? Joyride.default : Joyride;
 const LOCAL_STORAGE_KEY = 'scrabble-solver-tutorial-shown';

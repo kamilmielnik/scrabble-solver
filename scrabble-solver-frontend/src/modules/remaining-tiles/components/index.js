@@ -8,7 +8,7 @@ import {
 import Section from 'components/section';
 import { Message } from 'i18n/components';
 import Tile from './tile';
-import styles from './styles.scss';
+import styles from './remaining-tiles.module.scss';
 
 const RemainingTiles = ({ className, charactersStatistics, numberOfTiles }) => (
   <Section

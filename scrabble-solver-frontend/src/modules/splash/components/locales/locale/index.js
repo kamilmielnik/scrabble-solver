@@ -6,7 +6,7 @@ import { changeLocale } from 'i18n/state';
 import { hide } from 'splash/state';
 import { Message } from 'i18n/components';
 import Credits from './credits';
-import styles from './styles.scss';
+import styles from './locale.module.scss';
 
 const Locale = ({ className, definitions, dictionary, FlagComponent, locale, onChange }) => (
   <div className={classNames(styles.locale, className)}>

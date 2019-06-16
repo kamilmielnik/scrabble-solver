@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Copyright from 'components/copyright';
 import Locales from './locales';
-import styles from './styles.scss';
+import styles from './splash.module.scss';
 
 const Splash = ({ className }) => (
   <div className={classNames(styles.splash, className)}>

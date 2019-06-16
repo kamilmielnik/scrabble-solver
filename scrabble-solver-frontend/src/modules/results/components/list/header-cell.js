@@ -5,7 +5,7 @@ import { changeSortedColumn } from 'results/state';
 import { selectSortedColumnName, selectSortingDirection } from 'results/selectors';
 import { Sort } from 'components/icons';
 import { Message } from 'i18n/components';
-import styles from './styles.scss';
+import styles from './results-list.module.scss';
 
 const HeaderCell = ({ dataKey, label, sortedColumnName, sortingDirection, onSort }) => (
   <div className={styles.headerCellContent} onClick={onSort}>

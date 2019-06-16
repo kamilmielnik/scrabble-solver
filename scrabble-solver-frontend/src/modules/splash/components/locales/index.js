@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { FlagGb, FlagPl, FlagUs } from 'components/icons';
 import Locale from './locale';
-import styles from './styles.scss';
+import styles from './locales.module.scss';
 
 const locales = [
   {

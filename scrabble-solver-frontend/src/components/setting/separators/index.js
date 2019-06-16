@@ -1,7 +1,7 @@
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import styles from './styles.scss';
+import styles from './separators.module.scss';
 
 const Separators = ({ children, className }) => (
   <div className={classNames(styles.separators, className)}>

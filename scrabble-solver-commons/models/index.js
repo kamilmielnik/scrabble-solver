@@ -1,9 +1,9 @@
-export Board from './board';
-export Cell from './cell';
-export Config from './config';
-export HorizontalPattern from './horizontal-pattern';
-export Pattern from './pattern';
-export Result from './result';
-export Tile from './tile';
-export VerticalPattern from './vertical-pattern';
-export WordDefinition, { NullWordDefinition } from './word-definition';
+export { default as Board } from './board';
+export { default as Cell } from './cell';
+export { default as Config } from './config';
+export { default as HorizontalPattern } from './horizontal-pattern';
+export { default as Pattern } from './pattern';
+export { default as Result } from './result';
+export { default as Tile } from './tile';
+export { default as VerticalPattern } from './vertical-pattern';
+export { default as WordDefinition, NullWordDefinition } from './word-definition';

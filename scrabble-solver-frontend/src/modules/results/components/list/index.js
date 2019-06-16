@@ -7,7 +7,7 @@ import Loading from 'components/loading';
 import Section from 'components/section';
 import { Message } from 'i18n/components';
 import ResultsTable from './table';
-import styles from './styles.scss';
+import styles from './results-list.module.scss';
 
 const ResultsList = ({ className, isLoading, onMouseLeave }) => (
   <Section

@@ -5,7 +5,7 @@ import Button from 'components/button';
 import { Cross } from 'components/icons';
 import Section from 'components/section';
 import EventsDecorator from './events-decorator';
-import styles from './styles.scss';
+import styles from './input.module.scss';
 
 const Input = ({ className, id, label, value, onChange = noop, onClear = noop, onKeyDown = noop }) => (
   <Section className={className} label={label} id={id}>

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { changeLocale } from 'i18n/state';
 import { selectLocale } from 'i18n/selectors';
 import { FlagGb, FlagPl, FlagUs } from 'components/icons';
-import styles from './styles.scss';
+import styles from './config.module.scss';
 
 const locales = [
   { locale: 'pl-PL', FlagComponent: FlagPl },

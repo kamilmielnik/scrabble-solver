@@ -7,7 +7,7 @@ import { selectFormattedResults } from 'results/selectors';
 import Table, { Column } from 'react-virtualized/dist/commonjs/Table';
 import NoResults from 'components/no-results';
 import HeaderCell from './header-cell';
-import styles from './styles.scss';
+import styles from './results-list.module.scss';
 
 const COLUMNS = [
   { label: 'modules.results.list.points', dataKey: 'points', width: 66 },

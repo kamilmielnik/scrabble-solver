@@ -10,7 +10,7 @@ import { selectConfig } from 'config/selectors';
 import Tile from './tile';
 import handleKeys from './handle-keys';
 import { getBonusClassname, getCharacterPointsClassname } from './cell-classnames';
-import styles from './styles.scss';
+import styles from './board.module.scss';
 
 const Cell = ({ bonus, cell, characterPoints, className, ...tileProps }) => (
   <div

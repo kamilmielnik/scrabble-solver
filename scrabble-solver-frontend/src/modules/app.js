@@ -15,7 +15,7 @@ import Splash from 'splash/components';
 import Tiles from 'tiles/components';
 import Time from 'time/components';
 import Walkthrough from 'walkthrough/components';
-import styles from './styles.scss';
+import styles from './app.module.scss';
 
 const App = ({ isSplashShown }) => (
   <div className={styles.app}>

@@ -1,4 +1,6 @@
-.remaining-tiles {
+@import 'styles/variables.scss';
+
+.remainingTiles {
   display: flex;
   justify-content: space-between;
 
@@ -10,23 +12,23 @@
     padding: 5px 0;
     border: $border;
 
-    &.points-0 {
+    &.points0 {
       background-color: $white;
     }
 
-    &.points-1 {
+    &.points1 {
       background-color: transparentize($yellow, $background-opacity);
     }
 
-    &.points-2 {
+    &.points2 {
       background-color: transparentize($green, $background-opacity);
     }
 
-    &.points-3 {
+    &.points3 {
       background-color: transparentize($blue, $background-opacity);
     }
 
-    &.points-5-plus {
+    &.points5Plus {
       background-color: transparentize($red, $background-opacity);
     }
 
@@ -38,7 +40,7 @@
       margin-right: 0;
     }
 
-    &.no-more-left {
+    &.noMoreLeft {
       color: $gray;
     }
 

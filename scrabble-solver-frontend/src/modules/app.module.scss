@@ -1,9 +1,11 @@
+@import 'styles/variables.scss';
+
 $footer-height: 178px;
 
 .app {
   height: 100vh;
 
-  .content-container {
+  .contentContainer {
     display: flex;
     align-items: center;
     justify-content: center;

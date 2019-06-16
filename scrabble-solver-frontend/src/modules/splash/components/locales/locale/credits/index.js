@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Message } from 'i18n/components';
-import styles from './styles.scss';
+import styles from './credits.module.scss';
 
 const Credits = ({ className, locale, messageId, name, url }) => (
   <div className={classNames(styles.credits, className)}>

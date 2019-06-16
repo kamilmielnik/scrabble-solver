@@ -1,3 +1,5 @@
+@import "styles/variables.scss";
+
 $tile-size: 30px;
 
 .board {
@@ -13,8 +15,7 @@ $tile-size: 30px;
     background-color: $white;
     border: $border;
 
-    transition:
-      background-color $micro-animation-duration,
+    transition: background-color $micro-animation-duration,
       color $micro-animation-duration;
 
     &:not(.empty) {
@@ -23,31 +24,31 @@ $tile-size: 30px;
       }
     }
 
-    &.bonus-character-1 {
+    &.bonusCharacter1 {
       background-color: transparentize($yellow, $background-opacity);
     }
 
-    &.bonus-character-2 {
+    &.bonusCharacter2 {
       background-color: transparentize($green, $background-opacity);
     }
 
-    &.bonus-character-3 {
+    &.bonusCharacter3 {
       background-color: transparentize($blue, $background-opacity);
     }
 
-    &.bonus-character-5 {
+    &.bonusCharacter5 {
       background-color: transparentize($red, $background-opacity);
     }
 
-    &.bonus-character-multiplier-2 {
+    &.bonusCharacterMultiplier2 {
       background-color: transparentize($light-blue, $background-opacity);
     }
 
-    &.bonus-character-multiplier-3 {
+    &.bonusCharacterMultiplier3 {
       background-color: transparentize($dark-blue, $background-opacity);
     }
 
-    &.bonus-word-2 {
+    &.bonusWord2 {
       background-color: transparentize($gray, $background-opacity);
 
       &:before {
@@ -55,7 +56,7 @@ $tile-size: 30px;
       }
     }
 
-    &.bonus-word-3 {
+    &.bonusWord3 {
       background-color: transparentize($gray, $background-opacity);
 
       &:before {
@@ -63,8 +64,8 @@ $tile-size: 30px;
       }
     }
 
-    &.bonus-word-2,
-    &.bonus-word-3 {
+    &.bonusWord2,
+    &.bonusWord3 {
       position: relative;
 
       &:before {
@@ -83,19 +84,19 @@ $tile-size: 30px;
       }
     }
 
-    &.character-points-1 {
+    &.characterPoints1 {
       background-color: $yellow;
     }
 
-    &.character-points-2 {
+    &.characterPoints2 {
       background-color: $green;
     }
 
-    &.character-points-3 {
+    &.characterPoints3 {
       background-color: $blue;
     }
 
-    &.character-points-5 {
+    &.characterPoints5 {
       background-color: $red;
     }
 
@@ -119,8 +120,7 @@ $tile-size: 30px;
       height: $tile-size;
       background-color: transparent;
       color: $white;
-      transition:
-        background-color $micro-animation-duration,
+      transition: background-color $micro-animation-duration,
         color $micro-animation-duration;
 
       &.blank {

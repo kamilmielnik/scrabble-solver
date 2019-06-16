@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { getTileClassNames } from './tile-classnames';
-import styles from './styles.scss';
+import styles from './remaining-tiles.module.scss';
 
 const Tile = ({ character, count, points, usedCount }) => (
   <div

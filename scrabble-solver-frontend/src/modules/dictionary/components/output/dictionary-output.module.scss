@@ -1,6 +1,8 @@
+@import 'styles/variables.scss';
+
 $height: 100px;
 
-.dictionary-output {
+.dictionaryOutput {
   position: relative;
   padding: 15px;
   min-height: $height;
@@ -17,11 +19,11 @@ $height: 100px;
     text-transform: uppercase;
   }
 
-  &.is-allowed {
+  &.isAllowed {
     background-color: $green;
   }
 
-  &.is-not-allowed {
+  &.isNotAllowed {
     background-color: $red;
   }
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Separators from './separators';
 import Toggle from './toggle';
-import styles from './styles.scss';
+import styles from './setting.module.scss';
 
 const Setting = ({ className, id, label, options, value, onChange }) => (
   <div className={classNames(styles.setting, className)} id={id}>

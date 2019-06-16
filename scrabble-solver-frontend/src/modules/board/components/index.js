@@ -5,7 +5,7 @@ import { selectRowsWithCandidate } from 'board/selectors';
 import Section from 'components/section';
 import { Message } from 'i18n/components';
 import Row from './row';
-import styles from './styles.scss';
+import styles from './board.module.scss';
 
 const Board = ({ className, rows }) => (
   <Section

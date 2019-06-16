@@ -12,7 +12,7 @@ import Loading from 'components/loading';
 import NoResults from 'components/no-results';
 import Section from 'components/section';
 import { Message } from 'i18n/components';
-import styles from './styles.scss';
+import styles from './dictionary-output.module.scss';
 
 const DictionaryOutput = ({ className, definitions, isAllowed, isLoading, word }) => (
   <Section
