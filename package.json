@@ -15,8 +15,14 @@
     "start": "npm-run-all --parallel start:* open",
     "start:backend": "better-npm-run start:backend",
     "start:frontend": "better-npm-run start:frontend",
-    "lint": "better-npm-run lint",
-    "lint:fix": "better-npm-run lint:fix",
+    "lint": "eslint scrabble-solver-backend/src/ scrabble-solver-commons/ scrabble-solver-frontend/src/",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier:js": "npm run lint -- --no-eslintrc -c .eslintrc.prettier-only.js",
+    "prettier:js:fix": "npm run prettier:js -- --fix",
+    "prettier:scss": "prettier --list-different './**/*.scss'",
+    "prettier:scss:fix": "npm run prettier:scss -- --write --no-list-different",
+    "prettier": "npm run prettier:js && npm run prettier:scss",
+    "prettier:fix": "npm run prettier:js:fix && npm run prettier:scss:fix",
     "open": "opn http://localhost:8080",
     "postinstall": "npm run install-dictionaries",
     "install-dictionaries": "npm-run-all --parallel prepare-*",
@@ -50,12 +56,6 @@
         "NODE_ENV": "production"
       }
     },
-    "lint": {
-      "command": "eslint scrabble-solver-commons scrabble-solver-backend scrabble-solver-frontend scripts --ext .js"
-    },
-    "lint:fix": {
-      "command": "eslint scrabble-solver-commons scrabble-solver-backend scrabble-solver-frontend scripts --ext .js --fix"
-    },
     "prepare-en-dictionaries": {
       "command": "babel-node scripts/prepare-en-dictionaries.js -- --output-dir dictionaries"
     },
@@ -82,20 +82,23 @@
     "babel-core": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
-    "better-npm-run": "0.1.0",
+    "better-npm-run": "0.1.1",
     "cheerio": "^1.0.0-rc.2",
     "decompress": "^4.2.0",
-    "fs-extra": "^5.0.0",
+    "fs-extra": "^8.0.1",
     "http-server": "^0.11.1",
     "npm-run-all": "^4.1.2",
-    "opn-cli": "^3.1.0",
+    "opn-cli": "^5.0.0",
     "request": "^2.83.0",
-    "yargs": "^11.0.0"
+    "yargs": "^13.2.4"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
-    "eslint": "^4.11.0",
-    "eslint-plugin-react": "^7.5.1",
+    "eslint": "5.16.0",
+    "eslint-config-prettier": "^5.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "prettier": "^1.16.4",
     "rimraf": "^2.6.2",
     "start-server-webpack-plugin": "^2.2.0",
     "webpack-node-externals": "^1.6.0"
