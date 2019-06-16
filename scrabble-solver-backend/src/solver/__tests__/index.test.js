@@ -65,7 +65,7 @@ describe('Solver', () => {
     const tiles = generateTiles('aaąrtwz');
     const [firstResult, ...results] = solver.solve(board, tiles);
     const bestResult = results.reduce(
-      (bestResult, result) => (result.points > bestResult.points ? result : bestResult),
+      (bestResultCandidate, result) => (result.points > bestResultCandidate.points ? result : bestResultCandidate),
       firstResult
     );
     expect(bestResult.word).toBe('zmartwychwstałą');
@@ -93,7 +93,7 @@ describe('Solver', () => {
     const tiles = generateTiles('ąchtwwz');
     const [firstResult, ...results] = solver.solve(board, tiles);
     const bestResult = results.reduce(
-      (bestResult, result) => (result.points > bestResult.points ? result : bestResult),
+      (bestResultCandidate, result) => (result.points > bestResultCandidate.points ? result : bestResultCandidate),
       firstResult
     );
     expect(bestResult.word).toBe('zmartwychwstałą');

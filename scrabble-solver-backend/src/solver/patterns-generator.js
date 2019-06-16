@@ -39,15 +39,15 @@ class PatternsGenerator {
     return this.generateStartIndices({ cells }).reduce(
       (patterns, startIndex) =>
         patterns.concat(
-          this.generateEndIndices({ cells, startIndex }).reduce((patterns, endIndex) => {
+          this.generateEndIndices({ cells, startIndex }).reduce((placeablePatterns, endIndex) => {
             const pattern = new Pattern({
               board,
               cells: cells.slice(startIndex, endIndex + 1)
             });
             if (pattern.canBePlaced()) {
-              patterns.push(pattern);
+              placeablePatterns.push(pattern);
             }
-            return patterns;
+            return placeablePatterns;
           }, [])
         ),
       []

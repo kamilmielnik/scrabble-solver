@@ -40,43 +40,39 @@ export default handleActions(
 
     [CHANGE_CELL_VALUE]: (state, { payload: { x, y, value } }) => {
       const isEmpty = !value || value === EMPTY_CELL;
-      return updateBoardCell(
-        state,
-        y,
+      return updateBoardCell(state, {
         x,
-        (cell) =>
+        y,
+        updateCell: (cell) =>
           new Cell({
             ...cell,
             tile: isEmpty ? Tile.NullTile : new Tile({ character: value }),
             isEmpty
           })
-      );
+      });
     },
 
     [TOGGLE_CELL_IS_BLANK]: (state, { payload: { x, y } }) =>
-      updateBoardCell(
-        state,
-        y,
+      updateBoardCell(state, {
         x,
-        (cell) =>
+        y,
+        updateCell: (cell) =>
           new Cell({
             ...cell,
-            tile: cell.isEmpty
-              ? cell.tile
-              : new Tile({
-                  ...cell.tile,
-                  isBlank: !cell.tile.isBlank
-                })
+            tile: cell.isEmpty ? cell.tile : new Tile({ ...cell.tile, isBlank: !cell.tile.isBlank })
           })
-      )
+      })
   },
   initialState
 );
 
-const updateBoardCell = (state, y, x, updateCell) =>
-  updateBoardRow(state, y, (row) => [...row.slice(0, x), updateCell(row[x]), ...row.slice(x + 1)]);
+const updateBoardCell = (state, { x, y, updateCell }) =>
+  updateBoardRow(state, {
+    y,
+    updateRow: (row) => [...row.slice(0, x), updateCell(row[x]), ...row.slice(x + 1)]
+  });
 
-const updateBoardRow = (state, y, updateRow) =>
+const updateBoardRow = (state, { y, updateRow }) =>
   new Board({
     board: [...state.board.slice(0, y), updateRow(state.board[y]), ...state.board.slice(y + 1)]
   });

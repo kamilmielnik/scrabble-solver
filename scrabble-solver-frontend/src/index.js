@@ -7,6 +7,7 @@ import App from 'modules/app';
 import 'react-virtualized/styles.css';
 import './styles.scss';
 
+// eslint-disable-next-line no-new
 new Clipboard('.clipboard');
 const store = configureStore();
 const rootElement = document.getElementById('root');

@@ -10,8 +10,10 @@ class ScoresCalculator {
   calculatePatternsScore(pattern) {
     return pattern
       .getCollisions()
-      .concat([pattern])
-      .reduce((patternsScore, pattern) => patternsScore + this.calculatePatternScore(pattern), 0);
+      .reduce(
+        (patternsScore, collisionPattern) => patternsScore + this.calculatePatternScore(collisionPattern),
+        this.calculatePatternScore(pattern)
+      );
   }
 
   calculateBonusScore(pattern) {

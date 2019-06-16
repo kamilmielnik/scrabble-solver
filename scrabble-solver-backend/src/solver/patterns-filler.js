@@ -11,7 +11,7 @@ class PatternsFiller {
     if (pattern.getNumberOfEmptyCells() > tiles.length) {
       return [];
     }
-    const onPatternFound = (pattern) => patterns.push(pattern);
+    const onPatternFound = (newPattern) => patterns.push(newPattern);
     this.generateBlankTilesPermutations(tiles).forEach((tilesPermutation) =>
       this.fillPattern(pattern, String(pattern), tilesPermutation, onPatternFound)
     );
