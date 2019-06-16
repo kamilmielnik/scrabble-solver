@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { noop } from 'utils';
 import Button from 'components/button';
@@ -7,21 +7,30 @@ import Section from 'components/section';
 import EventsDecorator from './events-decorator';
 import styles from './input.module.scss';
 
-const Input = ({ className, id, label, value, onChange = noop, onClear = noop, onKeyDown = noop }) => (
-  <Section className={className} label={label} id={id}>
-    <div className={styles.input}>
-      <input
-        type="text"
-        value={value}
-        onChange={onChange}
-        onKeyDown={onKeyDown} />
+const Input = ({ className, id, label, value, onChange = noop, onClear = noop, onKeyDown = noop }) => {
+  const inputRef = useRef(null);
 
-      <Button onClick={onClear}>
-        <Cross />
-      </Button>
-    </div>
-  </Section>
-);
+  return (
+    <Section className={className} label={label} id={id}>
+      <div className={styles.input}>
+        <input
+          ref={inputRef}
+          type="text"
+          value={value}
+          onChange={onChange}
+          onKeyDown={onKeyDown} />
+
+        <Button
+          onClick={() => {
+            onClear();
+            inputRef.current.focus();
+          }}>
+          <Cross />
+        </Button>
+      </div>
+    </Section>
+  );
+};
 
 Input.propTypes = {
   className: PropTypes.string,
