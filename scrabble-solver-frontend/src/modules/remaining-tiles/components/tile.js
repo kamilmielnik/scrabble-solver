@@ -7,20 +7,13 @@ import styles from './remaining-tiles.module.scss';
 const Tile = ({ character, count, points, usedCount }) => (
   <div
     key={character}
-    className={classNames(
-      styles.tile,
-      getTileClassNames({ count, points, usedCount }),
-      {
-        [styles.error]: usedCount > count,
-        [styles.noMoreLeft]: usedCount === count
-      }
-    )}>
-    <div className={styles.character}>
-      {`${character.toUpperCase()}`}
-    </div>
-    <div>
-      {`${count - usedCount}/${count}`}
-    </div>
+    className={classNames(styles.tile, getTileClassNames({ count, points, usedCount }), {
+      [styles.error]: usedCount > count,
+      [styles.noMoreLeft]: usedCount === count
+    })}
+  >
+    <div className={styles.character}>{`${character.toUpperCase()}`}</div>
+    <div>{`${count - usedCount}/${count}`}</div>
   </div>
 );
 

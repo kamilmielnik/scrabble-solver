@@ -15,7 +15,8 @@ export const incrementUsedCount = (charactersStatistics, character) => ({
   }
 });
 
-export const getNumberOfRemainingCharacters = (charactersStatistics) => Object.values(charactersStatistics).reduce(
-  (numberOfRemainingCharacters, { count, usedCount }) => numberOfRemainingCharacters + count - usedCount,
-  0
-);
+export const getNumberOfRemainingCharacters = (charactersStatistics) =>
+  Object.values(charactersStatistics).reduce(
+    (numberOfRemainingCharacters, { count, usedCount }) => numberOfRemainingCharacters + count - usedCount,
+    0
+  );

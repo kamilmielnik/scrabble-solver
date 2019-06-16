@@ -13,18 +13,14 @@ const Input = ({ className, id, label, value, onChange = noop, onClear = noop, o
   return (
     <Section className={className} label={label} id={id}>
       <div className={styles.input}>
-        <input
-          ref={inputRef}
-          type="text"
-          value={value}
-          onChange={onChange}
-          onKeyDown={onKeyDown} />
+        <input ref={inputRef} type="text" value={value} onChange={onChange} onKeyDown={onKeyDown} />
 
         <Button
           onClick={() => {
             onClear();
             inputRef.current.focus();
-          }}>
+          }}
+        >
           <Cross />
         </Button>
       </div>

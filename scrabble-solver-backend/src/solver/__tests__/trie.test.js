@@ -1,10 +1,10 @@
 import Trie from '../trie';
 
 describe('Trie', () => {
-  const words = [ 'ab', 'abcd', 'abce', 'ace' ];
-  const prefixes = [ 'a', 'ab', 'abc', 'ac', ...words ];
-  const otherWords = [ 'b', 'bc', 'ce', 'bcd', 'bce' ];
-  const otherPrefixes = [ 'b', 'bc', 'ce', 'bcd', 'bce' ];
+  const words = ['ab', 'abcd', 'abce', 'ace'];
+  const prefixes = ['a', 'ab', 'abc', 'ac', ...words];
+  const otherWords = ['b', 'bc', 'ce', 'bcd', 'bce'];
+  const otherPrefixes = ['b', 'bc', 'ce', 'bcd', 'bce'];
   const trie = new Trie(words);
   const serializedTrie = '(a(b,b(c(d,e)),c(e)))';
   const trieJson = {

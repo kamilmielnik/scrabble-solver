@@ -2,11 +2,7 @@ import { literaki } from 'scrabble-solver-commons/configs';
 import { Board, Cell, Config, Tile, VerticalPattern } from 'scrabble-solver-commons/models';
 import PatternsFiller from '../patterns-filler';
 
-const board = Board.fromStringArray([
-  ' t ',
-  'do ',
-  '   '
-]);
+const board = Board.fromStringArray([' t ', 'do ', '   ']);
 
 const config = new Config(literaki['pl-PL']);
 const collection = {

@@ -2,11 +2,7 @@ import { EMPTY_CELL } from 'scrabble-solver-commons/constants';
 import { Board } from 'scrabble-solver-commons/models';
 import PatternsGenerator from '../patterns-generator';
 
-const board = Board.fromStringArray([
-  ' t ',
-  'do ',
-  '   '
-]);
+const board = Board.fromStringArray([' t ', 'do ', '   ']);
 
 const patternsGenerator = new PatternsGenerator({
   boardHeight: 3,
@@ -19,54 +15,30 @@ describe('PatternsGenerator', () => {
 
   it('generates start indices', () => {
     const startIndices = patternsGenerator.generateStartIndices({
-      cells: [
-        filledCell,
-        filledCell,
-        emptyCell,
-        emptyCell,
-        emptyCell,
-        filledCell
-      ]
+      cells: [filledCell, filledCell, emptyCell, emptyCell, emptyCell, filledCell]
     });
-    expect(startIndices).toEqual([ 0, 3, 4 ]);
+    expect(startIndices).toEqual([0, 3, 4]);
   });
 
   it('generates end indices', () => {
     const tests = [
       {
         input: {
-          cells: [
-            filledCell,
-            filledCell,
-            emptyCell,
-            emptyCell,
-            emptyCell,
-            filledCell
-          ],
+          cells: [filledCell, filledCell, emptyCell, emptyCell, emptyCell, filledCell],
           startIndex: 3
         },
-        output: [ 5 ]
+        output: [5]
       },
       {
         input: {
-          cells: [
-            filledCell,
-            filledCell,
-            emptyCell,
-            emptyCell,
-            emptyCell,
-            filledCell,
-            emptyCell
-          ],
+          cells: [filledCell, filledCell, emptyCell, emptyCell, emptyCell, filledCell, emptyCell],
           startIndex: 3
         },
-        output: [ 5, 6 ]
+        output: [5, 6]
       }
     ];
 
-    tests.forEach(
-      ({ input, output }) => expect(patternsGenerator.generateEndIndices(input)).toEqual(output)
-    );
+    tests.forEach(({ input, output }) => expect(patternsGenerator.generateEndIndices(input)).toEqual(output));
   });
 
   it('generates vectors', () => {
@@ -75,7 +47,7 @@ describe('PatternsGenerator', () => {
       numberOfVectors: 3
     });
     expect(vectors.length).toBe(3);
-    expect(vectors).toEqual([ 0, 1, 2 ]);
+    expect(vectors).toEqual([0, 1, 2]);
   });
 
   it('generates some vertical patterns', () => {
@@ -86,13 +58,13 @@ describe('PatternsGenerator', () => {
   it('generates proper vertical patterns', () => {
     const { vertical } = patternsGenerator.generate(board);
     expect(vertical.map(({ cells }) => cells.map(String))).toEqual([
-      [ EMPTY_CELL, 'd' ],
-      [ EMPTY_CELL, 'd', EMPTY_CELL ],
-      [ 'd', EMPTY_CELL ],
-      [ 't', 'o', EMPTY_CELL ],
-      [ EMPTY_CELL, EMPTY_CELL ],
-      [ EMPTY_CELL, EMPTY_CELL, EMPTY_CELL ],
-      [ EMPTY_CELL, EMPTY_CELL ]
+      [EMPTY_CELL, 'd'],
+      [EMPTY_CELL, 'd', EMPTY_CELL],
+      ['d', EMPTY_CELL],
+      ['t', 'o', EMPTY_CELL],
+      [EMPTY_CELL, EMPTY_CELL],
+      [EMPTY_CELL, EMPTY_CELL, EMPTY_CELL],
+      [EMPTY_CELL, EMPTY_CELL]
     ]);
   });
 
@@ -104,13 +76,13 @@ describe('PatternsGenerator', () => {
   it('generates proper horizontal patterns', () => {
     const { horizontal } = patternsGenerator.generate(board);
     expect(horizontal.map(({ cells }) => cells.map(String))).toEqual([
-      [ EMPTY_CELL, 't' ],
-      [ EMPTY_CELL, 't', EMPTY_CELL ],
-      [ 't', EMPTY_CELL ],
-      [ 'd', 'o', EMPTY_CELL ],
-      [ EMPTY_CELL, EMPTY_CELL ],
-      [ EMPTY_CELL, EMPTY_CELL, EMPTY_CELL ],
-      [ EMPTY_CELL, EMPTY_CELL ]
+      [EMPTY_CELL, 't'],
+      [EMPTY_CELL, 't', EMPTY_CELL],
+      ['t', EMPTY_CELL],
+      ['d', 'o', EMPTY_CELL],
+      [EMPTY_CELL, EMPTY_CELL],
+      [EMPTY_CELL, EMPTY_CELL, EMPTY_CELL],
+      [EMPTY_CELL, EMPTY_CELL]
     ]);
   });
 });

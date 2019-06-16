@@ -18,7 +18,7 @@ class VerticalPattern extends Pattern {
           ++x;
         }
         const nextCells = row.slice(cell.x + 1, x);
-        const cells = [ ...previousCells, cell, ...nextCells ];
+        const cells = [...previousCells, cell, ...nextCells];
         if (cells.length > 1) {
           const pattern = new Pattern({ board: this.board, cells }).clone();
           collisions.push(pattern);

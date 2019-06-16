@@ -11,7 +11,8 @@ const EventsDecorator = (Component) => {
           onSubmit(event);
         }
         onKeyDown(event);
-      }} />
+      }}
+    />
   );
 
   DecoratedComponent.propTypes = {

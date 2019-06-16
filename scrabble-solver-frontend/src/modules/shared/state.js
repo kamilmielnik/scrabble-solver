@@ -17,24 +17,27 @@ const initialState = {
   resultCandidate: null
 };
 
-export default handleActions({
-  [APPLY_RESULT]: (state) => ({
-    ...state,
-    resultCandidate: initialState.resultCandidate
-  }),
+export default handleActions(
+  {
+    [APPLY_RESULT]: (state) => ({
+      ...state,
+      resultCandidate: initialState.resultCandidate
+    }),
 
-  [CHANGE_RESULT_CANDIDATE]: (state, { payload: resultCandidate }) => ({
-    ...state,
-    resultCandidate
-  }),
+    [CHANGE_RESULT_CANDIDATE]: (state, { payload: resultCandidate }) => ({
+      ...state,
+      resultCandidate
+    }),
 
-  [SUBMIT_SOLVE]: (state) => ({
-    ...state,
-    isLoading: true
-  }),
+    [SUBMIT_SOLVE]: (state) => ({
+      ...state,
+      isLoading: true
+    }),
 
-  [combineActions(SUBMIT_SOLVE_FAILURE, SUBMIT_SOLVE_SUCCESS)]: (state) => ({
-    ...state,
-    isLoading: false
-  })
-}, initialState);
+    [combineActions(SUBMIT_SOLVE_FAILURE, SUBMIT_SOLVE_SUCCESS)]: (state) => ({
+      ...state,
+      isLoading: false
+    })
+  },
+  initialState
+);

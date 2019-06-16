@@ -23,7 +23,8 @@ const Cell = ({ bonus, cell, characterPoints, className, ...tileProps }) => (
         [styles.empty]: cell.isEmpty && !cell.hasTile()
       },
       className
-    )}>
+    )}
+  >
     <Tile tile={cell.tile} {...tileProps} />
   </div>
 );
@@ -50,15 +51,12 @@ const mapDispatchToProps = (dispatch, { cell: { x, y } }) => ({
 });
 
 const mergeProps = ({ config, ...stateProps }, { dispatch, ...dispatchProps }, ownProps) => {
-  const { cell: { x, y } } = ownProps;
   const {
-    handleArrowKeys,
-    isArrowKey,
-    isCharacter,
-    isRemovingCharacter,
-    isSubmitting,
-    isTogglingBlank
-  } = handleKeys(config);
+    cell: { x, y }
+  } = ownProps;
+  const { handleArrowKeys, isArrowKey, isCharacter, isRemovingCharacter, isSubmitting, isTogglingBlank } = handleKeys(
+    config
+  );
 
   return {
     ...stateProps,
@@ -84,4 +82,8 @@ const mergeProps = ({ config, ...stateProps }, { dispatch, ...dispatchProps }, o
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(Cell);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps
+)(Cell);

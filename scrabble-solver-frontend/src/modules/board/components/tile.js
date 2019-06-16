@@ -11,12 +11,9 @@ const Tile = ({ className, tile: { character, isBlank }, ...props }) => (
         [styles.blank]: isBlank
       },
       className
-    )}>
-    <input
-      className={styles.character}
-      maxLength={1}
-      value={character}
-      {...props} />
+    )}
+  >
+    <input className={styles.character} maxLength={1} value={character} {...props} />
   </div>
 );
 

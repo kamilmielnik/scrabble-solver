@@ -5,9 +5,7 @@ import { showWalkthrough } from 'walkthrough/state';
 import { QuestionMark } from 'components/icons';
 import styles from './walkthrough.module.scss';
 
-const ShowWalkthrough = ({ onClick }) => (
-  <QuestionMark className={styles.show} onClick={onClick} />
-);
+const ShowWalkthrough = ({ onClick }) => <QuestionMark className={styles.show} onClick={onClick} />;
 
 ShowWalkthrough.propTypes = {
   onClick: PropTypes.func.isRequired
@@ -17,4 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
   onClick: () => dispatch(showWalkthrough())
 });
 
-export default connect(null, mapDispatchToProps)(ShowWalkthrough);
+export default connect(
+  null,
+  mapDispatchToProps
+)(ShowWalkthrough);

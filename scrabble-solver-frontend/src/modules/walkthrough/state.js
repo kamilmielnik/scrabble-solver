@@ -10,14 +10,17 @@ const initialState = {
   showWalkthrough: false
 };
 
-export default handleActions({
-  [HIDE_WALKTHROUGH]: (state) => ({
-    ...state,
-    showWalkthrough: false
-  }),
+export default handleActions(
+  {
+    [HIDE_WALKTHROUGH]: (state) => ({
+      ...state,
+      showWalkthrough: false
+    }),
 
-  [SHOW_WALKTHROUGH]: (state) => ({
-    ...state,
-    showWalkthrough: true
-  })
-}, initialState);
+    [SHOW_WALKTHROUGH]: (state) => ({
+      ...state,
+      showWalkthrough: true
+    })
+  },
+  initialState
+);

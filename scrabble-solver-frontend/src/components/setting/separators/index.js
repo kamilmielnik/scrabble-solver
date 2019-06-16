@@ -9,9 +9,11 @@ const Separators = ({ children, className }) => (
       newChildren.push(child);
 
       if (index < children.length - 1) {
-        newChildren.push((
-          <span key={`separator-${index}`} className={styles.separator}>|</span>
-        ));
+        newChildren.push(
+          <span key={`separator-${index}`} className={styles.separator}>
+            |
+          </span>
+        );
       }
 
       return newChildren;

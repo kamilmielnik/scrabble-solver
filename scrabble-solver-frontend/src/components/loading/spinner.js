@@ -17,7 +17,8 @@ const Spinner = ({ className, duration = '2s', size = 50 }) => {
       width={size}
       height={size}
       viewBox="0 0 100 100"
-      preserveAspectRatio="xMidYMid">
+      preserveAspectRatio="xMidYMid"
+    >
       <circle cx="84" cy="50" r="1.64154" fill="currentColor">
         <animate {...sharedProps} attributeName="r" values="10;0;0;0;0" begin="0s" />
         <animate {...sharedProps} attributeName="cx" values="84;84;84;84;84" begin="0s" />

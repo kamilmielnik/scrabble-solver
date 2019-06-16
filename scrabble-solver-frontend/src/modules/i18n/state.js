@@ -10,9 +10,12 @@ export const initialState = {
   translations
 };
 
-export default handleActions({
-  [CHANGE_LOCALE]: (state, { payload: locale }) => ({
-    ...state,
-    locale
-  })
-}, initialState);
+export default handleActions(
+  {
+    [CHANGE_LOCALE]: (state, { payload: locale }) => ({
+      ...state,
+      locale
+    })
+  },
+  initialState
+);

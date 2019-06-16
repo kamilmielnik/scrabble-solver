@@ -9,9 +9,7 @@ const Credits = ({ className, locale, messageId, name, url }) => (
     <span className={styles.message}>
       <Message id={messageId} locale={locale} />
     </span>
-    <a href={url}>
-      {name}
-    </a>
+    <a href={url}>{name}</a>
   </div>
 );
 

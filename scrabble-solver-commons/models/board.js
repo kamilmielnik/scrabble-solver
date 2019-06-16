@@ -46,9 +46,7 @@ class Board {
   }
 
   toJson() {
-    return this.board.map((row) => row.map(
-      (cell) => cell.toJson()
-    ));
+    return this.board.map((row) => row.map((cell) => cell.toJson()));
   }
 
   static fromJson(json) {
@@ -59,14 +57,17 @@ class Board {
 
   static fromStringArray(stringArray) {
     return new Board({
-      board: stringArray.map((row, y) => row.split('').map(
-        (character, x) => new Cell({
-          x,
-          y,
-          isEmpty: !character || character === EMPTY_CELL,
-          tile: character === EMPTY_CELL ? NullTile : new Tile({ character })
-        })
-      ))
+      board: stringArray.map((row, y) =>
+        row.split('').map(
+          (character, x) =>
+            new Cell({
+              x,
+              y,
+              isEmpty: !character || character === EMPTY_CELL,
+              tile: character === EMPTY_CELL ? NullTile : new Tile({ character })
+            })
+        )
+      )
     });
   }
 }

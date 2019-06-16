@@ -47,10 +47,7 @@ const locales = [
 const Locales = ({ className }) => (
   <div className={classNames(styles.locales, className)}>
     {locales.map((locale, index) => (
-      <Locale
-        key={index}
-        className={styles.locale}
-        {...locale} />
+      <Locale key={index} className={styles.locale} {...locale} />
     ))}
   </div>
 );

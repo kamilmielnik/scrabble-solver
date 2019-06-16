@@ -11,10 +11,10 @@ class Tile {
   }
 
   toJson() {
-    return ({
+    return {
       character: this.character,
       isBlank: this.isBlank
-    });
+    };
   }
 
   clone() {

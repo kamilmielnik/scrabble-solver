@@ -16,4 +16,7 @@ const mapDispatchToProps = (dispatch) => ({
   onSubmit: () => dispatch(submit())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Input);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Input);

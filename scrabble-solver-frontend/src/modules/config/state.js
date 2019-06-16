@@ -7,6 +7,9 @@ export const changeConfig = createAction(CHANGE_CONFIG);
 
 export const initialState = scrabble;
 
-export default handleActions({
-  [CHANGE_CONFIG]: (state, { payload: config }) => config
-}, initialState);
+export default handleActions(
+  {
+    [CHANGE_CONFIG]: (state, { payload: config }) => config
+  },
+  initialState
+);

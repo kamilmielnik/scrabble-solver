@@ -1,10 +1,6 @@
 import { connect } from 'react-redux';
 import { changeFilter, clearFilter } from 'results/state';
-import {
-  selectFilter,
-  selectNumberOfFilteredResults,
-  selectNumberOfResults
-} from 'results/selectors';
+import { selectFilter, selectNumberOfFilteredResults, selectNumberOfResults } from 'results/selectors';
 import { selectMessage } from 'i18n/selectors';
 import Input from 'components/input';
 
@@ -26,4 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
   onSubmit: () => dispatch(clearFilter())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Input);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Input);

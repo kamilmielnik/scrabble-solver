@@ -8,10 +8,10 @@ class ScoresCalculator {
   }
 
   calculatePatternsScore(pattern) {
-    return pattern.getCollisions().concat([ pattern ]).reduce(
-      (patternsScore, pattern) => patternsScore + this.calculatePatternScore(pattern),
-      0
-    );
+    return pattern
+      .getCollisions()
+      .concat([pattern])
+      .reduce((patternsScore, pattern) => patternsScore + this.calculatePatternScore(pattern), 0);
   }
 
   calculateBonusScore(pattern) {
@@ -20,15 +20,17 @@ class ScoresCalculator {
   }
 
   calculatePatternScore(pattern) {
-    const { multiplier, score } = pattern.cells.reduce(
-      (...params) => this.reduceCharacterScore(...params),
-      { multiplier: 1, score: 0 }
-    );
+    const { multiplier, score } = pattern.cells.reduce((...params) => this.reduceCharacterScore(...params), {
+      multiplier: 1,
+      score: 0
+    });
     return score * multiplier;
   }
 
   reduceCharacterScore({ multiplier, score }, cell) {
-    const { tile: { character, isBlank } } = cell;
+    const {
+      tile: { character, isBlank }
+    } = cell;
     const { wordMultiplier, characterMultiplier } = this.config.getCellBonusValue(cell);
     const characterScore = isBlank ? this.config.blankScore : this.config.pointsMap[character];
     return {

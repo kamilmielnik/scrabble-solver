@@ -1,4 +1,4 @@
-@import "styles/variables.scss";
+@import 'styles/variables.scss';
 
 $tile-size: 30px;
 
@@ -15,8 +15,7 @@ $tile-size: 30px;
     background-color: $white;
     border: $border;
 
-    transition: background-color $micro-animation-duration,
-      color $micro-animation-duration;
+    transition: background-color $micro-animation-duration, color $micro-animation-duration;
 
     &:not(.empty) {
       .tile {
@@ -52,7 +51,7 @@ $tile-size: 30px;
       background-color: transparentize($gray, $background-opacity);
 
       &:before {
-        content: "x2";
+        content: 'x2';
       }
     }
 
@@ -60,7 +59,7 @@ $tile-size: 30px;
       background-color: transparentize($gray, $background-opacity);
 
       &:before {
-        content: "x3";
+        content: 'x3';
       }
     }
 
@@ -120,8 +119,7 @@ $tile-size: 30px;
       height: $tile-size;
       background-color: transparent;
       color: $white;
-      transition: background-color $micro-animation-duration,
-        color $micro-animation-duration;
+      transition: background-color $micro-animation-duration, color $micro-animation-duration;
 
       &.blank {
         background-color: $white;

@@ -12,14 +12,17 @@ const initialState = {
   input: ''
 };
 
-export default handleActions({
-  [CHANGE_INPUT]: (state, { payload: input }) => ({
-    ...state,
-    input
-  }),
+export default handleActions(
+  {
+    [CHANGE_INPUT]: (state, { payload: input }) => ({
+      ...state,
+      input
+    }),
 
-  [CLEAR_INPUT]: (state) => ({
-    ...state,
-    input: initialState.input
-  })
-}, initialState);
+    [CLEAR_INPUT]: (state) => ({
+      ...state,
+      input: initialState.input
+    })
+  },
+  initialState
+);

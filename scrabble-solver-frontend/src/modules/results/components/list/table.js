@@ -30,20 +30,13 @@ const ResultsTable = ({ results, onRowClick, onRowMouseOver }) => (
     rowHeight={23}
     rowCount={results.length}
     rowGetter={({ index }) => results[index]}
-    noRowsRenderer={() => (
-      <NoResults />
-    )}
-    rowClassName={({ index }) => index === -1 ? styles.headerRow : styles.row}
+    noRowsRenderer={() => <NoResults />}
+    rowClassName={({ index }) => (index === -1 ? styles.headerRow : styles.row)}
     onRowClick={onRowClick}
-    onRowMouseOver={onRowMouseOver}>
+    onRowMouseOver={onRowMouseOver}
+  >
     {COLUMNS.map((column, index) => (
-      <Column
-        {...column}
-        className={styles.cell}
-        headerRenderer={(header) => (
-          <HeaderCell {...header} />
-        )}
-        key={index} />
+      <Column {...column} className={styles.cell} headerRenderer={(header) => <HeaderCell {...header} />} key={index} />
     ))}
   </Table>
 );
@@ -63,4 +56,7 @@ const mapDispatchToProps = (dispatch) => ({
   onRowMouseOver: ({ rowData: { id } }) => dispatch(highlightResult(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResultsTable);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ResultsTable);

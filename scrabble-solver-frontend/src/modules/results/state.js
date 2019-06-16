@@ -21,29 +21,33 @@ const initialState = {
   sortedColumnName: 'points'
 };
 
-export default handleActions({
-  [CHANGE_FILTER]: (state, { payload: filter }) => ({
-    ...state,
-    filter
-  }),
+export default handleActions(
+  {
+    [CHANGE_FILTER]: (state, { payload: filter }) => ({
+      ...state,
+      filter
+    }),
 
-  [CHANGE_RESULTS]: (state, { payload: results }) => ({
-    ...state,
-    results
-  }),
+    [CHANGE_RESULTS]: (state, { payload: results }) => ({
+      ...state,
+      results
+    }),
 
-  [CLEAR_FILTER]: (state) => ({
-    ...state,
-    filter: initialState.filter
-  }),
+    [CLEAR_FILTER]: (state) => ({
+      ...state,
+      filter: initialState.filter
+    }),
 
-  [CHANGE_SORTED_COLUMN]: (state, { payload: sortedColumnName }) => ({
-    ...state,
-    sortedColumnName,
-    sortingDirection: state.sortedColumnName === sortedColumnName
-      ? toggleSortingDirection(state.sortingDirection)
-      : initialState.sortingDirection
-  })
-}, initialState);
+    [CHANGE_SORTED_COLUMN]: (state, { payload: sortedColumnName }) => ({
+      ...state,
+      sortedColumnName,
+      sortingDirection:
+        state.sortedColumnName === sortedColumnName
+          ? toggleSortingDirection(state.sortingDirection)
+          : initialState.sortingDirection
+    })
+  },
+  initialState
+);
 
-const toggleSortingDirection = (sortingDirection) => sortingDirection === 'ascending' ? 'descending' : 'ascending';
+const toggleSortingDirection = (sortingDirection) => (sortingDirection === 'ascending' ? 'descending' : 'ascending');

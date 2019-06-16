@@ -22,32 +22,35 @@ const initialState = {
   isLoading: false
 };
 
-export default handleActions({
-  [CHANGE_INPUT]: (state, { payload: input }) => ({
-    ...state,
-    input
-  }),
+export default handleActions(
+  {
+    [CHANGE_INPUT]: (state, { payload: input }) => ({
+      ...state,
+      input
+    }),
 
-  [CLEAR_INPUT]: (state) => ({
-    ...state,
-    input: initialState.input
-  }),
+    [CLEAR_INPUT]: (state) => ({
+      ...state,
+      input: initialState.input
+    }),
 
-  [SEARCH]: (state) => ({
-    ...state,
-    isLoading: true
-  }),
+    [SEARCH]: (state) => ({
+      ...state,
+      isLoading: true
+    }),
 
-  [SEARCH_FAILURE]: (state) => ({
-    ...state,
-    isLoading: false
-  }),
+    [SEARCH_FAILURE]: (state) => ({
+      ...state,
+      isLoading: false
+    }),
 
-  [SEARCH_SUCCESS]: (state, { payload: { isAllowed, definitions, word } }) => ({
-    ...state,
-    isAllowed,
-    definitions,
-    word,
-    isLoading: false
-  })
-}, initialState);
+    [SEARCH_SUCCESS]: (state, { payload: { isAllowed, definitions, word } }) => ({
+      ...state,
+      isAllowed,
+      definitions,
+      word,
+      isLoading: false
+    })
+  },
+  initialState
+);

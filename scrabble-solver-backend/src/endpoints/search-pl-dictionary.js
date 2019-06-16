@@ -6,9 +6,7 @@ const DICTIONARY_URL = 'https://sjp.pl';
 
 export default proxy(DICTIONARY_URL, {
   https: true,
-  userResDecorator: (proxyResponse, proxyResponseData) => parseSjpResponse(
-    proxyResponseData.toString('utf8')
-  )
+  userResDecorator: (proxyResponse, proxyResponseData) => parseSjpResponse(proxyResponseData.toString('utf8'))
 });
 
 const parseSjpResponse = (html) => {
@@ -24,8 +22,20 @@ const parseSjpResponse = (html) => {
 };
 
 const getIsAllowedNode = ($header) => $header.next();
-const getDefinitionsNode = ($header) => $header.next().next().next().next();
+const getDefinitionsNode = ($header) =>
+  $header
+    .next()
+    .next()
+    .next()
+    .next();
 const isAllowed = ($isAllowed) => trim($isAllowed.text()).indexOf('dopuszczalne w grach') >= 0;
-const getTrimmedDefinitions = ($definitions) => getDefinitions($definitions).map(trim).filter(Boolean);
-const getDefinitions = ($definitions) => $definitions.text().trim().split(/\d+\./);
+const getTrimmedDefinitions = ($definitions) =>
+  getDefinitions($definitions)
+    .map(trim)
+    .filter(Boolean);
+const getDefinitions = ($definitions) =>
+  $definitions
+    .text()
+    .trim()
+    .split(/\d+\./);
 const trim = (text) => text.trim();

@@ -21,4 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
   onChange: (id) => dispatch(changeConfig(configs[id]))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Setting);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Setting);

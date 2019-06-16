@@ -7,9 +7,11 @@ class CharacterBonus extends Bonus {
   }
 
   matchesCellTileScore(cell) {
-    const { tile: { character } } = cell;
+    const {
+      tile: { character }
+    } = cell;
     const cellTileScore = this.config.pointsMap[character];
-    return this.score && (this.score === cellTileScore);
+    return this.score && this.score === cellTileScore;
   }
 
   getType() {

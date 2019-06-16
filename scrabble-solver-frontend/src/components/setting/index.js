@@ -10,10 +10,7 @@ const Setting = ({ className, id, label, options, value, onChange }) => (
     {label}:
     <Separators className={styles.separators}>
       {options.map((option, index) => (
-        <Toggle
-          key={index}
-          isActive={value === option.value}
-          onClick={() => onChange(option.value)}>
+        <Toggle key={index} isActive={value === option.value} onClick={() => onChange(option.value)}>
           {option.label}
         </Toggle>
       ))}

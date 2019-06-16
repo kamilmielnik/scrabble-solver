@@ -8,12 +8,7 @@ import Row from './row';
 import styles from './board.module.scss';
 
 const Board = ({ className, rows }) => (
-  <Section
-    className={className}
-    id="board"
-    label={(
-      <Message id="modules.board.label" />
-    )}>
+  <Section className={className} id="board" label={<Message id="modules.board.label" />}>
     <div className={styles.board}>
       {rows.map((cells, index) => (
         <Row key={index} cells={cells} />

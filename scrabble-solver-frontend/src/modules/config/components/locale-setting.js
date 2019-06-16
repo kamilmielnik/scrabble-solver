@@ -18,14 +18,12 @@ const LocaleSetting = ({ value, onChange }) => (
     {locales.map(({ locale, FlagComponent }) => (
       <FlagComponent
         key={locale}
-        className={classNames(
-          styles.locale,
-          {
-            [styles.selected]: value === locale
-          }
-        )}
+        className={classNames(styles.locale, {
+          [styles.selected]: value === locale
+        })}
         title={locale}
-        onClick={() => onChange(locale)} />
+        onClick={() => onChange(locale)}
+      />
     ))}
   </div>
 );
@@ -43,4 +41,7 @@ const mapDispatchToProps = (dispatch) => ({
   onChange: (locale) => dispatch(changeLocale(locale))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LocaleSetting);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LocaleSetting);

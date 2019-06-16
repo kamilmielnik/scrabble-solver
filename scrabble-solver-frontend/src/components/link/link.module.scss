@@ -4,7 +4,10 @@
   color: $primary;
   cursor: pointer;
 
-  &:active, &:hover, &:focus, &:visited {
+  &:active,
+  &:hover,
+  &:focus,
+  &:visited {
     color: $primary-active;
     text-decoration: underline;
   }

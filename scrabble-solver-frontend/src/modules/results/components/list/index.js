@@ -10,12 +10,7 @@ import ResultsTable from './table';
 import styles from './results-list.module.scss';
 
 const ResultsList = ({ className, isLoading, onMouseLeave }) => (
-  <Section
-    className={className}
-    id="results"
-    label={(
-      <Message id="modules.results.label" />
-    )}>
+  <Section className={className} id="results" label={<Message id="modules.results.label" />}>
     <Loading isLoading={isLoading}>
       <div className={styles.results} onMouseLeave={onMouseLeave}>
         <ResultsTable />
@@ -38,4 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
   onMouseLeave: () => dispatch(unhighlightResult())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResultsList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ResultsList);

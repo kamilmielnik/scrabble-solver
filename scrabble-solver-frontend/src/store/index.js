@@ -14,9 +14,7 @@ export default () => {
   return store;
 };
 
-const createEnhancer = () => compose(applyMiddleware(
-  sagaMiddleware
-));
+const createEnhancer = () => compose(applyMiddleware(sagaMiddleware));
 
 const enableHmrForReducers = (store) => {
   if (module.hot) {

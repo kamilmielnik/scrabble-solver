@@ -9,14 +9,14 @@ const email = 'kamil.adam.mielnik@gmail.com';
 
 const Footer = ({ className }) => (
   <footer className={classNames(styles.footer, className)}>
-    <div className={styles.row}>
-      Design & Development
-    </div>
+    <div className={styles.row}>Design & Development</div>
 
     <Copyright className={styles.row} />
 
     <div className={styles.row}>
-      <Link className={styles.link} href={`mailto:${email}`}>{email}</Link>
+      <Link className={styles.link} href={`mailto:${email}`}>
+        {email}
+      </Link>
     </div>
   </footer>
 );

@@ -12,7 +12,8 @@ const Toggle = ({ children, className, isActive, ...restProps }) => (
       },
       className
     )}
-    {...restProps}>
+    {...restProps}
+  >
     {children}
   </div>
 );

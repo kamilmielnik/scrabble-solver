@@ -28,12 +28,12 @@ class Walkthrough extends Component {
   }
 
   callback = ({ type }) => {
-    if ([ 'beacon:before', 'finished' ].includes(type)) {
+    if (['beacon:before', 'finished'].includes(type)) {
       this.joyride.current.reset(true);
       this.props.onFinished();
     }
     this.setState({ isTouched: true });
-  }
+  };
 
   render() {
     const { showWalkthrough, steps, translations } = this.props;
@@ -43,11 +43,11 @@ class Walkthrough extends Component {
       <JoyrideComponent
         ref={this.joyride}
         locale={{
-          back: (<span>{translations.back}</span>),
-          close: (<span>{translations.close}</span>),
-          last: (<span>{translations.last}</span>),
-          next: (<span>{translations.next}</span>),
-          skip: (<span>{translations.skip}</span>)
+          back: <span>{translations.back}</span>,
+          close: <span>{translations.close}</span>,
+          last: <span>{translations.last}</span>,
+          next: <span>{translations.next}</span>,
+          skip: <span>{translations.skip}</span>
         }}
         autoStart={!hasRunOnce || isTouched}
         callback={this.callback}
@@ -58,7 +58,8 @@ class Walkthrough extends Component {
         showSkipButton={false}
         showStepsProgress={true}
         steps={steps}
-        type="continuous" />
+        type="continuous"
+      />
     );
   }
 }
@@ -73,4 +74,7 @@ const mapDispatchToProps = (dispatch) => ({
   onFinished: () => dispatch(hideWalkthrough())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Walkthrough);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Walkthrough);

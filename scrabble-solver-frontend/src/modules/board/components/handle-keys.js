@@ -31,7 +31,7 @@ export default (config) => {
     handleArrowKeys: (event) => getNextInput(event).focus(),
     isArrowKey: ({ key }) => arrowKeys.includes(key),
     isCharacter: ({ key }) => config.alphabet.includes(key),
-    isRemovingCharacter: ({ key }) => [ 'Delete', 'Backspace', ' ' ].includes(key),
+    isRemovingCharacter: ({ key }) => ['Delete', 'Backspace', ' '].includes(key),
     isSubmitting: ({ key }) => key === 'Enter',
     isTogglingBlank: ({ ctrlKey, metaKey, key }) => (ctrlKey || metaKey) && key === 'b'
   };

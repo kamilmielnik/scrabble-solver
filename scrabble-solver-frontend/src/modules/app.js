@@ -48,9 +48,7 @@ const App = ({ isSplashShown }) => (
         </Fragment>
       )}
 
-      {isSplashShown && (
-        <Splash />
-      )}
+      {isSplashShown && <Splash />}
     </div>
 
     <Footer />

@@ -23,11 +23,10 @@ class PatternsGenerator {
   }
 
   generatePatterns({ board, Pattern, getNthVector, numberOfVectors }) {
-    return this.generateVectors({ getNthVector, numberOfVectors })
-      .reduce(
-        (patterns, cells) => patterns.concat(this.generateCellsPatterns({ board, Pattern, cells })),
-        []
-      );
+    return this.generateVectors({ getNthVector, numberOfVectors }).reduce(
+      (patterns, cells) => patterns.concat(this.generateCellsPatterns({ board, Pattern, cells })),
+      []
+    );
   }
 
   generateVectors({ getNthVector, numberOfVectors }) {
@@ -37,10 +36,10 @@ class PatternsGenerator {
   }
 
   generateCellsPatterns({ board, Pattern, cells }) {
-    return this.generateStartIndices({ cells })
-      .reduce(
-        (patterns, startIndex) => patterns.concat(this.generateEndIndices({ cells, startIndex }).reduce(
-          (patterns, endIndex) => {
+    return this.generateStartIndices({ cells }).reduce(
+      (patterns, startIndex) =>
+        patterns.concat(
+          this.generateEndIndices({ cells, startIndex }).reduce((patterns, endIndex) => {
             const pattern = new Pattern({
               board,
               cells: cells.slice(startIndex, endIndex + 1)
@@ -49,11 +48,10 @@ class PatternsGenerator {
               patterns.push(pattern);
             }
             return patterns;
-          },
-          []
-        )),
-        []
-      );
+          }, [])
+        ),
+      []
+    );
   }
 
   generateStartIndices({ cells }) {

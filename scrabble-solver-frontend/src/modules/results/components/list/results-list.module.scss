@@ -18,16 +18,15 @@
     text-align: center;
     box-sizing: border-box;
 
-    &:nth-child(3), &:nth-child(5) {
+    &:nth-child(3),
+    &:nth-child(5) {
       text-align: left;
     }
   }
 
   .row {
     user-select: none;
-    transition:
-      background-color $micro-animation-duration,
-      color $micro-animation-duration;
+    transition: background-color $micro-animation-duration, color $micro-animation-duration;
 
     &:hover {
       background-color: $primary;
@@ -62,9 +61,7 @@
       padding: 5px;
       background-color: $white;
       cursor: pointer;
-      transition:
-        background-color $micro-animation-duration,
-        color $micro-animation-duration;
+      transition: background-color $micro-animation-duration, color $micro-animation-duration;
 
       &:hover {
         background-color: $primary;

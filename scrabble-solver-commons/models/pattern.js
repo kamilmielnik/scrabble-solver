@@ -33,8 +33,9 @@ class Pattern {
   canBePlaced() {
     const numberOfEmptyCells = this.getNumberOfEmptyCells();
     const isNumberOfUsedCellsInRange = numberOfEmptyCells >= 1 && numberOfEmptyCells <= 7;
-    return isNumberOfUsedCellsInRange && (
-      this.hasAtLeast1NoneEmptyCell() || this.collides() || (this.goesThroughBoardCenter() && this.board.isEmpty())
+    return (
+      isNumberOfUsedCellsInRange &&
+      (this.hasAtLeast1NoneEmptyCell() || this.collides() || (this.goesThroughBoardCenter() && this.board.isEmpty()))
     );
   }
 

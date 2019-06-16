@@ -8,8 +8,11 @@ export const resetTime = createAction(RESET_TIME);
 
 const initialState = null;
 
-export default handleActions({
-  [RESET_TIME]: () => initialState,
+export default handleActions(
+  {
+    [RESET_TIME]: () => initialState,
 
-  [CHANGE_TIME]: (state, { payload: time }) => time
-}, initialState);
+    [CHANGE_TIME]: (state, { payload: time }) => time
+  },
+  initialState
+);

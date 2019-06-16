@@ -9,10 +9,14 @@ const serializedCollection = fs.readFileSync(`../dictionaries/${locale}.txt`, 'u
 const collection = Trie.deserialize(serializedCollection);
 const config = new Config(literaki[locale]);
 
-const generateTiles = (characters) => characters.split('').map((character) => new Tile({
-  character,
-  isBlank: false
-}));
+const generateTiles = (characters) =>
+  characters.split('').map(
+    (character) =>
+      new Tile({
+        character,
+        isBlank: false
+      })
+  );
 
 describe('Solver', () => {
   const solver = new Solver(config, collection);
@@ -59,9 +63,9 @@ describe('Solver', () => {
       '               '
     ]);
     const tiles = generateTiles('aaąrtwz');
-    const [ firstResult, ...results ] = solver.solve(board, tiles);
+    const [firstResult, ...results] = solver.solve(board, tiles);
     const bestResult = results.reduce(
-      (bestResult, result) => result.points > bestResult.points ? result : bestResult,
+      (bestResult, result) => (result.points > bestResult.points ? result : bestResult),
       firstResult
     );
     expect(bestResult.word).toBe('zmartwychwstałą');
@@ -87,9 +91,9 @@ describe('Solver', () => {
       'ar  ń    m     '
     ]);
     const tiles = generateTiles('ąchtwwz');
-    const [ firstResult, ...results ] = solver.solve(board, tiles);
+    const [firstResult, ...results] = solver.solve(board, tiles);
     const bestResult = results.reduce(
-      (bestResult, result) => result.points > bestResult.points ? result : bestResult,
+      (bestResult, result) => (result.points > bestResult.points ? result : bestResult),
       firstResult
     );
     expect(bestResult.word).toBe('zmartwychwstałą');

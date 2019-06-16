@@ -13,17 +13,20 @@ class Solver {
 
   solve(board, tiles) {
     const { horizontal, vertical } = this.patternsGenerator.generate(board);
-    const patterns = [ ...horizontal, ...vertical ].reduce(
+    const patterns = [...horizontal, ...vertical].reduce(
       (filledPatterns, pattern) => filledPatterns.concat(this.patternsFiller.fill(pattern, tiles)),
       []
     );
     const uniquePatterns = uniqBy(patterns, (pattern) => JSON.stringify(pattern.toJson()));
-    const results = uniquePatterns.map((pattern, index) => new Result({
-      id: index,
-      points: this.scoresCalculator.calculate(pattern),
-      cells: pattern.cells,
-      numberOfCollisions: pattern.getCollisions().length
-    }));
+    const results = uniquePatterns.map(
+      (pattern, index) =>
+        new Result({
+          id: index,
+          points: this.scoresCalculator.calculate(pattern),
+          cells: pattern.cells,
+          numberOfCollisions: pattern.getCollisions().length
+        })
+    );
     return results;
   }
 }

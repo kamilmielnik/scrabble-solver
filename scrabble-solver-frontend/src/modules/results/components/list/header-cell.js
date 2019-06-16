@@ -13,9 +13,7 @@ const HeaderCell = ({ dataKey, label, sortedColumnName, sortingDirection, onSort
       <Message id={label} />
     </div>
 
-    {dataKey === sortedColumnName && (
-      <Sort className={styles.iconSort} sortingDirection={sortingDirection} />
-    )}
+    {dataKey === sortedColumnName && <Sort className={styles.iconSort} sortingDirection={sortingDirection} />}
   </div>
 );
 
@@ -23,7 +21,7 @@ HeaderCell.propTypes = {
   dataKey: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   sortedColumnName: PropTypes.string,
-  sortingDirection: PropTypes.oneOf([ 'ascending', 'descending' ]),
+  sortingDirection: PropTypes.oneOf(['ascending', 'descending']),
   onSort: PropTypes.func.isRequired
 };
 
@@ -36,4 +34,7 @@ const mapDispatchToProps = (dispatch, { dataKey }) => ({
   onSort: () => dispatch(changeSortedColumn(dataKey))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderCell);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HeaderCell);

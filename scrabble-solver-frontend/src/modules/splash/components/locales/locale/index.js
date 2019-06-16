@@ -17,17 +17,9 @@ const Locale = ({ className, definitions, dictionary, FlagComponent, locale, onC
     </span>
 
     <div className={styles.credits}>
-      <Credits
-        locale={locale}
-        messageId="modules.splash.dictionary"
-        name={dictionary.name}
-        url={dictionary.url} />
+      <Credits locale={locale} messageId="modules.splash.dictionary" name={dictionary.name} url={dictionary.url} />
 
-      <Credits
-        locale={locale}
-        messageId="modules.splash.definitions"
-        name={definitions.name}
-        url={definitions.url} />
+      <Credits locale={locale} messageId="modules.splash.definitions" name={definitions.name} url={definitions.url} />
     </div>
   </div>
 );
@@ -48,4 +40,7 @@ const mapDispatchToProps = (dispatch, { locale }) => ({
   }
 });
 
-export default connect(null, mapDispatchToProps)(Locale);
+export default connect(
+  null,
+  mapDispatchToProps
+)(Locale);

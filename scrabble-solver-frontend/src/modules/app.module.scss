@@ -33,7 +33,8 @@ $footer-height: 178px;
       margin-left: $spacing;
     }
 
-    .left, .right {
+    .left,
+    .right {
       margin-bottom: $spacing;
 
       > div {
@@ -49,7 +50,9 @@ $footer-height: 178px;
       }
     }
 
-    .remainingTiles, .bar, .time {
+    .remainingTiles,
+    .bar,
+    .time {
       flex: 1 0 100%;
     }
 

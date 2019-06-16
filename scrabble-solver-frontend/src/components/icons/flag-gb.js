@@ -1,10 +1,7 @@
 import React from 'react';
 
 const FlagGb = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 60 30"
-    {...props}>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" {...props}>
     <clipPath id="t">
       <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z" />
     </clipPath>

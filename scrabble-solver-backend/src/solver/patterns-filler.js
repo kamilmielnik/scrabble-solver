@@ -12,8 +12,8 @@ class PatternsFiller {
       return [];
     }
     const onPatternFound = (pattern) => patterns.push(pattern);
-    this.generateBlankTilesPermutations(tiles).forEach(
-      (tilesPermutation) => this.fillPattern(pattern, String(pattern), tilesPermutation, onPatternFound)
+    this.generateBlankTilesPermutations(tiles).forEach((tilesPermutation) =>
+      this.fillPattern(pattern, String(pattern), tilesPermutation, onPatternFound)
     );
     return patterns;
   }
@@ -45,8 +45,12 @@ class PatternsFiller {
   }
 
   canAddPattern(pattern, word) {
-    return this.collection.has(word) && pattern.getCollisions().map(String).every(
-      (collision) => this.collection.has(collision)
+    return (
+      this.collection.has(word) &&
+      pattern
+        .getCollisions()
+        .map(String)
+        .every((collision) => this.collection.has(collision))
     );
   }
 
@@ -56,17 +60,14 @@ class PatternsFiller {
 
     if (firstBlankIndex !== -1) {
       const remainingTiles = tiles.slice(0, firstBlankIndex).concat(tiles.slice(firstBlankIndex + 1));
-      return this.config.alphabet.reduce(
-        (permutations, character) => {
-          const newTile = new Tile({ character, isBlank: true });
-          const newTiles = [ ...remainingTiles, newTile ];
-          return permutations.concat(this.generateBlankTilesPermutations(newTiles));
-        },
-        []
-      );
+      return this.config.alphabet.reduce((permutations, character) => {
+        const newTile = new Tile({ character, isBlank: true });
+        const newTiles = [...remainingTiles, newTile];
+        return permutations.concat(this.generateBlankTilesPermutations(newTiles));
+      }, []);
     }
 
-    return [ tiles ];
+    return [tiles];
   }
 }
 

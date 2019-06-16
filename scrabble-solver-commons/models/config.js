@@ -60,14 +60,25 @@ class Config {
 }
 
 const getAlphabet = ({ characters }) => characters.map(({ character }) => character);
-const getAllCharacters = ({ characters, numberOfBlanks }) => characters.reduce(
-  (allCharacters, { character, count }) => allCharacters + Array(count).fill(character).join(''),
-  Array(numberOfBlanks).fill(BLANK).join('')
-);
-const getPointsMap = ({ characters }) => characters.reduce((pointsMap, { character, score }) => ({
-  ...pointsMap,
-  [character]: score
-}), {});
+const getAllCharacters = ({ characters, numberOfBlanks }) =>
+  characters.reduce(
+    (allCharacters, { character, count }) =>
+      allCharacters +
+      Array(count)
+        .fill(character)
+        .join(''),
+    Array(numberOfBlanks)
+      .fill(BLANK)
+      .join('')
+  );
+const getPointsMap = ({ characters }) =>
+  characters.reduce(
+    (pointsMap, { character, score }) => ({
+      ...pointsMap,
+      [character]: score
+    }),
+    {}
+  );
 const getBonuses = (bonusFactory, { bonuses }) => bonuses.map((bonus) => bonusFactory.create(bonus));
 
 export default Config;

@@ -8,9 +8,7 @@ import styles from './splash.module.scss';
 const Splash = ({ className }) => (
   <div className={classNames(styles.splash, className)}>
     <div className={styles.content}>
-      <div className={styles.title}>
-        Scrabble Solver
-      </div>
+      <div className={styles.title}>Scrabble Solver</div>
 
       <Locales />
 

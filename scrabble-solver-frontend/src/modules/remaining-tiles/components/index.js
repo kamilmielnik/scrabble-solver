@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  selectCharactersStatistics,
-  selectNumberOfRemainingCharacters
-} from 'remaining-tiles/selectors';
+import { selectCharactersStatistics, selectNumberOfRemainingCharacters } from 'remaining-tiles/selectors';
 import Section from 'components/section';
 import { Message } from 'i18n/components';
 import Tile from './tile';
@@ -14,13 +11,15 @@ const RemainingTiles = ({ className, charactersStatistics, numberOfTiles }) => (
   <Section
     className={className}
     id="remaining-tiles"
-    label={(
+    label={
       <Message
         id="modules.remaining-tiles.label"
         values={{
           numberOfTiles: String(numberOfTiles)
-        }} />
-    )}>
+        }}
+      />
+    }
+  >
     <div className={styles.remainingTiles}>
       {charactersStatistics.map((tile) => (
         <Tile key={tile.character} {...tile} />
