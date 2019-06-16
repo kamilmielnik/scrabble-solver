@@ -51,12 +51,12 @@ class Walkthrough extends Component {
         }}
         autoStart={!hasRunOnce || isTouched}
         callback={this.callback}
-        disableOverlay={true}
+        disableOverlay
         holePadding={10}
         run={showWalkthrough}
-        showOverlay={true}
+        showOverlay
         showSkipButton={false}
-        showStepsProgress={true}
+        showStepsProgress
         steps={steps}
         type="continuous"
       />
