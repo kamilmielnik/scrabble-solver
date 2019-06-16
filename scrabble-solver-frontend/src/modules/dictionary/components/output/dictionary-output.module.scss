@@ -12,6 +12,7 @@ $height: 100px;
   background-color: $white;
   border: $border;
   transition: background-color $micro-animation-duration;
+  line-height: 1.5;
 
   .word {
     margin-bottom: 10px;
