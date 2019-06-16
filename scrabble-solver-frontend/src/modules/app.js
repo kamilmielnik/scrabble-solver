@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { selectIsShown } from 'splash/selectors';
@@ -21,7 +21,7 @@ const App = ({ isSplashShown }) => (
   <div className={styles.app}>
     <div className={styles.contentContainer}>
       {!isSplashShown && (
-        <React.Fragment>
+        <Fragment>
           <div className={styles.content}>
             <div className={styles.left}>
               <Tiles />
@@ -45,7 +45,7 @@ const App = ({ isSplashShown }) => (
           </div>
 
           <Walkthrough />
-        </React.Fragment>
+        </Fragment>
       )}
 
       {isSplashShown && (
