@@ -45,14 +45,17 @@ const prepareDictionary = async () => {
   removeFile(FILE_TO_EXTRACT_FROM_ZIP);
 };
 
-const fetchZipUrl = (url) => downloadHtml(url)
-  .then(parseZipContainingPage)
-  .then((zipFilename) => new URL(zipFilename, url).href);
+const fetchZipUrl = (url) =>
+  downloadHtml(url)
+    .then(parseZipContainingPage)
+    .then((zipFilename) => new URL(zipFilename, url).href);
 
 const parseZipContainingPage = (html) => {
   const $ = cheerio.load(html);
   const $links = $('a');
-  const links = Array.from($links).map((link) => $(link).attr('href')).filter(Boolean);
+  const links = Array.from($links)
+    .map((link) => $(link).attr('href'))
+    .filter(Boolean);
   const zipFilename = links.find((link) => link.endsWith('.zip'));
   return zipFilename;
 };

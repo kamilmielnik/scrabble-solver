@@ -1,12 +1,5 @@
 import yargs from 'yargs';
-import {
-  createDirectory,
-  downloadFile,
-  logAction,
-  readFile,
-  removeFile,
-  writeFile
-} from './utils';
+import { createDirectory, downloadFile, logAction, readFile, removeFile, writeFile } from './utils';
 import Trie from '../scrabble-solver-backend/src/solver/trie';
 
 const { argv } = yargs
