@@ -1,20 +1,23 @@
 class WordDefinition {
-  constructor({ definitions, isAllowed }) {
+  constructor({ definitions, isAllowed, word }) {
     this.definitions = definitions;
     this.isAllowed = isAllowed;
+    this.word = word;
   }
 
   toJson() {
     return {
       definitions: this.definitions,
-      isAllowed: this.isAllowed
+      isAllowed: this.isAllowed,
+      word: this.word
     };
   }
 }
 
 export const NullWordDefinition = Object.freeze({
   definitions: [],
-  isAllowed: false
+  isAllowed: false,
+  word: ''
 });
 
 export default WordDefinition;

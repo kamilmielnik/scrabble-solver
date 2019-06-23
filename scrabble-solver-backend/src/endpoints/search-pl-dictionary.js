@@ -12,22 +12,29 @@ export default proxy(DICTIONARY_URL, {
 const parseSjpResponse = (html) => {
   const $ = cheerio.load(html);
   const $header = $($('h1')[0]);
+  const $word = getWordNode($header);
   const $isAllowed = getIsAllowedNode($header);
   const $definitions = getDefinitionsNode($header);
   const wordDefinition = new WordDefinition({
     definitions: getTrimmedDefinitions($definitions),
-    isAllowed: isAllowed($isAllowed)
+    isAllowed: isAllowed($isAllowed),
+    word: getWord($word)
   });
   return wordDefinition.toJson();
 };
 
 const getIsAllowedNode = ($header) => $header.next();
+const getWordNode = ($header) =>
+  $header
+    .next()
+    .next();
 const getDefinitionsNode = ($header) =>
   $header
     .next()
     .next()
     .next()
     .next();
+const getWord = ($word) => $word.text().trim();
 const isAllowed = ($isAllowed) => trim($isAllowed.text()).indexOf('dopuszczalne w grach') >= 0;
 const getTrimmedDefinitions = ($definitions) =>
   getDefinitions($definitions)

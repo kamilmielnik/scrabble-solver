@@ -26,11 +26,11 @@ function* onDictionarySubmit() {
   yield* makeRequest(word, locale);
 }
 
-function* makeRequest(word, locale) {
-  if (word.length > 0) {
+function* makeRequest(query, locale) {
+  if (query.length > 0) {
     try {
       yield put(search());
-      const { isAllowed, definitions } = yield call(getWordDefinition, locale, word);
+      const { isAllowed, definitions, word } = yield call(getWordDefinition, locale, query);
       yield put(clearInput());
       yield put(searchSuccess({ isAllowed, definitions, word }));
     } catch (error) {

@@ -82,7 +82,7 @@
     "@babel/preset-env": "^7.4.5",
     "@babel/node": "^7.4.5",
     "better-npm-run": "0.1.1",
-    "cheerio": "^1.0.0-rc.2",
+    "cheerio": "^1.0.0-rc.3",
     "decompress": "^4.2.0",
     "fs-extra": "^8.0.1",
     "http-server": "^0.11.1",

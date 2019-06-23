@@ -9,8 +9,9 @@ export default (request, response) =>
   getJson(getOptions(request.params.word))
     .then((results) => {
       const wordDefinition = new WordDefinition({
+        definitions: results.map(({ text }) => text),
         isAllowed: results.length > 0,
-        definitions: results.map(({ text }) => text)
+        word: request.params.word
       });
       response.send(wordDefinition.toJson());
     })
