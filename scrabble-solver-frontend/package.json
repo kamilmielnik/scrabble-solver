@@ -62,7 +62,7 @@
     "clipboard": "^2.0.4",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
-    "re-reselect": "^3.2.0",
+    "re-reselect": "^3.3.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-joyride": "^1.11.4",

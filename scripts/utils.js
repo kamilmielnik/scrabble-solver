@@ -52,59 +52,47 @@ export const logAction = (message, action) => {
 
 export const getFilenameFromUrl = (fileUrl) => path.basename(url.parse(fileUrl).pathname);
 
-export const downloadHtml = (url) => logAsyncAction(
-  `Downloading HTML from "${url}"`,
-  () => new Promise((resolve) => {
-    const protocol = url.startsWith('https') ? https : http;
-    protocol.get(url, (response) => {
-      let data = '';
-      response.setEncoding('utf8');
-      response.on('data', (chunk) => {
-        data += chunk;
-      });
-      response.on('end', () => {
-        resolve(data);
-      });
-    });
-  })
-);
+export const downloadHtml = (url) =>
+  logAsyncAction(
+    `Downloading HTML from "${url}"`,
+    () =>
+      new Promise((resolve) => {
+        const protocol = url.startsWith('https') ? https : http;
+        protocol.get(url, (response) => {
+          let data = '';
+          response.setEncoding('utf8');
+          response.on('data', (chunk) => {
+            data += chunk;
+          });
+          response.on('end', () => {
+            resolve(data);
+          });
+        });
+      })
+  );
 
-export const downloadFile = (url, outputFilepath) => logAsyncAction(
-  `Downloading file from "${url}"`,
-  () => new Promise(
-    (resolve) => request
-      .get(url, resolve)
-      .pipe(fs.createWriteStream(outputFilepath))
-  )
-);
+export const downloadFile = (url, outputFilepath) =>
+  logAsyncAction(
+    `Downloading file from "${url}"`,
+    () => new Promise((resolve) => request.get(url, resolve).pipe(fs.createWriteStream(outputFilepath)))
+  );
 
-export const unzipFile = (zipFilepath, filename) => logAsyncAction(
-  `Unzipping "${filename}" from "${zipFilepath}"`,
-  () => decompress(zipFilepath, '.', {
-    filter: (file) => file.path === filename
-  })
-);
+export const unzipFile = (zipFilepath, filename) =>
+  logAsyncAction(`Unzipping "${filename}" from "${zipFilepath}"`, () =>
+    decompress(zipFilepath, '.', {
+      filter: (file) => file.path === filename
+    })
+  );
 
-export const readFile = (filepath) => logAction(
-  `Reading "${filepath}"`,
-  () => fs.readFileSync(filepath, 'utf-8')
-);
+export const readFile = (filepath) => logAction(`Reading "${filepath}"`, () => fs.readFileSync(filepath, 'utf-8'));
 
-export const writeFile = (filepath, data) => logAction(
-  `Writing "${filepath}"`,
-  () => fs.writeFileSync(filepath, data)
-);
+export const writeFile = (filepath, data) => logAction(`Writing "${filepath}"`, () => fs.writeFileSync(filepath, data));
 
-export const removeFile = (filepath) => logAction(
-  `Removing "${filepath}"`,
-  () => fs.removeSync(filepath)
-);
+export const removeFile = (filepath) => logAction(`Removing "${filepath}"`, () => fs.removeSync(filepath));
 
-export const createDirectory = (filepath) => logAction(
-  `Making sure "${filepath}" directory exists`,
-  () => {
+export const createDirectory = (filepath) =>
+  logAction(`Making sure "${filepath}" directory exists`, () => {
     if (!fs.existsSync(filepath)) {
       fs.mkdirSync(filepath);
     }
-  }
-);
+  });
