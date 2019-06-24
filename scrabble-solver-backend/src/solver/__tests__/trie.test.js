@@ -55,4 +55,8 @@ describe('Trie', () => {
   it('properly deserializes', () => {
     expect(Trie.deserialize(serializedTrie).toJson()).toEqual(trieJson);
   });
+
+  it('properly initializes from JSON', () => {
+    expect(Trie.fromJson(trieJson).toJson()).toEqual(trieJson);
+  });
 });
