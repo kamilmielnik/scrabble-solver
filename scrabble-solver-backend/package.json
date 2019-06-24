@@ -42,7 +42,7 @@
       }
     },
     "test": {
-      "command": "jest --no-cache",
+      "command": "jest --no-cache --coverage",
       "env": {
         "NODE_ENV": "test"
       }

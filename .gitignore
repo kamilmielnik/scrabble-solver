@@ -1,4 +1,5 @@
-﻿node_modules/
+﻿coverage/
+node_modules/
 */dist/
 *.db
 *.log
