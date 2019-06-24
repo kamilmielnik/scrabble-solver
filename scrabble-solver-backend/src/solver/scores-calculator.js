@@ -4,10 +4,15 @@ class ScoresCalculator {
   }
 
   calculate(pattern) {
-    return this.calculatePatternsScore(pattern) + this.calculateBonusScore(pattern);
+    return this.calculatePatternScoreWithCollisions(pattern) + this.calculateBonusScore(pattern);
   }
 
-  calculatePatternsScore(pattern) {
+  calculateBonusScore(pattern) {
+    const areAllTilesUsed = pattern.getNumberOfEmptyCells() === this.config.maximumNumberOfCharacters;
+    return areAllTilesUsed ? this.config.allTilesBonusScore : 0;
+  }
+
+  calculatePatternScoreWithCollisions(pattern) {
     return pattern
       .getCollisions()
       .reduce(
@@ -16,30 +21,22 @@ class ScoresCalculator {
       );
   }
 
-  calculateBonusScore(pattern) {
-    const areAllTilesUsed = pattern.getNumberOfEmptyCells() === this.config.maximumNumberOfCharacters;
-    return areAllTilesUsed ? this.config.allTilesBonusScore : 0;
-  }
-
   calculatePatternScore(pattern) {
-    const { multiplier, score } = pattern.cells.reduce((...params) => this.reduceCharacterScore(...params), {
+    const { multiplier, score } = pattern.cells.reduce(this.reduceCellScore, {
       multiplier: 1,
       score: 0
     });
     return score * multiplier;
   }
 
-  reduceCharacterScore({ multiplier, score }, cell) {
-    const {
-      tile: { character, isBlank }
-    } = cell;
+  reduceCellScore = ({ multiplier, score }, cell) => {
     const { wordMultiplier, characterMultiplier } = this.config.getCellBonusValue(cell);
-    const characterScore = isBlank ? this.config.blankScore : this.config.pointsMap[character];
+    const characterScore = cell.tile.isBlank ? this.config.blankScore : this.config.pointsMap[cell.tile.character];
     return {
       multiplier: multiplier * wordMultiplier,
       score: score + characterScore * characterMultiplier
     };
-  }
+  };
 }
 
 export default ScoresCalculator;

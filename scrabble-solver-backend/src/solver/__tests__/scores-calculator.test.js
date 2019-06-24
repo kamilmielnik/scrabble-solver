@@ -1,5 +1,5 @@
 import { literaki } from 'scrabble-solver-commons/configs';
-import { Board, Cell, Config, Pattern, Tile, VerticalPattern } from 'scrabble-solver-commons/models';
+import { Board, Cell, Config, HorizontalPattern, Pattern, Tile, VerticalPattern } from 'scrabble-solver-commons/models';
 import ScoresCalculator from '../scores-calculator';
 
 const config = new Config(literaki['pl-PL']);
@@ -23,7 +23,7 @@ const board = Board.fromStringArray([
 ]);
 
 describe('ScoresCalculator', () => {
-  it('gives proper score (without collisions)', () => {
+  it('gives proper score without collisions', () => {
     const pattern = new Pattern({
       cells: [
         new Cell({ x: 0, y: 0, tile: new Tile({ character: 'ź' }), isEmpty: true }),
@@ -40,7 +40,7 @@ describe('ScoresCalculator', () => {
     expect(score).toBe(128);
   });
 
-  it('gives proper score (with collisions)', () => {
+  it('gives proper score with collisions', () => {
     const pattern = new VerticalPattern({
       board,
       cells: [
@@ -52,5 +52,17 @@ describe('ScoresCalculator', () => {
     });
     const score = scoresCalculator.calculate(pattern);
     expect(score).toBe(44);
+  });
+
+  it('gives proper score for blank', () => {
+    const pattern = new HorizontalPattern({
+      board,
+      cells: [
+        new Cell({ x: 13, y: 14, tile: new Tile({ character: 'o', isBlank: true }), isEmpty: true }),
+        new Cell({ x: 12, y: 14, tile: new Tile({ character: 't' }), isEmpty: false })
+      ]
+    });
+    const score = scoresCalculator.calculate(pattern);
+    expect(score).toBe(2);
   });
 });
