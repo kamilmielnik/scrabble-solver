@@ -58,16 +58,16 @@ class PatternsFiller {
     const { alphabet } = this.config;
     const firstBlankIndex = tiles.findIndex(({ character, isBlank }) => isBlank && !alphabet.includes(character));
 
-    if (firstBlankIndex !== -1) {
-      const remainingTiles = tiles.slice(0, firstBlankIndex).concat(tiles.slice(firstBlankIndex + 1));
-      return this.config.alphabet.reduce((permutations, character) => {
-        const newTile = new Tile({ character, isBlank: true });
-        const newTiles = [...remainingTiles, newTile];
-        return permutations.concat(this.generateBlankTilesPermutations(newTiles));
-      }, []);
+    if (firstBlankIndex === -1) {
+      return [tiles];
     }
 
-    return [tiles];
+    const remainingTiles = tiles.slice(0, firstBlankIndex).concat(tiles.slice(firstBlankIndex + 1));
+    return this.config.alphabet.reduce((permutations, character) => {
+      const newTile = new Tile({ character, isBlank: true });
+      const newTiles = [...remainingTiles, newTile];
+      return permutations.concat(this.generateBlankTilesPermutations(newTiles));
+    }, []);
   }
 }
 

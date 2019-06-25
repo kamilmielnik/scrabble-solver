@@ -16,7 +16,7 @@ class Pattern {
     return Boolean(this.cells.find((cell) => cell.isEmpty));
   }
 
-  hasAtLeast1NoneEmptyCell() {
+  hasAtLeast1NonEmptyCell() {
     return Boolean(this.cells.find((cell) => !cell.isEmpty));
   }
 
@@ -35,7 +35,7 @@ class Pattern {
     const isNumberOfUsedCellsInRange = numberOfEmptyCells >= 1 && numberOfEmptyCells <= 7;
     return (
       isNumberOfUsedCellsInRange &&
-      (this.hasAtLeast1NoneEmptyCell() || this.collides() || (this.goesThroughBoardCenter() && this.board.isEmpty()))
+      (this.hasAtLeast1NonEmptyCell() || this.collides() || (this.goesThroughBoardCenter() && this.board.isEmpty()))
     );
   }
 
