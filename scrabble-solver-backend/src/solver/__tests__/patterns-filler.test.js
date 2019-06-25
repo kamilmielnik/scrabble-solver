@@ -1,14 +1,15 @@
+import fs from 'fs';
 import { literaki } from 'scrabble-solver-commons/configs';
 import { Board, Cell, Config, Tile, VerticalPattern } from 'scrabble-solver-commons/models';
 import PatternsFiller from '../patterns-filler';
+import Trie from '../trie';
 
 const board = Board.fromStringArray([' t ', 'do ', '   ']);
 
-const config = new Config(literaki['pl-PL']);
-const collection = {
-  has: () => true,
-  hasMore: () => true
-};
+const locale = 'pl-PL';
+const serializedCollection = fs.readFileSync(`../dictionaries/${locale}.txt`, 'utf-8');
+const collection = Trie.deserialize(serializedCollection);
+const config = new Config(literaki[locale]);
 const patternsFiller = new PatternsFiller(config, collection);
 
 describe('PatternsFiller', () => {
@@ -54,6 +55,35 @@ describe('PatternsFiller', () => {
       new Tile({ character: 'd', isBlank: false })
     ];
     const filledPatterns = patternsFiller.fill(pattern, tiles);
-    expect(filledPatterns.length).toBe(6);
+    expect(filledPatterns.length).toBe(1);
+  });
+
+  it('does not modify filled patterns', () => {
+    const pattern = new VerticalPattern({
+      board,
+      cells: [
+        new Cell({ x: 0, y: 0, isEmpty: false, tile: new Tile({ character: 'o', isBlank: false }) }),
+        new Cell({ x: 0, y: 1, isEmpty: false, tile: new Tile({ character: 'k', isBlank: false }) }),
+        new Cell({ x: 0, y: 2, isEmpty: false, tile: new Tile({ character: 'o', isBlank: false }) })
+      ]
+    });
+    const tiles = [new Tile({ character: 'ń', isBlank: false })];
+    const filledPatterns = patternsFiller.fill(pattern, tiles);
+    expect(filledPatterns.length).toBe(1);
+    expect(filledPatterns[0]).toEqual(pattern);
+  });
+
+  it('does not accept non-placeable filled patterns', () => {
+    const pattern = new VerticalPattern({
+      board,
+      cells: [
+        new Cell({ x: 0, y: 0, isEmpty: false, tile: new Tile({ character: 'd', isBlank: false }) }),
+        new Cell({ x: 0, y: 1, isEmpty: false, tile: new Tile({ character: 'd', isBlank: false }) }),
+        new Cell({ x: 0, y: 2, isEmpty: false, tile: new Tile({ character: 'd', isBlank: false }) })
+      ]
+    });
+    const tiles = [new Tile({ character: 'ń', isBlank: false })];
+    const filledPatterns = patternsFiller.fill(pattern, tiles);
+    expect(filledPatterns.length).toBe(0);
   });
 });
