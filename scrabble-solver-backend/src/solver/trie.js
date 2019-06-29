@@ -4,7 +4,8 @@ class Trie {
   constructor(words = []) {
     this.root = words.reduce((trie, word) => {
       let node = trie;
-      for (const character of word) {
+      for (let index = 0; index < word.length; ++index) {
+        const character = word[index];
         if (!node[character]) {
           node[character] = {};
         }
@@ -17,7 +18,8 @@ class Trie {
 
   has(word) {
     let node = this.root;
-    for (const character of word) {
+    for (let index = 0; index < word.length; ++index) {
+      const character = word[index];
       if (!node[character]) {
         return false;
       }
@@ -28,7 +30,8 @@ class Trie {
 
   hasMore(word) {
     let node = this.root;
-    for (const character of word) {
+    for (let index = 0; index < word.length; ++index) {
+      const character = word[index];
       if (!node[character]) {
         return false;
       }
