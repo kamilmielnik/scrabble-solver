@@ -69,7 +69,7 @@
     "react-virtualized": "^9.21.1",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
-    "redux-saga": "^1.0.3",
+    "redux-saga": "^1.0.4",
     "reselect": "^4.0.0",
     "scrabble-solver-commons": "file:../scrabble-solver-commons"
   },
