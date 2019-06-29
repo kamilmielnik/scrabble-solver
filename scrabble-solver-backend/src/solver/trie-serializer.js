@@ -2,8 +2,6 @@ const SEPARATOR = ',';
 const OPEN_PARENS = '(';
 const CLOSE_PARENS = ')';
 
-const wordEndNode = { wordEnd: true };
-
 export const serialize = (node, character = '') => {
   const letters = Object.keys(node).filter((key) => key.length === 1);
   const hasMore = letters.length > 0;
@@ -35,10 +33,10 @@ export const deserialize = (serialized) => {
     if (character === CLOSE_PARENS) {
       node = stack.pop();
     } else if (nextCharacter === SEPARATOR) {
-      node[character] = { ...wordEndNode };
+      node[character] = { wordEnd: true };
       ++i;
     } else if (nextCharacter === CLOSE_PARENS) {
-      node[character] = { ...wordEndNode };
+      node[character] = { wordEnd: true };
       node = stack.pop();
       ++i;
     } else if (nextCharacter === OPEN_PARENS) {
