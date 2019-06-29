@@ -8,13 +8,19 @@ class PatternsFiller {
 
   fill(pattern, tiles) {
     const patterns = [];
+
     if (pattern.getNumberOfEmptyCells() > tiles.length) {
       return [];
     }
+
     const onPatternFound = (newPattern) => patterns.push(newPattern);
-    this.generateBlankTilesPermutations(tiles).forEach((tilesPermutation) =>
-      this.fillPattern(pattern, String(pattern), tilesPermutation, onPatternFound)
-    );
+    const tilesPermutations = this.generateBlankTilesPermutations(tiles);
+
+    for (let index = 0; index < tilesPermutations.length; ++index) {
+      const tilesPermutation = tilesPermutations[index];
+      this.fillPattern(pattern, String(pattern), tilesPermutation, onPatternFound);
+    }
+
     return patterns;
   }
 
@@ -25,7 +31,8 @@ class PatternsFiller {
         onPatternFound(pattern.clone());
       }
     } else {
-      tiles.forEach((tile, index) => {
+      for (let index = 0; index < tiles.length; ++index) {
+        const tile = tiles[index];
         const remainingTiles = tiles.slice(0, index).concat(tiles.slice(index + 1));
         const previousTile = pattern.cells[indexOfFirstCellWithoutTile].tile;
         pattern.cells[indexOfFirstCellWithoutTile].tile = tile;
@@ -40,7 +47,7 @@ class PatternsFiller {
           this.fillPattern(pattern, newWord, remainingTiles, onPatternFound);
         }
         pattern.cells[indexOfFirstCellWithoutTile].tile = previousTile;
-      });
+      }
     }
   }
 

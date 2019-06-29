@@ -12,6 +12,7 @@
     "start": "better-npm-run start",
     "start:prod": "better-npm-run start:prod",
     "test": "better-npm-run test",
+    "test:debug": "better-npm-run test:debug",
     "test:watch": "better-npm-run test:watch"
   },
   "betterScripts": {
@@ -43,6 +44,12 @@
     },
     "test": {
       "command": "jest --no-cache --coverage",
+      "env": {
+        "NODE_ENV": "test"
+      }
+    },
+    "test:debug": {
+      "command": "node --inspect-brk node_modules/.bin/jest --runInBand --watch",
       "env": {
         "NODE_ENV": "test"
       }
