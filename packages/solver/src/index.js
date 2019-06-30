@@ -1,5 +1,5 @@
 import uniqBy from 'lodash/uniqBy';
-import { Result } from '@scrabble-solver/commons/models';
+import { Result } from '@scrabble-solver/models';
 import PatternsFiller from './patterns-filler';
 import PatternsGenerator from './patterns-generator';
 import ScoresCalculator from './scores-calculator';

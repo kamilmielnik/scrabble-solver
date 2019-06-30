@@ -1,4 +1,4 @@
-import { BONUS_CHARACTER } from '../constants';
+import { BONUS_CHARACTER } from '@scrabble-solver/constants';
 import Bonus from './bonus';
 
 class CharacterBonus extends Bonus {

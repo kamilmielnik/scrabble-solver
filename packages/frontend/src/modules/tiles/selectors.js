@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { BLANK } from '@scrabble-solver/constants';
-import { Tile } from '@scrabble-solver/commons/models';
+import { Tile } from '@scrabble-solver/models';
 
 export const selectTiles = (state) => state.tiles;
 export const selectInput = createSelector(

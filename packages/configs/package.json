@@ -1,7 +1,7 @@
 {
-  "name": "@scrabble-solver/solver",
+  "name": "@scrabble-solver/configs",
   "version": "1.4.0",
-  "description": "Scrabble Solver - Solver",
+  "description": "Scrabble Solver - Configs",
   "main": "src/index.js",
   "repository": {
     "type": "git",
@@ -18,12 +18,6 @@
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
-    "lodash": "^4.17.11",
-    "@scrabble-solver/models": "1.4.0",
-    "@scrabble-solver/trie": "1.4.0"
-  },
-  "devDependencies": {
-    "@scrabble-solver/configs": "1.4.0",
     "@scrabble-solver/constants": "1.4.0"
   }
 }

@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { Board, Config, Tile } from '@scrabble-solver/commons/models';
+import { Board, Config, Tile } from '@scrabble-solver/models';
 import Solver from '@scrabble-solver/solver';
 import Trie from '@scrabble-solver/trie';
 

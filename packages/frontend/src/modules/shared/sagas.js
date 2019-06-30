@@ -1,5 +1,5 @@
 import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
-import { Result } from '@scrabble-solver/commons/models';
+import { Result } from '@scrabble-solver/models';
 import { applyResult } from 'board/state';
 import { CHANGE_CONFIG } from 'config/state';
 import { changeInput as changeDictionaryInput, submit as submitDictionary } from 'dictionary/state';

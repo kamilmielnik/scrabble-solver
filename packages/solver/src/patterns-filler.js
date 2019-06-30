@@ -1,4 +1,4 @@
-import { Tile } from '@scrabble-solver/commons/models';
+import { Tile } from '@scrabble-solver/models';
 
 class PatternsFiller {
   constructor(config, collection) {

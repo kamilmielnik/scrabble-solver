@@ -1,4 +1,4 @@
-import { BONUS_CHARACTER, BONUS_WORD } from '../../constants';
+import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 
 export default {
   id: 'literaki',

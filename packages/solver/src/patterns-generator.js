@@ -1,4 +1,4 @@
-import { HorizontalPattern, VerticalPattern } from '@scrabble-solver/commons/models';
+import { HorizontalPattern, VerticalPattern } from '@scrabble-solver/models';
 
 class PatternsGenerator {
   constructor(config) {

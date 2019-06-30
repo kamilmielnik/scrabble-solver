@@ -1,4 +1,4 @@
-import { BONUS_CHARACTER, BONUS_WORD } from '../constants';
+import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 import CharacterBonus from './character-bonus';
 import WordBonus from './word-bonus';
 

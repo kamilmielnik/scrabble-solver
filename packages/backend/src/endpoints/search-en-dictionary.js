@@ -1,5 +1,5 @@
 import http from 'http';
-import { WordDefinition, NullWordDefinition } from '@scrabble-solver/commons/models';
+import { WordDefinition, NullWordDefinition } from '@scrabble-solver/models';
 
 const API_KEY = 'd0c21cb3cbc3415984a2a0486da075e54aa68091c33a680d9';
 const MAX_RESULTS = 10;

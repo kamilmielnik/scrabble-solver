@@ -58,8 +58,9 @@
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
-    "@scrabble-solver/commons": "1.4.0",
+    "@scrabble-solver/configs": "1.4.0",
     "@scrabble-solver/constants": "1.4.0",
+    "@scrabble-solver/models": "1.4.0",
     "classnames": "^2.2.6",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",

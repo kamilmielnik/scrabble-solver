@@ -1,4 +1,4 @@
-import { EMPTY_CELL } from '../constants';
+import { EMPTY_CELL } from '@scrabble-solver/constants';
 
 class Tile {
   constructor({ character, isBlank = false }) {

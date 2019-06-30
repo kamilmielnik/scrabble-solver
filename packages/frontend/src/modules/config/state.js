@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { scrabble } from '@scrabble-solver/commons/configs';
+import { scrabble } from '@scrabble-solver/configs';
 
 export const CHANGE_CONFIG = 'config/change-config';
 

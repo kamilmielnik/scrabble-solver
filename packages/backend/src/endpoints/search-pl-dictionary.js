@@ -1,6 +1,6 @@
 import proxy from 'express-http-proxy';
 import cheerio from 'cheerio';
-import { WordDefinition } from '@scrabble-solver/commons/models';
+import { WordDefinition } from '@scrabble-solver/models';
 
 const DICTIONARY_URL = 'https://sjp.pl';
 

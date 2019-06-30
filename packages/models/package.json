@@ -1,7 +1,8 @@
 {
-  "name": "@scrabble-solver/commons",
+  "name": "@scrabble-solver/models",
   "version": "1.4.0",
-  "description": "Scrabble Solver - Commons",
+  "description": "Scrabble Solver - Models",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kamilmielnik/scrabble-solver.git"
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/kamilmielnik/scrabble-solver/issues"
   },
-  "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme"
+  "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
+  "dependencies": {
+    "@scrabble-solver/constants": "1.4.0"
+  }
 }

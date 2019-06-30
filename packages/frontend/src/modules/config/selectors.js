@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { Config } from '@scrabble-solver/commons/models';
+import { Config } from '@scrabble-solver/models';
 import { selectLocale } from 'i18n/selectors';
 
 const selectRoot = (state) => state.config;
