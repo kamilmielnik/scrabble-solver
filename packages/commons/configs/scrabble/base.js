@@ -3,13 +3,11 @@ import { BONUS_CHARACTER, BONUS_WORD } from '../../constants';
 export default {
   id: 'scrabble',
   name: 'Scrabble',
+  allTilesBonusScore: 50,
+  blankScore: 0,
   boardWidth: 15,
   boardHeight: 15,
   maximumNumberOfCharacters: 7,
-  minimumWordLength: 2,
-  maximumWordLength: 15,
-  blankScore: 0,
-  allTilesBonusScore: 50,
   numberOfBlanks: 2,
   bonuses: [
     { x: 0, y: 0, type: BONUS_WORD, multiplier: 3 },

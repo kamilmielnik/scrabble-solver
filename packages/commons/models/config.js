@@ -8,16 +8,14 @@ class Config {
     const bonusFactory = new BonusFactory(this);
     this.id = config.id;
     this.name = config.name;
+    this.allTilesBonusScore = config.allTilesBonusScore;
+    this.blankScore = config.blankScore;
     this.boardWidth = config.boardWidth;
     this.boardHeight = config.boardHeight;
     this.maximumNumberOfCharacters = config.maximumNumberOfCharacters;
-    this.minimumWordLength = config.minimumWordLength;
-    this.maximumWordLength = config.maximumWordLength;
-    this.blankScore = config.blankScore;
-    this.allTilesBonusScore = config.allTilesBonusScore;
     this.numberOfBlanks = config.numberOfBlanks;
-    this.characters = config.characters;
     this.bonuses = getBonuses(bonusFactory, config);
+    this.characters = config.characters;
     this.alphabet = getAlphabet(config);
     this.allCharacters = getAllCharacters(config);
     this.pointsMap = getPointsMap(config);
@@ -45,11 +43,9 @@ class Config {
       boardWidth: this.boardWidth,
       boardHeight: this.boardHeight,
       maximumNumberOfCharacters: this.maximumNumberOfCharacters,
-      minimumWordLength: this.minimumWordLength,
-      maximumWordLength: this.maximumWordLength,
       characters: this.characters,
-      numberOfBlanks: this.numberOfBlanks,
       allTilesBonusScore: this.allTilesBonusScore,
+      numberOfBlanks: this.numberOfBlanks,
       bonuses: this.bonuses.map((bonus) => bonus.toJson())
     };
   }
