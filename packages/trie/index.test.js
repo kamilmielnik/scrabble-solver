@@ -5,7 +5,7 @@ describe('Trie', () => {
   const prefixes = ['a', 'ab', 'abc', 'ac', ...words];
   const otherWords = ['b', 'bc', 'ce', 'bcd', 'bce'];
   const otherPrefixes = ['b', 'bc', 'ce', 'bcd', 'bce'];
-  const trie = new Trie(words);
+  const trie = Trie.fromArray(words);
   const serializedTrie = '(a(b,b(c(d,e)),c(e)))';
   const trieJson = {
     a: {
@@ -57,6 +57,6 @@ describe('Trie', () => {
   });
 
   it('properly initializes from JSON', () => {
-    expect(Trie.fromJson(trieJson).toJson()).toEqual(trieJson);
+    expect(new Trie(trieJson).toJson()).toEqual(trieJson);
   });
 });

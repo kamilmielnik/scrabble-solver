@@ -1,8 +1,14 @@
 import { serialize, deserialize } from './serializer';
 
 class Trie {
-  constructor(words = []) {
-    this.root = words.reduce((trie, word) => {
+  static deserialize(serialized) {
+    const trie = new Trie();
+    trie.root = deserialize(serialized);
+    return trie;
+  }
+
+  static fromArray(array) {
+    const root = array.reduce((trie, word) => {
       let node = trie;
 
       for (let index = 0; index < word.length; ++index) {
@@ -19,6 +25,12 @@ class Trie {
 
       return trie;
     }, {});
+
+    return new Trie(root);
+  }
+
+  constructor(root = {}) {
+    this.root = root;
   }
 
   has(word) {
@@ -57,18 +69,6 @@ class Trie {
 
   toJson() {
     return this.root;
-  }
-
-  static deserialize(serialized) {
-    const trie = new Trie();
-    trie.root = deserialize(serialized);
-    return trie;
-  }
-
-  static fromJson(json) {
-    const trie = new Trie();
-    trie.root = json;
-    return trie;
   }
 }
 

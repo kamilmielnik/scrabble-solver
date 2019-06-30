@@ -65,7 +65,7 @@ const prepareFile = (file) => {
   logAction('Preparing file', () => {
     const lines = file.replace(/\r/g, '').split('\n');
     const words = lines.filter(Boolean);
-    const trie = new Trie(words);
+    const trie = Trie.fromArray(words);
     serialized = trie.serialize();
   });
   return serialized;

@@ -34,7 +34,7 @@ const prepareFile = (file) => {
     const lines = file.replace(/\r/g, '').split('\n');
     const firstWordIndex = lines.indexOf(FIRST_WORD);
     const words = lines.slice(firstWordIndex).filter(Boolean);
-    const trie = new Trie(words);
+    const trie = Trie.fromArray(words);
     serialized = trie.serialize();
   });
   return serialized;
