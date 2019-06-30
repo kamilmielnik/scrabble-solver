@@ -27,7 +27,7 @@ module.exports = {
   externals: [
     IS_DEV_ENV &&
       nodeExternals({
-        whitelist: [/^@scrabble-solver\/commons/, 'webpack/hot/poll?1000']
+        whitelist: [/^@scrabble-solver/, 'webpack/hot/poll?1000']
       })
   ].filter(Boolean),
   module: {

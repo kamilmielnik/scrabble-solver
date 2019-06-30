@@ -29,7 +29,7 @@ const build = () => {
 const bootstrap = () => {
   logAction('Bootstrapping', () => {
     process.chdir(dirname);
-    execSync('lerna bootstrap');
+    execSync('npm run bootstrap');
   });
 };
 

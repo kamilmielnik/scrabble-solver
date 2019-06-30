@@ -2,7 +2,7 @@ import base from './base';
 
 export default {
   ...base,
-  characters: [
+  tiles: [
     { character: 'a', score: 1, count: 9 },
     { character: 'ą', score: 5, count: 1 },
     { character: 'b', score: 3, count: 2 },

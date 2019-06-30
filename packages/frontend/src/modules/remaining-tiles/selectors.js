@@ -7,8 +7,8 @@ import { getNumberOfRemainingCharacters, reduceCellStatistics } from './utils/st
 
 export const selectCharactersMap = createSelector(
   [selectConfig, selectInput],
-  ({ characters, pointsMap }, input) =>
-    characters.reduce(
+  ({ tiles, pointsMap }, input) =>
+    tiles.reduce(
       (charactersStatistics, { character, count }) => ({
         ...charactersStatistics,
         [character]: {

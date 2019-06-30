@@ -5,7 +5,7 @@ const paths = [
   './dictionaries',
   './dist',
   './packages/backend/dist',
-  './packages/frontend/dist',
+  './packages/frontend/build',
   './packages/backend/node_modules',
   './packages/commons/node_modules',
   './packages/frontend/node_modules',
