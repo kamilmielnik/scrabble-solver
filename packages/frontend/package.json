@@ -71,7 +71,8 @@
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
     "redux-saga": "^1.0.4",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "store2": "^2.7.1"
   },
   "devDependencies": {
     "better-npm-run": "0.1.1",

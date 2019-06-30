@@ -7,14 +7,4 @@ export const createKeyComparator = (key) => (a, b) => {
   return compare(aValue, bValue);
 };
 const stringsComparator = (a, b) => a.localeCompare(b);
-const numbersComparator = (a, b) => {
-  if (a < b) {
-    return -1;
-  }
-
-  if (a > b) {
-    return 1;
-  }
-
-  return 0;
-};
+const numbersComparator = (a, b) => a - b;
