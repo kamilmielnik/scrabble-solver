@@ -82,7 +82,7 @@
     "express": "^4.17.1",
     "express-http-proxy": "^1.5.1",
     "lodash": "^4.17.11",
-    "scrabble-solver-commons": "file:../scrabble-solver-commons"
+    "@scrabble-solver/commons": "file:../commons"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
