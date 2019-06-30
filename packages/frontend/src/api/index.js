@@ -1,5 +1,7 @@
 export const getWordDefinition = (locale, word) =>
-  fetch(`${process.env.REACT_APP_API_URL}/${locale}/dictionary/${word.toLowerCase()}`).then((response) => response.json());
+  fetch(`${process.env.REACT_APP_API_URL}/${locale}/dictionary/${word.toLowerCase()}`).then((response) =>
+    response.json()
+  );
 
 export const postSolve = (locale, payload) =>
   fetch(`${process.env.REACT_APP_API_URL}/${locale}/solve`, {
