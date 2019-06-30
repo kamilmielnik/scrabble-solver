@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/backend",
-  "version": "1.4.0",
+  "version": "2.0.0-alpha.0",
   "description": "Scrabble Solver - Backend",
   "main": "src/index.js",
   "engines": {
@@ -53,9 +53,9 @@
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
-    "@scrabble-solver/models": "1.4.0",
-    "@scrabble-solver/solver": "1.4.0",
-    "@scrabble-solver/trie": "1.4.0",
+    "@scrabble-solver/models": "^2.0.0-alpha.0",
+    "@scrabble-solver/solver": "^2.0.0-alpha.0",
+    "@scrabble-solver/trie": "^2.0.0-alpha.0",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
