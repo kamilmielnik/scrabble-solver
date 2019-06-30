@@ -12,8 +12,8 @@ const TARGET_DIRECTORY = path.join(dirname, 'dist');
 const TARGET_DICTIONARIES_PATH = path.join(TARGET_DIRECTORY, DICTIONARY_DIRECTORY_NAME);
 
 const build = () => {
-  buildModule('scrabble-solver-backend');
-  buildModule('scrabble-solver-frontend');
+  buildModule('packages/backend');
+  buildModule('packages/frontend');
   fs.copySync(DICTIONARIES_PATH, TARGET_DICTIONARIES_PATH);
 };
 

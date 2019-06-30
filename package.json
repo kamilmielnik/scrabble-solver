@@ -15,7 +15,7 @@
     "start": "npm-run-all --parallel start:* open",
     "start:backend": "better-npm-run start:backend",
     "start:frontend": "better-npm-run start:frontend",
-    "lint": "eslint scrabble-solver-backend/src/ scrabble-solver-commons/ scrabble-solver-frontend/src/",
+    "lint": "eslint packages/backend/src/ packages/commons/ packages/frontend/src/",
     "lint:fix": "npm run lint -- --fix",
     "prettier:js": "npm run lint -- --no-eslintrc -c .eslintrc.prettier-only.js",
     "prettier:js:fix": "npm run prettier:js -- --fix",
@@ -45,13 +45,13 @@
       "command": "babel-node scripts/clean.js"
     },
     "start:backend": {
-      "command": "node dist/scrabble-solver-backend/index.js dictionaries/",
+      "command": "node dist/backend/index.js dictionaries/",
       "env": {
         "NODE_ENV": "production"
       }
     },
     "start:frontend": {
-      "command": "http-server dist/scrabble-solver-frontend",
+      "command": "http-server dist/frontend",
       "env": {
         "NODE_ENV": "production"
       }
@@ -79,8 +79,8 @@
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
     "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
     "@babel/node": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
     "better-npm-run": "0.1.1",
     "cheerio": "^1.0.0-rc.3",
     "decompress": "^4.2.0",
@@ -97,6 +97,7 @@
     "eslint-config-prettier": "^5.0.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.13.0",
+    "lerna": "^3.15.0",
     "prettier": "^1.18.2",
     "rimraf": "^2.6.3",
     "start-server-webpack-plugin": "^2.2.5"
