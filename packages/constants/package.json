@@ -1,7 +1,7 @@
 {
-  "name": "@scrabble-solver/solver",
+  "name": "@scrabble-solver/constants",
   "version": "1.4.0",
-  "description": "Scrabble Solver - Solver",
+  "description": "Scrabble Solver - Constants",
   "main": "src/index.js",
   "repository": {
     "type": "git",
@@ -16,13 +16,5 @@
   "bugs": {
     "url": "https://github.com/kamilmielnik/scrabble-solver/issues"
   },
-  "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
-  "dependencies": {
-    "lodash": "^4.17.11",
-    "@scrabble-solver/commons": "1.4.0",
-    "@scrabble-solver/trie": "1.4.0"
-  },
-  "devDependencies": {
-    "@scrabble-solver/constants": "1.4.0"
-  }
+  "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme"
 }

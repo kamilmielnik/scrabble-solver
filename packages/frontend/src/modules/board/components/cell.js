@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { EMPTY_CELL } from '@scrabble-solver/commons/constants';
+import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { changeCellValue, toggleCellIsBlank } from 'board/state';
 import { submit } from 'tiles/state';
 import { selectBonus, selectCharacterPoints } from 'board/selectors';

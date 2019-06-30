@@ -2,7 +2,7 @@ import path from 'path';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { API_HOST, API_PORT } from '@scrabble-solver/commons/constants';
+import { API_HOST, API_PORT } from '@scrabble-solver/constants';
 import searchEnDictionary from 'endpoints/search-en-dictionary';
 import searchPlDictionary from 'endpoints/search-pl-dictionary';
 import solve from 'endpoints/solve';

@@ -1,4 +1,4 @@
-import { EMPTY_CELL } from '@scrabble-solver/commons/constants';
+import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Board } from '@scrabble-solver/commons/models';
 import PatternsGenerator from '../patterns-generator';
 

@@ -1,4 +1,4 @@
-import { API_URL } from '@scrabble-solver/commons/constants';
+import { API_URL } from '@scrabble-solver/constants';
 
 export const getWordDefinition = (locale, word) =>
   fetch(`${API_URL}/${locale}/dictionary/${word.toLowerCase()}`).then((response) => response.json());

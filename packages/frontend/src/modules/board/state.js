@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { EMPTY_CELL } from '@scrabble-solver/commons/constants';
+import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Board, Cell, Tile } from '@scrabble-solver/commons/models';
 import { initialState as config } from 'config/state';
 import { initialState as i18n } from 'i18n/state';
