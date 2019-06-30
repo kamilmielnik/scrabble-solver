@@ -15,7 +15,7 @@
     "start": "npm-run-all --parallel start:* open",
     "start:backend": "better-npm-run start:backend",
     "start:frontend": "better-npm-run start:frontend",
-    "lint": "eslint packages/backend/src/ packages/commons/ packages/frontend/src/",
+    "lint": "eslint packages/",
     "lint:fix": "npm run lint -- --fix",
     "prettier:js": "npm run lint -- --no-eslintrc -c .eslintrc.prettier-only.js",
     "prettier:js:fix": "npm run prettier:js -- --fix",

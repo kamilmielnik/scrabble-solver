@@ -24,10 +24,7 @@ const parseSjpResponse = (html) => {
 };
 
 const getIsAllowedNode = ($header) => $header.next();
-const getWordNode = ($header) =>
-  $header
-    .next()
-    .next();
+const getWordNode = ($header) => $header.next().next();
 const getDefinitionsNode = ($header) =>
   $header
     .next()

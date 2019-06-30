@@ -222,7 +222,7 @@ module.exports = {
     ],
     'linebreak-style': ['error', 'unix'],
     'lines-around-comment': 'off',
-    'max-depth': ['error', 2],
+    'max-depth': ['error', 4],
     'max-len': ['error', 120],
     'max-lines': ['warn', 200],
     'max-nested-callbacks': ['error', 4],

@@ -1,5 +1,13 @@
 import { literaki } from '@scrabble-solver/commons/configs';
-import { Board, Cell, Config, HorizontalPattern, Pattern, Tile, VerticalPattern } from '@scrabble-solver/commons/models';
+import {
+  Board,
+  Cell,
+  Config,
+  HorizontalPattern,
+  Pattern,
+  Tile,
+  VerticalPattern
+} from '@scrabble-solver/commons/models';
 import ScoresCalculator from '../scores-calculator';
 
 const config = new Config(literaki['pl-PL']);
