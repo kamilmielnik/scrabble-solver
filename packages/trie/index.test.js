@@ -1,4 +1,4 @@
-import Trie from '../trie';
+import Trie from './index';
 
 describe('Trie', () => {
   const words = ['ab', 'abcd', 'abce', 'ace'];

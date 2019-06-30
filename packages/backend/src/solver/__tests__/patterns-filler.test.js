@@ -1,8 +1,8 @@
 import fs from 'fs';
 import { literaki } from '@scrabble-solver/commons/configs';
 import { Board, Cell, Config, Tile, VerticalPattern } from '@scrabble-solver/commons/models';
+import Trie from '@scrabble-solver/trie';
 import PatternsFiller from '../patterns-filler';
-import Trie from '../trie';
 
 const board = Board.fromStringArray([' t ', 'do ', '   ']);
 

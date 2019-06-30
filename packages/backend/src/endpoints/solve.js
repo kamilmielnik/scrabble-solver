@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { Board, Config, Tile } from '@scrabble-solver/commons/models';
-import Trie from 'solver/trie';
+import Trie from '@scrabble-solver/trie';
 import Solver from 'solver';
 
 export default (filepath) => {

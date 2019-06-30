@@ -1,35 +1,45 @@
-import { serialize, deserialize } from './trie-serializer';
+import { serialize, deserialize } from './serializer';
 
 class Trie {
   constructor(words = []) {
     this.root = words.reduce((trie, word) => {
       let node = trie;
+
       for (let index = 0; index < word.length; ++index) {
         const character = word[index];
+
         if (!node[character]) {
           node[character] = {};
         }
+
         node = node[character];
       }
+
       node.wordEnd = true;
+
       return trie;
     }, {});
   }
 
   has(word) {
     let node = this.root;
+
     for (let index = 0; index < word.length; ++index) {
       const character = word[index];
+
       if (!node[character]) {
         return false;
       }
+
       node = node[character];
     }
+
     return node.wordEnd;
   }
 
   hasMore(word) {
     let node = this.root;
+
     for (let index = 0; index < word.length; ++index) {
       const character = word[index];
       if (!node[character]) {
@@ -37,6 +47,7 @@ class Trie {
       }
       node = node[character];
     }
+
     return Object.keys(node).length > 0;
   }
 

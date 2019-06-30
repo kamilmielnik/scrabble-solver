@@ -12,7 +12,7 @@ import {
   unzipFile,
   writeFile
 } from './utils';
-import Trie from '../packages/backend/src/solver/trie';
+import Trie from '../packages/trie';
 
 const PAGE_URL = 'https://sjp.pl/slownik/growy/';
 const FILE_TO_EXTRACT_FROM_ZIP = 'slowa.txt';

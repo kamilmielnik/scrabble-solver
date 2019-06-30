@@ -45,7 +45,7 @@
       }
     },
     "clean": {
-      "command": "babel-node scripts/clean.js && npm install"
+      "command": "babel-node scripts/clean.js && npm run install-dictionaries"
     },
     "start:backend": {
       "command": "node dist/backend/index.js dictionaries/",

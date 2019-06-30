@@ -1,8 +1,8 @@
 import fs from 'fs';
 import { literaki } from '@scrabble-solver/commons/configs';
 import { Board, Config, Tile } from '@scrabble-solver/commons/models';
+import Trie from '@scrabble-solver/trie';
 import Solver from '../index';
-import Trie from '../trie';
 
 const locale = 'pl-PL';
 const serializedCollection = fs.readFileSync(`dictionaries/${locale}.txt`, 'utf-8');
