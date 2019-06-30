@@ -19,13 +19,11 @@ class Walkthrough extends Component {
     onFinished: PropTypes.func.isRequired
   };
 
-  constructor(props) {
-    super(props);
-    this.joyride = createRef();
-    this.state = {
-      isTouched: false
-    };
-  }
+  joyride = createRef();
+
+  state = {
+    isTouched: false
+  };
 
   callback = ({ type }) => {
     if (['beacon:before', 'finished'].includes(type)) {
