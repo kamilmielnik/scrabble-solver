@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/models",
-  "version": "2.0.0-alpha.2",
+  "version": "2.0.0-alpha.3",
   "description": "Scrabble Solver - Models",
   "main": "src/index.js",
   "repository": {
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
-    "@scrabble-solver/constants": "^2.0.0-alpha.2"
+    "@scrabble-solver/constants": "^2.0.0-alpha.3"
   },
   "gitHead": "78cba7ff8a39d1149b693958dc2fc34b2bedb1c9"
 }

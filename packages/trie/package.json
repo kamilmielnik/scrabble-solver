@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/trie",
-  "version": "2.0.0-alpha.2",
+  "version": "2.0.0-alpha.3",
   "description": "Scrabble Solver - Trie",
   "main": "src/index.js",
   "repository": {
