@@ -2,6 +2,7 @@
   "name": "@scrabble-solver/trie",
   "version": "1.4.0",
   "description": "Scrabble Solver - Trie",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kamilmielnik/scrabble-solver.git"
