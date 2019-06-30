@@ -1,4 +1,4 @@
-﻿coverage/
+coverage/
 node_modules/
 **/dist/
 **/build/
