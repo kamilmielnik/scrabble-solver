@@ -25,7 +25,6 @@ export const selectRowsWithCandidate = createSelector(
 export const selectBonus = createCachedSelector([selectConfig, (state, cell) => cell], (config, cell) =>
   config.bonuses.find((bonus) => bonus.matchesCellCoordinates(cell))
 )((state, { x, y }) => `${x}-${y}`);
-export const selectCharacterPoints = createCachedSelector(
-  [selectConfig, (state, cell) => cell],
-  (config, cell) => config.pointsMap[cell.tile.character]
+export const selectCharacterPoints = createCachedSelector([selectConfig, (state, cell) => cell], (config, cell) =>
+  cell.tile.isBlank ? config.blankScore : config.pointsMap[cell.tile.character]
 )((state, { x, y }) => `${x}-${y}`);

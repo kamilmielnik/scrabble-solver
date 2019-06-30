@@ -26,6 +26,7 @@ const Cell = ({ bonus, cell, characterPoints, className, ...tileProps }) => (
     )}
   >
     <Tile tile={cell.tile} {...tileProps} />
+    {characterPoints > 0 && <div className={styles.points}>{characterPoints}</div>}
   </div>
 );
 

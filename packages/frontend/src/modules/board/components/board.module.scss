@@ -11,10 +11,10 @@ $tile-size: 30px;
   }
 
   .cell {
+    position: relative;
     display: table-cell;
     background-color: $white;
     border: $border;
-
     transition: background-color $micro-animation-duration, color $micro-animation-duration;
 
     &:not(.empty) {
@@ -111,6 +111,17 @@ $tile-size: 30px;
       &:before {
         display: none;
       }
+
+      .points {
+        color: $white;
+      }
+    }
+
+    .points {
+      position: absolute;
+      bottom: 3px;
+      right: 3px;
+      font-size: 10px;
     }
 
     .tile {

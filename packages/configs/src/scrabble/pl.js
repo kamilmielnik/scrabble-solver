@@ -33,7 +33,7 @@ export default {
     { character: 'w', score: 1, count: 4 },
     { character: 'y', score: 2, count: 4 },
     { character: 'z', score: 1, count: 5 },
-    { character: 'ź', score: 5, count: 1 },
-    { character: 'ż', score: 9, count: 1 }
+    { character: 'ź', score: 9, count: 1 },
+    { character: 'ż', score: 5, count: 1 }
   ]
 };
