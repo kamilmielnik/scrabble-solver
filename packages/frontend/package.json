@@ -58,6 +58,7 @@
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
+    "@scrabble-solver/commons": "1.4.0",
     "classnames": "^2.2.6",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
@@ -70,8 +71,7 @@
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
     "redux-saga": "^1.0.4",
-    "reselect": "^4.0.0",
-    "@scrabble-solver/commons": "file:../commons"
+    "reselect": "^4.0.0"
   },
   "devDependencies": {
     "better-npm-run": "0.1.1",

@@ -7,7 +7,7 @@ import searchEnDictionary from 'endpoints/search-en-dictionary';
 import searchPlDictionary from 'endpoints/search-pl-dictionary';
 import solve from 'endpoints/solve';
 
-const dictionariesDirectory = process.argv[2] || '../dictionaries';
+const dictionariesDirectory = process.argv[2] || '../../dictionaries';
 
 const locales = [
   {

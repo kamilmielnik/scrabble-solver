@@ -7,7 +7,7 @@ import Trie from '../trie';
 const board = Board.fromStringArray([' t ', 'do ', '   ']);
 
 const locale = 'pl-PL';
-const serializedCollection = fs.readFileSync(`../dictionaries/${locale}.txt`, 'utf-8');
+const serializedCollection = fs.readFileSync(`../../dictionaries/${locale}.txt`, 'utf-8');
 const collection = Trie.deserialize(serializedCollection);
 const config = new Config(literaki[locale]);
 const patternsFiller = new PatternsFiller(config, collection);
