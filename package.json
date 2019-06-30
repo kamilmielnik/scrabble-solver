@@ -23,7 +23,7 @@
     "prettier:scss:fix": "npm run prettier:scss -- --write --no-list-different",
     "prettier": "npm run prettier:js && npm run prettier:scss",
     "prettier:fix": "npm run prettier:js:fix && npm run prettier:scss:fix",
-    "open": "opn http://localhost:8080",
+    "open": "open-cli http://localhost:8080",
     "postinstall": "npm run install-dictionaries",
     "install-dictionaries": "npm-run-all --parallel prepare-*",
     "prepare-en-dictionaries": "better-npm-run prepare-en-dictionaries",
@@ -42,7 +42,7 @@
       }
     },
     "clean": {
-      "command": "babel-node scripts/clean.js"
+      "command": "babel-node scripts/clean.js && npm install"
     },
     "start:backend": {
       "command": "node dist/backend/index.js dictionaries/",
@@ -87,7 +87,7 @@
     "fs-extra": "^8.0.1",
     "http-server": "^0.11.1",
     "npm-run-all": "^4.1.5",
-    "opn-cli": "^5.0.0",
+    "open-cli": "^5.0.0",
     "request": "^2.88.0",
     "yargs": "^13.2.4"
   },

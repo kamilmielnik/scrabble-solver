@@ -12,22 +12,36 @@ const TARGET_DIRECTORY = path.join(dirname, 'dist');
 const TARGET_DICTIONARIES_PATH = path.join(TARGET_DIRECTORY, DICTIONARY_DIRECTORY_NAME);
 
 const build = () => {
-  buildModule('packages/backend');
-  buildModule('packages/frontend');
+  bootstrap();
+  buildModule({
+    name: 'backend',
+    directory: 'packages/backend',
+    dist: 'dist'
+  });
+  buildModule({
+    name: 'frontend',
+    directory: 'packages/frontend',
+    dist: 'build'
+  });
   fs.copySync(DICTIONARIES_PATH, TARGET_DICTIONARIES_PATH);
 };
 
-const buildModule = (moduleName) => {
-  const moduleDirectory = path.join(dirname, moduleName);
-  const distDirectory = path.join(moduleDirectory, 'dist');
-  process.chdir(moduleDirectory);
-  logAction(`Installing "${moduleName}" dependencies`, () => {
-    execSync('npm install');
+const bootstrap = () => {
+  logAction('Bootstrapping', () => {
+    process.chdir(dirname);
+    execSync('lerna bootstrap');
   });
-  logAction(`Building "${moduleName}"`, () => {
+};
+
+const buildModule = ({ name, directory, dist }) => {
+  const moduleDirectory = path.join(dirname, directory);
+  const distDirectory = path.join(moduleDirectory, dist);
+  const targetDirectory = path.join(TARGET_DIRECTORY, name);
+  process.chdir(moduleDirectory);
+  logAction(`Building "${name}"`, () => {
     const npmScript = env ? `build:${env}` : 'build';
     execSync(`npm run ${npmScript}`);
-    fs.copySync(distDirectory, path.join(TARGET_DIRECTORY, moduleName));
+    fs.copySync(distDirectory, targetDirectory);
   });
 };
 
