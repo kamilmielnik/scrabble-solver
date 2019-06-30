@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { changeInput, clearInput, submit } from 'tiles/state';
 import { selectMessage } from 'i18n/selectors';
-import { selectInput, selectInputLength } from 'tiles/selectors';
+import { selectInput, selectInputLength, selectInputMaxLength } from 'tiles/selectors';
 import Input from 'components/input';
 
 const mapStateToProps = (state) => ({
@@ -12,6 +12,7 @@ const mapStateToProps = (state) => ({
       numberOfTiles: selectInputLength(state)
     }
   }),
+  maxLength: selectInputMaxLength(state),
   value: selectInput(state)
 });
 

@@ -7,13 +7,20 @@ import Section from 'components/section';
 import EventsDecorator from './events-decorator';
 import styles from './input.module.scss';
 
-const Input = ({ className, id, label, value, onChange = noop, onClear = noop, onKeyDown = noop }) => {
+const Input = ({ className, id, label, maxLength, value, onChange = noop, onClear = noop, onKeyDown = noop }) => {
   const inputRef = useRef(null);
 
   return (
     <Section className={className} label={label} id={id}>
       <div className={styles.input}>
-        <input ref={inputRef} type="text" value={value} onChange={onChange} onKeyDown={onKeyDown} />
+        <input
+          maxLength={maxLength}
+          ref={inputRef}
+          type="text"
+          value={value}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+        />
 
         <Button
           onClick={() => {
@@ -32,6 +39,7 @@ Input.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
   label: PropTypes.string,
+  maxLength: PropTypes.number,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   onClear: PropTypes.func,
