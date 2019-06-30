@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/trie",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "description": "Scrabble Solver - Trie",
   "main": "src/index.js",
   "repository": {
@@ -16,5 +16,6 @@
   "bugs": {
     "url": "https://github.com/kamilmielnik/scrabble-solver/issues"
   },
-  "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme"
+  "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
+  "gitHead": "f347ff2e7fd19784a8e6bb9878659fe9f2f2d41a"
 }

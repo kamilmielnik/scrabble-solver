@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/frontend",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "description": "Scrabble Solver - Frontend",
   "main": "src/index.js",
   "engines": {
@@ -56,9 +56,9 @@
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
-    "@scrabble-solver/configs": "^2.0.0-alpha.1",
-    "@scrabble-solver/constants": "^2.0.0-alpha.1",
-    "@scrabble-solver/models": "^2.0.0-alpha.1",
+    "@scrabble-solver/configs": "^2.0.0-alpha.2",
+    "@scrabble-solver/constants": "^2.0.0-alpha.2",
+    "@scrabble-solver/models": "^2.0.0-alpha.2",
     "classnames": "^2.2.6",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
@@ -85,5 +85,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "gitHead": "f347ff2e7fd19784a8e6bb9878659fe9f2f2d41a"
 }
