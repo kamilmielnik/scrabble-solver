@@ -15,7 +15,7 @@ class Config {
     this.maximumNumberOfCharacters = config.maximumNumberOfCharacters;
     this.numberOfBlanks = config.numberOfBlanks;
     this.bonuses = getBonuses(bonusFactory, config);
-    this.characters = config.characters;
+    this.tiles = config.tiles;
     this.alphabet = getAlphabet(config);
     this.allCharacters = getAllCharacters(config);
     this.pointsMap = getPointsMap(config);
@@ -43,7 +43,7 @@ class Config {
       boardWidth: this.boardWidth,
       boardHeight: this.boardHeight,
       maximumNumberOfCharacters: this.maximumNumberOfCharacters,
-      characters: this.characters,
+      tiles: this.tiles,
       allTilesBonusScore: this.allTilesBonusScore,
       numberOfBlanks: this.numberOfBlanks,
       bonuses: this.bonuses.map((bonus) => bonus.toJson())
@@ -55,9 +55,9 @@ class Config {
   }
 }
 
-const getAlphabet = ({ characters }) => characters.map(({ character }) => character);
-const getAllCharacters = ({ characters, numberOfBlanks }) =>
-  characters.reduce(
+const getAlphabet = ({ tiles }) => tiles.map(({ character }) => character);
+const getAllCharacters = ({ tiles, numberOfBlanks }) =>
+  tiles.reduce(
     (allCharacters, { character, count }) =>
       allCharacters +
       Array(count)
@@ -67,8 +67,8 @@ const getAllCharacters = ({ characters, numberOfBlanks }) =>
       .fill(BLANK)
       .join('')
   );
-const getPointsMap = ({ characters }) =>
-  characters.reduce(
+const getPointsMap = ({ tiles }) =>
+  tiles.reduce(
     (pointsMap, { character, score }) => ({
       ...pointsMap,
       [character]: score
