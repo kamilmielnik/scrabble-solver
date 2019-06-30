@@ -10,8 +10,9 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "build": "better-npm-run build",
-    "build:prod": "better-npm-run build:prod",
+    "build": "babel-node scripts/build.js",
+    "build:prod": "babel-node scripts/build.js prod",
+    "deploy": "babel-node scripts/deploy.js",
     "lint": "eslint packages/",
     "lint:fix": "npm run lint -- --fix",
     "prettier:js": "npm run lint -- --no-eslintrc -c .eslintrc.prettier-only.js",
@@ -26,37 +27,13 @@
     "prepare-en-dictionaries": "babel-node scripts/prepare-en-dictionaries.js -- --output-dir dictionaries",
     "prepare-pl-dictionary": "babel-node scripts/prepare-pl-dictionary.js -- --output-dir dictionaries",
     "reinstall": "babel-node scripts/clean.js && rm -rf package-lock.json node_modules/ && npm install && npm run build",
+    "reinstall:prod": "babel-node scripts/clean.js && rm -rf package-lock.json node_modules/ && npm install && npm run build:prod",
     "start": "npm-run-all --parallel start:* open",
-    "start:backend": "better-npm-run start:backend",
-    "start:frontend": "better-npm-run start:frontend",
+    "start:backend": "node dist/index.js dictionaries/",
+    "start:frontend": "http-server dist/frontend",
     "test": "jest --no-cache --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache --watch",
     "test:watch": "jest --no-cache --watch"
-  },
-  "betterScripts": {
-    "build": {
-      "command": "babel-node scripts/build.js"
-    },
-    "build:prod": {
-      "command": "babel-node scripts/build.js prod",
-      "env": {
-        "NODE_ENV": "production",
-        "API_HOST": "http://kamilmielnik.com",
-        "API_PORT": "5000"
-      }
-    },
-    "start:backend": {
-      "command": "node dist/backend/index.js dictionaries/",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    },
-    "start:frontend": {
-      "command": "http-server dist/frontend",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    }
   },
   "repository": {
     "type": "git",
@@ -95,6 +72,7 @@
     "eslint-plugin-react": "^7.13.0",
     "jest": "24.7.1",
     "lerna": "^3.15.0",
+    "node-ssh": "^6.0.0",
     "prettier": "^1.18.2"
   }
 }

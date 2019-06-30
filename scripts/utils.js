@@ -6,14 +6,17 @@ import path from 'path';
 import request from 'request';
 import url from 'url';
 
+const WHITE = '\x1b[37m%s\x1b[0m';
 const YELLOW = '\x1b[33m%s\x1b[0m';
 const RED = '\x1b[31m%s\x1b[0m';
 const GREEN = '\x1b[32m%s\x1b[0m';
 
 // eslint-disable-next-line no-console
-export const log = (message) => console.log(YELLOW, message);
+export const log = (message) => console.log(WHITE, message);
 // eslint-disable-next-line no-console
 export const logError = (error) => console.log(RED, error);
+// eslint-disable-next-line no-console
+export const logInfo = (message) => console.log(YELLOW, message);
 // eslint-disable-next-line no-console
 export const logSuccess = (message) => console.log(GREEN, message);
 export const logAsyncAction = (message, action) => {

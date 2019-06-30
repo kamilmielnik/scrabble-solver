@@ -36,12 +36,11 @@ const bootstrap = () => {
 const buildModule = ({ name, directory, dist }) => {
   const moduleDirectory = path.join(dirname, directory);
   const distDirectory = path.join(moduleDirectory, dist);
-  const targetDirectory = path.join(TARGET_DIRECTORY, name);
   process.chdir(moduleDirectory);
   logAction(`Building "${name}"`, () => {
     const npmScript = env ? `build:${env}` : 'build';
     execSync(`npm run ${npmScript}`);
-    fs.copySync(distDirectory, targetDirectory);
+    fs.copySync(distDirectory, TARGET_DIRECTORY);
   });
 };
 
