@@ -1,16 +1,17 @@
 import { createAction, handleActions } from 'redux-actions';
+import localStorage, { SPLASH_COMPLETE } from 'local-storage';
 
-export const HIDE = 'splash/hide';
+export const HIDE_SPLASH = 'splash/hide';
 
-export const hide = createAction(HIDE);
+export const hideSplash = createAction(HIDE_SPLASH);
 
 export const initialState = {
-  isShown: true
+  isShown: !localStorage.get(SPLASH_COMPLETE, false)
 };
 
 export default handleActions(
   {
-    [HIDE]: (state) => ({
+    [HIDE_SPLASH]: (state) => ({
       ...state,
       isShown: false
     })

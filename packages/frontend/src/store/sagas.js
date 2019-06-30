@@ -2,6 +2,7 @@ import configSagas from 'config/sagas';
 import dictionarySagas from 'dictionary/sagas';
 import i18nSagas from 'i18n/sagas';
 import sharedSagas from 'shared/sagas';
+import splashSagas from 'splash/sagas';
 import walkthroughSagas from 'walkthrough/sagas';
 
 export default function* rootSaga() {
@@ -9,5 +10,6 @@ export default function* rootSaga() {
   yield* dictionarySagas();
   yield* i18nSagas();
   yield* sharedSagas();
+  yield* splashSagas();
   yield* walkthroughSagas();
 }
