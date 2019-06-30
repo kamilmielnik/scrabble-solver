@@ -5,7 +5,7 @@ import Solver from '../index';
 import Trie from '../trie';
 
 const locale = 'pl-PL';
-const serializedCollection = fs.readFileSync(`../../dictionaries/${locale}.txt`, 'utf-8');
+const serializedCollection = fs.readFileSync(`dictionaries/${locale}.txt`, 'utf-8');
 const collection = Trie.deserialize(serializedCollection);
 const config = new Config(literaki[locale]);
 

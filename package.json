@@ -27,7 +27,10 @@
     "postinstall": "npm run install-dictionaries",
     "install-dictionaries": "npm-run-all --parallel prepare-*",
     "prepare-en-dictionaries": "better-npm-run prepare-en-dictionaries",
-    "prepare-pl-dictionary": "better-npm-run prepare-pl-dictionary"
+    "prepare-pl-dictionary": "better-npm-run prepare-pl-dictionary",
+    "test": "better-npm-run test",
+    "test:debug": "better-npm-run test:debug",
+    "test:watch": "better-npm-run test:watch"
   },
   "betterScripts": {
     "build": {
@@ -61,6 +64,24 @@
     },
     "prepare-pl-dictionary": {
       "command": "babel-node scripts/prepare-pl-dictionary.js -- --output-dir dictionaries"
+    },
+    "test": {
+      "command": "jest --no-cache --coverage",
+      "env": {
+        "NODE_ENV": "test"
+      }
+    },
+    "test:debug": {
+      "command": "node --inspect-brk node_modules/.bin/jest --runInBand --watch",
+      "env": {
+        "NODE_ENV": "test"
+      }
+    },
+    "test:watch": {
+      "command": "jest --no-cache --watch",
+      "env": {
+        "NODE_ENV": "test"
+      }
     }
   },
   "repository": {
@@ -92,11 +113,13 @@
     "yargs": "^13.2.4"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
     "babel-eslint": "10.0.1",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^5.0.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.13.0",
+    "jest": "24.7.1",
     "lerna": "^3.15.0",
     "prettier": "^1.18.2",
     "rimraf": "^2.6.3",
