@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { selectIsShown } from 'splash/selectors';
 import Copyright from 'components/copyright';
-import Footer from 'components/footer';
 import Board from 'board/components';
 import Config from 'config/components';
 import DictionaryInput from 'dictionary/components/input';
@@ -50,8 +49,6 @@ const App = ({ isSplashShown }) => (
 
       {isSplashShown && <Splash />}
     </div>
-
-    <Footer />
   </div>
 );
 

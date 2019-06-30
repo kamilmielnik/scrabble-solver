@@ -1,7 +1,5 @@
 @import 'styles/variables.scss';
 
-$footer-height: 178px;
-
 .app {
   height: 100vh;
 
@@ -10,7 +8,6 @@ $footer-height: 178px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    min-height: calc(100vh - #{$footer-height});
 
     @media (max-width: 1133px) {
       align-items: initial;
@@ -20,7 +17,6 @@ $footer-height: 178px;
       display: flex;
       flex-wrap: wrap;
       width: $app-width;
-      margin-bottom: $footer-height;
       padding: $spacing 0;
     }
 
