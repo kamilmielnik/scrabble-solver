@@ -23,7 +23,6 @@
     "prettier:fix": "npm run prettier:js:fix && npm run prettier:scss:fix",
     "open": "open-cli http://localhost:8080",
     "postinstall": "npm run install-dictionaries",
-    "prepublish": "npm run build",
     "install-dictionaries": "npm-run-all --parallel prepare-*",
     "prepare-en-dictionaries": "babel-node scripts/prepare-en-dictionaries.js -- --output-dir dictionaries",
     "prepare-pl-dictionary": "babel-node scripts/prepare-pl-dictionary.js -- --output-dir dictionaries",

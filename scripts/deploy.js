@@ -4,7 +4,7 @@ import { log, logError, logInfo, logSuccess } from './utils';
 
 dotenv.config();
 
-const REMOTE_NODE_PATH = '/root/.nvm/versions/node/v12.15.0/bin/node';
+const REMOTE_NODE_PATH = '/root/.nvm/versions/node/v12.5.0/bin/node';
 const SOURCE_DIRECTORY = 'dist';
 const WWW_DIRECTORY = '/var/www';
 const TARGET_DIRECTORY = 'scrabble-solver';
