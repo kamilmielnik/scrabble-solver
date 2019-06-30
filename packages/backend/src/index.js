@@ -1,37 +1,38 @@
-import path from 'path';
-import express from 'express';
-import cors from 'cors';
 import bodyParser from 'body-parser';
-import { API_HOST, API_PORT } from '@scrabble-solver/constants';
+import cors from 'cors';
+import express from 'express';
+import path from 'path';
+import url from 'url';
 import searchEnDictionary from 'endpoints/search-en-dictionary';
 import searchPlDictionary from 'endpoints/search-pl-dictionary';
 import solve from 'endpoints/solve';
 
 const dictionariesDirectory = process.argv[2] || '../../dictionaries';
+const { pathname, port } = url.parse(process.env.API_URL);
 
 const locales = [
   {
     locale: 'en-GB',
     dictionaryEndpoint: searchEnDictionary,
     api: {
-      dictionary: '/api/en-GB/dictionary/:word',
-      solve: '/api/en-GB/solve'
+      dictionary: `${pathname}/en-GB/dictionary/:word`,
+      solve: `${pathname}/en-GB/solve`
     }
   },
   {
     locale: 'en-US',
     dictionaryEndpoint: searchEnDictionary,
     api: {
-      dictionary: '/api/en-US/dictionary/:word',
-      solve: '/api/en-US/solve'
+      dictionary: `${pathname}/en-US/dictionary/:word`,
+      solve: `${pathname}/en-US/solve`
     }
   },
   {
     locale: 'pl-PL',
     dictionaryEndpoint: searchPlDictionary,
     api: {
-      dictionary: '/api/pl-PL/dictionary',
-      solve: '/api/pl-PL/solve'
+      dictionary: `${pathname}/pl-PL/dictionary`,
+      solve: `${pathname}/pl-PL/solve`
     }
   }
 ];
@@ -49,7 +50,7 @@ locales.forEach(({ api, dictionaryEndpoint, locale }) => {
   app.use(api.dictionary, dictionaryEndpoint);
 });
 
-app.listen(API_PORT, () => {
+app.listen(port, () => {
   // eslint-disable-next-line no-console
-  console.log(`Listening at ${API_HOST}:${API_PORT}/`);
+  console.log(`Listening at ${process.env.API_URL}/`);
 });

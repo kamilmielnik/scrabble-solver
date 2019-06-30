@@ -16,28 +16,26 @@
     "build": {
       "command": "rimraf dist && webpack",
       "env": {
+        "API_URL": "http://localhost:5000/api",
         "NODE_ENV": "production"
       }
     },
     "build:prod": {
       "command": "rimraf dist && webpack",
       "env": {
-        "NODE_ENV": "production",
-        "API_HOST": "http://kamilmielnik.com",
-        "API_PORT": "5000"
+        "API_URL": "http://kamilmielnik.com:5000/api",
+        "NODE_ENV": "production"
       }
     },
     "start": {
       "command": "webpack",
       "env": {
+        "API_URL": "http://localhost:5000/api",
         "NODE_ENV": "development"
       }
     },
     "start:prod": {
-      "command": "node dist/index.js",
-      "env": {
-        "NODE_ENV": "production"
-      }
+      "command": "node dist/index.js"
     }
   },
   "repository": {
@@ -55,7 +53,6 @@
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
-    "@scrabble-solver/constants": "1.4.0",
     "@scrabble-solver/models": "1.4.0",
     "@scrabble-solver/solver": "1.4.0",
     "@scrabble-solver/trie": "1.4.0",

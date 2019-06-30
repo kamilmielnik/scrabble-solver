@@ -1,10 +1,8 @@
-import { API_URL } from '@scrabble-solver/constants';
-
 export const getWordDefinition = (locale, word) =>
-  fetch(`${API_URL}/${locale}/dictionary/${word.toLowerCase()}`).then((response) => response.json());
+  fetch(`${process.env.REACT_APP_API_URL}/${locale}/dictionary/${word.toLowerCase()}`).then((response) => response.json());
 
 export const postSolve = (locale, payload) =>
-  fetch(`${API_URL}/${locale}/solve`, {
+  fetch(`${process.env.REACT_APP_API_URL}/${locale}/solve`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

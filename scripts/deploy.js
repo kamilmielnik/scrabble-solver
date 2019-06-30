@@ -1,5 +1,8 @@
+import dotenv from 'dotenv';
 import NodeSsh from 'node-ssh';
 import { log, logError, logInfo, logSuccess } from './utils';
+
+dotenv.config();
 
 const DB_ROOT_PATH = '/root';
 const REMOTE_NODE_PATH = '/root/.nvm/versions/node/v7.9.0/bin/node';
@@ -12,9 +15,9 @@ const UNIQUE_PID = 'scrabble-solver';
 const connect = async (ssh) => {
   logInfo('> Connecting');
   await ssh.connect({
-    host: process.env.host,
-    username: process.env.username,
-    password: process.env.password
+    host: process.env.DEPLOY_HOST,
+    username: process.env.DEPLOY_USERNAME,
+    password: process.env.DEPLOY_PASSWORD
   });
 };
 
