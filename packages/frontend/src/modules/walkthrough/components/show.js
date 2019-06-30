@@ -12,7 +12,10 @@ ShowWalkthrough.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onClick: () => dispatch(showWalkthrough())
+  onClick: () => {
+    window.scrollTo(0, 0);
+    dispatch(showWalkthrough());
+  }
 });
 
 export default connect(
