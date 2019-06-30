@@ -56,6 +56,7 @@
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
     "@scrabble-solver/commons": "1.4.0",
+    "@scrabble-solver/solver": "1.4.0",
     "@scrabble-solver/trie": "1.4.0",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",

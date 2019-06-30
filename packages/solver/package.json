@@ -1,0 +1,25 @@
+{
+  "name": "@scrabble-solver/solver",
+  "version": "1.4.0",
+  "description": "Scrabble Solver - Solver",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamilmielnik/scrabble-solver.git"
+  },
+  "author": {
+    "name": "Kamil Mielnik",
+    "email": "kamil.adam.mielnik@gmail.com",
+    "url": "http://kamilmielnik.com/"
+  },
+  "license": "CC-BY-NC-ND-4.0",
+  "bugs": {
+    "url": "https://github.com/kamilmielnik/scrabble-solver/issues"
+  },
+  "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "@scrabble-solver/commons": "1.4.0",
+    "@scrabble-solver/trie": "1.4.0"
+  }
+}

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { Board, Config, Tile } from '@scrabble-solver/commons/models';
+import Solver from '@scrabble-solver/solver';
 import Trie from '@scrabble-solver/trie';
-import Solver from 'solver';
 
 export default (filepath) => {
   const collection = createCollection(filepath);
