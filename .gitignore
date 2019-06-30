@@ -1,7 +1,7 @@
 coverage/
+packages/**/dist/
+packages/**/build/
 **/node_modules/
-**/dist/
-**/build/
 *.db
 *.log
 *.zip
