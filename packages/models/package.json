@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/models",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "description": "Scrabble Solver - Models",
   "main": "src/index.js",
   "repository": {
@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
-    "@scrabble-solver/constants": "^2.0.0-alpha.0"
+    "@scrabble-solver/constants": "^2.0.0-alpha.1"
   }
 }
