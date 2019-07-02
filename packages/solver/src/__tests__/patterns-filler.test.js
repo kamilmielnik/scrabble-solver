@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { literaki } from '@scrabble-solver/configs';
-import { Board, Cell, Config, Tile, VerticalPattern } from '@scrabble-solver/models';
+import { Board, Cell, Tile, VerticalPattern } from '@scrabble-solver/models';
 import Trie from '@scrabble-solver/trie';
 import PatternsFiller from '../patterns-filler';
 
@@ -9,7 +9,7 @@ const board = Board.fromStringArray([' t ', 'do ', '   ']);
 const locale = 'pl-PL';
 const serializedCollection = fs.readFileSync(`dictionaries/${locale}.txt`, 'utf-8');
 const collection = Trie.deserialize(serializedCollection);
-const config = new Config(literaki[locale]);
+const config = literaki[locale];
 const patternsFiller = new PatternsFiller(config, collection);
 
 describe('PatternsFiller', () => {

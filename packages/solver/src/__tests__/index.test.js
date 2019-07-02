@@ -1,13 +1,13 @@
 import fs from 'fs';
 import { literaki } from '@scrabble-solver/configs';
-import { Board, Config, Tile } from '@scrabble-solver/models';
+import { Board, Tile } from '@scrabble-solver/models';
 import Trie from '@scrabble-solver/trie';
 import Solver from '../index';
 
 const locale = 'pl-PL';
 const serializedCollection = fs.readFileSync(`dictionaries/${locale}.txt`, 'utf-8');
 const collection = Trie.deserialize(serializedCollection);
-const config = new Config(literaki[locale]);
+const config = literaki[locale];
 
 const generateTiles = (characters) =>
   characters.split('').map(

@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
-    "@scrabble-solver/constants": "^2.0.0-alpha.4"
+    "@scrabble-solver/constants": "^2.0.0-alpha.4",
+    "@scrabble-solver/models": "^2.0.0-alpha.4"
   },
   "gitHead": "c4701e646e0102875dc7d0e14dc0055fd375253d"
 }

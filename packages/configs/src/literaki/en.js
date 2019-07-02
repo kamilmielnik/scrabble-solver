@@ -1,6 +1,7 @@
+import { Config } from '@scrabble-solver/models';
 import base from './base';
 
-export default {
+export default Config.fromJson({
   ...base,
   tiles: [
     { character: 'a', score: 1, count: 9 },
@@ -30,4 +31,4 @@ export default {
     { character: 'y', score: 4, count: 2 },
     { character: 'z', score: 10, count: 1 }
   ]
-};
+});
