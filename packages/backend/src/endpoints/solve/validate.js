@@ -49,23 +49,45 @@ const validateCell = (cell, rowIndex, cellIndex, config) => {
     throw new Error(`board[${rowIndex}][${cellIndex}].isEmpty is not a boolean`);
   }
 
-  validateTile(tile, rowIndex, cellIndex, config);
+  try {
+    validateTile(tile, config);
+  } catch (error) {
+    throw new Error(`board[${rowIndex}][${cellIndex}].tile ${error.message}`);
+  }
 };
 
-const validateTile = (tile, rowIndex, cellIndex, config) => {
+const validateTile = (tile, config) => {
   if (typeof tile !== 'object') {
-    throw new Error(`board[${rowIndex}][${cellIndex}].tile is not an object`);
+    throw new Error('is not an object');
   }
 
   if (tile !== null) {
     const { character, isBlank } = tile;
 
     if (!config.alphabet.includes(character)) {
-      throw new Error(`board[${rowIndex}][${cellIndex}].tile.character is not valid`);
+      throw new Error('character is not valid');
     }
 
     if (typeof isBlank !== 'boolean') {
-      throw new Error(`board[${rowIndex}][${cellIndex}].tile.isBlank is not a boolean`);
+      throw new Error('isBlank is not a boolean');
     }
   }
+};
+
+export const validateTiles = (tiles, config) => {
+  if (!Array.isArray(tiles)) {
+    throw new Error('Invalid "tiles" parameter: not an array');
+  }
+
+  if (tiles.length === 0) {
+    throw new Error('Invalid "tiles" parameter: empty array');
+  }
+
+  tiles.forEach((tile, tileIndex) => {
+    try {
+      validateTile(tile, config);
+    } catch (error) {
+      throw new Error(`Invalid "tiles" parameter: tiles[${tileIndex}] ${error.message}`);
+    }
+  });
 };
