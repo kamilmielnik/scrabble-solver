@@ -54,49 +54,57 @@ const validateBoard = (board, config) => {
     throw new Error(`Invalid "board" parameter: does not have ${config.boardHeight} rows`);
   }
 
-  for (let rowIndex = 0; rowIndex < config.boardHeight; ++rowIndex) {
-    const row = board[rowIndex];
+  try {
+    board.forEach((row, rowIndex) => validateRow(row, rowIndex, config));
+  } catch (error) {
+    throw new Error(`Invalid "board" parameter: ${error.message}`);
+  }
+};
 
-    if (row.length !== config.boardWidth) {
-      throw new Error(`Invalid "board" parameter: board[${rowIndex}] does not have ${config.boardWidth} cells`);
+const validateRow = (row, rowIndex, config) => {
+  if (row.length !== config.boardWidth) {
+    throw new Error(`board[${rowIndex}] does not have ${config.boardWidth} cells`);
+  }
+
+  row.forEach((cell, cellIndex) => validateCell(cell, rowIndex, cellIndex, config));
+};
+
+const validateCell = (cell, rowIndex, cellIndex, config) => {
+  if (typeof cell !== 'object') {
+    throw new Error(`board[${rowIndex}][${cellIndex}] is not an object`);
+  }
+
+  const { x, y, tile, isEmpty } = cell;
+
+  if (x < 0 || x >= config.boardWidth) {
+    throw new Error(`board[${rowIndex}][${cellIndex}].x is out of bounds`);
+  }
+
+  if (y < 0 || y >= config.boardHeight) {
+    throw new Error(`board[${rowIndex}][${cellIndex}].y is out of bounds`);
+  }
+
+  if (typeof isEmpty !== 'boolean') {
+    throw new Error(`board[${rowIndex}][${cellIndex}].isEmpty is not a boolean`);
+  }
+
+  validateTile(tile, rowIndex, cellIndex, config);
+};
+
+const validateTile = (tile, rowIndex, cellIndex, config) => {
+  if (typeof tile !== 'object') {
+    throw new Error(`board[${rowIndex}][${cellIndex}].tile is not an object`);
+  }
+
+  if (tile !== null) {
+    const { character, isBlank } = tile;
+
+    if (!config.alphabet.includes(character)) {
+      throw new Error(`board[${rowIndex}][${cellIndex}].tile.character is not valid`);
     }
 
-    for (let cellIndex = 0; cellIndex < config.boardWidth; ++cellIndex) {
-      const cell = row[cellIndex];
-
-      if (typeof cell !== 'object') {
-        throw new Error(`Invalid "board" parameter: board[${rowIndex}][${cellIndex}] is not an object`);
-      }
-
-      const { x, y, tile, isEmpty } = cell;
-
-      if (x < 0 || x >= config.boardWidth) {
-        throw new Error(`Invalid "board" parameter: board[${rowIndex}][${cellIndex}].x is out of bounds`);
-      }
-
-      if (y < 0 || y >= config.boardHeight) {
-        throw new Error(`Invalid "board" parameter: board[${rowIndex}][${cellIndex}].y is out of bounds`);
-      }
-
-      if (typeof tile !== 'object') {
-        throw new Error(`Invalid "board" parameter: board[${rowIndex}][${cellIndex}].tile is not an object`);
-      }
-
-      if (tile !== null) {
-        const { character, isBlank } = tile;
-
-        if (!config.alphabet.includes(character)) {
-          throw new Error(`Invalid "board" parameter: board[${rowIndex}][${cellIndex}].tile.character is not valid`);
-        }
-
-        if (typeof isBlank !== 'boolean') {
-          throw new Error(`Invalid "board" parameter: board[${rowIndex}][${cellIndex}].tile.isBlank is not a boolean`);
-        }
-      }
-
-      if (typeof isEmpty !== 'boolean') {
-        throw new Error(`Invalid "board" parameter: board[${rowIndex}][${cellIndex}].isEmpty is not a boolean`);
-      }
+    if (typeof isBlank !== 'boolean') {
+      throw new Error(`board[${rowIndex}][${cellIndex}].tile.isBlank is not a boolean`);
     }
   }
 };
