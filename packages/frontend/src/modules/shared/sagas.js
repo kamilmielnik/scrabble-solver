@@ -9,7 +9,7 @@ import { APPLY_RESULT, changeResultCandidate } from 'shared/state';
 import { SUBMIT as SUBMIT_TILES, clearInput as clearTiles } from 'tiles/state';
 import { changeTime, resetTime } from 'time/state';
 import { selectBoard } from 'board/selectors';
-import { selectConfig } from 'config/selectors';
+import { selectConfigId } from 'config/selectors';
 import { selectLocale } from 'i18n/selectors';
 import { selectResultsList } from 'results/selectors';
 import { selectInputTiles } from 'tiles/selectors';
@@ -45,7 +45,7 @@ function* onUnhighlightResult() {
 }
 
 function* onTilesSubmit() {
-  const config = yield select(selectConfig);
+  const configId = yield select(selectConfigId);
   const board = yield select(selectBoard);
   const tiles = yield select(selectInputTiles);
   const locale = yield select(selectLocale);
@@ -55,8 +55,8 @@ function* onTilesSubmit() {
       yield put(resetTime());
       const start = Date.now();
       const results = yield call(postSolve, locale, {
-        config: config.toJson(),
         board: board.toJson(),
+        configId,
         tiles: tiles.map((tile) => tile.toJson())
       });
       const end = Date.now();

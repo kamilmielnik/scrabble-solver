@@ -45,7 +45,7 @@ app.use(cors());
 
 locales.forEach(({ api, dictionaryEndpoint, locale }) => {
   const dictionaryFilePath = path.join(dictionariesDirectory, `${locale}.txt`);
-  const solveEndpoint = solve(dictionaryFilePath);
+  const solveEndpoint = solve(locale, dictionaryFilePath);
   app.post(api.solve, solveEndpoint);
   app.use(api.dictionary, dictionaryEndpoint);
 });
