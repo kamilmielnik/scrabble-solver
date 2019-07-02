@@ -1,10 +1,8 @@
-import proxy from 'express-http-proxy';
 import cheerio from 'cheerio';
+import proxy from 'express-http-proxy';
 import { WordDefinition } from '@scrabble-solver/models';
 
-const DICTIONARY_URL = 'https://sjp.pl';
-
-export default proxy(DICTIONARY_URL, {
+export default proxy('https://sjp.pl', {
   https: true,
   userResDecorator: (proxyResponse, proxyResponseData) => parseSjpResponse(proxyResponseData.toString('utf8'))
 });
@@ -24,22 +22,31 @@ const parseSjpResponse = (html) => {
 };
 
 const getIsAllowedNode = ($header) => $header.next();
+
 const getWordNode = ($header) => $header.next().next();
+
 const getDefinitionsNode = ($header) =>
   $header
     .next()
     .next()
     .next()
     .next();
+
 const getWord = ($word) => $word.text().trim();
-const isAllowed = ($isAllowed) => trim($isAllowed.text()).indexOf('dopuszczalne w grach') >= 0;
+
+const isAllowed = ($isAllowed) =>
+  $isAllowed
+    .text()
+    .trim()
+    .indexOf('dopuszczalne w grach') >= 0;
+
 const getTrimmedDefinitions = ($definitions) =>
   getDefinitions($definitions)
-    .map(trim)
+    .map((text) => text.trim())
     .filter(Boolean);
+
 const getDefinitions = ($definitions) =>
   $definitions
     .text()
     .trim()
     .split(/\d+\./);
-const trim = (text) => text.trim();
