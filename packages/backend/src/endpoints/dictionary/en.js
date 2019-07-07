@@ -1,6 +1,6 @@
 import http from 'http';
 import { URLSearchParams } from 'url';
-import { WordDefinition, NullWordDefinition } from '@scrabble-solver/models';
+import { NullWordDefinition, WordDefinition } from '@scrabble-solver/models';
 
 const API_KEY = 'd0c21cb3cbc3415984a2a0486da075e54aa68091c33a680d9';
 const SEARCH_PARAMS = new URLSearchParams({
@@ -9,9 +9,8 @@ const SEARCH_PARAMS = new URLSearchParams({
   sourceDictionaries: 'all'
 });
 
-export default async (request, response) => {
+export default async (word) => {
   try {
-    const { word } = request.params;
     const results = await getJson({
       hostname: 'api.wordnik.com',
       path: `/v4/word.json/${word}/definitions?${SEARCH_PARAMS}`,
@@ -24,9 +23,9 @@ export default async (request, response) => {
       isAllowed: results.length > 0,
       word
     });
-    response.send(wordDefinition.toJson());
+    return wordDefinition;
   } catch (error) {
-    response.send(NullWordDefinition);
+    return NullWordDefinition;
   }
 };
 

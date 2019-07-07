@@ -61,7 +61,6 @@
     "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "express-http-proxy": "^1.5.1",
     "lodash": "^4.17.11"
   },
   "devDependencies": {

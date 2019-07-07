@@ -1,11 +1,39 @@
 import cheerio from 'cheerio';
-import proxy from 'express-http-proxy';
-import { WordDefinition } from '@scrabble-solver/models';
+import https from 'https';
+import { NullWordDefinition, WordDefinition } from '@scrabble-solver/models';
 
-export default proxy('https://sjp.pl', {
-  https: true,
-  userResDecorator: (proxyResponse, proxyResponseData) => parseSjpResponse(proxyResponseData.toString('utf8'))
-});
+export default async (word) => {
+  try {
+    const response = await getData({
+      hostname: 'sjp.pl',
+      path: `/${word}`
+    });
+    const wordDefinition = parseSjpResponse(response);
+    return wordDefinition;
+  } catch (error) {
+    return NullWordDefinition;
+  }
+};
+
+const getData = (options) =>
+  new Promise((resolve, reject) =>
+    https
+      .get(options, (response) => {
+        let data = '';
+        response.setEncoding('utf8');
+        response.on('data', (chunk) => {
+          data += chunk;
+        });
+        response.on('end', () => {
+          try {
+            resolve(data);
+          } catch (error) {
+            reject(error);
+          }
+        });
+      })
+      .on('error', reject)
+  );
 
 const parseSjpResponse = (html) => {
   const $ = cheerio.load(html);
@@ -18,7 +46,7 @@ const parseSjpResponse = (html) => {
     isAllowed: isAllowed($isAllowed),
     word: getWord($word)
   });
-  return wordDefinition.toJson();
+  return wordDefinition;
 };
 
 const getIsAllowedNode = ($header) => $header.next();

@@ -4,8 +4,7 @@ import express from 'express';
 import path from 'path';
 import url from 'url';
 
-import searchEnDictionary from './endpoints/search-en-dictionary';
-import searchPlDictionary from './endpoints/search-pl-dictionary';
+import dictionary from './endpoints/dictionary';
 import solve from './endpoints/solve';
 
 const dictionariesDirectory = process.argv[2] || '../../dictionaries';
@@ -14,25 +13,19 @@ const { pathname, port } = url.parse(process.env.API_URL);
 const locales = [
   {
     locale: 'en-GB',
-    dictionaryEndpoint: searchEnDictionary,
     api: {
-      dictionary: `${pathname}/en-GB/dictionary/:word`,
       solve: `${pathname}/en-GB/solve`
     }
   },
   {
     locale: 'en-US',
-    dictionaryEndpoint: searchEnDictionary,
     api: {
-      dictionary: `${pathname}/en-US/dictionary/:word`,
       solve: `${pathname}/en-US/solve`
     }
   },
   {
     locale: 'pl-PL',
-    dictionaryEndpoint: searchPlDictionary,
     api: {
-      dictionary: `${pathname}/pl-PL/dictionary`,
       solve: `${pathname}/pl-PL/solve`
     }
   }
@@ -44,11 +37,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
-locales.forEach(({ api, dictionaryEndpoint, locale }) => {
+app.use(`${pathname}/dictionary`, dictionary);
+
+locales.forEach(({ api, locale }) => {
   const dictionaryFilePath = path.join(dictionariesDirectory, `${locale}.txt`);
   const solveEndpoint = solve(locale, dictionaryFilePath);
   app.post(api.solve, solveEndpoint);
-  app.use(api.dictionary, dictionaryEndpoint);
 });
 
 app.listen(port, () => {

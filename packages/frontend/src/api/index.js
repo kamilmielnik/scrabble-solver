@@ -1,5 +1,5 @@
 export const getWordDefinition = (locale, word) =>
-  fetch(`${process.env.REACT_APP_API_URL}/${locale}/dictionary/${word.toLowerCase()}`).then((response) =>
+  fetch(`${process.env.REACT_APP_API_URL}/dictionary?locale=${locale}&word=${word.toLowerCase()}`).then((response) =>
     response.json()
   );
 
