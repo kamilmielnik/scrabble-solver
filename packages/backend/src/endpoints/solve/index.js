@@ -3,6 +3,7 @@ import * as configs from '@scrabble-solver/configs';
 import { Board, Tile } from '@scrabble-solver/models';
 import Solver from '@scrabble-solver/solver';
 import Trie from '@scrabble-solver/trie';
+
 import { validateBoard, validateConfigId, validateTiles } from './validate';
 
 export default (locale, filepath) => {

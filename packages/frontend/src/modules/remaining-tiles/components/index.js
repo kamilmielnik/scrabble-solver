@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { selectCharactersStatistics, selectNumberOfRemainingCharacters } from 'remaining-tiles/selectors';
 import Section from 'components/section';
 import { Message } from 'i18n/components';
+
 import Tile from './tile';
 import styles from './remaining-tiles.module.scss';
 

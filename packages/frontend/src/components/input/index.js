@@ -1,9 +1,11 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
+
 import { noop } from 'utils';
 import Button from 'components/button';
 import { Cross } from 'components/icons';
 import Section from 'components/section';
+
 import EventsDecorator from './events-decorator';
 import styles from './input.module.scss';
 

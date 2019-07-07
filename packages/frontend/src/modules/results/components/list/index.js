@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { unhighlightResult } from 'results/state';
 import { selectIsLoading } from 'shared/selectors';
 import Loading from 'components/loading';
 import Section from 'components/section';
 import { Message } from 'i18n/components';
+
 import ResultsTable from './table';
 import styles from './results-list.module.scss';
 

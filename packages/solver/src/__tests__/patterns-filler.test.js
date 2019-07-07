@@ -2,6 +2,7 @@ import fs from 'fs';
 import { literaki } from '@scrabble-solver/configs';
 import { Board, Cell, Tile, VerticalPattern } from '@scrabble-solver/models';
 import Trie from '@scrabble-solver/trie';
+
 import PatternsFiller from '../patterns-filler';
 
 const board = Board.fromStringArray([' t ', 'do ', '   ']);

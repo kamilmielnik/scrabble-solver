@@ -1,4 +1,5 @@
 import { Config } from '@scrabble-solver/models';
+
 import base from './base';
 
 export default Config.fromJson({

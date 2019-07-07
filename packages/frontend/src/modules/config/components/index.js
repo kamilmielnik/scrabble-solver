@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
+import ShowWalkthrough from 'walkthrough/components/show';
+
 import ConfigSetting from './config-setting';
 import LocaleSetting from './locale-setting';
-import ShowWalkthrough from 'walkthrough/components/show';
 import styles from './config.module.scss';
 
 const Config = ({ className }) => (

@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+
 import { selectDefinitions, selectDefinitionsWord, selectIsAllowed, selectIsLoading } from 'dictionary/selectors';
 import Loading from 'components/loading';
 import NoResults from 'components/no-results';
 import Section from 'components/section';
 import { Message } from 'i18n/components';
+
 import styles from './dictionary-output.module.scss';
 
 const DictionaryOutput = ({ className, definitions, isAllowed, isLoading, word }) => (

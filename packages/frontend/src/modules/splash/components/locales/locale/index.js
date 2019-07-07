@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+
 import { changeLocale } from 'i18n/state';
 import { hideSplash } from 'splash/state';
 import { Message } from 'i18n/components';
+
 import Credits from './credits';
 import styles from './locale.module.scss';
 

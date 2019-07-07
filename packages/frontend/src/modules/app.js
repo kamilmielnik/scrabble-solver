@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { selectIsShown } from 'splash/selectors';
 import Copyright from 'components/copyright';
 import Board from 'board/components';
@@ -14,6 +15,7 @@ import Splash from 'splash/components';
 import Tiles from 'tiles/components';
 import Time from 'time/components';
 import Walkthrough from 'walkthrough/components';
+
 import styles from './app.module.scss';
 
 const App = ({ isSplashShown }) => (

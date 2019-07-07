@@ -1,5 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
+
 import localStorage, { LOCALE } from 'local-storage';
+
 import translations from './translations';
 
 export const CHANGE_LOCALE = 'i18n/change-locale';

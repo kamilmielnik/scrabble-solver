@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import * as configs from '@scrabble-solver/configs';
+
 import { changeConfig } from 'config/state';
 import { selectConfigId } from 'config/selectors';
 import { selectMessage } from 'i18n/selectors';

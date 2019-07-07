@@ -1,9 +1,11 @@
 import { call, delay, put, select, takeLatest } from 'redux-saga/effects';
+
 import { CHANGE_LOCALE } from 'i18n/state';
 import { selectLocale } from 'i18n/selectors';
+import { getWordDefinition } from 'api';
+
 import { SUBMIT, clearInput, search, searchFailure, searchSuccess } from './state';
 import { selectDefinitionsWord, selectInput } from './selectors';
-import { getWordDefinition } from 'api';
 
 const SUBMIT_DELAY = 100;
 

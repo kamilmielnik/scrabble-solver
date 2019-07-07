@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+
 import { changeInput, clearInput, submit } from 'tiles/state';
 import { selectMessage } from 'i18n/selectors';
 import { selectInput, selectInputLength, selectInputMaxLength } from 'tiles/selectors';

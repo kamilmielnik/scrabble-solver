@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+
 import { changeLocale } from 'i18n/state';
 import { selectLocale } from 'i18n/selectors';
 import { FlagGb, FlagPl, FlagUs } from 'components/icons';
+
 import styles from './config.module.scss';
 
 const locales = [

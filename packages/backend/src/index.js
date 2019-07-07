@@ -3,9 +3,10 @@ import cors from 'cors';
 import express from 'express';
 import path from 'path';
 import url from 'url';
-import searchEnDictionary from 'endpoints/search-en-dictionary';
-import searchPlDictionary from 'endpoints/search-pl-dictionary';
-import solve from 'endpoints/solve';
+
+import searchEnDictionary from './endpoints/search-en-dictionary';
+import searchPlDictionary from './endpoints/search-pl-dictionary';
+import solve from './endpoints/solve';
 
 const dictionariesDirectory = process.argv[2] || '../../dictionaries';
 const { pathname, port } = url.parse(process.env.API_URL);

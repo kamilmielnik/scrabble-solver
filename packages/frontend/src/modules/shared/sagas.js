@@ -1,5 +1,6 @@
 import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 import { Result } from '@scrabble-solver/models';
+
 import { applyResult } from 'board/state';
 import { CHANGE_CONFIG } from 'config/state';
 import { changeInput as changeDictionaryInput, submit as submitDictionary } from 'dictionary/state';
@@ -13,8 +14,9 @@ import { selectConfigId } from 'config/selectors';
 import { selectLocale } from 'i18n/selectors';
 import { selectResultsList } from 'results/selectors';
 import { selectInputTiles } from 'tiles/selectors';
-import { submitSolve, submitSolveFailure, submitSolveSuccess } from './state';
 import { postSolve } from 'api';
+
+import { submitSolve, submitSolveFailure, submitSolveSuccess } from './state';
 
 export default function* modulesSagas() {
   yield takeEvery(APPLY_RESULT, onApplyResult);

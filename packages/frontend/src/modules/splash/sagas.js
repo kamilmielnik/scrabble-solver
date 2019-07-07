@@ -1,5 +1,7 @@
 import { takeLatest } from 'redux-saga/effects';
+
 import localStorage, { SPLASH_COMPLETE } from 'local-storage';
+
 import { HIDE_SPLASH } from './state';
 
 export default function* splashSagas() {

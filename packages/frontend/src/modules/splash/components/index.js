@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
 import Copyright from 'components/copyright';
+
 import Locales from './locales';
 import styles from './splash.module.scss';
 

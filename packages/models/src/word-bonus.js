@@ -1,4 +1,5 @@
 import { BONUS_WORD } from '@scrabble-solver/constants';
+
 import Bonus from './bonus';
 
 class WordBonus extends Bonus {

@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+
 import { createKeyComparator, reverseComparator } from 'utils';
 
 export const selectResults = (state) => state.results;

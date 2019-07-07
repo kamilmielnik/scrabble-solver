@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { changeSortedColumn } from 'results/state';
 import { selectSortedColumnName, selectSortingDirection } from 'results/selectors';
 import { Sort } from 'components/icons';
 import { Message } from 'i18n/components';
+
 import styles from './results-list.module.scss';
 
 const HeaderCell = ({ dataKey, label, sortedColumnName, sortingDirection, onSort }) => (

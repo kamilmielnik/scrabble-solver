@@ -1,5 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import * as configs from '@scrabble-solver/configs';
+
 import localStorage, { CONFIG } from 'local-storage';
 
 export const CHANGE_CONFIG = 'config/change-config';

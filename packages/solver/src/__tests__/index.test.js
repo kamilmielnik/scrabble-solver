@@ -2,6 +2,7 @@ import fs from 'fs';
 import { literaki } from '@scrabble-solver/configs';
 import { Board, Tile } from '@scrabble-solver/models';
 import Trie from '@scrabble-solver/trie';
+
 import Solver from '../index';
 
 const locale = 'pl-PL';

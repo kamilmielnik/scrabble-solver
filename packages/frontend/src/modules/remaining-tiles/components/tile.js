@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
 import { getTileClassNames } from './tile-classnames';
 import styles from './remaining-tiles.module.scss';
 

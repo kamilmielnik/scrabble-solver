@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
 import Separators from './separators';
 import Toggle from './toggle';
 import styles from './setting.module.scss';

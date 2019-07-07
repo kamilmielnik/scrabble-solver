@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+
 import { selectMessage } from 'i18n/selectors';
 
 const selectState = (state) => state;

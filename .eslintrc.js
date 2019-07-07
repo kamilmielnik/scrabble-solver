@@ -20,7 +20,7 @@ module.exports = {
     jquery: true
   },
 
-  plugins: ['react'],
+  plugins: ['react', 'import'],
 
   globals: {
     define: true,
@@ -30,7 +30,23 @@ module.exports = {
     API_URL: true
   },
 
+  settings: {
+    'import/extensions': ['.js', '.jsx']
+  },
+
   rules: {
+    'import/default': 'error',
+    'import/no-absolute-path': 'error',
+    'import/no-cycle': 'error',
+    'import/no-dynamic-require': 'error',
+    'import/order': [
+      'error',
+      {
+        groups: [['builtin', 'external'], 'internal', 'parent', 'sibling', 'index'],
+        'newlines-between': 'always'
+      }
+    ],
+
     // Possible Errors
     'comma-dangle': 'error',
     'no-cond-assign': 'error',

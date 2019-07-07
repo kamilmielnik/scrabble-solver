@@ -1,8 +1,10 @@
 import { createSelector } from 'reselect';
 import { BLANK } from '@scrabble-solver/constants';
+
 import { selectCells } from 'board/selectors';
 import { selectConfig } from 'config/selectors';
 import { selectInput } from 'tiles/selectors';
+
 import { getNumberOfRemainingCharacters, reduceCellStatistics } from './utils/statistics';
 
 export const selectCharactersMap = createSelector(

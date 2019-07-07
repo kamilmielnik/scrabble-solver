@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
+
 import { formatMessage } from 'i18n/utils';
 
 const selectRoot = (state) => state.i18n;

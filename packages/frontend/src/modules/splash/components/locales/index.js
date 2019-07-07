@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
 import { FlagGb, FlagPl, FlagUs } from 'components/icons';
+
 import Locale from './locale';
 import styles from './locales.module.scss';
 

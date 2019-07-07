@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+
 import { changeFilter, clearFilter } from 'results/state';
 import { selectFilter, selectNumberOfFilteredResults, selectNumberOfResults } from 'results/selectors';
 import { selectMessage } from 'i18n/selectors';

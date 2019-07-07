@@ -2,6 +2,7 @@ import React, { createRef, Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Joyride from 'react-joyride';
+
 import { hideWalkthrough } from 'walkthrough/state';
 import { selectShowWalkthrough, selectSteps, selectTranslations } from 'walkthrough/selectors';
 import 'react-joyride/lib/react-joyride-compiled.css';

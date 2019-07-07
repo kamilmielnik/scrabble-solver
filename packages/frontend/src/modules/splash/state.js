@@ -1,4 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
+
 import localStorage, { SPLASH_COMPLETE } from 'local-storage';
 
 export const HIDE_SPLASH = 'splash/hide';

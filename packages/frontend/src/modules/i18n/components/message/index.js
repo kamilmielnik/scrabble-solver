@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { selectMessage } from 'i18n/selectors';
 
 const Message = ({ message }) => message;

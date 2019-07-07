@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import configureStore from 'store';
-import App from 'modules/app';
 import 'react-virtualized/styles.css';
+
+import configureStore from 'store';
+import App from 'app';
 import './styles.scss';
 
 const store = configureStore();

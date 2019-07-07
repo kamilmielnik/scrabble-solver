@@ -1,4 +1,5 @@
 import { BLANK } from '@scrabble-solver/constants';
+
 import BonusFactory from './bonus-factory';
 
 const NO_BONUS = { wordMultiplier: 1, characterMultiplier: 1 };

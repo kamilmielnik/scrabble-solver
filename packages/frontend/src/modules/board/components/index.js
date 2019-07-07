@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { selectRowsWithCandidate } from 'board/selectors';
 import Section from 'components/section';
 import { Message } from 'i18n/components';
+
 import Row from './row';
 import styles from './board.module.scss';
 

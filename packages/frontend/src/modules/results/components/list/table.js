@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Table, { Column } from 'react-virtualized/dist/commonjs/Table';
+
 import { applyResult } from 'shared/state';
 import { highlightResult } from 'results/state';
 import { selectFormattedResults } from 'results/selectors';
-import Table, { Column } from 'react-virtualized/dist/commonjs/Table';
 import NoResults from 'components/no-results';
+
 import HeaderCell from './header-cell';
 import styles from './results-list.module.scss';
 

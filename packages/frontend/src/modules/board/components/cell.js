@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
+
 import { changeCellValue, toggleCellIsBlank } from 'board/state';
 import { submit } from 'tiles/state';
 import { selectBonus, selectCharacterPoints } from 'board/selectors';
 import { selectConfig } from 'config/selectors';
+
 import Tile from './tile';
 import handleKeys from './handle-keys';
 import { getBonusClassname, getCharacterPointsClassname } from './cell-classnames';
