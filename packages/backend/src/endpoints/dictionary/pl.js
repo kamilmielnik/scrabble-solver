@@ -1,10 +1,12 @@
 import cheerio from 'cheerio';
-import https from 'https';
 import { NullWordDefinition, WordDefinition } from '@scrabble-solver/models';
+
+import { request } from './utils';
 
 export default async (word) => {
   try {
-    const response = await getData({
+    const response = await request({
+      protocol: 'https',
       hostname: 'sjp.pl',
       path: `/${word}`
     });
@@ -14,26 +16,6 @@ export default async (word) => {
     return NullWordDefinition;
   }
 };
-
-const getData = (options) =>
-  new Promise((resolve, reject) =>
-    https
-      .get(options, (response) => {
-        let data = '';
-        response.setEncoding('utf8');
-        response.on('data', (chunk) => {
-          data += chunk;
-        });
-        response.on('end', () => {
-          try {
-            resolve(data);
-          } catch (error) {
-            reject(error);
-          }
-        });
-      })
-      .on('error', reject)
-  );
 
 const parseSjpResponse = (html) => {
   const $ = cheerio.load(html);
