@@ -1,8 +1,20 @@
 import * as configs from '@scrabble-solver/configs';
 
+const VALID_LOCALES = ['en-GB', 'en-US', 'pl-PL'];
+
 export const validateConfigId = (configId) => {
   if (!Object.keys(configs).includes(configId)) {
     throw new Error(`Invalid "configId" parameter: not one of ${Object.keys(configs).join('/')}`);
+  }
+};
+
+export const validateLocale = (locale) => {
+  if (typeof locale !== 'string') {
+    throw new Error('Invalid "locale" parameter: not a string');
+  }
+
+  if (!VALID_LOCALES.includes(locale)) {
+    throw new Error(`Invalid "locale" parameter: must be one of: ${VALID_LOCALES.join(', ')}`);
   }
 };
 

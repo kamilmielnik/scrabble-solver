@@ -56,9 +56,10 @@ function* onTilesSubmit() {
       yield put(submitSolve());
       yield put(resetTime());
       const start = Date.now();
-      const results = yield call(postSolve, locale, {
+      const results = yield call(postSolve, {
         board: board.toJson(),
         configId,
+        locale,
         tiles: tiles.map((tile) => tile.toJson())
       });
       const end = Date.now();

@@ -3,8 +3,8 @@ export const getWordDefinition = (locale, word) =>
     response.json()
   );
 
-export const postSolve = (locale, payload) =>
-  fetch(`${process.env.REACT_APP_API_URL}/${locale}/solve`, {
+export const postSolve = (payload) =>
+  fetch(`${process.env.REACT_APP_API_URL}/solve`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
