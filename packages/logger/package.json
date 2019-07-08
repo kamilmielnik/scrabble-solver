@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/logger",
-  "version": "2.0.0-alpha.4",
+  "version": "2.0.0-alpha.5",
   "description": "Scrabble Solver - Logger",
   "main": "src/index.js",
   "repository": {
@@ -17,7 +17,7 @@
     "url": "https://github.com/kamilmielnik/scrabble-solver/issues"
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
-  "gitHead": "c4701e646e0102875dc7d0e14dc0055fd375253d",
+  "gitHead": "63d4d6abb305337d8bab9db16d941f8b40a4d784",
   "dependencies": {
     "winston": "^3.2.1"
   }
