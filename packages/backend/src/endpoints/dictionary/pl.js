@@ -1,4 +1,5 @@
 import cheerio from 'cheerio';
+import logger from '@scrabble-solver/logger';
 import { NullWordDefinition, WordDefinition } from '@scrabble-solver/models';
 
 import { request } from './utils';
@@ -13,6 +14,10 @@ export default async (word) => {
     const wordDefinition = parseSjpResponse(response);
     return wordDefinition;
   } catch (error) {
+    logger.error('dictionary - pl', {
+      error: error.message,
+      word
+    });
     return NullWordDefinition;
   }
 };

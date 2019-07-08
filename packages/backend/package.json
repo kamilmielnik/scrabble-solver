@@ -55,6 +55,7 @@
   "dependencies": {
     "@scrabble-solver/configs": "^2.0.0-alpha.4",
     "@scrabble-solver/models": "^2.0.0-alpha.4",
+    "@scrabble-solver/logger": "^2.0.0-alpha.4",
     "@scrabble-solver/solver": "^2.0.0-alpha.4",
     "@scrabble-solver/trie": "^2.0.0-alpha.4",
     "body-parser": "^1.19.0",
@@ -72,8 +73,7 @@
     "rimraf": "^2.6.3",
     "start-server-webpack-plugin": "^2.2.5",
     "webpack": "^4.35.0",
-    "webpack-cli": "^3.3.5",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-cli": "^3.3.5"
   },
   "gitHead": "c4701e646e0102875dc7d0e14dc0055fd375253d"
 }

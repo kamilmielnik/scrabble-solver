@@ -3,6 +3,8 @@ import cors from 'cors';
 import express from 'express';
 import url from 'url';
 
+import logger from '@scrabble-solver/logger';
+
 import dictionary from './endpoints/dictionary';
 import solve from './endpoints/solve';
 
@@ -20,5 +22,5 @@ app.post(`${pathname}/solve`, solve(dictionariesDirectory));
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
-  console.log(`Listening at ${process.env.API_URL}/`);
+  logger.info(`Listening at ${process.env.API_URL}/`);
 });

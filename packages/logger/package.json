@@ -1,0 +1,24 @@
+{
+  "name": "@scrabble-solver/logger",
+  "version": "2.0.0-alpha.4",
+  "description": "Scrabble Solver - Logger",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamilmielnik/scrabble-solver.git"
+  },
+  "author": {
+    "name": "Kamil Mielnik",
+    "email": "kamil.adam.mielnik@gmail.com",
+    "url": "http://kamilmielnik.com/"
+  },
+  "license": "CC-BY-NC-ND-4.0",
+  "bugs": {
+    "url": "https://github.com/kamilmielnik/scrabble-solver/issues"
+  },
+  "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
+  "gitHead": "c4701e646e0102875dc7d0e14dc0055fd375253d",
+  "dependencies": {
+    "winston": "^3.2.1"
+  }
+}

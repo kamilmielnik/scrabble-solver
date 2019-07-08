@@ -1,3 +1,4 @@
+import logger from '@scrabble-solver/logger';
 import { NullWordDefinition } from '@scrabble-solver/models';
 
 import translateEn from './en';
@@ -17,12 +18,14 @@ export default async (request, response) => {
     const result = await translate(word);
     response.send(result.toJson());
   } catch (error) {
+    logger.error(error);
     response.send(NullWordDefinition);
   }
 };
 
 const parseRequest = (request) => {
   const { locale, word } = request.query;
+  logger.info('dictionary - parseRequest', { locale, word });
   validateLocale(locale);
   validateWord(word);
 

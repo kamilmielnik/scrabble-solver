@@ -1,13 +1,11 @@
 const webpack = require('webpack');
 const path = require('path');
-const nodeExternals = require('webpack-node-externals');
 const StartServerPlugin = require('start-server-webpack-plugin');
 
 const IS_DEV_ENV = process.env.NODE_ENV === 'development';
 
 const SRC_DIR = path.resolve(__dirname, 'src');
 const ENTRY_FILE = path.resolve(SRC_DIR, 'index.js');
-const COMMONS_PARENT_DIR = path.resolve(__dirname, '..');
 const DIST_DIR = path.resolve(__dirname, 'dist');
 const BUNDLE_DIST = 'index.js';
 
@@ -19,17 +17,11 @@ module.exports = {
   },
   entry: [IS_DEV_ENV && 'webpack/hot/poll?1000', ENTRY_FILE].filter(Boolean),
   resolve: {
-    modules: [SRC_DIR, COMMONS_PARENT_DIR, 'node_modules'],
+    modules: [SRC_DIR, 'node_modules'],
     extensions: ['.js']
   },
   target: 'node',
   watch: IS_DEV_ENV,
-  externals: [
-    IS_DEV_ENV &&
-      nodeExternals({
-        whitelist: [/^@scrabble-solver/, 'webpack/hot/poll?1000']
-      })
-  ].filter(Boolean),
   module: {
     rules: [
       {

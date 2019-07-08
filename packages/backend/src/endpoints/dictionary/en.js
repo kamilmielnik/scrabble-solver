@@ -1,4 +1,5 @@
 import { URLSearchParams } from 'url';
+import logger from '@scrabble-solver/logger';
 import { NullWordDefinition, WordDefinition } from '@scrabble-solver/models';
 
 import { request } from './utils';
@@ -28,6 +29,10 @@ export default async (word) => {
     });
     return wordDefinition;
   } catch (error) {
+    logger.error('dictionary - en', {
+      error: error.message,
+      word
+    });
     return NullWordDefinition;
   }
 };

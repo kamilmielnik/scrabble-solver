@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import * as configs from '@scrabble-solver/configs';
+import logger from '@scrabble-solver/logger';
 import { Board, Tile } from '@scrabble-solver/models';
 import Solver from '@scrabble-solver/solver';
 import Trie from '@scrabble-solver/trie';
@@ -27,6 +28,7 @@ export default (dictionariesDirectory) => {
       const results = solver.solve(board, tiles);
       response.send(results.map((result) => result.toJson()));
     } catch (error) {
+      logger.error(error);
       response.status(400).send({
         message: error.message
       });
@@ -36,6 +38,7 @@ export default (dictionariesDirectory) => {
 
 const parseRequest = (request) => {
   const { board, configId, locale, tiles } = request.body;
+  logger.info('solve - parseRequest', { board, configId, locale, tiles });
   validateConfigId(configId);
   validateLocale(locale);
   const config = configs[configId][locale];
