@@ -1,4 +1,5 @@
 coverage/
+dist/
 packages/**/dist/
 packages/**/build/
 **/node_modules/
