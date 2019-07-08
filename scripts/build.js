@@ -37,6 +37,9 @@ const buildModule = ({ name, directory, dist }) => {
   const moduleDirectory = path.join(dirname, directory);
   const distDirectory = path.join(moduleDirectory, dist);
   process.chdir(moduleDirectory);
+  logAction(`Installing "${name}" dev dependencies`, () => {
+    execSync(`npm install --only=dev`);
+  });
   logAction(`Building "${name}"`, () => {
     const npmScript = env ? `build:${env}` : 'build';
     execSync(`npm run ${npmScript}`);
