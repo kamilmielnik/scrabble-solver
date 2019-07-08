@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/solver",
-  "version": "2.0.0-alpha.4",
+  "version": "2.0.0-alpha.5",
   "description": "Scrabble Solver - Solver",
   "main": "src/index.js",
   "repository": {
@@ -18,13 +18,13 @@
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
-    "@scrabble-solver/models": "^2.0.0-alpha.4",
-    "@scrabble-solver/trie": "^2.0.0-alpha.4",
+    "@scrabble-solver/models": "^2.0.0-alpha.5",
+    "@scrabble-solver/trie": "^2.0.0-alpha.5",
     "lodash": "^4.17.11"
   },
   "devDependencies": {
-    "@scrabble-solver/configs": "^2.0.0-alpha.4",
-    "@scrabble-solver/constants": "^2.0.0-alpha.4"
+    "@scrabble-solver/configs": "^2.0.0-alpha.5",
+    "@scrabble-solver/constants": "^2.0.0-alpha.5"
   },
   "gitHead": "c4701e646e0102875dc7d0e14dc0055fd375253d"
 }
