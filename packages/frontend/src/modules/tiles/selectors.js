@@ -7,7 +7,7 @@ import { selectConfig } from 'config/selectors';
 export const selectTiles = (state) => state.tiles;
 export const selectInput = createSelector(
   selectTiles,
-  ({ input }) => input
+  (tiles) => tiles.join('')
 );
 export const selectInputLength = createSelector(
   selectInput,

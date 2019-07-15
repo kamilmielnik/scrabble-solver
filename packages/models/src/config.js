@@ -36,6 +36,14 @@ class Config {
     return cellBonus.getValue();
   }
 
+  getCharacterPoints(character) {
+    return this.pointsMap[character];
+  }
+
+  hasCharacter(character) {
+    return this.alphabet.includes(character);
+  }
+
   toJson() {
     return {
       id: this.id,

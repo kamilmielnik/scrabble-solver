@@ -8,3 +8,30 @@ export const createKeyComparator = (key) => (a, b) => {
 };
 const stringsComparator = (a, b) => a.localeCompare(b);
 const numbersComparator = (a, b) => a - b;
+
+export const createKeyboardNavigation = ({
+  onArrowDown = noop,
+  onArrowLeft = noop,
+  onArrowRight = noop,
+  onArrowUp = noop,
+  onBackspace = noop,
+  onDelete = noop,
+  onEnter = noop,
+  onKeyDown = noop
+}) => {
+  const handlers = {
+    ArrowUp: onArrowUp,
+    ArrowDown: onArrowDown,
+    ArrowLeft: onArrowLeft,
+    ArrowRight: onArrowRight,
+    Backspace: onBackspace,
+    Delete: onDelete,
+    Enter: onEnter
+  };
+
+  return (event) => {
+    const handler = handlers[event.key] || noop;
+    handler(event);
+    onKeyDown(event);
+  };
+};

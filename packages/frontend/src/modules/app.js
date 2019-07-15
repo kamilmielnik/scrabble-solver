@@ -13,6 +13,7 @@ import ResultsFilter from 'results/components/filter';
 import ResultsList from 'results/components/list';
 import Splash from 'splash/components';
 import Tiles from 'tiles/components';
+import TilesV2 from 'tiles-v2';
 import Time from 'time/components';
 import Walkthrough from 'walkthrough/components';
 
@@ -44,6 +45,8 @@ const App = ({ isSplashShown }) => (
 
             <Time className={styles.time} />
           </div>
+
+          <TilesV2 />
 
           <Walkthrough />
         </Fragment>
