@@ -5,7 +5,7 @@ import { BLANK } from '@scrabble-solver/constants';
 
 import { useConfig } from 'config';
 
-import styles from './tile.module.scss';
+import styles from './Tile.module.scss';
 
 const Tile = forwardRef(({ character, className, onFocus, onKeyDown }, ref) => {
   const inputRef = useRef();

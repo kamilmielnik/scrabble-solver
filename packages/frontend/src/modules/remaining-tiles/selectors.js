@@ -3,21 +3,21 @@ import { BLANK } from '@scrabble-solver/constants';
 
 import { selectCells } from 'board/selectors';
 import { selectConfig } from 'config/selectors';
-import { selectInput } from 'tiles/selectors';
+import { selectTiles } from 'tiles';
 
 import { getNumberOfRemainingCharacters, reduceCellStatistics } from './utils/statistics';
 
 export const selectCharactersMap = createSelector(
-  [selectConfig, selectInput],
-  ({ tiles, pointsMap }, input) =>
-    tiles.reduce(
+  [selectConfig, selectTiles],
+  (config, tiles) =>
+    config.tiles.reduce(
       (charactersStatistics, { character, count }) => ({
         ...charactersStatistics,
         [character]: {
           character,
           count,
-          points: pointsMap[character],
-          usedCount: input.split(character).length - 1
+          points: config.pointsMap[character],
+          usedCount: tiles.reduce((count, tile) => count + (tile === character ? 1 : 0), 0)
         }
       }),
       {}

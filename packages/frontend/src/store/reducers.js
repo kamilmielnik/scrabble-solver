@@ -7,7 +7,7 @@ import i18n from 'i18n/state';
 import results from 'results/state';
 import shared from 'shared/state';
 import splash from 'splash/state';
-import tiles from 'tiles/state';
+import { reducer as tiles } from 'tiles';
 import time from 'time/state';
 import walkthrough from 'walkthrough/state';
 

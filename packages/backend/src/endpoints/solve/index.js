@@ -1,12 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 import * as configs from '@scrabble-solver/configs';
+import { BLANK } from '@scrabble-solver/constants';
 import logger from '@scrabble-solver/logger';
 import { Board, Tile } from '@scrabble-solver/models';
 import Solver from '@scrabble-solver/solver';
 import Trie from '@scrabble-solver/trie';
 
-import { validateBoard, validateConfigId, validateLocale, validateTiles } from './validate';
+import { validateBoard, validateCharacters, validateConfigId, validateLocale } from './validate';
 
 const getLocaleCollection = (dictionariesDirectory, locale) =>
   Trie.deserialize(fs.readFileSync(path.join(dictionariesDirectory, `${locale}.txt`), 'utf-8'));
@@ -22,8 +23,9 @@ export default (dictionariesDirectory) => {
 
   return (request, response) => {
     try {
-      const { board, config, locale, tiles } = parseRequest(request);
+      const { board, characters, config, locale } = parseRequest(request);
       const collection = localeCollections[locale];
+      const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
       const solver = new Solver(config, collection);
       const results = solver.solve(board, tiles);
       response.send(results.map((result) => result.toJson()));
@@ -37,18 +39,18 @@ export default (dictionariesDirectory) => {
 };
 
 const parseRequest = (request) => {
-  const { board, configId, locale, tiles } = request.body;
-  logger.info('solve - parseRequest', { board, configId, locale, tiles });
+  const { board, characters, configId, locale } = request.body;
+  logger.info('solve - parseRequest', { board, configId, locale, characters });
   validateConfigId(configId);
   validateLocale(locale);
   const config = configs[configId][locale];
   validateBoard(board, config);
-  validateTiles(tiles, config);
+  validateCharacters(characters, config);
 
   return {
     board: Board.fromJson(board),
     config,
     locale,
-    tiles: tiles.map(Tile.fromJson)
+    characters
   };
 };

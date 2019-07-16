@@ -7,13 +7,13 @@ import { changeInput as changeDictionaryInput, submit as submitDictionary } from
 import { CHANGE_LOCALE } from 'i18n/state';
 import { HIGHLIGHT_RESULT, UNHIGHLIGHT_RESULT, changeResults, clearFilter } from 'results/state';
 import { APPLY_RESULT, changeResultCandidate } from 'shared/state';
-import { SUBMIT as SUBMIT_TILES, clearInput as clearTiles } from 'tiles/state';
+import { SUBMIT as SUBMIT_TILES } from 'tiles';
 import { changeTime, resetTime } from 'time/state';
 import { selectBoard } from 'board/selectors';
 import { selectConfigId } from 'config/selectors';
 import { selectLocale } from 'i18n/selectors';
 import { selectResultsList } from 'results/selectors';
-import { selectInputTiles } from 'tiles/selectors';
+import { selectValidTiles } from 'tiles';
 import { postSolve } from 'api';
 
 import { submitSolve, submitSolveFailure, submitSolveSuccess } from './state';
@@ -30,7 +30,10 @@ function* onApplyResult({ payload: id }) {
   const result = getResultById(results, id);
   yield put(applyResult(result));
   yield put(clearFilter());
-  yield put(clearTiles());
+
+  debugger;
+  //TODO: remove used tiles
+  // yield put(clearTiles());
   yield put(changeResults([]));
 }
 
@@ -49,7 +52,7 @@ function* onUnhighlightResult() {
 function* onTilesSubmit() {
   const configId = yield select(selectConfigId);
   const board = yield select(selectBoard);
-  const tiles = yield select(selectInputTiles);
+  const tiles = yield select(selectValidTiles);
   const locale = yield select(selectLocale);
   if (tiles.length > 0) {
     try {
@@ -58,9 +61,9 @@ function* onTilesSubmit() {
       const start = Date.now();
       const results = yield call(postSolve, {
         board: board.toJson(),
+        characters: tiles,
         configId,
-        locale,
-        tiles: tiles.map((tile) => tile.toJson())
+        locale
       });
       const end = Date.now();
       yield put(changeTime(end - start));

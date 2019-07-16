@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 
 import { changeCellValue, toggleCellIsBlank } from 'board/state';
-import { submit } from 'tiles/state';
+import { submit } from 'tiles';
 import { selectBonus, selectCharacterPoints } from 'board/selectors';
 import { selectConfig } from 'config/selectors';
 

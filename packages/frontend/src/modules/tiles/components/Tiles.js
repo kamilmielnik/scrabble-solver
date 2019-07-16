@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { BLANK } from '@scrabble-solver/constants';
 
 import { createKeyboardNavigation } from 'utils';
-import Tile from 'components/tile';
 import { useConfig } from 'config';
 import { changeCharacter, submit } from 'tiles/state';
 import { useTiles } from 'tiles/hooks';
 
-import styles from './tiles.module.scss';
+import Tile from './Tile';
+import styles from './Tiles.module.scss';
 
 const Tiles = () => {
   const tiles = useTiles();

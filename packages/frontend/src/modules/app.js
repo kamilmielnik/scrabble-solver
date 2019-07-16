@@ -12,8 +12,7 @@ import RemainingTiles from 'remaining-tiles/components';
 import ResultsFilter from 'results/components/filter';
 import ResultsList from 'results/components/list';
 import Splash from 'splash/components';
-import Tiles from 'tiles/components';
-import TilesV2 from 'tiles-v2';
+import { Tiles } from 'tiles';
 import Time from 'time/components';
 import Walkthrough from 'walkthrough/components';
 
@@ -26,7 +25,6 @@ const App = ({ isSplashShown }) => (
         <Fragment>
           <div className={styles.content}>
             <div className={styles.left}>
-              <Tiles />
               <Board />
               <DictionaryOutput />
               <DictionaryInput />
@@ -46,7 +44,7 @@ const App = ({ isSplashShown }) => (
             <Time className={styles.time} />
           </div>
 
-          <TilesV2 />
+          <Tiles />
 
           <Walkthrough />
         </Fragment>

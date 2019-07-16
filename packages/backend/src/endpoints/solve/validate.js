@@ -77,9 +77,7 @@ const validateTile = (tile, config) => {
   if (tile !== null) {
     const { character, isBlank } = tile;
 
-    if (!config.hasCharacter(character) && character !== BLANK) {
-      throw new Error('character is not valid');
-    }
+    validateCharacter(character, config);
 
     if (typeof isBlank !== 'boolean') {
       throw new Error('isBlank is not a boolean');
@@ -87,20 +85,26 @@ const validateTile = (tile, config) => {
   }
 };
 
-export const validateTiles = (tiles, config) => {
-  if (!Array.isArray(tiles)) {
-    throw new Error('Invalid "tiles" parameter: not an array');
+export const validateCharacters = (characters, config) => {
+  if (!Array.isArray(characters)) {
+    throw new Error('Invalid "characters" parameter: not an array');
   }
 
-  if (tiles.length === 0) {
-    throw new Error('Invalid "tiles" parameter: empty array');
+  if (characters.length === 0) {
+    throw new Error('Invalid "characters" parameter: empty array');
   }
 
-  tiles.forEach((tile, tileIndex) => {
+  characters.forEach((character, characterIndex) => {
     try {
-      validateTile(tile, config);
+      validateCharacter(character, config);
     } catch (error) {
-      throw new Error(`Invalid "tiles" parameter: tiles[${tileIndex}] ${error.message}`);
+      throw new Error(`Invalid "characters" parameter: characters[${characterIndex}] ${error.message}`);
     }
   });
+};
+
+const validateCharacter = (character, config) => {
+  if (!config.hasCharacter(character) && character !== BLANK) {
+    throw new Error('character is not valid');
+  }
 };
