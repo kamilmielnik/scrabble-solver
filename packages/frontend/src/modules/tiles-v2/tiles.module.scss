@@ -11,3 +11,15 @@
   display: flex;
   padding: 20px 40px;
 }
+
+.tile {
+  margin: 0 0px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}

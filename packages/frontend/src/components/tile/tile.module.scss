@@ -1,7 +1,8 @@
 @import 'styles/variables.scss';
 
 .tile {
-  $tile-size: 40px;
+  $tile-size: 64px;
+  $tile-font-size: $tile-size * 3 / 5;
 
   position: relative;
   width: $tile-size;
@@ -41,9 +42,18 @@
     box-sizing: border-box;
     background-color: transparent;
     border: 0;
-    font-size: 16px;
+    font-size: $tile-font-size;
     font-weight: bold;
     text-transform: uppercase;
     text-align: center;
+  }
+
+  .points {
+    position: absolute;
+    right: 8px;
+    bottom: 6px;
+    font-size: 14px;
+    color: $black;
+    font-weight: bold;
   }
 }

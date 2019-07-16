@@ -38,6 +38,7 @@ const Tile = forwardRef(({ character, className, onFocus, onKeyDown }, ref) => {
         onFocus={onFocus}
         onKeyDown={onKeyDown}
       />
+      {points > 0 && <span className={styles.points}>{points}</span>}
     </div>
   );
 });

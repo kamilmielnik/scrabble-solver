@@ -1,6 +1,6 @@
 import React, { createRef, useEffect, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import { BLANK } from '@scrabble-solver/constants';
 
 import { createKeyboardNavigation } from 'utils';
 import Tile from 'components/tile';
@@ -23,30 +23,36 @@ const Tiles = () => {
     }
   }, [activeIndex, tilesRefs]);
 
+  const onKeyDown = createKeyboardNavigation({
+    onArrowLeft: (event) => {
+      event.preventDefault();
+      setActiveIndex(Math.max(activeIndex - 1, 0));
+    },
+    onArrowRight: (event) => {
+      event.preventDefault();
+      setActiveIndex(Math.min(activeIndex + 1, tiles.length - 1));
+    },
+    onEnter: () => dispatch(submit())
+  });
+
   return (
     <div className={styles.tiles}>
       {tiles.map((character, index) => (
         <Tile
+          className={styles.tile}
           character={character}
           key={index}
           ref={tilesRefs[index]}
           onFocus={() => setActiveIndex(index)}
           onKeyDown={createKeyboardNavigation({
-            onArrowLeft: (event) => {
-              event.preventDefault();
-              setActiveIndex(Math.max(activeIndex - 1, 0));
-            },
-            onArrowRight: (event) => {
-              event.preventDefault();
-              setActiveIndex(Math.min(activeIndex + 1, tiles.length - 1));
-            },
             onBackspace: () => dispatch(changeCharacter({ index, character: null })),
             onDelete: () => dispatch(changeCharacter({ index, character: null })),
-            onEnter: () => dispatch(submit()),
             onKeyDown: (event) => {
-              if (config.hasCharacter(event.key)) {
-                dispatch(changeCharacter({ index, character: event.key }));
+              const character = event.key;
+              if (config.hasCharacter(character) || character === BLANK) {
+                dispatch(changeCharacter({ index, character }));
               }
+              onKeyDown(event);
             }
           })}
         />

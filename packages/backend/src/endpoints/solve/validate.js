@@ -1,4 +1,5 @@
 import * as configs from '@scrabble-solver/configs';
+import { BLANK } from '@scrabble-solver/constants';
 
 const VALID_LOCALES = ['en-GB', 'en-US', 'pl-PL'];
 
@@ -76,7 +77,7 @@ const validateTile = (tile, config) => {
   if (tile !== null) {
     const { character, isBlank } = tile;
 
-    if (!config.alphabet.includes(character)) {
+    if (!config.hasCharacter(character) && character !== BLANK) {
       throw new Error('character is not valid');
     }
 
