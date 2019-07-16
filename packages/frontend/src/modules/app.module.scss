@@ -1,71 +1,31 @@
 @import 'styles/variables.scss';
 
 .app {
+  width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
-  .contentContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.content {
+  flex: 1;
+  display: flex;
+}
 
-    @media (max-width: 1133px) {
-      align-items: initial;
-    }
+.boardContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
 
-    .content {
-      display: flex;
-      flex-wrap: wrap;
-      width: $app-width;
-      padding: $spacing 0;
-    }
+.sidebar {
+  flex: 0 0 auto;
+}
 
-    .left {
-      max-width: $left-width;
-    }
-
-    .right {
-      max-width: $right-width;
-      margin-left: $spacing;
-    }
-
-    .left,
-    .right {
-      margin-bottom: $spacing;
-
-      > div {
-        margin: $spacing 0;
-
-        &:first-child {
-          margin-top: 0;
-        }
-
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
-    }
-
-    .remainingTiles,
-    .bar,
-    .time {
-      flex: 1 0 100%;
-    }
-
-    .remainingTiles {
-      margin-bottom: $spacing;
-    }
-
-    .bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-
-    .time {
-      display: flex;
-      justify-content: center;
-    }
-  }
+.tiles {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
