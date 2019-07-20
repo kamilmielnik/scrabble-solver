@@ -5,10 +5,10 @@ import { BLANK } from '@scrabble-solver/constants';
 import { Tile } from 'components';
 import { createKeyboardNavigation } from 'utils';
 import { useConfig } from 'config';
-import { changeCharacter, submit } from 'tiles/state';
-import { useTiles } from 'tiles/hooks';
 import { useMessage } from 'i18n';
 
+import { useTiles } from './hooks';
+import { changeCharacter, submit } from './state';
 import styles from './Tiles.module.scss';
 
 const Tiles = () => {

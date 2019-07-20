@@ -14,7 +14,7 @@ import { selectConfigId } from 'config/selectors';
 import { selectLocale } from 'i18n/selectors';
 import { selectResults } from 'results';
 import { selectValidCharacters } from 'tiles';
-import { removeTiles } from 'tiles/state';
+import { removeTiles } from 'tiles';
 import { postSolve } from 'api';
 
 import { submitSolve, submitSolveFailure, submitSolveSuccess } from './state';

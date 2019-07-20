@@ -12,7 +12,7 @@ export const submit = createAction(SUBMIT);
 
 const initialState = [null, null, null, null, null, null, null]; //TODO: when config is changed, initialize this with empty array of appropriate length
 
-export default handleActions(
+export const reducer = handleActions(
   {
     [CHANGE_CHARACTER]: (state, { payload: { character, index } }) => [
       ...state.slice(0, index),
