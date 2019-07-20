@@ -2,13 +2,13 @@ import React, { createRef, useCallback, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { BLANK } from '@scrabble-solver/constants';
 
+import { Tile } from 'components';
 import { createKeyboardNavigation } from 'utils';
 import { useConfig } from 'config';
 import { changeCharacter, submit } from 'tiles/state';
 import { useTiles } from 'tiles/hooks';
 import { useMessage } from 'i18n';
 
-import Tile from './Tile';
 import styles from './Tiles.module.scss';
 
 const Tiles = () => {
@@ -55,7 +55,7 @@ const Tiles = () => {
         <Tile
           className={styles.tile}
           character={character}
-          isCandidate={isCandidate}
+          highlighted={isCandidate}
           key={index}
           placeholder={placeholder[index]}
           ref={tilesRefs[index]}

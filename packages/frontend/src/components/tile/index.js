@@ -7,7 +7,7 @@ import { useConfig } from 'config';
 
 import styles from './Tile.module.scss';
 
-const Tile = forwardRef(({ character, className, isCandidate, placeholder, onFocus, onKeyDown }, ref) => {
+const Tile = forwardRef(({ character, className, highlighted, placeholder, onFocus, onKeyDown }, ref) => {
   const inputRef = useRef();
   const config = useConfig();
   const points = config.getCharacterPoints(character);
@@ -22,7 +22,7 @@ const Tile = forwardRef(({ character, className, isCandidate, placeholder, onFoc
     <div
       className={classNames(styles.tile, className, {
         [styles.empty]: character === null,
-        [styles.candidate]: isCandidate,
+        [styles.candidate]: highlighted,
         [styles.blank]: character === BLANK,
         [styles.points1]: points === 1,
         [styles.points2]: points === 2,
@@ -48,7 +48,7 @@ const Tile = forwardRef(({ character, className, isCandidate, placeholder, onFoc
 Tile.propTypes = {
   className: PropTypes.string,
   character: PropTypes.string,
-  isCandidate: PropTypes.bool,
+  highlighted: PropTypes.bool,
   placeholder: PropTypes.string,
   onFocus: PropTypes.func.isRequired,
   onKeyDown: PropTypes.func.isRequired
