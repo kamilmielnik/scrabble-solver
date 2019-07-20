@@ -4,6 +4,7 @@ import useWindowSize from 'react-use/lib/useWindowSize';
 import Board from 'board/components';
 import { Results } from 'results';
 import { Tiles } from 'tiles';
+import { Time } from 'time';
 
 import styles from './app.module.scss';
 
@@ -13,6 +14,10 @@ const App = () => {
   return (
     <div className={styles.app}>
       <div className={styles.content}>
+        <div className={styles.menu}>
+          <Time />
+        </div>
+
         <div className={styles.board}>
           <Board />
         </div>

@@ -8,7 +8,7 @@ export const resetTime = createAction(RESET_TIME);
 
 const initialState = null;
 
-export default handleActions(
+export const reducer = handleActions(
   {
     [RESET_TIME]: () => initialState,
 

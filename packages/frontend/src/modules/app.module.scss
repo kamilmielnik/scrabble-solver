@@ -17,6 +17,16 @@
   box-shadow: -2px 0px 5px 0px $gray;
 }
 
+.menu {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: $spacing-s 0;
+  border-bottom: $border;
+  box-shadow: 0 2px 5px 0px $gray;
+}
+
 .board {
   display: flex;
   justify-content: center;
@@ -27,9 +37,9 @@
 .tiles {
   flex: 0 0 auto;
   display: flex;
-  padding: $spacing-m 0;
   justify-content: center;
   align-items: center;
+  padding: $spacing-m 0;
   border-top: $border;
   box-shadow: 0 -2px 5px 0px $gray;
 }

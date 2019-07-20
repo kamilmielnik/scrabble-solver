@@ -8,7 +8,7 @@ import { CHANGE_LOCALE } from 'i18n/state';
 import { HIGHLIGHT_RESULT, UNHIGHLIGHT_RESULT, changeResults } from 'results';
 import { APPLY_RESULT, changeResultCandidate } from 'shared/state';
 import { SUBMIT as SUBMIT_TILES } from 'tiles';
-import { changeTime, resetTime } from 'time/state';
+import { changeTime, resetTime } from 'time';
 import { selectBoard } from 'board/selectors';
 import { selectConfigId } from 'config/selectors';
 import { selectLocale } from 'i18n/selectors';

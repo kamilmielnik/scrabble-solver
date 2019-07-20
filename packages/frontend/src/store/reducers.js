@@ -8,7 +8,7 @@ import { reducer as results } from 'results';
 import shared from 'shared/state';
 import splash from 'splash/state';
 import { reducer as tiles } from 'tiles';
-import time from 'time/state';
+import { reducer as time } from 'time';
 import walkthrough from 'walkthrough/state';
 
 const rootReducer = combineReducers({
