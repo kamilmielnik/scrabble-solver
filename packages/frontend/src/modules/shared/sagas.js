@@ -13,7 +13,8 @@ import { selectBoard } from 'board/selectors';
 import { selectConfigId } from 'config/selectors';
 import { selectLocale } from 'i18n/selectors';
 import { selectResults } from 'results/selectors';
-import { selectValidTiles } from 'tiles';
+import { selectValidCharacters } from 'tiles';
+import { removeTiles } from 'tiles/state';
 import { postSolve } from 'api';
 
 import { submitSolve, submitSolveFailure, submitSolveSuccess } from './state';
@@ -29,10 +30,7 @@ function* onApplyResult({ payload: id }) {
   const results = yield select(selectResults);
   const result = getResultById(results, id);
   yield put(applyResult(result));
-
-  debugger;
-  //TODO: remove used tiles
-  // yield put(clearTiles());
+  yield put(removeTiles(result.tiles));
   yield put(changeResults([]));
 }
 
@@ -51,16 +49,16 @@ function* onUnhighlightResult() {
 function* onTilesSubmit() {
   const configId = yield select(selectConfigId);
   const board = yield select(selectBoard);
-  const tiles = yield select(selectValidTiles);
+  const characters = yield select(selectValidCharacters);
   const locale = yield select(selectLocale);
-  if (tiles.length > 0) {
+  if (characters.length > 0) {
     try {
       yield put(submitSolve());
       yield put(resetTime());
       const start = Date.now();
       const results = yield call(postSolve, {
         board: board.toJson(),
-        characters: tiles,
+        characters,
         configId,
         locale
       });

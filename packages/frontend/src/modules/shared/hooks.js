@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { selectIsLoading } from './selectors';
+import { selectIsLoading, selectResultCandidate } from './selectors';
 
-export const useIsLoading = () => {
-  return useSelector(selectIsLoading);
-};
+export const useIsLoading = () => useSelector(selectIsLoading);
+
+export const useResultCandidate = () => useSelector(selectResultCandidate);

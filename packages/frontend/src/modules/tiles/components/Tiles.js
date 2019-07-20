@@ -1,4 +1,4 @@
-import React, { createRef, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { createRef, useCallback, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { BLANK } from '@scrabble-solver/constants';
 

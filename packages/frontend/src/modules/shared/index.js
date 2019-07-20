@@ -1,2 +1,1 @@
-export { useIsLoading } from './hooks';
-export { selectResultCandidate } from './selectors';
+export { useIsLoading, useResultCandidate } from './hooks';
