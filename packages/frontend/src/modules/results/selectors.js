@@ -3,20 +3,6 @@ import { createSelector } from 'reselect';
 import { createKeyComparator, reverseComparator } from 'utils';
 
 export const selectResults = (state) => state.results;
-export const selectFilter = createSelector(
-  selectResults,
-  ({ filter }) => filter
-);
-export const selectFilterRegexp = createSelector(
-  selectFilter,
-  (filter) => {
-    try {
-      return new RegExp(filter, 'i');
-    } catch (error) {
-      return /./;
-    }
-  }
-);
 export const selectSortedColumnName = createSelector(
   selectResults,
   ({ sortedColumnName }) => sortedColumnName
@@ -33,16 +19,8 @@ export const selectNumberOfResults = createSelector(
   selectResultsList,
   ({ length }) => length
 );
-export const selectFilteredResults = createSelector(
-  [selectResultsList, selectFilterRegexp],
-  (results, regexp) => results.filter(({ word }) => regexp.test(word))
-);
-export const selectNumberOfFilteredResults = createSelector(
-  selectFilteredResults,
-  ({ length }) => length
-);
 export const selectSortedResults = createSelector(
-  [selectFilteredResults, selectSortedColumnName, selectSortingDirection],
+  [selectResultsList, selectSortedColumnName, selectSortingDirection],
   (results, sortedColumnName, sortingDirection) => {
     let comparator = createKeyComparator(sortedColumnName);
     if (sortingDirection === 'descending') {

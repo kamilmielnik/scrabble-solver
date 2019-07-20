@@ -5,7 +5,7 @@ import { applyResult } from 'board/state';
 import { CHANGE_CONFIG } from 'config/state';
 import { changeInput as changeDictionaryInput, submit as submitDictionary } from 'dictionary/state';
 import { CHANGE_LOCALE } from 'i18n/state';
-import { HIGHLIGHT_RESULT, UNHIGHLIGHT_RESULT, changeResults, clearFilter } from 'results/state';
+import { HIGHLIGHT_RESULT, UNHIGHLIGHT_RESULT, changeResults } from 'results/state';
 import { APPLY_RESULT, changeResultCandidate } from 'shared/state';
 import { SUBMIT as SUBMIT_TILES } from 'tiles';
 import { changeTime, resetTime } from 'time/state';
@@ -29,7 +29,6 @@ function* onApplyResult({ payload: id }) {
   const results = yield select(selectResultsList);
   const result = getResultById(results, id);
   yield put(applyResult(result));
-  yield put(clearFilter());
 
   debugger;
   //TODO: remove used tiles

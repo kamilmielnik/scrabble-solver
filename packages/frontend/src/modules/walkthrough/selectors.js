@@ -31,8 +31,6 @@ export const selectTranslations = createSelector(
     remainingTilesExplanation: selectMessage(state, { id: 'modules.walkthrough.explanation.remaining-tiles' }),
     results: selectMessage(state, { id: 'modules.results.list' }),
     resultsExplanation: selectMessage(state, { id: 'modules.walkthrough.explanation.results' }),
-    resultsFilter: selectMessage(state, { id: 'modules.results.filter.label-clean' }),
-    resultsFilterExplanation: selectMessage(state, { id: 'modules.walkthrough.explanation.results-filter' }),
     skip: selectMessage(state, { id: 'modules.walkthrough.skip' }),
     tiles: selectMessage(state, { id: 'modules.results.list.tiles' }),
     tilesExplanation: selectMessage(state, { id: 'modules.walkthrough.explanation.tiles' })
@@ -71,12 +69,6 @@ export const selectSteps = createSelector(
       text: translations.dictionaryFindExplanation,
       selector: '#dictionary-find',
       position: 'right'
-    },
-    {
-      title: translations.resultsFilter,
-      text: translations.resultsFilterExplanation,
-      selector: '#results-filter',
-      position: 'left'
     },
     {
       title: translations.remainingTiles,
