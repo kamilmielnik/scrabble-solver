@@ -12,7 +12,7 @@ import { changeTime, resetTime } from 'time/state';
 import { selectBoard } from 'board/selectors';
 import { selectConfigId } from 'config/selectors';
 import { selectLocale } from 'i18n/selectors';
-import { selectResultsList } from 'results/selectors';
+import { selectResults } from 'results/selectors';
 import { selectValidTiles } from 'tiles';
 import { postSolve } from 'api';
 
@@ -26,7 +26,7 @@ export default function* modulesSagas() {
 }
 
 function* onApplyResult({ payload: id }) {
-  const results = yield select(selectResultsList);
+  const results = yield select(selectResults);
   const result = getResultById(results, id);
   yield put(applyResult(result));
 
@@ -37,7 +37,7 @@ function* onApplyResult({ payload: id }) {
 }
 
 function* onHighlightResult({ payload: id }) {
-  const results = yield select(selectResultsList);
+  const results = yield select(selectResults);
   const result = getResultById(results, id);
   yield put(changeDictionaryInput(result.word));
   yield put(submitDictionary());

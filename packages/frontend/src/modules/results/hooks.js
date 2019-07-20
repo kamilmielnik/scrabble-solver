@@ -1,6 +1,4 @@
 import { useSelector } from 'react-redux';
-import { selectFormattedResults } from './selectors';
+import { selectResults } from './selectors';
 
-export const useResults = () => {
-  return useSelector(selectFormattedResults);
-};
+export const useResults = () => useSelector(selectResults);
