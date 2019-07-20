@@ -32,7 +32,13 @@ const Tiles = () => {
       event.preventDefault();
       setActiveIndex(Math.min(activeIndex + 1, tiles.length - 1));
     },
-    onEnter: () => dispatch(submit())
+    onEnter: () => dispatch(submit()),
+    onKeyDown: (event) => {
+      const character = event.key;
+      if (config.hasCharacter(character) || character === BLANK) {
+        setActiveIndex(Math.min(activeIndex + 1, tiles.length - 1));
+      }
+    }
   });
 
   return (
@@ -42,6 +48,7 @@ const Tiles = () => {
           className={styles.tile}
           character={character}
           key={index}
+          placeholder={'literki'[index]}
           ref={tilesRefs[index]}
           onFocus={() => setActiveIndex(index)}
           onKeyDown={createKeyboardNavigation({

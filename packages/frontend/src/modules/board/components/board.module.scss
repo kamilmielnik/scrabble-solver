@@ -1,10 +1,13 @@
 @import 'styles/variables.scss';
 
-$tile-size: 30px;
-
 .board {
+  $tile-size: 40px;
+  $tile-font-size: $tile-size / 2;
+  $points-font-size: $tile-size / 3;
+
   display: table;
   border-collapse: collapse;
+  box-shadow: 0 0px 5px 2px $gray;
 
   .row {
     display: table-row;
@@ -76,7 +79,7 @@ $tile-size: 30px;
         bottom: 0;
         left: 0;
         right: 0;
-        font-size: 15px;
+        font-size: $tile-font-size;
         font-weight: bold;
         color: $white;
         pointer-events: none;
@@ -121,7 +124,7 @@ $tile-size: 30px;
       position: absolute;
       bottom: 3px;
       right: 3px;
-      font-size: 10px;
+      font-size: $points-font-size;
     }
 
     .tile {
@@ -146,7 +149,7 @@ $tile-size: 30px;
         box-sizing: border-box;
         background-color: transparent;
         border: 0;
-        font-size: 16px;
+        font-size: $tile-font-size;
         font-weight: bold;
         text-transform: uppercase;
         text-align: center;

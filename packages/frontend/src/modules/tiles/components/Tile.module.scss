@@ -10,7 +10,12 @@
   background-color: transparent;
   color: $white;
   transition: background-color $micro-animation-duration, color $micro-animation-duration;
-  box-shadow: inset -1px -1px 1px 0px $dark-gray;
+  // box-shadow: inset -1px -1px 1px 0px $dark-gray;
+  box-shadow: inset -2px -2px 2px -1px rgba(34, 34, 34, 0.8);
+
+  &.empty {
+    background-color: $light-gray;
+  }
 
   &.points1 {
     background-color: transparentize($yellow, $background-opacity);
@@ -46,6 +51,10 @@
     font-weight: bold;
     text-transform: uppercase;
     text-align: center;
+
+    &::placeholder {
+      color: $gray;
+    }
   }
 
   .points {

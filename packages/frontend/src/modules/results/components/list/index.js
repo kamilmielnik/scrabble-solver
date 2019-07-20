@@ -6,23 +6,20 @@ import { unhighlightResult } from 'results/state';
 import { selectIsLoading } from 'shared/selectors';
 import Loading from 'components/loading';
 import Section from 'components/section';
-import { Message } from 'i18n/components';
 
 import ResultsTable from './table';
 import styles from './results-list.module.scss';
 
-const ResultsList = ({ className, isLoading, onMouseLeave }) => (
-  <Section className={className} id="results" label={<Message id="modules.results.label" />}>
-    <Loading isLoading={isLoading}>
-      <div className={styles.results} onMouseLeave={onMouseLeave}>
-        <ResultsTable />
-      </div>
-    </Loading>
-  </Section>
+const ResultsList = ({ height, isLoading, onMouseLeave }) => (
+  <Loading isLoading={isLoading}>
+    <div className={styles.results} onMouseLeave={onMouseLeave}>
+      <ResultsTable height={height} />
+    </div>
+  </Loading>
 );
 
 ResultsList.propTypes = {
-  className: PropTypes.string,
+  height: PropTypes.number.isRequired,
   isLoading: PropTypes.bool,
   onMouseLeave: PropTypes.func.isRequired
 };

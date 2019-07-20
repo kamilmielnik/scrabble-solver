@@ -25,4 +25,9 @@ $right-width: 647px;
 $spacing: 20px;
 $app-width: $left-width + $right-width + $spacing;
 
+$spacing-xs: 5px;
+$spacing-s: 2 * $spacing-xs;
+$spacing-m: 4 * $spacing-xs;
+$spacing-l: 6 * $spacing-xs;
+
 $micro-animation-duration: 0.15s;

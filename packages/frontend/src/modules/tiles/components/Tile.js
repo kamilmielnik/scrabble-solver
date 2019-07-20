@@ -7,7 +7,7 @@ import { useConfig } from 'config';
 
 import styles from './Tile.module.scss';
 
-const Tile = forwardRef(({ character, className, onFocus, onKeyDown }, ref) => {
+const Tile = forwardRef(({ character, className, placeholder, onFocus, onKeyDown }, ref) => {
   const inputRef = useRef();
   const config = useConfig();
   const points = config.getCharacterPoints(character);
@@ -32,6 +32,7 @@ const Tile = forwardRef(({ character, className, onFocus, onKeyDown }, ref) => {
       <input
         className={styles.character}
         maxLength={1}
+        placeholder={placeholder}
         ref={inputRef}
         value={character || ''}
         onChange={(event) => event.preventDefault()}
@@ -46,6 +47,7 @@ const Tile = forwardRef(({ character, className, onFocus, onKeyDown }, ref) => {
 Tile.propTypes = {
   className: PropTypes.string,
   character: PropTypes.string,
+  placeholder: PropTypes.string,
   onFocus: PropTypes.func.isRequired,
   onKeyDown: PropTypes.func.isRequired
 };

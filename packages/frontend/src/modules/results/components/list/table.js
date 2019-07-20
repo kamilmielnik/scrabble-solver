@@ -14,20 +14,20 @@ import styles from './results-list.module.scss';
 const COLUMNS = [
   { label: 'modules.results.list.points', dataKey: 'points', width: 66 },
   { label: 'modules.results.list.points-ratio', dataKey: 'pointsRatio', width: 66 },
-  { label: 'modules.results.list.word', dataKey: 'word', width: 130 },
-  { label: 'modules.results.list.length', dataKey: 'length', width: 75 },
-  { label: 'modules.results.list.tiles', dataKey: 'tilesCharacters', width: 80 },
-  { label: 'modules.results.list.number-of-tiles', dataKey: 'numberOfTiles', width: 66 },
-  { label: 'modules.results.list.number-of-blanks', dataKey: 'numberOfBlanks', width: 71 },
-  { label: 'modules.results.list.number-of-collisions', dataKey: 'numberOfCollisions', width: 91 }
+  { label: 'modules.results.list.word', dataKey: 'word', width: 130 }
+  // { label: 'modules.results.list.length', dataKey: 'length', width: 75 },
+  // { label: 'modules.results.list.tiles', dataKey: 'tilesCharacters', width: 80 },
+  // { label: 'modules.results.list.number-of-tiles', dataKey: 'numberOfTiles', width: 66 },
+  // { label: 'modules.results.list.number-of-blanks', dataKey: 'numberOfBlanks', width: 71 },
+  // { label: 'modules.results.list.number-of-collisions', dataKey: 'numberOfCollisions', width: 91 }
 ];
 
-const ResultsTable = ({ results, onRowClick, onRowMouseOver }) => (
+const ResultsTable = ({ height, results, onRowClick, onRowMouseOver }) => (
   <Table
     gridClassName={styles.grid}
     headerClassName={styles.headerCell}
-    width={645}
-    height={701}
+    width={COLUMNS.reduce((width, column) => width + column.width, 0)}
+    height={height}
     headerHeight={20}
     rowHeight={23}
     rowCount={results.length}
@@ -44,6 +44,7 @@ const ResultsTable = ({ results, onRowClick, onRowMouseOver }) => (
 );
 
 ResultsTable.propTypes = {
+  height: PropTypes.number.isRequired,
   results: PropTypes.array.isRequired,
   onRowClick: PropTypes.func.isRequired,
   onRowMouseOver: PropTypes.func.isRequired

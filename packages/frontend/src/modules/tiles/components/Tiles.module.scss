@@ -1,11 +1,8 @@
 @import 'styles/variables.scss';
 
 .tiles {
-  background: $light-gray;
-
-  /////////////
   display: flex;
-  padding: 20px 40px;
+  box-shadow: 0 -2px 5px 0px $gray;
 }
 
 .tile {
