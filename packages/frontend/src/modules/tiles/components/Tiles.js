@@ -6,6 +6,7 @@ import { createKeyboardNavigation } from 'utils';
 import { useConfig } from 'config';
 import { changeCharacter, submit } from 'tiles/state';
 import { useTiles } from 'tiles/hooks';
+import { useMessage } from 'i18n';
 
 import Tile from './Tile';
 import styles from './Tiles.module.scss';
@@ -16,6 +17,7 @@ const Tiles = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const config = useConfig();
   const dispatch = useDispatch();
+  const placeholder = useMessage({ id: 'modules.tiles.placeholder' });
 
   useEffect(() => {
     if (activeIndex !== null) {
@@ -48,7 +50,7 @@ const Tiles = () => {
           className={styles.tile}
           character={character}
           key={index}
-          placeholder={'literki'[index]}
+          placeholder={placeholder[index]}
           ref={tilesRefs[index]}
           onFocus={() => setActiveIndex(index)}
           onKeyDown={createKeyboardNavigation({

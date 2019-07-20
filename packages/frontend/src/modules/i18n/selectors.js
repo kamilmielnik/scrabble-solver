@@ -20,3 +20,8 @@ export const selectMessage = createCachedSelector(
   (state, locale, { id, locale: localeOverride, values } = {}) =>
     `${localeOverride || locale}-${id}-${JSON.stringify(values)}`
 );
+
+export const selectMessages = createSelector(
+  [selectTranslations, selectLocale],
+  (translations, locale) => translations[locale]
+);

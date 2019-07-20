@@ -23,6 +23,7 @@
   "modules.splash.dictionary": "Dictionary",
   "modules.splash.explanation": "Click a flag to choose your language",
   "modules.tiles.label": "Tiles ({numberOfTiles})",
+  "modules.tiles.placeholder": "letters",
   "modules.walkthrough.back": "Back",
   "modules.walkthrough.close": "Close",
   "modules.walkthrough.explanation.board": "You can type letters directly onto the Board (for instance those placed by your opponent). Click on a cell to edit it. You can navigate the Board with arrow keys. While any of the cells is focused, press Enter to trigger a new search. Press Ctrl+B to toggle field as a blank.",

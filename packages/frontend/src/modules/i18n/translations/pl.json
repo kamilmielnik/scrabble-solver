@@ -23,6 +23,7 @@
   "modules.splash.dictionary": "Słownik",
   "modules.splash.explanation": "Kliknij flagę, aby wybrać język",
   "modules.tiles.label": "Płytki ({numberOfTiles})",
+  "modules.tiles.placeholder": "literki",
   "modules.walkthrough.back": "Wróć",
   "modules.walkthrough.close": "Zamknij",
   "modules.walkthrough.explanation.board": "Możesz wpisywać słowa na Planszy, np. te, które układa Twój przeciwnik. Kliknij w pole, aby je edytować. Możesz nawigować strzałkami pomiędzy polami. Wciśnij Enter w trakcie edycji pola, aby rozpocząć nowe wyszukiwanie. Wciśnij Ctrl+B, aby o(d)znaczyć pole jako blank.",
