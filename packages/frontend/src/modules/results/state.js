@@ -10,7 +10,7 @@ export const unhighlightResult = createAction(UNHIGHLIGHT_RESULT);
 
 const initialState = [];
 
-export default handleActions(
+export const reducer = handleActions(
   {
     [CHANGE_RESULTS]: (state, { payload: results }) => results
   },

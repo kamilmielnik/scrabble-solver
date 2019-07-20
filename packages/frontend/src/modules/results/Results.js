@@ -5,12 +5,12 @@ import { useDispatch } from 'react-redux';
 import { VariableSizeList } from 'react-window';
 
 import Loading from 'components/loading';
-import { useResults } from 'results/hooks';
 import { useIsLoading } from 'shared';
 import { applyResult } from 'shared/state';
-import { highlightResult, unhighlightResult } from 'results/state';
 
-import styles from './results.module.scss';
+import { useResults } from './hooks';
+import { highlightResult, unhighlightResult } from './state';
+import styles from './Results.module.scss';
 
 const getItemSize = () => 38;
 

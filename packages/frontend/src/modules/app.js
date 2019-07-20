@@ -2,7 +2,7 @@ import React from 'react';
 import useWindowSize from 'react-use/lib/useWindowSize';
 
 import Board from 'board/components';
-import ResultsList from 'results/components';
+import { Results } from 'results';
 import { Tiles } from 'tiles';
 
 import styles from './app.module.scss';
@@ -23,7 +23,7 @@ const App = () => {
       </div>
 
       <div className={styles.sidebar}>
-        <ResultsList height={height} width={Math.max(width * 0.2, 200)} />
+        <Results height={height} width={Math.max(width * 0.2, 200)} />
       </div>
     </div>
   );
