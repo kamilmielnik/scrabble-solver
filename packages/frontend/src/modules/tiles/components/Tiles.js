@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useMemo, useState } from 'react';
+import React, { createRef, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { BLANK } from '@scrabble-solver/constants';
 
@@ -19,29 +19,32 @@ const Tiles = () => {
   const dispatch = useDispatch();
   const placeholder = useMessage({ id: 'modules.tiles.placeholder' });
 
-  useEffect(() => {
-    if (activeIndex !== null) {
-      tilesRefs[activeIndex].current.focus();
-    }
-  }, [activeIndex, tilesRefs]);
+  const changeActiveIndex = useCallback(
+    (offset) => {
+      const nextActiveIndex = Math.min(Math.max(activeIndex + offset, 0), tiles.length - 1);
+      tilesRefs[nextActiveIndex].current.focus();
+      setActiveIndex(nextActiveIndex);
+    },
+    [activeIndex, tiles, tilesRefs]
+  );
 
   const onKeyDown = createKeyboardNavigation({
     onArrowLeft: (event) => {
       event.preventDefault();
-      setActiveIndex(Math.max(activeIndex - 1, 0));
+      changeActiveIndex(-1);
     },
     onArrowRight: (event) => {
       event.preventDefault();
-      setActiveIndex(Math.min(activeIndex + 1, tiles.length - 1));
+      changeActiveIndex(1);
     },
     onBackspace: () => {
-      setActiveIndex(Math.max(activeIndex - 1, 0));
+      changeActiveIndex(-1);
     },
     onEnter: () => dispatch(submit()),
     onKeyDown: (event) => {
       const character = event.key;
       if (config.hasCharacter(character) || character === BLANK) {
-        setActiveIndex(Math.min(activeIndex + 1, tiles.length - 1));
+        changeActiveIndex(1);
       }
     }
   });
