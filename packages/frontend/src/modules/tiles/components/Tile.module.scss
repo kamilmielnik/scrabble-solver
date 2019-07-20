@@ -41,6 +41,18 @@
     }
   }
 
+  &.candidate {
+    background-color: $primary;
+
+    .character {
+      color: $white;
+    }
+
+    .points {
+      color: $white;
+    }
+  }
+
   .character {
     width: $tile-size;
     height: $tile-size;

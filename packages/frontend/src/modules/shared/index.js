@@ -1,0 +1,1 @@
+export { selectResultCandidate } from './selectors';

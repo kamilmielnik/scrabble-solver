@@ -51,10 +51,11 @@ const Tiles = () => {
 
   return (
     <div className={styles.tiles}>
-      {tiles.map((character, index) => (
+      {tiles.map(({ character, isCandidate }, index) => (
         <Tile
           className={styles.tile}
           character={character}
+          isCandidate={isCandidate}
           key={index}
           placeholder={placeholder[index]}
           ref={tilesRefs[index]}
