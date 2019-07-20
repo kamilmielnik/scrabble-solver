@@ -34,6 +34,9 @@ const Tiles = () => {
       event.preventDefault();
       setActiveIndex(Math.min(activeIndex + 1, tiles.length - 1));
     },
+    onBackspace: () => {
+      setActiveIndex(Math.max(activeIndex - 1, 0));
+    },
     onEnter: () => dispatch(submit()),
     onKeyDown: (event) => {
       const character = event.key;
