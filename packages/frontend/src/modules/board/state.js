@@ -3,7 +3,7 @@ import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Board, Cell, Tile } from '@scrabble-solver/models';
 
 import { initialState as config } from 'config/state';
-import { initialState as i18n } from 'i18n/state';
+import { initialState as i18n } from 'i18n';
 
 export const APPLY_RESULT = 'board/apply-result';
 export const CHANGE_CELL_VALUE = 'board/change-cell-value';

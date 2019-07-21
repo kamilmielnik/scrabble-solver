@@ -4,10 +4,10 @@ import localStorage, { LOCALE } from 'local-storage';
 
 import { CHANGE_LOCALE } from './state';
 
-export default function* i18nSagas() {
+export function* sagas() {
   yield takeLatest(CHANGE_LOCALE, onLocaleChange);
 }
 
-function onLocaleChange({ payload: locale }) {
+const onLocaleChange = ({ payload: locale }) => {
   localStorage.set(LOCALE, locale);
-}
+};

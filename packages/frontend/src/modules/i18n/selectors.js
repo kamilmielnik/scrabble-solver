@@ -1,17 +1,20 @@
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
-import { formatMessage } from 'i18n/utils';
+import { formatMessage } from './utils';
 
 const selectRoot = (state) => state.i18n;
+
 export const selectLocale = createSelector(
   selectRoot,
   ({ locale }) => locale
 );
+
 export const selectTranslations = createSelector(
   selectRoot,
   ({ translations }) => translations
 );
+
 export const selectMessage = createCachedSelector(
   [selectTranslations, selectLocale, (state, ownProps) => ownProps],
   (translations, locale, { id, locale: localeOverride, values }) =>
@@ -19,9 +22,4 @@ export const selectMessage = createCachedSelector(
 )(
   (state, locale, { id, locale: localeOverride, values } = {}) =>
     `${localeOverride || locale}-${id}-${JSON.stringify(values)}`
-);
-
-export const selectMessages = createSelector(
-  [selectTranslations, selectLocale],
-  (translations, locale) => translations[locale]
 );

@@ -13,7 +13,7 @@ export const initialState = {
   translations
 };
 
-export default handleActions(
+export const reducer = handleActions(
   {
     [CHANGE_LOCALE]: (state, { payload: locale }) => ({
       ...state,

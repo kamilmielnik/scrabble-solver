@@ -1,10 +1,17 @@
 import { useSelector } from 'react-redux';
 
-import { formatMessage } from 'i18n/utils';
+import { selectLocale, selectTranslations } from './selectors';
+import { formatMessage } from './utils';
 
-import { selectMessages } from './selectors';
+export const useLocale = () => useSelector(selectLocale);
 
-export const useMessage = ({ id, values }) => {
-  const messages = useSelector(selectMessages);
-  return formatMessage(messages[id], values);
+export const useTranslations = () => useSelector(selectTranslations);
+
+export const useMessage = ({ id, locale: localeOverride, values }) => {
+  const locale = useLocale();
+  const translations = useTranslations();
+  const messages = translations[localeOverride || locale];
+  const message = messages[id];
+
+  return formatMessage(message, values);
 };

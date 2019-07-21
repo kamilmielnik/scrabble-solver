@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import board from 'board/state';
 import config from 'config/state';
 import dictionary from 'dictionary/state';
-import i18n from 'i18n/state';
+import { reducer as i18n } from 'i18n';
 import { reducer as results } from 'results';
 import shared from 'shared/state';
 import splash from 'splash/state';

@@ -8,6 +8,6 @@ export default function* configSagas() {
   yield takeLatest(CHANGE_CONFIG, onConfigChange);
 }
 
-function onConfigChange({ payload: config }) {
+const onConfigChange = ({ payload: config }) => {
   localStorage.set(CONFIG, config.id);
-}
+};

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { changeInput, clearInput, submit } from 'dictionary/state';
 import { selectInput } from 'dictionary/selectors';
-import { selectMessage } from 'i18n/selectors';
+import { selectMessage } from 'i18n';
 import Input from 'components/input';
 
 const mapStateToProps = (state) => ({

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { selectMessage } from 'i18n/selectors';
+import { selectMessage } from 'i18n';
 
 const selectState = (state) => state;
 const selectRoot = (state) => state.walkthrough;

@@ -1,6 +1,6 @@
 import configSagas from 'config/sagas';
 import dictionarySagas from 'dictionary/sagas';
-import i18nSagas from 'i18n/sagas';
+import { sagas as i18nSagas } from 'i18n';
 import sharedSagas from 'shared/sagas';
 import splashSagas from 'splash/sagas';
 import walkthroughSagas from 'walkthrough/sagas';

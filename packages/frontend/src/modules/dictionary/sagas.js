@@ -1,7 +1,6 @@
 import { call, delay, put, select, takeLatest } from 'redux-saga/effects';
 
-import { CHANGE_LOCALE } from 'i18n/state';
-import { selectLocale } from 'i18n/selectors';
+import { CHANGE_LOCALE, selectLocale } from 'i18n';
 import { getWordDefinition } from 'api';
 
 import { SUBMIT, clearInput, search, searchFailure, searchSuccess } from './state';

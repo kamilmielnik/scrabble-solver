@@ -7,7 +7,7 @@ import { selectDefinitions, selectDefinitionsWord, selectIsAllowed, selectIsLoad
 import Loading from 'components/loading';
 import NoResults from 'components/no-results';
 import Section from 'components/section';
-import { Message } from 'i18n/components';
+import { Message } from 'i18n';
 
 import styles from './dictionary-output.module.scss';
 

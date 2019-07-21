@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { Message } from 'i18n/components';
+import { Message } from 'i18n';
 
 import styles from './credits.module.scss';
 
