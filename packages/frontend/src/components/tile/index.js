@@ -22,7 +22,7 @@ const Tile = forwardRef(({ character, className, highlighted, placeholder, onFoc
     <div
       className={classNames(styles.tile, className, {
         [styles.empty]: character === null,
-        [styles.candidate]: highlighted,
+        [styles.highlighted]: highlighted,
         [styles.blank]: character === BLANK,
         [styles.points1]: points === 1,
         [styles.points2]: points === 2,
