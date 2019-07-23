@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { applyResult } from 'shared/state';
 
 import { highlightResult, unhighlightResult } from './state';
-import styles from './Result.module.scss';
+import styles from './Results.module.scss';
 
 const Result = ({ result, style }) => {
   const dispatch = useDispatch();

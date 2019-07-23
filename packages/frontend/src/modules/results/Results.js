@@ -5,11 +5,14 @@ import { VariableSizeList } from 'react-window';
 import Loading from 'components/loading';
 import { useIsLoading } from 'shared';
 
+import Header from './Header';
 import Result from './Result';
 import { useResults } from './hooks';
 import styles from './Results.module.scss';
 
-const getItemSize = () => 38;
+const HEADER_HEIGHT = 39;
+const ITEM_HEIGHT = 38;
+const getItemSize = () => ITEM_HEIGHT;
 
 const Results = ({ height, width }) => {
   const isLoading = useIsLoading();
@@ -17,9 +20,11 @@ const Results = ({ height, width }) => {
 
   return (
     <Loading isLoading={isLoading}>
+      <Header />
+
       <VariableSizeList
         className={styles.list}
-        height={height}
+        height={height - HEADER_HEIGHT}
         itemCount={results.length}
         itemSize={getItemSize}
         width={width}
