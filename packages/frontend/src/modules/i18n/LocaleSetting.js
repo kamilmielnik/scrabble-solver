@@ -1,11 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import { useDispatch } from 'react-redux';
 
 import { FlagGb, FlagPl, FlagUs } from 'components/icons';
 
-import { useLocale } from './hooks';
-import { changeLocale } from './state';
+import { useChangeLocale, useLocale } from './hooks';
 import styles from './LocaleSetting.module.scss';
 
 const options = [
@@ -15,7 +13,7 @@ const options = [
 ];
 
 const LocaleSetting = () => {
-  const dispatch = useDispatch();
+  const changeLocale = useChangeLocale();
   const locale = useLocale();
 
   return (
@@ -27,7 +25,7 @@ const LocaleSetting = () => {
             [styles.selected]: value === locale
           })}
           title={value}
-          onClick={() => dispatch(changeLocale(value))}
+          onClick={() => changeLocale(value)}
         />
       ))}
     </div>
