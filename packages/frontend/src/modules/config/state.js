@@ -9,7 +9,7 @@ export const changeConfig = createAction(CHANGE_CONFIG);
 
 export const initialState = configs[localStorage.get(CONFIG, 'scrabble')];
 
-export default handleActions(
+export const reducer = handleActions(
   {
     [CHANGE_CONFIG]: (state, { payload: config }) => config
   },

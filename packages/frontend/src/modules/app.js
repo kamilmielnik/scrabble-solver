@@ -1,7 +1,9 @@
 import React from 'react';
 import useWindowSize from 'react-use/lib/useWindowSize';
 
+import { Config } from 'config';
 import Board from 'board/components';
+import { LocaleSetting } from 'i18n';
 import { Results } from 'results';
 import { Tiles } from 'tiles';
 import { Time } from 'time';
@@ -16,6 +18,7 @@ const App = () => {
       <div className={styles.content}>
         <div className={styles.menu}>
           <Time />
+          <LocaleSetting />
         </div>
 
         <div className={styles.board}>

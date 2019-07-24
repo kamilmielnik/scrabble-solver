@@ -4,7 +4,7 @@ import localStorage, { CONFIG } from 'local-storage';
 
 import { CHANGE_CONFIG } from './state';
 
-export default function* configSagas() {
+export function* sagas() {
   yield takeLatest(CHANGE_CONFIG, onConfigChange);
 }
 

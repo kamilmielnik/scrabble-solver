@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import board from 'board/state';
-import config from 'config/state';
+import { reducer as config } from 'config/state';
 import dictionary from 'dictionary/state';
 import { reducer as i18n } from 'i18n';
 import { reducer as results } from 'results';

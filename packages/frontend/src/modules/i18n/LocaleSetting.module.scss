@@ -1,0 +1,38 @@
+@import 'styles/variables.scss';
+
+.localeSetting {
+  display: flex;
+  align-items: center;
+}
+
+.option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 16px;
+  margin: 0 5px;
+  cursor: pointer;
+  border: $border;
+  opacity: 0.3;
+  transition: opacity $micro-animation-duration;
+
+  &.selected {
+    opacity: 1;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  svg {
+    height: 100%;
+  }
+}
