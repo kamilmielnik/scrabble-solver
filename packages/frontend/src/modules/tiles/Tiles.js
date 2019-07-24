@@ -1,6 +1,5 @@
 import React, { createRef, useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import { BLANK } from '@scrabble-solver/constants';
 
 import { Tile } from 'components';
@@ -8,8 +7,7 @@ import { createKeyboardNavigation } from 'utils';
 import { useConfig } from 'config';
 import { useMessage } from 'i18n';
 
-import { useTiles } from './hooks';
-import { changeCharacter, submit } from './state';
+import { useChangeCharacter, useSubmit, useTiles } from './hooks';
 import styles from './Tiles.module.scss';
 
 const Tiles = ({ id }) => {
@@ -17,8 +15,9 @@ const Tiles = ({ id }) => {
   const tilesRefs = useMemo(() => tiles.map(() => createRef()), [tiles]);
   const [activeIndex, setActiveIndex] = useState(null);
   const config = useConfig();
-  const dispatch = useDispatch();
   const placeholder = useMessage({ id: 'modules.tiles.placeholder' });
+  const changeCharacter = useChangeCharacter();
+  const submit = useSubmit();
 
   const changeActiveIndex = useCallback(
     (offset) => {
@@ -41,7 +40,7 @@ const Tiles = ({ id }) => {
     onBackspace: () => {
       changeActiveIndex(-1);
     },
-    onEnter: () => dispatch(submit()),
+    onEnter: submit,
     onKeyDown: (event) => {
       const character = event.key;
       if (config.hasCharacter(character) || character === BLANK) {
@@ -62,12 +61,12 @@ const Tiles = ({ id }) => {
           ref={tilesRefs[index]}
           onFocus={() => setActiveIndex(index)}
           onKeyDown={createKeyboardNavigation({
-            onBackspace: () => dispatch(changeCharacter({ index, character: null })),
-            onDelete: () => dispatch(changeCharacter({ index, character: null })),
+            onBackspace: () => changeCharacter(index, null),
+            onDelete: () => changeCharacter(index, null),
             onKeyDown: (event) => {
               const character = event.key;
               if (config.hasCharacter(character) || character === BLANK) {
-                dispatch(changeCharacter({ index, character }));
+                changeCharacter(index, character);
               }
               onKeyDown(event);
             }

@@ -1,11 +1,25 @@
-import { useSelector } from 'react-redux';
+import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useResultCandidate } from 'shared';
 
 import { selectCharacters } from './selectors';
+import { changeCharacter, submit } from './state';
 import { zipCharactersAndTiles } from './utils';
 
+export const useChangeCharacter = () => {
+  const dispatch = useDispatch();
+
+  return useCallback((index, character) => dispatch(changeCharacter({ index, character })), [dispatch]);
+};
+
 export const useCharacters = () => useSelector(selectCharacters);
+
+export const useSubmit = () => {
+  const dispatch = useDispatch();
+
+  return useCallback(() => dispatch(submit()), [dispatch]);
+};
 
 export const useTiles = () => {
   const resultCandidate = useResultCandidate();
