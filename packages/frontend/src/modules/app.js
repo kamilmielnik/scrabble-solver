@@ -7,7 +7,7 @@ import { LocaleSetting } from 'i18n';
 import { Results } from 'results';
 import { Tiles } from 'tiles';
 import { Time } from 'time';
-import ShowWalkthrough from 'walkthrough/components/show';
+import { ShowWalkthrough } from 'walkthrough';
 
 import styles from './app.module.scss';
 

@@ -5,7 +5,7 @@ import { HIDE_SPLASH } from 'splash/state';
 
 import { HIDE_WALKTHROUGH, showWalkthrough } from './state';
 
-export default function* walkthroughSagas() {
+export function* sagas() {
   yield takeLatest(HIDE_SPLASH, onSplashHide);
   yield takeLatest(HIDE_WALKTHROUGH, onWalkthroughHide);
 }
@@ -18,6 +18,6 @@ function* onSplashHide() {
   }
 }
 
-function onWalkthroughHide() {
+const onWalkthroughHide = () => {
   localStorage.set(WALKTROUGH_COMPLETE, true);
-}
+};

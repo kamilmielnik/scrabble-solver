@@ -10,7 +10,7 @@ const initialState = {
   showWalkthrough: false
 };
 
-export default handleActions(
+export const reducer = handleActions(
   {
     [HIDE_WALKTHROUGH]: (state) => ({
       ...state,

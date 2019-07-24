@@ -9,7 +9,7 @@ import shared from 'shared/state';
 import splash from 'splash/state';
 import { reducer as tiles } from 'tiles';
 import { reducer as time } from 'time';
-import walkthrough from 'walkthrough/state';
+import { reducer as walkthrough } from 'walkthrough';
 
 const rootReducer = combineReducers({
   board,

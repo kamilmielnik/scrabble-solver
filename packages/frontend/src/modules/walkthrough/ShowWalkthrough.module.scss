@@ -1,0 +1,17 @@
+@import 'styles/variables.scss';
+
+.showWalkthrough {
+  width: 18px;
+  height: 18px;
+  fill: #aaa;
+  transition: fill $micro-animation-duration;
+  cursor: pointer;
+
+  &:hover {
+    fill: $primary-hover;
+  }
+
+  &:active {
+    fill: $primary-active;
+  }
+}

@@ -3,7 +3,7 @@ import dictionarySagas from 'dictionary/sagas';
 import { sagas as i18nSagas } from 'i18n';
 import sharedSagas from 'shared/sagas';
 import splashSagas from 'splash/sagas';
-import walkthroughSagas from 'walkthrough/sagas';
+import { sagas as walkthroughSagas } from 'walkthrough';
 
 export default function* rootSaga() {
   yield* configSagas();
