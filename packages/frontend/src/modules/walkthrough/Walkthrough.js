@@ -1,10 +1,8 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import Joyride from 'react-joyride';
 import 'react-joyride/lib/react-joyride-compiled.css';
 
-import { useShowWalkthrough, useSteps, useTranslations } from './hooks';
-import { hideWalkthrough } from './state';
+import { useHideWalkthrough, useShowWalkthrough, useSteps, useTranslations } from './hooks';
 import './Walkthrough.module.scss';
 
 const JoyrideComponent = typeof Joyride.default === 'function' ? Joyride.default : Joyride;
@@ -12,21 +10,21 @@ const LOCAL_STORAGE_KEY = 'scrabble-solver-tutorial-shown';
 const hasRunOnce = window.localStorage.getItem(LOCAL_STORAGE_KEY);
 
 const Walkthrough = () => {
-  const dispatch = useDispatch();
   const ref = useRef(null);
   const showWalkthrough = useShowWalkthrough();
   const steps = useSteps();
   const translations = useTranslations();
   const [touched, setTouched] = useState(false);
+  const hideWalkthrough = useHideWalkthrough();
   const callback = useCallback(
     ({ type }) => {
       if (['beacon:before', 'finished'].includes(type)) {
         ref.current.reset(true);
-        dispatch(hideWalkthrough());
+        hideWalkthrough();
       }
       setTouched(true);
     },
-    [dispatch, ref]
+    [hideWalkthrough, ref]
   );
 
   return (
