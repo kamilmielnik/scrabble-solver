@@ -7,19 +7,19 @@ export const hideWalkthrough = createAction(HIDE_WALKTHROUGH);
 export const showWalkthrough = createAction(SHOW_WALKTHROUGH);
 
 const initialState = {
-  showWalkthrough: false
+  walkthroughShown: false
 };
 
 export const reducer = handleActions(
   {
     [HIDE_WALKTHROUGH]: (state) => ({
       ...state,
-      showWalkthrough: false
+      walkthroughShown: false
     }),
 
     [SHOW_WALKTHROUGH]: (state) => ({
       ...state,
-      showWalkthrough: true
+      walkthroughShown: true
     })
   },
   initialState

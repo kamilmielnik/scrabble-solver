@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectShowWalkthrough, selectSteps, selectTranslations } from './selectors';
-import { hideWalkthrough } from './state';
+import { selectSteps, selectTranslations, selectWalkthroughShown } from './selectors';
+import { hideWalkthrough, showWalkthrough } from './state';
 
 export const useHideWalkthrough = () => {
   const dispatch = useDispatch();
@@ -10,8 +10,14 @@ export const useHideWalkthrough = () => {
   return useCallback(() => dispatch(hideWalkthrough()), [dispatch]);
 };
 
-export const useShowWalkthrough = () => useSelector(selectShowWalkthrough);
+export const useShowWalkthrough = () => {
+  const dispatch = useDispatch();
+
+  return useCallback(() => dispatch(showWalkthrough()), [dispatch]);
+};
 
 export const useSteps = () => useSelector(selectSteps);
 
 export const useTranslations = () => useSelector(selectTranslations);
+
+export const useWalkthroughShown = () => useSelector(selectWalkthroughShown);

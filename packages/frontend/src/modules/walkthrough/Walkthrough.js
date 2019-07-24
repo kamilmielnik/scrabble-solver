@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import Joyride from 'react-joyride';
 import 'react-joyride/lib/react-joyride-compiled.css';
 
-import { useHideWalkthrough, useShowWalkthrough, useSteps, useTranslations } from './hooks';
+import { useHideWalkthrough, useSteps, useTranslations, useWalkthroughShown } from './hooks';
 import './Walkthrough.module.scss';
 
 const JoyrideComponent = typeof Joyride.default === 'function' ? Joyride.default : Joyride;
@@ -11,7 +11,7 @@ const hasRunOnce = window.localStorage.getItem(LOCAL_STORAGE_KEY);
 
 const Walkthrough = () => {
   const ref = useRef(null);
-  const showWalkthrough = useShowWalkthrough();
+  const walkthroughShown = useWalkthroughShown();
   const steps = useSteps();
   const translations = useTranslations();
   const [touched, setTouched] = useState(false);
@@ -41,7 +41,7 @@ const Walkthrough = () => {
       callback={callback}
       disableOverlay
       holePadding={10}
-      run={showWalkthrough}
+      run={walkthroughShown}
       showOverlay
       showSkipButton={false}
       showStepsProgress

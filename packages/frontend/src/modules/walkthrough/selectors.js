@@ -5,9 +5,9 @@ import { selectMessage } from 'i18n';
 const selectState = (state) => state;
 const selectRoot = (state) => state.walkthrough;
 
-export const selectShowWalkthrough = createSelector(
+export const selectWalkthroughShown = createSelector(
   selectRoot,
-  ({ showWalkthrough }) => showWalkthrough
+  ({ walkthroughShown }) => walkthroughShown
 );
 
 export const selectTranslations = createSelector(
