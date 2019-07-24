@@ -3,13 +3,14 @@
 .toggle {
   color: $gray;
   cursor: pointer;
-
-  &.active {
-    color: $primary;
-    text-decoration: underline;
-  }
+  font-weight: bold;
 
   &:hover {
     color: $primary;
+  }
+
+  &.active {
+    color: $dark-gray;
+    cursor: auto;
   }
 }

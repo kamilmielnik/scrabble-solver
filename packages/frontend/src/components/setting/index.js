@@ -2,16 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Separators from './separators';
-import Toggle from './toggle';
-import styles from './setting.module.scss';
+import Separators from './Separators';
+import Toggle from './Toggle';
+import styles from './Setting.module.scss';
 
-const Setting = ({ className, id, label, options, value, onChange }) => (
+const Setting = ({ className, id, options, value, onChange }) => (
   <div className={classNames(styles.setting, className)} id={id}>
-    {label}:
-    <Separators className={styles.separators}>
-      {options.map((option, index) => (
-        <Toggle key={index} isActive={value === option.value} onClick={() => onChange(option.value)}>
+    <Separators separator="/">
+      {options.map((option) => (
+        <Toggle active={value === option.value} key={option.label} onClick={() => onChange(option.value)}>
           {option.label}
         </Toggle>
       ))}
@@ -22,8 +21,12 @@ const Setting = ({ className, id, label, options, value, onChange }) => (
 Setting.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
-  label: PropTypes.string.isRequired,
-  options: PropTypes.array.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.any.isRequired
+    }).isRequired
+  ).isRequired,
   value: PropTypes.any.isRequired,
   onChange: PropTypes.func.isRequired
 };

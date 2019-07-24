@@ -1,0 +1,15 @@
+@import 'styles/variables.scss';
+
+.separators {
+  display: flex;
+}
+
+.separator {
+  color: $dark-gray;
+
+  &:after,
+  &:before {
+    content: ' ';
+    white-space: pre;
+  }
+}

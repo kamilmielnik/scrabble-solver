@@ -1,18 +1,17 @@
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-import styles from './separators.module.scss';
+import styles from './Separators.module.scss';
 
-const Separators = ({ children, className }) => (
-  <div className={classNames(styles.separators, className)}>
+const Separators = ({ children, separator }) => (
+  <div className={styles.separators}>
     {Children.toArray(children).reduce((newChildren, child, index) => {
       newChildren.push(child);
 
       if (index < children.length - 1) {
         newChildren.push(
-          <span key={`separator-${index}`} className={styles.separator}>
-            |
+          <span className={styles.separator} key={`separator-${index}`}>
+            {separator}
           </span>
         );
       }
@@ -24,7 +23,7 @@ const Separators = ({ children, className }) => (
 
 Separators.propTypes = {
   children: PropTypes.node.isRequired,
-  className: PropTypes.string
+  separator: PropTypes.string.isRequired
 };
 
 export default Separators;

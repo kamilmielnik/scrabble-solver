@@ -1,4 +1,4 @@
-export { default as Config } from './components';
+export { default as ConfigSetting } from './ConfigSetting';
 export * from './hooks';
 export * from './sagas';
 export * from './selectors';
