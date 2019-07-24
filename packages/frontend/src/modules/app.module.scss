@@ -30,6 +30,15 @@
   box-shadow: 0 0 5px 0 $gray;
 }
 
+.menuRight {
+  display: flex;
+  align-items: center;
+}
+
+.walkthrough {
+  margin-left: $spacing-m;
+}
+
 .board {
   display: flex;
   justify-content: center;

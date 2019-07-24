@@ -20,8 +20,14 @@ const App = () => {
         <div className={styles.menu}>
           <ConfigSetting />
           <Time />
-          <ShowWalkthrough />
-          <LocaleSetting />
+
+          <div className={styles.menuRight}>
+            <LocaleSetting />
+
+            <div className={styles.walkthrough}>
+              <ShowWalkthrough />
+            </div>
+          </div>
         </div>
 
         <div className={styles.board}>

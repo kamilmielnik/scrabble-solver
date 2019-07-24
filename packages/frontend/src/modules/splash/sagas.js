@@ -8,6 +8,6 @@ export default function* splashSagas() {
   yield takeLatest(HIDE_SPLASH, onSplashHide);
 }
 
-function onSplashHide() {
+const onSplashHide = () => {
   localStorage.set(SPLASH_COMPLETE, true);
-}
+};
