@@ -7,7 +7,7 @@ import { LocaleSetting } from 'i18n';
 import { Results } from 'results';
 import { Tiles } from 'tiles';
 import { Time } from 'time';
-import { ShowWalkthrough } from 'walkthrough';
+import { ShowWalkthrough, Walkthrough } from 'walkthrough';
 
 import styles from './app.module.scss';
 
@@ -35,13 +35,15 @@ const App = () => {
         </div>
 
         <div className={styles.tiles}>
-          <Tiles />
+          <Tiles id="tiles" />
         </div>
       </div>
 
       <div className={styles.sidebar}>
         <Results height={height} width={Math.max(width * 0.2, 200)} />
       </div>
+
+      <Walkthrough />
     </div>
   );
 };

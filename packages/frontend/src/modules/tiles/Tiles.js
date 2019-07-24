@@ -1,4 +1,5 @@
 import React, { createRef, useCallback, useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { BLANK } from '@scrabble-solver/constants';
 
@@ -11,7 +12,7 @@ import { useTiles } from './hooks';
 import { changeCharacter, submit } from './state';
 import styles from './Tiles.module.scss';
 
-const Tiles = () => {
+const Tiles = ({ id }) => {
   const tiles = useTiles();
   const tilesRefs = useMemo(() => tiles.map(() => createRef()), [tiles]);
   const [activeIndex, setActiveIndex] = useState(null);
@@ -50,7 +51,7 @@ const Tiles = () => {
   });
 
   return (
-    <div className={styles.tiles}>
+    <div className={styles.tiles} id={id}>
       {tiles.map(({ character, isCandidate }, index) => (
         <Tile
           className={styles.tile}
@@ -75,6 +76,10 @@ const Tiles = () => {
       ))}
     </div>
   );
+};
+
+Tiles.propTypes = {
+  id: PropTypes.string
 };
 
 export default Tiles;
