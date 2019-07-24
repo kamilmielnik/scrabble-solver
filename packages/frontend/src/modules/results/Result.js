@@ -1,23 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { useDispatch } from 'react-redux';
 
-import { applyResult } from 'shared/state';
+import { useApplyResult } from 'shared';
 
-import { highlightResult, unhighlightResult } from './state';
+import { useHighlightResult, useUnhighlightResult } from './hooks';
 import styles from './Results.module.scss';
 
 const Result = ({ result, style }) => {
-  const dispatch = useDispatch();
+  const applyResult = useApplyResult(result.id);
+  const highlightResult = useHighlightResult(result.id);
+  const unhighlightResult = useUnhighlightResult();
 
   return (
     <div
       className={styles.row}
       style={style}
-      onClick={() => dispatch(applyResult(result.id))}
-      onMouseEnter={() => dispatch(highlightResult(result.id))}
-      onMouseLeave={() => dispatch(unhighlightResult())}
+      onClick={applyResult}
+      onMouseEnter={highlightResult}
+      onMouseLeave={unhighlightResult}
     >
       <div className={classNames(styles.cell, styles.word)}>{result.word}</div>
       <div className={classNames(styles.cell, styles.points)}>{result.points}</div>

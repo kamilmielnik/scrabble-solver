@@ -17,7 +17,7 @@ const initialState = {
   resultCandidate: null
 };
 
-export default handleActions(
+export const reducer = handleActions(
   {
     [APPLY_RESULT]: (state) => ({
       ...state,

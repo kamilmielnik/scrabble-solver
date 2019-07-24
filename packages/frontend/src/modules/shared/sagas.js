@@ -18,7 +18,7 @@ import { postSolve } from 'api';
 
 import { submitSolve, submitSolveFailure, submitSolveSuccess } from './state';
 
-export default function* modulesSagas() {
+export function* sagas() {
   yield takeEvery(APPLY_RESULT, onApplyResult);
   yield takeEvery(HIGHLIGHT_RESULT, onHighlightResult);
   yield takeEvery(UNHIGHLIGHT_RESULT, onUnhighlightResult);
