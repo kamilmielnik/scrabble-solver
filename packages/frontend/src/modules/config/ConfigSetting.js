@@ -1,11 +1,9 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import * as configs from '@scrabble-solver/configs';
 
 import Setting from 'components/setting';
 
-import { useConfigId } from './hooks';
-import { changeConfig } from './state';
+import { useChangeConfig, useConfigId } from './hooks';
 
 const options = Object.values(configs).map(({ id, name }) => ({
   label: name,
@@ -13,16 +11,11 @@ const options = Object.values(configs).map(({ id, name }) => ({
 }));
 
 const ConfigSetting = () => {
-  const dispatch = useDispatch();
+  const changeConfig = useChangeConfig();
   const configId = useConfigId();
 
   return (
-    <Setting
-      id="config-setting"
-      options={options}
-      value={configId}
-      onChange={(id) => dispatch(changeConfig(configs[id]))}
-    />
+    <Setting id="config-setting" options={options} value={configId} onChange={(id) => changeConfig(configs[id])} />
   );
 };
 

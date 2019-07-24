@@ -7,9 +7,7 @@ import { hideWalkthrough } from './state';
 export const useHideWalkthrough = () => {
   const dispatch = useDispatch();
 
-  return useCallback(() => {
-    dispatch(hideWalkthrough());
-  }, [dispatch]);
+  return useCallback(() => dispatch(hideWalkthrough()), [dispatch]);
 };
 
 export const useShowWalkthrough = () => useSelector(selectShowWalkthrough);
@@ -17,4 +15,3 @@ export const useShowWalkthrough = () => useSelector(selectShowWalkthrough);
 export const useSteps = () => useSelector(selectSteps);
 
 export const useTranslations = () => useSelector(selectTranslations);
-
