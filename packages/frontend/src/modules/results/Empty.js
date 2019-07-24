@@ -9,7 +9,12 @@ const Empty = () => {
 
   return (
     <div className={styles.empty}>
-      <div className={styles.icon}>👀</div>
+      <div className={styles.icon}>
+        <span role="img" aria-hidden>
+          👀
+        </span>
+      </div>
+
       <div>{message}</div>
     </div>
   );
