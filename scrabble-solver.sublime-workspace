@@ -1,0 +1,1923 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"K",
+				"KAMIL"
+			],
+			[
+				"C",
+				"ComponentType"
+			],
+			[
+				"Comp",
+				"ComponentToWrap"
+			],
+			[
+				"Com",
+				"ComponentToWrap"
+			],
+			[
+				"Campa",
+				"CampaignReportGrid"
+			],
+			[
+				"Menu",
+				"MenuAddon"
+			],
+			[
+				"bu",
+				"buttonBsSize"
+			],
+			[
+				"class",
+				"className"
+			],
+			[
+				"Men",
+				"MenuAddonItem"
+			],
+			[
+				"Menuad",
+				"MenuAddonDivider"
+			],
+			[
+				"device",
+				"DeviceParams"
+			],
+			[
+				"drop",
+				"dropdownItem"
+			],
+			[
+				"Rea",
+				"ReactNode"
+			],
+			[
+				"clas",
+				"className"
+			],
+			[
+				"opene",
+				"opened_rate"
+			],
+			[
+				"conta",
+				"contact"
+			],
+			[
+				"Ovela",
+				"OverlayTrigger"
+			],
+			[
+				"repl",
+				"repliesCount"
+			],
+			[
+				"perce",
+				"percentageValue"
+			],
+			[
+				"per",
+				"percentageValue"
+			],
+			[
+				"CO",
+				"COLUMN_LABELS"
+			],
+			[
+				"o",
+				"onFetched"
+			],
+			[
+				"slee",
+				"selectConfigId"
+			],
+			[
+				"conf",
+				"configId"
+			],
+			[
+				"over",
+				"campaign-report-overview__filters"
+			],
+			[
+				"font-s",
+				"font-size\tproperty"
+			],
+			[
+				"arr",
+				"progress-bar-chart__arrow"
+			],
+			[
+				"P",
+				"ProgressBarChart"
+			],
+			[
+				"sta",
+				"campaign-report-overview__statistic"
+			],
+			[
+				"cas",
+				"className"
+			],
+			[
+				"color",
+				"color-type-primary"
+			],
+			[
+				"facets",
+				"CampaignReportFacetsField"
+			],
+			[
+				"color-gre",
+				"color-grey-500"
+			],
+			[
+				"campare",
+				"campaign-report-statistic__bar"
+			],
+			[
+				"repo",
+				"campaign-report-statistic"
+			],
+			[
+				"fr",
+				"formatValue"
+			],
+			[
+				"ove",
+				"campaign-report-overview__title"
+			],
+			[
+				"campa",
+				"campaign-report-statistic__info"
+			],
+			[
+				"spac",
+				"spacing-5"
+			],
+			[
+				"view",
+				"VIEW"
+			],
+			[
+				"So",
+				"SortDirection"
+			],
+			[
+				"Cam",
+				"CampaignRecipient"
+			],
+			[
+				"isload",
+				"isLoadingRecipients"
+			],
+			[
+				"spa",
+				"space-between\tjustify-content"
+			],
+			[
+				"Conta",
+				"Contact"
+			],
+			[
+				"sear",
+				"searchAlgoliaContacts"
+			],
+			[
+				"cotna",
+				"contact-search-dropdown-item"
+			],
+			[
+				"orde",
+				"orderFoundTags"
+			],
+			[
+				"sea",
+				"searchQuery"
+			],
+			[
+				"time",
+				"Time"
+			],
+			[
+				"chara",
+				"characterPoints"
+			],
+			[
+				"tile",
+				"tile-font-size"
+			],
+			[
+				"res",
+				"result"
+			],
+			[
+				"back",
+				"background-color\tproperty"
+			],
+			[
+				"ali",
+				"align-items\tproperty"
+			],
+			[
+				"Con",
+				"Contact"
+			],
+			[
+				"Co",
+				"ContactSearchDropdownItem"
+			],
+			[
+				"onMouse",
+				"onMouseEnter"
+			],
+			[
+				"head",
+				"contact-search__section-header-link"
+			],
+			[
+				"usu",
+				"isUnsubscribed"
+			],
+			[
+				"cot",
+				"contact"
+			],
+			[
+				"searc",
+				"searchAlgolia"
+			],
+			[
+				"Cont",
+				"Contact"
+			],
+			[
+				"qu",
+				"Query"
+			],
+			[
+				"alg",
+				"algoliasearch"
+			],
+			[
+				"pr",
+				"performSearch"
+			],
+			[
+				"Cons",
+				"ContactSearchEmptyState"
+			],
+			[
+				"Contas",
+				"ContactSearchEmptyState"
+			],
+			[
+				"COnta",
+				"ContactSearch"
+			],
+			[
+				"set",
+				"setIsLoading"
+			],
+			[
+				"bor",
+				"border-radius-base"
+			],
+			[
+				"Sev2",
+				"SelectV2"
+			],
+			[
+				"Pla",
+				"PlatformIntroductionComponent"
+			],
+			[
+				"stor",
+				"story-composer-preview__content"
+			],
+			[
+				"email",
+				"contact-email-picker__email-picker"
+			],
+			[
+				"usea",
+				"useAsyncFn"
+			],
+			[
+				"useal",
+				"useAlgoliaClient"
+			],
+			[
+				"in",
+				"initialContactId"
+			],
+			[
+				"setco",
+				"setContactId"
+			],
+			[
+				"cnta",
+				"contactId"
+			],
+			[
+				"onch",
+				"onChange"
+			],
+			[
+				"oncha",
+				"onChange"
+			],
+			[
+				"onchan",
+				"onContactIdChange"
+			],
+			[
+				"ea",
+				"emailTo"
+			],
+			[
+				"Cnta",
+				"ContactSearch"
+			],
+			[
+				"borde",
+				"border-radius"
+			],
+			[
+				"_",
+				"__value-clear"
+			],
+			[
+				"contac",
+				"contactId"
+			],
+			[
+				"Cotnact",
+				"contact"
+			],
+			[
+				"ca",
+				"category_name"
+			],
+			[
+				"cate",
+				"category_name"
+			],
+			[
+				"cateies",
+				"categories_order_nl_BE"
+			],
+			[
+				"write",
+				"writeHTMLToIframe"
+			],
+			[
+				"togg",
+				"handleToggleOpen"
+			],
+			[
+				"omnisea",
+				"newsroom-switcher__omni-search"
+			],
+			[
+				"a",
+				"auto\toverflow"
+			],
+			[
+				"fo",
+				"tile-font-size"
+			],
+			[
+				"cha",
+				"character"
+			],
+			[
+				"co",
+				"count"
+			],
+			[
+				"hn",
+				"handler"
+			],
+			[
+				"use",
+				"useConfig"
+			],
+			[
+				"b",
+				"BLANK"
+			],
+			[
+				"slots",
+				"slotsRefs"
+			],
+			[
+				"rfc",
+				"rfcc\tReact Functional Component with className"
+			],
+			[
+				"Str",
+				"StoryComposerManageDropdown"
+			],
+			[
+				"load",
+				"campaign-picker__loader"
+			],
+			[
+				"conte",
+				"contentClassName"
+			],
+			[
+				"Cop",
+				"ComponentToWrap"
+			],
+			[
+				"plura",
+				"pluralizedRecipients"
+			],
+			[
+				"handce",
+				"handleCreateCampaignClick"
+			],
+			[
+				"activeC",
+				"activeCampaign"
+			],
+			[
+				"Camp",
+				"Campaign"
+			],
+			[
+				"acti",
+				"activeCampaign"
+			],
+			[
+				"camp",
+				"campaign"
+			],
+			[
+				"onmo",
+				"onMouseLeave"
+			],
+			[
+				"H",
+				"HTMLDivElement"
+			],
+			[
+				"ona",
+				"onArrowUp"
+			],
+			[
+				"isar",
+				"isArrowUp"
+			],
+			[
+				"ise",
+				"isEnterPressed"
+			],
+			[
+				"cmpa",
+				"campaign-picker-v2__loader"
+			],
+			[
+				"chi",
+				"childrenClassName"
+			],
+			[
+				"marig",
+				"margin-right\tproperty"
+			],
+			[
+				"spaci",
+				"spacing-2"
+			],
+			[
+				"new",
+				"newCampaign"
+			],
+			[
+				"app",
+				"appRouting"
+			],
+			[
+				"Pro",
+				"ProgressPromiseError"
+			],
+			[
+				"onc",
+				"onClose"
+			],
+			[
+				"plu",
+				"pluralize"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "packages/constants/src/a.js",
+			"settings":
+			{
+				"buffer_size": 4,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "asd"
+			}
+		},
+		{
+			"file": ".sublime-project",
+			"settings":
+			{
+				"buffer_size": 42,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
+				"blame",
+				"Git: Blame"
+			],
+			[
+				"bl",
+				"Git: Blame"
+			],
+			[
+				"blam",
+				"Git: Blame"
+			],
+			[
+				"blae",
+				"Git: Blame"
+			],
+			[
+				"genera",
+				"R-Factor: Generate propTypes"
+			],
+			[
+				"types",
+				"Set Syntax: TypeScriptReact"
+			],
+			[
+				"preview",
+				"MarkdownLivePreview: Edit Current File"
+			],
+			[
+				"babe",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"addclas",
+				"R-Factor: Add className"
+			],
+			[
+				"tocomp",
+				"R-Factor: Toggle component type"
+			],
+			[
+				"movep",
+				"R-Factor: Move defaultProps & propTypes to class"
+			],
+			[
+				"toarr",
+				"R-Factor: Convert to arrow component"
+			],
+			[
+				"tofunc",
+				"R-Factor: Convert to function component"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"toclas",
+				"R-Factor: Convert to class component"
+			],
+			[
+				"blsme",
+				"Build: New Build System"
+			],
+			[
+				"bla",
+				"Git: Blame"
+			],
+			[
+				"sorta",
+				"R-Factor: Sort attributes in objects"
+			],
+			[
+				"babel",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"withro",
+				"R-Factor: Toggle withRouter HOC"
+			],
+			[
+				"with",
+				"R-Factor: Toggle withRouter HOC"
+			],
+			[
+				"addlc",
+				"R-Factor: Add className"
+			],
+			[
+				"addlas",
+				"R-Factor: Add className"
+			],
+			[
+				"js",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"addlcas",
+				"R-Factor: Add className"
+			],
+			[
+				"gene",
+				"R-Factor: Generate propTypes"
+			],
+			[
+				"sort",
+				"R-Factor: Sort attributes in objects"
+			],
+			[
+				"svgto",
+				"R-Factor: Convert SVG to component"
+			],
+			[
+				"toclass",
+				"R-Factor: Convert to class component"
+			],
+			[
+				"move",
+				"R-Factor: Move defaultProps & propTypes to class"
+			],
+			[
+				"adc",
+				"R-Factor: Add className"
+			],
+			[
+				"lbame",
+				"Sublime Merge: Blame File"
+			],
+			[
+				"toarrow",
+				"R-Factor: Convert to arrow component"
+			],
+			[
+				"syntax type",
+				"Set Syntax: TypeScriptReact"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"toarro",
+				"R-Factor: Convert to arrow component"
+			],
+			[
+				"color",
+				"Colorsublime: Install Theme"
+			],
+			[
+				"nstal",
+				"Package Control: Install Package"
+			],
+			[
+				"remove ",
+				"Package Control: Remove Package"
+			],
+			[
+				"colorsu",
+				"Colorsublime: Uninstall Theme"
+			],
+			[
+				"gener",
+				"R-Factor: Generate propTypes"
+			],
+			[
+				"rmeovep",
+				"Package Control: Remove Package"
+			],
+			[
+				"unins",
+				"Colorsublime: Uninstall Theme"
+			],
+			[
+				"srotat",
+				"R-Factor: Sort attributes in objects"
+			],
+			[
+				"srota",
+				"R-Factor: Sort attributes in objects"
+			],
+			[
+				"tosv",
+				"R-Factor: Convert SVG to component"
+			],
+			[
+				"installpa",
+				"Package Control: Install Package"
+			],
+			[
+				"removepa",
+				"Package Control: Remove Package"
+			],
+			[
+				"tosvg",
+				"R-Factor: Convert SVG to component"
+			],
+			[
+				"css",
+				"Set Syntax: CSS"
+			],
+			[
+				"srotimp",
+				"R-Factor: Sort imports"
+			],
+			[
+				"geen",
+				"R-Factor: Generate propTypes"
+			],
+			[
+				"sortim",
+				"R-Factor: Sort imports"
+			],
+			[
+				"addcl",
+				"R-Factor: Add className"
+			],
+			[
+				"bbal",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
+				"sortimp",
+				"R-Factor: Sort imports"
+			],
+			[
+				"geenr",
+				"R-Factor: Generate propTypes"
+			],
+			[
+				"sori",
+				"R-Factor: Sort imports"
+			],
+			[
+				"adclas",
+				"R-Factor: Add className"
+			],
+			[
+				"bam",
+				"Git: Blame"
+			],
+			[
+				"sortat",
+				"R-Factor: Sort attributes in objects"
+			],
+			[
+				"sortar",
+				"R-Factor: Sort attributes in objects"
+			],
+			[
+				"prettier",
+				"JsPrettier: Format Code"
+			],
+			[
+				"toaror",
+				"R-Factor: Convert to arrow component"
+			],
+			[
+				"tofuc",
+				"R-Factor: Convert to function component"
+			],
+			[
+				"srotim",
+				"R-Factor: Sort imports"
+			],
+			[
+				"sora",
+				"R-Factor: Sort attributes in objects"
+			],
+			[
+				"sor",
+				"R-Factor: Sort attributes in objects"
+			],
+			[
+				"soratt",
+				"R-Factor: Sort attributes in objects"
+			],
+			[
+				"bame",
+				"Git: Blame"
+			],
+			[
+				"sortatt",
+				"R-Factor: Sort attributes in objects"
+			],
+			[
+				"sorimp",
+				"R-Factor: Sort imports"
+			],
+			[
+				"tocas",
+				"R-Factor: Convert to class component"
+			],
+			[
+				"tocclas",
+				"R-Factor: Convert to class component"
+			],
+			[
+				"generap",
+				"R-Factor: Generate propTypes"
+			],
+			[
+				"toglwi",
+				"R-Factor: Toggle withRouter HOC"
+			],
+			[
+				"togg",
+				"R-Factor: Toggle withRouter HOC"
+			],
+			[
+				"toggl",
+				"R-Factor: Toggle withRouter HOC"
+			],
+			[
+				"toggleiw",
+				"R-Factor: Toggle withRouter HOC"
+			],
+			[
+				"genr",
+				"R-Factor: Generate propTypes"
+			],
+			[
+				"sorat",
+				"R-Factor: Sort attributes in objects"
+			],
+			[
+				"addclasa",
+				"R-Factor: Add className"
+			],
+			[
+				"genra",
+				"R-Factor: Generate propTypes"
+			],
+			[
+				"gen",
+				"R-Factor: Generate propTypes"
+			],
+			[
+				"R-Factor: Sort imports",
+				"R-Factor: Sort imports"
+			],
+			[
+				"R-Factor: Disconnect",
+				"R-Factor: Disconnect"
+			],
+			[
+				"R-Factor: Disconnect mapDispatchToProps",
+				"R-Factor: Disconnect mapDispatchToProps"
+			],
+			[
+				"R-Factor: Convert to arrow component",
+				"R-Factor: Convert to arrow component"
+			],
+			[
+				"R-Factor: Connect mergeProps",
+				"R-Factor: Connect mergeProps"
+			],
+			[
+				"R-Factor: Connect",
+				"R-Factor: Connect"
+			],
+			[
+				"R-Factor: Move defaultProps & propTypes out of class",
+				"R-Factor: Move defaultProps & propTypes out of class"
+			],
+			[
+				"R-Factor: Add className",
+				"R-Factor: Add className"
+			],
+			[
+				"R-Factor: Generate propTypes",
+				"R-Factor: Generate propTypes"
+			],
+			[
+				"R-Factor: Convert to class component",
+				"R-Factor: Convert to class component"
+			],
+			[
+				"R-Factor: Sort attributes in objects",
+				"R-Factor: Sort attributes in objects"
+			],
+			[
+				"theme",
+				"Colorsublime: Install Theme"
+			],
+			[
+				"blaem",
+				"Git: Blame"
+			],
+			[
+				"markdowlive",
+				"MarkdownLivePreview: Edit Current File"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"markdo",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"b lame",
+				"Git Blame"
+			],
+			[
+				"convertto",
+				"R-Factor: Convert to class component"
+			],
+			[
+				"convetocla",
+				"R-Factor: Convert to class component"
+			],
+			[
+				"BLAME",
+				"Git Blame"
+			],
+			[
+				"converttoclas",
+				"R-Factor: Convert to class component"
+			],
+			[
+				"classna",
+				"R-Factor: Add className"
+			],
+			[
+				"trailing",
+				"Preferences: Terminal Settings – User"
+			],
+			[
+				"rsi",
+				"R-Factor: Sort imports"
+			],
+			[
+				"r-d",
+				"R-Factor: Disconnect"
+			],
+			[
+				"r-dmd",
+				"R-Factor: Disconnect mapDispatchToProps"
+			],
+			[
+				"r-cta",
+				"R-Factor: Convert to arrow component"
+			],
+			[
+				"r-come",
+				"R-Factor: Connect mergeProps"
+			],
+			[
+				"r-con",
+				"R-Factor: Connect"
+			],
+			[
+				"r-mout",
+				"R-Factor: Move defaultProps & propTypes out of class"
+			],
+			[
+				"r-ad",
+				"R-Factor: Add className"
+			],
+			[
+				"r-g",
+				"R-Factor: Generate propTypes"
+			],
+			[
+				"r-cc",
+				"R-Factor: Convert to class component"
+			],
+			[
+				"r-sa",
+				"R-Factor: Sort attributes in objects"
+			],
+			[
+				"r-s",
+				"R-Factor: Sort imports"
+			],
+			[
+				"r-co",
+				"R-Factor: Connect"
+			],
+			[
+				"r-a",
+				"R-Factor: Add className"
+			],
+			[
+				"r-add",
+				"R-Factor: Disconnect mapDispatchToProps"
+			],
+			[
+				"r-c",
+				"R-Factor: Connect"
+			],
+			[
+				"r-si",
+				"R-Factor: Sort attributes in objects"
+			],
+			[
+				"r-ca",
+				"R-Factor: Convert to arrow component"
+			],
+			[
+				"rconn",
+				"R-Factor: Connect"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 312.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/kamil/projects/scrabble-solver",
+		"/home/kamil/projects/scrabble-solver/packages",
+		"/home/kamil/projects/scrabble-solver/packages/constants"
+	],
+	"file_history":
+	[
+		"/home/kamil/projects/scrabble-solver/.sublime-project",
+		"/home/kamil/projects/scrabble-solver/packages/constants/asd.js",
+		"/home/kamil/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
+		"/home/kamil/projects/scrabble-solver/.eslintignore",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/algolia-omni-search/components/StoryDropdownItem.jsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/PrezlyApp.jsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/common/hoc/withDevice.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/MenuAddon.jsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaigns-grid-v3/table/RepliedColumnCell.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaigns-grid-v3/table/CampaignStatCell.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/contacts-grid-v3/table/ContactsGridTable.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaigns-grid-v3/table/CampaignsGridTable.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/MenuAddonItem.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/MenuAddon.d.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/MenuAddonItem.d.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/constants.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/pitches-grid-v3/table/PitchesGridTable.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/pitches-grid-v3/table/RepliedColumnCell.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/contacts-grid-v3/table/ContactStatCell.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/app-context/withUserContext.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/GridV3.d.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/MenuAddon/MenuAddonItem.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaign-report-v3/CampaignReportGrid.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/app-context/withAppContext.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/story-composer/components/StoryComposerReport/withReportUrlState.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/stories-grid-v3/table/RowAddon.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/stories-grid-v3/table/getStoryDropdownItems.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/package.json",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/MenuAddon/MenuAddon.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/common/hoc/withUrlState.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/common/components/Selection/withSelection.jsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaign-report-v3/components/CampaignReportGridTable/RowAddon.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/common/hoc/asyncFetchingProps.jsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/MenuAddon/index.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/MenuAddon/MenuAddonDivider.tsx",
+		"/home/kamil/projects/prezly/prezly/package.json",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/GridV3.jsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/MenuAddonDivider.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/MenuAddon.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/MenuAddonDivider.d.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/Cells/TitleCell.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/Cells/TitleCell.d.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/Cells/TimeAgoCell.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/Cells/TimeAgoCell.d.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/Cells/AvatarNameCell.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/Cells/AvatarNameCell.d.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/Cells/status-cell.scss",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaign-report-v3/components/CampaignReportGridTableContainer.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/Charts/progress-bar-chart.scss",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaign-report-v3/components/CampaignReportOverview/CampaignReportStatistics.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/Charts/ProgressBarChart.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaigns-grid-v3/table/RepliedColumnHeader.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/Tooltip.jsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/contacts-grid-v3/constants.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/common/interfaces/Contact.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/common/interfaces/Permissions.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/common/interfaces/UserContext.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/contacts-grid-v3/ContactsGrid.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/Cells/NumericCell.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/Cells/PercentageCell.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaigns-grid-v3/constants.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/contacts-grid-v3/data-fetching/DataFetcher.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaign-recipients-grid/components/CampaignRecipientsGridRowActions.jsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/editor-v3/plugins/FloatingAddButtonPlugin/FloatingAddButton.jsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/grids/components/RecipientSummary.jsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/uploadcare/components/ImageSizeWarning.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaigns-grid-v3/CampaignsGrid.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/pitches-grid-v3/table/RecipientCell.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/Cells/ListCell.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/Cells/EmptyCell.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/Cells/TextCell.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/Cells/EmptyCell.d.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/Cells/NumericCell.d.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaign-report-v3/data-fetching/CampaignFetcher.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaign-report-v3/sidebar/CampaignReportGridSidebar.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaign-report-v3/components/CampaignReportGridTable/CampaignReportGridTable.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaigns-grid-v3/table/EmptyState.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaign-report-v3/components/CampaignReportGridTable/EmptyState.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaign-report-v3/data-fetching/isGridView.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaign-report-v3/interfaces.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaign-report-v3/data-fetching/DataFetcher.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/common/interfaces/Story.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaign-report-v3/url-state.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/common/facets-fetcher/FacetsFetcher.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/common/interfaces/Campaign.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/SidebarPanel/MenuItemEditable.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/SidebarFacetsForm/SidebarFacetsForm.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/Modals/ConfirmationModal.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/Filters/Search.tsx",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/components/GridV3/grid-v3.scss",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaign-report-v3/components/CampaignReportOverview/index.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaign-report-v3/components/index.ts",
+		"/home/kamil/projects/prezly/prezly/apps/backend/resources/javascripts/app/campaign-report-v3/components/CampaignReportOverview/campaign-report-overview.scss",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/config/hooks.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/i18n/hooks.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/results/hooks.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/config/ConfigSetting.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/i18n/LocaleSetting.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/tiles/Tiles.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/walkthrough/selectors.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/walkthrough/hooks.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/shared/sagas.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/store/reducers.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/store/sagas.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/results/Result.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/shared/index.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/shared/state.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/walkthrough/Walkthrough.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/walkthrough/ShowWalkthrough.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/walkthrough/state.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/app.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/walkthrough/index.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/splash/sagas.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/walkthrough/sagas.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/walkthrough/components/Walkthrough.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/walkthrough/components/Walkthrough.module.scss",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/local-storage/index.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/app.module.scss",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/i18n/LocaleSetting.module.scss",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/walkthrough/ShowWalkthrough.module.scss",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/walkthrough/components/index.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/walkthrough/components/walkthrough.module.scss",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/config/components/index.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/config/components/config.module.scss",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/i18n/index.js",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/styles/variables.scss",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/modules/config/ConfigSetting.module.scss",
+		"/home/kamil/projects/scrabble-solver/packages/frontend/src/components/setting/separators/Separators.module.scss"
+	],
+	"find":
+	{
+		"height": 24.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "packages/constants/src/a.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4,
+								4
+							]
+						],
+						"settings":
+						{
+							"auto_name": "asd",
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": ".sublime-project",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 42,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								42,
+								42
+							]
+						],
+						"settings":
+						{
+							"markdonw_live_preview_last_run": 1564165844.93,
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.doc":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 360.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 120.0
+	},
+	"pinned_build_system": "",
+	"project": "scrabble-solver.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"story",
+				"apps/backend/resources/javascripts/app/common/interfaces/Story.ts"
+			],
+			[
+				"storydropdow",
+				"apps/backend/resources/javascripts/app/algolia-omni-search/components/StoryDropdownItem.jsx"
+			],
+			[
+				"withdeci",
+				"apps/backend/resources/javascripts/app/common/hoc/withDevice.tsx"
+			],
+			[
+				"withde",
+				"apps/backend/resources/javascripts/app/common/hoc/withDevice.tsx"
+			],
+			[
+				"textcell",
+				"apps/backend/resources/javascripts/app/components/GridV3/Cells/TextCell.tsx"
+			],
+			[
+				"CampaignStatCell",
+				"apps/backend/resources/javascripts/app/campaigns-grid-v3/table/CampaignStatCell.tsx"
+			],
+			[
+				"campaigridta",
+				"apps/backend/resources/javascripts/app/campaigns-grid-v3/table/CampaignsGridTable.tsx"
+			],
+			[
+				"menuaddoitem",
+				"apps/backend/resources/javascripts/app/components/GridV3/MenuAddonItem.d.ts"
+			],
+			[
+				"campastatcel",
+				"apps/backend/resources/javascripts/app/campaigns-grid-v3/table/CampaignStatCell.tsx"
+			],
+			[
+				"cogritabl",
+				"apps/backend/resources/javascripts/app/contacts-grid-v3/table/ContactsGridTable.tsx"
+			],
+			[
+				"withdevice",
+				"apps/backend/resources/javascripts/app/common/hoc/withDevice.tsx"
+			],
+			[
+				"gridv3/con",
+				"apps/backend/resources/javascripts/app/components/GridV3/constants.ts"
+			],
+			[
+				"withapp",
+				"apps/backend/resources/javascripts/app/app-context/withAppContext.tsx"
+			],
+			[
+				"withUserContext",
+				"apps/backend/resources/javascripts/app/app-context/withUserContext.tsx"
+			],
+			[
+				"urlstate",
+				"apps/backend/resources/javascripts/app/story-composer/components/StoryComposerReport/withReportUrlState.ts"
+			],
+			[
+				"campaignreporgrid",
+				"apps/backend/resources/javascripts/app/campaign-report-v3/CampaignReportGrid.tsx"
+			],
+			[
+				"withDevice",
+				"apps/backend/resources/javascripts/app/common/hoc/withDevice.tsx"
+			],
+			[
+				"backend/pa",
+				"apps/backend/package.json"
+			],
+			[
+				"package",
+				"package.json"
+			],
+			[
+				"stories-grid-v3/table/RowAddon.ts",
+				"apps/backend/resources/javascripts/app/stories-grid-v3/table/RowAddon.tsx"
+			],
+			[
+				"camparowadd",
+				"apps/backend/resources/javascripts/app/campaign-report-v3/components/CampaignReportGridTable/RowAddon.tsx"
+			],
+			[
+				"rowaddon",
+				"apps/backend/resources/javascripts/app/stories-grid-v3/table/RowAddon.tsx"
+			],
+			[
+				"pitchesgridtable",
+				"apps/backend/resources/javascripts/app/pitches-grid-v3/table/PitchesGridTable.tsx"
+			],
+			[
+				"gridv3/cells",
+				"apps/backend/resources/javascripts/app/components/GridV3/Cells/status-cell.scss"
+			],
+			[
+				"progress",
+				"apps/backend/resources/javascripts/app/components/Charts/ProgressBarChart.tsx"
+			],
+			[
+				"tooltip",
+				"apps/backend/resources/javascripts/app/components/Tooltip.jsx"
+			],
+			[
+				"repliedco",
+				"apps/backend/resources/javascripts/app/campaigns-grid-v3/table/RepliedColumnHeader.tsx"
+			],
+			[
+				"ampaignReportGridTableContainer.tsx",
+				"apps/backend/resources/javascripts/app/campaign-report-v3/components/CampaignReportGridTableContainer.tsx"
+			],
+			[
+				"permissions.ts",
+				"apps/backend/resources/javascripts/app/common/interfaces/Permissions.ts"
+			],
+			[
+				"userconte",
+				"apps/backend/resources/javascripts/app/common/interfaces/UserContext.ts"
+			],
+			[
+				"percen",
+				"apps/backend/resources/javascripts/app/components/GridV3/Cells/PercentageCell.tsx"
+			],
+			[
+				"contact.ts",
+				"apps/backend/resources/javascripts/app/common/interfaces/Contact.ts"
+			],
+			[
+				"numeri",
+				"apps/backend/resources/javascripts/app/components/GridV3/Cells/NumericCell.tsx"
+			],
+			[
+				"Percentage",
+				"apps/backend/resources/javascripts/app/components/GridV3/Cells/PercentageCell.tsx"
+			],
+			[
+				"campainstat",
+				"apps/backend/resources/javascripts/app/campaigns-grid-v3/table/CampaignStatCell.tsx"
+			],
+			[
+				"numeric",
+				"apps/backend/resources/javascripts/app/components/GridV3/Cells/NumericCell.tsx"
+			],
+			[
+				"repliedcell",
+				"apps/backend/resources/javascripts/app/campaigns-grid-v3/table/RepliedColumnCell.tsx"
+			],
+			[
+				"recipcell",
+				"apps/backend/resources/javascripts/app/pitches-grid-v3/table/RecipientCell.tsx"
+			],
+			[
+				"replie",
+				"apps/backend/resources/javascripts/app/campaigns-grid-v3/table/RepliedColumnCell.tsx"
+			],
+			[
+				"RepliedColumnCell",
+				"apps/backend/resources/javascripts/app/campaigns-grid-v3/table/RepliedColumnCell.tsx"
+			],
+			[
+				"Numeric",
+				"apps/backend/resources/javascripts/app/components/GridV3/Cells/NumericCell.jsx"
+			],
+			[
+				"gridv3/cons",
+				"apps/backend/resources/javascripts/app/components/GridV3/constants.ts"
+			],
+			[
+				"CampaignReportGridSidebar",
+				"apps/backend/resources/javascripts/app/campaign-report-v3/sidebar/CampaignReportGridSidebar.tsx"
+			],
+			[
+				"story.",
+				"apps/backend/resources/javascripts/app/common/interfaces/Story.ts"
+			],
+			[
+				"emptystate",
+				"apps/backend/resources/javascripts/app/campaigns-grid-v3/table/EmptyState.tsx"
+			],
+			[
+				"campaign",
+				"apps/backend/resources/javascripts/app/common/interfaces/Campaign.ts"
+			],
+			[
+				"FacetsFetcher",
+				"apps/backend/resources/javascripts/app/common/facets-fetcher/FacetsFetcher.tsx"
+			],
+			[
+				"progressbarc",
+				"apps/backend/resources/javascripts/app/components/Charts/ProgressBarChart.tsx"
+			],
+			[
+				"gridv3",
+				"apps/backend/resources/javascripts/app/components/GridV3/grid-v3.scss"
+			],
+			[
+				"progressbarcha",
+				"apps/backend/resources/javascripts/app/components/Charts/ProgressBarChart.tsx"
+			],
+			[
+				"CampaignReportGridTables",
+				"apps/backend/resources/javascripts/app/campaign-report-v3/components/CampaignReportGridTables.tsx"
+			],
+			[
+				"sagas",
+				"packages/frontend/src/store/sagas.js"
+			],
+			[
+				"hook",
+				"packages/frontend/src/modules/config/hooks.js"
+			],
+			[
+				"locales",
+				"packages/frontend/src/modules/i18n/LocaleSetting.module.scss"
+			],
+			[
+				"varia",
+				"packages/frontend/src/styles/variables.scss"
+			],
+			[
+				"reduce",
+				"packages/frontend/src/store/reducers.js"
+			],
+			[
+				"en.js",
+				"packages/frontend/src/modules/i18n/translations/en.json"
+			],
+			[
+				"caregrid",
+				"apps/backend/resources/javascripts/app/campaign-report-v3/CampaignReportGrid.tsx"
+			],
+			[
+				"/telenet/",
+				"web/press/new/fonts/telenet/glyphs.svg"
+			],
+			[
+				"telenet./php",
+				"apps/press/templates/_custom/telenet/_assets.php"
+			],
+			[
+				"telenet/v",
+				"web/press/new/js/telenet_v2/telenet_v2.js"
+			],
+			[
+				"gridv3/filters",
+				"apps/backend/resources/javascripts/app/components/GridV3/Filters/index.tsx"
+			],
+			[
+				"expertfeat",
+				"apps/backend/resources/javascripts/app/components/Icons/ExpertFeatureIcon.tsx"
+			],
+			[
+				"appintercom",
+				"apps/backend/resources/javascripts/app/intercom/index.js"
+			],
+			[
+				"colors",
+				"apps/backend/resources/stylesheets/colors.scss"
+			],
+			[
+				"appsty",
+				"apps/backend/resources/stylesheets/style.scss"
+			],
+			[
+				"gridv3/header",
+				"apps/backend/resources/javascripts/app/components/GridV3/HeaderCell.tsx"
+			],
+			[
+				"appstyl",
+				"apps/backend/resources/stylesheets/style.scss"
+			],
+			[
+				"prezly",
+				"config/prezly.yml"
+			],
+			[
+				"campaign.ts",
+				"apps/backend/resources/javascripts/app/common/interfaces/Campaign.ts"
+			],
+			[
+				"CampaignReportGridSubheader",
+				"apps/backend/resources/javascripts/app/campaign-report-v3/components/CampaignReportGridSubheader/index.tsx"
+			],
+			[
+				"loaderblo",
+				"apps/backend/resources/javascripts/app/common/components/LoaderBlock.jsx"
+			],
+			[
+				"backenstyle",
+				"apps/backend/resources/stylesheets/style.scss"
+			],
+			[
+				"sidebarface",
+				"apps/backend/resources/javascripts/app/components/SidebarFacetsForm/SidebarFacetsForm.tsx"
+			],
+			[
+				"facets.ts",
+				"apps/backend/resources/javascripts/app/common/interfaces/Facets.ts"
+			],
+			[
+				"SidebarFacetsForm",
+				"apps/backend/resources/javascripts/app/components/SidebarFacetsForm/SidebarFacetsForm.tsx"
+			],
+			[
+				"campaignreportgrid",
+				"apps/backend/resources/javascripts/app/campaign-report-v3/CampaignReportGrid.tsx"
+			],
+			[
+				"campaigngrid",
+				"apps/backend/resources/javascripts/app/campaigns-grid-v3/CampaignsGrid.tsx"
+			],
+			[
+				"var",
+				"packages/frontend/src/styles/variables.scss"
+			],
+			[
+				"loadign",
+				"packages/frontend/src/components/loading/loading.module.scss"
+			],
+			[
+				"app",
+				"packages/frontend/src/modules/app.module.scss"
+			],
+			[
+				"facets",
+				"apps/backend/resources/javascripts/app/common/interfaces/Facets.ts"
+			],
+			[
+				"FacetsGroup",
+				"lib/Prezly/Grids/Facets/FacetsGroup.php"
+			],
+			[
+				"Menu",
+				"apps/backend/resources/javascripts/app/components/SidebarPanel/Menu.jsx"
+			],
+			[
+				"SingleSelectMenu",
+				"apps/backend/resources/javascripts/app/components/SidebarPanel/SingleSelectMenu.jsx"
+			],
+			[
+				"FullWidthLayout",
+				"apps/backend/resources/javascripts/app/components/FullWidthLayout/Sidebar.tsx"
+			],
+			[
+				"menuitem",
+				"apps/backend/resources/javascripts/app/components/SidebarPanel/MenuItem.jsx"
+			],
+			[
+				"usecreate",
+				"apps/backend/resources/javascripts/app/components/CreatePitchEmailLink/useHandleCreatePitchEmailLink.ts"
+			],
+			[
+				"apps/backend/resources/javascripts/app/contacts-grid-v3/table/getContactDropdownItems.tsx",
+				"apps/backend/resources/javascripts/app/contacts-grid-v3/table/getContactDropdownItems.tsx"
+			],
+			[
+				"createpic",
+				"apps/backend/resources/javascripts/app/ui-workflows/create-pitch.tsx"
+			],
+			[
+				"contactsgridv3/contactcel",
+				"apps/backend/resources/javascripts/app/contacts-grid-v3/table/ContactCell/ContactStatus.tsx"
+			],
+			[
+				"dropdownitem",
+				"apps/backend/resources/javascripts/app/algolia-omni-search/components/DefaultDropdownItem.jsx"
+			],
+			[
+				"common",
+				"config/webpack/common.config.js"
+			],
+			[
+				"image",
+				"resources/views/components/image-blocks/image-blocks.blade.php"
+			],
+			[
+				"embedjs",
+				"resources/views/pages/cta/embed.js"
+			],
+			[
+				"footer_assets",
+				"resources/views/layout/partials/footer_assets.blade.php"
+			],
+			[
+				"embed/cta",
+				"resources/views/components/cta/embed/embed_script.blade.php"
+			],
+			[
+				"layoutemeb",
+				"resources/views/layout/embed.blade.php"
+			],
+			[
+				"moal",
+				"resources/views/components/modal/modal.js"
+			],
+			[
+				"exampleblade",
+				"resources/views/pages/examples/examples_item.blade.php"
+			],
+			[
+				"packa",
+				"package.json"
+			],
+			[
+				"babel",
+				".babelrc"
+			],
+			[
+				"cosearchtsx",
+				"apps/backend/resources/javascripts/app/pitches-grid-v3/components/CreatePitchModal/ContactEmailPicker/ContactSearch/ContactSearch.tsx"
+			],
+			[
+				"appalgolia/",
+				"apps/backend/resources/javascripts/app/algolia/constants.ts"
+			],
+			[
+				"usealgo",
+				"apps/backend/resources/javascripts/app/algolia/useAlgoliaCampaigns.ts"
+			],
+			[
+				"omni-sea",
+				"apps/backend/resources/javascripts/app/omni-search/omni-search.scss"
+			],
+			[
+				"highgl",
+				"apps/backend/resources/javascripts/app/components/Highlighter.jsx"
+			],
+			[
+				"codescrip",
+				"apps/backend/resources/javascripts/app/pitches-grid-v3/components/CreatePitchModal/ContactEmailPicker/ContactSearch/ContactSearchDropdownItem/ContactDescription.tsx"
+			],
+			[
+				"contactdescrip",
+				"apps/backend/resources/javascripts/app/pitches-grid-v3/components/CreatePitchModal/ContactEmailPicker/ContactSearch/ContactSearchDropdownItem/ContactDescription.tsx"
+			],
+			[
+				"backepacka",
+				"apps/backend/package-lock.json"
+			],
+			[
+				"step1fi",
+				"apps/backend/modules/import/templates/step1FileSuccess.php"
+			],
+			[
+				"coseartsx",
+				"apps/backend/resources/javascripts/app/pitches-grid-v3/components/CreatePitchModal/ContactEmailPicker/ContactSearch/ContactSearch.tsx"
+			],
+			[
+				"cosea",
+				"apps/backend/resources/javascripts/app/contact-view/components/ContactSearch.jsx"
+			],
+			[
+				"omnisearch",
+				"apps/backend/resources/javascripts/app/omni-search/OmniSearch.jsx"
+			],
+			[
+				"coseadropite",
+				"apps/backend/resources/javascripts/app/pitches-grid-v3/components/CreatePitchModal/ContactEmailPicker/ContactSearch/ContactSearchDropdownItems.tsx"
+			],
+			[
+				"cosearch",
+				"apps/backend/resources/javascripts/app/pitches-grid-v3/components/CreatePitchModal/ContactEmailPicker/ContactSearch/contact-search.scss"
+			],
+			[
+				"backpackagelo",
+				"apps/backend/package-lock.json"
+			],
+			[
+				"usecontac",
+				"apps/backend/resources/javascripts/app/pitches-grid-v3/components/CreatePitchModal/ContactEmailPicker/useContact.ts"
+			],
+			[
+				"storytags",
+				"apps/backend/resources/javascripts/app/story-tags-omni-search/StoryTagsOmniSearch.jsx"
+			],
+			[
+				"/stylesheets/bootstrap/_variables.sc",
+				"apps/backend/resources/stylesheets/bootstrap-tweaks/_variables.scss"
+			],
+			[
+				"",
+				".editorconfig"
+			],
+			[
+				".env",
+				".env"
+			],
+			[
+				"contactpicker",
+				"apps/backend/resources/javascripts/app/pitches-grid-v3/components/CreatePitchModal/ContactEmailPicker/contact-picker.scss"
+			],
+			[
+				"apps/backend/resources/javascripts/app/pitches-grid-v3/components/CreatePitchModal/ContactEmailPicker/ContactSearch/ContactSearchDropdownItem/ContactDescription.tsx",
+				"apps/backend/resources/javascripts/app/pitches-grid-v3/components/CreatePitchModal/ContactEmailPicker/ContactSearch/ContactSearchDropdownItem/ContactDescription.tsx"
+			],
+			[
+				"errorview",
+				"apps/backend/resources/javascripts/app/common/error-handling/ErrorView.jsx"
+			],
+			[
+				"ContactPicker",
+				"apps/backend/resources/javascripts/app/pitches-grid-v3/components/CreatePitchModal/ContactEmailPicker/ContactPicker.tsx"
+			],
+			[
+				"createpitchmodalscss",
+				"apps/backend/resources/javascripts/app/pitches-grid-v3/components/CreatePitchModal/create-pitch-modal.scss"
+			],
+			[
+				"iframere",
+				"apps/press/modules/release/templates/_iframe-resizer.js.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 680.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 411.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
