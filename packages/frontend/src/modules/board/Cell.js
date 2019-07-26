@@ -6,15 +6,15 @@ import { EMPTY_CELL } from '@scrabble-solver/constants';
 
 import { submit } from 'tiles';
 import { selectConfig } from 'config';
+import { Tile } from 'components';
 
-import Tile from './Tile';
 import handleKeys from './handle-keys';
 import { getBonusClassname, getCharacterPointsClassname } from './cell-classnames';
 import { selectBonus, selectCharacterPoints } from './selectors';
 import { changeCellValue, toggleCellIsBlank } from './state';
 import styles from './Cell.module.scss';
 
-const Cell = ({ bonus, cell, characterPoints, className, ...tileProps }) => (
+const Cell = ({ bonus, cell, characterPoints, className, onChange, onKeyDown, onKeyUp }) => (
   <div
     className={classNames(
       styles.cell,
@@ -27,8 +27,15 @@ const Cell = ({ bonus, cell, characterPoints, className, ...tileProps }) => (
       className
     )}
   >
-    <Tile tile={cell.tile} {...tileProps} />
-    {characterPoints > 0 && <div className={styles.points}>{characterPoints}</div>}
+    <Tile
+      character={cell.tile.character === EMPTY_CELL ? '' : cell.tile.character}
+      className=""
+      highlighted={cell.isCandidate()}
+      isBlank={cell.tile.isBlank}
+      onChange={onChange}
+      onKeyDown={onKeyDown}
+      onKeyUp={onKeyUp}
+    />
   </div>
 );
 

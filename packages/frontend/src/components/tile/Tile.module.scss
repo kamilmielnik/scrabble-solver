@@ -25,7 +25,8 @@ $tile-font-size: $tile-size * 3 / 5;
     background-color: transparentize($green, $background-opacity);
   }
 
-  &.points3 {
+  &.points3,
+  &.points4 {
     background-color: transparentize($blue, $background-opacity);
   }
 

@@ -56,6 +56,7 @@ const Tiles = ({ id }) => {
           className={styles.tile}
           character={character}
           highlighted={isCandidate}
+          isBlank={character === BLANK}
           key={index}
           placeholder={placeholder[index]}
           ref={tilesRefs[index]}

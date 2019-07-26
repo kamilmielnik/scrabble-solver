@@ -3,12 +3,10 @@
 .cell {
   $tile-size: 40px;
   $tile-font-size: $tile-size / 2;
-  $points-font-size: $tile-size / 3;
 
   position: relative;
   display: table-cell;
   background-color: $white;
-  border: $border;
   transition: background-color $micro-animation-duration, color $micro-animation-duration;
 
   &:not(.empty) {
@@ -117,13 +115,6 @@
     .points {
       color: $white;
     }
-  }
-
-  .points {
-    position: absolute;
-    bottom: 3px;
-    right: 3px;
-    font-size: $points-font-size;
   }
 
   .tile {
