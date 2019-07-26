@@ -6,7 +6,6 @@ import Board from 'board/components';
 import { LocaleSetting } from 'i18n';
 import { Results } from 'results';
 import { Tiles } from 'tiles';
-import { Time } from 'time';
 import { ShowWalkthrough, Walkthrough } from 'walkthrough';
 
 import styles from './app.module.scss';
@@ -19,7 +18,6 @@ const App = () => {
       <div className={styles.content}>
         <div className={styles.menu}>
           <ConfigSetting />
-          <Time />
 
           <div className={styles.menuRight}>
             <LocaleSetting />

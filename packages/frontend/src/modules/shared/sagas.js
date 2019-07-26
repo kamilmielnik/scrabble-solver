@@ -8,7 +8,6 @@ import { CHANGE_LOCALE, selectLocale } from 'i18n';
 import { HIGHLIGHT_RESULT, UNHIGHLIGHT_RESULT, changeResults } from 'results';
 import { APPLY_RESULT, changeResultCandidate } from 'shared/state';
 import { SUBMIT as SUBMIT_TILES } from 'tiles';
-import { changeTime, resetTime } from 'time';
 import { selectBoard } from 'board/selectors';
 import { selectConfigId } from 'config/selectors';
 import { selectResults } from 'results';
@@ -53,16 +52,12 @@ function* onTilesSubmit() {
   if (characters.length > 0) {
     try {
       yield put(submitSolve());
-      yield put(resetTime());
-      const start = Date.now();
       const results = yield call(postSolve, {
         board: board.toJson(),
         characters,
         configId,
         locale
       });
-      const end = Date.now();
-      yield put(changeTime(end - start));
       yield put(submitSolveSuccess());
       yield put(changeResults(results.map(Result.fromJson)));
     } catch (error) {
