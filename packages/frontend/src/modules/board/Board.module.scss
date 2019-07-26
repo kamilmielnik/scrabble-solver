@@ -1,0 +1,7 @@
+@import 'styles/variables.scss';
+
+.board {
+  display: table;
+  border-collapse: collapse;
+  box-shadow: 0 0 5px 0 $gray;
+}

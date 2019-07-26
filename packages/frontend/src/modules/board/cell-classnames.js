@@ -1,6 +1,6 @@
 import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 
-import styles from './board.module.scss';
+import styles from './Cell.module.scss';
 
 const CHARACTER_CLASSNAMES = {
   1: styles.bonusCharacter1,

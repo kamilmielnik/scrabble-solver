@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { BLANK } from '@scrabble-solver/constants';
 
-import { selectCells } from 'board/selectors';
+import { selectCells } from 'board';
 import { selectConfig } from 'config/selectors';
 import { selectCharacters } from 'tiles';
 

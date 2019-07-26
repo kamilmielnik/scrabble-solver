@@ -1,4 +1,4 @@
-import styles from './board.module.scss';
+import styles from './Board.module.scss';
 
 export default (config) => {
   const offsets = {

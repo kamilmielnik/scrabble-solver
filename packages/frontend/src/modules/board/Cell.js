@@ -4,15 +4,15 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 
-import { changeCellValue, toggleCellIsBlank } from 'board/state';
 import { submit } from 'tiles';
-import { selectBonus, selectCharacterPoints } from 'board/selectors';
-import { selectConfig } from 'config/selectors';
+import { selectConfig } from 'config';
 
-import Tile from './tile';
+import Tile from './Tile';
 import handleKeys from './handle-keys';
 import { getBonusClassname, getCharacterPointsClassname } from './cell-classnames';
-import styles from './board.module.scss';
+import { selectBonus, selectCharacterPoints } from './selectors';
+import { changeCellValue, toggleCellIsBlank } from './state';
+import styles from './Cell.module.scss';
 
 const Cell = ({ bonus, cell, characterPoints, className, ...tileProps }) => (
   <div

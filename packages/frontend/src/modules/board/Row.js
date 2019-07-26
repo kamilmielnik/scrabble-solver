@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Cell from './cell';
-import styles from './board.module.scss';
+import Cell from './Cell';
+import styles from './Row.module.scss';
 
 const Row = ({ cells, className }) => (
   <div className={classNames(styles.row, className)}>

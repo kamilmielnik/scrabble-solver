@@ -1,14 +1,13 @@
 import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 import { Result } from '@scrabble-solver/models';
 
-import { applyResult } from 'board/state';
+import { applyResult, selectBoard } from 'board';
 import { CHANGE_CONFIG } from 'config/state';
 import { changeInput as changeDictionaryInput, submit as submitDictionary } from 'dictionary/state';
 import { CHANGE_LOCALE, selectLocale } from 'i18n';
 import { HIGHLIGHT_RESULT, UNHIGHLIGHT_RESULT, changeResults } from 'results';
 import { APPLY_RESULT, changeResultCandidate } from 'shared/state';
 import { SUBMIT as SUBMIT_TILES } from 'tiles';
-import { selectBoard } from 'board/selectors';
 import { selectConfigId } from 'config/selectors';
 import { selectResults } from 'results';
 import { selectValidCharacters } from 'tiles';

@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
-import board from 'board/state';
-import { reducer as config } from 'config/state';
+import { reducer as board } from 'board';
+import { reducer as config } from 'config';
 import dictionary from 'dictionary/state';
 import { reducer as i18n } from 'i18n';
 import { reducer as results } from 'results';
-import { reducer as shared } from 'shared/state';
+import { reducer as shared } from 'shared';
 import splash from 'splash/state';
 import { reducer as tiles } from 'tiles';
 import { reducer as walkthrough } from 'walkthrough';

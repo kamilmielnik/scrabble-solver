@@ -21,7 +21,7 @@ const initialState = Board.fromStringArray(
   )
 );
 
-export default handleActions(
+export const reducer = handleActions(
   {
     [APPLY_RESULT]: (state, { payload: result }) =>
       new Board({

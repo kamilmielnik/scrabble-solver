@@ -2,7 +2,7 @@ import React from 'react';
 import useWindowSize from 'react-use/lib/useWindowSize';
 
 import { ConfigSetting } from 'config';
-import Board from 'board/components';
+import { Board } from 'board';
 import { LocaleSetting } from 'i18n';
 import { Results } from 'results';
 import { Tiles } from 'tiles';
