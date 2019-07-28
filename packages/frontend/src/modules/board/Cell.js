@@ -14,7 +14,7 @@ import { selectBonus, selectCharacterPoints } from './selectors';
 import { changeCellValue, toggleCellIsBlank } from './state';
 import styles from './Cell.module.scss';
 
-const Cell = ({ bonus, cell, characterPoints, className, onChange, onKeyDown, onKeyUp }) => (
+const Cell = ({ bonus, cell, characterPoints, className, onChange, onKeyDown }) => (
   <div
     className={classNames(
       styles.cell,
@@ -35,7 +35,6 @@ const Cell = ({ bonus, cell, characterPoints, className, onChange, onKeyDown, on
       small
       onChange={onChange}
       onKeyDown={onKeyDown}
-      onKeyUp={onKeyUp}
     />
   </div>
 );
@@ -46,8 +45,7 @@ Cell.propTypes = {
   characterPoints: PropTypes.number,
   className: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  onKeyDown: PropTypes.func.isRequired,
-  onKeyUp: PropTypes.func.isRequired
+  onKeyDown: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, { cell }) => ({
@@ -83,10 +81,7 @@ const mergeProps = ({ config, ...stateProps }, { dispatch, ...dispatchProps }, o
         handleArrowKeys(event);
       } else if (isCharacter(event)) {
         dispatch(changeCellValue(x, y, key));
-      }
-    },
-    onKeyUp: (event) => {
-      if (isSubmitting(event)) {
+      } else if (isSubmitting(event)) {
         dispatch(submit());
       }
     }
