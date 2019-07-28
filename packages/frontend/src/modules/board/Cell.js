@@ -28,10 +28,11 @@ const Cell = ({ bonus, cell, characterPoints, className, onChange, onKeyDown, on
     )}
   >
     <Tile
-      character={cell.tile.character === EMPTY_CELL ? '' : cell.tile.character}
+      character={cell.tile.character === EMPTY_CELL ? null : cell.tile.character}
       className=""
       highlighted={cell.isCandidate()}
       isBlank={cell.tile.isBlank}
+      small
       onChange={onChange}
       onKeyDown={onKeyDown}
       onKeyUp={onKeyUp}
