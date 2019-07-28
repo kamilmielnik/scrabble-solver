@@ -9,12 +9,6 @@
   background-color: $white;
   transition: background-color $micro-animation-duration, color $micro-animation-duration;
 
-  &:not(.empty) {
-    .tile {
-      box-shadow: inset -1px -1px 1px 0 $dark-gray;
-    }
-  }
-
   &.bonusCharacter1 {
     background-color: transparentize($yellow, $background-opacity);
   }
@@ -94,55 +88,8 @@
   &.candidate {
     background-color: $primary;
 
-    .tile {
-      &.blank {
-        background-color: transparent;
-
-        .character {
-          color: $white;
-        }
-      }
-
-      .character {
-        color: $white;
-      }
-    }
-
     &:before {
       display: none;
-    }
-
-    .points {
-      color: $white;
-    }
-  }
-
-  .tile {
-    position: relative;
-    width: $tile-size;
-    height: $tile-size;
-    background-color: transparent;
-    color: $white;
-    transition: background-color $micro-animation-duration, color $micro-animation-duration;
-
-    &.blank {
-      background-color: $white;
-
-      .character {
-        color: $black;
-      }
-    }
-
-    .character {
-      width: $tile-size;
-      height: $tile-size;
-      box-sizing: border-box;
-      background-color: transparent;
-      border: 0;
-      font-size: $tile-font-size;
-      font-weight: bold;
-      text-transform: uppercase;
-      text-align: center;
     }
   }
 }
