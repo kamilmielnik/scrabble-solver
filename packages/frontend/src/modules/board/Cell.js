@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { connect, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 
 import { submit } from 'tiles';
-import { selectConfig } from 'config';
+import { useConfig } from 'config';
 import { Tile } from 'components';
+import { createKeyboardNavigation } from 'utils';
 
 import handleKeys from './handle-keys';
 import { useBonus, useCharacterPoints } from './hooks';
@@ -14,10 +15,12 @@ import { getBonusClassname, getCharacterPointsClassname } from './cell-classname
 import { changeCellValue, toggleCellIsBlank } from './state';
 import styles from './Cell.module.scss';
 
-const Cell = ({ cell, className, onKeyDown }) => {
+const Cell = ({ cell, className /*, onKeyDown*/ }) => {
   const dispatch = useDispatch();
+  const config = useConfig();
   const bonus = useBonus(cell);
   const characterPoints = useCharacterPoints(cell);
+  const { x, y } = cell;
 
   return (
     <div
@@ -38,7 +41,23 @@ const Cell = ({ cell, className, onKeyDown }) => {
         highlighted={cell.isCandidate()}
         isBlank={cell.tile.isBlank}
         small
-        onKeyDown={onKeyDown}
+        onKeyDown={createKeyboardNavigation({
+          onDelete: () => dispatch(changeCellValue(x, y, EMPTY_CELL)),
+          onBackspace: () => dispatch(changeCellValue(x, y, EMPTY_CELL)),
+          onEnter: () => dispatch(submit()),
+          onKeyDown: (event) => {
+            const character = event.key;
+            const isTogglingBlank = (event.ctrlKey || event.metaKey) && character === 'b';
+
+            if (isTogglingBlank) {
+              dispatch(toggleCellIsBlank(x, y));
+            } else if (config.hasCharacter(character)) {
+              dispatch(changeCellValue(x, y, character));
+            }
+
+            // onKeyDown(event)
+          }
+        })}
       />
     </div>
   );
@@ -50,44 +69,4 @@ Cell.propTypes = {
   onKeyDown: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, { cell }) => ({
-  config: selectConfig(state)
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  dispatch
-});
-
-const mergeProps = ({ config, ...stateProps }, { dispatch }, ownProps) => {
-  const {
-    cell: { x, y }
-  } = ownProps;
-  const { handleArrowKeys, isArrowKey, isCharacter, isRemovingCharacter, isSubmitting, isTogglingBlank } = handleKeys(
-    config
-  );
-
-  return {
-    ...stateProps,
-    ...ownProps,
-    onKeyDown: (event) => {
-      const { key } = event;
-      if (isRemovingCharacter(event)) {
-        dispatch(changeCellValue(x, y, EMPTY_CELL));
-      } else if (isTogglingBlank(event)) {
-        dispatch(toggleCellIsBlank(x, y));
-      } else if (isArrowKey(event)) {
-        handleArrowKeys(event);
-      } else if (isCharacter(event)) {
-        dispatch(changeCellValue(x, y, key));
-      } else if (isSubmitting(event)) {
-        dispatch(submit());
-      }
-    }
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
-)(Cell);
+export default Cell;
