@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useDispatch } from 'react-redux';
@@ -9,13 +9,12 @@ import { useConfig } from 'config';
 import { Tile } from 'components';
 import { createKeyboardNavigation } from 'utils';
 
-import handleKeys from './handle-keys';
 import { useBonus, useCharacterPoints } from './hooks';
 import { getBonusClassname, getCharacterPointsClassname } from './cell-classnames';
 import { changeCellValue, toggleCellIsBlank } from './state';
 import styles from './Cell.module.scss';
 
-const Cell = ({ cell, className /*, onKeyDown*/ }) => {
+const Cell = forwardRef(({ cell, className, onFocus, onKeyDown }, ref) => {
   const dispatch = useDispatch();
   const config = useConfig();
   const bonus = useBonus(cell);
@@ -40,7 +39,9 @@ const Cell = ({ cell, className /*, onKeyDown*/ }) => {
         className=""
         highlighted={cell.isCandidate()}
         isBlank={cell.tile.isBlank}
+        ref={ref}
         small
+        onFocus={onFocus}
         onKeyDown={createKeyboardNavigation({
           onDelete: () => dispatch(changeCellValue(x, y, EMPTY_CELL)),
           onBackspace: () => dispatch(changeCellValue(x, y, EMPTY_CELL)),
@@ -55,17 +56,18 @@ const Cell = ({ cell, className /*, onKeyDown*/ }) => {
               dispatch(changeCellValue(x, y, character));
             }
 
-            // onKeyDown(event)
+            onKeyDown(event);
           }
         })}
       />
     </div>
   );
-};
+});
 
 Cell.propTypes = {
   cell: PropTypes.object.isRequired,
   className: PropTypes.string,
+  onFocus: PropTypes.func.isRequired,
   onKeyDown: PropTypes.func.isRequired
 };
 
