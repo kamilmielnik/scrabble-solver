@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 
 import { submit } from 'tiles';
@@ -9,57 +9,56 @@ import { selectConfig } from 'config';
 import { Tile } from 'components';
 
 import handleKeys from './handle-keys';
+import { useBonus, useCharacterPoints } from './hooks';
 import { getBonusClassname, getCharacterPointsClassname } from './cell-classnames';
-import { selectBonus, selectCharacterPoints } from './selectors';
 import { changeCellValue, toggleCellIsBlank } from './state';
 import styles from './Cell.module.scss';
 
-const Cell = ({ bonus, cell, characterPoints, className, onChange, onKeyDown }) => (
-  <div
-    className={classNames(
-      styles.cell,
-      getBonusClassname(cell, bonus),
-      getCharacterPointsClassname(characterPoints),
-      {
-        [styles.candidate]: cell.isCandidate(),
-        [styles.empty]: cell.isEmpty && !cell.hasTile()
-      },
-      className
-    )}
-  >
-    <Tile
-      character={cell.tile.character === EMPTY_CELL ? null : cell.tile.character}
-      className=""
-      highlighted={cell.isCandidate()}
-      isBlank={cell.tile.isBlank}
-      small
-      onChange={onChange}
-      onKeyDown={onKeyDown}
-    />
-  </div>
-);
+const Cell = ({ cell, className, onKeyDown }) => {
+  const dispatch = useDispatch();
+  const bonus = useBonus(cell);
+  const characterPoints = useCharacterPoints(cell);
+
+  return (
+    <div
+      className={classNames(
+        styles.cell,
+        getBonusClassname(cell, bonus),
+        getCharacterPointsClassname(characterPoints),
+        className,
+        {
+          [styles.candidate]: cell.isCandidate(),
+          [styles.empty]: cell.isEmpty && !cell.hasTile()
+        }
+      )}
+    >
+      <Tile
+        character={cell.tile.character === EMPTY_CELL ? null : cell.tile.character}
+        className=""
+        highlighted={cell.isCandidate()}
+        isBlank={cell.tile.isBlank}
+        small
+        onKeyDown={onKeyDown}
+      />
+    </div>
+  );
+};
 
 Cell.propTypes = {
-  bonus: PropTypes.object,
   cell: PropTypes.object.isRequired,
-  characterPoints: PropTypes.number,
   className: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
   onKeyDown: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, { cell }) => ({
-  bonus: selectBonus(state, cell),
-  config: selectConfig(state),
-  characterPoints: selectCharacterPoints(state, cell)
+  config: selectConfig(state)
 });
 
-const mapDispatchToProps = (dispatch, { cell: { x, y } }) => ({
-  dispatch,
-  onChange: (event) => dispatch(changeCellValue(x, y, event.target.value))
+const mapDispatchToProps = (dispatch) => ({
+  dispatch
 });
 
-const mergeProps = ({ config, ...stateProps }, { dispatch, ...dispatchProps }, ownProps) => {
+const mergeProps = ({ config, ...stateProps }, { dispatch }, ownProps) => {
   const {
     cell: { x, y }
   } = ownProps;
@@ -69,7 +68,6 @@ const mergeProps = ({ config, ...stateProps }, { dispatch, ...dispatchProps }, o
 
   return {
     ...stateProps,
-    ...dispatchProps,
     ...ownProps,
     onKeyDown: (event) => {
       const { key } = event;
