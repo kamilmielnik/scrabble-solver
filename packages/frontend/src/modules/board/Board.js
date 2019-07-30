@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { useRows } from './hooks';
-import Row from './Row';
+
+import Cell from './Cell';
 import styles from './Board.module.scss';
 
 const Board = () => {
@@ -9,8 +10,12 @@ const Board = () => {
 
   return (
     <div className={styles.board}>
-      {rows.map((cells, index) => (
-        <Row key={index} cells={cells} />
+      {rows.map((cells, rowIndex) => (
+        <div className={styles.row} key={rowIndex}>
+          {cells.map((cell, cellIndex) => (
+            <Cell key={cellIndex} cell={cell} />
+          ))}
+        </div>
       ))}
     </div>
   );
