@@ -13,5 +13,5 @@ export const selectResults = createSelector(
 
 export const selectResultCandidate = createSelector(
   [selectRoot],
-  ({ resultCandidate }) => resultCandidate
+  ({ candidate }) => candidate
 );

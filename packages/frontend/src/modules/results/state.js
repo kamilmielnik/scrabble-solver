@@ -13,15 +13,15 @@ export const highlightResult = createAction(HIGHLIGHT_RESULT);
 export const unhighlightResult = createAction(UNHIGHLIGHT_RESULT);
 
 const initialState = {
-  resultCandidate: null,
+  candidate: null,
   results: []
 };
 
 export const reducer = handleActions(
   {
-    [APPLY_RESULT]: (state) => ({ ...state, resultCandidate: initialState.resultCandidate }),
+    [APPLY_RESULT]: (state) => ({ ...state, candidate: initialState.candidate }),
 
-    [CHANGE_RESULT_CANDIDATE]: (state, { payload: resultCandidate }) => ({ ...state, resultCandidate }),
+    [CHANGE_RESULT_CANDIDATE]: (state, { payload: candidate }) => ({ ...state, candidate }),
 
     [CHANGE_RESULTS]: (state, { payload: results }) => ({ ...state, results })
   },
