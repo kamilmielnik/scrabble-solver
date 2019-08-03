@@ -1,5 +1,5 @@
 import React from 'react';
-import useWindowSize from 'react-use/lib/useWindowSize';
+import { useWindowSize } from 'react-use';
 
 import { ConfigSetting } from 'config';
 import { Board } from 'board';
