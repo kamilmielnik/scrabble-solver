@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 
-import { changeLocale } from 'i18n';
+import { changeLocale, Message } from 'i18n';
 import { hideSplash } from 'splash/state';
-import { Message } from 'i18n';
 
 import Credits from './credits';
 import styles from './locale.module.scss';

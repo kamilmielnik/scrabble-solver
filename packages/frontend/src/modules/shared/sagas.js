@@ -5,13 +5,10 @@ import { applyResult, selectBoard } from 'board';
 import { CHANGE_CONFIG } from 'config/state';
 import { changeInput as changeDictionaryInput, submit as submitDictionary } from 'dictionary/state';
 import { CHANGE_LOCALE, selectLocale } from 'i18n';
-import { HIGHLIGHT_RESULT, UNHIGHLIGHT_RESULT, changeResults } from 'results';
+import { HIGHLIGHT_RESULT, UNHIGHLIGHT_RESULT, changeResults, selectResults } from 'results';
 import { APPLY_RESULT, changeResultCandidate } from 'shared/state';
-import { SUBMIT as SUBMIT_TILES } from 'tiles';
+import { SUBMIT as SUBMIT_TILES, removeTiles, selectValidCharacters } from 'tiles';
 import { selectConfigId } from 'config/selectors';
-import { selectResults } from 'results';
-import { selectValidCharacters } from 'tiles';
-import { removeTiles } from 'tiles';
 import { postSolve } from 'api';
 
 import { submitSolve, submitSolveFailure, submitSolveSuccess } from './state';
