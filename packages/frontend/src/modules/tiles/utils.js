@@ -4,9 +4,9 @@ export const zipCharactersAndTiles = (characters, tiles) => {
   let remainingTiles = [...tiles];
 
   return characters.map((character) => {
-    const index = remainingTiles.findIndex((tile) => {
-      return character === BLANK ? tile.isBlank : character === tile.character;
-    });
+    const index = remainingTiles.findIndex((tile) =>
+      character === BLANK ? tile.isBlank : character === tile.character
+    );
 
     if (index >= 0) {
       const tile = remainingTiles[index];

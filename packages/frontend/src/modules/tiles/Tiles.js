@@ -65,9 +65,8 @@ const Tiles = ({ id }) => {
             onBackspace: () => changeCharacter(index, null),
             onDelete: () => changeCharacter(index, null),
             onKeyDown: (event) => {
-              const character = event.key;
-              if (config.hasCharacter(character) || character === BLANK) {
-                changeCharacter(index, character);
+              if (config.hasCharacter(event.key) || event.key === BLANK) {
+                changeCharacter(index, event.key);
               }
               onKeyDown(event);
             }

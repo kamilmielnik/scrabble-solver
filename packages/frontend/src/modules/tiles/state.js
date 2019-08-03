@@ -10,7 +10,8 @@ export const changeCharacter = createAction(CHANGE_CHARACTER);
 export const removeTiles = createAction(REMOVE_TILES);
 export const submit = createAction(SUBMIT);
 
-const initialState = [null, null, null, null, null, null, null]; //TODO: when config is changed, initialize this with empty array of appropriate length
+// TODO: when config is changed, initialize this with empty array of appropriate length
+const initialState = [null, null, null, null, null, null, null];
 
 export const reducer = handleActions(
   {
