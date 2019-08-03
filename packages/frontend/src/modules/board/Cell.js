@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useDispatch } from 'react-redux';
@@ -19,7 +19,28 @@ const Cell = forwardRef(({ cell, className, onFocus, onKeyDown }, ref) => {
   const config = useConfig();
   const bonus = useBonus(cell);
   const characterPoints = useCharacterPoints(cell);
-  const { x, y } = cell;
+  const handleFocus = useCallback(() => onFocus(cell), [cell, onFocus]);
+  const handleKeyDown = useMemo(
+    () =>
+      createKeyboardNavigation({
+        onDelete: () => dispatch(changeCellValue(cell.x, cell.y, EMPTY_CELL)),
+        onBackspace: () => dispatch(changeCellValue(cell.x, cell.y, EMPTY_CELL)),
+        onEnter: () => dispatch(submit()),
+        onKeyDown: (event) => {
+          const character = event.key;
+          const isTogglingBlank = (event.ctrlKey || event.metaKey) && character === 'b';
+
+          if (isTogglingBlank) {
+            dispatch(toggleCellIsBlank(cell.x, cell.y));
+          } else if (config.hasCharacter(character)) {
+            dispatch(changeCellValue(cell.x, cell.y, character));
+          }
+
+          onKeyDown(event);
+        }
+      }),
+    [cell, config, dispatch, onKeyDown]
+  );
 
   return (
     <div
@@ -41,24 +62,8 @@ const Cell = forwardRef(({ cell, className, onFocus, onKeyDown }, ref) => {
         isBlank={cell.tile.isBlank}
         ref={ref}
         small
-        onFocus={onFocus}
-        onKeyDown={createKeyboardNavigation({
-          onDelete: () => dispatch(changeCellValue(x, y, EMPTY_CELL)),
-          onBackspace: () => dispatch(changeCellValue(x, y, EMPTY_CELL)),
-          onEnter: () => dispatch(submit()),
-          onKeyDown: (event) => {
-            const character = event.key;
-            const isTogglingBlank = (event.ctrlKey || event.metaKey) && character === 'b';
-
-            if (isTogglingBlank) {
-              dispatch(toggleCellIsBlank(x, y));
-            } else if (config.hasCharacter(character)) {
-              dispatch(changeCellValue(x, y, character));
-            }
-
-            onKeyDown(event);
-          }
-        })}
+        onFocus={handleFocus}
+        onKeyDown={handleKeyDown}
       />
     </div>
   );

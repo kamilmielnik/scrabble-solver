@@ -20,15 +20,24 @@ const Board = () => {
       setActiveIndexX(nextActiveIndexX);
       setActiveIndexY(nextActiveIndexY);
     },
-    [activeIndexX, activeIndexY, rows, cellsRefs]
+    [activeIndexX, activeIndexY, cellsRefs, rows]
   );
 
-  const onKeyDown = createKeyboardNavigation({
-    onArrowDown: () => changeActiveIndex(0, 1),
-    onArrowLeft: () => changeActiveIndex(-1, 0),
-    onArrowRight: () => changeActiveIndex(1, 0),
-    onArrowUp: () => changeActiveIndex(0, -1)
-  });
+  const onFocus = useCallback((cell) => {
+    setActiveIndexX(cell.x);
+    setActiveIndexY(cell.y);
+  }, []);
+
+  const onKeyDown = useMemo(
+    () =>
+      createKeyboardNavigation({
+        onArrowDown: () => changeActiveIndex(0, 1),
+        onArrowLeft: () => changeActiveIndex(-1, 0),
+        onArrowRight: () => changeActiveIndex(1, 0),
+        onArrowUp: () => changeActiveIndex(0, -1)
+      }),
+    [changeActiveIndex]
+  );
 
   return (
     <div className={styles.board}>
@@ -39,10 +48,7 @@ const Board = () => {
               cell={cell}
               key={cellIndex}
               ref={cellsRefs[rowIndex][cellIndex]}
-              onFocus={() => {
-                setActiveIndexY(rowIndex);
-                setActiveIndexX(cellIndex);
-              }}
+              onFocus={onFocus}
               onKeyDown={onKeyDown}
             />
           ))}
