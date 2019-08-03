@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { useApplyResult } from 'shared';
+import { useApplyResult } from 'result-candidate';
 
 import { useHighlightResult, useUnhighlightResult } from './hooks';
 import styles from './Results.module.scss';

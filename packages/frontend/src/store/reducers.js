@@ -4,6 +4,7 @@ import { reducer as board } from 'board';
 import { reducer as config } from 'config';
 import dictionary from 'dictionary/state';
 import { reducer as i18n } from 'i18n';
+import { reducer as resultCandidate } from 'result-candidate';
 import { reducer as results } from 'results';
 import { reducer as shared } from 'shared';
 import splash from 'splash/state';
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   config,
   dictionary,
   i18n,
+  resultCandidate,
   results,
   shared,
   splash,
