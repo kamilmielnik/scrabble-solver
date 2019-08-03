@@ -1,8 +1,16 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectResults } from './selectors';
-import { highlightResult, unhighlightResult } from './state';
+import { selectResultCandidate, selectResults } from './selectors';
+import { applyResult, highlightResult, unhighlightResult } from './state';
+
+export const useApplyResult = (id) => {
+  const dispatch = useDispatch();
+
+  return useCallback(() => dispatch(applyResult(id)), [dispatch, id]);
+};
+
+export const useResultCandidate = () => useSelector(selectResultCandidate);
 
 export const useHighlightResult = (id) => {
   const dispatch = useDispatch();

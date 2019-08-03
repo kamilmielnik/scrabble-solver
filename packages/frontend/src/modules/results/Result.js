@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { useApplyResult } from 'result-candidate';
-
-import { useHighlightResult, useUnhighlightResult } from './hooks';
+import { useApplyResult, useHighlightResult, useUnhighlightResult } from './hooks';
 import styles from './Results.module.scss';
 
 const Result = ({ result, style }) => {

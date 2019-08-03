@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useResultCandidate } from 'result-candidate';
+import { useResultCandidate } from 'results';
 
 import { selectCharacters } from './selectors';
 import { changeCharacter, submit } from './state';

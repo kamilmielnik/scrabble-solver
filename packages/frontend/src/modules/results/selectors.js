@@ -8,5 +8,10 @@ const selectRoot = (state) => state.results;
 
 export const selectResults = createSelector(
   [selectRoot],
-  (results) => [...results].sort(pointsComparator)
+  ({ results }) => [...results].sort(pointsComparator)
+);
+
+export const selectResultCandidate = createSelector(
+  [selectRoot],
+  ({ resultCandidate }) => resultCandidate
 );

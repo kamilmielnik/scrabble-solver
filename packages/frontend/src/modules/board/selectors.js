@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
 import { selectConfig } from 'config';
-import { selectResultCandidate } from 'result-candidate';
+import { selectResultCandidate } from 'results';
 
 const getCell = (cells, x, y) => cells.find((cell) => cell.x === x && cell.y === y);
 
