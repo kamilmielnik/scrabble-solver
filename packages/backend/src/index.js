@@ -2,7 +2,6 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import url from 'url';
-
 import logger from '@scrabble-solver/logger';
 
 import dictionary from './endpoints/dictionary';

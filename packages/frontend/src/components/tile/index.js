@@ -49,8 +49,8 @@ const Tile = forwardRef(
 );
 
 Tile.propTypes = {
-  className: PropTypes.string,
   character: PropTypes.string,
+  className: PropTypes.string,
   highlighted: PropTypes.bool,
   isBlank: PropTypes.bool,
   placeholder: PropTypes.string,
