@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-import createCachedSelector from 're-reselect';
 
 import { selectConfig } from 'config';
 import { selectResultCandidate } from 'results';
@@ -23,9 +22,13 @@ export const selectRowsWithCandidate = createSelector(
   [selectRows, selectResultCandidateCells],
   (rows, cells) => rows.map((row, y) => row.map((cell, x) => getCell(cells, x, y) || cell))
 );
-export const selectBonus = createCachedSelector([selectConfig, (state, cell) => cell], (config, cell) =>
-  config.bonuses.find((bonus) => bonus.matchesCellCoordinates(cell))
-)((state, { x, y }) => `${x}-${y}`);
-export const selectCharacterPoints = createCachedSelector([selectConfig, (state, cell) => cell], (config, cell) =>
-  cell.tile.isBlank ? config.blankScore : config.pointsMap[cell.tile.character]
-)((state, { x, y }) => `${x}-${y}`);
+export const createSelectBonus = () =>
+  createSelector(
+    [selectConfig, (state, cell) => cell],
+    (config, cell) => config.bonuses.find((bonus) => bonus.matchesCellCoordinates(cell))
+  );
+export const createSelectCharacterPoints = () =>
+  createSelector(
+    [selectConfig, (state, cell) => cell],
+    (config, cell) => (cell.tile.isBlank ? config.blankScore : config.pointsMap[cell.tile.character])
+  );

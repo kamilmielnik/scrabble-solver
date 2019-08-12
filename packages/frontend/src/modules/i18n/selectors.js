@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-import createCachedSelector from 're-reselect';
 
 import { formatMessage } from './utils';
 
@@ -15,11 +14,8 @@ export const selectTranslations = createSelector(
   ({ translations }) => translations
 );
 
-export const selectMessage = createCachedSelector(
+export const selectMessage = createSelector(
   [selectTranslations, selectLocale, (state, ownProps) => ownProps],
   (translations, locale, { id, locale: localeOverride, values }) =>
     formatMessage(translations[localeOverride || locale][id], values)
-)(
-  (state, locale, { id, locale: localeOverride, values } = {}) =>
-    `${localeOverride || locale}-${id}-${JSON.stringify(values)}`
 );
