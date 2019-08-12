@@ -39,7 +39,7 @@ const Cell = forwardRef(({ cell, className, onFocus, onKeyDown }, ref) => {
           onKeyDown(event);
         }
       }),
-    [cell, config, dispatch, onKeyDown]
+    [cell.x, cell.y, config, dispatch, onKeyDown]
   );
 
   return (
