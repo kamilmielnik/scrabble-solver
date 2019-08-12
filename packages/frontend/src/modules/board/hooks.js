@@ -1,4 +1,4 @@
-import { createRef, useCallback, useMemo, useState } from 'react';
+import { createRef, useCallback, useMemo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { createKeyboardNavigation } from 'utils';
 
@@ -13,20 +13,20 @@ export const useCharacterPoints = (cell) => useSelector((state) => selectCharact
 
 export const useGrid = (width, height) => {
   const refs = useMemo(() => createArray(height).map(() => createArray(width).map(() => createRef())), [width, height]);
-  const [[activeIndexX, activeIndexY], setActiveIndex] = useState([null, null]);
+  const activeIndex = useRef({ x: null, y: null });
 
   const changeActiveIndex = useCallback(
     (offsetX, offsetY) => {
-      const nextActiveIndexX = Math.min(Math.max(activeIndexX + offsetX, 0), width - 1);
-      const nextActiveIndexY = Math.min(Math.max(activeIndexY + offsetY, 0), height - 1);
-      setActiveIndex([nextActiveIndexX, nextActiveIndexY]);
-      refs[nextActiveIndexY][nextActiveIndexX].current.focus();
+      activeIndex.current.x = Math.min(Math.max(activeIndex.current.x + offsetX, 0), width - 1);
+      activeIndex.current.y = Math.min(Math.max(activeIndex.current.y + offsetY, 0), height - 1);
+      refs[activeIndex.current.y][activeIndex.current.x].current.focus();
     },
-    [activeIndexX, activeIndexY, refs, width, height]
+    [activeIndex, refs, width, height]
   );
 
   const onFocus = useCallback((cell) => {
-    setActiveIndex([cell.x, cell.y]);
+    activeIndex.current.x = cell.x;
+    activeIndex.current.y = cell.y;
   }, []);
 
   const onKeyDown = useMemo(
