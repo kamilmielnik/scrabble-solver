@@ -10,10 +10,10 @@ const Board = () => {
 
   return (
     <div className={styles.board}>
-      {rows.map((cells, rowIndex) => (
-        <div className={styles.row} key={rowIndex}>
-          {cells.map((cell, cellIndex) => (
-            <Cell cell={cell} key={cellIndex} ref={refs[rowIndex][cellIndex]} onFocus={onFocus} onKeyDown={onKeyDown} />
+      {rows.map((cells, y) => (
+        <div className={styles.row} key={y}>
+          {cells.map((cell, x) => (
+            <Cell cell={cell} key={x} ref={refs[y][x]} onFocus={onFocus} onKeyDown={onKeyDown} />
           ))}
         </div>
       ))}

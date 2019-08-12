@@ -24,10 +24,13 @@ export const useGrid = (width, height) => {
     [activeIndex, refs, width, height]
   );
 
-  const onFocus = useCallback((cell) => {
-    activeIndex.current.x = cell.x;
-    activeIndex.current.y = cell.y;
-  }, []);
+  const onFocus = useCallback(
+    (x, y) => {
+      activeIndex.current.x = x;
+      activeIndex.current.y = y;
+    },
+    [activeIndex]
+  );
 
   const onKeyDown = useMemo(
     () =>

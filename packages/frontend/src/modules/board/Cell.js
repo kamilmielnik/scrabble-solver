@@ -19,7 +19,7 @@ const Cell = forwardRef(({ cell, className, onFocus, onKeyDown }, ref) => {
   const config = useConfig();
   const bonus = useBonus(cell);
   const characterPoints = useCharacterPoints(cell);
-  const handleFocus = useCallback(() => onFocus(cell), [cell, onFocus]);
+  const handleFocus = useCallback(() => onFocus(cell.x, cell.y), [cell.x, cell.y, onFocus]);
   const handleKeyDown = useMemo(
     () =>
       createKeyboardNavigation({
