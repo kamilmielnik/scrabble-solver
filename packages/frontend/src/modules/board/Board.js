@@ -6,21 +6,22 @@ import { useRows } from './hooks';
 import Cell from './Cell';
 import styles from './Board.module.scss';
 
-const Board = () => {
-  const rows = useRows();
-  const cellsRefs = useMemo(() => rows.map((row) => row.map(() => createRef())), [rows]);
+const createArray = (length) => Array.from({ length });
+
+const useGrid = (width, height) => {
+  const refs = useMemo(() => createArray(height).map(() => createArray(width).map(() => createRef())), [width, height]);
   const [activeIndexX, setActiveIndexX] = useState(null);
   const [activeIndexY, setActiveIndexY] = useState(null);
 
   const changeActiveIndex = useCallback(
     (offsetX, offsetY) => {
-      const nextActiveIndexX = Math.min(Math.max(activeIndexX + offsetX, 0), rows[0].length - 1);
-      const nextActiveIndexY = Math.min(Math.max(activeIndexY + offsetY, 0), rows.length - 1);
-      cellsRefs[nextActiveIndexY][nextActiveIndexX].current.focus();
+      const nextActiveIndexX = Math.min(Math.max(activeIndexX + offsetX, 0), width - 1);
+      const nextActiveIndexY = Math.min(Math.max(activeIndexY + offsetY, 0), height - 1);
+      refs[nextActiveIndexY][nextActiveIndexX].current.focus();
       setActiveIndexX(nextActiveIndexX);
       setActiveIndexY(nextActiveIndexY);
     },
-    [activeIndexX, activeIndexY, cellsRefs, rows]
+    [activeIndexX, activeIndexY, refs, width, height]
   );
 
   const onFocus = useCallback((cell) => {
@@ -39,18 +40,19 @@ const Board = () => {
     [changeActiveIndex]
   );
 
+  return [{ refs }, { onFocus, onKeyDown }];
+};
+
+const Board = () => {
+  const rows = useRows();
+  const [{ refs }, { onFocus, onKeyDown }] = useGrid(rows[0].length, rows.length);
+
   return (
     <div className={styles.board}>
       {rows.map((cells, rowIndex) => (
         <div className={styles.row} key={rowIndex}>
           {cells.map((cell, cellIndex) => (
-            <Cell
-              cell={cell}
-              key={cellIndex}
-              ref={cellsRefs[rowIndex][cellIndex]}
-              onFocus={onFocus}
-              onKeyDown={onKeyDown}
-            />
+            <Cell cell={cell} key={cellIndex} ref={refs[rowIndex][cellIndex]} onFocus={onFocus} onKeyDown={onKeyDown} />
           ))}
         </div>
       ))}
