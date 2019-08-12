@@ -10,23 +10,20 @@ const createArray = (length) => Array.from({ length });
 
 const useGrid = (width, height) => {
   const refs = useMemo(() => createArray(height).map(() => createArray(width).map(() => createRef())), [width, height]);
-  const [activeIndexX, setActiveIndexX] = useState(null);
-  const [activeIndexY, setActiveIndexY] = useState(null);
+  const [[activeIndexX, activeIndexY], setActiveIndex] = useState([null, null]);
 
   const changeActiveIndex = useCallback(
     (offsetX, offsetY) => {
       const nextActiveIndexX = Math.min(Math.max(activeIndexX + offsetX, 0), width - 1);
       const nextActiveIndexY = Math.min(Math.max(activeIndexY + offsetY, 0), height - 1);
+      setActiveIndex([nextActiveIndexX, nextActiveIndexY]);
       refs[nextActiveIndexY][nextActiveIndexX].current.focus();
-      setActiveIndexX(nextActiveIndexX);
-      setActiveIndexY(nextActiveIndexY);
     },
     [activeIndexX, activeIndexY, refs, width, height]
   );
 
   const onFocus = useCallback((cell) => {
-    setActiveIndexX(cell.x);
-    setActiveIndexY(cell.y);
+    setActiveIndex([cell.x, cell.y]);
   }, []);
 
   const onKeyDown = useMemo(
