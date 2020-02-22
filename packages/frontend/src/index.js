@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import 'react-virtualized/styles.css';
 
 import configureStore from 'store';
 import App from 'app';
