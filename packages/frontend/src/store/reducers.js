@@ -6,7 +6,6 @@ import { reducer as i18n } from 'i18n';
 import { reducer as results } from 'results';
 import { reducer as shared } from 'shared';
 import { reducer as tiles } from 'tiles';
-import { reducer as walkthrough } from 'walkthrough';
 
 const rootReducer = combineReducers({
   board,
@@ -14,8 +13,7 @@ const rootReducer = combineReducers({
   i18n,
   results,
   shared,
-  tiles,
-  walkthrough
+  tiles
 });
 
 export default rootReducer;

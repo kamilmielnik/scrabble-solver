@@ -6,7 +6,6 @@ import { Board } from 'board';
 import { LocaleSetting } from 'i18n';
 import { Results } from 'results';
 import { Tiles } from 'tiles';
-import { ShowWalkthrough, Walkthrough } from 'walkthrough';
 
 import styles from './app.module.scss';
 
@@ -21,10 +20,6 @@ const App = () => {
 
           <div className={styles.menuRight}>
             <LocaleSetting />
-
-            <div className={styles.walkthrough}>
-              <ShowWalkthrough />
-            </div>
           </div>
         </div>
 
@@ -40,8 +35,6 @@ const App = () => {
       <div className={styles.sidebar}>
         <Results height={height} width={Math.max(width * 0.2, 200)} />
       </div>
-
-      <Walkthrough />
     </div>
   );
 };
