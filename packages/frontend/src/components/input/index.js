@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { noop } from 'utils';
-import Button from 'components/button';
+import { Button } from 'components';
 import { Cross } from 'components/icons';
 import Section from 'components/section';
 

@@ -6,7 +6,6 @@ import dictionary from 'dictionary/state';
 import { reducer as i18n } from 'i18n';
 import { reducer as results } from 'results';
 import { reducer as shared } from 'shared';
-import splash from 'splash/state';
 import { reducer as tiles } from 'tiles';
 import { reducer as walkthrough } from 'walkthrough';
 
@@ -17,7 +16,6 @@ const rootReducer = combineReducers({
   i18n,
   results,
   shared,
-  splash,
   tiles,
   walkthrough
 });
