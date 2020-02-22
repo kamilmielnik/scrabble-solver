@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FixedSizeList } from 'react-window';
 
-import Loading from 'components/loading';
+import { Loading } from 'components';
 import { useIsLoading } from 'shared';
 
 import Empty from './Empty';

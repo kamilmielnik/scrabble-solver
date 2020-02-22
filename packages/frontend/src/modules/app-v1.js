@@ -4,7 +4,6 @@ import Board from 'board/components';
 import Config from 'config/components';
 import RemainingTiles from 'remaining-tiles/components';
 import ResultsFilter from 'results/components/filter';
-import ResultsList from 'results/components/list';
 import { Tiles } from 'tiles';
 import Time from 'time/components';
 import Walkthrough from 'walkthrough/components';
@@ -19,7 +18,6 @@ const App = () => (
           <Board />
         </div>
         <div className={styles.right}>
-          <ResultsList />
           <ResultsFilter />
         </div>
 

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Spinner from './spinner';
-import styles from './loading.module.scss';
+import Spinner from './Spinner';
+import styles from './Loading.module.scss';
 
 const Loading = ({ children, className, isLoading }) => (
   <div className={classNames(styles.loading, className)}>
