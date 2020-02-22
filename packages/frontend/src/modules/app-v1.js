@@ -2,7 +2,6 @@ import React from 'react';
 
 import Board from 'board/components';
 import Config from 'config/components';
-import RemainingTiles from 'remaining-tiles/components';
 import ResultsFilter from 'results/components/filter';
 import { Tiles } from 'tiles';
 import Time from 'time/components';
