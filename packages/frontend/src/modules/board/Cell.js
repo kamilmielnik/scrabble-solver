@@ -60,6 +60,7 @@ const Cell = forwardRef(({ cell, className, onFocus, onKeyDown }, ref) => {
         className=""
         highlighted={cell.isCandidate()}
         isBlank={cell.tile.isBlank}
+        raised={cell.tile.character !== EMPTY_CELL}
         ref={ref}
         small
         onFocus={handleFocus}

@@ -11,8 +11,6 @@ $tile-font-size: $tile-size * 3 / 5;
   color: $white;
   font-size: $tile-font-size;
   transition: background-color $micro-animation-duration, color $micro-animation-duration;
-  // box-shadow: inset -1px -1px 1px 0px $dark-gray;
-  box-shadow: inset -2px -2px 2px -1px rgba(34, 34, 34, 0.8);
 
   &.small {
     $tile-size: 48px;
@@ -21,10 +19,6 @@ $tile-font-size: $tile-size * 3 / 5;
     width: $tile-size;
     height: $tile-size;
     font-size: $tile-font-size;
-
-    &.empty {
-      box-shadow: inset -2px -2px 1px -1px rgba(34, 34, 34, 0.35);
-    }
 
     .points {
       position: absolute;
@@ -37,7 +31,7 @@ $tile-font-size: $tile-size * 3 / 5;
     }
   }
 
-  &.empty {
+  &.raised {
     box-shadow: inset -2px -2px 2px -1px rgba(34, 34, 34, 0.8);
   }
 

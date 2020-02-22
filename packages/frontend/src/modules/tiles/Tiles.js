@@ -59,6 +59,7 @@ const Tiles = ({ id }) => {
           isBlank={character === BLANK}
           key={index}
           placeholder={placeholder[index]}
+          raised
           ref={tilesRefs[index]}
           onFocus={() => setActiveIndex(index)}
           onKeyDown={createKeyboardNavigation({
