@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { QuestionMark } from 'components/icons';
+import { QuestionMark } from 'icons';
 
 import { useShowWalkthrough } from './hooks';
 import styles from './ShowWalkthrough.module.scss';

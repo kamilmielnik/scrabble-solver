@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { FlagGb, FlagPl, FlagUs } from 'components/icons';
+import { FlagGb, FlagPl, FlagUs } from 'icons';
 
 import { useChangeLocale, useLocale } from './hooks';
 import styles from './LocaleSetting.module.scss';
