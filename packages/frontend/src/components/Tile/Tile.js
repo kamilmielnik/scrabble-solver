@@ -22,7 +22,6 @@ const Tile = forwardRef(
       <div
         className={classNames(styles.tile, className, {
           [styles.small]: small,
-          [styles.empty]: character === null,
           [styles.highlighted]: highlighted,
           [styles.blank]: isBlank,
           [styles.raised]: raised,

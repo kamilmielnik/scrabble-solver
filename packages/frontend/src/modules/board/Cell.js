@@ -57,7 +57,6 @@ const Cell = forwardRef(({ cell, className, onFocus, onKeyDown }, ref) => {
     >
       <Tile
         character={cell.tile.character === EMPTY_CELL ? null : cell.tile.character}
-        className=""
         highlighted={cell.isCandidate()}
         isBlank={cell.tile.isBlank}
         raised={cell.tile.character !== EMPTY_CELL}
