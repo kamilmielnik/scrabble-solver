@@ -4,7 +4,6 @@ import { Result } from '@scrabble-solver/models';
 import { postSolve } from 'api';
 import { applyResult, selectBoard } from 'board';
 import { CHANGE_CONFIG, selectConfigId } from 'config';
-import { changeInput as changeDictionaryInput, submit as submitDictionary } from 'dictionary/state';
 import { CHANGE_LOCALE, selectLocale } from 'i18n';
 import {
   APPLY_RESULT,
@@ -36,8 +35,6 @@ function* onApplyResult({ payload: id }) {
 function* onHighlightResult({ payload: id }) {
   const results = yield select(selectResults);
   const result = getResultById(results, id);
-  yield put(changeDictionaryInput(result.word));
-  yield put(submitDictionary());
   yield put(changeResultCandidate(result));
 }
 
