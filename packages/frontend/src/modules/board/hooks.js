@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { createKeyboardNavigation } from 'utils';
 
 import { createSelectBonus, createSelectCharacterPoints, selectRowsWithCandidate } from './selectors';
-import { createArray } from './utils';
+import { createGridOf } from './utils';
 
 export const useRows = () => useSelector(selectRowsWithCandidate);
 
@@ -18,7 +18,7 @@ export const useCharacterPoints = (cell) => {
 };
 
 export const useGrid = (width, height) => {
-  const refs = useMemo(() => createArray(height).map(() => createArray(width).map(() => createRef())), [width, height]);
+  const refs = useMemo(() => createGridOf(width, height, () => createRef()), [width, height]);
   const activeIndex = useRef({ x: null, y: null });
 
   const changeActiveIndex = useCallback(
