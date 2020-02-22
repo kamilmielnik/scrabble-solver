@@ -20,7 +20,7 @@
   "dependencies": {
     "@scrabble-solver/models": "^2.0.0-alpha.6",
     "@scrabble-solver/trie": "^2.0.0-alpha.6",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
     "@scrabble-solver/configs": "^2.0.0-alpha.6",
