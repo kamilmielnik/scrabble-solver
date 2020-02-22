@@ -1,7 +1,7 @@
 import React from 'react';
 import * as configs from '@scrabble-solver/configs';
 
-import Setting from 'components/setting';
+import { Setting } from 'components';
 
 import { useChangeConfig, useConfigId } from './hooks';
 
