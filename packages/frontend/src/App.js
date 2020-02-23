@@ -7,7 +7,7 @@ import { LocaleSetting } from 'i18n';
 import { Results } from 'results';
 import { Tiles } from 'tiles';
 
-import styles from './app.module.scss';
+import styles from './App.module.scss';
 
 const App = () => {
   const { width, height } = useWindowSize();
