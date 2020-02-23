@@ -14,7 +14,7 @@ import { getBonusClassname, getCharacterPointsClassname } from './cell-classname
 import { changeCellValue, toggleCellIsBlank } from './state';
 import styles from './Cell.module.scss';
 
-const Cell = forwardRef(({ cell, className, onFocus, onKeyDown }, ref) => {
+const Cell = forwardRef(({ cell, className, onFocus, onKeyDown, onMoveFocus }, ref) => {
   const dispatch = useDispatch();
   const config = useConfig();
   const bonus = useBonus(cell);
@@ -34,6 +34,7 @@ const Cell = forwardRef(({ cell, className, onFocus, onKeyDown }, ref) => {
             dispatch(toggleCellIsBlank(cell.x, cell.y));
           } else if (config.hasCharacter(character)) {
             dispatch(changeCellValue(cell.x, cell.y, character));
+            onMoveFocus();
           }
 
           onKeyDown(event);
@@ -73,7 +74,8 @@ Cell.propTypes = {
   cell: PropTypes.object.isRequired,
   className: PropTypes.string,
   onFocus: PropTypes.func.isRequired,
-  onKeyDown: PropTypes.func.isRequired
+  onKeyDown: PropTypes.func.isRequired,
+  onMoveFocus: PropTypes.func.isRequired
 };
 
 export default Cell;

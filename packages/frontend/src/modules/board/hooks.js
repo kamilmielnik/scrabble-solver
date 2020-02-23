@@ -20,6 +20,7 @@ export const useCharacterPoints = (cell) => {
 export const useGrid = (width, height) => {
   const refs = useMemo(() => createGridOf(width, height, () => createRef()), [width, height]);
   const activeIndex = useRef({ x: null, y: null });
+  const lastDirectionRef = useRef('horizontal');
 
   const changeActiveIndex = useCallback(
     (offsetX, offsetY) => {
@@ -39,16 +40,36 @@ export const useGrid = (width, height) => {
     [activeIndex]
   );
 
+  const onMoveFocus = useCallback(() => {
+    if (lastDirectionRef.current === 'horizontal') {
+      changeActiveIndex(1, 0);
+    } else if (lastDirectionRef.current === 'vertical') {
+      changeActiveIndex(0, 1);
+    }
+  }, [changeActiveIndex]);
+
   const onKeyDown = useMemo(
     () =>
       createKeyboardNavigation({
-        onArrowDown: () => changeActiveIndex(0, 1),
-        onArrowLeft: () => changeActiveIndex(-1, 0),
-        onArrowRight: () => changeActiveIndex(1, 0),
-        onArrowUp: () => changeActiveIndex(0, -1)
+        onArrowDown: () => {
+          changeActiveIndex(0, 1);
+          lastDirectionRef.current = 'vertical';
+        },
+        onArrowLeft: () => {
+          changeActiveIndex(-1, 0);
+          lastDirectionRef.current = 'horizontal';
+        },
+        onArrowRight: () => {
+          changeActiveIndex(1, 0);
+          lastDirectionRef.current = 'horizontal';
+        },
+        onArrowUp: () => {
+          changeActiveIndex(0, -1);
+          lastDirectionRef.current = 'vertical';
+        }
       }),
     [changeActiveIndex]
   );
 
-  return [{ refs }, { onFocus, onKeyDown }];
+  return [{ refs }, { onFocus, onKeyDown, onMoveFocus }];
 };
