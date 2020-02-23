@@ -1,5 +1,6 @@
 import { createRef, useCallback, useMemo, useRef } from 'react';
 import { useSelector } from 'react-redux';
+
 import { createKeyboardNavigation } from 'utils';
 
 import { createSelectBonus, createSelectCharacterPoints, selectRowsWithCandidate } from './selectors';
