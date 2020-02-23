@@ -2,14 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { useApplyResult, useHighlightResult, useUnhighlightResult } from './hooks';
+import { useApplyResult, useHighlightResult, useResults, useUnhighlightResult } from './hooks';
 import styles from './Results.module.scss';
 
-const Result = ({ result, style }) => {
+const Result = ({ index, style }) => {
+  const results = useResults();
+  const result = results[index];
   const applyResult = useApplyResult(result.id);
   const highlightResult = useHighlightResult(result.id);
   const unhighlightResult = useUnhighlightResult();
-
   return (
     <div
       className={styles.row}
@@ -25,7 +26,7 @@ const Result = ({ result, style }) => {
 };
 
 Result.propTypes = {
-  result: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
   style: PropTypes.object.isRequired
 };
 

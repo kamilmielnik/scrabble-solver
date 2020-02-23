@@ -30,7 +30,7 @@ const Results = ({ height, width }) => {
             itemSize={ITEM_HEIGHT}
             width={width}
           >
-            {({ index, style }) => <Result result={results[index]} style={style} />}
+            {Result}
           </FixedSizeList>
         )}
 
