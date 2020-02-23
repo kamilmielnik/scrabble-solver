@@ -7,6 +7,7 @@
   position: relative;
   display: table-cell;
   background-color: $white;
+  background-clip: padding-box;
   border: $border;
   transition: background-color $micro-animation-duration, color $micro-animation-duration;
 
