@@ -1,6 +1,6 @@
 {
   "name": "scrabble-solver-backend",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Scrabble Solver - Backend",
   "main": "src/index.js",
   "engines": {
@@ -74,7 +74,6 @@
   "bugs": {
     "url": "https://github.com/kamilmielnik/scrabble-solver/issues"
   },
-  "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",

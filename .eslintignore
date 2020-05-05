@@ -1,5 +1,7 @@
 scrabble-solver-backend/node_modules/
 scrabble-solver-commons/node_modules/
 scrabble-solver-frontend/node_modules/
+scrabble-solver-backend/build/
 scrabble-solver-backend/dist/
+scrabble-solver-frontend/build/
 scrabble-solver-frontend/dist/
