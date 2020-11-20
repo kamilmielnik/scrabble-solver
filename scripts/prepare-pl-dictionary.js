@@ -1,3 +1,4 @@
+import { Trie } from '@kamilmielnik/trie';
 import { URL } from 'url';
 import yargs from 'yargs';
 import cheerio from 'cheerio';
@@ -12,7 +13,6 @@ import {
   unzipFile,
   writeFile
 } from './utils';
-import Trie from '../packages/trie';
 
 const PAGE_URL = 'https://sjp.pl/slownik/growy/';
 const FILE_TO_EXTRACT_FROM_ZIP = 'slowa.txt';

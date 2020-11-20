@@ -1,6 +1,6 @@
+import { Trie } from '@kamilmielnik/trie';
 import yargs from 'yargs';
 import { createDirectory, downloadFile, logAction, readFile, removeFile, writeFile } from './utils';
-import Trie from '../packages/trie';
 
 const { argv } = yargs
   .usage('$0 --output-dir=[string]')
