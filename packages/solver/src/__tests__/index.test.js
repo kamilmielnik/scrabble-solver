@@ -1,7 +1,7 @@
 import fs from 'fs';
+import { Trie } from '@kamilmielnik/trie';
 import { literaki } from '@scrabble-solver/configs';
 import { Board, Tile } from '@scrabble-solver/models';
-import Trie from '@scrabble-solver/trie';
 
 import Solver from '../index';
 
@@ -42,7 +42,7 @@ describe('Solver', () => {
     ]);
     const tiles = generateTiles('lino');
     const results = solver.solve(board, tiles);
-    expect(results.length).toBe(59);
+    expect(results.length).toBe(60);
   });
 
   it('zmartwychwstałą x9', () => {

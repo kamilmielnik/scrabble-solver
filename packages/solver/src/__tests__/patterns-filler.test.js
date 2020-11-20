@@ -1,7 +1,7 @@
 import fs from 'fs';
+import { Trie } from '@kamilmielnik/trie';
 import { literaki } from '@scrabble-solver/configs';
 import { Board, Cell, Tile, VerticalPattern } from '@scrabble-solver/models';
-import Trie from '@scrabble-solver/trie';
 
 import PatternsFiller from '../patterns-filler';
 

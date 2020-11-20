@@ -43,7 +43,7 @@ class PatternsFiller {
           if (this.canAddPattern(pattern, newWord)) {
             onPatternFound(pattern.clone());
           }
-        } else if (this.collection.hasMore(newWordPrefix)) {
+        } else if (this.collection.hasPrefix(newWordPrefix)) {
           this.fillPattern(pattern, newWord, remainingTiles, onPatternFound);
         }
         pattern.cells[indexOfFirstCellWithoutTile].tile = previousTile;
