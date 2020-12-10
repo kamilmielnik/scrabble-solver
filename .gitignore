@@ -3,6 +3,7 @@ dist/
 packages/**/dist/
 packages/**/build/
 **/node_modules/
+*.eslintcache
 *.db
 *.log
 *.zip
