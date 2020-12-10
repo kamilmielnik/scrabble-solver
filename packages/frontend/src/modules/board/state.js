@@ -14,11 +14,7 @@ export const changeCellValue = createAction(CHANGE_CELL_VALUE, (x, y, value) => 
 export const toggleCellIsBlank = createAction(TOGGLE_CELL_IS_BLANK, (x, y) => ({ x, y }));
 
 const initialState = Board.fromStringArray(
-  Array(config[i18n.locale].boardHeight).fill(
-    Array(config[i18n.locale].boardWidth)
-      .fill(' ')
-      .join('')
-  )
+  Array(config[i18n.locale].boardHeight).fill(Array(config[i18n.locale].boardWidth).fill(' ').join(''))
 );
 
 export const reducer = handleActions(

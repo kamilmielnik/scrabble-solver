@@ -67,14 +67,8 @@ class Config {
 const getAlphabet = ({ tiles }) => tiles.map(({ character }) => character);
 const getAllCharacters = ({ tiles, numberOfBlanks }) =>
   tiles.reduce(
-    (allCharacters, { character, count }) =>
-      allCharacters +
-      Array(count)
-        .fill(character)
-        .join(''),
-    Array(numberOfBlanks)
-      .fill(BLANK)
-      .join('')
+    (allCharacters, { character, count }) => allCharacters + Array(count).fill(character).join(''),
+    Array(numberOfBlanks).fill(BLANK).join('')
   );
 const getPointsMap = ({ tiles }) =>
   tiles.reduce(

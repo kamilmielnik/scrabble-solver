@@ -38,10 +38,7 @@ class Result {
 const getTiles = (cells) => cells.filter(({ isEmpty }) => isEmpty).map(({ tile }) => tile);
 const getWord = (cells) => cells.map(String).join('');
 const getBlanks = (tiles) => tiles.filter(({ isBlank }) => isBlank);
-const getTilesCharacters = (tiles) =>
-  getNonBlankCharacters(tiles)
-    .sort(charactersComparator)
-    .join('');
+const getTilesCharacters = (tiles) => getNonBlankCharacters(tiles).sort(charactersComparator).join('');
 const getNonBlankCharacters = (tiles) => getNonBlanks(tiles).map(({ character }) => character);
 const getNonBlanks = (tiles) => tiles.filter(({ isBlank }) => !isBlank);
 const getPointsRatio = (tiles, points) => points / tiles.length;

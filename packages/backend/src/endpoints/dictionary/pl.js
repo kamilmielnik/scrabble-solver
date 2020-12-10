@@ -40,28 +40,15 @@ const getIsAllowedNode = ($header) => $header.next();
 
 const getWordNode = ($header) => $header.next().next();
 
-const getDefinitionsNode = ($header) =>
-  $header
-    .next()
-    .next()
-    .next()
-    .next();
+const getDefinitionsNode = ($header) => $header.next().next().next().next();
 
 const getWord = ($word) => $word.text().trim();
 
-const isAllowed = ($isAllowed) =>
-  $isAllowed
-    .text()
-    .trim()
-    .indexOf('dopuszczalne w grach') >= 0;
+const isAllowed = ($isAllowed) => $isAllowed.text().trim().indexOf('dopuszczalne w grach') >= 0;
 
 const getTrimmedDefinitions = ($definitions) =>
   getDefinitions($definitions)
     .map((text) => text.trim())
     .filter(Boolean);
 
-const getDefinitions = ($definitions) =>
-  $definitions
-    .text()
-    .trim()
-    .split(/\d+\./);
+const getDefinitions = ($definitions) => $definitions.text().trim().split(/\d+\./);
