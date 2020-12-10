@@ -53,7 +53,7 @@
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
-    "@kamilmielnik/trie": "^1.0.0-rc.1",
+    "@kamilmielnik/trie": "^1.0.2",
     "@scrabble-solver/configs": "^2.0.0-alpha.6",
     "@scrabble-solver/constants": "^2.0.0-alpha.6",
     "@scrabble-solver/logger": "^2.0.0-alpha.6",
