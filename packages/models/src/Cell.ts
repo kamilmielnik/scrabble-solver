@@ -8,7 +8,7 @@ export interface CellJson {
 }
 
 class Cell {
-  static fromJson(json: CellJson) {
+  static fromJson(json: CellJson): Cell {
     if (!json) {
       return Cell.Null;
     }
@@ -38,7 +38,7 @@ class Cell {
 
   public readonly y: number;
 
-  constructor({ isEmpty = true, tile = Tile.Null, x, y }: { isEmpty: boolean; tile: Tile; x: number; y: number }) {
+  constructor({ isEmpty = true, tile = Tile.Null, x, y }: { isEmpty?: boolean; tile?: Tile; x: number; y: number }) {
     this.isEmpty = isEmpty;
     this.tile = tile;
     this.x = x;

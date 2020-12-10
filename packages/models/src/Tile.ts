@@ -23,7 +23,7 @@ class Tile {
 
   public readonly isBlank: boolean;
 
-  constructor({ character, isBlank = false }: { character: string; isBlank: boolean }) {
+  constructor({ character, isBlank = false }: { character: string; isBlank?: boolean }) {
     this.character = character;
     this.isBlank = isBlank;
   }
