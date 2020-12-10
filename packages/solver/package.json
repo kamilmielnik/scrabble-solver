@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
-    "@kamilmielnik/trie": "^1.0.0-rc.1",
+    "@kamilmielnik/trie": "^1.0.2",
     "@scrabble-solver/models": "^2.0.0-alpha.6",
     "lodash": "^4.17.20"
   },
