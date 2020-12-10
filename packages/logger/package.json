@@ -19,6 +19,6 @@
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "gitHead": "98f06d7bc5b60e4fb6bb6f79e238ef2a7fce5b0e",
   "dependencies": {
-    "winston": "^3.2.1"
+    "winston": "^3.3.3"
   }
 }
