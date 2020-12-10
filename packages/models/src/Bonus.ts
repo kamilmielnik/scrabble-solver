@@ -1,5 +1,3 @@
-import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
-
 import BonusValue from './BonusValue';
 import Cell from './Cell';
 import Config from './Config';
@@ -7,12 +5,12 @@ import Config from './Config';
 interface BonusJson {
   multiplier: number;
   score: number;
-  type: BONUS_CHARACTER | BONUS_WORD;
+  type: string;
   x: number;
   y: number;
 }
 
-class Bonus {
+abstract class Bonus {
   public readonly config: Config;
 
   public readonly multiplier: number;
@@ -58,7 +56,7 @@ class Bonus {
     return this.x === cell.x && this.y === cell.y;
   }
 
-  public abstract getType(): BONUS_CHARACTER | BONUS_WORD;
+  public abstract getType(): string;
 
   public toJson(): BonusJson {
     return {
