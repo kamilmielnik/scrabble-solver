@@ -19,12 +19,12 @@
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
     "@kamilmielnik/trie": "^1.0.2",
-    "@scrabble-solver/models": "^2.0.0-alpha.6",
+    "@scrabble-solver/models": "2.0.0-alpha.6",
     "lodash": "^4.17.20"
   },
   "devDependencies": {
-    "@scrabble-solver/configs": "^2.0.0-alpha.6",
-    "@scrabble-solver/constants": "^2.0.0-alpha.6"
+    "@scrabble-solver/configs": "2.0.0-alpha.6",
+    "@scrabble-solver/constants": "2.0.0-alpha.6"
   },
   "gitHead": "98f06d7bc5b60e4fb6bb6f79e238ef2a7fce5b0e"
 }
