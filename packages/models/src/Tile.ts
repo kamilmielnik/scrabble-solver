@@ -17,7 +17,7 @@ class Tile {
     });
   }
 
-  public static Null: Tile = Object.freeze(new Tile({ character: '', isBlank: false }));
+  public static readonly Null: Tile = Object.freeze(new Tile({ character: '', isBlank: false }));
 
   public readonly character: string;
 

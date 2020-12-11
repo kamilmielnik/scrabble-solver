@@ -21,7 +21,7 @@ class Cell {
     });
   }
 
-  public static Null: Cell = Object.freeze(
+  public static readonly Null: Cell = Object.freeze(
     new Cell({
       isEmpty: true,
       tile: Tile.Null,

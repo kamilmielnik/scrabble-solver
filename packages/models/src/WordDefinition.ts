@@ -5,7 +5,7 @@ interface WordDefinitionJson {
 }
 
 class WordDefinition {
-  public static Null = Object.freeze(
+  public static readonly Null = Object.freeze(
     new WordDefinition({
       definitions: [],
       isAllowed: false,
