@@ -63,7 +63,7 @@ class Pattern {
     return [];
   }
 
-  toJson(): PatternJson {
+  public toJson(): PatternJson {
     return {
       cells: this.cells.map((cell) => cell.toJson()),
       collisions: this.getCollisions().map((collision) => collision.toJson()),

@@ -4,7 +4,7 @@ import Bonus from './Bonus';
 import BonusValue from './BonusValue';
 
 class WordBonus extends Bonus {
-  public getType(): BONUS_WORD {
+  public getType(): string {
     return BONUS_WORD;
   }
 

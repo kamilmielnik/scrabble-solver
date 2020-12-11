@@ -75,20 +75,20 @@ class Result {
   }
 }
 
-const getTiles = (cells: Cell[]) => cells.filter(({ isEmpty }) => isEmpty).map(({ tile }) => tile);
+const getTiles = (cells: Cell[]): Tile[] => cells.filter(({ isEmpty }) => isEmpty).map(({ tile }) => tile);
 
-const getWord = (cells: Cell[]) => cells.map(String).join('');
+const getWord = (cells: Cell[]): string => cells.map(String).join('');
 
-const getBlanks = (tiles: Tile[]) => tiles.filter(({ isBlank }) => isBlank);
+const getBlanks = (tiles: Tile[]): Tile[] => tiles.filter(({ isBlank }) => isBlank);
 
-const getTilesCharacters = (tiles: Tile[]) => getNonBlankCharacters(tiles).sort(charactersComparator).join('');
+const getTilesCharacters = (tiles: Tile[]): string => getNonBlankCharacters(tiles).sort(charactersComparator).join('');
 
-const getNonBlankCharacters = (tiles: Tile[]) => getNonBlanks(tiles).map(({ character }) => character);
+const getNonBlankCharacters = (tiles: Tile[]): string[] => getNonBlanks(tiles).map(({ character }) => character);
 
-const getNonBlanks = (tiles: Tile[]) => tiles.filter(({ isBlank }) => !isBlank);
+const getNonBlanks = (tiles: Tile[]): Tile[] => tiles.filter(({ isBlank }) => !isBlank);
 
-const getPointsRatio = (tiles: Tile[], points: number) => points / tiles.length;
+const getPointsRatio = (tiles: Tile[], points: number): number => points / tiles.length;
 
-const charactersComparator = (a: string, b: string) => a.localeCompare(b);
+const charactersComparator = (a: string, b: string): number => a.localeCompare(b);
 
 export default Result;

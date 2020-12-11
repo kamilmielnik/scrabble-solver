@@ -9,7 +9,7 @@ class CharacterBonus extends Bonus {
     return this.matchesCellCoordinates(cell) && this.matchesCellTileScore(cell);
   }
 
-  public getType(): BONUS_CHARACTER {
+  public getType(): string {
     return BONUS_CHARACTER;
   }
 

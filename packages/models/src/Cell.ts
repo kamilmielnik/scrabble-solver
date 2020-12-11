@@ -8,7 +8,7 @@ export interface CellJson {
 }
 
 class Cell {
-  static fromJson(json: CellJson): Cell {
+  public static fromJson(json: CellJson): Cell {
     if (!json) {
       return Cell.Null;
     }
