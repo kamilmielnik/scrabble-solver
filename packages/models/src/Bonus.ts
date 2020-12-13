@@ -1,14 +1,7 @@
+import BonusJson from './BonusJson';
 import BonusValue from './BonusValue';
 import Cell from './Cell';
 import Config from './Config';
-
-export interface BonusJson {
-  multiplier: number;
-  score: number;
-  type: string;
-  x: number;
-  y: number;
-}
 
 abstract class Bonus {
   public readonly config: Config;

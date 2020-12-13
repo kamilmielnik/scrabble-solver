@@ -1,12 +1,6 @@
-import Cell, { CellJson } from './Cell';
+import Cell from './Cell';
+import ResultJson from './ResultJson';
 import Tile from './Tile';
-
-export interface ResultJson {
-  cells: CellJson[];
-  id: number;
-  numberOfCollisions: number;
-  points: number;
-}
 
 class Result {
   public static fromJson(json: ResultJson): Result {

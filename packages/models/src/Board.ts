@@ -1,9 +1,8 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 
-import Cell, { CellJson } from './Cell';
+import BoardJson from './BoardJson';
+import Cell from './Cell';
 import Tile from './Tile';
-
-export type BoardJson = CellJson[][];
 
 class Board {
   public static fromJson(json: BoardJson): Board {

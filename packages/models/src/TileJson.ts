@@ -1,4 +1,4 @@
-export interface TileJson {
+interface TileJson {
   character: string;
   isBlank: boolean;
 }

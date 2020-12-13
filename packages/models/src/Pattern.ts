@@ -1,11 +1,6 @@
 import Board from './Board';
-import Cell, { CellJson } from './Cell';
-
-interface PatternJson {
-  cells: CellJson[];
-  collisions: PatternJson[];
-  word: string;
-}
+import Cell from './Cell';
+import PatternJson from './PatternJson';
 
 class Pattern {
   public readonly board: Board;

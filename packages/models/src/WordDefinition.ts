@@ -1,8 +1,4 @@
-interface WordDefinitionJson {
-  definitions: string[];
-  isAllowed: boolean;
-  word: string;
-}
+import WordDefinitionJson from './WordDefinitionJson';
 
 class WordDefinition {
   public static readonly Null = Object.freeze(

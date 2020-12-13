@@ -1,12 +1,5 @@
+import CellJson from './CellJson';
 import Tile from './Tile';
-import TileJson from './TileJson';
-
-export interface CellJson {
-  isEmpty: boolean;
-  tile: TileJson;
-  x: number;
-  y: number;
-}
 
 class Cell {
   public static fromJson(json: CellJson): Cell {

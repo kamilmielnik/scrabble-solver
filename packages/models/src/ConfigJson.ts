@@ -1,15 +1,17 @@
-import { BonusJson } from './Bonus';
+import BonusJson from './BonusJson';
 import TileConfig from './TileConfig';
 
-export default interface ConfigJson {
-  id: string;
-  name: string;
+interface ConfigJson {
   allTilesBonusScore: number;
   blankScore: number;
-  boardWidth: number;
   boardHeight: number;
-  maximumNumberOfCharacters: number;
-  numberOfBlanks: number;
+  boardWidth: number;
   bonuses: BonusJson[];
+  id: string;
+  maximumNumberOfCharacters: number;
+  name: string;
+  numberOfBlanks: number;
   tiles: TileConfig[];
 }
+
+export default ConfigJson;

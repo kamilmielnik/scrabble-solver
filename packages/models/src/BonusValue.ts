@@ -1,4 +1,6 @@
-export default interface BonusValue {
+interface BonusValue {
   characterMultiplier: number;
   wordMultiplier: number;
 }
+
+export default BonusValue;
