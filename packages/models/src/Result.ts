@@ -46,36 +46,32 @@ class Result {
     points: number;
   }) {
     const tiles = getTiles(cells);
-    this.id = id;
-    this.points = points;
     this.cells = cells;
-    this.numberOfCollisions = numberOfCollisions;
-    this.word = getWord(cells);
+    this.id = id;
     this.length = cells.length;
+    this.numberOfBlanks = getBlanks(tiles).length;
+    this.numberOfCollisions = numberOfCollisions;
+    this.numberOfTiles = tiles.length;
+    this.points = points;
+    this.pointsRatio = getPointsRatio(tiles, points);
     this.tiles = tiles;
     this.tilesCharacters = getTilesCharacters(tiles);
-    this.numberOfTiles = tiles.length;
-    this.numberOfBlanks = getBlanks(tiles).length;
-    this.pointsRatio = getPointsRatio(tiles, points);
+    this.word = getWord(cells);
   }
 
   public toJson(): ResultJson {
     return {
-      id: this.id,
-      points: this.points,
       cells: this.cells.map((cell) => cell.toJson()),
-      numberOfCollisions: this.numberOfCollisions
+      id: this.id,
+      numberOfCollisions: this.numberOfCollisions,
+      points: this.points
     };
   }
 }
 
-const getTiles = (cells: Cell[]): Tile[] => cells.filter(({ isEmpty }) => isEmpty).map(({ tile }) => tile);
-
-const getWord = (cells: Cell[]): string => cells.map(String).join('');
+const charactersComparator = (a: string, b: string): number => a.localeCompare(b);
 
 const getBlanks = (tiles: Tile[]): Tile[] => tiles.filter(({ isBlank }) => isBlank);
-
-const getTilesCharacters = (tiles: Tile[]): string => getNonBlankCharacters(tiles).sort(charactersComparator).join('');
 
 const getNonBlankCharacters = (tiles: Tile[]): string[] => getNonBlanks(tiles).map(({ character }) => character);
 
@@ -83,6 +79,10 @@ const getNonBlanks = (tiles: Tile[]): Tile[] => tiles.filter(({ isBlank }) => !i
 
 const getPointsRatio = (tiles: Tile[], points: number): number => points / tiles.length;
 
-const charactersComparator = (a: string, b: string): number => a.localeCompare(b);
+const getTiles = (cells: Cell[]): Tile[] => cells.filter(({ isEmpty }) => isEmpty).map(({ tile }) => tile);
+
+const getTilesCharacters = (tiles: Tile[]): string => getNonBlankCharacters(tiles).sort(charactersComparator).join('');
+
+const getWord = (cells: Cell[]): string => cells.map(String).join('');
 
 export default Result;

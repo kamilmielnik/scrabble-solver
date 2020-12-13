@@ -38,6 +38,8 @@ abstract class Bonus {
     return this.matchesCellCoordinates(cell);
   }
 
+  public abstract getType(): string;
+
   public getValue(): BonusValue {
     return {
       characterMultiplier: 1,
@@ -48,8 +50,6 @@ abstract class Bonus {
   public matchesCellCoordinates(cell: Cell): boolean {
     return this.x === cell.x && this.y === cell.y;
   }
-
-  public abstract getType(): string;
 
   public toJson(): BonusJson {
     return {

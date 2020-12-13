@@ -20,12 +20,12 @@ class Config {
     this.config = config;
   }
 
-  public get alphabet(): string[] {
-    return getAlphabet(this.config);
-  }
-
   public get allCharacters(): string {
     return getAllCharacters(this.config);
+  }
+
+  public get alphabet(): string[] {
+    return getAlphabet(this.config);
   }
 
   public get bonuses(): Bonus[] {
@@ -40,10 +40,6 @@ class Config {
 
       throw new Error(`Unsupported Bonus type: "${bonus.type}"`);
     });
-  }
-
-  public get pointsMap(): Record<string, number> {
-    return getPointsMap(this.config);
   }
 
   public getCellBonusValue(cell: Cell): BonusValue {
@@ -66,6 +62,10 @@ class Config {
 
   public hasCharacter(character: string): boolean {
     return this.alphabet.includes(character);
+  }
+
+  public get pointsMap(): Record<string, number> {
+    return getPointsMap(this.config);
   }
 
   public toJson(): ConfigJson {
