@@ -1,4 +1,5 @@
-import Tile, { TileJson } from './Tile';
+import Tile from './Tile';
+import TileJson from './TileJson';
 
 export interface CellJson {
   isEmpty: boolean;

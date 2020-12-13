@@ -2,7 +2,7 @@ import BonusValue from './BonusValue';
 import Cell from './Cell';
 import Config from './Config';
 
-interface BonusJson {
+export interface BonusJson {
   multiplier: number;
   score: number;
   type: string;

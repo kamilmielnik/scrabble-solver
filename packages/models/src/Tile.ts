@@ -1,9 +1,4 @@
-import { EMPTY_CELL } from '@scrabble-solver/constants';
-
-export interface TileJson {
-  character: string;
-  isBlank: boolean;
-}
+import TileJson from './TileJson';
 
 class Tile {
   public static fromJson(json: TileJson): Tile {
