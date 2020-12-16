@@ -8,7 +8,7 @@ abstract class Bonus {
 
   public readonly multiplier: number;
 
-  public readonly score: number;
+  public readonly score: number | undefined;
 
   public readonly x: number;
 
@@ -23,7 +23,7 @@ abstract class Bonus {
   }: {
     config: Config;
     multiplier: number;
-    score: number;
+    score?: number;
     x: number;
     y: number;
   }) {
