@@ -2,7 +2,8 @@
   "name": "@scrabble-solver/logger",
   "version": "2.0.0-alpha.6",
   "description": "Scrabble Solver - Logger",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kamilmielnik/scrabble-solver.git"
@@ -17,8 +18,15 @@
     "url": "https://github.com/kamilmielnik/scrabble-solver/issues"
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
-  "gitHead": "98f06d7bc5b60e4fb6bb6f79e238ef2a7fce5b0e",
+  "scripts": {
+    "build": "tsc --project ."
+  },
   "dependencies": {
     "winston": "^3.3.3"
-  }
+  },
+  "devDependencies": {
+    "@types/winston": "^2.4.4",
+    "typescript": "^4.1.2"
+  },
+  "gitHead": "98f06d7bc5b60e4fb6bb6f79e238ef2a7fce5b0e"
 }
