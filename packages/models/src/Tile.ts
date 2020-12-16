@@ -1,3 +1,5 @@
+import { EMPTY_CELL } from '@scrabble-solver/constants';
+
 import TileJson from './TileJson';
 
 class Tile {
@@ -12,7 +14,7 @@ class Tile {
     });
   }
 
-  public static readonly Null: Tile = Object.freeze(new Tile({ character: '', isBlank: false }));
+  public static readonly Null: Tile = Object.freeze(new Tile({ character: EMPTY_CELL, isBlank: false }));
 
   public readonly character: string;
 
