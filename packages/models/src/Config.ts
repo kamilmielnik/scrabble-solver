@@ -24,8 +24,24 @@ class Config {
     return getAllCharacters(this.config);
   }
 
+  public get allTilesBonusScore(): number {
+    return this.config.allTilesBonusScore;
+  }
+
   public get alphabet(): string[] {
     return getAlphabet(this.config);
+  }
+
+  public get blankScore(): number {
+    return this.config.blankScore;
+  }
+
+  public get boardHeight(): number {
+    return this.config.boardHeight;
+  }
+
+  public get boardWidth(): number {
+    return this.config.boardWidth;
   }
 
   public get bonuses(): Bonus[] {
@@ -62,6 +78,10 @@ class Config {
 
   public hasCharacter(character: string): boolean {
     return this.alphabet.includes(character);
+  }
+
+  public get maximumNumberOfCharacters(): number {
+    return this.config.maximumNumberOfCharacters;
   }
 
   public get pointsMap(): Record<string, number> {

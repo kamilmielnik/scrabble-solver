@@ -1,20 +1,27 @@
+import { Trie } from '@kamilmielnik/trie';
+import { Board, Config, Pattern, Result, Tile } from '@scrabble-solver/models';
 import uniqBy from 'lodash/uniqBy';
-import { Result } from '@scrabble-solver/models';
 
-import PatternsFiller from './patterns-filler';
-import PatternsGenerator from './patterns-generator';
-import ScoresCalculator from './scores-calculator';
+import PatternsFiller from './PatternsFiller';
+import PatternsGenerator from './PatternsGenerator';
+import ScoresCalculator from './ScoresCalculator';
 
 class Solver {
-  constructor(config, collection) {
-    this.patternsFiller = new PatternsFiller(config, collection);
+  private readonly patternsFiller: PatternsFiller;
+
+  private readonly patternsGenerator: PatternsGenerator;
+
+  private readonly scoresCalculator: ScoresCalculator;
+
+  constructor(config: Config, trie: Trie) {
+    this.patternsFiller = new PatternsFiller(config, trie);
     this.patternsGenerator = new PatternsGenerator(config);
     this.scoresCalculator = new ScoresCalculator(config);
   }
 
-  solve(board, tiles) {
+  public solve(board: Board, tiles: Tile[]): Result[] {
     const { horizontal, vertical } = this.patternsGenerator.generate(board);
-    const patterns = [...horizontal, ...vertical].reduce(
+    const patterns = [...horizontal, ...vertical].reduce<Pattern[]>(
       (filledPatterns, pattern) => filledPatterns.concat(this.patternsFiller.fill(pattern, tiles)),
       []
     );

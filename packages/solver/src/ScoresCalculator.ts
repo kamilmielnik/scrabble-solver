@@ -1,18 +1,22 @@
+import { Cell, Config, Pattern } from '@scrabble-solver/models';
+
 class ScoresCalculator {
-  constructor(config) {
+  private readonly config: Config;
+
+  constructor(config: Config) {
     this.config = config;
   }
 
-  calculate(pattern) {
+  public calculate(pattern: Pattern): number {
     return this.calculatePatternScoreWithCollisions(pattern) + this.calculateBonusScore(pattern);
   }
 
-  calculateBonusScore(pattern) {
+  public calculateBonusScore(pattern: Pattern): number {
     const areAllTilesUsed = pattern.getNumberOfEmptyCells() === this.config.maximumNumberOfCharacters;
     return areAllTilesUsed ? this.config.allTilesBonusScore : 0;
   }
 
-  calculatePatternScoreWithCollisions(pattern) {
+  public calculatePatternScoreWithCollisions(pattern: Pattern): number {
     return pattern
       .getCollisions()
       .reduce(
@@ -21,7 +25,7 @@ class ScoresCalculator {
       );
   }
 
-  calculatePatternScore(pattern) {
+  public calculatePatternScore(pattern: Pattern): number {
     const { multiplier, score } = pattern.cells.reduce(this.reduceCellScore, {
       multiplier: 1,
       score: 0
@@ -29,7 +33,10 @@ class ScoresCalculator {
     return score * multiplier;
   }
 
-  reduceCellScore = ({ multiplier, score }, cell) => {
+  public reduceCellScore = (
+    { multiplier, score }: { multiplier: number; score: number },
+    cell: Cell
+  ): { multiplier: number; score: number } => {
     const { wordMultiplier, characterMultiplier } = this.config.getCellBonusValue(cell);
     const characterScore = cell.tile.isBlank ? this.config.blankScore : this.config.pointsMap[cell.tile.character];
     return {

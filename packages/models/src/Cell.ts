@@ -26,7 +26,7 @@ class Cell {
 
   public readonly isEmpty: boolean;
 
-  public readonly tile: Tile;
+  public tile: Tile;
 
   public readonly x: number;
 

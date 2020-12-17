@@ -32,7 +32,7 @@ class Pattern {
     return Boolean(this.cells.find((cell) => cell.isEmpty && this.board.collides(cell)));
   }
 
-  public getIndexOfFirstCellWithoutTile(): number | undefined {
+  public getIndexOfFirstCellWithoutTile(): number {
     return this.cells.findIndex((cell) => !cell.hasTile());
   }
 

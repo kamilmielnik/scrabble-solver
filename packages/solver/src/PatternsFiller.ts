@@ -1,19 +1,24 @@
-import { Tile } from '@scrabble-solver/models';
+import { Trie } from '@kamilmielnik/trie';
+import { Config, Pattern, Tile } from '@scrabble-solver/models';
 
 class PatternsFiller {
-  constructor(config, collection) {
+  private readonly trie: Trie;
+
+  private readonly config: Config;
+
+  constructor(config: Config, trie: Trie) {
     this.config = config;
-    this.collection = collection;
+    this.trie = trie;
   }
 
-  fill(pattern, tiles) {
-    const patterns = [];
+  public fill(pattern: Pattern, tiles: Tile[]): Pattern[] {
+    const patterns: Pattern[] = [];
 
     if (pattern.getNumberOfEmptyCells() > tiles.length) {
       return [];
     }
 
-    const onPatternFound = (newPattern) => patterns.push(newPattern);
+    const onPatternFound = (newPattern: Pattern) => patterns.push(newPattern);
     const tilesPermutations = this.generateBlankTilesPermutations(tiles);
 
     for (let index = 0; index < tilesPermutations.length; ++index) {
@@ -24,8 +29,9 @@ class PatternsFiller {
     return patterns;
   }
 
-  fillPattern(pattern, word, tiles, onPatternFound) {
+  public fillPattern(pattern: Pattern, word: string, tiles: Tile[], onPatternFound: (pattern: Pattern) => void): void {
     const indexOfFirstCellWithoutTile = pattern.getIndexOfFirstCellWithoutTile();
+
     if (indexOfFirstCellWithoutTile === -1) {
       if (this.canAddPattern(pattern, word)) {
         onPatternFound(pattern.clone());
@@ -43,7 +49,7 @@ class PatternsFiller {
           if (this.canAddPattern(pattern, newWord)) {
             onPatternFound(pattern.clone());
           }
-        } else if (this.collection.hasPrefix(newWordPrefix)) {
+        } else if (this.trie.hasPrefix(newWordPrefix)) {
           this.fillPattern(pattern, newWord, remainingTiles, onPatternFound);
         }
         pattern.cells[indexOfFirstCellWithoutTile].tile = previousTile;
@@ -51,17 +57,17 @@ class PatternsFiller {
     }
   }
 
-  canAddPattern(pattern, word) {
+  public canAddPattern(pattern: Pattern, word: string): boolean {
     return (
-      this.collection.has(word) &&
+      this.trie.has(word) &&
       pattern
         .getCollisions()
         .map(String)
-        .every((collision) => this.collection.has(collision))
+        .every((collision) => this.trie.has(collision))
     );
   }
 
-  generateBlankTilesPermutations(tiles) {
+  public generateBlankTilesPermutations(tiles: Tile[]): Tile[][] {
     const { alphabet } = this.config;
     const firstBlankIndex = tiles.findIndex(({ character, isBlank }) => isBlank && !alphabet.includes(character));
 
@@ -70,9 +76,11 @@ class PatternsFiller {
     }
 
     const remainingTiles = tiles.slice(0, firstBlankIndex).concat(tiles.slice(firstBlankIndex + 1));
-    return this.config.alphabet.reduce((permutations, character) => {
+
+    return this.config.alphabet.reduce<Tile[][]>((permutations, character) => {
       const newTile = new Tile({ character, isBlank: true });
       const newTiles = [...remainingTiles, newTile];
+
       return permutations.concat(this.generateBlankTilesPermutations(newTiles));
     }, []);
   }
