@@ -1,5 +1,5 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import { Board } from '@scrabble-solver/models';
+import { Board, Cell, Config } from '@scrabble-solver/models';
 
 import PatternsGenerator from './PatternsGenerator';
 
@@ -8,11 +8,11 @@ const board = Board.fromStringArray([' t ', 'do ', '   ']);
 const patternsGenerator = new PatternsGenerator({
   boardHeight: 3,
   boardWidth: 3
-});
+} as Config);
 
 describe('PatternsGenerator', () => {
-  const emptyCell = { hasTile: () => false };
-  const filledCell = { hasTile: () => true };
+  const emptyCell: Cell = { hasTile: () => false } as Cell;
+  const filledCell: Cell = { hasTile: () => true } as Cell;
 
   it('generates start indices', () => {
     const startIndices = patternsGenerator.generateStartIndices({
@@ -44,11 +44,11 @@ describe('PatternsGenerator', () => {
 
   it('generates vectors', () => {
     const vectors = patternsGenerator.generateVectors({
-      getNthVector: (index) => index,
+      getNthVector: () => [],
       numberOfVectors: 3
     });
     expect(vectors.length).toBe(3);
-    expect(vectors).toEqual([0, 1, 2]);
+    expect(vectors).toEqual([[], [], []]);
   });
 
   it('generates some vertical patterns', () => {

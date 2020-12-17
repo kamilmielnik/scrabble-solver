@@ -26,6 +26,7 @@ const board = Board.fromStringArray([
 describe('ScoresCalculator', () => {
   it('gives proper score without collisions', () => {
     const pattern = new Pattern({
+      board,
       cells: [
         new Cell({ x: 0, y: 0, tile: new Tile({ character: 'ź' }), isEmpty: true }),
         new Cell({ x: 1, y: 0, tile: new Tile({ character: 'a' }), isEmpty: true }),

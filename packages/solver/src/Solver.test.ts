@@ -10,7 +10,7 @@ const serializedCollection = fs.readFileSync(`dictionaries/${locale}.txt`, 'utf-
 const collection = Trie.deserialize(serializedCollection);
 const config = literaki[locale];
 
-const generateTiles = (characters) =>
+const generateTiles = (characters: string): Tile[] =>
   characters.split('').map(
     (character) =>
       new Tile({
