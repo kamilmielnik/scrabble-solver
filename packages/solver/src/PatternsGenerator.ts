@@ -87,7 +87,7 @@ class PatternsGenerator {
       .filter((startIndex) => startIndex === 0 || !cells[startIndex - 1].hasTile());
   }
 
-  generateEndIndices({ cells, startIndex }: { cells: Cell[]; startIndex: number }): number[] {
+  public generateEndIndices({ cells, startIndex }: { cells: Cell[]; startIndex: number }): number[] {
     return Array(cells.length - startIndex - 1)
       .fill(0)
       .map((_, endIndex) => endIndex + startIndex + 1)
