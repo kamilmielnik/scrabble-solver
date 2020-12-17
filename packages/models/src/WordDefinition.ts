@@ -1,7 +1,7 @@
 import WordDefinitionJson from './WordDefinitionJson';
 
 class WordDefinition {
-  public static readonly Null = Object.freeze(
+  public static readonly Null: WordDefinition = Object.freeze(
     new WordDefinition({
       definitions: [],
       isAllowed: false,
@@ -21,7 +21,7 @@ class WordDefinition {
     this.word = word;
   }
 
-  toJson(): WordDefinitionJson {
+  public toJson(): WordDefinitionJson {
     return {
       definitions: this.definitions,
       isAllowed: this.isAllowed,
