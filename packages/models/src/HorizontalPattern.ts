@@ -20,7 +20,7 @@ class HorizontalPattern extends Pattern {
         const nextCells = column.slice(cell.y + 1, y);
         const cells = [...previousCells, cell, ...nextCells];
         if (cells.length > 1) {
-          const pattern = new Pattern({ board: this.board, cells }).clone();
+          const pattern = new Pattern({ board: this.board, cells });
           collisions.push(pattern);
         }
       });

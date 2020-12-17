@@ -22,7 +22,7 @@ class Pattern {
   }
 
   public clone(): Pattern {
-    return this.constructor({
+    return new Pattern({
       board: this.board,
       cells: this.cells.map((cell) => cell.clone())
     });
