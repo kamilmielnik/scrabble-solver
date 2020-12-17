@@ -3,7 +3,7 @@ import { Trie } from '@kamilmielnik/trie';
 import { literaki } from '@scrabble-solver/configs';
 import { Board, Cell, Tile, VerticalPattern } from '@scrabble-solver/models';
 
-import PatternsFiller from '../patterns-filler';
+import PatternsFiller from './PatternsFiller';
 
 const board = Board.fromStringArray([' t ', 'do ', '   ']);
 

@@ -1,7 +1,7 @@
 import { literaki } from '@scrabble-solver/configs';
 import { Board, Cell, HorizontalPattern, Pattern, Tile, VerticalPattern } from '@scrabble-solver/models';
 
-import ScoresCalculator from '../scores-calculator';
+import ScoresCalculator from './ScoresCalculator';
 
 const config = literaki['pl-PL'];
 const scoresCalculator = new ScoresCalculator(config);

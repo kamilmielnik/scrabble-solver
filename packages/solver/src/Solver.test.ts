@@ -3,7 +3,7 @@ import { Trie } from '@kamilmielnik/trie';
 import { literaki } from '@scrabble-solver/configs';
 import { Board, Tile } from '@scrabble-solver/models';
 
-import Solver from '../index';
+import Solver from './Solver';
 
 const locale = 'pl-PL';
 const serializedCollection = fs.readFileSync(`dictionaries/${locale}.txt`, 'utf-8');

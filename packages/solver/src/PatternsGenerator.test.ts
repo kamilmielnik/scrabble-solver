@@ -1,7 +1,7 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Board } from '@scrabble-solver/models';
 
-import PatternsGenerator from '../patterns-generator';
+import PatternsGenerator from './PatternsGenerator';
 
 const board = Board.fromStringArray([' t ', 'do ', '   ']);
 
