@@ -76,7 +76,7 @@ class Board {
   }
 
   public toString(): string {
-    return '';
+    return this.board.map((row) => row.map(String)).join('\n');
   }
 }
 
