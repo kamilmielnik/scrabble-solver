@@ -29,7 +29,7 @@ class Pattern {
   }
 
   public collides(): boolean {
-    return Boolean(this.cells.find((cell) => cell.isEmpty && this.board.collides(cell)));
+    return this.cells.some((cell) => cell.isEmpty && this.board.collides(cell));
   }
 
   public getIndexOfFirstCellWithoutTile(): number {
@@ -41,17 +41,15 @@ class Pattern {
   }
 
   public goesThroughBoardCenter(): boolean {
-    const x = Math.floor(this.board.numberOfColumns / 2);
-    const y = Math.floor(this.board.numberOfRows / 2);
-    return Boolean(this.cells.find((cell) => cell.x === x && cell.y === y && cell.isEmpty));
+    return this.cells.some((cell) => cell.x === this.board.center.x && cell.y === this.board.center.y && cell.isEmpty);
   }
 
   public hasAtLeast1EmptyCell(): boolean {
-    return Boolean(this.cells.find((cell) => cell.isEmpty));
+    return this.cells.some((cell) => cell.isEmpty);
   }
 
   public hasAtLeast1NonEmptyCell(): boolean {
-    return Boolean(this.cells.find((cell) => !cell.isEmpty));
+    return this.cells.some((cell) => !cell.isEmpty);
   }
 
   public getCollisions(): Pattern[] {

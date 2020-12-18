@@ -39,6 +39,12 @@ class Board {
     this.numberOfRows = board.length;
   }
 
+  public get center(): Cell {
+    const x = Math.floor(this.numberOfColumns / 2);
+    const y = Math.floor(this.numberOfRows / 2);
+    return this.board[y][x];
+  }
+
   public collides(cell: Cell): boolean {
     return this.collidesUp(cell) || this.collidesDown(cell) || this.collidesLeft(cell) || this.collidesRight(cell);
   }
