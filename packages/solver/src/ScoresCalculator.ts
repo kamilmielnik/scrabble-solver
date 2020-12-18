@@ -37,8 +37,9 @@ class ScoresCalculator {
     { multiplier, score }: { multiplier: number; score: number },
     cell: Cell
   ): { multiplier: number; score: number } => {
-    const { wordMultiplier, characterMultiplier } = this.config.getCellBonusValue(cell);
+    const { characterMultiplier, wordMultiplier } = this.config.getCellBonusValue(cell);
     const characterScore = cell.tile.isBlank ? this.config.blankScore : this.config.pointsMap[cell.tile.character];
+
     return {
       multiplier: multiplier * wordMultiplier,
       score: score + characterScore * characterMultiplier
