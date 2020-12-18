@@ -11,13 +11,7 @@ const collection = Trie.deserialize(serializedCollection);
 const config = literaki[locale];
 
 const generateTiles = (characters: string): Tile[] =>
-  characters.split('').map(
-    (character) =>
-      new Tile({
-        character,
-        isBlank: false
-      })
-  );
+  characters.split('').map((character) => new Tile({ character, isBlank: false }));
 
 describe('Solver', () => {
   const solver = new Solver(config, collection);
