@@ -12,7 +12,7 @@
     "bootstrap": "lerna bootstrap --force-local",
     "build": "babel-node scripts/build.js",
     "build:prod": "babel-node scripts/build.js prod",
-    "clean": "babel-node scripts/clean.js",
+    "clean": "babel-node scripts/clean.js && lerna run clean",
     "deploy": "babel-node scripts/deploy.js",
     "lint": "eslint packages/",
     "lint:fix": "npm run lint -- --fix",
@@ -53,8 +53,8 @@
     "@babel/core": "^7.12.10",
     "@babel/node": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/preset-env": "^7.12.10",
-    "@kamilmielnik/trie": "^1.0.2",
+    "@babel/preset-env": "^7.12.11",
+    "@kamilmielnik/trie": "^1.0.3",
     "better-npm-run": "^0.1.1",
     "cheerio": "^1.0.0-rc.3",
     "decompress": "^4.2.1",
@@ -73,12 +73,12 @@
     "eslint-config-prettier": "^7.0.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-prettier": "^3.2.0",
+    "eslint-plugin-prettier": "^3.3.0",
     "eslint-plugin-react": "^7.21.5",
     "jest": "26.6.3",
     "node-ssh": "^11.1.1",
     "prettier": "^2.2.1",
     "ts-jest": "^26.4.4",
-    "typescript": "^4.1.2"
+    "typescript": "^4.1.3"
   }
 }
