@@ -7,7 +7,7 @@ import CharacterBonus from './CharacterBonus';
 import ConfigJson from './ConfigJson';
 import WordBonus from './WordBonus';
 
-const NO_BONUS = { wordMultiplier: 1, characterMultiplier: 1 };
+const NO_BONUS = { characterMultiplier: 1, wordMultiplier: 1 };
 
 class Config {
   public static fromJson(json: ConfigJson) {
