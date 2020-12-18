@@ -4,11 +4,9 @@ import Bonus from './Bonus';
 import BonusValue from './BonusValue';
 
 class WordBonus extends Bonus {
-  public getType(): string {
-    return BONUS_WORD;
-  }
+  public readonly type = BONUS_WORD;
 
-  public getValue(): BonusValue {
+  public get value(): BonusValue {
     return {
       characterMultiplier: 1,
       wordMultiplier: this.multiplier

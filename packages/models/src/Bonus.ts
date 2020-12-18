@@ -10,6 +10,8 @@ abstract class Bonus {
 
   public readonly score: number | undefined;
 
+  public abstract readonly type: string;
+
   public readonly x: number;
 
   public readonly y: number;
@@ -38,15 +40,6 @@ abstract class Bonus {
     return this.matchesCellCoordinates(cell);
   }
 
-  public abstract getType(): string;
-
-  public getValue(): BonusValue {
-    return {
-      characterMultiplier: 1,
-      wordMultiplier: 1
-    };
-  }
-
   public matchesCellCoordinates(cell: Cell): boolean {
     return this.x === cell.x && this.y === cell.y;
   }
@@ -55,9 +48,16 @@ abstract class Bonus {
     return {
       multiplier: this.multiplier,
       score: this.score,
-      type: this.getType(),
+      type: this.type,
       x: this.x,
       y: this.y
+    };
+  }
+
+  public get value(): BonusValue {
+    return {
+      characterMultiplier: 1,
+      wordMultiplier: 1
     };
   }
 }

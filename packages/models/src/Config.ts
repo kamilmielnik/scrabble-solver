@@ -69,7 +69,7 @@ class Config {
       return NO_BONUS;
     }
 
-    return cellBonus.getValue();
+    return cellBonus.value;
   }
 
   public getCharacterPoints(character: string): number {

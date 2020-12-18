@@ -40,7 +40,7 @@ export const getBonusClassname = (cell, bonus) => {
     return null;
   }
 
-  const type = bonus.getType();
+  const { type } = bonus;
 
   if (type === BONUS_WORD) {
     return getWordBonusClassname(bonus);
