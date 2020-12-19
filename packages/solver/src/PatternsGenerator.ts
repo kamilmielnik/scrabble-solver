@@ -9,19 +9,27 @@ class PatternsGenerator {
 
   public generate(board: Board): { horizontal: HorizontalPattern[]; vertical: VerticalPattern[] } {
     return {
-      horizontal: this.generatePatterns({
-        board,
-        getNthVector: (index) => board.getRow(index),
-        numberOfVectors: this.config.boardHeight,
-        PatternModel: HorizontalPattern
-      }),
-      vertical: this.generatePatterns({
-        board,
-        getNthVector: (index) => board.getColumn(index),
-        numberOfVectors: this.config.boardWidth,
-        PatternModel: VerticalPattern
-      })
+      horizontal: this.generateHorizontal(board),
+      vertical: this.generateVertical(board)
     };
+  }
+
+  public generateHorizontal(board: Board): HorizontalPattern[] {
+    return this.generatePatterns({
+      board,
+      getNthVector: (index) => board.getRow(index),
+      numberOfVectors: this.config.boardHeight,
+      PatternModel: HorizontalPattern
+    });
+  }
+
+  public generateVertical(board: Board): VerticalPattern[] {
+    return this.generatePatterns({
+      board,
+      getNthVector: (index) => board.getColumn(index),
+      numberOfVectors: this.config.boardWidth,
+      PatternModel: VerticalPattern
+    });
   }
 
   public generatePatterns<P extends Pattern>({
