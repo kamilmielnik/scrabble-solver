@@ -8,7 +8,7 @@ interface Payload {
 }
 
 const findWordDefinition = async ({ locale, word }: Payload): Promise<WordDefinitionJson> => {
-  const url = `${process.env.REACT_APP_API_URL}/dictionary/${locale}/${word}`;
+  const url = `/api/dictionary/${locale}/${word}`;
   const json = await fetch(url).then((response) => response.json());
   return json;
 };

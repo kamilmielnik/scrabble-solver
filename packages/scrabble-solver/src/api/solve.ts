@@ -8,7 +8,7 @@ interface Payload {
 }
 
 const solve = async ({ board, characters, config, locale }: Payload): Promise<ResultJson[]> => {
-  const url = `${process.env.REACT_APP_API_URL}/solve`;
+  const url = `/api/solve`;
   const json = await fetch(url, {
     method: 'POST',
     headers: {
