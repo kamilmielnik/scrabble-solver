@@ -20,11 +20,12 @@ class Solver {
   }
 
   public solve(board: Board, tiles: Tile[]): Result[] {
-    const { horizontal, vertical } = this.patternsGenerator.generate(board);
-    const patterns = [...horizontal, ...vertical].reduce<Pattern[]>(
-      (filledPatterns, pattern) => filledPatterns.concat(this.patternsFiller.fill(pattern, tiles)),
-      []
-    );
+    const patterns = this.patternsGenerator
+      .generate(board)
+      .reduce<Pattern[]>(
+        (filledPatterns, pattern) => filledPatterns.concat(this.patternsFiller.fill(pattern, tiles)),
+        []
+      );
     const uniquePatterns = uniqBy(patterns, (pattern) => JSON.stringify(pattern.toJson()));
     const results = uniquePatterns.map(
       (pattern, index) =>

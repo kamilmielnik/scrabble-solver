@@ -52,12 +52,12 @@ describe('PatternsGenerator', () => {
   });
 
   it('generates some vertical patterns', () => {
-    const { vertical } = patternsGenerator.generate(board);
+    const vertical = patternsGenerator.generateVertical(board);
     expect(vertical.length).toBeGreaterThan(0);
   });
 
   it('generates proper vertical patterns', () => {
-    const { vertical } = patternsGenerator.generate(board);
+    const vertical = patternsGenerator.generateVertical(board);
     expect(vertical.map(({ cells }) => cells.map(String))).toEqual([
       [EMPTY_CELL, 'd'],
       [EMPTY_CELL, 'd', EMPTY_CELL],
@@ -70,12 +70,12 @@ describe('PatternsGenerator', () => {
   });
 
   it('generates some horizontal patterns', () => {
-    const { horizontal } = patternsGenerator.generate(board);
+    const horizontal = patternsGenerator.generateHorizontal(board);
     expect(horizontal.length).toBeGreaterThan(0);
   });
 
   it('generates proper horizontal patterns', () => {
-    const { horizontal } = patternsGenerator.generate(board);
+    const horizontal = patternsGenerator.generateHorizontal(board);
     expect(horizontal.map(({ cells }) => cells.map(String))).toEqual([
       [EMPTY_CELL, 't'],
       [EMPTY_CELL, 't', EMPTY_CELL],

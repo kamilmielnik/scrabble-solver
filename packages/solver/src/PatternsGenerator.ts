@@ -7,11 +7,8 @@ class PatternsGenerator {
     this.config = config;
   }
 
-  public generate(board: Board): { horizontal: HorizontalPattern[]; vertical: VerticalPattern[] } {
-    return {
-      horizontal: this.generateHorizontal(board),
-      vertical: this.generateVertical(board)
-    };
+  public generate(board: Board): Pattern[] {
+    return [...this.generateHorizontal(board), ...this.generateVertical(board)];
   }
 
   public generateHorizontal(board: Board): HorizontalPattern[] {
