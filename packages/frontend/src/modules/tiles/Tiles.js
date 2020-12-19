@@ -4,8 +4,8 @@ import { BLANK } from '@scrabble-solver/constants';
 
 import { Tile } from 'components';
 import { createKeyboardNavigation } from 'utils';
-import { useConfig } from 'config';
-import { useMessage } from 'i18n';
+import { useConfig } from 'modules/config';
+import { useMessage } from 'modules/i18n';
 
 import { useChangeCharacter, useSubmit, useTiles } from './hooks';
 import styles from './Tiles.module.scss';

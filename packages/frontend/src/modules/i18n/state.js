@@ -1,6 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 
-import localStorage, { LOCALE } from 'local-storage';
+import localStorage, { LOCALE } from 'modules/local-storage';
 
 import translations from './translations';
 

@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
-import { selectConfig } from 'config';
-import { selectResultCandidate } from 'results';
+import { selectConfig } from 'modules/config';
+import { selectResultCandidate } from 'modules/results';
 
 const getCell = (cells, x, y) => cells.find((cell) => cell.x === x && cell.y === y);
 

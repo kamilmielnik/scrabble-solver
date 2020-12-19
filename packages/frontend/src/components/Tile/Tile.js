@@ -2,7 +2,7 @@ import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { useConfig } from 'config';
+import { useConfig } from 'modules/config';
 
 import styles from './Tile.module.scss';
 

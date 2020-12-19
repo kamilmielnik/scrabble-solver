@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FixedSizeList } from 'react-window';
 
 import { Loading } from 'components';
-import { useIsLoading } from 'shared';
+import { useIsLoading } from 'modules/shared';
 
 import Empty from './Empty';
 import Header from './Header';

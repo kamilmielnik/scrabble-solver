@@ -2,9 +2,9 @@ import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 import { Result } from '@scrabble-solver/models';
 
 import { postSolve } from 'api';
-import { applyResult, selectBoard } from 'board';
-import { CHANGE_CONFIG, selectConfigId } from 'config';
-import { CHANGE_LOCALE, selectLocale } from 'i18n';
+import { applyResult, selectBoard } from 'modules/board';
+import { CHANGE_CONFIG, selectConfigId } from 'modules/config';
+import { CHANGE_LOCALE, selectLocale } from 'modules/i18n';
 import {
   APPLY_RESULT,
   HIGHLIGHT_RESULT,
@@ -12,8 +12,8 @@ import {
   changeResultCandidate,
   changeResults,
   selectResults
-} from 'results';
-import { SUBMIT as SUBMIT_TILES, removeTiles, selectValidCharacters } from 'tiles';
+} from 'modules/results';
+import { SUBMIT as SUBMIT_TILES, removeTiles, selectValidCharacters } from 'modules/tiles';
 
 import { submitSolve, submitSolveFailure, submitSolveSuccess } from './state';
 

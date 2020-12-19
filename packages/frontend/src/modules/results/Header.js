@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useMessage } from 'i18n';
+import { useMessage } from 'modules/i18n';
 
 import styles from './Results.module.scss';
 

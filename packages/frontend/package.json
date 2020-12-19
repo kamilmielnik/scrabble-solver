@@ -76,8 +76,8 @@
   "devDependencies": {
     "better-npm-run": "0.1.1",
     "http-server": "^0.12.3",
-    "node-sass": "^5.0.0",
-    "react-scripts": "^4.0.1"
+    "node-sass": "^4.0.0",
+    "react-scripts": "^3.4.4"
   },
   "browserslist": [
     ">0.2%",

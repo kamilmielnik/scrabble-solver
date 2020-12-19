@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
-import { reducer as board } from 'board';
-import { reducer as config } from 'config';
-import { reducer as i18n } from 'i18n';
-import { reducer as results } from 'results';
-import { reducer as shared } from 'shared';
-import { reducer as tiles } from 'tiles';
+import { reducer as board } from 'modules/board';
+import { reducer as config } from 'modules/config';
+import { reducer as i18n } from 'modules/i18n';
+import { reducer as results } from 'modules/results';
+import { reducer as shared } from 'modules/shared';
+import { reducer as tiles } from 'modules/tiles';
 
 const rootReducer = combineReducers({
   board,

@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import { useDispatch } from 'react-redux';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 
-import { submit } from 'tiles';
-import { useConfig } from 'config';
+import { submit } from 'modules/tiles';
+import { useConfig } from 'modules/config';
 import { Tile } from 'components';
 import { createKeyboardNavigation } from 'utils';
 

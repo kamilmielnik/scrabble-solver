@@ -1,6 +1,6 @@
 import { takeLatest } from 'redux-saga/effects';
 
-import localStorage, { LOCALE } from 'local-storage';
+import localStorage, { LOCALE } from 'modules/local-storage';
 
 import { CHANGE_LOCALE } from './state';
 

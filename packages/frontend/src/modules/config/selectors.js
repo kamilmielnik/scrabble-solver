@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { selectLocale } from 'i18n';
+import { selectLocale } from 'modules/i18n';
 
 const selectRoot = (state) => state.config;
 
