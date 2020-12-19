@@ -1,10 +1,12 @@
 import { BoardJson, ConfigJson, ResultJson } from '@scrabble-solver/models';
 
+import { Locale } from 'types';
+
 interface Payload {
   board: BoardJson;
-  characters: string;
+  characters: string[];
   config: ConfigJson;
-  locale: 'en-GB' | 'en-US' | 'pl-PL';
+  locale: Locale;
 }
 
 const solve = async ({ board, characters, config, locale }: Payload): Promise<ResultJson[]> => {
