@@ -1,6 +1,13 @@
 import Pattern from './Pattern';
 
 class HorizontalPattern extends Pattern {
+  public clone(): Pattern {
+    return new HorizontalPattern({
+      board: this.board,
+      cells: this.cells.map((cell) => cell.clone())
+    });
+  }
+
   public getCollisions(): Pattern[] {
     const collisions: Pattern[] = [];
 
