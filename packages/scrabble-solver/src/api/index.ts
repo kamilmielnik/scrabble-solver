@@ -1,2 +1,2 @@
-export { default as findWordDefinition } from './findWordDefinition';
+export { default as dictionary } from './dictionary';
 export { default as solve } from './solve';
