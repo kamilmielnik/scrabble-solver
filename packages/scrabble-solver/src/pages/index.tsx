@@ -21,8 +21,9 @@ const Index = () => {
         <div className={styles.boardContainer}>
           <div className={styles.board}>board</div>
         </div>
-        <div className={styles.sidebarContainer}>
-          <Well className={styles.sidebar}>sidebar</Well>
+        <div className={styles.sidebar}>
+          <Well className={styles.dictionary}>dictionary</Well>
+          <Well className={styles.results}>results</Well>
         </div>
       </div>
 

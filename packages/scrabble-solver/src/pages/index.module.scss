@@ -59,13 +59,27 @@ $flag-icon-height: 16px;
   padding: $spacing--l;
 }
 
-.sidebarContainer {
+.sidebar {
+  display: flex;
+  flex-direction: column;
   flex: 0 0 $sidebar-width;
   padding: $spacing--xl;
+
+  > * {
+    margin-bottom: $spacing--xl;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
-.sidebar {
-  height: 100%;
+.dictionary {
+  flex: 0 0 auto;
+}
+
+.results {
+  flex: 1;
 }
 
 .tilesContainer {
