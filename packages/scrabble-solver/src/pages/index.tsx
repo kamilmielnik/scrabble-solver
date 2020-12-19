@@ -9,7 +9,7 @@ const Index = () => {
   return (
     <div className={styles.index}>
       <div className={styles.nav}>
-        <h1 className={styles.title}>Scrabble Solver</h1>
+        <h1 className={styles.title}>Scrabble Solver by Kamil Mielnik</h1>
         <div className={styles.flags}>
           <SvgIcon className={styles.flag} icon={flagPl} />
           <SvgIcon className={styles.flag} icon={flagGb} />
