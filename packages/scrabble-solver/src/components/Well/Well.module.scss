@@ -1,0 +1,8 @@
+@import 'styles/variables';
+
+.well {
+  padding: $spacing--l;
+  border: $border;
+  border-radius: $border--radius;
+  box-shadow: $box-shadow;
+}

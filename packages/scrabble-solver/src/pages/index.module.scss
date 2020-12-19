@@ -1,8 +1,7 @@
 @import 'styles/variables';
 
-$nav-height: 40px;
 $sidebar-width: 400px;
-$tiles-container-height: 200px;
+$flag-icon-height: 16px;
 
 .index {
   height: 100%;
@@ -14,8 +13,36 @@ $tiles-container-height: 200px;
   position: relative;
   z-index: 1;
   flex: 0 0 auto;
-  height: $nav-height;
+  display: flex;
+  align-items: center;
+  padding: $spacing--m $spacing--l;
+  background-color: $color--background--secondary;
+  border-bottom: $border;
   box-shadow: $box-shadow--bottom;
+}
+
+.title {
+  flex: 1;
+  font-size: $font--size--l;
+}
+
+.flags {
+  flex: 0 0 auto;
+  display: flex;
+}
+
+.flag {
+  width: 32px;
+  height: $flag-icon-height;
+  margin: 0 $spacing--s;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
 .content {
@@ -24,18 +51,31 @@ $tiles-container-height: 200px;
 }
 
 .boardContainer {
-  background-color: gray;
   flex: 1;
+  padding: $spacing--xl;
+}
+
+.board {
+  padding: $spacing--l;
+}
+
+.sidebarContainer {
+  flex: 0 0 $sidebar-width;
+  padding: $spacing--xl;
 }
 
 .sidebar {
-  flex: 0 0 $sidebar-width;
+  height: 100%;
 }
 
 .tilesContainer {
-  background-color: orange;
   position: relative;
   z-index: 1;
-  flex: 0 0 $tiles-container-height;
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  padding: $spacing--xl;
+  background-color: $color--background--secondary;
+  border-top: $border;
   box-shadow: $box-shadow--top;
 }

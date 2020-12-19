@@ -1,20 +1,32 @@
-$color--background: white;
+$color--background: #eee;
+$color--background--secondary: #ccc;
 $color--foreground: black;
 $color--focus: #268fff;
 
-$box-shadow--blur: 5px;
-$box-shadow--width: 5px;
-$box-shadow--color: #333;
-$box-shadow: 0 0 $box-shadow--blur 0 $box-shadow--color;
-$box-shadow--top: 0 (-$box-shadow--width) $box-shadow--blur 0 $box-shadow--color;
-$box-shadow--bottom: 0 $box-shadow--width $box-shadow--blur 0 $box-shadow--color;
-$box-shadow--left: -$box-shadow--width 0 $box-shadow--blur 0 $box-shadow--color;
-$box-shadow--right: $box-shadow--width 0 $box-shadow--blur 0 $box-shadow--color;
+$box-shadow--blur: 10px;
+$box-shadow--spread: 5px;
+$box-shadow--offset: 0px;
+$box-shadow--color: rgba(#000, 0.18);
+$box-shadow: 0 0 $box-shadow--blur $box-shadow--spread $box-shadow--color;
+$box-shadow--top: 0 (-$box-shadow--offset) $box-shadow--blur $box-shadow--spread $box-shadow--color;
+$box-shadow--bottom: 0 $box-shadow--offset $box-shadow--blur $box-shadow--spread $box-shadow--color;
+$box-shadow--left: -$box-shadow--offset 0 $box-shadow--blur $box-shadow--spread $box-shadow--color;
+$box-shadow--right: $box-shadow--offset 0 $box-shadow--blur $box-shadow--spread $box-shadow--color;
 
-$border--radius: 5px;
+$border--color: #a7a7a7;
+$border--radius: 10px;
+$border: 1px solid $border--color;
 
 $transition--duration: 100ms;
 $transition--easing: cubic-bezier(0.61, 1, 0.88, 1); // easeOutSine
+
+$spacing--s: 5px;
+$spacing--m: 10px;
+$spacing--l: 20px;
+$spacing--xl: 40px;
+
+$font--size--m: 16px;
+$font--size--l: 22px;
 
 @mixin focus-effect {
   position: relative;
