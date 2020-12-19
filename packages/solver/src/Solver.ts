@@ -30,10 +30,10 @@ class Solver {
     const results = uniquePatterns.map(
       (pattern, index) =>
         new Result({
-          id: index,
-          points: this.scoresCalculator.calculate(pattern),
           cells: pattern.cells,
-          numberOfCollisions: pattern.getCollisions().length
+          id: index,
+          numberOfCollisions: pattern.getCollisions().length,
+          points: this.scoresCalculator.calculate(pattern)
         })
     );
     return results;
