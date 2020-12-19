@@ -18,11 +18,12 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 13px;
   line-height: 1.5;
+}
 
-  @media print {
-    background: white;
-    height: auto;
-  }
+html,
+body,
+#__next {
+  height: 100%;
 }
 
 a {

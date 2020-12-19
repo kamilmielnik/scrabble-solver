@@ -1,5 +1,18 @@
 @import 'styles/variables';
 
-.app {
+$sidebar-width: 400px;
+
+.index {
   height: 100%;
+  display: flex;
+}
+
+.content {
+  background-color: yellow;
+  flex: 1;
+}
+
+.sidebar {
+  background-color: green;
+  flex: 0 0 $sidebar-width;
 }
