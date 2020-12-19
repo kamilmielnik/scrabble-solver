@@ -2,6 +2,15 @@ $color--background: white;
 $color--foreground: black;
 $color--focus: #268fff;
 
+$box-shadow--blur: 5px;
+$box-shadow--width: 1px;
+$box-shadow--color: #333;
+$box-shadow: 0 0 $box-shadow--blur 0 $box-shadow--color;
+$box-shadow--top: 0 (-$box-shadow--width) $box-shadow--blur 0 $box-shadow--color;
+$box-shadow--bottom: 0 $box-shadow--width $box-shadow--blur 0 $box-shadow--color;
+$box-shadow--left: -$box-shadow--width 0 $box-shadow--blur 0 $box-shadow--color;
+$box-shadow--right: $box-shadow--width 0 $box-shadow--blur 0 $box-shadow--color;
+
 $border--radius: 5px;
 
 $transition--duration: 100ms;
