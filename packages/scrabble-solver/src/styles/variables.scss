@@ -1,0 +1,49 @@
+$color--background: white;
+$color--foreground: black;
+$color--focus: #268fff;
+
+$border--radius: 5px;
+
+$transition--duration: 100ms;
+$transition--easing: cubic-bezier(0.61, 1, 0.88, 1); // easeOutSine
+
+@mixin focus-effect {
+  position: relative;
+
+  &:before {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: box-shadow $transition--duration $transition--easing;
+    border-radius: $border--radius;
+    box-shadow: 0 0 0 3px rgba($color--focus, 0);
+    pointer-events: none;
+  }
+
+  &:focus {
+    outline: none;
+
+    &:before {
+      box-shadow: 0 0 0 3px rgba($color--focus, 0.5);
+    }
+  }
+}
+
+@mixin ellipsis {
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@mixin button-reset() {
+  padding: 0;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: inherit;
+  background: none;
+}

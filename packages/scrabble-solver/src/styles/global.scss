@@ -1,0 +1,46 @@
+@import '~normalize.css';
+@import 'styles/variables';
+
+@import url('https://fonts.googleapis.com/css?family=Lato:300|Open+Sans:400,700&subset=latin-ext&display=swap');
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0 auto;
+  padding: 0;
+  background-color: $color--background;
+  color: $color--foreground;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+
+  @media print {
+    background: white;
+    height: auto;
+  }
+}
+
+a {
+  @include focus-effect;
+
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  margin: 0;
+}

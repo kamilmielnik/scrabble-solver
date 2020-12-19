@@ -34,7 +34,7 @@ module.exports = {
     react: {
       version: '16.8'
     },
-    'import/extensions': ['.js', '.jsx']
+    'import/extensions': ['.js', '.jsx', '.ts', '.tsx']
   },
 
   rules: {

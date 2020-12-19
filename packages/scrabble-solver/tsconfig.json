@@ -1,0 +1,27 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": ".",
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "paths": {
+      "api": ["./src/api"],
+      "components": ["./src/components"],
+      "icons": ["./src/icons"],
+      "lib": ["./src/lib"],
+      "pages": ["./src/pages"],
+      "styles": ["./src/styles"],
+      "types": ["./src/types"]
+    },
+    "resolveJsonModule": true,
+    "rootDir": "./src",
+    "skipLibCheck": true,
+    "noEmit": true
+  },
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "./src"],
+  "files": ["./src/icons/@types/icons.d.ts"]
+}
