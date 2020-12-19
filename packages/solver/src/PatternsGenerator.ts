@@ -7,7 +7,7 @@ class PatternsGenerator {
     this.config = config;
   }
 
-  public generate(board: Board): { horizontal: Pattern[]; vertical: Pattern[] } {
+  public generate(board: Board): { horizontal: HorizontalPattern[]; vertical: VerticalPattern[] } {
     return {
       horizontal: this.generatePatterns({
         board,
@@ -24,7 +24,7 @@ class PatternsGenerator {
     };
   }
 
-  public generatePatterns({
+  public generatePatterns<P extends Pattern>({
     board,
     getNthVector,
     numberOfVectors,
@@ -33,10 +33,13 @@ class PatternsGenerator {
     board: Board;
     getNthVector: (index: number) => Cell[];
     numberOfVectors: number;
-    PatternModel: new (parameters: { board: Board; cells: Cell[] }) => Pattern;
-  }): Pattern[] {
-    return this.generateVectors({ getNthVector, numberOfVectors }).reduce<Pattern[]>(
-      (patterns, cells) => patterns.concat(this.generateCellsPatterns({ board, PatternModel, cells })),
+    PatternModel: new (parameters: { board: Board; cells: Cell[] }) => P;
+  }): P[] {
+    return this.generateVectors({ getNthVector, numberOfVectors }).reduce<P[]>(
+      (patterns, cells) =>
+        patterns.concat(
+          this.generateCellsPatterns<P>({ board, PatternModel, cells })
+        ),
       []
     );
   }
@@ -53,19 +56,19 @@ class PatternsGenerator {
       .map((_, index) => getNthVector(index));
   }
 
-  public generateCellsPatterns({
+  public generateCellsPatterns<P extends Pattern>({
     board,
     cells,
     PatternModel
   }: {
     board: Board;
     cells: Cell[];
-    PatternModel: new (parameters: { board: Board; cells: Cell[] }) => Pattern;
-  }): Pattern[] {
-    return this.generateStartIndices({ cells }).reduce<Pattern[]>(
+    PatternModel: new (parameters: { board: Board; cells: Cell[] }) => P;
+  }): P[] {
+    return this.generateStartIndices({ cells }).reduce<P[]>(
       (patterns, startIndex) =>
         patterns.concat(
-          this.generateEndIndices({ cells, startIndex }).reduce<Pattern[]>((placeablePatterns, endIndex) => {
+          this.generateEndIndices({ cells, startIndex }).reduce<P[]>((placeablePatterns, endIndex) => {
             const pattern = new PatternModel({
               board,
               cells: cells.slice(startIndex, endIndex + 1)
