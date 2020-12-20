@@ -24,42 +24,6 @@
 
 .flags {
   flex: 0 0 auto;
-  display: flex;
-}
-
-.flag {
-  $width: 16px;
-  $height: 16px;
-
-  width: 32px;
-  height: $height;
-  margin: 0 var(--spacing--s);
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  &:last-child {
-    margin-right: 0;
-  }
-
-  &.gb {
-    $aspect-ratio: 2;
-
-    width: $height * $aspect-ratio;
-  }
-
-  &.pl {
-    $aspect-ratio: 1.6;
-
-    width: $height * $aspect-ratio;
-  }
-
-  &.us {
-    $aspect-ratio: 1.9;
-
-    width: $height * $aspect-ratio;
-  }
 }
 
 .content {

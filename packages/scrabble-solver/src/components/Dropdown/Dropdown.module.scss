@@ -1,0 +1,30 @@
+@import 'styles/mixins';
+
+.dropdown {
+  @include list-reset;
+
+  position: absolute;
+  top: calc(100% + var(--spacing--m));
+  left: 0;
+  min-width: 200px;
+  padding: var(--spacing--m);
+  box-shadow: var(--box-shadow);
+  background-color: var(--color--background--secondary);
+  color: var(--color--foreground--secondary);
+  border-radius: var(--border--radius);
+
+  &.dropLeft {
+    left: auto;
+    right: 0;
+  }
+
+  &:before {
+    display: block;
+    content: ' ';
+    left: 0;
+    width: 100%;
+    height: var(--spacing--m);
+    position: absolute;
+    top: calc(-1 * var(--spacing--m));
+  }
+}

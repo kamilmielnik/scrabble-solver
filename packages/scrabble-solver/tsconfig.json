@@ -6,7 +6,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "esnext",
+    "noEmit": true,
     "paths": {
       "api": ["./src/api"],
       "components": ["./src/components"],
@@ -18,8 +18,7 @@
     },
     "resolveJsonModule": true,
     "rootDir": "./src",
-    "skipLibCheck": true,
-    "noEmit": true
+    "skipLibCheck": true
   },
   "exclude": ["node_modules"],
   "include": ["next-env.d.ts", "./src"],
