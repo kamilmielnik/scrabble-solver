@@ -9,10 +9,8 @@ import styles from './index.module.scss';
 
 const Index = () => {
   const [locale, setLocale] = useState<Locale>(detectLocale());
-  const [sizer, { height, width }] = useSize(<div className={styles.boardSizer} />, {
-    height: 0,
-    width: 0
-  });
+  const [sizer, { height, width }] = useSize(<div className={styles.boardSizer} />, { height: 0, width: 0 });
+  const cellSize = Math.floor(Math.min(height, width) / 15); // TODO: unhardcode 15
 
   return (
     <div className={styles.index}>
@@ -29,7 +27,7 @@ const Index = () => {
 
             {width > 0 && height > 0 && (
               <span>
-                {width}x{height}
+                Board: {width}x{height}, Cell: {cellSize}x{cellSize}
               </span>
             )}
           </div>
