@@ -1,2 +1,97 @@
+$tile-size: 64px;
+$tile-font-size: $tile-size * 3 / 5;
+
 .tile {
+  position: relative;
+  width: $tile-size;
+  height: $tile-size;
+  background-color: transparent;
+  color: white;
+  font-size: $tile-font-size;
+  transition: background-color var(--transition--duration), color var(--transition--duration);
+
+  &.small {
+    $tile-size: 48px;
+    $tile-font-size: $tile-size * 3 / 5;
+
+    width: $tile-size;
+    height: $tile-size;
+    font-size: $tile-font-size;
+
+    .points {
+      position: absolute;
+      right: 6px;
+      bottom: 4px;
+      font-size: 10px;
+      color: black;
+      font-weight: bold;
+      user-select: none;
+    }
+  }
+
+  &.raised {
+    box-shadow: inset -2px -2px 2px -1px rgba(34, 34, 34, 0.8);
+  }
+
+  &.points1 {
+    background-color: var(--color--yellow--light);
+  }
+
+  &.points2 {
+    background-color: var(--color--green--light);
+  }
+
+  &.points3,
+  &.points4 {
+    background-color: var(--color--blue--light);
+  }
+
+  &.points5 {
+    background-color: var(--color--red--light);
+  }
+
+  &.blank {
+    background-color: white;
+
+    .character {
+      color: black;
+    }
+  }
+
+  &.highlighted {
+    background-color: var(--color--primary);
+
+    .character {
+      color: white;
+    }
+
+    .points {
+      color: white;
+    }
+  }
+}
+
+.character {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+
+  &::placeholder {
+    color: var(--color--inactive);
+  }
+}
+
+.points {
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  font-size: 14px;
+  color: black;
+  font-weight: bold;
+  user-select: none;
 }
