@@ -1,16 +1,35 @@
+import { literaki, scrabble } from '@scrabble-solver/configs';
+import { Config, Tile as TileModel } from '@scrabble-solver/models';
 import React, { useState } from 'react';
 import { useSize } from 'react-use';
 
-import { LocaleDropdown, Well } from 'components';
+import { LocaleDropdown, Tile, Well } from 'components';
 import { detectLocale } from 'lib';
 import { Locale } from 'types';
 
 import styles from './index.module.scss';
 
+const getConfig = (locale: Locale, configId: string): Config => {
+  const config = [literaki, scrabble].find(({ id }) => id === configId);
+
+  if (!config) {
+    throw new Error('Cannot find config');
+  }
+
+  const localeConfig = config[locale];
+
+  if (!localeConfig) {
+    throw new Error('Cannot find config');
+  }
+
+  return localeConfig;
+};
+
 const Index = () => {
   const [locale, setLocale] = useState<Locale>(detectLocale());
   const [sizer, { height, width }] = useSize(<div className={styles.boardSizer} />, { height: 0, width: 0 });
   const cellSize = Math.floor(Math.min(height, width) / 15); // TODO: unhardcode 15
+  const config = getConfig(locale, 'literaki'); // TODO: unhardcode 'literaki'
 
   return (
     <div className={styles.index}>
@@ -28,6 +47,7 @@ const Index = () => {
             {width > 0 && height > 0 && (
               <span>
                 Board: {width}x{height}, Cell: {cellSize}x{cellSize}
+                <Tile config={config} size={cellSize} tile={new TileModel({ character: 'W' })} />
               </span>
             )}
           </div>
