@@ -3,21 +3,11 @@ $tile-font-size: $tile-size * 3 / 5;
 
 .tile {
   position: relative;
-  width: $tile-size;
-  height: $tile-size;
   background-color: transparent;
   color: white;
-  font-size: $tile-font-size;
   transition: background-color var(--transition--duration), color var(--transition--duration);
 
   &.small {
-    $tile-size: 48px;
-    $tile-font-size: $tile-size * 3 / 5;
-
-    width: $tile-size;
-    height: $tile-size;
-    font-size: $tile-font-size;
-
     .points {
       position: absolute;
       right: 6px;

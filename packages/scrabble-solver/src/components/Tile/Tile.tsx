@@ -22,9 +22,11 @@ interface TileRef {
 }
 
 const Tile = forwardRef<TileRef, Props>(
-  ({ className, config, highlighted, placeholder, raised, small, tile, onFocus, onKeyDown }, ref) => {
+  ({ className, config, highlighted, placeholder, raised, small, size, tile, onFocus, onKeyDown }, ref) => {
     const inputRef = useRef<HTMLInputElement>();
     const points = config.getCharacterPoints(tile.character);
+    const tileSize = small ? 0.75 * size : size;
+    const fontSize = tileSize * 0.6;
 
     useImperativeHandle(ref, () => ({
       focus: () => {
@@ -47,6 +49,11 @@ const Tile = forwardRef<TileRef, Props>(
           [styles.points4]: points === 4,
           [styles.points5]: points >= 5
         })}
+        style={{
+          fontSize: fontSize,
+          height: tileSize,
+          width: tileSize
+        }}
       >
         <input
           className={styles.character}
