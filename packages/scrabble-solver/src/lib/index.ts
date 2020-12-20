@@ -50,3 +50,5 @@ export const createKeyboardNavigation = ({
     onKeyDown(event);
   };
 };
+
+export { default as detectLocale } from './detectLocale';
