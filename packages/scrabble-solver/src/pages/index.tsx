@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 
 import { flagGb, flagPl, flagUs } from 'icons';
@@ -11,9 +12,9 @@ const Index = () => {
       <div className={styles.nav}>
         <h1 className={styles.title}>Scrabble Solver by Kamil Mielnik</h1>
         <div className={styles.flags}>
-          <SvgIcon className={styles.flag} icon={flagPl} />
-          <SvgIcon className={styles.flag} icon={flagGb} />
-          <SvgIcon className={styles.flag} icon={flagUs} />
+          <SvgIcon className={classNames(styles.flag, styles.pl)} icon={flagPl} />
+          <SvgIcon className={classNames(styles.flag, styles.gb)} icon={flagGb} />
+          <SvgIcon className={classNames(styles.flag, styles.us)} icon={flagUs} />
         </div>
       </div>
 

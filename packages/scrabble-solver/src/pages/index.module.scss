@@ -1,6 +1,3 @@
-$sidebar-width: 400px;
-$flag-icon-height: 16px;
-
 .index {
   height: 100%;
   display: flex;
@@ -30,8 +27,11 @@ $flag-icon-height: 16px;
 }
 
 .flag {
+  $width: 16px;
+  $height: 16px;
+
   width: 32px;
-  height: $flag-icon-height;
+  height: $height;
   margin: 0 var(--spacing--s);
 
   &:first-child {
@@ -40,6 +40,24 @@ $flag-icon-height: 16px;
 
   &:last-child {
     margin-right: 0;
+  }
+
+  &.gb {
+    $aspect-ratio: 2;
+
+    width: $height * $aspect-ratio;
+  }
+
+  &.pl {
+    $aspect-ratio: 1.6;
+
+    width: $height * $aspect-ratio;
+  }
+
+  &.us {
+    $aspect-ratio: 1.9;
+
+    width: $height * $aspect-ratio;
   }
 }
 
@@ -60,7 +78,7 @@ $flag-icon-height: 16px;
 .sidebar {
   display: flex;
   flex-direction: column;
-  flex: 0 0 $sidebar-width;
+  flex: 0 0 var(--sidebar-width);
   padding: var(--spacing--xl);
 
   > * {
