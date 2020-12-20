@@ -6,16 +6,19 @@
   position: absolute;
   top: calc(100% + var(--spacing--m));
   left: 0;
+  z-index: 1;
   min-width: 200px;
-  padding: var(--spacing--m);
+  padding: var(--spacing--m) 0;
   box-shadow: var(--box-shadow);
   background-color: var(--color--background--secondary);
   color: var(--color--foreground--secondary);
   border-radius: var(--border--radius);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 
   &.dropLeft {
     left: auto;
-    right: 0;
+    right: calc(-1 * var(--spacing--l));
   }
 
   &:before {

@@ -12,12 +12,16 @@
 }
 
 .trigger {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .dropdown {
   display: none;
+}
+
+.item {
+  justify-content: space-between;
 }
 
 .flag {
@@ -26,7 +30,6 @@
 
   width: 32px;
   height: $height;
-  margin-right: var(--spacing--m);
 
   &.gb {
     $aspect-ratio: 2;

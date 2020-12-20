@@ -1,6 +1,15 @@
 .item {
-    display: flex;
-    align-items: center;
-    padding: var(--spacing--s) var(--spacing--m);
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing--s);
+  padding: var(--spacing--s) var(--spacing--l);
+  cursor: pointer;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 }

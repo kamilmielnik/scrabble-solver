@@ -30,8 +30,8 @@ const LocaleDropdown: FunctionComponent<Props> = ({ className, value, onChange }
 
       <Dropdown className={styles.dropdown} dropLeft>
         {availableOptions.map((option) => (
-          <DropdownItem key={option.value} onClick={() => onChange(option.value)}>
-            <SvgIcon className={classNames(styles.flag, option.className)} icon={option.icon} /> {option.label}
+          <DropdownItem className={styles.item} key={option.value} onClick={() => onChange(option.value)}>
+            {option.label} <SvgIcon className={classNames(styles.flag, option.className)} icon={option.icon} />
           </DropdownItem>
         ))}
       </Dropdown>
