@@ -29,27 +29,32 @@
 .content {
   flex: 1;
   display: flex;
+  padding: var(--spacing--xl);
 }
 
 .boardContainer {
   flex: 1;
-  padding: var(--spacing--xl);
 }
 
 .board {
-  height: 100%;
   position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border--radius);
+  background-color: white;
 }
 
 .boardSizer {
-
 }
 
 .sidebar {
   display: flex;
   flex-direction: column;
+  margin-left: var(--spacing--xl);
   flex: 0 0 var(--sidebar-width);
-  padding: var(--spacing--xl);
 
   > * {
     margin-bottom: var(--spacing--xl);
