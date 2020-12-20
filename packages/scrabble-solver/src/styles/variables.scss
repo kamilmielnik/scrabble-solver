@@ -1,70 +1,38 @@
-$color--background: #eee;
-$color--background--secondary: #ccc;
-$color--foreground: black;
-$color--focus: #268fff;
+:root {
+  --border--color: #a7a7a7;
+  --border--radius: 10px;
+  --border: 1px solid var(--border--color);
 
-$box-shadow--blur: 10px;
-$box-shadow--spread: 5px;
-$box-shadow--offset: 0px;
-$box-shadow--color: rgba(#000, 0.18);
-$box-shadow: 0 0 $box-shadow--blur $box-shadow--spread $box-shadow--color;
-$box-shadow--top: 0 (-$box-shadow--offset) $box-shadow--blur $box-shadow--spread $box-shadow--color;
-$box-shadow--bottom: 0 $box-shadow--offset $box-shadow--blur $box-shadow--spread $box-shadow--color;
-$box-shadow--left: -$box-shadow--offset 0 $box-shadow--blur $box-shadow--spread $box-shadow--color;
-$box-shadow--right: $box-shadow--offset 0 $box-shadow--blur $box-shadow--spread $box-shadow--color;
+  --box-shadow--blur: 10px;
+  --box-shadow--spread: 5px;
+  --box-shadow--offset: 0px;
+  --box-shadow--color: rgba(#000, 0.18);
+  --box-shadow: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) var(--box-shadow--color);
+  --box-shadow--top: 0 (-var(--box-shadow--offset)) var(--box-shadow--blur) var(--box-shadow--spread)
+    var(--box-shadow--color);
+  --box-shadow--bottom: 0 var(--box-shadow--offset) var(--box-shadow--blur) var(--box-shadow--spread)
+    var(--box-shadow--color);
+  --box-shadow--left: -var(--box-shadow--offset) 0 var(--box-shadow--blur) var(--box-shadow--spread)
+    var(--box-shadow--color);
+  --box-shadow--right: var(--box-shadow--offset) 0 var(--box-shadow--blur) var(--box-shadow--spread)
+    var(--box-shadow--color);
 
-$border--color: #a7a7a7;
-$border--radius: 10px;
-$border: 1px solid $border--color;
+  --color--background: #eee;
+  --color--background--secondary: #ccc;
+  --color--foreground: black;
+  --color--focus: rgba(#268fff, 0.5);
 
-$transition--duration: 100ms;
-$transition--easing: cubic-bezier(0.61, 1, 0.88, 1); // easeOutSine
+  --font--family: 'Open Sans', sans-serif;
+  --font--size--m: 16px;
+  --font--size--l: 22px;
 
-$spacing--s: 5px;
-$spacing--m: 10px;
-$spacing--l: 20px;
-$spacing--xl: 40px;
+  --line-height: 1.5;
 
-$font--size--m: 16px;
-$font--size--l: 22px;
+  --spacing--s: 5px;
+  --spacing--m: 10px;
+  --spacing--l: 20px;
+  --spacing--xl: 40px;
 
-@mixin focus-effect {
-  position: relative;
-
-  &:before {
-    content: ' ';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    transition: box-shadow $transition--duration $transition--easing;
-    border-radius: $border--radius;
-    box-shadow: 0 0 0 3px rgba($color--focus, 0);
-    pointer-events: none;
-  }
-
-  &:focus {
-    outline: none;
-
-    &:before {
-      box-shadow: 0 0 0 3px rgba($color--focus, 0.5);
-    }
-  }
-}
-
-@mixin ellipsis {
-  display: block;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-@mixin button-reset() {
-  padding: 0;
-  border: none;
-  outline: none;
-  font: inherit;
-  color: inherit;
-  background: none;
+  --transition--duration: 100ms;
+  --transition--easing: cubic-bezier(0.61, 1, 0.88, 1); // easeOutSine
 }

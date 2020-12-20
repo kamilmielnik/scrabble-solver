@@ -1,7 +1,9 @@
-@import '~normalize.css';
-@import 'styles/variables';
-
 @import url('https://fonts.googleapis.com/css?family=Lato:300|Open+Sans:400,700&subset=latin-ext&display=swap');
+
+@import '~normalize.css';
+
+@import './mixins';
+@import './variables';
 
 *,
 *:after,
@@ -13,11 +15,11 @@ html,
 body {
   margin: 0 auto;
   padding: 0;
-  background-color: $color--background;
-  color: $color--foreground;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 13px;
-  line-height: 1.5;
+  background-color: var(--color--background);
+  color: var(--color--foreground);
+  font-family: var(--font--family);
+  font-size: var(--font--size--m);
+  line-height: var(--line-height);
 }
 
 html,

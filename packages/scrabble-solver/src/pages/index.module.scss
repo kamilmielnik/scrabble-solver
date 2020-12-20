@@ -1,5 +1,3 @@
-@import 'styles/variables';
-
 $sidebar-width: 400px;
 $flag-icon-height: 16px;
 
@@ -15,15 +13,15 @@ $flag-icon-height: 16px;
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  padding: $spacing--m $spacing--l;
-  background-color: $color--background--secondary;
-  border-bottom: $border;
-  box-shadow: $box-shadow--bottom;
+  padding: var(--spacing--m) var(--spacing--l);
+  background-color: var(--color--background--secondary);
+  border-bottom: var(--border);
+  box-shadow: var(--box-shadow--bottom);
 }
 
 .title {
   flex: 1;
-  font-size: $font--size--l;
+  font-size: var(--font--size--l);
 }
 
 .flags {
@@ -34,7 +32,7 @@ $flag-icon-height: 16px;
 .flag {
   width: 32px;
   height: $flag-icon-height;
-  margin: 0 $spacing--s;
+  margin: 0 var(--spacing--s);
 
   &:first-child {
     margin-left: 0;
@@ -52,21 +50,21 @@ $flag-icon-height: 16px;
 
 .boardContainer {
   flex: 1;
-  padding: $spacing--xl;
+  padding: var(--spacing--xl);
 }
 
 .board {
-  padding: $spacing--l;
+  padding: var(--spacing--l);
 }
 
 .sidebar {
   display: flex;
   flex-direction: column;
   flex: 0 0 $sidebar-width;
-  padding: $spacing--xl;
+  padding: var(--spacing--xl);
 
   > * {
-    margin-bottom: $spacing--xl;
+    margin-bottom: var(--spacing--xl);
 
     &:last-child {
       margin-bottom: 0;
@@ -88,8 +86,8 @@ $flag-icon-height: 16px;
   flex: 0 0 auto;
   display: flex;
   justify-content: center;
-  padding: $spacing--xl;
-  background-color: $color--background--secondary;
-  border-top: $border;
-  box-shadow: $box-shadow--top;
+  padding: var(--spacing--xl);
+  background-color: var(--color--background--secondary);
+  border-top: var(--border);
+  box-shadow: var(--box-shadow--top);
 }

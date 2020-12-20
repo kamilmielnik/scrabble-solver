@@ -1,0 +1,40 @@
+@mixin focus-effect {
+  position: relative;
+
+  &:before {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: box-shadow var(--transition--duration) var(--transition--easing);
+    border-radius: var(--border--radius);
+    box-shadow: 0 0 0 3px transparent;
+    pointer-events: none;
+  }
+
+  &:focus {
+    outline: none;
+
+    &:before {
+      box-shadow: 0 0 0 3px var(--color--focus);
+    }
+  }
+}
+
+@mixin ellipsis {
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@mixin button-reset() {
+  padding: 0;
+  border: none;
+  outline: none;
+  font: inherit;
+  color: inherit;
+  background: none;
+}

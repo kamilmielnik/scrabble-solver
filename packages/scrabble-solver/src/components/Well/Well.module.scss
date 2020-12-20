@@ -1,8 +1,6 @@
-@import 'styles/variables';
-
 .well {
-  padding: $spacing--l;
-  border: $border;
-  border-radius: $border--radius;
-  box-shadow: $box-shadow;
+  padding: var(--spacing--l);
+  border: var(--border);
+  border-radius: var(--border--radius);
+  box-shadow: var(--box-shadow);
 }
