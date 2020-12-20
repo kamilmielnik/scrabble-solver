@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSize } from 'react-use';
 
 import { LocaleDropdown, Well } from 'components';
 import { detectLocale } from 'lib';
@@ -8,6 +9,10 @@ import styles from './index.module.scss';
 
 const Index = () => {
   const [locale, setLocale] = useState<Locale>(detectLocale());
+  const [sizer, { height, width }] = useSize(<div className={styles.boardSizer} />, {
+    height: 0,
+    width: 0
+  });
 
   return (
     <div className={styles.index}>
@@ -19,7 +24,15 @@ const Index = () => {
 
       <div className={styles.content}>
         <div className={styles.boardContainer}>
-          <div className={styles.board}>board</div>
+          <div className={styles.board}>
+            {sizer}
+
+            {width > 0 && height > 0 && (
+              <span>
+                {width}x{height}
+              </span>
+            )}
+          </div>
         </div>
 
         <div className={styles.sidebar}>

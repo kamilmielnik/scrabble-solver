@@ -37,7 +37,12 @@
 }
 
 .board {
-  padding: var(--spacing--l);
+  height: 100%;
+  position: relative;
+}
+
+.boardSizer {
+
 }
 
 .sidebar {
