@@ -52,3 +52,4 @@ export const createKeyboardNavigation = ({
 };
 
 export { default as detectLocale } from './detectLocale';
+export { default as isLocale } from './isLocale';

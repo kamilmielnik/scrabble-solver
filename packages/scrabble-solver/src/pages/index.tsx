@@ -1,12 +1,30 @@
 import classNames from 'classnames';
+import { useRouter } from 'next/router';
 import React from 'react';
+import { useUrlSearchParams } from 'use-url-search-params';
 
 import { flagGb, flagPl, flagUs } from 'icons';
+import { detectLocale, isLocale } from 'lib';
 import { SvgIcon, Well } from 'components';
 
 import styles from './index.module.scss';
 
 const Index = () => {
+  const router = useRouter();
+
+  const [params, setParams] = useUrlSearchParams(
+    { locale: detectLocale() },
+    {
+      locale: (data: any) => {
+        if (isLocale(data)) {
+          return data;
+        }
+
+        return detectLocale();
+      }
+    }
+  );
+
   return (
     <div className={styles.index}>
       <div className={styles.nav}>

@@ -17,6 +17,7 @@ module.exports = {
     autoPrerender: false,
     buildActivity: false
   },
+  reactStrictMode: true,
   webpack: (config) => ({
     ...config,
     resolve: {
