@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { LocaleDropdown, Well } from 'components';
-import { detectLocale, isLocale } from 'lib';
+import { detectLocale } from 'lib';
 import { Locale } from 'types';
 
 import styles from './index.module.scss';
