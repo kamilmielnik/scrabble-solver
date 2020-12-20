@@ -11,7 +11,7 @@ interface Props {
   placeholder?: string;
   raised?: boolean;
   small?: boolean;
-  size: number; // TODO: implement me
+  size: number;
   tile: TileModel;
   onFocus: FocusEventHandler<HTMLInputElement>;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
