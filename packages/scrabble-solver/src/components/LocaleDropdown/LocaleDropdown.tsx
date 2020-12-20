@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
+import React, { FunctionComponent } from 'react';
 
 import { Locale } from 'types';
 
@@ -24,10 +24,7 @@ const LocaleDropdown: FunctionComponent<Props> = ({ className, value, onChange }
     <div className={classNames(styles.localeDropdown, className)}>
       <div className={styles.trigger}>
         {selectedOption && (
-          <>
-            <SvgIcon className={classNames(styles.flag, selectedOption.className)} icon={selectedOption.icon} />{' '}
-            {selectedOption.label}
-          </>
+          <SvgIcon className={classNames(styles.flag, selectedOption.className)} icon={selectedOption.icon} />
         )}
       </div>
 
