@@ -1,15 +1,17 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, ReactNode } from 'react';
+import React, { FunctionComponent, HTMLAttributes, ReactNode } from 'react';
 
 import styles from './Well.module.scss';
 
-interface Props {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   className?: string;
 }
 
-const Well: FunctionComponent<Props> = ({ children, className }) => (
-  <div className={classNames(styles.well, className)}>{children}</div>
+const Well: FunctionComponent<Props> = ({ children, className, ...props }) => (
+  <div className={classNames(styles.well, className)} {...props}>
+    {children}
+  </div>
 );
 
 export default Well;
