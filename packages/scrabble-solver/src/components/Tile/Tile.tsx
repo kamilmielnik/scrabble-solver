@@ -23,7 +23,7 @@ interface TileRef {
 
 const Tile = forwardRef<TileRef, Props>(
   ({ className, config, highlighted, placeholder, raised, small, size, tile, onFocus, onKeyDown }, ref) => {
-    const inputRef = useRef<HTMLInputElement>();
+    const inputRef = useRef<HTMLInputElement>(null);
     const points = config.getCharacterPoints(tile.character);
     const tileSize = small ? 0.75 * size : size;
     const fontSize = tileSize * 0.6;
