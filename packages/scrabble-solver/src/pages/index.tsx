@@ -1,7 +1,8 @@
 import { literaki, scrabble } from '@scrabble-solver/configs';
 import { Config, Tile as TileModel } from '@scrabble-solver/models';
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { useSize } from 'react-use';
+
 import { LocaleDropdown, Tile, Well } from 'components';
 import { detectLocale } from 'lib';
 import { Locale } from 'types';
@@ -24,7 +25,7 @@ const getConfig = (locale: Locale, configId: string): Config => {
   return localeConfig;
 };
 
-const Index = () => {
+const Index: FunctionComponent = () => {
   const [locale, setLocale] = useState<Locale>(detectLocale());
   const [sizer, { height, width }] = useSize(<div className={styles.boardSizer} />, { height: 0, width: 0 });
   const cellSize = Math.floor(Math.min(height, width) / 15); // TODO: unhardcode 15

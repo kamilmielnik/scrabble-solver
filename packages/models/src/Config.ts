@@ -10,7 +10,7 @@ import WordBonus from './WordBonus';
 const NO_BONUS = { characterMultiplier: 1, wordMultiplier: 1 };
 
 class Config {
-  public static fromJson(json: ConfigJson) {
+  public static fromJson(json: ConfigJson): Config {
     return new Config(json);
   }
 

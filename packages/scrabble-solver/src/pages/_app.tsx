@@ -1,13 +1,13 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import 'styles/global.scss';
 
 const NAME = 'Kamil Mielnik';
 const DESCRIPTION = 'Scrabble Solver';
 const KEYWORDS = ['Scrabble', 'Literaki', 'Solver', NAME].join(',');
 
-const App = ({ Component, pageProps }: AppProps) => (
+const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
   <>
     <Head>
       <title>Scrabble Solver</title>

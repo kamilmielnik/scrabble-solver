@@ -11,7 +11,7 @@ class Board {
     });
   }
 
-  public static fromStringArray(stringArray: string[]) {
+  public static fromStringArray(stringArray: string[]): Board {
     return new Board({
       board: stringArray.map((row, y) =>
         row.split('').map(
