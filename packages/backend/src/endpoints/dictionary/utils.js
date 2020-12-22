@@ -20,6 +20,6 @@ export const request = ({ protocol, ...options }) => {
           }
         });
       })
-      .on('error', reject)
+      .on('error', reject),
   );
 };

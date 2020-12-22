@@ -32,7 +32,7 @@ describe('Solver', () => {
       '   żyło        ',
       '               ',
       '               ',
-      '               '
+      '               ',
     ]);
     const tiles = generateTiles('lino');
     const results = solver.solve(board, tiles);
@@ -55,13 +55,13 @@ describe('Solver', () => {
       ' or o    in fał',
       ' m  twych s  ł ',
       '               ',
-      '               '
+      '               ',
     ]);
     const tiles = generateTiles('aaąrtwz');
     const [firstResult, ...results] = solver.solve(board, tiles);
     const bestResult = results.reduce(
       (bestResultCandidate, result) => (result.points > bestResultCandidate.points ? result : bestResultCandidate),
-      firstResult
+      firstResult,
     );
     expect(bestResult.word).toBe('zmartwychwstałą');
     expect(bestResult.points).toBe(682);
@@ -83,13 +83,13 @@ describe('Solver', () => {
       'as o iw  au  ał',
       ' mar  y   stał ',
       'da do    ot    ',
-      'ar  ń    m     '
+      'ar  ń    m     ',
     ]);
     const tiles = generateTiles('ąchtwwz');
     const [firstResult, ...results] = solver.solve(board, tiles);
     const bestResult = results.reduce(
       (bestResultCandidate, result) => (result.points > bestResultCandidate.points ? result : bestResultCandidate),
-      firstResult
+      firstResult,
     );
     expect(bestResult.word).toBe('zmartwychwstałą');
     expect(bestResult.points).toBe(1157);

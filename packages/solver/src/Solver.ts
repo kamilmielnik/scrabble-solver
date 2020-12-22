@@ -24,7 +24,7 @@ class Solver {
       .generate(board)
       .reduce<Pattern[]>(
         (filledPatterns, pattern) => filledPatterns.concat(this.patternsFiller.fill(pattern, tiles)),
-        []
+        [],
       );
     const uniquePatterns = uniqBy(patterns, (pattern) => JSON.stringify(pattern.toJson()));
     const results = uniquePatterns.map(
@@ -33,8 +33,8 @@ class Solver {
           cells: pattern.cells,
           id: index,
           numberOfCollisions: pattern.getCollisions().length,
-          points: this.scoresCalculator.calculate(pattern)
-        })
+          points: this.scoresCalculator.calculate(pattern),
+        }),
     );
     return results;
   }

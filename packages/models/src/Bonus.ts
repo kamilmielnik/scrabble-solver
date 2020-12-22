@@ -21,7 +21,7 @@ abstract class Bonus {
     multiplier,
     score,
     x,
-    y
+    y,
   }: {
     config: Config;
     multiplier: number;
@@ -50,14 +50,14 @@ abstract class Bonus {
       score: this.score,
       type: this.type,
       x: this.x,
-      y: this.y
+      y: this.y,
     };
   }
 
   public get value(): BonusValue {
     return {
       characterMultiplier: 1,
-      wordMultiplier: 1
+      wordMultiplier: 1,
     };
   }
 }

@@ -11,5 +11,5 @@ export const selectTranslations = createSelector(selectRoot, ({ translations }) 
 export const selectMessage = createSelector(
   [selectTranslations, selectLocale, (state, ownProps) => ownProps],
   (translations, locale, { id, locale: localeOverride, values }) =>
-    formatMessage(translations[localeOverride || locale][id], values)
+    formatMessage(translations[localeOverride || locale][id], values),
 );

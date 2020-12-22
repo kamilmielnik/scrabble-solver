@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-
 import { Locale } from 'types';
 
 const solve = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {

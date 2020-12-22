@@ -21,28 +21,28 @@ class ScoresCalculator {
       .getCollisions()
       .reduce(
         (patternsScore, collisionPattern) => patternsScore + this.calculatePatternScore(collisionPattern),
-        this.calculatePatternScore(pattern)
+        this.calculatePatternScore(pattern),
       );
   }
 
   public calculatePatternScore(pattern: Pattern): number {
     const { multiplier, score } = pattern.cells.reduce(this.reduceCellScore, {
       multiplier: 1,
-      score: 0
+      score: 0,
     });
     return score * multiplier;
   }
 
   public reduceCellScore = (
     { multiplier, score }: { multiplier: number; score: number },
-    cell: Cell
+    cell: Cell,
   ): { multiplier: number; score: number } => {
     const { characterMultiplier, wordMultiplier } = this.config.getCellBonusValue(cell);
     const characterScore = cell.tile.isBlank ? this.config.blankScore : this.config.pointsMap[cell.tile.character];
 
     return {
       multiplier: multiplier * wordMultiplier,
-      score: score + characterScore * characterMultiplier
+      score: score + characterScore * characterMultiplier,
     };
   };
 }

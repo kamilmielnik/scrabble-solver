@@ -4,7 +4,7 @@ class HorizontalPattern extends Pattern {
   public clone(): Pattern {
     return new HorizontalPattern({
       board: this.board,
-      cells: this.cells.map((cell) => cell.clone())
+      cells: this.cells.map((cell) => cell.clone()),
     });
   }
 

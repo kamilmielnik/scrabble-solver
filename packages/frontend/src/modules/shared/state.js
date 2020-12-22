@@ -9,20 +9,20 @@ export const submitSolveFailure = createAction(SUBMIT_SOLVE_FAILURE);
 export const submitSolveSuccess = createAction(SUBMIT_SOLVE_SUCCESS);
 
 const initialState = {
-  isLoading: false
+  isLoading: false,
 };
 
 export const reducer = handleActions(
   {
     [SUBMIT_SOLVE]: (state) => ({
       ...state,
-      isLoading: true
+      isLoading: true,
     }),
 
     [combineActions(SUBMIT_SOLVE_FAILURE, SUBMIT_SOLVE_SUCCESS)]: (state) => ({
       ...state,
-      isLoading: false
-    })
+      isLoading: false,
+    }),
   },
-  initialState
+  initialState,
 );

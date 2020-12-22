@@ -38,9 +38,9 @@ const Cell = forwardRef(({ cell, className, onFocus, onKeyDown, onMoveFocus }, r
           }
 
           onKeyDown(event);
-        }
+        },
       }),
-    [cell.x, cell.y, config, dispatch, onKeyDown, onMoveFocus]
+    [cell.x, cell.y, config, dispatch, onKeyDown, onMoveFocus],
   );
 
   return (
@@ -52,8 +52,8 @@ const Cell = forwardRef(({ cell, className, onFocus, onKeyDown, onMoveFocus }, r
         className,
         {
           [styles.candidate]: cell.isCandidate(),
-          [styles.empty]: cell.isEmpty && !cell.hasTile()
-        }
+          [styles.empty]: cell.isEmpty && !cell.hasTile(),
+        },
       )}
     >
       <Tile
@@ -75,7 +75,7 @@ Cell.propTypes = {
   className: PropTypes.string,
   onFocus: PropTypes.func.isRequired,
   onKeyDown: PropTypes.func.isRequired,
-  onMoveFocus: PropTypes.func.isRequired
+  onMoveFocus: PropTypes.func.isRequired,
 };
 
 export default Cell;

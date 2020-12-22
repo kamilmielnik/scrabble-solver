@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const path = require('path');
 const fs = require('fs');
 
@@ -6,16 +8,16 @@ const tsConfigJson = JSON.parse(tsConfig);
 const tsConfigAliases = Object.keys(tsConfigJson.compilerOptions.paths).reduce(
   (result, key) => ({
     ...result,
-    [key]: path.resolve(__dirname, tsConfigJson.compilerOptions.paths[key][0])
+    [key]: path.resolve(__dirname, tsConfigJson.compilerOptions.paths[key][0]),
   }),
-  {}
+  {},
 );
 
 module.exports = {
   compress: false,
   devIndicators: {
     autoPrerender: false,
-    buildActivity: false
+    buildActivity: false,
   },
   reactStrictMode: true,
   webpack: (config) => ({
@@ -24,8 +26,8 @@ module.exports = {
       ...config.resolve,
       alias: {
         ...config.resolve.alias,
-        ...tsConfigAliases
-      }
+        ...tsConfigAliases,
+      },
     },
     module: {
       ...config.module,
@@ -33,9 +35,9 @@ module.exports = {
         ...config.module.rules,
         {
           test: /\.svg$/,
-          loader: 'svg-sprite-loader'
-        }
-      ]
-    }
-  })
+          loader: 'svg-sprite-loader',
+        },
+      ],
+    },
+  }),
 };

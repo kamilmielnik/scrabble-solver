@@ -12,7 +12,7 @@ const Separators = ({ children, separator }) => (
         newChildren.push(
           <span className={styles.separator} key={`separator-${index}`}>
             {separator}
-          </span>
+          </span>,
         );
       }
 
@@ -23,7 +23,7 @@ const Separators = ({ children, separator }) => (
 
 Separators.propTypes = {
   children: PropTypes.node.isRequired,
-  separator: PropTypes.string.isRequired
+  separator: PropTypes.string.isRequired,
 };
 
 export default Separators;

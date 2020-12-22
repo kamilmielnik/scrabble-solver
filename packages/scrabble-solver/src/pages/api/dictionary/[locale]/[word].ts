@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-
 import { Locale } from 'types';
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
@@ -15,7 +14,7 @@ const dictionary = async (request: NextApiRequest, response: NextApiResponse): P
 
 const parseRequest = (request: NextApiRequest): { locale: Locale; word: string } => ({
   locale: getLocale(request),
-  word: getWord(request)
+  word: getWord(request),
 });
 
 const getLocale = (request: NextApiRequest): Locale => {

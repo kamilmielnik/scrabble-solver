@@ -7,7 +7,7 @@ import Tile from './Tile';
 class Board {
   public static fromJson(json: BoardJson): Board {
     return new Board({
-      board: json.map((row) => row.map(Cell.fromJson))
+      board: json.map((row) => row.map(Cell.fromJson)),
     });
   }
 
@@ -20,10 +20,10 @@ class Board {
               isEmpty: !character || character === EMPTY_CELL,
               tile: character === EMPTY_CELL ? Tile.Null : new Tile({ character }),
               x,
-              y
-            })
-        )
-      )
+              y,
+            }),
+        ),
+      ),
     });
   }
 

@@ -7,7 +7,7 @@ const Spinner = ({ className, duration = '2s', size = 50 }) => {
     calcMode: 'spline',
     keySplines: '0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1',
     keyTimes: '0;0.25;0.5;0.75;1',
-    repeatCount: 'indefinite'
+    repeatCount: 'indefinite',
   };
 
   return (
@@ -46,7 +46,7 @@ const Spinner = ({ className, duration = '2s', size = 50 }) => {
 Spinner.propTypes = {
   className: PropTypes.string,
   duration: PropTypes.string,
-  size: PropTypes.number
+  size: PropTypes.number,
 };
 
 export default Spinner;

@@ -9,7 +9,7 @@ class WordBonus extends Bonus {
   public get value(): BonusValue {
     return {
       characterMultiplier: 1,
-      wordMultiplier: this.multiplier
+      wordMultiplier: this.multiplier,
     };
   }
 }

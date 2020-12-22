@@ -9,7 +9,7 @@ import styles from './LocaleSetting.module.scss';
 const options = [
   { Component: FlagPl, value: 'pl-PL' },
   { Component: FlagGb, value: 'en-GB' },
-  { Component: FlagUs, value: 'en-US' }
+  { Component: FlagUs, value: 'en-US' },
 ];
 
 const LocaleSetting = () => {
@@ -22,7 +22,7 @@ const LocaleSetting = () => {
         <Component
           key={value}
           className={classNames(styles.option, {
-            [styles.selected]: value === locale
+            [styles.selected]: value === locale,
           })}
           title={value}
           onClick={() => changeLocale(value)}

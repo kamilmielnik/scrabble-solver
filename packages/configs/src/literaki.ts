@@ -94,7 +94,7 @@ const BONUSES = [
   { multiplier: 3, score: 5, type: BONUS_CHARACTER, x: 7, y: 14 },
   { multiplier: 3, score: 2, type: BONUS_CHARACTER, x: 9, y: 14 },
   { multiplier: 3, type: BONUS_WORD, x: 12, y: 14 },
-  { multiplier: 3, score: 5, type: BONUS_CHARACTER, x: 14, y: 14 }
+  { multiplier: 3, score: 5, type: BONUS_CHARACTER, x: 14, y: 14 },
 ];
 
 const BASE = {
@@ -106,7 +106,7 @@ const BASE = {
   id: 'literaki',
   maximumNumberOfCharacters: 7,
   name: 'Literaki',
-  numberOfBlanks: 2
+  numberOfBlanks: 2,
 };
 
 const TILES_EN = [
@@ -135,7 +135,7 @@ const TILES_EN = [
   { character: 'w', count: 2, score: 4 },
   { character: 'x', count: 1, score: 8 },
   { character: 'y', count: 2, score: 4 },
-  { character: 'z', count: 1, score: 10 }
+  { character: 'z', count: 1, score: 10 },
 ];
 
 const TILES_PL = [
@@ -170,7 +170,7 @@ const TILES_PL = [
   { character: 'y', count: 4, score: 2 },
   { character: 'z', count: 5, score: 1 },
   { character: 'ź', count: 1, score: 5 },
-  { character: 'ż', count: 1, score: 5 }
+  { character: 'ż', count: 1, score: 5 },
 ];
 
 const CONFIG_EN = Config.fromJson({ ...BASE, tiles: TILES_EN });
@@ -182,7 +182,7 @@ const LITERAKI = {
   name: BASE.name,
   'en-GB': CONFIG_EN,
   'en-US': CONFIG_EN,
-  'pl-PL': CONFIG_PL
+  'pl-PL': CONFIG_PL,
 };
 
 export default LITERAKI;

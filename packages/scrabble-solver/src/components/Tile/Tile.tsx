@@ -33,7 +33,7 @@ const Tile = forwardRef<TileRef, Props>(
         if (inputRef.current) {
           inputRef.current.focus();
         }
-      }
+      },
     }));
 
     return (
@@ -47,12 +47,12 @@ const Tile = forwardRef<TileRef, Props>(
           [styles.points2]: points === 2,
           [styles.points3]: points === 3,
           [styles.points4]: points === 4,
-          [styles.points5]: points >= 5
+          [styles.points5]: points >= 5,
         })}
         style={{
-          fontSize: fontSize,
+          fontSize,
           height: tileSize,
-          width: tileSize
+          width: tileSize,
         }}
       >
         <input
@@ -69,7 +69,7 @@ const Tile = forwardRef<TileRef, Props>(
         {!tile.isBlank && <span className={styles.points}>{points}</span>}
       </div>
     );
-  }
+  },
 );
 
 export default Tile;

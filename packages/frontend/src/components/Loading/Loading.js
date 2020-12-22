@@ -19,7 +19,7 @@ const Loading = ({ children, className, isLoading }) => (
 Loading.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
 };
 
 export default Loading;

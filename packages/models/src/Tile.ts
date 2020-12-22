@@ -10,7 +10,7 @@ class Tile {
 
     return new Tile({
       character: json.character,
-      isBlank: json.isBlank
+      isBlank: json.isBlank,
     });
   }
 
@@ -28,14 +28,14 @@ class Tile {
   public clone(): Tile {
     return new Tile({
       character: this.character,
-      isBlank: this.isBlank
+      isBlank: this.isBlank,
     });
   }
 
   public toJson(): TileJson {
     return {
       character: this.character,
-      isBlank: this.isBlank
+      isBlank: this.isBlank,
     };
   }
 

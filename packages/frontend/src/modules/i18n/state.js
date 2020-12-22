@@ -10,15 +10,15 @@ export const changeLocale = createAction(CHANGE_LOCALE);
 
 export const initialState = {
   locale: localStorage.get(LOCALE, 'pl-PL'),
-  translations
+  translations,
 };
 
 export const reducer = handleActions(
   {
     [CHANGE_LOCALE]: (state, { payload: locale }) => ({
       ...state,
-      locale
-    })
+      locale,
+    }),
   },
-  initialState
+  initialState,
 );

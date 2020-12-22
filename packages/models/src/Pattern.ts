@@ -24,7 +24,7 @@ class Pattern {
   public clone(): Pattern {
     return new Pattern({
       board: this.board,
-      cells: this.cells.map((cell) => cell.clone())
+      cells: this.cells.map((cell) => cell.clone()),
     });
   }
 
@@ -60,7 +60,7 @@ class Pattern {
     return {
       cells: this.cells.map((cell) => cell.toJson()),
       collisions: this.getCollisions().map((collision) => collision.toJson()),
-      word: this.toString()
+      word: this.toString(),
     };
   }
 

@@ -28,6 +28,6 @@ export const useTiles = () => {
 
   return zipCharactersAndTiles(characters, tiles).map(({ character, tile }) => ({
     character,
-    isCandidate: tile !== null
+    isCandidate: tile !== null,
   }));
 };

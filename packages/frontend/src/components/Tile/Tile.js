@@ -15,7 +15,7 @@ const Tile = forwardRef(
     useImperativeHandle(ref, () => ({
       focus: () => {
         inputRef.current.focus();
-      }
+      },
     }));
 
     return (
@@ -29,7 +29,7 @@ const Tile = forwardRef(
           [styles.points2]: points === 2,
           [styles.points3]: points === 3,
           [styles.points4]: points === 4,
-          [styles.points5]: points >= 5
+          [styles.points5]: points >= 5,
         })}
       >
         <input
@@ -45,7 +45,7 @@ const Tile = forwardRef(
         {!isBlank && <span className={styles.points}>{points}</span>}
       </div>
     );
-  }
+  },
 );
 
 Tile.propTypes = {
@@ -57,7 +57,7 @@ Tile.propTypes = {
   raised: PropTypes.bool,
   small: PropTypes.bool,
   onFocus: PropTypes.func.isRequired,
-  onKeyDown: PropTypes.func.isRequired
+  onKeyDown: PropTypes.func.isRequired,
 };
 
 export default Tile;

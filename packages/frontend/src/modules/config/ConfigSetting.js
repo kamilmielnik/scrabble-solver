@@ -7,7 +7,7 @@ import { useChangeConfig, useConfigId } from './hooks';
 
 const options = Object.values(configs).map(({ id, name }) => ({
   label: name,
-  value: id
+  value: id,
 }));
 
 const ConfigSetting = () => {

@@ -19,7 +19,7 @@ class CharacterBonus extends Bonus {
   public get value(): BonusValue {
     return {
       characterMultiplier: this.multiplier,
-      wordMultiplier: 1
+      wordMultiplier: 1,
     };
   }
 }

@@ -11,7 +11,7 @@ export const initialState = configs[localStorage.get(CONFIG, 'scrabble')];
 
 export const reducer = handleActions(
   {
-    [CHANGE_CONFIG]: (state, { payload: config }) => config
+    [CHANGE_CONFIG]: (state, { payload: config }) => config,
   },
-  initialState
+  initialState,
 );

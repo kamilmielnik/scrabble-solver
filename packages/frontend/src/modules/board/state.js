@@ -14,7 +14,7 @@ export const changeCellValue = createAction(CHANGE_CELL_VALUE, (x, y, value) => 
 export const toggleCellIsBlank = createAction(TOGGLE_CELL_IS_BLANK, (x, y) => ({ x, y }));
 
 const initialState = Board.fromStringArray(
-  Array(config[i18n.locale].boardHeight).fill(Array(config[i18n.locale].boardWidth).fill(' ').join(''))
+  Array(config[i18n.locale].boardHeight).fill(Array(config[i18n.locale].boardWidth).fill(' ').join('')),
 );
 
 export const reducer = handleActions(
@@ -27,12 +27,12 @@ export const reducer = handleActions(
             if (newCell) {
               return new Cell({
                 ...newCell,
-                isEmpty: false
+                isEmpty: false,
               });
             }
             return cell;
-          })
-        )
+          }),
+        ),
       }),
 
     [CHANGE_CELL_VALUE]: (state, { payload: { x, y, value } }) => {
@@ -44,8 +44,8 @@ export const reducer = handleActions(
           new Cell({
             ...cell,
             tile: isEmpty ? Tile.NullTile : new Tile({ character: value }),
-            isEmpty
-          })
+            isEmpty,
+          }),
       });
     },
 
@@ -56,22 +56,22 @@ export const reducer = handleActions(
         updateCell: (cell) =>
           new Cell({
             ...cell,
-            tile: cell.isEmpty ? cell.tile : new Tile({ ...cell.tile, isBlank: !cell.tile.isBlank })
-          })
-      })
+            tile: cell.isEmpty ? cell.tile : new Tile({ ...cell.tile, isBlank: !cell.tile.isBlank }),
+          }),
+      }),
   },
-  initialState
+  initialState,
 );
 
 const updateBoardCell = (state, { x, y, updateCell }) =>
   updateBoardRow(state, {
     y,
-    updateRow: (row) => [...row.slice(0, x), updateCell(row[x]), ...row.slice(x + 1)]
+    updateRow: (row) => [...row.slice(0, x), updateCell(row[x]), ...row.slice(x + 1)],
   });
 
 const updateBoardRow = (state, { y, updateRow }) =>
   new Board({
-    board: [...state.board.slice(0, y), updateRow(state.board[y]), ...state.board.slice(y + 1)]
+    board: [...state.board.slice(0, y), updateRow(state.board[y]), ...state.board.slice(y + 1)],
   });
 
 const getCell = (cells, x, y) => cells.find((cell) => cell.x === x && cell.y === y);

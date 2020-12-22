@@ -9,14 +9,14 @@ export default async (word) => {
     const response = await request({
       protocol: 'https',
       hostname: 'sjp.pl',
-      path: `/${word}`
+      path: `/${word}`,
     });
     const wordDefinition = parseSjpResponse(response);
     return wordDefinition;
   } catch (error) {
     logger.error('dictionary - pl', {
       error: error.message,
-      word
+      word,
     });
     return NullWordDefinition;
   }
@@ -31,7 +31,7 @@ const parseSjpResponse = (html) => {
   const wordDefinition = new WordDefinition({
     definitions: getTrimmedDefinitions($definitions),
     isAllowed: isAllowed($isAllowed),
-    word: getWord($word)
+    word: getWord($word),
   });
   return wordDefinition;
 };

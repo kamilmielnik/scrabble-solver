@@ -7,7 +7,7 @@ const board = Board.fromStringArray([' t ', 'do ', '   ']);
 
 const patternsGenerator = new PatternsGenerator({
   boardHeight: 3,
-  boardWidth: 3
+  boardWidth: 3,
 } as Config);
 
 describe('PatternsGenerator', () => {
@@ -16,7 +16,7 @@ describe('PatternsGenerator', () => {
 
   it('generates start indices', () => {
     const startIndices = patternsGenerator.generateStartIndices({
-      cells: [filledCell, filledCell, emptyCell, emptyCell, emptyCell, filledCell]
+      cells: [filledCell, filledCell, emptyCell, emptyCell, emptyCell, filledCell],
     });
     expect(startIndices).toEqual([0, 3, 4]);
   });
@@ -26,17 +26,17 @@ describe('PatternsGenerator', () => {
       {
         input: {
           cells: [filledCell, filledCell, emptyCell, emptyCell, emptyCell, filledCell],
-          startIndex: 3
+          startIndex: 3,
         },
-        output: [5]
+        output: [5],
       },
       {
         input: {
           cells: [filledCell, filledCell, emptyCell, emptyCell, emptyCell, filledCell, emptyCell],
-          startIndex: 3
+          startIndex: 3,
         },
-        output: [5, 6]
-      }
+        output: [5, 6],
+      },
     ];
 
     tests.forEach(({ input, output }) => expect(patternsGenerator.generateEndIndices(input)).toEqual(output));
@@ -45,7 +45,7 @@ describe('PatternsGenerator', () => {
   it('generates vectors', () => {
     const vectors = patternsGenerator.generateVectors({
       getNthVector: () => [],
-      numberOfVectors: 3
+      numberOfVectors: 3,
     });
     expect(vectors.length).toBe(3);
     expect(vectors).toEqual([[], [], []]);
@@ -65,7 +65,7 @@ describe('PatternsGenerator', () => {
       ['t', 'o', EMPTY_CELL],
       [EMPTY_CELL, EMPTY_CELL],
       [EMPTY_CELL, EMPTY_CELL, EMPTY_CELL],
-      [EMPTY_CELL, EMPTY_CELL]
+      [EMPTY_CELL, EMPTY_CELL],
     ]);
   });
 
@@ -83,7 +83,7 @@ describe('PatternsGenerator', () => {
       ['d', 'o', EMPTY_CELL],
       [EMPTY_CELL, EMPTY_CELL],
       [EMPTY_CELL, EMPTY_CELL, EMPTY_CELL],
-      [EMPTY_CELL, EMPTY_CELL]
+      [EMPTY_CELL, EMPTY_CELL],
     ]);
   });
 });

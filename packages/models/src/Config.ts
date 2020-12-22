@@ -96,7 +96,7 @@ class Config {
 const getAllCharacters = (config: ConfigJson) =>
   config.tiles.reduce(
     (allCharacters, { character, count }) => allCharacters + Array(count).fill(character).join(''),
-    Array(config.numberOfBlanks).fill(BLANK).join('')
+    Array(config.numberOfBlanks).fill(BLANK).join(''),
   );
 
 const getAlphabet = (config: ConfigJson): string[] => config.tiles.map(({ character }) => character);
@@ -105,9 +105,9 @@ const getPointsMap = (config: ConfigJson): Record<string, number> =>
   config.tiles.reduce(
     (pointsMap, { character, score }) => ({
       ...pointsMap,
-      [character]: score
+      [character]: score,
     }),
-    {}
+    {},
   );
 
 export default Config;

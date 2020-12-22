@@ -5,7 +5,7 @@ export const zipCharactersAndTiles = (characters, tiles) => {
 
   return characters.map((character) => {
     const index = remainingTiles.findIndex((tile) =>
-      character === BLANK ? tile.isBlank : character === tile.character
+      character === BLANK ? tile.isBlank : character === tile.character,
     );
 
     if (index >= 0) {

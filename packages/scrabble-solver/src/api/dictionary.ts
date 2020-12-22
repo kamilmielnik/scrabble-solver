@@ -1,5 +1,4 @@
 import { WordDefinitionJson } from '@scrabble-solver/models';
-
 import { Locale } from 'types';
 
 interface Payload {

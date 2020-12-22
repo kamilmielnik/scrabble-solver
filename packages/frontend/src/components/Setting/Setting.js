@@ -24,11 +24,11 @@ Setting.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      value: PropTypes.any.isRequired
-    }).isRequired
+      value: PropTypes.any.isRequired,
+    }).isRequired,
   ).isRequired,
   value: PropTypes.any.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Setting;

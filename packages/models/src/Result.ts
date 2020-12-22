@@ -8,7 +8,7 @@ class Result {
       cells: json.cells.map(Cell.fromJson),
       id: json.id,
       numberOfCollisions: json.numberOfCollisions,
-      points: json.points
+      points: json.points,
     });
   }
 
@@ -38,7 +38,7 @@ class Result {
     cells,
     id,
     numberOfCollisions,
-    points
+    points,
   }: {
     cells: Cell[];
     id: number;
@@ -64,7 +64,7 @@ class Result {
       cells: this.cells.map((cell) => cell.toJson()),
       id: this.id,
       numberOfCollisions: this.numberOfCollisions,
-      points: this.points
+      points: this.points,
     };
   }
 }

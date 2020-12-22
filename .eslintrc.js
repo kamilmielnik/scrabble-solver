@@ -1,15 +1,21 @@
 module.exports = {
   parser: 'babel-eslint',
 
-  extends: ['eslint:recommended', 'plugin:prettier/recommended', 'prettier/react'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+    'prettier/@typescript-eslint',
+    'prettier/react',
+  ],
 
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
     ecmaFeatures: {
       impliedStrict: true,
-      jsx: true
-    }
+      jsx: true,
+    },
   },
 
   env: {
@@ -17,24 +23,46 @@ module.exports = {
     node: true,
     es6: true,
     mocha: true,
-    jquery: true
+    jquery: true,
   },
 
-  plugins: ['react', 'import'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import'],
 
   globals: {
     define: true,
     expect: true,
     it: true,
     describe: true,
-    API_URL: true
+    API_URL: true,
   },
+
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      parser: '@typescript-eslint/parser',
+      // parserOptions: {
+      //   project: './tsconfig.json',
+      //   // @typescript-eslint/parser doesn't use `cwd` when parsing the
+      //   // project path, we need to provide it manually.
+      //   tsconfigRootDir: __dirname,
+      // },
+      rules: {
+        'react/prop-types': 'off',
+        // camelcase: 'off',
+        // 'no-array-constructor': 'off',
+        'no-unused-vars': 'off',
+      },
+    },
+  ],
 
   settings: {
     react: {
-      version: '16.8'
+      version: '17',
     },
-    'import/extensions': ['.js', '.jsx', '.ts', '.tsx']
+    'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
   },
 
   rules: {
@@ -46,12 +74,12 @@ module.exports = {
       'error',
       {
         groups: [['builtin', 'external'], 'internal', 'parent', 'sibling', 'index'],
-        'newlines-between': 'always'
-      }
+        'newlines-between': 'always',
+      },
     ],
 
     // Possible Errors
-    'comma-dangle': 'error',
+    'comma-dangle': ['error', 'always-multiline'],
     'no-cond-assign': 'error',
     'no-console': 'warn',
     'no-constant-condition': 'error',
@@ -73,8 +101,8 @@ module.exports = {
       'error',
       {
         skipStrings: true,
-        skipTemplates: true
-      }
+        skipTemplates: true,
+      },
     ],
     'no-negated-in-lhs': 'error',
     'no-obj-calls': 'error',
@@ -126,8 +154,8 @@ module.exports = {
       'off',
       {
         enforceConst: true,
-        detectObjects: true
-      }
+        detectObjects: true,
+      },
     ],
     'no-multi-spaces': 'error',
     'no-multi-str': 'error',
@@ -196,16 +224,15 @@ module.exports = {
     camelcase: [
       'error',
       {
-        properties: 'always'
-      }
+        properties: 'always',
+      },
     ],
-    'comma-dangle': ['error', 'never'],
     'comma-spacing': [
       'error',
       {
         before: false,
-        after: true
-      }
+        after: true,
+      },
     ],
     'comma-style': ['error', 'last'],
     'computed-property-spacing': ['error', 'never'],
@@ -218,8 +245,8 @@ module.exports = {
       'off',
       {
         min: 3,
-        exceptions: ['_', 'id', 'to', 'x', 'y']
-      }
+        exceptions: ['_', 'id', 'to', 'x', 'y'],
+      },
     ],
     'id-match': 'off',
     indent: ['error', 2],
@@ -229,15 +256,15 @@ module.exports = {
       {
         beforeColon: false,
         afterColon: true,
-        mode: 'strict'
-      }
+        mode: 'strict',
+      },
     ],
     'keyword-spacing': [
       'error',
       {
         before: true,
-        after: true
-      }
+        after: true,
+      },
     ],
     'linebreak-style': ['error', 'unix'],
     'lines-around-comment': 'off',
@@ -250,16 +277,16 @@ module.exports = {
     'max-statements-per-line': [
       'error',
       {
-        max: 1
-      }
+        max: 1,
+      },
     ],
     'new-cap': [
       'error',
       {
         newIsCap: true,
         capIsNew: false,
-        properties: true
-      }
+        properties: true,
+      },
     ],
     'new-parens': 'error',
     'newline-after-var': 'off',
@@ -284,8 +311,8 @@ module.exports = {
     'no-underscore-dangle': [
       'error',
       {
-        allow: ['_']
-      }
+        allow: ['_'],
+      },
     ],
     'no-unneeded-ternary': 'error',
     'no-whitespace-before-property': 'error',
@@ -294,8 +321,8 @@ module.exports = {
     'object-property-newline': [
       'error',
       {
-        allowMultiplePropertiesPerLine: true
-      }
+        allowMultiplePropertiesPerLine: true,
+      },
     ],
     'one-var': ['error', 'never'],
     'one-var-declaration-per-line': ['error', 'always'],
@@ -306,9 +333,9 @@ module.exports = {
       {
         overrides: {
           '?': 'before',
-          ':': 'before'
-        }
-      }
+          ':': 'before',
+        },
+      },
     ],
     'padded-blocks': ['error', 'never'],
     'quote-props': ['error', 'as-needed'],
@@ -319,8 +346,8 @@ module.exports = {
       'error',
       {
         before: false,
-        after: true
-      }
+        after: true,
+      },
     ],
     'sort-vars': 'error',
     'space-before-blocks': ['error', 'always'],
@@ -329,8 +356,8 @@ module.exports = {
       {
         anonymous: 'never',
         named: 'never',
-        asyncArrow: 'always'
-      }
+        asyncArrow: 'always',
+      },
     ],
     'space-in-parens': ['error', 'never'],
     'space-infix-ops': 'error',
@@ -346,16 +373,16 @@ module.exports = {
       'error',
       {
         before: true,
-        after: true
-      }
+        after: true,
+      },
     ],
     'constructor-super': 'error',
     'generator-star-spacing': [
       'error',
       {
         before: false,
-        after: true
-      }
+        after: true,
+      },
     ],
     'no-class-assign': 'error',
     'no-confusing-arrow': 'off',
@@ -373,8 +400,8 @@ module.exports = {
       'error',
       'always',
       {
-        avoidQuotes: true
-      }
+        avoidQuotes: true,
+      },
     ],
     'prefer-arrow-callback': 'error',
     'prefer-const': 'error',
@@ -390,8 +417,8 @@ module.exports = {
       'error',
       {
         before: false,
-        after: true
-      }
+        after: true,
+      },
     ],
 
     // React
@@ -399,8 +426,8 @@ module.exports = {
     'react/forbid-prop-types': [
       'off',
       {
-        forbid: ['any']
-      }
+        forbid: ['any'],
+      },
     ],
     'react/jsx-no-comment-textnodes': 'error',
     'react/no-danger': 'error',
@@ -412,8 +439,8 @@ module.exports = {
     'react/no-multi-comp': [
       'error',
       {
-        ignoreStateless: true
-      }
+        ignoreStateless: true,
+      },
     ],
     'react/no-render-return-value': 'error',
     // 'react/no-set-state': 'error',
@@ -436,16 +463,16 @@ module.exports = {
           '/^on.+$/',
           'everything-else',
           'render',
-          '/^render.+/'
-        ]
-      }
+          '/^render.+/',
+        ],
+      },
     ],
     'react/sort-prop-types': [
       'error',
       {
         ignoreCase: true,
-        callbacksLast: true
-      }
+        callbacksLast: true,
+      },
     ],
     'react/no-unused-prop-types': 'error',
     'react/jsx-wrap-multilines': 'error',
@@ -456,24 +483,24 @@ module.exports = {
       'error',
       {
         nonEmpty: 'tag-aligned',
-        selfClosing: 'tag-aligned'
-      }
+        selfClosing: 'tag-aligned',
+      },
     ],
     'react/jsx-curly-spacing': ['error', 'never'],
     'react/jsx-equals-spacing': ['error', 'never'],
     'react/jsx-filename-extension': [
       'error',
       {
-        extensions: ['.js']
-      }
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
     ],
     'react/jsx-first-prop-new-line': ['error', 'multiline'],
     'react/jsx-handler-names': [
       'error',
       {
         eventHandlerPrefix: 'on',
-        eventHandlerPropPrefix: 'on'
-      }
+        eventHandlerPropPrefix: 'on',
+      },
     ],
     'react/jsx-indent': ['error', 2],
     'react/jsx-indent-props': ['error', 2],
@@ -492,10 +519,10 @@ module.exports = {
         closingSlash: 'never',
         beforeSelfClosing: 'always',
         afterOpening: 'never',
-        beforeClosing: 'never'
-      }
+        beforeClosing: 'never',
+      },
     ],
     'react/jsx-uses-react': 'error',
-    'react/jsx-uses-vars': 'error'
-  }
+    'react/jsx-uses-vars': 'error',
+  },
 };

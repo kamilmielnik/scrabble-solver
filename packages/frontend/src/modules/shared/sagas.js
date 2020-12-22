@@ -11,7 +11,7 @@ import {
   UNHIGHLIGHT_RESULT,
   changeResultCandidate,
   changeResults,
-  selectResults
+  selectResults,
 } from 'modules/results';
 import { SUBMIT as SUBMIT_TILES, removeTiles, selectValidCharacters } from 'modules/tiles';
 
@@ -54,7 +54,7 @@ function* onTilesSubmit() {
         board: board.toJson(),
         characters,
         configId,
-        locale
+        locale,
       });
       yield put(submitSolveSuccess());
       yield put(changeResults(results.map(Result.fromJson)));

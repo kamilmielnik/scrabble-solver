@@ -16,7 +16,7 @@ class PatternsGenerator {
       board,
       getNthVector: (index) => board.getRow(index),
       numberOfVectors: this.config.boardHeight,
-      PatternModel: HorizontalPattern
+      PatternModel: HorizontalPattern,
     });
   }
 
@@ -25,7 +25,7 @@ class PatternsGenerator {
       board,
       getNthVector: (index) => board.getColumn(index),
       numberOfVectors: this.config.boardWidth,
-      PatternModel: VerticalPattern
+      PatternModel: VerticalPattern,
     });
   }
 
@@ -33,7 +33,7 @@ class PatternsGenerator {
     board,
     getNthVector,
     numberOfVectors,
-    PatternModel
+    PatternModel,
   }: {
     board: Board;
     getNthVector: (index: number) => Cell[];
@@ -43,15 +43,15 @@ class PatternsGenerator {
     return this.generateVectors({ getNthVector, numberOfVectors }).reduce<P[]>(
       (patterns, cells) =>
         patterns.concat(
-          this.generateCellsPatterns<P>({ board, PatternModel, cells })
+          this.generateCellsPatterns<P>({ board, PatternModel, cells }),
         ),
-      []
+      [],
     );
   }
 
   public generateVectors({
     getNthVector,
-    numberOfVectors
+    numberOfVectors,
   }: {
     getNthVector: (index: number) => Cell[];
     numberOfVectors: number;
@@ -64,7 +64,7 @@ class PatternsGenerator {
   public generateCellsPatterns<P extends Pattern>({
     board,
     cells,
-    PatternModel
+    PatternModel,
   }: {
     board: Board;
     cells: Cell[];
@@ -76,15 +76,15 @@ class PatternsGenerator {
           this.generateEndIndices({ cells, startIndex }).reduce<P[]>((placeablePatterns, endIndex) => {
             const pattern = new PatternModel({
               board,
-              cells: cells.slice(startIndex, endIndex + 1)
+              cells: cells.slice(startIndex, endIndex + 1),
             });
             if (pattern.canBePlaced()) {
               placeablePatterns.push(pattern);
             }
             return placeablePatterns;
-          }, [])
+          }, []),
         ),
-      []
+      [],
     );
   }
 

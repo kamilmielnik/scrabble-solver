@@ -8,7 +8,7 @@ import { validateLocale, validateWord } from './validate';
 const localeTranslate = {
   'en-GB': translateEn,
   'en-US': translateEn,
-  'pl-PL': translatePl
+  'pl-PL': translatePl,
 };
 
 export default async (request, response) => {
@@ -31,6 +31,6 @@ const parseRequest = (request) => {
 
   return {
     locale,
-    word
+    word,
   };
 };

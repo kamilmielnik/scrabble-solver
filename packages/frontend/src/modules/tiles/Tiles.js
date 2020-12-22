@@ -25,7 +25,7 @@ const Tiles = ({ id }) => {
       tilesRefs[nextActiveIndex].current.focus();
       setActiveIndex(nextActiveIndex);
     },
-    [activeIndex, tiles, tilesRefs]
+    [activeIndex, tiles, tilesRefs],
   );
 
   const onKeyDown = createKeyboardNavigation({
@@ -46,7 +46,7 @@ const Tiles = ({ id }) => {
       if (config.hasCharacter(character) || character === BLANK) {
         changeActiveIndex(1);
       }
-    }
+    },
   });
 
   return (
@@ -70,7 +70,7 @@ const Tiles = ({ id }) => {
                 changeCharacter(index, event.key);
               }
               onKeyDown(event);
-            }
+            },
           })}
         />
       ))}
@@ -79,7 +79,7 @@ const Tiles = ({ id }) => {
 };
 
 Tiles.propTypes = {
-  id: PropTypes.string
+  id: PropTypes.string,
 };
 
 export default Tiles;

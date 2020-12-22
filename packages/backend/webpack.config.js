@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const webpack = require('webpack');
 const path = require('path');
 const StartServerPlugin = require('start-server-webpack-plugin');
@@ -13,12 +15,12 @@ module.exports = {
   mode: process.env.NODE_ENV,
   output: {
     path: DIST_DIR,
-    filename: BUNDLE_DIST
+    filename: BUNDLE_DIST,
   },
   entry: [IS_DEV_ENV && 'webpack/hot/poll?1000', ENTRY_FILE].filter(Boolean),
   resolve: {
     modules: [SRC_DIR, 'node_modules'],
-    extensions: ['.js']
+    extensions: ['.js'],
   },
   target: 'node',
   watch: IS_DEV_ENV,
@@ -27,9 +29,9 @@ module.exports = {
       {
         test: /\.js$/,
         use: 'babel-loader',
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   plugins: [
     IS_DEV_ENV && new StartServerPlugin(BUNDLE_DIST),
@@ -37,8 +39,8 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         API_URL: JSON.stringify(process.env.API_URL),
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-      }
-    })
-  ].filter(Boolean)
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      },
+    }),
+  ].filter(Boolean),
 };

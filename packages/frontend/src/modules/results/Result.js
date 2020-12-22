@@ -27,7 +27,7 @@ const Result = ({ index, style }) => {
 
 Result.propTypes = {
   index: PropTypes.number.isRequired,
-  style: PropTypes.object.isRequired
+  style: PropTypes.object.isRequired,
 };
 
 export default Result;

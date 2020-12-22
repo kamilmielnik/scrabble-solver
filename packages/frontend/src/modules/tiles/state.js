@@ -18,11 +18,11 @@ export const reducer = handleActions(
     [CHANGE_CHARACTER]: (state, { payload: { character, index } }) => [
       ...state.slice(0, index),
       character,
-      ...state.slice(index + 1)
+      ...state.slice(index + 1),
     ],
 
     [REMOVE_TILES]: (state, { payload: tiles }) =>
-      zipCharactersAndTiles(state, tiles).map(({ character, tile }) => (tile ? null : character))
+      zipCharactersAndTiles(state, tiles).map(({ character, tile }) => (tile ? null : character)),
   },
-  initialState
+  initialState,
 );

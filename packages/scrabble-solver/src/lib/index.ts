@@ -5,19 +5,21 @@ export const noop = (): void => undefined;
 export const reverseComparator = <T>(comparator: Comparator<T>): Comparator<T> => (a: T, b: T): number =>
   -comparator(a, b);
 
-export const createKeyComparator = <T extends object>(key: keyof T): number => (a: T, b: T): number => {
-  const aValue = a[key];
-  const bValue = b[key];
+export const createKeyComparator = <T extends Record<keyof T, any>>(key: keyof T): Comparator<T> => {
+  return (a: T, b: T): number => {
+    const aValue = a[key];
+    const bValue = b[key];
 
-  if (typeof aValue === 'string' && typeof bValue === 'string') {
-    return stringsComparator(aValue, bValue);
-  }
+    if (typeof aValue === 'string' && typeof bValue === 'string') {
+      return stringsComparator(aValue, bValue);
+    }
 
-  if (typeof aValue === 'number' && typeof bValue === 'number') {
-    return numbersComparator(aValue, bValue);
-  }
+    if (typeof aValue === 'number' && typeof bValue === 'number') {
+      return numbersComparator(aValue, bValue);
+    }
 
-  return 0;
+    return 0;
+  };
 };
 
 const stringsComparator: Comparator<string> = (a, b) => a.localeCompare(b);
@@ -32,7 +34,7 @@ export const createKeyboardNavigation = ({
   onBackspace = noop,
   onDelete = noop,
   onEnter = noop,
-  onKeyDown = noop
+  onKeyDown = noop,
 }) => {
   const handlers = {
     ArrowUp: onArrowUp,
@@ -41,7 +43,7 @@ export const createKeyboardNavigation = ({
     ArrowRight: onArrowRight,
     Backspace: onBackspace,
     Delete: onDelete,
-    Enter: onEnter
+    Enter: onEnter,
   };
 
   return (event) => {

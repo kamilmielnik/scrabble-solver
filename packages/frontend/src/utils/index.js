@@ -17,7 +17,7 @@ export const createKeyboardNavigation = ({
   onBackspace = noop,
   onDelete = noop,
   onEnter = noop,
-  onKeyDown = noop
+  onKeyDown = noop,
 }) => {
   const handlers = {
     ArrowUp: onArrowUp,
@@ -26,7 +26,7 @@ export const createKeyboardNavigation = ({
     ArrowRight: onArrowRight,
     Backspace: onBackspace,
     Delete: onDelete,
-    Enter: onEnter
+    Enter: onEnter,
   };
 
   return (event) => {

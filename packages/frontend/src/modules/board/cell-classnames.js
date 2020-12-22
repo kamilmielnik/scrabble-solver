@@ -6,17 +6,17 @@ const CHARACTER_CLASSNAMES = {
   1: styles.bonusCharacter1,
   2: styles.bonusCharacter2,
   3: styles.bonusCharacter3,
-  5: styles.bonusCharacter5
+  5: styles.bonusCharacter5,
 };
 
 const WORD_CLASSNAMES = {
   2: styles.bonusWord2,
-  3: styles.bonusWord3
+  3: styles.bonusWord3,
 };
 
 const CHARACTER_MULTIPLIER_CLASSNAMES = {
   2: styles.bonusCharacterMultiplier2,
-  3: styles.bonusCharacterMultiplier3
+  3: styles.bonusCharacterMultiplier3,
 };
 
 const CHARACTER_POINTS_CLASSNAMES = {
@@ -24,7 +24,7 @@ const CHARACTER_POINTS_CLASSNAMES = {
   2: styles.characterPoints2,
   3: styles.characterPoints3,
   4: styles.characterPoints3,
-  5: styles.characterPoints5
+  5: styles.characterPoints5,
 };
 
 export const getCharacterPointsClassname = (characterPoints) => {

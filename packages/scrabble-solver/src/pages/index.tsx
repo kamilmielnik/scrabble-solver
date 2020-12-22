@@ -2,7 +2,6 @@ import { literaki, scrabble } from '@scrabble-solver/configs';
 import { Config, Tile as TileModel } from '@scrabble-solver/models';
 import React, { useState } from 'react';
 import { useSize } from 'react-use';
-
 import { LocaleDropdown, Tile, Well } from 'components';
 import { detectLocale } from 'lib';
 import { Locale } from 'types';

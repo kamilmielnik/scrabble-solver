@@ -42,7 +42,7 @@ const Results = ({ height, width }) => {
 
 Results.propTypes = {
   height: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired
+  width: PropTypes.number.isRequired,
 };
 
 export default Results;

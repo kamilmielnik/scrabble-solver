@@ -27,18 +27,18 @@ export const useGrid = (width, height) => {
     (offsetX, offsetY) => {
       activeIndex.current = {
         x: Math.min(Math.max(activeIndex.current.x + offsetX, 0), width - 1),
-        y: Math.min(Math.max(activeIndex.current.y + offsetY, 0), height - 1)
+        y: Math.min(Math.max(activeIndex.current.y + offsetY, 0), height - 1),
       };
       refs[activeIndex.current.y][activeIndex.current.x].current.focus();
     },
-    [activeIndex, refs, width, height]
+    [activeIndex, refs, width, height],
   );
 
   const onFocus = useCallback(
     (x, y) => {
       activeIndex.current = { x, y };
     },
-    [activeIndex]
+    [activeIndex],
   );
 
   const onMoveFocus = useCallback(() => {
@@ -67,9 +67,9 @@ export const useGrid = (width, height) => {
         onArrowUp: () => {
           changeActiveIndex(0, -1);
           lastDirectionRef.current = 'vertical';
-        }
+        },
       }),
-    [changeActiveIndex]
+    [changeActiveIndex],
   );
 
   return [{ refs }, { onFocus, onKeyDown, onMoveFocus }];

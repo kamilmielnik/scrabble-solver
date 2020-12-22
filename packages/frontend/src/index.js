@@ -15,13 +15,13 @@ if (rootElement.hasChildNodes()) {
     <Provider store={store}>
       <App />
     </Provider>,
-    rootElement
+    rootElement,
   );
 } else {
   ReactDOM.render(
     <Provider store={store}>
       <App />
     </Provider>,
-    rootElement
+    rootElement,
   );
 }

@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   i18n,
   results,
   shared,
-  tiles
+  tiles,
 });
 
 export default rootReducer;

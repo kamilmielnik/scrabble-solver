@@ -16,9 +16,9 @@ export default (dictionariesDirectory) => {
   const localeCollections = ['en-GB', 'en-US', 'pl-PL'].reduce(
     (collections, locale) => ({
       ...collections,
-      [locale]: getLocaleCollection(dictionariesDirectory, locale)
+      [locale]: getLocaleCollection(dictionariesDirectory, locale),
     }),
-    {}
+    {},
   );
 
   return (request, response) => {
@@ -32,7 +32,7 @@ export default (dictionariesDirectory) => {
     } catch (error) {
       logger.error(error);
       response.status(400).send({
-        message: error.message
+        message: error.message,
       });
     }
   };
@@ -51,6 +51,6 @@ const parseRequest = (request) => {
     board: Board.fromJson(board),
     config,
     locale,
-    characters
+    characters,
   };
 };

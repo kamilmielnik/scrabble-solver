@@ -20,7 +20,7 @@ const board = Board.fromStringArray([
   'ł  żyło  wody  ',
   'o     pecyj chu',
   '            y  ',
-  '            t  '
+  '            t  ',
 ]);
 
 describe('ScoresCalculator', () => {
@@ -35,8 +35,8 @@ describe('ScoresCalculator', () => {
         new Cell({ x: 4, y: 0, tile: new Tile({ character: 'a' }), isEmpty: true }),
         new Cell({ x: 5, y: 0, tile: new Tile({ character: 'a' }), isEmpty: true }),
         new Cell({ x: 6, y: 0, tile: new Tile({ character: 'a' }), isEmpty: true }),
-        new Cell({ x: 7, y: 0, tile: new Tile({ character: 'ź' }), isEmpty: false })
-      ]
+        new Cell({ x: 7, y: 0, tile: new Tile({ character: 'ź' }), isEmpty: false }),
+      ],
     });
     const score = scoresCalculator.calculate(pattern);
     expect(score).toBe(128);
@@ -49,8 +49,8 @@ describe('ScoresCalculator', () => {
         new Cell({ x: 2, y: 11, tile: new Tile({ character: 'l' }), isEmpty: true }),
         new Cell({ x: 2, y: 12, tile: new Tile({ character: 'i' }), isEmpty: true }),
         new Cell({ x: 2, y: 13, tile: new Tile({ character: 'n' }), isEmpty: true }),
-        new Cell({ x: 2, y: 14, tile: new Tile({ character: 'o' }), isEmpty: true })
-      ]
+        new Cell({ x: 2, y: 14, tile: new Tile({ character: 'o' }), isEmpty: true }),
+      ],
     });
     const score = scoresCalculator.calculate(pattern);
     expect(score).toBe(44);
@@ -61,8 +61,8 @@ describe('ScoresCalculator', () => {
       board,
       cells: [
         new Cell({ x: 13, y: 14, tile: new Tile({ character: 'o', isBlank: true }), isEmpty: true }),
-        new Cell({ x: 12, y: 14, tile: new Tile({ character: 't' }), isEmpty: false })
-      ]
+        new Cell({ x: 12, y: 14, tile: new Tile({ character: 't' }), isEmpty: false }),
+      ],
     });
     const score = scoresCalculator.calculate(pattern);
     expect(score).toBe(2);

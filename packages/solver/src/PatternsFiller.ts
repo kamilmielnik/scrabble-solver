@@ -29,7 +29,12 @@ class PatternsFiller {
     return patterns;
   }
 
-  public fillPattern(pattern: Pattern, word: string, tiles: Tile[], onPatternFound: (pattern: Pattern) => void): void {
+  public fillPattern(
+    pattern: Pattern,
+    word: string,
+    tiles: Tile[],
+    onPatternFound: (newPattern: Pattern) => void,
+  ): void {
     const indexOfFirstCellWithoutTile = pattern.getIndexOfFirstCellWithoutTile();
 
     if (indexOfFirstCellWithoutTile === -1) {

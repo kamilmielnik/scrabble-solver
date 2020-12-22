@@ -5,8 +5,8 @@ class WordDefinition {
     new WordDefinition({
       definitions: [],
       isAllowed: false,
-      word: ''
-    })
+      word: '',
+    }),
   );
 
   public readonly definitions: string[];
@@ -25,7 +25,7 @@ class WordDefinition {
     return {
       definitions: this.definitions,
       isAllowed: this.isAllowed,
-      word: this.word
+      word: this.word,
     };
   }
 }

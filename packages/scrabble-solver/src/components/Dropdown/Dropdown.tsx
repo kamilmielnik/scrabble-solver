@@ -10,7 +10,7 @@ interface Props extends HTMLAttributes<HTMLUListElement> {
 const Dropdown: FunctionComponent<Props> = ({ children, className, dropLeft, ...props }) => (
   <ul
     className={classNames(styles.dropdown, className, {
-      [styles.dropLeft]: dropLeft
+      [styles.dropLeft]: dropLeft,
     })}
     {...props}
   >

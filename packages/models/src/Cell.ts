@@ -11,7 +11,7 @@ class Cell {
       isEmpty: json.isEmpty,
       tile: Tile.fromJson(json.tile),
       x: json.x,
-      y: json.y
+      y: json.y,
     });
   }
 
@@ -20,8 +20,8 @@ class Cell {
       isEmpty: true,
       tile: Tile.Null,
       x: 0,
-      y: 0
-    })
+      y: 0,
+    }),
   );
 
   public readonly isEmpty: boolean;
@@ -44,7 +44,7 @@ class Cell {
       isEmpty: this.isEmpty,
       tile: this.tile.clone(),
       x: this.x,
-      y: this.y
+      y: this.y,
     });
   }
 
@@ -61,7 +61,7 @@ class Cell {
       isEmpty: this.isEmpty,
       tile: this.tile.toJson(),
       x: this.x,
-      y: this.y
+      y: this.y,
     };
   }
 
