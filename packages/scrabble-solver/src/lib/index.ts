@@ -5,7 +5,7 @@ export const noop = (): void => undefined;
 export const reverseComparator = <T>(comparator: Comparator<T>): Comparator<T> => (a: T, b: T): number =>
   -comparator(a, b);
 
-export const createKeyComparator = <T extends Record<keyof T, any>>(key: keyof T): Comparator<T> => {
+export const createKeyComparator = <T extends Record<keyof T, unknown>>(key: keyof T): Comparator<T> => {
   return (a: T, b: T): number => {
     const aValue = a[key];
     const bValue = b[key];

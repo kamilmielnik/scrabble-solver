@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
 
 const tsConfig = fs.readFileSync('tsconfig.json', 'utf-8');
 const tsConfigJson = JSON.parse(tsConfig);

@@ -1,10 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Locale } from 'types';
+
+// import { Locale } from 'types';
 
 const solve = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
   try {
     // const { locale, word } = parseRequest(request);
-    // TODO: impelment me
+    // TODO: implement me
 
     response.status(200).send('OK');
   } catch (error) {
