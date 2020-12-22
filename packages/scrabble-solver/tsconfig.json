@@ -18,9 +18,10 @@
     },
     "resolveJsonModule": true,
     "rootDir": "./src",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "typeRoots": ["./node_modules/@types", "./src/@types"]
   },
   "exclude": ["node_modules"],
   "include": ["next-env.d.ts", "./src"],
-  "files": ["./src/icons/@types/icons.d.ts"]
+  "files": ["./src/@types/svg.d.ts"]
 }

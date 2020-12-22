@@ -48,8 +48,6 @@ module.exports = {
       // },
       rules: {
         'react/prop-types': 'off',
-        // camelcase: 'off',
-        // 'no-array-constructor': 'off',
         'no-unused-vars': 'off',
       },
     },
