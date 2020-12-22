@@ -14,7 +14,7 @@
     "build:prod": "babel-node scripts/build.js prod",
     "clean": "babel-node scripts/clean.js && lerna run clean && rm -rf package-lock.json node_modules/",
     "deploy": "babel-node scripts/deploy.js",
-    "lint": "eslint packages/ --ext '.js,.jsx,.ts,.tsx'",
+    "lint": "eslint packages/configs packages/constants packages/logger packages/models packages/scrabble-solver packages/solver --ext '.js,.jsx,.ts,.tsx'",
     "lint:fix": "npm run lint -- --fix",
     "prettier:js": "npm run lint -- --no-eslintrc -c .eslintrc.prettier-only.js",
     "prettier:js:fix": "npm run prettier:js -- --fix",
