@@ -4,7 +4,7 @@ import React, { FunctionComponent, useState } from 'react';
 import { useSize } from 'react-use';
 
 import { LocaleDropdown, Tile, Well } from 'components';
-import { detectLocale } from 'lib';
+import { detectLocale, noop } from 'lib';
 import { Locale } from 'types';
 
 import styles from './index.module.scss';
@@ -47,7 +47,13 @@ const Index: FunctionComponent = () => {
             {width > 0 && height > 0 && (
               <span>
                 Board: {width}x{height}, Cell: {cellSize}x{cellSize}
-                <Tile config={config} size={cellSize} tile={new TileModel({ character: 'W' })} />
+                <Tile
+                  config={config}
+                  size={cellSize}
+                  tile={new TileModel({ character: 'W' })}
+                  onFocus={noop}
+                  onKeyDown={noop}
+                />
               </span>
             )}
           </div>

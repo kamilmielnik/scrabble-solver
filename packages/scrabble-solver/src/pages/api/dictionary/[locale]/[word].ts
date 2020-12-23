@@ -6,7 +6,7 @@ const dictionary = async (request: NextApiRequest, response: NextApiResponse): P
     const { locale, word } = parseRequest(request);
     // TODO: implement me
 
-    response.status(200).send('OK');
+    response.status(200).send({ locale, word });
   } catch (error) {
     response.status(500).send('Server error');
   }
