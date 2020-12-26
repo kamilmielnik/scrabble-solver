@@ -13,6 +13,7 @@
       "icons": ["./src/icons"],
       "lib": ["./src/lib"],
       "pages": ["./src/pages"],
+      "state": ["./src/state"],
       "styles": ["./src/styles"],
       "types": ["./src/types"]
     },
