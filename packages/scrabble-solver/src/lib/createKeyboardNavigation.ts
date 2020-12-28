@@ -22,7 +22,7 @@ const createKeyboardNavigation = ({
   onDelete = noop,
   onEnter = noop,
   onKeyDown = noop,
-}: Parameters) => {
+}: Parameters): KeyboardEventHandler => {
   const handlers: Record<string, KeyboardEventHandler> = {
     ArrowUp: onArrowUp,
     ArrowDown: onArrowDown,
