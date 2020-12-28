@@ -3,7 +3,7 @@ import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/models';
 
 import { createKeyComparator, reverseComparator } from 'lib';
 
-import { RootState } from './reducers';
+import { RootState } from './types';
 
 const findCell = (cells: Cell[], x: number, y: number): Cell | undefined => {
   return cells.find((cell) => cell.x === x && cell.y === y);
