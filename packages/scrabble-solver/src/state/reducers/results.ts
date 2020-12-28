@@ -17,8 +17,8 @@ const results = createSlice({
     },
 
     changeResults: (state, action: PayloadAction<Result[]>) => {
-      const results = action.payload;
-      return { ...state, results };
+      const newResults = action.payload;
+      return { ...state, results: newResults };
     },
   },
 });

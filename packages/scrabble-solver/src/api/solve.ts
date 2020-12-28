@@ -1,4 +1,5 @@
 import { BoardJson, ConfigJson, ResultJson } from '@scrabble-solver/models';
+
 import { Locale } from 'types';
 
 interface Payload {
