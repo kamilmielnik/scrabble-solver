@@ -1,3 +1,3 @@
-const noop = () => void 0;
+const noop = (): void => undefined;
 
 export default noop;
