@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
 
-import { selectRowsWithCandidate, State } from 'state';
+import { selectRowsWithCandidate } from 'state';
 
 import styles from './Board.module.scss';
 import Cell from './Cell';
