@@ -92,6 +92,14 @@ class Board {
   public toString(): string {
     return this.board.map((row) => row.map(String)).join('\n');
   }
+
+  public updateCell(x: number, y: number, updateCell: (cell: Cell) => Cell): void {
+    this.board[y][x] = updateCell(this.board[y][x]);
+  }
+
+  public updateRow(y: number, updateRow: (cells: Cell[]) => Cell[]): void {
+    this.board[y] = updateRow(this.board[y]);
+  }
 }
 
 export default Board;
