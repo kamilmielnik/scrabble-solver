@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
+
 import { Locale } from 'types';
 
 import Dropdown from '../Dropdown';

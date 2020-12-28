@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const tsConfig = fs.readFileSync('tsconfig.json', 'utf-8');
+const tsConfig = fs.readFileSync(path.resolve(__dirname, 'tsconfig.json'), 'utf-8');
 const tsConfigJson = JSON.parse(tsConfig);
 const tsConfigAliases = Object.keys(tsConfigJson.compilerOptions.paths).reduce(
   (result, key) => ({

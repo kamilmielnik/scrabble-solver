@@ -40,12 +40,6 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx'],
       parser: '@typescript-eslint/parser',
-      // parserOptions: {
-      //   project: './tsconfig.json',
-      //   // @typescript-eslint/parser doesn't use `cwd` when parsing the
-      //   // project path, we need to provide it manually.
-      //   tsconfigRootDir: __dirname,
-      // },
       rules: {
         'react/prop-types': 'off',
         'no-unused-vars': 'off',
@@ -79,6 +73,7 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
+    'import/newline-after-import': 'error',
 
     // Possible Errors
     'comma-dangle': ['error', 'always-multiline'],
