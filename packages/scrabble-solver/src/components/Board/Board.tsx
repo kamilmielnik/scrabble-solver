@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react';
 import { selectRowsWithCandidate, useTypedSelector } from 'state';
 
 import styles from './Board.module.scss';
-import Cell from './Cell';
+import { Cell } from './components';
 import { useGrid } from './hooks';
 
 const Board: FunctionComponent = () => {
