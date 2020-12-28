@@ -1,26 +1,17 @@
-// import { Board, Config, Result, Tile } from '@scrabble-solver/models';
 import { combineReducers } from 'redux';
 
 import board from './board';
 import config from './config';
 import i18n from './i18n';
 import results from './results';
-
-// export interface State {
-//   board: Board;
-//   config: Config;
-//   results: {
-//     candidate: Result | null;
-//     results: Result[];
-//   };
-//   tiles: (Tile | null)[];
-// }
+import tiles from './tiles';
 
 export const rootReducer = combineReducers({
   board: board.reducer,
   config: config.reducer,
   i18n: i18n.reducer,
   results: results.reducer,
+  tiles: tiles.reducer,
 });
 
 export type State = ReturnType<typeof rootReducer>;
