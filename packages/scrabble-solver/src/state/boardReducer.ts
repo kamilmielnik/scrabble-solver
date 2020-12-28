@@ -30,45 +30,30 @@ const slice = createSlice({
       const { value, x, y } = action.payload;
       const isEmpty = !value || value === EMPTY_CELL;
 
-      return updateBoardCell(state, {
-        x,
-        y,
-        updateCell: (cell) => {
-          const tile = isEmpty ? Tile.Null : new Tile({ character: value });
-          return new Cell({ ...cell, tile, isEmpty });
-        },
+      return updateBoardCell(state, x, y, (cell) => {
+        const tile = isEmpty ? Tile.Null : new Tile({ character: value });
+        return new Cell({ ...cell, tile, isEmpty });
       });
     },
 
     toggleCellIsBlank: (state, action: PayloadAction<{ x: number; y: number }>) => {
       const { x, y } = action.payload;
 
-      return updateBoardCell(state, {
-        x,
-        y,
-        updateCell: (cell) => {
-          const tile = cell.isEmpty ? cell.tile : new Tile({ ...cell.tile, isBlank: !cell.tile.isBlank });
-          return new Cell({ ...cell, tile });
-        },
+      return updateBoardCell(state, x, y, (cell) => {
+        const tile = cell.isEmpty ? cell.tile : new Tile({ ...cell.tile, isBlank: !cell.tile.isBlank });
+        return new Cell({ ...cell, tile });
       });
     },
   },
 });
 
-const updateBoardCell = (
-  state: Board,
-  { updateCell, x, y }: { updateCell: (cell: Cell) => Cell; x: number; y: number },
-): Board => {
-  return updateBoardRow(state, {
-    y,
-    updateRow: (row) => [...row.slice(0, x), updateCell(row[x]), ...row.slice(x + 1)],
-  });
+const updateBoardCell = (state: Board, x: number, y: number, updateCell: (cell: Cell) => Cell): Board => {
+  return updateBoardRow(state, y, (row) => [...row.slice(0, x), updateCell(row[x]), ...row.slice(x + 1)]);
 };
 
-const updateBoardRow = (state: Board, { updateRow, y }: { updateRow: (cells: Cell[]) => Cell[]; y: number }): Board => {
-  return new Board({
-    board: [...state.board.slice(0, y), updateRow(state.board[y]), ...state.board.slice(y + 1)],
-  });
+const updateBoardRow = (state: Board, y: number, updateRow: (cells: Cell[]) => Cell[]): Board => {
+  const board = [...state.board.slice(0, y), updateRow(state.board[y]), ...state.board.slice(y + 1)];
+  return new Board({ board });
 };
 
 const getCell = (cells: Cell[], x: number, y: number): Cell | undefined => {
