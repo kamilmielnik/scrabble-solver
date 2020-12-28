@@ -2,10 +2,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Cell, Result, Tile } from '@scrabble-solver/models';
 
-import boardReducerInitialState from './boardReducerInitialState';
+import boardInitialState from './boardInitialState';
 
-const slice = createSlice({
-  initialState: boardReducerInitialState,
+const board = createSlice({
+  initialState: boardInitialState,
   name: 'board',
   reducers: {
     applyResult: (state, action: PayloadAction<Result>) => {
@@ -46,8 +46,4 @@ const slice = createSlice({
   },
 });
 
-const { actions: boardActions, reducer: boardReducer } = slice;
-
-export { boardActions };
-
-export default boardReducer;
+export default board;

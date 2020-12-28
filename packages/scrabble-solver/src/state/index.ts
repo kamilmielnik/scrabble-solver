@@ -1,7 +1,7 @@
 // import { Board, Config, Result, Tile } from '@scrabble-solver/models';
 import { combineReducers } from 'redux';
 
-import boardReducer from './boardReducer';
+import board from './board';
 
 // export interface State {
 //   board: Board;
@@ -14,7 +14,7 @@ import boardReducer from './boardReducer';
 // }
 
 export const rootReducer = combineReducers({
-  board: boardReducer,
+  board: board.reducer,
   // config:
 });
 
