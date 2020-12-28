@@ -15,12 +15,11 @@ const slice = createSlice({
         board: state.board.map((row, y) =>
           row.map((cell, x) => {
             const newCell = getCell(result.cells, x, y);
+
             if (newCell) {
-              return new Cell({
-                ...newCell,
-                isEmpty: false,
-              });
+              return new Cell({ ...newCell, isEmpty: false });
             }
+
             return cell;
           }),
         ),
@@ -34,12 +33,10 @@ const slice = createSlice({
       return updateBoardCell(state, {
         x,
         y,
-        updateCell: (cell) =>
-          new Cell({
-            ...cell,
-            tile: isEmpty ? Tile.Null : new Tile({ character: value }),
-            isEmpty,
-          }),
+        updateCell: (cell) => {
+          const tile = isEmpty ? Tile.Null : new Tile({ character: value });
+          return new Cell({ ...cell, tile, isEmpty });
+        },
       });
     },
 
@@ -49,11 +46,10 @@ const slice = createSlice({
       return updateBoardCell(state, {
         x,
         y,
-        updateCell: (cell) =>
-          new Cell({
-            ...cell,
-            tile: cell.isEmpty ? cell.tile : new Tile({ ...cell.tile, isBlank: !cell.tile.isBlank }),
-          }),
+        updateCell: (cell) => {
+          const tile = cell.isEmpty ? cell.tile : new Tile({ ...cell.tile, isBlank: !cell.tile.isBlank });
+          return new Cell({ ...cell, tile });
+        },
       });
     },
   },
