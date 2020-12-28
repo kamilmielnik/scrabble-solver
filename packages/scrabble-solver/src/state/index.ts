@@ -1,6 +1,8 @@
 // import { Board, Config, Result, Tile } from '@scrabble-solver/models';
 import { combineReducers } from 'redux';
 
+import boardReducer from './boardReducer';
+
 // export interface State {
 //   board: Board;
 //   config: Config;

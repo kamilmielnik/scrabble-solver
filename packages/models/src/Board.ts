@@ -5,6 +5,10 @@ import Cell from './Cell';
 import Tile from './Tile';
 
 class Board {
+  public static create(width: number, height: number): Board {
+    return Board.fromStringArray(Array(height).fill(Array(width).fill(' ').join('')));
+  }
+
   public static fromJson(json: BoardJson): Board {
     return new Board({
       board: json.map((row) => row.map(Cell.fromJson)),

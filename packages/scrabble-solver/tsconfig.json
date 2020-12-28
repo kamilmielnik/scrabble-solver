@@ -11,6 +11,7 @@
       "api": ["./src/api"],
       "components": ["./src/components"],
       "icons": ["./src/icons"],
+      "i18n": ["./src/i18n"],
       "lib": ["./src/lib"],
       "pages": ["./src/pages"],
       "state": ["./src/state"],
