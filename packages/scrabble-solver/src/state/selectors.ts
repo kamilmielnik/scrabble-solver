@@ -18,6 +18,10 @@ export const selectBoard = (state: RootState): Board => state.board;
 // TODO: rename state.board.board to state.board.rows
 export const selectRows = (state: RootState): Cell[][] => state.board.board;
 
+export const selectCells = createSelector([selectRows], (rows) => {
+  return rows.reduce<Cell[]>((cells: Cell[], row: Cell[]) => cells.concat(row), []);
+});
+
 export const selectConfig = (state: RootState): Config => state.config;
 
 export const selectResults = (state: RootState): Result[] => [...state.results.results].sort(pointsComparator);
@@ -31,10 +35,6 @@ export const selectResultCandidateCells = createSelector(
 
 export const selectRowsWithCandidate = createSelector([selectRows, selectResultCandidateCells], (rows, cells) => {
   return rows.map((row: Cell[], y: number) => row.map((cell: Cell, x: number) => findCell(cells, x, y) || cell));
-});
-
-export const selectCells = createSelector(selectRows, (rows) => {
-  return rows.reduce<Cell[]>((cells: Cell[], row: Cell[]) => cells.concat(row), []);
 });
 
 export const createSelectBonus = () => {
