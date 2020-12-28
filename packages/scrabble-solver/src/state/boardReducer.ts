@@ -10,20 +10,18 @@ const slice = createSlice({
   reducers: {
     applyResult: (state, action: PayloadAction<Result>) => {
       const result = action.payload;
+      const board = state.board.map((row, y) =>
+        row.map((cell, x) => {
+          const newCell = getCell(result.cells, x, y);
 
-      return new Board({
-        board: state.board.map((row, y) =>
-          row.map((cell, x) => {
-            const newCell = getCell(result.cells, x, y);
+          if (newCell) {
+            return new Cell({ ...newCell, isEmpty: false });
+          }
 
-            if (newCell) {
-              return new Cell({ ...newCell, isEmpty: false });
-            }
-
-            return cell;
-          }),
-        ),
-      });
+          return cell;
+        }),
+      );
+      return new Board({ board });
     },
 
     changeCellValue: (state, action: PayloadAction<{ value: string; x: number; y: number }>) => {
@@ -32,7 +30,7 @@ const slice = createSlice({
 
       return updateBoardCell(state, x, y, (cell) => {
         const tile = isEmpty ? Tile.Null : new Tile({ character: value });
-        return new Cell({ ...cell, tile, isEmpty });
+        return new Cell({ ...cell, isEmpty, tile });
       });
     },
 
