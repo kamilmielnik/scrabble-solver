@@ -1,13 +1,8 @@
 import { Result } from '@scrabble-solver/models';
 
-interface State {
-  candidate: Result | null;
-  results: Result[];
-}
-
-const resultsInitialState: State = {
-  candidate: null,
-  results: [],
+const resultsInitialState = {
+  candidate: null as Result | null,
+  results: [] as Result[],
 };
 
 export default resultsInitialState;
