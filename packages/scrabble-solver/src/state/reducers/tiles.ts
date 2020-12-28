@@ -14,9 +14,9 @@ const tiles = createSlice({
     },
 
     removeTiles: (state, action: PayloadAction<Tile[]>) => {
-      const tiles = action.payload;
+      const tilesToRemove = action.payload;
       const result: (string | null)[] = [];
-      let remainingTiles = RemainingTiles(tiles);
+      const remainingTiles = new RemainingTiles(tilesToRemove);
 
       state.forEach((character) => {
         const matchingTile = character && remainingTiles.find(character);
@@ -34,28 +34,30 @@ const tiles = createSlice({
   },
 });
 
-const RemainingTiles = (initialTiles: Tile[]) => {
-  let tiles = [...initialTiles];
+class RemainingTiles {
+  private tiles: Tile[];
 
-  return {
-    find: (character: string): Tile | undefined => {
-      return tiles.find((tile) => {
-        if (character === BLANK) {
-          return tile.isBlank;
-        }
+  constructor(initialTiles: Tile[]) {
+    this.tiles = [...initialTiles];
+  }
 
-        return character === tile.character;
-      });
-    },
-
-    remove(tile: Tile) {
-      const index = tiles.indexOf(tile);
-
-      if (index >= 0) {
-        tiles = [...tiles.slice(0, index), ...tiles.slice(index + 1)];
+  find(character: string): Tile | undefined {
+    return this.tiles.find((tile) => {
+      if (character === BLANK) {
+        return tile.isBlank;
       }
-    },
-  };
-};
+
+      return character === tile.character;
+    });
+  }
+
+  remove(tile: Tile): void {
+    const index = this.tiles.indexOf(tile);
+
+    if (index >= 0) {
+      this.tiles = [...this.tiles.slice(0, index), ...this.tiles.slice(index + 1)];
+    }
+  }
+}
 
 export default tiles;
