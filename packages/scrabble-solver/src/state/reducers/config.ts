@@ -10,7 +10,7 @@ const config = createSlice({
   initialState: configInitialState[locale],
   name: 'config',
   reducers: {
-    changeConfig: (_, action: PayloadAction<Config>) => {
+    changeConfig: (_state, action: PayloadAction<Config>) => {
       return action.payload;
     },
   },
