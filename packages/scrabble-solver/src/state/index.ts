@@ -2,6 +2,7 @@
 import { combineReducers } from 'redux';
 
 import board from './board';
+import config from './config';
 
 // export interface State {
 //   board: Board;
@@ -15,7 +16,7 @@ import board from './board';
 
 export const rootReducer = combineReducers({
   board: board.reducer,
-  // config:
+  config: config.reducer,
 });
 
 export type State = ReturnType<typeof rootReducer>;
