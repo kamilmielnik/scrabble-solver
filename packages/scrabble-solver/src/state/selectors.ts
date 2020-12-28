@@ -37,14 +37,15 @@ export const selectRowsWithCandidate = createSelector([selectRows, selectResultC
   return rows.map((row: Cell[], y: number) => row.map((cell: Cell, x: number) => findCell(cells, x, y) || cell));
 });
 
-export const createSelectBonus = () => {
-  return createSelector([selectConfig, selectCell], (config: Config, cell: Cell): Bonus | undefined => {
-    return config.bonuses.find((bonus: Bonus) => bonus.matchesCellCoordinates(cell));
-  });
-};
+export const selectBonus = createSelector([selectConfig, selectCell], (config: Config, cell: Cell):
+  | Bonus
+  | undefined => {
+  return config.bonuses.find((bonus: Bonus) => bonus.matchesCellCoordinates(cell));
+});
 
-export const createSelectCharacterPoints = () => {
-  return createSelector([selectConfig, selectCell], (config: Config, cell: Cell): number => {
+export const selectCharacterPoints = createSelector(
+  [selectConfig, selectCell],
+  (config: Config, cell: Cell): number => {
     return cell.tile.isBlank ? config.blankScore : config.pointsMap[cell.tile.character];
-  });
-};
+  },
+);

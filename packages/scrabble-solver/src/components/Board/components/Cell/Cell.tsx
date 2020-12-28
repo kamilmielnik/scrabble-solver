@@ -1,39 +1,48 @@
-import React, { forwardRef, useMemo, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { useDispatch } from 'react-redux';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
+import { Cell as CellModel } from '@scrabble-solver/models';
+import classNames from 'classnames';
+import React, { forwardRef, KeyboardEventHandler, useMemo, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { submit } from 'modules/tiles';
-import { useConfig } from 'modules/config';
 import { Tile } from 'components';
-import { createKeyboardNavigation } from 'utils';
+import { createKeyboardNavigation } from 'lib';
+import { board, selectBonus, selectCharacterPoints, selectConfig, solve, useTypedSelector } from 'state';
 
-import { useBonus, useCharacterPoints } from './hooks';
-import { getBonusClassname, getCharacterPointsClassname } from './cell-classnames';
-import { changeCellValue, toggleCellIsBlank } from './state';
+import { getBonusClassname, getCharacterPointsClassname } from './lib';
 import styles from './Cell.module.scss';
 
-const Cell = forwardRef(({ cell, className, onFocus, onKeyDown, onMoveFocus }, ref) => {
+interface Props {
+  cell: CellModel;
+  className?: string;
+  onFocus: (x: number, y: number) => void;
+  onKeyDown: KeyboardEventHandler;
+  onMoveFocus: () => void;
+}
+
+interface Ref {
+  focus: () => void;
+}
+
+const Cell = forwardRef<Ref, Props>(({ cell, className, onFocus, onKeyDown, onMoveFocus }, ref) => {
   const dispatch = useDispatch();
-  const config = useConfig();
-  const bonus = useBonus(cell);
-  const characterPoints = useCharacterPoints(cell);
+  const config = useTypedSelector(selectConfig);
+  const bonus = useTypedSelector((state) => selectBonus(state, cell));
+  const characterPoints = useTypedSelector((state) => selectCharacterPoints(state, cell));
   const handleFocus = useCallback(() => onFocus(cell.x, cell.y), [cell.x, cell.y, onFocus]);
   const handleKeyDown = useMemo(
     () =>
       createKeyboardNavigation({
-        onDelete: () => dispatch(changeCellValue(cell.x, cell.y, EMPTY_CELL)),
-        onBackspace: () => dispatch(changeCellValue(cell.x, cell.y, EMPTY_CELL)),
-        onEnter: () => dispatch(submit()),
+        onDelete: () => dispatch(board.actions.changeCellValue({ value: EMPTY_CELL, x: cell.x, y: cell.y })),
+        onBackspace: () => dispatch(board.actions.changeCellValue({ value: EMPTY_CELL, x: cell.x, y: cell.y })),
+        onEnter: () => dispatch(solve.actions.submit()),
         onKeyDown: (event) => {
           const character = event.key;
           const isTogglingBlank = (event.ctrlKey || event.metaKey) && character === 'b';
 
           if (isTogglingBlank) {
-            dispatch(toggleCellIsBlank(cell.x, cell.y));
+            dispatch(board.actions.toggleCellIsBlank({ x: cell.x, y: cell.y }));
           } else if (config.hasCharacter(character)) {
-            dispatch(changeCellValue(cell.x, cell.y, character));
+            dispatch(board.actions.changeCellValue({ value: character, x: cell.x, y: cell.y }));
             onMoveFocus();
           }
 
@@ -69,13 +78,5 @@ const Cell = forwardRef(({ cell, className, onFocus, onKeyDown, onMoveFocus }, r
     </div>
   );
 });
-
-Cell.propTypes = {
-  cell: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  onFocus: PropTypes.func.isRequired,
-  onKeyDown: PropTypes.func.isRequired,
-  onMoveFocus: PropTypes.func.isRequired,
-};
 
 export default Cell;
