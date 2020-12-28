@@ -1,5 +1,5 @@
+import { createSelector } from '@reduxjs/toolkit';
 import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/types';
-import { createSelector } from 'reselect';
 
 import { selectConfig } from 'modules/config';
 import { selectResultCandidate } from 'modules/results';
@@ -14,7 +14,7 @@ const getCell = (cells: Cell[], x: number, y: number): Cell | undefined =>
 
 export const selectBoard = (state: State): Board => state.board;
 
-export const selectRows = createSelector(selectBoard, ({ board }) => board);
+export const selectRows = createSelector<Cell[][]>(selectBoard, ({ board }) => board);
 
 export const selectCells = createSelector(selectRows, (rows) => {
   return rows.reduce<Cell[]>((cells: Cell[], row: Cell[]) => cells.concat(row), []);

@@ -1,5 +1,5 @@
+import { createSelector } from '@reduxjs/toolkit';
 import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/types';
-import { createSelector } from 'reselect';
 
 import { selectConfig } from 'modules/config';
 import { selectResultCandidate } from 'modules/results';

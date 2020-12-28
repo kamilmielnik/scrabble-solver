@@ -1,11 +1,14 @@
-import React, { FunctionComponent} from 'react';
+import React, { FunctionComponent } from 'react';
+import { useSelector } from 'react-redux';
+
+import { selectRowsWithCandidate, State } from 'state';
 
 import styles from './Board.module.scss';
 import Cell from './Cell';
-import { useGrid, useRows } from './hooks';
+import { useGrid } from './hooks';
 
 const Board: FunctionComponent = () => {
-  const rows = useRows();
+  const rows = useSelector(selectRowsWithCandidate);
   const [{ refs }, { onFocus, onKeyDown, onMoveFocus }] = useGrid(rows[0].length, rows.length);
 
   return (
