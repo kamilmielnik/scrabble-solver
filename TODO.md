@@ -2,6 +2,7 @@
 
 - generate .d.ts files for module.scss files on save & before build
 - refactor (_, - underscore names to have underscore only as a prefix, and keep the full name
+- refactor "RemainingTiles"
 
 # Resources
 
