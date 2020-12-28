@@ -49,6 +49,10 @@ class Board {
     return this.board[y][x];
   }
 
+  public clone(): Board {
+    return Board.fromJson(this.toJson());
+  }
+
   public collides(cell: Cell): boolean {
     return this.collidesUp(cell) || this.collidesDown(cell) || this.collidesLeft(cell) || this.collidesRight(cell);
   }
