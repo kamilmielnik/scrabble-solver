@@ -8,8 +8,8 @@ import { Tile } from 'components';
 import { createKeyboardNavigation } from 'lib';
 import { board, selectBonus, selectCharacterPoints, selectConfig, solve, useTypedSelector } from 'state';
 
-import { getBonusClassname, getCharacterPointsClassname } from './lib';
 import styles from './Cell.module.scss';
+import { getBonusClassname, getCharacterPointsClassname } from './lib';
 
 interface Props {
   cell: CellModel;

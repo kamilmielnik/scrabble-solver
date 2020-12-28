@@ -302,7 +302,8 @@ module.exports = {
     'no-new-object': 'error',
     'no-plusplus': 'off',
     'no-restricted-syntax': ['error', 'WithStatement'],
-    'no-spaced-func': 'error',
+    'no-spaced-func': 'off', // deprecated
+    'func-call-spacing': ['error', 'never'],
     'no-ternary': 'off',
     'no-trailing-spaces': 'error',
     'no-underscore-dangle': [

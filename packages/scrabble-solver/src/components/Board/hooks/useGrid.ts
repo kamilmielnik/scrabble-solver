@@ -16,7 +16,7 @@ interface Actions {
 
 const useGrid = (width: number, height: number): [State, Actions] => {
   const refs = useMemo(
-    () => createGridOf<RefObject<{ focus: () => void }>>(width, height, () => createRef()),
+    () => createGridOf<RefObject<{ focus(): void }>>(width, height, () => createRef()),
     [width, height],
   );
   const activeIndex = useRef<{ x: number | null; y: number | null }>({ x: null, y: null });
