@@ -3,8 +3,8 @@ import { Config } from '@scrabble-solver/models';
 import React, { FunctionComponent, useState } from 'react';
 import { useSize } from 'react-use';
 
-import { Board, LocaleDropdown, Tile, Well } from 'components';
-import { detectLocale, noop } from 'lib';
+import { Board, LocaleDropdown, Well } from 'components';
+import { detectLocale } from 'lib';
 import { Locale } from 'types';
 
 import styles from './index.module.scss';
@@ -25,18 +25,19 @@ const getConfig = (locale: Locale, configId: string): Config => {
   return localeConfig;
 };
 
-const getCellSize = (width: number, height: number): number => {
-  const cellsCount = 15; // TODO: unhardcode
-  const cellBorderWidth = 1;
-  const cellSize = Math.min(height / cellsCount - 2 * cellBorderWidth, width / cellsCount - 2 * cellBorderWidth);
+const getCellSize = (config: Config, width: number, height: number): number => {
+  const cellBorderWidth = 1; // TODO: unhardcode
+  const maxWidth = width / config.boardWidth - 2 * cellBorderWidth;
+  const maxHeight = height / config.boardHeight - 2 * cellBorderWidth;
+  const cellSize = Math.min(maxWidth, maxHeight);
   return Math.floor(cellSize);
 };
 
 const Index: FunctionComponent = () => {
   const [locale, setLocale] = useState<Locale>(detectLocale());
   const [sizer, { height, width }] = useSize(<div className={styles.boardSizer} />, { height: 0, width: 0 });
-  const cellSize = getCellSize(width, height);
   const config = getConfig(locale, 'literaki'); // TODO: unhardcode 'literaki'
+  const cellSize = getCellSize(config, width, height);
 
   return (
     <div className={styles.index}>
