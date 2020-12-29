@@ -5,38 +5,38 @@
 
   position: relative;
   display: table-cell;
-  background-color: white;
+  background: white;
   background-clip: padding-box;
   border: var(--border);
-  transition: background-color var(--transition-duration), color var(--transition-duration);
+  transition: background var(--transition-duration), color var(--transition-duration);
 
   &.bonusCharacter1 {
-    background-color: var(--color--yellow--light);
+    background: var(--color--yellow--light);
   }
 
   &.bonusCharacter2 {
-    background-color: var(--color--green--light);
+    background: var(--color--green--light);
   }
 
   &.bonusCharacter3 {
-    background-color: var(--color--blue--light);
+    background: var(--color--blue--light);
   }
 
   &.bonusCharacter5 {
-    background-color: var(--color--red--light);
+    background: var(--color--red--light);
   }
 
   &.bonusCharacterMultiplier2 {
-    background-color: var(--color--light-blue--light);
+    background: var(--color--light-blue--light);
   }
 
   &.bonusCharacterMultiplier3 {
-    background-color: var(--color--dark-blue--light);
+    background: var(--color--dark-blue--light);
   }
 
   &.bonusWord2,
   &.bonusWord3 {
-    background-color: var(--color--inactive);
+    background: var(--color--inactive);
   }
 
   &.bonusWord2 {
@@ -72,23 +72,23 @@
   }
 
   &.characterPoints1 {
-    background-color: var(--color--yellow);
+    background: var(--color--yellow);
   }
 
   &.characterPoints2 {
-    background-color: var(--color--green);
+    background: var(--color--green);
   }
 
   &.characterPoints3 {
-    background-color: var(--color--blue);
+    background: var(--color--blue);
   }
 
   &.characterPoints5 {
-    background-color: var(--color--red);
+    background: var(--color--red);
   }
 
   &.candidate {
-    background-color: var(--color--primary);
+    background: var(--color--primary);
 
     &:before {
       display: none;
