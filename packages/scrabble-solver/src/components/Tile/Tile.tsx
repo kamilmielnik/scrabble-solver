@@ -1,3 +1,4 @@
+import { EMPTY_CELL } from '@scrabble-solver/constants';
 import classNames from 'classnames';
 import React, { FocusEventHandler, forwardRef, KeyboardEventHandler, useImperativeHandle, useRef } from 'react';
 
@@ -28,6 +29,7 @@ const Tile = forwardRef<TileRef, Props>(
     const config = useTypedSelector(selectConfig);
     const points = config.getCharacterPoints(character);
     const tileSize = small ? 0.75 * size : size; // TODO: make it better, unhardcode
+    const isEmpty = !character || character === EMPTY_CELL;
 
     useImperativeHandle(ref, () => ({
       focus: () => {
@@ -66,7 +68,7 @@ const Tile = forwardRef<TileRef, Props>(
           onKeyDown={onKeyDown}
         />
 
-        {!isBlank && <span className={styles.points}>{points}</span>}
+        {!isBlank && !isEmpty && <span className={styles.points}>{points}</span>}
       </div>
     );
   },

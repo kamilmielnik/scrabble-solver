@@ -23,9 +23,9 @@ const board = createSlice({
       const newBoard = state.clone();
       const { value, x, y } = action.payload;
       const isEmpty = !value || value === EMPTY_CELL;
+      const tile = isEmpty ? Tile.Null : new Tile({ character: value });
 
       newBoard.updateCell(x, y, (cell) => {
-        const tile = isEmpty ? Tile.Null : new Tile({ character: value });
         return new Cell({ ...cell, isEmpty, tile });
       });
 

@@ -50,7 +50,8 @@ class Board {
   }
 
   public clone(): Board {
-    return Board.fromJson(this.toJson());
+    const board = this.board.map((row) => row.map((cell) => cell.clone()));
+    return new Board({ board });
   }
 
   public collides(cell: Cell): boolean {
