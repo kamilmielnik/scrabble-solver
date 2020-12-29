@@ -70,7 +70,6 @@ $tile-font-size: $tile-size * 3 / 5;
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
-  border-radius: inherit;
 
   &::placeholder {
     color: var(--color--inactive);

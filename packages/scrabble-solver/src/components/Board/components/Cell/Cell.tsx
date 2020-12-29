@@ -53,6 +53,7 @@ const Cell = forwardRef<Ref, Props>(({ cell, className, size, onFocus, onKeyDown
       }),
     [cell.x, cell.y, config, dispatch, onKeyDown, onMoveFocus],
   );
+  const fontSize = size * 0.6; // TODO: make it better, unhardcode
 
   return (
     <div
@@ -65,6 +66,9 @@ const Cell = forwardRef<Ref, Props>(({ cell, className, size, onFocus, onKeyDown
           [styles.candidate]: cell.isCandidate(),
         },
       )}
+      style={{
+        fontSize,
+      }}
     >
       <Tile
         className={styles.tile}

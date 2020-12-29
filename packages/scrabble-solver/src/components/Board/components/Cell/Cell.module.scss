@@ -34,7 +34,23 @@
 
   &.bonusWord2,
   &.bonusWord3 {
+    position: relative;
     background-color: var(--color--inactive);
+
+    &:before {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      font-size: 75%;
+      font-weight: bold;
+      color: white;
+      pointer-events: none;
+    }
   }
 
   &.bonusWord2 {
@@ -46,26 +62,6 @@
   &.bonusWord3 {
     &:before {
       content: 'x3';
-    }
-  }
-
-  &.bonusWord2,
-  &.bonusWord3 {
-    position: relative;
-
-    &:before {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      font-size: $tile-font-size;
-      font-weight: bold;
-      color: white;
-      pointer-events: none;
     }
   }
 
@@ -92,8 +88,4 @@
       display: none;
     }
   }
-}
-
-.tile {
-  border-radius: inherit;
 }

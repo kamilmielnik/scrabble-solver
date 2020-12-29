@@ -3,6 +3,7 @@
 - generate .d.ts files for module.scss files on save & before build
 - refactor "RemainingTiles"
 - persist board state in localstorage
+- mobile (!)
 
 # Resources
 

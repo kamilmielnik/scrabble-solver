@@ -27,8 +27,7 @@ const Tile = forwardRef<TileRef, Props>(
     const inputRef = useRef<HTMLInputElement>(null);
     const config = useTypedSelector(selectConfig);
     const points = config.getCharacterPoints(character);
-    const tileSize = small ? 0.75 * size : size;
-    const fontSize = tileSize * 0.6;
+    const tileSize = small ? 0.75 * size : size; // TODO: make it better, unhardcode
 
     useImperativeHandle(ref, () => ({
       focus: () => {
@@ -52,7 +51,6 @@ const Tile = forwardRef<TileRef, Props>(
           [styles.points5]: points >= 5,
         })}
         style={{
-          fontSize,
           height: tileSize,
           width: tileSize,
         }}
