@@ -34,6 +34,7 @@ module.exports = {
     it: true,
     describe: true,
     API_URL: true,
+    BrowserSpriteSymbol: true,
   },
 
   overrides: [

@@ -1,7 +1,6 @@
 # TODO
 
 - generate .d.ts files for module.scss files on save & before build
-- fix "BrowserSpriteSymbol" TS error
 - refactor "RemainingTiles"
 
 # Resources
