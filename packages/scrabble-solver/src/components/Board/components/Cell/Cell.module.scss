@@ -11,32 +11,32 @@
   transition: background-color var(--transition-duration), color var(--transition-duration);
 
   &.bonusCharacter1 {
-    background-color: rgba(var(--color--yellow), $background-opacity);
+    background-color: var(--color--yellow--light);
   }
 
   &.bonusCharacter2 {
-    background-color: rgba(var(--color--green), $background-opacity);
+    background-color: var(--color--green--light);
   }
 
   &.bonusCharacter3 {
-    background-color: rgba(var(--color--blue), $background-opacity);
+    background-color: var(--color--blue--light);
   }
 
   &.bonusCharacter5 {
-    background-color: rgba(var(--color--red), $background-opacity);
+    background-color: var(--color--red--light);
   }
 
   &.bonusCharacterMultiplier2 {
-    background-color: rgba(var(--color--light-blue), $background-opacity);
+    background-color: var(--color--light-blue--light);
   }
 
   &.bonusCharacterMultiplier3 {
-    background-color: rgba(var(--color--dark-blue), $background-opacity);
+    background-color: var(--color--dark-blue--light);
   }
 
   &.bonusWord2,
   &.bonusWord3 {
-    background-color: rgba(var(--color--inactive), $background-opacity);
+    background-color: var(--color--inactive);
   }
 
   &.bonusWord2 {
