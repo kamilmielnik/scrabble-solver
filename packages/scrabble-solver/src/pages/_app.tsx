@@ -1,12 +1,17 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import React, { FunctionComponent } from 'react';
+import { Provider } from 'react-redux';
+
+import { createAppStore } from 'state';
 
 import 'styles/global.scss';
 
 const NAME = 'Kamil Mielnik';
 const DESCRIPTION = 'Scrabble Solver';
 const KEYWORDS = ['Scrabble', 'Literaki', 'Solver', NAME].join(',');
+
+const store = createAppStore();
 
 const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
   <>
@@ -20,7 +25,9 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </Head>
 
-    <Component {...pageProps} />
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
   </>
 );
 

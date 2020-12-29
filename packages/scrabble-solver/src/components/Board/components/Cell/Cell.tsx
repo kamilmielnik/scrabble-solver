@@ -67,12 +67,12 @@ const Cell = forwardRef<Ref, Props>(({ cell, className, onFocus, onKeyDown, onMo
       )}
     >
       <Tile
-        character={cell.tile.character === EMPTY_CELL ? null : cell.tile.character}
+        character={cell.tile.character === EMPTY_CELL ? undefined : cell.tile.character}
         highlighted={cell.isCandidate()}
         isBlank={cell.tile.isBlank}
         raised={cell.tile.character !== EMPTY_CELL}
         ref={ref}
-        small
+        size={48} // TODO: unhardcode
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
       />
