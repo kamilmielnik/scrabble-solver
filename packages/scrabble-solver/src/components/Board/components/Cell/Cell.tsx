@@ -63,7 +63,6 @@ const Cell = forwardRef<Ref, Props>(({ cell, className, size, onFocus, onKeyDown
         className,
         {
           [styles.candidate]: cell.isCandidate(),
-          [styles.empty]: cell.isEmpty && !cell.hasTile(),
         },
       )}
     >
