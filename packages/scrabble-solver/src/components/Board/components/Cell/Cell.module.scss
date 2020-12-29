@@ -1,42 +1,40 @@
 .cell {
-  $background-opacity: 0.5;
   $tile-size: 40px;
   $tile-font-size: $tile-size / 2;
 
   position: relative;
   display: table-cell;
-  background: white;
-  background-clip: padding-box;
+  background-color: white;
   border: var(--border);
-  transition: background var(--transition-duration), color var(--transition-duration);
+  transition: background-color var(--transition-duration), color var(--transition-duration);
 
   &.bonusCharacter1 {
-    background: var(--color--yellow--light);
+    background-color: var(--color--yellow--light);
   }
 
   &.bonusCharacter2 {
-    background: var(--color--green--light);
+    background-color: var(--color--green--light);
   }
 
   &.bonusCharacter3 {
-    background: var(--color--blue--light);
+    background-color: var(--color--blue--light);
   }
 
   &.bonusCharacter5 {
-    background: var(--color--red--light);
+    background-color: var(--color--red--light);
   }
 
   &.bonusCharacterMultiplier2 {
-    background: var(--color--light-blue--light);
+    background-color: var(--color--light-blue--light);
   }
 
   &.bonusCharacterMultiplier3 {
-    background: var(--color--dark-blue--light);
+    background-color: var(--color--dark-blue--light);
   }
 
   &.bonusWord2,
   &.bonusWord3 {
-    background: var(--color--inactive);
+    background-color: var(--color--inactive);
   }
 
   &.bonusWord2 {
@@ -72,23 +70,23 @@
   }
 
   &.characterPoints1 {
-    background: var(--color--yellow);
+    background-color: var(--color--yellow);
   }
 
   &.characterPoints2 {
-    background: var(--color--green);
+    background-color: var(--color--green);
   }
 
   &.characterPoints3 {
-    background: var(--color--blue);
+    background-color: var(--color--blue);
   }
 
   &.characterPoints5 {
-    background: var(--color--red);
+    background-color: var(--color--red);
   }
 
   &.candidate {
-    background: var(--color--primary);
+    background-color: var(--color--primary);
 
     &:before {
       display: none;
