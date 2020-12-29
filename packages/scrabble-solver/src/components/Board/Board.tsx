@@ -20,6 +20,7 @@ const Board: FunctionComponent<Props> = ({ cellSize }) => {
         <div className={styles.row} key={y}>
           {cells.map((cell, x) => (
             <Cell
+              className={styles.cell}
               cell={cell}
               key={x}
               ref={refs[y][x]}

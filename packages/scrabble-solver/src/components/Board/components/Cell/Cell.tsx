@@ -68,6 +68,7 @@ const Cell = forwardRef<Ref, Props>(({ cell, className, size, onFocus, onKeyDown
       )}
     >
       <Tile
+        className={styles.tile}
         character={cell.tile.character === EMPTY_CELL ? undefined : cell.tile.character}
         highlighted={cell.isCandidate()}
         isBlank={cell.tile.isBlank}

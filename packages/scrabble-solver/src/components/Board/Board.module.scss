@@ -2,8 +2,33 @@
   display: table;
   border-collapse: collapse;
   box-shadow: var(--box-shadow);
+  border-radius: var(--border--radius);
 }
 
 .row {
   display: table-row;
+
+  &:first-child {
+    .cell {
+      &:first-child {
+        border-top-left-radius: var(--border--radius);
+      }
+
+      &:last-child {
+        border-top-right-radius: var(--border--radius);
+      }
+    }
+  }
+
+  &:last-child {
+    .cell {
+      &:first-child {
+        border-bottom-left-radius: var(--border--radius);
+      }
+
+      &:last-child {
+        border-bottom-right-radius: var(--border--radius);
+      }
+    }
+  }
 }
