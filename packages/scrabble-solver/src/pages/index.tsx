@@ -25,10 +25,17 @@ const getConfig = (locale: Locale, configId: string): Config => {
   return localeConfig;
 };
 
+const getCellSize = (width: number, height: number): number => {
+  const cellsCount = 15; // TODO: unhardcode
+  const cellBorderWidth = 1;
+  const cellSize = Math.min(height / cellsCount - 2 * cellBorderWidth, width / cellsCount - 2 * cellBorderWidth);
+  return Math.floor(cellSize);
+};
+
 const Index: FunctionComponent = () => {
   const [locale, setLocale] = useState<Locale>(detectLocale());
   const [sizer, { height, width }] = useSize(<div className={styles.boardSizer} />, { height: 0, width: 0 });
-  const cellSize = Math.floor(Math.min(height, width) / 15); // TODO: unhardcode 15
+  const cellSize = getCellSize(width, height);
   const config = getConfig(locale, 'literaki'); // TODO: unhardcode 'literaki'
 
   return (
