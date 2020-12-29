@@ -3,7 +3,7 @@ import { Config } from '@scrabble-solver/models';
 import React, { FunctionComponent, useState } from 'react';
 import { useSize } from 'react-use';
 
-import { LocaleDropdown, Tile, Well } from 'components';
+import { Board, LocaleDropdown, Tile, Well } from 'components';
 import { detectLocale, noop } from 'lib';
 import { Locale } from 'types';
 
@@ -44,12 +44,7 @@ const Index: FunctionComponent = () => {
           <div className={styles.board}>
             {sizer}
 
-            {width > 0 && height > 0 && (
-              <span>
-                Board: {width}x{height}, Cell: {cellSize}x{cellSize}
-                <Tile character="W" size={cellSize} onFocus={noop} onKeyDown={noop} />
-              </span>
-            )}
+            {width > 0 && height > 0 && <Board cellSize={cellSize} />}
           </div>
         </div>
 

@@ -1,51 +1,51 @@
-@import 'styles/variables.scss';
-
 .cell {
+  $background-opacity: 0.5;
   $tile-size: 40px;
   $tile-font-size: $tile-size / 2;
 
   position: relative;
   display: table-cell;
-  background-color: $white;
+  background-color: white;
   background-clip: padding-box;
-  border: $border;
-  transition: background-color $micro-animation-duration, color $micro-animation-duration;
+  border: var(--border);
+  transition: background-color var(--transition-duration), color var(--transition-duration);
 
   &.bonusCharacter1 {
-    background-color: transparentize($yellow, $background-opacity);
+    background-color: rgba(var(--color--yellow), $background-opacity);
   }
 
   &.bonusCharacter2 {
-    background-color: transparentize($green, $background-opacity);
+    background-color: rgba(var(--color--green), $background-opacity);
   }
 
   &.bonusCharacter3 {
-    background-color: transparentize($blue, $background-opacity);
+    background-color: rgba(var(--color--blue), $background-opacity);
   }
 
   &.bonusCharacter5 {
-    background-color: transparentize($red, $background-opacity);
+    background-color: rgba(var(--color--red), $background-opacity);
   }
 
   &.bonusCharacterMultiplier2 {
-    background-color: transparentize($light-blue, $background-opacity);
+    background-color: rgba(var(--color--light-blue), $background-opacity);
   }
 
   &.bonusCharacterMultiplier3 {
-    background-color: transparentize($dark-blue, $background-opacity);
+    background-color: rgba(var(--color--dark-blue), $background-opacity);
+  }
+
+  &.bonusWord2,
+  &.bonusWord3 {
+    background-color: rgba(var(--color--inactive), $background-opacity);
   }
 
   &.bonusWord2 {
-    background-color: transparentize($gray, $background-opacity);
-
     &:before {
       content: 'x2';
     }
   }
 
   &.bonusWord3 {
-    background-color: transparentize($gray, $background-opacity);
-
     &:before {
       content: 'x3';
     }
@@ -66,29 +66,29 @@
       right: 0;
       font-size: $tile-font-size;
       font-weight: bold;
-      color: $white;
+      color: white;
       pointer-events: none;
     }
   }
 
   &.characterPoints1 {
-    background-color: $yellow;
+    background-color: var(--color--yellow);
   }
 
   &.characterPoints2 {
-    background-color: $green;
+    background-color: var(--color--green);
   }
 
   &.characterPoints3 {
-    background-color: $blue;
+    background-color: var(--color--blue);
   }
 
   &.characterPoints5 {
-    background-color: $red;
+    background-color: var(--color--red);
   }
 
   &.candidate {
-    background-color: $primary;
+    background-color: var(--color--primary);
 
     &:before {
       display: none;

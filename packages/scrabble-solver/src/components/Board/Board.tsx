@@ -6,7 +6,11 @@ import styles from './Board.module.scss';
 import { Cell } from './components';
 import { useGrid } from './hooks';
 
-const Board: FunctionComponent = () => {
+interface Props {
+  cellSize: number;
+}
+
+const Board: FunctionComponent<Props> = ({ cellSize }) => {
   const rows = useTypedSelector(selectRowsWithCandidate);
   const [{ refs }, { onFocus, onKeyDown, onMoveFocus }] = useGrid(rows[0].length, rows.length);
 
@@ -19,6 +23,7 @@ const Board: FunctionComponent = () => {
               cell={cell}
               key={x}
               ref={refs[y][x]}
+              size={cellSize}
               onFocus={onFocus}
               onKeyDown={onKeyDown}
               onMoveFocus={onMoveFocus}

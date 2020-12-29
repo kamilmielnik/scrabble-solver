@@ -56,6 +56,6 @@
 
   --sidebar-width: 400px;
 
-  --transition--duration: 100ms;
+  --transition--duration: 100ms; // TODO: 150ms? it used to be 150ms on .cell
   --transition--easing: cubic-bezier(0.61, 1, 0.88, 1); // easeOutSine
 }

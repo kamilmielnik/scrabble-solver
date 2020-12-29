@@ -15,6 +15,7 @@ import { getBonusClassname, getCharacterPointsClassname } from './lib';
 interface Props {
   cell: CellModel;
   className?: string;
+  size: number;
   onFocus: (x: number, y: number) => void;
   onKeyDown: KeyboardEventHandler;
   onMoveFocus: () => void;
@@ -24,7 +25,7 @@ interface Ref {
   focus: () => void;
 }
 
-const Cell = forwardRef<Ref, Props>(({ cell, className, onFocus, onKeyDown, onMoveFocus }, ref) => {
+const Cell = forwardRef<Ref, Props>(({ cell, className, size, onFocus, onKeyDown, onMoveFocus }, ref) => {
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const bonus = useTypedSelector((state) => selectBonus(state, cell));
@@ -72,7 +73,7 @@ const Cell = forwardRef<Ref, Props>(({ cell, className, onFocus, onKeyDown, onMo
         isBlank={cell.tile.isBlank}
         raised={cell.tile.character !== EMPTY_CELL}
         ref={ref}
-        size={48} // TODO: unhardcode
+        size={size}
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
       />
