@@ -73,7 +73,7 @@ class Config {
   }
 
   public getCharacterPoints(character: string): number {
-    return this.pointsMap[character];
+    return this.pointsMap[character] || 0;
   }
 
   public hasCharacter(character: string): boolean {

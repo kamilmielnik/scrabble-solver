@@ -1,18 +1,19 @@
-import { Config, Tile as TileModel } from '@scrabble-solver/models';
 import classNames from 'classnames';
 import React, { FocusEventHandler, forwardRef, KeyboardEventHandler, useImperativeHandle, useRef } from 'react';
+
+import { selectConfig, useTypedSelector } from 'state';
 
 import styles from './Tile.module.scss';
 
 interface Props {
   className?: string;
-  config: Config;
+  character?: string;
   highlighted?: boolean;
+  isBlank?: boolean;
   placeholder?: string;
   raised?: boolean;
   small?: boolean;
   size: number;
-  tile: TileModel;
   onFocus: FocusEventHandler<HTMLInputElement>;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
 }
@@ -22,9 +23,10 @@ interface TileRef {
 }
 
 const Tile = forwardRef<TileRef, Props>(
-  ({ className, config, highlighted, placeholder, raised, small, size, tile, onFocus, onKeyDown }, ref) => {
+  ({ className, character = '', highlighted, isBlank, placeholder, raised, small, size, onFocus, onKeyDown }, ref) => {
     const inputRef = useRef<HTMLInputElement>(null);
-    const points = config.getCharacterPoints(tile.character);
+    const config = useTypedSelector(selectConfig);
+    const points = config.getCharacterPoints(character);
     const tileSize = small ? 0.75 * size : size;
     const fontSize = tileSize * 0.6;
 
@@ -41,7 +43,7 @@ const Tile = forwardRef<TileRef, Props>(
         className={classNames(styles.tile, className, {
           [styles.small]: small,
           [styles.highlighted]: highlighted,
-          [styles.blank]: tile.isBlank,
+          [styles.blank]: isBlank,
           [styles.raised]: raised,
           [styles.points1]: points === 1,
           [styles.points2]: points === 2,
@@ -60,13 +62,13 @@ const Tile = forwardRef<TileRef, Props>(
           maxLength={1}
           placeholder={placeholder}
           ref={inputRef}
-          value={tile.character || ''}
+          value={character || ''}
           onChange={(event) => event.preventDefault()}
           onFocus={onFocus}
           onKeyDown={onKeyDown}
         />
 
-        {!tile.isBlank && <span className={styles.points}>{points}</span>}
+        {!isBlank && <span className={styles.points}>{points}</span>}
       </div>
     );
   },

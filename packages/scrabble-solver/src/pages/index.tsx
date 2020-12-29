@@ -1,5 +1,5 @@
 import { literaki, scrabble } from '@scrabble-solver/configs';
-import { Config, Tile as TileModel } from '@scrabble-solver/models';
+import { Config } from '@scrabble-solver/models';
 import React, { FunctionComponent, useState } from 'react';
 import { useSize } from 'react-use';
 
@@ -47,13 +47,7 @@ const Index: FunctionComponent = () => {
             {width > 0 && height > 0 && (
               <span>
                 Board: {width}x{height}, Cell: {cellSize}x{cellSize}
-                <Tile
-                  config={config}
-                  size={cellSize}
-                  tile={new TileModel({ character: 'W' })}
-                  onFocus={noop}
-                  onKeyDown={noop}
-                />
+                <Tile character="W" size={cellSize} onFocus={noop} onKeyDown={noop} />
               </span>
             )}
           </div>

@@ -4,9 +4,10 @@ import classNames from 'classnames';
 import React, { forwardRef, KeyboardEventHandler, useMemo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Tile } from 'components';
 import { createKeyboardNavigation } from 'lib';
 import { board, selectBonus, selectCharacterPoints, selectConfig, solve, useTypedSelector } from 'state';
+
+import Tile from '../../../Tile';
 
 import styles from './Cell.module.scss';
 import { getBonusClassname, getCharacterPointsClassname } from './lib';
