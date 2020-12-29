@@ -2,7 +2,7 @@ import TileJson from './TileJson';
 
 interface CellJson {
   isEmpty: boolean;
-  tile: TileJson;
+  tile: TileJson | null;
   x: number;
   y: number;
 }

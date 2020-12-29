@@ -1,13 +1,24 @@
 import WordDefinitionJson from './WordDefinitionJson';
 
 class WordDefinition {
-  public static readonly Null: WordDefinition = Object.freeze(
-    new WordDefinition({
-      definitions: [],
-      isAllowed: false,
-      word: '',
-    }),
-  );
+  public static fromJson(json: WordDefinitionJson | null): WordDefinition {
+    if (!json) {
+      return WordDefinition.Null;
+    }
+
+    return new WordDefinition({
+      definitions: json.definitions,
+      isAllowed: json.isAllowed,
+      word: json.word,
+    });
+  }
+
+  public static readonly Null: WordDefinition = Object.freeze({
+    definitions: [],
+    isAllowed: false,
+    word: '',
+    toJson: () => null,
+  });
 
   public readonly definitions: string[];
 
@@ -21,7 +32,7 @@ class WordDefinition {
     this.word = word;
   }
 
-  public toJson(): WordDefinitionJson {
+  public toJson(): WordDefinitionJson | null {
     return {
       definitions: this.definitions,
       isAllowed: this.isAllowed,
