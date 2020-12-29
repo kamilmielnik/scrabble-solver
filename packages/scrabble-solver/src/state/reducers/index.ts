@@ -1,7 +1,13 @@
 export { default as board } from './board';
+export { default as boardInitialState } from './boardInitialState';
 export { default as config } from './config';
+export { default as configInitialState } from './configInitialState';
 export { default as i18n } from './i18n';
+export { default as i18nInitialState } from './i18nInitialState';
 export { default as results } from './results';
+export { default as resultsInitialState } from './resultsInitialState';
 export { default as rootReducer } from './rootReducer';
-export { default as tiles } from './tiles';
 export { default as solve } from './solve';
+export { default as solveInitialState } from './solveInitialState';
+export { default as tiles } from './tiles';
+export { default as tilesInitialState } from './tilesInitialState';

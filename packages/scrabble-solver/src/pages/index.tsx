@@ -1,10 +1,11 @@
 import { literaki, scrabble } from '@scrabble-solver/configs';
 import { Config } from '@scrabble-solver/models';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSize } from 'react-use';
 
 import { Board, LocaleDropdown, Well } from 'components';
-import { detectLocale } from 'lib';
+import { i18n, selectConfig, selectLocale, useTypedSelector } from 'state';
 import { Locale } from 'types';
 
 import styles from './index.module.scss';
@@ -27,24 +28,29 @@ const getConfig = (locale: Locale, configId: string): Config => {
 
 const getCellSize = (config: Config, width: number, height: number): number => {
   const cellBorderWidth = 1; // TODO: unhardcode
-  const maxWidth = width / config.boardWidth - 2 * cellBorderWidth;
-  const maxHeight = height / config.boardHeight - 2 * cellBorderWidth;
+  const maxWidth = (width - cellBorderWidth) / config.boardWidth - 2 * cellBorderWidth;
+  const maxHeight = (height - cellBorderWidth) / config.boardHeight - 2 * cellBorderWidth;
   const cellSize = Math.min(maxWidth, maxHeight);
   return Math.floor(cellSize);
 };
 
 const Index: FunctionComponent = () => {
-  const [locale, setLocale] = useState<Locale>(detectLocale());
+  const dispatch = useDispatch();
   const [sizer, { height, width }] = useSize(<div className={styles.boardSizer} />, { height: 0, width: 0 });
-  const config = getConfig(locale, 'literaki'); // TODO: unhardcode 'literaki'
+  const config = useTypedSelector(selectConfig);
+  const locale = useTypedSelector(selectLocale);
   const cellSize = getCellSize(config, width, height);
+
+  const handleLocaleChange = (newLocale: Locale) => {
+    dispatch(i18n.actions.changeLocale(newLocale));
+  };
 
   return (
     <div className={styles.index}>
       <div className={styles.nav}>
         <h1 className={styles.title}>Scrabble Solver by Kamil Mielnik ({locale})</h1>
 
-        <LocaleDropdown className={styles.flags} onChange={setLocale} value={locale} />
+        <LocaleDropdown className={styles.flags} onChange={handleLocaleChange} value={locale} />
       </div>
 
       <div className={styles.content}>

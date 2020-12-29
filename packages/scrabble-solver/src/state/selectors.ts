@@ -3,7 +3,8 @@ import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/models';
 
 import { createKeyComparator, reverseComparator } from 'lib';
 
-import { RootState } from './types';
+import { i18nInitialState } from './reducers';
+import { Locale, RootState } from './types';
 
 const findCell = (cells: Cell[], x: number, y: number): Cell | undefined => {
   return cells.find((cell) => cell.x === x && cell.y === y);
@@ -49,3 +50,7 @@ export const selectCharacterPoints = createSelector(
     return cell.tile.isBlank ? config.blankScore : config.pointsMap[cell.tile.character];
   },
 );
+
+export const selectI18n = (state: RootState): typeof i18nInitialState => state.i18n;
+
+export const selectLocale = (state: RootState): Locale => state.i18n.locale;
