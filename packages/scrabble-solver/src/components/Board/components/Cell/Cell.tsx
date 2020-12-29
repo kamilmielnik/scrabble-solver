@@ -39,7 +39,7 @@ const Cell = forwardRef<Ref, Props>(({ cell, className, size, onFocus, onKeyDown
         onEnter: () => dispatch(solve.actions.submit()),
         onKeyDown: (event) => {
           const character = event.key;
-          const isTogglingBlank = (event.ctrlKey || event.metaKey) && character === 'b';
+          const isTogglingBlank = (event.ctrlKey || event.metaKey) && character === 'b'; // TODO: consider using is-hotkey
 
           if (isTogglingBlank) {
             dispatch(board.actions.toggleCellIsBlank({ x: cell.x, y: cell.y }));
