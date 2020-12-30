@@ -78,9 +78,13 @@ $tile-font-size: $tile-size * 3 / 5;
 
 .points {
   position: absolute;
-  right: 8px;
-  bottom: 6px;
-  font-size: 14px;
+  right: 5px;
+  bottom: 2px;
+
+  right: 10%;
+  bottom: 5%;
+
+  font-size: 100%;
   color: black;
   font-weight: bold;
   user-select: none;

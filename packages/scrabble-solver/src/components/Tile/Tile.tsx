@@ -28,8 +28,8 @@ const Tile = forwardRef<TileRef, Props>(
     const inputRef = useRef<HTMLInputElement>(null);
     const config = useTypedSelector(selectConfig);
     const points = config.getCharacterPoints(character);
-    const tileSize = small ? 0.75 * size : size; // TODO: make it better, unhardcode
     const isEmpty = !character || character === EMPTY_CELL;
+    const { pointsFontSize, tileFontSize, tileSize } = getSizes(size, small);
 
     useImperativeHandle(ref, () => ({
       focus: () => {
@@ -62,16 +62,45 @@ const Tile = forwardRef<TileRef, Props>(
           maxLength={1}
           placeholder={placeholder}
           ref={inputRef}
+          style={{
+            fontSize: tileFontSize,
+          }}
           value={character || ''}
           onChange={(event) => event.preventDefault()}
           onFocus={onFocus}
           onKeyDown={onKeyDown}
         />
 
-        {!isBlank && !isEmpty && <span className={styles.points}>{points}</span>}
+        {!isBlank && !isEmpty && (
+          <span
+            className={styles.points}
+            style={{
+              fontSize: pointsFontSize,
+            }}
+          >
+            {points}
+          </span>
+        )}
       </div>
     );
   },
 );
 
-export default Tile;
+const MIN_FONT_SIZE = 14;
+const MIN_POINTS_FONT_SIZE = 10;
+
+// TODO: put this function in a better place
+const getSizes = (size: number, small?: boolean) => {
+  // TODO: make it better, unhardcode
+  const tileSize = small ? Math.round(size * 0.75) : size;
+
+  return {
+    pointsFontSize: Math.max(Math.round(tileSize * 0.25), MIN_POINTS_FONT_SIZE),
+    tileFontSize: Math.max(Math.round(tileSize * 0.6), MIN_FONT_SIZE),
+    tileSize,
+  };
+};
+
+export default Object.assign(Tile, {
+  getSizes,
+});
