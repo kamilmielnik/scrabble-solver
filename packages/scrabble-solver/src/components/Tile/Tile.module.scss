@@ -1,3 +1,5 @@
+@import 'styles/mixins';
+
 $tile-size: 64px;
 $tile-font-size: $tile-size * 3 / 5;
 
@@ -5,7 +7,7 @@ $tile-font-size: $tile-size * 3 / 5;
   position: relative;
   background-color: transparent;
   color: white;
-  transition: background-color var(--transition--duration), color var(--transition--duration);
+  transition: var(--transition);
 
   &.small {
     .points {
@@ -62,6 +64,8 @@ $tile-font-size: $tile-size * 3 / 5;
 }
 
 .character {
+  // @include focus-effect;
+
   width: 100%;
   height: 100%;
   box-sizing: border-box;

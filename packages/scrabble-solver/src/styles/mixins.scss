@@ -1,24 +1,30 @@
 @mixin focus-effect {
+  $box-shadow-size: 5px;
+
   position: relative;
 
-  &:before {
-    content: ' ';
+  &:after {
+    content: '';
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    transition: box-shadow var(--transition--duration) var(--transition--easing);
+    z-index: 1;
+    transition: var(--transition);
     border-radius: var(--border--radius);
-    box-shadow: 0 0 0 3px transparent;
+    box-shadow: 0 0 0 $box-shadow-size transparent;
     pointer-events: none;
   }
 
-  &:focus {
-    outline: none;
+  &:focus-within {
+    &,
+    * {
+      outline: none;
+    }
 
-    &:before {
-      box-shadow: 0 0 0 3px var(--color--focus);
+    &:after {
+      box-shadow: 0 0 0 $box-shadow-size var(--color--focus);
     }
   }
 }

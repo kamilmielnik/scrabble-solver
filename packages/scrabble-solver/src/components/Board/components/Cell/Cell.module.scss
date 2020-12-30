@@ -1,12 +1,16 @@
+@import 'styles/mixins';
+
 .cell {
   $tile-size: 40px;
   $tile-font-size: $tile-size / 2;
+
+  @include focus-effect;
 
   position: relative;
   display: table-cell;
   background-color: white;
   border: var(--border);
-  transition: background-color var(--transition-duration), color var(--transition-duration);
+  transition: var(--transition);
 
   &.bonusCharacter1 {
     background-color: var(--color--yellow--light);
