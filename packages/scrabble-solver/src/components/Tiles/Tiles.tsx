@@ -52,9 +52,10 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
   const changeActiveIndex = useCallback(
     (offset: number) => {
       const nextActiveIndex = Math.min(Math.max((activeIndex || 0) + offset, 0), tiles.length - 1);
+      const tileRef = tilesRefs[nextActiveIndex].current;
 
-      if (tilesRefs[nextActiveIndex].current) {
-        tilesRefs[nextActiveIndex].current.focus();
+      if (tileRef) {
+        tileRef.focus();
       }
 
       setActiveIndex(nextActiveIndex);

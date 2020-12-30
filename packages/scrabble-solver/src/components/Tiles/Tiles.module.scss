@@ -3,6 +3,7 @@
 .tiles {
   display: flex;
   background-color: white;
+  box-shadow: var(--box-shadow);
 }
 
 .tile {

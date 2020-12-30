@@ -21,11 +21,7 @@ interface Props {
   onMoveFocus: () => void;
 }
 
-interface Ref {
-  focus: () => void;
-}
-
-const Cell = forwardRef<Ref, Props>(({ cell, className, size, onFocus, onKeyDown, onMoveFocus }, ref) => {
+const Cell = forwardRef<HTMLInputElement, Props>(({ cell, className, size, onFocus, onKeyDown, onMoveFocus }, ref) => {
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const bonus = useTypedSelector((state) => selectBonus(state, cell));

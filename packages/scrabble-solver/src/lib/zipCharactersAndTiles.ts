@@ -2,7 +2,7 @@ import { BLANK } from '@scrabble-solver/constants';
 import { Tile } from '@scrabble-solver/models';
 
 interface CharacterTilePair {
-  character: string;
+  character: string | null;
   tile: Tile | null;
 }
 
