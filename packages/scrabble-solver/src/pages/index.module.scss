@@ -29,7 +29,7 @@
 .content {
   flex: 1;
   display: flex;
-  padding: var(--spacing--xl);
+  margin: var(--spacing--xl);
 }
 
 .boardContainer {
@@ -76,9 +76,6 @@
   flex: 0 0 auto;
   display: flex;
   justify-content: center;
-  padding: var(--spacing--xl);
-  color: var(--color--foreground--secondary);
-  background-color: var(--color--background--secondary);
-  border-top: var(--border);
-  box-shadow: var(--box-shadow--top);
+  margin: 0 var(--spacing--l);
+  margin-bottom: var(--spacing--xl);
 }
