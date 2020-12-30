@@ -26,14 +26,16 @@ const getConfig = (locale: Locale, configId: string): Config => {
   return localeConfig;
 };
 
+// TODO: moove to constants?
 const MIN_TILE_SIZE = 20;
+const MAX_TILE_SIZE = 80;
 
 const getCellSize = (config: Config, width: number, height: number): number => {
   const cellBorderWidth = 1; // TODO: unhardcode
   const maxWidth = (width - cellBorderWidth) / config.boardWidth - 2 * cellBorderWidth;
   const maxHeight = (height - cellBorderWidth) / config.boardHeight - 2 * cellBorderWidth;
   const cellSize = Math.min(maxWidth, maxHeight);
-  return Math.max(Math.floor(cellSize), MIN_TILE_SIZE);
+  return Math.min(Math.max(Math.floor(cellSize), MIN_TILE_SIZE), MAX_TILE_SIZE);
 };
 
 const Index: FunctionComponent = () => {
