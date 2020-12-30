@@ -8,6 +8,8 @@
 - rename reducers to slices, and slices to full names, e.g. boardSlice, tilesSlice, so that there are no naming collisions
 - align tiles horizontally with board
 - on a board, render a small indicator near focused tile, indicating in which direction (horizontal/vertical) is user typing now
+- hotkeys to focus 1) board, 2) tiles
+- help popover with hotkeys listed (ctrl+b, ctrl+right, ctrl+down - change typing direction)
 
 # Resources
 

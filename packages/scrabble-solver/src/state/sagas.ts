@@ -2,6 +2,8 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { Result } from '@scrabble-solver/models';
 import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
+import { solve } from 'api';
+
 import { board, i18n, results, solve as solveSlice, tiles } from './reducers';
 import { selectBoard, selectCharacters, selectConfig, selectLocale } from './selectors';
 
