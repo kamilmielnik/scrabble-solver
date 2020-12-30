@@ -44,12 +44,10 @@
   position: absolute;
 }
 
-.boardSizer {
-}
-
 .sidebar {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   margin-left: var(--spacing--xl);
   flex: 0 0 var(--sidebar-width);
 
@@ -68,6 +66,7 @@
 
 .results {
   flex: 1;
+  position: relative;
 }
 
 .tilesContainer {

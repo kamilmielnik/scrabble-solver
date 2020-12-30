@@ -11,7 +11,7 @@ const results = createSlice({
       return { ...state, candidate: resultsInitialState.candidate };
     },
 
-    changeResultCandidate: (state, action: PayloadAction<Result>) => {
+    changeResultCandidate: (state, action: PayloadAction<Result | null>) => {
       const candidate = action.payload;
       return { ...state, candidate };
     },

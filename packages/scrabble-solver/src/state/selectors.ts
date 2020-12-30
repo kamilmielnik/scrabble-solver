@@ -72,3 +72,6 @@ export const selectTranslation = createSelector(
 );
 
 export const selectTiles = (state: RootState): (string | null)[] => state.tiles;
+
+// TODO
+export const selectIsLoading = (state: RootState): boolean => false;

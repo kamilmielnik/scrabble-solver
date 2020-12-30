@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSize } from 'react-use';
 
-import { Board, LocaleDropdown, Tiles, Well } from 'components';
+import { Board, LocaleDropdown, Results, Tiles, Well } from 'components';
 import { i18n, selectConfig, selectLocale, useTypedSelector } from 'state';
 import { Locale } from 'types';
 
@@ -30,6 +30,8 @@ import styles from './index.module.scss';
 const MIN_TILE_SIZE = 20;
 const MAX_TILE_SIZE = 80;
 
+const INITIAL_SIZE = { height: 0, width: 0 };
+
 const getCellSize = (config: Config, width: number, height: number): number => {
   const cellBorderWidth = 1; // TODO: unhardcode
   const maxWidth = (width - cellBorderWidth) / config.boardWidth - 2 * cellBorderWidth;
@@ -40,10 +42,11 @@ const getCellSize = (config: Config, width: number, height: number): number => {
 
 const Index: FunctionComponent = () => {
   const dispatch = useDispatch();
-  const [sizer, { height, width }] = useSize(<div className={styles.boardSizer} />, { height: 0, width: 0 });
+  const [boardSizer, { height: boardHeight, width: boardWidth }] = useSize(<div />, INITIAL_SIZE);
+  const [resultsSizer, { height: resultsHeight, width: resultsWidth }] = useSize(<div />, INITIAL_SIZE);
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
-  const cellSize = getCellSize(config, width, height);
+  const cellSize = getCellSize(config, boardWidth, boardHeight);
 
   const handleLocaleChange = (newLocale: Locale) => {
     dispatch(i18n.actions.changeLocale(newLocale));
@@ -52,21 +55,27 @@ const Index: FunctionComponent = () => {
   return (
     <div className={styles.index}>
       <div className={styles.nav}>
-        <h1 className={styles.title}>Scrabble Solver by Kamil Mielnik ({locale})</h1>
+        <h1 className={styles.title}>
+          Scrabble Solver by Kamil Mielnik ({locale}) {resultsWidth}x{resultsHeight}
+        </h1>
 
         <LocaleDropdown className={styles.flags} onChange={handleLocaleChange} value={locale} />
       </div>
 
       <div className={styles.content}>
         <div className={styles.boardContainer}>
-          {sizer}
+          {boardSizer}
 
-          {width > 0 && height > 0 && <Board className={styles.board} cellSize={cellSize} />}
+          {boardWidth > 0 && boardHeight > 0 && <Board className={styles.board} cellSize={cellSize} />}
         </div>
 
         <div className={styles.sidebar}>
           <Well className={styles.dictionary}>dictionary</Well>
-          <Well className={styles.results}>results</Well>
+          <Well className={styles.results}>
+            {resultsSizer}
+
+            {resultsWidth > 0 && resultsHeight > 0 && <Results height={resultsHeight} width={resultsWidth} />}
+          </Well>
         </div>
       </div>
 
