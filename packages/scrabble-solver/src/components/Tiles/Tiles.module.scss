@@ -6,15 +6,5 @@
 }
 
 .tile {
-  margin: 0 0px;
-
   @include focus-effect;
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  &:last-child {
-    margin-right: 0;
-  }
 }
