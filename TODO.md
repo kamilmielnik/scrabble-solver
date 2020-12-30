@@ -4,6 +4,8 @@
 - refactor "RemainingTiles"
 - persist board state in localstorage
 - mobile (!)
+- XL screens responsiveness
+- find nice font
 
 # Resources
 
