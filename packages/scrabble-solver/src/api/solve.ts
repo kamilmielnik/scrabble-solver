@@ -1,24 +1,24 @@
-import { BoardJson, ConfigJson, ResultJson } from '@scrabble-solver/models';
+import { BoardJson, ResultJson } from '@scrabble-solver/models';
 
 import { Locale } from 'types';
+
+const URL = '/api/solve';
 
 interface Payload {
   board: BoardJson;
   characters: string[];
-  config: ConfigJson;
+  configId: string;
   locale: Locale;
 }
 
-const solve = async ({ board, characters, config, locale }: Payload): Promise<ResultJson[]> => {
-  const url = '/api/solve';
-  const json = await fetch(url, {
+const solve = ({ board, characters, configId, locale }: Payload): Promise<ResultJson[]> => {
+  return fetch(URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ board, characters, config, locale }),
+    body: JSON.stringify({ board, characters, configId, locale }),
   }).then((response) => response.json());
-  return json;
 };
 
 export default solve;

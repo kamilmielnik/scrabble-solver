@@ -4,11 +4,11 @@ import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { solve } from 'api';
 
-import { board, i18n, results, solve as solveSlice, tiles } from './reducers';
+import { board, i18n, results as resultsSlice, solve as solveSlice, tiles } from './reducers';
 import { selectBoard, selectCharacters, selectConfig, selectLocale } from './selectors';
 
 export function* rootSaga() {
-  yield takeEvery(results.actions.applyResult.type, onApplyResult);
+  yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
   yield takeEvery(i18n.actions.changeLocale.type, onLocaleChange);
   yield takeLatest(solveSlice.actions.submit.type, onSubmit);
 }
@@ -16,7 +16,7 @@ export function* rootSaga() {
 function* onApplyResult({ payload: result }: PayloadAction<Result>) {
   yield put(board.actions.applyResult(result));
   yield put(tiles.actions.removeTiles(result.tiles));
-  yield put(results.actions.changeResults([]));
+  yield put(resultsSlice.actions.changeResults([]));
 }
 
 function* onLocaleChange() {
@@ -25,7 +25,7 @@ function* onLocaleChange() {
 
 function* onSubmit() {
   const board = yield select(selectBoard);
-  const config = yield select(selectConfig);
+  const { config } = yield select(selectConfig);
   const locale = yield select(selectLocale);
   const characters = yield select(selectCharacters);
 
@@ -38,9 +38,9 @@ function* onSubmit() {
       locale,
     });
     yield put(solveSlice.actions.submitSuccess());
-    yield put(results.actions.changeResults(results.map(Result.fromJson)));
+    yield put(resultsSlice.actions.changeResults(results.map(Result.fromJson)));
   } catch (error) {
-    yield put(results.actions.changeResults([]));
+    yield put(resultsSlice.actions.changeResults([]));
     yield put(solveSlice.actions.submitFailure(error));
   }
 }
