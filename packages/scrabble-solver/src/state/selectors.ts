@@ -75,5 +75,4 @@ export const selectTiles = (state: RootState): (string | null)[] => state.tiles;
 
 export const selectCharacters = createSelector(selectTiles, (tiles) => tiles.filter((tile) => tile !== null));
 
-// TODO
-export const selectIsLoading = (state: RootState): boolean => false;
+export const selectIsLoading = (state: RootState): boolean => state.solve.isLoading;
