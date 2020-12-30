@@ -1,11 +1,11 @@
 # TODO
 
 - generate .d.ts files for module.scss files on save & before build
-- refactor "RemainingTiles"
 - persist board state in localstorage
 - mobile (!)
 - XL screens responsiveness
 - find nice font
+- rename reducers to slices, and slices to full names, e.g. boardSlice, tilesSlice, so that there are no naming collisions
 
 # Resources
 

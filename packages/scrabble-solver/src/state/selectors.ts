@@ -54,3 +54,20 @@ export const selectCharacterPoints = createSelector(
 export const selectI18n = (state: RootState): typeof i18nInitialState => state.i18n;
 
 export const selectLocale = (state: RootState): Locale => state.i18n.locale;
+
+export const selectTranslations = createSelector([selectI18n], ({ i18n, locale }) => i18n[locale]);
+
+export const selectTranslation = createSelector(
+  [selectTranslations, selectLocale, (_: RootState, id: string) => id],
+  (translations, locale, id): string => {
+    const translation = translations[id];
+
+    if (typeof translation === 'undefined') {
+      throw new Error(`Untranslated key "${id}" in locale "${locale}"`);
+    }
+
+    return translation;
+  },
+);
+
+export const selectTiles = (state: RootState): (string | null)[] => state.tiles;

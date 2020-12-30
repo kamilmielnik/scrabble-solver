@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSize } from 'react-use';
 
-import { Board, LocaleDropdown, Well } from 'components';
+import { Board, LocaleDropdown, Tiles, Well } from 'components';
 import { i18n, selectConfig, selectLocale, useTypedSelector } from 'state';
 import { Locale } from 'types';
 
@@ -70,7 +70,9 @@ const Index: FunctionComponent = () => {
         </div>
       </div>
 
-      <div className={styles.tilesContainer}>tiles</div>
+      <div className={styles.tilesContainer}>
+        <Tiles />
+      </div>
     </div>
   );
 };
