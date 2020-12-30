@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { CSSProperties } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { board, results as resultsSlice, selectResults, useTypedSelector } from 'state';
+import { results as resultsSlice, selectResults, useTypedSelector } from 'state';
 
 import styles from './Results.module.scss';
 
@@ -17,7 +17,7 @@ const Result = ({ index, style }: Props) => {
   const result = results[index];
 
   const handleClick = () => {
-    dispatch(board.actions.applyResult(result));
+    dispatch(resultsSlice.actions.applyResult(result));
   };
 
   const handleMouseEnter = () => {

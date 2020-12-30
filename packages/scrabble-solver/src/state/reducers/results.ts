@@ -7,7 +7,7 @@ const results = createSlice({
   initialState: resultsInitialState,
   name: 'results',
   reducers: {
-    applyResult: (state) => {
+    applyResult: (state, _action: PayloadAction<Result>) => {
       return { ...state, candidate: resultsInitialState.candidate };
     },
 
