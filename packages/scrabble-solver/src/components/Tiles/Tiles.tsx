@@ -15,6 +15,7 @@ import {
 } from 'state';
 
 import Tile from '../Tile';
+
 import styles from './Tiles.module.scss';
 
 interface Props {
@@ -36,7 +37,7 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const tiles = useTiles();
-  const tilesRefs = useMemo(() => tiles.map(() => createRef<{ focus: () => void }>()), [tiles]);
+  const tilesRefs = useMemo(() => tiles.map(() => createRef<HTMLInputElement>()), [tiles]);
   const [activeIndex, setActiveIndex] = useState<number>();
   const placeholder = useTranslation('modules.tiles.placeholder');
 

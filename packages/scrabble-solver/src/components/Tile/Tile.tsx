@@ -1,6 +1,6 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import classNames from 'classnames';
-import React, { FocusEventHandler, forwardRef, KeyboardEventHandler, useImperativeHandle, useRef } from 'react';
+import React, { FocusEventHandler, forwardRef, KeyboardEventHandler } from 'react';
 
 import { selectConfig, useTypedSelector } from 'state';
 
@@ -19,25 +19,12 @@ interface Props {
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
 }
 
-interface TileRef {
-  focus: () => void;
-}
-
-const Tile = forwardRef<TileRef, Props>(
+const Tile = forwardRef<HTMLInputElement, Props>(
   ({ className, character = '', highlighted, isBlank, placeholder, raised, small, size, onFocus, onKeyDown }, ref) => {
-    const inputRef = useRef<HTMLInputElement>(null);
     const config = useTypedSelector(selectConfig);
     const points = config.getCharacterPoints(character);
     const isEmpty = !character || character === EMPTY_CELL;
     const { pointsFontSize, tileFontSize, tileSize } = getSizes(size, small);
-
-    useImperativeHandle(ref, () => ({
-      focus: () => {
-        if (inputRef.current) {
-          inputRef.current.focus();
-        }
-      },
-    }));
 
     return (
       <div
@@ -61,7 +48,7 @@ const Tile = forwardRef<TileRef, Props>(
           className={styles.character}
           maxLength={1}
           placeholder={placeholder}
-          ref={inputRef}
+          ref={ref}
           style={{
             fontSize: tileFontSize,
           }}
