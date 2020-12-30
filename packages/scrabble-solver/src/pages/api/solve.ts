@@ -5,8 +5,8 @@ import logger from '@scrabble-solver/logger';
 import { Board, Config, Tile } from '@scrabble-solver/models';
 import Solver from '@scrabble-solver/solver';
 import fs from 'fs';
-import path from 'path';
 import { NextApiRequest, NextApiResponse } from 'next';
+import path from 'path';
 
 import { Locale } from 'types';
 
