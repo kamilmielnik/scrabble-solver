@@ -1,25 +1,21 @@
-// TODO: sagas
-
-import { createStore /*, applyMiddleware, compose*/ } from 'redux';
-// import reduxSaga from 'redux-saga';
+import { createStore, applyMiddleware, compose } from 'redux';
+import reduxSaga from 'redux-saga';
 
 import { rootReducer } from './reducers';
-// import sagas from './sagas';
+import { rootSaga } from './sagas';
 import { RootState } from './types';
 
-// const createSagaMiddleware = typeof reduxSaga.default === 'function' ? reduxSaga.default : reduxSaga;
-// const sagaMiddleware = createSagaMiddleware();
+const sagaMiddleware = reduxSaga();
 const initialState: Partial<RootState> | undefined = undefined;
 
 const createAppStore = (): ReturnType<typeof createStore> => {
-  const store = createStore(rootReducer, initialState);
-  // const store = createStore(rootReducer, initialState, createEnhancer());
-  // sagaMiddleware.run(sagas);
+  const store = createStore(rootReducer, initialState, createEnhancer());
+  sagaMiddleware.run(rootSaga);
   // enableHmrForReducers(store);
   return store;
 };
 
-// const createEnhancer = () => compose(applyMiddleware(sagaMiddleware));
+const createEnhancer = () => compose(applyMiddleware(sagaMiddleware));
 
 // const enableHmrForReducers = (store) => {
 //   if (module.hot) {
