@@ -22,6 +22,7 @@ interface Props {
   className?: string;
 }
 
+// TODO: Move this
 const useTiles = () => {
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const characters = useTypedSelector(selectTiles);
@@ -89,7 +90,8 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
       {tiles.map(({ character, isCandidate }, index) => (
         <Tile
           className={styles.tile}
-          character={character}
+          // TODO: is this a hack?
+          character={character === null ? undefined : character}
           highlighted={isCandidate}
           isBlank={character === BLANK}
           key={index}
