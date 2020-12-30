@@ -6,6 +6,7 @@
 - XL screens responsiveness
 - find nice font
 - rename reducers to slices, and slices to full names, e.g. boardSlice, tilesSlice, so that there are no naming collisions
+- align tiles horizontally with board
 
 # Resources
 
