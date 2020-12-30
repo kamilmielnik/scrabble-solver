@@ -7,6 +7,7 @@
 - find nice font
 - rename reducers to slices, and slices to full names, e.g. boardSlice, tilesSlice, so that there are no naming collisions
 - align tiles horizontally with board
+- on a board, render a small indicator near focused tile, indicating in which direction (horizontal/vertical) is user typing now
 
 # Resources
 
