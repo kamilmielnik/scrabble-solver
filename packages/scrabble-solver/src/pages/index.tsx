@@ -55,11 +55,9 @@ const Index: FunctionComponent = () => {
 
       <div className={styles.content}>
         <div className={styles.boardContainer}>
-          <div className={styles.board}>
-            {sizer}
+          {sizer}
 
-            {width > 0 && height > 0 && <Board cellSize={cellSize} />}
-          </div>
+          {width > 0 && height > 0 && <Board className={styles.board} cellSize={cellSize} />}
         </div>
 
         <div className={styles.sidebar}>
