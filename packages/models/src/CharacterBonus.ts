@@ -3,16 +3,17 @@ import { BONUS_CHARACTER } from '@scrabble-solver/constants';
 import Bonus from './Bonus';
 import BonusValue from './BonusValue';
 import Cell from './Cell';
+import Config from './Config';
 
 class CharacterBonus extends Bonus {
   public readonly type = BONUS_CHARACTER;
 
-  public canApply(cell: Cell): boolean {
-    return this.matchesCellCoordinates(cell) && this.matchesCellTileScore(cell);
+  public canApply(config: Config, cell: Cell): boolean {
+    return this.matchesCellCoordinates(cell) && this.matchesCellTileScore(config, cell);
   }
 
-  public matchesCellTileScore(cell: Cell): boolean {
-    const cellTileScore = this.config.pointsMap[cell.tile.character];
+  public matchesCellTileScore(config: Config, cell: Cell): boolean {
+    const cellTileScore = config.pointsMap[cell.tile.character];
     return Boolean(this.score) && this.score === cellTileScore;
   }
 

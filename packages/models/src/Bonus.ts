@@ -4,8 +4,6 @@ import Cell from './Cell';
 import Config from './Config';
 
 abstract class Bonus {
-  public readonly config: Config;
-
   public readonly multiplier: number;
 
   public readonly score: number | undefined;
@@ -16,27 +14,14 @@ abstract class Bonus {
 
   public readonly y: number;
 
-  constructor({
-    config,
-    multiplier,
-    score,
-    x,
-    y,
-  }: {
-    config: Config;
-    multiplier: number;
-    score?: number;
-    x: number;
-    y: number;
-  }) {
-    this.config = config;
+  constructor({ multiplier, score, x, y }: { multiplier: number; score?: number; x: number; y: number }) {
     this.multiplier = multiplier;
     this.score = score;
     this.x = x;
     this.y = y;
   }
 
-  public canApply(cell: Cell): boolean {
+  public canApply(_config: Config, cell: Cell): boolean {
     return this.matchesCellCoordinates(cell);
   }
 

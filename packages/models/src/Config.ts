@@ -14,11 +14,14 @@ class Config {
     return new Config(json);
   }
 
+  public readonly bonuses: Bonus[];
+
   public readonly config: ConfigJson;
 
   public readonly pointsMap: Record<string, number>;
 
   constructor(config: ConfigJson) {
+    this.bonuses = getBonuses(config);
     this.config = config;
     this.pointsMap = getPointsMap(this.config);
   }
@@ -47,26 +50,12 @@ class Config {
     return this.config.boardWidth;
   }
 
-  public get bonuses(): Bonus[] {
-    return this.config.bonuses.map((bonus) => {
-      if (bonus.type === BONUS_CHARACTER) {
-        return new CharacterBonus({ config: this, ...bonus });
-      }
-
-      if (bonus.type === BONUS_WORD) {
-        return new WordBonus({ config: this, ...bonus });
-      }
-
-      throw new Error(`Unsupported Bonus type: "${bonus.type}"`);
-    });
-  }
-
   public getCellBonusValue(cell: Cell): BonusValue {
     if (!cell.isEmpty) {
       return NO_BONUS;
     }
 
-    const cellBonus = this.bonuses.find((bonus) => bonus.canApply(cell));
+    const cellBonus = this.bonuses.find((bonus) => bonus.canApply(this, cell));
 
     if (!cellBonus) {
       return NO_BONUS;
@@ -91,6 +80,20 @@ class Config {
     return this.config;
   }
 }
+
+const getBonuses = (config: ConfigJson): Bonus[] => {
+  return config.bonuses.map((bonus) => {
+    if (bonus.type === BONUS_CHARACTER) {
+      return new CharacterBonus(bonus);
+    }
+
+    if (bonus.type === BONUS_WORD) {
+      return new WordBonus(bonus);
+    }
+
+    throw new Error(`Unsupported Bonus type: "${bonus.type}"`);
+  });
+};
 
 const getAllCharacters = (config: ConfigJson) =>
   config.tiles.reduce(
