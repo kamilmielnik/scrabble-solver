@@ -4,8 +4,8 @@ import React, { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSize } from 'react-use';
 
-import { Board, LocaleDropdown, Results, Tiles, Well } from 'components';
-import { i18n, selectConfig, selectLocale, useTypedSelector } from 'state';
+import { Board, Loading, LocaleDropdown, Results, Tiles, Well } from 'components';
+import { i18n, selectConfig, selectIsLoading, selectLocale, useTypedSelector } from 'state';
 import { Locale } from 'types';
 
 import styles from './index.module.scss';
@@ -46,6 +46,7 @@ const Index: FunctionComponent = () => {
   const [resultsSizer, { height: resultsHeight, width: resultsWidth }] = useSize(<div />, INITIAL_SIZE);
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
+  const isLoading = useTypedSelector(selectIsLoading);
   const cellSize = getCellSize(config, boardWidth, boardHeight);
 
   const handleLocaleChange = (newLocale: Locale) => {
@@ -74,7 +75,11 @@ const Index: FunctionComponent = () => {
           <Well className={styles.results}>
             {resultsSizer}
 
-            {resultsWidth > 0 && resultsHeight > 0 && <Results height={resultsHeight} width={resultsWidth} />}
+            {resultsWidth > 0 && resultsHeight > 0 && (
+              <Loading className={styles.loading} isLoading={isLoading}>
+                <Results height={resultsHeight} width={resultsWidth} />
+              </Loading>
+            )}
           </Well>
         </div>
       </div>
