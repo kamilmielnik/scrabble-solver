@@ -9,18 +9,6 @@ $tile-font-size: $tile-size * 3 / 5;
   color: white;
   transition: var(--transition);
 
-  &.small {
-    .points {
-      position: absolute;
-      right: 6px;
-      bottom: 4px;
-      font-size: 10px;
-      color: black;
-      font-weight: bold;
-      user-select: none;
-    }
-  }
-
   &.raised {
     box-shadow: inset -2px -2px 2px -1px rgba(34, 34, 34, 0.8);
   }
@@ -81,14 +69,9 @@ $tile-font-size: $tile-size * 3 / 5;
 
 .points {
   position: absolute;
-  right: 5px;
-  bottom: 2px;
-
   right: 10%;
   bottom: 5%;
-
-  font-size: 100%;
-  color: black;
+  color: var(--color--foreground);
   font-weight: bold;
   user-select: none;
 }

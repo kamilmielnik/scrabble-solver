@@ -13,23 +13,21 @@ interface Props {
   isBlank?: boolean;
   placeholder?: string;
   raised?: boolean;
-  small?: boolean;
   size: number;
-  onFocus: FocusEventHandler<HTMLInputElement>;
-  onKeyDown: KeyboardEventHandler<HTMLInputElement>;
+  onFocus?: FocusEventHandler<HTMLInputElement>;
+  onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
 }
 
 const Tile = forwardRef<HTMLInputElement, Props>(
-  ({ className, character = '', highlighted, isBlank, placeholder, raised, small, size, onFocus, onKeyDown }, ref) => {
+  ({ className, character = '', highlighted, isBlank, placeholder, raised, size, onFocus, onKeyDown }, ref) => {
     const config = useTypedSelector(selectConfig);
     const points = config.getCharacterPoints(character);
     const isEmpty = !character || character === EMPTY_CELL;
-    const { pointsFontSize, tileFontSize, tileSize } = getSizes(size, small);
+    const { pointsFontSize, tileFontSize, tileSize } = getSizes(size);
 
     return (
       <div
         className={classNames(styles.tile, className, {
-          [styles.small]: small,
           [styles.highlighted]: highlighted,
           [styles.blank]: isBlank,
           [styles.raised]: raised,
@@ -77,9 +75,8 @@ const MIN_FONT_SIZE = 14;
 const MIN_POINTS_FONT_SIZE = 10;
 
 // TODO: put this function in a better place
-const getSizes = (size: number, small?: boolean) => {
+const getSizes = (tileSize: number) => {
   // TODO: make it better, unhardcode
-  const tileSize = small ? Math.round(size * 0.75) : size;
 
   return {
     pointsFontSize: Math.max(Math.round(tileSize * 0.25), MIN_POINTS_FONT_SIZE),
