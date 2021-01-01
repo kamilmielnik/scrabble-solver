@@ -85,7 +85,7 @@ const Tile: FunctionComponent<Props> = ({
         onKeyDown={onKeyDown}
       />
 
-      {!isBlank && !isEmpty && (
+      {(isBlank || !isEmpty) && (
         <span
           className={styles.points}
           style={{
