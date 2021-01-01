@@ -31,6 +31,7 @@ const Result = ({ index, style }: Props) => {
   return (
     <div
       className={styles.row}
+      data-role="button"
       style={style}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}

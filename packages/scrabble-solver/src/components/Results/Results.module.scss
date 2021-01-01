@@ -1,6 +1,4 @@
-.loading {
-  height: 100%;
-}
+@import 'styles/mixins';
 
 .results {
   background-color: white;
@@ -45,14 +43,15 @@
   cursor: pointer;
 
   &:hover {
-    // background-color: $primary;
+    background-color: var(--color--primary);
     color: white;
   }
 
   &:focus {
-    // background-color: $primary-active;
+    @include focus-effect;
+
+    background-color: var(--color--primary);
     color: white;
-    outline: none;
   }
 }
 
