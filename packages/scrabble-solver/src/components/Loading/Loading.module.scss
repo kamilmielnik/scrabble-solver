@@ -1,26 +1,27 @@
-.loading {
-  position: relative;
-
-  &.isLoading {
-    :not(:last-child) {
-      filter: blur(1px);
-      // TODO: consider other filters when results show words as tiles instead of text
-      // filter: opacity(20%);
-      // filter: brightness(0.5);
-    }
-  }
-}
-
+.loading,
 .dim {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.loading {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.dim {
   background-color: var(--color--background--overlay);
-  color: var(--color--foreground);
   z-index: 1;
+  filter: blur(1px);
+  // TODO: consider other filters when results show words as tiles instead of text
+  // filter: opacity(20%);
+  // filter: brightness(0.5);
+}
+
+.spinner {
+  color: var(--color--foreground);
 }
