@@ -26,7 +26,9 @@ export const selectCells = createSelector([selectRows], (rows) => {
 
 export const selectConfig = (state: RootState): Config => state.config;
 
-export const selectResults = (state: RootState): Result[] => [...state.results.results].sort(pointsComparator);
+export const selectResults = (state: RootState): Result[] => state.results.results;
+
+export const selectSortedResults = createSelector([selectResults], (results) => [...results].sort(pointsComparator));
 
 export const selectResultCandidate = (state: RootState): Result | null => state.results.candidate;
 

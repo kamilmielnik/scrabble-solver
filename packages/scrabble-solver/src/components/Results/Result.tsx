@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { CSSProperties } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { resultsSlice, selectResults, useTypedSelector } from 'state';
+import { resultsSlice, selectSortedResults, useTypedSelector } from 'state';
 
 import styles from './Results.module.scss';
 
@@ -13,7 +13,7 @@ interface Props {
 
 const Result = ({ index, style }: Props) => {
   const dispatch = useDispatch();
-  const results = useTypedSelector(selectResults);
+  const results = useTypedSelector(selectSortedResults);
   const result = results[index];
 
   const handleClick = () => {

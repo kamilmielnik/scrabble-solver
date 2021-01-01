@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FixedSizeList } from 'react-window';
 
-import { selectIsLoading, selectResults, useTypedSelector } from 'state';
+import { selectIsLoading, selectSortedResults, useTypedSelector } from 'state';
 
 import Loading from '../Loading';
 
@@ -19,7 +19,7 @@ interface Props {
 }
 
 const Results: FunctionComponent<Props> = ({ height, width }) => {
-  const results = useTypedSelector(selectResults);
+  const results = useTypedSelector(selectSortedResults);
   const isLoading = useTypedSelector(selectIsLoading);
 
   return (
