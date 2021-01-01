@@ -26,22 +26,22 @@
   flex: 0 0 auto;
 }
 
-.content {
+.contentWrapper {
   flex: 1;
+  padding: var(--spacing--xl);
+}
+
+.content {
   display: flex;
-  margin: var(--spacing--xl);
+  justify-content: center;
+  height: 100%;
 }
 
 .boardContainer {
-  flex: 1;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.board {
-  position: absolute;
 }
 
 .sidebar {

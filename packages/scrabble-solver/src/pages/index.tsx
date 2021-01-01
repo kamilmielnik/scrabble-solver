@@ -29,6 +29,7 @@ import styles from './index.module.scss';
 // TODO: moove to constants?
 const MIN_TILE_SIZE = 20;
 const MAX_TILE_SIZE = 80;
+const SIDEBAR_MARGIN_LEFT = 40; // TODO: unhardcode?
 
 const INITIAL_SIZE = { height: 0, width: 0 };
 
@@ -42,11 +43,12 @@ const getCellSize = (config: Config, width: number, height: number): number => {
 
 const Index: FunctionComponent = () => {
   const dispatch = useDispatch();
+  const [contentSizer, { height: contentHeight, width: contentWidth }] = useSize(<div />, INITIAL_SIZE);
   const [boardSizer, { height: boardHeight, width: boardWidth }] = useSize(<div />, INITIAL_SIZE);
   const [resultsSizer, { height: resultsHeight, width: resultsWidth }] = useSize(<div />, INITIAL_SIZE);
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
-  const cellSize = getCellSize(config, boardWidth, boardHeight);
+  const cellSize = getCellSize(config, contentWidth - resultsWidth - SIDEBAR_MARGIN_LEFT, boardHeight);
 
   const handleLocaleChange = (newLocale: Locale) => {
     dispatch(i18n.actions.changeLocale(newLocale));
@@ -55,27 +57,29 @@ const Index: FunctionComponent = () => {
   return (
     <div className={styles.index}>
       <div className={styles.nav}>
-        <h1 className={styles.title}>
-          Scrabble Solver by Kamil Mielnik
-        </h1>
+        <h1 className={styles.title}>Scrabble Solver by Kamil Mielnik</h1>
 
         <LocaleDropdown className={styles.flags} onChange={handleLocaleChange} value={locale} />
       </div>
 
-      <div className={styles.content}>
-        <div className={styles.boardContainer}>
-          {boardSizer}
+      <div className={styles.contentWrapper}>
+        <div className={styles.content}>
+          {contentSizer}
 
-          {boardWidth > 0 && boardHeight > 0 && <Board className={styles.board} cellSize={cellSize} />}
-        </div>
+          <div className={styles.boardContainer}>
+            {boardSizer}
 
-        <div className={styles.sidebar}>
-          <Well className={styles.dictionary}>dictionary</Well>
-          <Well className={styles.results}>
-            {resultsSizer}
+            {contentWidth > 0 && boardHeight > 0 && <Board cellSize={cellSize} />}
+          </div>
 
-            {resultsWidth > 0 && resultsHeight > 0 && <Results height={resultsHeight} width={resultsWidth} />}
-          </Well>
+          <div className={styles.sidebar}>
+            <Well className={styles.dictionary}>dictionary</Well>
+            <Well className={styles.results}>
+              {resultsSizer}
+
+              {resultsWidth > 0 && resultsHeight > 0 && <Results height={resultsHeight} width={resultsWidth} />}
+            </Well>
+          </div>
         </div>
       </div>
 
