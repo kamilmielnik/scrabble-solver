@@ -56,7 +56,7 @@ const Index: FunctionComponent = () => {
     <div className={styles.index}>
       <div className={styles.nav}>
         <h1 className={styles.title}>
-          Scrabble Solver by Kamil Mielnik ({locale}) {resultsWidth}x{resultsHeight}
+          Scrabble Solver by Kamil Mielnik
         </h1>
 
         <LocaleDropdown className={styles.flags} onChange={handleLocaleChange} value={locale} />
