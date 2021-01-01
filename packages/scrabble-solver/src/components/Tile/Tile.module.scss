@@ -74,6 +74,7 @@ $tile-font-size: $tile-size * 3 / 5;
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
+  caret-color: transparent;
 
   &::placeholder {
     color: var(--color--inactive);
