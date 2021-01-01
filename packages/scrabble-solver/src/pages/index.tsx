@@ -43,8 +43,8 @@ const getCellSize = (config: Config, width: number, height: number): number => {
 
 const Index: FunctionComponent = () => {
   const dispatch = useDispatch();
-  const [contentSizer, { height: contentHeight, width: contentWidth }] = useSize(<div />, INITIAL_SIZE);
-  const [boardSizer, { height: boardHeight, width: boardWidth }] = useSize(<div />, INITIAL_SIZE);
+  const [contentSizer, { width: contentWidth }] = useSize(<div />, INITIAL_SIZE);
+  const [boardSizer, { height: boardHeight }] = useSize(<div />, INITIAL_SIZE);
   const [resultsSizer, { height: resultsHeight, width: resultsWidth }] = useSize(<div />, INITIAL_SIZE);
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
