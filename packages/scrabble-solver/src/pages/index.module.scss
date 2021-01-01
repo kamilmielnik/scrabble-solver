@@ -2,6 +2,12 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  opacity: 0;
+  transition: var(--transition);
+
+  &.initialized {
+    opacity: 1;
+  }
 }
 
 .nav {
@@ -78,4 +84,14 @@
   justify-content: center;
   margin: 0 var(--spacing--l);
   margin-bottom: var(--spacing--xl);
+}
+
+.loading {
+  opacity: 1;
+  transition: var(--transition);
+  pointer-events: none;
+
+  &.initialized {
+    opacity: 0;
+  }
 }

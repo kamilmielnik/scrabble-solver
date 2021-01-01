@@ -6,7 +6,6 @@
 - XL screens responsiveness
 - find nice font
 - optimize
-- components should smoothly appear on the page after initializing sizes
 - align tiles horizontally with board
 - on a board, render a small indicator near focused tile, indicating in which direction (horizontal/vertical) is user typing now
 - hotkeys to focus 1) board, 2) tiles

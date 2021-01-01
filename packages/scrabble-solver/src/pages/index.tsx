@@ -1,10 +1,11 @@
 // import { literaki, scrabble } from '@scrabble-solver/configs';
 import { Config } from '@scrabble-solver/models';
+import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSize } from 'react-use';
 
-import { Board, LocaleDropdown, Results, Tiles, Well } from 'components';
+import { Board, Loading, LocaleDropdown, Results, Tiles, Well } from 'components';
 import { i18nSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
 import { Locale } from 'types';
 
@@ -49,44 +50,50 @@ const Index: FunctionComponent = () => {
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
   const cellSize = getCellSize(config, contentWidth - resultsWidth - SIDEBAR_MARGIN_LEFT, boardHeight);
+  const isInitialized =
+    contentWidth !== INITIAL_SIZE.width && boardHeight !== INITIAL_SIZE.height && resultsWidth !== INITIAL_SIZE.width;
 
   const handleLocaleChange = (newLocale: Locale) => {
     dispatch(i18nSlice.actions.changeLocale(newLocale));
   };
 
   return (
-    <div className={styles.index}>
-      <div className={styles.nav}>
-        <h1 className={styles.title}>Scrabble Solver by Kamil Mielnik</h1>
+    <>
+      <div className={classNames(styles.index, { [styles.initialized]: isInitialized })}>
+        <div className={styles.nav}>
+          <h1 className={styles.title}>Scrabble Solver by Kamil Mielnik</h1>
 
-        <LocaleDropdown className={styles.flags} onChange={handleLocaleChange} value={locale} />
-      </div>
+          <LocaleDropdown className={styles.flags} onChange={handleLocaleChange} value={locale} />
+        </div>
 
-      <div className={styles.contentWrapper}>
-        <div className={styles.content}>
-          {contentSizer}
+        <div className={styles.contentWrapper}>
+          <div className={styles.content}>
+            {contentSizer}
 
-          <div className={styles.boardContainer}>
-            {boardSizer}
+            <div className={styles.boardContainer}>
+              {boardSizer}
 
-            {contentWidth > 0 && boardHeight > 0 && <Board cellSize={cellSize} />}
+              {contentWidth > 0 && boardHeight > 0 && <Board cellSize={cellSize} />}
+            </div>
+
+            <div className={styles.sidebar}>
+              <Well className={styles.dictionary}>dictionary</Well>
+              <Well className={styles.results}>
+                {resultsSizer}
+
+                {resultsWidth > 0 && resultsHeight > 0 && <Results height={resultsHeight} width={resultsWidth} />}
+              </Well>
+            </div>
           </div>
+        </div>
 
-          <div className={styles.sidebar}>
-            <Well className={styles.dictionary}>dictionary</Well>
-            <Well className={styles.results}>
-              {resultsSizer}
-
-              {resultsWidth > 0 && resultsHeight > 0 && <Results height={resultsHeight} width={resultsWidth} />}
-            </Well>
-          </div>
+        <div className={styles.tilesContainer}>
+          <Tiles />
         </div>
       </div>
 
-      <div className={styles.tilesContainer}>
-        <Tiles />
-      </div>
-    </div>
+      <Loading className={classNames(styles.loading, { [styles.initialized]: isInitialized })} />
+    </>
   );
 };
 
