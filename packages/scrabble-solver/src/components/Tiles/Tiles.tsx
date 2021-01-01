@@ -8,8 +8,8 @@ import {
   selectConfig,
   selectResultCandidate,
   selectTiles,
-  solve,
-  tiles as tilesSlice,
+  solveSlice,
+  tilesSlice,
   useTranslation,
   useTypedSelector,
 } from 'state';
@@ -47,7 +47,7 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
   };
 
   const handleSubmit = () => {
-    dispatch(solve.actions.submit());
+    dispatch(solveSlice.actions.submit());
   };
 
   const changeActiveIndex = useCallback(

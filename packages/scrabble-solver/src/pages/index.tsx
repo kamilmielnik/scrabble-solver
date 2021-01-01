@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useSize } from 'react-use';
 
 import { Board, LocaleDropdown, Results, Tiles, Well } from 'components';
-import { i18n, selectConfig, selectLocale, useTypedSelector } from 'state';
+import { i18nSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
 import { Locale } from 'types';
 
 import styles from './index.module.scss';
@@ -51,7 +51,7 @@ const Index: FunctionComponent = () => {
   const cellSize = getCellSize(config, contentWidth - resultsWidth - SIDEBAR_MARGIN_LEFT, boardHeight);
 
   const handleLocaleChange = (newLocale: Locale) => {
-    dispatch(i18n.actions.changeLocale(newLocale));
+    dispatch(i18nSlice.actions.changeLocale(newLocale));
   };
 
   return (

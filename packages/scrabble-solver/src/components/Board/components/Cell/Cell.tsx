@@ -5,7 +5,7 @@ import React, { forwardRef, KeyboardEventHandler, useMemo, useCallback } from 'r
 import { useDispatch } from 'react-redux';
 
 import { createKeyboardNavigation } from 'lib';
-import { board, selectBonus, selectCharacterPoints, selectConfig, solve, useTypedSelector } from 'state';
+import { boardSlice, selectBonus, selectCharacterPoints, selectConfig, solveSlice, useTypedSelector } from 'state';
 
 import Tile from '../../../Tile';
 
@@ -30,18 +30,18 @@ const Cell = forwardRef<HTMLInputElement, Props>(({ cell, className, size, onFoc
   const handleKeyDown = useMemo(
     () =>
       createKeyboardNavigation({
-        onDelete: () => dispatch(board.actions.changeCellValue({ value: EMPTY_CELL, x: cell.x, y: cell.y })),
-        onBackspace: () => dispatch(board.actions.changeCellValue({ value: EMPTY_CELL, x: cell.x, y: cell.y })),
-        onEnter: () => dispatch(solve.actions.submit()),
+        onDelete: () => dispatch(boardSlice.actions.changeCellValue({ value: EMPTY_CELL, x: cell.x, y: cell.y })),
+        onBackspace: () => dispatch(boardSlice.actions.changeCellValue({ value: EMPTY_CELL, x: cell.x, y: cell.y })),
+        onEnter: () => dispatch(solveSlice.actions.submit()),
         onKeyDown: (event) => {
           // TODO: consider using is-hotkey
           const character = event.key;
           const isTogglingBlank = (event.ctrlKey || event.metaKey) && character === 'b';
 
           if (isTogglingBlank) {
-            dispatch(board.actions.toggleCellIsBlank({ x: cell.x, y: cell.y }));
+            dispatch(boardSlice.actions.toggleCellIsBlank({ x: cell.x, y: cell.y }));
           } else if (config.hasCharacter(character)) {
-            dispatch(board.actions.changeCellValue({ value: character, x: cell.x, y: cell.y }));
+            dispatch(boardSlice.actions.changeCellValue({ value: character, x: cell.x, y: cell.y }));
             onMoveFocus();
           }
 

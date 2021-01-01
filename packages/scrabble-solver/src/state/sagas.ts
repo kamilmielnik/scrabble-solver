@@ -4,18 +4,18 @@ import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { solve } from 'api';
 
-import { board as boardSlice, i18n, results as resultsSlice, solve as solveSlice, tiles } from './reducers';
 import { selectBoard, selectCharacters, selectConfig, selectLocale } from './selectors';
+import { boardSlice, i18nSlice, resultsSlice, solveSlice, tilesSlice } from './slices';
 
 export function* rootSaga() {
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
-  yield takeEvery(i18n.actions.changeLocale.type, onLocaleChange);
+  yield takeEvery(i18nSlice.actions.changeLocale.type, onLocaleChange);
   yield takeLatest(solveSlice.actions.submit.type, onSubmit);
 }
 
 function* onApplyResult({ payload: result }: PayloadAction<Result>) {
   yield put(boardSlice.actions.applyResult(result));
-  yield put(tiles.actions.removeTiles(result.tiles));
+  yield put(tilesSlice.actions.removeTiles(result.tiles));
   yield put(resultsSlice.actions.changeResults([]));
 }
 

@@ -3,7 +3,7 @@ import { Result } from '@scrabble-solver/models';
 
 import resultsInitialState from './resultsInitialState';
 
-const results = createSlice({
+const resultsSlice = createSlice({
   initialState: resultsInitialState,
   name: 'results',
   reducers: {
@@ -23,4 +23,4 @@ const results = createSlice({
   },
 });
 
-export default results;
+export default resultsSlice;

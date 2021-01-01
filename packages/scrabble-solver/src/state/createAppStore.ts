@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import reduxSaga from 'redux-saga';
 
-import { rootReducer } from './reducers';
+import rootReducer from './rootReducer';
 import { rootSaga } from './sagas';
 import { RootState } from './types';
 

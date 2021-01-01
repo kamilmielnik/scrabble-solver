@@ -5,7 +5,7 @@ import { zipCharactersAndTiles } from 'lib';
 
 import tilesInitialState from './tilesInitialState';
 
-const tiles = createSlice({
+const tilesSlice = createSlice({
   initialState: tilesInitialState,
   name: 'tiles',
   reducers: {
@@ -23,4 +23,4 @@ const tiles = createSlice({
   },
 });
 
-export default tiles;
+export default tilesSlice;

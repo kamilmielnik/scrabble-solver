@@ -4,7 +4,7 @@ import { Locale } from 'types';
 
 import i18nInitialState from './i18nInitialState';
 
-const i18n = createSlice({
+const i18nSlice = createSlice({
   initialState: i18nInitialState,
   name: 'i18n',
   reducers: {
@@ -15,4 +15,4 @@ const i18n = createSlice({
   },
 });
 
-export default i18n;
+export default i18nSlice;

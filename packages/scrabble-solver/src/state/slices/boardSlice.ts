@@ -4,7 +4,7 @@ import { Cell, Result, Tile } from '@scrabble-solver/models';
 
 import boardInitialState from './boardInitialState';
 
-const board = createSlice({
+const boardSlice = createSlice({
   initialState: boardInitialState,
   name: 'board',
   reducers: {
@@ -46,4 +46,4 @@ const board = createSlice({
   },
 });
 
-export default board;
+export default boardSlice;

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { CSSProperties } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { results as resultsSlice, selectResults, useTypedSelector } from 'state';
+import { resultsSlice, selectResults, useTypedSelector } from 'state';
 
 import styles from './Results.module.scss';
 

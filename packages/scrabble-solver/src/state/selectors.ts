@@ -4,7 +4,7 @@ import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/models';
 import { createKeyComparator, reverseComparator } from 'lib';
 import { Locale } from 'types';
 
-import { i18nInitialState } from './reducers';
+import { i18nInitialState } from './slices';
 import { RootState } from './types';
 
 const findCell = (cells: Cell[], x: number, y: number): Cell | undefined => {

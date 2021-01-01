@@ -6,7 +6,7 @@ import i18nInitialState from './i18nInitialState';
 
 const { locale } = i18nInitialState;
 
-const config = createSlice({
+const configSlice = createSlice({
   initialState: configInitialState[locale],
   name: 'config',
   reducers: {
@@ -16,4 +16,4 @@ const config = createSlice({
   },
 });
 
-export default config;
+export default configSlice;

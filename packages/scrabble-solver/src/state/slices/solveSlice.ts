@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import solveInitialState from './solveInitialState';
 
-const solve = createSlice({
+const solveSlice = createSlice({
   initialState: solveInitialState,
   name: 'solve',
   reducers: {
@@ -20,4 +20,4 @@ const solve = createSlice({
   },
 });
 
-export default solve;
+export default solveSlice;
