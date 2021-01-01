@@ -64,8 +64,6 @@ $tile-font-size: $tile-size * 3 / 5;
 }
 
 .character {
-  // @include focus-effect;
-
   width: 100%;
   height: 100%;
   box-sizing: border-box;
