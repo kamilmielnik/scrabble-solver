@@ -41,6 +41,6 @@ function* onSubmit() {
     yield put(resultsSlice.actions.changeResults(results.map(Result.fromJson)));
   } catch (error) {
     yield put(resultsSlice.actions.changeResults([]));
-    yield put(solveSlice.actions.submitFailure(error));
+    yield put(solveSlice.actions.submitFailure());
   }
 }
