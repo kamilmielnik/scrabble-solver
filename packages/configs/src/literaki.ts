@@ -114,7 +114,7 @@ const TILES_EN = [
   { character: 'b', count: 2, score: 3 },
   { character: 'c', count: 2, score: 3 },
   { character: 'd', count: 4, score: 2 },
-  { character: 'e', count: 1, score: 12 },
+  { character: 'e', count: 12, score: 1 },
   { character: 'f', count: 2, score: 4 },
   { character: 'g', count: 3, score: 2 },
   { character: 'h', count: 2, score: 4 },
