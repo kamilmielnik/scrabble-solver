@@ -1,7 +1,7 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Cell as CellModel } from '@scrabble-solver/models';
 import classNames from 'classnames';
-import React, { forwardRef, KeyboardEventHandler, memo, useMemo, useCallback } from 'react';
+import React, { FunctionComponent, KeyboardEventHandler, memo, RefObject, useMemo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { createKeyboardNavigation } from 'lib';
@@ -15,13 +15,14 @@ import { getBonusClassname, getCharacterPointsClassname } from './lib';
 interface Props {
   cell: CellModel;
   className?: string;
+  inputRef?: RefObject<HTMLInputElement>;
   size: number;
   onFocus: (x: number, y: number) => void;
   onKeyDown: KeyboardEventHandler;
   onMoveFocus: () => void;
 }
 
-const Cell = forwardRef<HTMLInputElement, Props>(({ cell, className, size, onFocus, onKeyDown, onMoveFocus }, ref) => {
+const Cell: FunctionComponent<Props> = ({ cell, className, inputRef, size, onFocus, onKeyDown, onMoveFocus }) => {
   const { tile, x, y } = cell;
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
@@ -72,15 +73,15 @@ const Cell = forwardRef<HTMLInputElement, Props>(({ cell, className, size, onFoc
         className={styles.tile}
         character={tile.character === EMPTY_CELL ? undefined : tile.character}
         highlighted={cell.isCandidate()}
+        inputRef={inputRef}
         isBlank={tile.isBlank}
         raised={tile.character !== EMPTY_CELL}
-        ref={ref}
         size={size}
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
       />
     </div>
   );
-});
+};
 
 export default memo(Cell);

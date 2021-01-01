@@ -1,15 +1,25 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import classNames from 'classnames';
-import React, { FocusEventHandler, forwardRef, KeyboardEventHandler } from 'react';
+import React, {
+  createRef,
+  FocusEventHandler,
+  FunctionComponent,
+  KeyboardEventHandler,
+  RefObject,
+  useEffect,
+  useMemo,
+} from 'react';
 
 import { selectConfig, useTypedSelector } from 'state';
 
 import styles from './Tile.module.scss';
 
 interface Props {
+  autoFocus?: boolean;
   className?: string;
   character?: string;
   highlighted?: boolean;
+  inputRef?: RefObject<HTMLInputElement>;
   isBlank?: boolean;
   placeholder?: string;
   raised?: boolean;
@@ -18,58 +28,76 @@ interface Props {
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
 }
 
-const Tile = forwardRef<HTMLInputElement, Props>(
-  ({ className, character = '', highlighted, isBlank, placeholder, raised, size, onFocus, onKeyDown }, ref) => {
-    const config = useTypedSelector(selectConfig);
-    const points = config.getCharacterPoints(character);
-    const isEmpty = !character || character === EMPTY_CELL;
-    const { pointsFontSize, tileFontSize, tileSize } = getSizes(size);
+const Tile: FunctionComponent<Props> = ({
+  autoFocus,
+  className,
+  character = '',
+  highlighted,
+  inputRef,
+  isBlank,
+  placeholder,
+  raised,
+  size,
+  onFocus,
+  onKeyDown,
+}) => {
+  const ref = useMemo<RefObject<HTMLInputElement>>(() => inputRef || createRef(), [inputRef]);
+  const config = useTypedSelector(selectConfig);
+  const points = config.getCharacterPoints(character);
+  const isEmpty = !character || character === EMPTY_CELL;
+  const { pointsFontSize, tileFontSize, tileSize } = getSizes(size);
 
-    return (
-      <div
-        className={classNames(styles.tile, className, {
-          [styles.highlighted]: highlighted,
-          [styles.blank]: isBlank,
-          [styles.raised]: raised,
-          [styles.points1]: points === 1,
-          [styles.points2]: points === 2,
-          [styles.points3]: points === 3,
-          [styles.points4]: points === 4,
-          [styles.points5]: points >= 5,
-        })}
+  useEffect(() => {
+    if (autoFocus && ref.current) {
+      ref.current.focus();
+    }
+  }, [autoFocus, ref]);
+
+  return (
+    <div
+      className={classNames(styles.tile, className, {
+        [styles.highlighted]: highlighted,
+        [styles.blank]: isBlank,
+        [styles.raised]: raised,
+        [styles.points1]: points === 1,
+        [styles.points2]: points === 2,
+        [styles.points3]: points === 3,
+        [styles.points4]: points === 4,
+        [styles.points5]: points >= 5,
+      })}
+      style={{
+        height: tileSize,
+        width: tileSize,
+      }}
+    >
+      <input
+        autoFocus={autoFocus}
+        className={styles.character}
+        maxLength={1}
+        placeholder={placeholder}
+        ref={ref}
         style={{
-          height: tileSize,
-          width: tileSize,
+          fontSize: tileFontSize,
         }}
-      >
-        <input
-          className={styles.character}
-          maxLength={1}
-          placeholder={placeholder}
-          ref={ref}
-          style={{
-            fontSize: tileFontSize,
-          }}
-          value={character || ''}
-          onChange={(event) => event.preventDefault()}
-          onFocus={onFocus}
-          onKeyDown={onKeyDown}
-        />
+        value={character || ''}
+        onChange={(event) => event.preventDefault()}
+        onFocus={onFocus}
+        onKeyDown={onKeyDown}
+      />
 
-        {!isBlank && !isEmpty && (
-          <span
-            className={styles.points}
-            style={{
-              fontSize: pointsFontSize,
-            }}
-          >
-            {points}
-          </span>
-        )}
-      </div>
-    );
-  },
-);
+      {!isBlank && !isEmpty && (
+        <span
+          className={styles.points}
+          style={{
+            fontSize: pointsFontSize,
+          }}
+        >
+          {points}
+        </span>
+      )}
+    </div>
+  );
+};
 
 const MIN_FONT_SIZE = 14;
 const MIN_POINTS_FONT_SIZE = 10;

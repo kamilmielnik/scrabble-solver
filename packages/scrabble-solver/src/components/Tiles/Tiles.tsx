@@ -38,7 +38,10 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const tiles = useTiles();
-  const tilesRefs = useMemo(() => tiles.map(() => createRef<HTMLInputElement>()), [tiles]);
+  const tilesCount = tiles.length;
+  const tilesRefs = useMemo(() => {
+    return Array.from({ length: tilesCount }).map(() => createRef<HTMLInputElement>());
+  }, [tilesCount]);
   const [activeIndex, setActiveIndex] = useState<number>();
   const placeholder = useTranslation('modules.tiles.placeholder');
 
@@ -89,15 +92,16 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
     <div className={classNames(styles.tiles, className)}>
       {tiles.map(({ character, isCandidate }, index) => (
         <Tile
+          autoFocus={index === 0}
           className={styles.tile}
           // TODO: is this a hack?
           character={character === null ? undefined : character}
           highlighted={isCandidate}
+          inputRef={tilesRefs[index]}
           isBlank={character === BLANK}
           key={index}
           placeholder={placeholder[index]}
           raised
-          ref={tilesRefs[index]}
           size={80} // TODO: unhardcode
           onFocus={() => setActiveIndex(index)}
           onKeyDown={createKeyboardNavigation({

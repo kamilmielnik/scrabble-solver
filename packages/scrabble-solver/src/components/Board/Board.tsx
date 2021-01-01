@@ -24,8 +24,8 @@ const Board: FunctionComponent<Props> = ({ className, cellSize }) => {
             <Cell
               className={styles.cell}
               cell={cell}
+              inputRef={refs[y][x]}
               key={x}
-              ref={refs[y][x]}
               size={cellSize}
               onFocus={onFocus}
               onKeyDown={onKeyDown}
