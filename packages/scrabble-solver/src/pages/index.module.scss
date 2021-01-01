@@ -50,6 +50,7 @@
   overflow: hidden;
   margin-left: var(--spacing--xl);
   flex: 0 0 var(--sidebar-width);
+  overflow: visible;
 
   > * {
     margin-bottom: var(--spacing--xl);
