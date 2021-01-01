@@ -124,8 +124,16 @@ const validateCell = (cell: unknown, rowIndex: number, cellIndex: number, config
 
   const { x, y, tile, isEmpty } = cell as Record<string, unknown>;
 
+  if (typeof x !== 'number') {
+    throw new Error(`board[${rowIndex}][${cellIndex}].x is not a number`);
+  }
+
   if (x < 0 || x >= config.boardWidth) {
     throw new Error(`board[${rowIndex}][${cellIndex}].x is out of bounds`);
+  }
+
+  if (typeof y !== 'number') {
+    throw new Error(`board[${rowIndex}][${cellIndex}].y is not a number`);
   }
 
   if (y < 0 || y >= config.boardHeight) {
