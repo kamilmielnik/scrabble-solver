@@ -17,10 +17,10 @@
   display: flex;
   align-items: center;
   padding: var(--spacing--m) var(--spacing--l);
-  background-color: var(--color--background--secondary);
-  color: var(--color--foreground--secondary);
-  border-bottom: var(--border);
-  box-shadow: var(--box-shadow--bottom);
+  // background-color: var(--color--background--secondary);
+  // color: var(--color--foreground--secondary);
+  // border-bottom: var(--border);
+  // box-shadow: var(--box-shadow--bottom);
 }
 
 .title {
@@ -30,6 +30,8 @@
 
 .flags {
   flex: 0 0 auto;
+  border: var(--border);
+  box-shadow: var(--box-shadow);
 }
 
 .contentWrapper {

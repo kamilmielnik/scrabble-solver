@@ -1,16 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Config } from '@scrabble-solver/models';
 
 import configInitialState from './configInitialState';
-import i18nInitialState from './i18nInitialState';
-
-const { locale } = i18nInitialState;
 
 const configSlice = createSlice({
-  initialState: configInitialState[locale],
+  initialState: configInitialState,
   name: 'config',
   reducers: {
-    changeConfig: (_state, action: PayloadAction<Config>) => {
+    changeConfig: (_state, action: PayloadAction<typeof configInitialState>) => {
       return action.payload;
     },
   },

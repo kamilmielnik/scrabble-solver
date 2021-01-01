@@ -22,16 +22,17 @@ interface Props {
 }
 
 const Cell = forwardRef<HTMLInputElement, Props>(({ cell, className, size, onFocus, onKeyDown, onMoveFocus }, ref) => {
+  const { tile, x, y } = cell;
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const bonus = useTypedSelector((state) => selectBonus(state, cell));
   const characterPoints = useTypedSelector((state) => selectCharacterPoints(state, cell));
-  const handleFocus = useCallback(() => onFocus(cell.x, cell.y), [cell.x, cell.y, onFocus]);
+  const handleFocus = useCallback(() => onFocus(x, y), [x, y, onFocus]);
   const handleKeyDown = useMemo(
     () =>
       createKeyboardNavigation({
-        onDelete: () => dispatch(boardSlice.actions.changeCellValue({ value: EMPTY_CELL, x: cell.x, y: cell.y })),
-        onBackspace: () => dispatch(boardSlice.actions.changeCellValue({ value: EMPTY_CELL, x: cell.x, y: cell.y })),
+        onDelete: () => dispatch(boardSlice.actions.changeCellValue({ value: EMPTY_CELL, x, y })),
+        onBackspace: () => dispatch(boardSlice.actions.changeCellValue({ value: EMPTY_CELL, x, y })),
         onEnter: () => dispatch(solveSlice.actions.submit()),
         onKeyDown: (event) => {
           // TODO: consider using is-hotkey
@@ -39,16 +40,16 @@ const Cell = forwardRef<HTMLInputElement, Props>(({ cell, className, size, onFoc
           const isTogglingBlank = (event.ctrlKey || event.metaKey) && character === 'b';
 
           if (isTogglingBlank) {
-            dispatch(boardSlice.actions.toggleCellIsBlank({ x: cell.x, y: cell.y }));
+            dispatch(boardSlice.actions.toggleCellIsBlank({ x, y }));
           } else if (config.hasCharacter(character)) {
-            dispatch(boardSlice.actions.changeCellValue({ value: character, x: cell.x, y: cell.y }));
+            dispatch(boardSlice.actions.changeCellValue({ value: character, x, y }));
             onMoveFocus();
           }
 
           onKeyDown(event);
         },
       }),
-    [cell.x, cell.y, config, dispatch, onKeyDown, onMoveFocus],
+    [x, y, config, dispatch, onKeyDown, onMoveFocus],
   );
   const { tileFontSize } = Tile.getSizes(size);
 
@@ -69,10 +70,10 @@ const Cell = forwardRef<HTMLInputElement, Props>(({ cell, className, size, onFoc
     >
       <Tile
         className={styles.tile}
-        character={cell.tile.character === EMPTY_CELL ? undefined : cell.tile.character}
+        character={tile.character === EMPTY_CELL ? undefined : tile.character}
         highlighted={cell.isCandidate()}
-        isBlank={cell.tile.isBlank}
-        raised={cell.tile.character !== EMPTY_CELL}
+        isBlank={tile.isBlank}
+        raised={tile.character !== EMPTY_CELL}
         ref={ref}
         size={size}
         onFocus={handleFocus}

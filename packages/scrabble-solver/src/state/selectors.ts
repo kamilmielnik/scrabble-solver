@@ -15,6 +15,10 @@ const selectCell = (_: RootState, cell: Cell): Cell => cell;
 
 const pointsComparator = reverseComparator(createKeyComparator('points'));
 
+export const selectI18n = (state: RootState): typeof i18nInitialState => state.i18n;
+
+export const selectLocale = (state: RootState): Locale => state.i18n.locale;
+
 export const selectBoard = (state: RootState): Board => state.board;
 
 // TODO: rename state.board.board to state.board.rows
@@ -24,7 +28,12 @@ export const selectCells = createSelector([selectRows], (rows) => {
   return rows.reduce<Cell[]>((cells: Cell[], row: Cell[]) => cells.concat(row), []);
 });
 
-export const selectConfig = (state: RootState): Config => state.config;
+export const selectConfigRoot = (state: RootState) => state.config;
+
+export const selectConfig = createSelector(
+  [selectConfigRoot, selectLocale],
+  (configRoot, locale): Config => configRoot[locale],
+);
 
 export const selectResults = (state: RootState): Result[] => state.results.results;
 
@@ -53,10 +62,6 @@ export const selectCharacterPoints = createSelector(
     return cell.tile.isBlank ? config.blankScore : config.pointsMap[cell.tile.character];
   },
 );
-
-export const selectI18n = (state: RootState): typeof i18nInitialState => state.i18n;
-
-export const selectLocale = (state: RootState): Locale => state.i18n.locale;
 
 export const selectTranslations = createSelector([selectI18n], ({ i18n, locale }) => i18n[locale]);
 
