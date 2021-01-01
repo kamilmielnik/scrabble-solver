@@ -10,7 +10,7 @@ import Header from './Header';
 import Result from './Result';
 import styles from './Results.module.scss';
 
-const HEADER_HEIGHT = 39;
+const HEADER_HEIGHT = 32;
 const ITEM_HEIGHT = 38;
 
 interface Props {
