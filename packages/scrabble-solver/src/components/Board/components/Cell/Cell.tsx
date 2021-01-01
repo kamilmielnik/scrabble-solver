@@ -1,7 +1,7 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Cell as CellModel } from '@scrabble-solver/models';
 import classNames from 'classnames';
-import React, { forwardRef, KeyboardEventHandler, useMemo, useCallback } from 'react';
+import React, { forwardRef, KeyboardEventHandler, memo, useMemo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { createKeyboardNavigation } from 'lib';
@@ -82,4 +82,4 @@ const Cell = forwardRef<HTMLInputElement, Props>(({ cell, className, size, onFoc
   );
 });
 
-export default Cell;
+export default memo(Cell);
