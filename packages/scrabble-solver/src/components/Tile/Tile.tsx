@@ -43,7 +43,7 @@ const Tile: FunctionComponent<Props> = ({
 }) => {
   const ref = useMemo<RefObject<HTMLInputElement>>(() => inputRef || createRef(), [inputRef]);
   const config = useTypedSelector(selectConfig);
-  const points = config.getCharacterPoints(character);
+  const points = isBlank ? config.blankScore : config.getCharacterPoints(character);
   const isEmpty = !character || character === EMPTY_CELL;
   const { pointsFontSize, tileFontSize, tileSize } = getSizes(size);
 
