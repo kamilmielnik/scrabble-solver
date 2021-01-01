@@ -16,8 +16,11 @@ class Config {
 
   public readonly config: ConfigJson;
 
+  public readonly pointsMap: Record<string, number>;
+
   constructor(config: ConfigJson) {
     this.config = config;
+    this.pointsMap = getPointsMap(this.config);
   }
 
   public get allCharacters(): string {
@@ -82,10 +85,6 @@ class Config {
 
   public get maximumNumberOfCharacters(): number {
     return this.config.maximumNumberOfCharacters;
-  }
-
-  public get pointsMap(): Record<string, number> {
-    return getPointsMap(this.config);
   }
 
   public toJson(): ConfigJson {
