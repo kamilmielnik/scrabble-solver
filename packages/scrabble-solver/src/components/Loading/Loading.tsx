@@ -11,8 +11,13 @@ interface Props {
 }
 
 const Loading: FunctionComponent<Props> = ({ children, className, isLoading }) => (
-  <div className={classNames(styles.loading, className)}>
+  <div
+    className={classNames(styles.loading, className, {
+      [styles.isLoading]: isLoading,
+    })}
+  >
     {children}
+
     {isLoading && (
       <div className={styles.dim}>
         <Spinner className={styles.spinner} />

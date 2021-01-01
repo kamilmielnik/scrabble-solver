@@ -1,5 +1,14 @@
 .loading {
   position: relative;
+
+  &.isLoading {
+    :not(:last-child) {
+      filter: blur(1px);
+      // TODO: consider other filters when results show words as tiles instead of text
+      // filter: opacity(20%);
+      // filter: brightness(0.5);
+    }
+  }
 }
 
 .dim {

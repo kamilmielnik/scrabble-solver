@@ -12,12 +12,13 @@ import { Locale } from 'types';
 
 const dictionariesDirectory = path.resolve('../../dictionaries');
 
-const getLocaleTrie = (locale: Locale): Trie =>
-  Trie.deserialize(fs.readFileSync(path.join(dictionariesDirectory, `${locale}.txt`), 'utf-8'));
+const getLocaleTrie = (locale: Locale): Trie => {
+  return Trie.deserialize(fs.readFileSync(path.join(dictionariesDirectory, `${locale}.txt`), 'utf-8'));
+};
 
-const CONFIGS = [literaki, scrabble];
-const VALID_LOCALES: Locale[] = ['en-GB', 'en-US', 'pl-PL'];
-const LOCALE_TRIES: Record<Locale, Trie> = {
+const configs = [literaki, scrabble];
+const locales: Locale[] = ['en-GB', 'en-US', 'pl-PL'];
+const localeTries: Record<Locale, Trie> = {
   'en-GB': getLocaleTrie('en-GB'),
   'en-US': getLocaleTrie('en-US'),
   'pl-PL': getLocaleTrie('pl-PL'),
@@ -27,9 +28,9 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
   try {
     const { board, configId, locale, characters } = parseRequest(request);
     const config = getConfig(configId, locale);
-    const collection = LOCALE_TRIES[locale];
+    const trie = localeTries[locale];
     const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
-    const solver = new Solver(config, collection);
+    const solver = new Solver(config, trie);
     const results = solver.solve(board, tiles);
     response.status(200).send(results.map((result) => result.toJson()));
   } catch (error) {
@@ -63,18 +64,18 @@ const parseRequest = (
 };
 
 const getConfig = (configId: string, locale: Locale): Config => {
-  const config = CONFIGS.find(({ id }) => id === configId);
+  const config = configs.find(({ id }) => id === configId);
 
   if (!config) {
-    throw new Error(`Invalid "configId" parameter: not one of ${CONFIGS.map(({ id }) => id).join('/')}`);
+    throw new Error(`Invalid "configId" parameter: not one of ${configs.map(({ id }) => id).join('/')}`);
   }
 
   return config[locale];
 };
 
 const validateConfigId = (configId: unknown): void => {
-  if (!CONFIGS.some(({ id }) => id === configId)) {
-    throw new Error(`Invalid "configId" parameter: not one of ${CONFIGS.map(({ id }) => id).join('/')}`);
+  if (!configs.some(({ id }) => id === configId)) {
+    throw new Error(`Invalid "configId" parameter: not one of ${configs.map(({ id }) => id).join('/')}`);
   }
 };
 
@@ -83,8 +84,8 @@ const validateLocale = (locale: unknown): void => {
     throw new Error('Invalid "locale" parameter: not a string');
   }
 
-  if (!VALID_LOCALES.includes(locale as Locale)) {
-    throw new Error(`Invalid "locale" parameter: must be one of: ${VALID_LOCALES.join(', ')}`);
+  if (!locales.includes(locale as Locale)) {
+    throw new Error(`Invalid "locale" parameter: must be one of: ${locales.join(', ')}`);
   }
 };
 
