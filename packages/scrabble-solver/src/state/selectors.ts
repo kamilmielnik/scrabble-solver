@@ -83,3 +83,5 @@ export const selectTiles = (state: RootState): (string | null)[] => state.tiles;
 export const selectCharacters = createSelector(selectTiles, (tiles) => tiles.filter((tile) => tile !== null));
 
 export const selectIsLoading = (state: RootState): boolean => state.solve.isLoading;
+
+export const selectDictionaryRoot = (state: RootState) => state.dictionary;

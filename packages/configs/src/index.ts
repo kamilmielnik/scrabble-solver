@@ -1,6 +1,3 @@
-import literaki from './literaki';
-import scrabble from './scrabble';
-
-const configs = [literaki, scrabble];
-
-export { configs, literaki, scrabble };
+export { default as configs } from './configs';
+export { default as literaki } from './literaki';
+export { default as scrabble } from './scrabble';

@@ -1,4 +1,4 @@
-import { WordDefinitionJson } from '@scrabble-solver/models';
+import { WordDefinition } from '@scrabble-solver/models';
 
 import { Locale } from 'types';
 
@@ -7,10 +7,10 @@ interface Payload {
   word: string;
 }
 
-const findWordDefinition = async ({ locale, word }: Payload): Promise<WordDefinitionJson> => {
+const findWordDefinition = async ({ locale, word }: Payload): Promise<WordDefinition> => {
   const url = `/api/dictionary/${locale}/${word}`;
   const json = await fetch(url).then((response) => response.json());
-  return json;
+  return WordDefinition.fromJson(json);
 };
 
 export default findWordDefinition;

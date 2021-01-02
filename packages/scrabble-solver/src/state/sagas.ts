@@ -1,16 +1,20 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Result } from '@scrabble-solver/models';
-import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
-import { solve } from 'sdk';
+import { findWordDefinition, solve } from 'sdk';
 
-import { selectBoard, selectCharacters, selectConfig, selectLocale } from './selectors';
-import { boardSlice, i18nSlice, resultsSlice, solveSlice, tilesSlice } from './slices';
+import { selectBoard, selectCharacters, selectConfig, selectDictionaryRoot, selectLocale } from './selectors';
+import { boardSlice, dictionarySlice, i18nSlice, resultsSlice, solveSlice, tilesSlice } from './slices';
+
+const SUBMIT_DELAY = 100;
 
 export function* rootSaga() {
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
+  yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
   yield takeEvery(i18nSlice.actions.changeLocale.type, onLocaleChange);
   yield takeLatest(solveSlice.actions.submit.type, onSubmit);
+  yield takeEvery(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
 }
 
 function* onApplyResult({ payload: result }: PayloadAction<Result>) {
@@ -19,8 +23,29 @@ function* onApplyResult({ payload: result }: PayloadAction<Result>) {
   yield put(resultsSlice.actions.changeResults([]));
 }
 
+function* onDictionarySubmit() {
+  yield delay(SUBMIT_DELAY);
+  const { input: word } = yield select(selectDictionaryRoot);
+  const locale = yield select(selectLocale);
+
+  try {
+    const wordDefinition = yield call(findWordDefinition, { locale, word });
+    yield put(dictionarySlice.actions.clearInput());
+    yield put(dictionarySlice.actions.submitSuccess(wordDefinition));
+  } catch (error) {
+    yield put(dictionarySlice.actions.submitFailure());
+  }
+}
+
 function* onLocaleChange() {
   yield put(solveSlice.actions.submit());
+}
+
+function* onResultCandidateChange({ payload: result }: PayloadAction<Result | null>) {
+  if (result) {
+    yield put(dictionarySlice.actions.changeInput(result.word));
+    yield put(dictionarySlice.actions.submit());
+  }
 }
 
 function* onSubmit() {

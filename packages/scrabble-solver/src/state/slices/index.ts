@@ -2,6 +2,8 @@ export { default as boardSlice } from './boardSlice';
 export { default as boardInitialState } from './boardInitialState';
 export { default as configSlice } from './configSlice';
 export { default as configInitialState } from './configInitialState';
+export { default as dictionarySlice } from './dictionarySlice';
+export { default as dictionaryInitialState } from './dictionaryInitialState';
 export { default as i18nSlice } from './i18nSlice';
 export { default as i18nInitialState } from './i18nInitialState';
 export { default as resultsSlice } from './resultsSlice';
