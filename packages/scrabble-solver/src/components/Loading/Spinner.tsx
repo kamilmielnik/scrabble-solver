@@ -8,8 +8,8 @@ interface Props {
 
 const Spinner: FunctionComponent<Props> = ({ className, duration = '2s', size = 50 }) => {
   const sharedProps = {
-    dur: duration,
     calcMode: 'spline',
+    dur: duration,
     keySplines: '0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1',
     keyTimes: '0;0.25;0.5;0.75;1',
     repeatCount: 'indefinite',
@@ -17,12 +17,12 @@ const Spinner: FunctionComponent<Props> = ({ className, duration = '2s', size = 
 
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
       className={className}
-      width={size}
       height={size}
-      viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid"
+      viewBox="0 0 100 100"
+      width={size}
+      xmlns="http://www.w3.org/2000/svg"
     >
       <circle cx="84" cy="50" r="1.64154" fill="currentColor">
         <animate {...sharedProps} attributeName="r" values="10;0;0;0;0" begin="0s" />
