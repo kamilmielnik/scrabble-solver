@@ -1,4 +1,5 @@
 export { default as getConfig } from './getConfig';
+export { default as readLocaleDictionary } from './readLocaleDictionary';
 export { default as validateBoard } from './validateBoard';
 export { default as validateCell } from './validateCell';
 export { default as validateCharacter } from './validateCharacter';

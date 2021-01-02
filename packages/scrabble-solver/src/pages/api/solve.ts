@@ -3,23 +3,22 @@ import { BLANK } from '@scrabble-solver/constants';
 import logger from '@scrabble-solver/logger';
 import { Board, Tile } from '@scrabble-solver/models';
 import Solver from '@scrabble-solver/solver';
-import fs from 'fs';
 import { NextApiRequest, NextApiResponse } from 'next';
-import path from 'path';
 
-import { getConfig, validateBoard, validateCharacters, validateConfigId, validateLocale } from 'api';
+import {
+  getConfig,
+  readLocaleDictionary,
+  validateBoard,
+  validateCharacters,
+  validateConfigId,
+  validateLocale,
+} from 'api';
 import { Locale } from 'types';
 
-const dictionariesDirectory = path.resolve('../../dictionaries');
-
-const getLocaleTrie = (locale: Locale): Trie => {
-  return Trie.deserialize(fs.readFileSync(path.join(dictionariesDirectory, `${locale}.txt`), 'utf-8'));
-};
-
 const localeTries: Record<Locale, Trie> = {
-  'en-GB': getLocaleTrie('en-GB'),
-  'en-US': getLocaleTrie('en-US'),
-  'pl-PL': getLocaleTrie('pl-PL'),
+  'en-GB': readLocaleDictionary('en-GB'),
+  'en-US': readLocaleDictionary('en-US'),
+  'pl-PL': readLocaleDictionary('pl-PL'),
 };
 
 const solve = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
