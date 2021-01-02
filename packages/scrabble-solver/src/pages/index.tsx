@@ -45,7 +45,7 @@ const Index: FunctionComponent = () => {
       <div className={classNames(styles.index, { [styles.initialized]: isInitialized })}>
         <div className={styles.nav}>
           <div className={styles.logoContainer}>
-            <Logo className={styles.logo} content={[['SCRABBLE'], ['SOLVER', '2']]} />
+            <Logo className={styles.logo} />
           </div>
 
           <LocaleDropdown className={styles.flags} onChange={handleLocaleChange} value={locale} />

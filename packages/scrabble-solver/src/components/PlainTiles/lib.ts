@@ -1,9 +1,9 @@
 import { literaki } from '@scrabble-solver/configs';
 
 import {
-  COLOR_GREEN,
-  LOGO_PADDING_HORIZONTAL,
-  LOGO_PADDING_VERTICAL,
+  COLOR_DEFAULT,
+  PADDING_HORIZONTAL,
+  PADDING_VERTICAL,
   POINTS_COLORS,
   TILE_MARGIN,
   TILE_MAX_ROTATE,
@@ -31,7 +31,7 @@ const createTile = (character: string, rowIndex: number, cellIndex: number) => {
 
   return {
     character,
-    color: typeof points === 'number' ? POINTS_COLORS[points] : COLOR_GREEN,
+    color: typeof points === 'number' ? POINTS_COLORS[points] : COLOR_DEFAULT,
     points,
     size: TILE_SIZE,
     transform: `rotate(${randomize(0, TILE_MAX_ROTATE)}, ${getX(cellIndex) + TILE_SIZE / 2}, ${
@@ -52,6 +52,6 @@ export const getViewbox = (content: string[][]) => {
   return `0 0 ${width} ${2 * TILE_SIZE + TILE_MARGIN}`;
 };
 
-export const getX = (index: number): number => LOGO_PADDING_HORIZONTAL + index * (TILE_SIZE + TILE_MARGIN);
+export const getX = (index: number): number => PADDING_HORIZONTAL + index * (TILE_SIZE + TILE_MARGIN);
 
-export const getY = (index: number): number => LOGO_PADDING_VERTICAL + index * (TILE_SIZE + TILE_MARGIN);
+export const getY = (index: number): number => PADDING_VERTICAL + index * (TILE_SIZE + TILE_MARGIN);
