@@ -11,9 +11,7 @@ const dictionarySlice = createSlice({
       return { ...state, input: action.payload };
     },
 
-    clearInput: (state) => {
-      return { ...state, input: dictionaryInitialState.input };
-    },
+    reset: () => dictionaryInitialState,
 
     submit: (state) => {
       return { ...state, isLoading: true };

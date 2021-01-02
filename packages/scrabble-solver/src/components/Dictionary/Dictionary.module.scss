@@ -8,7 +8,7 @@ $height: 200px;
   max-height: $height;
   overflow: auto;
   background-color: white;
-  border: var(--border);
+  border-radius: var(--border--radius);
   transition: var(--transition);
   font-size: var(--font--size--s);
   line-height: 1.5;

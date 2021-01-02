@@ -30,7 +30,6 @@ function* onDictionarySubmit() {
 
   try {
     const wordDefinition = yield call(findWordDefinition, { locale, word });
-    yield put(dictionarySlice.actions.clearInput());
     yield put(dictionarySlice.actions.submitSuccess(wordDefinition));
   } catch (error) {
     yield put(dictionarySlice.actions.submitFailure());
@@ -39,6 +38,8 @@ function* onDictionarySubmit() {
 
 function* onLocaleChange() {
   yield put(solveSlice.actions.submit());
+  yield put(dictionarySlice.actions.reset());
+  yield put(resultsSlice.actions.changeResultCandidate(null));
 }
 
 function* onResultCandidateChange({ payload: result }: PayloadAction<Result | null>) {
