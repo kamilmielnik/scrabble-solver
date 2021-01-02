@@ -18,4 +18,10 @@ export const POINTS_COLORS: Record<number, string> = {
   2: COLOR_GREEN,
   3: COLOR_BLUE,
   4: COLOR_RED,
+  5: COLOR_RED,
+  6: COLOR_RED,
+  7: COLOR_RED,
+  8: COLOR_RED,
+  9: COLOR_RED,
+  10: COLOR_RED,
 };
