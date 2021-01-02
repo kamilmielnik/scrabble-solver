@@ -32,10 +32,13 @@
 }
 
 .contentWrapper {
+  $board-size: 15;
+  $tile-size-max: 60px;
+  $tile-border-size: 1px;
+
   flex: 1;
-  padding: var(--spacing--xl);
-  padding-top: 0;
-  max-height: 980px;
+  padding: 0 var(--spacing--xl);
+  max-height: $board-size * ($tile-size-max + $tile-border-size) + $tile-border-size;
 }
 
 .content {
@@ -83,8 +86,7 @@
   flex: 0 0 auto;
   display: flex;
   justify-content: center;
-  margin: 0 var(--spacing--l);
-  margin-bottom: var(--spacing--xl);
+  margin: var(--spacing--xl) var(--spacing--l);
 }
 
 .logoContainer {
