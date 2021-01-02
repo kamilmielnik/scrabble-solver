@@ -1,5 +1,5 @@
-import { Config } from '@scrabble-solver/models';
 import { configs } from '@scrabble-solver/configs';
+import { Config } from '@scrabble-solver/models';
 
 import { Locale } from 'types';
 

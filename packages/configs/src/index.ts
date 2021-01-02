@@ -1,5 +1,5 @@
-import scrabble from './scrabble';
 import literaki from './literaki';
+import scrabble from './scrabble';
 
 const configs = [literaki, scrabble];
 
