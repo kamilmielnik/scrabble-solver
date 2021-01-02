@@ -85,43 +85,6 @@
   margin-bottom: var(--spacing--xl);
 }
 
-.loading {
-  opacity: 1;
-  transition: var(--transition);
-  pointer-events: none;
-
-  &.initialized {
-    opacity: 0;
-  }
-}
-
-.splash {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: var(--transition);
-  opacity: 1;
-
-  &.initialized {
-    opacity: 0;
-    user-select: none;
-    pointer-events: none;
-  }
-}
-
-.splashLogo {
-  width: 50vw;
-  height: 20vh;
-  max-width: 800px;
-  pointer-events: none;
-  user-select: none;
-}
-
 .logoContainer {
   flex: 1;
 }
@@ -129,12 +92,4 @@
 .logo {
   height: 60px;
   user-select: none;
-}
-
-.author {
-  margin-top: var(--spacing--l);
-  font-family: var(--font--family--title);
-  font-size: var(--font--size--xl);
-  font-weight: 300;
-  text-align: center;
 }

@@ -5,6 +5,7 @@ export { default as Loading } from './Loading';
 export { default as Logo } from './Logo';
 export { default as LocaleDropdown } from './LocaleDropdown';
 export { default as Results } from './Results';
+export { default as Splash } from './Splash';
 export { default as SvgIcon } from './SvgIcon';
 export { default as Tile } from './Tile';
 export { default as Tiles } from './Tiles';
