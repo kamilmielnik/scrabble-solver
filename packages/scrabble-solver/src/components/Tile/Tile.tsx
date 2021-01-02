@@ -46,6 +46,7 @@ const Tile: FunctionComponent<Props> = ({
   const points = isBlank ? config.blankScore : config.getCharacterPoints(character);
   const isEmpty = !character || character === EMPTY_CELL;
   const { pointsFontSize, tileFontSize, tileSize } = getSizes(size);
+  const canShowPoints = (isBlank || !isEmpty) && typeof points !== 'undefined';
 
   useEffect(() => {
     if (autoFocus && ref.current) {
@@ -85,7 +86,7 @@ const Tile: FunctionComponent<Props> = ({
         onKeyDown={onKeyDown}
       />
 
-      {(isBlank || !isEmpty) && (
+      {canShowPoints && (
         <span
           className={styles.points}
           style={{

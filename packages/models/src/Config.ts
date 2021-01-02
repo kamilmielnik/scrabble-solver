@@ -64,8 +64,8 @@ class Config {
     return cellBonus.value;
   }
 
-  public getCharacterPoints(character: string): number {
-    return this.pointsMap[character] || 0;
+  public getCharacterPoints(character: string): number | undefined {
+    return this.pointsMap[character];
   }
 
   public hasCharacter(character: string): boolean {
