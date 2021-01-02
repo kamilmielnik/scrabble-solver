@@ -14,20 +14,20 @@ $tile-font-size: $tile-size * 3 / 5;
   }
 
   &.points1 {
-    background-color: var(--color--yellow--light);
+    background-color: var(--color--yellow);
   }
 
   &.points2 {
-    background-color: var(--color--green--light);
+    background-color: var(--color--green);
   }
 
   &.points3,
   &.points4 {
-    background-color: var(--color--blue--light);
+    background-color: var(--color--blue);
   }
 
   &.points5 {
-    background-color: var(--color--red--light);
+    background-color: var(--color--red);
   }
 
   &.blank {
