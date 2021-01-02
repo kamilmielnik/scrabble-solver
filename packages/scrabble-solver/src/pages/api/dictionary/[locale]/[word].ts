@@ -1,14 +1,23 @@
+import { WordDefinition } from '@scrabble-solver/models';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { validateLocale, validateWord } from 'api';
+import { validateLocale, validateWord, translateEn /*, translatePl*/ } from 'api';
 import { Locale } from 'types';
+
+// import translatePl from './translatePl';
+
+const localeTranslate: Record<Locale, (word: string) => Promise<WordDefinition>> = {
+  'en-GB': translateEn,
+  'en-US': translateEn,
+  'pl-PL': translateEn, // translatePl,
+};
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
   try {
     const { locale, word } = parseRequest(request);
-    // TODO: implement me
-
-    response.status(200).send({ locale, word });
+    const translate = localeTranslate[locale];
+    const result = await translate(word);
+    response.status(200).send(result.toJson());
   } catch (error) {
     response.status(500).send('Server error');
   }
