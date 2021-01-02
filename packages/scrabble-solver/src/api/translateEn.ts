@@ -34,7 +34,7 @@ const translateEn = async (word: string): Promise<WordDefinition> => {
       error: error.message,
       word,
     });
-    return WordDefinition.Null;
+    throw error;
   }
 };
 

@@ -18,7 +18,13 @@ const dictionarySlice = createSlice({
     },
 
     submitFailure: (state) => {
-      return { ...state, isLoading: false };
+      return {
+        ...state,
+        definitions: dictionaryInitialState.definitions,
+        isAllowed: false,
+        isLoading: false,
+        word: state.input,
+      };
     },
 
     submitSuccess: (state, action: PayloadAction<WordDefinition>) => {
