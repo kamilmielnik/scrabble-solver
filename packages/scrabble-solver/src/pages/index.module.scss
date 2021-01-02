@@ -4,6 +4,7 @@
   flex-direction: column;
   opacity: 0;
   transition: var(--transition);
+  transition-duration: var(--transition--duration--long);
 
   &.initialized {
     opacity: 1;

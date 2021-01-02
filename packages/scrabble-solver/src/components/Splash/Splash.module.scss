@@ -9,6 +9,7 @@
   justify-content: center;
   background-color: var(--color--background);
   transition: var(--transition);
+  transition-duration: var(--transition--duration--long);
   opacity: 1;
   z-index: 1;
 
@@ -19,11 +20,30 @@
   }
 }
 
+.content {
+  position: relative;
+}
+
 .logo {
   width: 50vw;
   max-width: 688px;
   pointer-events: none;
   user-select: none;
+}
+
+.pulsating {
+  animation: pulse 0.5s infinite;
+}
+
+.logoGrayscale {
+  filter: grayscale(1);
+  opacity: 0.3;
+}
+
+.logoColor {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .author {
