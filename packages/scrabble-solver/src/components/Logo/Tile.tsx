@@ -10,7 +10,7 @@ interface Props {
   y: number;
 }
 
-const Tile: FunctionComponent<TileProps> = ({ character, color, points, size, transform, x, y }) => (
+const Tile: FunctionComponent<Props> = ({ character, color, points, size, transform, x, y }) => (
   <g transform={transform}>
     <rect fill={color} height={size} width={size} x={x} y={y} />
 
