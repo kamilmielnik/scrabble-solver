@@ -8,7 +8,7 @@ import { createAppStore } from 'state';
 import 'styles/global.scss';
 
 const NAME = 'Kamil Mielnik';
-const DESCRIPTION = 'Scrabble Solver';
+const DESCRIPTION = 'Scrabble Solver 2';
 const KEYWORDS = ['Scrabble', 'Literaki', 'Solver', NAME].join(',');
 
 const store = createAppStore();
@@ -16,7 +16,7 @@ const store = createAppStore();
 const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
   <>
     <Head>
-      <title>Scrabble Solver</title>
+      <title>Scrabble Solver 2</title>
       <meta charSet="utf-8" />
       <meta name="author" content={NAME} />
       <meta name="description" content={DESCRIPTION} />
