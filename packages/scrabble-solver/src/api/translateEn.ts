@@ -22,7 +22,7 @@ const translateEn = async (word: string): Promise<WordDefinition> => {
         'Content-Type': 'application/json; charset=utf-8',
       },
     });
-    const results = JSON.parse(response);
+    const results: { text: string }[] = JSON.parse(response);
     const wordDefinition = new WordDefinition({
       definitions: results.map(({ text }) => text).filter(Boolean),
       isAllowed: results.length > 0,
