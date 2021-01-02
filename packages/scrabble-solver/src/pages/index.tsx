@@ -62,14 +62,14 @@ const Index: FunctionComponent = () => {
             </div>
 
             <div className={styles.sidebar}>
-              <Well className={styles.dictionary}>
-                <Dictionary />
-              </Well>
-
               <Well className={styles.results}>
                 {resultsSizer}
 
                 {resultsWidth > 0 && resultsHeight > 0 && <Results height={resultsHeight} width={resultsWidth} />}
+              </Well>
+
+              <Well className={styles.dictionary}>
+                <Dictionary />
               </Well>
             </div>
           </div>
