@@ -1,19 +1,17 @@
 import React, { CSSProperties, FunctionComponent } from 'react';
 
-import { VERSION_TILE_COLOR, VERSION_TILE_SIZE } from './constants';
-import { createTiles, getLongestWord, getViewbox, getX, getY } from './lib';
+import { createTiles, getViewbox } from './lib';
 import Tile from './Tile';
 
 interface Props {
   className?: string;
-  name?: string;
+  content: string[][];
   style?: CSSProperties;
-  version?: string;
 }
 
-const Logo: FunctionComponent<Props> = ({ className, name = 'SCRABBLE SOLVER', style, version = '2' }) => (
-  <svg className={className} style={style} viewBox={getViewbox(name)} xmlns="http://www.w3.org/2000/svg">
-    {createTiles(name).map((tile, index) => (
+const Logo: FunctionComponent<Props> = ({ className, content, style }) => (
+  <svg className={className} style={style} viewBox={getViewbox(content)} xmlns="http://www.w3.org/2000/svg">
+    {createTiles(content).map((tile, index) => (
       <Tile
         character={tile.character}
         color={tile.color}
@@ -25,14 +23,6 @@ const Logo: FunctionComponent<Props> = ({ className, name = 'SCRABBLE SOLVER', s
         y={tile.y}
       />
     ))}
-
-    <Tile
-      character={version}
-      color={VERSION_TILE_COLOR}
-      size={VERSION_TILE_SIZE}
-      x={getX(getLongestWord(name.split(' ')).length - 1)}
-      y={getY(1)}
-    />
   </svg>
 );
 

@@ -1,7 +1,7 @@
 import { literaki } from '@scrabble-solver/configs';
 
 import {
-  COLOR_YELLOW,
+  COLOR_GREEN,
   LOGO_PADDING_HORIZONTAL,
   LOGO_PADDING_VERTICAL,
   POINTS_COLORS,
@@ -13,13 +13,16 @@ import {
 
 const randomize = (value: number, maxChange: number): number => value + maxChange * 2 * (0.5 - Math.random());
 
-export const createTiles = (name: string) => {
-  const words = name.split(' ');
-  const rows = words.map((word, rowIndex) => {
-    const characters = word.split('');
-    return characters.map((character, cellIndex) => createTile(character, rowIndex, cellIndex));
+export const createTiles = (content: string[][]) => {
+  const rows = content.map((words, rowIndex) => {
+    return words.map((word, wordIndex) => {
+      const cellOffset = words.slice(0, wordIndex).reduce((result, { length }) => result + length + ' '.length, 0);
+      const characters = word.split('');
+
+      return characters.map((character, cellIndex) => createTile(character, rowIndex, cellOffset + cellIndex));
+    });
   });
-  const tiles = rows.flat();
+  const tiles = rows.flat(2);
   return tiles;
 };
 
@@ -28,7 +31,7 @@ const createTile = (character: string, rowIndex: number, cellIndex: number) => {
 
   return {
     character,
-    color: typeof points === 'number' ? POINTS_COLORS[points] : COLOR_YELLOW,
+    color: typeof points === 'number' ? POINTS_COLORS[points] : COLOR_GREEN,
     points,
     size: TILE_SIZE,
     transform: `rotate(${randomize(0, TILE_MAX_ROTATE)}, ${getX(cellIndex) + TILE_SIZE / 2}, ${
@@ -43,8 +46,8 @@ export const getLongestWord = (words: string[]): string => {
   return words.reduce((result, word) => (word.length > result.length ? word : result), '');
 };
 
-export const getViewbox = (name: string) => {
-  const words = name.split(' ');
+export const getViewbox = (content: string[][]) => {
+  const words = content.flat();
   const width = getLongestWord(words).length * (TILE_SIZE + TILE_MARGIN);
   return `0 0 ${width} ${2 * TILE_SIZE + TILE_MARGIN}`;
 };

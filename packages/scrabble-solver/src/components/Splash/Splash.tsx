@@ -42,12 +42,14 @@ const Splash: FunctionComponent<Props> = ({ className, forceShow, splashDuration
           className={classNames(styles.logo, styles.logoGrayscale, {
             [styles.pulsating]: isTimeoutFinished,
           })}
+          content={[['SCRABBLE'], ['SOLVER', '2']]}
         />
 
         <Logo
           className={classNames(styles.logo, styles.logoColor, {
             [styles.pulsating]: isTimeoutFinished,
           })}
+          content={[['SCRABBLE'], ['SOLVER', '2']]}
           style={{ clipPath: `polygon(0% 0%, ${progressPercent} 0, ${progressPercent} 100%, 0% 100%)` }}
         />
 
