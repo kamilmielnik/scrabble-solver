@@ -5,12 +5,13 @@ interface Props {
   color: string;
   points?: number;
   size: number;
+  transform?: string;
   x: number;
   y: number;
 }
 
-const Tile: FunctionComponent<TileProps> = ({ character, color, points, size, x, y }) => (
-  <g>
+const Tile: FunctionComponent<TileProps> = ({ character, color, points, size, transform, x, y }) => (
+  <g transform={transform}>
     <rect fill={color} height={size} width={size} x={x} y={y} />
 
     <text
