@@ -59,29 +59,23 @@ const createRow = (rowIndex: number, text: string) =>
 
 const tiles = [createRow(0, 'SCRABBLE'), createRow(1, 'SOLVER')].flat();
 
-const Logo: FunctionComponent<Props> = ({ className }) => {
-  return (
-    <>
-      <Prototype className={className} />
+const Logo: FunctionComponent<Props> = ({ className }) => (
+  <svg className={className} viewBox="0 0 1000 200" xmlns="http://www.w3.org/2000/svg">
+    {tiles.map((tile, index) => (
+      <Tile
+        character={tile.character}
+        color={tile.color}
+        key={index}
+        points={tile.points}
+        size={tile.size}
+        transform={tile.transform}
+        x={tile.x}
+        y={tile.y}
+      />
+    ))}
 
-      <svg className={className} viewBox="0 0 1000 200" xmlns="http://www.w3.org/2000/svg">
-        {tiles.map((tile, index) => (
-          <Tile
-            character={tile.character}
-            color={tile.color}
-            key={index}
-            points={tile.points}
-            size={tile.size}
-            transform={tile.transform}
-            x={tile.x}
-            y={tile.y}
-          />
-        ))}
-
-        <Tile character="2" color={COLOR_GREEN} size={2 * SIZE + MARGIN} x={getX('SCRABBLE'.length)} y={getY(0)} />
-      </svg>
-    </>
-  );
-};
+    <Tile character="2" color={COLOR_GREEN} size={2 * SIZE + MARGIN} x={getX('SCRABBLE'.length)} y={getY(0)} />
+  </svg>
+);
 
 export default Logo;
