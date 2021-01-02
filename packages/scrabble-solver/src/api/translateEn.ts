@@ -5,6 +5,7 @@ import { URLSearchParams } from 'url';
 import request from './request';
 
 const API_KEY = 'd0c21cb3cbc3415984a2a0486da075e54aa68091c33a680d9';
+
 const SEARCH_PARAMS = new URLSearchParams({
   api_key: API_KEY, // eslint-disable-line camelcase
   limit: '10',

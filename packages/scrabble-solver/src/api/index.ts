@@ -2,6 +2,7 @@ export { default as getConfig } from './getConfig';
 export { default as readLocaleDictionary } from './readLocaleDictionary';
 export { default as request } from './request';
 export { default as translateEn } from './translateEn';
+export { default as translatePl } from './translatePl';
 export { default as validateBoard } from './validateBoard';
 export { default as validateCell } from './validateCell';
 export { default as validateCharacter } from './validateCharacter';

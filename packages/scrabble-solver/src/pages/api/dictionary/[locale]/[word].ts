@@ -1,15 +1,13 @@
 import { WordDefinition } from '@scrabble-solver/models';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { validateLocale, validateWord, translateEn /*, translatePl*/ } from 'api';
+import { validateLocale, validateWord, translateEn, translatePl } from 'api';
 import { Locale } from 'types';
-
-// import translatePl from './translatePl';
 
 const localeTranslate: Record<Locale, (word: string) => Promise<WordDefinition>> = {
   'en-GB': translateEn,
   'en-US': translateEn,
-  'pl-PL': translateEn, // translatePl,
+  'pl-PL': translatePl,
 };
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
