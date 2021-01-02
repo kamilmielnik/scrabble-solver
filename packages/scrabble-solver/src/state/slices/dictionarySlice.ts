@@ -1,5 +1,5 @@
-import { WordDefinition } from '@scrabble-solver/models';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { WordDefinition } from '@scrabble-solver/models';
 
 import dictionaryInitialState from './dictionaryInitialState';
 

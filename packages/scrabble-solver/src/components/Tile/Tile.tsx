@@ -64,7 +64,7 @@ const Tile: FunctionComponent<Props> = ({
         [styles.points2]: points === 2,
         [styles.points3]: points === 3,
         [styles.points4]: points === 4,
-        [styles.points5]: points >= 5,
+        [styles.points5]: typeof points === 'number' && points >= 5,
       })}
       style={{
         height: tileSize,
