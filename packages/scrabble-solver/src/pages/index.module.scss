@@ -15,8 +15,8 @@
   z-index: 1;
   flex: 0 0 auto;
   display: flex;
-  align-items: center;
-  padding: var(--spacing--m) var(--spacing--l);
+  align-items: flex-start;
+  padding: var(--spacing--l);
 }
 
 .title {
@@ -33,6 +33,7 @@
 .contentWrapper {
   flex: 1;
   padding: var(--spacing--xl);
+  padding-top: 0;
 }
 
 .content {
@@ -94,6 +95,10 @@
   }
 }
 
-.logo {
+.logoContainer {
   flex: 1;
+}
+
+.logo {
+  height: 60px;
 }
