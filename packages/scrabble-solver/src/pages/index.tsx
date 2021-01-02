@@ -22,7 +22,7 @@ const getCellSize = (config: Config, width: number, height: number): number => {
   const maxWidth = (width - cellBorderWidth) / config.boardWidth - cellBorderWidth;
   const maxHeight = (height - cellBorderWidth) / config.boardHeight - cellBorderWidth;
   const cellSize = Math.min(maxWidth, maxHeight);
-  return Math.min(Math.max(Math.floor(cellSize), MIN_TILE_SIZE), MAX_TILE_SIZE);
+  return Math.min(Math.max(cellSize, MIN_TILE_SIZE), MAX_TILE_SIZE);
 };
 
 const Index: FunctionComponent = () => {
