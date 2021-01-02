@@ -5,7 +5,7 @@ import React, { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSize } from 'react-use';
 
-import { Board, Loading, LocaleDropdown, Results, Tiles, Well } from 'components';
+import { Board, Loading, LocaleDropdown, Logo, Results, Tiles, Well } from 'components';
 import { i18nSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
 import { Locale } from 'types';
 
@@ -61,7 +61,7 @@ const Index: FunctionComponent = () => {
     <>
       <div className={classNames(styles.index, { [styles.initialized]: isInitialized })}>
         <div className={styles.nav}>
-          <h1 className={styles.title}>Scrabble Solver by Kamil Mielnik</h1>
+          <Logo className={styles.logo} />
 
           <LocaleDropdown className={styles.flags} onChange={handleLocaleChange} value={locale} />
         </div>

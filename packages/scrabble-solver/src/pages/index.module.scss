@@ -17,10 +17,6 @@
   display: flex;
   align-items: center;
   padding: var(--spacing--m) var(--spacing--l);
-  // background-color: var(--color--background--secondary);
-  // color: var(--color--foreground--secondary);
-  // border-bottom: var(--border);
-  // box-shadow: var(--box-shadow--bottom);
 }
 
 .title {
@@ -96,4 +92,8 @@
   &.initialized {
     opacity: 0;
   }
+}
+
+.logo {
+  flex: 1;
 }

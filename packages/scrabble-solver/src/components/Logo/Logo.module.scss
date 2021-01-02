@@ -1,0 +1,68 @@
+$tile-size: 80px;
+$tile-margin: 5px;
+
+.logo {
+  width: 760px;
+  height: 195px;
+  overflow: hidden;
+  padding-left: 5px;
+  padding-top: 5px;
+}
+
+.row {
+  display: flex;
+}
+
+.tile {
+  position: relative;
+  margin: $tile-margin;
+}
+
+.horizontalTile0 {
+  transform: rotate(5deg);
+  top: -2px;
+}
+
+.horizontalTile1,
+.verticalTile5 {
+  transform: rotate(-3deg);
+  top: 5px;
+}
+
+.horizontalTile2,
+.verticalTile0 {
+  transform: rotate(1deg);
+  top: -5px;
+  left: 5px;
+}
+
+.horizontalTile3,
+.verticalTile3 {
+  transform: rotate(-6deg);
+  left: 6px;
+  top: -5px;
+}
+
+.horizontalTile4,
+.verticalTile4 {
+  transform: rotate(-2deg);
+  top: 5px;
+}
+
+.horizontalTile5,
+.verticalTile1 {
+  transform: rotate(10deg);
+  left: 5px;
+}
+
+.horizontalTile7 {
+  position: relative;
+  left: 10px;
+  top: 20px;
+  transform: rotate(30deg);
+}
+
+.version {
+  transform: translate(741px, -170px) rotate(2deg);
+  background: var(--color--green);
+}

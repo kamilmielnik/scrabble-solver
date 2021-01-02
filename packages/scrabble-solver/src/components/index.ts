@@ -2,6 +2,7 @@ export { default as Board } from './Board';
 export { default as Dropdown } from './Dropdown';
 export { default as DropdownItem } from './DropdownItem';
 export { default as Loading } from './Loading';
+export { default as Logo } from './Logo';
 export { default as LocaleDropdown } from './LocaleDropdown';
 export { default as Results } from './Results';
 export { default as SvgIcon } from './SvgIcon';
