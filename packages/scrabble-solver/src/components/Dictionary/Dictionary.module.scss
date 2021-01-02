@@ -1,0 +1,43 @@
+$height: 200px;
+
+.dictionary {
+  position: relative;
+  padding: var(--spacing--l);
+  min-height: $height;
+  height: $height;
+  max-height: $height;
+  overflow: auto;
+  background-color: white;
+  border: var(--border);
+  transition: var(--transition);
+  font-size: var(--font--size--s);
+  line-height: 1.5;
+}
+
+.word {
+  margin-bottom: var(--spacing--l);
+  font-size: var(--font--size--l);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.isAllowed {
+  background-color: var(--color--green);
+}
+
+.isNotAllowed {
+  background-color: var(--color--red);
+}
+
+.definitions {
+  margin: 0;
+  padding-left: var(--spacing--l);
+}
+
+.definition {
+  margin-bottom: var(--spacing--s);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

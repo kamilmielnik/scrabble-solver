@@ -56,7 +56,6 @@ function* onSubmit() {
 
   try {
     const results = yield call(solve, {
-      // TODO: send proper params
       board: board.toJson(),
       characters,
       configId: config.id,

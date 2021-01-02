@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSize } from 'react-use';
 
-import { Board, LocaleDropdown, Logo, Results, Splash, Tiles, Well } from 'components';
+import { Board, Dictionary, LocaleDropdown, Logo, Results, Splash, Tiles, Well } from 'components';
 import { i18nSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
 import { Locale } from 'types';
 
@@ -62,7 +62,10 @@ const Index: FunctionComponent = () => {
             </div>
 
             <div className={styles.sidebar}>
-              <Well className={styles.dictionary}>dictionary</Well>
+              <Well className={styles.dictionary}>
+                <Dictionary />
+              </Well>
+
               <Well className={styles.results}>
                 {resultsSizer}
 
