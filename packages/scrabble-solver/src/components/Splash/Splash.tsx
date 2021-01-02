@@ -7,6 +7,7 @@ import Logo from '../Logo';
 import styles from './Splash.module.scss';
 
 const DEFAULT_SPLASH_DURATION = 1000;
+const COMPLETE_SPLASH_DURATION_PERCENT = 0.15;
 
 interface Props {
   className?: string;
@@ -17,7 +18,7 @@ interface Props {
 const Splash: FunctionComponent<Props> = ({ className, forceShow, splashDuration = DEFAULT_SPLASH_DURATION }) => {
   const [isTimeoutFinished, setIsTimeoutFinished] = useState<boolean>(false);
   const hidden = isTimeoutFinished && !forceShow;
-  const progress = useTween('inCubic', DEFAULT_SPLASH_DURATION);
+  const progress = useTween('inCubic', (1 - COMPLETE_SPLASH_DURATION_PERCENT) * splashDuration);
   const progressPercent = `${(progress * 100).toFixed(2)}%`;
 
   useEffect(() => {
