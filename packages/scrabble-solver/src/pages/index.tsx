@@ -1,4 +1,3 @@
-// import { literaki, scrabble } from '@scrabble-solver/configs';
 import { Config } from '@scrabble-solver/models';
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
@@ -10,22 +9,6 @@ import { i18nSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
 import { Locale } from 'types';
 
 import styles from './index.module.scss';
-
-// const getConfig = (locale: Locale, configId: string): Config => {
-//   const config = [literaki, scrabble].find(({ id }) => id === configId);
-
-//   if (!config) {
-//     throw new Error('Cannot find config');
-//   }
-
-//   const localeConfig = config[locale];
-
-//   if (!localeConfig) {
-//     throw new Error('Cannot find config');
-//   }
-
-//   return localeConfig;
-// };
 
 // TODO: moove to constants?
 const MIN_TILE_SIZE = 20;
