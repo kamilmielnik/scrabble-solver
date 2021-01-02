@@ -2,16 +2,14 @@ $height: 200px;
 
 .dictionary {
   position: relative;
-  padding: var(--spacing--l);
   min-height: $height;
   height: $height;
   max-height: $height;
+  padding: var(--spacing--l);
   overflow: auto;
   background-color: white;
-  border-radius: var(--border--radius);
   transition: var(--transition);
   font-size: var(--font--size--s);
-  line-height: 1.5;
 }
 
 .word {

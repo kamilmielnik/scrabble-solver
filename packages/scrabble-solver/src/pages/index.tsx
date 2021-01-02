@@ -76,7 +76,7 @@ const Index: FunctionComponent = () => {
         </div>
 
         <div className={styles.tilesContainer}>
-          <Tiles />
+          <Tiles className={styles.tiles} />
         </div>
       </div>
 
