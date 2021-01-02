@@ -2,7 +2,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { Result } from '@scrabble-solver/models';
 import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
-import { solve } from 'api';
+import { solve } from 'sdk';
 
 import { selectBoard, selectCharacters, selectConfig, selectLocale } from './selectors';
 import { boardSlice, i18nSlice, resultsSlice, solveSlice, tilesSlice } from './slices';

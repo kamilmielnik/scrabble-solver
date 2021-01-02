@@ -14,6 +14,7 @@
       "i18n": ["./src/i18n"],
       "lib": ["./src/lib"],
       "pages": ["./src/pages"],
+      "sdk": ["./src/sdk"],
       "state": ["./src/state"],
       "styles": ["./src/styles"],
       "types": ["./src/types"]

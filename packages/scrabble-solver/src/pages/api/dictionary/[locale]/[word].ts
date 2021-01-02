@@ -20,7 +20,7 @@ const parseRequest = (request: NextApiRequest): { locale: Locale; word: string }
 
 const getLocale = (request: NextApiRequest): Locale => {
   if (['en-GB', 'en-US', 'pl-PL'].includes(request.query.locale as string)) {
-    throw new Error('Invalid request body');
+    throw new Error('Invalid request query');
   }
 
   return request.query.locale as Locale;
