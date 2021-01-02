@@ -1,0 +1,9 @@
+export { default as getConfig } from './getConfig';
+export { default as validateBoard } from './validateBoard';
+export { default as validateCell } from './validateCell';
+export { default as validateCharacter } from './validateCharacter';
+export { default as validateCharacters } from './validateCharacters';
+export { default as validateConfigId } from './validateConfigId';
+export { default as validateLocale } from './validateLocale';
+export { default as validateRow } from './validateRow';
+export { default as validateTile } from './validateTile';

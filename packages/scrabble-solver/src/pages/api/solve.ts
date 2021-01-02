@@ -1,13 +1,13 @@
 import { Trie } from '@kamilmielnik/trie';
-import { literaki, scrabble } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import logger from '@scrabble-solver/logger';
-import { Board, Config, Tile } from '@scrabble-solver/models';
+import { Board, Tile } from '@scrabble-solver/models';
 import Solver from '@scrabble-solver/solver';
 import fs from 'fs';
 import { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
 
+import { getConfig, validateBoard, validateCharacters, validateConfigId, validateLocale } from 'api';
 import { Locale } from 'types';
 
 const dictionariesDirectory = path.resolve('../../dictionaries');
@@ -16,8 +16,6 @@ const getLocaleTrie = (locale: Locale): Trie => {
   return Trie.deserialize(fs.readFileSync(path.join(dictionariesDirectory, `${locale}.txt`), 'utf-8'));
 };
 
-const configs = [literaki, scrabble];
-const locales: Locale[] = ['en-GB', 'en-US', 'pl-PL'];
 const localeTries: Record<Locale, Trie> = {
   'en-GB': getLocaleTrie('en-GB'),
   'en-US': getLocaleTrie('en-US'),
@@ -61,138 +59,6 @@ const parseRequest = (
     locale,
     characters,
   };
-};
-
-const getConfig = (configId: string, locale: Locale): Config => {
-  const config = configs.find(({ id }) => id === configId);
-
-  if (!config) {
-    throw new Error(`Invalid "configId" parameter: not one of ${configs.map(({ id }) => id).join('/')}`);
-  }
-
-  return config[locale];
-};
-
-const validateConfigId = (configId: unknown): void => {
-  if (!configs.some(({ id }) => id === configId)) {
-    throw new Error(`Invalid "configId" parameter: not one of ${configs.map(({ id }) => id).join('/')}`);
-  }
-};
-
-const validateLocale = (locale: unknown): void => {
-  if (typeof locale !== 'string') {
-    throw new Error('Invalid "locale" parameter: not a string');
-  }
-
-  if (!locales.includes(locale as Locale)) {
-    throw new Error(`Invalid "locale" parameter: must be one of: ${locales.join(', ')}`);
-  }
-};
-
-export const validateBoard = (board: unknown, config: Config): void => {
-  if (!Array.isArray(board)) {
-    throw new Error('Invalid "board" parameter: not an array');
-  }
-
-  if (board.length !== config.boardHeight) {
-    throw new Error(`Invalid "board" parameter: does not have ${config.boardHeight} rows`);
-  }
-
-  try {
-    board.forEach((row, rowIndex) => validateRow(row, rowIndex, config));
-  } catch (error) {
-    throw new Error(`Invalid "board" parameter: ${error.message}`);
-  }
-};
-
-const validateRow = (row: unknown, rowIndex: number, config: Config): void => {
-  if (!Array.isArray(row)) {
-    throw new Error(`board[${rowIndex}] is not an array`);
-  }
-
-  if (row.length !== config.boardWidth) {
-    throw new Error(`board[${rowIndex}] does not have ${config.boardWidth} cells`);
-  }
-
-  row.forEach((cell, cellIndex) => validateCell(cell, rowIndex, cellIndex, config));
-};
-
-const validateCell = (cell: unknown, rowIndex: number, cellIndex: number, config: Config): void => {
-  if (typeof cell !== 'object') {
-    throw new Error(`board[${rowIndex}][${cellIndex}] is not an object`);
-  }
-
-  const { x, y, tile, isEmpty } = cell as Record<string, unknown>;
-
-  if (typeof x !== 'number') {
-    throw new Error(`board[${rowIndex}][${cellIndex}].x is not a number`);
-  }
-
-  if (x < 0 || x >= config.boardWidth) {
-    throw new Error(`board[${rowIndex}][${cellIndex}].x is out of bounds`);
-  }
-
-  if (typeof y !== 'number') {
-    throw new Error(`board[${rowIndex}][${cellIndex}].y is not a number`);
-  }
-
-  if (y < 0 || y >= config.boardHeight) {
-    throw new Error(`board[${rowIndex}][${cellIndex}].y is out of bounds`);
-  }
-
-  if (typeof isEmpty !== 'boolean') {
-    throw new Error(`board[${rowIndex}][${cellIndex}].isEmpty is not a boolean`);
-  }
-
-  try {
-    validateTile(tile, config);
-  } catch (error) {
-    throw new Error(`board[${rowIndex}][${cellIndex}].tile ${error.message}`);
-  }
-};
-
-const validateTile = (tile: unknown, config: Config): void => {
-  if (typeof tile !== 'object') {
-    throw new Error('is not an object');
-  }
-
-  if (tile !== null) {
-    const { character, isBlank } = tile as Record<string, unknown>;
-
-    validateCharacter(character, config);
-
-    if (typeof isBlank !== 'boolean') {
-      throw new Error('isBlank is not a boolean');
-    }
-  }
-};
-
-const validateCharacters = (characters: unknown, config: Config): void => {
-  if (!Array.isArray(characters)) {
-    throw new Error('Invalid "characters" parameter: not an array');
-  }
-
-  if (characters.length === 0) {
-    throw new Error('Invalid "characters" parameter: empty array');
-  }
-
-  characters.forEach((character, characterIndex) => {
-    try {
-      validateCharacter(character, config);
-    } catch (error) {
-      throw new Error(`Invalid "characters" parameter: characters[${characterIndex}] ${error.message}`);
-    }
-  });
-};
-
-const validateCharacter = (character: unknown, config: Config): void => {
-  if (typeof character !== 'string') {
-    throw new Error('character is not a string');
-  }
-
-  if (!config.hasCharacter(character) && character !== BLANK) {
-    throw new Error('character is not valid');
-  }
 };
 
 export default solve;
