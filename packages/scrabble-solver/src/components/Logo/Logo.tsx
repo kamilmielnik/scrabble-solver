@@ -30,8 +30,8 @@ const Logo: FunctionComponent<Props> = ({ className, name = 'SCRABBLE SOLVER', v
       character={version}
       color={VERSION_TILE_COLOR}
       size={VERSION_TILE_SIZE}
-      x={getX(getLongestWord(name.split(' ')).length)}
-      y={getY(0)}
+      x={getX(getLongestWord(name.split(' ')).length - 1)}
+      y={getY(1)}
     />
   </svg>
 );

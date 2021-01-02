@@ -10,7 +10,7 @@ export const TILE_MAX_ROTATE = 0;
 export const TILE_MAX_SCATTER = 0;
 export const TILE_SIZE = 80;
 export const VERSION_TILE_COLOR = COLOR_GREEN;
-export const VERSION_TILE_SIZE = 2 * TILE_SIZE + TILE_MARGIN;
+export const VERSION_TILE_SIZE = TILE_SIZE;
 
 export const POINTS = {
   A: 1,

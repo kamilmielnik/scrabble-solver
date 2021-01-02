@@ -38,8 +38,8 @@ export const getLongestWord = (words: string[]): string => {
 
 export const getViewbox = (name: string) => {
   const words = name.split(' ');
-  const width = getLongestWord(words).length * (TILE_SIZE + TILE_MARGIN) + VERSION_TILE_SIZE;
-  return `0 0 ${width} ${VERSION_TILE_SIZE}`;
+  const width = getLongestWord(words).length * (TILE_SIZE + TILE_MARGIN);
+  return `0 0 ${width} ${2 * TILE_SIZE + TILE_MARGIN}`;
 };
 
 export const getX = (index: number, rowIndex: number): number =>
