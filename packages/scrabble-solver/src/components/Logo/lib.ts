@@ -1,7 +1,9 @@
+import { literaki } from '@scrabble-solver/configs';
+
 import {
+  COLOR_YELLOW,
   LOGO_PADDING_HORIZONTAL,
   LOGO_PADDING_VERTICAL,
-  POINTS,
   POINTS_COLORS,
   TILE_MARGIN,
   TILE_MAX_ROTATE,
@@ -21,15 +23,21 @@ export const createTiles = (name: string) => {
   return tiles;
 };
 
-const createTile = (character: string, rowIndex: number, cellIndex: number) => ({
-  character,
-  color: POINTS_COLORS[POINTS[character]],
-  points: POINTS[character],
-  size: TILE_SIZE,
-  transform: `rotate(${randomize(0, TILE_MAX_ROTATE)}, ${getX(cellIndex) + TILE_SIZE / 2}, ${getY(0) + TILE_SIZE / 2})`,
-  x: randomize(getX(cellIndex), TILE_MAX_SCATTER),
-  y: randomize(getY(rowIndex), TILE_MAX_SCATTER),
-});
+const createTile = (character: string, rowIndex: number, cellIndex: number) => {
+  const points = literaki['en-US'].getCharacterPoints(character.toLowerCase());
+
+  return {
+    character,
+    color: typeof points === 'number' ? POINTS_COLORS[points] : COLOR_YELLOW,
+    points,
+    size: TILE_SIZE,
+    transform: `rotate(${randomize(0, TILE_MAX_ROTATE)}, ${getX(cellIndex) + TILE_SIZE / 2}, ${
+      getY(0) + TILE_SIZE / 2
+    })`,
+    x: randomize(getX(cellIndex), TILE_MAX_SCATTER),
+    y: randomize(getY(rowIndex), TILE_MAX_SCATTER),
+  };
+};
 
 export const getLongestWord = (words: string[]): string => {
   return words.reduce((result, word) => (word.length > result.length ? word : result), '');
