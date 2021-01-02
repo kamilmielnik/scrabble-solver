@@ -12,15 +12,15 @@ import styles from './index.module.scss';
 
 // TODO: moove to constants?
 const MIN_TILE_SIZE = 20;
-const MAX_TILE_SIZE = 80;
+const MAX_TILE_SIZE = 60;
 const SIDEBAR_MARGIN_LEFT = 40; // TODO: unhardcode?
 
 const INITIAL_SIZE = { height: 0, width: 0 };
 
 const getCellSize = (config: Config, width: number, height: number): number => {
   const cellBorderWidth = 1; // TODO: unhardcode
-  const maxWidth = (width - cellBorderWidth) / config.boardWidth - 2 * cellBorderWidth;
-  const maxHeight = (height - cellBorderWidth) / config.boardHeight - 2 * cellBorderWidth;
+  const maxWidth = (width - cellBorderWidth) / config.boardWidth - cellBorderWidth;
+  const maxHeight = (height - cellBorderWidth) / config.boardHeight - cellBorderWidth;
   const cellSize = Math.min(maxWidth, maxHeight);
   return Math.min(Math.max(Math.floor(cellSize), MIN_TILE_SIZE), MAX_TILE_SIZE);
 };

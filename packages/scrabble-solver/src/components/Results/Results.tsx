@@ -23,7 +23,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
   const isLoading = useTypedSelector(selectIsLoading);
 
   return (
-    <div className={styles.results} style={{ width }}>
+    <div className={styles.results}>
       <Header />
 
       {results.length > 0 && (
