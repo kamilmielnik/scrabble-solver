@@ -12,7 +12,7 @@ export const TILE_SIZE = 80;
 export const VERSION_TILE_COLOR = COLOR_GREEN;
 export const VERSION_TILE_SIZE = TILE_SIZE;
 
-export const POINTS = {
+export const POINTS: Record<string, number> = {
   A: 1,
   B: 3,
   C: 3,
@@ -24,7 +24,7 @@ export const POINTS = {
   V: 4,
 };
 
-export const POINTS_COLORS = {
+export const POINTS_COLORS: Record<number, string> = {
   1: COLOR_YELLOW,
   2: COLOR_GREEN,
   3: COLOR_BLUE,

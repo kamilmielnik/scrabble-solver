@@ -7,7 +7,6 @@ import {
   TILE_MAX_ROTATE,
   TILE_MAX_SCATTER,
   TILE_SIZE,
-  VERSION_TILE_SIZE,
 } from './constants';
 
 const randomize = (value: number, maxChange: number): number => value + maxChange * 2 * (0.5 - Math.random());
@@ -28,7 +27,7 @@ const createTile = (character: string, rowIndex: number, cellIndex: number) => (
   points: POINTS[character],
   size: TILE_SIZE,
   transform: `rotate(${randomize(0, TILE_MAX_ROTATE)}, ${getX(cellIndex) + TILE_SIZE / 2}, ${getY(0) + TILE_SIZE / 2})`,
-  x: randomize(getX(cellIndex, rowIndex), TILE_MAX_SCATTER),
+  x: randomize(getX(cellIndex), TILE_MAX_SCATTER),
   y: randomize(getY(rowIndex), TILE_MAX_SCATTER),
 });
 
@@ -42,7 +41,6 @@ export const getViewbox = (name: string) => {
   return `0 0 ${width} ${2 * TILE_SIZE + TILE_MARGIN}`;
 };
 
-export const getX = (index: number, rowIndex: number): number =>
-  LOGO_PADDING_HORIZONTAL + index * (TILE_SIZE + TILE_MARGIN);
+export const getX = (index: number): number => LOGO_PADDING_HORIZONTAL + index * (TILE_SIZE + TILE_MARGIN);
 
 export const getY = (index: number): number => LOGO_PADDING_VERTICAL + index * (TILE_SIZE + TILE_MARGIN);

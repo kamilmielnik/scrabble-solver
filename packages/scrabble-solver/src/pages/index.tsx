@@ -4,7 +4,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSize } from 'react-use';
 
-import { Board, Loading, LocaleDropdown, Logo, Results, Tiles, Well } from 'components';
+import { Board, LocaleDropdown, Logo, Results, Tiles, Well } from 'components';
 import { i18nSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
 import { Locale } from 'types';
 
@@ -34,7 +34,7 @@ const Index: FunctionComponent = () => {
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
   const cellSize = getCellSize(config, contentWidth - resultsWidth - SIDEBAR_MARGIN_LEFT, boardHeight);
-  const [isSplashShown, setIsSplashShown] = useState<Boolean>(true);
+  const [isSplashShown, setIsSplashShown] = useState<boolean>(true);
   const isSizeInitialized =
     contentWidth !== INITIAL_SIZE.width && boardHeight !== INITIAL_SIZE.height && resultsWidth !== INITIAL_SIZE.width;
   const isInitialized = isSizeInitialized && !isSplashShown;

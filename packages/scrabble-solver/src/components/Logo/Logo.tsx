@@ -1,14 +1,13 @@
-import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import { COLOR_GREEN, TILE_MARGIN, TILE_SIZE, VERSION_TILE_COLOR, VERSION_TILE_SIZE } from './constants';
+import { VERSION_TILE_COLOR, VERSION_TILE_SIZE } from './constants';
 import { createTiles, getLongestWord, getViewbox, getX, getY } from './lib';
 import Tile from './Tile';
 
 interface Props {
   className?: string;
-  name: string;
-  version: string;
+  name?: string;
+  version?: string;
 }
 
 const Logo: FunctionComponent<Props> = ({ className, name = 'SCRABBLE SOLVER', version = '2' }) => (
