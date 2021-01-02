@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { validateLocale, validateWord } from 'api';
 import { Locale } from 'types';
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
@@ -13,25 +14,16 @@ const dictionary = async (request: NextApiRequest, response: NextApiResponse): P
   }
 };
 
-const parseRequest = (request: NextApiRequest): { locale: Locale; word: string } => ({
-  locale: getLocale(request),
-  word: getWord(request),
-});
+const parseRequest = (request: NextApiRequest): { locale: Locale; word: string } => {
+  const { locale, word } = request.query;
 
-const getLocale = (request: NextApiRequest): Locale => {
-  if (['en-GB', 'en-US', 'pl-PL'].includes(request.query.locale as string)) {
-    throw new Error('Invalid request query');
-  }
+  validateLocale(locale);
+  validateWord(word);
 
-  return request.query.locale as Locale;
-};
-
-const getWord = (request: NextApiRequest): string => {
-  if (typeof request.query.word !== 'string') {
-    throw new Error('Invalid request query');
-  }
-
-  return request.query.word;
+  return {
+    locale: locale as Locale,
+    word: word as string,
+  };
 };
 
 export default dictionary;

@@ -7,3 +7,4 @@ export { default as validateConfigId } from './validateConfigId';
 export { default as validateLocale } from './validateLocale';
 export { default as validateRow } from './validateRow';
 export { default as validateTile } from './validateTile';
+export { default as validateWord } from './validateWord';
