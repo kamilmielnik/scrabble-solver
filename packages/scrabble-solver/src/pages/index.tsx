@@ -1,6 +1,6 @@
 import { Config } from '@scrabble-solver/models';
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSize } from 'react-use';
 
@@ -14,6 +14,7 @@ import styles from './index.module.scss';
 const MIN_TILE_SIZE = 20;
 const MAX_TILE_SIZE = 80;
 const SIDEBAR_MARGIN_LEFT = 40; // TODO: unhardcode?
+const SPLASH_DURATION = 1000;
 
 const INITIAL_SIZE = { height: 0, width: 0 };
 
@@ -33,8 +34,20 @@ const Index: FunctionComponent = () => {
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
   const cellSize = getCellSize(config, contentWidth - resultsWidth - SIDEBAR_MARGIN_LEFT, boardHeight);
-  const isInitialized =
+  const [isSplashShown, setIsSplashShown] = useState<Boolean>(true);
+  const isSizeInitialized =
     contentWidth !== INITIAL_SIZE.width && boardHeight !== INITIAL_SIZE.height && resultsWidth !== INITIAL_SIZE.width;
+  const isInitialized = isSizeInitialized && !isSplashShown;
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      setIsSplashShown(false);
+    }, SPLASH_DURATION);
+
+    return () => {
+      window.clearTimeout(timeout);
+    };
+  }, []);
 
   const handleLocaleChange = (newLocale: Locale) => {
     dispatch(i18nSlice.actions.changeLocale(newLocale));
@@ -77,7 +90,13 @@ const Index: FunctionComponent = () => {
         </div>
       </div>
 
-      <Loading className={classNames(styles.loading, { [styles.initialized]: isInitialized })} />
+      <div className={classNames(styles.splash, { [styles.initialized]: isInitialized })}>
+        <div>
+          <Logo className={styles.splashLogo} />
+
+          <div className={styles.author}>by Kamil Mielnik</div>
+        </div>
+      </div>
     </>
   );
 };
