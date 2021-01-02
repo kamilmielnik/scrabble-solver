@@ -47,9 +47,15 @@ export const getLongestWord = (words: string[]): string => {
 };
 
 export const getViewbox = (content: string[][]) => {
-  const words = content.flat();
-  const width = getLongestWord(words).length * (TILE_SIZE + TILE_MARGIN);
-  return `0 0 ${width} ${2 * TILE_SIZE + TILE_MARGIN}`;
+  const longestRowLength = content.reduce((result, words) => {
+    const wordsLength = words.reduce((sum, word) => sum + word.length, 0);
+    const rowLength = wordsLength + Math.max(words.length - 1, 0);
+    return Math.max(result, rowLength);
+  }, 0);
+  const width = longestRowLength * (TILE_SIZE + TILE_MARGIN) - (longestRowLength === 0 ? 0 : TILE_MARGIN);
+  const height = content.length * (TILE_SIZE + TILE_MARGIN) - (content.length === 0 ? 0 : TILE_MARGIN);
+
+  return `0 0 ${width} ${height}`;
 };
 
 export const getX = (index: number): number => PADDING_HORIZONTAL + index * (TILE_SIZE + TILE_MARGIN);
