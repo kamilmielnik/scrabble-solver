@@ -23,6 +23,18 @@ const translateEn = async (word: string): Promise<WordDefinition> => {
       },
     });
     const results: { text: string }[] = JSON.parse(response);
+
+    if (!Array.isArray(results)) {
+      const error = new Error('Results is not an array');
+
+      logger.error('translateEn', {
+        error: error.message,
+        results,
+      });
+
+      throw new Error('Results is not an array');
+    }
+
     const wordDefinition = new WordDefinition({
       definitions: results.map(({ text }) => text).filter(Boolean),
       isAllowed: results.length > 0,
