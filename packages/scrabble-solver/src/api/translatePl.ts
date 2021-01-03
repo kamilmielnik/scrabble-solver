@@ -9,7 +9,7 @@ const translatePl = async (word: string): Promise<WordDefinition> => {
     const response = await request({
       protocol: 'https',
       hostname: 'sjp.pl',
-      path: `/${word}`,
+      path: `/${encodeURIComponent(word)}`,
     });
     const wordDefinition = parseSjpResponse(response);
     return wordDefinition;
