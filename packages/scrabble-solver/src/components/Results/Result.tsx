@@ -13,7 +13,7 @@ interface Props {
 
 const Result = ({ index, style }: Props) => {
   const dispatch = useDispatch();
-  const results = useTypedSelector(selectSortedResults);
+  const results = useTypedSelector(selectSortedResults)!;
   const result = results[index];
 
   const handleClick = () => {
