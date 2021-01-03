@@ -2,8 +2,8 @@
   "name": "@scrabble-solver/solver",
   "version": "2.0.0-alpha.6",
   "description": "Scrabble Solver - Solver",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kamilmielnik/scrabble-solver.git"
@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "scripts": {
-    "build": "tsc --project ."
+    "build": "tsc --project .",
+    "clean": "rm -rf node_modules/ dist/"
   },
   "dependencies": {
     "@kamilmielnik/trie": "^1.0.3",
