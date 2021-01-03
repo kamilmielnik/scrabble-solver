@@ -1,4 +1,5 @@
 {
+  "dictionary.empty-state.no-definitions": "Word exists in the dictionary but it does not have a definition.",
   "dictionary.empty-state.no-results": "Unable to find word definition in dictionary.",
   "dictionary.empty-state.not-allowed": "This word is not acceptable (according to wordnik.com).",
   "dictionary.empty-state.unitialized": "Dictionary definition of the last highlighted word will be shown here.",

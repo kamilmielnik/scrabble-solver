@@ -15,6 +15,7 @@ interface Props {
 const Dictionary: FunctionComponent<Props> = ({ className }) => {
   const { definitions, isAllowed, isLoading, word } = useTypedSelector(selectDictionaryRoot);
   const noResultsTranslation = useTranslation('dictionary.empty-state.no-results');
+  const noDefinitionsTranslation = useTranslation('dictionary.empty-state.no-definitions');
   const notAllowedTranslation = useTranslation('dictionary.empty-state.not-allowed');
   const unitializedTranslation = useTranslation('dictionary.empty-state.unitialized');
 
@@ -34,13 +35,19 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
           {isAllowed === false && <div>{notAllowedTranslation}</div>}
 
           {isAllowed === true && (
-            <ul className={styles.definitions}>
-              {definitions.map((result, index) => (
-                <li key={index} className={styles.definition}>
-                  {result}
-                </li>
-              ))}
-            </ul>
+            <>
+            {definitions.length === 0 && <div>{noDefinitionsTranslation}</div>}
+
+              {definitions.length > 0 && (
+                <ul className={styles.definitions}>
+                  {definitions.map((result, index) => (
+                    <li key={index} className={styles.definition}>
+                      {result}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </>
           )}
 
           {!isLoading && isAllowed === null && <div>{noResultsTranslation}</div>}

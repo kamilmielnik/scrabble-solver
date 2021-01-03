@@ -1,4 +1,5 @@
 {
+  "dictionary.empty-state.no-definitions": "Słowo istnieje w słowniku ale nie posiada definicji.",
   "dictionary.empty-state.no-results": "Nie udało się znaleźć definicji słowa w słowniku.",
   "dictionary.empty-state.not-allowed": "Słowo nie jest dopuszczalne w grach (według sjp.pl).",
   "dictionary.empty-state.unitialized": "Tu wyświetlona zostanie słownikowa definicja ostatnio podświetlonego słowa.",
