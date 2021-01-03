@@ -81,7 +81,8 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
     },
     onEnter: handleSubmit,
     onKeyDown: (event) => {
-      const character = event.key;
+      const character = event.key.toLowerCase();
+
       if (config.hasCharacter(character) || character === BLANK) {
         changeActiveIndex(1);
       }
@@ -108,9 +109,12 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
             onBackspace: () => handleCharacterChange(index, null),
             onDelete: () => handleCharacterChange(index, null),
             onKeyDown: (event) => {
-              if (config.hasCharacter(event.key) || event.key === BLANK) {
-                handleCharacterChange(index, event.key);
+              const character = event.key.toLowerCase();
+
+              if (config.hasCharacter(character) || character === BLANK) {
+                handleCharacterChange(index, character);
               }
+
               onKeyDown(event);
             },
           })}

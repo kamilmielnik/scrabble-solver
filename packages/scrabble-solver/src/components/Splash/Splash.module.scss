@@ -25,7 +25,7 @@
   transition: var(--transition);
   transition-duration: var(--transition--duration--long);
   opacity: 1;
-  z-index: 1;
+  z-index: 100;
 
   &.hidden {
     opacity: 0;

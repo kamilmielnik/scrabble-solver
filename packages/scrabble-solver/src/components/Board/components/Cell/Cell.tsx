@@ -36,8 +36,7 @@ const Cell: FunctionComponent<Props> = ({ cell, className, inputRef, size, onFoc
         onBackspace: () => dispatch(boardSlice.actions.changeCellValue({ value: EMPTY_CELL, x, y })),
         onEnter: () => dispatch(solveSlice.actions.submit()),
         onKeyDown: (event) => {
-          // TODO: consider using is-hotkey
-          const character = event.key;
+          const character = event.key.toLowerCase();
           const isTogglingBlank = (event.ctrlKey || event.metaKey) && character === 'b';
 
           if (isTogglingBlank) {

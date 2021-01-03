@@ -9,7 +9,6 @@
 - help popover with hotkeys listed (ctrl+b, ctrl+right, ctrl+down - change typing direction)
 - rename translation keys
 - provide missing translations
-- bug: input not accepted when CAPS LOCK pressed
 
 # Resources
 
