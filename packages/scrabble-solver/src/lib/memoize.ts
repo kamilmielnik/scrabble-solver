@@ -1,4 +1,10 @@
-type AnyFunction = (...parameters: any) => any;
+interface AnyFunction {
+  (...parameters: any): any;
+}
+
+interface AnyCachedFunction<T extends AnyFunction> extends AnyFunction {
+  hasCache: (...parameters: Parameters<T>) => boolean;
+}
 
 interface Entry<T extends AnyFunction> {
   parameters: Parameters<T>;
@@ -9,8 +15,10 @@ const parametersEqual = <T extends AnyFunction>(a: Parameters<T>, b: Parameters<
   return a.length === b.length && a.every((parameter: any, index: number) => parameter === b[index]);
 };
 
-const memoize = <T extends (...parameters: any) => any>(fn: T): T => {
+const memoize = <T extends (...parameters: any) => any>(fn: T): AnyCachedFunction<T> => {
   const cache: Entry<T>[] = [];
+
+  const hasCache = (...parameters: Parameters<T>): boolean => Boolean(readCache(parameters));
 
   const readCache = (parameters: Parameters<T>): ReturnType<T> | undefined => {
     return cache.find((entry) => parametersEqual(entry.parameters, parameters))?.result;
@@ -34,7 +42,7 @@ const memoize = <T extends (...parameters: any) => any>(fn: T): T => {
     return result;
   };
 
-  return memoized as T;
+  return Object.assign(memoized, { hasCache });
 };
 
 export default memoize;

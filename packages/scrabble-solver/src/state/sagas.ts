@@ -8,9 +8,9 @@ import { findWordDefinition, solve } from 'sdk';
 import { selectBoard, selectCharacters, selectConfig, selectDictionaryRoot, selectLocale } from './selectors';
 import { boardSlice, dictionarySlice, i18nSlice, resultsSlice, solveSlice, tilesSlice } from './slices';
 
-const memoizedFindWordDefinition = memoize(findWordDefinition);
+const SUBMIT_DELAY = 150;
 
-const SUBMIT_DELAY = 100;
+const memoizedFindWordDefinition = memoize(findWordDefinition);
 
 export function* rootSaga() {
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
@@ -27,9 +27,12 @@ function* onApplyResult({ payload: result }: PayloadAction<Result>) {
 }
 
 function* onDictionarySubmit() {
-  yield delay(SUBMIT_DELAY);
   const { input: word } = yield select(selectDictionaryRoot);
   const locale = yield select(selectLocale);
+
+  if (!memoizedFindWordDefinition.hasCache(locale, word)) {
+    yield delay(SUBMIT_DELAY);
+  }
 
   try {
     const wordDefinition = yield call(memoizedFindWordDefinition, locale, word);
