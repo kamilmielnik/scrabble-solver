@@ -1,9 +1,6 @@
 @import 'styles/mixins';
 
 .cell {
-  $tile-size: 40px;
-  $tile-font-size: $tile-size / 2;
-
   @include focus-effect;
 
   position: relative;
