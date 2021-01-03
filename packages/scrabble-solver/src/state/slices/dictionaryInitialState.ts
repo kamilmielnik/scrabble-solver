@@ -3,7 +3,7 @@ const dictionaryInitialState = {
   input: '',
   isAllowed: null as boolean | null,
   isLoading: false,
-  word: '',
+  word: undefined as string | undefined,
 };
 
 export default dictionaryInitialState;

@@ -1,6 +1,7 @@
 {
   "dictionary.empty-state.no-results": "Unable to find word definition in dictionary.",
   "dictionary.empty-state.not-allowed": "This word is not acceptable (according to wordnik.com).",
+  "dictionary.empty-state.unitialized": "Dictionary definition of the last selected generated word will be shown here.",
   "loading": "Loading",
   "results.empty-state.no-results": "No results - unable to generate any words.",
   "results.empty-state.unitialized": "Words generated from your letters will be shown here.",

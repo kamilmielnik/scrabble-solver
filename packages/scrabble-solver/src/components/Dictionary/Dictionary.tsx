@@ -15,6 +15,7 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
   const { definitions, isAllowed, isLoading, word } = useTypedSelector(selectDictionaryRoot);
   const noResultsTranslation = useTranslation('dictionary.empty-state.no-results');
   const notAllowedTranslation = useTranslation('dictionary.empty-state.not-allowed');
+  const unitializedTranslation = useTranslation('dictionary.empty-state.unitialized');
 
   return (
     <div
@@ -23,21 +24,27 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
         [styles.isNotAllowed]: isAllowed === false,
       })}
     >
-      {word && <div className={styles.word}>{word}</div>}
+      {typeof word === 'undefined' && <div className={styles.empty}>{unitializedTranslation}</div>}
 
-      {isAllowed === false && <div>{notAllowedTranslation}</div>}
+      {typeof word !== 'undefined' && (
+        <>
+          {word && <div className={styles.word}>{word}</div>}
 
-      {isAllowed === true && (
-        <ul className={styles.definitions}>
-          {definitions.map((result, index) => (
-            <li key={index} className={styles.definition}>
-              {result}
-            </li>
-          ))}
-        </ul>
+          {isAllowed === false && <div>{notAllowedTranslation}</div>}
+
+          {isAllowed === true && (
+            <ul className={styles.definitions}>
+              {definitions.map((result, index) => (
+                <li key={index} className={styles.definition}>
+                  {result}
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {!isLoading && isAllowed === null && <div>{noResultsTranslation}</div>}
+        </>
       )}
-
-      {!isLoading && isAllowed === null && <div className={styles.empty}>{noResultsTranslation}</div>}
 
       {isLoading && <Loading />}
     </div>
