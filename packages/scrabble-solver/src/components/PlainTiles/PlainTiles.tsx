@@ -8,17 +8,17 @@ import styles from './PlainTiles.module.scss';
 interface Props {
   className?: string;
   content: string[][];
-  floating?: boolean;
   style?: CSSProperties;
+  wave?: boolean;
 }
 
-const PlainTiles: FunctionComponent<Props> = ({ className, content, floating, style }) => {
+const PlainTiles: FunctionComponent<Props> = ({ className, content, style, wave }) => {
   const tiles = useMemo(() => createTiles(content), [content]);
 
   return (
     <svg
       className={classNames(className, {
-        [styles.floating]: floating,
+        [styles.wave]: wave,
       })}
       style={style}
       viewBox={getViewbox(content)}

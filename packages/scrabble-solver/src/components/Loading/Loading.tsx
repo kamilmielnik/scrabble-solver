@@ -12,10 +12,10 @@ interface Props {
   children?: never;
   className?: string;
   estimatedDuration?: number;
-  floating?: boolean;
+  wave?: boolean;
 }
 
-const Loading: FunctionComponent<Props> = ({ className, estimatedDuration, floating = true }) => {
+const Loading: FunctionComponent<Props> = ({ className, estimatedDuration, wave = true }) => {
   const loading = useTranslation('loading');
   const content = useMemo<string[][]>(() => [[loading.toUpperCase()]], [loading]);
   const progress = useInfiniteProgress(estimatedDuration);
@@ -25,12 +25,12 @@ const Loading: FunctionComponent<Props> = ({ className, estimatedDuration, float
     <div className={classNames(styles.loading, className)}>
       <div className={styles.dim} />
       <div className={styles.logo}>
-        <PlainTiles className={classNames(styles.logoGrayscale)} content={content} floating={floating} />
+        <PlainTiles className={classNames(styles.logoGrayscale)} content={content} wave={wave} />
         <PlainTiles
           className={classNames(styles.logoColor)}
           content={content}
-          floating={floating}
           style={{ clipPath: `polygon(0% 0%, ${progressPercent} 0, ${progressPercent} 100%, 0% 100%)` }}
+          wave={wave}
         />
       </div>
     </div>

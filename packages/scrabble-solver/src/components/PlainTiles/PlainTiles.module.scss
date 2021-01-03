@@ -20,16 +20,17 @@ $duration: 750ms;
   }
 }
 
-.floating {
+.wave {
   .tile {
     $max: 20;
+    $max-delay: ($max - 1) * $delay;
 
     animation: wave $duration infinite;
     animation-timing-function: linear;
 
     @for $i from 1 through $max {
       &:nth-child(#{$i}) {
-        animation-delay: ($i - 1) * $delay;
+        animation-delay: ($i - 1) * $delay - $max-delay;
       }
     }
   }
