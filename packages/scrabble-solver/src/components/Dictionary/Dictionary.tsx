@@ -38,7 +38,7 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
 
       {!isLoading && isAllowed === null && 'No results'}
 
-      {isLoading && <Loading estimatedDuration={2000} />}
+      {isLoading && <Loading />}
     </div>
   );
 };

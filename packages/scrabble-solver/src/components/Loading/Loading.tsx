@@ -10,7 +10,6 @@ import styles from './Loading.module.scss';
 interface Props {
   children?: never;
   className?: string;
-  estimatedDuration?: number;
   wave?: boolean;
 }
 

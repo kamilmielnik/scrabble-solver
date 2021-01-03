@@ -34,7 +34,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
 
       {results.length === 0 && <Empty />}
 
-      {isLoading && <Loading estimatedDuration={3000} />}
+      {isLoading && <Loading />}
     </div>
   );
 };
