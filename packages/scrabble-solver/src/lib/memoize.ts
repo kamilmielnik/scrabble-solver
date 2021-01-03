@@ -1,9 +1,11 @@
-interface Entry<T extends (...parameters: any) => any> {
+type AnyFunction = (...parameters: any) => any;
+
+interface Entry<T extends AnyFunction> {
   parameters: Parameters<T>;
   result: ReturnType<T>;
 }
 
-const parametersEqual = <T extends (...parameters: any) => any>(a: Parameters<T>, b: Parameters<T>): boolean => {
+const parametersEqual = <T extends AnyFunction>(a: Parameters<T>, b: Parameters<T>): boolean => {
   return a.length === b.length && a.every((parameter: any, index: number) => parameter === b[index]);
 };
 
@@ -25,7 +27,7 @@ const memoize = <T extends (...parameters: any) => any>(fn: T): T => {
       return cached;
     }
 
-    const result = fn();
+    const result = fn(...parameters);
 
     writeCache(parameters, result);
 
