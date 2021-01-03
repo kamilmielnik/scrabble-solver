@@ -37,7 +37,7 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
         </ul>
       )}
 
-      {!isLoading && isAllowed === null && <div>{noResultsTranslation}</div>}
+      {!isLoading && isAllowed === null && <div className={styles.empty}>{noResultsTranslation}</div>}
 
       {isLoading && <Loading />}
     </div>

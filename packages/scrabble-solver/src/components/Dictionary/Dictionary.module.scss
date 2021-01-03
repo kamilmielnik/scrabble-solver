@@ -12,6 +12,12 @@ $height: 200px;
   font-size: var(--font--size--s);
 }
 
+.empty {
+  padding: var(--spacing--xl);
+  color: var(--color--foreground--secondary);
+  text-align: center;
+}
+
 .word {
   margin-bottom: var(--spacing--m);
   font-family: var(--font--family--secondary);

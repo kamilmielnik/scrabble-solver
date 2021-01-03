@@ -1,6 +1,6 @@
 {
   "dictionary.empty-state.no-results": "Nie udało się znaleźć definicji słowa w słowniku.",
-  "dictionary.empty-state.not-allowed": "Słowo nie jest dopuszczalne w grach.",
+  "dictionary.empty-state.not-allowed": "Słowo nie jest dopuszczalne w grach (według sjp.pl).",
   "loading": "Ładowanie",
   "results.empty-state.no-results": "Brak wyników - nie można wygenerować żadnego słowa.",
   "results.empty-state.unitialized": "Tu wyświetlone zostaną słowa wygenerowane z Twoich liter.",
