@@ -1,8 +1,9 @@
 {
-  "dictionary.empty-state.no-results": "Cannot find word definition",
+  "dictionary.empty-state.no-results": "Unable to find word definition in dictionary.",
+  "dictionary.empty-state.not-allowed": "This word is not acceptable.",
   "loading": "Loading",
-  "results.empty-state.unitialized": "Words generated from your letters will be shown here.",
   "results.empty-state.no-results": "No results - unable to generate any words.",
+  "results.empty-state.unitialized": "Words generated from your letters will be shown here.",
   "results.header.points": "Points",
   "results.header.word": "Word",
   "tiles.placeholder": "Letters"

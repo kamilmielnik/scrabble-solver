@@ -7,7 +7,6 @@
 - on a board, render a small indicator near focused tile, indicating in which direction (horizontal/vertical) is user typing now
 - hotkeys to focus 1) board, 2) tiles
 - help popover with hotkeys listed (ctrl+b, ctrl+right, ctrl+down - change typing direction)
-- provide missing translations
 
 # Resources
 
