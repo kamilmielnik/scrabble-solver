@@ -28,13 +28,6 @@ const CHARACTER_POINTS_CLASSNAMES: Record<number, string> = {
   5: styles.characterPoints5,
 };
 
-export const getCharacterPointsClassname = (characterPoints: number): string | undefined => {
-  if (characterPoints > 5) {
-    return styles.characterPoints5;
-  }
-  return CHARACTER_POINTS_CLASSNAMES[characterPoints];
-};
-
 export const getBonusClassname = (cell: Cell, bonus: Bonus | undefined): string | undefined => {
   if (!bonus || !cell.isEmpty) {
     return undefined;

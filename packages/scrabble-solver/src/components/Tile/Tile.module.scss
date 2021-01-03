@@ -1,8 +1,3 @@
-@import 'styles/mixins';
-
-$tile-size: 64px;
-$tile-font-size: $tile-size * 3 / 5;
-
 .tile {
   position: relative;
   background-color: transparent;

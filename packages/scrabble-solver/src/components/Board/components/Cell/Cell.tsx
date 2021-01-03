@@ -5,12 +5,12 @@ import React, { FunctionComponent, KeyboardEventHandler, memo, RefObject, useMem
 import { useDispatch } from 'react-redux';
 
 import { createKeyboardNavigation } from 'lib';
-import { boardSlice, selectBonus, selectCharacterPoints, selectConfig, solveSlice, useTypedSelector } from 'state';
+import { boardSlice, selectBonus, selectConfig, solveSlice, useTypedSelector } from 'state';
 
 import Tile from '../../../Tile';
 
 import styles from './Cell.module.scss';
-import { getBonusClassname, getCharacterPointsClassname } from './lib';
+import { getBonusClassname } from './lib';
 
 interface Props {
   cell: CellModel;
@@ -27,7 +27,6 @@ const Cell: FunctionComponent<Props> = ({ cell, className, inputRef, size, onFoc
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const bonus = useTypedSelector((state) => selectBonus(state, cell));
-  const characterPoints = useTypedSelector((state) => selectCharacterPoints(state, cell));
   const handleFocus = useCallback(() => onFocus(x, y), [x, y, onFocus]);
   const handleKeyDown = useMemo(
     () =>
@@ -56,15 +55,10 @@ const Cell: FunctionComponent<Props> = ({ cell, className, inputRef, size, onFoc
 
   return (
     <div
-      className={classNames(
-        styles.cell,
-        getBonusClassname(cell, bonus),
-        getCharacterPointsClassname(characterPoints),
-        className,
-        {
-          [styles.candidate]: cell.isCandidate(),
-        },
-      )}
+      className={classNames(styles.cell, getBonusClassname(cell, bonus), className, {
+        [styles.candidate]: cell.isCandidate(),
+        [styles.withTile]: !isEmpty,
+      })}
       style={{
         fontSize: tileFontSize,
       }}
