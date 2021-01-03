@@ -60,7 +60,6 @@ function* onSubmit() {
 
   if (characters.length === 0) {
     yield put(solveSlice.actions.submitSuccess());
-    // yield put(resultsSlice.actions.changeResults([]));
     return;
   }
 
