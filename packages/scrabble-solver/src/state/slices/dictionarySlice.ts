@@ -14,7 +14,13 @@ const dictionarySlice = createSlice({
     reset: () => dictionaryInitialState,
 
     submit: (state) => {
-      return { ...state, isLoading: true };
+      return {
+        ...state,
+        definitions: dictionaryInitialState.definitions,
+        isAllowed: null,
+        isLoading: true,
+        word: state.input,
+      };
     },
 
     submitFailure: (state) => {
@@ -23,7 +29,6 @@ const dictionarySlice = createSlice({
         definitions: dictionaryInitialState.definitions,
         isAllowed: false,
         isLoading: false,
-        word: state.input,
       };
     },
 

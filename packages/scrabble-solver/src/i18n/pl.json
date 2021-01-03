@@ -1,6 +1,7 @@
 {
   "components.no-results": "Brak wyników",
   "dictionary.cannot-find-definition": "Nie udało się znaleźć definicji słowa",
+  "loading": "Ładowanie",
   "modules.results.list.points": "Punkty",
   "modules.results.list.word": "Słowo",
   "modules.tiles.placeholder": "literki"
