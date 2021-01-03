@@ -1,6 +1,6 @@
 import { Config } from '@scrabble-solver/models';
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce, useSize } from 'react-use';
 
@@ -10,8 +10,11 @@ import {
   configIdSlice,
   i18nSlice,
   localStorage,
+  selectBoard,
   selectConfig,
+  selectConfigId,
   selectLocale,
+  selectTiles,
   tilesSlice,
   useTypedSelector,
 } from 'state';
@@ -36,6 +39,10 @@ const getCellSize = (config: Config, width: number, height: number): number => {
 
 const useLocalStorage = () => {
   const dispatch = useDispatch();
+  const board = useTypedSelector(selectBoard);
+  const configId = useTypedSelector(selectConfigId);
+  const locale = useTypedSelector(selectLocale);
+  const tiles = useTypedSelector(selectTiles);
 
   useEffectOnce(() => {
     if (localStorage.board) {
@@ -54,6 +61,30 @@ const useLocalStorage = () => {
       dispatch(tilesSlice.actions.change(localStorage.tiles));
     }
   });
+
+  useEffect(() => {
+    if (board) {
+      localStorage.board = board;
+    }
+  }, [board]);
+
+  useEffect(() => {
+    if (configId) {
+      localStorage.configId = configId;
+    }
+  }, [configId]);
+
+  useEffect(() => {
+    if (locale) {
+      localStorage.locale = locale;
+    }
+  }, [locale]);
+
+  useEffect(() => {
+    if (tiles) {
+      localStorage.tiles = tiles;
+    }
+  }, [tiles]);
 };
 
 const Index: FunctionComponent = () => {
