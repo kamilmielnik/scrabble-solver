@@ -21,7 +21,7 @@ const Loading: FunctionComponent<Props> = ({ className, wave = true }) => {
     <div className={classNames(styles.loading, className)}>
       <div className={styles.dim} />
       <div className={styles.logo}>
-        <PlainTiles className={classNames(styles.logoColor)} content={content} dropShadow wave={wave} />
+        <PlainTiles className={classNames(styles.tiles)} content={content} dropShadow wave={wave} />
       </div>
     </div>
   );

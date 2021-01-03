@@ -2,16 +2,12 @@ import { WordDefinition } from '@scrabble-solver/models';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { validateLocale, validateWord, translateEn, translatePl } from 'api';
-import { memoize } from 'lib';
 import { Locale } from 'types';
 
-const memoizedTranslateEn = memoize(translateEn);
-const memoizedTranslatePl = memoize(translatePl);
-
 const localeTranslate: Record<Locale, (word: string) => Promise<WordDefinition>> = {
-  'en-GB': memoizedTranslateEn,
-  'en-US': memoizedTranslateEn,
-  'pl-PL': memoizedTranslatePl,
+  'en-GB': translateEn,
+  'en-US': translateEn,
+  'pl-PL': translatePl,
 };
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {

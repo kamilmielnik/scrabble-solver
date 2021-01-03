@@ -2,10 +2,13 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { Result } from '@scrabble-solver/models';
 import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
+import { memoize } from 'lib';
 import { findWordDefinition, solve } from 'sdk';
 
 import { selectBoard, selectCharacters, selectConfig, selectDictionaryRoot, selectLocale } from './selectors';
 import { boardSlice, dictionarySlice, i18nSlice, resultsSlice, solveSlice, tilesSlice } from './slices';
+
+const memoizedFindWordDefinition = memoize(findWordDefinition);
 
 const SUBMIT_DELAY = 100;
 
@@ -29,7 +32,7 @@ function* onDictionarySubmit() {
   const locale = yield select(selectLocale);
 
   try {
-    const wordDefinition = yield call(findWordDefinition, { locale, word });
+    const wordDefinition = yield call(memoizedFindWordDefinition, locale, word);
     yield put(dictionarySlice.actions.submitSuccess(wordDefinition));
   } catch (error) {
     yield put(dictionarySlice.actions.submitFailure());
