@@ -109,10 +109,10 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
             onBackspace: () => handleCharacterChange(index, null),
             onDelete: () => handleCharacterChange(index, null),
             onKeyDown: (event) => {
-              const character = event.key.toLowerCase();
+              const newCharacter = event.key.toLowerCase();
 
-              if (config.hasCharacter(character) || character === BLANK) {
-                handleCharacterChange(index, character);
+              if (config.hasCharacter(newCharacter) || newCharacter === BLANK) {
+                handleCharacterChange(index, newCharacter);
               }
 
               onKeyDown(event);

@@ -51,10 +51,11 @@ export const createTiles = ({ color, content, showPoints }: CreateTilesOptions) 
 const createTile = ({ cellIndex, character, color, rowIndex, showPoints }: CreateTileOptions) => {
   const configPoints = literaki['en-US'].getCharacterPoints(character.toLowerCase());
   const points = showPoints ? configPoints : undefined;
+  const defaultColor = typeof configPoints === 'number' ? POINTS_COLORS[configPoints] : COLOR_DEFAULT;
 
   return {
     character,
-    color: color ? color : typeof configPoints === 'number' ? POINTS_COLORS[configPoints] : COLOR_DEFAULT,
+    color: color || defaultColor,
     points,
     size: TILE_SIZE,
     transform: `rotate(${randomize(0, TILE_MAX_ROTATE)}, ${getX(cellIndex) + TILE_SIZE / 2}, ${
