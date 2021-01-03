@@ -42,10 +42,6 @@ const createTile = (character: string, rowIndex: number, cellIndex: number) => {
   };
 };
 
-export const getLongestWord = (words: string[]): string => {
-  return words.reduce((result, word) => (word.length > result.length ? word : result), '');
-};
-
 export const getViewbox = (content: string[][]) => {
   const longestRowLength = content.reduce((result, words) => {
     const wordsLength = words.reduce((sum, word) => sum + word.length, 0);
