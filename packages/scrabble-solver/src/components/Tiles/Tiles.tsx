@@ -43,7 +43,7 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
     return Array.from({ length: tilesCount }).map(() => createRef<HTMLInputElement>());
   }, [tilesCount]);
   const [activeIndex, setActiveIndex] = useState<number>();
-  const placeholder = useTranslation('modules.tiles.placeholder');
+  const placeholderTranslation = useTranslation('tiles.placeholder');
 
   const handleCharacterChange = (index: number, character: string | null) => {
     dispatch(tilesSlice.actions.changeCharacter({ character, index }));
@@ -101,7 +101,7 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
           inputRef={tilesRefs[index]}
           isBlank={character === BLANK}
           key={index}
-          placeholder={placeholder[index]}
+          placeholder={placeholderTranslation[index]}
           raised
           size={80} // TODO: unhardcode
           onFocus={() => setActiveIndex(index)}

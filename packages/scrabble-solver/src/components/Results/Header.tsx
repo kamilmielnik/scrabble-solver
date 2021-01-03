@@ -5,13 +5,13 @@ import { useTranslation } from 'state';
 import styles from './Results.module.scss';
 
 const Header = () => {
-  const word = useTranslation('modules.results.list.word');
-  const points = useTranslation('modules.results.list.points');
+  const wordTranslation = useTranslation('results.header.word');
+  const pointsTranslation = useTranslation('results.header.points');
 
   return (
     <div className={styles.header}>
-      <div className={styles.cell}>{word}</div>
-      <div className={styles.cell}>{points}</div>
+      <div className={styles.cell}>{wordTranslation}</div>
+      <div className={styles.cell}>{pointsTranslation}</div>
     </div>
   );
 };
