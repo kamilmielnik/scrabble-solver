@@ -12,7 +12,7 @@
     "bootstrap": "lerna bootstrap --force-local",
     "build": "babel-node scripts/build.js",
     "build:prod": "babel-node scripts/build.js prod",
-    "clean": "lerna run clean && rm -rf dictionaries/ node_modules/",
+    "clean": "lerna run clean && rm -rf dictionaries/ node_modules/ package-lock.json",
     "deploy": "babel-node scripts/deploy.js",
     "lint": "eslint packages/configs packages/constants packages/logger packages/models packages/scrabble-solver packages/solver --ext '.js,.jsx,.ts,.tsx'",
     "lint:fix": "npm run lint -- --fix",
