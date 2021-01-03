@@ -8,8 +8,8 @@ import { createAppStore } from 'state';
 import 'styles/global.scss';
 
 const NAME = 'Kamil Mielnik';
-const DESCRIPTION = 'Scrabble Solver 2';
-const KEYWORDS = ['Scrabble', 'Literaki', 'Solver', NAME].join(',');
+const DESCRIPTION = 'Scrabble Solver 2 - The ultimate cheating app for Scrabble and Literaki';
+const KEYWORDS = ['Scrabble', 'Literaki', 'Solver', 'Cheating', 'JavaScript', 'JS', 'TypeScript', 'TS', NAME].join(',');
 
 const store = createAppStore();
 
