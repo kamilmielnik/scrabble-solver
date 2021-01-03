@@ -2,22 +2,24 @@ import classNames from 'classnames';
 import React, { CSSProperties, FunctionComponent, useMemo } from 'react';
 
 import { createTiles, getViewbox } from './lib';
-import Tile from './Tile';
 import styles from './PlainTiles.module.scss';
+import Tile from './Tile';
 
 interface Props {
   className?: string;
   content: string[][];
+  dropShadow?: boolean;
   style?: CSSProperties;
   wave?: boolean;
 }
 
-const PlainTiles: FunctionComponent<Props> = ({ className, content, style, wave }) => {
+const PlainTiles: FunctionComponent<Props> = ({ className, content, dropShadow, style, wave }) => {
   const tiles = useMemo(() => createTiles(content), [content]);
 
   return (
     <svg
       className={classNames(className, {
+        [styles.dropShadow]: dropShadow,
         [styles.wave]: wave,
       })}
       style={style}

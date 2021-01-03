@@ -20,8 +20,8 @@ $duration: 750ms;
   }
 }
 
-.wave {
-  .tile {
+.tile {
+  .wave & {
     $max: 20;
     $max-delay: ($max - 1) * $delay;
 
@@ -34,4 +34,8 @@ $duration: 750ms;
       }
     }
   }
+}
+
+.dropShadow {
+  filter: drop-shadow(0 0 4px rgba(#000, 0.4));
 }
