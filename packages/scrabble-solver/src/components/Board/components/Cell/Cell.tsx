@@ -53,6 +53,7 @@ const Cell: FunctionComponent<Props> = ({ cell, className, inputRef, size, onFoc
     [x, y, config, dispatch, onKeyDown, onMoveFocus],
   );
   const { tileFontSize } = Tile.getSizes(size);
+  const isEmpty = tile.character === EMPTY_CELL;
 
   return (
     <div
@@ -71,11 +72,11 @@ const Cell: FunctionComponent<Props> = ({ cell, className, inputRef, size, onFoc
     >
       <Tile
         className={styles.tile}
-        character={tile.character === EMPTY_CELL ? undefined : tile.character}
+        character={isEmpty ? undefined : tile.character}
         highlighted={cell.isCandidate()}
         inputRef={inputRef}
         isBlank={tile.isBlank}
-        raised={tile.character !== EMPTY_CELL}
+        raised={!isEmpty}
         size={size}
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
