@@ -3,18 +3,15 @@ interface Entry<T extends (...parameters: any) => any> {
   result: ReturnType<T>;
 }
 
+const parametersEqual = <T extends (...parameters: any) => any>(a: Parameters<T>, b: Parameters<T>): boolean => {
+  return a.length === b.length && a.every((parameter: any, index: number) => parameter === b[index]);
+};
+
 const memoize = <T extends (...parameters: any) => any>(fn: T): T => {
   const cache: Entry<T>[] = [];
 
-  const readCache = (...parameters: Parameters<T>): ReturnType<T> | undefined => {
-    const cached = cache.find((entry) => {
-      return (
-        entry.parameters.length === parameters.length &&
-        entry.parameters.every((parameter: any, index: number) => parameter === parameters[index])
-      );
-    });
-
-    return cached?.result;
+  const readCache = (parameters: Parameters<T>): ReturnType<T> | undefined => {
+    return cache.find((entry) => parametersEqual(entry.parameters, parameters))?.result;
   };
 
   const writeCache = (parameters: Parameters<T>, result: ReturnType<T>): void => {
@@ -22,7 +19,7 @@ const memoize = <T extends (...parameters: any) => any>(fn: T): T => {
   };
 
   const memoized = (...parameters: Parameters<T>): ReturnType<T> => {
-    const cached = readCache(...parameters);
+    const cached = readCache(parameters);
 
     if (cached) {
       return cached;
