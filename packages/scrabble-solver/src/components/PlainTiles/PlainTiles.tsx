@@ -1,7 +1,9 @@
+import classNames from 'classnames';
 import React, { CSSProperties, FunctionComponent, useMemo } from 'react';
 
 import { createTiles, getViewbox } from './lib';
 import Tile from './Tile';
+import styles from './PlainTiles.module.scss';
 
 interface Props {
   className?: string;
@@ -10,14 +12,22 @@ interface Props {
   style?: CSSProperties;
 }
 
-const PlainTiles: FunctionComponent<Props> = ({ className, content, style }) => {
+const PlainTiles: FunctionComponent<Props> = ({ className, content, floating, style }) => {
   const tiles = useMemo(() => createTiles(content), [content]);
 
   return (
-    <svg className={className} style={style} viewBox={getViewbox(content)} xmlns="http://www.w3.org/2000/svg">
+    <svg
+      className={classNames(className, {
+        [styles.floating]: floating,
+      })}
+      style={style}
+      viewBox={getViewbox(content)}
+      xmlns="http://www.w3.org/2000/svg"
+    >
       {tiles.map((tile, index) => (
         <Tile
           character={tile.character}
+          className={styles.tile}
           color={tile.color}
           key={index}
           points={tile.points}

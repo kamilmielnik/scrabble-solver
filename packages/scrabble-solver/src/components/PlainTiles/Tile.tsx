@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 
 interface Props {
   character: string;
+  className?: string;
   color: string;
   points?: number;
   size: number;
@@ -10,8 +11,8 @@ interface Props {
   y: number;
 }
 
-const Tile: FunctionComponent<Props> = ({ character, color, points, size, transform, x, y }) => (
-  <g transform={transform}>
+const Tile: FunctionComponent<Props> = ({ character, className, color, points, size, transform, x, y }) => (
+  <g className={className} transform={transform}>
     <rect fill={color} height={size} width={size} x={x} y={y} />
 
     <text

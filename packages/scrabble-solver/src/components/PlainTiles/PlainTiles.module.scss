@@ -1,0 +1,36 @@
+$offset: 6px;
+$delay: 150ms;
+$duration: 750ms;
+
+@keyframes wave {
+  0% {
+    transform: translateY(0px);
+  }
+
+  25% {
+    transform: translateY($offset);
+  }
+
+  75% {
+    transform: translateY(-$offset);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.floating {
+  .tile {
+    $max: 20;
+
+    animation: wave $duration infinite;
+    animation-timing-function: linear;
+
+    @for $i from 1 through $max {
+      &:nth-child(#{$i}) {
+        animation-delay: ($i - 1) * $delay;
+      }
+    }
+  }
+}

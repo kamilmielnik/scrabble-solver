@@ -15,7 +15,7 @@ interface Props {
   floating?: boolean;
 }
 
-const Loading: FunctionComponent<Props> = ({ className, estimatedDuration, floating }) => {
+const Loading: FunctionComponent<Props> = ({ className, estimatedDuration, floating = true }) => {
   const loading = useTranslation('loading');
   const content = useMemo<string[][]>(() => [[loading.toUpperCase()]], [loading]);
   const progress = useInfiniteProgress(estimatedDuration);
