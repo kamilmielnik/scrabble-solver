@@ -45,6 +45,10 @@ const useLocalStorage = () => {
   const tiles = useTypedSelector(selectTiles);
 
   useEffectOnce(() => {
+    if (localStorage.tiles) {
+      dispatch(tilesSlice.actions.change(localStorage.tiles));
+    }
+
     if (localStorage.board) {
       dispatch(boardSlice.actions.change(localStorage.board));
     }
@@ -55,10 +59,6 @@ const useLocalStorage = () => {
 
     if (localStorage.locale) {
       dispatch(i18nSlice.actions.changeLocale(localStorage.locale));
-    }
-
-    if (localStorage.tiles) {
-      dispatch(tilesSlice.actions.change(localStorage.tiles));
     }
   });
 
