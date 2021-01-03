@@ -7,8 +7,8 @@ const resultsSlice = createSlice({
   initialState: resultsInitialState,
   name: 'results',
   reducers: {
-    applyResult: (state, _action: PayloadAction<Result>) => {
-      return { ...state, candidate: resultsInitialState.candidate };
+    applyResult: () => {
+      return resultsInitialState;
     },
 
     changeResultCandidate: (state, action: PayloadAction<Result | null>) => {

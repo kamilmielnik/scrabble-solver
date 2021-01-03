@@ -23,7 +23,6 @@ export function* rootSaga() {
 function* onApplyResult({ payload: result }: PayloadAction<Result>) {
   yield put(boardSlice.actions.applyResult(result));
   yield put(tilesSlice.actions.removeTiles(result.tiles));
-  yield put(resultsSlice.actions.changeResults([]));
 }
 
 function* onDictionarySubmit() {
