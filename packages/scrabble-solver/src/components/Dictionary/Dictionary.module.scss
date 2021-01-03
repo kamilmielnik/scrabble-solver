@@ -1,12 +1,12 @@
 $height: 200px;
 
 .dictionary {
-  position: relative;
   min-height: $height;
   height: $height;
   max-height: $height;
   padding: var(--spacing--l);
-  overflow: auto;
+  overflow-y: scroll;
+  word-break: break-word;
   background-color: white;
   transition: var(--transition);
   font-size: var(--font--size--s);
