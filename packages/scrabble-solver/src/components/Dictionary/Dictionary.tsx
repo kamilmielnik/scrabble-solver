@@ -3,6 +3,7 @@ import React, { FunctionComponent } from 'react';
 
 import { selectDictionaryRoot, useTranslation, useTypedSelector } from 'state';
 
+import EmptyState from '../EmptyState';
 import Loading from '../Loading';
 
 import styles from './Dictionary.module.scss';
@@ -24,10 +25,10 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
         [styles.isNotAllowed]: isAllowed === false,
       })}
     >
-      {typeof word === 'undefined' && <div className={styles.empty}>{unitializedTranslation}</div>}
+      {typeof word === 'undefined' && <EmptyState type="info">{unitializedTranslation}</EmptyState>}
 
       {typeof word !== 'undefined' && (
-        <>
+        <div className={styles.content}>
           {word && <div className={styles.word}>{word}</div>}
 
           {isAllowed === false && <div>{notAllowedTranslation}</div>}
@@ -43,7 +44,7 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
           )}
 
           {!isLoading && isAllowed === null && <div>{noResultsTranslation}</div>}
-        </>
+        </div>
       )}
 
       {isLoading && <Loading />}

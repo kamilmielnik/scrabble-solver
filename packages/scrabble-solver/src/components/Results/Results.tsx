@@ -3,6 +3,7 @@ import { FixedSizeList } from 'react-window';
 
 import { selectIsLoading, selectSortedResults, useTranslation, useTypedSelector } from 'state';
 
+import EmptyState from '../EmptyState';
 import Loading from '../Loading';
 
 import Header from './Header';
@@ -27,7 +28,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
     <div className={styles.results}>
       <Header />
 
-      {typeof results === 'undefined' && <div className={styles.empty}>{unitializedTranslation}</div>}
+      {typeof results === 'undefined' && <EmptyState type="info">{unitializedTranslation}</EmptyState>}
 
       {typeof results !== 'undefined' && (
         <>
@@ -42,7 +43,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
             </FixedSizeList>
           )}
 
-          {results.length === 0 && <div className={styles.empty}>{noResultsTranslation}</div>}
+          {results.length === 0 && <EmptyState type="error">{noResultsTranslation}</EmptyState>}
         </>
       )}
 

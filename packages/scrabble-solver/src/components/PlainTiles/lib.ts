@@ -11,27 +11,50 @@ import {
   TILE_SIZE,
 } from './constants';
 
+interface CreateTileOptions {
+  cellIndex: number;
+  character: string;
+  color?: string;
+  rowIndex: number;
+  showPoints?: boolean;
+}
+
+interface CreateTilesOptions {
+  color?: string;
+  content: string[][];
+  showPoints?: boolean;
+}
+
 const randomize = (value: number, maxChange: number): number => value + maxChange * 2 * (0.5 - Math.random());
 
-export const createTiles = (content: string[][]) => {
+export const createTiles = ({ color, content, showPoints }: CreateTilesOptions) => {
   const rows = content.map((words, rowIndex) => {
     return words.map((word, wordIndex) => {
       const cellOffset = words.slice(0, wordIndex).reduce((result, { length }) => result + length + ' '.length, 0);
       const characters = word.split('');
 
-      return characters.map((character, cellIndex) => createTile(character, rowIndex, cellOffset + cellIndex));
+      return characters.map((character, cellIndex) => {
+        return createTile({
+          cellIndex: cellOffset + cellIndex,
+          character,
+          color,
+          rowIndex,
+          showPoints,
+        });
+      });
     });
   });
   const tiles = rows.flat(2);
   return tiles;
 };
 
-const createTile = (character: string, rowIndex: number, cellIndex: number) => {
-  const points = literaki['en-US'].getCharacterPoints(character.toLowerCase());
+const createTile = ({ cellIndex, character, color, rowIndex, showPoints }: CreateTileOptions) => {
+  const configPoints = literaki['en-US'].getCharacterPoints(character.toLowerCase());
+  const points = showPoints ? configPoints : undefined;
 
   return {
     character,
-    color: typeof points === 'number' ? POINTS_COLORS[points] : COLOR_DEFAULT,
+    color: color ? color : typeof configPoints === 'number' ? POINTS_COLORS[configPoints] : COLOR_DEFAULT,
     points,
     size: TILE_SIZE,
     transform: `rotate(${randomize(0, TILE_MAX_ROTATE)}, ${getX(cellIndex) + TILE_SIZE / 2}, ${

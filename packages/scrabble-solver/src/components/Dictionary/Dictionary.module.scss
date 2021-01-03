@@ -1,20 +1,17 @@
-$height: 200px;
+$height: 210px;
 
 .dictionary {
   min-height: $height;
   height: $height;
   max-height: $height;
-  padding: var(--spacing--l);
   overflow-y: scroll;
   word-break: break-word;
   transition: var(--transition);
   font-size: var(--font--size--s);
 }
 
-.empty {
-  padding: var(--spacing--xl);
-  color: var(--color--foreground--secondary);
-  text-align: center;
+.content {
+  padding: var(--spacing--l);
 }
 
 .word {

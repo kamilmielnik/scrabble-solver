@@ -7,14 +7,16 @@ import Tile from './Tile';
 
 interface Props {
   className?: string;
+  color?: string;
   content: string[][];
   dropShadow?: boolean;
+  showPoints?: boolean;
   style?: CSSProperties;
   wave?: boolean;
 }
 
-const PlainTiles: FunctionComponent<Props> = ({ className, content, dropShadow, style, wave }) => {
-  const tiles = useMemo(() => createTiles(content), [content]);
+const PlainTiles: FunctionComponent<Props> = ({ className, color, content, dropShadow, showPoints, style, wave }) => {
+  const tiles = useMemo(() => createTiles({ color, content, showPoints }), [color, content, showPoints]);
 
   return (
     <svg
