@@ -1,16 +1,23 @@
-import { configs } from '@scrabble-solver/configs';
 import { Config } from '@scrabble-solver/models';
 
-import { Locale } from 'types';
+import configs from './configs';
 
-const getConfig = (configId: string, locale: Locale): Config => {
+interface Result {
+  id: string;
+  name: string;
+  'en-GB': Config;
+  'en-US': Config;
+  'pl-PL': Config;
+}
+
+const getConfig = (configId: string): Result | undefined => {
   const config = configs.find(({ id }) => id === configId);
 
   if (!config) {
     throw new Error(`Invalid "configId" parameter: not one of ${configs.map(({ id }) => id).join('/')}`);
   }
 
-  return config[locale];
+  return config;
 };
 
 export default getConfig;

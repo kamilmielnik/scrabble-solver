@@ -1,4 +1,3 @@
-export { default as getConfig } from './getConfig';
 export { default as readLocaleDictionary } from './readLocaleDictionary';
 export { default as request } from './request';
 export { default as translateEn } from './translateEn';

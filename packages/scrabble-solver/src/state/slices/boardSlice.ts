@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import { Cell, Result, Tile } from '@scrabble-solver/models';
+import { Board, Cell, Result, Tile } from '@scrabble-solver/models';
 
 import boardInitialState from './boardInitialState';
 
@@ -30,6 +30,11 @@ const boardSlice = createSlice({
       });
 
       return newBoard;
+    },
+
+    change: (_state, action: PayloadAction<Board>) => {
+      const board = action.payload;
+      return board;
     },
 
     toggleCellIsBlank: (state, action: PayloadAction<{ x: number; y: number }>) => {

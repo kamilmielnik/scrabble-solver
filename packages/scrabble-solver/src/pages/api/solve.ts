@@ -1,18 +1,12 @@
 import { Trie } from '@kamilmielnik/trie';
+import { getLocaleConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import logger from '@scrabble-solver/logger';
 import { Board, Tile } from '@scrabble-solver/models';
 import Solver from '@scrabble-solver/solver';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import {
-  getConfig,
-  readLocaleDictionary,
-  validateBoard,
-  validateCharacters,
-  validateConfigId,
-  validateLocale,
-} from 'api';
+import { readLocaleDictionary, validateBoard, validateCharacters, validateConfigId, validateLocale } from 'api';
 import { Locale } from 'types';
 
 const localeTries: Record<Locale, Trie> = {
@@ -24,7 +18,7 @@ const localeTries: Record<Locale, Trie> = {
 const solve = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
   try {
     const { board, configId, locale, characters } = parseRequest(request);
-    const config = getConfig(configId, locale);
+    const config = getLocaleConfig(configId, locale);
     const trie = localeTries[locale];
     const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
     const solver = new Solver(config, trie);
@@ -48,7 +42,7 @@ const parseRequest = (
 
   validateConfigId(configId);
   validateLocale(locale);
-  const config = getConfig(configId, locale);
+  const config = getLocaleConfig(configId, locale);
   validateBoard(board, config);
   validateCharacters(characters, config);
 

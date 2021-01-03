@@ -1,4 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { getLocaleConfig } from '@scrabble-solver/configs';
 import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/models';
 
 import { createKeyComparator, reverseComparator } from 'lib';
@@ -28,12 +29,11 @@ export const selectCells = createSelector([selectRows], (rows) => {
   return rows.reduce<Cell[]>((cells: Cell[], row: Cell[]) => cells.concat(row), []);
 });
 
-export const selectConfigRoot = (state: RootState) => state.config;
+export const selectConfigId = (state: RootState) => state.configId;
 
-export const selectConfig = createSelector(
-  [selectConfigRoot, selectLocale],
-  (configRoot, locale): Config => configRoot[locale],
-);
+export const selectConfig = createSelector([selectConfigId, selectLocale], (configId, locale) => {
+  return getLocaleConfig(configId, locale);
+});
 
 export const selectResults = (state: RootState): Result[] => state.results.results;
 

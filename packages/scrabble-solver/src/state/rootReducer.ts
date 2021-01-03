@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
-import { boardSlice, configSlice, dictionarySlice, i18nSlice, resultsSlice, solveSlice, tilesSlice } from './slices';
+import { boardSlice, configIdSlice, dictionarySlice, i18nSlice, resultsSlice, solveSlice, tilesSlice } from './slices';
 
 const rootReducer = combineReducers({
   board: boardSlice.reducer,
-  config: configSlice.reducer,
+  configId: configIdSlice.reducer,
   dictionary: dictionarySlice.reducer,
   i18n: i18nSlice.reducer,
   results: resultsSlice.reducer,

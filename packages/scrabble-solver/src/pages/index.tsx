@@ -2,10 +2,19 @@ import { Config } from '@scrabble-solver/models';
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSize } from 'react-use';
+import { useEffectOnce, useSize } from 'react-use';
 
 import { Board, Dictionary, LocaleDropdown, Logo, Results, Splash, Tiles, Well } from 'components';
-import { i18nSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
+import {
+  boardSlice,
+  configIdSlice,
+  i18nSlice,
+  localStorage,
+  selectConfig,
+  selectLocale,
+  tilesSlice,
+  useTypedSelector,
+} from 'state';
 import { Locale } from 'types';
 
 import styles from './index.module.scss';
@@ -25,7 +34,30 @@ const getCellSize = (config: Config, width: number, height: number): number => {
   return Math.min(Math.max(cellSize, MIN_TILE_SIZE), MAX_TILE_SIZE);
 };
 
+const useLocalStorage = () => {
+  const dispatch = useDispatch();
+
+  useEffectOnce(() => {
+    if (localStorage.board) {
+      dispatch(boardSlice.actions.change(localStorage.board));
+    }
+
+    if (localStorage.configId) {
+      dispatch(configIdSlice.actions.change(localStorage.configId));
+    }
+
+    if (localStorage.locale) {
+      dispatch(i18nSlice.actions.changeLocale(localStorage.locale));
+    }
+
+    if (localStorage.tiles) {
+      dispatch(tilesSlice.actions.change(localStorage.tiles));
+    }
+  });
+};
+
 const Index: FunctionComponent = () => {
+  useLocalStorage();
   const dispatch = useDispatch();
   const [contentSizer, { width: contentWidth }] = useSize(<div />, INITIAL_SIZE);
   const [boardSizer, { height: boardHeight }] = useSize(<div />, INITIAL_SIZE);
