@@ -10,6 +10,7 @@
     "paths": {
       "api": ["./src/api"],
       "components": ["./src/components"],
+      "hooks": ["./src/hooks"],
       "icons": ["./src/icons"],
       "i18n": ["./src/i18n"],
       "lib": ["./src/lib"],

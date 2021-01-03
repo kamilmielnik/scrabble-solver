@@ -1,23 +1,12 @@
 import { Config } from '@scrabble-solver/models';
 import classNames from 'classnames';
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
-import { useEffectOnce, useSize } from 'react-use';
+import { useSize } from 'react-use';
 
 import { Board, Dictionary, LocaleDropdown, Logo, Results, Splash, Tiles, Well } from 'components';
-import {
-  boardSlice,
-  configIdSlice,
-  i18nSlice,
-  localStorage,
-  selectBoard,
-  selectConfig,
-  selectConfigId,
-  selectLocale,
-  selectTiles,
-  tilesSlice,
-  useTypedSelector,
-} from 'state';
+import { useLocalStorage } from 'hooks';
+import { i18nSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
 import { Locale } from 'types';
 
 import styles from './index.module.scss';
@@ -35,56 +24,6 @@ const getCellSize = (config: Config, width: number, height: number): number => {
   const maxHeight = (height - cellBorderWidth) / config.boardHeight - cellBorderWidth;
   const cellSize = Math.min(maxWidth, maxHeight);
   return Math.min(Math.max(cellSize, MIN_TILE_SIZE), MAX_TILE_SIZE);
-};
-
-const useLocalStorage = () => {
-  const dispatch = useDispatch();
-  const board = useTypedSelector(selectBoard);
-  const configId = useTypedSelector(selectConfigId);
-  const locale = useTypedSelector(selectLocale);
-  const tiles = useTypedSelector(selectTiles);
-
-  useEffectOnce(() => {
-    if (localStorage.tiles) {
-      dispatch(tilesSlice.actions.change(localStorage.tiles));
-    }
-
-    if (localStorage.board) {
-      dispatch(boardSlice.actions.change(localStorage.board));
-    }
-
-    if (localStorage.configId) {
-      dispatch(configIdSlice.actions.change(localStorage.configId));
-    }
-
-    if (localStorage.locale) {
-      dispatch(i18nSlice.actions.changeLocale(localStorage.locale));
-    }
-  });
-
-  useEffect(() => {
-    if (board) {
-      localStorage.board = board;
-    }
-  }, [board]);
-
-  useEffect(() => {
-    if (configId) {
-      localStorage.configId = configId;
-    }
-  }, [configId]);
-
-  useEffect(() => {
-    if (locale) {
-      localStorage.locale = locale;
-    }
-  }, [locale]);
-
-  useEffect(() => {
-    if (tiles) {
-      localStorage.tiles = tiles;
-    }
-  }, [tiles]);
 };
 
 const Index: FunctionComponent = () => {
