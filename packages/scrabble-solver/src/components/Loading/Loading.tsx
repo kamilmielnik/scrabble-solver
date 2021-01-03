@@ -14,8 +14,8 @@ interface Props {
 }
 
 const Loading: FunctionComponent<Props> = ({ className, wave = true }) => {
-  const loading = useTranslation('loading');
-  const content = useMemo<string[][]>(() => [[loading.toUpperCase()]], [loading]);
+  const loadingTranslation = useTranslation('loading');
+  const content = useMemo<string[][]>(() => [[loadingTranslation.toUpperCase()]], [loadingTranslation]);
 
   return (
     <div className={classNames(styles.loading, className)}>

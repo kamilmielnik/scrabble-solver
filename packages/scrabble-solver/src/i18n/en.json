@@ -1,8 +1,9 @@
 {
+  "loading": "Loading",
   "results.empty-state.unitialized": "Words generated from your letters will be shown here.",
   "results.empty-state.no-results": "No results - unable to generate any words.",
+
   "dictionary.cannot-find-definition": "Cannot find word definition",
-  "loading": "Loading",
   "modules.results.list.points": "Points",
   "modules.results.list.word": "Word",
   "modules.tiles.placeholder": "letters"

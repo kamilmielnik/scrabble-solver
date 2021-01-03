@@ -1,8 +1,9 @@
 {
+  "loading": "Ładowanie",
   "results.empty-state.unitialized": "Tu wyświetlone zostaną słowa wygenerowane z Twoich liter.",
   "results.empty-state.no-results": "Brak wyników - nie można wygenerować żadnego słowa.",
+
   "dictionary.cannot-find-definition": "Nie udało się znaleźć definicji słowa",
-  "loading": "Ładowanie",
   "modules.results.list.points": "Punkty",
   "modules.results.list.word": "Słowo",
   "modules.tiles.placeholder": "literki"
