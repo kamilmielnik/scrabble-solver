@@ -24,7 +24,7 @@
   --color--background--overlay: rgba(255, 255, 255, 0.85);
   --color--focus: #{rgba(#268fff, 0.5)};
   --color--foreground: black;
-  --color--foreground--secondary: white;
+  --color--foreground--secondary: #444;
   --color--inactive: #cdcdcd;
   --color--primary: #78387f;
 
@@ -44,7 +44,7 @@
   --color--violet--light: #{rgba(#78387f, 0.5)};
 
   --font--family: 'Open Sans', sans-serif;
-  --font--family--title: 'Lato', sans-serif;
+  --font--family--secondary: 'Lato', sans-serif;
   --font--size--s: 14px;
   --font--size--m: 16px;
   --font--size--l: 22px;

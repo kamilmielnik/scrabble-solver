@@ -1,11 +1,15 @@
 @import 'styles/mixins';
 
+$row-padding: var(--spacing--s) var(--spacing--m);
+
 .results {
   position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
-  font-size: 16px;
+  font-family: var(--font--family--secondary);
+  font-size: var(--font--size--s);
+  text-transform: uppercase;
 }
 
 .header {
@@ -14,34 +18,29 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--spacing--s) 0;
+  padding: $row-padding;
   border-bottom: var(--border);
-  font-size: 14px;
-  text-transform: uppercase;
+  font-size: var(--font--size--m);
+  font-weight: 700;
 }
 
 .empty {
   flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: var(--spacing--m);
+  padding: var(--spacing--xl);
   background-color: white;
-}
-
-.icon {
-  margin-bottom: var(--spacing--s);
-  font-size: 24px;
+  color: var(--color--foreground--secondary);
+  text-align: center;
+  text-transform: none;
 }
 
 .row {
   display: flex;
   align-items: center;
-  padding: var(--spacing--s) 0;
+  padding: $row-padding;
   user-select: none;
   transition: var(--transition);
   cursor: pointer;
+  font-weight: 400;
 
   &:hover {
     background-color: var(--color--primary);

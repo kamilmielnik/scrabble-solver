@@ -1,17 +1,16 @@
 import React, { FunctionComponent } from 'react';
 import { FixedSizeList } from 'react-window';
 
-import { selectIsLoading, selectSortedResults, useTypedSelector } from 'state';
+import { selectIsLoading, selectSortedResults, useTranslation, useTypedSelector } from 'state';
 
 import Loading from '../Loading';
 
-import Empty from './Empty';
 import Header from './Header';
 import Result from './Result';
 import styles from './Results.module.scss';
 
-const HEADER_HEIGHT = 32;
-const ITEM_HEIGHT = 38;
+const HEADER_HEIGHT = 35;
+const ITEM_HEIGHT = 34;
 
 interface Props {
   height: number;
@@ -21,18 +20,31 @@ interface Props {
 const Results: FunctionComponent<Props> = ({ height, width }) => {
   const results = useTypedSelector(selectSortedResults);
   const isLoading = useTypedSelector(selectIsLoading);
+  const unitializedTranslation = useTranslation('results.empty-state.unitialized');
+  const noResultsTranslation = useTranslation('results.empty-state.no-results');
 
   return (
     <div className={styles.results}>
       <Header />
 
-      {results.length > 0 && (
-        <FixedSizeList height={height - HEADER_HEIGHT} itemCount={results.length} itemSize={ITEM_HEIGHT} width={width}>
-          {Result}
-        </FixedSizeList>
-      )}
+      {typeof results === 'undefined' && <div className={styles.empty}>{unitializedTranslation}</div>}
 
-      {results.length === 0 && <Empty />}
+      {typeof results !== 'undefined' && (
+        <>
+          {results.length > 0 && (
+            <FixedSizeList
+              height={height - HEADER_HEIGHT}
+              itemCount={results.length}
+              itemSize={ITEM_HEIGHT}
+              width={width}
+            >
+              {Result}
+            </FixedSizeList>
+          )}
+
+          {results.length === 0 && <div className={styles.empty}>{noResultsTranslation}</div>}
+        </>
+      )}
 
       {isLoading && <Loading />}
     </div>

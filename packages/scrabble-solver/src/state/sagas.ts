@@ -58,6 +58,12 @@ function* onSubmit() {
   const locale = yield select(selectLocale);
   const characters = yield select(selectCharacters);
 
+  if (characters.length === 0) {
+    yield put(solveSlice.actions.submitSuccess());
+    // yield put(resultsSlice.actions.changeResults([]));
+    return;
+  }
+
   try {
     const results = yield call(solve, {
       board: board.toJson(),

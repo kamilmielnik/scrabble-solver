@@ -35,9 +35,15 @@ export const selectConfig = createSelector([selectConfigId, selectLocale], (conf
   return getLocaleConfig(configId, locale);
 });
 
-export const selectResults = (state: RootState): Result[] => state.results.results;
+export const selectResults = (state: RootState): Result[] | undefined => state.results.results;
 
-export const selectSortedResults = createSelector([selectResults], (results) => [...results].sort(pointsComparator));
+export const selectSortedResults = createSelector([selectResults], (results): Result[] | undefined => {
+  if (typeof results === 'undefined') {
+    return results;
+  }
+
+  return [...results].sort(pointsComparator);
+});
 
 export const selectResultCandidate = (state: RootState): Result | null => state.results.candidate;
 

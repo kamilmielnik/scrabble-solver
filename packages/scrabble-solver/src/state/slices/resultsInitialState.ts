@@ -2,7 +2,7 @@ import { Result } from '@scrabble-solver/models';
 
 const resultsInitialState = {
   candidate: null as Result | null,
-  results: [] as Result[],
+  results: undefined as Result[] | undefined,
 };
 
 export default resultsInitialState;
