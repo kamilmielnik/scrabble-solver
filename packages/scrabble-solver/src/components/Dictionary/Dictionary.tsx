@@ -13,7 +13,7 @@ interface Props {
 
 const Dictionary: FunctionComponent<Props> = ({ className }) => {
   const { definitions, isAllowed, isLoading, word } = useTypedSelector(selectDictionaryRoot);
-  const cannotFindDefinition = useTranslation('dictionary.cannot-find-definition');
+  const noResultsTranslation = useTranslation('dictionary.empty-state.no-results');
 
   return (
     <div
@@ -24,7 +24,7 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
     >
       {word && <div className={styles.word}>{word}</div>}
 
-      {isAllowed === false && <div>{cannotFindDefinition}</div>}
+      {isAllowed === false && <div>{noResultsTranslation}</div>}
 
       {isAllowed === true && (
         <ul className={styles.definitions}>
