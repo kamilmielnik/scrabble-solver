@@ -43,7 +43,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
             </FixedSizeList>
           )}
 
-          {results.length === 0 && <EmptyState type="error">{noResultsTranslation}</EmptyState>}
+          {results.length === 0 && <EmptyState type="warning">{noResultsTranslation}</EmptyState>}
         </>
       )}
 
