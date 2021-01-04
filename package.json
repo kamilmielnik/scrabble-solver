@@ -27,7 +27,7 @@
     "install-dictionaries": "npm-run-all --parallel prepare-*",
     "prepare-en-dictionaries": "babel-node scripts/prepare-en-dictionaries.js -- --output-dir dictionaries",
     "prepare-pl-dictionary": "babel-node scripts/prepare-pl-dictionary.js -- --output-dir dictionaries",
-    "reinstall": "npm run clean && npm install",
+    "reinstall": "npm run clean && npm install && npm run build",
     "test": "jest --no-cache --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache --watch",
     "test:watch": "jest --no-cache --watch"
