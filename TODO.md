@@ -11,6 +11,8 @@
 - hotkeys to focus 1) board, 2) tiles
 - help popover with hotkeys listed (ctrl+b, ctrl+right, ctrl+down - change typing direction)
 - proper error states
+- undo, redo
+- rename fromJson/toJson to serialize/deserialize
 
 # Resources
 
