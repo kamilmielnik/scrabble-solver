@@ -10,7 +10,7 @@ interface Result {
   'pl-PL': Config;
 }
 
-const getConfig = (configId: string): Result | undefined => {
+const getConfig = (configId: string): Result => {
   const config = configs.find(({ id }) => id === configId);
 
   if (!config) {

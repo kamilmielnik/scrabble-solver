@@ -17,7 +17,7 @@ const Result = ({ index, style }: Props) => {
   const result = results[index];
 
   const handleClick = () => {
-    dispatch(resultsSlice.actions.applyResult(result));
+    dispatch(resultsSlice.actions.applyResult());
   };
 
   const handleMouseEnter = () => {

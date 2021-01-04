@@ -10,7 +10,8 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap --force-local",
-    "build": "babel-node scripts/build.js",
+    "build": "lerna run build",
+    "build:old": "babel-node scripts/build.js",
     "build:prod": "babel-node scripts/build.js prod",
     "clean": "lerna run clean && rm -rf dictionaries/ node_modules/ package-lock.json",
     "deploy": "babel-node scripts/deploy.js",
