@@ -36,7 +36,7 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
 
           {isAllowed === true && (
             <>
-            {definitions.length === 0 && <div>{noDefinitionsTranslation}</div>}
+              {definitions.length === 0 && <div>{noDefinitionsTranslation}</div>}
 
               {definitions.length > 0 && (
                 <ul className={styles.definitions}>
