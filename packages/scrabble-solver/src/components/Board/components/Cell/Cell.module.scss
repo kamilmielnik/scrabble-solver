@@ -89,4 +89,37 @@
       display: none;
     }
   }
+
+  &:focus-within {
+    .direction {
+      opacity: 1;
+    }
+  }
+}
+
+.direction {
+  $size: 8px;
+  $side-size: $size * 2 / 3;
+
+  position: absolute;
+  z-index: 1;
+  width: $size;
+  height: $size;
+  border: $side-size solid transparent;
+  transition: var(--transition);
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
+
+  &.down {
+    top: calc(100% + var(--focus--box-shadow--size));
+    left: calc(50% - #{$size / 2});
+    border-top: (2 * $side-size * 0.7) solid var(--color--focus);
+  }
+
+  &.right {
+    top: calc(50% - #{$size / 2});
+    left: calc(100% + var(--focus--box-shadow--size));
+    border-left: (2 * $side-size * 0.7) solid var(--color--focus);
+  }
 }

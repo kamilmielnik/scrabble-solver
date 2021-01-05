@@ -3,7 +3,6 @@
 - button to clear board
 - mobile (!)
 - XL screens responsiveness
-- on a board, render a small indicator near focused tile, indicating in which direction (horizontal/vertical) is user typing now
 
 # TODO v2++
 

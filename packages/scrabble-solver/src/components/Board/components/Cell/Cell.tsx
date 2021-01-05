@@ -15,6 +15,7 @@ import { getBonusClassname } from './lib';
 interface Props {
   cell: CellModel;
   className?: string;
+  direction: 'horizontal' | 'vertical';
   inputRef?: RefObject<HTMLInputElement>;
   size: number;
   onFocus: (x: number, y: number) => void;
@@ -22,7 +23,16 @@ interface Props {
   onMoveFocus: () => void;
 }
 
-const Cell: FunctionComponent<Props> = ({ cell, className, inputRef, size, onFocus, onKeyDown, onMoveFocus }) => {
+const Cell: FunctionComponent<Props> = ({
+  cell,
+  className,
+  direction,
+  inputRef,
+  size,
+  onFocus,
+  onKeyDown,
+  onMoveFocus,
+}) => {
   const { tile, x, y } = cell;
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
@@ -57,7 +67,6 @@ const Cell: FunctionComponent<Props> = ({ cell, className, inputRef, size, onFoc
     <div
       className={classNames(styles.cell, getBonusClassname(cell, bonus), className, {
         [styles.candidate]: cell.isCandidate(),
-        [styles.withTile]: !isEmpty,
       })}
       style={{
         fontSize: tileFontSize,
@@ -73,6 +82,13 @@ const Cell: FunctionComponent<Props> = ({ cell, className, inputRef, size, onFoc
         size={size}
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
+      />
+
+      <div
+        className={classNames(styles.direction, {
+          [styles.down]: direction === 'vertical',
+          [styles.right]: direction === 'horizontal',
+        })}
       />
     </div>
   );

@@ -1,10 +1,11 @@
-import { createRef, KeyboardEventHandler, RefObject, useCallback, useMemo, useRef } from 'react';
+import { createRef, KeyboardEventHandler, RefObject, useCallback, useMemo, useState, useRef } from 'react';
 
 import { createKeyboardNavigation } from 'lib';
 
 import { createGridOf } from '../lib';
 
 interface State {
+  lastDirection: 'horizontal' | 'vertical';
   refs: RefObject<HTMLInputElement>[][];
 }
 
@@ -20,7 +21,7 @@ const useGrid = (width: number, height: number): [State, Actions] => {
     [width, height],
   );
   const activeIndex = useRef<{ x: number | null; y: number | null }>({ x: null, y: null });
-  const lastDirectionRef = useRef<'horizontal' | 'vertical'>('horizontal');
+  const [lastDirection, setLastDirection] = useState<'horizontal' | 'vertical'>('horizontal');
 
   const changeActiveIndex = useCallback(
     (offsetX, offsetY) => {
@@ -40,37 +41,40 @@ const useGrid = (width: number, height: number): [State, Actions] => {
   );
 
   const onMoveFocus = useCallback(() => {
-    if (lastDirectionRef.current === 'horizontal') {
+    if (lastDirection === 'horizontal') {
       changeActiveIndex(1, 0);
-    } else if (lastDirectionRef.current === 'vertical') {
+    } else if (lastDirection === 'vertical') {
       changeActiveIndex(0, 1);
     }
-  }, [changeActiveIndex]);
+  }, [changeActiveIndex, lastDirection]);
 
   const onKeyDown = useMemo(
     () =>
       createKeyboardNavigation({
         onArrowDown: () => {
           changeActiveIndex(0, 1);
-          lastDirectionRef.current = 'vertical';
+          setLastDirection('vertical');
         },
         onArrowLeft: () => {
           changeActiveIndex(-1, 0);
-          lastDirectionRef.current = 'horizontal';
+          setLastDirection('horizontal');
         },
         onArrowRight: () => {
           changeActiveIndex(1, 0);
-          lastDirectionRef.current = 'horizontal';
+          setLastDirection('horizontal');
         },
         onArrowUp: () => {
           changeActiveIndex(0, -1);
-          lastDirectionRef.current = 'vertical';
+          setLastDirection('vertical');
         },
       }),
     [changeActiveIndex],
   );
 
-  return [{ refs }, { onFocus, onKeyDown, onMoveFocus }];
+  return [
+    { lastDirection, refs },
+    { onFocus, onKeyDown, onMoveFocus },
+  ];
 };
 
 export default useGrid;

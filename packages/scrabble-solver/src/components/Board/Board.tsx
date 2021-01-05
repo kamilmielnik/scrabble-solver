@@ -14,7 +14,7 @@ interface Props {
 
 const Board: FunctionComponent<Props> = ({ className, cellSize }) => {
   const rows = useTypedSelector(selectRowsWithCandidate);
-  const [{ refs }, { onFocus, onKeyDown, onMoveFocus }] = useGrid(rows[0].length, rows.length);
+  const [{ lastDirection, refs }, { onFocus, onKeyDown, onMoveFocus }] = useGrid(rows[0].length, rows.length);
 
   return (
     <div className={classNames(styles.board, className)}>
@@ -24,6 +24,7 @@ const Board: FunctionComponent<Props> = ({ className, cellSize }) => {
             <Cell
               className={styles.cell}
               cell={cell}
+              direction={lastDirection}
               inputRef={refs[y][x]}
               key={x}
               size={cellSize}

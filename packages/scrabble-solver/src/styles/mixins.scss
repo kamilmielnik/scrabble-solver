@@ -1,6 +1,4 @@
 @mixin focus-effect {
-  $box-shadow-size: 6px;
-
   position: relative;
 
   &:after {
@@ -13,7 +11,7 @@
     z-index: 1;
     transition: var(--transition);
     border-radius: var(--border--radius);
-    box-shadow: 0 0 0 $box-shadow-size transparent;
+    box-shadow: 0 0 0 var(--focus--box-shadow--size) transparent;
     pointer-events: none;
   }
 
@@ -24,7 +22,7 @@
     }
 
     &:after {
-      box-shadow: 0 0 0 $box-shadow-size var(--color--focus);
+      box-shadow: 0 0 0 var(--focus--box-shadow--size) var(--color--focus);
     }
   }
 }
