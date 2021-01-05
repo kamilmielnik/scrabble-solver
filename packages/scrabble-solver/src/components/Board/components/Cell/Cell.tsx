@@ -86,7 +86,6 @@ const Cell: FunctionComponent<Props> = ({
 
       <div
         className={classNames(styles.direction, {
-          [styles.down]: direction === 'vertical',
           [styles.right]: direction === 'horizontal',
         })}
       />

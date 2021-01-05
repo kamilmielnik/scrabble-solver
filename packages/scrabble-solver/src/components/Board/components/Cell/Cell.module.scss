@@ -91,6 +91,8 @@
   }
 
   &:focus-within {
+    z-index: 1;
+
     .direction {
       opacity: 1;
     }
@@ -98,28 +100,38 @@
 }
 
 .direction {
-  $size: 8px;
+  $size: 10px;
   $side-size: $size * 2 / 3;
 
   position: absolute;
-  z-index: 1;
-  width: $size;
-  height: $size;
-  border: $side-size solid transparent;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   transition: var(--transition);
   opacity: 0;
   user-select: none;
   pointer-events: none;
-
-  &.down {
-    top: calc(100% + var(--focus--box-shadow--size));
-    left: calc(50% - #{$size / 2});
-    border-top: (2 * $side-size * 0.7) solid var(--color--focus);
-  }
+  transform: rotate(0deg);
 
   &.right {
-    top: calc(50% - #{$size / 2});
-    left: calc(100% + var(--focus--box-shadow--size));
-    border-left: (2 * $side-size * 0.7) solid var(--color--focus);
+    transform: rotate(-90deg);
+
+    &:after {
+      left: calc(50% - #{$size * 2 / 3});
+    }
+  }
+
+  &:after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: calc(100% + var(--focus--box-shadow--size));
+    left: calc(50% - #{$size / 2});
+    z-index: 1;
+    width: $size;
+    height: $size;
+    border: $side-size solid transparent;
+    border-top: (2 * $side-size * 0.5) solid var(--color--focus);
   }
 }
