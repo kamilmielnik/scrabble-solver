@@ -4,7 +4,7 @@ $height: 210px;
   min-height: $height;
   height: $height;
   max-height: $height;
-  overflow-y: scroll;
+  overflow-y: auto;
   word-break: break-word;
   transition: var(--transition);
   font-size: var(--font--size--s);
