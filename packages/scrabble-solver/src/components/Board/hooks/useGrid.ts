@@ -30,7 +30,7 @@ const useGrid = (width: number, height: number): [State, Actions] => {
       activeIndex.current = { x, y };
       refs[y][x].current?.focus();
     },
-    [activeIndex, refs, width, height],
+    [activeIndex, height, refs, width],
   );
 
   const onFocus = useCallback(
