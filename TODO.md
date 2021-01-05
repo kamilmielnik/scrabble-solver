@@ -3,6 +3,7 @@
 - button to clear board
 - mobile (!)
 - XL screens responsiveness
+- option to turn off auto typing direction change
 
 # TODO v2++
 

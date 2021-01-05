@@ -51,20 +51,32 @@ const useGrid = (width: number, height: number): [State, Actions] => {
   const onKeyDown = useMemo(
     () =>
       createKeyboardNavigation({
-        onArrowDown: () => {
-          changeActiveIndex(0, 1);
+        onArrowDown: (event) => {
+          if (!event.ctrlKey && !event.metaKey) {
+            changeActiveIndex(0, 1);
+          }
+
           setLastDirection('vertical');
         },
-        onArrowLeft: () => {
-          changeActiveIndex(-1, 0);
+        onArrowLeft: (event) => {
+          if (!event.ctrlKey && !event.metaKey) {
+            changeActiveIndex(-1, 0);
+          }
+
           setLastDirection('horizontal');
         },
-        onArrowRight: () => {
-          changeActiveIndex(1, 0);
+        onArrowRight: (event) => {
+          if (!event.ctrlKey && !event.metaKey) {
+            changeActiveIndex(1, 0);
+          }
+
           setLastDirection('horizontal');
         },
-        onArrowUp: () => {
-          changeActiveIndex(0, -1);
+        onArrowUp: (event) => {
+          if (!event.ctrlKey && !event.metaKey) {
+            changeActiveIndex(0, -1);
+          }
+
           setLastDirection('vertical');
         },
       }),
