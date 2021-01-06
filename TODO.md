@@ -1,9 +1,12 @@
 # TODO v2
 
+- settings
+    - game
+    - language
+    - option to turn off auto typing direction change
 - button to clear board
 - mobile (!)
 - XL screens responsiveness
-- option to turn off auto typing direction change
 
 # TODO v2++
 
