@@ -12,21 +12,19 @@ $size: 32px;
   cursor: pointer;
 
   &:hover {
-    .settingsIcon {
+    .icon {
       color: var(--color--foreground--secondary);
     }
   }
 
   &:active {
-    .settingsIcon {
+    .icon {
       color: var(--color--foreground);
     }
   }
 }
 
 .icon {
-  $size: 32px;
-
   width: $size;
   height: $size;
   transition: var(--transition);

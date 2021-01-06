@@ -1,14 +1,11 @@
 import { Config } from '@scrabble-solver/models';
 import classNames from 'classnames';
 import React, { FunctionComponent, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useSize } from 'react-use';
 
 import { Board, Dictionary, Logo, Results, Settings, SettingsButton, Splash, Tiles, Well } from 'components';
-import { cog } from 'icons';
 import { useLocalStorage } from 'hooks';
-import { i18nSlice, selectConfig, selectLocale, useTranslation, useTypedSelector } from 'state';
-import { Locale } from 'types';
+import { selectConfig, useTypedSelector } from 'state';
 
 import styles from './index.module.scss';
 
@@ -29,21 +26,14 @@ const getCellSize = (config: Config, width: number, height: number): number => {
 
 const Index: FunctionComponent = () => {
   useLocalStorage();
-  const dispatch = useDispatch();
   const [showSettings, setShowSettings] = useState<boolean>(false);
   const [contentSizer, { width: contentWidth }] = useSize(<div />, INITIAL_SIZE);
   const [boardSizer, { height: boardHeight }] = useSize(<div />, INITIAL_SIZE);
   const [resultsSizer, { height: resultsHeight, width: resultsWidth }] = useSize(<div />, INITIAL_SIZE);
   const config = useTypedSelector(selectConfig);
-  const locale = useTypedSelector(selectLocale);
   const cellSize = getCellSize(config, contentWidth - resultsWidth - SIDEBAR_MARGIN_LEFT, boardHeight);
   const isInitialized =
     contentWidth !== INITIAL_SIZE.width && boardHeight !== INITIAL_SIZE.height && resultsWidth !== INITIAL_SIZE.width;
-  const settingsLabelTranslation = useTranslation('settings');
-
-  const handleLocaleChange = (newLocale: Locale) => {
-    dispatch(i18nSlice.actions.changeLocale(newLocale));
-  };
 
   const handleShowSettings = () => setShowSettings(true);
 
