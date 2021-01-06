@@ -1,9 +1,9 @@
 import i18n from 'i18n';
-import { Locale } from 'types';
+import { detectLocale } from 'lib';
 
 const i18nInitialState = {
   i18n,
-  locale: 'en-GB' as Locale,
+  locale: detectLocale(),
 };
 
 export default i18nInitialState;
