@@ -1,4 +1,4 @@
-@keyframes pulse {
+@keyframes pulsate {
   0% {
     transform: scale(1);
   }
@@ -20,7 +20,7 @@
 }
 
 .pulsating {
-  animation: pulse 0.5s infinite;
+  animation: pulsate 0.5s infinite;
 }
 
 .logoGrayscale {
