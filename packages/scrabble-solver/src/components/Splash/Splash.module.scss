@@ -12,6 +12,12 @@
   }
 }
 
+.splash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .logo {
   width: 50vw;
   max-width: 688px;

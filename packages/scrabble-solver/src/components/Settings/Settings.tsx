@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
+import Screen from '../Screen';
+
 import styles from './Settings.module.scss';
 
 interface Props {
@@ -8,9 +10,9 @@ interface Props {
 }
 
 const Settings: FunctionComponent<Props> = ({ className }) => (
-  <div className={classNames(styles.settings, className)}>
+  <Screen className={classNames(styles.settings, className)}>
 
-  </div>
+  </Screen>
 );
 
 export default Settings;

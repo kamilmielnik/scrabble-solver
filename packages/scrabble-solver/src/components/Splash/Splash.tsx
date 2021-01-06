@@ -33,7 +33,7 @@ const Splash: FunctionComponent<Props> = ({ className, forceShow, splashDuration
   }, [splashDuration]);
 
   return (
-    <Screen className={className} hidden={hidden}>
+    <Screen className={classNames(styles.splash, className)} hidden={hidden}>
       <Logo
         className={classNames(styles.logo, styles.logoGrayscale, {
           [styles.pulsating]: isTimeoutFinished,
