@@ -1,3 +1,5 @@
+$z-index: 100;
+
 .screen {
   position: fixed;
   top: 0;
@@ -8,13 +10,21 @@
   transition: var(--transition);
   transition-duration: var(--transition--duration--long);
   opacity: 1;
-  z-index: 100;
+  z-index: $z-index;
 
   &.hidden {
     opacity: 0;
     user-select: none;
     pointer-events: none;
   }
+}
+
+.closeButton {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: $z-index + 1;
+  margin: var(--spacing--l);
 }
 
 .content {

@@ -27,17 +27,6 @@
   font-size: var(--font--size--l);
 }
 
-.settingsButton {
-
-}
-
-
-.flags {
-  flex: 0 0 auto;
-  border: var(--border);
-  box-shadow: var(--box-shadow);
-}
-
 .contentWrapper {
   $board-size: 15;
   $tile-size-max: 60px;

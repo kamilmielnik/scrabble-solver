@@ -3,9 +3,10 @@ import classNames from 'classnames';
 import React, { FunctionComponent, useState } from 'react';
 import { useSize } from 'react-use';
 
-import { Board, Dictionary, Logo, Results, Settings, SettingsButton, Splash, Tiles, Well } from 'components';
+import { Board, Dictionary, IconButton, Logo, Results, Settings, Splash, Tiles, Well } from 'components';
 import { useLocalStorage } from 'hooks';
-import { selectConfig, useTypedSelector } from 'state';
+import { cog } from 'icons';
+import { selectConfig, useTranslation, useTypedSelector } from 'state';
 
 import styles from './index.module.scss';
 
@@ -31,9 +32,12 @@ const Index: FunctionComponent = () => {
   const [boardSizer, { height: boardHeight }] = useSize(<div />, INITIAL_SIZE);
   const [resultsSizer, { height: resultsHeight, width: resultsWidth }] = useSize(<div />, INITIAL_SIZE);
   const config = useTypedSelector(selectConfig);
+  const settingsTitleTranslation = useTranslation('settings');
   const cellSize = getCellSize(config, contentWidth - resultsWidth - SIDEBAR_MARGIN_LEFT, boardHeight);
   const isInitialized =
     contentWidth !== INITIAL_SIZE.width && boardHeight !== INITIAL_SIZE.height && resultsWidth !== INITIAL_SIZE.width;
+
+  const handleHideSettings = () => setShowSettings(false);
 
   const handleShowSettings = () => setShowSettings(true);
 
@@ -45,7 +49,7 @@ const Index: FunctionComponent = () => {
             <Logo className={styles.logo} />
           </div>
 
-          <SettingsButton className={styles.settingsButton} onClick={handleShowSettings} />
+          <IconButton icon={cog} title={settingsTitleTranslation} onClick={handleShowSettings} />
         </div>
 
         <div className={styles.contentWrapper}>
@@ -77,7 +81,7 @@ const Index: FunctionComponent = () => {
         </div>
       </div>
 
-      <Settings hidden={!showSettings} />
+      <Settings hidden={!showSettings} onClose={handleHideSettings} />
 
       <Splash forceShow={!isInitialized} />
     </>
