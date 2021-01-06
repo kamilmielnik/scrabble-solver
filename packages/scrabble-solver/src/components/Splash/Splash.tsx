@@ -3,6 +3,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useTween } from 'react-use';
 
 import Logo from '../Logo';
+import Screen from '../Screen';
 
 import styles from './Splash.module.scss';
 
@@ -32,28 +33,22 @@ const Splash: FunctionComponent<Props> = ({ className, forceShow, splashDuration
   }, [splashDuration]);
 
   return (
-    <div
-      className={classNames(styles.splash, className, {
-        [styles.hidden]: hidden,
-      })}
-    >
-      <div className={styles.content}>
-        <Logo
-          className={classNames(styles.logo, styles.logoGrayscale, {
-            [styles.pulsating]: isTimeoutFinished,
-          })}
-        />
+    <Screen className={className} hidden={hidden}>
+      <Logo
+        className={classNames(styles.logo, styles.logoGrayscale, {
+          [styles.pulsating]: isTimeoutFinished,
+        })}
+      />
 
-        <Logo
-          className={classNames(styles.logo, styles.logoColor, {
-            [styles.pulsating]: isTimeoutFinished,
-          })}
-          style={{ clipPath: `polygon(0% 0%, ${progressPercent} 0, ${progressPercent} 100%, 0% 100%)` }}
-        />
+      <Logo
+        className={classNames(styles.logo, styles.logoColor, {
+          [styles.pulsating]: isTimeoutFinished,
+        })}
+        style={{ clipPath: `polygon(0% 0%, ${progressPercent} 0, ${progressPercent} 100%, 0% 100%)` }}
+      />
 
-        <div className={styles.author}>by Kamil Mielnik</div>
-      </div>
-    </div>
+      <div className={styles.author}>by Kamil Mielnik</div>
+    </Screen>
   );
 };
 

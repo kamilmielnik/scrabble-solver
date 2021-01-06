@@ -12,32 +12,6 @@
   }
 }
 
-.splash {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color--background);
-  transition: var(--transition);
-  transition-duration: var(--transition--duration--long);
-  opacity: 1;
-  z-index: 100;
-
-  &.hidden {
-    opacity: 0;
-    user-select: none;
-    pointer-events: none;
-  }
-}
-
-.content {
-  position: relative;
-}
-
 .logo {
   width: 50vw;
   max-width: 688px;
