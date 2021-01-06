@@ -4,9 +4,10 @@ import React, { FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSize } from 'react-use';
 
-import { Board, Dictionary, LocaleDropdown, Logo, Results, Splash, Tiles, Well } from 'components';
+import { Board, Dictionary, Logo, Results, Settings, SettingsButton, Splash, Tiles, Well } from 'components';
+import { cog } from 'icons';
 import { useLocalStorage } from 'hooks';
-import { i18nSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
+import { i18nSlice, selectConfig, selectLocale, useTranslation, useTypedSelector } from 'state';
 import { Locale } from 'types';
 
 import styles from './index.module.scss';
@@ -38,10 +39,13 @@ const Index: FunctionComponent = () => {
   const cellSize = getCellSize(config, contentWidth - resultsWidth - SIDEBAR_MARGIN_LEFT, boardHeight);
   const isInitialized =
     contentWidth !== INITIAL_SIZE.width && boardHeight !== INITIAL_SIZE.height && resultsWidth !== INITIAL_SIZE.width;
+  const settingsLabelTranslation = useTranslation('settings');
 
   const handleLocaleChange = (newLocale: Locale) => {
     dispatch(i18nSlice.actions.changeLocale(newLocale));
   };
+
+  const handleShowSettings = () => setShowSettings(true);
 
   return (
     <>
@@ -51,7 +55,7 @@ const Index: FunctionComponent = () => {
             <Logo className={styles.logo} />
           </div>
 
-          <LocaleDropdown className={styles.flags} onChange={handleLocaleChange} value={locale} />
+          <SettingsButton className={styles.settingsButton} onClick={handleShowSettings} />
         </div>
 
         <div className={styles.contentWrapper}>
@@ -82,6 +86,8 @@ const Index: FunctionComponent = () => {
           <Tiles className={styles.tiles} />
         </div>
       </div>
+
+      <Settings hidden={!showSettings} />
 
       <Splash forceShow={!isInitialized} />
     </>

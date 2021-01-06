@@ -1,3 +1,5 @@
+@import 'styles/mixins';
+
 .index {
   height: 100%;
   display: flex;
@@ -24,6 +26,11 @@
   flex: 1;
   font-size: var(--font--size--l);
 }
+
+.settingsButton {
+
+}
+
 
 .flags {
   flex: 0 0 auto;

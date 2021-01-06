@@ -7,11 +7,12 @@ import styles from './Settings.module.scss';
 
 interface Props {
   className?: string;
+  hidden?: boolean;
 }
 
-const Settings: FunctionComponent<Props> = ({ className }) => (
-  <Screen className={classNames(styles.settings, className)}>
-
+const Settings: FunctionComponent<Props> = ({ className, hidden }) => (
+  <Screen className={classNames(styles.settings, className)} hidden={hidden}>
+    Settings
   </Screen>
 );
 

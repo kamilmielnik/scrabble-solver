@@ -1,0 +1,33 @@
+@import 'styles/mixins';
+
+$size: 32px;
+
+.settingsButton {
+  @include button-reset;
+  @include focus-effect;
+
+  width: $size;
+  height: $size;
+  color: var(--color--inactive);
+  cursor: pointer;
+
+  &:hover {
+    .settingsIcon {
+      color: var(--color--foreground--secondary);
+    }
+  }
+
+  &:active {
+    .settingsIcon {
+      color: var(--color--foreground);
+    }
+  }
+}
+
+.icon {
+  $size: 32px;
+
+  width: $size;
+  height: $size;
+  transition: var(--transition);
+}

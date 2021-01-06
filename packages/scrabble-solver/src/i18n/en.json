@@ -12,5 +12,6 @@
   "results.empty-state.unitialized": "Words generated from your letters will be shown here.",
   "results.header.points": "Points",
   "results.header.word": "Word",
+  "settings": "Settings",
   "tiles.placeholder": "Letters"
 }

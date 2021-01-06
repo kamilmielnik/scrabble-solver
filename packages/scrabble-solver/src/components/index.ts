@@ -11,6 +11,7 @@ export { default as PlainTiles } from './PlainTiles';
 export { default as Results } from './Results';
 export { default as Screen } from './Screen';
 export { default as Settings } from './Settings';
+export { default as SettingsButton } from './SettingsButton';
 export { default as Splash } from './Splash';
 export { default as SvgIcon } from './SvgIcon';
 export { default as Tile } from './Tile';
