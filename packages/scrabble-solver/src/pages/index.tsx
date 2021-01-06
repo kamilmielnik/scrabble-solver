@@ -1,6 +1,6 @@
 import { Config } from '@scrabble-solver/models';
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSize } from 'react-use';
 
@@ -29,6 +29,7 @@ const getCellSize = (config: Config, width: number, height: number): number => {
 const Index: FunctionComponent = () => {
   useLocalStorage();
   const dispatch = useDispatch();
+  const [showSettings, setShowSettings] = useState<boolean>(false);
   const [contentSizer, { width: contentWidth }] = useSize(<div />, INITIAL_SIZE);
   const [boardSizer, { height: boardHeight }] = useSize(<div />, INITIAL_SIZE);
   const [resultsSizer, { height: resultsHeight, width: resultsWidth }] = useSize(<div />, INITIAL_SIZE);

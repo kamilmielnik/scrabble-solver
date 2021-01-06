@@ -9,6 +9,7 @@ export { default as LocaleDropdown } from './LocaleDropdown';
 export { default as Logo } from './Logo';
 export { default as PlainTiles } from './PlainTiles';
 export { default as Results } from './Results';
+export { default as Settings } from './Settings';
 export { default as Splash } from './Splash';
 export { default as SvgIcon } from './SvgIcon';
 export { default as Tile } from './Tile';
