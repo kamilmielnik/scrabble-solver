@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+
 import { flagGb, flagPl, flagUs } from 'icons';
 import { Locale } from 'types';
 

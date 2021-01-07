@@ -24,14 +24,7 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
   &.checked {
     .icon {
       &:after {
-        content: ' ';
-        position: absolute;
-        top: $radio-inner-border;
-        left: $radio-inner-border;
-        width: $radio-inner-size;
-        height: $radio-inner-size;
         background-color: var(--color--primary);
-        border-radius: 50%;
       }
     }
   }
@@ -55,7 +48,18 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
   border-radius: 50%;
   border: $radio-inner-border solid var(--color--primary);
   box-shadow: var(--box-shadow--null);
-  transition: var(--transition);
+
+  &:after {
+    content: ' ';
+    position: absolute;
+    top: $radio-inner-border;
+    left: $radio-inner-border;
+    width: $radio-inner-size;
+    height: $radio-inner-size;
+    background-color: transparent;
+    border-radius: 50%;
+    transition: var(--transition);
+  }
 }
 
 .content {
