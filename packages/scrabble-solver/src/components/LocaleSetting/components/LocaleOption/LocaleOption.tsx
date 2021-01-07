@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
+import React, { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { i18nSlice, selectLocale, useTypedSelector } from 'state';
@@ -19,22 +19,38 @@ const LocaleSetting: FunctionComponent<Props> = ({ className, option }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
   const isSelected = locale === option.value;
+  const id = '';
 
-  const handleLocaleChange = (newLocale: Locale) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newLocale: Locale = event.target.value as Locale;
     dispatch(i18nSlice.actions.changeLocale(newLocale));
   };
 
   return (
-    <div
+    <label
       className={classNames(styles.localeOption, className, {
         [styles.selected]: isSelected,
       })}
-      onClick={() => handleLocaleChange(option.value)}
+      htmlFor={id}
     >
-      <SvgIcon className={classNames(styles.flag, option.className)} icon={option.icon} />
+      <input
+        checked={isSelected}
+        className={styles.input}
+        id={id}
+        name="locale"
+        onChange={handleChange}
+        type="radio"
+        value={option.value}
+      />
+
+      <div className={styles.flagContainer}>
+        <SvgIcon className={classNames(styles.flag, option.className)} icon={option.icon} />
+      </div>
 
       <div className={styles.label}>{option.label}</div>
-    </div>
+
+      <div className={styles.radio} />
+    </label>
   );
 };
 

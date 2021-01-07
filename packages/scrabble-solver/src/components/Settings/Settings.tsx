@@ -37,20 +37,18 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
       hidden={hidden}
       onClose={onClose}
     >
-      <div>
+      <div className={styles.titleContainer}>
         <PlainTiles className={styles.title} content={titleTilesContent} />
       </div>
 
-      <div>
-        <div className={styles.section}>
-          <h2 className={styles.heading}>{languageTranslation}</h2>
-          <LocaleSetting />
-        </div>
+      <div className={styles.section}>
+        <h2 className={styles.heading}>{languageTranslation}</h2>
+        <LocaleSetting />
+      </div>
 
-        <div className={styles.section}>
-          <h2 className={styles.heading}>{rulesTranslation}</h2>
-          <div>asd</div>
-        </div>
+      <div className={styles.section}>
+        <h2 className={styles.heading}>{rulesTranslation}</h2>
+        <div>asd</div>
       </div>
     </Screen>
   );

@@ -11,12 +11,15 @@ $content-width: 800px;
   margin: 0 auto;
 }
 
+.titleContainer {
+  margin-top: var(--spacing--xxl);
+  margin-bottom: var(--spacing--xl);
+}
+
 .title {
   position: sticky;
   top: 0;
   height: $title-height;
-  padding-top: var(--spacing--xxl);
-  padding-bottom: var(--spacing--xl);
   box-sizing: content-box;
 }
 
@@ -28,10 +31,5 @@ $content-width: 800px;
 }
 
 .section {
-  padding: var(--spacing--xl) 0;
-  border-bottom: var(--border);
-
-  &:first-child {
-    border-top: var(--border);
-  }
+  margin: var(--spacing--xl) 0;
 }

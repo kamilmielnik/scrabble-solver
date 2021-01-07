@@ -11,3 +11,27 @@
     margin-right: 0;
   }
 }
+
+.flag {
+  $height: 42px;
+
+  height: $height;
+
+  &.gb {
+    $aspect-ratio: 2;
+
+    width: $height * $aspect-ratio;
+  }
+
+  &.pl {
+    $aspect-ratio: 1.6;
+
+    width: $height * $aspect-ratio;
+  }
+
+  &.us {
+    $aspect-ratio: 1.9;
+
+    width: $height * $aspect-ratio;
+  }
+}
