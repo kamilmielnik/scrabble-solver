@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
+import { useKey } from 'react-use';
 
-import { cross } from 'icons';
 import { i18nSlice, selectLocale, useTypedSelector } from 'state';
 import { Locale } from 'types';
 
@@ -23,6 +23,14 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
   const handleLocaleChange = (newLocale: Locale) => {
     dispatch(i18nSlice.actions.changeLocale(newLocale));
   };
+
+  const handleClose = () => {
+    if (!hidden) {
+      onClose();
+    }
+  };
+
+  useKey('Escape', handleClose, { event: 'keydown' }, [hidden, onClose]);
 
   return (
     <Screen className={classNames(styles.settings, className)} hidden={hidden} onClose={onClose}>
