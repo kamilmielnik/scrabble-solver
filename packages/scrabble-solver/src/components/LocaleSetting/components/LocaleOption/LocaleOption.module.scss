@@ -4,7 +4,7 @@
   @include focus-effect;
 
   &:hover,
-  &.selected {
+  &.checked {
     .flag {
       box-shadow: var(--box-shadow);
     }

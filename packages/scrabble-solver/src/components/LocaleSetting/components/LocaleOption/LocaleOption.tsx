@@ -19,6 +19,7 @@ interface Props {
 const LocaleOption: FunctionComponent<Props> = ({ className, option }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
+  const checked = locale === option.value;
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newLocale: Locale = event.target.value as Locale;
@@ -27,8 +28,10 @@ const LocaleOption: FunctionComponent<Props> = ({ className, option }) => {
 
   return (
     <Radio
-      checked={locale === option.value}
-      className={className}
+      checked={checked}
+      className={classNames(styles.localeOption, className, {
+        [styles.checked]: checked,
+      })}
       id="locale"
       name="locale"
       value={option.value}
