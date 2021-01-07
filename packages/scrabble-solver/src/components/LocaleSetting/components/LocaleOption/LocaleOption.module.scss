@@ -16,13 +16,8 @@
   align-items: center;
 }
 
-.flagContainer {
-  display: flex;
-  justify-content: center;
-  margin-right: var(--spacing--l);
-}
-
 .flag {
+  margin-right: var(--spacing--l);
   box-shadow: var(--box-shadow--null);
   transition: var(--transition);
 }

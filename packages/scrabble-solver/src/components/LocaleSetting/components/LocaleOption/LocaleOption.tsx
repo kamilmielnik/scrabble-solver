@@ -35,9 +35,7 @@ const LocaleOption: FunctionComponent<Props> = ({ className, option }) => {
       onChange={handleChange}
     >
       <div className={styles.content}>
-        <div className={styles.flagContainer}>
-          <SvgIcon className={classNames(styles.flag, option.className)} icon={option.icon} />
-        </div>
+        <SvgIcon className={classNames(styles.flag, option.className)} icon={option.icon} />
 
         <div>{option.label}</div>
       </div>

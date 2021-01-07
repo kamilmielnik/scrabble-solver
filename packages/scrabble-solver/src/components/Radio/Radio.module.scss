@@ -47,11 +47,8 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
   cursor: pointer;
 }
 
-.content {
-  margin-left: var(--spacing--l);
-}
-
 .icon {
+  flex: 0 0 auto;
   position: relative;
   width: $radio-box-size;
   height: $radio-box-size;
@@ -59,4 +56,9 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
   border: $radio-inner-border solid var(--color--primary);
   box-shadow: var(--box-shadow--null);
   transition: var(--transition);
+}
+
+.content {
+  flex: 1;
+  margin-left: var(--spacing--l);
 }
