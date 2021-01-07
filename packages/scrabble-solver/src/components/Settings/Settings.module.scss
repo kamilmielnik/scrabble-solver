@@ -1,4 +1,5 @@
 $title-height: 48px;
+$heading-height: 32px;
 $content-width: 800px;
 
 .settings {
@@ -17,4 +18,19 @@ $content-width: 800px;
   padding-top: var(--spacing--xxl);
   padding-bottom: var(--spacing--xl);
   box-sizing: content-box;
+}
+
+.heading {
+  height: $heading-height;
+  padding-bottom: var(--spacing--l);
+  box-sizing: content-box;
+}
+
+.section {
+  padding: var(--spacing--xl) 0;
+  border-bottom: var(--border);
+
+  &:first-child {
+    border-top: var(--border);
+  }
 }

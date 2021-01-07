@@ -14,5 +14,7 @@
   "results.header.points": "Punkty",
   "results.header.word": "Słowo",
   "settings": "Ustawienia",
+  "settings.language": "Język",
+  "settings.rules": "Reguły",
   "tiles.placeholder": "Literki"
 }

@@ -14,5 +14,7 @@
   "results.header.points": "Points",
   "results.header.word": "Word",
   "settings": "Settings",
+  "settings.language": "Language",
+  "settings.rules": "Rules",
   "tiles.placeholder": "Letters"
 }
