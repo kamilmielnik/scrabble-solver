@@ -21,8 +21,6 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
   const languageTranslation = useTranslation('settings.language');
   const rulesTranslation = useTranslation('settings.rules');
   const titleTilesContent = useMemo(() => [[settingsTranslation.toUpperCase()]], [settingsTranslation]);
-  const languageTilesContent = useMemo(() => [[languageTranslation.toUpperCase()]], [languageTranslation]);
-  const rulesTilesContent = useMemo(() => [[rulesTranslation.toUpperCase()]], [rulesTranslation]);
 
   const handleClose = () => {
     if (!hidden) {
@@ -43,14 +41,16 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
         <PlainTiles className={styles.title} content={titleTilesContent} />
       </div>
 
-      <div className={styles.section}>
-        <PlainTiles className={styles.heading} content={languageTilesContent} />
-        <LocaleSetting />
-      </div>
+      <div>
+        <div className={styles.section}>
+          <h2 className={styles.heading}>{languageTranslation}</h2>
+          <LocaleSetting />
+        </div>
 
-      <div className={styles.section}>
-        <PlainTiles className={styles.heading} content={rulesTilesContent} />
-        <div>asd</div>
+        <div className={styles.section}>
+          <h2 className={styles.heading}>{rulesTranslation}</h2>
+          <div>asd</div>
+        </div>
       </div>
     </Screen>
   );
