@@ -12,7 +12,7 @@ interface Props {
 const LocaleSetting: FunctionComponent<Props> = ({ className }) => (
   <div className={classNames(styles.localeSetting, className)}>
     {options.map((option) => (
-      <LocaleOption key={option.value} option={option} />
+      <LocaleOption className={styles.option} key={option.value} option={option} />
     ))}
   </div>
 );

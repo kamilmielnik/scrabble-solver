@@ -1,9 +1,28 @@
 .localeOption {
+  width: 180px;
+  padding: var(--spacing--l);
+  border: var(--border);
+  border-width: 3px;
+  border-radius: var(--border--radius);
+  border-color: var(--color--inactive);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.selected {
+  border-color: var(--color--primary);
+}
+
+.label {
+  margin-top: var(--spacing--m);
+  text-align: center;
 }
 
 .flag {
-  $height: 60px;
+  $height: 42px;
 
+  flex: 0 0 auto;
+  width: 100%;
   height: $height;
 
   &.gb {
