@@ -2,6 +2,7 @@ import logger from '@scrabble-solver/logger';
 import { WordDefinition } from '@scrabble-solver/models';
 import cheerio from 'cheerio';
 
+import normalizeDefinition from './normalizeDefinition';
 import request from './request';
 
 const translatePl = async (word: string): Promise<WordDefinition> => {
@@ -33,6 +34,7 @@ const parseSjpResponse = (html: string): WordDefinition => {
       .text()
       .trim()
       .split(/\d+\./)
+      .map(normalizeDefinition)
       .map((text) => text.trim())
       .filter(Boolean),
     isAllowed: $isAllowed.text().trim().indexOf('dopuszczalne w grach') >= 0,

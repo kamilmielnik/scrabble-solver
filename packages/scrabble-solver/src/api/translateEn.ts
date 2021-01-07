@@ -2,6 +2,7 @@ import logger from '@scrabble-solver/logger';
 import { WordDefinition } from '@scrabble-solver/models';
 import { URLSearchParams } from 'url';
 
+import normalizeDefinition from './normalizeDefinition';
 import request from './request';
 
 const API_KEY = 'd0c21cb3cbc3415984a2a0486da075e54aa68091c33a680d9';
@@ -22,24 +23,7 @@ const translateEn = async (word: string): Promise<WordDefinition> => {
         'Content-Type': 'application/json; charset=utf-8',
       },
     });
-    const results: { text: string }[] = JSON.parse(response);
-
-    if (!Array.isArray(results)) {
-      const error = new Error('Results is not an array');
-
-      logger.error('translateEn', {
-        error: error.message,
-        results,
-      });
-
-      throw new Error('Results is not an array');
-    }
-
-    const wordDefinition = new WordDefinition({
-      definitions: results.map(({ text }) => text).filter(Boolean),
-      isAllowed: results.length > 0,
-      word,
-    });
+    const wordDefinition = parseWordnikResponse(word, response);
     return wordDefinition;
   } catch (error) {
     logger.error('translateEn', {
@@ -48,6 +32,33 @@ const translateEn = async (word: string): Promise<WordDefinition> => {
     });
     throw error;
   }
+};
+
+const parseWordnikResponse = (word: string, response: string): WordDefinition => {
+  const results: { text: string }[] = JSON.parse(response);
+
+  if (!Array.isArray(results)) {
+    const error = new Error('Results is not an array');
+
+    logger.error('translateEn', {
+      error: error.message,
+      results,
+    });
+
+    throw new Error('Results is not an array');
+  }
+
+  const wordDefinition = new WordDefinition({
+    definitions: results
+      .map(({ text }) => text)
+      .map(normalizeDefinition)
+      .map((text) => text.trim())
+      .filter(Boolean),
+    isAllowed: results.length > 0,
+    word,
+  });
+
+  return wordDefinition;
 };
 
 export default translateEn;
