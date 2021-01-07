@@ -1,12 +1,11 @@
 import classNames from 'classnames';
 import React, { FunctionComponent, useMemo } from 'react';
-import { useDispatch } from 'react-redux';
 import { useKey } from 'react-use';
 
 import { PlainTiles } from 'components';
-import { i18nSlice, selectLocale, useTranslation, useTypedSelector } from 'state';
-import { Locale } from 'types';
+import { useTranslation } from 'state';
 
+import LocaleSetting from '../LocaleSetting';
 import Screen from '../Screen';
 
 import styles from './Settings.module.scss';
@@ -18,18 +17,12 @@ interface Props {
 }
 
 const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
-  const dispatch = useDispatch();
-  const locale = useTypedSelector(selectLocale);
   const settingsTranslation = useTranslation('settings');
   const languageTranslation = useTranslation('settings.language');
   const rulesTranslation = useTranslation('settings.rules');
   const titleTilesContent = useMemo(() => [[settingsTranslation.toUpperCase()]], [settingsTranslation]);
   const languageTilesContent = useMemo(() => [[languageTranslation.toUpperCase()]], [languageTranslation]);
   const rulesTilesContent = useMemo(() => [[rulesTranslation.toUpperCase()]], [rulesTranslation]);
-
-  const handleLocaleChange = (newLocale: Locale) => {
-    dispatch(i18nSlice.actions.changeLocale(newLocale));
-  };
 
   const handleClose = () => {
     if (!hidden) {
@@ -52,7 +45,7 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
 
       <div className={styles.section}>
         <PlainTiles className={styles.heading} content={languageTilesContent} />
-        <div>asd</div>
+        <LocaleSetting />
       </div>
 
       <div className={styles.section}>
