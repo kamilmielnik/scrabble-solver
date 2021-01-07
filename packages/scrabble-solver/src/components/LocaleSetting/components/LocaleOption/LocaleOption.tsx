@@ -43,13 +43,13 @@ const LocaleSetting: FunctionComponent<Props> = ({ className, option }) => {
         value={option.value}
       />
 
+      <div className={styles.radio} />
+
       <div className={styles.flagContainer}>
         <SvgIcon className={classNames(styles.flag, option.className)} icon={option.icon} />
       </div>
 
-      <div className={styles.label}>{option.label}</div>
-
-      <div className={styles.radio} />
+      <div>{option.label}</div>
     </label>
   );
 };

@@ -8,7 +8,8 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
 .localeOption {
   @include focus-effect;
 
-  width: 180px;
+  display: flex;
+  align-items: center;
   padding: var(--spacing--m);
   transition: var(--transition);
   cursor: pointer;
@@ -47,14 +48,11 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
   cursor: pointer;
 }
 
-.label {
-  padding: var(--spacing--m);
-  text-align: center;
-}
-
 .flagContainer {
   display: flex;
   justify-content: center;
+  margin-left: var(--spacing--l);
+  margin-right: var(--spacing--m);
 }
 
 .flag {
@@ -62,13 +60,8 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
   transition: var(--transition);
 }
 
-.label {
-  margin-bottom: var(--spacing--m);
-}
-
 .radio {
   position: relative;
-  margin: 0 auto;
   width: $radio-box-size;
   height: $radio-box-size;
   border-radius: 50%;

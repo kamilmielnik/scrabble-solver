@@ -1,14 +1,11 @@
 .localeSetting {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
 }
 
 .option {
-  margin-right: var(--spacing--l);
+  margin-bottom: var(--spacing--l);
 
   &:last-child {
-    margin-right: 0;
+    margin-bottom: 0;
   }
 }
 
