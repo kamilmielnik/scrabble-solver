@@ -10,6 +10,7 @@ export { default as LocaleDropdown } from './LocaleDropdown';
 export { default as LocaleSetting } from './LocaleSetting';
 export { default as Logo } from './Logo';
 export { default as PlainTiles } from './PlainTiles';
+export { default as Radio } from './Radio';
 export { default as Results } from './Results';
 export { default as Screen } from './Screen';
 export { default as Settings } from './Settings';

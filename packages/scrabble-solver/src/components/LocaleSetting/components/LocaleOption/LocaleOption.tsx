@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { i18nSlice, selectLocale, useTypedSelector } from 'state';
 import { Locale } from 'types';
 
+import Radio from '../../../Radio';
 import SvgIcon from '../../../SvgIcon';
 import { Option } from '../../types';
 
@@ -15,11 +16,9 @@ interface Props {
   option: Option;
 }
 
-const LocaleSetting: FunctionComponent<Props> = ({ className, option }) => {
+const LocaleOption: FunctionComponent<Props> = ({ className, option }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
-  const isSelected = locale === option.value;
-  const id = '';
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newLocale: Locale = event.target.value as Locale;
@@ -27,31 +26,23 @@ const LocaleSetting: FunctionComponent<Props> = ({ className, option }) => {
   };
 
   return (
-    <label
-      className={classNames(styles.localeOption, className, {
-        [styles.selected]: isSelected,
-      })}
-      htmlFor={id}
+    <Radio
+      checked={locale === option.value}
+      className={className}
+      id="locale"
+      name="locale"
+      value={option.value}
+      onChange={handleChange}
     >
-      <input
-        checked={isSelected}
-        className={styles.input}
-        id={id}
-        name="locale"
-        onChange={handleChange}
-        type="radio"
-        value={option.value}
-      />
+      <div className={styles.content}>
+        <div className={styles.flagContainer}>
+          <SvgIcon className={classNames(styles.flag, option.className)} icon={option.icon} />
+        </div>
 
-      <div className={styles.radio} />
-
-      <div className={styles.flagContainer}>
-        <SvgIcon className={classNames(styles.flag, option.className)} icon={option.icon} />
+        <div>{option.label}</div>
       </div>
-
-      <div>{option.label}</div>
-    </label>
+    </Radio>
   );
 };
 
-export default LocaleSetting;
+export default LocaleOption;
