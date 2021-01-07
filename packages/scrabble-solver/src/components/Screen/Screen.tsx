@@ -11,11 +11,12 @@ import styles from './Screen.module.scss';
 interface Props {
   children?: ReactNode;
   className?: string;
+  contentClassName?: string;
   hidden?: boolean;
   onClose?: () => void;
 }
 
-const Screen: FunctionComponent<Props> = ({ children, className, hidden, onClose }) => {
+const Screen: FunctionComponent<Props> = ({ children, className, contentClassName, hidden, onClose }) => {
   const closeTranslation = useTranslation('close');
 
   return (
@@ -26,7 +27,7 @@ const Screen: FunctionComponent<Props> = ({ children, className, hidden, onClose
     >
       {onClose && <IconButton className={styles.closeButton} icon={cross} title={closeTranslation} onClick={onClose} />}
 
-      <div className={styles.content}>{children}</div>
+      <div className={classNames(styles.content, contentClassName)}>{children}</div>
     </div>
   );
 };
