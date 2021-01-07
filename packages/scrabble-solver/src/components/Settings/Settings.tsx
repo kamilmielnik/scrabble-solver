@@ -1,8 +1,7 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, useMemo } from 'react';
+import React, { FunctionComponent } from 'react';
 import { useKey } from 'react-use';
 
-import { PlainTiles } from 'components';
 import { useTranslation } from 'state';
 
 import LocaleSetting from '../LocaleSetting';
@@ -20,7 +19,6 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
   const settingsTranslation = useTranslation('settings');
   const languageTranslation = useTranslation('settings.language');
   const rulesTranslation = useTranslation('settings.rules');
-  const titleTilesContent = useMemo(() => [[settingsTranslation.toUpperCase()]], [settingsTranslation]);
 
   const handleClose = () => {
     if (!hidden) {
@@ -37,9 +35,7 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
       hidden={hidden}
       onClose={onClose}
     >
-      <div className={styles.titleContainer}>
-        <PlainTiles className={styles.title} content={titleTilesContent} />
-      </div>
+      <h1 className={styles.title}>{settingsTranslation}</h1>
 
       <div className={styles.section}>
         <h2 className={styles.heading}>{languageTranslation}</h2>

@@ -1,6 +1,6 @@
 $title-height: 48px;
 $heading-height: 32px;
-$content-width: 800px;
+$content-width: 600px;
 
 .settings {
 }
@@ -11,23 +11,21 @@ $content-width: 800px;
   margin: 0 auto;
 }
 
-.titleContainer {
-  margin-top: var(--spacing--xxl);
-  margin-bottom: var(--spacing--xl);
+.heading,
+.title {
+  font-family: var(--font--family--secondary);
+  font-weight: 300;
 }
 
 .title {
-  position: sticky;
-  top: 0;
-  height: $title-height;
-  box-sizing: content-box;
+  margin-top: var(--spacing--xxl);
+  margin-bottom: var(--spacing--xl);
+  font-size: var(--font--size--xl);
 }
 
 .heading {
   margin-bottom: var(--spacing--l);
-  font-size: var(--font--size--xl);
-  font-family: var(--font--family--secondary);
-  font-weight: 300;
+  font-size: var(--font--size--l);
 }
 
 .section {
