@@ -1,12 +1,9 @@
 export { default as Board } from './Board';
 export { default as Dictionary } from './Dictionary';
-export { default as Dropdown } from './Dropdown';
-export { default as DropdownItem } from './DropdownItem';
 export { default as EmptyState } from './EmptyState';
 export { default as IconButton } from './IconButton';
 export { default as Key } from './Key';
 export { default as Loading } from './Loading';
-export { default as LocaleDropdown } from './LocaleDropdown';
 export { default as LocaleSetting } from './LocaleSetting';
 export { default as Logo } from './Logo';
 export { default as PlainTiles } from './PlainTiles';
