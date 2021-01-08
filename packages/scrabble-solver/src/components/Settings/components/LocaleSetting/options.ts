@@ -1,5 +1,3 @@
-import classNames from 'classnames';
-
 import { flagGb, flagPl, flagUs } from 'icons';
 import { Locale } from 'types';
 
@@ -14,19 +12,19 @@ interface Option {
 
 const options: Option[] = [
   {
-    className: classNames(styles.flag, styles.gb),
+    className: styles.gb,
     icon: flagGb,
     label: 'English (GB)',
     value: 'en-GB',
   },
   {
-    className: classNames(styles.flag, styles.us),
+    className: styles.us,
     icon: flagUs,
     label: 'English (US)',
     value: 'en-US',
   },
   {
-    className: classNames(styles.flag, styles.pl),
+    className: styles.pl,
     icon: flagPl,
     label: 'Polski',
     value: 'pl-PL',

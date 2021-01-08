@@ -1,7 +1,5 @@
 # TODO v2
 
-- settings
-  - game
 - mobile (!)
 - XL screens responsiveness
 - refactor useTranslation to useTranslate

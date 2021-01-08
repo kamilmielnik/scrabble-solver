@@ -1,0 +1,53 @@
+.configSetting {
+}
+
+@import 'styles/mixins';
+
+.option {
+  @include focus-effect;
+
+  margin-bottom: var(--spacing--m);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover,
+  &.checked {
+    .flag {
+      box-shadow: var(--box-shadow);
+    }
+  }
+}
+
+.label {
+  display: flex;
+  align-items: center;
+}
+
+.flag {
+  $height: 32px;
+
+  height: $height;
+  margin-right: var(--spacing--l);
+  box-shadow: var(--box-shadow--null);
+  transition: var(--transition);
+
+  &.gb {
+    $aspect-ratio: 2;
+
+    width: $height * $aspect-ratio;
+  }
+
+  &.pl {
+    $aspect-ratio: 1.6;
+
+    width: $height * $aspect-ratio;
+  }
+
+  &.us {
+    $aspect-ratio: 1.9;
+
+    width: $height * $aspect-ratio;
+  }
+}
