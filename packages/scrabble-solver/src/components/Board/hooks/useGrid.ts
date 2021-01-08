@@ -58,38 +58,46 @@ const useGrid = ({ autoDirectionChange, height, width }: Parameters): [State, Ac
     () =>
       createKeyboardNavigation({
         onArrowDown: (event) => {
-          if (!event.ctrlKey && !event.metaKey) {
+          const isCtrl = event.ctrlKey || event.metaKey;
+
+          if (!isCtrl) {
             changeActiveIndex(0, 1);
           }
 
-          if (autoDirectionChange) {
+          if (isCtrl || autoDirectionChange) {
             setLastDirection('vertical');
           }
         },
         onArrowLeft: (event) => {
-          if (!event.ctrlKey && !event.metaKey) {
+          const isCtrl = event.ctrlKey || event.metaKey;
+
+          if (!isCtrl) {
             changeActiveIndex(-1, 0);
           }
 
-          if (autoDirectionChange) {
+          if (isCtrl || autoDirectionChange) {
             setLastDirection('horizontal');
           }
         },
         onArrowRight: (event) => {
-          if (!event.ctrlKey && !event.metaKey) {
+          const isCtrl = event.ctrlKey || event.metaKey;
+
+          if (!isCtrl) {
             changeActiveIndex(1, 0);
           }
 
-          if (autoDirectionChange) {
+          if (isCtrl || autoDirectionChange) {
             setLastDirection('horizontal');
           }
         },
         onArrowUp: (event) => {
-          if (!event.ctrlKey && !event.metaKey) {
+          const isCtrl = event.ctrlKey || event.metaKey;
+
+          if (!isCtrl) {
             changeActiveIndex(0, -1);
           }
 
-          if (autoDirectionChange) {
+          if (isCtrl || autoDirectionChange) {
             setLastDirection('vertical');
           }
         },

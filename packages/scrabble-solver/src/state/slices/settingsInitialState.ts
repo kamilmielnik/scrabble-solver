@@ -1,5 +1,5 @@
 const settingsInitialState = {
-  autoDirectionChange: false,
+  autoDirectionChange: true,
 };
 
 export default settingsInitialState;
