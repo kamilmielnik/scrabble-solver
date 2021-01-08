@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { selectAutoDirectionChange, settingsSlice, useTypedSelector } from 'state';
+import { selectAutoDirectionChange, settingsSlice, useTranslation, useTypedSelector } from 'state';
 
 import Checkbox from '../../../Checkbox';
 
@@ -15,6 +15,8 @@ interface Props {
 const OtherSettings: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const autoDirectionChange = useTypedSelector(selectAutoDirectionChange);
+  const labelTranslation = useTranslation('settings.autoDirectionChange');
+  const titleTranslation = useTranslation('settings.autoDirectionChangeTitle');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(settingsSlice.actions.changeAutoDirectionChange(event.target.checked));
@@ -26,10 +28,10 @@ const OtherSettings: FunctionComponent<Props> = ({ className }) => {
         checked={autoDirectionChange}
         id="autoDirectionChange"
         name="autoDirectionChange"
-        title="Navigating with arrow keys on the board will also change typing direction"
+        title={titleTranslation}
         onChange={handleChange}
       >
-        Change typing direction with arrow keys
+        {labelTranslation}
       </Checkbox>
     </div>
   );

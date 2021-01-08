@@ -14,6 +14,8 @@
   "results.header.points": "Punkty",
   "results.header.word": "Słowo",
   "settings": "Ustawienia",
+  "settings.autoDirectionChange": "Zmieniaj kierunek pisania na planszy strzałkami",
+  "settings.autoDirectionChangeTitle": "Nawigacja klawiszami strzałek na planszy będzie również zmieniać kierunek pisania",
   "settings.language": "Język",
   "settings.rules": "Reguły",
   "tiles.placeholder": "Literki"

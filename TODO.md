@@ -2,7 +2,6 @@
 
 - settings
     - game
-    - option to turn off auto typing direction change
 - button to clear board (eraser icon)
 - mobile (!)
 - XL screens responsiveness

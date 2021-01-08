@@ -14,6 +14,8 @@
   "results.header.points": "Points",
   "results.header.word": "Word",
   "settings": "Settings",
+  "settings.autoDirectionChange": "Change typing direction on the board with arrow keys",
+  "settings.autoDirectionChangeTitle": "Navigating with arrow keys on the board will also change typing direction",
   "settings.language": "Language",
   "settings.rules": "Rules",
   "tiles.placeholder": "Letters"
