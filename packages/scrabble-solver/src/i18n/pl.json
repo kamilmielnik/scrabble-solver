@@ -18,6 +18,7 @@
   "settings.autoDirectionChange": "Zmieniaj kierunek pisania na planszy strzałkami",
   "settings.autoDirectionChangeTitle": "Nawigacja klawiszami strzałek na planszy będzie również zmieniać kierunek pisania",
   "settings.language": "Język",
+  "settings.other": "Inne",
   "settings.rules": "Reguły",
   "tiles.placeholder": "Literki"
 }

@@ -18,6 +18,7 @@ interface Props {
 const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
   const settingsTranslation = useTranslation('settings');
   const languageTranslation = useTranslation('settings.language');
+  const otherTranslation = useTranslation('settings.other');
   const rulesTranslation = useTranslation('settings.rules');
 
   const handleClose = () => {
@@ -48,7 +49,7 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
       </div>
 
       <div className={styles.section}>
-        <h2 className={styles.heading}>{rulesTranslation}</h2>
+        <h2 className={styles.heading}>{otherTranslation}</h2>
         <OtherSettings />
       </div>
     </Screen>
