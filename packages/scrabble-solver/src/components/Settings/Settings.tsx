@@ -46,6 +46,11 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
         <h2 className={styles.heading}>{rulesTranslation}</h2>
         <div>asd</div>
       </div>
+
+      <div className={styles.section}>
+        <h2 className={styles.heading}>{rulesTranslation}</h2>
+        <div>asd</div>
+      </div>
     </Screen>
   );
 };

@@ -15,6 +15,8 @@
 - proper error states
 - undo, redo
 - rename fromJson/toJson to serialize/deserialize
+- merge settings/i18n/locale slices into settings
+- make settings a slideable sidebar
 
 # Resources
 

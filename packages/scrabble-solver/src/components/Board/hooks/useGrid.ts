@@ -4,6 +4,12 @@ import { createKeyboardNavigation } from 'lib';
 
 import { createGridOf } from '../lib';
 
+interface Parameters {
+  autoDirectionChange?: boolean;
+  height: number;
+  width: number;
+}
+
 interface State {
   lastDirection: 'horizontal' | 'vertical';
   refs: RefObject<HTMLInputElement>[][];
@@ -15,7 +21,7 @@ interface Actions {
   onMoveFocus: () => void;
 }
 
-const useGrid = (width: number, height: number): [State, Actions] => {
+const useGrid = ({ autoDirectionChange, height, width }: Parameters): [State, Actions] => {
   const refs = useMemo(
     () => createGridOf<RefObject<HTMLInputElement>>(width, height, () => createRef()),
     [width, height],
@@ -56,31 +62,39 @@ const useGrid = (width: number, height: number): [State, Actions] => {
             changeActiveIndex(0, 1);
           }
 
-          setLastDirection('vertical');
+          if (autoDirectionChange) {
+            setLastDirection('vertical');
+          }
         },
         onArrowLeft: (event) => {
           if (!event.ctrlKey && !event.metaKey) {
             changeActiveIndex(-1, 0);
           }
 
-          setLastDirection('horizontal');
+          if (autoDirectionChange) {
+            setLastDirection('horizontal');
+          }
         },
         onArrowRight: (event) => {
           if (!event.ctrlKey && !event.metaKey) {
             changeActiveIndex(1, 0);
           }
 
-          setLastDirection('horizontal');
+          if (autoDirectionChange) {
+            setLastDirection('horizontal');
+          }
         },
         onArrowUp: (event) => {
           if (!event.ctrlKey && !event.metaKey) {
             changeActiveIndex(0, -1);
           }
 
-          setLastDirection('vertical');
+          if (autoDirectionChange) {
+            setLastDirection('vertical');
+          }
         },
       }),
-    [changeActiveIndex],
+    [changeActiveIndex, autoDirectionChange],
   );
 
   return [

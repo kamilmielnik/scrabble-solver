@@ -91,3 +91,10 @@ export const selectCharacters = createSelector(selectTiles, (tiles) => tiles.fil
 export const selectIsLoading = (state: RootState): boolean => state.solve.isLoading;
 
 export const selectDictionaryRoot = (state: RootState) => state.dictionary;
+
+export const selectSettingsRoot = (state: RootState) => state.settings;
+
+export const selectAutoDirectionChange = createSelector(
+  [selectSettingsRoot],
+  (settings) => settings.autoDirectionChange,
+);
