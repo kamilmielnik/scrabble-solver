@@ -1,8 +1,7 @@
 # TODO v2
 
 - settings
-    - game
-- button to clear board (eraser icon)
+  - game
 - mobile (!)
 - XL screens responsiveness
 

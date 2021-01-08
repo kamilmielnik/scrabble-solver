@@ -1,12 +1,21 @@
 import { Config } from '@scrabble-solver/models';
 import classNames from 'classnames';
 import React, { FunctionComponent, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSize } from 'react-use';
 
 import { Board, Dictionary, IconButton, Logo, Results, Settings, Splash, Tiles, Well } from 'components';
 import { useLocalStorage } from 'hooks';
-import { cog } from 'icons';
-import { selectConfig, useTranslation, useTypedSelector } from 'state';
+import { cog, eraser } from 'icons';
+import {
+  boardSlice,
+  dictionarySlice,
+  resultsSlice,
+  selectConfig,
+  tilesSlice,
+  useTranslation,
+  useTypedSelector,
+} from 'state';
 
 import styles from './index.module.scss';
 
@@ -27,15 +36,24 @@ const getCellSize = (config: Config, width: number, height: number): number => {
 
 const Index: FunctionComponent = () => {
   useLocalStorage();
+  const dispatch = useDispatch();
   const [showSettings, setShowSettings] = useState<boolean>(false);
   const [contentSizer, { width: contentWidth }] = useSize(<div />, INITIAL_SIZE);
   const [boardSizer, { height: boardHeight }] = useSize(<div />, INITIAL_SIZE);
   const [resultsSizer, { height: resultsHeight, width: resultsWidth }] = useSize(<div />, INITIAL_SIZE);
   const config = useTypedSelector(selectConfig);
   const settingsTitleTranslation = useTranslation('settings');
+  const clearTitleTranslation = useTranslation('clear');
   const cellSize = getCellSize(config, contentWidth - resultsWidth - SIDEBAR_MARGIN_LEFT, boardHeight);
   const isInitialized =
     contentWidth !== INITIAL_SIZE.width && boardHeight !== INITIAL_SIZE.height && resultsWidth !== INITIAL_SIZE.width;
+
+  const handleClear = () => {
+    dispatch(boardSlice.actions.reset());
+    dispatch(dictionarySlice.actions.reset());
+    dispatch(resultsSlice.actions.reset());
+    dispatch(tilesSlice.actions.reset());
+  };
 
   const handleHideSettings = () => setShowSettings(false);
 
@@ -49,7 +67,21 @@ const Index: FunctionComponent = () => {
             <Logo className={styles.logo} />
           </div>
 
-          <IconButton icon={cog} title={settingsTitleTranslation} onClick={handleShowSettings} />
+          <div>
+            <IconButton
+              className={styles.iconButton}
+              icon={eraser}
+              title={clearTitleTranslation}
+              onClick={handleClear}
+            />
+
+            <IconButton
+              className={styles.iconButton}
+              icon={cog}
+              title={settingsTitleTranslation}
+              onClick={handleShowSettings}
+            />
+          </div>
         </div>
 
         <div className={styles.contentWrapper}>

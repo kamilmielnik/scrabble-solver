@@ -25,6 +25,8 @@ const tilesSlice = createSlice({
       const charactersWithoutMatchingTiles = charactersAndTiles.map(({ character, tile }) => (tile ? null : character));
       return charactersWithoutMatchingTiles;
     },
+
+    reset: () => tilesInitialState,
   },
 });
 

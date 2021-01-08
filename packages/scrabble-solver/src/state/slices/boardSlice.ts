@@ -37,6 +37,10 @@ const boardSlice = createSlice({
       return board;
     },
 
+    reset: () => {
+      return boardInitialState;
+    },
+
     toggleCellIsBlank: (state, action: PayloadAction<{ x: number; y: number }>) => {
       const newBoard = state.clone();
       const { x, y } = action.payload;

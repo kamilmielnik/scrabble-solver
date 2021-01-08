@@ -27,6 +27,14 @@
   font-size: var(--font--size--l);
 }
 
+.iconButton {
+  margin-right: var(--spacing--l);
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
 .contentWrapper {
   $board-size: 15;
   $tile-size-max: 60px;

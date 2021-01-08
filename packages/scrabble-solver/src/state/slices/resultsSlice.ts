@@ -20,6 +20,8 @@ const resultsSlice = createSlice({
       const newResults = action.payload;
       return { ...state, results: newResults };
     },
+
+    reset: () => resultsInitialState,
   },
 });
 
