@@ -35,6 +35,7 @@ $checkbox-box-size: $checkbox-size + 2 * $checkbox-inner-border;
   flex: 0 0 auto;
   width: $checkbox-box-size;
   height: $checkbox-box-size;
+  color: var(--color--primary);
   box-shadow: var(--box-shadow--null);
 }
 
