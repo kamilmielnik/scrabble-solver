@@ -1,4 +1,5 @@
 export { default as Board } from './Board';
+export { default as Checkbox } from './Checkbox';
 export { default as Dictionary } from './Dictionary';
 export { default as EmptyState } from './EmptyState';
 export { default as IconButton } from './IconButton';

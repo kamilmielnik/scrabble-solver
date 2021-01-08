@@ -7,6 +7,7 @@ import { useTranslation } from 'state';
 import LocaleSetting from '../LocaleSetting';
 import Screen from '../Screen';
 
+import { OtherSettings } from './components';
 import styles from './Settings.module.scss';
 
 interface Props {
@@ -49,7 +50,7 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
 
       <div className={styles.section}>
         <h2 className={styles.heading}>{rulesTranslation}</h2>
-        <div>asd</div>
+        <OtherSettings />
       </div>
     </Screen>
   );
