@@ -4,10 +4,9 @@ import { useKey } from 'react-use';
 
 import { useTranslation } from 'state';
 
-import LocaleSetting from '../LocaleSetting';
 import Screen from '../Screen';
 
-import { OtherSettings } from './components';
+import { LocaleSetting, OtherSettings } from './components';
 import styles from './Settings.module.scss';
 
 interface Props {

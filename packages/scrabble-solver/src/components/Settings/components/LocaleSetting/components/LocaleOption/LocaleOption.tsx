@@ -5,8 +5,8 @@ import { useDispatch } from 'react-redux';
 import { i18nSlice, selectLocale, useTypedSelector } from 'state';
 import { Locale } from 'types';
 
-import Radio from '../../../Radio';
-import SvgIcon from '../../../SvgIcon';
+import Radio from '../../../../../Radio';
+import SvgIcon from '../../../../../SvgIcon';
 import { Option } from '../../types';
 
 import styles from './LocaleOption.module.scss';

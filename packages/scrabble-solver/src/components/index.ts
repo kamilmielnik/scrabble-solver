@@ -5,7 +5,6 @@ export { default as EmptyState } from './EmptyState';
 export { default as IconButton } from './IconButton';
 export { default as Key } from './Key';
 export { default as Loading } from './Loading';
-export { default as LocaleSetting } from './LocaleSetting';
 export { default as Logo } from './Logo';
 export { default as PlainTiles } from './PlainTiles';
 export { default as Radio } from './Radio';
