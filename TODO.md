@@ -14,6 +14,8 @@
 - rename fromJson/toJson to serialize/deserialize
 - merge settings/i18n/locale slices into settings
 - make settings a slideable sidebar
+- rename rules setting to config setting ("game" in UI)
+- automatically focus tiles after applying result
 
 # Resources
 

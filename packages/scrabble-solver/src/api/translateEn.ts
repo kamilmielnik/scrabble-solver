@@ -49,11 +49,15 @@ const parseWordnikResponse = (word: string, response: string): WordDefinition =>
   }
 
   const wordDefinition = new WordDefinition({
-    definitions: results
-      .map(({ text }) => text)
-      .map(normalizeDefinition)
-      .map((text) => text.trim())
-      .filter(Boolean),
+    definitions: Array.from(
+      new Set(
+        results
+          .map(({ text }) => text)
+          .map(normalizeDefinition)
+          .map((text) => text.trim())
+          .filter(Boolean),
+      ),
+    ),
     isAllowed: results.length > 0,
     word,
   });

@@ -102,7 +102,7 @@ const useGrid = ({ autoDirectionChange, height, width }: Parameters): [State, Ac
           }
         },
       }),
-    [changeActiveIndex, autoDirectionChange],
+    [autoDirectionChange, changeActiveIndex],
   );
 
   return [
