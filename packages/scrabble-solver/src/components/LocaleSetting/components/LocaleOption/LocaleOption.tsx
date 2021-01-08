@@ -34,6 +34,7 @@ const LocaleOption: FunctionComponent<Props> = ({ className, option }) => {
       })}
       id="locale"
       name="locale"
+      title={option.label}
       value={option.value}
       onChange={handleChange}
     >
