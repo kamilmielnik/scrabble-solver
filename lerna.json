@@ -7,10 +7,12 @@
       "scope": "@scrabble-solver/scrabble-solver"
     }
   },
-  "packages": ["packages/*"],
+  "packages": [
+    "packages/*"
+  ],
   "publishConfig": {
     "access": "public"
   },
   "tagVersionPrefix": "",
-  "version": "2.0.0-rc.1"
+  "version": "2.0.0-rc.2"
 }
