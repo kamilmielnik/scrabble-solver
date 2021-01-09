@@ -9,11 +9,11 @@ import IconButton from '../IconButton';
 import styles from './Sidebar.module.scss';
 
 interface Props {
-  children?: ReactNode;
+  children: ReactNode;
   className?: string;
-  hidden?: boolean;
+  hidden: boolean;
   title: string;
-  onClose?: () => void;
+  onClose: () => void;
 }
 
 const Sidebar: FunctionComponent<Props> = ({ children, className, hidden, title, onClose }) => {
@@ -29,15 +29,13 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, hidden, title,
       <div className={styles.header}>
         <h1 className={styles.title}>{title}</h1>
 
-        {onClose && (
-          <IconButton
-            className={styles.closeButton}
-            disabled={hidden}
-            icon={cross}
-            title={closeTranslation}
-            onClick={onClose}
-          />
-        )}
+        <IconButton
+          className={styles.closeButton}
+          disabled={hidden}
+          icon={cross}
+          title={closeTranslation}
+          onClick={onClose}
+        />
       </div>
 
       <div className={styles.content}>{children}</div>

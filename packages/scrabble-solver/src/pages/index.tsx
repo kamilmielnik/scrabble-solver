@@ -2,7 +2,7 @@ import { Config } from '@scrabble-solver/models';
 import classNames from 'classnames';
 import React, { FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSize } from 'react-use';
+import { useEffectOnce, useSize } from 'react-use';
 
 import { Board, Dictionary, IconButton, Logo, Results, Settings, Splash, Tiles, Well } from 'components';
 import { useLocalStorage } from 'hooks';
@@ -10,6 +10,7 @@ import { cog, eraser } from 'icons';
 import {
   boardSlice,
   dictionarySlice,
+  localStorage,
   resultsSlice,
   selectConfig,
   tilesSlice,
@@ -35,7 +36,6 @@ const getCellSize = (config: Config, width: number, height: number): number => {
 };
 
 const Index: FunctionComponent = () => {
-  useLocalStorage();
   const dispatch = useDispatch();
   const [showSettings, setShowSettings] = useState<boolean>(false);
   const [contentSizer, { width: contentWidth }] = useSize(<div />, INITIAL_SIZE);
@@ -58,6 +58,16 @@ const Index: FunctionComponent = () => {
   const handleHideSettings = () => setShowSettings(false);
 
   const handleShowSettings = () => setShowSettings(true);
+
+  useLocalStorage();
+
+  useEffectOnce(() => {
+    if (!localStorage.getHasVisited()) {
+      setShowSettings(true);
+    }
+
+    localStorage.setHasVisited(true);
+  });
 
   return (
     <>

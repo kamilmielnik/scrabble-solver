@@ -11,7 +11,7 @@ import styles from './Settings.module.scss';
 
 interface Props {
   className?: string;
-  hidden?: boolean;
+  hidden: boolean;
   onClose: () => void;
 }
 
@@ -21,13 +21,7 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
   const otherTranslation = useTranslation('settings.other');
   const rulesTranslation = useTranslation('settings.rules');
 
-  const handleClose = () => {
-    if (!hidden) {
-      onClose();
-    }
-  };
-
-  useKey('Escape', handleClose, { event: 'keydown' }, [hidden, onClose]);
+  useKey('Escape', onClose, { event: 'keydown' }, [onClose]);
 
   return (
     <Sidebar
