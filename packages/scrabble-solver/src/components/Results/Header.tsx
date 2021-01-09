@@ -1,17 +1,16 @@
 import React from 'react';
 
-import { useTranslation } from 'state';
+import { useTranslate } from 'state';
 
 import styles from './Results.module.scss';
 
 const Header = () => {
-  const wordTranslation = useTranslation('results.header.word');
-  const pointsTranslation = useTranslation('results.header.points');
+  const translate = useTranslate();
 
   return (
     <div className={styles.header}>
-      <div className={styles.cell}>{wordTranslation}</div>
-      <div className={styles.cell}>{pointsTranslation}</div>
+      <div className={styles.cell}>{translate('results.header.word')}</div>
+      <div className={styles.cell}>{translate('results.header.points')}</div>
     </div>
   );
 };

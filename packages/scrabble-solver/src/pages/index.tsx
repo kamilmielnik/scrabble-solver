@@ -14,7 +14,7 @@ import {
   resultsSlice,
   selectConfig,
   tilesSlice,
-  useTranslation,
+  useTranslate,
   useTypedSelector,
 } from 'state';
 
@@ -37,13 +37,12 @@ const getCellSize = (config: Config, width: number, height: number): number => {
 
 const Index: FunctionComponent = () => {
   const dispatch = useDispatch();
+  const translate = useTranslate();
   const [showSettings, setShowSettings] = useState<boolean>(false);
   const [contentSizer, { width: contentWidth }] = useSize(<div />, INITIAL_SIZE);
   const [boardSizer, { height: boardHeight }] = useSize(<div />, INITIAL_SIZE);
   const [resultsSizer, { height: resultsHeight, width: resultsWidth }] = useSize(<div />, INITIAL_SIZE);
   const config = useTypedSelector(selectConfig);
-  const settingsTitleTranslation = useTranslation('settings');
-  const clearTitleTranslation = useTranslation('clear');
   const cellSize = getCellSize(config, contentWidth - resultsWidth - SIDEBAR_MARGIN_LEFT, boardHeight);
   const isInitialized =
     contentWidth !== INITIAL_SIZE.width && boardHeight !== INITIAL_SIZE.height && resultsWidth !== INITIAL_SIZE.width;
@@ -78,17 +77,12 @@ const Index: FunctionComponent = () => {
           </div>
 
           <div>
-            <IconButton
-              className={styles.iconButton}
-              icon={eraser}
-              title={clearTitleTranslation}
-              onClick={handleClear}
-            />
+            <IconButton className={styles.iconButton} icon={eraser} title={translate('clear')} onClick={handleClear} />
 
             <IconButton
               className={styles.iconButton}
               icon={cog}
-              title={settingsTitleTranslation}
+              title={translate('settings')}
               onClick={handleShowSettings}
             />
           </div>

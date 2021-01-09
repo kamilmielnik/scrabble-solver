@@ -2,7 +2,6 @@
 
 - mobile (!)
 - XL screens responsiveness
-- refactor useTranslation to useTranslate
 
 # TODO v2++
 

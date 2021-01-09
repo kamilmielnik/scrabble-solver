@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 
-import { useTranslation } from 'state';
+import { useTranslate } from 'state';
 
 import PlainTiles from '../PlainTiles';
 
@@ -19,6 +19,13 @@ const COLOR_GREEN = '#bae3ba';
 const COLOR_RED = '#f7c2aa';
 const COLOR_YELLOW = '#efe3ae';
 
+const TITLE_KEY_PER_TYPE: Record<Props['type'], string> = {
+  error: 'empty-state.error',
+  info: 'empty-state.info',
+  success: 'empty-state.success',
+  warning: 'empty-state.warning',
+};
+
 const COLORS_PER_TYPE: Record<Props['type'], string> = {
   error: COLOR_RED,
   info: COLOR_BLUE,
@@ -27,21 +34,13 @@ const COLORS_PER_TYPE: Record<Props['type'], string> = {
 };
 
 const EmptyState: FunctionComponent<Props> = ({ className, children, type }) => {
-  const errorTranslation = useTranslation('empty-state.error');
-  const infoTranslation = useTranslation('empty-state.info');
-  const successTranslation = useTranslation('empty-state.success');
-  const warningTranslation = useTranslation('empty-state.warning');
-
-  const TILES_PER_TYPE: Record<Props['type'], string[][]> = {
-    error: [[errorTranslation.toUpperCase()]],
-    info: [[infoTranslation.toUpperCase()]],
-    success: [[successTranslation.toUpperCase()]],
-    warning: [[warningTranslation.toUpperCase()]],
-  };
+  const translate = useTranslate();
+  const title = useMemo(() => translate(TITLE_KEY_PER_TYPE[type]), [translate]);
+  const content = useMemo(() => [[title.toUpperCase()]], [title]);
 
   return (
     <div className={classNames(styles.emptyState, className)}>
-      <PlainTiles className={styles.tiles} color={COLORS_PER_TYPE[type]} content={TILES_PER_TYPE[type]} />
+      <PlainTiles className={styles.tiles} color={COLORS_PER_TYPE[type]} content={content} />
 
       <div className={styles.content}>{children}</div>
     </div>

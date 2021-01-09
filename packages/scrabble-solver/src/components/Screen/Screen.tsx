@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent, ReactNode } from 'react';
 
 import { cross } from 'icons';
-import { useTranslation } from 'state';
+import { useTranslate } from 'state';
 
 import IconButton from '../IconButton';
 
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const Screen: FunctionComponent<Props> = ({ children, className, contentClassName, hidden, onClose }) => {
-  const closeTranslation = useTranslation('close');
+  const translate = useTranslate();
 
   return (
     <div
@@ -25,7 +25,9 @@ const Screen: FunctionComponent<Props> = ({ children, className, contentClassNam
         [styles.hidden]: hidden,
       })}
     >
-      {onClose && <IconButton className={styles.closeButton} icon={cross} title={closeTranslation} onClick={onClose} />}
+      {onClose && (
+        <IconButton className={styles.closeButton} icon={cross} title={translate('close')} onClick={onClose} />
+      )}
 
       <div className={classNames(styles.content, contentClassName)}>{children}</div>
     </div>

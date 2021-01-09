@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent, ReactNode } from 'react';
 
 import { cross } from 'icons';
-import { useTranslation } from 'state';
+import { useTranslate } from 'state';
 
 import IconButton from '../IconButton';
 
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const Sidebar: FunctionComponent<Props> = ({ children, className, hidden, title, onClose }) => {
-  const closeTranslation = useTranslation('close');
+  const translate = useTranslate();
 
   return (
     <div
@@ -33,7 +33,7 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, hidden, title,
           className={styles.closeButton}
           disabled={hidden}
           icon={cross}
-          title={closeTranslation}
+          title={translate('close')}
           onClick={onClose}
         />
       </div>

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { useKey } from 'react-use';
 
-import { useTranslation } from 'state';
+import { useTranslate } from 'state';
 
 import Sidebar from '../Sidebar';
 
@@ -16,10 +16,7 @@ interface Props {
 }
 
 const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
-  const settingsTranslation = useTranslation('settings');
-  const languageTranslation = useTranslation('settings.language');
-  const otherTranslation = useTranslation('settings.other');
-  const rulesTranslation = useTranslation('settings.rules');
+  const translate = useTranslate();
 
   useKey('Escape', onClose, { event: 'keydown' }, [onClose]);
 
@@ -27,21 +24,21 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
     <Sidebar
       className={classNames(styles.settings, className)}
       hidden={hidden}
-      title={settingsTranslation}
+      title={translate('settings')}
       onClose={onClose}
     >
       <div className={styles.section}>
-        <h2 className={styles.heading}>{rulesTranslation}</h2>
+        <h2 className={styles.heading}>{translate('settings.rules')}</h2>
         <ConfigSetting disabled={hidden} />
       </div>
 
       <div className={styles.section}>
-        <h2 className={styles.heading}>{languageTranslation}</h2>
+        <h2 className={styles.heading}>{translate('settings.language')}</h2>
         <LocaleSetting disabled={hidden} />
       </div>
 
       <div className={styles.section}>
-        <h2 className={styles.heading}>{otherTranslation}</h2>
+        <h2 className={styles.heading}>{translate('settings.other')}</h2>
         <OtherSettings disabled={hidden} />
       </div>
     </Sidebar>

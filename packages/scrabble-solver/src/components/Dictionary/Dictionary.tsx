@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import { selectDictionaryRoot, useTranslation, useTypedSelector } from 'state';
+import { selectDictionaryRoot, useTranslate, useTypedSelector } from 'state';
 
 import EmptyState from '../EmptyState';
 import Loading from '../Loading';
@@ -13,11 +13,8 @@ interface Props {
 }
 
 const Dictionary: FunctionComponent<Props> = ({ className }) => {
+  const translate = useTranslate();
   const { definitions, isAllowed, isLoading, word } = useTypedSelector(selectDictionaryRoot);
-  const noResultsTranslation = useTranslation('dictionary.empty-state.no-results');
-  const noDefinitionsTranslation = useTranslation('dictionary.empty-state.no-definitions');
-  const notAllowedTranslation = useTranslation('dictionary.empty-state.not-allowed');
-  const unitializedTranslation = useTranslation('dictionary.empty-state.unitialized');
 
   return (
     <div
@@ -26,17 +23,19 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
         [styles.isNotAllowed]: isAllowed === false,
       })}
     >
-      {typeof word === 'undefined' && <EmptyState type="info">{unitializedTranslation}</EmptyState>}
+      {typeof word === 'undefined' && (
+        <EmptyState type="info">{translate('dictionary.empty-state.unitialized')}</EmptyState>
+      )}
 
       {typeof word !== 'undefined' && (
         <div className={styles.content}>
           {word && <div className={styles.word}>{word}</div>}
 
-          {isAllowed === false && <div>{notAllowedTranslation}</div>}
+          {isAllowed === false && <div>{translate('dictionary.empty-state.not-allowed')}</div>}
 
           {isAllowed === true && (
             <>
-              {definitions.length === 0 && <div>{noDefinitionsTranslation}</div>}
+              {definitions.length === 0 && <div>{translate('dictionary.empty-state.no-definitions')}</div>}
 
               {definitions.length > 0 && (
                 <ul className={styles.definitions}>
@@ -50,7 +49,7 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
             </>
           )}
 
-          {!isLoading && isAllowed === null && <div>{noResultsTranslation}</div>}
+          {!isLoading && isAllowed === null && <div>{translate('dictionary.empty-state.no-results')}</div>}
         </div>
       )}
 

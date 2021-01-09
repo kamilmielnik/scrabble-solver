@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { selectAutoDirectionChange, settingsSlice, useTranslation, useTypedSelector } from 'state';
+import { selectAutoDirectionChange, settingsSlice, useTranslate, useTypedSelector } from 'state';
 
 import Checkbox from '../../../Checkbox';
 
@@ -15,9 +15,8 @@ interface Props {
 
 const OtherSettings: FunctionComponent<Props> = ({ className, disabled }) => {
   const dispatch = useDispatch();
+  const translate = useTranslate();
   const autoDirectionChange = useTypedSelector(selectAutoDirectionChange);
-  const labelTranslation = useTranslation('settings.autoDirectionChange');
-  const titleTranslation = useTranslation('settings.autoDirectionChangeTitle');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(settingsSlice.actions.changeAutoDirectionChange(event.target.checked));
@@ -30,10 +29,10 @@ const OtherSettings: FunctionComponent<Props> = ({ className, disabled }) => {
         disabled={disabled}
         id="autoDirectionChange"
         name="autoDirectionChange"
-        title={titleTranslation}
+        title={translate('settings.autoDirectionChangeTitle')}
         onChange={handleChange}
       >
-        {labelTranslation}
+        {translate('settings.autoDirectionChange')}
       </Checkbox>
     </div>
   );

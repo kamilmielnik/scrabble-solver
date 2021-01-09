@@ -10,7 +10,7 @@ import {
   selectTiles,
   solveSlice,
   tilesSlice,
-  useTranslation,
+  useTranslate,
   useTypedSelector,
 } from 'state';
 
@@ -36,6 +36,7 @@ const useTiles = () => {
 
 const Tiles: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
+  const translate = useTranslate();
   const config = useTypedSelector(selectConfig);
   const tiles = useTiles();
   const tilesCount = tiles.length;
@@ -43,7 +44,6 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
     return Array.from({ length: tilesCount }).map(() => createRef<HTMLInputElement>());
   }, [tilesCount]);
   const [activeIndex, setActiveIndex] = useState<number>();
-  const placeholderTranslation = useTranslation('tiles.placeholder');
 
   const handleCharacterChange = (index: number, character: string | null) => {
     dispatch(tilesSlice.actions.changeCharacter({ character, index }));
@@ -101,7 +101,7 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
           inputRef={tilesRefs[index]}
           isBlank={character === BLANK}
           key={index}
-          placeholder={placeholderTranslation[index]}
+          placeholder={translate('tiles.placeholder')[index]}
           raised
           size={80} // TODO: unhardcode
           onFocus={() => setActiveIndex(index)}

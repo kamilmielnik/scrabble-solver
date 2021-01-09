@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent, useMemo } from 'react';
 
-import { useTranslation } from 'state';
+import { useTranslate } from 'state';
 
 import PlainTiles from '../PlainTiles';
 
@@ -14,8 +14,8 @@ interface Props {
 }
 
 const Loading: FunctionComponent<Props> = ({ className, wave = true }) => {
-  const loadingTranslation = useTranslation('loading');
-  const content = useMemo<string[][]>(() => [[loadingTranslation.toUpperCase()]], [loadingTranslation]);
+  const translate = useTranslate();
+  const content = useMemo<string[][]>(() => [[translate('loading').toUpperCase()]], [translate]);
 
   return (
     <div className={classNames(styles.loading, className)}>
