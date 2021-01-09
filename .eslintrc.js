@@ -29,6 +29,7 @@ module.exports = {
   plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import'],
 
   globals: {
+    globalThis: true,
     define: true,
     expect: true,
     it: true,
