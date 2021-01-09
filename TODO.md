@@ -1,21 +1,17 @@
 # TODO v2
 
-- mobile (!)
-- XL screens responsiveness
-
-# TODO v2++
-
-- generate .d.ts files for module.scss files on save & before build
-- hotkeys to focus 1) board, 2) tiles
-- sidebar with hotkeys listed (ctrl+b, ctrl+right, ctrl+down - change typing direction)
-- proper error states
-- undo, redo
 - rename fromJson/toJson to serialize/deserialize
 - merge settings/i18n/locale slices into settings
 - automatically focus tiles after applying result
+- XL screens responsiveness
+- board auto-resizing
+- sidebar with hotkeys listed (ctrl+b, ctrl+right, ctrl+down - change typing direction)
 
-# Resources
+# TODO v2++
 
-- https://redux.js.org/recipes/usage-with-typescript
-- https://redux-toolkit.js.org/api/createSelector
-- https://react-redux.js.org/using-react-redux/static-typing
+- mobile
+- generate .d.ts files for module.scss files on save & before build
+- proper error states
+- undo, redo
+- extract eslint/prettier to a separate repo/package
+- hotkeys to focus 1) board, 2) tiles
