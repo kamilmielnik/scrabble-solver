@@ -1,7 +1,6 @@
 # TODO v2
 
-- rename fromJson/toJson to serialize/deserialize
-- merge settings/i18n/locale slices into settings
+- merge settings/i18n/config slices into settings
 - automatically focus tiles after applying result
 - XL screens responsiveness
 - board auto-resizing
