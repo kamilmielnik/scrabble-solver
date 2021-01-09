@@ -20,7 +20,7 @@
   "keyMap.board-and-tiles.remove-tile": "Remove tile",
   "keyMap.board-and-tiles.submit": "Start solving",
   "keyMap.tiles": "Tiles",
-  "keyMap.tiles.insert-blank": "[spacebar] Insert blank",
+  "keyMap.tiles.insert-blank": "Insert blank [spacebar]",
   "loading": "Loading",
   "results.empty-state.no-results": "No results - unable to generate any words.",
   "results.empty-state.unitialized": "Words generated from your letters will be shown here.",

@@ -11,6 +11,7 @@ interface Props {
 
 const Mapping: FunctionComponent<Props> = ({ className, description, mapping }) => (
   <div className={classNames(styles.mapping, className)}>
+    <h3 className={styles.description}>{description}</h3>
     {mapping.map((key, index) => (
       <Fragment key={index}>
         {Array.isArray(key) ? (
@@ -24,8 +25,6 @@ const Mapping: FunctionComponent<Props> = ({ className, description, mapping }) 
         {index === mapping.length - 1 ? '' : ', '}
       </Fragment>
     ))}
-    {' - '}
-    {description}
   </div>
 );
 

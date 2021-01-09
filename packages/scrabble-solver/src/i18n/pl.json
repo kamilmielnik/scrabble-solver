@@ -20,7 +20,7 @@
   "keyMap.board-and-tiles.remove-tile": "Zdejmij płytkę",
   "keyMap.board-and-tiles.submit": "Rozpocznij wyszukiwanie",
   "keyMap.tiles": "Płytki",
-  "keyMap.tiles.insert-blank": "[spacja] Wstaw blanka",
+  "keyMap.tiles.insert-blank": "Wstaw blanka [spacja]",
   "loading": "Ładowanie",
   "results.empty-state.no-results": "Brak wyników - nie można wygenerować żadnego słowa.",
   "results.empty-state.unitialized": "Tu zostaną wyświetlone słowa wygenerowane z Twoich liter.",

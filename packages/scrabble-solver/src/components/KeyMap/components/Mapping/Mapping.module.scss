@@ -5,3 +5,10 @@
     margin-bottom: 0;
   }
 }
+
+.description {
+  margin-bottom: var(--spacing--m);
+  font-size: var(--font--size--m-plus);
+  font-family: var(--font--family--secondary);
+  font-weight: 300;
+}
