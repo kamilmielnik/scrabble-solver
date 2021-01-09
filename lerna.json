@@ -7,7 +7,9 @@
       "scope": "@scrabble-solver/scrabble-solver"
     }
   },
-  "packages": ["packages/*"],
+  "packages": [
+    "packages/*"
+  ],
   "tagVersionPrefix": "",
-  "version": "2.0.0-rc.0"
+  "version": "2.0.0-rc.1"
 }
