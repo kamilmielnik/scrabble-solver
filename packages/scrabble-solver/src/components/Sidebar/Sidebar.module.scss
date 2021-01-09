@@ -12,12 +12,13 @@ $width: 360px;
   background-color: var(--color--background);
   transition: var(--transition);
   transition-duration: var(--transition--duration--long);
+  transform: translateX(0);
   box-shadow: var(--box-shadow--left);
   opacity: 1;
   z-index: $z-index;
 
   &.hidden {
-    right: -$width;
+    transform: translateX($width);
     opacity: 0;
     user-select: none;
     pointer-events: none;
