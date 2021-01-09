@@ -29,7 +29,7 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
 
       {typeof word !== 'undefined' && (
         <div className={styles.content}>
-          {word && <div className={styles.word}>{word}</div>}
+          {word && <h2 className={styles.word}>{word}</h2>}
 
           {isAllowed === false && <div>{translate('dictionary.empty-state.not-allowed')}</div>}
 

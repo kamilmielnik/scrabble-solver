@@ -22,9 +22,13 @@
   padding: var(--spacing--l);
 }
 
-.title {
+.logoContainer {
   flex: 1;
-  font-size: var(--font--size--l);
+}
+
+.logo {
+  height: 60px;
+  user-select: none;
 }
 
 .iconButton {
@@ -95,13 +99,4 @@
 
 .tiles {
   border: var(--border);
-}
-
-.logoContainer {
-  flex: 1;
-}
-
-.logo {
-  height: 60px;
-  user-select: none;
 }
