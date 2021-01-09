@@ -9,14 +9,16 @@ const useLocalStorageConfigId = () => {
   const configId = useTypedSelector(selectConfigId);
 
   useEffectOnce(() => {
-    if (localStorage.configId) {
-      dispatch(configIdSlice.actions.change(localStorage.configId));
+    const persistedConfigId = localStorage.getConfigId();
+
+    if (persistedConfigId) {
+      dispatch(configIdSlice.actions.change(persistedConfigId));
     }
   });
 
   useEffect(() => {
     if (configId) {
-      localStorage.configId = configId;
+      localStorage.setConfigId(configId);
     }
   }, [configId]);
 };

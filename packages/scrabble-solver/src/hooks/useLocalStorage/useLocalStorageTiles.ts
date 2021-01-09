@@ -9,14 +9,16 @@ const useLocalStorageTiles = () => {
   const tiles = useTypedSelector(selectTiles);
 
   useEffectOnce(() => {
-    if (localStorage.tiles) {
-      dispatch(tilesSlice.actions.change(localStorage.tiles));
+    const persistedTiles = localStorage.getTiles();
+
+    if (persistedTiles) {
+      dispatch(tilesSlice.actions.change(persistedTiles));
     }
   });
 
   useEffect(() => {
     if (tiles) {
-      localStorage.tiles = tiles;
+      localStorage.setTiles(tiles);
     }
   }, [tiles]);
 };

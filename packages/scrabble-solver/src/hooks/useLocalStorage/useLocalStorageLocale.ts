@@ -10,8 +10,10 @@ const useLocalStorageLocale = () => {
   const locale = useTypedSelector(selectLocale);
 
   useEffectOnce(() => {
-    if (localStorage.locale) {
-      dispatch(i18nSlice.actions.changeLocale(localStorage.locale));
+    const persistedLocale = localStorage.getLocale();
+
+    if (persistedLocale) {
+      dispatch(i18nSlice.actions.changeLocale(persistedLocale));
     } else {
       dispatch(i18nSlice.actions.changeLocale(detectLocale()));
     }
@@ -19,7 +21,7 @@ const useLocalStorageLocale = () => {
 
   useEffect(() => {
     if (locale) {
-      localStorage.locale = locale;
+      localStorage.setLocale(locale);
     }
   }, [locale]);
 };

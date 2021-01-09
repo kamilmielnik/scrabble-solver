@@ -9,14 +9,16 @@ const useLocalStorageBoard = () => {
   const board = useTypedSelector(selectBoard);
 
   useEffectOnce(() => {
-    if (localStorage.board) {
-      dispatch(boardSlice.actions.change(localStorage.board));
+    const persistedBoard = localStorage.getBoard();
+
+    if (persistedBoard) {
+      dispatch(boardSlice.actions.change(persistedBoard));
     }
   });
 
   useEffect(() => {
     if (board) {
-      localStorage.board = board;
+      localStorage.setBoard(board);
     }
   }, [board]);
 };

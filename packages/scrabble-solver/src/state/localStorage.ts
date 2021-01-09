@@ -11,24 +11,22 @@ const TILES = 'tiles';
 
 const store = store2.namespace('scrabble-solver');
 
-// TODO: change getters and setters to functions
-
 const localStorage = {
-  get board(): Board | undefined {
+  getBoard(): Board | undefined {
     const serialized = store.get(BOARD);
     return serialized ? Board.fromJson(JSON.parse(serialized)) : serialized;
   },
 
-  set board(board: Board | undefined) {
+  setBoard(board: Board | undefined): void {
     const serialized = board ? JSON.stringify(board.toJson()) : board;
     store.set(BOARD, serialized, true);
   },
 
-  get configId(): string | undefined {
+  getConfigId(): string | undefined {
     return store.get(CONFIG_ID);
   },
 
-  set configId(configId: string | undefined) {
+  setConfigId(configId: string | undefined): void {
     store.set(CONFIG_ID, configId, true);
   },
 
@@ -40,19 +38,19 @@ const localStorage = {
     store.set(HAS_VISITED, hasVisited, true);
   },
 
-  get locale(): Locale | undefined {
+  getLocale(): Locale | undefined {
     return store.get(LOCALE);
   },
 
-  set locale(locale: Locale | undefined) {
+  setLocale(locale: Locale | undefined): void {
     store.set(LOCALE, locale, true);
   },
 
-  get tiles(): (string | null)[] | undefined {
+  getTiles(): (string | null)[] | undefined {
     return store.get(TILES);
   },
 
-  set tiles(tiles: (string | null)[] | undefined) {
+  setTiles(tiles: (string | null)[] | undefined): void {
     store.set(TILES, tiles, true);
   },
 };
