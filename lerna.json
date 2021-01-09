@@ -1,6 +1,13 @@
 {
-  "packages": [
-    "packages/*"
-  ],
+  "command": {
+    "bootstrap": {
+      "forceLocal": true
+    },
+    "start": {
+      "scope": "@scrabble-solver/scrabble-solver"
+    }
+  },
+  "packages": ["packages/*"],
+  "tagVersionPrefix": "",
   "version": "2.0.0-rc.0"
 }

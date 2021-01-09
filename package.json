@@ -9,7 +9,7 @@
     "scrabble-solver": "./bin/scrabble-solver.js"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap --force-local",
+    "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
     "clean": "lerna run clean && rm -rf dictionaries/ node_modules/ package-lock.json",
     "dictionaries:install": "npm-run-all --parallel dictionaries:prepare:*",
@@ -25,7 +25,7 @@
     "prettier:fix": "npm run prettier:js:fix && npm run prettier:scss:fix",
     "postinstall": "npm run bootstrap && npm run dictionaries:install",
     "reinstall": "npm run clean && npm install && npm run build",
-    "start": "lerna run start --scope @scrabble-solver/scrabble-solver",
+    "start": "lerna run start",
     "test": "jest --no-cache --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache --watch",
     "test:watch": "jest --no-cache --watch"
