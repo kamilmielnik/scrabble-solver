@@ -7,7 +7,7 @@
   background-color: white;
   border: var(--border);
   border-radius: var(--border--radius);
-  font-size: var(--font--size--s);
+  font-size: var(--font--size--small);
   line-height: calc(#{$size} - 2 * (var(--spacing--s) + var(--border--width)));
   white-space: nowrap;
   vertical-align: middle;
