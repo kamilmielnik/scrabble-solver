@@ -3,7 +3,6 @@
 - XL screens responsiveness
 - board auto-resizing
 - keyboard map - sidebar with hotkeys listed (ctrl+b, ctrl+right, ctrl+down - change typing direction)
-- update favicon
 
 # TODO v2++
 
