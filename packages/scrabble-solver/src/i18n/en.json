@@ -11,6 +11,7 @@
   "empty-state.warning": "Oops!",
   "keyMap": "Key map",
   "keyMap.board": "Board",
+  "keyMap.board-and-tiles": "Board & tiles",
   "keyMap.tiles": "Tiles",
   "loading": "Loading",
   "results.empty-state.no-results": "No results - unable to generate any words.",
