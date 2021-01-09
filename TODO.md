@@ -14,3 +14,4 @@
 - hotkeys to focus 1) board, 2) tiles
 - show remaining tiles (sidebar?)
 - add dictionary input?
+- more stats in results table
