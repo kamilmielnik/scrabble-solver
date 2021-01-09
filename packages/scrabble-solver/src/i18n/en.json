@@ -9,6 +9,7 @@
   "empty-state.info": "Info",
   "empty-state.success": "Yeah!",
   "empty-state.warning": "Oops!",
+  "github": "See this project on GitHub",
   "keyMap": "Key map",
   "keyMap.board": "Board",
   "keyMap.board.direction-horizontal": "Change typing direction to horizontal",

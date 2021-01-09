@@ -1,9 +1,10 @@
-export { default as checkboxChecked } from './checkbox-checked.svg';
-export { default as checkboxEmpty } from './checkbox-empty.svg';
+export { default as checkboxChecked } from './checkboxChecked.svg';
+export { default as checkboxEmpty } from './checkboxEmpty.svg';
 export { default as cog } from './cog.svg';
 export { default as cross } from './cross.svg';
 export { default as eraser } from './eraser.svg';
-export { default as flagGb } from './flag-gb.svg';
-export { default as flagPl } from './flag-pl.svg';
-export { default as flagUs } from './flag-us.svg';
+export { default as flagGb } from './flagGb.svg';
+export { default as flagPl } from './flagPl.svg';
+export { default as flagUs } from './flagUs.svg';
+export { default as github } from './github.svg';
 export { default as keyboard } from './keyboard.svg';

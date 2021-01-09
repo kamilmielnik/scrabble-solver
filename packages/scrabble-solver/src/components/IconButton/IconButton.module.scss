@@ -2,10 +2,11 @@
 
 $size: 32px;
 
-.button {
+.iconButton {
   @include button-reset;
   @include focus-effect;
 
+  display: inline-block;
   width: $size;
   height: $size;
   color: var(--color--inactive);

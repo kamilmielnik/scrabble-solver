@@ -6,7 +6,7 @@ import { useEffectOnce, useSize } from 'react-use';
 
 import { Board, Dictionary, IconButton, KeyMap, Logo, Results, Settings, Splash, Tiles, Well } from 'components';
 import { useLocalStorage } from 'hooks';
-import { cog, eraser, keyboard } from 'icons';
+import { cog, eraser, github, keyboard } from 'icons';
 import {
   boardSlice,
   dictionarySlice,
@@ -25,6 +25,7 @@ const MIN_TILE_SIZE = 20;
 const MAX_TILE_SIZE = 60;
 const SIDEBAR_MARGIN_LEFT = 40; // TODO: unhardcode?
 const VERSION = '2.0.0-alpha.6';
+const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';
 
 const INITIAL_SIZE = { height: 0, width: 0 };
 
@@ -80,6 +81,16 @@ const Index: FunctionComponent = () => {
           </div>
 
           <div>
+            <IconButton
+              as="a"
+              className={styles.iconButton}
+              href={GITHUB_PROJECT_URL}
+              icon={github}
+              rel="noopener noreferrer"
+              target="_blank"
+              title={translate('github')}
+            />
+
             <IconButton className={styles.iconButton} icon={eraser} title={translate('clear')} onClick={handleClear} />
 
             <IconButton
