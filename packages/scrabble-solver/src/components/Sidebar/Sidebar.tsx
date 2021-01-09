@@ -21,6 +21,7 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, hidden, title,
 
   return (
     <div
+      aria-hidden={hidden}
       className={classNames(styles.sidebar, className, {
         [styles.hidden]: hidden,
       })}
