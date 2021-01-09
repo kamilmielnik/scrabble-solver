@@ -30,8 +30,8 @@ const KeyMap: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
 
       <Sidebar.Section title={translate('keyMap.board')}>
         <Mapping description={translate('keyMap.board.toggle-blank')} mapping={mapping.toggleBlank} />
-        <Mapping description={translate('keyMap.board.vertical-direction')} mapping={mapping.verticalDirection} />
-        <Mapping description={translate('keyMap.board.horizontal-direction')} mapping={mapping.horizontalDirection} />
+        <Mapping description={translate('keyMap.board.direction-horizontal')} mapping={mapping.directionVertical} />
+        <Mapping description={translate('keyMap.board.direction-vertical')} mapping={mapping.directionHorizontal} />
       </Sidebar.Section>
 
       <Sidebar.Section title={translate('keyMap.tiles')}>
