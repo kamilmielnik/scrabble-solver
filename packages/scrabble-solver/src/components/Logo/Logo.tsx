@@ -10,7 +10,7 @@ interface Props {
 const CONTENT = [['SCRABBLE'], ['SOLVER', '2']];
 
 const Logo: FunctionComponent<Props> = ({ className, style }) => (
-  <PlainTiles className={className} color={''} content={CONTENT} style={style} />
+  <PlainTiles className={className} content={CONTENT} style={style} />
 );
 
 export default Logo;

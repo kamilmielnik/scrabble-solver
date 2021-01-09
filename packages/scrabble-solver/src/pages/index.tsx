@@ -24,6 +24,7 @@ import styles from './index.module.scss';
 const MIN_TILE_SIZE = 20;
 const MAX_TILE_SIZE = 60;
 const SIDEBAR_MARGIN_LEFT = 40; // TODO: unhardcode?
+const VERSION = '2.0.0-alpha.6';
 
 const INITIAL_SIZE = { height: 0, width: 0 };
 
@@ -72,7 +73,7 @@ const Index: FunctionComponent = () => {
     <>
       <div className={classNames(styles.index, { [styles.initialized]: isInitialized })}>
         <div className={styles.nav}>
-          <div className={styles.logoContainer}>
+          <div className={styles.logoContainer} title={`scrabble-solver@${VERSION}`}>
             <Logo className={styles.logo} />
           </div>
 
