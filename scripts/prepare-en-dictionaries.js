@@ -8,7 +8,7 @@ const { argv } = yargs
     demandOption: false,
     default: 'dictionaries',
     describe: 'output directory',
-    type: 'string'
+    type: 'string',
   })
   .help();
 
@@ -21,10 +21,7 @@ const prepareDictionary = async ({ locale, url }) => {
   const file = readFile(tempFile);
   const preparedFile = prepareFile(file);
   createDirectory(argv.outputDir);
-  createDirectory('dist');
-  createDirectory(`dist/${argv.outputDir}`);
   writeFile(outputFile, preparedFile);
-  writeFile(`dist/${outputFile}`, preparedFile);
   removeFile(tempFile);
 };
 
@@ -43,12 +40,12 @@ const prepareFile = (file) => {
 const locales = [
   {
     locale: 'en-GB',
-    url: 'https://www.wordgamedictionary.com/sowpods/download/sowpods.txt'
+    url: 'https://www.wordgamedictionary.com/sowpods/download/sowpods.txt',
   },
   {
     locale: 'en-US',
-    url: 'https://www.wordgamedictionary.com/twl06/download/twl06.txt'
-  }
+    url: 'https://www.wordgamedictionary.com/twl06/download/twl06.txt',
+  },
 ];
 
 locales.forEach(prepareDictionary);

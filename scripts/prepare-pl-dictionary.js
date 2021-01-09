@@ -11,7 +11,7 @@ import {
   readFile,
   removeFile,
   unzipFile,
-  writeFile
+  writeFile,
 } from './utils';
 
 const PAGE_URL = 'https://sjp.pl/slownik/growy/';
@@ -23,7 +23,7 @@ const { argv } = yargs
     demandOption: false,
     default: 'dictionaries',
     describe: 'output directory',
-    type: 'string'
+    type: 'string',
   })
   .help();
 
@@ -38,10 +38,7 @@ const prepareDictionary = async () => {
   const file = readFile(FILE_TO_EXTRACT_FROM_ZIP);
   const preparedFile = prepareFile(file);
   createDirectory(argv.outputDir);
-  createDirectory('dist');
-  createDirectory(`dist/${argv.outputDir}`);
   writeFile(outputFile, preparedFile);
-  writeFile(`dist/${outputFile}`, preparedFile);
   removeFile(FILE_TO_EXTRACT_FROM_ZIP);
 };
 
