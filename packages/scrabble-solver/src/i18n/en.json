@@ -17,8 +17,8 @@
   "settings": "Settings",
   "settings.autoDirectionChange": "Change typing direction on the board with arrow keys",
   "settings.autoDirectionChangeTitle": "Navigating with arrow keys on the board will also change typing direction",
+  "settings.game": "Game",
   "settings.language": "Language",
   "settings.other": "Other",
-  "settings.rules": "Rules",
   "tiles.placeholder": "Letters"
 }

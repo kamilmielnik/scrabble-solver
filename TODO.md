@@ -7,12 +7,11 @@
 
 - generate .d.ts files for module.scss files on save & before build
 - hotkeys to focus 1) board, 2) tiles
-- help popover with hotkeys listed (ctrl+b, ctrl+right, ctrl+down - change typing direction)
+- sidebar with hotkeys listed (ctrl+b, ctrl+right, ctrl+down - change typing direction)
 - proper error states
 - undo, redo
 - rename fromJson/toJson to serialize/deserialize
 - merge settings/i18n/locale slices into settings
-- rename rules setting to config setting ("game" in UI)
 - automatically focus tiles after applying result
 
 # Resources

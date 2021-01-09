@@ -28,7 +28,7 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
       onClose={onClose}
     >
       <div className={styles.section}>
-        <h2 className={styles.heading}>{translate('settings.rules')}</h2>
+        <h2 className={styles.heading}>{translate('settings.game')}</h2>
         <ConfigSetting disabled={hidden} />
       </div>
 
