@@ -16,6 +16,13 @@ const selectCell = (_: RootState, cell: Cell): Cell => cell;
 
 const pointsComparator = reverseComparator(createKeyComparator('points'));
 
+export const selectSettingsRoot = (state: RootState) => state.settings;
+
+export const selectAutoDirectionChange = createSelector(
+  [selectSettingsRoot],
+  (settings) => settings.autoDirectionChange,
+);
+
 export const selectI18n = (state: RootState): typeof i18nInitialState => state.i18n;
 
 export const selectLocale = (state: RootState): Locale => state.i18n.locale;
@@ -29,7 +36,7 @@ export const selectCells = createSelector([selectRows], (rows) => {
   return rows.reduce<Cell[]>((cells: Cell[], row: Cell[]) => cells.concat(row), []);
 });
 
-export const selectConfigId = (state: RootState) => state.configId;
+export const selectConfigId = createSelector([selectSettingsRoot], (settings) => settings.configId);
 
 export const selectConfig = createSelector([selectConfigId, selectLocale], (configId, locale) => {
   return getLocaleConfig(configId, locale);
@@ -91,10 +98,3 @@ export const selectCharacters = createSelector(selectTiles, (tiles) => tiles.fil
 export const selectIsLoading = (state: RootState): boolean => state.solve.isLoading;
 
 export const selectDictionaryRoot = (state: RootState) => state.dictionary;
-
-export const selectSettingsRoot = (state: RootState) => state.settings;
-
-export const selectAutoDirectionChange = createSelector(
-  [selectSettingsRoot],
-  (settings) => settings.autoDirectionChange,
-);

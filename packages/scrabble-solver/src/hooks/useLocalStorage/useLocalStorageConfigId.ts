@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce } from 'react-use';
 
-import { configIdSlice, localStorage, selectConfigId, useTypedSelector } from 'state';
+import { localStorage, selectConfigId, settingsSlice, useTypedSelector } from 'state';
 
 const useLocalStorageConfigId = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const useLocalStorageConfigId = () => {
     const persistedConfigId = localStorage.getConfigId();
 
     if (persistedConfigId) {
-      dispatch(configIdSlice.actions.change(persistedConfigId));
+      dispatch(settingsSlice.actions.changeConfigId(persistedConfigId));
     }
   });
 

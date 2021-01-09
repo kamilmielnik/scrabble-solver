@@ -1,7 +1,5 @@
 export { default as boardInitialState } from './boardInitialState';
 export { default as boardSlice } from './boardSlice';
-export { default as configIdInitialState } from './configIdInitialState';
-export { default as configIdSlice } from './configIdSlice';
 export { default as dictionaryInitialState } from './dictionaryInitialState';
 export { default as dictionarySlice } from './dictionarySlice';
 export { default as i18nInitialState } from './i18nInitialState';

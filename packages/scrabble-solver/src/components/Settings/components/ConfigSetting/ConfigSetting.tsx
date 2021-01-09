@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { configIdSlice, selectConfigId, useTypedSelector } from 'state';
+import { selectConfigId, settingsSlice, useTypedSelector } from 'state';
 
 import Radio from '../../../Radio';
 
@@ -19,7 +19,7 @@ const ConfigSetting: FunctionComponent<Props> = ({ className, disabled }) => {
   const configId = useTypedSelector(selectConfigId);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(configIdSlice.actions.change(event.target.value));
+    dispatch(settingsSlice.actions.changeConfigId(event.target.value));
   };
 
   return (

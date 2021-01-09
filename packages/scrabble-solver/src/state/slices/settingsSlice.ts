@@ -10,6 +10,11 @@ const settingsSlice = createSlice({
       const autoDirectionChange = action.payload;
       return { ...state, autoDirectionChange };
     },
+
+    changeConfigId: (state, action: PayloadAction<string>) => {
+      const configId = action.payload;
+      return { ...state, configId };
+    },
   },
 });
 
