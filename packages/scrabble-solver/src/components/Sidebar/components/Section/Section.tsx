@@ -10,10 +10,10 @@ interface Props {
 }
 
 const Section: FunctionComponent<Props> = ({ children, className, title }) => (
-  <div className={classNames(styles.section, className)}>
+  <section className={classNames(styles.section, className)}>
     <h2 className={styles.heading}>{title}</h2>
     <div>{children}</div>
-  </div>
+  </section>
 );
 
 export default Section;
