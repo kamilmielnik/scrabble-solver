@@ -2,12 +2,6 @@
 
 https://scrabble-solver.kamilmielnik.com/
 
-## Setup
-
-```Shell
-npm install
-```
-
 ## Scripts
 
 ### `npm run build`
