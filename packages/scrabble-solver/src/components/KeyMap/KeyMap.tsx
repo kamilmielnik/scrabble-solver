@@ -6,7 +6,6 @@ import { useTranslate } from 'state';
 import Sidebar from '../Sidebar';
 
 import { Mapping } from './components';
-import styles from './KeyMap.module.scss';
 import mapping from './mapping';
 
 interface Props {
@@ -23,42 +22,23 @@ const KeyMap: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
   return (
     <Sidebar className={className} hidden={hidden} title={translate('keyMap')} onClose={onClose}>
       <Sidebar.Section title={translate('keyMap.board-and-tiles')}>
-        <div className={styles.entry}>
-          <Mapping mapping={mapping.navigate} /> - nawigacja
-        </div>
-
-        <div className={styles.entry}>
-          <Mapping mapping={mapping.insertTile} /> - wstaw płytkę z daną literą
-        </div>
-
-        <div className={styles.entry}>
-          <Mapping mapping={mapping.removeTile} /> - zdejmij płytkę
-        </div>
-
-        <div className={styles.entry}>
-          <Mapping mapping={mapping.submit} /> - rozpocznij wyszukiwanie
-        </div>
+        <Mapping mapping={mapping.navigate} description="nawigacja" />
+        <Mapping mapping={mapping.insertTile} description="wstaw płytkę z daną literą" />
+        <Mapping mapping={mapping.removeTile} description="zdejmij płytkę" />
+        <Mapping mapping={mapping.submit} description="rozpocznij wyszukiwanie" />
       </Sidebar.Section>
 
       <Sidebar.Section title={translate('keyMap.board')}>
-        <div className={styles.entry}>
-          <Mapping mapping={mapping.toggleBlank} /> - oznacz/odznacz płytkę jako blank (płytka musi być wcześniej
-          umieszczona na polu)
-        </div>
-
-        <div className={styles.entry}>
-          <Mapping mapping={mapping.setVerticalTypingDirection} /> - zmień kierunek wpisywania na pionowy
-        </div>
-
-        <div className={styles.entry}>
-          <Mapping mapping={mapping.setHorizontalTypingDirection} /> - zmień kierunek wpisywania na poziomy
-        </div>
+        <Mapping
+          mapping={mapping.toggleBlank}
+          description="oznacz/odznacz płytkę jako blank (płytka musi być wcześniej umieszczona na polu)"
+        />
+        <Mapping mapping={mapping.setVerticalTypingDirection} description="zmień kierunek wpisywania na pionowy" />
+        <Mapping mapping={mapping.setHorizontalTypingDirection} description="zmień kierunek wpisywania na poziomy" />
       </Sidebar.Section>
 
       <Sidebar.Section title={translate('keyMap.tiles')}>
-        <div className={styles.entry}>
-          <Mapping mapping={mapping.insertBlank} /> (spacja) - wstaw blanka
-        </div>
+        <Mapping mapping={mapping.insertBlank} description="(spacja) wstaw blanka" />
       </Sidebar.Section>
     </Sidebar>
   );
