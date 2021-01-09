@@ -103,7 +103,7 @@ const Index: FunctionComponent = () => {
             <IconButton
               className={styles.iconButton}
               icon={cog}
-              title={translate('keyMap')}
+              title={translate('settings')}
               onClick={handleShowSettings}
             />
           </div>
