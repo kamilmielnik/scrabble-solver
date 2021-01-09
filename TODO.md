@@ -1,12 +1,13 @@
 # TODO v2
 
-- automatically focus tiles after applying result
 - XL screens responsiveness
 - board auto-resizing
-- sidebar with hotkeys listed (ctrl+b, ctrl+right, ctrl+down - change typing direction)
+- keyboard map - sidebar with hotkeys listed (ctrl+b, ctrl+right, ctrl+down - change typing direction)
+- update favicon
 
 # TODO v2++
 
+- automatically focus tiles after applying result (make it a setting?)
 - mobile
 - generate .d.ts files for module.scss files on save & before build
 - proper error states
