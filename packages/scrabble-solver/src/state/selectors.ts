@@ -2,10 +2,9 @@ import { createSelector } from '@reduxjs/toolkit';
 import { getLocaleConfig } from '@scrabble-solver/configs';
 import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/models';
 
+import i18n from 'i18n';
 import { createKeyComparator, reverseComparator } from 'lib';
-import { Locale } from 'types';
 
-import { i18nInitialState } from './slices';
 import { RootState } from './types';
 
 const findCell = (cells: Cell[], x: number, y: number): Cell | undefined => {
@@ -23,9 +22,7 @@ export const selectAutoDirectionChange = createSelector(
   (settings) => settings.autoDirectionChange,
 );
 
-export const selectI18n = (state: RootState): typeof i18nInitialState => state.i18n;
-
-export const selectLocale = (state: RootState): Locale => state.i18n.locale;
+export const selectLocale = createSelector([selectSettingsRoot], (settings) => settings.locale);
 
 export const selectBoard = (state: RootState): Board => state.board;
 
@@ -76,7 +73,7 @@ export const selectCharacterPoints = createSelector(
   },
 );
 
-export const selectTranslations = createSelector([selectI18n], ({ i18n, locale }) => i18n[locale]);
+export const selectTranslations = createSelector([selectLocale], (locale) => i18n[locale]);
 
 export const selectTranslation = createSelector(
   [selectTranslations, selectLocale, (_: RootState, id: string) => id],

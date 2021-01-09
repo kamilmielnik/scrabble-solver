@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { i18nSlice, selectLocale, useTypedSelector } from 'state';
+import { selectLocale, settingsSlice, useTypedSelector } from 'state';
 import { Locale } from 'types';
 
 import Radio from '../../../Radio';
@@ -22,7 +22,7 @@ const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newLocale: Locale = event.target.value as Locale;
-    dispatch(i18nSlice.actions.changeLocale(newLocale));
+    dispatch(settingsSlice.actions.changeLocale(newLocale));
   };
 
   return (

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useEffectOnce } from 'react-use';
 
 import { detectLocale } from 'lib';
-import { i18nSlice, localStorage, selectLocale, useTypedSelector } from 'state';
+import { localStorage, selectLocale, settingsSlice, useTypedSelector } from 'state';
 
 const useLocalStorageLocale = () => {
   const dispatch = useDispatch();
@@ -13,9 +13,9 @@ const useLocalStorageLocale = () => {
     const persistedLocale = localStorage.getLocale();
 
     if (persistedLocale) {
-      dispatch(i18nSlice.actions.changeLocale(persistedLocale));
+      dispatch(settingsSlice.actions.changeLocale(persistedLocale));
     } else {
-      dispatch(i18nSlice.actions.changeLocale(detectLocale()));
+      dispatch(settingsSlice.actions.changeLocale(detectLocale()));
     }
   });
 

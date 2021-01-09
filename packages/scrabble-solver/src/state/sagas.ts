@@ -6,7 +6,7 @@ import { memoize } from 'lib';
 import { findWordDefinition, solve } from 'sdk';
 
 import { selectBoard, selectCharacters, selectConfig, selectDictionaryRoot, selectLocale } from './selectors';
-import { boardSlice, dictionarySlice, i18nSlice, resultsSlice, solveSlice, tilesSlice } from './slices';
+import { boardSlice, dictionarySlice, resultsSlice, settingsSlice, solveSlice, tilesSlice } from './slices';
 
 const SUBMIT_DELAY = 150;
 
@@ -15,7 +15,7 @@ const memoizedFindWordDefinition = memoize(findWordDefinition);
 export function* rootSaga() {
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
   yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
-  yield takeEvery(i18nSlice.actions.changeLocale.type, onLocaleChange);
+  yield takeEvery(settingsSlice.actions.changeLocale.type, onLocaleChange);
   yield takeLatest(solveSlice.actions.submit.type, onSubmit);
   yield takeEvery(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
 }

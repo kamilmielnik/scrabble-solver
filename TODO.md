@@ -1,6 +1,5 @@
 # TODO v2
 
-- merge settings/i18n/config slices into settings
 - automatically focus tiles after applying result
 - XL screens responsiveness
 - board auto-resizing
