@@ -22,23 +22,23 @@ const KeyMap: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
   return (
     <Sidebar className={className} hidden={hidden} title={translate('keyMap')} onClose={onClose}>
       <Sidebar.Section title={translate('keyMap.board-and-tiles')}>
-        <Mapping mapping={mapping.navigate} description="nawigacja" />
-        <Mapping mapping={mapping.insertTile} description="wstaw płytkę z daną literą" />
-        <Mapping mapping={mapping.removeTile} description="zdejmij płytkę" />
-        <Mapping mapping={mapping.submit} description="rozpocznij wyszukiwanie" />
+        <Mapping description="nawigacja" mapping={mapping.navigate} />
+        <Mapping description="wstaw płytkę z daną literą" mapping={mapping.insertTile} />
+        <Mapping description="zdejmij płytkę" mapping={mapping.removeTile} />
+        <Mapping description="rozpocznij wyszukiwanie" mapping={mapping.submit} />
       </Sidebar.Section>
 
       <Sidebar.Section title={translate('keyMap.board')}>
         <Mapping
-          mapping={mapping.toggleBlank}
           description="oznacz/odznacz płytkę jako blank (płytka musi być wcześniej umieszczona na polu)"
+          mapping={mapping.toggleBlank}
         />
-        <Mapping mapping={mapping.setVerticalTypingDirection} description="zmień kierunek wpisywania na pionowy" />
-        <Mapping mapping={mapping.setHorizontalTypingDirection} description="zmień kierunek wpisywania na poziomy" />
+        <Mapping description="zmień kierunek wpisywania na pionowy" mapping={mapping.setVerticalTypingDirection} />
+        <Mapping description="zmień kierunek wpisywania na poziomy" mapping={mapping.setHorizontalTypingDirection} />
       </Sidebar.Section>
 
       <Sidebar.Section title={translate('keyMap.tiles')}>
-        <Mapping mapping={mapping.insertBlank} description="(spacja) wstaw blanka" />
+        <Mapping description="(spacja) wstaw blanka" mapping={mapping.insertBlank} />
       </Sidebar.Section>
     </Sidebar>
   );
