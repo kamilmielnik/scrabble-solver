@@ -22,23 +22,20 @@ const KeyMap: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
   return (
     <Sidebar className={className} hidden={hidden} title={translate('keyMap')} onClose={onClose}>
       <Sidebar.Section title={translate('keyMap.board-and-tiles')}>
-        <Mapping description="nawigacja" mapping={mapping.navigate} />
-        <Mapping description="wstaw płytkę z daną literą" mapping={mapping.insertTile} />
-        <Mapping description="zdejmij płytkę" mapping={mapping.removeTile} />
-        <Mapping description="rozpocznij wyszukiwanie" mapping={mapping.submit} />
+        <Mapping description={translate('keyMap.board-and-tiles.navigate')} mapping={mapping.navigate} />
+        <Mapping description={translate('keyMap.board-and-tiles.insert-tile')} mapping={mapping.insertTile} />
+        <Mapping description={translate('keyMap.board-and-tiles.remove-tile')} mapping={mapping.removeTile} />
+        <Mapping description={translate('keyMap.board-and-tiles.submit')} mapping={mapping.submit} />
       </Sidebar.Section>
 
       <Sidebar.Section title={translate('keyMap.board')}>
-        <Mapping
-          description="oznacz/odznacz płytkę jako blank (płytka musi być wcześniej umieszczona na polu)"
-          mapping={mapping.toggleBlank}
-        />
-        <Mapping description="zmień kierunek wpisywania na pionowy" mapping={mapping.setVerticalTypingDirection} />
-        <Mapping description="zmień kierunek wpisywania na poziomy" mapping={mapping.setHorizontalTypingDirection} />
+        <Mapping description={translate('keyMap.board.toggle-blank')} mapping={mapping.toggleBlank} />
+        <Mapping description={translate('keyMap.board.vertical-direction')} mapping={mapping.verticalDirection} />
+        <Mapping description={translate('keyMap.board.horizontal-direction')} mapping={mapping.horizontalDirection} />
       </Sidebar.Section>
 
       <Sidebar.Section title={translate('keyMap.tiles')}>
-        <Mapping description="(spacja) wstaw blanka" mapping={mapping.insertBlank} />
+        <Mapping description={translate('keyMap.tiles.insert-blank')} mapping={mapping.insertBlank} />
       </Sidebar.Section>
     </Sidebar>
   );

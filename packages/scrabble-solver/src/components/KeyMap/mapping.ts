@@ -7,11 +7,11 @@ const mapping = {
   removeTile: [Key.DEL, Key.BACKSPACE],
   submit: [Key.ENTER],
   toggleBlank: [[Key.CTRL, Key.B]],
-  setHorizontalTypingDirection: [
+  horizontalDirection: [
     [Key.CTRL, Key.ARROW_LEFT],
     [Key.CTRL, Key.ARROW_RIGHT],
   ],
-  setVerticalTypingDirection: [
+  verticalDirection: [
     [Key.CTRL, Key.ARROW_UP],
     [Key.CTRL, Key.ARROW_DOWN],
   ],
