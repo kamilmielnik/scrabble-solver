@@ -12,3 +12,5 @@
 - undo, redo
 - extract eslint/prettier to a separate repo/package
 - hotkeys to focus 1) board, 2) tiles
+- show remaining tiles (sidebar?)
+- add dictionary input?

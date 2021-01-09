@@ -1,16 +1,18 @@
 .key {
   $size: 28px;
 
+  position: relative;
+  top: calc(0px - 2 * var(--border--width));
   display: inline-block;
   height: $size;
   padding: var(--spacing--s) var(--spacing--m);
   background-color: white;
   border: var(--border);
   border-radius: var(--border--radius);
+  box-shadow: var(--box-shadow);
   font-size: var(--font--size--small);
   line-height: calc(#{$size} - 2 * (var(--spacing--s) + var(--border--width)));
-  white-space: nowrap;
   vertical-align: middle;
   text-align: center;
-  box-shadow: var(--box-shadow);
+  white-space: nowrap;
 }
