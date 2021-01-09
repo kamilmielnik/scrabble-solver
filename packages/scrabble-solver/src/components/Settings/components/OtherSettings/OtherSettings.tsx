@@ -10,9 +10,10 @@ import styles from './OtherSettings.module.scss';
 
 interface Props {
   className?: string;
+  disabled: boolean;
 }
 
-const OtherSettings: FunctionComponent<Props> = ({ className }) => {
+const OtherSettings: FunctionComponent<Props> = ({ className, disabled }) => {
   const dispatch = useDispatch();
   const autoDirectionChange = useTypedSelector(selectAutoDirectionChange);
   const labelTranslation = useTranslation('settings.autoDirectionChange');
@@ -26,6 +27,7 @@ const OtherSettings: FunctionComponent<Props> = ({ className }) => {
     <div className={classNames(styles.otherSettings, className)}>
       <Checkbox
         checked={autoDirectionChange}
+        disabled={disabled}
         id="autoDirectionChange"
         name="autoDirectionChange"
         title={titleTranslation}

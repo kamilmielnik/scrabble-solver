@@ -11,9 +11,10 @@ import options from './options';
 
 interface Props {
   className?: string;
+  disabled?: boolean;
 }
 
-const ConfigSetting: FunctionComponent<Props> = ({ className }) => {
+const ConfigSetting: FunctionComponent<Props> = ({ className, disabled }) => {
   const dispatch = useDispatch();
   const configId = useTypedSelector(selectConfigId);
 
@@ -29,6 +30,7 @@ const ConfigSetting: FunctionComponent<Props> = ({ className }) => {
           className={classNames(styles.option, className, {
             [styles.checked]: configId === option.value,
           })}
+          disabled={disabled}
           id="config"
           key={option.value}
           name="config"

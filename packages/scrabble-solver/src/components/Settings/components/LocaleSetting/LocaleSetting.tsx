@@ -13,9 +13,10 @@ import options from './options';
 
 interface Props {
   className?: string;
+  disabled: boolean;
 }
 
-const LocaleSetting: FunctionComponent<Props> = ({ className }) => {
+const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
 
@@ -32,6 +33,7 @@ const LocaleSetting: FunctionComponent<Props> = ({ className }) => {
           className={classNames(styles.option, className, {
             [styles.checked]: locale === option.value,
           })}
+          disabled={disabled}
           id="locale"
           key={option.value}
           name="locale"

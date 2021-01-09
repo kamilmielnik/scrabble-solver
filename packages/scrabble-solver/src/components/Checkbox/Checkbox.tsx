@@ -11,13 +11,14 @@ interface Props {
   checked: boolean;
   children?: ReactNode;
   className?: string;
+  disabled?: boolean;
   id: string;
   name: string;
   title: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-const Checkbox: FunctionComponent<Props> = ({ checked, children, className, id, name, title, onChange }) => (
+const Checkbox: FunctionComponent<Props> = ({ checked, children, className, disabled, id, name, title, onChange }) => (
   <label
     className={classNames(styles.checkbox, className, {
       [styles.checked]: checked,
@@ -25,7 +26,15 @@ const Checkbox: FunctionComponent<Props> = ({ checked, children, className, id, 
     htmlFor={id}
     title={title}
   >
-    <input checked={checked} className={styles.input} id={id} name={name} type="checkbox" onChange={onChange} />
+    <input
+      checked={checked}
+      className={styles.input}
+      disabled={disabled}
+      id={id}
+      name={name}
+      type="checkbox"
+      onChange={onChange}
+    />
 
     <SvgIcon className={styles.icon} icon={checked ? checkboxChecked : checkboxEmpty} />
 

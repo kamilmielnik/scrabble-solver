@@ -5,8 +5,10 @@ $width: 400px;
   position: fixed;
   top: 0;
   right: 0;
-  bottom: 0;
+  height: 100vh;
   width: $width;
+  display: flex;
+  flex-direction: column;
   background-color: var(--color--background);
   transition: var(--transition);
   transition-duration: var(--transition--duration--long);
@@ -23,6 +25,7 @@ $width: 400px;
 }
 
 .header {
+  flex: 0 0 auto;
   position: relative;
   padding: var(--spacing--l);
 }
@@ -33,7 +36,7 @@ $width: 400px;
 }
 
 .closeButton {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   z-index: $z-index + 1;
@@ -41,6 +44,8 @@ $width: 400px;
 }
 
 .content {
+  flex: 1;
   position: relative;
   padding: var(--spacing--l);
+  overflow: auto;
 }

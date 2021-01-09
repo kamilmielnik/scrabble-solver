@@ -29,7 +29,13 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, hidden, title,
         <h1 className={styles.title}>{title}</h1>
 
         {onClose && (
-          <IconButton className={styles.closeButton} icon={cross} title={closeTranslation} onClick={onClose} />
+          <IconButton
+            className={styles.closeButton}
+            disabled={hidden}
+            icon={cross}
+            title={closeTranslation}
+            onClick={onClose}
+          />
         )}
       </div>
 

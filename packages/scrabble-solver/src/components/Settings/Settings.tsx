@@ -38,17 +38,17 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
     >
       <div className={styles.section}>
         <h2 className={styles.heading}>{rulesTranslation}</h2>
-        <ConfigSetting />
+        <ConfigSetting disabled={hidden} />
       </div>
 
       <div className={styles.section}>
         <h2 className={styles.heading}>{languageTranslation}</h2>
-        <LocaleSetting />
+        <LocaleSetting disabled={hidden} />
       </div>
 
       <div className={styles.section}>
         <h2 className={styles.heading}>{otherTranslation}</h2>
-        <OtherSettings />
+        <OtherSettings disabled={hidden} />
       </div>
     </Sidebar>
   );

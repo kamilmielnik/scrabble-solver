@@ -7,6 +7,7 @@ interface Props {
   checked: boolean;
   children?: ReactNode;
   className?: string;
+  disabled?: boolean;
   id: string;
   name: string;
   title: string;
@@ -14,7 +15,17 @@ interface Props {
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-const Radio: FunctionComponent<Props> = ({ checked, children, className, id, name, title, value, onChange }) => (
+const Radio: FunctionComponent<Props> = ({
+  checked,
+  children,
+  className,
+  disabled,
+  id,
+  name,
+  title,
+  value,
+  onChange,
+}) => (
   <label
     className={classNames(styles.radio, className, {
       [styles.checked]: checked,
@@ -25,6 +36,7 @@ const Radio: FunctionComponent<Props> = ({ checked, children, className, id, nam
     <input
       checked={checked}
       className={styles.input}
+      disabled={disabled}
       id={id}
       name={name}
       type="radio"
