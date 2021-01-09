@@ -6,3 +6,4 @@ export { default as eraser } from './eraser.svg';
 export { default as flagGb } from './flag-gb.svg';
 export { default as flagPl } from './flag-pl.svg';
 export { default as flagUs } from './flag-us.svg';
+export { default as keyboard } from './keyboard.svg';

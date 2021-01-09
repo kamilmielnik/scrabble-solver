@@ -1,12 +1,6 @@
-.settings {
-  // TODO: remove?
-}
-
 .section {
-  margin-bottom: var(--spacing--xl);
-
-  &:last-child {
-    margin-bottom: 0;
+  & + & {
+    margin-top: var(--spacing--xl);
   }
 }
 

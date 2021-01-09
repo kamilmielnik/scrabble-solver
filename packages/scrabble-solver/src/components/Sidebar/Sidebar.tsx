@@ -6,9 +6,10 @@ import { useTranslate } from 'state';
 
 import IconButton from '../IconButton';
 
+import { Section } from './components';
 import styles from './Sidebar.module.scss';
 
-interface Props {
+export interface Props {
   children: ReactNode;
   className?: string;
   hidden: boolean;
@@ -43,4 +44,6 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, hidden, title,
   );
 };
 
-export default Sidebar;
+export default Object.assign(Sidebar, {
+  Section,
+});

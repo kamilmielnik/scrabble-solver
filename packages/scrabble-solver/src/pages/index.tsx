@@ -4,9 +4,9 @@ import React, { FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce, useSize } from 'react-use';
 
-import { Board, Dictionary, IconButton, Logo, Results, Settings, Splash, Tiles, Well } from 'components';
+import { Board, Dictionary, IconButton, KeyMap, Logo, Results, Settings, Splash, Tiles, Well } from 'components';
 import { useLocalStorage } from 'hooks';
-import { cog, eraser } from 'icons';
+import { cog, eraser, keyboard } from 'icons';
 import {
   boardSlice,
   dictionarySlice,
@@ -39,6 +39,7 @@ const getCellSize = (config: Config, width: number, height: number): number => {
 const Index: FunctionComponent = () => {
   const dispatch = useDispatch();
   const translate = useTranslate();
+  const [showKeyMap, setShowKeyMap] = useState<boolean>(false);
   const [showSettings, setShowSettings] = useState<boolean>(false);
   const [contentSizer, { width: contentWidth }] = useSize(<div />, INITIAL_SIZE);
   const [boardSizer, { height: boardHeight }] = useSize(<div />, INITIAL_SIZE);
@@ -55,8 +56,9 @@ const Index: FunctionComponent = () => {
     dispatch(tilesSlice.actions.reset());
   };
 
+  const handleHideKeyMap = () => setShowKeyMap(false);
+  const handleShowKeyMap = () => setShowKeyMap(true);
   const handleHideSettings = () => setShowSettings(false);
-
   const handleShowSettings = () => setShowSettings(true);
 
   useLocalStorage();
@@ -82,8 +84,15 @@ const Index: FunctionComponent = () => {
 
             <IconButton
               className={styles.iconButton}
+              icon={keyboard}
+              title={translate('keyMap')}
+              onClick={handleShowKeyMap}
+            />
+
+            <IconButton
+              className={styles.iconButton}
               icon={cog}
-              title={translate('settings')}
+              title={translate('keyMap')}
               onClick={handleShowSettings}
             />
           </div>
@@ -119,6 +128,8 @@ const Index: FunctionComponent = () => {
       </div>
 
       <Settings hidden={!showSettings} onClose={handleHideSettings} />
+
+      <KeyMap hidden={!showKeyMap} onClose={handleHideKeyMap} />
 
       <Splash forceShow={!isInitialized} />
     </>

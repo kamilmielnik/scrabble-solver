@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { useKey } from 'react-use';
 
@@ -7,7 +6,6 @@ import { useTranslate } from 'state';
 import Sidebar from '../Sidebar';
 
 import { ConfigSetting, LocaleSetting, OtherSettings } from './components';
-import styles from './Settings.module.scss';
 
 interface Props {
   className?: string;
@@ -21,26 +19,18 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
   useKey('Escape', onClose, { event: 'keydown' }, [onClose]);
 
   return (
-    <Sidebar
-      className={classNames(styles.settings, className)}
-      hidden={hidden}
-      title={translate('settings')}
-      onClose={onClose}
-    >
-      <div className={styles.section}>
-        <h2 className={styles.heading}>{translate('settings.game')}</h2>
+    <Sidebar className={className} hidden={hidden} title={translate('settings')} onClose={onClose}>
+      <Sidebar.Section title={translate('settings.game')}>
         <ConfigSetting disabled={hidden} />
-      </div>
+      </Sidebar.Section>
 
-      <div className={styles.section}>
-        <h2 className={styles.heading}>{translate('settings.language')}</h2>
+      <Sidebar.Section title={translate('settings.language')}>
         <LocaleSetting disabled={hidden} />
-      </div>
+      </Sidebar.Section>
 
-      <div className={styles.section}>
-        <h2 className={styles.heading}>{translate('settings.other')}</h2>
+      <Sidebar.Section title={translate('settings.other')}>
         <OtherSettings disabled={hidden} />
-      </div>
+      </Sidebar.Section>
     </Sidebar>
   );
 };

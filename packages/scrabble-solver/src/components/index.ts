@@ -4,6 +4,7 @@ export { default as Dictionary } from './Dictionary';
 export { default as EmptyState } from './EmptyState';
 export { default as IconButton } from './IconButton';
 export { default as Key } from './Key';
+export { default as KeyMap } from './KeyMap';
 export { default as Loading } from './Loading';
 export { default as Logo } from './Logo';
 export { default as PlainTiles } from './PlainTiles';
