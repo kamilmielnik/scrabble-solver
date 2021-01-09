@@ -4,7 +4,7 @@ import { useKey } from 'react-use';
 
 import { useTranslation } from 'state';
 
-import Screen from '../Screen';
+import Sidebar from '../Sidebar';
 
 import { ConfigSetting, LocaleSetting, OtherSettings } from './components';
 import styles from './Settings.module.scss';
@@ -30,14 +30,12 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
   useKey('Escape', handleClose, { event: 'keydown' }, [hidden, onClose]);
 
   return (
-    <Screen
+    <Sidebar
       className={classNames(styles.settings, className)}
-      contentClassName={styles.content}
       hidden={hidden}
+      title={settingsTranslation}
       onClose={onClose}
     >
-      <h1 className={styles.title}>{settingsTranslation}</h1>
-
       <div className={styles.section}>
         <h2 className={styles.heading}>{rulesTranslation}</h2>
         <ConfigSetting />
@@ -52,7 +50,7 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
         <h2 className={styles.heading}>{otherTranslation}</h2>
         <OtherSettings />
       </div>
-    </Screen>
+    </Sidebar>
   );
 };
 

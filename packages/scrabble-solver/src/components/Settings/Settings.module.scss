@@ -1,31 +1,18 @@
-$content-width: 600px;
-
 .settings {
+  // TODO: remove?
 }
 
-.content {
-  max-width: $content-width;
-  padding: 0 var(--spacing--xl);
-  margin: 0 auto;
-}
-
-.heading,
-.title {
-  font-family: var(--font--family--secondary);
-  font-weight: 300;
-}
-
-.title {
-  margin-top: var(--spacing--xxl);
+.section {
   margin-bottom: var(--spacing--xl);
-  font-size: var(--font--size--xl);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .heading {
   margin-bottom: var(--spacing--l);
   font-size: var(--font--size--l);
-}
-
-.section {
-  margin: var(--spacing--xl) 0;
+  font-family: var(--font--family--secondary);
+  font-weight: 300;
 }
