@@ -2,14 +2,9 @@
   "command": {
     "bootstrap": {
       "forceLocal": true
-    },
-    "start": {
-      "scope": "@scrabble-solver/scrabble-solver"
     }
   },
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "publishConfig": {
     "access": "public"
   },
