@@ -47,7 +47,7 @@ const Splash: FunctionComponent<Props> = ({ className, forceShow, splashDuration
         style={{ clipPath: `polygon(0% 0%, ${progressPercent} 0, ${progressPercent} 100%, 0% 100%)` }}
       />
 
-      <div className={styles.author}>by Kamil Mielnik</div>
+      <h1 className={styles.author}>by Kamil Mielnik</h1>
     </Screen>
   );
 };
