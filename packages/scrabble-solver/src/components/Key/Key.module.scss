@@ -3,13 +3,14 @@
 
   display: inline-block;
   height: $size;
-  margin: 0 var(--spacing--s);
   padding: var(--spacing--s) var(--spacing--m);
-  background-color: var(--color--background);
+  background-color: white;
   border: var(--border);
   border-radius: var(--border--radius);
   font-size: var(--font--size--s);
   line-height: calc(#{$size} - 2 * (var(--spacing--s) + var(--border--width)));
   white-space: nowrap;
+  vertical-align: middle;
   text-align: center;
+  box-shadow: var(--box-shadow);
 }

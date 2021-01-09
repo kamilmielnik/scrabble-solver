@@ -1,0 +1,7 @@
+.entry {
+  margin-bottom: var(--spacing--l);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
