@@ -1,4 +1,6 @@
 import { Config } from '@scrabble-solver/models';
+import fs from 'fs';
+import path from 'path';
 import classNames from 'classnames';
 import React, { FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -24,7 +26,6 @@ import styles from './index.module.scss';
 const MIN_TILE_SIZE = 20;
 const MAX_TILE_SIZE = 60;
 const SIDEBAR_MARGIN_LEFT = 40; // TODO: unhardcode?
-const VERSION = '2.0.0-alpha.6';
 const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';
 
 const INITIAL_SIZE = { height: 0, width: 0 };
@@ -37,7 +38,18 @@ const getCellSize = (config: Config, width: number, height: number): number => {
   return Math.min(Math.max(cellSize, MIN_TILE_SIZE), MAX_TILE_SIZE);
 };
 
-const Index: FunctionComponent = () => {
+const getVersion = (): string => {
+  const packageJsonFilepath = path.resolve(process.cwd(), 'package.json');
+  const packageJsonFile = fs.readFileSync(packageJsonFilepath, 'utf-8');
+  const packageJson = JSON.parse(packageJsonFile);
+  return packageJson.version;
+};
+
+interface Props {
+  version: string;
+}
+
+const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const [showKeyMap, setShowKeyMap] = useState<boolean>(false);
@@ -76,7 +88,7 @@ const Index: FunctionComponent = () => {
     <>
       <div className={classNames(styles.index, { [styles.initialized]: isInitialized })}>
         <div className={styles.nav}>
-          <div className={styles.logoContainer} title={`scrabble-solver@${VERSION}`}>
+          <div className={styles.logoContainer} title={`scrabble-solver@${version}`}>
             <Logo className={styles.logo} />
           </div>
 
@@ -145,6 +157,14 @@ const Index: FunctionComponent = () => {
       <Splash forceShow={!isInitialized} />
     </>
   );
+};
+
+export const getStaticProps = async () => {
+  const props: Props = {
+    version: getVersion(),
+  };
+
+  return { props };
 };
 
 export default Index;

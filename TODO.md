@@ -1,5 +1,3 @@
-- inject version from package.json
-
 # TODO v2++
 
 - XL screens responsiveness
@@ -15,7 +13,7 @@
 - add dictionary input?
 - more stats in results table
 - translate literaki to literaxx
-    - https://pl.wikipedia.org/wiki/Kurnik.pl
-    - https://en.wikipedia.org/wiki/Scrabble_variants#Literaxx
+  - https://pl.wikipedia.org/wiki/Kurnik.pl
+  - https://en.wikipedia.org/wiki/Scrabble_variants#Literaxx
 - request is deprecated
-    - https://github.com/request/request/issues/3142
+  - https://github.com/request/request/issues/3142
