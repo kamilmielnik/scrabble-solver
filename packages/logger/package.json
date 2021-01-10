@@ -1,7 +1,7 @@
 {
   "name": "@scrabble-solver/logger",
   "version": "2.0.0-rc.13",
-  "description": "Scrabble Solver - Logger",
+  "description": "Scrabble Solver 2 - Logger",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "repository": {
