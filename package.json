@@ -30,7 +30,8 @@
     "start": "lerna run start --scope @scrabble-solver/scrabble-solver",
     "test": "jest --no-cache --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache --watch",
-    "test:watch": "jest --no-cache --watch"
+    "test:watch": "jest --no-cache --watch",
+    "version": "lerna version --no-push"
   },
   "repository": {
     "type": "git",
