@@ -18,7 +18,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - run: npx lerna bootstrap --force-local
+    - run: npx lerna bootstrap --force-local --ci
     - run: npm run test
       env:
         CI: true
