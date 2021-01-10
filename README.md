@@ -17,23 +17,17 @@ Run it locally for better performance, your machine surely is faster than that s
 
 ![alt frontend](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/screenshot.png)
 
-## Quick run
+## Run
 
 ```Shell
 npx scrabble-solver
 ```
 
-## Permanent install
-
-### Install
+or
 
 ```Shell
 npm install -g scrabble-solver
-```
-
-### Run
-
-```Shell
+# and then run anytime, anywhere
 scrabble-solver
 ```
 
