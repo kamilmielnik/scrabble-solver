@@ -1,7 +1,7 @@
 import { Config } from '@scrabble-solver/models';
+import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
-import classNames from 'classnames';
 import React, { FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce, useSize } from 'react-use';
