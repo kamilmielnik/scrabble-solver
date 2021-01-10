@@ -1,8 +1,9 @@
-import { Trie } from '@kamilmielnik/trie';
-import { URL } from 'url';
-import yargs from 'yargs';
-import cheerio from 'cheerio';
-import {
+const { Trie } = require('@kamilmielnik/trie');
+const cheerio = require('cheerio');
+const { URL } = require('url');
+const yargs = require('yargs');
+
+const {
   createDirectory,
   downloadHtml,
   downloadFile,
@@ -12,7 +13,7 @@ import {
   removeFile,
   unzipFile,
   writeFile,
-} from './utils';
+} = require('./utils');
 
 const PAGE_URL = 'https://sjp.pl/slownik/growy/';
 const FILE_TO_EXTRACT_FROM_ZIP = 'slowa.txt';

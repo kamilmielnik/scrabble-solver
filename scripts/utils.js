@@ -1,10 +1,10 @@
-import decompress from 'decompress';
-import fs from 'fs-extra';
-import http from 'http';
-import https from 'https';
-import path from 'path';
-import request from 'request';
-import url from 'url';
+const decompress = require('decompress');
+const fs = require('fs-extra');
+const http = require('http');
+const https = require('https');
+const path = require('path');
+const request = require('request');
+const url = require('url');
 
 const WHITE = '\x1b[37m%s\x1b[0m';
 const YELLOW = '\x1b[33m%s\x1b[0m';
@@ -12,14 +12,18 @@ const RED = '\x1b[31m%s\x1b[0m';
 const GREEN = '\x1b[32m%s\x1b[0m';
 
 // eslint-disable-next-line no-console
-export const log = (message) => console.log(WHITE, message);
+const log = (message) => console.log(WHITE, message);
+
 // eslint-disable-next-line no-console
-export const logError = (error) => console.log(RED, error);
+const logError = (error) => console.log(RED, error);
+
 // eslint-disable-next-line no-console
-export const logInfo = (message) => console.log(YELLOW, message);
+const logInfo = (message) => console.log(YELLOW, message);
+
 // eslint-disable-next-line no-console
-export const logSuccess = (message) => console.log(GREEN, message);
-export const logAsyncAction = (message, action) => {
+const logSuccess = (message) => console.log(GREEN, message);
+
+const logAsyncAction = (message, action) => {
   let result = null;
   try {
     const start = Date.now();
@@ -37,7 +41,8 @@ export const logAsyncAction = (message, action) => {
   }
   return result;
 };
-export const logAction = (message, action) => {
+
+const logAction = (message, action) => {
   let result = null;
   try {
     log(`${message}...`);
@@ -53,9 +58,9 @@ export const logAction = (message, action) => {
   return result;
 };
 
-export const getFilenameFromUrl = (fileUrl) => path.basename(url.parse(fileUrl).pathname);
+const getFilenameFromUrl = (fileUrl) => path.basename(url.parse(fileUrl).pathname);
 
-export const downloadHtml = (url) =>
+const downloadHtml = (url) =>
   logAsyncAction(
     `Downloading HTML from "${url}"`,
     () =>
@@ -71,31 +76,48 @@ export const downloadHtml = (url) =>
             resolve(data);
           });
         });
-      })
+      }),
   );
 
-export const downloadFile = (url, outputFilepath) =>
+const downloadFile = (url, outputFilepath) =>
   logAsyncAction(
     `Downloading file from "${url}"`,
-    () => new Promise((resolve) => request.get(url, resolve).pipe(fs.createWriteStream(outputFilepath)))
+    () => new Promise((resolve) => request.get(url, resolve).pipe(fs.createWriteStream(outputFilepath))),
   );
 
-export const unzipFile = (zipFilepath, filename) =>
+const unzipFile = (zipFilepath, filename) =>
   logAsyncAction(`Unzipping "${filename}" from "${zipFilepath}"`, () =>
     decompress(zipFilepath, '.', {
-      filter: (file) => file.path === filename
-    })
+      filter: (file) => file.path === filename,
+    }),
   );
 
-export const readFile = (filepath) => logAction(`Reading "${filepath}"`, () => fs.readFileSync(filepath, 'utf-8'));
+const readFile = (filepath) => logAction(`Reading "${filepath}"`, () => fs.readFileSync(filepath, 'utf-8'));
 
-export const writeFile = (filepath, data) => logAction(`Writing "${filepath}"`, () => fs.writeFileSync(filepath, data));
+const writeFile = (filepath, data) => logAction(`Writing "${filepath}"`, () => fs.writeFileSync(filepath, data));
 
-export const removeFile = (filepath) => logAction(`Removing "${filepath}"`, () => fs.removeSync(filepath));
+const removeFile = (filepath) => logAction(`Removing "${filepath}"`, () => fs.removeSync(filepath));
 
-export const createDirectory = (filepath) =>
+const createDirectory = (filepath) =>
   logAction(`Making sure "${filepath}" directory exists`, () => {
     if (!fs.existsSync(filepath)) {
       fs.mkdirSync(filepath);
     }
   });
+
+module.exports = {
+  createDirectory,
+  downloadFile,
+  downloadHtml,
+  getFilenameFromUrl,
+  log,
+  logAction,
+  logAsyncAction,
+  logError,
+  logInfo,
+  logSuccess,
+  readFile,
+  removeFile,
+  unzipFile,
+  writeFile,
+};

@@ -1,6 +1,7 @@
-import { Trie } from '@kamilmielnik/trie';
-import yargs from 'yargs';
-import { createDirectory, downloadFile, logAction, readFile, removeFile, writeFile } from './utils';
+const { Trie } = require('@kamilmielnik/trie');
+const yargs = require('yargs');
+
+const { createDirectory, downloadFile, logAction, readFile, removeFile, writeFile } = require('./utils');
 
 const { argv } = yargs
   .usage('$0 --output-dir=[string]')
