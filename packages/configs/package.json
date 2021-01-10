@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/configs",
-  "version": "2.0.0-rc.14",
+  "version": "2.0.0-rc.15",
   "description": "Scrabble Solver 2 - Configs",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -23,8 +23,8 @@
     "clean": "rm -rf build/ node_modules/ package-lock.json"
   },
   "dependencies": {
-    "@scrabble-solver/constants": "^2.0.0-rc.14",
-    "@scrabble-solver/models": "^2.0.0-rc.14"
+    "@scrabble-solver/constants": "^2.0.0-rc.15",
+    "@scrabble-solver/models": "^2.0.0-rc.15"
   },
   "devDependencies": {
     "typescript": "^4.1.3"
