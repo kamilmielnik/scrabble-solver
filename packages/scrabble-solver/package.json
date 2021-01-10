@@ -21,7 +21,7 @@
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "scripts": {
     "build": "NEXT_TELEMETRY_DISABLED=1 next build",
-    "clean": "rm -rf node_modules/ package-lock.json scrabble-solver-all.log scrabble-solver-error.log",
+    "clean": "rm -rf .next/ node_modules/ package-lock.json scrabble-solver-all.log scrabble-solver-error.log",
     "dev": "NEXT_TELEMETRY_DISABLED=1 next dev",
     "start": "NEXT_TELEMETRY_DISABLED=1 next start -p 3333"
   },
