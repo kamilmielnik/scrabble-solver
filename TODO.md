@@ -6,7 +6,6 @@
     - languages/dictionaries table
     - tech stack
     - screencast
-    - badges
 
 # TODO v2++
 

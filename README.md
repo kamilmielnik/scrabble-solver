@@ -5,6 +5,14 @@ The ultimate cheating app for [Scrabble](https://en.wikipedia.org/wiki/Scrabble)
 Available at http://scrabble-solver.kamilmielnik.com/.
 Run it locally for better performance, your machine surely is faster than that server.
 
+![Version](https://img.shields.io/github/package-json/v/kamilmielnik/scrabble-solver)
+![License](https://img.shields.io/npm/l/@kamilmielnik/scrabble-solver)
+![Node version](https://img.shields.io/node/v/@kamilmielnik/scrabble-solver)
+![Dependencies](https://img.shields.io/librariesio/github/kamilmielnik/scrabble-solver)
+![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/kamilmielnik/scrabble-solver)
+![Test](https://github.com/kamilmielnik/scrabble-solver/workflows/Test/badge.svg)
+![ESLint](https://github.com/kamilmielnik/scrabble-solver/workflows/ESLint/badge.svg)
+
 ![alt frontend](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/screenshot.png)
 
 ## Quick run
