@@ -31,6 +31,8 @@ npm install -g scrabble-solver
 scrabble-solver
 ```
 
+Open http://localhost:4000/ if it didn't open up for you.
+
 ## Requirements
 
 `node 12.4.0+` (should work with node `10.0.0+` though)
