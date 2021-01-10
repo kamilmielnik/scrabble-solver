@@ -7,18 +7,27 @@ import { createAppStore } from 'state';
 
 import 'styles/global.scss';
 
-const NAME = 'Kamil Mielnik';
 const DESCRIPTION = 'Scrabble Solver 2 - The ultimate cheating app for Scrabble and Literaki';
-const KEYWORDS = ['Scrabble', 'Literaki', 'Solver', 'Cheating', 'JavaScript', 'JS', 'TypeScript', 'TS', NAME].join(',');
+const KEYWORDS = [
+  'Scrabble',
+  'Literaki',
+  'Solver',
+  'Cheating',
+  'JavaScript',
+  'JS',
+  'TypeScript',
+  'TS',
+  'Kamil Mielnik',
+].join(',');
 
 const store = createAppStore();
 
 const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
   <>
     <Head>
-      <title>Scrabble Solver 2</title>
+      <title>Scrabble Solver 2 by Kamil Mielnik</title>
       <meta charSet="utf-8" />
-      <meta name="author" content={NAME} />
+      <meta name="author" content="Kamil Mielnik" />
       <meta name="description" content={DESCRIPTION} />
       <meta name="keywords" content={KEYWORDS} />
       <meta name="robots" content="index, follow, notranslate, noimageindex" />
