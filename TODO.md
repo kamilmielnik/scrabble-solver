@@ -1,3 +1,5 @@
+- inject version from package.json
+
 # TODO v2++
 
 - XL screens responsiveness

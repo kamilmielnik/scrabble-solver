@@ -36,6 +36,7 @@
     "prettier:scss:fix": "npm run prettier:scss -- --write --no-list-different",
     "prettier": "npm run prettier:js && npm run prettier:scss",
     "prettier:fix": "npm run prettier:js:fix && npm run prettier:scss:fix",
+    "postinstall": "npm run bootstrap",
     "reinstall": "npm run clean && npm install && npm run install:dev && npm run build",
     "release": "npm run release:prepare && npm run version:bump && np --no-2fa && lerna publish from-package",
     "release:prepare": "npm run reinstall",
