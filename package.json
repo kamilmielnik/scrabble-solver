@@ -52,25 +52,20 @@
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "dependencies": {
-    "@kamilmielnik/trie": "^1.0.3",
-    "cheerio": "^1.0.0-rc.5",
-    "decompress": "^4.2.1",
-    "fs-extra": "^9.0.1",
     "lerna": "^3.22.1",
     "npm-run-all": "^4.1.5",
-    "open-cli": "^6.0.1",
-    "request": "^2.88.2",
-    "ts-jest": "^26.4.4",
-    "typescript": "^4.1.3",
-    "yargs": "^16.2.0"
+    "open-cli": "^6.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-env": "^7.12.11",
+    "@kamilmielnik/trie": "^1.0.3",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
     "@typescript-eslint/parser": "^4.12.0",
     "babel-eslint": "10.1.0",
+    "cheerio": "^1.0.0-rc.5",
+    "decompress": "^4.2.1",
     "eslint": "^7.17.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-import-resolver-node": "^0.3.4",
@@ -78,8 +73,13 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "fs-extra": "^9.0.1",
     "jest": "26.6.3",
     "np": "^7.2.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "request": "^2.88.2",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.1.3",
+    "yargs": "^16.2.0"
   }
 }
