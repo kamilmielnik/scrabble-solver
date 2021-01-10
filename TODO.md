@@ -1,9 +1,6 @@
 # TODO v2
 
-- optimize running npx scrabble-solver
-    - do not download dictionaries, do not clean, do not build on installing package
 - update readme
-    - languages/dictionaries table
     - tech stack
     - screencast
 
