@@ -1,4 +1,5 @@
 - inject version from package.json
+- submit on config id change
 
 # TODO v2++
 

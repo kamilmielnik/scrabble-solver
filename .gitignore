@@ -1,13 +1,10 @@
 .next/
 build/
 coverage/
-dist/
-packages/**/dist/
-packages/**/build/
+dictionaries/
 node_modules/
 *.eslintcache
 *.db
 *.log
 *.zip
 *.txt
-.env

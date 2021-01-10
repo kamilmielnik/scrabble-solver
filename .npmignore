@@ -1,4 +1,6 @@
-coverage
-node_modules
+coverage/
+node_modules/
+*.eslintcache
+*.db
 *.log
-*.png
+*.zip
