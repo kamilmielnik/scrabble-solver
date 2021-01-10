@@ -15,7 +15,7 @@ Run it locally for better performance, your machine surely is faster than that s
 ![Test](https://github.com/kamilmielnik/scrabble-solver/workflows/Test/badge.svg)
 ![ESLint](https://github.com/kamilmielnik/scrabble-solver/workflows/ESLint/badge.svg)
 
-![alt frontend](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/screenshot.png)
+![alt User Interface](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/screencast.gif)
 
 ## Run
 

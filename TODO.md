@@ -1,8 +1,3 @@
-# TODO v2
-
-- update readme
-    - screencast
-
 # TODO v2++
 
 - XL screens responsiveness
