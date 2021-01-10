@@ -70,3 +70,7 @@ After getting experienced with JavaScript, I decided to tackle the challenge onc
 It got to `1.4.0` - I have added en-US & en-GB locales support, a mini tutorial and kept the dependencies up to date (e.g. upgraded React from 15 to 16).
 
 Frontend development has changed, I've learned a few things - it was time for `scrabble-solver@2.0.0`. In 2019 I started to work on a new version. But due to many distractions the work took around 2 years to complete. Nevertheless, here it is, a shiny, state-of-the-art frontend app, January 2021 - 9 years after the first project.
+
+### Scrabble Solver 1
+
+A piece of history, available at http://scrabble-solver-v1.kamilmielnik.com/.
