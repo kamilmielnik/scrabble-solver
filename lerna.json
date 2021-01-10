@@ -1,19 +1,4 @@
 {
-  "command": {
-    "bootstrap": {
-      "forceLocal": true
-    },
-    "publish": {
-      "forcePublish": "*",
-      "noGitTagVersion": true,
-      "noPush": true
-    },
-    "version": {
-      "forcePublish": "*",
-      "noGitTagVersion": true,
-      "noPush": true
-    }
-  },
   "packages": [
     "packages/*"
   ],
@@ -21,5 +6,5 @@
     "access": "public"
   },
   "tagVersionPrefix": "",
-  "version": "2.0.0-rc.5"
+  "version": "2.0.0-rc.6"
 }
