@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/solver",
-  "version": "2.0.0-rc.4",
+  "version": "2.0.0-rc.5",
   "description": "Scrabble Solver - Solver",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -24,12 +24,12 @@
   },
   "dependencies": {
     "@kamilmielnik/trie": "^1.0.3",
-    "@scrabble-solver/models": "^2.0.0-rc.4",
+    "@scrabble-solver/models": "^2.0.0-rc.5",
     "lodash": "^4.17.20"
   },
   "devDependencies": {
-    "@scrabble-solver/configs": "^2.0.0-rc.4",
-    "@scrabble-solver/constants": "^2.0.0-rc.4",
+    "@scrabble-solver/configs": "^2.0.0-rc.5",
+    "@scrabble-solver/constants": "^2.0.0-rc.5",
     "@types/jest": "^26.0.20",
     "@types/lodash": "^4.14.167",
     "@types/node": "^14.14.20",

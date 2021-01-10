@@ -4,18 +4,22 @@
       "forceLocal": true
     },
     "publish": {
+      "forcePublish": "*",
       "noGitTagVersion": true,
       "noPush": true
     },
     "version": {
+      "forcePublish": "*",
       "noGitTagVersion": true,
       "noPush": true
     }
   },
-  "packages": ["packages/*"],
+  "packages": [
+    "packages/*"
+  ],
   "publishConfig": {
     "access": "public"
   },
   "tagVersionPrefix": "",
-  "version": "2.0.0-rc.4"
+  "version": "2.0.0-rc.5"
 }
