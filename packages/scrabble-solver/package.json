@@ -33,6 +33,7 @@
     "@scrabble-solver/logger": "^2.0.0-rc.20",
     "@scrabble-solver/models": "^2.0.0-rc.20",
     "@scrabble-solver/solver": "^2.0.0-rc.20",
+    "cheerio": "^1.0.0-rc.5",
     "classnames": "^2.2.6",
     "next": "^10.0.5",
     "normalize.css": "^8.0.1",
