@@ -42,6 +42,17 @@ scrabble-solver
 | Name     | [TWL06](https://en.wikipedia.org/wiki/NASPA_Word_List)                  | [SOWPODS](https://en.wikipedia.org/wiki/Collins_Scrabble_Words)             | [SJP.PL](https://sjp.pl/slownik/dp.phtml) |
 | Source   | [Download](https://www.wordgamedictionary.com/twl06/download/twl06.txt) | [Download](https://www.wordgamedictionary.com/sowpods/download/sowpods.txt) | [Download](https://sjp.pl/slownik/growy/) |
 
+## Tech stack
+
+- [Lerna](https://lerna.js.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/)
+- [Jest](https://jestjs.io/)
+- [ESLint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+
 ## History
 
 Back in January 2012 I wrote 200 lines of C++ code to load up a dictionary, store it in a Trie structure, read up to 7 letters from console input and traverse the Trie structure to find all the words that could be created from provided letters. I did it for 200 PLN (about 60 USD back then) and it was my first money earned by programming (assuming that beer is not a currency).

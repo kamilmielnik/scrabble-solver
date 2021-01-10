@@ -1,7 +1,6 @@
 # TODO v2
 
 - update readme
-    - tech stack
     - screencast
 
 # TODO v2++
