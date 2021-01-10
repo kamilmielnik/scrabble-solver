@@ -17,3 +17,5 @@
 - translate literaki to literaxx
     - https://pl.wikipedia.org/wiki/Kurnik.pl
     - https://en.wikipedia.org/wiki/Scrabble_variants#Literaxx
+- request is deprecated
+    - https://github.com/request/request/issues/3142

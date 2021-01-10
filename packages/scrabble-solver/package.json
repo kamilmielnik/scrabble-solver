@@ -26,6 +26,7 @@
     "start": "NEXT_TELEMETRY_DISABLED=1 next start -p 3333"
   },
   "dependencies": {
+    "@kamilmielnik/trie": "^1.0.3",
     "@reduxjs/toolkit": "^1.5.0",
     "@scrabble-solver/configs": "^2.0.0-rc.18",
     "@scrabble-solver/constants": "^2.0.0-rc.18",
