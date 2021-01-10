@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/models",
-  "version": "2.0.0-rc.9",
+  "version": "2.0.0-rc.10",
   "description": "Scrabble Solver - Models",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -23,7 +23,7 @@
     "clean": "rm -rf build/ node_modules/ package-lock.json"
   },
   "dependencies": {
-    "@scrabble-solver/constants": "^2.0.0-rc.9"
+    "@scrabble-solver/constants": "^2.0.0-rc.10"
   },
   "devDependencies": {
     "typescript": "^4.1.3"

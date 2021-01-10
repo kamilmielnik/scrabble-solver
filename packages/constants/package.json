@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/constants",
-  "version": "2.0.0-rc.9",
+  "version": "2.0.0-rc.10",
   "description": "Scrabble Solver - Constants",
   "main": "build/index.js",
   "types": "build/index.d.ts",
