@@ -25,12 +25,12 @@
     "prettier:fix": "npm run prettier:js:fix && npm run prettier:scss:fix",
     "postinstall": "npm run bootstrap && npm run dictionaries:install",
     "reinstall": "npm run clean && npm install && npm run build",
-    "release": "npm run version && npm run version:commit && np --no-2fa",
+    "release": "npm run version:bump && npm run version:commit && np --no-2fa",
     "start": "lerna run start --scope @scrabble-solver/scrabble-solver",
     "test": "jest --no-cache --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache --watch",
     "test:watch": "jest --no-cache --watch",
-    "version": "lerna version --force-publish --no-git-tag-version --no-push",
+    "version:bump": "lerna version --force-publish --no-git-tag-version --no-push",
     "version:commit": "git add . && git commit -m \"Bump version in lerna\""
   },
   "repository": {
