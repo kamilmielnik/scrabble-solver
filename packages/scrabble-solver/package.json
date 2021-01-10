@@ -23,7 +23,7 @@
     "build": "NEXT_TELEMETRY_DISABLED=1 next build",
     "clean": "rm -rf node_modules/ package-lock.json scrabble-solver-all.log scrabble-solver-error.log",
     "dev": "NEXT_TELEMETRY_DISABLED=1 next dev",
-    "start": "NEXT_TELEMETRY_DISABLED=1 next start"
+    "start": "NEXT_TELEMETRY_DISABLED=1 next start -p 3333"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
