@@ -1,39 +1,35 @@
 # scrabble-solver
 
-Available at: http://scrabble-solver.kamilmielnik.com/ (use npm version for better performance, your machine is most likely faster than this server)
+The ultimate cheating app for [Scrabble](https://en.wikipedia.org/wiki/Scrabble) and [Literaki](https://pl.wikipedia.org/wiki/Literaki).
+
+Available at http://scrabble-solver.kamilmielnik.com/.
+Run it locally for better performance, your machine surely is faster than that server.
 
 ![alt frontend](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/screenshot.png)
 
-### Quick run
-1. `npm install -g scrabble-solver`
-2. `scrabble-solver`
+## Quick run
 
-### Usage
-- put your letters in the `TILES` input field and hit `Enter` to find possible solutions for them on the board
-- space (` `) means a blank tile (using blanks increases the time to find results)
-- sort results by clicking on table headers
-- `INDEX` is `POINTS` to `#TILES` ratio
-- hover over a result to see where it fits on the board and find the word definition
-- click on a result to put it on the board
-- filtering results works with regular expressions (e.g. `is$` for words ending with `is`)
-- navigate through cells on the board with arrow keys
-- when cell on the board is focused
-  - type a letter to put a tile
-  - hit `Backspace`, `Delete` or `Space` to remove a tile
-  - hit `Ctrl + B` or `Command + B` to toggle tile blank (important, because blanks are worth `0` points)
-  - hit `Enter` to search for results
-- put a word in `FIND WORD DEFINITION` input field and hit `Enter` to find its definition
+```Shell
+npx scrabble-solver
+```
 
-### Full build
-1. `npm install`
-2. `npm run build`
-3. `npm start`
+## Permanent install
 
-### Works with
-- node 7.9.0
+### Install
 
+```Shell
+npm install -g scrabble-solver
+```
 
-----
+### Run
+
+```Shell
+scrabble-solver
+```
+
+## Requirements
+
+`node 12.4.0+` (should work with node `10.0.0+` though)
 
 # History
 
@@ -55,13 +51,4 @@ After getting experienced with JavaScript, I decided to tackle the challenge onc
 
 Seasons change, time passes by, as the weeks become the months become the years [...](http://southpark.cc.com/clips/103831/deep-coma)
 
-Frontend development has changed, I've learned a few things. It's time for `scrabble-solver@2.0.0`. In 2019 I started to work on a new version. But due to many distractions the work is still ongoing.
-The plans for `2.0.0` are:
-- new UI
-- split the project into multiple packages (monorepo)
-- abuse React hooks usage
-
-I also have plans for `3.0.0`:
-- TypeScript
-
-There's no deadline for this. 
+Frontend development has changed, I've learned a few things - it was time for `scrabble-solver@2.0.0`. In 2019 I started to work on a new version. But due to many distractions the work took around 2 years to complete. Nevertheless, here it is, a shiny, state-of-the-art frontend app.
