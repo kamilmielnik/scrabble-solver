@@ -25,7 +25,7 @@
     "prettier:fix": "npm run prettier:js:fix && npm run prettier:scss:fix",
     "postinstall": "npm run bootstrap && npm run dictionaries:install",
     "reinstall": "npm run clean && npm install && npm run build",
-    "release": "npm run version:bump && npm run version:commit && np --no-2fa",
+    "release": "npm run version:bump && npm run version:commit && np --no-2fa && lerna publish from-package",
     "start": "lerna run start --scope @scrabble-solver/scrabble-solver",
     "test": "jest --no-cache --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache --watch",
