@@ -32,7 +32,7 @@ npm install -g scrabble-solver
 scrabble-solver
 ```
 
-Open http://localhost:4000/ if it didn't open up for you.
+Open http://localhost:3333/ if it didn't open up for you.
 
 ## Requirements
 
