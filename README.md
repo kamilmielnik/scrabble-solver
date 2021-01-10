@@ -27,7 +27,8 @@ or
 
 ```Shell
 npm install -g scrabble-solver
-# and then run anytime, anywhere
+
+# and then run anytime with:
 scrabble-solver
 ```
 

@@ -15,6 +15,7 @@ const memoizedFindWordDefinition = memoize(findWordDefinition);
 export function* rootSaga() {
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
   yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
+  yield takeEvery(settingsSlice.actions.changeConfigId.type, onConfigIdChange);
   yield takeEvery(settingsSlice.actions.changeLocale.type, onLocaleChange);
   yield takeLatest(solveSlice.actions.submit.type, onSubmit);
   yield takeEvery(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
@@ -41,10 +42,15 @@ function* onDictionarySubmit() {
   }
 }
 
+function* onConfigIdChange() {
+  yield put(solveSlice.actions.submit());
+  yield put(resultsSlice.actions.changeResultCandidate(null));
+}
+
 function* onLocaleChange() {
   yield put(solveSlice.actions.submit());
-  yield put(dictionarySlice.actions.reset());
   yield put(resultsSlice.actions.changeResultCandidate(null));
+  yield put(dictionarySlice.actions.reset());
 }
 
 function* onResultCandidateChange({ payload: result }: PayloadAction<Result | null>) {
