@@ -7,7 +7,6 @@ The ultimate cheating app for [Scrabble](https://en.wikipedia.org/wiki/Scrabble)
 Available at http://scrabble-solver.kamilmielnik.com/.
 Run it locally for better performance, your machine surely is faster than that server.
 
-
 ![Version](https://img.shields.io/github/package-json/v/kamilmielnik/scrabble-solver)
 ![License](https://img.shields.io/npm/l/scrabble-solver)
 ![Node version](https://img.shields.io/node/v/scrabble-solver)
@@ -42,7 +41,14 @@ scrabble-solver
 
 `node 12.4.0+` (should work with node `10.0.0+` though)
 
-# History
+## Dictionaries
+
+| Language | 🇺🇸 English (US)                                                         | 🇬🇧 English (GB)                                                             | 🇵🇱 Polish                                 |
+| -------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------- | ----------------------------------------- |
+| Name     | [TWL06](https://en.wikipedia.org/wiki/NASPA_Word_List)                  | [SOWPODS](https://en.wikipedia.org/wiki/Collins_Scrabble_Words)             | [SJP.PL](https://sjp.pl/slownik/dp.phtml) |
+| Source   | [Download](https://www.wordgamedictionary.com/twl06/download/twl06.txt) | [Download](https://www.wordgamedictionary.com/sowpods/download/sowpods.txt) | [Download](https://sjp.pl/slownik/growy/) |
+
+## History
 
 My baby.
 
