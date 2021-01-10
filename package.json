@@ -2,6 +2,18 @@
   "name": "scrabble-solver",
   "version": "2.0.0-rc.13",
   "description": "Scrabble Solver 2 - The ultimate cheating app for Scrabble and Literaki",
+  "keywords": [
+    "Scrabble",
+    "Literaki",
+    "Solver",
+    "Finder",
+    "Word",
+    "Cheating",
+    "TypeScript",
+    "TS",
+    "Frontend",
+    "App"
+  ],
   "engines": {
     "node": ">=12.4.0"
   },
