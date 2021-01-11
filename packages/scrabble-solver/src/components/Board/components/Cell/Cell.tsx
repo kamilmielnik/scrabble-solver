@@ -4,9 +4,11 @@ import classNames from 'classnames';
 import React, { FunctionComponent, KeyboardEventHandler, memo, RefObject, useMemo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { checkboxChecked } from 'icons';
 import { createKeyboardNavigation } from 'lib';
 import { boardSlice, selectBonus, selectConfig, solveSlice, useTypedSelector } from 'state';
 
+import SvgIcon from '../../../SvgIcon';
 import Tile from '../../../Tile';
 
 import styles from './Cell.module.scss';
@@ -94,6 +96,15 @@ const Cell: FunctionComponent<Props> = ({
           })}
         />
       )}
+
+      <button
+        className={classNames(styles.toggleDirection, {
+          [styles.right]: direction === 'horizontal',
+        })}
+        type="button"
+      >
+        <SvgIcon className={styles.icon} icon={checkboxChecked} />
+      </button>
     </div>
   );
 };

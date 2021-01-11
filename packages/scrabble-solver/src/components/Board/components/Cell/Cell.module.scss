@@ -96,6 +96,12 @@
     .direction {
       opacity: 1;
     }
+
+    .toggleDirection {
+      opacity: 1;
+      user-select: initial;
+      pointer-events: auto;
+    }
   }
 }
 
@@ -133,5 +139,49 @@
     height: $size;
     border: $side-size solid transparent;
     border-top: (2 * $side-size * 0.5) solid var(--color--focus);
+  }
+}
+
+.toggleDirection {
+  $size: 16px;
+
+  @include button-reset;
+
+  display: inline-flex;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  padding: var(--spacing--s);
+  box-sizing: content-box;
+  right: -$size / 2;
+  top: -$size / 2;
+  z-index: 2;
+  transition: var(--transition);
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
+  color: var(--color--inactive);
+  cursor: pointer;
+
+  &,
+  .icon {
+    width: $size;
+    height: $size;
+  }
+
+  .icon {
+    box-shadow: var(--box-shadow);
+  }
+
+  &:hover {
+    .icon {
+      color: var(--color--foreground--secondary);
+    }
+  }
+
+  &:active {
+    .icon {
+      color: var(--color--foreground);
+    }
   }
 }
