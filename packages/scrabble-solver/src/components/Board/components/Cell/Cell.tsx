@@ -18,7 +18,7 @@ interface Props {
   cell: CellModel;
   className?: string;
   direction: 'horizontal' | 'vertical';
-  inputRef?: RefObject<HTMLInputElement>;
+  inputRef: RefObject<HTMLInputElement>;
   size: number;
   onDirectionToggle: () => void;
   onFocus: (x: number, y: number) => void;
