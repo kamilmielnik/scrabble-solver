@@ -5,7 +5,7 @@ import { useTranslate } from 'state';
 
 import Sidebar from '../Sidebar';
 
-import { ConfigSetting, LocaleSetting, OtherSettings } from './components';
+import { AutoMoveTilesSetting, ConfigSetting, LocaleSetting, OtherSettings } from './components';
 
 interface Props {
   className?: string;
@@ -26,6 +26,10 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
 
       <Sidebar.Section title={translate('settings.language')}>
         <LocaleSetting disabled={hidden} />
+      </Sidebar.Section>
+
+      <Sidebar.Section title={translate('settings.autoMoveTiles')}>
+        <AutoMoveTilesSetting disabled={hidden} />
       </Sidebar.Section>
 
       <Sidebar.Section title={translate('settings.other')}>

@@ -34,7 +34,7 @@ const tilesSlice = createSlice({
       }
 
       const nullMovingComparator = createNullMovingComparator(direction);
-      const sortedTiles = [...state].sort(nullMovingComparator);
+      const sortedTiles = [...state].sort(nullMovingComparator).reverse();
       return sortedTiles;
     },
 
