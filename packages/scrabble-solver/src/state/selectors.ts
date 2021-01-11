@@ -17,11 +17,6 @@ const pointsComparator = reverseComparator(createKeyComparator('points'));
 
 export const selectSettingsRoot = (state: RootState) => state.settings;
 
-export const selectAutoDirectionChange = createSelector(
-  [selectSettingsRoot],
-  (settings) => settings.autoDirectionChange,
-);
-
 export const selectAutoGroupTiles = createSelector([selectSettingsRoot], (settings) => settings.autoGroupTiles);
 
 export const selectLocale = createSelector([selectSettingsRoot], (settings) => settings.locale);
