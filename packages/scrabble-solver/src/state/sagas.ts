@@ -6,7 +6,7 @@ import { memoize } from 'lib';
 import { findWordDefinition, solve } from 'sdk';
 
 import {
-  selectAutoMoveTiles,
+  selectAutoGroupTiles,
   selectBoard,
   selectCharacters,
   selectConfig,
@@ -29,10 +29,10 @@ export function* rootSaga() {
 }
 
 function* onApplyResult({ payload: result }: PayloadAction<Result>) {
-  const autoMoveTiles = yield select(selectAutoMoveTiles);
+  const autoGroupTiles = yield select(selectAutoGroupTiles);
   yield put(boardSlice.actions.applyResult(result));
   yield put(tilesSlice.actions.removeTiles(result.tiles));
-  yield put(tilesSlice.actions.moveTiles(autoMoveTiles));
+  yield put(tilesSlice.actions.groupTiles(autoGroupTiles));
 }
 
 function* onDictionarySubmit() {

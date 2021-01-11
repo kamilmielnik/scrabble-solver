@@ -19,14 +19,7 @@ const tilesSlice = createSlice({
       return [...state.slice(0, index), character, ...state.slice(index + 1)];
     },
 
-    removeTiles: (state, action: PayloadAction<Tile[]>) => {
-      const tilesToRemove = action.payload;
-      const charactersAndTiles = zipCharactersAndTiles(state, tilesToRemove);
-      const charactersWithoutMatchingTiles = charactersAndTiles.map(({ character, tile }) => (tile ? null : character));
-      return charactersWithoutMatchingTiles;
-    },
-
-    moveTiles: (state, action: PayloadAction<'left' | 'right' | null>) => {
+    groupTiles: (state, action: PayloadAction<'left' | 'right' | null>) => {
       const direction = action.payload;
 
       if (direction === null) {
@@ -36,6 +29,13 @@ const tilesSlice = createSlice({
       const nullMovingComparator = createNullMovingComparator(direction);
       const sortedTiles = [...state].sort(nullMovingComparator).reverse();
       return sortedTiles;
+    },
+
+    removeTiles: (state, action: PayloadAction<Tile[]>) => {
+      const tilesToRemove = action.payload;
+      const charactersAndTiles = zipCharactersAndTiles(state, tilesToRemove);
+      const charactersWithoutMatchingTiles = charactersAndTiles.map(({ character, tile }) => (tile ? null : character));
+      return charactersWithoutMatchingTiles;
     },
 
     reset: () => tilesInitialState,

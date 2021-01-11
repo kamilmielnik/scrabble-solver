@@ -1,11 +1,11 @@
 import React, { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { selectAutoMoveTiles, settingsSlice, useTranslate, useTypedSelector } from 'state';
+import { selectAutoGroupTiles, settingsSlice, useTranslate, useTypedSelector } from 'state';
 
 import Radio from '../../../Radio';
 
-import styles from './AutoMoveTilesSetting.module.scss';
+import styles from './AutoGroupTilesSetting.module.scss';
 import { NULL_VALUE } from './constants';
 import { parseValue } from './lib';
 
@@ -14,29 +14,29 @@ interface Props {
   disabled?: boolean;
 }
 
-const AutoMoveTilesSetting: FunctionComponent<Props> = ({ className, disabled }) => {
+const AutoGroupTilesSetting: FunctionComponent<Props> = ({ className, disabled }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
-  const configId = useTypedSelector(selectAutoMoveTiles);
+  const configId = useTypedSelector(selectAutoGroupTiles);
 
   const options = [
     {
-      label: translate('settings.autoMoveTiles.left'),
+      label: translate('settings.autoGroupTiles.left'),
       value: 'left',
     },
     {
-      label: translate('settings.autoMoveTiles.right'),
+      label: translate('settings.autoGroupTiles.right'),
       value: 'right',
     },
     {
-      label: translate('settings.autoMoveTiles.null'),
+      label: translate('settings.autoGroupTiles.null'),
       value: NULL_VALUE,
     },
   ];
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const autoMoveTiles = parseValue(event.target.value);
-    dispatch(settingsSlice.actions.changeAutoMoveTiles(autoMoveTiles));
+    const autoGroupTiles = parseValue(event.target.value);
+    dispatch(settingsSlice.actions.changeAutoGroupTiles(autoGroupTiles));
   };
 
   return (
@@ -60,4 +60,4 @@ const AutoMoveTilesSetting: FunctionComponent<Props> = ({ className, disabled })
   );
 };
 
-export default AutoMoveTilesSetting;
+export default AutoGroupTilesSetting;

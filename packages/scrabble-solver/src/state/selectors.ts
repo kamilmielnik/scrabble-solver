@@ -22,7 +22,7 @@ export const selectAutoDirectionChange = createSelector(
   (settings) => settings.autoDirectionChange,
 );
 
-export const selectAutoMoveTiles = createSelector([selectSettingsRoot], (settings) => settings.autoMoveTiles);
+export const selectAutoGroupTiles = createSelector([selectSettingsRoot], (settings) => settings.autoGroupTiles);
 
 export const selectLocale = createSelector([selectSettingsRoot], (settings) => settings.locale);
 

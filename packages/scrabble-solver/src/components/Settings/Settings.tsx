@@ -5,7 +5,7 @@ import { useTranslate } from 'state';
 
 import Sidebar from '../Sidebar';
 
-import { AutoMoveTilesSetting, ConfigSetting, LocaleSetting, OtherSettings } from './components';
+import { AutoGroupTilesSetting, ConfigSetting, LocaleSetting, OtherSettings } from './components';
 
 interface Props {
   className?: string;
@@ -28,8 +28,8 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
         <LocaleSetting disabled={hidden} />
       </Sidebar.Section>
 
-      <Sidebar.Section title={translate('settings.autoMoveTiles')}>
-        <AutoMoveTilesSetting disabled={hidden} />
+      <Sidebar.Section title={translate('settings.autoGroupTiles')}>
+        <AutoGroupTilesSetting disabled={hidden} />
       </Sidebar.Section>
 
       <Sidebar.Section title={translate('settings.other')}>

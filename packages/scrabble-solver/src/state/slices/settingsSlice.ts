@@ -13,9 +13,9 @@ const settingsSlice = createSlice({
       return { ...state, autoDirectionChange };
     },
 
-    changeAutoMoveTiles: (state, action: PayloadAction<'left' | 'right' | null>) => {
-      const autoMoveTiles = action.payload;
-      return { ...state, autoMoveTiles };
+    changeAutoGroupTiles: (state, action: PayloadAction<'left' | 'right' | null>) => {
+      const autoGroupTiles = action.payload;
+      return { ...state, autoGroupTiles };
     },
 
     changeConfigId: (state, action: PayloadAction<string>) => {
