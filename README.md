@@ -53,6 +53,8 @@ Open http://localhost:3333/ if it didn't open up for you.
 - [Next.js](https://nextjs.org/)
 - [React](https://reactjs.org/)
 - [Redux](https://redux.js.org/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [Redux-Saga](https://redux-saga.js.org/)
 - [Jest](https://jestjs.io/)
 - [ESLint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
