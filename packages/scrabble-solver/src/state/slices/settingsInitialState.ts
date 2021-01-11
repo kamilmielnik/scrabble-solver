@@ -4,6 +4,7 @@ import { Locale } from 'types';
 
 const settingsInitialState = {
   autoDirectionChange: true,
+  autoMoveTiles: 'left' as 'left' | 'right' | null,
   configId: scrabble.id,
   locale: 'en-US' as Locale,
 };

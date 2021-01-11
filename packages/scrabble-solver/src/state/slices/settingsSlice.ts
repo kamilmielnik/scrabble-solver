@@ -13,6 +13,11 @@ const settingsSlice = createSlice({
       return { ...state, autoDirectionChange };
     },
 
+    changeAutoMoveTiles: (state, action: PayloadAction<'left' | 'right' | null>) => {
+      const autoMoveTiles = action.payload;
+      return { ...state, autoMoveTiles };
+    },
+
     changeConfigId: (state, action: PayloadAction<string>) => {
       const configId = action.payload;
       return { ...state, configId };
