@@ -17,6 +17,7 @@ interface State {
 
 interface Actions {
   onFocus: (x: number, y: number) => void;
+  onDirectionToggle: () => void;
   onKeyDown: KeyboardEventHandler;
   onMoveFocus: () => void;
 }
@@ -37,6 +38,14 @@ const useGrid = ({ autoDirectionChange, height, width }: Parameters): [State, Ac
       refs[y][x].current?.focus();
     },
     [activeIndex, height, refs, width],
+  );
+
+  const onDirectionToggle = useCallback(
+    () =>
+      setLastDirection((direction) => {
+        return direction === 'vertical' ? 'horizontal' : 'vertical';
+      }),
+    [],
   );
 
   const onFocus = useCallback(
@@ -107,7 +116,7 @@ const useGrid = ({ autoDirectionChange, height, width }: Parameters): [State, Ac
 
   return [
     { lastDirection, refs },
-    { onFocus, onKeyDown, onMoveFocus },
+    { onDirectionToggle, onFocus, onKeyDown, onMoveFocus },
   ];
 };
 

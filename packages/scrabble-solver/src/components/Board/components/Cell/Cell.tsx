@@ -1,12 +1,12 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Cell as CellModel } from '@scrabble-solver/models';
 import classNames from 'classnames';
-import React, { FunctionComponent, KeyboardEventHandler, memo, RefObject, useMemo, useCallback } from 'react';
+import React, { FunctionComponent, KeyboardEventHandler, memo, RefObject, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { checkboxChecked } from 'icons';
+import { move } from 'icons';
 import { createKeyboardNavigation } from 'lib';
-import { boardSlice, selectBonus, selectConfig, solveSlice, useTypedSelector } from 'state';
+import { boardSlice, selectBonus, selectConfig, solveSlice, useTranslate, useTypedSelector } from 'state';
 
 import SvgIcon from '../../../SvgIcon';
 import Tile from '../../../Tile';
@@ -20,6 +20,7 @@ interface Props {
   direction: 'horizontal' | 'vertical';
   inputRef?: RefObject<HTMLInputElement>;
   size: number;
+  onDirectionToggle: () => void;
   onFocus: (x: number, y: number) => void;
   onKeyDown: KeyboardEventHandler;
   onMoveFocus: () => void;
@@ -31,12 +32,14 @@ const Cell: FunctionComponent<Props> = ({
   direction,
   inputRef,
   size,
+  onDirectionToggle,
   onFocus,
   onKeyDown,
   onMoveFocus,
 }) => {
   const { tile, x, y } = cell;
   const dispatch = useDispatch();
+  const translate = useTranslate();
   const config = useTypedSelector(selectConfig);
   const bonus = useTypedSelector((state) => selectBonus(state, cell));
   const handleFocus = useCallback(() => onFocus(x, y), [x, y, onFocus]);
@@ -67,6 +70,14 @@ const Cell: FunctionComponent<Props> = ({
   const isLastColumn = x === config.boardWidth - 1;
   const isLastRow = y === config.boardHeight - 1;
   const showDirection = (direction === 'horizontal' && !isLastColumn) || (direction === 'vertical' && !isLastRow);
+
+  const handleDirectionToggleClick = useCallback(() => {
+    onDirectionToggle();
+
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [onDirectionToggle]);
 
   return (
     <div
@@ -101,9 +112,11 @@ const Cell: FunctionComponent<Props> = ({
         className={classNames(styles.toggleDirection, {
           [styles.right]: direction === 'horizontal',
         })}
+        title={translate('cell.toggle-direction')}
         type="button"
+        onClick={handleDirectionToggleClick}
       >
-        <SvgIcon className={styles.icon} icon={checkboxChecked} />
+        <SvgIcon className={styles.icon} icon={move} />
       </button>
     </div>
   );

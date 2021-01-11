@@ -1,4 +1,5 @@
 {
+  "cell.toggle-direction": "Toggle typing direction",
   "clear": "Clear everything",
   "close": "Close",
   "dictionary.empty-state.no-definitions": "Word exists in the dictionary but it does not have a definition.",

@@ -151,16 +151,20 @@
   display: flex;
   justify-content: center;
   position: absolute;
-  padding: var(--spacing--s);
-  box-sizing: content-box;
-  right: -$size / 2;
-  top: -$size / 2;
+  right: -$size;
+  top: -$size;
   z-index: 2;
   transition: var(--transition);
   opacity: 0;
   user-select: none;
   pointer-events: none;
-  color: var(--color--inactive);
+  box-sizing: content-box;
+  padding: var(--spacing--xs);
+  background-color: white;
+  box-shadow: var(--box-shadow);
+  border: var(--border);
+  border-radius: var(--border--radius);
+  color: var(--color--foreground--secondary);
   cursor: pointer;
 
   &,
@@ -169,19 +173,17 @@
     height: $size;
   }
 
-  .icon {
-    box-shadow: var(--box-shadow);
-  }
-
+  &:active,
   &:hover {
     .icon {
-      color: var(--color--foreground--secondary);
+      color: var(--color--foreground);
     }
   }
 
   &:active {
     .icon {
-      color: var(--color--foreground);
+      position: relative;
+      top: 1px;
     }
   }
 }

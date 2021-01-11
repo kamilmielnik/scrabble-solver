@@ -8,3 +8,4 @@ export { default as flagPl } from './flagPl.svg';
 export { default as flagUs } from './flagUs.svg';
 export { default as github } from './github.svg';
 export { default as keyboard } from './keyboard.svg';
+export { default as move } from './move.svg';
