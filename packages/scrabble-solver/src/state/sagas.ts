@@ -5,7 +5,14 @@ import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effe
 import { memoize } from 'lib';
 import { findWordDefinition, solve } from 'sdk';
 
-import { selectBoard, selectCharacters, selectConfig, selectDictionaryRoot, selectLocale } from './selectors';
+import {
+  selectAutoGroupTiles,
+  selectBoard,
+  selectCharacters,
+  selectConfig,
+  selectDictionaryRoot,
+  selectLocale,
+} from './selectors';
 import { boardSlice, dictionarySlice, resultsSlice, settingsSlice, solveSlice, tilesSlice } from './slices';
 
 const SUBMIT_DELAY = 150;
@@ -22,8 +29,10 @@ export function* rootSaga() {
 }
 
 function* onApplyResult({ payload: result }: PayloadAction<Result>) {
+  const autoGroupTiles = yield select(selectAutoGroupTiles);
   yield put(boardSlice.actions.applyResult(result));
   yield put(tilesSlice.actions.removeTiles(result.tiles));
+  yield put(tilesSlice.actions.groupTiles(autoGroupTiles));
 }
 
 function* onDictionarySubmit() {

@@ -1,11 +1,6 @@
-.localeSetting {
-}
-
 @import 'styles/mixins';
 
 .option {
-  @include focus-effect;
-
   margin-bottom: var(--spacing--m);
 
   &:last-child {

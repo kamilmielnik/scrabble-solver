@@ -1,12 +1,9 @@
-import classNames from 'classnames';
 import React, { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { selectAutoDirectionChange, settingsSlice, useTranslate, useTypedSelector } from 'state';
 
 import Checkbox from '../../../Checkbox';
-
-import styles from './OtherSettings.module.scss';
 
 interface Props {
   className?: string;
@@ -23,7 +20,7 @@ const OtherSettings: FunctionComponent<Props> = ({ className, disabled }) => {
   };
 
   return (
-    <div className={classNames(styles.otherSettings, className)}>
+    <div className={className}>
       <Checkbox
         checked={autoDirectionChange}
         disabled={disabled}

@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -23,13 +22,11 @@ const ConfigSetting: FunctionComponent<Props> = ({ className, disabled }) => {
   };
 
   return (
-    <div className={classNames(styles.configSetting, className)}>
+    <div className={className}>
       {options.map((option) => (
         <Radio
           checked={configId === option.value}
-          className={classNames(styles.option, className, {
-            [styles.checked]: configId === option.value,
-          })}
+          className={styles.option}
           disabled={disabled}
           id="config"
           key={option.value}

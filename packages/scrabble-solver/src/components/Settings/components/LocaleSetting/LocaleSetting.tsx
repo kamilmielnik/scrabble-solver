@@ -26,7 +26,7 @@ const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
   };
 
   return (
-    <div className={classNames(styles.localeSetting, className)}>
+    <div className={className}>
       {options.map((option) => (
         <Radio
           checked={locale === option.value}

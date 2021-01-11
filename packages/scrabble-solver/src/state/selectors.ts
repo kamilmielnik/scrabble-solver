@@ -22,6 +22,8 @@ export const selectAutoDirectionChange = createSelector(
   (settings) => settings.autoDirectionChange,
 );
 
+export const selectAutoGroupTiles = createSelector([selectSettingsRoot], (settings) => settings.autoGroupTiles);
+
 export const selectLocale = createSelector([selectSettingsRoot], (settings) => settings.locale);
 
 export const selectBoard = (state: RootState): Board => state.board;

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Tile } from '@scrabble-solver/models';
 
-import { zipCharactersAndTiles } from 'lib';
+import { createNullMovingComparator, zipCharactersAndTiles } from 'lib';
 
 import tilesInitialState from './tilesInitialState';
 
@@ -17,6 +17,18 @@ const tilesSlice = createSlice({
     changeCharacter: (state, action: PayloadAction<{ character: string | null; index: number }>) => {
       const { character, index } = action.payload;
       return [...state.slice(0, index), character, ...state.slice(index + 1)];
+    },
+
+    groupTiles: (state, action: PayloadAction<'left' | 'right' | null>) => {
+      const direction = action.payload;
+
+      if (direction === null) {
+        return state;
+      }
+
+      const nullMovingComparator = createNullMovingComparator(direction);
+      const sortedTiles = [...state].sort(nullMovingComparator).reverse();
+      return sortedTiles;
     },
 
     removeTiles: (state, action: PayloadAction<Tile[]>) => {
