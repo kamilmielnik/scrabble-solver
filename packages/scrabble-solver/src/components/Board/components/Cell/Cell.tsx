@@ -62,6 +62,9 @@ const Cell: FunctionComponent<Props> = ({
   );
   const { tileFontSize } = Tile.getSizes(size);
   const isEmpty = tile.character === EMPTY_CELL;
+  const isLastColumn = x === config.boardWidth - 1;
+  const isLastRow = y === config.boardHeight - 1;
+  const showDirection = (direction === 'horizontal' && !isLastColumn) || (direction === 'vertical' && !isLastRow);
 
   return (
     <div
@@ -84,11 +87,13 @@ const Cell: FunctionComponent<Props> = ({
         onKeyDown={handleKeyDown}
       />
 
-      <div
-        className={classNames(styles.direction, {
-          [styles.right]: direction === 'horizontal',
-        })}
-      />
+      {showDirection && (
+        <div
+          className={classNames(styles.direction, {
+            [styles.right]: direction === 'horizontal',
+          })}
+        />
+      )}
     </div>
   );
 };
