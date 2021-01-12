@@ -1,0 +1,26 @@
+$size: 32px;
+
+.navButtons {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  width: $size;
+  height: $size;
+}
+
+.button,
+.separator {
+  margin-right: var(--spacing--l);
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.separator {
+  border-right: var(--border);
+  border-color: var(--color--inactive);
+  height: calc(#{$size} - 2 * var(--spacing--xs));
+}

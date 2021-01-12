@@ -6,9 +6,8 @@ import React, { FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce, useSize } from 'react-use';
 
-import { Board, Dictionary, IconButton, KeyMap, Logo, Results, Settings, Splash, Tiles, Well } from 'components';
+import { Board, Dictionary, KeyMap, Logo, NavButtons, Results, Settings, Splash, Tiles, Well } from 'components';
 import { useLocalStorage } from 'hooks';
-import { cog, eraser, github, keyboard } from 'icons';
 import {
   boardSlice,
   dictionarySlice,
@@ -16,7 +15,6 @@ import {
   resultsSlice,
   selectConfig,
   tilesSlice,
-  useTranslate,
   useTypedSelector,
 } from 'state';
 
@@ -26,7 +24,6 @@ import styles from './index.module.scss';
 const MIN_TILE_SIZE = 20;
 const MAX_TILE_SIZE = 60;
 const SIDEBAR_MARGIN_LEFT = 40; // TODO: unhardcode?
-const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';
 
 const INITIAL_SIZE = { height: 0, width: 0 };
 
@@ -51,7 +48,6 @@ interface Props {
 
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
-  const translate = useTranslate();
   const [showKeyMap, setShowKeyMap] = useState<boolean>(false);
   const [showSettings, setShowSettings] = useState<boolean>(false);
   const [contentSizer, { width: contentWidth }] = useSize(<div />, INITIAL_SIZE);
@@ -92,33 +88,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
             <Logo className={styles.logo} />
           </div>
 
-          <div>
-            <IconButton
-              as="a"
-              className={styles.iconButton}
-              href={GITHUB_PROJECT_URL}
-              icon={github}
-              rel="noopener noreferrer"
-              target="_blank"
-              title={translate('github')}
-            />
-
-            <IconButton className={styles.iconButton} icon={eraser} title={translate('clear')} onClick={handleClear} />
-
-            <IconButton
-              className={styles.iconButton}
-              icon={keyboard}
-              title={translate('keyMap')}
-              onClick={handleShowKeyMap}
-            />
-
-            <IconButton
-              className={styles.iconButton}
-              icon={cog}
-              title={translate('settings')}
-              onClick={handleShowSettings}
-            />
-          </div>
+          <NavButtons onClear={handleClear} onShowKeyMap={handleShowKeyMap} onShowSettings={handleShowSettings} />
         </div>
 
         <div className={styles.contentWrapper}>
