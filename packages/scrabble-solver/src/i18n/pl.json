@@ -16,7 +16,7 @@
   "keyMap.board.toggle-blank": "Oznacz/odznacz płytkę jako blank",
   "keyMap.board.toggle-direction": "Zmień kierunek wpisywania",
   "keyMap.board-and-tiles": "Plansza i płytki",
-  "keyMap.board-and-tiles.insert-tile": "Wstaw płytkę z daną literą",
+  "keyMap.board-and-tiles.insert-tile": "Wstaw płytkę",
   "keyMap.board-and-tiles.navigate": "Nawigacja",
   "keyMap.board-and-tiles.remove-tile": "Zdejmij płytkę",
   "keyMap.board-and-tiles.submit": "Rozpocznij wyszukiwanie",

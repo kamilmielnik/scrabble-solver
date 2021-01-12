@@ -16,7 +16,7 @@
   "keyMap.board.toggle-blank": "Mark/unmark tile as a blank",
   "keyMap.board.toggle-direction": "Toggle typing direction",
   "keyMap.board-and-tiles": "Board & tiles",
-  "keyMap.board-and-tiles.insert-tile": "Insert tile with given letter",
+  "keyMap.board-and-tiles.insert-tile": "Insert tile",
   "keyMap.board-and-tiles.navigate": "Navigate",
   "keyMap.board-and-tiles.remove-tile": "Remove tile",
   "keyMap.board-and-tiles.submit": "Start solving",
