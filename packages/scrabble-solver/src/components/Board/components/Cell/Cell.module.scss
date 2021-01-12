@@ -139,13 +139,6 @@
     }
   }
 
-  &:active {
-    .icon {
-      position: relative;
-      top: 1px;
-    }
-  }
-
   &.right {
     transform: rotate(-90deg);
   }
