@@ -24,3 +24,13 @@
 .plus {
   margin: 0 var(--spacing--s);
 }
+
+.group {
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
