@@ -28,9 +28,9 @@ const ConfigSetting: FunctionComponent<Props> = ({ className, disabled }) => {
           checked={configId === option.value}
           className={styles.option}
           disabled={disabled}
-          id="config"
+          id="configId"
           key={option.value}
-          name="config"
+          name="configId"
           title={option.label}
           value={option.value}
           onChange={handleChange}
