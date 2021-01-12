@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent, KeyboardEventHandler, memo, RefObject, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { move } from 'icons';
+import { arrowDown } from 'icons';
 import { createKeyboardNavigation, isCtrl } from 'lib';
 import { boardSlice, selectBonus, selectConfig, solveSlice, useTranslate, useTypedSelector } from 'state';
 
@@ -67,9 +67,6 @@ const Cell: FunctionComponent<Props> = ({
   );
   const { tileFontSize } = Tile.getSizes(size);
   const isEmpty = tile.character === EMPTY_CELL;
-  const isLastColumn = x === config.boardWidth - 1;
-  const isLastRow = y === config.boardHeight - 1;
-  const showDirection = (direction === 'horizontal' && !isLastColumn) || (direction === 'vertical' && !isLastRow);
 
   const handleDirectionToggleClick = useCallback(() => {
     onDirectionToggle();
@@ -100,23 +97,18 @@ const Cell: FunctionComponent<Props> = ({
         onKeyDown={handleKeyDown}
       />
 
-      {showDirection && (
-        <div
-          className={classNames(styles.direction, {
-            [styles.right]: direction === 'horizontal',
-          })}
-        />
-      )}
-
       <button
         className={classNames(styles.toggleDirection, {
           [styles.right]: direction === 'horizontal',
         })}
+        // It's fine to make it not focusable with TAB from a11y point of view
+        // because an alternative key combo is provided that "clicks" the button (Ctrl + Arrow).
+        tabIndex={-1}
         title={translate('cell.toggle-direction')}
         type="button"
         onClick={handleDirectionToggleClick}
       >
-        <SvgIcon className={styles.icon} icon={move} />
+        <SvgIcon className={styles.icon} icon={arrowDown} />
       </button>
     </div>
   );
