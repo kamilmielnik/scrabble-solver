@@ -1,0 +1,7 @@
+.iconButton {
+  margin-right: var(--spacing--l);
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
