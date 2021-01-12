@@ -5,6 +5,10 @@ import { createNullMovingComparator, zipCharactersAndTiles } from 'lib';
 
 import tilesInitialState from './tilesInitialState';
 
+const inverseDirection = (direction: 'left' | 'right'): 'left' | 'right' => {
+  return direction === 'left' ? 'right' : 'left';
+};
+
 const tilesSlice = createSlice({
   initialState: tilesInitialState,
   name: 'tiles',
@@ -26,8 +30,8 @@ const tilesSlice = createSlice({
         return state;
       }
 
-      const nullMovingComparator = createNullMovingComparator(direction);
-      const sortedTiles = [...state].sort(nullMovingComparator).reverse();
+      const nullMovingComparator = createNullMovingComparator(inverseDirection(direction));
+      const sortedTiles = [...state].sort(nullMovingComparator);
       return sortedTiles;
     },
 
