@@ -8,11 +8,6 @@ const settingsSlice = createSlice({
   initialState: settingsInitialState,
   name: 'settings',
   reducers: {
-    changeAutoDirectionChange: (state, action: PayloadAction<boolean>) => {
-      const autoDirectionChange = action.payload;
-      return { ...state, autoDirectionChange };
-    },
-
     changeAutoGroupTiles: (state, action: PayloadAction<'left' | 'right' | null>) => {
       const autoGroupTiles = action.payload;
       return { ...state, autoGroupTiles };

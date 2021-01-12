@@ -9,6 +9,27 @@
 .description {
   margin-bottom: var(--spacing--m);
   font-size: var(--font--size--h3);
-  font-family: var(--font--family--secondary);
+  font-family: var(--font--family--title);
   font-weight: 300;
+}
+
+.keys,
+.group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.group,
+.plus {
+  margin: 0 var(--spacing--s);
+}
+
+.group {
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
 }

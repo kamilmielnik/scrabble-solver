@@ -43,12 +43,12 @@ const AutoGroupTilesSetting: FunctionComponent<Props> = ({ className, disabled }
     <div className={className}>
       {options.map((option) => (
         <Radio
-          checked={configId === option.value}
+          checked={configId === parseValue(option.value)}
           className={styles.option}
           disabled={disabled}
-          id="config"
+          id="autoGroupTiles"
           key={option.value}
-          name="config"
+          name="autoGroupTiles"
           title={option.label}
           value={option.value}
           onChange={handleChange}

@@ -45,7 +45,8 @@
   --color--violet--light: #{rgba(#78387f, 0.5)};
 
   --font--family: 'Open Sans', sans-serif;
-  --font--family--secondary: 'Lato', sans-serif;
+  --font--family--title: 'Lato', sans-serif;
+  --font--family--monospace: 'Roboto Mono', monospace;
   --font--size--h1: 30px;
   --font--size--h2: 22px;
   --font--size--h3: 18px;
@@ -54,6 +55,7 @@
 
   --line-height: 1.5;
 
+  --spacing--xs: 2px;
   --spacing--s: 5px;
   --spacing--m: 10px;
   --spacing--l: 20px;

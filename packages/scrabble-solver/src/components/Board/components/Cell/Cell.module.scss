@@ -93,45 +93,53 @@
   &:focus-within {
     z-index: 1;
 
-    .direction {
+    .toggleDirection {
       opacity: 1;
+      user-select: initial;
+      pointer-events: auto;
     }
   }
 }
 
-.direction {
-  $size: 10px;
-  $side-size: $size * 2 / 3;
+.toggleDirection {
+  $size: 18px;
 
+  @include button-reset;
+
+  display: inline-flex;
+  display: flex;
+  justify-content: center;
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  right: -$size;
+  top: -$size;
+  z-index: 2;
   transition: var(--transition);
   opacity: 0;
   user-select: none;
   pointer-events: none;
-  transform: rotate(0deg);
+  box-sizing: content-box;
+  padding: var(--spacing--xs);
+  background-color: white;
+  box-shadow: var(--box-shadow);
+  border: var(--border);
+  border-radius: var(--border--radius);
+  color: var(--color--foreground--secondary);
+  cursor: pointer;
 
-  &.right {
-    transform: rotate(-90deg);
+  &,
+  .icon {
+    width: $size;
+    height: $size;
+  }
 
-    &:after {
-      left: calc(50% - #{$size * 2 / 3});
+  &:active,
+  &:hover {
+    .icon {
+      color: var(--color--foreground);
     }
   }
 
-  &:after {
-    content: ' ';
-    display: block;
-    position: absolute;
-    top: calc(100% + var(--focus--box-shadow--size));
-    left: calc(50% - #{$size / 2});
-    z-index: 1;
-    width: $size;
-    height: $size;
-    border: $side-size solid transparent;
-    border-top: (2 * $side-size * 0.5) solid var(--color--focus);
+  &.right {
+    transform: rotate(-90deg);
   }
 }

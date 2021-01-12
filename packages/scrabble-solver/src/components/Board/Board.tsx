@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import { selectAutoDirectionChange, selectRowsWithCandidate, useTypedSelector } from 'state';
+import { selectRowsWithCandidate, useTypedSelector } from 'state';
 
 import styles from './Board.module.scss';
 import { Cell } from './components';
@@ -14,9 +14,7 @@ interface Props {
 
 const Board: FunctionComponent<Props> = ({ className, cellSize }) => {
   const rows = useTypedSelector(selectRowsWithCandidate);
-  const autoDirectionChange = useTypedSelector(selectAutoDirectionChange);
-  const [{ lastDirection, refs }, { onFocus, onKeyDown, onMoveFocus }] = useGrid({
-    autoDirectionChange,
+  const [{ lastDirection, refs }, { onDirectionToggle, onFocus, onKeyDown, onMoveFocus }] = useGrid({
     height: rows.length,
     width: rows[0].length,
   });
@@ -33,6 +31,7 @@ const Board: FunctionComponent<Props> = ({ className, cellSize }) => {
               inputRef={refs[y][x]}
               key={x}
               size={cellSize}
+              onDirectionToggle={onDirectionToggle}
               onFocus={onFocus}
               onKeyDown={onKeyDown}
               onMoveFocus={onMoveFocus}
