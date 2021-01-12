@@ -12,19 +12,22 @@ interface Props {
 const Mapping: FunctionComponent<Props> = ({ className, description, mapping }) => (
   <div className={classNames(styles.mapping, className)}>
     <h3 className={styles.description}>{description}</h3>
-    {mapping.map((key, index) => (
-      <Fragment key={index}>
-        {Array.isArray(key) ? (
-          <>
-            {key[0]} + {key[1]}
-          </>
-        ) : (
-          key
-        )}
 
-        {index === mapping.length - 1 ? '' : ', '}
-      </Fragment>
-    ))}
+    <div className={styles.keys}>
+      {mapping.map((key, index) => (
+        <div className={styles.group} key={index}>
+          {Array.isArray(key) ? (
+            <>
+              {key[0]}
+              <span className={styles.plus}>+</span>
+              {key[1]}
+            </>
+          ) : (
+            key
+          )}
+        </div>
+      ))}
+    </div>
   </div>
 );
 

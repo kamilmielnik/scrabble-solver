@@ -60,34 +60,34 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
     return createKeyboardNavigation({
       onArrowDown: (event) => {
         if (isCtrl(event)) {
-          setLastDirection('vertical');
+          onDirectionToggle();
         } else {
           changeActiveIndexRef.current(0, 1);
         }
       },
       onArrowLeft: (event) => {
         if (isCtrl(event)) {
-          setLastDirection('horizontal');
+          onDirectionToggle();
         } else {
           changeActiveIndexRef.current(-1, 0);
         }
       },
       onArrowRight: (event) => {
         if (isCtrl(event)) {
-          setLastDirection('horizontal');
+          onDirectionToggle();
         } else {
           changeActiveIndexRef.current(1, 0);
         }
       },
       onArrowUp: (event) => {
         if (isCtrl(event)) {
-          setLastDirection('vertical');
+          onDirectionToggle();
         } else {
           changeActiveIndexRef.current(0, -1);
         }
       },
     });
-  }, [changeActiveIndexRef]);
+  }, [changeActiveIndexRef, onDirectionToggle]);
 
   return [
     { lastDirection, refs },

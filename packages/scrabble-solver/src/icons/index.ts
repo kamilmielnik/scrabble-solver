@@ -1,3 +1,7 @@
+export { default as arrowDown } from './arrowDown.svg';
+export { default as arrowLeft } from './arrowLeft.svg';
+export { default as arrowRight } from './arrowRight.svg';
+export { default as arrowUp } from './arrowUp.svg';
 export { default as checkboxChecked } from './checkboxChecked.svg';
 export { default as checkboxEmpty } from './checkboxEmpty.svg';
 export { default as cog } from './cog.svg';

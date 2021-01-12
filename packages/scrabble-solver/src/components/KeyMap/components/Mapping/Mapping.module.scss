@@ -12,3 +12,15 @@
   font-family: var(--font--family--secondary);
   font-weight: 300;
 }
+
+.keys,
+.group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.group,
+.plus {
+  margin: 0 var(--spacing--s);
+}
