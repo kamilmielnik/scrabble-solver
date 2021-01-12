@@ -19,22 +19,23 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowSet
   const translate = useTranslate();
 
   return (
-    <div>
+    <div className={styles.navButtons}>
       <IconButton
         as="a"
-        className={styles.iconButton}
+        className={styles.button}
         href={GITHUB_PROJECT_URL}
         icon={github}
         rel="noopener noreferrer"
         target="_blank"
         title={translate('github')}
       />
+      <IconButton className={styles.button} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap} />
 
-      <IconButton className={styles.iconButton} icon={eraser} title={translate('clear')} onClick={onClear} />
+      <div className={styles.separator} />
 
-      <IconButton className={styles.iconButton} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap} />
+      <IconButton className={styles.button} icon={eraser} title={translate('clear')} onClick={onClear} />
 
-      <IconButton className={styles.iconButton} icon={cog} title={translate('settings')} onClick={onShowSettings} />
+      <IconButton className={styles.button} icon={cog} title={translate('settings')} onClick={onShowSettings} />
     </div>
   );
 };
