@@ -1,5 +1,5 @@
 {
-  "cell.toggle-direction": "Current typing direction - click to toggle",
+  "cell.toggle-direction": "Typing direction - click to toggle",
   "clear": "Clear everything",
   "close": "Close",
   "dictionary.empty-state.no-definitions": "Word exists in the dictionary but it does not have a definition.",
