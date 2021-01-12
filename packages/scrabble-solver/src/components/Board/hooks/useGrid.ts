@@ -1,6 +1,6 @@
 import { createRef, KeyboardEventHandler, RefObject, useCallback, useMemo, useState, useRef } from 'react';
 
-import { createKeyboardNavigation } from 'lib';
+import { createKeyboardNavigation, isCtrl } from 'lib';
 
 import { createGridOf } from '../lib';
 
@@ -66,30 +66,22 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
     () =>
       createKeyboardNavigation({
         onArrowDown: (event) => {
-          const isCtrl = event.ctrlKey || event.metaKey;
-
-          if (!isCtrl) {
+          if (!isCtrl(event)) {
             changeActiveIndex(0, 1);
           }
         },
         onArrowLeft: (event) => {
-          const isCtrl = event.ctrlKey || event.metaKey;
-
-          if (!isCtrl) {
+          if (!isCtrl(event)) {
             changeActiveIndex(-1, 0);
           }
         },
         onArrowRight: (event) => {
-          const isCtrl = event.ctrlKey || event.metaKey;
-
-          if (!isCtrl) {
+          if (!isCtrl(event)) {
             changeActiveIndex(1, 0);
           }
         },
         onArrowUp: (event) => {
-          const isCtrl = event.ctrlKey || event.metaKey;
-
-          if (!isCtrl) {
+          if (!isCtrl(event)) {
             changeActiveIndex(0, -1);
           }
         },

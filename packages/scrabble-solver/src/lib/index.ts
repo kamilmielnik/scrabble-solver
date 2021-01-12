@@ -2,6 +2,7 @@ export { default as createKeyboardNavigation } from './createKeyboardNavigation'
 export { default as createKeyComparator } from './createKeyComparator';
 export { default as createNullMovingComparator } from './createNullMovingComparator';
 export { default as detectLocale } from './detectLocale';
+export { default as isCtrl } from './isCtrl';
 export { default as isLocale } from './isLocale';
 export { default as isMac } from './isMac';
 export { default as memoize } from './memoize';

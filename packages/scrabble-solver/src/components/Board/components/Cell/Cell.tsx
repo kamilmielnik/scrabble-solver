@@ -5,7 +5,7 @@ import React, { FunctionComponent, KeyboardEventHandler, memo, RefObject, useCal
 import { useDispatch } from 'react-redux';
 
 import { move } from 'icons';
-import { createKeyboardNavigation } from 'lib';
+import { createKeyboardNavigation, isCtrl } from 'lib';
 import { boardSlice, selectBonus, selectConfig, solveSlice, useTranslate, useTypedSelector } from 'state';
 
 import SvgIcon from '../../../SvgIcon';
@@ -51,7 +51,7 @@ const Cell: FunctionComponent<Props> = ({
         onEnter: () => dispatch(solveSlice.actions.submit()),
         onKeyDown: (event) => {
           const character = event.key.toLowerCase();
-          const isTogglingBlank = (event.ctrlKey || event.metaKey) && character === 'b';
+          const isTogglingBlank = isCtrl(event) && character === 'b';
 
           if (isTogglingBlank) {
             dispatch(boardSlice.actions.toggleCellIsBlank({ x, y }));
