@@ -20,8 +20,7 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowSet
 
   return (
     <div className={styles.navButtons}>
-      <Button
-        as="a"
+      <Button.Link
         className={styles.button}
         href={GITHUB_PROJECT_URL}
         icon={github}
@@ -30,7 +29,7 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowSet
         title={translate('github')}
       >
         GitHub
-      </Button>
+      </Button.Link>
 
       <Button className={styles.button} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap}>
         {translate('keyMap')}

@@ -34,11 +34,6 @@ $size: 32px;
       color: var(--color--foreground);
     }
   }
-
-  &.empty {
-    width: $size;
-    height: $size;
-  }
 }
 
 .content {
