@@ -7,26 +7,65 @@ $size: 32px;
   @include focus-effect;
 
   display: inline-block;
-  width: $size;
-  height: $size;
   color: var(--color--inactive);
   cursor: pointer;
 
+  &:active,
+  &:focus,
   &:hover {
-    .icon {
+    .label {
+      opacity: 1;
+    }
+  }
+
+  &:focus,
+  &:hover {
+    text-decoration: none;
+
+    .icon,
+    .label {
       color: var(--color--foreground--secondary);
     }
   }
 
   &:active {
-    .icon {
+    .icon,
+    .label {
       color: var(--color--foreground);
     }
   }
+
+  &.empty {
+    width: $size;
+    height: $size;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon,
+.label {
+  transition: var(--transition);
 }
 
 .icon {
   width: $size;
   height: $size;
+  pointer-events: none;
+}
+
+.label {
+  position: absolute;
+  top: calc(100% + var(--spacing--s));
   transition: var(--transition);
+  opacity: 0;
+  font-size: var(--font--size--xs);
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
 }

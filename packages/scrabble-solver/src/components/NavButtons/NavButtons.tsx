@@ -28,14 +28,23 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowSet
         rel="noopener noreferrer"
         target="_blank"
         title={translate('github')}
-      />
-      <IconButton className={styles.button} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap} />
+      >
+        GitHub
+      </IconButton>
+
+      <IconButton className={styles.button} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap}>
+        Controls
+      </IconButton>
 
       <div className={styles.separator} />
 
-      <IconButton className={styles.button} icon={eraser} title={translate('clear')} onClick={onClear} />
+      <IconButton className={styles.button} icon={eraser} title={translate('clear')} onClick={onClear}>
+        Clear
+      </IconButton>
 
-      <IconButton className={styles.button} icon={cog} title={translate('settings')} onClick={onShowSettings} />
+      <IconButton className={styles.button} icon={cog} title={translate('settings')} onClick={onShowSettings}>
+        Settings
+      </IconButton>
     </div>
   );
 };

@@ -1,11 +1,12 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, MouseEventHandler } from 'react';
+import React, { FunctionComponent, MouseEventHandler, ReactNode } from 'react';
 
 import { SvgIcon } from 'components';
 
 import styles from './IconButton.module.scss';
 
 interface CommonProps {
+  children?: ReactNode;
   className?: string;
   icon: BrowserSpriteSymbol;
   title: string;
@@ -33,6 +34,7 @@ type Props = LinkProps | ButtonProps;
 
 const IconButton: FunctionComponent<Props> = ({
   as = 'button',
+  children,
   className,
   disabled,
   href,
@@ -42,23 +44,40 @@ const IconButton: FunctionComponent<Props> = ({
   title,
   onClick,
 }) => {
+  const content = (
+    <span className={styles.content}>
+      <SvgIcon className={styles.icon} icon={icon} />
+      <span className={styles.label}>{children}</span>
+    </span>
+  );
+
   if (as === 'a') {
     return (
-      <a className={classNames(styles.iconButton, className)} href={href} rel={rel} target={target} title={title}>
-        <SvgIcon className={styles.icon} icon={icon} />
+      <a
+        className={classNames(styles.iconButton, className, {
+          [styles.empty]: !children,
+        })}
+        href={href}
+        rel={rel}
+        target={target}
+        title={title}
+      >
+        {content}
       </a>
     );
   }
 
   return (
     <button
-      className={classNames(styles.iconButton, className)}
+      className={classNames(styles.iconButton, className, {
+        [styles.empty]: !children,
+      })}
       disabled={disabled}
       title={title}
       type="button"
       onClick={onClick}
     >
-      <SvgIcon className={styles.icon} icon={icon} />
+      {content}
     </button>
   );
 };

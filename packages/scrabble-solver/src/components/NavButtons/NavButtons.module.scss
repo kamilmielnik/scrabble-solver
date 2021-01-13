@@ -5,11 +5,6 @@ $size: 32px;
   align-items: center;
 }
 
-.button {
-  width: $size;
-  height: $size;
-}
-
 .button,
 .separator {
   margin-right: var(--spacing--l);
