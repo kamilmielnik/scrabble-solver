@@ -1,5 +1,7 @@
 @import 'styles/mixins';
 
+$button-size: 18px;
+
 .cell {
   @include focus-effect;
 
@@ -93,34 +95,41 @@
   &:focus-within {
     z-index: 1;
 
-    .toggleDirection {
+    .actions {
       opacity: 1;
+    }
+
+    .action {
       user-select: initial;
       pointer-events: auto;
     }
   }
 }
 
-.toggleDirection {
-  $size: 18px;
-
-  @include button-reset;
-
-  display: inline-flex;
+.actions {
   display: flex;
-  justify-content: center;
   position: absolute;
-  right: -$size;
-  top: -$size;
+  right: -$button-size;
+  top: -$button-size;
   z-index: 2;
   transition: var(--transition);
   opacity: 0;
+  pointer-events: none;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border--radius);
+}
+
+.action {
+  @include button-reset;
+
+  display: flex;
+  justify-content: center;
+  transition: var(--transition);
   user-select: none;
   pointer-events: none;
   box-sizing: content-box;
   padding: var(--spacing--xs);
   background-color: white;
-  box-shadow: var(--box-shadow);
   border: var(--border);
   border-radius: var(--border--radius);
   color: var(--color--foreground--secondary);
@@ -128,8 +137,8 @@
 
   &,
   .icon {
-    width: $size;
-    height: $size;
+    width: $button-size;
+    height: $button-size;
   }
 
   &:active,
@@ -139,6 +148,12 @@
     }
   }
 
+  &.right {
+    transform: rotate(-90deg);
+  }
+}
+
+.toggleDirection {
   &.right {
     transform: rotate(-90deg);
   }

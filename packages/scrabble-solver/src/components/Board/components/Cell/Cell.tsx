@@ -97,19 +97,21 @@ const Cell: FunctionComponent<Props> = ({
         onKeyDown={handleKeyDown}
       />
 
-      <button
-        className={classNames(styles.toggleDirection, {
-          [styles.right]: direction === 'horizontal',
-        })}
-        // It's fine to make it not focusable with TAB from a11y point of view
-        // because an alternative key combo is provided that "clicks" the button (Ctrl + Arrow).
-        tabIndex={-1}
-        title={translate('cell.toggle-direction')}
-        type="button"
-        onClick={handleDirectionToggleClick}
-      >
-        <SvgIcon className={styles.icon} icon={arrowDown} />
-      </button>
+      <div className={styles.actions}>
+        <button
+          className={classNames(styles.action, styles.toggleDirection, {
+            [styles.right]: direction === 'horizontal',
+          })}
+          // It's fine to make it not focusable with TAB from a11y point of view
+          // because an alternative key combo is provided that "clicks" the button (Ctrl + Arrow).
+          tabIndex={-1}
+          title={translate('cell.toggle-direction')}
+          type="button"
+          onClick={handleDirectionToggleClick}
+        >
+          <SvgIcon className={styles.icon} icon={arrowDown} />
+        </button>
+      </div>
     </div>
   );
 };
