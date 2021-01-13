@@ -2,7 +2,7 @@
 
 $size: 32px;
 
-.iconButton {
+.button {
   @include button-reset;
   @include focus-effect;
 

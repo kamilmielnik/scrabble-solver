@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react';
 import { cog, eraser, github, keyboard } from 'icons';
 import { useTranslate } from 'state';
 
-import IconButton from '../IconButton';
+import Button from '../Button';
 
 import styles from './NavButtons.module.scss';
 
@@ -20,7 +20,7 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowSet
 
   return (
     <div className={styles.navButtons}>
-      <IconButton
+      <Button
         as="a"
         className={styles.button}
         href={GITHUB_PROJECT_URL}
@@ -30,21 +30,21 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowSet
         title={translate('github')}
       >
         GitHub
-      </IconButton>
+      </Button>
 
-      <IconButton className={styles.button} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap}>
+      <Button className={styles.button} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap}>
         Controls
-      </IconButton>
+      </Button>
 
       <div className={styles.separator} />
 
-      <IconButton className={styles.button} icon={eraser} title={translate('clear')} onClick={onClear}>
+      <Button className={styles.button} icon={eraser} title={translate('clear')} onClick={onClear}>
         Clear
-      </IconButton>
+      </Button>
 
-      <IconButton className={styles.button} icon={cog} title={translate('settings')} onClick={onShowSettings}>
+      <Button className={styles.button} icon={cog} title={translate('settings')} onClick={onShowSettings}>
         Settings
-      </IconButton>
+      </Button>
     </div>
   );
 };

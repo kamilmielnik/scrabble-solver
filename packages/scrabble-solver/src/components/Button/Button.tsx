@@ -3,7 +3,7 @@ import React, { FunctionComponent, MouseEventHandler, ReactNode } from 'react';
 
 import { SvgIcon } from 'components';
 
-import styles from './IconButton.module.scss';
+import styles from './Button.module.scss';
 
 interface CommonProps {
   children?: ReactNode;
@@ -32,7 +32,7 @@ interface ButtonProps extends CommonProps {
 
 type Props = LinkProps | ButtonProps;
 
-const IconButton: FunctionComponent<Props> = ({
+const Button: FunctionComponent<Props> = ({
   as = 'button',
   children,
   className,
@@ -54,7 +54,7 @@ const IconButton: FunctionComponent<Props> = ({
   if (as === 'a') {
     return (
       <a
-        className={classNames(styles.iconButton, className, {
+        className={classNames(styles.button, className, {
           [styles.empty]: !children,
         })}
         href={href}
@@ -69,7 +69,7 @@ const IconButton: FunctionComponent<Props> = ({
 
   return (
     <button
-      className={classNames(styles.iconButton, className, {
+      className={classNames(styles.button, className, {
         [styles.empty]: !children,
       })}
       disabled={disabled}
@@ -82,4 +82,4 @@ const IconButton: FunctionComponent<Props> = ({
   );
 };
 
-export default IconButton;
+export default Button;

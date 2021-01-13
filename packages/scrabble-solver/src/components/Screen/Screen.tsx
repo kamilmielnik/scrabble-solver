@@ -4,7 +4,7 @@ import React, { FunctionComponent, ReactNode } from 'react';
 import { cross } from 'icons';
 import { useTranslate } from 'state';
 
-import IconButton from '../IconButton';
+import Button from '../Button';
 
 import styles from './Screen.module.scss';
 
@@ -26,7 +26,9 @@ const Screen: FunctionComponent<Props> = ({ children, className, contentClassNam
       })}
     >
       {onClose && (
-        <IconButton className={styles.closeButton} icon={cross} title={translate('close')} onClick={onClose} />
+        <Button className={styles.closeButton} icon={cross} title={translate('close')} onClick={onClose}>
+          Close
+        </Button>
       )}
 
       <div className={classNames(styles.content, contentClassName)}>{children}</div>
