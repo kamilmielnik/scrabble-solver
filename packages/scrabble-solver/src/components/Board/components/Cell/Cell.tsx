@@ -103,6 +103,15 @@ const Cell: FunctionComponent<Props> = ({
       />
 
       <div className={styles.actions}>
+        <Button title={translate('cell.toggle-direction')} onClick={handleDirectionToggleClick}>
+          <SvgIcon
+            className={classNames(styles.toggleDirection, {
+              [styles.right]: direction === 'horizontal',
+            })}
+            icon={arrowDown}
+          />
+        </Button>
+
         {!isEmpty && (
           <Button
             className={classNames({
@@ -114,15 +123,6 @@ const Cell: FunctionComponent<Props> = ({
             B
           </Button>
         )}
-
-        <Button title={translate('cell.toggle-direction')} onClick={handleDirectionToggleClick}>
-          <SvgIcon
-            className={classNames(styles.toggleDirection, {
-              [styles.right]: direction === 'horizontal',
-            })}
-            icon={arrowDown}
-          />
-        </Button>
       </div>
     </div>
   );

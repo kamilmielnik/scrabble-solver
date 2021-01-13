@@ -109,7 +109,8 @@ $icon-size: 16px;
 .actions {
   display: flex;
   position: absolute;
-  right: -$icon-size;
+  left: calc(100% + var(--spacing--s) - #{$icon-size});
+  top: calc(var(--spacing--s) - #{$icon-size});
   top: -$icon-size;
   z-index: 2;
   transition: var(--transition);
