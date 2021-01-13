@@ -124,16 +124,30 @@ $button-size: 18px;
 
   display: flex;
   justify-content: center;
-  transition: var(--transition);
+  padding: var(--spacing--xs);
   user-select: none;
   pointer-events: none;
   box-sizing: content-box;
-  padding: var(--spacing--xs);
   background-color: white;
   border: var(--border);
-  border-radius: var(--border--radius);
+  border-top-left-radius: var(--border--radius);
+  border-bottom-left-radius: var(--border--radius);
+  font-size: var(--font--size--s);
+  line-height: $button-size;
   color: var(--color--foreground--secondary);
+  transition: var(--transition);
   cursor: pointer;
+
+  & + & {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &:last-child {
+    border-top-right-radius: var(--border--radius);
+    border-bottom-right-radius: var(--border--radius);
+  }
 
   &,
   .icon {
@@ -143,18 +157,22 @@ $button-size: 18px;
 
   &:active,
   &:hover {
-    .icon {
-      color: var(--color--foreground);
-    }
+    color: var(--color--foreground);
   }
+}
 
-  &.right {
-    transform: rotate(-90deg);
-  }
+.icon {
+  transition: var(--transition);
 }
 
 .toggleDirection {
   &.right {
-    transform: rotate(-90deg);
+    .icon {
+      transform: rotate(-90deg);
+    }
   }
+}
+
+.blank {
+  font-weight: bold;
 }

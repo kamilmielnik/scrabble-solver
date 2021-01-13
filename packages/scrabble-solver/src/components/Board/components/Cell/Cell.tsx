@@ -68,6 +68,10 @@ const Cell: FunctionComponent<Props> = ({
   const { tileFontSize } = Tile.getSizes(size);
   const isEmpty = tile.character === EMPTY_CELL;
 
+  const handleToggleBlankClick = useCallback(() => {
+    dispatch(boardSlice.actions.toggleCellIsBlank({ x, y }));
+  }, [dispatch, x, y]);
+
   const handleDirectionToggleClick = useCallback(() => {
     onDirectionToggle();
 
@@ -98,6 +102,22 @@ const Cell: FunctionComponent<Props> = ({
       />
 
       <div className={styles.actions}>
+        {!isEmpty && (
+          <button
+            className={classNames(styles.action, {
+              [styles.blank]: tile.isBlank,
+            })}
+            // It's fine to make it not focusable with TAB from a11y point of view
+            // because an alternative key combo is provided that "clicks" the button (Ctrl + Arrow).
+            tabIndex={-1}
+            title={tile.isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
+            type="button"
+            onClick={handleToggleBlankClick}
+          >
+            B
+          </button>
+        )}
+
         <button
           className={classNames(styles.action, styles.toggleDirection, {
             [styles.right]: direction === 'horizontal',
