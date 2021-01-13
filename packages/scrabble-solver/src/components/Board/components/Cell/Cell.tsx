@@ -11,6 +11,7 @@ import { boardSlice, selectBonus, selectConfig, solveSlice, useTranslate, useTyp
 import SvgIcon from '../../../SvgIcon';
 import Tile from '../../../Tile';
 
+import Button from './Button';
 import styles from './Cell.module.scss';
 import { getBonusClassname } from './lib';
 
@@ -103,34 +104,25 @@ const Cell: FunctionComponent<Props> = ({
 
       <div className={styles.actions}>
         {!isEmpty && (
-          <button
-            className={classNames(styles.action, {
+          <Button
+            className={classNames({
               [styles.blank]: tile.isBlank,
             })}
-            // It's fine to make it not focusable with TAB from a11y point of view
-            // because an alternative key combo is provided that "clicks" the button (Ctrl + Arrow).
-            tabIndex={-1}
             title={tile.isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
-            type="button"
             onClick={handleToggleBlankClick}
           >
             B
-          </button>
+          </Button>
         )}
 
-        <button
-          className={classNames(styles.action, styles.toggleDirection, {
-            [styles.right]: direction === 'horizontal',
-          })}
-          // It's fine to make it not focusable with TAB from a11y point of view
-          // because an alternative key combo is provided that "clicks" the button (Ctrl + Arrow).
-          tabIndex={-1}
-          title={translate('cell.toggle-direction')}
-          type="button"
-          onClick={handleDirectionToggleClick}
-        >
-          <SvgIcon className={styles.icon} icon={arrowDown} />
-        </button>
+        <Button title={translate('cell.toggle-direction')} onClick={handleDirectionToggleClick}>
+          <SvgIcon
+            className={classNames(styles.toggleDirection, {
+              [styles.right]: direction === 'horizontal',
+            })}
+            icon={arrowDown}
+          />
+        </Button>
       </div>
     </div>
   );

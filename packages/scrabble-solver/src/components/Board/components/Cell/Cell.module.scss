@@ -150,7 +150,7 @@ $button-size: 18px;
   }
 
   &,
-  .icon {
+  .toggleDirection {
     width: $button-size;
     height: $button-size;
   }
@@ -161,15 +161,11 @@ $button-size: 18px;
   }
 }
 
-.icon {
-  transition: var(--transition);
-}
-
 .toggleDirection {
+  transition: var(--transition);
+
   &.right {
-    .icon {
-      transform: rotate(-90deg);
-    }
+    transform: rotate(-90deg);
   }
 }
 
