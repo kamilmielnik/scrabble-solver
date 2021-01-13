@@ -8,7 +8,7 @@ $row-padding: var(--spacing--s) var(--spacing--m);
   flex-direction: column;
   height: 100%;
   font-family: var(--font--family--title);
-  font-size: var(--font--size--small);
+  font-size: var(--font--size--s);
   text-transform: uppercase;
 }
 
@@ -20,7 +20,7 @@ $row-padding: var(--spacing--s) var(--spacing--m);
   justify-content: space-between;
   padding: $row-padding;
   border-bottom: var(--border);
-  font-size: var(--font--size--normal);
+  font-size: var(--font--size--m);
   font-weight: 700;
 }
 

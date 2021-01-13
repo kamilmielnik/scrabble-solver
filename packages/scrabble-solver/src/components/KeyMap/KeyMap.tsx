@@ -23,7 +23,6 @@ const KeyMap: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
     <Sidebar className={className} hidden={hidden} title={translate('keyMap')} onClose={onClose}>
       <Sidebar.Section title={translate('keyMap.board-and-tiles')}>
         <Mapping description={translate('keyMap.board-and-tiles.navigate')} mapping={mapping.navigate} />
-        <Mapping description={translate('keyMap.board-and-tiles.insert-tile')} mapping={mapping.insertTile} />
         <Mapping description={translate('keyMap.board-and-tiles.remove-tile')} mapping={mapping.removeTile} />
         <Mapping description={translate('keyMap.board-and-tiles.submit')} mapping={mapping.submit} />
       </Sidebar.Section>
