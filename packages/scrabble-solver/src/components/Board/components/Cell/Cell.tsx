@@ -11,6 +11,7 @@ import { boardSlice, selectBonus, selectConfig, solveSlice, useTranslate, useTyp
 import SvgIcon from '../../../SvgIcon';
 import Tile from '../../../Tile';
 
+import Button from './Button';
 import styles from './Cell.module.scss';
 import { getBonusClassname } from './lib';
 
@@ -68,6 +69,10 @@ const Cell: FunctionComponent<Props> = ({
   const { tileFontSize } = Tile.getSizes(size);
   const isEmpty = tile.character === EMPTY_CELL;
 
+  const handleToggleBlankClick = useCallback(() => {
+    dispatch(boardSlice.actions.toggleCellIsBlank({ x, y }));
+  }, [dispatch, x, y]);
+
   const handleDirectionToggleClick = useCallback(() => {
     onDirectionToggle();
 
@@ -97,19 +102,28 @@ const Cell: FunctionComponent<Props> = ({
         onKeyDown={handleKeyDown}
       />
 
-      <button
-        className={classNames(styles.toggleDirection, {
-          [styles.right]: direction === 'horizontal',
-        })}
-        // It's fine to make it not focusable with TAB from a11y point of view
-        // because an alternative key combo is provided that "clicks" the button (Ctrl + Arrow).
-        tabIndex={-1}
-        title={translate('cell.toggle-direction')}
-        type="button"
-        onClick={handleDirectionToggleClick}
-      >
-        <SvgIcon className={styles.icon} icon={arrowDown} />
-      </button>
+      <div className={styles.actions}>
+        <Button title={translate('cell.toggle-direction')} onClick={handleDirectionToggleClick}>
+          <SvgIcon
+            className={classNames(styles.toggleDirection, {
+              [styles.right]: direction === 'horizontal',
+            })}
+            icon={arrowDown}
+          />
+        </Button>
+
+        {!isEmpty && (
+          <Button
+            className={classNames({
+              [styles.blank]: tile.isBlank,
+            })}
+            title={tile.isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
+            onClick={handleToggleBlankClick}
+          >
+            B
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

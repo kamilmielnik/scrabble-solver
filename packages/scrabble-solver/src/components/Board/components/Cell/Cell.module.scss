@@ -1,5 +1,7 @@
 @import 'styles/mixins';
 
+$icon-size: 16px;
+
 .cell {
   @include focus-effect;
 
@@ -93,53 +95,81 @@
   &:focus-within {
     z-index: 1;
 
-    .toggleDirection {
+    .actions {
       opacity: 1;
+    }
+
+    .action {
       user-select: initial;
       pointer-events: auto;
     }
   }
 }
 
-.toggleDirection {
-  $size: 18px;
-
-  @include button-reset;
-
-  display: inline-flex;
+.actions {
   display: flex;
-  justify-content: center;
   position: absolute;
-  right: -$size;
-  top: -$size;
+  left: calc(100% + var(--spacing--s) - #{$icon-size});
+  top: calc(var(--spacing--s) - #{$icon-size});
+  top: -$icon-size;
   z-index: 2;
   transition: var(--transition);
   opacity: 0;
+  pointer-events: none;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border--radius);
+}
+
+.action {
+  @include button-reset;
+
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing--s);
   user-select: none;
   pointer-events: none;
   box-sizing: content-box;
-  padding: var(--spacing--xs);
   background-color: white;
-  box-shadow: var(--box-shadow);
   border: var(--border);
-  border-radius: var(--border--radius);
+  border-top-left-radius: var(--border--radius);
+  border-bottom-left-radius: var(--border--radius);
+  font-size: var(--font--size--m);
+  line-height: $icon-size;
   color: var(--color--foreground--secondary);
+  transition: var(--transition);
   cursor: pointer;
 
+  & + & {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &:last-child {
+    border-top-right-radius: var(--border--radius);
+    border-bottom-right-radius: var(--border--radius);
+  }
+
   &,
-  .icon {
-    width: $size;
-    height: $size;
+  .toggleDirection {
+    width: $icon-size;
+    height: $icon-size;
   }
 
   &:active,
   &:hover {
-    .icon {
-      color: var(--color--foreground);
-    }
+    color: var(--color--foreground);
   }
+}
+
+.toggleDirection {
+  transition: var(--transition);
 
   &.right {
     transform: rotate(-90deg);
   }
+}
+
+.blank {
+  font-weight: bold;
 }

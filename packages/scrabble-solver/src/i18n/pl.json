@@ -1,4 +1,6 @@
 {
+  "cell.set-blank": "Oznacz jako blank",
+  "cell.set-not-blank": "Oznacz jako nie blank",
   "cell.toggle-direction": "Kierunek wpisywania - kliknij aby zmienić",
   "clear": "Wyczyść",
   "close": "Zamknij",
