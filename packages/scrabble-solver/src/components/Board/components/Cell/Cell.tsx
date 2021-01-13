@@ -23,7 +23,7 @@ interface Props {
   onDirectionToggle: () => void;
   onFocus: (x: number, y: number) => void;
   onKeyDown: KeyboardEventHandler;
-  onMoveFocus: () => void;
+  onMoveFocus: (direction: 'backward' | 'forward') => void;
 }
 
 const Cell: FunctionComponent<Props> = ({
@@ -57,7 +57,7 @@ const Cell: FunctionComponent<Props> = ({
             dispatch(boardSlice.actions.toggleCellIsBlank({ x, y }));
           } else if (config.hasCharacter(character)) {
             dispatch(boardSlice.actions.changeCellValue({ value: character, x, y }));
-            onMoveFocus();
+            onMoveFocus('forward');
           }
 
           onKeyDown(event);
