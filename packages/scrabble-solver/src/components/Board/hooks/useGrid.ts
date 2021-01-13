@@ -51,7 +51,7 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
   const onMoveFocus = useCallback(() => {
     if (lastDirectionRef.current === 'horizontal') {
       changeActiveIndexRef.current(1, 0);
-    } else if (lastDirectionRef.current === 'vertical') {
+    } else {
       changeActiveIndexRef.current(0, 1);
     }
   }, [changeActiveIndexRef, lastDirectionRef]);
@@ -82,6 +82,13 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
       onArrowUp: (event) => {
         if (isCtrl(event)) {
           onDirectionToggle();
+        } else {
+          changeActiveIndexRef.current(0, -1);
+        }
+      },
+      onBackspace: () => {
+        if (lastDirectionRef.current === 'horizontal') {
+          changeActiveIndexRef.current(-1, 0);
         } else {
           changeActiveIndexRef.current(0, -1);
         }
