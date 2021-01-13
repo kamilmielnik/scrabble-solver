@@ -94,7 +94,7 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
         }
       },
     });
-  }, [changeActiveIndexRef, onDirectionToggle]);
+  }, [changeActiveIndexRef, lastDirectionRef, onDirectionToggle]);
 
   return [
     { lastDirection, refs },
