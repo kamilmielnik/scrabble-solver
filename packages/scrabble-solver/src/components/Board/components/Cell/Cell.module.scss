@@ -1,6 +1,6 @@
 @import 'styles/mixins';
 
-$button-size: 18px;
+$icon-size: 16px;
 
 .cell {
   @include focus-effect;
@@ -109,8 +109,8 @@ $button-size: 18px;
 .actions {
   display: flex;
   position: absolute;
-  right: -$button-size;
-  top: -$button-size;
+  right: -$icon-size;
+  top: -$icon-size;
   z-index: 2;
   transition: var(--transition);
   opacity: 0;
@@ -124,7 +124,7 @@ $button-size: 18px;
 
   display: flex;
   justify-content: center;
-  padding: var(--spacing--xs);
+  padding: var(--spacing--s);
   user-select: none;
   pointer-events: none;
   box-sizing: content-box;
@@ -132,8 +132,8 @@ $button-size: 18px;
   border: var(--border);
   border-top-left-radius: var(--border--radius);
   border-bottom-left-radius: var(--border--radius);
-  font-size: var(--font--size--s);
-  line-height: $button-size;
+  font-size: var(--font--size--m);
+  line-height: $icon-size;
   color: var(--color--foreground--secondary);
   transition: var(--transition);
   cursor: pointer;
@@ -151,8 +151,8 @@ $button-size: 18px;
 
   &,
   .toggleDirection {
-    width: $button-size;
-    height: $button-size;
+    width: $icon-size;
+    height: $icon-size;
   }
 
   &:active,
