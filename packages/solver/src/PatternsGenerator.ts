@@ -40,13 +40,11 @@ class PatternsGenerator {
     numberOfVectors: number;
     PatternModel: new (parameters: { board: Board; cells: Cell[] }) => P;
   }): P[] {
-    return this.generateVectors({ getNthVector, numberOfVectors }).reduce<P[]>(
-      (patterns, cells) =>
-        patterns.concat(
-          this.generateCellsPatterns<P>({ board, PatternModel, cells }),
-        ),
-      [],
-    );
+    return this.generateVectors({ getNthVector, numberOfVectors }).reduce<P[]>((patterns, cells) => {
+      return patterns.concat(
+        this.generateCellsPatterns<P>({ board, PatternModel, cells }),
+      );
+    }, []);
   }
 
   public generateVectors({
