@@ -6,8 +6,6 @@ import { isMac } from 'lib';
 import Key from '../Key';
 import SvgIcon from '../SvgIcon';
 
-const A = <Key>A</Key>;
-
 const ARROW_DOWN = (
   <Key>
     <SvgIcon icon={arrowLeft} />
@@ -36,21 +34,11 @@ const B = <Key>B</Key>;
 
 const BACKSPACE = <Key>← Backspace</Key>;
 
-const C = <Key>C</Key>;
-
 const CTRL = <Key>{isMac() ? '⌘' : 'Ctrl'}</Key>;
 
 const DEL = <Key>Del</Key>;
 
 const ENTER = <Key>Enter ⏎</Key>;
-
-const LETTERS = (
-  <>
-    {A}
-    {B}
-    {C}
-  </>
-);
 
 const ARROWS = (
   <>
@@ -65,7 +53,6 @@ const SPACE = <Key>␣</Key>;
 
 const mapping = {
   insertBlank: [SPACE],
-  insertTile: [LETTERS],
   navigate: [ARROWS],
   removeTile: [DEL, BACKSPACE],
   submit: [ENTER],

@@ -33,17 +33,17 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowSet
       </Button>
 
       <Button className={styles.button} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap}>
-        Controls
+        {translate('keyMap')}
       </Button>
 
       <div className={styles.separator} />
 
       <Button className={styles.button} icon={eraser} title={translate('clear')} onClick={onClear}>
-        Clear
+        {translate('clear')}
       </Button>
 
       <Button className={styles.button} icon={cog} title={translate('settings')} onClick={onShowSettings}>
-        Settings
+        {translate('settings')}
       </Button>
     </div>
   );

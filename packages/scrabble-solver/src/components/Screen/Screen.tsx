@@ -27,7 +27,7 @@ const Screen: FunctionComponent<Props> = ({ children, className, contentClassNam
     >
       {onClose && (
         <Button className={styles.closeButton} icon={cross} title={translate('close')} onClick={onClose}>
-          Close
+          {translate('close')}
         </Button>
       )}
 

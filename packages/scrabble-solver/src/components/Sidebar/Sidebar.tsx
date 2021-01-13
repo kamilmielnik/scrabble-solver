@@ -36,7 +36,9 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, hidden, title,
           icon={cross}
           title={translate('close')}
           onClick={onClose}
-        />
+        >
+          {translate('close')}
+        </Button>
       </div>
 
       <div className={styles.content}>{children}</div>

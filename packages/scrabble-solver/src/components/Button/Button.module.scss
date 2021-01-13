@@ -62,6 +62,7 @@ $size: 32px;
 .label {
   position: absolute;
   top: calc(100% + var(--spacing--s));
+  padding: var(--spacing--xs);
   transition: var(--transition);
   opacity: 0;
   font-size: var(--font--size--xs);
