@@ -19,7 +19,7 @@ interface Actions {
   onFocus: (x: number, y: number) => void;
   onDirectionToggle: () => void;
   onKeyDown: KeyboardEventHandler;
-  onMoveFocus: () => void;
+  onMoveFocus: (direction: 'backward' | 'forward') => void;
 }
 
 const useGrid = ({ height, width }: Parameters): [State, Actions] => {
@@ -48,13 +48,18 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
     activeIndexRef.current = { x, y };
   }, []);
 
-  const onMoveFocus = useCallback(() => {
-    if (lastDirectionRef.current === 'horizontal') {
-      changeActiveIndexRef.current(1, 0);
-    } else if (lastDirectionRef.current === 'vertical') {
-      changeActiveIndexRef.current(0, 1);
-    }
-  }, [changeActiveIndexRef, lastDirectionRef]);
+  const onMoveFocus = useCallback(
+    (direction: 'backward' | 'forward') => {
+      const offset = direction === 'forward' ? 1 : -1;
+
+      if (lastDirectionRef.current === 'horizontal') {
+        changeActiveIndexRef.current(offset, 0);
+      } else {
+        changeActiveIndexRef.current(0, offset);
+      }
+    },
+    [changeActiveIndexRef, lastDirectionRef],
+  );
 
   const onKeyDown = useMemo(() => {
     return createKeyboardNavigation({
@@ -86,8 +91,14 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
           changeActiveIndexRef.current(0, -1);
         }
       },
+      onBackspace: () => {
+        onMoveFocus('backward');
+      },
+      onDelete: () => {
+        onMoveFocus('forward');
+      },
     });
-  }, [changeActiveIndexRef, onDirectionToggle]);
+  }, [changeActiveIndexRef, lastDirectionRef, onDirectionToggle]);
 
   return [
     { lastDirection, refs },
