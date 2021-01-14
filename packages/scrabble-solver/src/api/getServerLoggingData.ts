@@ -1,4 +1,5 @@
 import { NextApiRequest } from 'next';
+
 import { ServerLoggingData } from 'types';
 
 const getServerLoggingData = (request: NextApiRequest): ServerLoggingData => ({
