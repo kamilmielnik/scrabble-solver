@@ -3,8 +3,9 @@ import { Result } from '@scrabble-solver/models';
 import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { memoize } from 'lib';
-import { findWordDefinition, solve } from 'sdk';
+import { findWordDefinition, solve, visit } from 'sdk';
 
+import { initialize } from './actions';
 import {
   selectAutoGroupTiles,
   selectBoard,
@@ -21,11 +22,12 @@ const memoizedFindWordDefinition = memoize(findWordDefinition);
 
 export function* rootSaga() {
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
-  yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
+  yield takeEvery(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
   yield takeEvery(settingsSlice.actions.changeConfigId.type, onConfigIdChange);
   yield takeEvery(settingsSlice.actions.changeLocale.type, onLocaleChange);
+  yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
+  yield takeLatest(initialize.type, onInitialize);
   yield takeLatest(solveSlice.actions.submit.type, onSubmit);
-  yield takeEvery(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
 }
 
 function* onApplyResult({ payload: result }: PayloadAction<Result>) {
@@ -33,6 +35,11 @@ function* onApplyResult({ payload: result }: PayloadAction<Result>) {
   yield put(boardSlice.actions.applyResult(result));
   yield put(tilesSlice.actions.removeTiles(result.tiles));
   yield put(tilesSlice.actions.groupTiles(autoGroupTiles));
+}
+
+function* onConfigIdChange() {
+  yield put(solveSlice.actions.submit());
+  yield put(resultsSlice.actions.changeResultCandidate(null));
 }
 
 function* onDictionarySubmit() {
@@ -51,9 +58,8 @@ function* onDictionarySubmit() {
   }
 }
 
-function* onConfigIdChange() {
-  yield put(solveSlice.actions.submit());
-  yield put(resultsSlice.actions.changeResultCandidate(null));
+function* onInitialize() {
+  yield call(visit);
 }
 
 function* onLocaleChange() {

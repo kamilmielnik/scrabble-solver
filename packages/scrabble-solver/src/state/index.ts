@@ -1,3 +1,4 @@
+export * from './actions';
 export { default as createAppStore } from './createAppStore';
 export { default as localStorage } from './localStorage';
 export * from './slices';

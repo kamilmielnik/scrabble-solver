@@ -11,6 +11,7 @@ import { useLocalStorage } from 'hooks';
 import {
   boardSlice,
   dictionarySlice,
+  initialize,
   localStorage,
   resultsSlice,
   selectConfig,
@@ -71,6 +72,10 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const handleShowSettings = () => setShowSettings(true);
 
   useLocalStorage();
+
+  useEffectOnce(() => {
+    dispatch(initialize());
+  });
 
   useEffectOnce(() => {
     if (!localStorage.getHasVisited()) {
