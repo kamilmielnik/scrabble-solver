@@ -74,12 +74,24 @@ class Board {
     return y > 0 && !this.board[y - 1][x].isEmpty;
   }
 
+  public getBlanksCount(): number {
+    return this.board.reduce((count, row) => {
+      return count + row.reduce((rowCount, cell) => (cell.tile.isBlank ? rowCount + 1 : rowCount), 0);
+    }, 0);
+  }
+
   public getColumn(index: number): Cell[] {
     return this.board.map((row) => row[index]);
   }
 
   public getRow(index: number): Cell[] {
     return this.board[index];
+  }
+
+  public getTilesCount(): number {
+    return this.board.reduce((count, row) => {
+      return count + row.reduce((rowCount, cell) => (cell.hasTile() ? rowCount + 1 : rowCount), 0);
+    }, 0);
   }
 
   public isEmpty(): boolean {

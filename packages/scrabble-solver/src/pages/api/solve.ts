@@ -6,8 +6,22 @@ import { Board, Tile } from '@scrabble-solver/models';
 import Solver from '@scrabble-solver/solver';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { readLocaleDictionary, validateBoard, validateCharacters, validateConfigId, validateLocale } from 'api';
+import {
+  getServerLoggingData,
+  readLocaleDictionary,
+  validateBoard,
+  validateCharacters,
+  validateConfigId,
+  validateLocale,
+} from 'api';
 import { Locale } from 'types';
+
+interface RequestData {
+  board: Board;
+  characters: string[];
+  configId: string;
+  locale: Locale;
+}
 
 const localeTries: Record<Locale, Trie> = {
   'en-GB': readLocaleDictionary('en-GB'),
@@ -16,8 +30,21 @@ const localeTries: Record<Locale, Trie> = {
 };
 
 const solve = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
+  const meta = getServerLoggingData(request);
+
   try {
-    const { board, configId, locale, characters } = parseRequest(request);
+    const { board, characters, configId, locale } = parseRequest(request);
+    logger.info('solve - request', {
+      meta,
+      payload: {
+        board: board.toString(),
+        boardBlanksCount: board.getBlanksCount(),
+        boardTilesCount: board.getTilesCount(),
+        characters: characters.join(''),
+        configId,
+        locale,
+      },
+    });
     const config = getLocaleConfig(configId, locale);
     const trie = localeTries[locale];
     const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
@@ -25,7 +52,7 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
     const results = solver.solve(board, tiles);
     response.status(200).send(results.map((result) => result.toJson()));
   } catch (error) {
-    logger.error(error);
+    logger.error('solve - error', { error, meta });
     response.status(500).send({
       error: 'Server error',
       message: error.message,
@@ -33,12 +60,8 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
   }
 };
 
-const parseRequest = (
-  request: NextApiRequest,
-): { board: Board; characters: string[]; configId: string; locale: Locale } => {
+const parseRequest = (request: NextApiRequest): RequestData => {
   const { board, characters, configId, locale } = request.body;
-
-  logger.info('solve - parseRequest', { board, characters, configId, locale });
 
   validateConfigId(configId);
   validateLocale(locale);
@@ -48,9 +71,9 @@ const parseRequest = (
 
   return {
     board: Board.fromJson(board),
+    characters,
     configId,
     locale,
-    characters,
   };
 };
 

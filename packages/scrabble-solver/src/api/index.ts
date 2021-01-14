@@ -1,3 +1,4 @@
+export { default as getServerLoggingData } from './getServerLoggingData';
 export { default as readLocaleDictionary } from './readLocaleDictionary';
 export { default as request } from './request';
 export { default as translateEn } from './translateEn';
