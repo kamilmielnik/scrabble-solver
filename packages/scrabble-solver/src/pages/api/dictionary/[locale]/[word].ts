@@ -2,7 +2,7 @@ import logger from '@scrabble-solver/logger';
 import { WordDefinition } from '@scrabble-solver/models';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { validateLocale, validateWord, translateEn, translatePl } from 'api';
+import { getServerLoggingData, validateLocale, validateWord, translateEn, translatePl } from 'api';
 import { Locale } from 'types';
 
 interface RequestData {
@@ -18,9 +18,12 @@ const localeTranslate: Record<Locale, (word: string) => Promise<WordDefinition>>
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
   try {
-    const requestData = parseRequest(request);
-    logRequest(requestData);
-    const { locale, word } = requestData;
+    const { locale, word } = parseRequest(request);
+    logger.info('dictionary - request data', {
+      ...getServerLoggingData(request),
+      locale,
+      word,
+    });
     const translate = localeTranslate[locale];
     const result = await translate(word);
     response.status(200).send(result.toJson());
@@ -43,15 +46,6 @@ const parseRequest = (request: NextApiRequest): RequestData => {
     locale: locale as Locale,
     word: word as string,
   };
-};
-
-const logRequest = (requestData: RequestData) => {
-  const { locale, word } = requestData;
-
-  logger.info('dictionary - request data', {
-    locale,
-    word,
-  });
 };
 
 export default dictionary;

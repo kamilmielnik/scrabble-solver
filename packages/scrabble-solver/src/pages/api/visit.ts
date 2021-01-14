@@ -1,9 +1,11 @@
 import logger from '@scrabble-solver/logger';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const visit = async (_request: NextApiRequest, response: NextApiResponse): Promise<void> => {
+import { getServerLoggingData } from 'api';
+
+const visit = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
   try {
-    logRequest();
+    logger.info('visit', getServerLoggingData(request));
     response.status(200).send(true);
   } catch (error) {
     logger.error(error);
@@ -12,10 +14,6 @@ const visit = async (_request: NextApiRequest, response: NextApiResponse): Promi
       message: error.message,
     });
   }
-};
-
-const logRequest = () => {
-  logger.info('visit');
 };
 
 export default visit;

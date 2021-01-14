@@ -6,7 +6,14 @@ import { Board, Tile } from '@scrabble-solver/models';
 import Solver from '@scrabble-solver/solver';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { readLocaleDictionary, validateBoard, validateCharacters, validateConfigId, validateLocale } from 'api';
+import {
+  getServerLoggingData,
+  readLocaleDictionary,
+  validateBoard,
+  validateCharacters,
+  validateConfigId,
+  validateLocale,
+} from 'api';
 import { Locale } from 'types';
 
 interface RequestData {
@@ -24,9 +31,16 @@ const localeTries: Record<Locale, Trie> = {
 
 const solve = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
   try {
-    const requestData = parseRequest(request);
-    logRequest(requestData);
-    const { board, characters, configId, locale } = requestData;
+    const { board, characters, configId, locale } = parseRequest(request);
+    logger.info('solve - request data', {
+      ...getServerLoggingData(request),
+      board: board.toString(),
+      boardBlanksCount: board.getBlanksCount(),
+      boardTilesCount: board.getTilesCount(),
+      characters: characters.join(''),
+      configId,
+      locale,
+    });
     const config = getLocaleConfig(configId, locale);
     const trie = localeTries[locale];
     const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
@@ -57,19 +71,6 @@ const parseRequest = (request: NextApiRequest): RequestData => {
     configId,
     locale,
   };
-};
-
-const logRequest = (requestData: RequestData) => {
-  const { board, characters, configId, locale } = requestData;
-
-  logger.info('solve - request data', {
-    board: board.toString(),
-    boardBlanksCount: board.getBlanksCount(),
-    boardTilesCount: board.getTilesCount(),
-    characters: characters.join(''),
-    configId,
-    locale,
-  });
 };
 
 export default solve;
