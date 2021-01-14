@@ -30,17 +30,20 @@ const localeTries: Record<Locale, Trie> = {
 };
 
 const solve = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
-  const loggingData = getServerLoggingData(request);
+  const meta = getServerLoggingData(request);
 
   try {
     const { board, characters, configId, locale } = parseRequest(request);
-    logger.info('solve - request data', loggingData, {
-      board: board.toString(),
-      boardBlanksCount: board.getBlanksCount(),
-      boardTilesCount: board.getTilesCount(),
-      characters: characters.join(''),
-      configId,
-      locale,
+    logger.info('solve - request', {
+      meta,
+      payload: {
+        board: board.toString(),
+        boardBlanksCount: board.getBlanksCount(),
+        boardTilesCount: board.getTilesCount(),
+        characters: characters.join(''),
+        configId,
+        locale,
+      },
     });
     const config = getLocaleConfig(configId, locale);
     const trie = localeTries[locale];
@@ -49,7 +52,7 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
     const results = solver.solve(board, tiles);
     response.status(200).send(results.map((result) => result.toJson()));
   } catch (error) {
-    logger.error(error, loggingData);
+    logger.error('solve - error', { error, meta });
     response.status(500).send({
       error: 'Server error',
       message: error.message,

@@ -4,13 +4,13 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getServerLoggingData } from 'api';
 
 const visit = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
-  const loggingData = getServerLoggingData(request);
+  const meta = getServerLoggingData(request);
 
   try {
-    logger.info('visit', loggingData);
+    logger.info('visit - request', { meta });
     response.status(200).send(true);
   } catch (error) {
-    logger.error(error, loggingData);
+    logger.error('visit - error', { error, meta });
     response.status(500).send({
       error: 'Server error',
       message: error.message,

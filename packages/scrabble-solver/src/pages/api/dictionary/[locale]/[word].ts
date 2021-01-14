@@ -17,19 +17,22 @@ const localeTranslate: Record<Locale, (word: string) => Promise<WordDefinition>>
 };
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
-  const loggingData = getServerLoggingData(request);
+  const meta = getServerLoggingData(request);
 
   try {
     const { locale, word } = parseRequest(request);
-    logger.info('dictionary - request data', loggingData, {
-      locale,
-      word,
+    logger.info('dictionary - request', {
+      meta,
+      payload: {
+        locale,
+        word,
+      },
     });
     const translate = localeTranslate[locale];
     const result = await translate(word);
     response.status(200).send(result.toJson());
   } catch (error) {
-    logger.error(error, loggingData);
+    logger.error('dictionary - error', { error, meta });
     response.status(500).send({
       error: 'Server error',
       message: error.message,
