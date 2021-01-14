@@ -43,7 +43,11 @@ const Cell: FunctionComponent<Props> = ({
   const translate = useTranslate();
   const config = useTypedSelector(selectConfig);
   const bonus = useTypedSelector((state) => selectBonus(state, cell));
+  const { tileFontSize } = Tile.getSizes(size);
+  const isEmpty = tile.character === EMPTY_CELL;
+
   const handleFocus = useCallback(() => onFocus(x, y), [x, y, onFocus]);
+
   const handleKeyDown = useMemo(
     () =>
       createKeyboardNavigation({
@@ -66,23 +70,21 @@ const Cell: FunctionComponent<Props> = ({
       }),
     [x, y, config, dispatch, onKeyDown, onMoveFocus],
   );
-  const { tileFontSize } = Tile.getSizes(size);
-  const isEmpty = tile.character === EMPTY_CELL;
 
   const handleToggleBlankClick = useCallback(() => {
-    dispatch(boardSlice.actions.toggleCellIsBlank({ x, y }));
-
     if (inputRef.current) {
       inputRef.current.focus();
     }
+
+    dispatch(boardSlice.actions.toggleCellIsBlank({ x, y }));
   }, [dispatch, x, y]);
 
   const handleDirectionToggleClick = useCallback(() => {
-    onDirectionToggle();
-
     if (inputRef.current) {
       inputRef.current.focus();
     }
+
+    onDirectionToggle();
   }, [onDirectionToggle]);
 
   return (
