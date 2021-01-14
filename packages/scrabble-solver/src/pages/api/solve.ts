@@ -30,10 +30,11 @@ const localeTries: Record<Locale, Trie> = {
 };
 
 const solve = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
+  const loggingData = getServerLoggingData(request);
+
   try {
     const { board, characters, configId, locale } = parseRequest(request);
-    logger.info('solve - request data', {
-      ...getServerLoggingData(request),
+    logger.info('solve - request data', loggingData, {
       board: board.toString(),
       boardBlanksCount: board.getBlanksCount(),
       boardTilesCount: board.getTilesCount(),
@@ -48,7 +49,7 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
     const results = solver.solve(board, tiles);
     response.status(200).send(results.map((result) => result.toJson()));
   } catch (error) {
-    logger.error(error);
+    logger.error(error, loggingData);
     response.status(500).send({
       error: 'Server error',
       message: error.message,
