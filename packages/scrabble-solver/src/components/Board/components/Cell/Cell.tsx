@@ -71,6 +71,10 @@ const Cell: FunctionComponent<Props> = ({
 
   const handleToggleBlankClick = useCallback(() => {
     dispatch(boardSlice.actions.toggleCellIsBlank({ x, y }));
+
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   }, [dispatch, x, y]);
 
   const handleDirectionToggleClick = useCallback(() => {
