@@ -9,6 +9,13 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { readLocaleDictionary, validateBoard, validateCharacters, validateConfigId, validateLocale } from 'api';
 import { Locale } from 'types';
 
+interface RequestData {
+  board: Board;
+  characters: string[];
+  configId: string;
+  locale: Locale;
+}
+
 const localeTries: Record<Locale, Trie> = {
   'en-GB': readLocaleDictionary('en-GB'),
   'en-US': readLocaleDictionary('en-US'),
@@ -17,7 +24,9 @@ const localeTries: Record<Locale, Trie> = {
 
 const solve = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
   try {
-    const { board, configId, locale, characters } = parseRequest(request);
+    const requestData = parseRequest(request);
+    logRequest(requestData);
+    const { board, characters, configId, locale } = requestData;
     const config = getLocaleConfig(configId, locale);
     const trie = localeTries[locale];
     const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
@@ -33,12 +42,8 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
   }
 };
 
-const parseRequest = (
-  request: NextApiRequest,
-): { board: Board; characters: string[]; configId: string; locale: Locale } => {
+const parseRequest = (request: NextApiRequest): RequestData => {
   const { board, characters, configId, locale } = request.body;
-
-  logger.info('solve - parseRequest', { board, characters, configId, locale });
 
   validateConfigId(configId);
   validateLocale(locale);
@@ -48,10 +53,23 @@ const parseRequest = (
 
   return {
     board: Board.fromJson(board),
+    characters,
     configId,
     locale,
-    characters,
   };
+};
+
+const logRequest = (requestData: RequestData) => {
+  const { board, characters, configId, locale } = requestData;
+
+  logger.info('solve - request data', {
+    board: board.toString(),
+    boardBlanksCount: board.getBlanksCount(),
+    boardTilesCount: board.getTilesCount(),
+    characters: characters.join(''),
+    configId,
+    locale,
+  });
 };
 
 export default solve;
