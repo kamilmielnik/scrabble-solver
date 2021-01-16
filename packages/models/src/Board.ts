@@ -74,6 +74,18 @@ class Board {
     return y > 0 && !this.board[y - 1][x].isEmpty;
   }
 
+  public equals(other: Board): boolean {
+    return (
+      this.numberOfColumns === other.numberOfColumns &&
+      this.numberOfRows === other.numberOfRows &&
+      this.board.every((row, rowIndex) => {
+        return row.every((cell, cellIndex) => {
+          return cell.equals(other.board[rowIndex][cellIndex]);
+        });
+      })
+    );
+  }
+
   public getBlanksCount(): number {
     return this.board.reduce((count, row) => {
       return count + row.reduce((rowCount, cell) => (cell.tile.isBlank ? rowCount + 1 : rowCount), 0);
