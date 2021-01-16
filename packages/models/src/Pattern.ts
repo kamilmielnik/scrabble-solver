@@ -1,6 +1,6 @@
 import Board from './Board';
-import Config from './Config';
 import Cell from './Cell';
+import Config from './Config';
 import PatternJson from './PatternJson';
 
 class Pattern {

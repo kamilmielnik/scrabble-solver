@@ -8,6 +8,7 @@ const board = Board.fromStringArray([' t ', 'do ', '   ']);
 const patternsGenerator = new PatternsGenerator({
   boardHeight: 3,
   boardWidth: 3,
+  maximumNumberOfCharacters: 7,
 } as Config);
 
 describe('PatternsGenerator', () => {
