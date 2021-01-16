@@ -40,7 +40,9 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
       <Header />
 
       {typeof results === 'undefined' && (
-        <EmptyState type="info">{translate('results.empty-state.unitialized')}</EmptyState>
+        <EmptyState className={styles.emptyState} type="info">
+          {translate('results.empty-state.unitialized')}
+        </EmptyState>
       )}
 
       {typeof results !== 'undefined' && (

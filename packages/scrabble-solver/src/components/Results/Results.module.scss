@@ -14,6 +14,10 @@ $outdated-icon-size: 24px;
   text-transform: uppercase;
 }
 
+.emptyState {
+  flex: 1;
+}
+
 .list {
   transition: var(--transition);
   opacity: 1;
