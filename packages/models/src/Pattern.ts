@@ -1,4 +1,5 @@
 import Board from './Board';
+import Config from './Config';
 import Cell from './Cell';
 import PatternJson from './PatternJson';
 
@@ -12,9 +13,10 @@ class Pattern {
     this.cells = cells;
   }
 
-  public canBePlaced(): boolean {
+  public canBePlaced(config: Config): boolean {
     const numberOfEmptyCells = this.getNumberOfEmptyCells();
-    const isNumberOfUsedCellsInRange = numberOfEmptyCells >= 1 && numberOfEmptyCells <= 7;
+    const isNumberOfUsedCellsInRange =
+      numberOfEmptyCells >= 1 && numberOfEmptyCells <= config.maximumNumberOfCharacters;
     return (
       isNumberOfUsedCellsInRange &&
       (this.hasAtLeast1NonEmptyCell() || this.collides() || (this.goesThroughBoardCenter() && this.board.isEmpty()))

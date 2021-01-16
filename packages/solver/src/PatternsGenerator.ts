@@ -76,7 +76,7 @@ class PatternsGenerator {
               board,
               cells: cells.slice(startIndex, endIndex + 1),
             });
-            if (pattern.canBePlaced()) {
+            if (pattern.canBePlaced(this.config)) {
               placeablePatterns.push(pattern);
             }
             return placeablePatterns;
