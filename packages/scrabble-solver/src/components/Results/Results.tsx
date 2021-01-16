@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { FixedSizeList } from 'react-window';
 
 import { lightning } from 'icons';
-import { selectIsLoading, selectSortedResults, solveSlice, useTranslate, useTypedSelector } from 'state';
+import { selectIsLoading, selectSortedResults, selectTiles, solveSlice, useTranslate, useTypedSelector } from 'state';
 
 import EmptyState from '../EmptyState';
 import Loading from '../Loading';
@@ -28,8 +28,9 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
   const translate = useTranslate();
   const results = useTypedSelector(selectSortedResults);
   const isLoading = useTypedSelector(selectIsLoading);
+  const tiles = useTypedSelector(selectTiles);
   const isOutdated = true; // TODO
-  const hasInput = true;
+  const hasTiles = tiles.some((tile) => tile !== null);
 
   const handleRefresh = () => {
     dispatch(solveSlice.actions.submit());
@@ -62,14 +63,16 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
           )}
 
           {results.length === 0 && (
-            <EmptyState type="warning">{translate('results.empty-state.no-results')}</EmptyState>
+            <EmptyState className={styles.emptyState} type="warning">
+              {translate('results.empty-state.no-results')}
+            </EmptyState>
           )}
         </>
       )}
 
       <button
         className={styles.outdatedButton}
-        disabled={isLoading || !isOutdated || !hasInput}
+        disabled={isLoading || !isOutdated || !hasTiles}
         type="button"
         onClick={handleRefresh}
       >

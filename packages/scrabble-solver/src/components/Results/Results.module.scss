@@ -88,6 +88,7 @@ $outdated-icon-size: 24px;
   &:disabled {
     background-color: var(--color--background);
     color: var(--color--inactive);
+    cursor: not-allowed;
   }
 
   &:focus {
@@ -96,8 +97,10 @@ $outdated-icon-size: 24px;
 
   &:active,
   &:hover {
-    background-color: var(--color--primary);
-    color: white;
+    &:not(:disabled) {
+      background-color: var(--color--primary);
+      color: white;
+    }
   }
 }
 
