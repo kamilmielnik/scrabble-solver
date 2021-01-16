@@ -1,6 +1,8 @@
 @import 'styles/mixins';
 
 $row-padding: var(--spacing--s) var(--spacing--m);
+$outdated-height: 44px;
+$outdated-icon-size: 24px;
 
 .results {
   position: relative;
@@ -10,6 +12,15 @@ $row-padding: var(--spacing--s) var(--spacing--m);
   font-family: var(--font--family--title);
   font-size: var(--font--size--s);
   text-transform: uppercase;
+}
+
+.list {
+  transition: var(--transition);
+  opacity: 1;
+
+  &.outdated {
+    opacity: 0.25;
+  }
 }
 
 .header {
@@ -57,4 +68,44 @@ $row-padding: var(--spacing--s) var(--spacing--m);
 .points {
   flex: 0 0 auto;
   text-align: right;
+}
+
+.outdatedButton {
+  @include button-reset;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $outdated-height;
+  transition: var(--transition);
+  border-top: var(--border);
+  cursor: pointer;
+
+  &:disabled {
+    background-color: var(--color--background);
+    color: var(--color--inactive);
+  }
+
+  &:focus {
+    @include focus-effect;
+  }
+
+  &:active,
+  &:hover {
+    background-color: var(--color--primary);
+    color: white;
+  }
+}
+
+.outdatedIcon {
+  width: $outdated-icon-size;
+  height: $outdated-icon-size;
+  margin-right: var(--spacing--m);
+}
+
+.outdatedLabel {
+  line-height: $outdated-icon-size;
+  vertical-align: middle;
+  font-size: var(--font--size--s);
+  text-transform: uppercase;
 }
