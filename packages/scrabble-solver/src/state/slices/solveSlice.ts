@@ -1,4 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Board } from '@scrabble-solver/models';
+
+import { SolveParameters } from 'types';
 
 import solveInitialState from './solveInitialState';
 
@@ -14,8 +17,9 @@ const solveSlice = createSlice({
       return { ...state, isLoading: false };
     },
 
-    submitSuccess: (state) => {
-      return { ...state, isLoading: false };
+    submitSuccess: (state, action: PayloadAction<SolveParameters>) => {
+      const lastSolvedParameters = action.payload;
+      return { ...state, isLoading: false, lastSolvedParameters };
     },
   },
 });

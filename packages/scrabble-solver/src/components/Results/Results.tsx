@@ -4,7 +4,15 @@ import { useDispatch } from 'react-redux';
 import { FixedSizeList } from 'react-window';
 
 import { lightning } from 'icons';
-import { selectIsLoading, selectSortedResults, selectTiles, solveSlice, useTranslate, useTypedSelector } from 'state';
+import {
+  selectAreResultsOutdated,
+  selectIsLoading,
+  selectSortedResults,
+  selectTiles,
+  solveSlice,
+  useTranslate,
+  useTypedSelector,
+} from 'state';
 
 import EmptyState from '../EmptyState';
 import Loading from '../Loading';
@@ -29,7 +37,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
   const results = useTypedSelector(selectSortedResults);
   const isLoading = useTypedSelector(selectIsLoading);
   const tiles = useTypedSelector(selectTiles);
-  const isOutdated = true; // TODO
+  const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const hasTiles = tiles.some((tile) => tile !== null);
 
   const handleRefresh = () => {

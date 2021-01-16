@@ -3,7 +3,7 @@ import { getLocaleConfig } from '@scrabble-solver/configs';
 import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/models';
 
 import i18n from 'i18n';
-import { createKeyComparator, reverseComparator } from 'lib';
+import { createKeyComparator, reverseComparator, stringComparator } from 'lib';
 
 import { RootState } from './types';
 
@@ -87,8 +87,27 @@ export const selectTranslation = createSelector(
 
 export const selectTiles = (state: RootState): (string | null)[] => state.tiles;
 
-export const selectCharacters = createSelector(selectTiles, (tiles) => tiles.filter((tile) => tile !== null));
+export const selectCharacters = createSelector(
+  selectTiles,
+  (tiles): string[] => tiles.filter((tile) => tile !== null) as string[],
+);
+
+export const selectLastSolvedParameters = (state: RootState) => state.solve.lastSolvedParameters;
 
 export const selectIsLoading = (state: RootState): boolean => state.solve.isLoading;
 
+export const selectAreResultsOutdated = createSelector(
+  [selectLastSolvedParameters, selectBoard, selectCharacters],
+  (lastSolvedParameters, board, characters) => {
+    return !charactersEqual(lastSolvedParameters.characters, characters) || !lastSolvedParameters.board.equals(board);
+  },
+);
+
 export const selectDictionaryRoot = (state: RootState) => state.dictionary;
+
+const charactersEqual = (a: string[], b: string[]): boolean => {
+  const aSorted = [...a].sort(stringComparator);
+  const bSorted = [...b].sort(stringComparator);
+
+  return a.length === b.length && aSorted.every((character, index) => character === bSorted[index]);
+};
