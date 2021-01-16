@@ -11,8 +11,7 @@ Run it locally for better performance, your machine surely is faster than that s
 ![Version](https://img.shields.io/github/package-json/v/kamilmielnik/scrabble-solver)
 ![License](https://img.shields.io/npm/l/scrabble-solver)
 ![Node version](https://img.shields.io/node/v/scrabble-solver)
-![Dependencies](https://img.shields.io/librariesio/github/kamilmielnik/scrabble-solver)
-![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/kamilmielnik/scrabble-solver)
+![Dependencies](https://img.shields.io/librariesio/release/npm/scrabble-solver)
 ![Test](https://github.com/kamilmielnik/scrabble-solver/workflows/Test/badge.svg)
 ![ESLint](https://github.com/kamilmielnik/scrabble-solver/workflows/ESLint/badge.svg)
 
