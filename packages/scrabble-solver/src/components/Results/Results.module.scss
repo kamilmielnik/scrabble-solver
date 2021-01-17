@@ -44,11 +44,6 @@ $row-padding: var(--spacing--s) var(--spacing--m);
   cursor: pointer;
   font-weight: 400;
 
-  &:disabled {
-    color: var(--color--inactive);
-    cursor: not-allowed;
-  }
-
   &:focus,
   &:hover {
     &:not(:disabled) {
@@ -100,7 +95,7 @@ $row-padding: var(--spacing--s) var(--spacing--m);
   }
 
   &:disabled {
-    background-color: var(--color--inactive);
+    background-color: var(--color--background);
     box-shadow: none;
   }
 }

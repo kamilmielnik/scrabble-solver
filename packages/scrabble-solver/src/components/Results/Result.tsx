@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { CSSProperties } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { resultsSlice, selectAreResultsOutdated, selectSortedResults, useTypedSelector } from 'state';
+import { resultsSlice, selectSortedResults, useTypedSelector } from 'state';
 
 import styles from './Results.module.scss';
 
@@ -14,7 +14,6 @@ interface Props {
 const Result = ({ index, style }: Props) => {
   const dispatch = useDispatch();
   const results = useTypedSelector(selectSortedResults)!;
-  const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const result = results[index];
 
   const handleClick = () => {
@@ -32,7 +31,6 @@ const Result = ({ index, style }: Props) => {
   return (
     <button
       className={styles.result}
-      disabled={isOutdated}
       style={style}
       type="button"
       onClick={handleClick}
