@@ -1,17 +1,25 @@
 $size: 32px;
 
 .navButtons {
+  position: relative;
+  top: calc(-1 * var(--spacing--xs));
+  right: calc(-1 * var(--spacing--xs));
   display: flex;
   align-items: center;
 }
 
 .button,
 .separator {
-  margin-right: var(--spacing--l);
+  margin-right: calc(var(--spacing--l) - 2 * var(--spacing--xs));
 
   &:last-child {
     margin-right: 0;
   }
+}
+
+.separator {
+  margin-right: calc(var(--spacing--l) - var(--spacing--xs));
+  margin-left: var(--spacing--xs);
 }
 
 .separator {

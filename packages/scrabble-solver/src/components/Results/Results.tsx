@@ -14,6 +14,7 @@ import {
   useTypedSelector,
 } from 'state';
 
+import Button from '../Button';
 import EmptyState from '../EmptyState';
 import Loading from '../Loading';
 import SvgIcon from '../SvgIcon';
@@ -44,6 +45,18 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
     dispatch(solveSlice.actions.submit());
   };
 
+  const solveButton = (
+    <Button
+      className={styles.outdated2Button}
+      disabled={isLoading || !isOutdated || !hasTiles}
+      icon={lightning}
+      title="Solve"
+      onClick={handleRefresh}
+    >
+      Solve
+    </Button>
+  );
+
   return (
     <div className={styles.results}>
       <Header />
@@ -51,6 +64,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
       {typeof results === 'undefined' && (
         <EmptyState className={styles.emptyState} type="info">
           {translate('results.empty-state.unitialized')}
+          {solveButton}
         </EmptyState>
       )}
 
@@ -59,6 +73,8 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
           {isOutdated && (
             <EmptyState className={styles.emptyState} type="info">
               {translate('results.empty-state.outdated')}
+
+              {solveButton}
             </EmptyState>
           )}
 

@@ -125,3 +125,36 @@ $outdated-icon-size: 24px;
   font-size: var(--font--size--s);
   text-transform: uppercase;
 }
+
+////////////////
+
+.outdated2Button {
+  display: block;
+  margin: var(--spacing--xl) auto;
+  padding: var(--spacing--m);
+  background-color: var(--color--primary);
+  color: white;
+
+  &,
+  &:hover {
+    background-color: var(--color--primary);
+    color: white;
+  }
+
+  &:disabled {
+    background-color: var(--color--inactive);
+  }
+}
+
+.outdated2Icon {
+  width: $outdated-icon-size;
+  height: $outdated-icon-size;
+  margin-right: var(--spacing--m);
+}
+
+.outdated2Label {
+  line-height: $outdated-icon-size;
+  vertical-align: middle;
+  font-size: var(--font--size--s);
+  text-transform: uppercase;
+}
