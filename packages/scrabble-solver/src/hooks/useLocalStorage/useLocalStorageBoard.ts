@@ -12,7 +12,7 @@ const useLocalStorageBoard = () => {
     const persistedBoard = localStorage.getBoard();
 
     if (persistedBoard) {
-      dispatch(boardSlice.actions.change(persistedBoard));
+      dispatch(boardSlice.actions.init(persistedBoard));
     }
   });
 

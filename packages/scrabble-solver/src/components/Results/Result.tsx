@@ -13,7 +13,7 @@ interface Props {
 
 const Result = ({ index, style }: Props) => {
   const dispatch = useDispatch();
-  const results = useTypedSelector(selectSortedResults);
+  const results = useTypedSelector(selectSortedResults)!;
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const result = results[index];
 

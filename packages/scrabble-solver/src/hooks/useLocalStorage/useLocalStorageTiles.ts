@@ -12,7 +12,7 @@ const useLocalStorageTiles = () => {
     const persistedTiles = localStorage.getTiles();
 
     if (persistedTiles) {
-      dispatch(tilesSlice.actions.change(persistedTiles));
+      dispatch(tilesSlice.actions.init(persistedTiles));
     }
   });
 

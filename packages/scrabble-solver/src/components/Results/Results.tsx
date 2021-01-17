@@ -56,24 +56,34 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
 
       {typeof results !== 'undefined' && (
         <>
-          {results.length > 0 && (
-            <FixedSizeList
-              className={classNames(styles.list, {
-                [styles.outdated]: isOutdated,
-              })}
-              height={height - HEADER_HEIGHT - OUTDATED_HEIGHT}
-              itemCount={results.length}
-              itemSize={ITEM_HEIGHT}
-              width={width}
-            >
-              {Result}
-            </FixedSizeList>
+          {isOutdated && (
+            <EmptyState className={styles.emptyState} type="info">
+              {translate('results.empty-state.outdated')}
+            </EmptyState>
           )}
 
-          {results.length === 0 && (
-            <EmptyState className={styles.emptyState} type="warning">
-              {translate('results.empty-state.no-results')}
-            </EmptyState>
+          {!isOutdated && (
+            <>
+              {results.length > 0 && (
+                <FixedSizeList
+                  className={classNames(styles.list, {
+                    [styles.outdated]: isOutdated,
+                  })}
+                  height={height - HEADER_HEIGHT - OUTDATED_HEIGHT}
+                  itemCount={results.length}
+                  itemSize={ITEM_HEIGHT}
+                  width={width}
+                >
+                  {Result}
+                </FixedSizeList>
+              )}
+
+              {results.length === 0 && (
+                <EmptyState className={styles.emptyState} type="warning">
+                  {translate('results.empty-state.no-results')}
+                </EmptyState>
+              )}
+            </>
           )}
         </>
       )}

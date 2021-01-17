@@ -12,7 +12,7 @@ const useLocalStorageConfigId = () => {
     const persistedConfigId = localStorage.getConfigId();
 
     if (persistedConfigId) {
-      dispatch(settingsSlice.actions.changeConfigId(persistedConfigId));
+      dispatch(settingsSlice.actions.init({ configId: persistedConfigId }));
     }
   });
 

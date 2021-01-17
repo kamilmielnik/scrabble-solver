@@ -35,6 +35,11 @@ const tilesSlice = createSlice({
       return sortedTiles;
     },
 
+    init: (_state, action: PayloadAction<(string | null)[]>) => {
+      const tiles = action.payload;
+      return tiles;
+    },
+
     removeTiles: (state, action: PayloadAction<Tile[]>) => {
       const tilesToRemove = action.payload;
       const charactersAndTiles = zipCharactersAndTiles(state, tilesToRemove);
