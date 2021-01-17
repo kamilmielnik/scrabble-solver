@@ -87,6 +87,7 @@ $row-padding: var(--spacing--s) var(--spacing--m);
   padding: var(--spacing--m);
   background-color: var(--color--primary);
   box-shadow: var(--box-shadow);
+  font-size: var(--font--size--m);
   color: white;
 
   &,
@@ -96,8 +97,6 @@ $row-padding: var(--spacing--s) var(--spacing--m);
     background-color: var(--color--primary);
     color: white;
   }
-
-
 
   &:disabled {
     background-color: var(--color--inactive);
