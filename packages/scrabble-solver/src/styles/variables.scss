@@ -1,5 +1,5 @@
 @function getRandomPrimaryColor() {
-  $option: random(2);
+  $option: random(2 + 1);
 
   @if $option == 1 {
     @return var(--color--dark-blue);
