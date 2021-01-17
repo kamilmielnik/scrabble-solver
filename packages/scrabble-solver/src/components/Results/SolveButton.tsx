@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { lightning } from 'icons';
+import { play } from 'icons';
 import {
   selectAreResultsOutdated,
   selectIsLoading,
@@ -31,7 +31,7 @@ const SolveButton: FunctionComponent = () => {
     <Button
       className={styles.outdatedButton}
       disabled={isLoading || !isOutdated || !hasTiles}
-      icon={lightning}
+      icon={play}
       title={translate('results.solve')}
       onClick={handleRefresh}
     >

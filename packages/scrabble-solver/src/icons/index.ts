@@ -12,4 +12,4 @@ export { default as flagPl } from './flagPl.svg';
 export { default as flagUs } from './flagUs.svg';
 export { default as github } from './github.svg';
 export { default as keyboard } from './keyboard.svg';
-export { default as lightning } from './lightning.svg';
+export { default as play } from './play.svg';
