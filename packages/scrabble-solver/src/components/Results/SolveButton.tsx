@@ -29,6 +29,7 @@ const SolveButton: FunctionComponent = () => {
 
   return (
     <Button
+      alwaysShowLabel
       className={styles.outdatedButton}
       disabled={isLoading || !isOutdated || !hasTiles}
       icon={play}

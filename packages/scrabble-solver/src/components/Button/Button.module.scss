@@ -32,7 +32,7 @@ $size: 32px;
 
   &:active {
     &,
-    .label {
+    &.alwaysShowLabel .label {
       color: var(--color--foreground);
     }
   }
@@ -40,6 +40,13 @@ $size: 32px;
   &:hover {
     .icon {
       transform: scale(1.1);
+    }
+  }
+
+  &.alwaysShowLabel {
+    .label {
+      color: var(--color--foreground--secondary);
+      opacity: 1;
     }
   }
 
