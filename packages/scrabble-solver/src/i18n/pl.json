@@ -24,7 +24,7 @@
   "keyMap.tiles": "Płytki",
   "keyMap.tiles.insert-blank": "Wstaw blanka (spacja)",
   "loading": "Ładowanie",
-  "results.empty-state.outdated": "Wyniki są nieaktualne. Kliknij poniżej aby zaktualizować.",
+  "results.empty-state.outdated": "Wyniki są nieaktualne. Kliknij poniżej, aby zaktualizować.",
   "results.empty-state.no-results": "Brak wyników - nie można wygenerować żadnego słowa.",
   "results.empty-state.unitialized": "Tu zostaną wyświetlone słowa wygenerowane z Twoich liter.",
   "results.header.points": "Punkty",

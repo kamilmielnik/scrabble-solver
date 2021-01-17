@@ -82,9 +82,11 @@ $row-padding: var(--spacing--s) var(--spacing--m);
 
 .outdatedButton {
   display: block;
-  margin: var(--spacing--xl) auto;
+  margin: 0 auto;
+  margin-top: var(--spacing--xxl);
   padding: var(--spacing--m);
   background-color: var(--color--primary);
+  box-shadow: var(--box-shadow);
   color: white;
 
   &,
@@ -95,7 +97,10 @@ $row-padding: var(--spacing--s) var(--spacing--m);
     color: white;
   }
 
+
+
   &:disabled {
     background-color: var(--color--inactive);
+    box-shadow: none;
   }
 }
