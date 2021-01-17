@@ -1,31 +1,19 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
-import { useDispatch } from 'react-redux';
 import { FixedSizeList } from 'react-window';
 
-import { lightning } from 'icons';
-import {
-  selectAreResultsOutdated,
-  selectIsLoading,
-  selectSortedResults,
-  selectTiles,
-  solveSlice,
-  useTranslate,
-  useTypedSelector,
-} from 'state';
+import { selectAreResultsOutdated, selectIsLoading, selectSortedResults, useTranslate, useTypedSelector } from 'state';
 
-import Button from '../Button';
 import EmptyState from '../EmptyState';
 import Loading from '../Loading';
-import SvgIcon from '../SvgIcon';
 
 import Header from './Header';
 import Result from './Result';
 import styles from './Results.module.scss';
+import SolveButton from './SolveButton';
 
 const HEADER_HEIGHT = 35;
 const ITEM_HEIGHT = 34;
-const OUTDATED_HEIGHT = 44;
 
 interface Props {
   height: number;
@@ -33,29 +21,10 @@ interface Props {
 }
 
 const Results: FunctionComponent<Props> = ({ height, width }) => {
-  const dispatch = useDispatch();
   const translate = useTranslate();
   const results = useTypedSelector(selectSortedResults);
   const isLoading = useTypedSelector(selectIsLoading);
-  const tiles = useTypedSelector(selectTiles);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
-  const hasTiles = tiles.some((tile) => tile !== null);
-
-  const handleRefresh = () => {
-    dispatch(solveSlice.actions.submit());
-  };
-
-  const solveButton = (
-    <Button
-      className={styles.outdated2Button}
-      disabled={isLoading || !isOutdated || !hasTiles}
-      icon={lightning}
-      title="Solve"
-      onClick={handleRefresh}
-    >
-      Solve
-    </Button>
-  );
 
   return (
     <div className={styles.results}>
@@ -64,7 +33,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
       {typeof results === 'undefined' && (
         <EmptyState className={styles.emptyState} type="info">
           {translate('results.empty-state.unitialized')}
-          {solveButton}
+          <SolveButton />
         </EmptyState>
       )}
 
@@ -74,7 +43,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
             <EmptyState className={styles.emptyState} type="info">
               {translate('results.empty-state.outdated')}
 
-              {solveButton}
+              <SolveButton />
             </EmptyState>
           )}
 
@@ -85,7 +54,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
                   className={classNames(styles.list, {
                     [styles.outdated]: isOutdated,
                   })}
-                  height={height - HEADER_HEIGHT - OUTDATED_HEIGHT}
+                  height={height - HEADER_HEIGHT}
                   itemCount={results.length}
                   itemSize={ITEM_HEIGHT}
                   width={width}
@@ -103,16 +72,6 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
           )}
         </>
       )}
-
-      <button
-        className={styles.outdatedButton}
-        disabled={isLoading || !isOutdated || !hasTiles}
-        type="button"
-        onClick={handleRefresh}
-      >
-        <SvgIcon className={styles.outdatedIcon} icon={lightning} />
-        <span className={styles.outdatedLabel}>Solve</span>
-      </button>
 
       {isLoading && <Loading />}
     </div>

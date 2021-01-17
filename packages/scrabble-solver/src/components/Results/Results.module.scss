@@ -1,8 +1,6 @@
 @import 'styles/mixins';
 
 $row-padding: var(--spacing--s) var(--spacing--m);
-$outdated-height: 44px;
-$outdated-icon-size: 24px;
 
 .results {
   position: relative;
@@ -83,52 +81,6 @@ $outdated-icon-size: 24px;
 }
 
 .outdatedButton {
-  @include button-reset;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: $outdated-height;
-  transition: var(--transition);
-  border-top: var(--border);
-  cursor: pointer;
-
-  &:disabled {
-    background-color: var(--color--background);
-    color: var(--color--inactive);
-    cursor: not-allowed;
-  }
-
-  &:focus {
-    @include focus-effect;
-  }
-
-  &,
-  &:active,
-  &:hover {
-    &:not(:disabled) {
-      background-color: var(--color--primary);
-      color: white;
-    }
-  }
-}
-
-.outdatedIcon {
-  width: $outdated-icon-size;
-  height: $outdated-icon-size;
-  margin-right: var(--spacing--m);
-}
-
-.outdatedLabel {
-  line-height: $outdated-icon-size;
-  vertical-align: middle;
-  font-size: var(--font--size--s);
-  text-transform: uppercase;
-}
-
-////////////////
-
-.outdated2Button {
   display: block;
   margin: var(--spacing--xl) auto;
   padding: var(--spacing--m);
@@ -136,6 +88,8 @@ $outdated-icon-size: 24px;
   color: white;
 
   &,
+  &:active,
+  &:focus,
   &:hover {
     background-color: var(--color--primary);
     color: white;
@@ -144,17 +98,4 @@ $outdated-icon-size: 24px;
   &:disabled {
     background-color: var(--color--inactive);
   }
-}
-
-.outdated2Icon {
-  width: $outdated-icon-size;
-  height: $outdated-icon-size;
-  margin-right: var(--spacing--m);
-}
-
-.outdated2Label {
-  line-height: $outdated-icon-size;
-  vertical-align: middle;
-  font-size: var(--font--size--s);
-  text-transform: uppercase;
 }
