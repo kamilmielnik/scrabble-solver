@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { CSSProperties } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { resultsSlice, selectSortedResults, useTypedSelector } from 'state';
+import { resultsSlice, selectAreResultsOutdated, selectSortedResults, useTypedSelector } from 'state';
 
 import styles from './Results.module.scss';
 
@@ -13,7 +13,8 @@ interface Props {
 
 const Result = ({ index, style }: Props) => {
   const dispatch = useDispatch();
-  const results = useTypedSelector(selectSortedResults)!;
+  const results = useTypedSelector(selectSortedResults);
+  const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const result = results[index];
 
   const handleClick = () => {
@@ -29,17 +30,20 @@ const Result = ({ index, style }: Props) => {
   };
 
   return (
-    <div
-      className={styles.row}
-      data-role="button"
+    <button
+      className={styles.result}
+      disabled={isOutdated}
       style={style}
+      type="button"
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className={classNames(styles.cell, styles.word)}>{result.word}</div>
-      <div className={classNames(styles.cell, styles.points)}>{result.points}</div>
-    </div>
+      <span className={styles.resultContent}>
+        <span className={classNames(styles.cell, styles.word)}>{result.word}</span>
+        <span className={classNames(styles.cell, styles.points)}>{result.points}</span>
+      </span>
+    </button>
   );
 };
 

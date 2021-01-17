@@ -1,3 +1,13 @@
+@function getRandomPrimaryColor() {
+  $option: random(2);
+
+  @if $option == 1 {
+    @return var(--color--dark-blue);
+  }
+
+  @return var(--color--violet);
+}
+
 :root {
   --border--color: #cdcdcd;
   --border--radius: 5px;
@@ -27,7 +37,7 @@
   --color--foreground: black;
   --color--foreground--secondary: #444;
   --color--inactive: #cdcdcd;
-  --color--primary: #78387f;
+  --color--primary: #{getRandomPrimaryColor()};
 
   --color--yellow: #efe3ae;
   --color--yellow--light: #f7f1d6;

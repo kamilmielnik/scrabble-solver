@@ -20,10 +20,9 @@ $outdated-icon-size: 24px;
 
 .list {
   transition: var(--transition);
-  opacity: 1;
 
   &.outdated {
-    opacity: 0.25;
+    filter: blur(2px);
   }
 }
 
@@ -39,29 +38,38 @@ $outdated-icon-size: 24px;
   font-weight: 700;
 }
 
-.row {
-  display: flex;
-  align-items: center;
-  padding: $row-padding;
+.result {
+  @include button-reset;
+
   user-select: none;
   transition: var(--transition);
   cursor: pointer;
   font-weight: 400;
 
-  &:hover {
-    background-color: var(--color--primary);
-    color: white;
+  &:disabled {
+    color: var(--color--inactive);
+    cursor: not-allowed;
   }
 
-  &:focus {
-    @include focus-effect;
-
-    background-color: var(--color--primary);
-    color: white;
+  &:focus,
+  &:hover {
+    &:not(:disabled) {
+      background-color: var(--color--primary);
+      color: white;
+    }
   }
 }
 
+.resultContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $row-padding;
+  text-align: left;
+}
+
 .cell {
+  display: block;
   padding: 0 var(--spacing--m);
 }
 
@@ -95,6 +103,7 @@ $outdated-icon-size: 24px;
     @include focus-effect;
   }
 
+  &,
   &:active,
   &:hover {
     &:not(:disabled) {
