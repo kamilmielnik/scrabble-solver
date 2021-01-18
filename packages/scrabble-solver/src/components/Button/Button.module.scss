@@ -24,6 +24,13 @@ $size: 32px;
     color: white;
   }
 
+  &:active {
+    .content {
+      position: relative;
+      top: 1px;
+    }
+  }
+
   &:disabled {
     background-color: var(--color--background);
     color: var(--color--inactive);
