@@ -25,6 +25,8 @@ import styles from './index.module.scss';
 const MIN_TILE_SIZE = 20;
 const MAX_TILE_SIZE = 60;
 const SIDEBAR_MARGIN_LEFT = 40; // TODO: unhardcode?
+const SPLASH_DURATION = 1000;
+const SETTINGS_SPLASH_DELAY = 100;
 
 const INITIAL_SIZE = { height: 0, width: 0 };
 
@@ -79,10 +81,11 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
   useEffectOnce(() => {
     if (!localStorage.getHasVisited()) {
-      setShowSettings(true);
+      setTimeout(() => {
+        setShowSettings(true);
+        localStorage.setHasVisited(true);
+      }, SPLASH_DURATION + SETTINGS_SPLASH_DELAY);
     }
-
-    localStorage.setHasVisited(true);
   });
 
   return (
@@ -129,7 +132,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
       <KeyMap hidden={!showKeyMap} onClose={handleHideKeyMap} />
 
-      <Splash forceShow={!isInitialized} />
+      <Splash duration={SPLASH_DURATION} forceShow={!isInitialized} />
     </>
   );
 };

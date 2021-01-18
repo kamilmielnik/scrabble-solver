@@ -7,30 +7,29 @@ import Screen from '../Screen';
 
 import styles from './Splash.module.scss';
 
-const DEFAULT_SPLASH_DURATION = 1000;
 const COMPLETE_SPLASH_DURATION_PERCENT = 0.15;
 
 interface Props {
   className?: string;
+  duration: number;
   forceShow?: boolean;
-  splashDuration?: number;
 }
 
-const Splash: FunctionComponent<Props> = ({ className, forceShow, splashDuration = DEFAULT_SPLASH_DURATION }) => {
+const Splash: FunctionComponent<Props> = ({ className, duration, forceShow }) => {
   const [isTimeoutFinished, setIsTimeoutFinished] = useState<boolean>(false);
   const hidden = isTimeoutFinished && !forceShow;
-  const progress = useTween('inCubic', (1 - COMPLETE_SPLASH_DURATION_PERCENT) * splashDuration);
+  const progress = useTween('inCubic', (1 - COMPLETE_SPLASH_DURATION_PERCENT) * duration);
   const progressPercent = `${(progress * 100).toFixed(2)}%`;
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
       setIsTimeoutFinished(true);
-    }, splashDuration);
+    }, duration);
 
     return () => {
       window.clearTimeout(timeout);
     };
-  }, [splashDuration]);
+  }, [duration]);
 
   return (
     <Screen className={classNames(styles.splash, className)} hidden={hidden}>
