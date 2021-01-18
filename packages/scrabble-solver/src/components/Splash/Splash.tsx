@@ -11,17 +11,19 @@ interface Props {
   forceShow?: boolean;
 }
 
-const Splash: FunctionComponent<Props> = ({ className, forceShow }) => {
-  return (
-    <Screen className={classNames(styles.splash, className)}>
-      <div className={styles.logos}>
-        <Logo className={styles.logoGrayscale} />
-        <Logo className={styles.logoColor} />
-      </div>
+const Splash: FunctionComponent<Props> = ({ className, forceShow }) => (
+  <Screen
+    className={classNames(styles.splash, className, {
+      [styles.animated]: !forceShow,
+    })}
+  >
+    <div className={styles.logos}>
+      <Logo className={styles.logoGrayscale} />
+      <Logo className={styles.logoColor} />
+    </div>
 
-      <h1 className={styles.author}>by Kamil Mielnik</h1>
-    </Screen>
-  );
-};
+    <h1 className={styles.author}>by Kamil Mielnik</h1>
+  </Screen>
+);
 
 export default Splash;

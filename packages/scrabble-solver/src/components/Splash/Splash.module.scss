@@ -10,9 +10,25 @@ $hiding-duration: 250ms;
   justify-content: center;
   user-select: none;
   pointer-events: none;
-  animation: hide var(--transition--duration--long);
-  animation-delay: $loading-duration + $loaded-duration;
-  animation-fill-mode: forwards;
+
+  &.animated {
+    animation: hide;
+    animation-delay: $loading-duration + $loaded-duration;
+    animation-duration: $hiding-duration;
+    animation-fill-mode: forwards;
+
+    .logos {
+      animation: pulse;
+      animation-delay: $loading-duration + $loaded-duration;
+      animation-duration: var(--transition--duration--long);
+      animation-fill-mode: forwards;
+    }
+
+    .logoColor {
+      animation: progress;
+      animation-duration: $loading-duration;
+    }
+  }
 }
 
 .logos {
@@ -20,8 +36,6 @@ $hiding-duration: 250ms;
   max-width: 688px;
   pointer-events: none;
   user-select: none;
-  animation: pulsate 0.5s;
-  animation-delay: $loading-duration + $loaded-duration;
 }
 
 .logoGrayscale {
@@ -33,8 +47,6 @@ $hiding-duration: 250ms;
   position: absolute;
   top: 0;
   left: 0;
-  transition: var(--transition);
-  animation: progress 1s;
 }
 
 .author {
