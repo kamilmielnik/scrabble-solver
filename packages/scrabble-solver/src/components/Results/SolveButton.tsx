@@ -11,7 +11,7 @@ import {
   useTypedSelector,
 } from 'state';
 
-import SvgIcon from '../SvgIcon';
+import Button from '../Button';
 
 import styles from './Results.module.scss';
 
@@ -28,19 +28,16 @@ const SolveButton: FunctionComponent = () => {
   };
 
   return (
-    <button
+    <Button
+      alwaysShowLabel
       className={styles.outdatedButton}
       disabled={isLoading || !isOutdated || !hasTiles}
+      icon={play}
       title={translate('results.solve')}
-      type="button"
       onClick={handleRefresh}
     >
-      <span className={styles.outdatedButtonContent}>
-        <span className={styles.outdatedButtonLabel}>{translate('results.solve')}</span>
-
-        <SvgIcon className={styles.outdatedButtonIcon} icon={play} />
-      </span>
-    </button>
+      {translate('results.solve')}
+    </Button>
   );
 };
 
