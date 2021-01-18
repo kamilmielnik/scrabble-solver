@@ -5,10 +5,14 @@ import { URLSearchParams } from 'url';
 import normalizeDefinition from './normalizeDefinition';
 import request from './request';
 
-const API_KEY = 'd0c21cb3cbc3415984a2a0486da075e54aa68091c33a680d9';
+// If key is kept secret then `npx scrabble-solver` won't work.
+// The only consequence of someone else using the key is overusing it - the free plan has 100 calls per hour.
+// Wordnik API keys are free anyway, so there is no good reason to steal a free key.
+// Just get it here: https://developer.wordnik.com/
+const WORDNIK_API_KEY = 'd0c21cb3cbc3415984a2a0486da075e54aa68091c33a680d9';
 
 const SEARCH_PARAMS = new URLSearchParams({
-  api_key: API_KEY, // eslint-disable-line camelcase
+  api_key: WORDNIK_API_KEY, // eslint-disable-line camelcase
   limit: '10',
   sourceDictionaries: 'all',
 });

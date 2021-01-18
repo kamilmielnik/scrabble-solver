@@ -2,7 +2,7 @@ import { Trie } from '@kamilmielnik/trie';
 import { getLocaleConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import logger from '@scrabble-solver/logger';
-import { Board, Tile } from '@scrabble-solver/models';
+import { Board, Config, Tile } from '@scrabble-solver/models';
 import Solver from '@scrabble-solver/solver';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -19,7 +19,7 @@ import { Locale } from 'types';
 interface RequestData {
   board: Board;
   characters: string[];
-  configId: string;
+  config: Config;
   locale: Locale;
 }
 
@@ -34,7 +34,7 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
   const meta = getServerLoggingData(request);
 
   try {
-    const { board, characters, configId, locale } = parseRequest(request);
+    const { board, characters, config, locale } = parseRequest(request);
     logger.info('solve - request', {
       meta,
       payload: {
@@ -42,11 +42,11 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
         boardBlanksCount: board.getBlanksCount(),
         boardTilesCount: board.getTilesCount(),
         characters: characters.join(''),
-        configId,
+        configId: request.body.configId,
         locale,
       },
     });
-    const config = getLocaleConfig(configId, locale);
+    validateRequest({ board, characters, config, locale });
     const trie = localeTries[locale];
     const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
     const solver = new Solver(config, trie);
@@ -73,9 +73,18 @@ const parseRequest = (request: NextApiRequest): RequestData => {
   return {
     board: Board.fromJson(board),
     characters,
-    configId,
+    config,
     locale,
   };
+};
+
+const validateRequest = ({ board, characters, config }: RequestData): void => {
+  const blankTilesCount = characters.filter((character) => character === BLANK).length;
+  const blanksCount = board.getBlanksCount() + blankTilesCount;
+
+  if (blanksCount > config.numberOfBlanks) {
+    throw new Error(`Too many blank tiles passed (board: ${board.getBlanksCount()}, tiles: ${blankTilesCount})`);
+  }
 };
 
 export default solve;
