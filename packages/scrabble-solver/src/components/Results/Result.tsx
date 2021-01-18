@@ -29,17 +29,19 @@ const Result = ({ index, style }: Props) => {
   };
 
   return (
-    <div
-      className={styles.row}
-      data-role="button"
+    <button
+      className={styles.result}
       style={style}
+      type="button"
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className={classNames(styles.cell, styles.word)}>{result.word}</div>
-      <div className={classNames(styles.cell, styles.points)}>{result.points}</div>
-    </div>
+      <span className={styles.resultContent}>
+        <span className={classNames(styles.cell, styles.word)}>{result.word}</span>
+        <span className={classNames(styles.cell, styles.points)}>{result.points}</span>
+      </span>
+    </button>
   );
 };
 

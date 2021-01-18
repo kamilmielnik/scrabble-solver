@@ -4,7 +4,7 @@ import React, { FunctionComponent, ReactNode } from 'react';
 import { cross } from 'icons';
 import { useTranslate } from 'state';
 
-import Button from '../Button';
+import SquareButton from '../SquareButton';
 
 import { Section } from './components';
 import styles from './Sidebar.module.scss';
@@ -30,7 +30,7 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, hidden, title,
       <div className={styles.header}>
         <h1 className={styles.title}>{title}</h1>
 
-        <Button
+        <SquareButton
           className={styles.closeButton}
           disabled={hidden}
           icon={cross}
@@ -38,7 +38,7 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, hidden, title,
           onClick={onClose}
         >
           {translate('close')}
-        </Button>
+        </SquareButton>
       </div>
 
       <div className={styles.content}>{children}</div>

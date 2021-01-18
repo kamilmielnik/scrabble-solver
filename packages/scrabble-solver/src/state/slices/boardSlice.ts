@@ -37,6 +37,11 @@ const boardSlice = createSlice({
       return board;
     },
 
+    init: (_state, action: PayloadAction<Board>) => {
+      const board = action.payload;
+      return board;
+    },
+
     reset: () => {
       return boardInitialState;
     },

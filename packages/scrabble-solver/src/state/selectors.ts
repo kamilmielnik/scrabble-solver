@@ -3,7 +3,7 @@ import { getLocaleConfig } from '@scrabble-solver/configs';
 import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/models';
 
 import i18n from 'i18n';
-import { createKeyComparator, reverseComparator } from 'lib';
+import { createKeyComparator, reverseComparator, stringComparator } from 'lib';
 
 import { RootState } from './types';
 
@@ -87,8 +87,37 @@ export const selectTranslation = createSelector(
 
 export const selectTiles = (state: RootState): (string | null)[] => state.tiles;
 
-export const selectCharacters = createSelector(selectTiles, (tiles) => tiles.filter((tile) => tile !== null));
+export const selectCharacters = createSelector(
+  selectTiles,
+  (tiles): string[] => tiles.filter((tile) => tile !== null) as string[],
+);
+
+export const selectLastSolvedParameters = (state: RootState) => state.solve.lastSolvedParameters;
 
 export const selectIsLoading = (state: RootState): boolean => state.solve.isLoading;
+
+export const selectHaveCharactersChanged = createSelector(
+  [selectLastSolvedParameters, selectCharacters],
+  (lastSolvedParameters, characters) => {
+    if (lastSolvedParameters.characters.length !== characters.length) {
+      return true;
+    }
+
+    const aSorted = [...lastSolvedParameters.characters].sort(stringComparator);
+    const bSorted = [...characters].sort(stringComparator);
+    const areEqual = aSorted.every((character, index) => character === bSorted[index]);
+    return !areEqual;
+  },
+);
+
+export const selectHasBoardChanged = createSelector(
+  [selectLastSolvedParameters, selectBoard],
+  (lastSolvedParameters, board) => !lastSolvedParameters.board.equals(board),
+);
+
+export const selectAreResultsOutdated = createSelector(
+  [selectHasBoardChanged, selectHaveCharactersChanged],
+  (hasBoardChanged, haveCharactersChanged) => hasBoardChanged || haveCharactersChanged,
+);
 
 export const selectDictionaryRoot = (state: RootState) => state.dictionary;

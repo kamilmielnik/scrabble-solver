@@ -9,7 +9,18 @@ $row-padding: var(--spacing--s) var(--spacing--m);
   height: 100%;
   font-family: var(--font--family--title);
   font-size: var(--font--size--s);
-  text-transform: uppercase;
+}
+
+.emptyState {
+  flex: 1;
+}
+
+.list {
+  transition: var(--transition);
+
+  &.outdated {
+    filter: blur(2px);
+  }
 }
 
 .header {
@@ -22,39 +33,51 @@ $row-padding: var(--spacing--s) var(--spacing--m);
   border-bottom: var(--border);
   font-size: var(--font--size--m);
   font-weight: 700;
+  text-transform: uppercase;
 }
 
-.row {
-  display: flex;
-  align-items: center;
-  padding: $row-padding;
+.result {
+  @include button-reset;
+
   user-select: none;
   transition: var(--transition);
   cursor: pointer;
   font-weight: 400;
 
+  &:focus,
   &:hover {
-    background-color: var(--color--primary);
-    color: white;
-  }
-
-  &:focus {
-    @include focus-effect;
-
-    background-color: var(--color--primary);
-    color: white;
+    &:not(:disabled) {
+      background-color: var(--color--primary);
+      color: white;
+    }
   }
 }
 
+.resultContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $row-padding;
+  text-align: left;
+}
+
 .cell {
+  display: block;
   padding: 0 var(--spacing--m);
 }
 
 .word {
   flex: 1;
+  text-transform: uppercase;
 }
 
 .points {
   flex: 0 0 auto;
   text-align: right;
+}
+
+.outdatedButton {
+  display: block;
+  margin: 0 auto;
+  margin-top: var(--spacing--xxl);
 }

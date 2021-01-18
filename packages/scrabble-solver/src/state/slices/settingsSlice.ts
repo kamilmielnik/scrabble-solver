@@ -22,6 +22,10 @@ const settingsSlice = createSlice({
       const locale = action.payload;
       return { ...state, locale };
     },
+
+    init: (state, action: PayloadAction<Partial<Pick<typeof settingsInitialState, 'configId' | 'locale'>>>) => {
+      return { ...state, ...action.payload };
+    },
   },
 });
 

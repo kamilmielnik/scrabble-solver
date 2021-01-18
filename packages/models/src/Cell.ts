@@ -21,6 +21,7 @@ class Cell {
     x: 0,
     y: 0,
     clone: () => Cell.Null,
+    equals: (other: Cell) => other === Cell.Null,
     hasTile: () => false,
     isCandidate: () => false,
     toString: () => '',
@@ -49,6 +50,10 @@ class Cell {
       x: this.x,
       y: this.y,
     });
+  }
+
+  public equals(other: Cell): boolean {
+    return this.x === other.x && this.y === other.y && this.isEmpty === other.isEmpty && this.tile.equals(other.tile);
   }
 
   public hasTile(): boolean {

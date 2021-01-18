@@ -82,7 +82,8 @@ function* onSubmit() {
   const characters = yield select(selectCharacters);
 
   if (characters.length === 0) {
-    yield put(solveSlice.actions.submitSuccess());
+    yield put(solveSlice.actions.submitSuccess({ board, characters }));
+    yield put(resultsSlice.actions.changeResults([]));
     return;
   }
 
@@ -93,7 +94,7 @@ function* onSubmit() {
       configId: config.id,
       locale,
     });
-    yield put(solveSlice.actions.submitSuccess());
+    yield put(solveSlice.actions.submitSuccess({ board, characters }));
     yield put(resultsSlice.actions.changeResults(results.map(Result.fromJson)));
   } catch (error) {
     yield put(resultsSlice.actions.changeResults([]));

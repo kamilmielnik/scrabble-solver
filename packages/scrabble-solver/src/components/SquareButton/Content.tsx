@@ -2,7 +2,7 @@ import React, { FunctionComponent, ReactNode } from 'react';
 
 import { SvgIcon } from 'components';
 
-import styles from './Button.module.scss';
+import styles from './SquareButton.module.scss';
 
 interface Props {
   children?: ReactNode;
@@ -11,8 +11,8 @@ interface Props {
 
 const Content: FunctionComponent<Props> = ({ children, icon }) => (
   <span className={styles.content}>
-    <span className={styles.label}>{children}</span>
     <SvgIcon className={styles.icon} icon={icon} />
+    <span className={styles.label}>{children}</span>
   </span>
 );
 

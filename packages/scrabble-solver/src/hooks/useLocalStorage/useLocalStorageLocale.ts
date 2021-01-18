@@ -13,9 +13,9 @@ const useLocalStorageLocale = () => {
     const persistedLocale = localStorage.getLocale();
 
     if (persistedLocale) {
-      dispatch(settingsSlice.actions.changeLocale(persistedLocale));
+      dispatch(settingsSlice.actions.init({ locale: persistedLocale }));
     } else {
-      dispatch(settingsSlice.actions.changeLocale(detectLocale()));
+      dispatch(settingsSlice.actions.init({ locale: detectLocale() }));
     }
   });
 

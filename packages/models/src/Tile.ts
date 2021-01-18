@@ -18,6 +18,7 @@ class Tile {
     character: EMPTY_CELL,
     isBlank: false,
     clone: () => Tile.Null,
+    equals: (other: Tile) => other === Tile.Null,
     toJson: () => null,
     toString: () => EMPTY_CELL,
   });
@@ -36,6 +37,10 @@ class Tile {
       character: this.character,
       isBlank: this.isBlank,
     });
+  }
+
+  public equals(other: Tile): boolean {
+    return this.character === other.character && this.isBlank === other.isBlank;
   }
 
   public toJson(): TileJson | null {
