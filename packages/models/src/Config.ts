@@ -76,6 +76,10 @@ class Config {
     return this.config.maximumNumberOfCharacters;
   }
 
+  public get numberOfBlanks(): number {
+    return this.config.numberOfBlanks;
+  }
+
   public toJson(): ConfigJson {
     return this.config;
   }
