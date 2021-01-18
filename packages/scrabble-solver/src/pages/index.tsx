@@ -2,7 +2,7 @@ import { Config } from '@scrabble-solver/models';
 import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FormEventHandler, FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce, useSize } from 'react-use';
 
@@ -15,6 +15,7 @@ import {
   localStorage,
   resultsSlice,
   selectConfig,
+  solveSlice,
   tilesSlice,
   useTypedSelector,
 } from 'state';
@@ -68,6 +69,11 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     dispatch(tilesSlice.actions.reset());
   };
 
+  const handleSubmit: FormEventHandler = (event) => {
+    event.preventDefault();
+    dispatch(solveSlice.actions.submit());
+  };
+
   const handleHideKeyMap = () => setShowKeyMap(false);
   const handleShowKeyMap = () => setShowKeyMap(true);
   const handleHideSettings = () => setShowSettings(false);
@@ -90,7 +96,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
   return (
     <>
-      <div className={classNames(styles.index, { [styles.initialized]: isInitialized })}>
+      <form className={classNames(styles.index, { [styles.initialized]: isInitialized })} onSubmit={handleSubmit}>
         <div className={styles.nav}>
           <div className={styles.logoContainer} title={`scrabble-solver@${version}`}>
             <Logo className={styles.logo} />
@@ -126,7 +132,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
         <div className={styles.tilesContainer}>
           <Tiles className={styles.tiles} />
         </div>
-      </div>
+      </form>
 
       <Settings hidden={!showSettings} onClose={handleHideSettings} />
 

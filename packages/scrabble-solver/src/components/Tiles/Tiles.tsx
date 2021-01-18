@@ -4,15 +4,7 @@ import React, { createRef, FunctionComponent, useCallback, useMemo, useState } f
 import { useDispatch } from 'react-redux';
 
 import { createKeyboardNavigation, zipCharactersAndTiles } from 'lib';
-import {
-  selectConfig,
-  selectResultCandidate,
-  selectTiles,
-  solveSlice,
-  tilesSlice,
-  useTranslate,
-  useTypedSelector,
-} from 'state';
+import { selectConfig, selectResultCandidate, selectTiles, tilesSlice, useTranslate, useTypedSelector } from 'state';
 
 import Tile from '../Tile';
 
@@ -49,10 +41,6 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
     dispatch(tilesSlice.actions.changeCharacter({ character, index }));
   };
 
-  const handleSubmit = () => {
-    dispatch(solveSlice.actions.submit());
-  };
-
   const changeActiveIndex = useCallback(
     (offset: number) => {
       const nextActiveIndex = Math.min(Math.max((activeIndex || 0) + offset, 0), tiles.length - 1);
@@ -79,7 +67,6 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
     onBackspace: () => {
       changeActiveIndex(-1);
     },
-    onEnter: handleSubmit,
     onKeyDown: (event) => {
       const character = event.key.toLowerCase();
 

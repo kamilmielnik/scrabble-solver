@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import { arrowDown } from 'icons';
 import { createKeyboardNavigation, isCtrl } from 'lib';
-import { boardSlice, selectBonus, selectConfig, solveSlice, useTranslate, useTypedSelector } from 'state';
+import { boardSlice, selectBonus, selectConfig, useTranslate, useTypedSelector } from 'state';
 
 import SvgIcon from '../../../SvgIcon';
 import Tile from '../../../Tile';
@@ -53,7 +53,6 @@ const Cell: FunctionComponent<Props> = ({
       createKeyboardNavigation({
         onDelete: () => dispatch(boardSlice.actions.changeCellValue({ value: EMPTY_CELL, x, y })),
         onBackspace: () => dispatch(boardSlice.actions.changeCellValue({ value: EMPTY_CELL, x, y })),
-        onEnter: () => dispatch(solveSlice.actions.submit()),
         onKeyDown: (event) => {
           const character = event.key.toLowerCase();
           const isTogglingBlank = isCtrl(event) && character === 'b';
