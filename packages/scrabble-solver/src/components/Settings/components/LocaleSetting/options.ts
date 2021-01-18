@@ -1,4 +1,4 @@
-import { flagGb, flagPl, flagUs } from 'icons';
+import { flagGb, flagPl, flagUs, flagFr } from 'icons';
 import { Locale } from 'types';
 
 import styles from './LocaleSetting.module.scss';
@@ -28,6 +28,12 @@ const options: Option[] = [
     icon: flagPl,
     label: 'Polski',
     value: 'pl-PL',
+  },
+  {
+    className: styles.fr,
+    icon: flagFr,
+    label: 'Français',
+    value: 'fr-FR',
   },
 ];
 

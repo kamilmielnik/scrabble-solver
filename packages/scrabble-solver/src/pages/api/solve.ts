@@ -27,6 +27,7 @@ const localeTries: Record<Locale, Trie> = {
   'en-GB': readLocaleDictionary('en-GB'),
   'en-US': readLocaleDictionary('en-US'),
   'pl-PL': readLocaleDictionary('pl-PL'),
+  'fr-FR': readLocaleDictionary('fr-FR'),
 };
 
 const solve = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
