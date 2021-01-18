@@ -48,6 +48,7 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
   border-radius: 50%;
   border: $radio-inner-border solid var(--color--primary);
   box-shadow: var(--box-shadow--null);
+  pointer-events: none;
 
   &:after {
     content: ' ';
