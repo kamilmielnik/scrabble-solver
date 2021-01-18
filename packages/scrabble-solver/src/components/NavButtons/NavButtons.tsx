@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react';
 import { cog, eraser, github, keyboard } from 'icons';
 import { useTranslate } from 'state';
 
-import Button from '../Button';
+import SquareButton from '../SquareButton';
 
 import styles from './NavButtons.module.scss';
 
@@ -20,7 +20,7 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowSet
 
   return (
     <div className={styles.navButtons}>
-      <Button.Link
+      <SquareButton.Link
         className={styles.button}
         href={GITHUB_PROJECT_URL}
         icon={github}
@@ -29,21 +29,21 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowSet
         title={translate('github')}
       >
         GitHub
-      </Button.Link>
+      </SquareButton.Link>
 
-      <Button className={styles.button} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap}>
+      <SquareButton className={styles.button} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap}>
         {translate('keyMap')}
-      </Button>
+      </SquareButton>
 
       <div className={styles.separator} />
 
-      <Button className={styles.button} icon={eraser} title={translate('clear')} onClick={onClear}>
+      <SquareButton className={styles.button} icon={eraser} title={translate('clear')} onClick={onClear}>
         {translate('clear')}
-      </Button>
+      </SquareButton>
 
-      <Button className={styles.button} icon={cog} title={translate('settings')} onClick={onShowSettings}>
+      <SquareButton className={styles.button} icon={cog} title={translate('settings')} onClick={onShowSettings}>
         {translate('settings')}
-      </Button>
+      </SquareButton>
     </div>
   );
 };

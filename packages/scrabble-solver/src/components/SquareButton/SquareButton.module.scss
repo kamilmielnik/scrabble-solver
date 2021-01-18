@@ -1,0 +1,67 @@
+@import 'styles/mixins';
+
+$size: 32px;
+
+.squareButton {
+  @include button-reset;
+  @include focus-effect;
+
+  display: inline-block;
+  color: var(--color--inactive);
+  cursor: pointer;
+
+  &:active,
+  &:focus,
+  &:hover {
+    .label {
+      opacity: 1;
+    }
+  }
+
+  &:focus,
+  &:hover {
+    text-decoration: none;
+
+    .icon,
+    .label {
+      color: var(--color--foreground--secondary);
+    }
+  }
+
+  &:active {
+    .icon,
+    .label {
+      color: var(--color--foreground);
+    }
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon,
+.label {
+  transition: var(--transition);
+}
+
+.icon {
+  width: $size;
+  height: $size;
+  pointer-events: none;
+}
+
+.label {
+  position: absolute;
+  top: calc(100% + var(--spacing--s));
+  padding: var(--spacing--xs);
+  transition: var(--transition);
+  opacity: 0;
+  font-size: var(--font--size--xs);
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
+}

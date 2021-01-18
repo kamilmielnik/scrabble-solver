@@ -77,13 +77,22 @@ $row-padding: var(--spacing--s) var(--spacing--m);
 }
 
 .outdatedButton {
-  display: block;
   margin: 0 auto;
   margin-top: var(--spacing--xxl);
-  padding: var(--spacing--s);
-  background-color: var(--color--primary);
+}
+
+.outdatedButton {
+  @include button-reset;
+  @include focus-effect;
+
+  display: block;
+  transition: var(--transition);
+  border-radius: var(--border--radius);
   box-shadow: var(--box-shadow);
-  color: white;
+  font-size: var(--font--size--xs);
+  color: var(--color--inactive);
+  cursor: pointer;
+  opacity: 0.9;
 
   &,
   &:active,
@@ -95,6 +104,46 @@ $row-padding: var(--spacing--s) var(--spacing--m);
 
   &:disabled {
     background-color: var(--color--background);
+    color: var(--color--inactive);
     box-shadow: none;
+    cursor: not-allowed;
+
+    .outdatedButtonIcon {
+      transform: scale(1);
+    }
   }
+
+  &:hover {
+    opacity: 1;
+
+    .outdatedButtonIcon {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.outdatedButtonContent {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing--xs) var(--spacing--m);
+}
+
+.outdatedButtonLabel {
+  padding: 0 var(--spacing--m);
+  transition: var(--transition);
+  font-size: var(--font--size--m);
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
+}
+
+.outdatedButtonIcon {
+  $size: 32px;
+
+  width: $size;
+  height: $size;
+  pointer-events: none;
+  transition: var(--transition);
+  transform: scale(1);
+  color: inherit;
 }
