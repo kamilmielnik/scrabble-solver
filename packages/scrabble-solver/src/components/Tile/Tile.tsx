@@ -73,11 +73,15 @@ const Tile: FunctionComponent<Props> = ({
       }}
     >
       <input
+        autoCapitalize="off"
+        autoComplete="off"
+        autoCorrect="off"
         autoFocus={autoFocus}
         className={styles.character}
         maxLength={1}
         placeholder={placeholder}
         ref={ref}
+        spellCheck="false"
         style={{
           fontSize: tileFontSize,
         }}

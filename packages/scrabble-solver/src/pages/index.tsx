@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import React, { FormEventHandler, FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useEffectOnce, useSize } from 'react-use';
+import { useEffectOnce, useMeasure } from 'react-use';
 
 import { Board, Dictionary, KeyMap, Logo, NavButtons, Results, Settings, Splash, Tiles, Well } from 'components';
 import { useLocalStorage } from 'hooks';
@@ -54,9 +54,9 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const [showKeyMap, setShowKeyMap] = useState<boolean>(false);
   const [showSettings, setShowSettings] = useState<boolean>(false);
-  const [contentSizer, { width: contentWidth }] = useSize(<div />, INITIAL_SIZE);
-  const [boardSizer, { height: boardHeight }] = useSize(<div />, INITIAL_SIZE);
-  const [resultsSizer, { height: resultsHeight, width: resultsWidth }] = useSize(<div />, INITIAL_SIZE);
+  const [boardRef, { height: boardHeight }] = useMeasure<HTMLDivElement>();
+  const [contentRef, { width: contentWidth }] = useMeasure<HTMLDivElement>();
+  const [resultsRef, { height: resultsHeight, width: resultsWidth }] = useMeasure<HTMLDivElement>();
   const config = useTypedSelector(selectConfig);
   const cellSize = getCellSize(config, contentWidth - resultsWidth - SIDEBAR_MARGIN_LEFT, boardHeight);
   const isInitialized =
@@ -106,19 +106,13 @@ const Index: FunctionComponent<Props> = ({ version }) => {
         </div>
 
         <div className={styles.contentWrapper}>
-          <div className={styles.content}>
-            {contentSizer}
-
-            <div className={styles.boardContainer}>
-              {boardSizer}
-
+          <div className={styles.content} ref={contentRef}>
+            <div className={styles.boardContainer} ref={boardRef}>
               {contentWidth > 0 && boardHeight > 0 && <Board cellSize={cellSize} />}
             </div>
 
             <div className={styles.sidebar}>
-              <Well className={styles.results}>
-                {resultsSizer}
-
+              <Well className={styles.results} ref={resultsRef}>
                 {resultsWidth > 0 && resultsHeight > 0 && <Results height={resultsHeight} width={resultsWidth} />}
               </Well>
 
@@ -138,7 +132,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
       <KeyMap hidden={!showKeyMap} onClose={handleHideKeyMap} />
 
-      <Splash duration={SPLASH_DURATION} forceShow={!isInitialized} />
+      <Splash forceShow={!isInitialized} />
     </>
   );
 };
