@@ -79,9 +79,10 @@ const parseRequest = (request: NextApiRequest): RequestData => {
 
 const validateRequest = ({ board, characters, config }: RequestData): void => {
   const blankTilesCount = characters.filter((character) => character === BLANK).length;
+  const blanksCount = board.getBlanksCount() + blankTilesCount;
 
-  if (board.getTilesCount() + blankTilesCount > config.numberOfBlanks) {
-    throw new Error(`Too many blank tiles passed (board: ${board.getTilesCount()}, tiles: ${blankTilesCount})`);
+  if (blanksCount > config.numberOfBlanks) {
+    throw new Error(`Too many blank tiles passed (board: ${board.getBlanksCount()}, tiles: ${blankTilesCount})`);
   }
 };
 
