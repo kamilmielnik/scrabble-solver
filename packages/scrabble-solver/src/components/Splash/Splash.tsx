@@ -9,31 +9,13 @@ import styles from './Splash.module.scss';
 
 interface Props {
   className?: string;
-  duration: number;
   forceShow?: boolean;
 }
 
-const Splash: FunctionComponent<Props> = ({ className, duration, forceShow }) => {
-  const [isTimeoutFinished, setIsTimeoutFinished] = useState<boolean>(false);
-  const hidden = isTimeoutFinished && !forceShow;
-
-  useEffect(() => {
-    const timeout = window.setTimeout(() => {
-      setIsTimeoutFinished(true);
-    }, duration);
-
-    return () => {
-      window.clearTimeout(timeout);
-    };
-  }, [duration]);
-
+const Splash: FunctionComponent<Props> = ({ className, forceShow }) => {
   return (
-    <Screen className={classNames(styles.splash, className)} hidden={hidden}>
-      <div
-        className={classNames(styles.logos, {
-          [styles.pulsating]: isTimeoutFinished,
-        })}
-      >
+    <Screen className={classNames(styles.splash, className)}>
+      <div className={styles.logos}>
         <Logo className={styles.logoGrayscale} />
         <Logo className={styles.logoColor} />
       </div>

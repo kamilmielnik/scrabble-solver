@@ -1,9 +1,18 @@
 @import 'styles/animations';
 
+$loading-duration: 750ms;
+$loaded-duration: 250ms;
+$hiding-duration: 250ms;
+
 .splash {
   display: flex;
   align-items: center;
   justify-content: center;
+  user-select: none;
+  pointer-events: none;
+  animation: hide var(--transition--duration--long);
+  animation-delay: $loading-duration + $loaded-duration;
+  animation-fill-mode: forwards;
 }
 
 .logos {
@@ -11,10 +20,8 @@
   max-width: 688px;
   pointer-events: none;
   user-select: none;
-
-  &.pulsating {
-    animation: pulsate 0.5s infinite;
-  }
+  animation: pulsate 0.5s;
+  animation-delay: $loading-duration + $loaded-duration;
 }
 
 .logoGrayscale {
@@ -27,7 +34,7 @@
   top: 0;
   left: 0;
   transition: var(--transition);
-  animation: progress 1s infinite;
+  animation: progress 1s;
 }
 
 .author {

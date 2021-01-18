@@ -132,7 +132,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
       <KeyMap hidden={!showKeyMap} onClose={handleHideKeyMap} />
 
-      <Splash duration={SPLASH_DURATION} forceShow={!isInitialized} />
+      <Splash forceShow={!isInitialized} />
     </>
   );
 };

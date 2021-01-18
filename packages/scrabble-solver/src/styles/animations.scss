@@ -1,3 +1,13 @@
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
 @keyframes progress {
   0% {
     clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
