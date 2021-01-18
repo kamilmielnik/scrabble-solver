@@ -25,9 +25,11 @@ $size: 32px;
   }
 
   &:active {
-    .content {
-      position: relative;
-      top: 1px;
+    &:not(:disabled) {
+      .content {
+        position: relative;
+        top: 1px;
+      }
     }
   }
 
