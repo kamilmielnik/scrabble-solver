@@ -1,0 +1,43 @@
+@keyframes progress {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes wave {
+  $offset: 6px;
+
+  0% {
+    transform: translateY(0px);
+  }
+
+  25% {
+    transform: translateY($offset);
+  }
+
+  75% {
+    transform: translateY(-$offset);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}

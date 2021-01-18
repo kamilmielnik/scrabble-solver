@@ -1,16 +1,4 @@
-@keyframes pulsate {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.2);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
+@import 'styles/animations';
 
 .splash {
   display: flex;
@@ -18,15 +6,15 @@
   justify-content: center;
 }
 
-.logo {
+.logos {
   width: 50vw;
   max-width: 688px;
   pointer-events: none;
   user-select: none;
-}
 
-.pulsating {
-  animation: pulsate 0.5s infinite;
+  &.pulsating {
+    animation: pulsate 0.5s infinite;
+  }
 }
 
 .logoGrayscale {
@@ -38,6 +26,8 @@
   position: absolute;
   top: 0;
   left: 0;
+  transition: var(--transition);
+  animation: progress 1s infinite;
 }
 
 .author {
