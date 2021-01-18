@@ -1,6 +1,5 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { useTween } from 'react-use';
+import React, { FunctionComponent } from 'react';
 
 import Logo from '../Logo';
 import Screen from '../Screen';
