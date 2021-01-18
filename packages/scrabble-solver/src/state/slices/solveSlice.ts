@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Board } from '@scrabble-solver/models';
 
 import { SolveParameters } from 'types';
 
