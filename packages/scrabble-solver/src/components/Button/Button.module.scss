@@ -9,7 +9,7 @@ $size: 32px;
   display: inline-block;
   transition: var(--transition);
   border-radius: var(--border--radius);
-  box-shadow: var(--box-shadow);
+  box-shadow: none;
   font-size: var(--font--size--xs);
   color: var(--color--inactive);
   cursor: pointer;
@@ -20,6 +20,7 @@ $size: 32px;
   &:focus,
   &:hover {
     background-color: var(--color--primary);
+    box-shadow: var(--box-shadow);
     color: white;
   }
 

@@ -96,18 +96,28 @@ export const selectLastSolvedParameters = (state: RootState) => state.solve.last
 
 export const selectIsLoading = (state: RootState): boolean => state.solve.isLoading;
 
-export const selectAreResultsOutdated = createSelector(
-  [selectLastSolvedParameters, selectBoard, selectCharacters],
-  (lastSolvedParameters, board, characters) => {
-    return !charactersEqual(lastSolvedParameters.characters, characters) || !lastSolvedParameters.board.equals(board);
+export const selectHaveCharactersChanged = createSelector(
+  [selectLastSolvedParameters, selectCharacters],
+  (lastSolvedParameters, characters) => {
+    if (lastSolvedParameters.characters.length !== characters.length) {
+      return true;
+    }
+
+    const aSorted = [...lastSolvedParameters.characters].sort(stringComparator);
+    const bSorted = [...characters].sort(stringComparator);
+    const areEqual = aSorted.every((character, index) => character === bSorted[index]);
+    return !areEqual;
   },
 );
 
+export const selectHasBoardChanged = createSelector(
+  [selectLastSolvedParameters, selectBoard],
+  (lastSolvedParameters, board) => !lastSolvedParameters.board.equals(board),
+);
+
+export const selectAreResultsOutdated = createSelector(
+  [selectHasBoardChanged, selectHaveCharactersChanged],
+  (hasBoardChanged, haveCharactersChanged) => hasBoardChanged || haveCharactersChanged,
+);
+
 export const selectDictionaryRoot = (state: RootState) => state.dictionary;
-
-const charactersEqual = (a: string[], b: string[]): boolean => {
-  const aSorted = [...a].sort(stringComparator);
-  const bSorted = [...b].sort(stringComparator);
-
-  return a.length === b.length && aSorted.every((character, index) => character === bSorted[index]);
-};
