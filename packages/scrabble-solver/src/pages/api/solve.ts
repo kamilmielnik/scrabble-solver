@@ -34,7 +34,6 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
 
   try {
     const { board, characters, config, locale } = parseRequest(request);
-    validateRequest({ board, characters, config, locale });
     logger.info('solve - request', {
       meta,
       payload: {
@@ -46,6 +45,7 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
         locale,
       },
     });
+    validateRequest({ board, characters, config, locale });
     const trie = localeTries[locale];
     const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
     const solver = new Solver(config, trie);
