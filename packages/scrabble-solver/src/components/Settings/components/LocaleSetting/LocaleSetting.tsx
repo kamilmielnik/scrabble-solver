@@ -37,15 +37,15 @@ const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
           id="locale"
           key={option.value}
           name="locale"
-          title={option.label}
+          title={`${option.label} (${option.value})`}
           value={option.value}
           onChange={handleChange}
         >
-          <div className={styles.label}>
+          <span className={styles.label}>
             <SvgIcon className={classNames(styles.flag, option.className)} icon={option.icon} />
 
-            <div>{option.label}</div>
-          </div>
+            <span>{option.label}</span>
+          </span>
         </Radio>
       ))}
     </div>
