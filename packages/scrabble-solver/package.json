@@ -21,7 +21,7 @@
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "scripts": {
     "build": "env-cmd next build",
-    "clean": "rm -rf .next/ node_modules/ package-lock.json scrabble-solver-all.log scrabble-solver-error.log",
+    "clean": "rimraf .next/ node_modules/ package-lock.json scrabble-solver-all.log scrabble-solver-error.log",
     "dev": "env-cmd next dev",
     "start": "env-cmd next start -p 3333"
   },

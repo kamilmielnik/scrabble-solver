@@ -20,7 +20,7 @@
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "scripts": {
     "build": "tsc --project .",
-    "clean": "rm -rf build/ node_modules/ package-lock.json"
+    "clean": "rimraf build/ node_modules/ package-lock.json"
   },
   "dependencies": {
     "winston": "^3.3.3"
