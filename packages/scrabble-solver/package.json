@@ -20,10 +20,10 @@
   },
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "scripts": {
-    "build": "NEXT_TELEMETRY_DISABLED=1 next build",
+    "build": "env-cmd next build",
     "clean": "rm -rf .next/ node_modules/ package-lock.json scrabble-solver-all.log scrabble-solver-error.log",
-    "dev": "NEXT_TELEMETRY_DISABLED=1 next dev",
-    "start": "NEXT_TELEMETRY_DISABLED=1 next start -p 3333"
+    "dev": "env-cmd next dev",
+    "start": "env-cmd next start -p 3333"
   },
   "dependencies": {
     "@kamilmielnik/trie": "^1.0.3",
@@ -56,6 +56,7 @@
     "@types/react-window": "^1.8.2",
     "@types/redux": "^3.6.31",
     "@types/redux-saga": "^0.10.5",
+    "env-cmd": "^10.1.0",
     "sass": "^1.32.2",
     "svg-sprite-loader": "^5.2.1",
     "typescript": "^4.1.3"
