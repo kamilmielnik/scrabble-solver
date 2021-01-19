@@ -12,7 +12,7 @@ const translateFr = async (word: string): Promise<WordDefinition> => {
       hostname: 'www.cnrtl.fr',
       path: `/definition/${encodeURIComponent(word)}`,
     });
-    const wordDefinition = parseSjpResponse(response);
+    const wordDefinition = parseCnrtlResponse(response);
     return wordDefinition;
   } catch (error) {
     logger.error('translateFr', {
@@ -23,7 +23,7 @@ const translateFr = async (word: string): Promise<WordDefinition> => {
   }
 };
 
-const parseSjpResponse = (html: string): WordDefinition => {
+const parseCnrtlResponse = (html: string): WordDefinition => {
   const $ = cheerio.load(html);
   const $definitions = $('.tlf_cdefinition');
   const wordDefinition = new WordDefinition({
