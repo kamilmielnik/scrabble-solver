@@ -1,5 +1,5 @@
 import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
-import { Config } from '@scrabble-solver/types';
+import { Config, Locale } from '@scrabble-solver/types';
 
 const BONUSES = [
   { multiplier: 3, type: BONUS_WORD, x: 0, y: 0 },
@@ -179,10 +179,10 @@ const CONFIG_PL = Config.fromJson({ ...BASE, tiles: TILES_PL });
 const SCRABBLE = {
   id: BASE.id,
   name: BASE.name,
-  'en-GB': CONFIG_EN,
-  'en-US': CONFIG_EN,
-  'fr-FR': CONFIG_FR,
-  'pl-PL': CONFIG_PL,
+  [Locale.enGb]: CONFIG_EN,
+  [Locale.enUs]: CONFIG_EN,
+  [Locale.frFr]: CONFIG_FR,
+  [Locale.plPl]: CONFIG_PL,
 };
 
 export default SCRABBLE;

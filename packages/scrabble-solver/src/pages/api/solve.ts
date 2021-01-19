@@ -2,7 +2,7 @@ import { Trie } from '@kamilmielnik/trie';
 import { getLocaleConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import logger from '@scrabble-solver/logger';
-import { Board, Config, Tile } from '@scrabble-solver/types';
+import { Board, Config, Locale, Tile } from '@scrabble-solver/types';
 import Solver from '@scrabble-solver/solver';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -14,7 +14,6 @@ import {
   validateConfigId,
   validateLocale,
 } from 'api';
-import { Locale } from 'types';
 
 interface RequestData {
   board: Board;
@@ -24,10 +23,10 @@ interface RequestData {
 }
 
 const localeTries: Record<Locale, Trie> = {
-  'en-GB': readLocaleDictionary('en-GB'),
-  'en-US': readLocaleDictionary('en-US'),
-  'fr-FR': readLocaleDictionary('fr-FR'),
-  'pl-PL': readLocaleDictionary('pl-PL'),
+  [Locale.enGb]: readLocaleDictionary(Locale.enGb),
+  [Locale.enUs]: readLocaleDictionary(Locale.enUs),
+  [Locale.frFr]: readLocaleDictionary(Locale.frFr),
+  [Locale.plPl]: readLocaleDictionary(Locale.plPl),
 };
 
 const solve = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {

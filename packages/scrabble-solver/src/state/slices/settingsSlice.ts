@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { Locale } from 'types';
+import { Locale } from '@scrabble-solver/types';
 
 import settingsInitialState from './settingsInitialState';
 

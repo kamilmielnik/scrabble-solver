@@ -1,6 +1,6 @@
-import { Locale } from 'types';
+import { Locale } from '@scrabble-solver/types';
 
-const locales: Locale[] = ['en-GB', 'en-US', 'fr-FR', 'pl-PL'];
+const locales = Object.values(Locale);
 
 const validateLocale = (locale: unknown): void => {
   if (typeof locale !== 'string') {

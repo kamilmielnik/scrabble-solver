@@ -9,6 +9,7 @@ export { default as CharacterBonus } from './CharacterBonus';
 export { default as Config } from './Config';
 export { default as ConfigJson } from './ConfigJson';
 export { default as HorizontalPattern } from './HorizontalPattern';
+export { default as Locale } from './Locale';
 export { default as Pattern } from './Pattern';
 export { default as PatternJson } from './PatternJson';
 export { default as Result } from './Result';
