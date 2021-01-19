@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, HTMLAttributes, ReactNode } from 'react';
+import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
 
 import styles from './Well.module.scss';
 
@@ -8,10 +8,10 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-const Well: FunctionComponent<Props> = ({ children, className, ...props }) => (
-  <div className={classNames(styles.well, className)} {...props}>
+const Well = forwardRef<HTMLDivElement, Props>(({ children, className, ...props }, ref) => (
+  <div className={classNames(styles.well, className)} ref={ref} {...props}>
     {children}
   </div>
-);
+));
 
 export default Well;

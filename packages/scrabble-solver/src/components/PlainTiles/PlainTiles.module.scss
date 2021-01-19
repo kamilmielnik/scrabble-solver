@@ -1,24 +1,7 @@
-$offset: 6px;
+@import 'styles/animations';
+
 $delay: 150ms;
 $duration: 750ms;
-
-@keyframes wave {
-  0% {
-    transform: translateY(0px);
-  }
-
-  25% {
-    transform: translateY($offset);
-  }
-
-  75% {
-    transform: translateY(-$offset);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
-}
 
 .tile {
   .wave & {

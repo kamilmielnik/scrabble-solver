@@ -3,7 +3,6 @@ const fs = require('fs-extra');
 const http = require('http');
 const https = require('https');
 const path = require('path');
-const request = require('request');
 const url = require('url');
 
 const WHITE = '\x1b[37m%s\x1b[0m';
@@ -80,10 +79,25 @@ const downloadHtml = (url) =>
   );
 
 const downloadFile = (url, outputFilepath) =>
-  logAsyncAction(
-    `Downloading file from "${url}"`,
-    () => new Promise((resolve) => request.get(url, resolve).pipe(fs.createWriteStream(outputFilepath))),
-  );
+  logAsyncAction(`Downloading file from "${url}"`, () => {
+    return new Promise((resolve, reject) => {
+      const outputStream = fs.createWriteStream(outputFilepath);
+      const protocol = url.startsWith('https') ? https : http;
+      const request = protocol
+        .get(url, (response) => {
+          if (response.statusCode >= 400) {
+            reject();
+            return;
+          }
+
+          response.pipe(outputStream);
+          response.on('error', () => reject()).on('end', () => resolve());
+        })
+        .on('error', () => {
+          reject();
+        });
+    });
+  });
 
 const unzipFile = (zipFilepath, filename) =>
   logAsyncAction(`Unzipping "${filename}" from "${zipFilepath}"`, () =>

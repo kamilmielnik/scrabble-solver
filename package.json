@@ -1,6 +1,6 @@
 {
   "name": "scrabble-solver",
-  "version": "2.1.0",
+  "version": "2.2.2",
   "description": "Scrabble Solver 2 - The ultimate cheating app for Scrabble and Literaki",
   "keywords": [
     "Scrabble",
@@ -23,7 +23,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
-    "clean": "lerna run clean && rm -rf dictionaries/ node_modules/ package-lock.json",
+    "clean": "lerna run clean && rimraf dictionaries/ node_modules/ package-lock.json",
     "dictionaries:install": "npm-run-all --parallel dictionaries:prepare:*",
     "dictionaries:prepare:en": "node scripts/prepare-en-dictionaries.js -- --output-dir dictionaries",
     "dictionaries:prepare:pl": "node scripts/prepare-pl-dictionary.js -- --output-dir dictionaries",
@@ -76,6 +76,8 @@
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-env": "^7.12.11",
     "@kamilmielnik/trie": "^1.0.3",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.20",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
     "@typescript-eslint/parser": "^4.12.0",
     "babel-eslint": "10.1.0",
@@ -92,7 +94,7 @@
     "jest": "26.6.3",
     "np": "^7.2.0",
     "prettier": "^2.2.1",
-    "request": "^2.88.2",
+    "rimraf": "^3.0.2",
     "ts-jest": "^26.4.4",
     "typescript": "^4.1.3",
     "yargs": "^16.2.0"

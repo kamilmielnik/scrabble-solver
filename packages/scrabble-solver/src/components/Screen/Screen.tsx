@@ -12,19 +12,14 @@ interface Props {
   children?: ReactNode;
   className?: string;
   contentClassName?: string;
-  hidden?: boolean;
   onClose?: () => void;
 }
 
-const Screen: FunctionComponent<Props> = ({ children, className, contentClassName, hidden, onClose }) => {
+const Screen: FunctionComponent<Props> = ({ children, className, contentClassName, onClose }) => {
   const translate = useTranslate();
 
   return (
-    <div
-      className={classNames(styles.screen, className, {
-        [styles.hidden]: hidden,
-      })}
-    >
+    <div className={classNames(styles.screen, className)}>
       {onClose && (
         <Button className={styles.closeButton} icon={cross} title={translate('close')} onClick={onClose}>
           {translate('close')}

@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/configs",
-  "version": "2.1.0",
+  "version": "2.2.2",
   "description": "Scrabble Solver 2 - Configs",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -20,14 +20,11 @@
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "scripts": {
     "build": "tsc --project .",
-    "clean": "rm -rf build/ node_modules/ package-lock.json"
+    "clean": "rimraf build/ node_modules/ package-lock.json"
   },
   "dependencies": {
-    "@scrabble-solver/constants": "^2.1.0",
-    "@scrabble-solver/models": "^2.1.0"
-  },
-  "devDependencies": {
-    "typescript": "^4.1.3"
+    "@scrabble-solver/constants": "^2.2.2",
+    "@scrabble-solver/models": "^2.2.2"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }
