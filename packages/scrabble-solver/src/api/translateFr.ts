@@ -36,7 +36,7 @@ const parseCnrtlResponse = (html: string): WordDefinition => {
       ),
     ),
     isAllowed: $('#vitemselected span').length > 0,
-    word: $('#query').text().trim(),
+    word: $('#query').val().trim(),
   });
   return wordDefinition;
 };
