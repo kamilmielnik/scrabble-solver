@@ -75,6 +75,8 @@
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-env": "^7.12.11",
     "@kamilmielnik/trie": "^1.0.3",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.20",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
     "@typescript-eslint/parser": "^4.12.0",
     "babel-eslint": "10.1.0",
