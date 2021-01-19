@@ -42,10 +42,10 @@ Open http://localhost:3333/ if it didn't open up for you.
 
 ## Dictionaries
 
-| Language | 🇺🇸 English (US)                                                         | 🇬🇧 English (GB)                                                             | 🇵🇱 Polish                                 |
-| -------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------- | ----------------------------------------- |
-| Name     | [TWL06](https://en.wikipedia.org/wiki/NASPA_Word_List)                  | [SOWPODS](https://en.wikipedia.org/wiki/Collins_Scrabble_Words)             | [SJP.PL](https://sjp.pl/slownik/dp.phtml) |
-| Source   | [Download](https://www.wordgamedictionary.com/twl06/download/twl06.txt) | [Download](https://www.wordgamedictionary.com/sowpods/download/sowpods.txt) | [Download](https://sjp.pl/slownik/growy/) |
+|                      | 🇺🇸 English (en-US)                                                                                                               | 🇬🇧 English (en-GB)                                                                                                                            | 🇫🇷 French (fr-FR)                                                          | 🇵🇱 Polish (pl-PL)                                                                     |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| List of words        | [TWL06](https://en.wikipedia.org/wiki/NASPA_Word_List) ([download](https://www.wordgamedictionary.com/twl06/download/twl06.txt)) | [SOWPODS](https://en.wikipedia.org/wiki/Collins_Scrabble_Words) ([download](https://www.wordgamedictionary.com/sowpods/download/sowpods.txt)) | [hbenbel/French-Dictionary](https://github.com/hbenbel/French-Dictionary/) | [SJP.PL](https://sjp.pl/slownik/dp.phtml) ([download](https://sjp.pl/slownik/growy/)) |
+| Definitions of words | [Wordnik](https://www.wordnik.com/)                                                                                              | [Wordnik](https://www.wordnik.com/)                                                                                                           | [CNRTL](https://www.cnrtl.fr/definition/)                                  | [SJP.PL](https://sjp.pl/)                                                             |
 
 ## Tech stack
 
