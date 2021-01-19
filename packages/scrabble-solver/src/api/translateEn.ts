@@ -58,7 +58,6 @@ const parseWordnikResponse = (word: string, response: string): WordDefinition =>
         results
           .map(({ text }) => text)
           .map(normalizeDefinition)
-          .map((text) => text.trim())
           .filter(Boolean),
       ),
     ),

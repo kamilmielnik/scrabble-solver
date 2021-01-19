@@ -37,7 +37,6 @@ const parseSjpResponse = (html: string): WordDefinition => {
           .trim()
           .split(/\d+\./)
           .map(normalizeDefinition)
-          .map((text) => text.trim())
           .filter(Boolean),
       ),
     ),
