@@ -1,5 +1,5 @@
 import { Trie } from '@kamilmielnik/trie';
-import { Config, Pattern, Tile } from '@scrabble-solver/models';
+import { Config, Pattern, Tile } from '@scrabble-solver/types';
 
 class PatternsFiller {
   private readonly trie: Trie;

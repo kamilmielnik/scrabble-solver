@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Tile } from '@scrabble-solver/models';
+import { Tile } from '@scrabble-solver/types';
 
 import { createNullMovingComparator, zipCharactersAndTiles } from 'lib';
 

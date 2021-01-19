@@ -1,4 +1,4 @@
-import { Board, Cell, Config, HorizontalPattern, Pattern, VerticalPattern } from '@scrabble-solver/models';
+import { Board, Cell, Config, HorizontalPattern, Pattern, VerticalPattern } from '@scrabble-solver/types';
 
 class PatternsGenerator {
   private readonly config: Config;

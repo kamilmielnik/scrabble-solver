@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Result } from '@scrabble-solver/models';
+import { Result } from '@scrabble-solver/types';
 
 import resultsInitialState from './resultsInitialState';
 

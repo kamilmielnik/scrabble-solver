@@ -1,5 +1,5 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import { Cell as CellModel } from '@scrabble-solver/models';
+import { Cell as CellModel } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import React, { FunctionComponent, KeyboardEventHandler, memo, RefObject, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';

@@ -1,4 +1,4 @@
-import { Cell, Config, Pattern } from '@scrabble-solver/models';
+import { Cell, Config, Pattern } from '@scrabble-solver/types';
 
 class ScoresCalculator {
   private readonly config: Config;

@@ -1,4 +1,4 @@
-import { Board } from '@scrabble-solver/models';
+import { Board } from '@scrabble-solver/types';
 
 export type Comparator<T> = (a: T, B: T) => number;
 

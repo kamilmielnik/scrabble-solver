@@ -1,4 +1,4 @@
-import { WordDefinition } from '@scrabble-solver/models';
+import { WordDefinition } from '@scrabble-solver/types';
 
 import { Locale } from 'types';
 

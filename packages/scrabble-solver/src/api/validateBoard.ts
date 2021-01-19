@@ -1,4 +1,4 @@
-import { Config } from '@scrabble-solver/models';
+import { Config } from '@scrabble-solver/types';
 
 import validateRow from './validateRow';
 

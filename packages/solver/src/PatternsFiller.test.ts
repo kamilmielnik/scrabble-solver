@@ -1,6 +1,6 @@
 import { Trie } from '@kamilmielnik/trie';
 import { literaki } from '@scrabble-solver/configs';
-import { Board, Cell, Tile, VerticalPattern } from '@scrabble-solver/models';
+import { Board, Cell, Tile, VerticalPattern } from '@scrabble-solver/types';
 import fs from 'fs';
 
 import PatternsFiller from './PatternsFiller';

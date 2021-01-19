@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import { Board, Cell, Result, Tile } from '@scrabble-solver/models';
+import { Board, Cell, Result, Tile } from '@scrabble-solver/types';
 
 import boardInitialState from './boardInitialState';
 

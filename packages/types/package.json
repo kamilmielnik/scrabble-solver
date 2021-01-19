@@ -1,5 +1,5 @@
 {
-  "name": "@scrabble-solver/models",
+  "name": "@scrabble-solver/types",
   "version": "2.2.2",
   "description": "Scrabble Solver 2 - Models",
   "main": "build/index.js",

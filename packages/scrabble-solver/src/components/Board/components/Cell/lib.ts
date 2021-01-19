@@ -1,5 +1,5 @@
 import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
-import { Bonus, Cell } from '@scrabble-solver/models';
+import { Bonus, Cell } from '@scrabble-solver/types';
 
 import styles from './Cell.module.scss';
 

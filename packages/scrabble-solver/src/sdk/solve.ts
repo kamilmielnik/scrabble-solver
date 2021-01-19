@@ -1,4 +1,4 @@
-import { BoardJson, ResultJson } from '@scrabble-solver/models';
+import { BoardJson, ResultJson } from '@scrabble-solver/types';
 
 import { Locale } from 'types';
 

@@ -1,5 +1,5 @@
 import { BLANK } from '@scrabble-solver/constants';
-import { Tile } from '@scrabble-solver/models';
+import { Tile } from '@scrabble-solver/types';
 
 interface CharacterTilePair {
   character: string | null;

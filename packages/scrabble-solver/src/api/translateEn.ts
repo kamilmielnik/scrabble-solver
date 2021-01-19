@@ -1,5 +1,5 @@
 import logger from '@scrabble-solver/logger';
-import { WordDefinition } from '@scrabble-solver/models';
+import { WordDefinition } from '@scrabble-solver/types';
 import { URLSearchParams } from 'url';
 
 import normalizeDefinition from './normalizeDefinition';

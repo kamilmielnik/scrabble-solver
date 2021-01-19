@@ -1,5 +1,5 @@
 import logger from '@scrabble-solver/logger';
-import { WordDefinition } from '@scrabble-solver/models';
+import { WordDefinition } from '@scrabble-solver/types';
 import cheerio from 'cheerio';
 
 import normalizeDefinition from './normalizeDefinition';

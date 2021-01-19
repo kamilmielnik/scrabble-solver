@@ -1,5 +1,5 @@
 import { Trie } from '@kamilmielnik/trie';
-import { Board, Config, Pattern, Result, Tile } from '@scrabble-solver/models';
+import { Board, Config, Pattern, Result, Tile } from '@scrabble-solver/types';
 import uniqBy from 'lodash/uniqBy';
 
 import PatternsFiller from './PatternsFiller';

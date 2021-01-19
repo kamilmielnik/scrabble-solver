@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { Result } from '@scrabble-solver/models';
+import { Result } from '@scrabble-solver/types';
 import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { memoize } from 'lib';

@@ -1,4 +1,4 @@
-import { Config } from '@scrabble-solver/models';
+import { Config } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';

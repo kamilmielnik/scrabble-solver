@@ -1,5 +1,5 @@
 import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
-import { Config } from '@scrabble-solver/models';
+import { Config } from '@scrabble-solver/types';
 
 const BONUSES = [
   { multiplier: 3, score: 5, type: BONUS_CHARACTER, x: 0, y: 0 },

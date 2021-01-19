@@ -1,6 +1,6 @@
 import { Trie } from '@kamilmielnik/trie';
 import { literaki } from '@scrabble-solver/configs';
-import { Board, Tile } from '@scrabble-solver/models';
+import { Board, Tile } from '@scrabble-solver/types';
 import fs from 'fs';
 
 import Solver from './Solver';

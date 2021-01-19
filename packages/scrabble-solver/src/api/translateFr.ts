@@ -1,4 +1,4 @@
-import { WordDefinition } from '@scrabble-solver/models';
+import { WordDefinition } from '@scrabble-solver/types';
 
 const translateFr = async (word: string): Promise<WordDefinition> => {
   const wordDefinition = new WordDefinition({

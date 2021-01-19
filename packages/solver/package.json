@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@kamilmielnik/trie": "^1.0.3",
-    "@scrabble-solver/models": "^2.2.2",
+    "@scrabble-solver/types": "^2.2.2",
     "lodash": "^4.17.20"
   },
   "devDependencies": {

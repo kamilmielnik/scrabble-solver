@@ -1,4 +1,4 @@
-import { Result } from '@scrabble-solver/models';
+import { Result } from '@scrabble-solver/types';
 
 const resultsInitialState = {
   candidate: null as Result | null,

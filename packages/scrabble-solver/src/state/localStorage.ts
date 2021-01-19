@@ -1,4 +1,4 @@
-import { Board } from '@scrabble-solver/models';
+import { Board } from '@scrabble-solver/types';
 import store2 from 'store2';
 
 import { Locale } from 'types';

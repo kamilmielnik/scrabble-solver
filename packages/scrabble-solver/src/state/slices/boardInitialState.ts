@@ -1,5 +1,5 @@
 import { getLocaleConfig } from '@scrabble-solver/configs';
-import { Board } from '@scrabble-solver/models';
+import { Board } from '@scrabble-solver/types';
 
 import settingsInitialState from './settingsInitialState';
 

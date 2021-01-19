@@ -2,7 +2,7 @@ import { Trie } from '@kamilmielnik/trie';
 import { getLocaleConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import logger from '@scrabble-solver/logger';
-import { Board, Config, Tile } from '@scrabble-solver/models';
+import { Board, Config, Tile } from '@scrabble-solver/types';
 import Solver from '@scrabble-solver/solver';
 import { NextApiRequest, NextApiResponse } from 'next';
 

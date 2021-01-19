@@ -29,7 +29,7 @@
     "dictionaries:prepare:fr": "node scripts/prepare-fr-dictionaries.js -- --output-dir dictionaries",
     "dictionaries:prepare:pl": "node scripts/prepare-pl-dictionary.js -- --output-dir dictionaries",
     "install:dev": "npm run bootstrap && npm run dictionaries:install && npm run build",
-    "lint": "eslint packages/configs packages/constants packages/logger packages/models packages/scrabble-solver packages/solver --ext '.js,.jsx,.ts,.tsx'",
+    "lint": "eslint packages/configs packages/constants packages/logger packages/scrabble-solver packages/solver packages/types --ext '.js,.jsx,.ts,.tsx'",
     "lint:fix": "npm run lint -- --fix",
     "prettier:js": "npm run lint -- --no-eslintrc -c .eslintrc.prettier-only.js",
     "prettier:js:fix": "npm run prettier:js -- --fix",
