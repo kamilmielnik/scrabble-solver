@@ -2,8 +2,8 @@ import { Trie } from '@kamilmielnik/trie';
 import { getLocaleConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import logger from '@scrabble-solver/logger';
-import { Board, Config, Locale, Tile } from '@scrabble-solver/types';
 import Solver from '@scrabble-solver/solver';
+import { Board, Config, Locale, Tile } from '@scrabble-solver/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import {
@@ -23,10 +23,10 @@ interface RequestData {
 }
 
 const localeTries: Record<Locale, Trie> = {
-  [Locale.enGb]: readLocaleDictionary(Locale.enGb),
-  [Locale.enUs]: readLocaleDictionary(Locale.enUs),
-  [Locale.frFr]: readLocaleDictionary(Locale.frFr),
-  [Locale.plPl]: readLocaleDictionary(Locale.plPl),
+  [Locale.EN_GB]: readLocaleDictionary(Locale.EN_GB),
+  [Locale.EN_US]: readLocaleDictionary(Locale.EN_US),
+  [Locale.FR_FR]: readLocaleDictionary(Locale.FR_FR),
+  [Locale.PL_PL]: readLocaleDictionary(Locale.PL_PL),
 };
 
 const solve = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {

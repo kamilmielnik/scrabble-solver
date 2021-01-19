@@ -6,10 +6,10 @@ import pl from './pl.json';
 
 // TODO: make typing more accurate, i.e. Record<Locale, Record<TranslationKey, string>>
 const i18n: Record<Locale, Record<string, string>> = {
-  [Locale.enGb]: en,
-  [Locale.enUs]: en,
-  [Locale.frFr]: fr,
-  [Locale.plPl]: pl,
+  [Locale.EN_GB]: en,
+  [Locale.EN_US]: en,
+  [Locale.FR_FR]: fr,
+  [Locale.PL_PL]: pl,
 };
 
 export default i18n;

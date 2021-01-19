@@ -2,18 +2,18 @@ import { Locale } from '@scrabble-solver/types';
 
 const detectLocale = (): Locale => {
   if (window.navigator.languages.includes('pl') || window.navigator.languages.includes('pl-PL')) {
-    return Locale.plPl;
+    return Locale.PL_PL;
   }
 
   if (window.navigator.languages.includes('en-GB')) {
-    return Locale.enGb;
+    return Locale.EN_GB;
   }
 
   if (window.navigator.languages.includes('fr-FR')) {
-    return Locale.frFr;
+    return Locale.FR_FR;
   }
 
-  return Locale.enUs;
+  return Locale.EN_US;
 };
 
 export default detectLocale;

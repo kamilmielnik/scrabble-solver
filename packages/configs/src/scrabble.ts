@@ -179,10 +179,10 @@ const CONFIG_PL = Config.fromJson({ ...BASE, tiles: TILES_PL });
 const SCRABBLE = {
   id: BASE.id,
   name: BASE.name,
-  [Locale.enGb]: CONFIG_EN,
-  [Locale.enUs]: CONFIG_EN,
-  [Locale.frFr]: CONFIG_FR,
-  [Locale.plPl]: CONFIG_PL,
+  [Locale.EN_GB]: CONFIG_EN,
+  [Locale.EN_US]: CONFIG_EN,
+  [Locale.FR_FR]: CONFIG_FR,
+  [Locale.PL_PL]: CONFIG_PL,
 };
 
 export default SCRABBLE;

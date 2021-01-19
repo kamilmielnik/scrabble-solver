@@ -10,10 +10,10 @@ interface RequestData {
 }
 
 const localeTranslate: Record<Locale, (word: string) => Promise<WordDefinition>> = {
-  [Locale.enGb]: translateEn,
-  [Locale.enUs]: translateEn,
-  [Locale.frFr]: translateFr,
-  [Locale.plPl]: translatePl,
+  [Locale.EN_GB]: translateEn,
+  [Locale.EN_US]: translateEn,
+  [Locale.FR_FR]: translateFr,
+  [Locale.PL_PL]: translatePl,
 };
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
