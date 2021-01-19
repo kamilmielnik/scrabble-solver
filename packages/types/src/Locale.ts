@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-shadow
 enum Locale {
   EN_GB = 'en-GB',
   EN_US = 'en-US',
@@ -5,5 +6,4 @@ enum Locale {
   PL_PL = 'pl-PL',
 }
 
-// eslint-disable-next-line no-shadow
 export default Locale;
