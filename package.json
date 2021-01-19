@@ -23,7 +23,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
-    "clean": "lerna run clean && rm -rf dictionaries/ node_modules/ package-lock.json",
+    "clean": "lerna run clean && rimraf dictionaries/ node_modules/ package-lock.json",
     "dictionaries:install": "npm-run-all --parallel dictionaries:prepare:*",
     "dictionaries:prepare:en": "node scripts/prepare-en-dictionaries.js -- --output-dir dictionaries",
     "dictionaries:prepare:pl": "node scripts/prepare-pl-dictionary.js -- --output-dir dictionaries",
@@ -92,6 +92,7 @@
     "np": "^7.2.0",
     "prettier": "^2.2.1",
     "request": "^2.88.2",
+    "rimraf": "^3.0.2",
     "ts-jest": "^26.4.4",
     "typescript": "^4.1.3",
     "yargs": "^16.2.0"

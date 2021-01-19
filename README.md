@@ -8,6 +8,8 @@ Available at http://scrabble-solver.kamilmielnik.com/.
 
 Run it locally for better performance, your machine surely is faster than that server.
 
+It's cross-platform - all you need is [Node.js](https://nodejs.org/).
+
 ![Version](https://img.shields.io/github/package-json/v/kamilmielnik/scrabble-solver)
 ![License](https://img.shields.io/npm/l/scrabble-solver)
 ![Node version](https://img.shields.io/node/v/scrabble-solver)
