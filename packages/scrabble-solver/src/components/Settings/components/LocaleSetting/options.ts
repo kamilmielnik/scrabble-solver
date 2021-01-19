@@ -1,4 +1,4 @@
-import { flagGb, flagPl, flagUs, flagFr } from 'icons';
+import { flagFr, flagGb, flagPl, flagUs } from 'icons';
 import { Locale } from 'types';
 
 import styles from './LocaleSetting.module.scss';

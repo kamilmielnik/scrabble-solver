@@ -26,8 +26,8 @@ interface RequestData {
 const localeTries: Record<Locale, Trie> = {
   'en-GB': readLocaleDictionary('en-GB'),
   'en-US': readLocaleDictionary('en-US'),
-  'pl-PL': readLocaleDictionary('pl-PL'),
   'fr-FR': readLocaleDictionary('fr-FR'),
+  'pl-PL': readLocaleDictionary('pl-PL'),
 };
 
 const solve = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {

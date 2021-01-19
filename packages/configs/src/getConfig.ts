@@ -7,8 +7,8 @@ interface Result {
   name: string;
   'en-GB': Config;
   'en-US': Config;
-  'pl-PL': Config;
   'fr-FR': Config;
+  'pl-PL': Config;
 }
 
 const getConfig = (configId: string): Result => {

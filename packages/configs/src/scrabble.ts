@@ -94,6 +94,35 @@ const TILES_EN = [
   { character: 'z', count: 1, score: 10 },
 ];
 
+const TILES_FR = [
+  { character: 'a', count: 9, score: 1 },
+  { character: 'b', count: 2, score: 3 },
+  { character: 'c', count: 2, score: 3 },
+  { character: 'd', count: 3, score: 2 },
+  { character: 'e', count: 15, score: 1 },
+  { character: 'f', count: 2, score: 1 },
+  { character: 'g', count: 2, score: 2 },
+  { character: 'h', count: 2, score: 4 },
+  { character: 'i', count: 8, score: 1 },
+  { character: 'j', count: 1, score: 8 },
+  { character: 'k', count: 1, score: 10 },
+  { character: 'l', count: 5, score: 1 },
+  { character: 'm', count: 3, score: 2 },
+  { character: 'n', count: 6, score: 1 },
+  { character: 'o', count: 6, score: 1 },
+  { character: 'p', count: 2, score: 3 },
+  { character: 'q', count: 1, score: 8 },
+  { character: 'r', count: 6, score: 1 },
+  { character: 's', count: 6, score: 1 },
+  { character: 't', count: 6, score: 1 },
+  { character: 'u', count: 6, score: 1 },
+  { character: 'v', count: 2, score: 4 },
+  { character: 'w', count: 1, score: 10 },
+  { character: 'x', count: 1, score: 10 },
+  { character: 'y', count: 1, score: 10 },
+  { character: 'z', count: 1, score: 10 },
+];
+
 const TILES_PL = [
   { character: 'a', count: 9, score: 1 },
   { character: 'ą', count: 1, score: 5 },
@@ -129,35 +158,6 @@ const TILES_PL = [
   { character: 'ż', count: 1, score: 9 },
 ];
 
-const TILES_FR = [
-  { character: 'a', count: 9, score: 1 },
-  { character: 'b', count: 2, score: 3 },
-  { character: 'c', count: 2, score: 3 },
-  { character: 'd', count: 3, score: 2 },
-  { character: 'e', count: 15, score: 1 },
-  { character: 'f', count: 2, score: 1 },
-  { character: 'g', count: 2, score: 2 },
-  { character: 'h', count: 2, score: 4 },
-  { character: 'i', count: 8, score: 1 },
-  { character: 'j', count: 1, score: 8 },
-  { character: 'k', count: 1, score: 10 },
-  { character: 'l', count: 5, score: 1 },
-  { character: 'm', count: 3, score: 2 },
-  { character: 'n', count: 6, score: 1 },
-  { character: 'o', count: 6, score: 1 },
-  { character: 'p', count: 2, score: 3 },
-  { character: 'q', count: 1, score: 8 },
-  { character: 'r', count: 6, score: 1 },
-  { character: 's', count: 6, score: 1 },
-  { character: 't', count: 6, score: 1 },
-  { character: 'u', count: 6, score: 1 },
-  { character: 'v', count: 2, score: 4 },
-  { character: 'w', count: 1, score: 10 },
-  { character: 'x', count: 1, score: 10 },
-  { character: 'y', count: 1, score: 10 },
-  { character: 'z', count: 1, score: 10 },
-];
-
 const BASE = {
   allTilesBonusScore: 50,
   blankScore: 0,
@@ -172,17 +172,17 @@ const BASE = {
 
 const CONFIG_EN = Config.fromJson({ ...BASE, tiles: TILES_EN });
 
-const CONFIG_PL = Config.fromJson({ ...BASE, tiles: TILES_PL });
-
 const CONFIG_FR = Config.fromJson({ ...BASE, tiles: TILES_FR });
+
+const CONFIG_PL = Config.fromJson({ ...BASE, tiles: TILES_PL });
 
 const SCRABBLE = {
   id: BASE.id,
   name: BASE.name,
   'en-GB': CONFIG_EN,
   'en-US': CONFIG_EN,
-  'pl-PL': CONFIG_PL,
   'fr-FR': CONFIG_FR,
+  'pl-PL': CONFIG_PL,
 };
 
 export default SCRABBLE;
