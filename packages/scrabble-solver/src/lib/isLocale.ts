@@ -1,5 +1,7 @@
-import { Locale } from 'types';
+import { Locale } from '@scrabble-solver/types';
 
-const isLocale = (locale: unknown): locale is Locale => ['en-GB', 'en-US', 'fr-FR', 'pl-PL'].includes(locale as string);
+const locales = Object.values(Locale);
+
+const isLocale = (locale: unknown): locale is Locale => locales.includes(locale as Locale);
 
 export default isLocale;

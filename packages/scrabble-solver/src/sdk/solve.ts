@@ -1,6 +1,4 @@
-import { BoardJson, ResultJson } from '@scrabble-solver/types';
-
-import { Locale } from 'types';
+import { BoardJson, Locale, ResultJson } from '@scrabble-solver/types';
 
 const URL = '/api/solve';
 

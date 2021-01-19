@@ -1,4 +1,4 @@
-import { Locale } from 'types';
+import { Locale } from '@scrabble-solver/types';
 
 export interface Option {
   className: string;

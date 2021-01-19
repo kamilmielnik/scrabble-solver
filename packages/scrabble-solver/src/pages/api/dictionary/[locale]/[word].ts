@@ -1,9 +1,8 @@
 import logger from '@scrabble-solver/logger';
-import { WordDefinition } from '@scrabble-solver/types';
+import { Locale, WordDefinition } from '@scrabble-solver/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { getServerLoggingData, validateLocale, validateWord, translateEn, translateFr, translatePl } from 'api';
-import { Locale } from 'types';
 
 interface RequestData {
   locale: Locale;
@@ -11,10 +10,10 @@ interface RequestData {
 }
 
 const localeTranslate: Record<Locale, (word: string) => Promise<WordDefinition>> = {
-  'en-GB': translateEn,
-  'en-US': translateEn,
-  'fr-FR': translateFr,
-  'pl-PL': translatePl,
+  [Locale.EN_GB]: translateEn,
+  [Locale.EN_US]: translateEn,
+  [Locale.FR_FR]: translateFr,
+  [Locale.PL_PL]: translatePl,
 };
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {

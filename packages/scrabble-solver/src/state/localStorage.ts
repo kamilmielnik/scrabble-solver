@@ -1,7 +1,5 @@
-import { Board } from '@scrabble-solver/types';
+import { Board, Locale } from '@scrabble-solver/types';
 import store2 from 'store2';
-
-import { Locale } from 'types';
 
 const BOARD = 'board';
 const CONFIG_ID = 'config-id';

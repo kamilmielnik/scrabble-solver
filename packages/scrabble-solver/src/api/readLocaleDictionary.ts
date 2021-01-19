@@ -1,8 +1,7 @@
 import { Trie } from '@kamilmielnik/trie';
+import { Locale } from '@scrabble-solver/types';
 import fs from 'fs';
 import path from 'path';
-
-import { Locale } from 'types';
 
 const dictionariesDirectory = path.resolve('../../dictionaries');
 

@@ -1,6 +1,4 @@
-import { WordDefinition } from '@scrabble-solver/types';
-
-import { Locale } from 'types';
+import { Locale, WordDefinition } from '@scrabble-solver/types';
 
 const findWordDefinition = async (locale: Locale, word: string): Promise<WordDefinition> => {
   const url = `/api/dictionary/${locale}/${word}`;

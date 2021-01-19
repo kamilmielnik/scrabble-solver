@@ -1,5 +1,6 @@
+import { Locale } from '@scrabble-solver/types';
+
 import { flagFr, flagGb, flagPl, flagUs } from 'icons';
-import { Locale } from 'types';
 
 import styles from './LocaleSetting.module.scss';
 
@@ -15,25 +16,25 @@ const options: Option[] = [
     className: styles.gb,
     icon: flagGb,
     label: 'English',
-    value: 'en-GB',
+    value: Locale.EN_GB,
   },
   {
     className: styles.us,
     icon: flagUs,
     label: 'English',
-    value: 'en-US',
+    value: Locale.EN_US,
   },
   {
     className: styles.pl,
     icon: flagPl,
     label: 'Polski',
-    value: 'pl-PL',
+    value: Locale.PL_PL,
   },
   {
     className: styles.fr,
     icon: flagFr,
     label: 'Français',
-    value: 'fr-FR',
+    value: Locale.FR_FR,
   },
 ];
 

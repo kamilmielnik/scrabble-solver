@@ -1,14 +1,13 @@
-import { Config } from '@scrabble-solver/types';
+import { Config, Locale } from '@scrabble-solver/types';
 
-import configs from './configs';
+import literaki from './literaki';
+import scrabble from './scrabble';
 
-interface Result {
+const configs = [literaki, scrabble];
+
+interface Result extends Record<Locale, Config> {
   id: string;
   name: string;
-  'en-GB': Config;
-  'en-US': Config;
-  'fr-FR': Config;
-  'pl-PL': Config;
 }
 
 const getConfig = (configId: string): Result => {

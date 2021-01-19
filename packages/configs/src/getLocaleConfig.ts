@@ -1,8 +1,8 @@
-import { Config } from '@scrabble-solver/types';
+import { Config, Locale } from '@scrabble-solver/types';
 
 import getConfig from './getConfig';
 
-const getLocaleConfig = (configId: string, locale: 'en-GB' | 'en-US' | 'pl-PL' | 'fr-FR'): Config => {
+const getLocaleConfig = (configId: string, locale: Locale): Config => {
   return getConfig(configId)[locale];
 };
 

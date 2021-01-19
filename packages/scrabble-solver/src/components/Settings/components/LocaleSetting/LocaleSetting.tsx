@@ -1,9 +1,9 @@
+import { Locale } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import React, { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { selectLocale, settingsSlice, useTypedSelector } from 'state';
-import { Locale } from 'types';
 
 import Radio from '../../../Radio';
 import SvgIcon from '../../../SvgIcon';
