@@ -3,7 +3,7 @@ import { WordDefinition } from '@scrabble-solver/models';
 const translateFr = async (word: string): Promise<WordDefinition> => {
   const wordDefinition = new WordDefinition({
     // Not implemented yet
-    definitions: ["Définition dictionaire pas encore implémenté"],
+    definitions: ['Définition dictionaire pas encore implémenté'],
     isAllowed: true,
     word,
   });
