@@ -22,8 +22,5 @@
     "build": "tsc --project .",
     "clean": "rimraf build/ node_modules/ package-lock.json"
   },
-  "devDependencies": {
-    "typescript": "^4.1.3"
-  },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }
