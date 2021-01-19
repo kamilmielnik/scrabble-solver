@@ -1,6 +1,6 @@
 import { Locale } from 'types';
 
-const locales: Locale[] = ['en-GB', 'en-US', 'pl-PL'];
+const locales: Locale[] = ['en-GB', 'en-US', 'pl-PL', 'fr-FR'];
 
 const validateLocale = (locale: unknown): void => {
   if (typeof locale !== 'string') {

@@ -9,6 +9,10 @@ const detectLocale = (): Locale => {
     return 'en-GB';
   }
 
+  if (window.navigator.languages.includes('fr-FR')) {
+    return 'fr-FR';
+  }
+
   return 'en-US';
 };
 
