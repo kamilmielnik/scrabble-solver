@@ -31,15 +31,7 @@ const parseSjpResponse = (html: string): WordDefinition => {
   const $definitions = $header.next().next().next().next();
   const wordDefinition = new WordDefinition({
     definitions: Array.from(
-      new Set(
-        $definitions
-          .text()
-          .trim()
-          .split(/\d+\./)
-          .map(normalizeDefinition)
-          .map((text) => text.trim())
-          .filter(Boolean),
-      ),
+      new Set($definitions.text().trim().split(/\d+\./).map(normalizeDefinition).filter(Boolean)),
     ),
     isAllowed: $isAllowed.text().trim().indexOf('dopuszczalne w grach') >= 0,
     word: $word.text().trim(),
