@@ -23,15 +23,6 @@ import {
 
 import styles from './index.module.scss';
 
-const getVersion = (): string => {
-  const packageJsonFilepath = path.resolve(process.cwd(), 'package.json');
-
-  // TODO make it async
-  const packageJsonFile = fs.readFileSync(packageJsonFilepath, 'utf-8');
-  const packageJson = JSON.parse(packageJsonFile);
-  return packageJson.version;
-};
-
 interface Props {
   version: string;
 }
@@ -123,11 +114,24 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 };
 
 export const getStaticProps = async (): Promise<{ props: Props }> => {
-  const props: Props = {
-    version: getVersion(),
-  };
+  const version = await getVersion();
+  return { props: { version } };
+};
 
-  return { props };
+const getVersion = (): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const packageJsonFilepath = path.resolve(process.cwd(), 'package.json');
+
+    fs.readFile(packageJsonFilepath, 'utf-8', (error, data) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+
+      const packageJson = JSON.parse(data);
+      resolve(packageJson.version);
+    });
+  });
 };
 
 export default Index;
