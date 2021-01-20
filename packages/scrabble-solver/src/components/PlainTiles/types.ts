@@ -11,3 +11,13 @@ export interface CreateTilesOptions {
   content: string[][];
   showPoints?: boolean;
 }
+
+export interface PlainTile {
+  character: string;
+  color: string;
+  points?: number;
+  size: number;
+  transform: string;
+  x: number;
+  y: number;
+}

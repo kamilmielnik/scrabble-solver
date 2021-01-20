@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { CSSProperties, FunctionComponent, useMemo } from 'react';
 
-import { createTiles, getViewbox } from './lib';
+import { createPlainTiles, getViewbox } from './lib';
 import styles from './PlainTiles.module.scss';
 import Tile from './Tile';
 
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const PlainTiles: FunctionComponent<Props> = ({ className, color, content, dropShadow, showPoints, style, wave }) => {
-  const tiles = useMemo(() => createTiles({ color, content, showPoints }), [color, content, showPoints]);
+  const tiles = useMemo(() => createPlainTiles({ color, content, showPoints }), [color, content, showPoints]);
 
   return (
     <svg
