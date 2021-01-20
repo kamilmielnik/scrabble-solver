@@ -1,4 +1,3 @@
-import { Config } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
@@ -7,8 +6,9 @@ import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure } from 'react-use';
 
 import { Board, Dictionary, KeyMap, Logo, NavButtons, Results, Settings, Splash, Tiles, Well } from 'components';
-import { BOARD_CELL_BORDER_WIDTH, BOARD_TILE_SIZE_MAX, BOARD_TILE_SIZE_MIN, COMPONENTS_SPACING } from 'const';
+import { COMPONENTS_SPACING } from 'const';
 import { useLocalStorage } from 'hooks';
+import { getCellSize } from 'lib';
 import {
   boardSlice,
   dictionarySlice,
@@ -22,13 +22,6 @@ import {
 } from 'state';
 
 import styles from './index.module.scss';
-
-const getCellSize = (config: Config, width: number, height: number): number => {
-  const maxWidth = (width - BOARD_CELL_BORDER_WIDTH) / config.boardWidth - BOARD_CELL_BORDER_WIDTH;
-  const maxHeight = (height - BOARD_CELL_BORDER_WIDTH) / config.boardHeight - BOARD_CELL_BORDER_WIDTH;
-  const cellSize = Math.min(maxWidth, maxHeight);
-  return Math.min(Math.max(cellSize, BOARD_TILE_SIZE_MIN), BOARD_TILE_SIZE_MAX);
-};
 
 const getVersion = (): string => {
   const packageJsonFilepath = path.resolve(process.cwd(), 'package.json');

@@ -2,6 +2,7 @@ export { default as createKeyboardNavigation } from './createKeyboardNavigation'
 export { default as createKeyComparator } from './createKeyComparator';
 export { default as createNullMovingComparator } from './createNullMovingComparator';
 export { default as detectLocale } from './detectLocale';
+export { default as getCellSize } from './getCellSize';
 export { default as getTileSizes } from './getTileSizes';
 export { default as isCtrl } from './isCtrl';
 export { default as isLocale } from './isLocale';
