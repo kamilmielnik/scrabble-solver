@@ -1,9 +1,7 @@
 import { createRef, KeyboardEventHandler, RefObject, useCallback, useMemo, useState, useRef } from 'react';
 import { useLatest } from 'react-use';
 
-import { createKeyboardNavigation, isCtrl } from 'lib';
-
-import { createGridOf } from '../lib';
+import { createGridOf, createKeyboardNavigation, isCtrl } from 'lib';
 
 interface Parameters {
   height: number;

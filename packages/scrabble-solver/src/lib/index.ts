@@ -1,3 +1,5 @@
+export { default as createArray } from './createArray';
+export { default as createGridOf } from './createGridOf';
 export { default as createKeyboardNavigation } from './createKeyboardNavigation';
 export { default as createKeyComparator } from './createKeyComparator';
 export { default as createNullMovingComparator } from './createNullMovingComparator';
