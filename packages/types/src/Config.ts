@@ -1,4 +1,4 @@
-import { BLANK, BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
+import { BLANK, BONUS_CHARACTER, BONUS_WORD, NO_BONUS } from '@scrabble-solver/constants';
 
 import Bonus from './Bonus';
 import BonusValue from './BonusValue';
@@ -6,8 +6,6 @@ import Cell from './Cell';
 import CharacterBonus from './CharacterBonus';
 import ConfigJson from './ConfigJson';
 import WordBonus from './WordBonus';
-
-const NO_BONUS = { characterMultiplier: 1, wordMultiplier: 1 };
 
 class Config {
   public static fromJson(json: ConfigJson): Config {
