@@ -8,13 +8,13 @@ import {
   PLAIN_TILES_TILE_SIZE,
 } from 'const';
 
-import { CreateTileOptions, PlainTile } from '../types';
+import { CreatePlainTileOptions, PlainTile } from '../types';
 
 import getX from './getX';
 import getY from './getY';
 import randomize from './randomize';
 
-const createPlainTile = ({ cellIndex, character, color, rowIndex, showPoints }: CreateTileOptions): PlainTile => {
+const createPlainTile = ({ cellIndex, character, color, rowIndex, showPoints }: CreatePlainTileOptions): PlainTile => {
   const configPoints = literaki['en-US'].getCharacterPoints(character.toLowerCase());
   const points = showPoints ? configPoints : undefined;
   const defaultColor =

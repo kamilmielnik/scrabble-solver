@@ -39,3 +39,5 @@ export const PLAIN_TILES_TILE_MAX_SCATTER = 0;
 export const PLAIN_TILES_TILE_SIZE = 80;
 export const PLAIN_TILES_VERSION_TILE_COLOR = COLOR_GREEN;
 export const PLAIN_TILES_VERSION_TILE_SIZE = TILE_SIZE;
+
+export const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';

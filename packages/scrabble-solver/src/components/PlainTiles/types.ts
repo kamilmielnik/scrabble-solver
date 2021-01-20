@@ -1,4 +1,4 @@
-export interface CreateTileOptions {
+export interface CreatePlainTileOptions {
   cellIndex: number;
   character: string;
   color?: string;
@@ -6,7 +6,7 @@ export interface CreateTileOptions {
   showPoints?: boolean;
 }
 
-export interface CreateTilesOptions {
+export interface CreatePlainTilesOptions {
   color?: string;
   content: string[][];
   showPoints?: boolean;

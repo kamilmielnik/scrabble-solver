@@ -1,13 +1,12 @@
 import React, { FunctionComponent } from 'react';
 
+import { GITHUB_PROJECT_URL } from 'const';
 import { cog, eraser, github, keyboard } from 'icons';
 import { useTranslate } from 'state';
 
 import SquareButton from '../SquareButton';
 
 import styles from './NavButtons.module.scss';
-
-const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';
 
 interface Props {
   onClear: () => void;
