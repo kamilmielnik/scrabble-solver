@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure } from 'react-use';
 
 import { Board, Dictionary, KeyMap, Logo, NavButtons, Results, Settings, Splash, Tiles, Well } from 'components';
-import { BOARD_TILE_SIZE_MAX, BOARD_TILE_SIZE_MIN, COMPONENTS_SPACING } from 'const';
+import { BOARD_CELL_BORDER_WIDTH, BOARD_TILE_SIZE_MAX, BOARD_TILE_SIZE_MIN, COMPONENTS_SPACING } from 'const';
 import { useLocalStorage } from 'hooks';
 import {
   boardSlice,
@@ -24,9 +24,8 @@ import {
 import styles from './index.module.scss';
 
 const getCellSize = (config: Config, width: number, height: number): number => {
-  const cellBorderWidth = 1; // TODO: unhardcode
-  const maxWidth = (width - cellBorderWidth) / config.boardWidth - cellBorderWidth;
-  const maxHeight = (height - cellBorderWidth) / config.boardHeight - cellBorderWidth;
+  const maxWidth = (width - BOARD_CELL_BORDER_WIDTH) / config.boardWidth - BOARD_CELL_BORDER_WIDTH;
+  const maxHeight = (height - BOARD_CELL_BORDER_WIDTH) / config.boardHeight - BOARD_CELL_BORDER_WIDTH;
   const cellSize = Math.min(maxWidth, maxHeight);
   return Math.min(Math.max(cellSize, BOARD_TILE_SIZE_MIN), BOARD_TILE_SIZE_MAX);
 };
