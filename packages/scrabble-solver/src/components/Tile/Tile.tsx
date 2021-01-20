@@ -10,6 +10,7 @@ import React, {
   useMemo,
 } from 'react';
 
+import { TILE_FONT_SIZE_MIN, TILE_FONT_SIZE_POINTS_MIN } from 'const';
 import { selectConfig, useTypedSelector } from 'state';
 
 import styles from './Tile.module.scss';
@@ -105,19 +106,12 @@ const Tile: FunctionComponent<Props> = ({
   );
 };
 
-const MIN_FONT_SIZE = 14;
-const MIN_POINTS_FONT_SIZE = 10;
-
 // TODO: put this function in a better place
-const getSizes = (tileSize: number) => {
-  // TODO: make it better, unhardcode
-
-  return {
-    pointsFontSize: Math.max(Math.round(tileSize * 0.25), MIN_POINTS_FONT_SIZE),
-    tileFontSize: Math.max(Math.round(tileSize * 0.6), MIN_FONT_SIZE),
-    tileSize,
-  };
-};
+const getSizes = (tileSize: number) => ({
+  pointsFontSize: Math.max(Math.round(tileSize * 0.25), TILE_FONT_SIZE_POINTS_MIN),
+  tileFontSize: Math.max(Math.round(tileSize * 0.6), TILE_FONT_SIZE_MIN),
+  tileSize,
+});
 
 export default Object.assign(Tile, {
   getSizes,
