@@ -4,7 +4,7 @@ import { useEffectOnce } from 'react-use';
 
 import { boardSlice, localStorage, selectBoard, useTypedSelector } from 'state';
 
-const useLocalStorageBoard = () => {
+const useLocalStorageBoard = (): void => {
   const dispatch = useDispatch();
   const board = useTypedSelector(selectBoard);
 

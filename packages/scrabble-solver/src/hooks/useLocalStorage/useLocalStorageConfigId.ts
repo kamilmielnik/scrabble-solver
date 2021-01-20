@@ -4,7 +4,7 @@ import { useEffectOnce } from 'react-use';
 
 import { localStorage, selectConfigId, settingsSlice, useTypedSelector } from 'state';
 
-const useLocalStorageConfigId = () => {
+const useLocalStorageConfigId = (): void => {
   const dispatch = useDispatch();
   const configId = useTypedSelector(selectConfigId);
 

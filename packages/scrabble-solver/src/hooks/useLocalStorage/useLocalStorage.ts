@@ -3,7 +3,7 @@ import useLocalStorageConfigId from './useLocalStorageConfigId';
 import useLocalStorageLocale from './useLocalStorageLocale';
 import useLocalStorageTiles from './useLocalStorageTiles';
 
-const useLocalStorage = () => {
+const useLocalStorage = (): void => {
   useLocalStorageTiles(); // tlles have to go first, see 14869a4
   useLocalStorageBoard();
   useLocalStorageConfigId();

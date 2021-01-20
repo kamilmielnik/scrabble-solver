@@ -5,7 +5,7 @@ import { useEffectOnce } from 'react-use';
 import { detectLocale } from 'lib';
 import { localStorage, selectLocale, settingsSlice, useTypedSelector } from 'state';
 
-const useLocalStorageLocale = () => {
+const useLocalStorageLocale = (): void => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
 
