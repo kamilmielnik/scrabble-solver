@@ -2,6 +2,7 @@ import { EMPTY_CELL } from '@scrabble-solver/constants';
 import classNames from 'classnames';
 import React, {
   createRef,
+  ChangeEventHandler,
   FocusEventHandler,
   FunctionComponent,
   KeyboardEventHandler,
@@ -30,6 +31,8 @@ interface Props {
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
 }
 
+const handleChange: ChangeEventHandler = (event) => event.preventDefault();
+
 const Tile: FunctionComponent<Props> = ({
   autoFocus,
   className,
@@ -47,8 +50,11 @@ const Tile: FunctionComponent<Props> = ({
   const config = useTypedSelector(selectConfig);
   const points = isBlank ? config.blankScore : config.getCharacterPoints(character);
   const isEmpty = !character || character === EMPTY_CELL;
-  const { pointsFontSize, tileFontSize, tileSize } = getSizes(size);
   const canShowPoints = (isBlank || !isEmpty) && typeof points !== 'undefined';
+  const { pointsFontSize, tileFontSize, tileSize } = getSizes(size);
+  const style = useMemo(() => ({ height: tileSize, width: tileSize }), [tileSize]);
+  const inputStyle = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
+  const pointsStyle = useMemo(() => ({ fontSize: pointsFontSize }), [pointsFontSize]);
 
   useEffect(() => {
     if (autoFocus && ref.current) {
@@ -68,10 +74,7 @@ const Tile: FunctionComponent<Props> = ({
         [styles.points4]: points === 4,
         [styles.points5]: typeof points === 'number' && points >= 5,
       })}
-      style={{
-        height: tileSize,
-        width: tileSize,
-      }}
+      style={style}
     >
       <input
         autoCapitalize="off"
@@ -82,23 +85,16 @@ const Tile: FunctionComponent<Props> = ({
         maxLength={1}
         placeholder={placeholder}
         ref={ref}
-        spellCheck="false"
-        style={{
-          fontSize: tileFontSize,
-        }}
+        spellCheck={false}
+        style={inputStyle}
         value={character || ''}
-        onChange={(event) => event.preventDefault()}
+        onChange={handleChange}
         onFocus={onFocus}
         onKeyDown={onKeyDown}
       />
 
       {canShowPoints && (
-        <span
-          className={styles.points}
-          style={{
-            fontSize: pointsFontSize,
-          }}
-        >
+        <span className={styles.points} style={pointsStyle}>
           {points}
         </span>
       )}
