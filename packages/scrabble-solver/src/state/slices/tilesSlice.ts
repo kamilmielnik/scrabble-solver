@@ -1,13 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Tile } from '@scrabble-solver/types';
 
-import { createNullMovingComparator, zipCharactersAndTiles } from 'lib';
+import { createNullMovingComparator, inverseDirection, zipCharactersAndTiles } from 'lib';
 
 import tilesInitialState from './tilesInitialState';
-
-const inverseDirection = (direction: 'left' | 'right'): 'left' | 'right' => {
-  return direction === 'left' ? 'right' : 'left';
-};
 
 const tilesSlice = createSlice({
   initialState: tilesInitialState,

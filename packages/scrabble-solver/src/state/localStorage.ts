@@ -32,7 +32,7 @@ const localStorage = {
     return Boolean(store.get(HAS_VISITED));
   },
 
-  setHasVisited(hasVisited: boolean) {
+  setHasVisited(hasVisited: boolean): void {
     store.set(HAS_VISITED, hasVisited, true);
   },
 

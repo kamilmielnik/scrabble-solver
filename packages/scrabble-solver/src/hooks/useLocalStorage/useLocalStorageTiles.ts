@@ -4,7 +4,7 @@ import { useEffectOnce } from 'react-use';
 
 import { localStorage, selectTiles, tilesSlice, useTypedSelector } from 'state';
 
-const useLocalStorageTiles = () => {
+const useLocalStorageTiles = (): void => {
   const dispatch = useDispatch();
   const tiles = useTypedSelector(selectTiles);
 

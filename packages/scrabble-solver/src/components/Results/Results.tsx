@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { FixedSizeList } from 'react-window';
 
+import { RESULTS_HEADER_HEIGHT, RESULTS_ITEM_HEIGHT } from 'const';
 import { selectAreResultsOutdated, selectIsLoading, selectSortedResults, useTranslate, useTypedSelector } from 'state';
 
 import EmptyState from '../EmptyState';
@@ -11,9 +12,6 @@ import Header from './Header';
 import Result from './Result';
 import styles from './Results.module.scss';
 import SolveButton from './SolveButton';
-
-const HEADER_HEIGHT = 35;
-const ITEM_HEIGHT = 34;
 
 interface Props {
   height: number;
@@ -55,9 +53,9 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
                   className={classNames(styles.list, {
                     [styles.outdated]: isOutdated,
                   })}
-                  height={height - HEADER_HEIGHT}
+                  height={height - RESULTS_HEADER_HEIGHT}
                   itemCount={results.length}
-                  itemSize={ITEM_HEIGHT}
+                  itemSize={RESULTS_ITEM_HEIGHT}
                   width={width}
                 >
                   {Result}

@@ -1,4 +1,3 @@
-import { Config } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
@@ -7,7 +6,9 @@ import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure } from 'react-use';
 
 import { Board, Dictionary, KeyMap, Logo, NavButtons, Results, Settings, Splash, Tiles, Well } from 'components';
+import { COMPONENTS_SPACING } from 'const';
 import { useLocalStorage } from 'hooks';
+import { getCellSize } from 'lib';
 import {
   boardSlice,
   dictionarySlice,
@@ -22,28 +23,6 @@ import {
 
 import styles from './index.module.scss';
 
-// TODO: moove to constants?
-const MIN_TILE_SIZE = 20;
-const MAX_TILE_SIZE = 60;
-const SIDEBAR_MARGIN_LEFT = 40; // TODO: unhardcode?
-
-const INITIAL_SIZE = { height: 0, width: 0 };
-
-const getCellSize = (config: Config, width: number, height: number): number => {
-  const cellBorderWidth = 1; // TODO: unhardcode
-  const maxWidth = (width - cellBorderWidth) / config.boardWidth - cellBorderWidth;
-  const maxHeight = (height - cellBorderWidth) / config.boardHeight - cellBorderWidth;
-  const cellSize = Math.min(maxWidth, maxHeight);
-  return Math.min(Math.max(cellSize, MIN_TILE_SIZE), MAX_TILE_SIZE);
-};
-
-const getVersion = (): string => {
-  const packageJsonFilepath = path.resolve(process.cwd(), 'package.json');
-  const packageJsonFile = fs.readFileSync(packageJsonFilepath, 'utf-8');
-  const packageJson = JSON.parse(packageJsonFile);
-  return packageJson.version;
-};
-
 interface Props {
   version: string;
 }
@@ -56,9 +35,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [contentRef, { width: contentWidth }] = useMeasure<HTMLDivElement>();
   const [resultsRef, { height: resultsHeight, width: resultsWidth }] = useMeasure<HTMLDivElement>();
   const config = useTypedSelector(selectConfig);
-  const cellSize = getCellSize(config, contentWidth - resultsWidth - SIDEBAR_MARGIN_LEFT, boardHeight);
-  const isInitialized =
-    contentWidth !== INITIAL_SIZE.width && boardHeight !== INITIAL_SIZE.height && resultsWidth !== INITIAL_SIZE.width;
+  const cellSize = getCellSize(config, contentWidth - resultsWidth - COMPONENTS_SPACING, boardHeight);
+  const isInitialized = contentWidth > 0 && boardHeight > 0 && resultsWidth > 0;
 
   const handleClear = () => {
     dispatch(boardSlice.actions.reset());
@@ -135,12 +113,25 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   );
 };
 
-export const getStaticProps = async () => {
-  const props: Props = {
-    version: getVersion(),
-  };
+export const getStaticProps = async (): Promise<{ props: Props }> => {
+  const version = await readVersion();
+  return { props: { version } };
+};
 
-  return { props };
+const readVersion = (): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const packageJsonFilepath = path.resolve(process.cwd(), 'package.json');
+
+    fs.readFile(packageJsonFilepath, 'utf-8', (error, data) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+
+      const packageJson = JSON.parse(data);
+      resolve(packageJson.version);
+    });
+  });
 };
 
 export default Index;

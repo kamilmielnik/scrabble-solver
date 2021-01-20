@@ -16,13 +16,10 @@ const dictionarySlice = createSlice({
     submit: (state) => {
       return {
         ...state,
-        // TODO: decide if should keep or not
-        // It affects the loading state
-
-        // definitions: dictionaryInitialState.definitions,
-        // isAllowed: dictionaryInitialState.isAllowed,
+        definitions: dictionaryInitialState.definitions,
+        isAllowed: dictionaryInitialState.isAllowed,
         isLoading: true,
-        // word: dictionaryInitialState.word,
+        word: dictionaryInitialState.word,
       };
     },
 

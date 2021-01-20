@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { resultsSlice, selectSortedResults, useTypedSelector } from 'state';
@@ -11,8 +11,9 @@ interface Props {
   style?: CSSProperties;
 }
 
-const Result = ({ index, style }: Props) => {
+const Result = ({ index, style }: Props): ReactElement => {
   const dispatch = useDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const results = useTypedSelector(selectSortedResults)!;
   const result = results[index];
 

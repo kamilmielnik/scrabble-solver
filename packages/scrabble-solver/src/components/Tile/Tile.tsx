@@ -2,6 +2,7 @@ import { EMPTY_CELL } from '@scrabble-solver/constants';
 import classNames from 'classnames';
 import React, {
   createRef,
+  ChangeEventHandler,
   FocusEventHandler,
   FunctionComponent,
   KeyboardEventHandler,
@@ -10,6 +11,7 @@ import React, {
   useMemo,
 } from 'react';
 
+import { getTileSizes } from 'lib';
 import { selectConfig, useTypedSelector } from 'state';
 
 import styles from './Tile.module.scss';
@@ -29,6 +31,8 @@ interface Props {
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
 }
 
+const handleChange: ChangeEventHandler = (event) => event.preventDefault();
+
 const Tile: FunctionComponent<Props> = ({
   autoFocus,
   className,
@@ -46,8 +50,11 @@ const Tile: FunctionComponent<Props> = ({
   const config = useTypedSelector(selectConfig);
   const points = isBlank ? config.blankScore : config.getCharacterPoints(character);
   const isEmpty = !character || character === EMPTY_CELL;
-  const { pointsFontSize, tileFontSize, tileSize } = getSizes(size);
   const canShowPoints = (isBlank || !isEmpty) && typeof points !== 'undefined';
+  const { pointsFontSize, tileFontSize, tileSize } = getTileSizes(size);
+  const style = useMemo(() => ({ height: tileSize, width: tileSize }), [tileSize]);
+  const inputStyle = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
+  const pointsStyle = useMemo(() => ({ fontSize: pointsFontSize }), [pointsFontSize]);
 
   useEffect(() => {
     if (autoFocus && ref.current) {
@@ -67,10 +74,7 @@ const Tile: FunctionComponent<Props> = ({
         [styles.points4]: points === 4,
         [styles.points5]: typeof points === 'number' && points >= 5,
       })}
-      style={{
-        height: tileSize,
-        width: tileSize,
-      }}
+      style={style}
     >
       <input
         autoCapitalize="off"
@@ -81,23 +85,16 @@ const Tile: FunctionComponent<Props> = ({
         maxLength={1}
         placeholder={placeholder}
         ref={ref}
-        spellCheck="false"
-        style={{
-          fontSize: tileFontSize,
-        }}
+        spellCheck={false}
+        style={inputStyle}
         value={character || ''}
-        onChange={(event) => event.preventDefault()}
+        onChange={handleChange}
         onFocus={onFocus}
         onKeyDown={onKeyDown}
       />
 
       {canShowPoints && (
-        <span
-          className={styles.points}
-          style={{
-            fontSize: pointsFontSize,
-          }}
-        >
+        <span className={styles.points} style={pointsStyle}>
           {points}
         </span>
       )}
@@ -105,20 +102,4 @@ const Tile: FunctionComponent<Props> = ({
   );
 };
 
-const MIN_FONT_SIZE = 14;
-const MIN_POINTS_FONT_SIZE = 10;
-
-// TODO: put this function in a better place
-const getSizes = (tileSize: number) => {
-  // TODO: make it better, unhardcode
-
-  return {
-    pointsFontSize: Math.max(Math.round(tileSize * 0.25), MIN_POINTS_FONT_SIZE),
-    tileFontSize: Math.max(Math.round(tileSize * 0.6), MIN_FONT_SIZE),
-    tileSize,
-  };
-};
-
-export default Object.assign(Tile, {
-  getSizes,
-});
+export default Tile;

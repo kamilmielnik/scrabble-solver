@@ -11,13 +11,13 @@ class Board {
 
   public static fromJson(json: BoardJson): Board {
     return new Board({
-      board: json.map((row) => row.map(Cell.fromJson)),
+      rows: json.map((row) => row.map(Cell.fromJson)),
     });
   }
 
   public static fromStringArray(stringArray: string[]): Board {
     return new Board({
-      board: stringArray.map((row, y) =>
+      rows: stringArray.map((row, y) =>
         row.split('').map(
           (character, x) =>
             new Cell({
@@ -31,27 +31,27 @@ class Board {
     });
   }
 
-  public readonly board: Cell[][];
+  public readonly rows: Cell[][];
 
   public readonly numberOfColumns: number;
 
   public readonly numberOfRows: number;
 
-  constructor({ board }: { board: Cell[][] }) {
-    this.board = board;
-    this.numberOfColumns = board[0].length;
-    this.numberOfRows = board.length;
+  constructor({ rows }: { rows: Cell[][] }) {
+    this.rows = rows;
+    this.numberOfColumns = rows[0].length;
+    this.numberOfRows = rows.length;
   }
 
   public get center(): Cell {
     const x = Math.floor(this.numberOfColumns / 2);
     const y = Math.floor(this.numberOfRows / 2);
-    return this.board[y][x];
+    return this.rows[y][x];
   }
 
   public clone(): Board {
-    const board = this.board.map((row) => row.map((cell) => cell.clone()));
-    return new Board({ board });
+    const rows = this.rows.map((row) => row.map((cell) => cell.clone()));
+    return new Board({ rows });
   }
 
   public collides(cell: Cell): boolean {
@@ -59,71 +59,71 @@ class Board {
   }
 
   public collidesDown({ x, y }: Cell): boolean {
-    return y < this.numberOfRows - 1 && !this.board[y + 1][x].isEmpty;
+    return y < this.numberOfRows - 1 && !this.rows[y + 1][x].isEmpty;
   }
 
   public collidesLeft({ x, y }: Cell): boolean {
-    return x > 0 && !this.board[y][x - 1].isEmpty;
+    return x > 0 && !this.rows[y][x - 1].isEmpty;
   }
 
   public collidesRight({ x, y }: Cell): boolean {
-    return x < this.numberOfColumns - 1 && !this.board[y][x + 1].isEmpty;
+    return x < this.numberOfColumns - 1 && !this.rows[y][x + 1].isEmpty;
   }
 
   public collidesUp({ x, y }: Cell): boolean {
-    return y > 0 && !this.board[y - 1][x].isEmpty;
+    return y > 0 && !this.rows[y - 1][x].isEmpty;
   }
 
   public equals(other: Board): boolean {
     return (
       this.numberOfColumns === other.numberOfColumns &&
       this.numberOfRows === other.numberOfRows &&
-      this.board.every((row, rowIndex) => {
+      this.rows.every((row, rowIndex) => {
         return row.every((cell, cellIndex) => {
-          return cell.equals(other.board[rowIndex][cellIndex]);
+          return cell.equals(other.rows[rowIndex][cellIndex]);
         });
       })
     );
   }
 
   public getBlanksCount(): number {
-    return this.board.reduce((count, row) => {
+    return this.rows.reduce((count, row) => {
       return count + row.reduce((rowCount, cell) => (cell.tile.isBlank ? rowCount + 1 : rowCount), 0);
     }, 0);
   }
 
   public getColumn(index: number): Cell[] {
-    return this.board.map((row) => row[index]);
+    return this.rows.map((row) => row[index]);
   }
 
   public getRow(index: number): Cell[] {
-    return this.board[index];
+    return this.rows[index];
   }
 
   public getTilesCount(): number {
-    return this.board.reduce((count, row) => {
+    return this.rows.reduce((count, row) => {
       return count + row.reduce((rowCount, cell) => (cell.hasTile() ? rowCount + 1 : rowCount), 0);
     }, 0);
   }
 
   public isEmpty(): boolean {
-    return this.board.every((row) => row.every(({ isEmpty }) => isEmpty));
+    return this.rows.every((row) => row.every(({ isEmpty }) => isEmpty));
   }
 
   public toJson(): BoardJson {
-    return this.board.map((row) => row.map((cell) => cell.toJson()));
+    return this.rows.map((row) => row.map((cell) => cell.toJson()));
   }
 
   public toString(): string {
-    return this.board.map((row) => row.map(String)).join('\n');
+    return this.rows.map((row) => row.map(String)).join('\n');
   }
 
   public updateCell(x: number, y: number, updateCell: (cell: Cell) => Cell): void {
-    this.board[y][x] = updateCell(this.board[y][x]);
+    this.rows[y][x] = updateCell(this.rows[y][x]);
   }
 
   public updateRow(y: number, updateRow: (cells: Cell[]) => Cell[]): void {
-    this.board[y] = updateRow(this.board[y]);
+    this.rows[y] = updateRow(this.rows[y]);
   }
 }
 

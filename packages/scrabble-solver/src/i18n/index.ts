@@ -1,11 +1,12 @@
 import { Locale } from '@scrabble-solver/types';
 
+import { Translations } from 'types';
+
 import en from './en.json';
 import fr from './fr.json';
 import pl from './pl.json';
 
-// TODO: make typing more accurate, i.e. Record<Locale, Record<TranslationKey, string>>
-const i18n: Record<Locale, Record<string, string>> = {
+const i18n: Record<Locale, Translations> = {
   [Locale.EN_GB]: en,
   [Locale.EN_US]: en,
   [Locale.FR_FR]: fr,
