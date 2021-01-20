@@ -1,3 +1,5 @@
+$easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
+
 :root {
   --border--color: #cdcdcd;
   --border--radius: 5px;
@@ -65,9 +67,9 @@
 
   --sidebar-width: 400px;
 
-  --transition--duration: 100ms; // TODO: 150ms? it used to be 150ms on .cell
-  --transition--duration--long: 250ms; // TODO: 150ms? it used to be 150ms on .cell
-  --transition--easing: cubic-bezier(0.61, 1, 0.88, 1); // easeOutSine
+  --transition--duration: 100ms;
+  --transition--duration--long: 250ms;
+  --transition--easing: $easeOutSine;
   --transition: all var(--transition--duration) var(--transition--easing);
 
   --focus--box-shadow--size: 6px;
