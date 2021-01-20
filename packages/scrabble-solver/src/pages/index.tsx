@@ -25,6 +25,8 @@ import styles from './index.module.scss';
 
 const getVersion = (): string => {
   const packageJsonFilepath = path.resolve(process.cwd(), 'package.json');
+
+  // TODO make it async
   const packageJsonFile = fs.readFileSync(packageJsonFilepath, 'utf-8');
   const packageJson = JSON.parse(packageJsonFile);
   return packageJson.version;
@@ -120,7 +122,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps = async (): Promise<{ props: Props }> => {
   const props: Props = {
     version: getVersion(),
   };

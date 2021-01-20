@@ -20,7 +20,7 @@ const SUBMIT_DELAY = 150;
 
 const memoizedFindWordDefinition = memoize(findWordDefinition);
 
-export function* rootSaga() {
+export function* rootSaga(): Generator {
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
   yield takeEvery(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
   yield takeEvery(settingsSlice.actions.changeConfigId.type, onConfigIdChange);
