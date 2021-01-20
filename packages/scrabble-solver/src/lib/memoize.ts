@@ -1,5 +1,5 @@
 interface AnyFunction {
-  (...parameters: any): any;
+  (...parameters: any): any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 interface AnyCachedFunction<T extends AnyFunction> extends AnyFunction {
@@ -11,11 +11,7 @@ interface Entry<T extends AnyFunction> {
   result: ReturnType<T>;
 }
 
-const parametersEqual = <T extends AnyFunction>(a: Parameters<T>, b: Parameters<T>): boolean => {
-  return a.length === b.length && a.every((parameter: any, index: number) => parameter === b[index]);
-};
-
-const memoize = <T extends (...parameters: any) => any>(fn: T): AnyCachedFunction<T> => {
+const memoize = <T extends AnyFunction>(fn: T): AnyCachedFunction<T> => {
   const cache: Entry<T>[] = [];
 
   const hasCache = (...parameters: Parameters<T>): boolean => Boolean(readCache(parameters));
@@ -43,6 +39,14 @@ const memoize = <T extends (...parameters: any) => any>(fn: T): AnyCachedFunctio
   };
 
   return Object.assign(memoized, { hasCache });
+};
+
+const parametersEqual = <T extends AnyFunction>(a: Parameters<T>, b: Parameters<T>): boolean => {
+  if (a.length !== b.length) {
+    return false;
+  }
+
+  return a.every((parameter: Parameters<T>[typeof index], index: number) => parameter === b[index]);
 };
 
 export default memoize;
