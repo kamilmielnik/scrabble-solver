@@ -1,6 +1,12 @@
 import { NextApiRequest } from 'next';
 
-import { ServerLoggingData } from 'types';
+interface ServerLoggingData {
+  origin?: string;
+  referer?: string;
+  userAgent?: string;
+  xForwardedFor?: string | string[];
+  xRealIp?: string | string[];
+}
 
 const getServerLoggingData = (request: NextApiRequest): ServerLoggingData => ({
   origin: request.headers.origin,

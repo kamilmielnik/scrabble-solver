@@ -1,8 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { SolveParameters } from 'types';
+import { Board } from '@scrabble-solver/types';
 
 import solveInitialState from './solveInitialState';
+
+interface SolveParameters {
+  board: Board;
+  characters: string[];
+}
 
 const solveSlice = createSlice({
   initialState: solveInitialState,
