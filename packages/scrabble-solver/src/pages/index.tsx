@@ -2,7 +2,7 @@ import { Config } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
-import React, { FormEventHandler, FunctionComponent, useState } from 'react';
+import React, { AnimationEvent, FormEventHandler, FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure } from 'react-use';
 
@@ -26,8 +26,6 @@ import styles from './index.module.scss';
 const MIN_TILE_SIZE = 20;
 const MAX_TILE_SIZE = 60;
 const SIDEBAR_MARGIN_LEFT = 40; // TODO: unhardcode?
-const SPLASH_DURATION = 1000;
-const SETTINGS_SPLASH_DELAY = 100;
 
 const INITIAL_SIZE = { height: 0, width: 0 };
 
@@ -74,6 +72,15 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     dispatch(solveSlice.actions.submit());
   };
 
+  const handleSplashAnimationEnd = (event: AnimationEvent<HTMLDivElement>) => {
+    if (event.target !== event.currentTarget || localStorage.getHasVisited()) {
+      return;
+    }
+
+    setShowSettings(true);
+    localStorage.setHasVisited(true);
+  };
+
   const handleHideKeyMap = () => setShowKeyMap(false);
   const handleShowKeyMap = () => setShowKeyMap(true);
   const handleHideSettings = () => setShowSettings(false);
@@ -83,15 +90,6 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
   useEffectOnce(() => {
     dispatch(initialize());
-  });
-
-  useEffectOnce(() => {
-    if (!localStorage.getHasVisited()) {
-      setTimeout(() => {
-        setShowSettings(true);
-        localStorage.setHasVisited(true);
-      }, SPLASH_DURATION + SETTINGS_SPLASH_DELAY);
-    }
   });
 
   return (
@@ -132,7 +130,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
       <KeyMap hidden={!showKeyMap} onClose={handleHideKeyMap} />
 
-      <Splash forceShow={!isInitialized} />
+      <Splash forceShow={!isInitialized} onAnimationEnd={handleSplashAnimationEnd} />
     </>
   );
 };

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, ReactNode } from 'react';
+import React, { AnimationEventHandler, FunctionComponent, ReactNode } from 'react';
 
 import { cross } from 'icons';
 import { useTranslate } from 'state';
@@ -12,14 +12,15 @@ interface Props {
   children?: ReactNode;
   className?: string;
   contentClassName?: string;
+  onAnimationEnd?: AnimationEventHandler<HTMLDivElement>;
   onClose?: () => void;
 }
 
-const Screen: FunctionComponent<Props> = ({ children, className, contentClassName, onClose }) => {
+const Screen: FunctionComponent<Props> = ({ children, className, contentClassName, onAnimationEnd, onClose }) => {
   const translate = useTranslate();
 
   return (
-    <div className={classNames(styles.screen, className)}>
+    <div className={classNames(styles.screen, className)} onAnimationEnd={onAnimationEnd}>
       {onClose && (
         <Button className={styles.closeButton} icon={cross} title={translate('close')} onClick={onClose}>
           {translate('close')}

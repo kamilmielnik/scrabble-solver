@@ -27,6 +27,7 @@ $hiding-duration: 250ms;
     .logoColor {
       animation: progress;
       animation-duration: $loading-duration;
+      animation-fill-mode: forwards;
     }
   }
 }
