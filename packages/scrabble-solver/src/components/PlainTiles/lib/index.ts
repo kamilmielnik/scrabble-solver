@@ -11,22 +11,9 @@ import {
   TILE_MAX_ROTATE,
   TILE_MAX_SCATTER,
 } from '../constants';
+import { CreateTileOptions, CreateTilesOptions } from '../types';
 
-interface CreateTileOptions {
-  cellIndex: number;
-  character: string;
-  color?: string;
-  rowIndex: number;
-  showPoints?: boolean;
-}
-
-interface CreateTilesOptions {
-  color?: string;
-  content: string[][];
-  showPoints?: boolean;
-}
-
-const randomize = (value: number, maxChange: number): number => value + maxChange * 2 * (0.5 - Math.random());
+import randomize from './randomize';
 
 export const createTiles = ({ color, content, showPoints }: CreateTilesOptions) => {
   const rows = content.map((words, rowIndex) => {
