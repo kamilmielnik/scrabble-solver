@@ -6,7 +6,7 @@ import {
   PLAIN_TILES_TILE_MAX_SCATTER,
   PLAIN_TILES_TILE_MAX_ROTATE,
   PLAIN_TILES_TILE_SIZE,
-} from 'const';
+} from 'parameters';
 
 import { CreatePlainTileOptions, PlainTile } from '../types';
 

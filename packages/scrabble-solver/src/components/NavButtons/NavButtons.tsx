@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 
-import { GITHUB_PROJECT_URL } from 'const';
 import { cog, eraser, github, keyboard } from 'icons';
+import { GITHUB_PROJECT_URL } from 'parameters';
 import { useTranslate } from 'state';
 
 import SquareButton from '../SquareButton';

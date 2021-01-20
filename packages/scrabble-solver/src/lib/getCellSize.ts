@@ -1,6 +1,6 @@
 import { Config } from '@scrabble-solver/types';
 
-import { BOARD_CELL_BORDER_WIDTH, BOARD_TILE_SIZE_MAX, BOARD_TILE_SIZE_MIN } from 'const';
+import { BOARD_CELL_BORDER_WIDTH, BOARD_TILE_SIZE_MAX, BOARD_TILE_SIZE_MIN } from 'parameters';
 
 const getCellSize = (config: Config, width: number, height: number): number => {
   const maxWidth = (width - BOARD_CELL_BORDER_WIDTH) / config.boardWidth - BOARD_CELL_BORDER_WIDTH;

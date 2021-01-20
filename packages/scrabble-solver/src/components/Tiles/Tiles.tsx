@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import React, { createRef, FunctionComponent, useCallback, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { TILE_SIZE } from 'const';
 import { createKeyboardNavigation, zipCharactersAndTiles } from 'lib';
+import { TILE_SIZE } from 'parameters';
 import { selectConfig, selectResultCandidate, selectTiles, tilesSlice, useTranslate, useTypedSelector } from 'state';
 
 import Tile from '../Tile';

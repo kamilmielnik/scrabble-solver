@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { FixedSizeList } from 'react-window';
 
-import { RESULTS_HEADER_HEIGHT, RESULTS_ITEM_HEIGHT } from 'const';
+import { RESULTS_HEADER_HEIGHT, RESULTS_ITEM_HEIGHT } from 'parameters';
 import { selectAreResultsOutdated, selectIsLoading, selectSortedResults, useTranslate, useTypedSelector } from 'state';
 
 import EmptyState from '../EmptyState';

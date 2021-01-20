@@ -12,12 +12,12 @@
     "paths": {
       "api": ["./src/api"],
       "components": ["./src/components"],
-      "const": ["./src/const"],
       "hooks": ["./src/hooks"],
       "icons": ["./src/icons"],
       "i18n": ["./src/i18n"],
       "lib": ["./src/lib"],
       "pages": ["./src/pages"],
+      "parameters": ["./src/parameters"],
       "sdk": ["./src/sdk"],
       "state": ["./src/state"],
       "styles": ["./src/styles"],

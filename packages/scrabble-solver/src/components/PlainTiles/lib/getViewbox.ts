@@ -1,4 +1,4 @@
-import { PLAIN_TILES_TILE_MARGIN, PLAIN_TILES_TILE_SIZE } from 'const';
+import { PLAIN_TILES_TILE_MARGIN, PLAIN_TILES_TILE_SIZE } from 'parameters';
 
 const getViewbox = (content: string[][]): string => {
   const longestRowLength = content.reduce((result, words) => {

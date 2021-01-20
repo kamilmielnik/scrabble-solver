@@ -6,9 +6,9 @@ import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure } from 'react-use';
 
 import { Board, Dictionary, KeyMap, Logo, NavButtons, Results, Settings, Splash, Tiles, Well } from 'components';
-import { COMPONENTS_SPACING } from 'const';
 import { useLocalStorage } from 'hooks';
 import { getCellSize } from 'lib';
+import { COMPONENTS_SPACING } from 'parameters';
 import {
   boardSlice,
   dictionarySlice,

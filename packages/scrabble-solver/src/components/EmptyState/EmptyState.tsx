@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent, useMemo } from 'react';
 
-import { COLOR_BLUE, COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from 'const';
+import { COLOR_BLUE, COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from 'parameters';
 import { useTranslate } from 'state';
 import { Translations } from 'types';
 

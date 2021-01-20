@@ -1,4 +1,4 @@
-import { BOARD_TILE_FONT_SIZE_MIN, BOARD_TILE_FONT_SIZE_POINTS_MIN } from 'const';
+import { BOARD_TILE_FONT_SIZE_MIN, BOARD_TILE_FONT_SIZE_POINTS_MIN } from 'parameters';
 
 interface TileSizes {
   pointsFontSize: number;
