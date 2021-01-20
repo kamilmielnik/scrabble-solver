@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent, useMemo } from 'react';
 
+import { COLOR_BLUE, COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from 'const';
 import { useTranslate } from 'state';
 
 import PlainTiles from '../PlainTiles';
@@ -13,12 +14,7 @@ interface Props {
   type: 'error' | 'info' | 'success' | 'warning';
 }
 
-// TODO: import these from somewhere
-const COLOR_BLUE = '#c7d8f9';
-const COLOR_GREEN = '#bae3ba';
-const COLOR_RED = '#f7c2aa';
-const COLOR_YELLOW = '#efe3ae';
-
+// TODO: improve typing (not string, locale key or something like that)
 const TITLE_KEY_PER_TYPE: Record<Props['type'], string> = {
   error: 'empty-state.error',
   info: 'empty-state.info',
@@ -26,6 +22,7 @@ const TITLE_KEY_PER_TYPE: Record<Props['type'], string> = {
   warning: 'empty-state.warning',
 };
 
+// TODO: improve typing (not string, locale key or something like that)
 const COLORS_PER_TYPE: Record<Props['type'], string> = {
   error: COLOR_RED,
   info: COLOR_BLUE,
