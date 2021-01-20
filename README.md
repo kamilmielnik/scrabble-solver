@@ -4,9 +4,9 @@
 
 The ultimate cheating app for [Scrabble](https://en.wikipedia.org/wiki/Scrabble) and [Literaki](https://pl.wikipedia.org/wiki/Literaki).
 
-Available at https://scrabble-solver.kamilmielnik.com/.
+Available at https://scrabble-solver.kamilmielnik.com/ in English, French & Polish.
 
-Run it locally for better performance, your machine surely is faster than that server.
+Run it locally for better performance (your machine surely is faster than that server).
 
 It's cross-platform - all you need is [Node.js](https://nodejs.org/).
 
