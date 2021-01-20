@@ -1,6 +1,11 @@
-import { Board } from '@scrabble-solver/types';
+import { Board, Tile } from '@scrabble-solver/types';
 
 export type Comparator<T> = (a: T, B: T) => number;
+
+export interface CharacterTilePair {
+  character: string | null;
+  tile: Tile | null;
+}
 
 export interface ServerLoggingData {
   origin?: string;

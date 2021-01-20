@@ -1,10 +1,7 @@
 import { BLANK } from '@scrabble-solver/constants';
 import { Tile } from '@scrabble-solver/types';
 
-interface CharacterTilePair {
-  character: string | null;
-  tile: Tile | null;
-}
+import { CharacterTilePair } from 'types';
 
 const zipCharactersAndTiles = (characters: (string | null)[], tiles: Tile[]): CharacterTilePair[] => {
   let remainingTiles = [...tiles];

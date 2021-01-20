@@ -15,23 +15,15 @@ interface Props {
   className?: string;
 }
 
-// TODO: Move this
-const useTiles = () => {
-  const resultCandidate = useTypedSelector(selectResultCandidate);
-  const characters = useTypedSelector(selectTiles);
-  const tiles = resultCandidate?.tiles || [];
-
-  return zipCharactersAndTiles(characters, tiles).map(({ character, tile }) => ({
-    character,
-    isCandidate: tile !== null,
-  }));
-};
-
 const Tiles: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const config = useTypedSelector(selectConfig);
-  const tiles = useTiles();
+  const resultCandidate = useTypedSelector(selectResultCandidate);
+  const characters = useTypedSelector(selectTiles);
+  const tiles = useMemo(() => {
+    return zipCharactersAndTiles(characters, resultCandidate?.tiles || []);
+  }, [characters, resultCandidate]);
   const tilesCount = tiles.length;
   const tilesRefs = useMemo(() => {
     return Array.from({ length: tilesCount }).map(() => createRef<HTMLInputElement>());
@@ -79,12 +71,12 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
 
   return (
     <div className={classNames(styles.tiles, className)}>
-      {tiles.map(({ character, isCandidate }, index) => (
+      {tiles.map(({ character, tile }, index) => (
         <Tile
           autoFocus={index === 0}
           className={styles.tile}
           character={character === null ? undefined : character}
-          highlighted={isCandidate}
+          highlighted={tile !== null}
           inputRef={tilesRefs[index]}
           isBlank={character === BLANK}
           key={index}
