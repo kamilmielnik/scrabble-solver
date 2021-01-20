@@ -4,6 +4,7 @@ import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
 import { createKeyComparator, reverseComparator, stringComparator } from 'lib';
+import { Translations } from 'types';
 
 import { RootState } from './types';
 
@@ -23,8 +24,7 @@ export const selectLocale = createSelector([selectSettingsRoot], (settings) => s
 
 export const selectBoard = (state: RootState): Board => state.board;
 
-// TODO: rename state.board.board to state.board.rows
-export const selectRows = (state: RootState): Cell[][] => state.board.board;
+export const selectRows = (state: RootState): Cell[][] => state.board.rows;
 
 export const selectCells = createSelector([selectRows], (rows) => {
   return rows.reduce<Cell[]>((cells: Cell[], row: Cell[]) => cells.concat(row), []);
@@ -73,7 +73,7 @@ export const selectCharacterPoints = createSelector(
 export const selectTranslations = createSelector([selectLocale], (locale) => i18n[locale]);
 
 export const selectTranslation = createSelector(
-  [selectTranslations, selectLocale, (_: RootState, id: string) => id],
+  [selectTranslations, selectLocale, (_: RootState, id: keyof Translations) => id],
   (translations, locale, id): string => {
     const translation = translations[id];
 
