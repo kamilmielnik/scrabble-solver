@@ -5,5 +5,9 @@ export const COLOR_YELLOW = '#efe3ae';
 
 export const BOARD_TILE_FONT_SIZE_MIN = 14;
 export const BOARD_TILE_FONT_SIZE_POINTS_MIN = 10;
+export const BOARD_TILE_SIZE_MAX = 60;
+export const BOARD_TILE_SIZE_MIN = 20;
 
 export const TILE_SIZE = 80;
+
+export const COMPONENTS_SPACING = 40;

@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure } from 'react-use';
 
 import { Board, Dictionary, KeyMap, Logo, NavButtons, Results, Settings, Splash, Tiles, Well } from 'components';
+import { BOARD_TILE_SIZE_MAX, BOARD_TILE_SIZE_MIN, COMPONENTS_SPACING } from 'const';
 import { useLocalStorage } from 'hooks';
 import {
   boardSlice,
@@ -22,19 +23,12 @@ import {
 
 import styles from './index.module.scss';
 
-// TODO: moove to constants?
-const MIN_TILE_SIZE = 20;
-const MAX_TILE_SIZE = 60;
-const SIDEBAR_MARGIN_LEFT = 40; // TODO: unhardcode?
-
-const INITIAL_SIZE = { height: 0, width: 0 };
-
 const getCellSize = (config: Config, width: number, height: number): number => {
   const cellBorderWidth = 1; // TODO: unhardcode
   const maxWidth = (width - cellBorderWidth) / config.boardWidth - cellBorderWidth;
   const maxHeight = (height - cellBorderWidth) / config.boardHeight - cellBorderWidth;
   const cellSize = Math.min(maxWidth, maxHeight);
-  return Math.min(Math.max(cellSize, MIN_TILE_SIZE), MAX_TILE_SIZE);
+  return Math.min(Math.max(cellSize, BOARD_TILE_SIZE_MIN), BOARD_TILE_SIZE_MAX);
 };
 
 const getVersion = (): string => {
@@ -56,9 +50,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [contentRef, { width: contentWidth }] = useMeasure<HTMLDivElement>();
   const [resultsRef, { height: resultsHeight, width: resultsWidth }] = useMeasure<HTMLDivElement>();
   const config = useTypedSelector(selectConfig);
-  const cellSize = getCellSize(config, contentWidth - resultsWidth - SIDEBAR_MARGIN_LEFT, boardHeight);
-  const isInitialized =
-    contentWidth !== INITIAL_SIZE.width && boardHeight !== INITIAL_SIZE.height && resultsWidth !== INITIAL_SIZE.width;
+  const cellSize = getCellSize(config, contentWidth - resultsWidth - COMPONENTS_SPACING, boardHeight);
+  const isInitialized = contentWidth > 0 && boardHeight > 0 && resultsWidth > 0;
 
   const handleClear = () => {
     dispatch(boardSlice.actions.reset());
