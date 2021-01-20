@@ -38,8 +38,9 @@ function* onApplyResult({ payload: result }: PayloadAction<Result>) {
 }
 
 function* onConfigIdChange() {
+  yield put(resultsSlice.actions.reset());
   yield put(solveSlice.actions.submit());
-  yield put(resultsSlice.actions.changeResultCandidate(null));
+  yield* ensureProperTilesCount();
 }
 
 function* onDictionarySubmit() {
@@ -60,6 +61,7 @@ function* onDictionarySubmit() {
 
 function* onInitialize() {
   yield call(visit);
+  yield* ensureProperTilesCount();
 }
 
 function* onLocaleChange() {
@@ -99,5 +101,21 @@ function* onSubmit() {
   } catch (error) {
     yield put(resultsSlice.actions.changeResults([]));
     yield put(solveSlice.actions.submitFailure());
+  }
+}
+
+function* ensureProperTilesCount() {
+  const { config } = yield select(selectConfig);
+  const characters = yield select(selectCharacters);
+
+  if (config.maximumNumberOfCharacters > characters.length) {
+    const differenceCount = Math.abs(config.maximumNumberOfCharacters - characters.length);
+    yield put(tilesSlice.actions.init([...characters, ...Array(differenceCount).fill(null)]));
+  } else if (config.maximumNumberOfCharacters < characters.length) {
+    const nonNulls = characters.filter(Boolean).slice(0, config.maximumNumberOfCharacters);
+    const differenceCount = Math.abs(config.maximumNumberOfCharacters - nonNulls.length);
+    const autoGroupTiles = yield select(selectAutoGroupTiles);
+    yield put(tilesSlice.actions.init([...nonNulls, ...Array(differenceCount).fill(null)]));
+    yield put(tilesSlice.actions.groupTiles(autoGroupTiles));
   }
 }
