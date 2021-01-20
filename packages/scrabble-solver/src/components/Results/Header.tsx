@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { useTranslate } from 'state';
 
 import styles from './Results.module.scss';
 
-const Header = () => {
+const Header = (): ReactElement => {
   const translate = useTranslate();
 
   return (

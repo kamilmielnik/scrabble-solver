@@ -13,6 +13,7 @@ interface Props {
 
 const Result = ({ index, style }: Props): ReactElement => {
   const dispatch = useDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const results = useTypedSelector(selectSortedResults)!;
   const result = results[index];
 
