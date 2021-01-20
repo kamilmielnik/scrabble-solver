@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import React, { createRef, FunctionComponent, useCallback, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { TILE_SIZE } from 'const';
 import { createKeyboardNavigation, zipCharactersAndTiles } from 'lib';
 import { selectConfig, selectResultCandidate, selectTiles, tilesSlice, useTranslate, useTypedSelector } from 'state';
 
@@ -82,7 +83,6 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
         <Tile
           autoFocus={index === 0}
           className={styles.tile}
-          // TODO: is this a hack?
           character={character === null ? undefined : character}
           highlighted={isCandidate}
           inputRef={tilesRefs[index]}
@@ -90,7 +90,7 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
           key={index}
           placeholder={translate('tiles.placeholder')[index]}
           raised
-          size={80} // TODO: unhardcode
+          size={TILE_SIZE}
           onFocus={() => setActiveIndex(index)}
           onKeyDown={createKeyboardNavigation({
             onBackspace: () => handleCharacterChange(index, null),
