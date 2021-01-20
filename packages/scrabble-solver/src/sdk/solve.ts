@@ -1,7 +1,5 @@
 import { BoardJson, Locale, ResultJson } from '@scrabble-solver/types';
 
-const URL = '/api/solve';
-
 interface Payload {
   board: BoardJson;
   characters: string[];
@@ -10,7 +8,7 @@ interface Payload {
 }
 
 const solve = ({ board, characters, configId, locale }: Payload): Promise<ResultJson[]> => {
-  return fetch(URL, {
+  return fetch('/api/solve', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

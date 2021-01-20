@@ -1,7 +1,5 @@
-const URL = '/api/visit';
-
 const visit = (): Promise<Response> => {
-  return fetch(URL, {
+  return fetch('/api/visit', {
     method: 'PUT',
   });
 };
