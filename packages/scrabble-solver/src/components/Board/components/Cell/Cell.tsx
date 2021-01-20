@@ -5,7 +5,7 @@ import React, { FunctionComponent, KeyboardEventHandler, memo, RefObject, useCal
 import { useDispatch } from 'react-redux';
 
 import { arrowDown } from 'icons';
-import { createKeyboardNavigation, isCtrl } from 'lib';
+import { createKeyboardNavigation, getTileSizes, isCtrl } from 'lib';
 import { boardSlice, selectBonus, selectConfig, useTranslate, useTypedSelector } from 'state';
 
 import SvgIcon from '../../../SvgIcon';
@@ -43,8 +43,9 @@ const Cell: FunctionComponent<Props> = ({
   const translate = useTranslate();
   const config = useTypedSelector(selectConfig);
   const bonus = useTypedSelector((state) => selectBonus(state, cell));
-  const { tileFontSize } = Tile.getSizes(size);
+  const { tileFontSize } = getTileSizes(size);
   const isEmpty = tile.character === EMPTY_CELL;
+  const style = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
 
   const handleFocus = useCallback(() => onFocus(x, y), [x, y, onFocus]);
 
@@ -91,9 +92,7 @@ const Cell: FunctionComponent<Props> = ({
       className={classNames(styles.cell, getBonusClassname(cell, bonus), className, {
         [styles.candidate]: cell.isCandidate(),
       })}
-      style={{
-        fontSize: tileFontSize,
-      }}
+      style={style}
     >
       <Tile
         className={styles.tile}
