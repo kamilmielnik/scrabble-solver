@@ -1,8 +1,8 @@
 @import 'styles/animations';
 
-$loading-duration: 750ms;
-$loaded-duration: 250ms;
-$hiding-duration: 250ms;
+$loading-duration: 450ms;
+$loaded-duration: 100ms;
+$hiding-duration: 200ms;
 
 .splash {
   display: flex;
