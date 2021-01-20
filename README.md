@@ -42,12 +42,12 @@ Open http://localhost:3333/ if it didn't open up for you.
 
 ## Dictionaries
 
-|                    | List of words                                                                                                                                 | Definitions of words                      |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
-| 🇺🇸 English (en-US) | [TWL06](https://en.wikipedia.org/wiki/NASPA_Word_List) ([download](https://www.wordgamedictionary.com/twl06/download/twl06.txt))              | [Wordnik](https://www.wordnik.com/)       |
-| 🇬🇧 English (en-GB) | [SOWPODS](https://en.wikipedia.org/wiki/Collins_Scrabble_Words) ([download](https://www.wordgamedictionary.com/sowpods/download/sowpods.txt)) | [Wordnik](https://www.wordnik.com/)       |
-| 🇫🇷 French (fr-FR)  | [hbenbel/French-Dictionary](https://github.com/hbenbel/French-Dictionary/)                                                                    | [CNRTL](https://www.cnrtl.fr/definition/) |
-| 🇵🇱 Polish (pl-PL)  | [SJP.PL](https://sjp.pl/slownik/dp.phtml) ([download](https://sjp.pl/slownik/growy/))                                                         | [SJP.PL](https://sjp.pl/)                 |
+| Language   | Locale | Word list                                                                  | Word list (source)                                                                                       | Word definitions                          |
+|------------|--------|----------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|-------------------------------------------|
+| 🇬🇧 English | en-GB  | [SOWPODS](https://en.wikipedia.org/wiki/Collins_Scrabble_Words)            | [download](https://www.wordgamedictionary.com/sowpods/download/sowpods.txt)                              | [Wordnik](https://www.wordnik.com/)       |
+| 🇺🇸 English | en-US  | [TWL06](https://en.wikipedia.org/wiki/NASPA_Word_List)                     | [download](https://www.wordgamedictionary.com/twl06/download/twl06.txt)                                  | [Wordnik](https://www.wordnik.com/)       |
+| 🇫🇷 French  | fr-FR  | [hbenbel/French-Dictionary](https://github.com/hbenbel/French-Dictionary/) | [download](https://raw.githubusercontent.com/hbenbel/French-Dictionary/master/dictionary/dictionary.txt) | [CNRTL](https://www.cnrtl.fr/definition/) |
+| 🇵🇱 Polish  | pl-PL  | [SJP.PL](https://sjp.pl/slownik/dp.phtml)                                  | [download](https://sjp.pl/slownik/growy/)                                                                | [SJP.PL](https://sjp.pl/)                 |
 
 ## Tech stack
 
