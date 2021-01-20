@@ -14,6 +14,7 @@ It's cross-platform - all you need is [Node.js](https://nodejs.org/).
 ![License](https://img.shields.io/npm/l/scrabble-solver)
 ![Node version](https://img.shields.io/node/v/scrabble-solver)
 ![Dependencies](https://img.shields.io/librariesio/release/npm/scrabble-solver)
+![Build](https://github.com/kamilmielnik/scrabble-solver/workflows/Build/badge.svg)
 ![Test](https://github.com/kamilmielnik/scrabble-solver/workflows/Test/badge.svg)
 ![ESLint](https://github.com/kamilmielnik/scrabble-solver/workflows/ESLint/badge.svg)
 
