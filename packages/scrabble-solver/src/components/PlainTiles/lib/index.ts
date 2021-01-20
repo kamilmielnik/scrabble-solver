@@ -10,7 +10,7 @@ import {
   TILE_MARGIN,
   TILE_MAX_ROTATE,
   TILE_MAX_SCATTER,
-} from './constants';
+} from '../constants';
 
 interface CreateTileOptions {
   cellIndex: number;
