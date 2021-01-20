@@ -3,6 +3,7 @@ import React, { FunctionComponent, useMemo } from 'react';
 
 import { COLOR_BLUE, COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from 'const';
 import { useTranslate } from 'state';
+import { Translations } from 'types';
 
 import PlainTiles from '../PlainTiles';
 
@@ -14,15 +15,13 @@ interface Props {
   type: 'error' | 'info' | 'success' | 'warning';
 }
 
-// TODO: improve typing (not string, locale key or something like that)
-const TITLE_KEY_PER_TYPE: Record<Props['type'], string> = {
+const TITLE_KEY_PER_TYPE: Record<Props['type'], keyof Translations> = {
   error: 'empty-state.error',
   info: 'empty-state.info',
   success: 'empty-state.success',
   warning: 'empty-state.warning',
 };
 
-// TODO: improve typing (not string, locale key or something like that)
 const COLORS_PER_TYPE: Record<Props['type'], string> = {
   error: COLOR_RED,
   info: COLOR_BLUE,
