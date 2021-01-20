@@ -16,7 +16,7 @@ const selectCell = (_: RootState, cell: Cell): Cell => cell;
 
 const pointsComparator = reverseComparator(createKeyComparator('points'));
 
-export const selectSettingsRoot = (state: RootState) => state.settings;
+export const selectSettingsRoot = (state: RootState): RootState['settings'] => state.settings;
 
 export const selectAutoGroupTiles = createSelector([selectSettingsRoot], (settings) => settings.autoGroupTiles);
 
@@ -92,7 +92,9 @@ export const selectCharacters = createSelector(
   (tiles): string[] => tiles.filter((tile) => tile !== null) as string[],
 );
 
-export const selectLastSolvedParameters = (state: RootState) => state.solve.lastSolvedParameters;
+export const selectLastSolvedParameters = (state: RootState): RootState['solve']['lastSolvedParameters'] => {
+  return state.solve.lastSolvedParameters;
+};
 
 export const selectIsLoading = (state: RootState): boolean => state.solve.isLoading;
 
@@ -120,4 +122,4 @@ export const selectAreResultsOutdated = createSelector(
   (hasBoardChanged, haveCharactersChanged) => hasBoardChanged || haveCharactersChanged,
 );
 
-export const selectDictionaryRoot = (state: RootState) => state.dictionary;
+export const selectDictionaryRoot = (state: RootState): RootState['dictionary'] => state.dictionary;
