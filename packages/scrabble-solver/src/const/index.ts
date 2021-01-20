@@ -13,3 +13,6 @@ export const BOARD_TILE_SIZE_MIN = 20;
 export const TILE_SIZE = 80;
 
 export const COMPONENTS_SPACING = 40;
+
+export const RESULTS_HEADER_HEIGHT = 35;
+export const RESULTS_ITEM_HEIGHT = 34;
