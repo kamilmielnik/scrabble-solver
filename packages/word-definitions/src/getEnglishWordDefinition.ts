@@ -1,9 +1,7 @@
-import logger from '@scrabble-solver/logger';
 import { WordDefinition } from '@scrabble-solver/types';
 import { URLSearchParams } from 'url';
 
-import normalizeDefinition from './normalizeDefinition';
-import request from './request';
+import { normalizeDefinition, request } from './lib';
 
 // If key is kept secret then `npx scrabble-solver` won't work.
 // The only consequence of someone else using the key is overusing it - the free plan has 100 calls per hour.
@@ -17,38 +15,23 @@ const SEARCH_PARAMS = new URLSearchParams({
   sourceDictionaries: 'all',
 });
 
-const translateEn = async (word: string): Promise<WordDefinition> => {
-  try {
-    const response = await request({
-      protocol: 'http',
-      hostname: 'api.wordnik.com',
-      path: `/v4/word.json/${word}/definitions?${SEARCH_PARAMS}`,
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-    });
-    const wordDefinition = parseWordnikResponse(word, response);
-    return wordDefinition;
-  } catch (error) {
-    logger.error('translateEn', {
-      error: error.message,
-      word,
-    });
-    throw error;
-  }
+const getEnglishWordDefinition = async (word: string): Promise<WordDefinition> => {
+  const response = await request({
+    protocol: 'http',
+    hostname: 'api.wordnik.com',
+    path: `/v4/word.json/${word}/definitions?${SEARCH_PARAMS}`,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+  });
+  const wordDefinition = parseResponse(word, response);
+  return wordDefinition;
 };
 
-const parseWordnikResponse = (word: string, response: string): WordDefinition => {
+const parseResponse = (word: string, response: string): WordDefinition => {
   const results: { text: string }[] = JSON.parse(response);
 
   if (!Array.isArray(results)) {
-    const error = new Error('Results is not an array');
-
-    logger.error('translateEn', {
-      error: error.message,
-      results,
-    });
-
     throw new Error('Results is not an array');
   }
 
@@ -68,4 +51,4 @@ const parseWordnikResponse = (word: string, response: string): WordDefinition =>
   return wordDefinition;
 };
 
-export default translateEn;
+export default getEnglishWordDefinition;

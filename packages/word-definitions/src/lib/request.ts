@@ -8,8 +8,8 @@ interface Options extends RequestOptions {
 const request = ({ protocol, ...options }: Options): Promise<string> => {
   const agent = protocol === 'https' ? https : http;
 
-  return new Promise((resolve, reject) =>
-    agent
+  return new Promise((resolve, reject) => {
+    return agent
       .get(options, (response) => {
         let data = '';
         response.setEncoding('utf8');
@@ -24,8 +24,8 @@ const request = ({ protocol, ...options }: Options): Promise<string> => {
           }
         });
       })
-      .on('error', reject),
-  );
+      .on('error', reject);
+  });
 };
 
 export default request;

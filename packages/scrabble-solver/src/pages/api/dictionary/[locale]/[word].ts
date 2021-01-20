@@ -1,20 +1,14 @@
 import logger from '@scrabble-solver/logger';
-import { Locale, WordDefinition } from '@scrabble-solver/types';
+import { Locale } from '@scrabble-solver/types';
+import { getWordDefinition } from '@scrabble-solver/word-definitions';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { getServerLoggingData, validateLocale, validateWord, translateEn, translateFr, translatePl } from 'api';
+import { getServerLoggingData, validateLocale, validateWord } from 'api';
 
 interface RequestData {
   locale: Locale;
   word: string;
 }
-
-const localeTranslate: Record<Locale, (word: string) => Promise<WordDefinition>> = {
-  [Locale.EN_GB]: translateEn,
-  [Locale.EN_US]: translateEn,
-  [Locale.FR_FR]: translateFr,
-  [Locale.PL_PL]: translatePl,
-};
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
   const meta = getServerLoggingData(request);
@@ -28,8 +22,7 @@ const dictionary = async (request: NextApiRequest, response: NextApiResponse): P
         word,
       },
     });
-    const translate = localeTranslate[locale];
-    const result = await translate(word);
+    const result = await getWordDefinition(locale, word);
     response.status(200).send(result.toJson());
   } catch (error) {
     logger.error('dictionary - error', { error, meta });
