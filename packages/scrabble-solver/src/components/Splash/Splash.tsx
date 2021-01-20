@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
+import React, { AnimationEventHandler, FunctionComponent } from 'react';
 
 import Logo from '../Logo';
 import Screen from '../Screen';
@@ -9,13 +9,15 @@ import styles from './Splash.module.scss';
 interface Props {
   className?: string;
   forceShow?: boolean;
+  onAnimationEnd?: AnimationEventHandler<HTMLDivElement>;
 }
 
-const Splash: FunctionComponent<Props> = ({ className, forceShow }) => (
+const Splash: FunctionComponent<Props> = ({ className, forceShow, onAnimationEnd }) => (
   <Screen
     className={classNames(styles.splash, className, {
       [styles.animated]: !forceShow,
     })}
+    onAnimationEnd={onAnimationEnd}
   >
     <div className={styles.logos}>
       <Logo className={styles.logoGrayscale} />
