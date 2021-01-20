@@ -1,8 +1,5 @@
-// TODO: dedupe
-export const COLOR_BLUE = '#c7d8f9';
-export const COLOR_GREEN = '#bae3ba';
-export const COLOR_RED = '#f7c2aa';
-export const COLOR_YELLOW = '#efe3ae';
+import { COLOR_BLUE, COLOR_GREEN, COLOR_RED, COLOR_YELLOW, TILE_SIZE } from 'const';
+
 export const COLOR_DEFAULT = COLOR_GREEN;
 
 export const PADDING_HORIZONTAL = 0;
@@ -10,7 +7,6 @@ export const PADDING_VERTICAL = 0;
 export const TILE_MARGIN = 6;
 export const TILE_MAX_ROTATE = 0;
 export const TILE_MAX_SCATTER = 0;
-export const TILE_SIZE = 80;
 export const VERSION_TILE_COLOR = COLOR_GREEN;
 export const VERSION_TILE_SIZE = TILE_SIZE;
 

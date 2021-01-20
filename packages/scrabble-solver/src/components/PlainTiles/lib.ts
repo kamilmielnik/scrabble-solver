@@ -1,5 +1,7 @@
 import { literaki } from '@scrabble-solver/configs';
 
+import { TILE_SIZE } from 'const';
+
 import {
   COLOR_DEFAULT,
   PADDING_HORIZONTAL,
@@ -8,7 +10,6 @@ import {
   TILE_MARGIN,
   TILE_MAX_ROTATE,
   TILE_MAX_SCATTER,
-  TILE_SIZE,
 } from './constants';
 
 interface CreateTileOptions {
