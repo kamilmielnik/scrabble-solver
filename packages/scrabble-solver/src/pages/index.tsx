@@ -114,11 +114,11 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 };
 
 export const getStaticProps = async (): Promise<{ props: Props }> => {
-  const version = await getVersion();
+  const version = await readVersion();
   return { props: { version } };
 };
 
-const getVersion = (): Promise<string> => {
+const readVersion = (): Promise<string> => {
   return new Promise((resolve, reject) => {
     const packageJsonFilepath = path.resolve(process.cwd(), 'package.json');
 
