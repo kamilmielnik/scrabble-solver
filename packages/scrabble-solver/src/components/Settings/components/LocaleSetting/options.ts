@@ -25,16 +25,16 @@ const options: Option[] = [
     value: Locale.EN_US,
   },
   {
-    className: styles.pl,
-    icon: flagPl,
-    label: 'Polski',
-    value: Locale.PL_PL,
-  },
-  {
     className: styles.fr,
     icon: flagFr,
     label: 'Français',
     value: Locale.FR_FR,
+  },
+  {
+    className: styles.pl,
+    icon: flagPl,
+    label: 'Polski',
+    value: Locale.PL_PL,
   },
 ];
 
