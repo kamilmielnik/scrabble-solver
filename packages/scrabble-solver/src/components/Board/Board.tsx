@@ -1,10 +1,8 @@
-import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
 import { selectRowsWithCandidate, useTypedSelector } from 'state';
 
-import styles from './Board.module.scss';
-import { Cell } from './components';
+import BoardView from './BoardView';
 import { useGrid } from './hooks';
 
 interface Props {
@@ -20,26 +18,17 @@ const Board: FunctionComponent<Props> = ({ className, cellSize }) => {
   });
 
   return (
-    <div className={classNames(styles.board, className)}>
-      {rows.map((cells, y) => (
-        <div className={styles.row} key={y}>
-          {cells.map((cell, x) => (
-            <Cell
-              className={styles.cell}
-              cell={cell}
-              direction={lastDirection}
-              inputRef={refs[y][x]}
-              key={x}
-              size={cellSize}
-              onDirectionToggle={onDirectionToggle}
-              onFocus={onFocus}
-              onKeyDown={onKeyDown}
-              onMoveFocus={onMoveFocus}
-            />
-          ))}
-        </div>
-      ))}
-    </div>
+    <BoardView
+      className={className}
+      cellSize={cellSize}
+      lastDirection={lastDirection}
+      refs={refs}
+      rows={rows}
+      onFocus={onFocus}
+      onDirectionToggle={onDirectionToggle}
+      onKeyDown={onKeyDown}
+      onMoveFocus={onMoveFocus}
+    />
   );
 };
 

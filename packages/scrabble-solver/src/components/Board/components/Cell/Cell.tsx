@@ -1,19 +1,12 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Cell as CellModel } from '@scrabble-solver/types';
-import classNames from 'classnames';
-import React, { FunctionComponent, KeyboardEventHandler, memo, RefObject, useCallback, useMemo } from 'react';
+import React, { FunctionComponent, KeyboardEventHandler, RefObject, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { arrowDown } from 'icons';
 import { createKeyboardNavigation, getTileSizes, isCtrl } from 'lib';
 import { boardSlice, selectBonus, selectConfig, useTranslate, useTypedSelector } from 'state';
 
-import SvgIcon from '../../../SvgIcon';
-import Tile from '../../../Tile';
-
-import Button from './Button';
-import styles from './Cell.module.scss';
-import { getBonusClassname } from './lib';
+import CellView from './CellView';
 
 interface Props {
   cell: CellModel;
@@ -23,7 +16,7 @@ interface Props {
   size: number;
   onDirectionToggle: () => void;
   onFocus: (x: number, y: number) => void;
-  onKeyDown: KeyboardEventHandler;
+  onKeyDown: KeyboardEventHandler<HTMLInputElement>;
   onMoveFocus: (direction: 'backward' | 'forward') => void;
 }
 
@@ -49,27 +42,25 @@ const Cell: FunctionComponent<Props> = ({
 
   const handleFocus = useCallback(() => onFocus(x, y), [x, y, onFocus]);
 
-  const handleKeyDown = useMemo(
-    () =>
-      createKeyboardNavigation({
-        onDelete: () => dispatch(boardSlice.actions.changeCellValue({ value: EMPTY_CELL, x, y })),
-        onBackspace: () => dispatch(boardSlice.actions.changeCellValue({ value: EMPTY_CELL, x, y })),
-        onKeyDown: (event) => {
-          const character = event.key.toLowerCase();
-          const isTogglingBlank = isCtrl(event) && character === 'b';
+  const handleKeyDown = useMemo(() => {
+    return createKeyboardNavigation({
+      onDelete: () => dispatch(boardSlice.actions.changeCellValue({ value: EMPTY_CELL, x, y })),
+      onBackspace: () => dispatch(boardSlice.actions.changeCellValue({ value: EMPTY_CELL, x, y })),
+      onKeyDown: (event) => {
+        const character = event.key.toLowerCase();
+        const isTogglingBlank = isCtrl(event) && character === 'b';
 
-          if (isTogglingBlank) {
-            dispatch(boardSlice.actions.toggleCellIsBlank({ x, y }));
-          } else if (config.hasCharacter(character)) {
-            dispatch(boardSlice.actions.changeCellValue({ value: character, x, y }));
-            onMoveFocus('forward');
-          }
+        if (isTogglingBlank) {
+          dispatch(boardSlice.actions.toggleCellIsBlank({ x, y }));
+        } else if (config.hasCharacter(character)) {
+          dispatch(boardSlice.actions.changeCellValue({ value: character, x, y }));
+          onMoveFocus('forward');
+        }
 
-          onKeyDown(event);
-        },
-      }),
-    [x, y, config, dispatch, onKeyDown, onMoveFocus],
-  );
+        onKeyDown(event);
+      },
+    });
+  }, [x, y, config, dispatch, onKeyDown, onMoveFocus]);
 
   const handleToggleBlankClick = useCallback(() => {
     if (inputRef.current) {
@@ -88,48 +79,23 @@ const Cell: FunctionComponent<Props> = ({
   }, [onDirectionToggle]);
 
   return (
-    <div
-      className={classNames(styles.cell, getBonusClassname(cell, bonus), className, {
-        [styles.candidate]: cell.isCandidate(),
-      })}
+    <CellView
+      bonus={bonus}
+      cell={cell}
+      className={className}
+      direction={direction}
+      inputRef={inputRef}
+      isEmpty={isEmpty}
+      size={size}
       style={style}
-    >
-      <Tile
-        className={styles.tile}
-        character={isEmpty ? undefined : tile.character}
-        highlighted={cell.isCandidate()}
-        inputRef={inputRef}
-        isBlank={tile.isBlank}
-        raised={!isEmpty}
-        size={size}
-        onFocus={handleFocus}
-        onKeyDown={handleKeyDown}
-      />
-
-      <div className={styles.actions}>
-        <Button title={translate('cell.toggle-direction')} onClick={handleDirectionToggleClick}>
-          <SvgIcon
-            className={classNames(styles.toggleDirection, {
-              [styles.right]: direction === 'horizontal',
-            })}
-            icon={arrowDown}
-          />
-        </Button>
-
-        {!isEmpty && (
-          <Button
-            className={classNames({
-              [styles.blank]: tile.isBlank,
-            })}
-            title={tile.isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
-            onClick={handleToggleBlankClick}
-          >
-            B
-          </Button>
-        )}
-      </div>
-    </div>
+      tile={tile}
+      translate={translate}
+      onDirectionToggleClick={handleDirectionToggleClick}
+      onFocus={handleFocus}
+      onKeyDown={handleKeyDown}
+      onToggleBlankClick={handleToggleBlankClick}
+    />
   );
 };
 
-export default memo(Cell);
+export default Cell;

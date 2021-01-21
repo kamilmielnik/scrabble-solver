@@ -16,7 +16,7 @@ interface State {
 interface Actions {
   onFocus: (x: number, y: number) => void;
   onDirectionToggle: () => void;
-  onKeyDown: KeyboardEventHandler;
+  onKeyDown: KeyboardEventHandler<HTMLInputElement>;
   onMoveFocus: (direction: 'backward' | 'forward') => void;
 }
 

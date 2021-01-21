@@ -1,16 +1,16 @@
-import { KeyboardEvent, KeyboardEventHandler } from 'react';
+import { KeyboardEventHandler } from 'react';
 
 import noop from './noop';
 
 interface Parameters {
-  onArrowDown?: KeyboardEventHandler;
-  onArrowLeft?: KeyboardEventHandler;
-  onArrowRight?: KeyboardEventHandler;
-  onArrowUp?: KeyboardEventHandler;
-  onBackspace?: KeyboardEventHandler;
-  onDelete?: KeyboardEventHandler;
-  onEnter?: KeyboardEventHandler;
-  onKeyDown?: KeyboardEventHandler;
+  onArrowDown?: KeyboardEventHandler<HTMLInputElement>;
+  onArrowLeft?: KeyboardEventHandler<HTMLInputElement>;
+  onArrowRight?: KeyboardEventHandler<HTMLInputElement>;
+  onArrowUp?: KeyboardEventHandler<HTMLInputElement>;
+  onBackspace?: KeyboardEventHandler<HTMLInputElement>;
+  onDelete?: KeyboardEventHandler<HTMLInputElement>;
+  onEnter?: KeyboardEventHandler<HTMLInputElement>;
+  onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
 }
 
 const createKeyboardNavigation = ({
@@ -22,8 +22,8 @@ const createKeyboardNavigation = ({
   onDelete = noop,
   onEnter = noop,
   onKeyDown = noop,
-}: Parameters): KeyboardEventHandler => {
-  const handlers: Record<string, KeyboardEventHandler> = {
+}: Parameters): KeyboardEventHandler<HTMLInputElement> => {
+  const handlers: Record<string, KeyboardEventHandler<HTMLInputElement>> = {
     ArrowUp: onArrowUp,
     ArrowDown: onArrowDown,
     ArrowLeft: onArrowLeft,
@@ -33,11 +33,13 @@ const createKeyboardNavigation = ({
     Enter: onEnter,
   };
 
-  return (event: KeyboardEvent) => {
+  const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
     const handler = handlers[event.key] || noop;
     handler(event);
     onKeyDown(event);
   };
+
+  return handleKeyDown;
 };
 
 export default createKeyboardNavigation;

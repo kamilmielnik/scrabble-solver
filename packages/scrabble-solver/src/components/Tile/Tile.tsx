@@ -1,8 +1,6 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import classNames from 'classnames';
 import React, {
   createRef,
-  ChangeEventHandler,
   FocusEventHandler,
   FunctionComponent,
   KeyboardEventHandler,
@@ -14,12 +12,12 @@ import React, {
 import { getTileSizes } from 'lib';
 import { selectConfig, useTypedSelector } from 'state';
 
-import styles from './Tile.module.scss';
+import TileView from './TileView';
 
 interface Props {
   autoFocus?: boolean;
-  className?: string;
   character?: string;
+  className?: string;
   highlighted?: boolean;
   inputRef?: RefObject<HTMLInputElement>;
   isBlank?: boolean;
@@ -31,14 +29,12 @@ interface Props {
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
 }
 
-const handleChange: ChangeEventHandler = (event) => event.preventDefault();
-
 const Tile: FunctionComponent<Props> = ({
   autoFocus,
   className,
   character = '',
   highlighted,
-  inputRef,
+  inputRef: ref,
   isBlank,
   placeholder,
   raised,
@@ -46,7 +42,7 @@ const Tile: FunctionComponent<Props> = ({
   onFocus,
   onKeyDown,
 }) => {
-  const ref = useMemo<RefObject<HTMLInputElement>>(() => inputRef || createRef(), [inputRef]);
+  const inputRef = useMemo<RefObject<HTMLInputElement>>(() => ref || createRef(), [ref]);
   const config = useTypedSelector(selectConfig);
   const points = isBlank ? config.blankScore : config.getCharacterPoints(character);
   const isEmpty = !character || character === EMPTY_CELL;
@@ -57,48 +53,29 @@ const Tile: FunctionComponent<Props> = ({
   const pointsStyle = useMemo(() => ({ fontSize: pointsFontSize }), [pointsFontSize]);
 
   useEffect(() => {
-    if (autoFocus && ref.current) {
-      ref.current.focus();
+    if (autoFocus && inputRef.current) {
+      inputRef.current.focus();
     }
-  }, [autoFocus, ref]);
+  }, [autoFocus, inputRef]);
 
   return (
-    <div
-      className={classNames(styles.tile, className, {
-        [styles.highlighted]: highlighted,
-        [styles.blank]: isBlank,
-        [styles.raised]: raised,
-        [styles.points1]: points === 1,
-        [styles.points2]: points === 2,
-        [styles.points3]: points === 3,
-        [styles.points4]: points === 4,
-        [styles.points5]: typeof points === 'number' && points >= 5,
-      })}
+    <TileView
+      autoFocus={autoFocus}
+      canShowPoints={canShowPoints}
+      character={character}
+      className={className}
+      highlighted={highlighted}
+      inputRef={inputRef}
+      inputStyle={inputStyle}
+      isBlank={isBlank}
+      placeholder={placeholder}
+      points={points}
+      pointsStyle={pointsStyle}
+      raised={raised}
       style={style}
-    >
-      <input
-        autoCapitalize="off"
-        autoComplete="off"
-        autoCorrect="off"
-        autoFocus={autoFocus}
-        className={styles.character}
-        maxLength={1}
-        placeholder={placeholder}
-        ref={ref}
-        spellCheck={false}
-        style={inputStyle}
-        value={character || ''}
-        onChange={handleChange}
-        onFocus={onFocus}
-        onKeyDown={onKeyDown}
-      />
-
-      {canShowPoints && (
-        <span className={styles.points} style={pointsStyle}>
-          {points}
-        </span>
-      )}
-    </div>
+      onFocus={onFocus}
+      onKeyDown={onKeyDown}
+    />
   );
 };
 

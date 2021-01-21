@@ -1,5 +1,7 @@
 export type Comparator<T> = (a: T, B: T) => number;
 
+export type Translate = (key: keyof Translations) => string;
+
 export interface Translations {
   'cell.set-blank': string;
   'cell.set-not-blank': string;

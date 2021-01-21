@@ -1,23 +1,18 @@
 import { BLANK } from '@scrabble-solver/constants';
 import classNames from 'classnames';
-import React, { createRef, FunctionComponent, useCallback, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { createRef, FunctionComponent, useCallback, useMemo, useRef } from 'react';
 
 import { createKeyboardNavigation, zipCharactersAndTiles } from 'lib';
-import { TILE_SIZE } from 'parameters';
-import { selectConfig, selectResultCandidate, selectTiles, tilesSlice, useTranslate, useTypedSelector } from 'state';
-
-import Tile from '../Tile';
+import { selectConfig, selectResultCandidate, selectTiles, useTypedSelector } from 'state';
 
 import styles from './Tiles.module.scss';
+import TileView from './TileView';
 
 interface Props {
   className?: string;
 }
 
 const Tiles: FunctionComponent<Props> = ({ className }) => {
-  const dispatch = useDispatch();
-  const translate = useTranslate();
   const config = useTypedSelector(selectConfig);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const characters = useTypedSelector(selectTiles);
@@ -28,75 +23,56 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
   const tilesRefs = useMemo(() => {
     return Array.from({ length: tilesCount }).map(() => createRef<HTMLInputElement>());
   }, [tilesCount]);
-  const [activeIndex, setActiveIndex] = useState<number>();
-
-  const handleCharacterChange = (index: number, character: string | null) => {
-    dispatch(tilesSlice.actions.changeCharacter({ character, index }));
-  };
+  const activeIndexRef = useRef<number>();
 
   const changeActiveIndex = useCallback(
     (offset: number) => {
-      const nextActiveIndex = Math.min(Math.max((activeIndex || 0) + offset, 0), tiles.length - 1);
+      const nextActiveIndex = Math.min(Math.max((activeIndexRef.current || 0) + offset, 0), tilesCount - 1);
       const tileRef = tilesRefs[nextActiveIndex].current;
 
       if (tileRef) {
         tileRef.focus();
       }
 
-      setActiveIndex(nextActiveIndex);
+      activeIndexRef.current = nextActiveIndex;
     },
-    [activeIndex, tiles, tilesRefs],
+    [activeIndexRef, tilesCount, tilesRefs],
   );
 
-  const onKeyDown = createKeyboardNavigation({
-    onArrowLeft: (event) => {
-      event.preventDefault();
-      changeActiveIndex(-1);
-    },
-    onArrowRight: (event) => {
-      event.preventDefault();
-      changeActiveIndex(1);
-    },
-    onBackspace: () => {
-      changeActiveIndex(-1);
-    },
-    onKeyDown: (event) => {
-      const character = event.key.toLowerCase();
-
-      if (config.hasCharacter(character) || character === BLANK) {
+  const onKeyDown = useMemo(() => {
+    return createKeyboardNavigation({
+      onArrowLeft: (event) => {
+        event.preventDefault();
+        changeActiveIndex(-1);
+      },
+      onArrowRight: (event) => {
+        event.preventDefault();
         changeActiveIndex(1);
-      }
-    },
-  });
+      },
+      onBackspace: () => {
+        changeActiveIndex(-1);
+      },
+      onKeyDown: (event) => {
+        const character = event.key.toLowerCase();
+
+        if (config.hasCharacter(character) || character === BLANK) {
+          changeActiveIndex(1);
+        }
+      },
+    });
+  }, [changeActiveIndex, config]);
 
   return (
     <div className={classNames(styles.tiles, className)}>
       {tiles.map(({ character, tile }, index) => (
-        <Tile
-          autoFocus={index === 0}
-          className={styles.tile}
-          character={character === null ? undefined : character}
-          highlighted={tile !== null}
+        <TileView
+          activeIndexRef={activeIndexRef}
+          character={character}
+          index={index}
           inputRef={tilesRefs[index]}
-          isBlank={character === BLANK}
           key={index}
-          placeholder={translate('tiles.placeholder')[index]}
-          raised
-          size={TILE_SIZE}
-          onFocus={() => setActiveIndex(index)}
-          onKeyDown={createKeyboardNavigation({
-            onBackspace: () => handleCharacterChange(index, null),
-            onDelete: () => handleCharacterChange(index, null),
-            onKeyDown: (event) => {
-              const newCharacter = event.key.toLowerCase();
-
-              if (config.hasCharacter(newCharacter) || newCharacter === BLANK) {
-                handleCharacterChange(index, newCharacter);
-              }
-
-              onKeyDown(event);
-            },
-          })}
+          tile={tile}
+          onKeyDown={onKeyDown}
         />
       ))}
     </div>
