@@ -42,15 +42,15 @@ const Tile: FunctionComponent<Props> = ({
   onFocus,
   onKeyDown,
 }) => {
+  const { pointsFontSize, tileFontSize, tileSize } = getTileSizes(size);
+  const style = useMemo(() => ({ height: tileSize, width: tileSize }), [tileSize]);
+  const inputStyle = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
+  const pointsStyle = useMemo(() => ({ fontSize: pointsFontSize }), [pointsFontSize]);
   const inputRef = useMemo<RefObject<HTMLInputElement>>(() => ref || createRef(), [ref]);
   const config = useTypedSelector(selectConfig);
   const points = isBlank ? config.blankScore : config.getCharacterPoints(character);
   const isEmpty = !character || character === EMPTY_CELL;
   const canShowPoints = (isBlank || !isEmpty) && typeof points !== 'undefined';
-  const { pointsFontSize, tileFontSize, tileSize } = getTileSizes(size);
-  const style = useMemo(() => ({ height: tileSize, width: tileSize }), [tileSize]);
-  const inputStyle = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
-  const pointsStyle = useMemo(() => ({ fontSize: pointsFontSize }), [pointsFontSize]);
 
   useEffect(() => {
     if (autoFocus && inputRef.current) {
