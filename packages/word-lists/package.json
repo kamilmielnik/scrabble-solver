@@ -23,13 +23,13 @@
     "clean": "rimraf build/ node_modules/ package-lock.json"
   },
   "dependencies": {
+    "archiver": "^5.2.0",
     "cheerio": "^1.0.0-rc.5",
-    "decompress": "^4.2.1",
-    "memfs": "^3.2.0"
+    "memfs": "^3.2.0",
+    "unzipper": "^0.10.11"
   },
   "devDependencies": {
-    "@types/decompress": "^4.2.3",
-    "@types/fs-extra": "^9.0.6"
+    "@types/unzipper": "^0.10.3"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }
