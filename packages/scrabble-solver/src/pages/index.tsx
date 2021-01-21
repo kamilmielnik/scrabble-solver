@@ -14,10 +14,10 @@ import {
   dictionarySlice,
   initialize,
   localStorage,
+  rackSlice,
   resultsSlice,
   selectConfig,
   solveSlice,
-  tilesSlice,
   useTypedSelector,
 } from 'state';
 
@@ -41,8 +41,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const handleClear = () => {
     dispatch(boardSlice.actions.reset());
     dispatch(dictionarySlice.actions.reset());
+    dispatch(rackSlice.actions.reset());
     dispatch(resultsSlice.actions.reset());
-    dispatch(tilesSlice.actions.reset());
   };
 
   const handleSubmit: FormEventHandler = (event) => {

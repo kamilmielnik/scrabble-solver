@@ -5,7 +5,7 @@ const BOARD = 'board';
 const CONFIG_ID = 'config-id';
 const HAS_VISITED = 'has-visited';
 const LOCALE = 'locale';
-const TILES = 'tiles';
+const RACK = 'rack';
 
 const store = store2.namespace('scrabble-solver');
 
@@ -44,12 +44,12 @@ const localStorage = {
     store.set(LOCALE, locale, true);
   },
 
-  getTiles(): (string | null)[] | undefined {
-    return store.get(TILES);
+  getRack(): (string | null)[] | undefined {
+    return store.get(RACK);
   },
 
-  setTiles(tiles: (string | null)[] | undefined): void {
-    store.set(TILES, tiles, true);
+  setRack(rack: (string | null)[] | undefined): void {
+    store.set(RACK, rack, true);
   },
 };
 

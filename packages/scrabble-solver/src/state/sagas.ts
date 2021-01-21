@@ -14,7 +14,7 @@ import {
   selectDictionaryRoot,
   selectLocale,
 } from './selectors';
-import { boardSlice, dictionarySlice, resultsSlice, settingsSlice, solveSlice, tilesSlice } from './slices';
+import { boardSlice, dictionarySlice, rackSlice, resultsSlice, settingsSlice, solveSlice } from './slices';
 
 const SUBMIT_DELAY = 150;
 
@@ -33,8 +33,8 @@ export function* rootSaga(): Generator {
 function* onApplyResult({ payload: result }: PayloadAction<Result>) {
   const autoGroupTiles = yield select(selectAutoGroupTiles);
   yield put(boardSlice.actions.applyResult(result));
-  yield put(tilesSlice.actions.removeTiles(result.tiles));
-  yield put(tilesSlice.actions.groupTiles(autoGroupTiles));
+  yield put(rackSlice.actions.removeTiles(result.tiles));
+  yield put(rackSlice.actions.groupTiles(autoGroupTiles));
 }
 
 function* onConfigIdChange() {
@@ -110,12 +110,12 @@ function* ensureProperTilesCount() {
 
   if (config.maximumNumberOfCharacters > characters.length) {
     const differenceCount = Math.abs(config.maximumNumberOfCharacters - characters.length);
-    yield put(tilesSlice.actions.init([...characters, ...Array(differenceCount).fill(null)]));
+    yield put(rackSlice.actions.init([...characters, ...Array(differenceCount).fill(null)]));
   } else if (config.maximumNumberOfCharacters < characters.length) {
     const nonNulls = characters.filter(Boolean).slice(0, config.maximumNumberOfCharacters);
     const differenceCount = Math.abs(config.maximumNumberOfCharacters - nonNulls.length);
     const autoGroupTiles = yield select(selectAutoGroupTiles);
-    yield put(tilesSlice.actions.init([...nonNulls, ...Array(differenceCount).fill(null)]));
-    yield put(tilesSlice.actions.groupTiles(autoGroupTiles));
+    yield put(rackSlice.actions.init([...nonNulls, ...Array(differenceCount).fill(null)]));
+    yield put(rackSlice.actions.groupTiles(autoGroupTiles));
   }
 }

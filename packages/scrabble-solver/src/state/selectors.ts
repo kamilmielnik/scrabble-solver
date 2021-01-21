@@ -85,11 +85,11 @@ export const selectTranslation = createSelector(
   },
 );
 
-export const selectTiles = (state: RootState): (string | null)[] => state.tiles;
+export const selectRack = (state: RootState): (string | null)[] => state.rack;
 
 export const selectCharacters = createSelector(
-  selectTiles,
-  (tiles): string[] => tiles.filter((tile) => tile !== null) as string[],
+  selectRack,
+  (rack): string[] => rack.filter((tile) => tile !== null) as string[],
 );
 
 export const selectLastSolvedParameters = (state: RootState): RootState['solve']['lastSolvedParameters'] => {

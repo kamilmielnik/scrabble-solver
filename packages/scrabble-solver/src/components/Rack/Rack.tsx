@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import React, { createRef, FunctionComponent, useCallback, useMemo, useRef } from 'react';
 
 import { createKeyboardNavigation, zipCharactersAndTiles } from 'lib';
-import { selectConfig, selectResultCandidate, selectTiles, useTypedSelector } from 'state';
+import { selectConfig, selectRack, selectResultCandidate, useTypedSelector } from 'state';
 
 import styles from './Rack.module.scss';
 import RackTile from './RackTile';
@@ -15,10 +15,10 @@ interface Props {
 const Rack: FunctionComponent<Props> = ({ className }) => {
   const config = useTypedSelector(selectConfig);
   const resultCandidate = useTypedSelector(selectResultCandidate);
-  const characters = useTypedSelector(selectTiles);
+  const rack = useTypedSelector(selectRack);
   const tiles = useMemo(() => {
-    return zipCharactersAndTiles(characters, resultCandidate?.tiles || []);
-  }, [characters, resultCandidate]);
+    return zipCharactersAndTiles(rack, resultCandidate?.tiles || []);
+  }, [rack, resultCandidate]);
   const tilesCount = tiles.length;
   const tilesRefs = useMemo(() => {
     return Array.from({ length: tilesCount }).map(() => createRef<HTMLInputElement>());

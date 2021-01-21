@@ -5,7 +5,7 @@ import { play } from 'icons';
 import {
   selectAreResultsOutdated,
   selectIsLoading,
-  selectTiles,
+  selectRack,
   solveSlice,
   useTranslate,
   useTypedSelector,
@@ -19,9 +19,9 @@ const SolveButton: FunctionComponent = () => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isLoading = useTypedSelector(selectIsLoading);
-  const tiles = useTypedSelector(selectTiles);
+  const rack = useTypedSelector(selectRack);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
-  const hasTiles = tiles.some((tile) => tile !== null);
+  const hasTiles = rack.some((tile) => tile !== null);
 
   const handleRefresh = () => {
     dispatch(solveSlice.actions.submit());

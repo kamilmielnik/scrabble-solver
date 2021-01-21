@@ -3,15 +3,15 @@ import { Tile } from '@scrabble-solver/types';
 
 import { createNullMovingComparator, inverseDirection, zipCharactersAndTiles } from 'lib';
 
-import tilesInitialState from './tilesInitialState';
+import rackInitialState from './rackInitialState';
 
-const tilesSlice = createSlice({
-  initialState: tilesInitialState,
-  name: 'tiles',
+const rackSlice = createSlice({
+  initialState: rackInitialState,
+  name: 'rack',
   reducers: {
     change: (_state, action: PayloadAction<(string | null)[]>) => {
-      const tiles = action.payload;
-      return tiles;
+      const rack = action.payload;
+      return rack;
     },
 
     changeCharacter: (state, action: PayloadAction<{ character: string | null; index: number }>) => {
@@ -32,8 +32,8 @@ const tilesSlice = createSlice({
     },
 
     init: (_state, action: PayloadAction<(string | null)[]>) => {
-      const tiles = action.payload;
-      return tiles;
+      const rack = action.payload;
+      return rack;
     },
 
     removeTiles: (state, action: PayloadAction<Tile[]>) => {
@@ -43,8 +43,8 @@ const tilesSlice = createSlice({
       return charactersWithoutMatchingTiles;
     },
 
-    reset: () => tilesInitialState,
+    reset: () => rackInitialState,
   },
 });
 
-export default tilesSlice;
+export default rackSlice;
