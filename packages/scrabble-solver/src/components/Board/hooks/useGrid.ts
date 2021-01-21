@@ -29,12 +29,15 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
   const [lastDirection, setLastDirection] = useState<'horizontal' | 'vertical'>('horizontal');
   const lastDirectionRef = useLatest(lastDirection);
 
-  const changeActiveIndexRef = useLatest((offsetX: number, offsetY: number) => {
-    const x = Math.min(Math.max(activeIndexRef.current.x + offsetX, 0), width - 1);
-    const y = Math.min(Math.max(activeIndexRef.current.y + offsetY, 0), height - 1);
-    activeIndexRef.current = { x, y };
-    refs[y][x].current?.focus();
-  });
+  const changeActiveIndex = useCallback(
+    (offsetX: number, offsetY: number) => {
+      const x = Math.min(Math.max(activeIndexRef.current.x + offsetX, 0), width - 1);
+      const y = Math.min(Math.max(activeIndexRef.current.y + offsetY, 0), height - 1);
+      activeIndexRef.current = { x, y };
+      refs[y][x].current?.focus();
+    },
+    [activeIndexRef, refs],
+  );
 
   const onDirectionToggle = useCallback(() => {
     setLastDirection((direction) => {
@@ -51,12 +54,12 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
       const offset = direction === 'forward' ? 1 : -1;
 
       if (lastDirectionRef.current === 'horizontal') {
-        changeActiveIndexRef.current(offset, 0);
+        changeActiveIndex(offset, 0);
       } else {
-        changeActiveIndexRef.current(0, offset);
+        changeActiveIndex(0, offset);
       }
     },
-    [changeActiveIndexRef, lastDirectionRef],
+    [changeActiveIndex, lastDirectionRef],
   );
 
   const onKeyDown = useMemo(() => {
@@ -65,28 +68,28 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
         if (isCtrl(event)) {
           onDirectionToggle();
         } else {
-          changeActiveIndexRef.current(0, 1);
+          changeActiveIndex(0, 1);
         }
       },
       onArrowLeft: (event) => {
         if (isCtrl(event)) {
           onDirectionToggle();
         } else {
-          changeActiveIndexRef.current(-1, 0);
+          changeActiveIndex(-1, 0);
         }
       },
       onArrowRight: (event) => {
         if (isCtrl(event)) {
           onDirectionToggle();
         } else {
-          changeActiveIndexRef.current(1, 0);
+          changeActiveIndex(1, 0);
         }
       },
       onArrowUp: (event) => {
         if (isCtrl(event)) {
           onDirectionToggle();
         } else {
-          changeActiveIndexRef.current(0, -1);
+          changeActiveIndex(0, -1);
         }
       },
       onBackspace: () => {
@@ -96,7 +99,7 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
         onMoveFocus('forward');
       },
     });
-  }, [changeActiveIndexRef, lastDirectionRef, onDirectionToggle]);
+  }, [changeActiveIndex, lastDirectionRef, onDirectionToggle]);
 
   return [
     { lastDirection, refs },
