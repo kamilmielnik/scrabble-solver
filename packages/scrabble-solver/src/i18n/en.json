@@ -17,13 +17,14 @@
   "keyMap.board": "Board",
   "keyMap.board.toggle-blank": "Mark/unmark tile as a blank",
   "keyMap.board.toggle-direction": "Toggle typing direction",
-  "keyMap.board-and-tiles": "Board & tiles",
-  "keyMap.board-and-tiles.navigate": "Navigate",
-  "keyMap.board-and-tiles.remove-tile": "Remove tile",
-  "keyMap.board-and-tiles.submit": "Start solving",
-  "keyMap.tiles": "Tiles",
-  "keyMap.tiles.insert-blank": "Insert blank (spacebar)",
+  "keyMap.board-and-rack": "Board & rack",
+  "keyMap.board-and-rack.navigate": "Navigate",
+  "keyMap.board-and-rack.remove-tile": "Remove tile",
+  "keyMap.board-and-rack.submit": "Start solving",
+  "keyMap.rack": "Rack",
+  "keyMap.rack.insert-blank": "Insert blank (spacebar)",
   "loading": "Loading",
+  "rack.placeholder": "Letters",
   "results.empty-state.outdated": "Results are outdated. Click below to update.",
   "results.empty-state.no-results": "No results - unable to generate any words.",
   "results.empty-state.unitialized": "Words generated from your letters will be shown here.",
@@ -36,6 +37,5 @@
   "settings.autoGroupTiles.right": "On the right",
   "settings.autoGroupTiles.null": "Do not group",
   "settings.game": "Game",
-  "settings.language": "Language",
-  "tiles.placeholder": "Letters"
+  "settings.language": "Language"
 }

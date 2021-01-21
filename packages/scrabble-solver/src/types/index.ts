@@ -21,13 +21,14 @@ export interface Translations {
   'keyMap.board': string;
   'keyMap.board.toggle-blank': string;
   'keyMap.board.toggle-direction': string;
-  'keyMap.board-and-tiles': string;
-  'keyMap.board-and-tiles.navigate': string;
-  'keyMap.board-and-tiles.remove-tile': string;
-  'keyMap.board-and-tiles.submit': string;
-  'keyMap.tiles': string;
-  'keyMap.tiles.insert-blank': string;
+  'keyMap.board-and-rack': string;
+  'keyMap.board-and-rack.navigate': string;
+  'keyMap.board-and-rack.remove-tile': string;
+  'keyMap.board-and-rack.submit': string;
+  'keyMap.rack': string;
+  'keyMap.rack.insert-blank': string;
   loading: string;
+  'rack.placeholder': string;
   'results.empty-state.outdated': string;
   'results.empty-state.no-results': string;
   'results.empty-state.unitialized': string;
@@ -41,5 +42,4 @@ export interface Translations {
   'settings.autoGroupTiles.null': string;
   'settings.game': string;
   'settings.language': string;
-  'tiles.placeholder': string;
 }

@@ -21,10 +21,10 @@ const KeyMap: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
 
   return (
     <Sidebar className={className} hidden={hidden} title={translate('keyMap')} onClose={onClose}>
-      <Sidebar.Section title={translate('keyMap.board-and-tiles')}>
-        <Mapping description={translate('keyMap.board-and-tiles.navigate')} mapping={mapping.navigate} />
-        <Mapping description={translate('keyMap.board-and-tiles.remove-tile')} mapping={mapping.removeTile} />
-        <Mapping description={translate('keyMap.board-and-tiles.submit')} mapping={mapping.submit} />
+      <Sidebar.Section title={translate('keyMap.board-and-rack')}>
+        <Mapping description={translate('keyMap.board-and-rack.navigate')} mapping={mapping.navigate} />
+        <Mapping description={translate('keyMap.board-and-rack.remove-tile')} mapping={mapping.removeTile} />
+        <Mapping description={translate('keyMap.board-and-rack.submit')} mapping={mapping.submit} />
       </Sidebar.Section>
 
       <Sidebar.Section title={translate('keyMap.board')}>
@@ -32,8 +32,8 @@ const KeyMap: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
         <Mapping description={translate('keyMap.board.toggle-direction')} mapping={mapping.toggleDirection} />
       </Sidebar.Section>
 
-      <Sidebar.Section title={translate('keyMap.tiles')}>
-        <Mapping description={translate('keyMap.tiles.insert-blank')} mapping={mapping.insertBlank} />
+      <Sidebar.Section title={translate('keyMap.rack')}>
+        <Mapping description={translate('keyMap.rack.insert-blank')} mapping={mapping.insertBlank} />
       </Sidebar.Section>
     </Sidebar>
   );

@@ -68,7 +68,7 @@ const RackTile: FunctionComponent<Props> = ({ activeIndexRef, character, index, 
       inputRef={inputRef}
       isBlank={character === BLANK}
       key={index}
-      placeholder={translate('tiles.placeholder')[index]}
+      placeholder={translate('rack.placeholder')[index]}
       raised
       size={TILE_SIZE}
       onFocus={handleFocus}

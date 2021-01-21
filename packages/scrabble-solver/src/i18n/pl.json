@@ -17,13 +17,14 @@
   "keyMap.board": "Plansza",
   "keyMap.board.toggle-blank": "Oznacz/odznacz płytkę jako blank",
   "keyMap.board.toggle-direction": "Zmień kierunek wpisywania",
-  "keyMap.board-and-tiles": "Plansza i płytki",
-  "keyMap.board-and-tiles.navigate": "Nawigacja",
-  "keyMap.board-and-tiles.remove-tile": "Zdejmij płytkę",
-  "keyMap.board-and-tiles.submit": "Rozpocznij wyszukiwanie",
-  "keyMap.tiles": "Płytki",
-  "keyMap.tiles.insert-blank": "Wstaw blanka (spacja)",
+  "keyMap.board-and-rack": "Plansza i stojak",
+  "keyMap.board-and-rack.navigate": "Nawigacja",
+  "keyMap.board-and-rack.remove-tile": "Zdejmij płytkę",
+  "keyMap.board-and-rack.submit": "Rozpocznij wyszukiwanie",
+  "keyMap.rack": "Stojak",
+  "keyMap.rack.insert-blank": "Wstaw blanka (spacja)",
   "loading": "Ładowanie",
+  "rack.placeholder": "Literki",
   "results.empty-state.outdated": "Wyniki są nieaktualne. Kliknij poniżej, aby zaktualizować.",
   "results.empty-state.no-results": "Brak wyników - nie można wygenerować żadnego słowa.",
   "results.empty-state.unitialized": "Tu zostaną wyświetlone słowa wygenerowane z Twoich liter.",
@@ -36,6 +37,5 @@
   "settings.autoGroupTiles.right": "Po prawej",
   "settings.autoGroupTiles.null": "Nie grupuj",
   "settings.game": "Gra",
-  "settings.language": "Język",
-  "tiles.placeholder": "Literki"
+  "settings.language": "Język"
 }

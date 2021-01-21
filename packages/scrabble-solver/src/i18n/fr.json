@@ -17,13 +17,14 @@
   "keyMap.board": "Plateau",
   "keyMap.board.toggle-blank": "Marqué/Démarqué la case en tant que vide",
   "keyMap.board.toggle-direction": "Faire basculer la direction d'écriture",
-  "keyMap.board-and-tiles": "Plateau & cases",
-  "keyMap.board-and-tiles.navigate": "Naviguer",
-  "keyMap.board-and-tiles.remove-tile": "Supprimer une case",
-  "keyMap.board-and-tiles.submit": "Commencer la résolution",
-  "keyMap.tiles": "Cases",
-  "keyMap.tiles.insert-blank": "Inserer une case vide (spacebar)",
+  "keyMap.board-and-rack": "Plateau & chevalet",
+  "keyMap.board-and-rack.navigate": "Naviguer",
+  "keyMap.board-and-rack.remove-tile": "Supprimer une case",
+  "keyMap.board-and-rack.submit": "Commencer la résolution",
+  "keyMap.rack": "Chevalet",
+  "keyMap.rack.insert-blank": "Inserer une case vide (spacebar)",
   "loading": "Chargement",
+  "rack.placeholder": "Lettres",
   "results.empty-state.outdated": "Les résultats sont dépassé. Cliquer ci-dessous pour mettre à jour.",
   "results.empty-state.no-results": "Pas de résultats - impossible de générer des mots.",
   "results.empty-state.unitialized": "Words generated from your letters will be shown here.",
@@ -36,6 +37,5 @@
   "settings.autoGroupTiles.right": "Vers la gauche",
   "settings.autoGroupTiles.null": "Ne pas grouper",
   "settings.game": "Jeu",
-  "settings.language": "Langue",
-  "tiles.placeholder": "Lettres"
+  "settings.language": "Langue"
 }

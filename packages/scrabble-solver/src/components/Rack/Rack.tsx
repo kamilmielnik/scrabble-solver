@@ -63,7 +63,7 @@ const Rack: FunctionComponent<Props> = ({ className }) => {
   }, [changeActiveIndex, config]);
 
   return (
-    <div className={classNames(styles.tiles, className)}>
+    <div className={classNames(styles.rack, className)}>
       {tiles.map(({ character, tile }, index) => (
         <RackTile
           activeIndexRef={activeIndexRef}
