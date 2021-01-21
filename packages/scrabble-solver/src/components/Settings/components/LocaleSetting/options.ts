@@ -15,13 +15,13 @@ const options: Option[] = [
   {
     className: styles.gb,
     icon: flagGb,
-    label: 'English',
+    label: 'English (GB)',
     value: Locale.EN_GB,
   },
   {
     className: styles.us,
     icon: flagUs,
-    label: 'English',
+    label: 'English (US)',
     value: Locale.EN_US,
   },
   {
