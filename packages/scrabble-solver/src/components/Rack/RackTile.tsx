@@ -16,7 +16,7 @@ import { selectConfig, tilesSlice, useTranslate, useTypedSelector } from 'state'
 
 import Tile from '../Tile';
 
-import styles from './Tiles.module.scss';
+import styles from './Rack.module.scss';
 
 interface Props {
   activeIndexRef: MutableRefObject<number | undefined>;
@@ -27,7 +27,7 @@ interface Props {
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
 }
 
-const TileView: FunctionComponent<Props> = ({ activeIndexRef, character, index, inputRef, tile, onKeyDown }) => {
+const RackTile: FunctionComponent<Props> = ({ activeIndexRef, character, index, inputRef, tile, onKeyDown }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const config = useTypedSelector(selectConfig);
@@ -77,4 +77,4 @@ const TileView: FunctionComponent<Props> = ({ activeIndexRef, character, index, 
   );
 };
 
-export default TileView;
+export default RackTile;

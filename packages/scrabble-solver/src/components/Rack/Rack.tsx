@@ -5,14 +5,14 @@ import React, { createRef, FunctionComponent, useCallback, useMemo, useRef } fro
 import { createKeyboardNavigation, zipCharactersAndTiles } from 'lib';
 import { selectConfig, selectResultCandidate, selectTiles, useTypedSelector } from 'state';
 
-import styles from './Tiles.module.scss';
-import TileView from './TileView';
+import styles from './Rack.module.scss';
+import RackTile from './RackTile';
 
 interface Props {
   className?: string;
 }
 
-const Tiles: FunctionComponent<Props> = ({ className }) => {
+const Rack: FunctionComponent<Props> = ({ className }) => {
   const config = useTypedSelector(selectConfig);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const characters = useTypedSelector(selectTiles);
@@ -65,7 +65,7 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
   return (
     <div className={classNames(styles.tiles, className)}>
       {tiles.map(({ character, tile }, index) => (
-        <TileView
+        <RackTile
           activeIndexRef={activeIndexRef}
           character={character}
           index={index}
@@ -79,4 +79,4 @@ const Tiles: FunctionComponent<Props> = ({ className }) => {
   );
 };
 
-export default Tiles;
+export default Rack;

@@ -5,7 +5,7 @@ import React, { AnimationEvent, FormEventHandler, FunctionComponent, useState } 
 import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure } from 'react-use';
 
-import { Board, Dictionary, KeyMap, Logo, NavButtons, Results, Settings, Splash, Tiles, Well } from 'components';
+import { Board, Dictionary, KeyMap, Logo, NavButtons, Rack, Results, Settings, Splash, Well } from 'components';
 import { useLocalStorage } from 'hooks';
 import { getCellSize } from 'lib';
 import { COMPONENTS_SPACING } from 'parameters';
@@ -99,8 +99,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           </div>
         </div>
 
-        <div className={styles.tilesContainer}>
-          <Tiles className={styles.tiles} />
+        <div className={styles.rackContainer}>
+          <Rack className={styles.rack} />
         </div>
       </form>
 
