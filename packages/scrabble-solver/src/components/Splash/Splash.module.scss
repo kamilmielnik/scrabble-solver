@@ -20,7 +20,7 @@ $hiding-duration: 200ms;
     .logos {
       animation: pulse;
       animation-delay: $loading-duration + $loaded-duration;
-      animation-duration: var(--transition--duration--long);
+      animation-duration: $hiding-duration;
       animation-fill-mode: forwards;
     }
 
