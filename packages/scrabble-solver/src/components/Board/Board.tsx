@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 
 import { selectRowsWithCandidate, useTypedSelector } from 'state';
 
-import BoardView from './BoardView';
+import BoardPure from './BoardPure';
 import { useGrid } from './hooks';
 
 interface Props {
@@ -18,7 +18,7 @@ const Board: FunctionComponent<Props> = ({ className, cellSize }) => {
   });
 
   return (
-    <BoardView
+    <BoardPure
       className={className}
       cellSize={cellSize}
       lastDirection={lastDirection}

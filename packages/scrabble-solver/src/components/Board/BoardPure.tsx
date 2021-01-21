@@ -17,7 +17,7 @@ interface Props {
   onMoveFocus: (direction: 'backward' | 'forward') => void;
 }
 
-const BoardView: FunctionComponent<Props> = ({
+const BoardPure: FunctionComponent<Props> = ({
   className,
   lastDirection,
   refs,
@@ -50,4 +50,4 @@ const BoardView: FunctionComponent<Props> = ({
   </div>
 );
 
-export default memo(BoardView);
+export default memo(BoardPure);

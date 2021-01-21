@@ -37,7 +37,7 @@ interface Props {
   onToggleBlankClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const CellView: FunctionComponent<Props> = ({
+const CellPure: FunctionComponent<Props> = ({
   bonus,
   cell,
   className,
@@ -96,4 +96,4 @@ const CellView: FunctionComponent<Props> = ({
   </div>
 );
 
-export default memo(CellView);
+export default memo(CellPure);

@@ -31,7 +31,7 @@ interface Props {
 
 const handleChange: ChangeEventHandler = (event) => event.preventDefault();
 
-const TileView: FunctionComponent<Props> = ({
+const TilePure: FunctionComponent<Props> = ({
   autoFocus,
   canShowPoints,
   character,
@@ -86,4 +86,4 @@ const TileView: FunctionComponent<Props> = ({
   </div>
 );
 
-export default memo(TileView);
+export default memo(TilePure);

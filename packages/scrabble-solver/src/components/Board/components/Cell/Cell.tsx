@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { createKeyboardNavigation, getTileSizes, isCtrl } from 'lib';
 import { boardSlice, selectBonus, selectConfig, useTranslate, useTypedSelector } from 'state';
 
-import CellView from './CellView';
+import CellPure from './CellPure';
 
 interface Props {
   cell: CellModel;
@@ -79,7 +79,7 @@ const Cell: FunctionComponent<Props> = ({
   }, [onDirectionToggle]);
 
   return (
-    <CellView
+    <CellPure
       bonus={bonus}
       cell={cell}
       className={className}

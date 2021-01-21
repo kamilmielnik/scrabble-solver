@@ -12,7 +12,7 @@ import React, {
 import { getTileSizes } from 'lib';
 import { selectConfig, useTypedSelector } from 'state';
 
-import TileView from './TileView';
+import TilePure from './TilePure';
 
 interface Props {
   autoFocus?: boolean;
@@ -59,7 +59,7 @@ const Tile: FunctionComponent<Props> = ({
   }, [autoFocus, inputRef]);
 
   return (
-    <TileView
+    <TilePure
       autoFocus={autoFocus}
       canShowPoints={canShowPoints}
       character={character}
