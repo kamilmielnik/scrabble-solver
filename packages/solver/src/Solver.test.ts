@@ -10,7 +10,7 @@ const generateTiles = (characters: string): Tile[] =>
 describe('Solver', () => {
   const locale = Locale.PL_PL;
   const config = literaki[locale];
-  let solver: Solver;
+  let solver: Solver | undefined;
 
   beforeAll(() => {
     return getDictionary(locale).then((trie) => {
@@ -37,7 +37,7 @@ describe('Solver', () => {
       '               ',
     ]);
     const tiles = generateTiles('lino');
-    const results = solver.solve(board, tiles);
+    const results = solver!.solve(board, tiles);
     expect(results.length).toBe(60);
   });
 
@@ -60,7 +60,7 @@ describe('Solver', () => {
       '               ',
     ]);
     const tiles = generateTiles('aaąrtwz');
-    const [firstResult, ...results] = solver.solve(board, tiles);
+    const [firstResult, ...results] = solver!.solve(board, tiles);
     const bestResult = results.reduce(
       (bestResultCandidate, result) => (result.points > bestResultCandidate.points ? result : bestResultCandidate),
       firstResult,
@@ -88,7 +88,7 @@ describe('Solver', () => {
       'ar  ń    m     ',
     ]);
     const tiles = generateTiles('ąchtwwz');
-    const [firstResult, ...results] = solver.solve(board, tiles);
+    const [firstResult, ...results] = solver!.solve(board, tiles);
     const bestResult = results.reduce(
       (bestResultCandidate, result) => (result.points > bestResultCandidate.points ? result : bestResultCandidate),
       firstResult,

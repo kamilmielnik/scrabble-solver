@@ -29,12 +29,12 @@ module.exports = {
   plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import'],
 
   globals: {
-    globalThis: true,
+    beforeAll: true,
     define: true,
-    expect: true,
-    it: true,
     describe: true,
-    API_URL: true,
+    expect: true,
+    globalThis: true,
+    it: true,
     BrowserSpriteSymbol: true,
   },
 
@@ -51,6 +51,13 @@ module.exports = {
             argsIgnorePattern: '^_',
           },
         ],
+      },
+    },
+
+    {
+      files: ['*.test.ts', '*.test.tsx'],
+      rules: {
+        '@typescript-eslint/no-non-null-assertion': 'off',
       },
     },
   ],
@@ -197,7 +204,7 @@ module.exports = {
     strict: ['error', 'never'],
 
     // Variables
-    'init-declarations': ['error', 'always'],
+    'init-declarations': ['off', 'always'],
     'no-catch-shadow': 'error',
     'no-delete-var': 'error',
     'no-label-var': 'error',

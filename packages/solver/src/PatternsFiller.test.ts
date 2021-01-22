@@ -8,7 +8,7 @@ describe('PatternsFiller', () => {
   const board = Board.fromStringArray([' t ', 'do ', '   ']);
   const locale = Locale.PL_PL;
   const config = literaki[locale];
-  let patternsFiller: PatternsFiller;
+  let patternsFiller: PatternsFiller | undefined;
 
   beforeAll(() => {
     return getDictionary(locale).then((trie) => {
@@ -17,7 +17,7 @@ describe('PatternsFiller', () => {
   });
 
   it('does not affect non-blank tiles', () => {
-    const permutations = patternsFiller.generateBlankTilesPermutations([
+    const permutations = patternsFiller!.generateBlankTilesPermutations([
       new Tile({ character: 'a', isBlank: false }),
       new Tile({ character: 'b', isBlank: false }),
       new Tile({ character: 'c', isBlank: false }),
@@ -27,7 +27,7 @@ describe('PatternsFiller', () => {
   });
 
   it('replaces blank tiles', () => {
-    const permutations = patternsFiller.generateBlankTilesPermutations([
+    const permutations = patternsFiller!.generateBlankTilesPermutations([
       new Tile({ character: 'a', isBlank: false }),
       new Tile({ character: 'a', isBlank: false }),
       new Tile({ character: '', isBlank: true }),
@@ -57,7 +57,7 @@ describe('PatternsFiller', () => {
       new Tile({ character: 'a', isBlank: false }),
       new Tile({ character: 'd', isBlank: false }),
     ];
-    const filledPatterns = patternsFiller.fill(pattern, tiles);
+    const filledPatterns = patternsFiller!.fill(pattern, tiles);
     expect(filledPatterns.length).toBe(1);
   });
 
@@ -71,7 +71,7 @@ describe('PatternsFiller', () => {
       ],
     });
     const tiles = [new Tile({ character: 'ń', isBlank: false })];
-    const filledPatterns = patternsFiller.fill(pattern, tiles);
+    const filledPatterns = patternsFiller!.fill(pattern, tiles);
     expect(filledPatterns.length).toBe(1);
     expect(filledPatterns[0]).toEqual(pattern);
   });
@@ -86,7 +86,7 @@ describe('PatternsFiller', () => {
       ],
     });
     const tiles = [new Tile({ character: 'ń', isBlank: false })];
-    const filledPatterns = patternsFiller.fill(pattern, tiles);
+    const filledPatterns = patternsFiller!.fill(pattern, tiles);
     expect(filledPatterns.length).toBe(0);
   });
 });
