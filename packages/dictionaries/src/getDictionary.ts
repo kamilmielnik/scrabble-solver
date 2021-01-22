@@ -4,12 +4,9 @@ import { getWordList } from '@scrabble-solver/word-lists';
 import path from 'path';
 
 import { OUTPUT_DIRECTORY } from './constants';
-import { ensureDirectoryExists } from './lib';
-
-import LayeredCache from './LayeredCache';
+import { ensureDirectoryExists, LayeredCache } from './lib';
 
 const cache = new LayeredCache();
-
 const dictionaryPromises: Partial<Record<Locale, Promise<Trie>>> = {};
 
 const getDictionary = async (locale: Locale): Promise<Trie> => {

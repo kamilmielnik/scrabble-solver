@@ -2,9 +2,12 @@ import { Trie } from '@kamilmielnik/trie';
 import { Locale } from '@scrabble-solver/types';
 import fs from 'fs';
 
+import { CACHE_STALE_THRESHOLD } from '../constants';
+
 import Cache from './Cache';
-import { CACHE_STALE_THRESHOLD } from './constants';
-import { getDictionaryFilepath, readFile, writeFile } from './lib';
+import getDictionaryFilepath from './getDictionaryFilepath';
+import readFile from './readFile';
+import writeFile from './writeFile';
 
 class DiskCache implements Cache {
   public async get(locale: Locale): Promise<Trie | undefined> {
