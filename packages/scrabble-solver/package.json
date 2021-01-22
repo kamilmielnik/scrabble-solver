@@ -26,10 +26,10 @@
     "start": "env-cmd next start -p 3333"
   },
   "dependencies": {
-    "@kamilmielnik/trie": "^1.0.3",
     "@reduxjs/toolkit": "^1.5.0",
     "@scrabble-solver/configs": "^2.3.3",
     "@scrabble-solver/constants": "^2.3.3",
+    "@scrabble-solver/dictionaries": "^2.3.3",
     "@scrabble-solver/logger": "^2.3.3",
     "@scrabble-solver/solver": "^2.3.3",
     "@scrabble-solver/types": "^2.3.3",

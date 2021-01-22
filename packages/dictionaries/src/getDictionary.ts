@@ -4,7 +4,7 @@ import { getWordList } from '@scrabble-solver/word-lists';
 import fs from 'fs';
 import path from 'path';
 
-import { readFile, writeFile } from './lib';
+import { ensureDirectoryExists, readFile, writeFile } from './lib';
 
 const OUTPUT_DIRECTORY = 'dictionaries';
 
@@ -17,6 +17,7 @@ const getDictionary = async (locale: Locale): Promise<Trie> => {
     return cached;
   }
 
+  ensureDirectoryExists(path.resolve(OUTPUT_DIRECTORY));
   const filepath = getDictionaryFilepath(locale);
 
   if (fs.existsSync(filepath)) {
