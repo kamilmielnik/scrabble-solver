@@ -1,4 +1,5 @@
 import { literaki } from '@scrabble-solver/configs';
+import { Locale } from '@scrabble-solver/types';
 
 import {
   PLAIN_TILES_COLOR_DEFAULT,
@@ -15,7 +16,7 @@ import getY from './getY';
 import randomize from './randomize';
 
 const createPlainTile = ({ cellIndex, character, color, rowIndex, showPoints }: CreatePlainTileOptions): PlainTile => {
-  const configPoints = literaki['en-US'].getCharacterPoints(character.toLowerCase());
+  const configPoints = literaki[Locale.EN_US].getCharacterPoints(character.toLowerCase());
   const points = showPoints ? configPoints : undefined;
   const defaultColor =
     typeof configPoints === 'number' ? PLAIN_TILES_POINTS_COLORS[configPoints] : PLAIN_TILES_COLOR_DEFAULT;

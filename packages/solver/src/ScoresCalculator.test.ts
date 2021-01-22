@@ -1,9 +1,9 @@
 import { literaki } from '@scrabble-solver/configs';
-import { Board, Cell, HorizontalPattern, Pattern, Tile, VerticalPattern } from '@scrabble-solver/types';
+import { Board, Cell, HorizontalPattern, Locale, Pattern, Tile, VerticalPattern } from '@scrabble-solver/types';
 
 import ScoresCalculator from './ScoresCalculator';
 
-const config = literaki['pl-PL'];
+const config = literaki[Locale.PL_PL];
 const scoresCalculator = new ScoresCalculator(config);
 const board = Board.fromStringArray([
   ' kasom         ',
