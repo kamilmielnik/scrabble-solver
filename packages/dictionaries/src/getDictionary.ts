@@ -10,22 +10,34 @@ import LayeredCache from './LayeredCache';
 
 const cache = new LayeredCache();
 
+const dictionaryPromises: Partial<Record<Locale, Promise<Trie>>> = {};
+
 const getDictionary = async (locale: Locale): Promise<Trie> => {
   if (cache.has(locale)) {
     const trie = await cache.get(locale);
+
+    if (cache.isStale(locale)) {
+      getOrCreateDictionaryPromise(locale);
+    }
+
     return trie!;
   } else {
     ensureDirectoryExists(path.resolve(OUTPUT_DIRECTORY));
-
-    const trie = await downloadDictionary(locale);
-    cache.set(locale, trie);
-    return trie;
+    return getOrCreateDictionaryPromise(locale);
   }
+};
+
+const getOrCreateDictionaryPromise = async (locale: Locale): Promise<Trie> => {
+  const dictionaryPromise = dictionaryPromises[locale] || downloadDictionary(locale);
+  dictionaryPromises[locale] = dictionaryPromise;
+  const trie = await dictionaryPromise;
+  return trie;
 };
 
 const downloadDictionary = async (locale: Locale): Promise<Trie> => {
   const words = await getWordList(locale);
   const trie = Trie.fromArray(words);
+  cache.set(locale, trie);
   return trie;
 };
 
