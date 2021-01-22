@@ -2,7 +2,7 @@ const { Trie } = require('@kamilmielnik/trie');
 const fs = require('fs');
 const yargs = require('yargs');
 
-const { getEnUsWordList, getEnGbWordList, getFrFrWordList, getPlPlWordList } = require('../packages/word-lists');
+const { getEnGbWordList, getEnUsWordList, getFrFrWordList, getPlPlWordList } = require('../packages/word-lists');
 
 const createDirectory = (filepath) => {
   if (!fs.existsSync(filepath)) {

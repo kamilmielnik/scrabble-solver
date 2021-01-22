@@ -8,7 +8,7 @@ const getFrFrWordList = async (): Promise<string[]> => {
 };
 
 const normalizeWord = (word: string): string => {
-  // normalization from : https://stackoverflow.com/a/37511463
+  // normalization from https://stackoverflow.com/a/37511463
   return word.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 };
 
