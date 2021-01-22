@@ -1,19 +1,21 @@
-import { Trie } from '@kamilmielnik/trie';
 import { literaki } from '@scrabble-solver/configs';
-import { Board, Cell, Tile, VerticalPattern } from '@scrabble-solver/types';
-import fs from 'fs';
+import { getDictionary } from '@scrabble-solver/dictionaries';
+import { Board, Cell, Locale, Tile, VerticalPattern } from '@scrabble-solver/types';
 
 import PatternsFiller from './PatternsFiller';
 
-const board = Board.fromStringArray([' t ', 'do ', '   ']);
-
-const locale = 'pl-PL';
-const serializedCollection = fs.readFileSync(`dictionaries/${locale}.txt`, 'utf-8');
-const collection = Trie.deserialize(serializedCollection);
-const config = literaki[locale];
-const patternsFiller = new PatternsFiller(config, collection);
-
 describe('PatternsFiller', () => {
+  const board = Board.fromStringArray([' t ', 'do ', '   ']);
+  const locale = Locale.PL_PL;
+  const config = literaki[locale];
+  let patternsFiller: PatternsFiller;
+
+  beforeAll(() => {
+    return getDictionary(locale).then((trie) => {
+      patternsFiller = new PatternsFiller(config, trie);
+    });
+  });
+
   it('does not affect non-blank tiles', () => {
     const permutations = patternsFiller.generateBlankTilesPermutations([
       new Tile({ character: 'a', isBlank: false }),

@@ -1,20 +1,22 @@
-import { Trie } from '@kamilmielnik/trie';
 import { literaki } from '@scrabble-solver/configs';
-import { Board, Tile } from '@scrabble-solver/types';
-import fs from 'fs';
+import { getDictionary } from '@scrabble-solver/dictionaries';
+import { Board, Locale, Tile } from '@scrabble-solver/types';
 
 import Solver from './Solver';
-
-const locale = 'pl-PL';
-const serializedCollection = fs.readFileSync(`dictionaries/${locale}.txt`, 'utf-8');
-const collection = Trie.deserialize(serializedCollection);
-const config = literaki[locale];
 
 const generateTiles = (characters: string): Tile[] =>
   characters.split('').map((character) => new Tile({ character, isBlank: false }));
 
 describe('Solver', () => {
-  const solver = new Solver(config, collection);
+  const locale = Locale.PL_PL;
+  const config = literaki[locale];
+  let solver: Solver;
+
+  beforeAll(() => {
+    return getDictionary(locale).then((trie) => {
+      solver = new Solver(config, trie);
+    });
+  });
 
   it('żyło', () => {
     const board = Board.fromStringArray([
