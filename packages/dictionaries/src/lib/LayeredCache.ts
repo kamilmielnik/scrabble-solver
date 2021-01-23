@@ -10,13 +10,13 @@ class LayeredCache implements Cache<Locale, Trie> {
   private readonly layers = [new MemoryCache(), new DiskCache()];
 
   public get(locale: Locale): Promise<Trie | undefined> {
-    const cache = this.layers.find((cache) => cache.has(locale));
+    const cached = this.layers.find((cache) => cache.has(locale));
 
-    if (!cache) {
+    if (!cached) {
       return Promise.resolve(undefined);
     }
 
-    return cache.get(locale);
+    return cached.get(locale);
   }
 
   public has(locale: Locale): boolean {

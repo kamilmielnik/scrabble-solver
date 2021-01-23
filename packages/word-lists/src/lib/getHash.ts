@@ -1,5 +1,5 @@
 import crypto from 'crypto';
 
-const getHash = (bytes = 8) => crypto.randomBytes(bytes).toString('hex');
+const getHash = (bytes = 8): string => crypto.randomBytes(bytes).toString('hex');
 
 export default getHash;

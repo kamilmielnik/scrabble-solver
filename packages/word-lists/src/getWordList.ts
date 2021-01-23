@@ -1,7 +1,7 @@
 import { Locale } from '@scrabble-solver/types';
 
-import getEnUsWordList from './getEnUsWordList';
 import getEnGbWordList from './getEnGbWordList';
+import getEnUsWordList from './getEnUsWordList';
 import getFrFrWordList from './getFrFrWordList';
 import getPlPlWordList from './getPlPlWordList';
 

@@ -31,9 +31,9 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
-    "clean": "lerna run clean && rimraf node_modules/ package-lock.json",
+    "clean": "lerna run clean && rimraf dictionaries/ packages/scrabble-solver/dictionaries/ node_modules/ package-lock.json",
     "install:dev": "npm run bootstrap && npm run build",
-    "lint": "eslint packages/configs packages/constants packages/logger packages/scrabble-solver packages/solver packages/types --ext '.js,.jsx,.ts,.tsx'",
+    "lint": "eslint packages/* --ext '.js,.jsx,.ts,.tsx'",
     "lint:fix": "npm run lint -- --fix",
     "prettier:js": "npm run lint -- --no-eslintrc -c .eslintrc.prettier-only.js",
     "prettier:js:fix": "npm run prettier:js -- --fix",
