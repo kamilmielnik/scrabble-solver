@@ -1,5 +1,8 @@
 export { default as Cache } from './Cache';
+export { default as createDownloadDictionaryProxies } from './createDownloadDictionaryProxies';
+export { default as createDownloadDictionaryProxy } from './createDownloadDictionaryProxy';
 export { default as DiskCache } from './DiskCache';
+export { default as downloadDictionary } from './downloadDictionary';
 export { default as ensureDirectoryExists } from './ensureDirectoryExists';
 export { default as getDictionaryFilepath } from './getDictionaryFilepath';
 export { default as LayeredCache } from './LayeredCache';

@@ -1,6 +1,6 @@
 import { getLocaleConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
-import { getDictionary } from '@scrabble-solver/dictionaries';
+import { dictionaries } from '@scrabble-solver/dictionaries';
 import logger from '@scrabble-solver/logger';
 import Solver from '@scrabble-solver/solver';
 import { Board, Config, Locale, Tile } from '@scrabble-solver/types';
@@ -32,7 +32,8 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
       },
     });
     validateRequest({ board, characters, config, locale });
-    const trie = await getDictionary(locale);
+    const trie = await dictionaries.get(locale);
+    dictionaries.update();
     const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
     const solver = new Solver(config, trie);
     const results = solver.solve(board, tiles);

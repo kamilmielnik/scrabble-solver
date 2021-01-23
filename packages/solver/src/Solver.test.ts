@@ -1,5 +1,5 @@
 import { literaki } from '@scrabble-solver/configs';
-import { getDictionary } from '@scrabble-solver/dictionaries';
+import { dictionaries } from '@scrabble-solver/dictionaries';
 import { Board, Locale, Tile } from '@scrabble-solver/types';
 
 import Solver from './Solver';
@@ -13,7 +13,7 @@ describe('Solver', () => {
   let solver: Solver | undefined;
 
   beforeAll(() => {
-    return getDictionary(locale).then((trie) => {
+    return dictionaries.get(locale).then((trie) => {
       solver = new Solver(config, trie);
     });
   });

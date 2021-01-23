@@ -1,5 +1,5 @@
 import { literaki } from '@scrabble-solver/configs';
-import { getDictionary } from '@scrabble-solver/dictionaries';
+import { dictionaries } from '@scrabble-solver/dictionaries';
 import { Board, Cell, Locale, Tile, VerticalPattern } from '@scrabble-solver/types';
 
 import PatternsFiller from './PatternsFiller';
@@ -11,7 +11,7 @@ describe('PatternsFiller', () => {
   let patternsFiller: PatternsFiller | undefined;
 
   beforeAll(() => {
-    return getDictionary(locale).then((trie) => {
+    return dictionaries.get(locale).then((trie) => {
       patternsFiller = new PatternsFiller(config, trie);
     });
   });
