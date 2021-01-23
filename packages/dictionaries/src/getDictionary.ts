@@ -4,38 +4,60 @@ import { getWordList } from '@scrabble-solver/word-lists';
 import path from 'path';
 
 import { OUTPUT_DIRECTORY } from './constants';
-import { ensureDirectoryExists, LayeredCache } from './lib';
+import { Cache, ensureDirectoryExists, LayeredCache } from './lib';
 
-const cache = new LayeredCache();
-const dictionaryPromises: Partial<Record<Locale, Promise<Trie>>> = {};
+const createGetDictionary = () => {
+  const cache = new LayeredCache();
+  const downloadDictionaryProxies = createDownloadDictionaryProxies(cache);
 
-const getDictionary = async (locale: Locale): Promise<Trie> => {
-  if (cache.has(locale)) {
-    const trie = await cache.get(locale);
+  return async (locale: Locale): Promise<Trie> => {
+    const downloadDictionaryProxy = downloadDictionaryProxies[locale];
 
-    if (cache.isStale(locale)) {
-      getOrCreateDictionaryPromise(locale);
+    if (cache.has(locale)) {
+      const trie = await cache.get(locale);
+
+      if (cache.isStale(locale)) {
+        downloadDictionaryProxy();
+      }
+
+      return trie!;
+    } else {
+      ensureDirectoryExists(path.resolve(OUTPUT_DIRECTORY));
+      return downloadDictionaryProxy();
     }
-
-    return trie!;
-  } else {
-    ensureDirectoryExists(path.resolve(OUTPUT_DIRECTORY));
-    return getOrCreateDictionaryPromise(locale);
-  }
+  };
 };
 
-const getOrCreateDictionaryPromise = async (locale: Locale): Promise<Trie> => {
-  const dictionaryPromise = dictionaryPromises[locale] || downloadDictionary(locale);
-  dictionaryPromises[locale] = dictionaryPromise;
-  const trie = await dictionaryPromise;
-  return trie;
+const createDownloadDictionaryProxies = (cache: Cache): Record<Locale, () => Promise<Trie>> => {
+  const locales = Object.values(Locale);
+  const entries = locales.map((locale) => [locale, createDownloadDictionaryProxy(cache, locale)]);
+  const downloadDictionaryProxies = Object.fromEntries(entries);
+  return downloadDictionaryProxies;
+};
+
+const createDownloadDictionaryProxy = (cache: Cache, locale: Locale) => {
+  let promise: Promise<Trie> | null = null;
+
+  return async (): Promise<Trie> => {
+    if (promise) {
+      return promise;
+    }
+
+    try {
+      promise = downloadDictionary(locale);
+      const trie = await promise;
+      cache.set(locale, trie);
+      return trie;
+    } finally {
+      promise = null;
+    }
+  };
 };
 
 const downloadDictionary = async (locale: Locale): Promise<Trie> => {
   const words = await getWordList(locale);
   const trie = Trie.fromArray(words);
-  cache.set(locale, trie);
   return trie;
 };
 
-export default getDictionary;
+export default createGetDictionary();
