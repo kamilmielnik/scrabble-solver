@@ -3,7 +3,7 @@ import { Locale } from '@scrabble-solver/types';
 import path from 'path';
 
 import { OUTPUT_DIRECTORY } from './constants';
-import { createDownloadDictionaryProxies, ensureDirectoryExists, LayeredCache } from './lib';
+import { createAsyncProxy, downloadDictionary, ensureDirectoryExists, LayeredCache } from './lib';
 import { Cache } from './types';
 
 class Dictionaries {
@@ -13,8 +13,8 @@ class Dictionaries {
   constructor() {
     this.cache = new LayeredCache();
     this.downloadDictionaryProxies = Object.fromEntries(
-      Object.values(Locale).map((locale) => [locale, createDownloadDictionaryProxy(cache, locale)]),
-    );
+      Object.values(Locale).map((locale) => [locale, createAsyncProxy(() => downloadDictionary(locale))]),
+    ) as Record<Locale, () => Promise<Trie>>;
   }
 
   public async get(locale: Locale): Promise<Trie> {
@@ -39,10 +39,10 @@ class Dictionaries {
   }
 
   private async updateDictionary(locale: Locale): Promise<Trie> {
-    const downloadDictionary = this.downloadDictionaryProxies[locale];
     ensureDirectoryExists(path.resolve(OUTPUT_DIRECTORY));
-    const trie = await downloadDictionary();
-    cache.set(locale, trie);
+    const downloadDictionaryProxy = this.downloadDictionaryProxies[locale];
+    const trie = await downloadDictionaryProxy();
+    await this.cache.set(locale, trie);
     return trie;
   }
 }
