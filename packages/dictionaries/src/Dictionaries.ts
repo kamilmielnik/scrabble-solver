@@ -12,7 +12,9 @@ class Dictionaries {
 
   constructor() {
     this.cache = new LayeredCache();
-    this.downloadDictionaryProxies = createDownloadDictionaryProxies(this.cache);
+    this.downloadDictionaryProxies = Object.fromEntries(
+      Object.values(Locale).map((locale) => [locale, createDownloadDictionaryProxy(cache, locale)]),
+    );
   }
 
   public async get(locale: Locale): Promise<Trie> {
@@ -36,10 +38,12 @@ class Dictionaries {
     return Object.values(Locale).filter((locale) => this.cache.isStale(locale));
   }
 
-  private updateDictionary(locale: Locale): Promise<Trie> {
+  private async updateDictionary(locale: Locale): Promise<Trie> {
     const downloadDictionary = this.downloadDictionaryProxies[locale];
     ensureDirectoryExists(path.resolve(OUTPUT_DIRECTORY));
-    return downloadDictionary();
+    const trie = await downloadDictionary();
+    cache.set(locale, trie);
+    return trie;
   }
 }
 

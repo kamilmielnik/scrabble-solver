@@ -33,7 +33,6 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
     });
     validateRequest({ board, characters, config, locale });
     const trie = await dictionaries.get(locale);
-    dictionaries.update();
     const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
     const solver = new Solver(config, trie);
     const results = solver.solve(board, tiles);

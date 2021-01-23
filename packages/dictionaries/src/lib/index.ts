@@ -1,4 +1,3 @@
-export { default as createDownloadDictionaryProxies } from './createDownloadDictionaryProxies';
 export { default as createDownloadDictionaryProxy } from './createDownloadDictionaryProxy';
 export { default as DiskCache } from './DiskCache';
 export { default as downloadDictionary } from './downloadDictionary';
