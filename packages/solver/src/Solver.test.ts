@@ -1,29 +1,11 @@
 import { literaki } from '@scrabble-solver/configs';
-import { getDictionary, LayeredCache, MemoryCache } from '@scrabble-solver/dictionaries';
+import { getDictionary } from '@scrabble-solver/dictionaries';
 import { Board, Locale, Tile } from '@scrabble-solver/types';
 
 import Solver from './Solver';
 
 const generateTiles = (characters: string): Tile[] =>
   characters.split('').map((character) => new Tile({ character, isBlank: false }));
-
-jest.mock('@scrabble-solver/dictionaries', () => {
-  return jest.fn().mockImplementation(() => {
-    return {
-      LayeredCache: class NonStaleLayeredCache extends LayeredCache {
-        isStale() {
-          return false;
-        }
-      },
-
-      MemoryCache: class NonStaleMemoryCache extends MemoryCache {
-        isStale() {
-          return false;
-        }
-      },
-    };
-  });
-});
 
 describe('Solver', () => {
   const locale = Locale.PL_PL;
@@ -34,11 +16,6 @@ describe('Solver', () => {
     return getDictionary(locale).then((trie) => {
       solver = new Solver(config, trie);
     });
-  });
-
-  beforeEach(() => {
-    LayeredCache.mockClear();
-    MemoryCache.mockClear();
   });
 
   it('żyło', () => {

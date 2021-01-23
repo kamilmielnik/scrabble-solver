@@ -1,26 +1,8 @@
 import { literaki } from '@scrabble-solver/configs';
-import { getDictionary, LayeredCache, MemoryCache } from '@scrabble-solver/dictionaries';
+import { getDictionary } from '@scrabble-solver/dictionaries';
 import { Board, Cell, Locale, Tile, VerticalPattern } from '@scrabble-solver/types';
 
 import PatternsFiller from './PatternsFiller';
-
-jest.mock('@scrabble-solver/dictionaries', () => {
-  return jest.fn().mockImplementation(() => {
-    return {
-      LayeredCache: class NonStaleLayeredCache extends LayeredCache {
-        isStale() {
-          return false;
-        }
-      },
-
-      MemoryCache: class NonStaleMemoryCache extends MemoryCache {
-        isStale() {
-          return false;
-        }
-      },
-    };
-  });
-});
 
 describe('PatternsFiller', () => {
   const board = Board.fromStringArray([' t ', 'do ', '   ']);
@@ -32,11 +14,6 @@ describe('PatternsFiller', () => {
     return getDictionary(locale).then((trie) => {
       patternsFiller = new PatternsFiller(config, trie);
     });
-  });
-
-  beforeEach(() => {
-    LayeredCache.mockClear();
-    MemoryCache.mockClear();
   });
 
   it('does not affect non-blank tiles', () => {
