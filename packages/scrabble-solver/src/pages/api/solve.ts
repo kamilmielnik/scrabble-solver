@@ -1,19 +1,12 @@
-import { Trie } from '@kamilmielnik/trie';
 import { getLocaleConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
+import { dictionaries } from '@scrabble-solver/dictionaries';
 import logger from '@scrabble-solver/logger';
 import Solver from '@scrabble-solver/solver';
 import { Board, Config, Locale, Tile } from '@scrabble-solver/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import {
-  getServerLoggingData,
-  readLocaleDictionary,
-  validateBoard,
-  validateCharacters,
-  validateConfigId,
-  validateLocale,
-} from 'api';
+import { getServerLoggingData, validateBoard, validateCharacters, validateConfigId, validateLocale } from 'api';
 
 interface RequestData {
   board: Board;
@@ -21,13 +14,6 @@ interface RequestData {
   config: Config;
   locale: Locale;
 }
-
-const localeTries: Record<Locale, Trie> = {
-  [Locale.EN_GB]: readLocaleDictionary(Locale.EN_GB),
-  [Locale.EN_US]: readLocaleDictionary(Locale.EN_US),
-  [Locale.FR_FR]: readLocaleDictionary(Locale.FR_FR),
-  [Locale.PL_PL]: readLocaleDictionary(Locale.PL_PL),
-};
 
 const solve = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
   const meta = getServerLoggingData(request);
@@ -46,7 +32,7 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
       },
     });
     validateRequest({ board, characters, config, locale });
-    const trie = localeTries[locale];
+    const trie = await dictionaries.get(locale);
     const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
     const solver = new Solver(config, trie);
     const results = solver.solve(board, tiles);

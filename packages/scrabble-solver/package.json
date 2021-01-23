@@ -26,10 +26,10 @@
     "start": "env-cmd next start -p 3333"
   },
   "dependencies": {
-    "@kamilmielnik/trie": "^1.0.3",
     "@reduxjs/toolkit": "^1.5.0",
     "@scrabble-solver/configs": "^2.3.3",
     "@scrabble-solver/constants": "^2.3.3",
+    "@scrabble-solver/dictionaries": "^2.3.3",
     "@scrabble-solver/logger": "^2.3.3",
     "@scrabble-solver/solver": "^2.3.3",
     "@scrabble-solver/types": "^2.3.3",
@@ -49,7 +49,7 @@
   "devDependencies": {
     "@types/classnames": "^2.2.11",
     "@types/react": "^17.0.0",
-    "@types/react-redux": "^7.1.15",
+    "@types/react-redux": "^7.1.16",
     "@types/react-window": "^1.8.2",
     "@types/redux": "^3.6.31",
     "@types/redux-saga": "^0.10.5",

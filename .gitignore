@@ -1,7 +1,6 @@
 .next/
 build/
 coverage/
-dictionaries/
 node_modules/
 *.eslintcache
 *.db

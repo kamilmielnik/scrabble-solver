@@ -1,7 +1,7 @@
 {
-  "name": "@scrabble-solver/word-lists",
+  "name": "@scrabble-solver/dictionaries",
   "version": "2.3.3",
-  "description": "Scrabble Solver 2 - Word lists",
+  "description": "Scrabble Solver 2 - Dictionaries",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "repository": {
@@ -23,13 +23,9 @@
     "clean": "rimraf build/ node_modules/ package-lock.json"
   },
   "dependencies": {
+    "@kamilmielnik/trie": "^1.0.3",
     "@scrabble-solver/types": "^2.3.3",
-    "cheerio": "^1.0.0-rc.5",
-    "memfs": "^3.2.0",
-    "unzipper": "^0.10.11"
-  },
-  "devDependencies": {
-    "@types/unzipper": "^0.10.3"
+    "@scrabble-solver/word-lists": "^2.3.3"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }
