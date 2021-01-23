@@ -1,6 +1,8 @@
-# Scrabble Solver
+# @scrabble-solver/scrabble-solver
 
-https://scrabble-solver.kamilmielnik.com/
+The Scrabble Solver app.
+
+Available at: https://scrabble-solver.kamilmielnik.com/
 
 ## Scripts
 
