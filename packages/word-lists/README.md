@@ -1,3 +1,3 @@
 # @scrabble-solver/word-lists
 
-Fetches array of words of a given locale.
+Fetches array of all words in a given language.

@@ -1,5 +1,3 @@
 # @scrabble-solver/dictionaries
 
-Downloads, caches & serves dictionaries of given locales.
-
-Dictionaries are [Trie](https://github.com/kamilmielnik/trie) structures.
+Downloads, caches & serves dictionaries. Dictionaries are [Trie](https://github.com/kamilmielnik/trie) instances.
