@@ -3,7 +3,8 @@ import { Locale } from '@scrabble-solver/types';
 import path from 'path';
 
 import { OUTPUT_DIRECTORY } from './constants';
-import { Cache, createDownloadDictionaryProxies, ensureDirectoryExists, LayeredCache } from './lib';
+import { createDownloadDictionaryProxies, ensureDirectoryExists, LayeredCache } from './lib';
+import { Cache } from './types';
 
 class Dictionaries {
   private readonly cache: Cache<Locale, Trie>;

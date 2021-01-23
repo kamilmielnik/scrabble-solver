@@ -1,7 +1,8 @@
 import { Trie } from '@kamilmielnik/trie';
 import { Locale } from '@scrabble-solver/types';
 
-import Cache from './Cache';
+import { Cache } from '../types';
+
 import createDownloadDictionaryProxy from './createDownloadDictionaryProxy';
 
 const createDownloadDictionaryProxies = (cache: Cache<Locale, Trie>): Record<Locale, () => Promise<Trie>> => {

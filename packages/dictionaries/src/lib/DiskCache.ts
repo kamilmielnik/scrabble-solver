@@ -3,8 +3,8 @@ import { Locale } from '@scrabble-solver/types';
 import fs from 'fs';
 
 import { CACHE_STALE_THRESHOLD } from '../constants';
+import { Cache } from '../types';
 
-import Cache from './Cache';
 import getDictionaryFilepath from './getDictionaryFilepath';
 import readFile from './readFile';
 import writeFile from './writeFile';
