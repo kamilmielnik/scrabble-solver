@@ -1,11 +1,8 @@
-import { Trie } from '@kamilmielnik/trie';
-import { Locale } from '@scrabble-solver/types';
-
-interface Cache {
-  get(locale: Locale): Promise<Trie | undefined>;
-  has(locale: Locale): boolean;
-  isStale(locale: Locale): boolean;
-  set(locale: Locale, trie: Trie): Promise<void>;
+interface Cache<Key extends string, Value> {
+  get(key: Key): Promise<Value | undefined>;
+  has(key: Key): boolean;
+  isStale(key: Key): boolean;
+  set(key: Key, value: Value): Promise<void>;
 }
 
 export default Cache;

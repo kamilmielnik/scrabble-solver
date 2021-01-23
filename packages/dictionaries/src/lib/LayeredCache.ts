@@ -5,7 +5,7 @@ import Cache from './Cache';
 import DiskCache from './DiskCache';
 import MemoryCache from './MemoryCache';
 
-class LayeredCache implements Cache {
+class LayeredCache implements Cache<Locale, Trie> {
   private readonly layers = [new MemoryCache(), new DiskCache()];
 
   public get(locale: Locale): Promise<Trie | undefined> {

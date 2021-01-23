@@ -5,7 +5,7 @@ import { CACHE_STALE_THRESHOLD } from '../constants';
 
 import Cache from './Cache';
 
-class MemoryCache implements Cache {
+class MemoryCache implements Cache<Locale, Trie> {
   private readonly cache: Partial<Record<Locale, Trie>> = {};
   private readonly cacheTimestamps: Partial<Record<Locale, number>> = {};
 
@@ -14,8 +14,7 @@ class MemoryCache implements Cache {
   }
 
   public has(locale: Locale): boolean {
-    const cached = this.cache[locale];
-    return typeof cached !== 'undefined';
+    return typeof this.cache[locale] !== 'undefined';
   }
 
   public isStale(locale: Locale): boolean {

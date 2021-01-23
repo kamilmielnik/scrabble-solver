@@ -9,7 +9,7 @@ import getDictionaryFilepath from './getDictionaryFilepath';
 import readFile from './readFile';
 import writeFile from './writeFile';
 
-class DiskCache implements Cache {
+class DiskCache implements Cache<Locale, Trie> {
   public async get(locale: Locale): Promise<Trie | undefined> {
     if (!this.has(locale)) {
       return undefined;
