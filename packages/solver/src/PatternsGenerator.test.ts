@@ -16,31 +16,30 @@ describe('PatternsGenerator', () => {
   const filledCell: Cell = { hasTile: () => true } as Cell;
 
   it('generates start indices', () => {
-    const startIndices = patternsGenerator.generateStartIndices({
-      cells: [filledCell, filledCell, emptyCell, emptyCell, emptyCell, filledCell],
-    });
+    const cells = [filledCell, filledCell, emptyCell, emptyCell, emptyCell, filledCell];
+    const startIndices = patternsGenerator.generateStartIndices(cells);
     expect(startIndices).toEqual([0, 3, 4]);
   });
 
   it('generates end indices', () => {
     const tests = [
       {
-        input: {
-          cells: [filledCell, filledCell, emptyCell, emptyCell, emptyCell, filledCell],
-          startIndex: 3,
-        },
+        input: patternsGenerator.generateEndIndices(
+          [filledCell, filledCell, emptyCell, emptyCell, emptyCell, filledCell],
+          3,
+        ),
         output: [5],
       },
       {
-        input: {
-          cells: [filledCell, filledCell, emptyCell, emptyCell, emptyCell, filledCell, emptyCell],
-          startIndex: 3,
-        },
+        input: patternsGenerator.generateEndIndices(
+          [filledCell, filledCell, emptyCell, emptyCell, emptyCell, filledCell, emptyCell],
+          3,
+        ),
         output: [5, 6],
       },
     ];
 
-    tests.forEach(({ input, output }) => expect(patternsGenerator.generateEndIndices(input)).toEqual(output));
+    tests.forEach(({ input, output }) => expect(input).toEqual(output));
   });
 
   it('generates vectors', () => {

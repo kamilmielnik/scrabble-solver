@@ -68,10 +68,10 @@ class PatternsGenerator {
     cells: Cell[];
     PatternModel: new (parameters: { board: Board; cells: Cell[] }) => P;
   }): P[] {
-    return this.generateStartIndices({ cells }).reduce<P[]>(
+    return this.generateStartIndices(cells).reduce<P[]>(
       (patterns, startIndex) =>
         patterns.concat(
-          this.generateEndIndices({ cells, startIndex }).reduce<P[]>((placeablePatterns, endIndex) => {
+          this.generateEndIndices(cells, startIndex).reduce<P[]>((placeablePatterns, endIndex) => {
             const pattern = new PatternModel({
               board,
               cells: cells.slice(startIndex, endIndex + 1),
@@ -86,14 +86,14 @@ class PatternsGenerator {
     );
   }
 
-  public generateStartIndices({ cells }: { cells: Cell[] }): number[] {
+  public generateStartIndices(cells: Cell[]): number[] {
     return Array(cells.length - 1)
       .fill(0)
       .map((_, startIndex) => startIndex)
       .filter((startIndex) => startIndex === 0 || !cells[startIndex - 1].hasTile());
   }
 
-  public generateEndIndices({ cells, startIndex }: { cells: Cell[]; startIndex: number }): number[] {
+  public generateEndIndices(cells: Cell[], startIndex: number): number[] {
     return Array(cells.length - startIndex - 1)
       .fill(0)
       .map((_, endIndex) => endIndex + startIndex + 1)
