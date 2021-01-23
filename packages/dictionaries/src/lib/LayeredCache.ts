@@ -27,9 +27,7 @@ class LayeredCache implements Cache<Locale, Trie> {
   }
 
   public async set(locale: Locale, trie: Trie): Promise<void> {
-    for (const cache of this.layers) {
-      await cache.set(locale, trie);
-    }
+    await Promise.all(this.layers.map((cache) => cache.set(locale, trie)));
   }
 }
 
