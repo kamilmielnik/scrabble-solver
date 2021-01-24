@@ -6,14 +6,12 @@ import { useLatest } from 'react-use';
 import { createGridOf, createKeyboardNavigation, isCtrl } from 'lib';
 import { boardSlice, selectConfig, useTypedSelector } from 'state';
 
+import { getPositionInGrid } from '../lib';
+import { Point } from '../types';
+
 interface Parameters {
   height: number;
   width: number;
-}
-
-interface Point {
-  x: number;
-  y: number;
 }
 
 interface State {
@@ -49,18 +47,8 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
   );
 
   const getInputRefPosition = useCallback(
-    function getInputRefPosition(inputRef: HTMLInputElement): Point | undefined {
-      for (let y = 0; y < refs.length; ++y) {
-        for (let x = 0; x < refs[0].length; ++x) {
-          const ref = refs[y][x];
-
-          if (ref.current === inputRef) {
-            return { x, y };
-          }
-        }
-      }
-
-      return undefined;
+    (inputRef: HTMLInputElement): Point | undefined => {
+      return getPositionInGrid(refs, (ref) => ref.current === inputRef);
     },
     [refs],
   );
@@ -121,19 +109,21 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
       onBackspace: (event) => {
         const position = getInputRefPosition(event.target as HTMLInputElement);
 
-        if (position) {
-          dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
+        if (!position) {
+          return;
         }
 
+        dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
         onMoveFocus('backward');
       },
       onDelete: (event) => {
         const position = getInputRefPosition(event.target as HTMLInputElement);
 
-        if (position) {
-          dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
+        if (!position) {
+          return;
         }
 
+        dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
         onMoveFocus('forward');
       },
       onKeyDown: (event) => {
