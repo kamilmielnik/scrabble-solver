@@ -14,7 +14,6 @@ interface Props {
   onFocus: (x: number, y: number) => void;
   onDirectionToggle: () => void;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
-  onMoveFocus: (direction: 'backward' | 'forward') => void;
 }
 
 const BoardPure: FunctionComponent<Props> = ({
@@ -26,9 +25,8 @@ const BoardPure: FunctionComponent<Props> = ({
   onDirectionToggle,
   onFocus,
   onKeyDown,
-  onMoveFocus,
 }) => (
-  <div className={classNames(styles.board, className)}>
+  <div className={classNames(styles.board, className)} onKeyDown={onKeyDown}>
     {rows.map((cells, y) => (
       <div className={styles.row} key={y}>
         {cells.map((cell, x) => (
@@ -41,8 +39,6 @@ const BoardPure: FunctionComponent<Props> = ({
             size={cellSize}
             onDirectionToggle={onDirectionToggle}
             onFocus={onFocus}
-            onKeyDown={onKeyDown}
-            onMoveFocus={onMoveFocus}
           />
         ))}
       </div>

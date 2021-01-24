@@ -34,7 +34,7 @@
   overflow: hidden;
 }
 
-@mixin button-reset() {
+@mixin button-reset {
   padding: 0;
   border: none;
   outline: none;
@@ -43,7 +43,7 @@
   background: none;
 }
 
-@mixin list-reset() {
+@mixin list-reset {
   padding: 0;
   margin-block-start: 0;
   margin-block-end: 0;

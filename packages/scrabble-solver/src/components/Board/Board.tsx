@@ -12,7 +12,7 @@ interface Props {
 
 const Board: FunctionComponent<Props> = ({ className, cellSize }) => {
   const rows = useTypedSelector(selectRowsWithCandidate);
-  const [{ lastDirection, refs }, { onDirectionToggle, onFocus, onKeyDown, onMoveFocus }] = useGrid({
+  const [{ lastDirection, refs }, { onDirectionToggle, onFocus, onKeyDown }] = useGrid({
     height: rows.length,
     width: rows[0].length,
   });
@@ -27,7 +27,6 @@ const Board: FunctionComponent<Props> = ({ className, cellSize }) => {
       onFocus={onFocus}
       onDirectionToggle={onDirectionToggle}
       onKeyDown={onKeyDown}
-      onMoveFocus={onMoveFocus}
     />
   );
 };

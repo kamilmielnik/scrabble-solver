@@ -96,7 +96,7 @@ $icon-size: 16px;
     z-index: 1;
 
     .actions {
-      opacity: 1;
+      display: flex;
     }
 
     .action {
@@ -107,14 +107,12 @@ $icon-size: 16px;
 }
 
 .actions {
-  display: flex;
+  display: none;
   position: absolute;
   left: calc(100% + var(--spacing--s) - #{$icon-size});
-  top: calc(var(--spacing--s) - #{$icon-size});
   top: -$icon-size;
   z-index: 2;
   transition: var(--transition);
-  opacity: 0;
   pointer-events: none;
   box-shadow: var(--box-shadow);
   border-radius: var(--border--radius);

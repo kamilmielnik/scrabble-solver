@@ -1,7 +1,13 @@
+import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { createRef, KeyboardEventHandler, RefObject, useCallback, useMemo, useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { useLatest } from 'react-use';
 
 import { createGridOf, createKeyboardNavigation, isCtrl } from 'lib';
+import { boardSlice, selectConfig, useTypedSelector } from 'state';
+
+import { getPositionInGrid } from '../lib';
+import { Point } from '../types';
 
 interface Parameters {
   height: number;
@@ -17,15 +23,16 @@ interface Actions {
   onFocus: (x: number, y: number) => void;
   onDirectionToggle: () => void;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
-  onMoveFocus: (direction: 'backward' | 'forward') => void;
 }
 
 const useGrid = ({ height, width }: Parameters): [State, Actions] => {
+  const dispatch = useDispatch();
+  const config = useTypedSelector(selectConfig);
   const refs = useMemo(
     () => createGridOf<RefObject<HTMLInputElement>>(width, height, () => createRef()),
     [width, height],
   );
-  const activeIndexRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const activeIndexRef = useRef<Point>({ x: 0, y: 0 });
   const [lastDirection, setLastDirection] = useState<'horizontal' | 'vertical'>('horizontal');
   const lastDirectionRef = useLatest(lastDirection);
 
@@ -37,6 +44,13 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
       refs[y][x].current?.focus();
     },
     [activeIndexRef, refs],
+  );
+
+  const getInputRefPosition = useCallback(
+    (inputRef: HTMLInputElement): Point | undefined => {
+      return getPositionInGrid(refs, (ref) => ref.current === inputRef);
+    },
+    [refs],
   );
 
   const onDirectionToggle = useCallback(() => {
@@ -92,18 +106,49 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
           changeActiveIndex(0, -1);
         }
       },
-      onBackspace: () => {
+      onBackspace: (event) => {
+        const position = getInputRefPosition(event.target as HTMLInputElement);
+
+        if (!position) {
+          return;
+        }
+
+        dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
         onMoveFocus('backward');
       },
-      onDelete: () => {
+      onDelete: (event) => {
+        const position = getInputRefPosition(event.target as HTMLInputElement);
+
+        if (!position) {
+          return;
+        }
+
+        dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
         onMoveFocus('forward');
       },
+      onKeyDown: (event) => {
+        const position = getInputRefPosition(event.target as HTMLInputElement);
+
+        if (!position) {
+          return;
+        }
+
+        const character = event.key.toLowerCase();
+        const isTogglingBlank = isCtrl(event) && character === 'b';
+
+        if (isTogglingBlank) {
+          dispatch(boardSlice.actions.toggleCellIsBlank(position));
+        } else if (config.hasCharacter(character)) {
+          dispatch(boardSlice.actions.changeCellValue({ ...position, value: character }));
+          onMoveFocus('forward');
+        }
+      },
     });
-  }, [changeActiveIndex, lastDirectionRef, onDirectionToggle]);
+  }, [changeActiveIndex, config, dispatch, lastDirectionRef, onDirectionToggle]);
 
   return [
     { lastDirection, refs },
-    { onDirectionToggle, onFocus, onKeyDown, onMoveFocus },
+    { onDirectionToggle, onFocus, onKeyDown },
   ];
 };
 
