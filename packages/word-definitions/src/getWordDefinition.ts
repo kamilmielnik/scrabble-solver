@@ -1,8 +1,8 @@
 import { WordDefinition } from '@scrabble-solver/types';
 
 import { request } from './lib';
-import { Locale } from './types';
 import parseResponse from './parseResponse';
+import { Locale } from './types';
 
 const getWordDefinition = async (locale: Locale, word: string): Promise<WordDefinition> => {
   const response = await request({

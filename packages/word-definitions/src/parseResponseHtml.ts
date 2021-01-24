@@ -5,8 +5,8 @@ import { normalizeDefinition, unique } from './lib';
 
 const parseResponseHtml = (html: string, word: string): WordDefinition => {
   const $ = cheerio.load(html);
-  const $definitions = $('h4 + p + ol:first-of-type > li');
-  $('h4 + p + ol:first-of-type > li ul,ol,dl,.HQToggle').remove();
+  const $definitions = $('ol:first-of-type > li');
+  $definitions.find('ul, ol, dl, .HQToggle').remove();
   const definitions = Array.from($definitions)
     .map((definition) => $(definition).text())
     .map(normalizeDefinition)

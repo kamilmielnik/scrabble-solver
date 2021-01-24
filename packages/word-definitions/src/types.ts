@@ -18,11 +18,7 @@ export interface WiktionaryResponse {
   };
 }
 
-export interface Wiktionary {
-  locale: string;
-  name: string;
-}
-
+// https://en.wikipedia.org/wiki/List_of_Wiktionaries
 export type Locale =
   | 'aa'
   | 'ab'

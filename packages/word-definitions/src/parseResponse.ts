@@ -1,7 +1,7 @@
 import { WordDefinition } from '@scrabble-solver/types';
 
-import { WiktionaryResponse } from './types';
 import parseResponseHtml from './parseResponseHtml';
+import { WiktionaryResponse } from './types';
 
 const parseResponse = (response: string, word: string): WordDefinition => {
   const json = JSON.parse(response) as WiktionaryResponse;

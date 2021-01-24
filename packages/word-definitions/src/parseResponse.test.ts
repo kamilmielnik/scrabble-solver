@@ -3,7 +3,7 @@ import path from 'path';
 
 import parseResponse from './parseResponse';
 
-const tests = ['fourty', 'mako', 'man'];
+const tests = ['dicare', 'fourty', 'mako', 'man'];
 
 describe('parseResponse', () => {
   tests.forEach((word) => {
@@ -13,7 +13,7 @@ describe('parseResponse', () => {
     const output = fs.readFileSync(outputFilepath, 'utf-8');
 
     it(`Extracts "${word}" definitions`, () => {
-      expect(parseResponse(input, word)).toEqual(JSON.parse(output));
+      expect(parseResponse(input, word).definitions).toEqual(JSON.parse(output));
     });
   });
 });
