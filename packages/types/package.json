@@ -1,7 +1,7 @@
 {
   "name": "@scrabble-solver/types",
   "version": "2.4.0",
-  "description": "Scrabble Solver 2 - Models",
+  "description": "Scrabble Solver 2 - Types",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "repository": {
