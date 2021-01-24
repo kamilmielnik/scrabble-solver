@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/word-lists",
-  "version": "2.3.3",
+  "version": "2.4.0",
   "description": "Scrabble Solver 2 - Word lists",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -23,7 +23,7 @@
     "clean": "rimraf build/ node_modules/ package-lock.json"
   },
   "dependencies": {
-    "@scrabble-solver/types": "^2.3.3",
+    "@scrabble-solver/types": "^2.4.0",
     "cheerio": "^1.0.0-rc.5",
     "memfs": "^3.2.0",
     "unzipper": "^0.10.11"
