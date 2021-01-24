@@ -1,11 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
-import { parseResponse } from './getWordDefinition';
+import parseResponse from './parseResponse';
 
 const tests = ['fourty', 'mako', 'man'];
 
-describe('getWordDefinition', () => {
+describe('parseResponse', () => {
   tests.forEach((word) => {
     const inputFilepath = path.resolve(__dirname, '__tests__', `${word}.input.json`);
     const outputFilepath = path.resolve(__dirname, '__tests__', `${word}.output.json`);
