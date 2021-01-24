@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 export interface WiktionaryResponse {
   batchcomplete: string;
   warnings: {
