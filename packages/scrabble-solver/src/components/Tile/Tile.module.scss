@@ -64,9 +64,10 @@
 
 .points {
   position: absolute;
-  right: 10%;
-  bottom: 5%;
+  right: 8%;
+  bottom: 2%;
   color: var(--color--foreground);
   font-weight: bold;
   user-select: none;
+  letter-spacing: -1px;
 }
