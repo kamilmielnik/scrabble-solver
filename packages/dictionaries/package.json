@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@kamilmielnik/trie": "^1.0.3",
+    "@scrabble-solver/logger": "^2.3.3",
     "@scrabble-solver/types": "^2.3.3",
     "@scrabble-solver/word-lists": "^2.3.3"
   },

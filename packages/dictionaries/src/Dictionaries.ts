@@ -1,4 +1,5 @@
 import { Trie } from '@kamilmielnik/trie';
+import logger from '@scrabble-solver/logger';
 import { Locale } from '@scrabble-solver/types';
 import path from 'path';
 
@@ -26,11 +27,13 @@ class Dictionaries {
       }
     }
 
+    logger.info('Dictionaries - cache miss', { locale });
     return this.updateDictionary(locale);
   }
 
   public async update(force?: boolean): Promise<void> {
     const staleLocales = force ? Object.values(Locale) : this.getStaleLocales();
+    logger.info('Dictionaries - update', { force, staleLocales });
     await Promise.all(staleLocales.map((locale) => this.updateDictionary(locale)));
   }
 
@@ -39,6 +42,7 @@ class Dictionaries {
   }
 
   private async updateDictionary(locale: Locale): Promise<Trie> {
+    logger.info('Dictionaries - updateDictionary', { locale });
     ensureDirectoryExists(path.resolve(OUTPUT_DIRECTORY));
     const downloadDictionaryProxy = this.downloadDictionaryProxies[locale];
     const trie = await downloadDictionaryProxy();
