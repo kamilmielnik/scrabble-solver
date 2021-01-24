@@ -1,0 +1,28 @@
+.notFound {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: var(--spacing--l);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: var(--spacing--xxl);
+}
+
+.icon {
+  $size: 204px;
+
+  height: $size;
+  width: $size;
+  margin-bottom: var(--spacing--xxl);
+  color: var(--color--red);
+}
+
+.tiles {
+  height: 60px;
+}
