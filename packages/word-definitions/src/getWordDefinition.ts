@@ -1,8 +1,8 @@
 import { WordDefinition } from '@scrabble-solver/types';
-import cheerio from 'cheerio';
 
-import { normalizeDefinition, request, unique } from './lib';
+import { request } from './lib';
 import { Locale, WiktionaryResponse } from './types';
+import parseHtml from './parseHtml';
 
 const getWordDefinition = async (locale: Locale, word: string): Promise<WordDefinition> => {
   const response = await request({
@@ -26,22 +26,6 @@ export const parseResponse = (response: string, word: string): WordDefinition =>
 
   const html = pages[key].extract;
   const wordDefinition = parseHtml(html, word);
-  return wordDefinition;
-};
-
-const parseHtml = (html: string, word: string): WordDefinition => {
-  const $ = cheerio.load(html);
-  const $definitions = $('h4 + p + ol:first-of-type > li');
-  $('h4 + p + ol:first-of-type > li ul,ol,dl,.HQToggle').remove();
-  const definitions = Array.from($definitions)
-    .map((definition) => $(definition).text())
-    .map(normalizeDefinition)
-    .filter(Boolean);
-  const wordDefinition = new WordDefinition({
-    definitions: unique(definitions),
-    isAllowed: definitions.length > 0,
-    word,
-  });
   return wordDefinition;
 };
 
