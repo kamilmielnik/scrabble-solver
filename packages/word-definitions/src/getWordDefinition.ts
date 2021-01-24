@@ -2,10 +2,9 @@ import { WordDefinition } from '@scrabble-solver/types';
 import cheerio from 'cheerio';
 
 import { normalizeDefinition, request, unique } from './lib';
-import { WiktionaryResponse } from './types';
+import { Locale, WiktionaryResponse } from './types';
 
-const getWordDefinition = async (word: string): Promise<WordDefinition> => {
-  const locale = 'en'; // TODO: make it a param
+const getWordDefinition = async (locale: Locale, word: string): Promise<WordDefinition> => {
   const response = await request({
     protocol: 'https',
     hostname: `${locale}.wiktionary.org`,
