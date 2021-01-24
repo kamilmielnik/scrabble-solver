@@ -144,7 +144,7 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
         }
       },
     });
-  }, [changeActiveIndex, dispatch, config, lastDirectionRef, onDirectionToggle]);
+  }, [changeActiveIndex, config, dispatch, lastDirectionRef, onDirectionToggle]);
 
   return [
     { lastDirection, refs },
