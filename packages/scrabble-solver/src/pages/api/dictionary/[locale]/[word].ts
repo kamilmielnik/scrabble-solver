@@ -1,6 +1,6 @@
 import logger from '@scrabble-solver/logger';
 import { Locale } from '@scrabble-solver/types';
-import { getWordDefinition } from '@scrabble-solver/word-definitions';
+import { getWordDefinition } from '@scrabble-solver/wiktionary';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { getServerLoggingData, validateLocale, validateWord } from 'api';

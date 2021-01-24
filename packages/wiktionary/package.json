@@ -1,7 +1,7 @@
 {
-  "name": "@scrabble-solver/word-definitions",
+  "name": "@scrabble-solver/wiktionary",
   "version": "2.3.3",
-  "description": "Scrabble Solver 2 - Word definitions",
+  "description": "Scrabble Solver 2 - Wiktionary",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "repository": {
