@@ -1,14 +1,6 @@
 import { Bonus, Cell, Tile as TileModel } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import React, {
-  CSSProperties,
-  FocusEventHandler,
-  FunctionComponent,
-  KeyboardEventHandler,
-  memo,
-  MouseEventHandler,
-  RefObject,
-} from 'react';
+import React, { CSSProperties, FocusEventHandler, FunctionComponent, memo, MouseEventHandler, RefObject } from 'react';
 
 import { arrowDown } from 'icons';
 import { Translate } from 'types';
@@ -33,7 +25,6 @@ interface Props {
   translate: Translate;
   onDirectionToggleClick: MouseEventHandler<HTMLButtonElement>;
   onFocus: FocusEventHandler<HTMLInputElement>;
-  onKeyDown: KeyboardEventHandler<HTMLInputElement>;
   onToggleBlankClick: MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -50,7 +41,6 @@ const CellPure: FunctionComponent<Props> = ({
   translate,
   onDirectionToggleClick,
   onFocus,
-  onKeyDown,
   onToggleBlankClick,
 }) => (
   <div
@@ -68,7 +58,6 @@ const CellPure: FunctionComponent<Props> = ({
       raised={!isEmpty}
       size={size}
       onFocus={onFocus}
-      onKeyDown={onKeyDown}
     />
 
     <div className={styles.actions}>

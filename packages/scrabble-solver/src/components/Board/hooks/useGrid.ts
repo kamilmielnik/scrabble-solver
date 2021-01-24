@@ -1,11 +1,19 @@
+import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { createRef, KeyboardEventHandler, RefObject, useCallback, useMemo, useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { useLatest } from 'react-use';
 
 import { createGridOf, createKeyboardNavigation, isCtrl } from 'lib';
+import { boardSlice, selectConfig, useTypedSelector } from 'state';
 
 interface Parameters {
   height: number;
   width: number;
+}
+
+interface Point {
+  x: number;
+  y: number;
 }
 
 interface State {
@@ -17,15 +25,16 @@ interface Actions {
   onFocus: (x: number, y: number) => void;
   onDirectionToggle: () => void;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
-  onMoveFocus: (direction: 'backward' | 'forward') => void;
 }
 
 const useGrid = ({ height, width }: Parameters): [State, Actions] => {
+  const dispatch = useDispatch();
+  const config = useTypedSelector(selectConfig);
   const refs = useMemo(
     () => createGridOf<RefObject<HTMLInputElement>>(width, height, () => createRef()),
     [width, height],
   );
-  const activeIndexRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const activeIndexRef = useRef<Point>({ x: 0, y: 0 });
   const [lastDirection, setLastDirection] = useState<'horizontal' | 'vertical'>('horizontal');
   const lastDirectionRef = useLatest(lastDirection);
 
@@ -37,6 +46,23 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
       refs[y][x].current?.focus();
     },
     [activeIndexRef, refs],
+  );
+
+  const getInputRefPosition = useCallback(
+    function getInputRefPosition(inputRef: HTMLInputElement): Point | undefined {
+      for (let y = 0; y < refs.length; ++y) {
+        for (let x = 0; x < refs[0].length; ++x) {
+          const ref = refs[y][x];
+
+          if (ref.current === inputRef) {
+            return { x, y };
+          }
+        }
+      }
+
+      return undefined;
+    },
+    [refs],
   );
 
   const onDirectionToggle = useCallback(() => {
@@ -92,18 +118,47 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
           changeActiveIndex(0, -1);
         }
       },
-      onBackspace: () => {
+      onBackspace: (event) => {
+        const position = getInputRefPosition(event.target as HTMLInputElement);
+
+        if (position) {
+          dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
+        }
+
         onMoveFocus('backward');
       },
-      onDelete: () => {
+      onDelete: (event) => {
+        const position = getInputRefPosition(event.target as HTMLInputElement);
+
+        if (position) {
+          dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
+        }
+
         onMoveFocus('forward');
       },
+      onKeyDown: (event) => {
+        const position = getInputRefPosition(event.target as HTMLInputElement);
+
+        if (!position) {
+          return;
+        }
+
+        const character = event.key.toLowerCase();
+        const isTogglingBlank = isCtrl(event) && character === 'b';
+
+        if (isTogglingBlank) {
+          dispatch(boardSlice.actions.toggleCellIsBlank(position));
+        } else if (config.hasCharacter(character)) {
+          dispatch(boardSlice.actions.changeCellValue({ ...position, value: character }));
+          onMoveFocus('forward');
+        }
+      },
     });
-  }, [changeActiveIndex, lastDirectionRef, onDirectionToggle]);
+  }, [changeActiveIndex, dispatch, config, lastDirectionRef, onDirectionToggle]);
 
   return [
     { lastDirection, refs },
-    { onDirectionToggle, onFocus, onKeyDown, onMoveFocus },
+    { onDirectionToggle, onFocus, onKeyDown },
   ];
 };
 

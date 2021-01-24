@@ -1,10 +1,10 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Cell as CellModel } from '@scrabble-solver/types';
-import React, { FunctionComponent, KeyboardEventHandler, RefObject, useCallback, useMemo } from 'react';
+import React, { FunctionComponent, RefObject, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { createKeyboardNavigation, getTileSizes, isCtrl } from 'lib';
-import { boardSlice, selectBonus, selectConfig, useTranslate, useTypedSelector } from 'state';
+import { getTileSizes } from 'lib';
+import { boardSlice, selectBonus, useTranslate, useTypedSelector } from 'state';
 
 import CellPure from './CellPure';
 
@@ -16,51 +16,18 @@ interface Props {
   size: number;
   onDirectionToggle: () => void;
   onFocus: (x: number, y: number) => void;
-  onKeyDown: KeyboardEventHandler<HTMLInputElement>;
-  onMoveFocus: (direction: 'backward' | 'forward') => void;
 }
 
-const Cell: FunctionComponent<Props> = ({
-  cell,
-  className,
-  direction,
-  inputRef,
-  size,
-  onDirectionToggle,
-  onFocus,
-  onKeyDown,
-  onMoveFocus,
-}) => {
+const Cell: FunctionComponent<Props> = ({ cell, className, direction, inputRef, size, onDirectionToggle, onFocus }) => {
   const { tile, x, y } = cell;
   const dispatch = useDispatch();
   const translate = useTranslate();
-  const config = useTypedSelector(selectConfig);
   const bonus = useTypedSelector((state) => selectBonus(state, cell));
   const { tileFontSize } = getTileSizes(size);
   const isEmpty = tile.character === EMPTY_CELL;
   const style = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
 
   const handleFocus = useCallback(() => onFocus(x, y), [x, y, onFocus]);
-
-  const handleKeyDown = useMemo(() => {
-    return createKeyboardNavigation({
-      onDelete: () => dispatch(boardSlice.actions.changeCellValue({ value: EMPTY_CELL, x, y })),
-      onBackspace: () => dispatch(boardSlice.actions.changeCellValue({ value: EMPTY_CELL, x, y })),
-      onKeyDown: (event) => {
-        const character = event.key.toLowerCase();
-        const isTogglingBlank = isCtrl(event) && character === 'b';
-
-        if (isTogglingBlank) {
-          dispatch(boardSlice.actions.toggleCellIsBlank({ x, y }));
-        } else if (config.hasCharacter(character)) {
-          dispatch(boardSlice.actions.changeCellValue({ value: character, x, y }));
-          onMoveFocus('forward');
-        }
-
-        onKeyDown(event);
-      },
-    });
-  }, [x, y, config, dispatch, onKeyDown, onMoveFocus]);
 
   const handleToggleBlankClick = useCallback(() => {
     if (inputRef.current) {
@@ -92,7 +59,6 @@ const Cell: FunctionComponent<Props> = ({
       translate={translate}
       onDirectionToggleClick={handleDirectionToggleClick}
       onFocus={handleFocus}
-      onKeyDown={handleKeyDown}
       onToggleBlankClick={handleToggleBlankClick}
     />
   );
