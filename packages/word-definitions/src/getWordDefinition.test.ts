@@ -1,4 +1,4 @@
-import { parseHtml } from './getEnglishWordDefinition';
+import { parseHtml } from './getWordDefinition';
 
 describe('getWordDefinition', () => {
   it('Extracts definitions', () => {
