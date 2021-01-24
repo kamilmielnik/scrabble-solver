@@ -3,7 +3,7 @@ import cheerio from 'cheerio';
 
 import { normalizeDefinition, unique } from './lib';
 
-const parseHtml = (html: string, word: string): WordDefinition => {
+const parseResponseHtml = (html: string, word: string): WordDefinition => {
   const $ = cheerio.load(html);
   const $definitions = $('h4 + p + ol:first-of-type > li');
   $('h4 + p + ol:first-of-type > li ul,ol,dl,.HQToggle').remove();
@@ -19,4 +19,4 @@ const parseHtml = (html: string, word: string): WordDefinition => {
   return wordDefinition;
 };
 
-export default parseHtml;
+export default parseResponseHtml;

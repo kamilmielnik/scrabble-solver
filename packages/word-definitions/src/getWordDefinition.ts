@@ -2,7 +2,7 @@ import { WordDefinition } from '@scrabble-solver/types';
 
 import { request } from './lib';
 import { Locale, WiktionaryResponse } from './types';
-import parseHtml from './parseHtml';
+import parseResponseHtml from './parseResponseHtml';
 
 const getWordDefinition = async (locale: Locale, word: string): Promise<WordDefinition> => {
   const response = await request({
@@ -25,7 +25,7 @@ export const parseResponse = (response: string, word: string): WordDefinition =>
   }
 
   const html = pages[key].extract;
-  const wordDefinition = parseHtml(html, word);
+  const wordDefinition = parseResponseHtml(html, word);
   return wordDefinition;
 };
 
