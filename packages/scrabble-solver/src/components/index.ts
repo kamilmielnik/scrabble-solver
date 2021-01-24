@@ -8,6 +8,7 @@ export { default as KeyMap } from './KeyMap';
 export { default as Loading } from './Loading';
 export { default as Logo } from './Logo';
 export { default as NavButtons } from './NavButtons';
+export { default as NotFound } from './NotFound';
 export { default as PlainTiles } from './PlainTiles';
 export { default as Rack } from './Rack';
 export { default as Radio } from './Radio';
