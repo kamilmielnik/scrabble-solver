@@ -6,7 +6,7 @@
   "close": "Zamknij",
   "dictionary.empty-state.no-definitions": "Słowo istnieje w słowniku ale nie posiada definicji.",
   "dictionary.empty-state.no-results": "Nie udało się znaleźć definicji słowa w słowniku.",
-  "dictionary.empty-state.not-allowed": "To słowo nie jest dopuszczalne w grach według sjp.pl.",
+  "dictionary.empty-state.not-allowed": "To słowo nie jest dopuszczalne w grach według pl.wiktionary.org.",
   "dictionary.empty-state.unitialized": "Tu zostanie wyświetlona słownikowa definicja ostatnio podświetlonego słowa.",
   "empty-state.error": "Błąd",
   "empty-state.info": "Info",
