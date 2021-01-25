@@ -4,6 +4,9 @@
   "description": "Scrabble Solver 2 - Dictionaries",
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "bin": {
+    "update-dictionaries": "./bin/update-dictionaries.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kamilmielnik/scrabble-solver.git"
@@ -20,7 +23,8 @@
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "scripts": {
     "build": "tsc --project .",
-    "clean": "rimraf build/ node_modules/ package-lock.json"
+    "clean": "rimraf build/ node_modules/ package-lock.json",
+    "postbuild": "node ./bin/update-dictionaries.js"
   },
   "dependencies": {
     "@kamilmielnik/trie": "^1.0.3",

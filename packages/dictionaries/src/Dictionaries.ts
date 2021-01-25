@@ -32,13 +32,13 @@ class Dictionaries {
   }
 
   public async update(force?: boolean): Promise<void> {
-    const staleLocales = force ? Object.values(Locale) : this.getStaleLocales();
-    logger.info('Dictionaries - update', { force, staleLocales });
-    await Promise.all(staleLocales.map((locale) => this.updateDictionary(locale)));
+    const locales = force ? Object.values(Locale) : this.getLocalesToUpdate();
+    logger.info('Dictionaries - update', { force, locales });
+    await Promise.all(locales.map((locale) => this.updateDictionary(locale)));
   }
 
-  private getStaleLocales(): Locale[] {
-    return Object.values(Locale).filter((locale) => this.cache.isStale(locale));
+  private getLocalesToUpdate(): Locale[] {
+    return Object.values(Locale).filter((locale) => this.cache.isStale(locale) !== false);
   }
 
   private async updateDictionary(locale: Locale): Promise<Trie> {

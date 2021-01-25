@@ -1,4 +1,5 @@
 export { default as createAsyncProxy } from './createAsyncProxy';
+export { default as createCacheTimestampComparator } from './createCacheTimestampComparator';
 export { default as DiskCache } from './DiskCache';
 export { default as downloadDictionary } from './downloadDictionary';
 export { default as ensureDirectoryExists } from './ensureDirectoryExists';

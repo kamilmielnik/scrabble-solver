@@ -12,15 +12,19 @@ class MemoryCache implements Cache<Locale, Trie> {
     return Promise.resolve(this.cache[locale]);
   }
 
+  public getLastModifiedTimestamp(locale: Locale): number | undefined {
+    return this.cacheTimestamps[locale];
+  }
+
   public has(locale: Locale): boolean {
     return typeof this.cache[locale] !== 'undefined';
   }
 
-  public isStale(locale: Locale): boolean {
-    const timestamp = this.cacheTimestamps[locale];
+  public isStale(locale: Locale): boolean | undefined {
+    const timestamp = this.getLastModifiedTimestamp(locale);
 
     if (!this.has(locale) || typeof timestamp === 'undefined') {
-      return true;
+      return undefined;
     }
 
     const timeSinceModification = Math.abs(timestamp - Date.now());

@@ -21,19 +21,34 @@ class DiskCache implements Cache<Locale, Trie> {
     return trie;
   }
 
+  public getLastModifiedTimestamp(locale: Locale): number | undefined {
+    const filepath = getDictionaryFilepath(locale);
+
+    if (!fs.existsSync(filepath)) {
+      return undefined;
+    }
+
+    const stats = fs.statSync(filepath);
+    return stats.mtimeMs;
+  }
+
   public has(locale: Locale): boolean {
     const filepath = getDictionaryFilepath(locale);
     return fs.existsSync(filepath);
   }
 
-  public isStale(locale: Locale): boolean {
+  public isStale(locale: Locale): boolean | undefined {
     if (!this.has(locale)) {
-      return true;
+      return undefined;
     }
 
-    const filepath = getDictionaryFilepath(locale);
-    const stats = fs.statSync(filepath);
-    const timeSinceModification = Math.abs(stats.mtimeMs - Date.now());
+    const lastModifiedTimestamp = this.getLastModifiedTimestamp(locale);
+
+    if (typeof lastModifiedTimestamp === 'undefined') {
+      return undefined;
+    }
+
+    const timeSinceModification = Math.abs(lastModifiedTimestamp - Date.now());
     return timeSinceModification > CACHE_STALE_THRESHOLD;
   }
 
