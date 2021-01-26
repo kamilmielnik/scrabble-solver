@@ -11,8 +11,8 @@ interface Props {
   lastDirection: 'horizontal' | 'vertical';
   refs: RefObject<HTMLInputElement>[][];
   rows: Cell[][];
-  onFocus: (x: number, y: number) => void;
   onDirectionToggle: () => void;
+  onFocus: (x: number, y: number) => void;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
 }
 

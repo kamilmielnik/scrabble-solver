@@ -24,8 +24,8 @@ const Board: FunctionComponent<Props> = ({ className, cellSize }) => {
       lastDirection={lastDirection}
       refs={refs}
       rows={rows}
-      onFocus={onFocus}
       onDirectionToggle={onDirectionToggle}
+      onFocus={onFocus}
       onKeyDown={onKeyDown}
     />
   );
