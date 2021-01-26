@@ -5,6 +5,7 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "bin": {
+    "remove-dictionaries": "./bin/remove-dictionaries.js",
     "update-dictionaries": "./bin/update-dictionaries.js"
   },
   "repository": {
@@ -23,7 +24,8 @@
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "scripts": {
     "build": "tsc --project .",
-    "clean": "rimraf build/ node_modules/ package-lock.json",
+    "clean": "npm run clean:dictionaries && rimraf build/ node_modules/ package-lock.json",
+    "clean:dictionaries": "node ./bin/remove-dictionaries.js",
     "postbuild": "node ./bin/update-dictionaries.js"
   },
   "dependencies": {

@@ -6,4 +6,4 @@ const path = require('path');
 const rootDirectory = path.resolve(__dirname, '..');
 const { dictionaries } = require(rootDirectory);
 
-dictionaries.update();
+dictionaries.remove();

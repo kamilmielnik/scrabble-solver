@@ -31,6 +31,10 @@ class Dictionaries {
     return this.updateDictionary(locale);
   }
 
+  public remove(): void {
+    fs.rmdirSync(OUTPUT_DIRECTORY, { recursive: true });
+  }
+
   public async update(force?: boolean): Promise<void> {
     const locales = force ? Object.values(Locale) : this.getLocalesToUpdate();
     logger.info('Dictionaries - update', { force, locales });
