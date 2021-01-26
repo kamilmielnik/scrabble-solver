@@ -31,7 +31,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
-    "clean": "lerna run clean && rimraf dictionaries/ packages/scrabble-solver/dictionaries/ node_modules/ package-lock.json",
+    "clean": "lerna run clean && rimraf node_modules/ package-lock.json",
     "install:dev": "npm run bootstrap && npm run build",
     "lint": "eslint packages/* --ext '.js,.jsx,.ts,.tsx'",
     "lint:fix": "npm run lint -- --fix",
