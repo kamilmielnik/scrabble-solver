@@ -1,10 +1,10 @@
 import { Trie } from '@kamilmielnik/trie';
 import logger from '@scrabble-solver/logger';
 import { Locale } from '@scrabble-solver/types';
-import path from 'path';
+import fs from 'fs';
 
 import { OUTPUT_DIRECTORY } from './constants';
-import { createAsyncProxy, downloadDictionary, ensureDirectoryExists, LayeredCache } from './lib';
+import { createAsyncProxy, downloadDictionary, LayeredCache } from './lib';
 import { Cache } from './types';
 
 class Dictionaries {
@@ -43,7 +43,7 @@ class Dictionaries {
 
   private async updateDictionary(locale: Locale): Promise<Trie> {
     logger.info('Dictionaries - updateDictionary', { locale });
-    ensureDirectoryExists(path.resolve(OUTPUT_DIRECTORY));
+    fs.mkdirSync(OUTPUT_DIRECTORY, { recursive: true });
     const downloadDictionaryProxy = this.downloadDictionaryProxies[locale];
     const trie = await downloadDictionaryProxy();
     await this.cache.set(locale, trie);
