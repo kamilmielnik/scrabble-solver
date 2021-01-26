@@ -49,6 +49,7 @@
 .character {
   width: 100%;
   height: 100%;
+  padding: 0;
   box-sizing: border-box;
   background-color: transparent;
   border: none;
@@ -64,10 +65,12 @@
 
 .points {
   position: absolute;
-  right: 8%;
-  bottom: 2%;
+  right: 9%;
+  bottom: 0%;
   color: var(--color--foreground);
   font-weight: bold;
   user-select: none;
+  pointer-events: none;
   letter-spacing: -1px;
+  bottom: 1%;
 }
