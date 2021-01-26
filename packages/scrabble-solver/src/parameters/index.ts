@@ -9,7 +9,7 @@ export const BOARD_CELL_BORDER_WIDTH = 1;
 export const BOARD_TILE_FONT_SIZE_MIN = 14;
 export const BOARD_TILE_FONT_SIZE_POINTS_MIN = 10;
 export const BOARD_TILE_SIZE_MAX = 64;
-export const BOARD_TILE_SIZE_MIN = 32;
+export const BOARD_TILE_SIZE_MIN = 42;
 
 export const COMPONENTS_SPACING = 40;
 
