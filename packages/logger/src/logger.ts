@@ -22,15 +22,11 @@ const logger = createLogger({
     new transports.File({
       filename: path.resolve(OUTPUT_DIRECTORY, 'all.log'),
     }),
-  ],
-});
-
-if (process.env.NODE_ENV === 'production') {
-  logger.add(
     new transports.Console({
       format: format.combine(format.colorize(), format.simple()),
+      level: 'error',
     }),
-  );
-}
+  ],
+});
 
 export default logger;
