@@ -1,4 +1,7 @@
+import path from 'path';
 import { createLogger, format, transports } from 'winston';
+
+import { OUTPUT_DIRECTORY } from './constants';
 
 const logger = createLogger({
   level: 'info',
@@ -12,8 +15,13 @@ const logger = createLogger({
     format.prettyPrint(),
   ),
   transports: [
-    new transports.File({ filename: 'scrabble-solver-error.log', level: 'error' }),
-    new transports.File({ filename: 'scrabble-solver-all.log' }),
+    new transports.File({
+      filename: path.resolve(OUTPUT_DIRECTORY, 'error.log'),
+      level: 'error',
+    }),
+    new transports.File({
+      filename: path.resolve(OUTPUT_DIRECTORY, 'all.log'),
+    }),
   ],
 });
 
