@@ -4,6 +4,10 @@
 const path = require('path');
 
 const rootDirectory = path.resolve(__dirname, '..');
-const { dictionaries } = require(rootDirectory);
 
-dictionaries.remove();
+try {
+  const { dictionaries } = require(rootDirectory);
+  dictionaries.remove();
+} catch (error) {
+  console.error(error);
+}
