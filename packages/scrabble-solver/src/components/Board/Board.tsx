@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, Ref } from 'react';
 
 import { selectRowsWithCandidate, useTypedSelector } from 'state';
 
@@ -6,11 +6,12 @@ import BoardPure from './BoardPure';
 import { useGrid } from './hooks';
 
 interface Props {
-  className?: string;
   cellSize: number;
+  className?: string;
+  innerRef?: Ref<HTMLDivElement>;
 }
 
-const Board: FunctionComponent<Props> = ({ className, cellSize }) => {
+const Board: FunctionComponent<Props> = ({ cellSize, className, innerRef }) => {
   const rows = useTypedSelector(selectRowsWithCandidate);
   const [{ lastDirection, refs }, { onDirectionToggle, onFocus, onKeyDown }] = useGrid({
     height: rows.length,
@@ -21,6 +22,7 @@ const Board: FunctionComponent<Props> = ({ className, cellSize }) => {
     <BoardPure
       className={className}
       cellSize={cellSize}
+      innerRef={innerRef}
       lastDirection={lastDirection}
       refs={refs}
       rows={rows}

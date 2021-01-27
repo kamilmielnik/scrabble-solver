@@ -1,6 +1,6 @@
 import { Cell } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import React, { FunctionComponent, KeyboardEventHandler, memo, RefObject } from 'react';
+import React, { FunctionComponent, KeyboardEventHandler, memo, Ref, RefObject } from 'react';
 
 import styles from './Board.module.scss';
 import { Cell as CellComponent } from './components';
@@ -8,6 +8,7 @@ import { Cell as CellComponent } from './components';
 interface Props {
   className?: string;
   cellSize: number;
+  innerRef?: Ref<HTMLDivElement>;
   lastDirection: 'horizontal' | 'vertical';
   refs: RefObject<HTMLInputElement>[][];
   rows: Cell[][];
@@ -18,6 +19,7 @@ interface Props {
 
 const BoardPure: FunctionComponent<Props> = ({
   className,
+  innerRef,
   lastDirection,
   refs,
   rows,
@@ -26,7 +28,7 @@ const BoardPure: FunctionComponent<Props> = ({
   onFocus,
   onKeyDown,
 }) => (
-  <div className={classNames(styles.board, className)} onKeyDown={onKeyDown}>
+  <div className={classNames(styles.board, className)} ref={innerRef} onKeyDown={onKeyDown}>
     {rows.map((cells, y) => (
       <div className={styles.row} key={y}>
         {cells.map((cell, x) => (
