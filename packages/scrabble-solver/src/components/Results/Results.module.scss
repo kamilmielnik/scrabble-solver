@@ -80,4 +80,8 @@ $row-padding: var(--spacing--s) var(--spacing--m);
   display: block;
   margin: 0 auto;
   margin-top: var(--spacing--xxl);
+
+  @include tablet {
+    margin-top: var(--spacing--l);
+  }
 }

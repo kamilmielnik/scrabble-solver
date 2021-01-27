@@ -3,12 +3,12 @@ import fs from 'fs';
 import path from 'path';
 import React, { AnimationEvent, FormEventHandler, FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useEffectOnce, useMeasure } from 'react-use';
+import { useEffectOnce, useMeasure, useMedia } from 'react-use';
 
 import { Board, Dictionary, KeyMap, Logo, NavButtons, Rack, Results, Settings, Splash, Well } from 'components';
 import { useLocalStorage } from 'hooks';
 import { getCellSize } from 'lib';
-import { COMPONENTS_SPACING } from 'parameters';
+import { COMPONENTS_SPACING, COMPONENTS_SPACING_MOBILE, DICTIONARY_HEIGHT } from 'parameters';
 import {
   boardSlice,
   dictionarySlice,
@@ -32,11 +32,18 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [showKeyMap, setShowKeyMap] = useState<boolean>(false);
   const [showSettings, setShowSettings] = useState<boolean>(false);
   const [boardRef, { height: boardHeight }] = useMeasure<HTMLDivElement>();
-  const [contentRef, { width: contentWidth }] = useMeasure<HTMLDivElement>();
-  const [resultsRef, { height: resultsHeight, width: resultsWidth }] = useMeasure<HTMLDivElement>();
+  const [contentRef, { height: contentHeight, width: contentWidth }] = useMeasure<HTMLDivElement>();
+  const [
+    resultsContainerRef,
+    { height: resultsContainerHeight, width: resultsContainerWidth },
+  ] = useMeasure<HTMLDivElement>();
   const config = useTypedSelector(selectConfig);
-  const cellSize = getCellSize(config, contentWidth - resultsWidth - COMPONENTS_SPACING, boardHeight);
-  const isInitialized = contentWidth > 0 && boardHeight > 0 && resultsWidth > 0;
+  const cellSize = getCellSize(config, contentWidth - resultsContainerWidth, contentHeight);
+  const isInitialized = contentWidth > 0 && boardHeight > 0 && resultsContainerWidth > 0;
+  const isTabletHeight = useMedia('(max-height: 800px)');
+  const isTabletWidth = useMedia('(max-width: 1024px)');
+  const isTablet = isTabletHeight || isTabletWidth;
+  const resultsHeight = boardHeight - DICTIONARY_HEIGHT - (isTablet ? COMPONENTS_SPACING_MOBILE : COMPONENTS_SPACING);
 
   const handleClear = () => {
     dispatch(boardSlice.actions.reset());
@@ -83,13 +90,15 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
         <div className={styles.contentWrapper}>
           <div className={styles.content} ref={contentRef}>
-            <div className={styles.boardContainer} ref={boardRef}>
-              {contentWidth > 0 && boardHeight > 0 && <Board cellSize={cellSize} />}
+            <div className={styles.boardContainer}>
+              {contentWidth > 0 && <Board cellSize={cellSize} innerRef={boardRef} />}
             </div>
 
-            <div className={styles.sidebar}>
-              <Well className={styles.results} ref={resultsRef}>
-                {resultsWidth > 0 && resultsHeight > 0 && <Results height={resultsHeight} width={resultsWidth} />}
+            <div className={styles.sidebar} style={{ height: boardHeight + 1 }}>
+              <Well className={styles.resultsContainer} ref={resultsContainerRef}>
+                {resultsContainerWidth > 0 && resultsContainerHeight > 0 && (
+                  <Results height={resultsHeight} width={resultsContainerWidth} />
+                )}
               </Well>
 
               <Well className={styles.dictionary}>

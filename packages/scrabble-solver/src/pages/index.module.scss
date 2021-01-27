@@ -24,12 +24,17 @@
 }
 
 .logoContainer {
+  display: flex;
   flex: 1;
 }
 
 .logo {
   height: 60px;
   user-select: none;
+
+  @include tablet {
+    height: 48px;
+  }
 }
 
 .contentWrapper {
@@ -44,24 +49,21 @@
 
 .content {
   display: flex;
+  align-items: center;
   justify-content: center;
   height: 100%;
 }
 
 .boardContainer {
-  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
 }
 
 .sidebar {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  margin-left: var(--spacing--xl);
+  padding-left: var(--spacing--xl);
   flex: 0 0 var(--sidebar-width);
-  overflow: visible;
 
   > * {
     margin-bottom: var(--spacing--xl);
@@ -70,13 +72,25 @@
       margin-bottom: 0;
     }
   }
+
+  @include tablet {
+    padding-left: var(--spacing--l);
+
+    > * {
+      margin-bottom: var(--spacing--l);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
 .dictionary {
   flex: 0 0 auto;
 }
 
-.results {
+.resultsContainer {
   flex: 1;
   position: relative;
 }
@@ -88,6 +102,10 @@
   display: flex;
   justify-content: center;
   margin: var(--spacing--xl) var(--spacing--l);
+
+  @include tablet {
+    margin: var(--spacing--l);
+  }
 }
 
 .rack {
