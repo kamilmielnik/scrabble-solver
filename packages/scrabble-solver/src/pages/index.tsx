@@ -3,10 +3,10 @@ import fs from 'fs';
 import path from 'path';
 import React, { AnimationEvent, FormEventHandler, FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useEffectOnce, useMeasure, useMedia } from 'react-use';
+import { useEffectOnce, useMeasure } from 'react-use';
 
 import { Board, Dictionary, KeyMap, Logo, NavButtons, Rack, Results, Settings, Splash, Well } from 'components';
-import { useLocalStorage } from 'hooks';
+import { useIsTablet, useLocalStorage } from 'hooks';
 import { getCellSize } from 'lib';
 import { COMPONENTS_SPACING, COMPONENTS_SPACING_MOBILE, DICTIONARY_HEIGHT } from 'parameters';
 import {
@@ -40,9 +40,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const config = useTypedSelector(selectConfig);
   const cellSize = getCellSize(config, contentWidth - resultsContainerWidth, contentHeight);
   const isInitialized = contentWidth > 0 && boardHeight > 0 && resultsContainerWidth > 0;
-  const isTabletHeight = useMedia('(max-height: 800px)');
-  const isTabletWidth = useMedia('(max-width: 1024px)');
-  const isTablet = isTabletHeight || isTabletWidth;
+  const isTablet = useIsTablet();
   const resultsHeight = boardHeight - DICTIONARY_HEIGHT - (isTablet ? COMPONENTS_SPACING_MOBILE : COMPONENTS_SPACING);
 
   const handleClear = () => {
