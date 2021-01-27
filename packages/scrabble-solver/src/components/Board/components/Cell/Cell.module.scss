@@ -10,6 +10,7 @@ $icon-size: 16px;
   background-color: white;
   border: var(--border);
   transition: var(--transition);
+  background-clip: padding-box;
 
   &.bonusCharacter1 {
     background-color: var(--color--yellow--light);
