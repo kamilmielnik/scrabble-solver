@@ -33,10 +33,12 @@ $hiding-duration: 200ms;
 }
 
 .logos {
+  position: relative;
   width: 50vw;
   max-width: 688px;
   pointer-events: none;
   user-select: none;
+  transition: var(--transition);
 }
 
 .logoGrayscale {
