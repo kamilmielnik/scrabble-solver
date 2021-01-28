@@ -1,9 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { useKey } from 'react-use';
 
-import { useTranslate } from 'state';
+import { selectConfig, useTranslate, useTypedSelector } from 'state';
 
+import styles from './RemainingTiles.module.scss';
 import Sidebar from '../Sidebar';
+import Tile from '../Tile';
 
 interface Props {
   className?: string;
@@ -11,8 +13,11 @@ interface Props {
   onClose: () => void;
 }
 
+const TILE_SIZE = 50;
+
 const RemainingTiles: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
   const translate = useTranslate();
+  const config = useTypedSelector(selectConfig);
 
   const handleClose = () => {
     if (!hidden) {
@@ -24,7 +29,20 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, hidden, onClose }
 
   return (
     <Sidebar className={className} hidden={hidden} title={translate('remaining-tiles')} onClose={handleClose}>
-      TODO
+      <div className={styles.content}>
+        {config.tiles.map(({ character, count }) => {
+          const remainingCount = 0;
+
+          return (
+            <div className={styles.tile} key={character}>
+              <Tile character={character} disabled raised size={TILE_SIZE} />
+              <div className={styles.count}>
+                {remainingCount} / {count}
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </Sidebar>
   );
 };

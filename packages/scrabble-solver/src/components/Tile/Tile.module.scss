@@ -1,7 +1,6 @@
 .tile {
   position: relative;
   background-color: transparent;
-  color: white;
   transition: var(--transition);
 
   &.raised {
@@ -60,6 +59,10 @@
 
   &::placeholder {
     color: var(--color--inactive);
+  }
+
+  &:disabled {
+    color: inherit;
   }
 }
 

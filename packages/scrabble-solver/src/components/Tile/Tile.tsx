@@ -18,6 +18,7 @@ interface Props {
   autoFocus?: boolean;
   character?: string;
   className?: string;
+  disabled?: boolean;
   highlighted?: boolean;
   inputRef?: RefObject<HTMLInputElement>;
   isBlank?: boolean;
@@ -33,6 +34,7 @@ const Tile: FunctionComponent<Props> = ({
   autoFocus,
   className,
   character = '',
+  disabled,
   highlighted,
   inputRef: ref,
   isBlank,
@@ -64,6 +66,7 @@ const Tile: FunctionComponent<Props> = ({
       canShowPoints={canShowPoints}
       character={character}
       className={className}
+      disabled={disabled}
       highlighted={highlighted}
       inputRef={inputRef}
       inputStyle={inputStyle}

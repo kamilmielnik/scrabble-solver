@@ -16,6 +16,7 @@ interface Props {
   canShowPoints?: boolean;
   character?: string;
   className?: string;
+  disabled?: boolean;
   highlighted?: boolean;
   inputRef: RefObject<HTMLInputElement>;
   inputStyle?: CSSProperties;
@@ -36,6 +37,7 @@ const TilePure: FunctionComponent<Props> = ({
   canShowPoints,
   character,
   className,
+  disabled,
   highlighted,
   inputRef,
   inputStyle,
@@ -67,6 +69,7 @@ const TilePure: FunctionComponent<Props> = ({
       autoCorrect="off"
       autoFocus={autoFocus}
       className={styles.character}
+      disabled={disabled}
       maxLength={1}
       placeholder={placeholder}
       ref={inputRef}

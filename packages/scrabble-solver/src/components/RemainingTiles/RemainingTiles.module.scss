@@ -1,0 +1,17 @@
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  margin: calc(-1 * var(--spacing--m));
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  margin: var(--spacing--m);
+}
+
+.count {
+  margin-top: var(--spacing--xs);
+  text-align: center;
+  font-size: var(--font--size--s);
+}
