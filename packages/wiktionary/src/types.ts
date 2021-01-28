@@ -15,7 +15,7 @@ export interface Page {
 
 export interface WiktionaryResponse {
   batchcomplete: string;
-  warnings: {
+  warnings?: {
     extracts: {
       '*': string;
     };
