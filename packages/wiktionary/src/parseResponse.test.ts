@@ -3,7 +3,7 @@ import path from 'path';
 
 import parseResponse from './parseResponse';
 
-const tests = ['dicare', 'fourty', 'mako', 'man'];
+const tests = ['dicare', 'fourty', 'mako', 'man', 'mop'];
 
 describe('parseResponse', () => {
   tests.forEach((word) => {

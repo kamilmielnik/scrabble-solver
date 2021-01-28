@@ -2,13 +2,24 @@ import striptags from 'striptags';
 
 type Normalize = (definition: string) => string;
 
-const EMPHASIS_TAGS = ['a', 'em', 'b', 'internalXref'];
+const EMPHASIS_TAGS = ['a', 'b', 'em', 'internalXref'];
+
+const normalizeHtmlTags: Normalize = (definition) => striptags(striptags(definition, EMPHASIS_TAGS), undefined, '"');
+
+const normalizeLineBreaks: Normalize = (definition) => definition.replace(/[\r\n]/g, '');
+
+const normalizeQuotes: Normalize = (definition) => definition.replace(/\."/g, '".');
+
+/**
+ * `(1.2) definition` -> `definition`
+ */
+const normalizeMarkers: Normalize = (definition) => definition.replace(/^\(\d+\.\d+\)\s+/g, '');
 
 const normalizers: Normalize[] = [
-  (definition) => striptags(definition, EMPHASIS_TAGS),
-  (definition) => striptags(definition, undefined, '"'),
-  (definition) => definition.replace(/\."/g, '".'),
-  (definition) => definition.replace(/[\r\n]/g, ''),
+  normalizeHtmlTags,
+  normalizeMarkers,
+  normalizeQuotes,
+  normalizeLineBreaks,
   (definition) => definition.trim(),
 ];
 
