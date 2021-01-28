@@ -9,6 +9,7 @@ $size: 32px;
   display: inline-block;
   color: var(--color--inactive);
   cursor: pointer;
+  transition: var(--transition);
 
   &:active,
   &:focus,
@@ -21,18 +22,11 @@ $size: 32px;
   &:focus,
   &:hover {
     text-decoration: none;
-
-    .icon,
-    .label {
-      color: var(--color--foreground--secondary);
-    }
+    color: var(--color--foreground--secondary);
   }
 
   &:active {
-    .icon,
-    .label {
-      color: var(--color--foreground);
-    }
+    color: var(--color--foreground);
   }
 }
 
@@ -45,6 +39,7 @@ $size: 32px;
 
 .icon,
 .label {
+  color: inherit;
   transition: var(--transition);
 }
 

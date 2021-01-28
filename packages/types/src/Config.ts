@@ -5,6 +5,7 @@ import BonusValue from './BonusValue';
 import Cell from './Cell';
 import CharacterBonus from './CharacterBonus';
 import ConfigJson from './ConfigJson';
+import TileConfig from './TileConfig';
 import WordBonus from './WordBonus';
 
 class Config {
@@ -76,6 +77,10 @@ class Config {
 
   public get numberOfBlanks(): number {
     return this.config.numberOfBlanks;
+  }
+
+  public get tiles(): TileConfig[] {
+    return this.config.tiles;
   }
 
   public toJson(): ConfigJson {

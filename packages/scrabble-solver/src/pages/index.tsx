@@ -5,7 +5,19 @@ import React, { AnimationEvent, FormEventHandler, FunctionComponent } from 'reac
 import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure, useToggle } from 'react-use';
 
-import { Board, Dictionary, KeyMap, Logo, NavButtons, Rack, Results, Settings, Splash, Well } from 'components';
+import {
+  Board,
+  Dictionary,
+  KeyMap,
+  Logo,
+  NavButtons,
+  Rack,
+  RemainingTiles,
+  Results,
+  Settings,
+  Splash,
+  Well,
+} from 'components';
 import { useIsTablet, useLocalStorage } from 'hooks';
 import { getCellSize } from 'lib';
 import { COMPONENTS_SPACING, COMPONENTS_SPACING_MOBILE, DICTIONARY_HEIGHT } from 'parameters';
@@ -21,6 +33,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const isTablet = useIsTablet();
   const [showKeyMap, toggleShowKeyMap] = useToggle(false);
+  const [showRemainingTiles, toggleShowRemainingTiles] = useToggle(false);
   const [showSettings, toggleShowSettings] = useToggle(false);
   const [boardRef, { height: boardHeight }] = useMeasure<HTMLDivElement>();
   const [contentRef, { height: contentHeight, width: contentWidth }] = useMeasure<HTMLDivElement>();
@@ -63,7 +76,12 @@ const Index: FunctionComponent<Props> = ({ version }) => {
             <Logo className={styles.logo} />
           </div>
 
-          <NavButtons onClear={handleClear} onShowKeyMap={toggleShowKeyMap} onShowSettings={toggleShowSettings} />
+          <NavButtons
+            onClear={handleClear}
+            onShowKeyMap={toggleShowKeyMap}
+            onShowRemainingTiles={toggleShowRemainingTiles}
+            onShowSettings={toggleShowSettings}
+          />
         </div>
 
         <div className={styles.contentWrapper}>
@@ -94,6 +112,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       <Settings hidden={!showSettings} onClose={toggleShowSettings} />
 
       <KeyMap hidden={!showKeyMap} onClose={toggleShowKeyMap} />
+
+      <RemainingTiles hidden={!showRemainingTiles} onClose={toggleShowRemainingTiles} />
 
       <Splash forceShow={!isInitialized} onAnimationEnd={handleSplashAnimationEnd} />
     </>

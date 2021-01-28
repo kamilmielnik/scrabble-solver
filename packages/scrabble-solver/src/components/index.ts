@@ -12,6 +12,7 @@ export { default as NotFound } from './NotFound';
 export { default as PlainTiles } from './PlainTiles';
 export { default as Rack } from './Rack';
 export { default as Radio } from './Radio';
+export { default as RemainingTiles } from './RemainingTiles';
 export { default as Results } from './Results';
 export { default as Screen } from './Screen';
 export { default as Settings } from './Settings';
