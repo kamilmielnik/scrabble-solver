@@ -1,20 +1,24 @@
 import { WordDefinition } from '@scrabble-solver/types';
 
+import { isPage, isWiktionaryResponse } from './guards';
 import parseResponseHtml from './parseResponseHtml';
-import { WiktionaryResponse } from './types';
 
 const parseResponse = (response: string, word: string): WordDefinition => {
-  const json = JSON.parse(response) as WiktionaryResponse;
+  const json = JSON.parse(response);
+
+  if (!isWiktionaryResponse(json)) {
+    throw new Error('Cannot parse Wiktionary response');
+  }
+
   const pages = json.query.pages;
   const keys = Object.keys(pages);
-  const key = keys[0];
+  const page = pages[keys[0]];
 
-  if (typeof key === 'undefined') {
+  if (!isPage(page)) {
     return new WordDefinition({ definitions: [], isAllowed: false, word });
   }
 
-  const html = pages[key].extract;
-  const wordDefinition = parseResponseHtml(html, word);
+  const wordDefinition = parseResponseHtml(page.extract, word);
   return wordDefinition;
 };
 

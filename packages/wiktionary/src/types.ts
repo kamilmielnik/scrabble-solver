@@ -1,23 +1,36 @@
 /* eslint-disable max-lines */
 
+export interface Query {
+  pages: Pages;
+}
+
+export type Pages = Record<string, Page | MissingPage>;
+
+export interface Extracts {
+  '*': string;
+}
+
+export interface Warnings {
+  extracts: Extracts;
+}
+
+export interface Page {
+  extract: string;
+  ns: number;
+  pageid: number;
+  title: string;
+}
+
+export interface MissingPage {
+  missing: string;
+  ns: number;
+  title: string;
+}
+
 export interface WiktionaryResponse {
   batchcomplete: string;
-  warnings: {
-    extracts: {
-      '*': string;
-    };
-  };
-  query: {
-    pages: Record<
-      string,
-      {
-        pageid: number;
-        ns: number;
-        title: string;
-        extract: string;
-      }
-    >;
-  };
+  warnings: Warnings;
+  query: Query;
 }
 
 // https://en.wikipedia.org/wiki/List_of_Wiktionaries
