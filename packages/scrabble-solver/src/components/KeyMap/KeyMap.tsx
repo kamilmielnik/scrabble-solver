@@ -17,10 +17,16 @@ interface Props {
 const KeyMap: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
   const translate = useTranslate();
 
-  useKey('Escape', onClose, { event: 'keydown' }, [onClose]);
+  const handleClose = () => {
+    if (!hidden) {
+      onClose();
+    }
+  };
+
+  useKey('Escape', handleClose, { event: 'keydown' }, [handleClose]);
 
   return (
-    <Sidebar className={className} hidden={hidden} title={translate('keyMap')} onClose={onClose}>
+    <Sidebar className={className} hidden={hidden} title={translate('keyMap')} onClose={handleClose}>
       <Sidebar.Section title={translate('keyMap.board-and-rack')}>
         <Mapping description={translate('keyMap.board-and-rack.navigate')} mapping={mapping.navigate} />
         <Mapping description={translate('keyMap.board-and-rack.remove-tile')} mapping={mapping.removeTile} />

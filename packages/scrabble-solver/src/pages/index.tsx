@@ -5,7 +5,19 @@ import React, { AnimationEvent, FormEventHandler, FunctionComponent } from 'reac
 import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure, useToggle } from 'react-use';
 
-import { Board, Dictionary, KeyMap, Logo, NavButtons, Rack, Results, Settings, Splash, Well } from 'components';
+import {
+  Board,
+  Dictionary,
+  KeyMap,
+  Logo,
+  NavButtons,
+  Rack,
+  RemainingTiles,
+  Results,
+  Settings,
+  Splash,
+  Well,
+} from 'components';
 import { useIsTablet, useLocalStorage } from 'hooks';
 import { getCellSize } from 'lib';
 import { COMPONENTS_SPACING, COMPONENTS_SPACING_MOBILE, DICTIONARY_HEIGHT } from 'parameters';
@@ -101,7 +113,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
       <KeyMap hidden={!showKeyMap} onClose={toggleShowKeyMap} />
 
-      {showRemainingTiles}
+      <RemainingTiles hidden={!showRemainingTiles} onClose={toggleShowRemainingTiles} />
 
       <Splash forceShow={!isInitialized} onAnimationEnd={handleSplashAnimationEnd} />
     </>

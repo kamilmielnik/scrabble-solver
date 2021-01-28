@@ -16,10 +16,16 @@ interface Props {
 const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
   const translate = useTranslate();
 
-  useKey('Escape', onClose, { event: 'keydown' }, [onClose]);
+  const handleClose = () => {
+    if (!hidden) {
+      onClose();
+    }
+  };
+
+  useKey('Escape', handleClose, { event: 'keydown' }, [handleClose]);
 
   return (
-    <Sidebar className={className} hidden={hidden} title={translate('settings')} onClose={onClose}>
+    <Sidebar className={className} hidden={hidden} title={translate('settings')} onClose={handleClose}>
       <Sidebar.Section title={translate('settings.game')}>
         <ConfigSetting disabled={hidden} />
       </Sidebar.Section>
