@@ -50,12 +50,7 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowRem
 
       <div className={styles.separator} />
 
-      <SquareButton
-        className={styles.button}
-        icon={eraser}
-        title={translate('clear')}
-        onClick={onClear}
-      >
+      <SquareButton className={styles.button} icon={eraser} title={translate('clear')} onClick={onClear}>
         {translate('clear')}
       </SquareButton>
 
