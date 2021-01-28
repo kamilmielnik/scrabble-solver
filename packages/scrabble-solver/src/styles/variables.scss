@@ -21,6 +21,7 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
     var(--box-shadow--color);
   --box-shadow--right: var(--box-shadow--offset) 0 var(--box-shadow--blur) var(--box-shadow--spread)
     var(--box-shadow--color);
+  --box-shadow--error: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) rgba(255, 0, 0, 0.75);
 
   --color--background: #f4f4f4;
   --color--background--secondary: #111;

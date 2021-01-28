@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { useKey } from 'react-use';
 
@@ -18,6 +19,10 @@ const TILE_SIZE = 50;
 const RemainingTiles: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
   const translate = useTranslate();
   const config = useTypedSelector(selectConfig);
+  const tiles = config.tiles.map((tile) => ({
+    ...tile,
+    usedCount: 0,
+  }));
 
   const handleClose = () => {
     if (!hidden) {
@@ -30,12 +35,18 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, hidden, onClose }
   return (
     <Sidebar className={className} hidden={hidden} title={translate('remaining-tiles')} onClose={handleClose}>
       <div className={styles.content}>
-        {config.tiles.map(({ character, count }) => {
-          const remainingCount = 0;
+        {tiles.map(({ character, count, usedCount }) => {
+          const remainingCount = count - usedCount;
 
           return (
-            <div className={styles.tile} key={character}>
-              <Tile character={character} disabled raised size={TILE_SIZE} />
+            <div
+              className={classNames(styles.character, {
+                [styles.finished]: remainingCount <= 0,
+                [styles.overused]: remainingCount < 0,
+              })}
+              key={character}
+            >
+              <Tile character={character} className={styles.tile} disabled size={TILE_SIZE} />
               <div className={styles.count}>
                 {remainingCount} / {count}
               </div>
