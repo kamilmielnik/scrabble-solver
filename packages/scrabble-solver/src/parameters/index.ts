@@ -1,5 +1,7 @@
 export const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';
 
+export const NPM_PROJECT_URL = 'https://www.npmjs.com/package/scrabble-solver';
+
 export const COLOR_BLUE = '#c7d8f9';
 export const COLOR_GREEN = '#bae3ba';
 export const COLOR_RED = '#f7c2aa';
