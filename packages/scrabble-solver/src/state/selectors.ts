@@ -127,7 +127,7 @@ export const selectDictionaryRoot = (state: RootState): RootState['dictionary'] 
 
 export const selectRemainingTiles = createSelector(
   [selectConfig, selectCharacters, selectRows],
-  (config, rackCharacters, rows) => {
+  (config, characters, rows) => {
     const nonEmptyCells = rows.flat().filter((cell) => !cell.isEmpty);
     const letterCells = nonEmptyCells.filter((cell) => !cell.tile.isBlank);
     const remainingTiles = Object.fromEntries(config.tiles.map((tile) => [tile.character, { ...tile, usedCount: 0 }]));
@@ -137,25 +137,25 @@ export const selectRemainingTiles = createSelector(
       score: config.blankScore,
       usedCount:
         nonEmptyCells.filter((cell) => cell.tile.isBlank).length +
-        rackCharacters.filter((character) => character === BLANK).length,
+        characters.filter((character) => character === BLANK).length,
     };
-    const characters = [
+    const letters = [
       ...letterCells.map((cell) => cell.tile.character),
-      ...rackCharacters.filter((character) => character !== BLANK),
+      ...characters.filter((letter) => letter !== BLANK),
     ];
-    const unknownCharacters = characters.filter((character) => typeof remainingTiles[character] === 'undefined');
+    const unknownLetters = letters.filter((letter) => typeof remainingTiles[letter] === 'undefined');
 
-    for (const character of unknownCharacters) {
-      remainingTiles[character] = {
-        character,
+    for (const letter of unknownLetters) {
+      remainingTiles[letter] = {
+        character: letter,
         count: 0,
         score: 0,
         usedCount: 0,
       };
     }
 
-    for (const character of characters) {
-      ++remainingTiles[character].usedCount;
+    for (const letter of letters) {
+      ++remainingTiles[letter].usedCount;
     }
 
     return [...Object.values(remainingTiles).sort(createKeyComparator('character')), blank];
