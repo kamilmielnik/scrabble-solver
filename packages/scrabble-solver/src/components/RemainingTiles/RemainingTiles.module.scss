@@ -19,7 +19,15 @@
     opacity: 1;
 
     .tile {
-      box-shadow: var(--box-shadow--error);
+      &:after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        content: ' ';
+        box-shadow: var(--box-shadow--error);
+      }
     }
   }
 }

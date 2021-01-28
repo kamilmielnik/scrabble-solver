@@ -1,5 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getLocaleConfig } from '@scrabble-solver/configs';
+import { BLANK } from '@scrabble-solver/constants';
 import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
@@ -123,3 +124,21 @@ export const selectAreResultsOutdated = createSelector(
 );
 
 export const selectDictionaryRoot = (state: RootState): RootState['dictionary'] => state.dictionary;
+
+export const selectRemainingTiles = createSelector([selectConfig, selectRows], (config, rows) => {
+  const nonEmptyCells = rows.flat().filter((cell) => !cell.isEmpty);
+  const letterCells = nonEmptyCells.filter((cell) => !cell.tile.isBlank);
+  const remainingTiles = Object.fromEntries(config.tiles.map((tile) => [tile.character, { ...tile, usedCount: 0 }]));
+  const blank = {
+    character: BLANK,
+    count: config.numberOfBlanks,
+    score: config.blankScore,
+    usedCount: nonEmptyCells.filter((cell) => cell.tile.isBlank).length,
+  };
+
+  for (const cell of letterCells) {
+    ++remainingTiles[cell.tile.character].usedCount;
+  }
+
+  return [...Object.values(remainingTiles).sort(createKeyComparator('character')), blank];
+});

@@ -1,8 +1,10 @@
+import { BLANK } from '@scrabble-solver/constants';
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { useKey } from 'react-use';
 
-import { selectConfig, useTranslate, useTypedSelector } from 'state';
+import { REMAINING_TILES_TILE_SIZE } from 'parameters';
+import { selectRemainingTiles, useTranslate, useTypedSelector } from 'state';
 
 import styles from './RemainingTiles.module.scss';
 import Sidebar from '../Sidebar';
@@ -14,15 +16,9 @@ interface Props {
   onClose: () => void;
 }
 
-const TILE_SIZE = 50;
-
 const RemainingTiles: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
   const translate = useTranslate();
-  const config = useTypedSelector(selectConfig);
-  const tiles = config.tiles.map((tile) => ({
-    ...tile,
-    usedCount: 0,
-  }));
+  const remainingTiles = useTypedSelector(selectRemainingTiles);
 
   const handleClose = () => {
     if (!hidden) {
@@ -35,7 +31,7 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, hidden, onClose }
   return (
     <Sidebar className={className} hidden={hidden} title={translate('remaining-tiles')} onClose={handleClose}>
       <div className={styles.content}>
-        {tiles.map(({ character, count, usedCount }) => {
+        {remainingTiles.map(({ character, count, usedCount }) => {
           const remainingCount = count - usedCount;
 
           return (
@@ -46,7 +42,14 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, hidden, onClose }
               })}
               key={character}
             >
-              <Tile character={character} className={styles.tile} disabled size={TILE_SIZE} />
+              <Tile
+                character={character}
+                className={styles.tile}
+                disabled
+                isBlank={character === BLANK}
+                raised
+                size={REMAINING_TILES_TILE_SIZE}
+              />
               <div className={styles.count}>
                 {remainingCount} / {count}
               </div>
