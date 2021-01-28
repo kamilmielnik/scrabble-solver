@@ -72,8 +72,8 @@ const CellPure: FunctionComponent<Props> = ({
 
       {!isEmpty && (
         <Button
-          className={classNames({
-            [styles.blank]: tile.isBlank,
+          className={classNames(styles.blank, {
+            [styles.active]: tile.isBlank,
           })}
           title={tile.isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
           onClick={onToggleBlankClick}

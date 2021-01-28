@@ -170,5 +170,9 @@ $icon-size: 16px;
 }
 
 .blank {
-  font-weight: bold;
+  user-select: none;
+
+  &.active {
+    font-weight: bold;
+  }
 }
