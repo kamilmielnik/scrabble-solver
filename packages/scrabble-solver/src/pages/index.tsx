@@ -9,17 +9,7 @@ import { Board, Dictionary, KeyMap, Logo, NavButtons, Rack, Results, Settings, S
 import { useIsTablet, useLocalStorage } from 'hooks';
 import { getCellSize } from 'lib';
 import { COMPONENTS_SPACING, COMPONENTS_SPACING_MOBILE, DICTIONARY_HEIGHT } from 'parameters';
-import {
-  boardSlice,
-  dictionarySlice,
-  initialize,
-  localStorage,
-  rackSlice,
-  resultsSlice,
-  selectConfig,
-  solveSlice,
-  useTypedSelector,
-} from 'state';
+import { initialize, localStorage, reset, selectConfig, solveSlice, useTypedSelector } from 'state';
 
 import styles from './index.module.scss';
 
@@ -44,10 +34,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const resultsHeight = boardHeight - DICTIONARY_HEIGHT - (isTablet ? COMPONENTS_SPACING_MOBILE : COMPONENTS_SPACING);
 
   const handleClear = () => {
-    dispatch(boardSlice.actions.reset());
-    dispatch(dictionarySlice.actions.reset());
-    dispatch(rackSlice.actions.reset());
-    dispatch(resultsSlice.actions.reset());
+    dispatch(reset());
   };
 
   const handleSubmit: FormEventHandler = (event) => {

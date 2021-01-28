@@ -5,7 +5,7 @@ import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effe
 import { memoize } from 'lib';
 import { findWordDefinition, solve, visit } from 'sdk';
 
-import { initialize } from './actions';
+import { initialize, reset } from './actions';
 import {
   selectAutoGroupTiles,
   selectBoard,
@@ -27,6 +27,7 @@ export function* rootSaga(): Generator {
   yield takeEvery(settingsSlice.actions.changeLocale.type, onLocaleChange);
   yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
   yield takeLatest(initialize.type, onInitialize);
+  yield takeLatest(reset.type, onReset);
   yield takeLatest(solveSlice.actions.submit.type, onSubmit);
 }
 
@@ -62,6 +63,13 @@ function* onDictionarySubmit() {
 function* onInitialize() {
   yield call(visit);
   yield* ensureProperTilesCount();
+}
+
+function* onReset() {
+  yield put(boardSlice.actions.reset());
+  yield put(dictionarySlice.actions.reset());
+  yield put(rackSlice.actions.reset());
+  yield put(resultsSlice.actions.reset());
 }
 
 function* onLocaleChange() {
