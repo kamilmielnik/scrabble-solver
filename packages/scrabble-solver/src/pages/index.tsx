@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
-import React, { AnimationEvent, FormEventHandler, FunctionComponent, useState } from 'react';
+import React, { AnimationEvent, FormEventHandler, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
-import { useEffectOnce, useMeasure } from 'react-use';
+import { useEffectOnce, useMeasure, useToggle } from 'react-use';
 
 import { Board, Dictionary, KeyMap, Logo, NavButtons, Rack, Results, Settings, Splash, Well } from 'components';
 import { useIsTablet, useLocalStorage } from 'hooks';
@@ -20,8 +20,8 @@ interface Props {
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const isTablet = useIsTablet();
-  const [showKeyMap, setShowKeyMap] = useState<boolean>(false);
-  const [showSettings, setShowSettings] = useState<boolean>(false);
+  const [showKeyMap, toggleShowKeyMap] = useToggle(false);
+  const [showSettings, toggleShowSettings] = useToggle(false);
   const [boardRef, { height: boardHeight }] = useMeasure<HTMLDivElement>();
   const [contentRef, { height: contentHeight, width: contentWidth }] = useMeasure<HTMLDivElement>();
   const [
@@ -43,18 +43,11 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   };
 
   const handleSplashAnimationEnd = (event: AnimationEvent<HTMLDivElement>) => {
-    if (event.target !== event.currentTarget || localStorage.getHasVisited()) {
-      return;
+    if (event.target === event.currentTarget && !localStorage.getHasVisited()) {
+      toggleShowSettings(true);
+      localStorage.setHasVisited(true);
     }
-
-    setShowSettings(true);
-    localStorage.setHasVisited(true);
   };
-
-  const handleHideKeyMap = () => setShowKeyMap(false);
-  const handleShowKeyMap = () => setShowKeyMap(true);
-  const handleHideSettings = () => setShowSettings(false);
-  const handleShowSettings = () => setShowSettings(true);
 
   useLocalStorage();
 
@@ -70,7 +63,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
             <Logo className={styles.logo} />
           </div>
 
-          <NavButtons onClear={handleClear} onShowKeyMap={handleShowKeyMap} onShowSettings={handleShowSettings} />
+          <NavButtons onClear={handleClear} onShowKeyMap={toggleShowKeyMap} onShowSettings={toggleShowSettings} />
         </div>
 
         <div className={styles.contentWrapper}>
@@ -98,9 +91,9 @@ const Index: FunctionComponent<Props> = ({ version }) => {
         </div>
       </form>
 
-      <Settings hidden={!showSettings} onClose={handleHideSettings} />
+      <Settings hidden={!showSettings} onClose={toggleShowSettings} />
 
-      <KeyMap hidden={!showKeyMap} onClose={handleHideKeyMap} />
+      <KeyMap hidden={!showKeyMap} onClose={toggleShowKeyMap} />
 
       <Splash forceShow={!isInitialized} onAnimationEnd={handleSplashAnimationEnd} />
     </>
