@@ -37,14 +37,25 @@ scrabble-solver
 
 Open http://localhost:3333/ if it didn't open up for you.
 
+## Uninstall
+
+```Shell
+npm uninstall -g scrabble-solver
+
+# The package stores logs and dicionaries in $HOME/.scrabble-solver
+# It uses os.homedir() to get $HOME location.
+rm -rf $HOME/.scrabble-solver
+```
+
 ## Requirements
 
-`node 12.4.0+` (should work with node `10.0.0+` though)
+- `node 12.4.0+` (should work with node `10.0.0+` though)
+- min. `900px x 700px` viewport size (`1400px x 1180px` recommended)
 
 ## Dictionaries
 
 | Language   | Locale | Word list                                                                  | Word list (source)                                                                                       | Word definitions                         |
-|------------|--------|----------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|------------------------------------------|
+| ---------- | ------ | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
 | 🇬🇧 English | en-GB  | [SOWPODS](https://en.wikipedia.org/wiki/Collins_Scrabble_Words)            | [download](https://www.wordgamedictionary.com/sowpods/download/sowpods.txt)                              | [Wiktionary](https://en.wiktionary.org/) |
 | 🇺🇸 English | en-US  | [TWL06](https://en.wikipedia.org/wiki/NASPA_Word_List)                     | [download](https://www.wordgamedictionary.com/twl06/download/twl06.txt)                                  | [Wiktionary](https://en.wiktionary.org/) |
 | 🇫🇷 French  | fr-FR  | [hbenbel/French-Dictionary](https://github.com/hbenbel/French-Dictionary/) | [download](https://raw.githubusercontent.com/hbenbel/French-Dictionary/master/dictionary/dictionary.txt) | [Wiktionary](https://fr.wiktionary.org/) |
