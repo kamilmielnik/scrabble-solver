@@ -21,6 +21,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const isTablet = useIsTablet();
   const [showKeyMap, toggleShowKeyMap] = useToggle(false);
+  const [showRemainingTiles, toggleShowRemainingTiles] = useToggle(false);
   const [showSettings, toggleShowSettings] = useToggle(false);
   const [boardRef, { height: boardHeight }] = useMeasure<HTMLDivElement>();
   const [contentRef, { height: contentHeight, width: contentWidth }] = useMeasure<HTMLDivElement>();
@@ -63,7 +64,12 @@ const Index: FunctionComponent<Props> = ({ version }) => {
             <Logo className={styles.logo} />
           </div>
 
-          <NavButtons onClear={handleClear} onShowKeyMap={toggleShowKeyMap} onShowSettings={toggleShowSettings} />
+          <NavButtons
+            onClear={handleClear}
+            onShowKeyMap={toggleShowKeyMap}
+            onShowRemainingTiles={toggleShowRemainingTiles}
+            onShowSettings={toggleShowSettings}
+          />
         </div>
 
         <div className={styles.contentWrapper}>
@@ -94,6 +100,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       <Settings hidden={!showSettings} onClose={toggleShowSettings} />
 
       <KeyMap hidden={!showKeyMap} onClose={toggleShowKeyMap} />
+
+      {showRemainingTiles}
 
       <Splash forceShow={!isInitialized} onAnimationEnd={handleSplashAnimationEnd} />
     </>

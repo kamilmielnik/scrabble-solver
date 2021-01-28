@@ -25,6 +25,7 @@
   "keyMap.rack.insert-blank": "Insert blank (spacebar)",
   "loading": "Loading",
   "rack.placeholder": "Letters",
+  "remaining-tiles": "Remaining tiles",
   "results.empty-state.outdated": "Results are outdated. Click below to update.",
   "results.empty-state.no-results": "No results - unable to generate any words.",
   "results.empty-state.unitialized": "Words generated from your letters will be shown here.",

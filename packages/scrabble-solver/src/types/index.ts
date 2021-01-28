@@ -29,6 +29,7 @@ export interface Translations {
   'keyMap.rack.insert-blank': string;
   loading: string;
   'rack.placeholder': string;
+  'remaining-tiles': string;
   'results.empty-state.outdated': string;
   'results.empty-state.no-results': string;
   'results.empty-state.unitialized': string;

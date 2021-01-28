@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 
-import { cog, eraser, github, keyboard } from 'icons';
+import { cog, eraser, github, keyboard, sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { useTranslate } from 'state';
 
@@ -11,10 +11,11 @@ import styles from './NavButtons.module.scss';
 interface Props {
   onClear: () => void;
   onShowKeyMap: () => void;
+  onShowRemainingTiles: () => void;
   onShowSettings: () => void;
 }
 
-const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowSettings }) => {
+const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowRemainingTiles, onShowSettings }) => {
   const translate = useTranslate();
 
   return (
@@ -32,6 +33,15 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowSet
 
       <SquareButton className={styles.button} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap}>
         {translate('keyMap')}
+      </SquareButton>
+
+      <SquareButton
+        className={styles.button}
+        icon={sack}
+        title={translate('remaining-tiles')}
+        onClick={onShowRemainingTiles}
+      >
+        {translate('remaining-tiles')}
       </SquareButton>
 
       <div className={styles.separator} />
