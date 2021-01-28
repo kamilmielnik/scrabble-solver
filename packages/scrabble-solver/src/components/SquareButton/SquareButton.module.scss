@@ -9,6 +9,7 @@ $size: 32px;
   display: inline-block;
   color: var(--color--inactive);
   cursor: pointer;
+  transition: var(--transition);
 
   &:active,
   &:focus,

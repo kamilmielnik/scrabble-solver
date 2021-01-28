@@ -137,6 +137,17 @@ export const selectRemainingTiles = createSelector([selectConfig, selectRows], (
   };
 
   for (const cell of letterCells) {
+    const { character } = cell.tile;
+
+    if (typeof remainingTiles[character] === 'undefined') {
+      remainingTiles[character] = {
+        character,
+        count: 0,
+        score: 0,
+        usedCount: 0,
+      };
+    }
+
     ++remainingTiles[cell.tile.character].usedCount;
   }
 
