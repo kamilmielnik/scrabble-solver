@@ -27,3 +27,10 @@ $size: 32px;
   border-color: var(--color--inactive);
   height: calc(#{$size} - 2 * var(--spacing--xs));
 }
+
+.error {
+  &,
+  &:hover {
+    color: var(--color--red);
+  }
+}

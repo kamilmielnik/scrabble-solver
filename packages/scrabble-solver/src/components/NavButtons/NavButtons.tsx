@@ -1,8 +1,9 @@
+import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
 import { cog, eraser, github, keyboard, sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
-import { useTranslate } from 'state';
+import { selectHasOverusedTiles, useTranslate, useTypedSelector } from 'state';
 
 import SquareButton from '../SquareButton';
 
@@ -17,6 +18,7 @@ interface Props {
 
 const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowRemainingTiles, onShowSettings }) => {
   const translate = useTranslate();
+  const hasOverusedTiles = useTypedSelector(selectHasOverusedTiles);
 
   return (
     <div className={styles.navButtons}>
@@ -36,7 +38,9 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowRem
       </SquareButton>
 
       <SquareButton
-        className={styles.button}
+        className={classNames(styles.button, {
+          [styles.error]: hasOverusedTiles,
+        })}
         icon={sack}
         title={translate('remaining-tiles')}
         onClick={onShowRemainingTiles}
@@ -46,7 +50,12 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowRem
 
       <div className={styles.separator} />
 
-      <SquareButton className={styles.button} icon={eraser} title={translate('clear')} onClick={onClear}>
+      <SquareButton
+        className={styles.button}
+        icon={eraser}
+        title={translate('clear')}
+        onClick={onClear}
+      >
         {translate('clear')}
       </SquareButton>
 

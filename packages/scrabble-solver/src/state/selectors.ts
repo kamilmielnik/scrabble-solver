@@ -161,3 +161,7 @@ export const selectRemainingTiles = createSelector(
     return [...Object.values(remainingTiles).sort(createKeyComparator('character')), blank];
   },
 );
+
+export const selectHasOverusedTiles = createSelector([selectRemainingTiles], (remainingTiles) => {
+  return remainingTiles.some(({ count, usedCount }) => usedCount > count);
+});
