@@ -6,9 +6,10 @@ import { useKey } from 'react-use';
 import { REMAINING_TILES_TILE_SIZE } from 'parameters';
 import { selectRemainingTiles, useTranslate, useTypedSelector } from 'state';
 
-import styles from './RemainingTiles.module.scss';
 import Sidebar from '../Sidebar';
 import Tile from '../Tile';
+
+import styles from './RemainingTiles.module.scss';
 
 interface Props {
   className?: string;

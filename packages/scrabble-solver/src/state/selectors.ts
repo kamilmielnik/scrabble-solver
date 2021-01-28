@@ -125,21 +125,27 @@ export const selectAreResultsOutdated = createSelector(
 
 export const selectDictionaryRoot = (state: RootState): RootState['dictionary'] => state.dictionary;
 
-export const selectRemainingTiles = createSelector([selectConfig, selectRows], (config, rows) => {
-  const nonEmptyCells = rows.flat().filter((cell) => !cell.isEmpty);
-  const letterCells = nonEmptyCells.filter((cell) => !cell.tile.isBlank);
-  const remainingTiles = Object.fromEntries(config.tiles.map((tile) => [tile.character, { ...tile, usedCount: 0 }]));
-  const blank = {
-    character: BLANK,
-    count: config.numberOfBlanks,
-    score: config.blankScore,
-    usedCount: nonEmptyCells.filter((cell) => cell.tile.isBlank).length,
-  };
+export const selectRemainingTiles = createSelector(
+  [selectConfig, selectCharacters, selectRows],
+  (config, rackCharacters, rows) => {
+    const nonEmptyCells = rows.flat().filter((cell) => !cell.isEmpty);
+    const letterCells = nonEmptyCells.filter((cell) => !cell.tile.isBlank);
+    const remainingTiles = Object.fromEntries(config.tiles.map((tile) => [tile.character, { ...tile, usedCount: 0 }]));
+    const blank = {
+      character: BLANK,
+      count: config.numberOfBlanks,
+      score: config.blankScore,
+      usedCount:
+        nonEmptyCells.filter((cell) => cell.tile.isBlank).length +
+        rackCharacters.filter((character) => character === BLANK).length,
+    };
+    const characters = [
+      ...letterCells.map((cell) => cell.tile.character),
+      ...rackCharacters.filter((character) => character !== BLANK),
+    ];
+    const unknownCharacters = characters.filter((character) => typeof remainingTiles[character] === 'undefined');
 
-  for (const cell of letterCells) {
-    const { character } = cell.tile;
-
-    if (typeof remainingTiles[character] === 'undefined') {
+    for (const character of unknownCharacters) {
       remainingTiles[character] = {
         character,
         count: 0,
@@ -148,8 +154,10 @@ export const selectRemainingTiles = createSelector([selectConfig, selectRows], (
       };
     }
 
-    ++remainingTiles[cell.tile.character].usedCount;
-  }
+    for (const character of characters) {
+      ++remainingTiles[character].usedCount;
+    }
 
-  return [...Object.values(remainingTiles).sort(createKeyComparator('character')), blank];
-});
+    return [...Object.values(remainingTiles).sort(createKeyComparator('character')), blank];
+  },
+);
