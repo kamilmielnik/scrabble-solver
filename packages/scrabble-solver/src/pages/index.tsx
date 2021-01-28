@@ -19,6 +19,7 @@ interface Props {
 
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
+  const isTablet = useIsTablet();
   const [showKeyMap, setShowKeyMap] = useState<boolean>(false);
   const [showSettings, setShowSettings] = useState<boolean>(false);
   const [boardRef, { height: boardHeight }] = useMeasure<HTMLDivElement>();
@@ -30,7 +31,6 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const config = useTypedSelector(selectConfig);
   const cellSize = getCellSize(config, contentWidth - resultsContainerWidth, contentHeight);
   const isInitialized = contentWidth > 0 && boardHeight > 0 && resultsContainerWidth > 0;
-  const isTablet = useIsTablet();
   const resultsHeight = boardHeight - DICTIONARY_HEIGHT - (isTablet ? COMPONENTS_SPACING_MOBILE : COMPONENTS_SPACING);
 
   const handleClear = () => {
