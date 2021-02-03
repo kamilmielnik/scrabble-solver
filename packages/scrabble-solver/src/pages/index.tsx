@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
 import React, { AnimationEvent, FormEventHandler, FunctionComponent } from 'react';
+import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure, useToggle } from 'react-use';
 
@@ -24,6 +25,8 @@ import { COMPONENTS_SPACING, COMPONENTS_SPACING_MOBILE, DICTIONARY_HEIGHT } from
 import { initialize, localStorage, reset, selectConfig, solveSlice, useTypedSelector } from 'state';
 
 import styles from './index.module.scss';
+
+Modal.setAppElement('#__next');
 
 interface Props {
   version: string;
