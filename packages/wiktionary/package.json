@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/wiktionary",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "description": "Scrabble Solver 2 - Wiktionary",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -24,7 +24,7 @@
     "clean:force": "npm run clean && rimraf package-lock.json"
   },
   "dependencies": {
-    "@scrabble-solver/types": "^2.4.3",
+    "@scrabble-solver/types": "^2.4.4",
     "cheerio": "^1.0.0-rc.5",
     "striptags": "^3.1.1"
   },
