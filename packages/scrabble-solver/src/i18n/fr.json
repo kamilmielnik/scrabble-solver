@@ -24,7 +24,6 @@
   "keyMap.rack": "Chevalet",
   "keyMap.rack.insert-blank": "Inserer une case vide (spacebar)",
   "loading": "Chargement",
-  "npm": "Voir ce projet sur npm",
   "rack.placeholder": "Lettres",
   "remaining-tiles": "Cases restantes",
   "results.empty-state.outdated": "Les résultats sont dépassé. Cliquer ci-dessous pour mettre à jour.",

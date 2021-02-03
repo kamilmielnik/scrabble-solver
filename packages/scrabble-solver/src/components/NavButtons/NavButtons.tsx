@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import { cog, eraser, github, keyboard, npm, sack } from 'icons';
-import { GITHUB_PROJECT_URL, NPM_PROJECT_URL } from 'parameters';
+import { cog, eraser, github, keyboard, sack } from 'icons';
+import { GITHUB_PROJECT_URL } from 'parameters';
 import { selectHasOverusedTiles, useTranslate, useTypedSelector } from 'state';
 
 import SquareButton from '../SquareButton';
@@ -32,19 +32,6 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowRem
       >
         GitHub
       </SquareButton.Link>
-
-      <SquareButton.Link
-        className={styles.button}
-        href={NPM_PROJECT_URL}
-        icon={npm}
-        rel="noopener noreferrer"
-        target="_blank"
-        title={translate('npm')}
-      >
-        npm
-      </SquareButton.Link>
-
-      <div className={styles.separator} />
 
       <SquareButton className={styles.button} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap}>
         {translate('keyMap')}
