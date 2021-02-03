@@ -33,6 +33,8 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowRem
         GitHub
       </SquareButton.Link>
 
+      <div className={styles.separator} />
+
       <SquareButton className={styles.button} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap}>
         {translate('keyMap')}
       </SquareButton>
