@@ -30,6 +30,8 @@ $size: 32px;
 
 .error {
   &,
+  &:active,
+  &:focus,
   &:hover {
     color: var(--color--red);
   }

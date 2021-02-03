@@ -1,9 +1,10 @@
 import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
-import React, { AnimationEvent, FormEventHandler, FunctionComponent } from 'react';
+import React, { AnimationEvent, FormEventHandler, FunctionComponent, useState } from 'react';
+import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
-import { useEffectOnce, useMeasure, useToggle } from 'react-use';
+import { useEffectOnce, useMeasure } from 'react-use';
 
 import {
   Board,
@@ -25,6 +26,8 @@ import { initialize, localStorage, reset, selectConfig, solveSlice, useTypedSele
 
 import styles from './index.module.scss';
 
+Modal.setAppElement('#__next');
+
 interface Props {
   version: string;
 }
@@ -32,9 +35,9 @@ interface Props {
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const isTablet = useIsTablet();
-  const [showKeyMap, toggleShowKeyMap] = useToggle(false);
-  const [showRemainingTiles, toggleShowRemainingTiles] = useToggle(false);
-  const [showSettings, toggleShowSettings] = useToggle(false);
+  const [showKeyMap, setShowKeyMap] = useState(false);
+  const [showRemainingTiles, setShowRemainingTiles] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const [boardRef, { height: boardHeight }] = useMeasure<HTMLDivElement>();
   const [contentRef, { height: contentHeight, width: contentWidth }] = useMeasure<HTMLDivElement>();
   const [
@@ -57,7 +60,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
   const handleSplashAnimationEnd = (event: AnimationEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget && !localStorage.getHasVisited()) {
-      toggleShowSettings(true);
+      setShowSettings(true);
       localStorage.setHasVisited(true);
     }
   };
@@ -78,9 +81,9 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
           <NavButtons
             onClear={handleClear}
-            onShowKeyMap={toggleShowKeyMap}
-            onShowRemainingTiles={toggleShowRemainingTiles}
-            onShowSettings={toggleShowSettings}
+            onShowKeyMap={() => setShowKeyMap(true)}
+            onShowRemainingTiles={() => setShowRemainingTiles(true)}
+            onShowSettings={() => setShowSettings(true)}
           />
         </div>
 
@@ -109,11 +112,11 @@ const Index: FunctionComponent<Props> = ({ version }) => {
         </div>
       </form>
 
-      <Settings hidden={!showSettings} onClose={toggleShowSettings} />
+      <Settings isOpen={showSettings} onClose={() => setShowSettings(false)} />
 
-      <KeyMap hidden={!showKeyMap} onClose={toggleShowKeyMap} />
+      <KeyMap isOpen={showKeyMap} onClose={() => setShowKeyMap(false)} />
 
-      <RemainingTiles hidden={!showRemainingTiles} onClose={toggleShowRemainingTiles} />
+      <RemainingTiles isOpen={showRemainingTiles} onClose={() => setShowRemainingTiles(false)} />
 
       <Splash forceShow={!isInitialized} onAnimationEnd={handleSplashAnimationEnd} />
     </>

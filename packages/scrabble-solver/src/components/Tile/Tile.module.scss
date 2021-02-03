@@ -34,6 +34,7 @@
 
   &.highlighted {
     background-color: var(--color--primary);
+    color: white;
 
     .character {
       color: inherit;

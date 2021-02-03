@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 import React, { FunctionComponent, ReactNode } from 'react';
+import Modal from 'react-modal';
 
 import { cross } from 'icons';
+import { TRANSITION_DURATION_LONG } from 'parameters';
 import { useTranslate } from 'state';
 
 import SquareButton from '../SquareButton';
@@ -12,37 +14,39 @@ import styles from './Sidebar.module.scss';
 export interface Props {
   children: ReactNode;
   className?: string;
-  hidden: boolean;
+  isOpen: boolean;
   title: string;
   onClose: () => void;
 }
 
-const Sidebar: FunctionComponent<Props> = ({ children, className, hidden, title, onClose }) => {
+const Sidebar: FunctionComponent<Props> = ({ children, className, isOpen, title, onClose }) => {
   const translate = useTranslate();
 
   return (
-    <div
-      aria-hidden={hidden}
-      className={classNames(styles.sidebar, className, {
-        [styles.hidden]: hidden,
-      })}
+    <Modal
+      className={{
+        afterOpen: styles.afterOpen,
+        base: styles.modal,
+        beforeClose: styles.beforeClose,
+      }}
+      closeTimeoutMS={TRANSITION_DURATION_LONG}
+      contentLabel={title}
+      isOpen={isOpen}
+      overlayClassName={styles.overlay}
+      onRequestClose={onClose}
     >
-      <div className={styles.header}>
-        <h1 className={styles.title}>{title}</h1>
+      <div className={classNames(styles.sidebar, className)}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>{title}</h1>
 
-        <SquareButton
-          className={styles.closeButton}
-          disabled={hidden}
-          icon={cross}
-          title={translate('close')}
-          onClick={onClose}
-        >
-          {translate('close')}
-        </SquareButton>
+          <SquareButton className={styles.closeButton} icon={cross} title={translate('close')} onClick={onClose}>
+            {translate('close')}
+          </SquareButton>
+        </div>
+
+        <div className={styles.content}>{children}</div>
       </div>
-
-      <div className={styles.content}>{children}</div>
-    </div>
+    </Modal>
   );
 };
 

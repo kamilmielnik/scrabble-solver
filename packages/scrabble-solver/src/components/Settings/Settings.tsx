@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import { useKey } from 'react-use';
 
 import { useTranslate } from 'state';
 
@@ -9,33 +8,25 @@ import { AutoGroupTilesSetting, ConfigSetting, LocaleSetting } from './component
 
 interface Props {
   className?: string;
-  hidden: boolean;
+  isOpen: boolean;
   onClose: () => void;
 }
 
-const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
+const Settings: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
 
-  const handleClose = () => {
-    if (!hidden) {
-      onClose();
-    }
-  };
-
-  useKey('Escape', handleClose, { event: 'keydown' }, [handleClose]);
-
   return (
-    <Sidebar className={className} hidden={hidden} title={translate('settings')} onClose={handleClose}>
+    <Sidebar className={className} isOpen={isOpen} title={translate('settings')} onClose={onClose}>
       <Sidebar.Section title={translate('settings.game')}>
-        <ConfigSetting disabled={hidden} />
+        <ConfigSetting disabled={!isOpen} />
       </Sidebar.Section>
 
       <Sidebar.Section title={translate('settings.language')}>
-        <LocaleSetting disabled={hidden} />
+        <LocaleSetting disabled={!isOpen} />
       </Sidebar.Section>
 
       <Sidebar.Section title={translate('settings.autoGroupTiles')}>
-        <AutoGroupTilesSetting disabled={hidden} />
+        <AutoGroupTilesSetting disabled={!isOpen} />
       </Sidebar.Section>
     </Sidebar>
   );
