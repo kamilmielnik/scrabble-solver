@@ -9,21 +9,15 @@ import mapping from './mapping';
 
 interface Props {
   className?: string;
-  hidden: boolean;
+  isOpen: boolean;
   onClose: () => void;
 }
 
-const KeyMap: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
+const KeyMap: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
 
-  const handleClose = () => {
-    if (!hidden) {
-      onClose();
-    }
-  };
-
   return (
-    <Sidebar className={className} hidden={hidden} title={translate('keyMap')} onClose={handleClose}>
+    <Sidebar className={className} isOpen={isOpen} title={translate('keyMap')} onClose={onClose}>
       <Sidebar.Section title={translate('keyMap.board-and-rack')}>
         <Mapping description={translate('keyMap.board-and-rack.navigate')} mapping={mapping.navigate} />
         <Mapping description={translate('keyMap.board-and-rack.remove-tile')} mapping={mapping.removeTile} />

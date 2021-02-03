@@ -12,22 +12,16 @@ import styles from './RemainingTiles.module.scss';
 
 interface Props {
   className?: string;
-  hidden: boolean;
+  isOpen: boolean;
   onClose: () => void;
 }
 
-const RemainingTiles: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
+const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
   const remainingTiles = useTypedSelector(selectRemainingTiles);
 
-  const handleClose = () => {
-    if (!hidden) {
-      onClose();
-    }
-  };
-
   return (
-    <Sidebar className={className} hidden={hidden} title={translate('remaining-tiles')} onClose={handleClose}>
+    <Sidebar className={className} isOpen={isOpen} title={translate('remaining-tiles')} onClose={onClose}>
       <div className={styles.content}>
         {remainingTiles.map(({ character, count, usedCount }) => {
           const remainingCount = count - usedCount;

@@ -112,11 +112,11 @@ const Index: FunctionComponent<Props> = ({ version }) => {
         </div>
       </form>
 
-      <Settings hidden={!showSettings} onClose={toggleShowSettings} />
+      <Settings isOpen={showSettings} onClose={() => toggleShowSettings(false)} />
 
-      <KeyMap hidden={!showKeyMap} onClose={toggleShowKeyMap} />
+      <KeyMap isOpen={showKeyMap} onClose={() => toggleShowKeyMap(false)} />
 
-      <RemainingTiles hidden={!showRemainingTiles} onClose={toggleShowRemainingTiles} />
+      <RemainingTiles isOpen={showRemainingTiles} onClose={() => toggleShowRemainingTiles(false)} />
 
       <Splash forceShow={!isInitialized} onAnimationEnd={handleSplashAnimationEnd} />
     </>
