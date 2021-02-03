@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import { useKey } from 'react-use';
 
 import { useTranslate } from 'state';
 
@@ -21,8 +20,6 @@ const Settings: FunctionComponent<Props> = ({ className, hidden, onClose }) => {
       onClose();
     }
   };
-
-  useKey('Escape', handleClose, { event: 'keydown' }, [handleClose]);
 
   return (
     <Sidebar className={className} hidden={hidden} title={translate('settings')} onClose={handleClose}>

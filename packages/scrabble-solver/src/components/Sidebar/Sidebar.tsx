@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 import React, { FunctionComponent, ReactNode } from 'react';
+import Modal from 'react-modal';
 
 import { cross } from 'icons';
+import { TRANSITION_DURATION_LONG } from 'parameters';
 import { useTranslate } from 'state';
 
 import SquareButton from '../SquareButton';
@@ -21,28 +23,36 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, hidden, title,
   const translate = useTranslate();
 
   return (
-    <div
-      aria-hidden={hidden}
-      className={classNames(styles.sidebar, className, {
-        [styles.hidden]: hidden,
-      })}
+    <Modal
+      className={{
+        afterOpen: styles.afterOpen,
+        base: styles.modal,
+        beforeClose: styles.beforeClose,
+      }}
+      closeTimeoutMS={TRANSITION_DURATION_LONG}
+      contentLabel={title}
+      isOpen={!hidden}
+      overlayClassName={styles.overlay}
+      onRequestClose={onClose}
     >
-      <div className={styles.header}>
-        <h1 className={styles.title}>{title}</h1>
+      <div className={classNames(styles.sidebar, className)}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>{title}</h1>
 
-        <SquareButton
-          className={styles.closeButton}
-          disabled={hidden}
-          icon={cross}
-          title={translate('close')}
-          onClick={onClose}
-        >
-          {translate('close')}
-        </SquareButton>
+          <SquareButton
+            className={styles.closeButton}
+            disabled={hidden}
+            icon={cross}
+            title={translate('close')}
+            onClick={onClose}
+          >
+            {translate('close')}
+          </SquareButton>
+        </div>
+
+        <div className={styles.content}>{children}</div>
       </div>
-
-      <div className={styles.content}>{children}</div>
-    </div>
+    </Modal>
   );
 };
 

@@ -1,5 +1,8 @@
 export const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';
 
+export const TRANSITION_DURATION = 100;
+export const TRANSITION_DURATION_LONG = 250;
+
 export const COLOR_BLUE = '#c7d8f9';
 export const COLOR_GREEN = '#bae3ba';
 export const COLOR_RED = '#f7c2aa';

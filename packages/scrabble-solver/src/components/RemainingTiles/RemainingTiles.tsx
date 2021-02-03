@@ -1,7 +1,6 @@
 import { BLANK } from '@scrabble-solver/constants';
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
-import { useKey } from 'react-use';
 
 import { REMAINING_TILES_TILE_SIZE } from 'parameters';
 import { selectRemainingTiles, useTranslate, useTypedSelector } from 'state';
@@ -26,8 +25,6 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, hidden, onClose }
       onClose();
     }
   };
-
-  useKey('Escape', handleClose, { event: 'keydown' }, [handleClose]);
 
   return (
     <Sidebar className={className} hidden={hidden} title={translate('remaining-tiles')} onClose={handleClose}>
