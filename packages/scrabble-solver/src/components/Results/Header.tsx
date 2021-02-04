@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { ReactElement } from 'react';
 
 import { useTranslate } from 'state';
@@ -9,8 +10,11 @@ const Header = (): ReactElement => {
 
   return (
     <div className={styles.header}>
-      <div className={styles.cell}>{translate('results.header.word')}</div>
-      <div className={styles.cell}>{translate('results.header.points')}</div>
+      <div className={classNames(styles.cell, styles.word)}>{translate('results.header.word')}</div>
+      <div className={classNames(styles.cell, styles.stat)}>#C</div>
+      <div className={classNames(styles.cell, styles.stat)}>#T</div>
+      <div className={classNames(styles.cell, styles.stat)}>#B</div>
+      <div className={classNames(styles.cell, styles.points)}>{translate('results.header.points')}</div>
     </div>
   );
 };

@@ -40,6 +40,9 @@ const Result = ({ index, style }: Props): ReactElement => {
     >
       <span className={styles.resultContent}>
         <span className={classNames(styles.cell, styles.word)}>{result.word}</span>
+        <span className={classNames(styles.cell, styles.stat)}>{result.numberOfCollisions}</span>
+        <span className={classNames(styles.cell, styles.stat)}>{result.numberOfTiles}</span>
+        <span className={classNames(styles.cell, styles.stat)}>{result.numberOfBlanks}</span>
         <span className={classNames(styles.cell, styles.points)}>{result.points}</span>
       </span>
     </button>
