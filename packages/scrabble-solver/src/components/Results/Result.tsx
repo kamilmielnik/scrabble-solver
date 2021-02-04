@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { CSSProperties, ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { resultsSlice, selectSortedResults, useTypedSelector } from 'state';
+import { resultsSlice, selectSortedResults, useTranslate, useTypedSelector } from 'state';
 
 import styles from './Results.module.scss';
 
@@ -13,6 +13,7 @@ interface Props {
 
 const Result = ({ index, style }: Props): ReactElement => {
   const dispatch = useDispatch();
+  const translate = useTranslate();
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const results = useTypedSelector(selectSortedResults)!;
   const result = results[index];
@@ -39,11 +40,25 @@ const Result = ({ index, style }: Props): ReactElement => {
       onMouseLeave={handleMouseLeave}
     >
       <span className={styles.resultContent}>
-        <span className={classNames(styles.cell, styles.word)}>{result.word}</span>
-        <span className={classNames(styles.cell, styles.stat)}>{result.numberOfCollisions}</span>
-        <span className={classNames(styles.cell, styles.stat)}>{result.numberOfTiles}</span>
-        <span className={classNames(styles.cell, styles.stat)}>{result.numberOfBlanks}</span>
-        <span className={classNames(styles.cell, styles.points)}>{result.points}</span>
+        <span className={classNames(styles.cell, styles.word)} title={translate('results.header.word')}>
+          {result.word}
+        </span>
+
+        <span className={classNames(styles.cell, styles.stat)} title={translate('results.header.tiles')}>
+          {result.numberOfTiles}
+        </span>
+
+        <span className={classNames(styles.cell, styles.stat)} title={translate('results.header.blanks')}>
+          {result.numberOfBlanks}
+        </span>
+
+        <span className={classNames(styles.cell, styles.stat)} title={translate('results.header.collisions')}>
+          {result.numberOfCollisions}
+        </span>
+
+        <span className={classNames(styles.cell, styles.points)} title={translate('results.header.points')}>
+          {result.points}
+        </span>
       </span>
     </button>
   );
