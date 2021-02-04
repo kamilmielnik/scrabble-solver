@@ -30,7 +30,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
 
       {typeof results === 'undefined' && (
         <EmptyState className={styles.emptyState} type="info">
-          {translate('results.empty-state.unitialized')}
+          {translate('results.empty-state.uninitialized')}
 
           <SolveButton />
         </EmptyState>

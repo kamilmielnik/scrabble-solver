@@ -24,7 +24,7 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
       })}
     >
       {typeof word === 'undefined' && (
-        <EmptyState type="info">{translate('dictionary.empty-state.unitialized')}</EmptyState>
+        <EmptyState type="info">{translate('dictionary.empty-state.uninitialized')}</EmptyState>
       )}
 
       {typeof word !== 'undefined' && (
