@@ -15,15 +15,15 @@ const Header = (): ReactElement => {
       </div>
 
       <div className={classNames(styles.cell, styles.stat)} title={translate('results.header.tiles')}>
-        #{translate('results.header.tiles')[0]}
+        {translate('results.header.tiles.short')}
       </div>
 
       <div className={classNames(styles.cell, styles.stat)} title={translate('results.header.blanks')}>
-        #{translate('results.header.blanks')[0]}
+        {translate('results.header.blanks.short')}
       </div>
 
       <div className={classNames(styles.cell, styles.stat)} title={translate('results.header.collisions')}>
-        #{translate('results.header.collisions')[0]}
+        {translate('results.header.collisions.short')}
       </div>
 
       <div className={classNames(styles.cell, styles.points)} title={translate('results.header.points')}>
