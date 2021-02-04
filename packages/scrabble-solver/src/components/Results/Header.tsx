@@ -22,8 +22,8 @@ const Header = (): ReactElement => {
         {translate('results.header.blanks.short')}
       </div>
 
-      <div className={classNames(styles.cell, styles.stat)} title={translate('results.header.collisions')}>
-        {translate('results.header.collisions.short')}
+      <div className={classNames(styles.cell, styles.stat)} title={translate('results.header.words')}>
+        {translate('results.header.words.short')}
       </div>
 
       <div className={classNames(styles.cell, styles.points)} title={translate('results.header.points')}>

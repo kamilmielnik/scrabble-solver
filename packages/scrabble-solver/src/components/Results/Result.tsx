@@ -52,8 +52,8 @@ const Result = ({ index, style }: Props): ReactElement => {
           {result.numberOfBlanks}
         </span>
 
-        <span className={classNames(styles.cell, styles.stat)} title={translate('results.header.collisions')}>
-          {result.numberOfCollisions}
+        <span className={classNames(styles.cell, styles.stat)} title={translate('results.header.words')}>
+          {result.numberOfWords}
         </span>
 
         <span className={classNames(styles.cell, styles.points)} title={translate('results.header.points')}>
