@@ -11,9 +11,15 @@ const Header = (): ReactElement => {
   return (
     <div className={styles.header}>
       <div className={classNames(styles.cell, styles.word)}>{translate('results.header.word')}</div>
-      <div className={classNames(styles.cell, styles.stat)}>#C</div>
-      <div className={classNames(styles.cell, styles.stat)}>#T</div>
-      <div className={classNames(styles.cell, styles.stat)}>#B</div>
+      <div className={classNames(styles.cell, styles.stat)} title={translate('results.header.tiles')}>
+        #{translate('results.header.tiles')[0]}
+      </div>
+      <div className={classNames(styles.cell, styles.stat)} title={translate('results.header.blanks')}>
+        #{translate('results.header.blanks')[0]}
+      </div>
+      <div className={classNames(styles.cell, styles.stat)} title={translate('results.header.collisions')}>
+        #{translate('results.header.collisions')[0]}
+      </div>
       <div className={classNames(styles.cell, styles.points)}>{translate('results.header.points')}</div>
     </div>
   );
