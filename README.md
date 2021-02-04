@@ -50,7 +50,7 @@ rm -rf $HOME/.scrabble-solver
 ## Requirements
 
 - `node 12.4.0+` (should work with node `10.0.0+` though)
-- min. `900px x 700px` viewport size (`1400px x 1180px` recommended)
+- min. `1000px x 700px` viewport size (`1500px x 1200px` recommended)
 
 ## Dictionaries
 

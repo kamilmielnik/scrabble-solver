@@ -64,16 +64,26 @@ $row-padding: var(--spacing--s) var(--spacing--m);
 .cell {
   display: block;
   padding: 0 var(--spacing--m);
+
+  &:last-child {
+    flex: 1;
+    text-align: right;
+  }
 }
 
 .word {
-  flex: 1;
+  flex: 0 0 180px;
   text-transform: uppercase;
 }
 
+.stat {
+  flex: 0 0 54px;
+  text-align: center;
+}
+
 .points {
-  flex: 0 0 auto;
-  text-align: right;
+  flex: 0 0 100px;
+  font-weight: bold;
 }
 
 .outdatedButton {

@@ -59,6 +59,10 @@ class Result {
     this.word = getWord(cells);
   }
 
+  public get numberOfWords(): number {
+    return 1 + this.numberOfCollisions;
+  }
+
   public toJson(): ResultJson {
     return {
       cells: this.cells.map((cell) => cell.toJson()),
