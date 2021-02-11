@@ -70,13 +70,13 @@ const Header = (): ReactElement => {
     <div className={styles.header}>
       {columns.map((column) => (
         <button
-          className={styles.headerButton}
+          className={classNames(styles.headerButton, column.className)}
           key={column.id}
           title={translate(column.titleKey)}
           type="button"
           onClick={() => handleOrderChange(column.id)}
         >
-          <div className={classNames(styles.cell, column.className)}>
+          <div className={styles.cell}>
             {translate(column.labelKey)}
 
             {sortColumn === column.id && (
