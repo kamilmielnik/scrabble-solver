@@ -1,5 +1,18 @@
 export type Comparator<T> = (a: T, B: T) => number;
 
+export enum SortDirection {
+  Ascending = 'ascending',
+  Descending = 'descending',
+}
+
+export enum ResultColumn {
+  BlanksCount = 'blanks-count',
+  Points = 'points',
+  TilesCount = 'tiles-count',
+  Word = 'word',
+  WordsCount = 'words-count',
+}
+
 export type TranslationKey =
   | 'cell.set-blank'
   | 'cell.set-not-blank'

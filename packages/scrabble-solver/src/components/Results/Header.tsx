@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 
 import { sortDown, sortUp } from 'icons';
 import { useTranslate } from 'state';
-import { TranslationKey } from 'types';
+import { ResultColumn, SortDirection, TranslationKey } from 'types';
 
 import SvgIcon from '../SvgIcon';
 
@@ -11,7 +11,7 @@ import styles from './Results.module.scss';
 
 interface Column {
   className: string;
-  id: string;
+  id: ResultColumn;
   labelKey: TranslationKey;
   titleKey: TranslationKey;
 }
@@ -19,31 +19,31 @@ interface Column {
 const columns: Column[] = [
   {
     className: styles.word,
-    id: 'word',
+    id: ResultColumn.Word,
     labelKey: 'results.header.word',
     titleKey: 'results.header.word',
   },
   {
     className: styles.stat,
-    id: 'tiles-count',
+    id: ResultColumn.TilesCount,
     labelKey: 'results.header.tiles.short',
     titleKey: 'results.header.tiles',
   },
   {
     className: styles.stat,
-    id: 'blanks-count',
+    id: ResultColumn.BlanksCount,
     labelKey: 'results.header.blanks.short',
     titleKey: 'results.header.blanks',
   },
   {
     className: styles.stat,
-    id: 'words-count',
+    id: ResultColumn.WordsCount,
     labelKey: 'results.header.words.short',
     titleKey: 'results.header.words',
   },
   {
     className: styles.points,
-    id: 'points',
+    id: ResultColumn.Points,
     labelKey: 'results.header.points',
     titleKey: 'results.header.points',
   },
@@ -51,10 +51,11 @@ const columns: Column[] = [
 
 const Header = (): ReactElement => {
   const translate = useTranslate();
-  const sortId = 'word';
-  const sortOrder = 'ascending';
 
-  const handleOrderChange = (id: string) => {};
+  const sortColumn = ResultColumn.Word;
+  const sortDirection = SortDirection.Ascending;
+
+  const handleOrderChange = (columnId: ResultColumn) => {};
 
   return (
     <div className={styles.header}>
@@ -69,8 +70,11 @@ const Header = (): ReactElement => {
           <div className={classNames(styles.cell, column.className)}>
             {translate(column.labelKey)}
 
-            {sortId === column.id && (
-              <SvgIcon className={styles.sortIcon} icon={sortOrder === 'ascending' ? sortUp : sortDown} />
+            {sortColumn === column.id && (
+              <SvgIcon
+                className={styles.sortIcon}
+                icon={sortDirection === SortDirection.Ascending ? sortUp : sortDown}
+              />
             )}
           </div>
         </button>
