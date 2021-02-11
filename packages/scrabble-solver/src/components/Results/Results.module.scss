@@ -37,7 +37,9 @@ $row-padding: var(--spacing--s) var(--spacing--m);
 
 .headerButton {
   @include button-reset;
+  @include focus-effect;
 
+  cursor: pointer;
   text-transform: uppercase;
 }
 

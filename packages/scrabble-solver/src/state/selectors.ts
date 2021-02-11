@@ -5,7 +5,7 @@ import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
 import { createKeyComparator, reverseComparator, stringComparator } from 'lib';
-import { Translations } from 'types';
+import { ResultColumn, SortDirection, Translations } from 'types';
 
 import { RootState } from './types';
 
@@ -38,6 +38,10 @@ export const selectConfig = createSelector([selectConfigId, selectLocale], (conf
 });
 
 export const selectResults = (state: RootState): Result[] | undefined => state.results.results;
+
+export const selectResultsSortColumn = (state: RootState): ResultColumn => state.results.sort.column;
+
+export const selectResultsSortDirection = (state: RootState): SortDirection => state.results.sort.direction;
 
 export const selectSortedResults = createSelector([selectResults], (results): Result[] | undefined => {
   if (typeof results === 'undefined') {

@@ -1,8 +1,15 @@
 import classNames from 'classnames';
 import React, { ReactElement } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { sortDown, sortUp } from 'icons';
-import { useTranslate } from 'state';
+import {
+  resultsSlice,
+  selectResultsSortColumn,
+  selectResultsSortDirection,
+  useTranslate,
+  useTypedSelector,
+} from 'state';
 import { ResultColumn, SortDirection, TranslationKey } from 'types';
 
 import SvgIcon from '../SvgIcon';
@@ -50,12 +57,14 @@ const columns: Column[] = [
 ];
 
 const Header = (): ReactElement => {
+  const dispatch = useDispatch();
   const translate = useTranslate();
+  const sortColumn = useTypedSelector(selectResultsSortColumn);
+  const sortDirection = useTypedSelector(selectResultsSortDirection);
 
-  const sortColumn = ResultColumn.Word;
-  const sortDirection = SortDirection.Ascending;
-
-  const handleOrderChange = (columnId: ResultColumn) => {};
+  const handleOrderChange = (columnId: ResultColumn) => {
+    dispatch(resultsSlice.actions.sort(columnId));
+  };
 
   return (
     <div className={styles.header}>
