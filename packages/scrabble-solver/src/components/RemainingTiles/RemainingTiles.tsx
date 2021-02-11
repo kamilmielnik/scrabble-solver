@@ -19,10 +19,15 @@ interface Props {
 const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
   const remainingTiles = useTypedSelector(selectRemainingTiles);
+  const totalCount = remainingTiles.reduce((sum, { count }) => sum + count, 0);
+  const totalUsedCount = remainingTiles.reduce((sum, { usedCount }) => sum + usedCount, 0);
+  const totalRemainingCount = totalCount - totalUsedCount;
+  const title = `${translate('remaining-tiles')} (${totalRemainingCount})`;
+  const titleLong = `${translate('remaining-tiles')} (${totalRemainingCount} / ${totalCount})`;
 
   return (
-    <Sidebar className={className} isOpen={isOpen} title={translate('remaining-tiles')} onClose={onClose}>
-      <div className={styles.content}>
+    <Sidebar className={className} isOpen={isOpen} title={title} onClose={onClose}>
+      <div className={styles.content} title={titleLong}>
         {remainingTiles.map(({ character, count, usedCount }) => {
           const remainingCount = count - usedCount;
 
