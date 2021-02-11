@@ -33,6 +33,11 @@ $row-padding: var(--spacing--s) var(--spacing--m);
   border-bottom: var(--border);
   font-size: var(--font--size--m);
   font-weight: 700;
+}
+
+.headerButton {
+  @include button-reset;
+
   text-transform: uppercase;
 }
 

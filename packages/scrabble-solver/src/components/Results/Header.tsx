@@ -54,16 +54,26 @@ const Header = (): ReactElement => {
   const sortId = 'word';
   const sortOrder = 'ascending';
 
+  const handleOrderChange = (id: string) => {};
+
   return (
     <div className={styles.header}>
       {columns.map((column) => (
-        <div className={classNames(styles.cell, column.className)} key={column.id} title={translate(column.titleKey)}>
-          {translate(column.labelKey)}
+        <button
+          className={styles.headerButton}
+          key={column.id}
+          title={translate(column.titleKey)}
+          type="button"
+          onClick={() => handleOrderChange(column.id)}
+        >
+          <div className={classNames(styles.cell, column.className)}>
+            {translate(column.labelKey)}
 
-          {sortId === column.id && (
-            <SvgIcon className={styles.sortIcon} icon={sortOrder === 'ascending' ? sortUp : sortDown} />
-          )}
-        </div>
+            {sortId === column.id && (
+              <SvgIcon className={styles.sortIcon} icon={sortOrder === 'ascending' ? sortUp : sortDown} />
+            )}
+          </div>
+        </button>
       ))}
     </div>
   );
