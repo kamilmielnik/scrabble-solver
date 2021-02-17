@@ -40,7 +40,10 @@ const Result = ({ index, style }: Props): ReactElement => {
       onMouseLeave={handleMouseLeave}
     >
       <span className={styles.resultContent}>
-        <span className={classNames(styles.cell, styles.word)} title={translate('results.header.word')}>
+        <span
+          className={classNames(styles.cell, styles.word)}
+          title={`${translate('results.header.word')}: ${result.word}`}
+        >
           {result.word}
         </span>
 
