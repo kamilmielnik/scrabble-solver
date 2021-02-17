@@ -30,7 +30,7 @@
   "results.empty-state.no-results": "Pas de résultats - impossible de générer des mots.",
   "results.empty-state.uninitialized": "Words generated from your letters will be shown here.",
   "results.header.blanks": "Cases vides",
-  "results.header.blanks.short": "#CV",
+  "results.header.blanks.short": "C. vides",
   "results.header.points": "Points",
   "results.header.tiles": "Cases",
   "results.header.tiles.short": "#C",

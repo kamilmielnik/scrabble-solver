@@ -30,7 +30,7 @@
   "results.empty-state.no-results": "Brak wyników - nie można wygenerować żadnego słowa.",
   "results.empty-state.uninitialized": "Tu zostaną wyświetlone słowa wygenerowane z Twoich liter.",
   "results.header.blanks": "Blanki",
-  "results.header.blanks.short": "#B",
+  "results.header.blanks.short": "Blanki",
   "results.header.points": "Punkty",
   "results.header.tiles": "Płytki",
   "results.header.tiles.short": "#P",

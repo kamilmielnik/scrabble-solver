@@ -30,7 +30,7 @@
   "results.empty-state.no-results": "No results - unable to generate any words.",
   "results.empty-state.uninitialized": "Words generated from your letters will be shown here.",
   "results.header.blanks": "Blanks",
-  "results.header.blanks.short": "#B",
+  "results.header.blanks.short": "Blanks",
   "results.header.points": "Points",
   "results.header.tiles": "Tiles",
   "results.header.tiles.short": "#T",

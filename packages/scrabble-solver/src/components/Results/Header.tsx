@@ -33,7 +33,8 @@ const columns: Column[] = [
   {
     className: styles.stat,
     id: ResultColumn.TilesCount,
-    labelKey: 'results.header.tiles.short',
+    // labelKey: 'results.header.tiles.short',
+    labelKey: 'results.header.tiles',
     titleKey: 'results.header.tiles',
   },
   {
@@ -45,7 +46,8 @@ const columns: Column[] = [
   {
     className: styles.stat,
     id: ResultColumn.WordsCount,
-    labelKey: 'results.header.words.short',
+    // labelKey: 'results.header.words.short',
+    labelKey: 'results.header.words',
     titleKey: 'results.header.words',
   },
   {

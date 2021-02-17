@@ -1,6 +1,6 @@
 @import 'styles/mixins';
 
-$row-padding: var(--spacing--s) var(--spacing--m);
+$row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
 .results {
   position: relative;
@@ -29,9 +29,8 @@ $row-padding: var(--spacing--s) var(--spacing--m);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: $row-padding;
   border-bottom: var(--border);
-  font-size: var(--font--size--m);
+  font-size: var(--font--size--s);
   font-weight: 700;
 }
 
@@ -64,14 +63,23 @@ $row-padding: var(--spacing--s) var(--spacing--m);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: $row-padding;
   text-align: left;
 }
 
 .cell {
   display: flex;
   align-items: center;
-  padding: 0 var(--spacing--m);
+  padding: var(--spacing--s);
+
+  .result &:first-child,
+  .headerButton:first-child & {
+    padding-left: $row-padding-horizontal;
+  }
+
+  .result &:last-child,
+  .headerButton:last-child & {
+    padding-right: $row-padding-horizontal;
+  }
 
   &:last-child {
     flex: 1;
@@ -85,12 +93,12 @@ $row-padding: var(--spacing--s) var(--spacing--m);
 }
 
 .stat {
-  flex: 0 0 75px;
+  flex: 0 0 86px;
   text-align: center;
 }
 
 .points {
-  flex: 0 0 110px;
+  flex: 0 0 100px;
   font-weight: bold;
 }
 
@@ -105,8 +113,9 @@ $row-padding: var(--spacing--s) var(--spacing--m);
 }
 
 .sortIcon {
-  $size: 16px;
+  $size: 15px;
 
+  flex: 0 0 auto;
   width: $size;
   height: $size;
   margin-left: var(--spacing--s);
