@@ -33,20 +33,18 @@ const columns: Column[] = [
   {
     className: styles.stat,
     id: ResultColumn.TilesCount,
-    // labelKey: 'results.header.tiles.short',
     labelKey: 'results.header.tiles',
     titleKey: 'results.header.tiles',
   },
   {
     className: styles.stat,
     id: ResultColumn.BlanksCount,
-    labelKey: 'results.header.blanks.short',
+    labelKey: 'results.header.blanks',
     titleKey: 'results.header.blanks',
   },
   {
     className: styles.stat,
     id: ResultColumn.WordsCount,
-    // labelKey: 'results.header.words.short',
     labelKey: 'results.header.words',
     titleKey: 'results.header.words',
   },
@@ -78,8 +76,8 @@ const Header = (): ReactElement => {
           type="button"
           onClick={() => handleOrderChange(column.id)}
         >
-          <div className={styles.cell}>
-            {translate(column.labelKey)}
+          <span className={styles.cell}>
+            <span className={styles.headerButtonLabel}>{translate(column.labelKey)}</span>
 
             {sortColumn === column.id && (
               <SvgIcon
@@ -87,7 +85,7 @@ const Header = (): ReactElement => {
                 icon={sortDirection === SortDirection.Ascending ? sortUp : sortDown}
               />
             )}
-          </div>
+          </span>
         </button>
       ))}
     </div>

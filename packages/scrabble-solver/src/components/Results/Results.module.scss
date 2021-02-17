@@ -42,6 +42,13 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   text-transform: uppercase;
 }
 
+.headerButtonLabel {
+  @include ellipsis;
+
+  flex: 0 1 auto;
+  text-align: left;
+}
+
 .result {
   @include button-reset;
 
@@ -89,16 +96,20 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
 .word {
   flex: 0 0 180px;
+  max-width: 180px;
   text-transform: uppercase;
 }
 
 .stat {
-  flex: 0 0 86px;
+  $width: 80px;
+
+  flex: 0 0 $width;
+  max-width: $width;
   text-align: center;
 }
 
 .points {
-  flex: 0 0 100px;
+  flex: 1 0 100px;
   font-weight: bold;
 }
 
