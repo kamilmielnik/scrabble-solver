@@ -5,7 +5,7 @@ import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
 import { createKeyComparator, reverseComparator, stringComparator } from 'lib';
-import { Translations } from 'types';
+import { Comparator, ResultColumn, SortDirection, Translations } from 'types';
 
 import { RootState } from './types';
 
@@ -15,7 +15,13 @@ const findCell = (cells: Cell[], x: number, y: number): Cell | undefined => {
 
 const selectCell = (_: RootState, cell: Cell): Cell => cell;
 
-const pointsComparator = reverseComparator(createKeyComparator('points'));
+const comparators: Record<ResultColumn, Comparator<Result>> = {
+  [ResultColumn.BlanksCount]: createKeyComparator('numberOfBlanks'),
+  [ResultColumn.Points]: createKeyComparator('points'),
+  [ResultColumn.TilesCount]: createKeyComparator('numberOfTiles'),
+  [ResultColumn.Word]: createKeyComparator('word'),
+  [ResultColumn.WordsCount]: createKeyComparator('numberOfWords'),
+};
 
 export const selectSettingsRoot = (state: RootState): RootState['settings'] => state.settings;
 
@@ -39,13 +45,22 @@ export const selectConfig = createSelector([selectConfigId, selectLocale], (conf
 
 export const selectResults = (state: RootState): Result[] | undefined => state.results.results;
 
-export const selectSortedResults = createSelector([selectResults], (results): Result[] | undefined => {
-  if (typeof results === 'undefined') {
-    return results;
-  }
+export const selectResultsSortColumn = (state: RootState): ResultColumn => state.results.sort.column;
 
-  return [...results].sort(pointsComparator);
-});
+export const selectResultsSortDirection = (state: RootState): SortDirection => state.results.sort.direction;
+
+export const selectSortedResults = createSelector(
+  [selectResults, selectResultsSortColumn, selectResultsSortDirection],
+  (results, column, direction): Result[] | undefined => {
+    if (typeof results === 'undefined') {
+      return results;
+    }
+
+    const comparator = comparators[column];
+    const finalComparator = direction === SortDirection.Descending ? reverseComparator(comparator) : comparator;
+    return [...results].sort(finalComparator);
+  },
+);
 
 export const selectResultCandidate = (state: RootState): Result | null => state.results.candidate;
 

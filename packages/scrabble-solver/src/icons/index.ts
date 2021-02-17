@@ -16,3 +16,5 @@ export { default as github } from './github.svg';
 export { default as keyboard } from './keyboard.svg';
 export { default as play } from './play.svg';
 export { default as sack } from './sack.svg';
+export { default as sortDown } from './sortDown.svg';
+export { default as sortUp } from './sortUp.svg';

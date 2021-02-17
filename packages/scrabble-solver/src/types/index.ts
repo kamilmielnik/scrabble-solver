@@ -1,5 +1,18 @@
 export type Comparator<T> = (a: T, B: T) => number;
 
+export enum SortDirection {
+  Ascending = 'ascending',
+  Descending = 'descending',
+}
+
+export enum ResultColumn {
+  BlanksCount = 'blanks-count',
+  Points = 'points',
+  TilesCount = 'tiles-count',
+  Word = 'word',
+  WordsCount = 'words-count',
+}
+
 export type TranslationKey =
   | 'cell.set-blank'
   | 'cell.set-not-blank'
@@ -32,13 +45,10 @@ export type TranslationKey =
   | 'results.empty-state.no-results'
   | 'results.empty-state.uninitialized'
   | 'results.header.blanks'
-  | 'results.header.blanks.short'
   | 'results.header.points'
   | 'results.header.tiles'
-  | 'results.header.tiles.short'
   | 'results.header.word'
   | 'results.header.words'
-  | 'results.header.words.short'
   | 'results.solve'
   | 'settings'
   | 'settings.autoGroupTiles'

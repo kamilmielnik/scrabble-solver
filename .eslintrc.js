@@ -52,6 +52,8 @@ module.exports = {
             argsIgnorePattern: '^_',
           },
         ],
+        'no-shadow': 'off',
+        '@typescript-eslint/no-shadow': ['error'],
       },
     },
 
