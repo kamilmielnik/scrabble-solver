@@ -38,6 +38,18 @@ const columns: Column[] = [
   },
   {
     className: styles.stat,
+    id: ResultColumn.ConsonantsCount,
+    labelKey: 'results.header.consonants',
+    titleKey: 'results.header.consonants',
+  },
+  {
+    className: styles.stat,
+    id: ResultColumn.VowelsCount,
+    labelKey: 'results.header.vowels',
+    titleKey: 'results.header.vowels',
+  },
+  {
+    className: styles.stat,
     id: ResultColumn.BlanksCount,
     labelKey: 'results.header.blanks',
     titleKey: 'results.header.blanks',

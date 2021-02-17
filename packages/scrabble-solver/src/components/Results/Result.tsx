@@ -48,6 +48,14 @@ const Result = ({ index, style }: Props): ReactElement => {
           {result.numberOfTiles}
         </span>
 
+        <span className={classNames(styles.cell, styles.stat)} title={translate('results.header.consonants')}>
+          {result.numberOfConsonants}
+        </span>
+
+        <span className={classNames(styles.cell, styles.stat)} title={translate('results.header.vowels')}>
+          {result.numberOfVowels}
+        </span>
+
         <span className={classNames(styles.cell, styles.stat)} title={translate('results.header.blanks')}>
           {result.numberOfBlanks}
         </span>

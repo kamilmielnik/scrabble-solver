@@ -7,8 +7,10 @@ export enum SortDirection {
 
 export enum ResultColumn {
   BlanksCount = 'blanks-count',
+  ConsonantsCount = 'consonants-count',
   Points = 'points',
   TilesCount = 'tiles-count',
+  VowelsCount = 'vowels-count',
   Word = 'word',
   WordsCount = 'words-count',
 }
@@ -45,8 +47,10 @@ export type TranslationKey =
   | 'results.empty-state.no-results'
   | 'results.empty-state.uninitialized'
   | 'results.header.blanks'
+  | 'results.header.consonants'
   | 'results.header.points'
   | 'results.header.tiles'
+  | 'results.header.vowels'
   | 'results.header.word'
   | 'results.header.words'
   | 'results.solve'

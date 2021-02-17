@@ -17,8 +17,10 @@ const selectCell = (_: RootState, cell: Cell): Cell => cell;
 
 const comparators: Record<ResultColumn, Comparator<Result>> = {
   [ResultColumn.BlanksCount]: createKeyComparator('numberOfBlanks'),
+  [ResultColumn.ConsonantsCount]: createKeyComparator('numberOfConsonants'),
   [ResultColumn.Points]: createKeyComparator('points'),
   [ResultColumn.TilesCount]: createKeyComparator('numberOfTiles'),
+  [ResultColumn.VowelsCount]: createKeyComparator('numberOfVowels'),
   [ResultColumn.Word]: createKeyComparator('word'),
   [ResultColumn.WordsCount]: createKeyComparator('numberOfWords'),
 };
