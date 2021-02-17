@@ -18,11 +18,13 @@ class Result {
 
   public readonly length: number;
 
-  public readonly numberOfCollisions: number;
-
   public readonly numberOfBlanks: number;
 
+  public readonly numberOfCollisions: number;
+
   public readonly numberOfTiles: number;
+
+  public readonly numberOfWords: number;
 
   public readonly points: number;
 
@@ -49,18 +51,15 @@ class Result {
     this.cells = cells;
     this.id = id;
     this.length = cells.length;
-    this.numberOfBlanks = getBlanks(tiles).length;
     this.numberOfCollisions = numberOfCollisions;
+    this.numberOfBlanks = getBlanks(tiles).length;
     this.numberOfTiles = tiles.length;
+    this.numberOfWords = 1 + this.numberOfCollisions;
     this.points = points;
     this.pointsRatio = getPointsRatio(tiles, points);
     this.tiles = tiles;
     this.tilesCharacters = getTilesCharacters(tiles);
     this.word = getWord(cells);
-  }
-
-  public get numberOfWords(): number {
-    return 1 + this.numberOfCollisions;
   }
 
   public toJson(): ResultJson {
