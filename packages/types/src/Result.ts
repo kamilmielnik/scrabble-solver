@@ -1,3 +1,5 @@
+import { CONSONANTS, VOWELS } from '@scrabble-solver/constants';
+
 import Cell from './Cell';
 import ResultJson from './ResultJson';
 import Tile from './Tile';
@@ -22,7 +24,11 @@ class Result {
 
   public readonly numberOfCollisions: number;
 
+  public readonly numberOfConsonants: number;
+
   public readonly numberOfTiles: number;
+
+  public readonly numberOfVowels: number;
 
   public readonly numberOfWords: number;
 
@@ -52,8 +58,10 @@ class Result {
     this.id = id;
     this.length = cells.length;
     this.numberOfCollisions = numberOfCollisions;
+    this.numberOfConsonants = getConsonants(tiles).length;
     this.numberOfBlanks = getBlanks(tiles).length;
     this.numberOfTiles = tiles.length;
+    this.numberOfVowels = getVowels(tiles).length;
     this.numberOfWords = 1 + this.numberOfCollisions;
     this.points = points;
     this.pointsRatio = getPointsRatio(tiles, points);
@@ -76,6 +84,10 @@ const charactersComparator = (a: string, b: string): number => a.localeCompare(b
 
 const getBlanks = (tiles: Tile[]): Tile[] => tiles.filter(({ isBlank }) => isBlank);
 
+const getConsonants = (tiles: Tile[]): Tile[] => tiles.filter(isConsonant);
+
+const getVowels = (tiles: Tile[]): Tile[] => tiles.filter(isVowel);
+
 const getNonBlankCharacters = (tiles: Tile[]): string[] => getNonBlanks(tiles).map(({ character }) => character);
 
 const getNonBlanks = (tiles: Tile[]): Tile[] => tiles.filter(({ isBlank }) => !isBlank);
@@ -87,5 +99,9 @@ const getTiles = (cells: Cell[]): Tile[] => cells.filter(({ isEmpty }) => isEmpt
 const getTilesCharacters = (tiles: Tile[]): string => getNonBlankCharacters(tiles).sort(charactersComparator).join('');
 
 const getWord = (cells: Cell[]): string => cells.map(String).join('');
+
+const isConsonant = ({ character, isBlank }: Tile): boolean => CONSONANTS.includes(character) && !isBlank;
+
+const isVowel = ({ character, isBlank }: Tile): boolean => VOWELS.includes(character) && !isBlank;
 
 export default Result;
