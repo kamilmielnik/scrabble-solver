@@ -191,10 +191,7 @@ export const selectHasOverusedTiles = createSelector([selectRemainingTiles], (re
   return remainingTiles.some(({ count, usedCount }) => usedCount > count);
 });
 
-export const selectTotalTilesCount = createSelector([selectRemainingTiles], (remainingTiles) => {
-  return getTotalCount(remainingTiles);
-});
-
 export const selectRemainingTilesCount = createSelector([selectRemainingTiles], (remainingTiles) => {
   return getRemainingCount(remainingTiles);
 });
+

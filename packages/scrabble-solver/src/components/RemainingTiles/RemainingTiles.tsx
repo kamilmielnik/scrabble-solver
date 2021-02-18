@@ -1,13 +1,7 @@
 import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 import React, { FunctionComponent } from 'react';
 
-import {
-  selectRemainingTiles,
-  selectRemainingTilesCount,
-  selectTotalTilesCount,
-  useTranslate,
-  useTypedSelector,
-} from 'state';
+import { selectRemainingTiles, selectRemainingTilesCount, useTranslate, useTypedSelector } from 'state';
 
 import Sidebar from '../Sidebar';
 
@@ -31,7 +25,6 @@ const getTotalCount = (remainingTiles: { count: number }[]): number => {
 const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
   const remainingTiles = useTypedSelector(selectRemainingTiles);
-  const totalCount = useTypedSelector(selectTotalTilesCount);
   const totalRemainingCount = useTypedSelector(selectRemainingTilesCount);
   const consonants = remainingTiles.filter(({ character }) => CONSONANTS.includes(character));
   const vowels = remainingTiles.filter(({ character }) => VOWELS.includes(character));
@@ -39,16 +32,22 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }
 
   const groups = [
     {
+      remainingCount: getRemainingCount(vowels),
       tiles: vowels,
       title: translate('results.header.vowels'),
+      totalCount: getTotalCount(vowels),
     },
     {
+      remainingCount: getRemainingCount(consonants),
       tiles: consonants,
       title: translate('results.header.consonants'),
+      totalCount: getTotalCount(consonants),
     },
     {
+      remainingCount: getRemainingCount(blanks),
       tiles: blanks,
       title: translate('results.header.blanks'),
+      totalCount: getTotalCount(blanks),
     },
   ];
 
@@ -59,21 +58,17 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }
       title={`${translate('remaining-tiles')} (${totalRemainingCount})`}
       onClose={onClose}
     >
-      <div title={`${translate('remaining-tiles')} (${totalRemainingCount} / ${totalCount})`}>
-        {groups.map(({ tiles, title }) => (
-          <div className={styles.group} key={title}>
-            <h2 className={styles.title}>
-              {title} ({getRemainingCount(tiles)} / {getTotalCount(tiles)})
-            </h2>
+      {groups.map(({ remainingCount, tiles, title, totalCount }) => (
+        <div className={styles.group} key={title}>
+          <h2 className={styles.title}>{`${title} $(${remainingCount} / ${totalCount})`}</h2>
 
-            <div className={styles.content}>
-              {tiles.map(({ character, count, usedCount }) => {
-                return <Character character={character} count={count} key={character} usedCount={usedCount} />;
-              })}
-            </div>
+          <div className={styles.content}>
+            {tiles.map(({ character, count, usedCount }) => {
+              return <Character character={character} count={count} key={character} usedCount={usedCount} />;
+            })}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </Sidebar>
   );
 };
