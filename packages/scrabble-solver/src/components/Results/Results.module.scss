@@ -71,6 +71,10 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   align-items: center;
   justify-content: space-between;
   text-align: left;
+
+  .word {
+    @include ellipsis;
+  }
 }
 
 .cell {
@@ -95,8 +99,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 }
 
 .word {
-  @include ellipsis;
-
   $width: 180px;
 
   flex: 0 0 $width;
