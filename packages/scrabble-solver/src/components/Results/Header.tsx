@@ -19,52 +19,44 @@ import styles from './Results.module.scss';
 interface Column {
   className: string;
   id: ResultColumn;
-  labelKey: TranslationKey;
-  titleKey: TranslationKey;
+  translationKey: TranslationKey;
 }
 
 const columns: Column[] = [
   {
     className: styles.word,
     id: ResultColumn.Word,
-    labelKey: 'common.word',
-    titleKey: 'common.word',
+    translationKey: 'common.word',
   },
   {
     className: styles.stat,
     id: ResultColumn.TilesCount,
-    labelKey: 'common.tiles',
-    titleKey: 'common.tiles',
+    translationKey: 'common.tiles',
   },
   {
     className: styles.stat,
     id: ResultColumn.ConsonantsCount,
-    labelKey: 'common.consonants',
-    titleKey: 'common.consonants',
+    translationKey: 'common.consonants',
   },
   {
     className: styles.stat,
     id: ResultColumn.VowelsCount,
-    labelKey: 'common.vowels',
-    titleKey: 'common.vowels',
+    translationKey: 'common.vowels',
   },
   {
     className: styles.stat,
     id: ResultColumn.BlanksCount,
-    labelKey: 'common.blanks',
-    titleKey: 'common.blanks',
+    translationKey: 'common.blanks',
   },
   {
     className: styles.stat,
     id: ResultColumn.WordsCount,
-    labelKey: 'common.words',
-    titleKey: 'common.words',
+    translationKey: 'common.words',
   },
   {
     className: styles.points,
     id: ResultColumn.Points,
-    labelKey: 'common.points',
-    titleKey: 'common.points',
+    translationKey: 'common.points',
   },
 ];
 
@@ -84,12 +76,12 @@ const Header = (): ReactElement => {
         <button
           className={classNames(styles.headerButton, column.className)}
           key={column.id}
-          title={translate(column.titleKey)}
+          title={translate(column.translationKey)}
           type="button"
           onClick={() => handleOrderChange(column.id)}
         >
           <span className={styles.cell}>
-            <span className={styles.headerButtonLabel}>{translate(column.labelKey)}</span>
+            <span className={styles.headerButtonLabel}>{translate(column.translationKey)}</span>
 
             {sortColumn === column.id && (
               <SvgIcon
