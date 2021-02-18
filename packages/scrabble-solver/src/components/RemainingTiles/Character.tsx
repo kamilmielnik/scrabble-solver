@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
 import { REMAINING_TILES_TILE_SIZE } from 'parameters';
+
 import Tile from '../Tile';
 
 import styles from './Character.module.scss';
