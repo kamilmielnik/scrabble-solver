@@ -1,17 +1,15 @@
-.content {
-  display: flex;
-  flex-wrap: wrap;
-  margin: calc(-1 * var(--spacing--m));
-}
-
-.summary {
+.group {
   margin-bottom: var(--spacing--l);
 }
 
-.entry {
-  display: flex;
+.title {
+  margin-bottom: var(--spacing--m);
+  font-size: var(--font--size--h2);
+  font-weight: 300;
 }
 
-.title {
-  flex: 0 0 120px;
+.content {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--spacing--m);
 }

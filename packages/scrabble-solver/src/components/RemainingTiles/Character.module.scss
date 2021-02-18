@@ -1,7 +1,6 @@
 .character {
   display: flex;
   flex-direction: column;
-  margin: var(--spacing--m);
   transition: var(--transition);
 
   &.finished {
