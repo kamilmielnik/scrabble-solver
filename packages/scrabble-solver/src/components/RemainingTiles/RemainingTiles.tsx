@@ -31,7 +31,7 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }
 
           <div className={styles.content}>
             {tiles.map((tile) => {
-              return <Character tile={tile} />;
+              return <Character key={tile.character} tile={tile} />;
             })}
           </div>
         </div>
