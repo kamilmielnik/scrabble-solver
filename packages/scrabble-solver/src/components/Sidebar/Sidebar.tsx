@@ -39,8 +39,8 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, isOpen, title,
         <div className={styles.header}>
           <h1 className={styles.title}>{title}</h1>
 
-          <SquareButton className={styles.closeButton} icon={cross} title={translate('close')} onClick={onClose}>
-            {translate('close')}
+          <SquareButton className={styles.closeButton} icon={cross} title={translate('common.close')} onClick={onClose}>
+            {translate('common.close')}
           </SquareButton>
         </div>
 

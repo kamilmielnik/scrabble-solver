@@ -22,8 +22,8 @@ const Screen: FunctionComponent<Props> = ({ children, className, contentClassNam
   return (
     <div className={classNames(styles.screen, className)} onAnimationEnd={onAnimationEnd}>
       {onClose && (
-        <Button className={styles.closeButton} icon={cross} title={translate('close')} onClick={onClose}>
-          {translate('close')}
+        <Button className={styles.closeButton} icon={cross} title={translate('common.close')} onClick={onClose}>
+          {translate('common.close')}
         </Button>
       )}
 

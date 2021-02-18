@@ -203,19 +203,19 @@ export const selectRemainingTilesGroups = createSelector([selectRemainingTiles],
     {
       remainingCount: getRemainingCount(vowels),
       tiles: vowels,
-      translationKey: 'results.header.vowels',
+      translationKey: 'common.vowels',
       totalCount: getTotalCount(vowels),
     },
     {
       remainingCount: getRemainingCount(consonants),
       tiles: consonants,
-      translationKey: 'results.header.consonants',
+      translationKey: 'common.consonants',
       totalCount: getTotalCount(consonants),
     },
     {
       remainingCount: getRemainingCount(blanks),
       tiles: blanks,
-      translationKey: 'results.header.blanks',
+      translationKey: 'common.blanks',
       totalCount: getTotalCount(blanks),
     },
   ];

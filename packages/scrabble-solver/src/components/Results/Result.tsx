@@ -39,13 +39,13 @@ const Result = ({ index, style }: Props): ReactElement => {
       onMouseLeave={handleMouseLeave}
     >
       <span className={styles.resultContent}>
-        <Cell className={styles.word} translationKey="results.header.word" value={result.word} />
-        <Cell className={styles.stat} translationKey="results.header.tiles" value={result.numberOfTiles} />
-        <Cell className={styles.stat} translationKey="results.header.consonants" value={result.numberOfConsonants} />
-        <Cell className={styles.stat} translationKey="results.header.vowels" value={result.numberOfVowels} />
-        <Cell className={styles.stat} translationKey="results.header.blanks" value={result.numberOfBlanks} />
-        <Cell className={styles.stat} translationKey="results.header.words" value={result.numberOfWords} />
-        <Cell className={styles.points} translationKey="results.header.points" value={result.points} />
+        <Cell className={styles.word} translationKey="common.word" value={result.word} />
+        <Cell className={styles.stat} translationKey="common.tiles" value={result.numberOfTiles} />
+        <Cell className={styles.stat} translationKey="common.consonants" value={result.numberOfConsonants} />
+        <Cell className={styles.stat} translationKey="common.vowels" value={result.numberOfVowels} />
+        <Cell className={styles.stat} translationKey="common.blanks" value={result.numberOfBlanks} />
+        <Cell className={styles.stat} translationKey="common.words" value={result.numberOfWords} />
+        <Cell className={styles.points} translationKey="common.points" value={result.points} />
       </span>
     </button>
   );
