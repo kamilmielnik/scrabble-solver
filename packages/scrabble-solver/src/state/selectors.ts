@@ -1,11 +1,11 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getLocaleConfig } from '@scrabble-solver/configs';
-import { BLANK } from '@scrabble-solver/constants';
+import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
 import { createKeyComparator, reverseComparator, stringComparator } from 'lib';
-import { Comparator, RemainingTile, ResultColumn, SortDirection, Translations } from 'types';
+import { Comparator, RemainingTile, RemainingTilesGroup, ResultColumn, SortDirection, Translations } from 'types';
 
 import { RootState } from './types';
 
@@ -193,4 +193,31 @@ export const selectHasOverusedTiles = createSelector([selectRemainingTiles], (re
 
 export const selectRemainingTilesCount = createSelector([selectRemainingTiles], (remainingTiles) => {
   return getRemainingCount(remainingTiles);
+});
+
+export const selectRemainingTilesGroups = createSelector([selectRemainingTiles], (remainingTiles) => {
+  const consonants = remainingTiles.filter(({ character }) => CONSONANTS.includes(character));
+  const vowels = remainingTiles.filter(({ character }) => VOWELS.includes(character));
+  const blanks = remainingTiles.filter(({ character }) => character === BLANK);
+  const groups: RemainingTilesGroup[] = [
+    {
+      remainingCount: getRemainingCount(vowels),
+      tiles: vowels,
+      translationKey: 'results.header.vowels',
+      totalCount: getTotalCount(vowels),
+    },
+    {
+      remainingCount: getRemainingCount(consonants),
+      tiles: consonants,
+      translationKey: 'results.header.consonants',
+      totalCount: getTotalCount(consonants),
+    },
+    {
+      remainingCount: getRemainingCount(blanks),
+      tiles: blanks,
+      translationKey: 'results.header.blanks',
+      totalCount: getTotalCount(blanks),
+    },
+  ];
+  return groups;
 });
