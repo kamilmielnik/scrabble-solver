@@ -2,7 +2,7 @@ import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 import React, { FunctionComponent } from 'react';
 
 import { selectRemainingTiles, selectRemainingTilesCount, useTranslate, useTypedSelector } from 'state';
-import { RemainingTile, TranslationKey } from 'types';
+import { RemainingTile, RemainingTilesGroup } from 'types';
 
 import Sidebar from '../Sidebar';
 
@@ -23,13 +23,6 @@ const getTotalCount = (remainingTiles: RemainingTile[]): number => {
   return remainingTiles.reduce((sum, { count }) => sum + count, 0);
 };
 
-interface Group {
-  remainingCount: number;
-  tiles: RemainingTile[];
-  translationKey: TranslationKey;
-  totalCount: number;
-}
-
 const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
   const remainingTiles = useTypedSelector(selectRemainingTiles);
@@ -38,7 +31,7 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }
   const vowels = remainingTiles.filter(({ character }) => VOWELS.includes(character));
   const blanks = remainingTiles.filter(({ character }) => character === BLANK);
 
-  const groups: Group[] = [
+  const groups: RemainingTilesGroup[] = [
     {
       remainingCount: getRemainingCount(vowels),
       tiles: vowels,

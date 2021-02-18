@@ -12,6 +12,13 @@ export interface RemainingTile {
   usedCount: number;
 }
 
+export interface RemainingTilesGroup {
+  remainingCount: number;
+  tiles: RemainingTile[];
+  translationKey: TranslationKey;
+  totalCount: number;
+}
+
 export enum ResultColumn {
   BlanksCount = 'blanks-count',
   ConsonantsCount = 'consonants-count',
