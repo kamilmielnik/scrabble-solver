@@ -1,0 +1,33 @@
+.character {
+  display: flex;
+  flex-direction: column;
+  margin: var(--spacing--m);
+  transition: var(--transition);
+
+  &.finished {
+    opacity: 0.2;
+  }
+
+  &.overused {
+    color: red;
+    opacity: 1;
+
+    .tile {
+      &:after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        content: ' ';
+        box-shadow: var(--box-shadow--error);
+      }
+    }
+  }
+}
+
+.count {
+  padding: var(--spacing--xs) 0;
+  text-align: center;
+  font-size: var(--font--size--s);
+}

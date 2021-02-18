@@ -1,13 +1,17 @@
-import { BLANK } from '@scrabble-solver/constants';
-import classNames from 'classnames';
+import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 import React, { FunctionComponent } from 'react';
 
-import { REMAINING_TILES_TILE_SIZE } from 'parameters';
-import { selectRemainingTiles, useTranslate, useTypedSelector } from 'state';
+import {
+  selectRemainingTiles,
+  selectRemainingTilesCount,
+  selectTotalTilesCount,
+  useTranslate,
+  useTypedSelector,
+} from 'state';
 
 import Sidebar from '../Sidebar';
-import Tile from '../Tile';
 
+import Character from './Character';
 import styles from './RemainingTiles.module.scss';
 
 interface Props {
@@ -16,42 +20,48 @@ interface Props {
   onClose: () => void;
 }
 
+const getRemainingCount = (remainingTiles: { count: number; usedCount: number }[]): number => {
+  return remainingTiles.reduce((sum, { count, usedCount }) => sum + count - usedCount, 0);
+};
+
+const getTotalCount = (remainingTiles: { count: number }[]): number => {
+  return remainingTiles.reduce((sum, { count }) => sum + count, 0);
+};
+
 const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
   const remainingTiles = useTypedSelector(selectRemainingTiles);
-  const totalCount = remainingTiles.reduce((sum, { count }) => sum + count, 0);
-  const totalUsedCount = remainingTiles.reduce((sum, { usedCount }) => sum + usedCount, 0);
-  const totalRemainingCount = totalCount - totalUsedCount;
-  const title = `${translate('remaining-tiles')} (${totalRemainingCount})`;
-  const titleLong = `${translate('remaining-tiles')} (${totalRemainingCount} / ${totalCount})`;
+  const totalCount = useTypedSelector(selectTotalTilesCount);
+  const totalRemainingCount = useTypedSelector(selectRemainingTilesCount);
+  const consonants = remainingTiles.filter(({ character }) => CONSONANTS.includes(character));
+  const vowels = remainingTiles.filter(({ character }) => VOWELS.includes(character));
+  const blanks = remainingTiles.filter(({ character }) => character === BLANK);
 
   return (
-    <Sidebar className={className} isOpen={isOpen} title={title} onClose={onClose}>
-      <div className={styles.content} title={titleLong}>
-        {remainingTiles.map(({ character, count, usedCount }) => {
-          const remainingCount = count - usedCount;
+    <Sidebar
+      className={className}
+      isOpen={isOpen}
+      title={`${translate('remaining-tiles')} (${totalRemainingCount})`}
+      onClose={onClose}
+    >
+      <ul className={styles.summary}>
+        <li>
+          Consonants: {getRemainingCount(consonants)} / {getTotalCount(consonants)}
+        </li>
+        <li>
+          Vowels: {getRemainingCount(vowels)} / {getTotalCount(vowels)}
+        </li>
+        <li>
+          Blanks: {getRemainingCount(blanks)} / {getTotalCount(blanks)}
+        </li>
+      </ul>
 
-          return (
-            <div
-              className={classNames(styles.character, {
-                [styles.finished]: remainingCount <= 0,
-                [styles.overused]: remainingCount < 0,
-              })}
-              key={character}
-            >
-              <Tile
-                character={character}
-                className={styles.tile}
-                disabled
-                isBlank={character === BLANK}
-                raised
-                size={REMAINING_TILES_TILE_SIZE}
-              />
-              <div className={styles.count}>
-                {remainingCount} / {count}
-              </div>
-            </div>
-          );
+      <div
+        className={styles.content}
+        title={`${translate('remaining-tiles')} (${totalRemainingCount} / ${totalCount})`}
+      >
+        {remainingTiles.map(({ character, count, usedCount }) => {
+          return <Character character={character} count={count} key={character} usedCount={usedCount} />;
         })}
       </div>
     </Sidebar>

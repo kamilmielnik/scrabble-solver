@@ -1,9 +1,9 @@
-import classNames from 'classnames';
 import React, { CSSProperties, ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { resultsSlice, selectSortedResults, useTranslate, useTypedSelector } from 'state';
+import { resultsSlice, selectSortedResults, useTypedSelector } from 'state';
 
+import Cell from './Cell';
 import styles from './Results.module.scss';
 
 interface Props {
@@ -13,7 +13,6 @@ interface Props {
 
 const Result = ({ index, style }: Props): ReactElement => {
   const dispatch = useDispatch();
-  const translate = useTranslate();
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const results = useTypedSelector(selectSortedResults)!;
   const result = results[index];
@@ -40,36 +39,13 @@ const Result = ({ index, style }: Props): ReactElement => {
       onMouseLeave={handleMouseLeave}
     >
       <span className={styles.resultContent}>
-        <span
-          className={classNames(styles.cell, styles.word)}
-          title={`${translate('results.header.word')}: ${result.word}`}
-        >
-          {result.word}
-        </span>
-
-        <span className={classNames(styles.cell, styles.stat)} title={translate('results.header.tiles')}>
-          {result.numberOfTiles}
-        </span>
-
-        <span className={classNames(styles.cell, styles.stat)} title={translate('results.header.consonants')}>
-          {result.numberOfConsonants}
-        </span>
-
-        <span className={classNames(styles.cell, styles.stat)} title={translate('results.header.vowels')}>
-          {result.numberOfVowels}
-        </span>
-
-        <span className={classNames(styles.cell, styles.stat)} title={translate('results.header.blanks')}>
-          {result.numberOfBlanks}
-        </span>
-
-        <span className={classNames(styles.cell, styles.stat)} title={translate('results.header.words')}>
-          {result.numberOfWords}
-        </span>
-
-        <span className={classNames(styles.cell, styles.points)} title={translate('results.header.points')}>
-          {result.points}
-        </span>
+        <Cell className={styles.word} translationKey="results.header.word" value={result.word} />
+        <Cell className={styles.stat} translationKey="results.header.tiles" value={result.numberOfTiles} />
+        <Cell className={styles.stat} translationKey="results.header.consonants" value={result.numberOfConsonants} />
+        <Cell className={styles.stat} translationKey="results.header.vowels" value={result.numberOfVowels} />
+        <Cell className={styles.stat} translationKey="results.header.blanks" value={result.numberOfBlanks} />
+        <Cell className={styles.stat} translationKey="results.header.words" value={result.numberOfWords} />
+        <Cell className={styles.points} translationKey="results.header.points" value={result.points} />
       </span>
     </button>
   );

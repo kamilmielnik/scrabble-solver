@@ -13,6 +13,14 @@ const findCell = (cells: Cell[], x: number, y: number): Cell | undefined => {
   return cells.find((cell) => cell.x === x && cell.y === y);
 };
 
+const getRemainingCount = (remainingTiles: { count: number; usedCount: number }[]): number => {
+  return remainingTiles.reduce((sum, { count, usedCount }) => sum + count - usedCount, 0);
+};
+
+const getTotalCount = (remainingTiles: { count: number }[]): number => {
+  return remainingTiles.reduce((sum, { count }) => sum + count, 0);
+};
+
 const selectCell = (_: RootState, cell: Cell): Cell => cell;
 
 const comparators: Record<ResultColumn, Comparator<Result>> = {
@@ -181,4 +189,12 @@ export const selectRemainingTiles = createSelector(
 
 export const selectHasOverusedTiles = createSelector([selectRemainingTiles], (remainingTiles) => {
   return remainingTiles.some(({ count, usedCount }) => usedCount > count);
+});
+
+export const selectTotalTilesCount = createSelector([selectRemainingTiles], (remainingTiles) => {
+  return getTotalCount(remainingTiles);
+});
+
+export const selectRemainingTilesCount = createSelector([selectRemainingTiles], (remainingTiles) => {
+  return getRemainingCount(remainingTiles);
 });
