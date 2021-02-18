@@ -5,7 +5,7 @@ import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
 import { createKeyComparator, reverseComparator, stringComparator } from 'lib';
-import { Comparator, ResultColumn, SortDirection, Translations } from 'types';
+import { Comparator, RemainingTile, ResultColumn, SortDirection, Translations } from 'types';
 
 import { RootState } from './types';
 
@@ -13,11 +13,11 @@ const findCell = (cells: Cell[], x: number, y: number): Cell | undefined => {
   return cells.find((cell) => cell.x === x && cell.y === y);
 };
 
-const getRemainingCount = (remainingTiles: { count: number; usedCount: number }[]): number => {
+const getRemainingCount = (remainingTiles: RemainingTile[]): number => {
   return remainingTiles.reduce((sum, { count, usedCount }) => sum + count - usedCount, 0);
 };
 
-const getTotalCount = (remainingTiles: { count: number }[]): number => {
+const getTotalCount = (remainingTiles: RemainingTile[]): number => {
   return remainingTiles.reduce((sum, { count }) => sum + count, 0);
 };
 
@@ -152,11 +152,11 @@ export const selectDictionaryRoot = (state: RootState): RootState['dictionary'] 
 
 export const selectRemainingTiles = createSelector(
   [selectConfig, selectCharacters, selectRows],
-  (config, characters, rows) => {
+  (config, characters, rows): RemainingTile[] => {
     const nonEmptyCells = rows.flat().filter((cell) => !cell.isEmpty);
     const letterCells = nonEmptyCells.filter((cell) => !cell.tile.isBlank);
     const remainingTiles = Object.fromEntries(config.tiles.map((tile) => [tile.character, { ...tile, usedCount: 0 }]));
-    const blank = {
+    const blank: RemainingTile = {
       character: BLANK,
       count: config.numberOfBlanks,
       score: config.blankScore,
@@ -194,4 +194,3 @@ export const selectHasOverusedTiles = createSelector([selectRemainingTiles], (re
 export const selectRemainingTilesCount = createSelector([selectRemainingTiles], (remainingTiles) => {
   return getRemainingCount(remainingTiles);
 });
-

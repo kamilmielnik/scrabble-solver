@@ -3,18 +3,18 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
 import { REMAINING_TILES_TILE_SIZE } from 'parameters';
+import { RemainingTile } from 'types';
 
 import Tile from '../Tile';
 
 import styles from './Character.module.scss';
 
 interface Props {
-  character: string;
-  count: number;
-  usedCount: number;
+  tile: RemainingTile;
 }
 
-const Character: FunctionComponent<Props> = ({ character, count, usedCount }) => {
+const Character: FunctionComponent<Props> = ({ tile }) => {
+  const { character, count, usedCount } = tile;
   const remainingCount = count - usedCount;
 
   return (

@@ -5,6 +5,13 @@ export enum SortDirection {
   Descending = 'descending',
 }
 
+export interface RemainingTile {
+  character: string;
+  count: number;
+  score: number;
+  usedCount: number;
+}
+
 export enum ResultColumn {
   BlanksCount = 'blanks-count',
   ConsonantsCount = 'consonants-count',

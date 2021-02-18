@@ -2,6 +2,7 @@ import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 import React, { FunctionComponent } from 'react';
 
 import { selectRemainingTiles, selectRemainingTilesCount, useTranslate, useTypedSelector } from 'state';
+import { RemainingTile, TranslationKey } from 'types';
 
 import Sidebar from '../Sidebar';
 
@@ -14,13 +15,20 @@ interface Props {
   onClose: () => void;
 }
 
-const getRemainingCount = (remainingTiles: { count: number; usedCount: number }[]): number => {
+const getRemainingCount = (remainingTiles: RemainingTile[]): number => {
   return remainingTiles.reduce((sum, { count, usedCount }) => sum + count - usedCount, 0);
 };
 
-const getTotalCount = (remainingTiles: { count: number }[]): number => {
+const getTotalCount = (remainingTiles: RemainingTile[]): number => {
   return remainingTiles.reduce((sum, { count }) => sum + count, 0);
 };
+
+interface Group {
+  remainingCount: number;
+  tiles: RemainingTile[];
+  translationKey: TranslationKey;
+  totalCount: number;
+}
 
 const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
@@ -30,23 +38,23 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }
   const vowels = remainingTiles.filter(({ character }) => VOWELS.includes(character));
   const blanks = remainingTiles.filter(({ character }) => character === BLANK);
 
-  const groups = [
+  const groups: Group[] = [
     {
       remainingCount: getRemainingCount(vowels),
       tiles: vowels,
-      title: translate('results.header.vowels'),
+      translationKey: 'results.header.vowels',
       totalCount: getTotalCount(vowels),
     },
     {
       remainingCount: getRemainingCount(consonants),
       tiles: consonants,
-      title: translate('results.header.consonants'),
+      translationKey: 'results.header.consonants',
       totalCount: getTotalCount(consonants),
     },
     {
       remainingCount: getRemainingCount(blanks),
       tiles: blanks,
-      title: translate('results.header.blanks'),
+      translationKey: 'results.header.blanks',
       totalCount: getTotalCount(blanks),
     },
   ];
@@ -58,13 +66,13 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }
       title={`${translate('remaining-tiles')} (${totalRemainingCount})`}
       onClose={onClose}
     >
-      {groups.map(({ remainingCount, tiles, title, totalCount }) => (
-        <div className={styles.group} key={title}>
-          <h2 className={styles.title}>{`${title} $(${remainingCount} / ${totalCount})`}</h2>
+      {groups.map(({ remainingCount, tiles, translationKey, totalCount }) => (
+        <div className={styles.group} key={translationKey}>
+          <h2 className={styles.title}>{`${translate(translationKey)} (${remainingCount} / ${totalCount})`}</h2>
 
           <div className={styles.content}>
-            {tiles.map(({ character, count, usedCount }) => {
-              return <Character character={character} count={count} key={character} usedCount={usedCount} />;
+            {tiles.map((tile) => {
+              return <Character tile={tile} />;
             })}
           </div>
         </div>
