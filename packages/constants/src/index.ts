@@ -31,6 +31,7 @@ export const CONSONANTS = [
   't',
   'v',
   'w',
+  'x',
   'z',
   'ź',
   'ż',
