@@ -38,23 +38,33 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }
   const blanks = remainingTiles.filter(({ character }) => character === BLANK);
 
   return (
-    <Sidebar
-      className={className}
-      isOpen={isOpen}
-      title={`${translate('remaining-tiles')} (${totalRemainingCount})`}
-      onClose={onClose}
-    >
-      <ul className={styles.summary}>
-        <li>
-          Consonants: {getRemainingCount(consonants)} / {getTotalCount(consonants)}
-        </li>
-        <li>
-          Vowels: {getRemainingCount(vowels)} / {getTotalCount(vowels)}
-        </li>
-        <li>
-          Blanks: {getRemainingCount(blanks)} / {getTotalCount(blanks)}
-        </li>
-      </ul>
+    <Sidebar className={className} isOpen={isOpen} title={translate('remaining-tiles')} onClose={onClose}>
+      <div className={styles.summary}>
+        <div className={styles.entry} title={`${totalRemainingCount} / ${totalCount}`}>
+          <div className={styles.title}>{translate('results.header.tiles')}</div>
+          <div className={styles.value}>
+            {totalRemainingCount} / {totalCount}
+          </div>
+        </div>
+        <div className={styles.entry} title={`${getRemainingCount(consonants)} / ${getTotalCount(consonants)}`}>
+          <div className={styles.title}>{translate('results.header.consonants')}</div>
+          <div className={styles.value}>
+            {getRemainingCount(consonants)} / {getTotalCount(consonants)}
+          </div>
+        </div>
+        <div className={styles.entry} title={`${getRemainingCount(vowels)} / ${getTotalCount(vowels)}`}>
+          <div className={styles.title}>{translate('results.header.vowels')}</div>
+          <div className={styles.value}>
+            {getRemainingCount(vowels)} / {getTotalCount(vowels)}
+          </div>
+        </div>
+        <div className={styles.entry} title={`${getRemainingCount(blanks)} / ${getTotalCount(blanks)}`}>
+          <div className={styles.title}>{translate('results.header.blanks')}</div>
+          <div className={styles.value}>
+            {getRemainingCount(blanks)} / {getTotalCount(blanks)}
+          </div>
+        </div>
+      </div>
 
       <div
         className={styles.content}

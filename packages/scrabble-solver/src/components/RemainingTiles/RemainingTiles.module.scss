@@ -5,8 +5,13 @@
 }
 
 .summary {
-    margin: 0;
-    padding: 0;
-    margin-bottom: var(--spacing--l);
-    list-style: none;
+  margin-bottom: var(--spacing--l);
+}
+
+.entry {
+  display: flex;
+}
+
+.title {
+  flex: 0 0 120px;
 }
