@@ -21,11 +21,12 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
     var(--box-shadow--color);
   --box-shadow--right: var(--box-shadow--offset) 0 var(--box-shadow--blur) var(--box-shadow--spread)
     var(--box-shadow--color);
-  --box-shadow--error: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) rgba(255, 0, 0, 0.75);
+  --box-shadow--error: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) var(--color--error);
 
   --color--background: #f4f4f4;
   --color--background--secondary: #111;
   --color--background--overlay: rgba(255, 255, 255, 0.65);
+  --color--error: rgba(255, 0, 0, 0.75);
   --color--focus: #{rgba(#268fff, 0.5)};
   --color--foreground: black;
   --color--foreground--secondary: #444;
