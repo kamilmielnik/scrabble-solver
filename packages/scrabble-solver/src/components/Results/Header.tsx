@@ -19,40 +19,44 @@ import styles from './Results.module.scss';
 interface Column {
   className: string;
   id: ResultColumn;
-  labelKey: TranslationKey;
-  titleKey: TranslationKey;
+  translationKey: TranslationKey;
 }
 
 const columns: Column[] = [
   {
     className: styles.word,
     id: ResultColumn.Word,
-    labelKey: 'results.header.word',
-    titleKey: 'results.header.word',
+    translationKey: 'common.word',
   },
   {
     className: styles.stat,
     id: ResultColumn.TilesCount,
-    labelKey: 'results.header.tiles',
-    titleKey: 'results.header.tiles',
+    translationKey: 'common.tiles',
+  },
+  {
+    className: styles.stat,
+    id: ResultColumn.ConsonantsCount,
+    translationKey: 'common.consonants',
+  },
+  {
+    className: styles.stat,
+    id: ResultColumn.VowelsCount,
+    translationKey: 'common.vowels',
   },
   {
     className: styles.stat,
     id: ResultColumn.BlanksCount,
-    labelKey: 'results.header.blanks',
-    titleKey: 'results.header.blanks',
+    translationKey: 'common.blanks',
   },
   {
     className: styles.stat,
     id: ResultColumn.WordsCount,
-    labelKey: 'results.header.words',
-    titleKey: 'results.header.words',
+    translationKey: 'common.words',
   },
   {
     className: styles.points,
     id: ResultColumn.Points,
-    labelKey: 'results.header.points',
-    titleKey: 'results.header.points',
+    translationKey: 'common.points',
   },
 ];
 
@@ -72,12 +76,12 @@ const Header = (): ReactElement => {
         <button
           className={classNames(styles.headerButton, column.className)}
           key={column.id}
-          title={translate(column.titleKey)}
+          title={translate(column.translationKey)}
           type="button"
           onClick={() => handleOrderChange(column.id)}
         >
           <span className={styles.cell}>
-            <span className={styles.headerButtonLabel}>{translate(column.labelKey)}</span>
+            <span className={styles.headerButtonLabel}>{translate(column.translationKey)}</span>
 
             {sortColumn === column.id && (
               <SvgIcon

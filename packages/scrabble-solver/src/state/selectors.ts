@@ -1,11 +1,11 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getLocaleConfig } from '@scrabble-solver/configs';
-import { BLANK } from '@scrabble-solver/constants';
+import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
 import { createKeyComparator, reverseComparator, stringComparator } from 'lib';
-import { Comparator, ResultColumn, SortDirection, Translations } from 'types';
+import { Comparator, RemainingTile, RemainingTilesGroup, ResultColumn, SortDirection, Translations } from 'types';
 
 import { RootState } from './types';
 
@@ -13,12 +13,22 @@ const findCell = (cells: Cell[], x: number, y: number): Cell | undefined => {
   return cells.find((cell) => cell.x === x && cell.y === y);
 };
 
+const getRemainingCount = (remainingTiles: RemainingTile[]): number => {
+  return remainingTiles.reduce((sum, { count, usedCount }) => sum + count - usedCount, 0);
+};
+
+const getTotalCount = (remainingTiles: RemainingTile[]): number => {
+  return remainingTiles.reduce((sum, { count }) => sum + count, 0);
+};
+
 const selectCell = (_: RootState, cell: Cell): Cell => cell;
 
 const comparators: Record<ResultColumn, Comparator<Result>> = {
   [ResultColumn.BlanksCount]: createKeyComparator('numberOfBlanks'),
+  [ResultColumn.ConsonantsCount]: createKeyComparator('numberOfConsonants'),
   [ResultColumn.Points]: createKeyComparator('points'),
   [ResultColumn.TilesCount]: createKeyComparator('numberOfTiles'),
+  [ResultColumn.VowelsCount]: createKeyComparator('numberOfVowels'),
   [ResultColumn.Word]: createKeyComparator('word'),
   [ResultColumn.WordsCount]: createKeyComparator('numberOfWords'),
 };
@@ -142,11 +152,11 @@ export const selectDictionaryRoot = (state: RootState): RootState['dictionary'] 
 
 export const selectRemainingTiles = createSelector(
   [selectConfig, selectCharacters, selectRows],
-  (config, characters, rows) => {
+  (config, characters, rows): RemainingTile[] => {
     const nonEmptyCells = rows.flat().filter((cell) => !cell.isEmpty);
     const letterCells = nonEmptyCells.filter((cell) => !cell.tile.isBlank);
     const remainingTiles = Object.fromEntries(config.tiles.map((tile) => [tile.character, { ...tile, usedCount: 0 }]));
-    const blank = {
+    const blank: RemainingTile = {
       character: BLANK,
       count: config.numberOfBlanks,
       score: config.blankScore,
@@ -179,4 +189,35 @@ export const selectRemainingTiles = createSelector(
 
 export const selectHasOverusedTiles = createSelector([selectRemainingTiles], (remainingTiles) => {
   return remainingTiles.some(({ count, usedCount }) => usedCount > count);
+});
+
+export const selectRemainingTilesCount = createSelector([selectRemainingTiles], (remainingTiles) => {
+  return getRemainingCount(remainingTiles);
+});
+
+export const selectRemainingTilesGroups = createSelector([selectRemainingTiles], (remainingTiles) => {
+  const consonants = remainingTiles.filter(({ character }) => CONSONANTS.includes(character));
+  const vowels = remainingTiles.filter(({ character }) => VOWELS.includes(character));
+  const blanks = remainingTiles.filter(({ character }) => character === BLANK);
+  const groups: RemainingTilesGroup[] = [
+    {
+      remainingCount: getRemainingCount(vowels),
+      tiles: vowels,
+      translationKey: 'common.vowels',
+      totalCount: getTotalCount(vowels),
+    },
+    {
+      remainingCount: getRemainingCount(consonants),
+      tiles: consonants,
+      translationKey: 'common.consonants',
+      totalCount: getTotalCount(consonants),
+    },
+    {
+      remainingCount: getRemainingCount(blanks),
+      tiles: blanks,
+      translationKey: 'common.blanks',
+      totalCount: getTotalCount(blanks),
+    },
+  ];
+  return groups;
 });
