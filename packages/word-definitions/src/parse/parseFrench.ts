@@ -1,7 +1,5 @@
-import { WordDefinition } from '@scrabble-solver/types';
 import cheerio from 'cheerio';
 
-import { normalizeDefinition } from '../lib';
 import { ParseResult } from '../types';
 
 const parseFrench = (html: string): ParseResult => {
