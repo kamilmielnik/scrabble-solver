@@ -10,9 +10,10 @@ export const readTestFile = (filepath: string): string => {
 };
 
 const tests = [
-  { locale: Locale.EN_US, word: 'wiz' },
-  { locale: Locale.EN_US, word: 'pawn' },
   { locale: Locale.EN_US, word: 'awe' },
+  { locale: Locale.EN_US, word: 'pawn' },
+  { locale: Locale.EN_US, word: 'pawnee' },
+  { locale: Locale.EN_US, word: 'wiz' },
 ];
 
 describe('parse', () => {
