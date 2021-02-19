@@ -8,7 +8,7 @@ const getWordDefinition = async (locale: Locale, word: string): Promise<WordDefi
   const html = await crawl(locale, word);
   const { definitions, isAllowed } = parse(locale, html);
   const wordDefinition = new WordDefinition({
-    definitions: unique(Array.from(definitions).map(normalizeDefinition).filter(Boolean)),
+    definitions: unique(definitions.map(normalizeDefinition).filter(Boolean)),
     isAllowed,
     word,
   });
