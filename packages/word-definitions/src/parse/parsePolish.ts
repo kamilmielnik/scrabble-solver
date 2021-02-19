@@ -2,20 +2,18 @@ import { WordDefinition } from '@scrabble-solver/types';
 import cheerio from 'cheerio';
 
 import { normalizeDefinition } from '../lib';
+import { ParseResult } from '../types';
 
-const parsePolish = (html: string, word: string): WordDefinition => {
+const parsePolish = (html: string, word: string): ParseResult => {
   const $ = cheerio.load(html);
   const $header = $($('h1')[0]);
   const $isAllowed = $header.next();
   const $definitions = $header.next().next().next().next();
-  const wordDefinition = new WordDefinition({
-    definitions: Array.from(
-      new Set($definitions.text().trim().split(/\d+\./).map(normalizeDefinition).filter(Boolean)),
-    ),
+
+  return {
+    definitions: $definitions.text().trim().split(/\d+\./),
     isAllowed: $isAllowed.text().trim().indexOf('dopuszczalne w grach') >= 0,
-    word,
-  });
-  return wordDefinition;
+  };
 };
 
 export default parsePolish;
