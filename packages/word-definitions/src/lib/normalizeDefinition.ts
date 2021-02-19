@@ -15,15 +15,18 @@ const normalizeQuotes: Normalize = (definition) => definition.replace(/\."/g, '"
  */
 const normalizeMarkers: Normalize = (definition) => definition.replace(/^\(\d+\.\d+\)\s+/g, '');
 
-const normalizeTrailingSymbols: Normalize = (definition) => definition.replace(/:$/, '');
+const normalizeTrailingSymbols: Normalize = (definition) => definition.trim().replace(/:$/, '');
+
+const normalizeLeadingSymbols: Normalize = (definition) => definition.trim().replace(/^:/, '');
 
 const normalizers: Normalize[] = [
   normalizeHtmlTags,
   normalizeMarkers,
   normalizeQuotes,
   normalizeLineBreaks,
-  (definition) => definition.trim(),
   normalizeTrailingSymbols,
+  normalizeLeadingSymbols,
+  (definition) => definition.trim(),
 ];
 
 const normalizeDefinition = (definition: string): string => {

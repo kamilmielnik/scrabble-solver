@@ -6,8 +6,8 @@ import { normalizeDefinition, request } from './lib';
 const getEnglishWordDefinition = async (word: string): Promise<WordDefinition> => {
   const response = await request({
     protocol: 'https',
-    hostname: 'dictionary.cambridge.org',
-    path: `/dictionary/english/${encodeURIComponent(word)}`,
+    hostname: 'www.merriam-webster.com',
+    path: `/dictionary/${encodeURIComponent(word)}`,
   });
   const wordDefinition = parseResponse(response, word);
   return wordDefinition;
@@ -15,8 +15,8 @@ const getEnglishWordDefinition = async (word: string): Promise<WordDefinition> =
 
 const parseResponse = (html: string, word: string): WordDefinition => {
   const $ = cheerio.load(html);
-  $('.dlab, .dgram, .ddomain, .duse, .dx-lab').remove();
-  const $definitions = $('.def');
+  $('[id^=dictionary-entry]').find('.dtText *').remove();
+  const $definitions = $('[id^=dictionary-entry]').find('.dtText, .cxl-ref');
   const wordDefinition = new WordDefinition({
     definitions: Array.from(
       new Set(
@@ -26,9 +26,7 @@ const parseResponse = (html: string, word: string): WordDefinition => {
           .filter(Boolean),
       ),
     ),
-    isAllowed: Array.from($('.hw.dhw'))
-      .map((heading) => $(heading).text().trim())
-      .some((heading) => heading.toLowerCase() === word.toLowerCase()),
+    isAllowed: $definitions.length > 0,
     word,
   });
   return wordDefinition;
