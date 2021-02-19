@@ -1,5 +1,6 @@
 import { Locale } from '@scrabble-solver/types';
 
+import { normalizeDefinition, unique } from '../lib';
 import { ParseResult } from '../types';
 
 import parseEnglish from './parseEnglish';
@@ -14,7 +15,12 @@ const parsePerLocale: Record<Locale, (html: string) => ParseResult> = {
 };
 
 const parse = (locale: Locale, html: string): ParseResult => {
-  return parsePerLocale[locale](html);
+  const { definitions, isAllowed } = parsePerLocale[locale](html);
+
+  return {
+    definitions: unique(definitions.map(normalizeDefinition).filter(Boolean)),
+    isAllowed,
+  };
 };
 
 export default parse;
