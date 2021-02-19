@@ -1,0 +1,30 @@
+{
+  "name": "@scrabble-solver/word-definitions",
+  "version": "2.4.6",
+  "description": "Scrabble Solver 2 - Word definitions",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamilmielnik/scrabble-solver.git"
+  },
+  "author": {
+    "name": "Kamil Mielnik",
+    "email": "kamil.adam.mielnik@gmail.com",
+    "url": "http://kamilmielnik.com/"
+  },
+  "license": "CC-BY-NC-ND-4.0",
+  "bugs": {
+    "url": "https://github.com/kamilmielnik/scrabble-solver/issues"
+  },
+  "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
+  "scripts": {
+    "build": "tsc --project .",
+    "clean": "rimraf build/ node_modules/ package-lock.json"
+  },
+  "dependencies": {
+    "@scrabble-solver/types": "^2.4.6",
+    "cheerio": "^1.0.0-rc.5",
+    "striptags": "^3.1.1"
+  }
+}
