@@ -1,6 +1,6 @@
 import { Locale } from '@scrabble-solver/types';
 
-import { request } from './lib';
+import { request } from '../lib';
 
 const crawlFrench = (word: string): Promise<string> => {
   return request({
