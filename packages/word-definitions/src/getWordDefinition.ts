@@ -1,19 +1,12 @@
 import { Locale, WordDefinition } from '@scrabble-solver/types';
 
-import getEnglishWordDefinition from './getEnglishWordDefinition';
-import getFrenchWordDefinition from './getFrenchWordDefinition';
-import getPolishWordDefinition from './getPolishWordDefinition';
-
-const getWordDefinitionPerLocale: Record<Locale, (word: string) => Promise<WordDefinition>> = {
-  [Locale.EN_GB]: getEnglishWordDefinition,
-  [Locale.EN_US]: getEnglishWordDefinition,
-  [Locale.FR_FR]: getFrenchWordDefinition,
-  [Locale.PL_PL]: getPolishWordDefinition,
-};
+import crawl from './crawl';
+import parse from './parse';
 
 const getWordDefinition = async (locale: Locale, word: string): Promise<WordDefinition> => {
-  const getLocaleWordDefinition = getWordDefinitionPerLocale[locale];
-  return getLocaleWordDefinition(word);
+  const html = await crawl(locale, word);
+  const wordDefinition = parse(locale, html, word);
+  return wordDefinition;
 };
 
 export default getWordDefinition;
