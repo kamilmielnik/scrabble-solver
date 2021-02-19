@@ -4,7 +4,7 @@ import cheerio from 'cheerio';
 import { normalizeDefinition } from '../lib';
 import { ParseResult } from '../types';
 
-const parseFrench = (html: string, word: string): ParseResult => {
+const parseFrench = (html: string): ParseResult => {
   const $ = cheerio.load(html);
   const $definitions = $('.tlf_cdefinition');
 

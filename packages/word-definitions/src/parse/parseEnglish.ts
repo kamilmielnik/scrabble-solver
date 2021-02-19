@@ -4,7 +4,7 @@ import cheerio from 'cheerio';
 import { normalizeDefinition } from '../lib';
 import { ParseResult } from '../types';
 
-const parseEnglish = (html: string, word: string): ParseResult => {
+const parseEnglish = (html: string): ParseResult => {
   const $ = cheerio.load(html);
   $('[id^=dictionary-entry]').find('.dtText *').remove();
   const $definitions = $('[id^=dictionary-entry]').find('.dtText, .cxl-ref');
