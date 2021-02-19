@@ -1,7 +1,7 @@
 {
-  "name": "@scrabble-solver/wiktionary",
+  "name": "@scrabble-solver/word-definitions",
   "version": "2.4.6",
-  "description": "Scrabble Solver 2 - Wiktionary",
+  "description": "Scrabble Solver 2 - Word definitions",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "repository": {
@@ -20,13 +20,15 @@
   "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
   "scripts": {
     "build": "tsc --project .",
-    "clean": "rimraf build/ node_modules/",
-    "clean:force": "npm run clean && rimraf package-lock.json"
+    "clean": "rimraf build/ node_modules/ package-lock.json"
   },
   "dependencies": {
     "@scrabble-solver/types": "^2.4.6",
     "cheerio": "^1.0.0-rc.5",
+    "follow-redirects": "^1.13.2",
     "striptags": "^3.1.1"
   },
-  "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
+  "devDependencies": {
+    "@types/follow-redirects": "^1.13.0"
+  }
 }

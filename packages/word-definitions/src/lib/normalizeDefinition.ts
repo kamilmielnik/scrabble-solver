@@ -15,16 +15,35 @@ const normalizeQuotes: Normalize = (definition) => definition.replace(/\."/g, '"
  */
 const normalizeMarkers: Normalize = (definition) => definition.replace(/^\(\d+\.\d+\)\s+/g, '');
 
+const normalizeTrailingSymbols: Normalize = (definition) => definition.trim().replace(/:$/, '');
+
+const normalizeLeadingSymbols: Normalize = (definition) => definition.trim().replace(/^:/, '');
+
+const normalizeNonWords: Normalize = (definition) => (/\w/.test(definition) ? definition : '');
+
+const normalizeCommas: Normalize = (definition) => {
+  return definition
+    .replace(/\s+,\s+/g, ', ')
+    .replace(/^,/, '')
+    .replace(/,$/, '');
+};
+
 const normalizers: Normalize[] = [
   normalizeHtmlTags,
   normalizeMarkers,
   normalizeQuotes,
   normalizeLineBreaks,
+  normalizeTrailingSymbols,
+  normalizeLeadingSymbols,
+  normalizeNonWords,
+  normalizeCommas,
   (definition) => definition.trim(),
 ];
 
 const normalizeDefinition = (definition: string): string => {
-  return normalizers.reduce((result, normalize) => normalize(result), definition);
+  const normalized = normalizers.reduce((result, normalize) => normalize(result), definition);
+  const hasChanged = normalized !== definition;
+  return hasChanged ? normalizeDefinition(normalized) : normalized;
 };
 
 export default normalizeDefinition;
