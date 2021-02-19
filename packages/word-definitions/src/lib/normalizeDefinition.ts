@@ -19,6 +19,8 @@ const normalizeTrailingSymbols: Normalize = (definition) => definition.trim().re
 
 const normalizeLeadingSymbols: Normalize = (definition) => definition.trim().replace(/^:/, '');
 
+const normalizeNonWords: Normalize = (definition) => (/\w/.test(definition) ? definition : '');
+
 const normalizers: Normalize[] = [
   normalizeHtmlTags,
   normalizeMarkers,
@@ -26,6 +28,7 @@ const normalizers: Normalize[] = [
   normalizeLineBreaks,
   normalizeTrailingSymbols,
   normalizeLeadingSymbols,
+  normalizeNonWords,
   (definition) => definition.trim(),
 ];
 
