@@ -1,5 +1,5 @@
-import http, { RequestOptions } from 'http';
-import https from 'https';
+import { http, https } from 'follow-redirects';
+import { RequestOptions } from 'http';
 
 interface Options extends RequestOptions {
   protocol?: 'http' | 'https';
