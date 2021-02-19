@@ -9,7 +9,10 @@ export const readTestFile = (filepath: string): string => {
   return fs.readFileSync(absoluteFilepath, 'utf-8');
 };
 
-const tests = [{ locale: Locale.EN_US, word: 'wiz' }];
+const tests = [
+  { locale: Locale.EN_US, word: 'wiz' },
+  { locale: Locale.EN_US, word: 'pawn' },
+];
 
 describe('parse', () => {
   tests.forEach(({ locale, word }) => {
