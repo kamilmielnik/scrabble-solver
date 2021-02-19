@@ -26,7 +26,9 @@ const parseResponse = (html: string, word: string): WordDefinition => {
           .filter(Boolean),
       ),
     ),
-    isAllowed: Array.from($('.hw.dhw')).some((heading) => $(heading).text().trim() === word),
+    isAllowed: Array.from($('.hw.dhw'))
+      .map((heading) => $(heading).text().trim())
+      .some((heading) => heading.toLowerCase() === word.toLowerCase()),
     word,
   });
   return wordDefinition;
