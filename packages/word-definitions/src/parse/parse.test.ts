@@ -13,6 +13,7 @@ const tests = [
   { locale: Locale.EN_US, word: 'awe' },
   { locale: Locale.EN_US, word: 'pawn' },
   { locale: Locale.EN_US, word: 'pawnee' },
+  { locale: Locale.EN_US, word: 'pean' },
   { locale: Locale.EN_US, word: 'wiz' },
 ];
 
