@@ -4,7 +4,9 @@ import { ParseResult } from '../types';
 
 const parseEnglish = (html: string): ParseResult => {
   const $ = cheerio.load(html);
-  $('[id^=dictionary-entry]').find('.dtText *').remove();
+  $('strong.mw_t_bc').replaceWith(', ');
+  $('.text-lowercase').remove();
+  $('[id^=dictionary-entry]').find('.dtText > *:not(a)').remove();
   const $definitions = $('[id^=dictionary-entry]').find('.dtText, .cxl-ref');
 
   return {

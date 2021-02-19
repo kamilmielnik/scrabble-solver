@@ -21,6 +21,13 @@ const normalizeLeadingSymbols: Normalize = (definition) => definition.trim().rep
 
 const normalizeNonWords: Normalize = (definition) => (/\w/.test(definition) ? definition : '');
 
+const normalizeCommas: Normalize = (definition) => {
+  return definition
+    .replace(/\s+,\s+/g, ', ')
+    .replace(/^,/, '')
+    .replace(/,$/, '');
+};
+
 const normalizers: Normalize[] = [
   normalizeHtmlTags,
   normalizeMarkers,
@@ -29,11 +36,14 @@ const normalizers: Normalize[] = [
   normalizeTrailingSymbols,
   normalizeLeadingSymbols,
   normalizeNonWords,
+  normalizeCommas,
   (definition) => definition.trim(),
 ];
 
 const normalizeDefinition = (definition: string): string => {
-  return normalizers.reduce((result, normalize) => normalize(result), definition);
+  const normalized = normalizers.reduce((result, normalize) => normalize(result), definition);
+  const hasChanged = normalized !== definition;
+  return hasChanged ? normalizeDefinition(normalized) : normalized;
 };
 
 export default normalizeDefinition;
