@@ -7,7 +7,7 @@ import i18n from 'i18n';
 import { createKeyComparator, reverseComparator, stringComparator } from 'lib';
 import { Comparator, RemainingTile, RemainingTilesGroup, ResultColumn, SortDirection, Translations } from 'types';
 
-import { RootState } from './types';
+import { RootState } from '../types';
 
 const findCell = (cells: Cell[], x: number, y: number): Cell | undefined => {
   return cells.find((cell) => cell.x === x && cell.y === y);
