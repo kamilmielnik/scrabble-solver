@@ -58,7 +58,15 @@ class Config {
     return this.getCellBonus(cell)?.value || NO_BONUS;
   }
 
-  public getCharacterPoints(character: string): number | undefined {
+  public getCharacterPoints(character: string | null): number | undefined {
+    if (character === null) {
+      return undefined;
+    }
+
+    if (character === BLANK) {
+      return this.blankScore;
+    }
+
     return this.pointsMap[character];
   }
 

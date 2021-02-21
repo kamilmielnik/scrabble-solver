@@ -2,8 +2,8 @@ import { BLANK } from '@scrabble-solver/constants';
 import classNames from 'classnames';
 import React, { createRef, FunctionComponent, useCallback, useMemo, useRef } from 'react';
 
-import { createKeyboardNavigation, zipCharactersAndTiles } from 'lib';
-import { selectConfig, selectRack, selectResultCandidate, useTypedSelector } from 'state';
+import { createArray, createKeyboardNavigation, zipCharactersAndTiles } from 'lib';
+import { selectConfig, selectRack, selectResultCandidateTiles, useTypedSelector } from 'state';
 
 import styles from './Rack.module.scss';
 import RackTile from './RackTile';
@@ -14,15 +14,11 @@ interface Props {
 
 const Rack: FunctionComponent<Props> = ({ className }) => {
   const config = useTypedSelector(selectConfig);
-  const resultCandidate = useTypedSelector(selectResultCandidate);
   const rack = useTypedSelector(selectRack);
-  const tiles = useMemo(() => {
-    return zipCharactersAndTiles(rack, resultCandidate?.tiles || []);
-  }, [rack, resultCandidate]);
+  const resultCandidateTiles = useTypedSelector(selectResultCandidateTiles);
+  const tiles = useMemo(() => zipCharactersAndTiles(rack, resultCandidateTiles), [rack, resultCandidateTiles]);
   const tilesCount = tiles.length;
-  const tilesRefs = useMemo(() => {
-    return Array.from({ length: tilesCount }).map(() => createRef<HTMLInputElement>());
-  }, [tilesCount]);
+  const tilesRefs = useMemo(() => createArray(tilesCount).map(() => createRef<HTMLInputElement>()), [tilesCount]);
   const activeIndexRef = useRef<number>();
 
   const changeActiveIndex = useCallback(

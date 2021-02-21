@@ -17,6 +17,8 @@ import { RootState } from './types';
 
 const selectCell = (_: unknown, cell: Cell): Cell => cell;
 
+const selectCharacter = (_: unknown, character: string): string => character;
+
 const selectTile = (_: unknown, tile: Tile | null): Tile | null => tile;
 
 const selectBoardRoot = (state: RootState): RootState['board'] => state.board;
@@ -61,6 +63,11 @@ export const selectResultCandidateCells = createSelector(
   (resultCandidate): Cell[] => resultCandidate?.cells || [],
 );
 
+export const selectResultCandidateTiles = createSelector(
+  [selectResultCandidate],
+  (resultCandidate): Tile[] => resultCandidate?.tiles || [],
+);
+
 export const selectRowsWithCandidate = createSelector([selectBoardRoot, selectResultCandidateCells], (board, cells) => {
   return board.rows.map((row: Cell[], y: number) => row.map((cell: Cell, x: number) => findCell(cells, x, y) || cell));
 });
@@ -68,6 +75,13 @@ export const selectRowsWithCandidate = createSelector([selectBoardRoot, selectRe
 export const selectCellBonus = createSelector([selectConfig, selectCell], (config: Config, cell: Cell) => {
   return config.getCellBonus(cell);
 });
+
+export const selectCharacterPoints = createSelector(
+  [selectConfig, selectCharacter],
+  (config: Config, character: string) => {
+    return config.getCharacterPoints(character);
+  },
+);
 
 export const selectTilePoints = createSelector([selectConfig, selectTile], (config: Config, tile: Tile | null) => {
   return config.getTilePoints(tile);
