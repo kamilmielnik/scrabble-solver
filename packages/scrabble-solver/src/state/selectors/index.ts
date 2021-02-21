@@ -4,10 +4,10 @@ import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 import { Cell, Config, Result } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
-import { createKeyComparator, unorderedArraysEqual } from 'lib';
-import { RemainingTile, RemainingTilesGroup, Translations } from 'types';
+import { unorderedArraysEqual } from 'lib';
+import { RemainingTilesGroup, Translations } from 'types';
 
-import { findCell, getRemainingCount, getTotalCount, sortResults } from './lib';
+import { findCell, getRemainingCount, getRemainingTiles, getTotalCount, sortResults } from './lib';
 import {
   selectBoardRoot,
   selectDictionaryRoot,
@@ -114,40 +114,8 @@ export const selectAreResultsOutdated = createSelector(
 );
 
 export const selectRemainingTiles = createSelector(
-  [selectConfig, selectCharacters, selectBoardRoot],
-  (config, characters, board): RemainingTile[] => {
-    const nonEmptyCells = board.rows.flat().filter((cell) => !cell.isEmpty);
-    const letterCells = nonEmptyCells.filter((cell) => !cell.tile.isBlank);
-    const remainingTiles = Object.fromEntries(config.tiles.map((tile) => [tile.character, { ...tile, usedCount: 0 }]));
-    const blank: RemainingTile = {
-      character: BLANK,
-      count: config.numberOfBlanks,
-      score: config.blankScore,
-      usedCount:
-        nonEmptyCells.filter((cell) => cell.tile.isBlank).length +
-        characters.filter((character) => character === BLANK).length,
-    };
-    const letters = [
-      ...letterCells.map((cell) => cell.tile.character),
-      ...characters.filter((letter) => letter !== BLANK),
-    ];
-    const unknownLetters = letters.filter((letter) => typeof remainingTiles[letter] === 'undefined');
-
-    for (const letter of unknownLetters) {
-      remainingTiles[letter] = {
-        character: letter,
-        count: 0,
-        score: 0,
-        usedCount: 0,
-      };
-    }
-
-    for (const letter of letters) {
-      ++remainingTiles[letter].usedCount;
-    }
-
-    return [...Object.values(remainingTiles).sort(createKeyComparator('character')), blank];
-  },
+  [selectConfig, selectBoardRoot, selectCharacters],
+  getRemainingTiles,
 );
 
 export const selectHasOverusedTiles = createSelector([selectRemainingTiles], (remainingTiles) => {
