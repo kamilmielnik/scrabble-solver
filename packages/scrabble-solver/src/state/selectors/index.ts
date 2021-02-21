@@ -5,8 +5,9 @@ import { Bonus, Cell, Config, Result } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
 import { createKeyComparator, reverseComparator, stringComparator } from 'lib';
-import { Comparator, RemainingTile, RemainingTilesGroup, ResultColumn, SortDirection, Translations } from 'types';
+import { RemainingTile, RemainingTilesGroup, SortDirection, Translations } from 'types';
 
+import { comparators, findCell, getRemainingCount, getTotalCount } from './lib';
 import {
   selectBoardRoot,
   selectDictionaryRoot,
@@ -16,29 +17,7 @@ import {
   selectSolveRoot,
 } from './root';
 
-const findCell = (cells: Cell[], x: number, y: number): Cell | undefined => {
-  return cells.find((cell) => cell.x === x && cell.y === y);
-};
-
-const getRemainingCount = (remainingTiles: RemainingTile[]): number => {
-  return remainingTiles.reduce((sum, { count, usedCount }) => sum + count - usedCount, 0);
-};
-
-const getTotalCount = (remainingTiles: RemainingTile[]): number => {
-  return remainingTiles.reduce((sum, { count }) => sum + count, 0);
-};
-
 const selectCell = (_: unknown, cell: Cell): Cell => cell;
-
-const comparators: Record<ResultColumn, Comparator<Result>> = {
-  [ResultColumn.BlanksCount]: createKeyComparator('numberOfBlanks'),
-  [ResultColumn.ConsonantsCount]: createKeyComparator('numberOfConsonants'),
-  [ResultColumn.Points]: createKeyComparator('points'),
-  [ResultColumn.TilesCount]: createKeyComparator('numberOfTiles'),
-  [ResultColumn.VowelsCount]: createKeyComparator('numberOfVowels'),
-  [ResultColumn.Word]: createKeyComparator('word'),
-  [ResultColumn.WordsCount]: createKeyComparator('numberOfWords'),
-};
 
 export const selectDictionary = selectDictionaryRoot;
 
