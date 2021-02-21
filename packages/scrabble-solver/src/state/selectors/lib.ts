@@ -87,7 +87,15 @@ export const getTotalCount = (remainingTiles: RemainingTile[]): number => {
   return remainingTiles.reduce((sum, { count }) => sum + count, 0);
 };
 
-export const sortResults = (results: Result[], column: ResultColumn, sortDirection: SortDirection): Result[] => {
+export const sortResults = (
+  results: Result[] | undefined,
+  column: ResultColumn,
+  sortDirection: SortDirection,
+): Result[] | undefined => {
+  if (typeof results === 'undefined') {
+    return results;
+  }
+
   const comparator = comparators[column];
   const finalComparator = sortDirection === SortDirection.Descending ? reverseComparator(comparator) : comparator;
   return [...results].sort(finalComparator);

@@ -38,13 +38,7 @@ export const selectResultsSortDirection = createSelector([selectResultsRoot], (r
 
 export const selectSortedResults = createSelector(
   [selectResults, selectResultsSortColumn, selectResultsSortDirection],
-  (results, column, direction): Result[] | undefined => {
-    if (typeof results === 'undefined') {
-      return results;
-    }
-
-    return sortResults(results, column, direction);
-  },
+  sortResults,
 );
 
 export const selectResultCandidate = createSelector([selectResultsRoot], (results) => results.candidate);
