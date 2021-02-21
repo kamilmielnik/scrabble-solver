@@ -5,6 +5,7 @@ import BonusValue from './BonusValue';
 import Cell from './Cell';
 import CharacterBonus from './CharacterBonus';
 import ConfigJson from './ConfigJson';
+import Tile from './Tile';
 import TileConfig from './TileConfig';
 import WordBonus from './WordBonus';
 
@@ -49,22 +50,24 @@ class Config {
     return this.config.boardWidth;
   }
 
+  public getCellBonus(cell: Cell): Bonus | undefined {
+    return this.bonuses.find((bonus) => bonus.canApply(this, cell));
+  }
+
   public getCellBonusValue(cell: Cell): BonusValue {
-    if (!cell.isEmpty) {
-      return NO_BONUS;
-    }
-
-    const cellBonus = this.bonuses.find((bonus) => bonus.canApply(this, cell));
-
-    if (!cellBonus) {
-      return NO_BONUS;
-    }
-
-    return cellBonus.value;
+    return this.getCellBonus(cell)?.value || NO_BONUS;
   }
 
   public getCharacterPoints(character: string): number | undefined {
     return this.pointsMap[character];
+  }
+
+  public getTilePoints(tile: Tile | null): number | undefined {
+    if (tile === null) {
+      return undefined;
+    }
+
+    return tile.isBlank ? this.blankScore : this.getCharacterPoints(tile.character);
   }
 
   public hasCharacter(character: string): boolean {

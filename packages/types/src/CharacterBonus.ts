@@ -9,7 +9,7 @@ class CharacterBonus extends Bonus {
   public readonly type = BONUS_CHARACTER;
 
   public canApply(config: Config, cell: Cell): boolean {
-    return this.matchesCellCoordinates(cell) && this.matchesCellTileScore(config, cell);
+    return super.canApply(config, cell) && this.matchesCellTileScore(config, cell);
   }
 
   public matchesCellTileScore(config: Config, cell: Cell): boolean {

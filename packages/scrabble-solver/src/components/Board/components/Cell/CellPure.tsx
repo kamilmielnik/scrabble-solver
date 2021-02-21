@@ -19,6 +19,7 @@ interface Props {
   direction: 'horizontal' | 'vertical';
   inputRef: RefObject<HTMLInputElement>;
   isEmpty: boolean;
+  points?: number;
   size: number;
   style?: CSSProperties;
   tile: TileModel;
@@ -35,6 +36,7 @@ const CellPure: FunctionComponent<Props> = ({
   direction,
   inputRef,
   isEmpty,
+  points,
   size,
   style,
   tile,
@@ -55,6 +57,7 @@ const CellPure: FunctionComponent<Props> = ({
       highlighted={cell.isCandidate()}
       inputRef={inputRef}
       isBlank={tile.isBlank}
+      points={points}
       raised={!isEmpty}
       size={size}
       onFocus={onFocus}

@@ -1,105 +1,82 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getLocaleConfig } from '@scrabble-solver/configs';
-import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
-import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/types';
+import { Cell, Config, Tile } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
-import { createKeyComparator, reverseComparator, stringComparator } from 'lib';
-import { Comparator, RemainingTile, RemainingTilesGroup, ResultColumn, SortDirection, Translations } from 'types';
+import {
+  findCell,
+  getRemainingTiles,
+  getRemainingTilesCount,
+  getRemainingTilesGroups,
+  sortResults,
+  unorderedArraysEqual,
+} from 'lib';
+import { Translations } from 'types';
 
 import { RootState } from './types';
 
-const findCell = (cells: Cell[], x: number, y: number): Cell | undefined => {
-  return cells.find((cell) => cell.x === x && cell.y === y);
-};
+const selectCell = (_: unknown, cell: Cell): Cell => cell;
 
-const getRemainingCount = (remainingTiles: RemainingTile[]): number => {
-  return remainingTiles.reduce((sum, { count, usedCount }) => sum + count - usedCount, 0);
-};
+const selectTile = (_: unknown, tile: Tile | null): Tile | null => tile;
 
-const getTotalCount = (remainingTiles: RemainingTile[]): number => {
-  return remainingTiles.reduce((sum, { count }) => sum + count, 0);
-};
+const selectBoardRoot = (state: RootState): RootState['board'] => state.board;
 
-const selectCell = (_: RootState, cell: Cell): Cell => cell;
+const selectDictionaryRoot = (state: RootState): RootState['dictionary'] => state.dictionary;
 
-const comparators: Record<ResultColumn, Comparator<Result>> = {
-  [ResultColumn.BlanksCount]: createKeyComparator('numberOfBlanks'),
-  [ResultColumn.ConsonantsCount]: createKeyComparator('numberOfConsonants'),
-  [ResultColumn.Points]: createKeyComparator('points'),
-  [ResultColumn.TilesCount]: createKeyComparator('numberOfTiles'),
-  [ResultColumn.VowelsCount]: createKeyComparator('numberOfVowels'),
-  [ResultColumn.Word]: createKeyComparator('word'),
-  [ResultColumn.WordsCount]: createKeyComparator('numberOfWords'),
-};
+const selectRackRoot = (state: RootState): RootState['rack'] => state.rack;
 
-export const selectSettingsRoot = (state: RootState): RootState['settings'] => state.settings;
+const selectResultsRoot = (state: RootState): RootState['results'] => state.results;
+
+const selectSettingsRoot = (state: RootState): RootState['settings'] => state.settings;
+
+const selectSolveRoot = (state: RootState): RootState['solve'] => state.solve;
+
+export const selectDictionary = selectDictionaryRoot;
 
 export const selectAutoGroupTiles = createSelector([selectSettingsRoot], (settings) => settings.autoGroupTiles);
 
 export const selectLocale = createSelector([selectSettingsRoot], (settings) => settings.locale);
 
-export const selectBoard = (state: RootState): Board => state.board;
-
-export const selectRows = (state: RootState): Cell[][] => state.board.rows;
-
-export const selectCells = createSelector([selectRows], (rows) => {
-  return rows.reduce<Cell[]>((cells: Cell[], row: Cell[]) => cells.concat(row), []);
-});
+export const selectBoard = selectBoardRoot;
 
 export const selectConfigId = createSelector([selectSettingsRoot], (settings) => settings.configId);
 
-export const selectConfig = createSelector([selectConfigId, selectLocale], (configId, locale) => {
-  return getLocaleConfig(configId, locale);
-});
+export const selectConfig = createSelector([selectConfigId, selectLocale], getLocaleConfig);
 
-export const selectResults = (state: RootState): Result[] | undefined => state.results.results;
+export const selectResults = createSelector([selectResultsRoot], (results) => results.results);
 
-export const selectResultsSortColumn = (state: RootState): ResultColumn => state.results.sort.column;
+export const selectResultsSortColumn = createSelector([selectResultsRoot], (results) => results.sort.column);
 
-export const selectResultsSortDirection = (state: RootState): SortDirection => state.results.sort.direction;
+export const selectResultsSortDirection = createSelector([selectResultsRoot], (results) => results.sort.direction);
 
 export const selectSortedResults = createSelector(
   [selectResults, selectResultsSortColumn, selectResultsSortDirection],
-  (results, column, direction): Result[] | undefined => {
-    if (typeof results === 'undefined') {
-      return results;
-    }
-
-    const comparator = comparators[column];
-    const finalComparator = direction === SortDirection.Descending ? reverseComparator(comparator) : comparator;
-    return [...results].sort(finalComparator);
-  },
+  sortResults,
 );
 
-export const selectResultCandidate = (state: RootState): Result | null => state.results.candidate;
+export const selectResultCandidate = createSelector([selectResultsRoot], (results) => results.candidate);
 
 export const selectResultCandidateCells = createSelector(
   [selectResultCandidate],
-  (resultCandidate) => (resultCandidate?.cells || []) as Cell[],
+  (resultCandidate): Cell[] => resultCandidate?.cells || [],
 );
 
-export const selectRowsWithCandidate = createSelector([selectRows, selectResultCandidateCells], (rows, cells) => {
-  return rows.map((row: Cell[], y: number) => row.map((cell: Cell, x: number) => findCell(cells, x, y) || cell));
+export const selectRowsWithCandidate = createSelector([selectBoardRoot, selectResultCandidateCells], (board, cells) => {
+  return board.rows.map((row: Cell[], y: number) => row.map((cell: Cell, x: number) => findCell(cells, x, y) || cell));
 });
 
-export const selectBonus = createSelector([selectConfig, selectCell], (config: Config, cell: Cell):
-  | Bonus
-  | undefined => {
-  return config.bonuses.find((bonus: Bonus) => bonus.matchesCellCoordinates(cell));
+export const selectCellBonus = createSelector([selectConfig, selectCell], (config: Config, cell: Cell) => {
+  return config.getCellBonus(cell);
 });
 
-export const selectCharacterPoints = createSelector(
-  [selectConfig, selectCell],
-  (config: Config, cell: Cell): number => {
-    return cell.tile.isBlank ? config.blankScore : config.pointsMap[cell.tile.character];
-  },
-);
+export const selectTilePoints = createSelector([selectConfig, selectTile], (config: Config, tile: Tile | null) => {
+  return config.getTilePoints(tile);
+});
 
 export const selectTranslations = createSelector([selectLocale], (locale) => i18n[locale]);
 
 export const selectTranslation = createSelector(
-  [selectTranslations, selectLocale, (_: RootState, id: keyof Translations) => id],
+  [selectTranslations, selectLocale, (_: unknown, id: keyof Translations) => id],
   (translations, locale, id): string => {
     const translation = translations[id];
 
@@ -111,35 +88,26 @@ export const selectTranslation = createSelector(
   },
 );
 
-export const selectRack = (state: RootState): (string | null)[] => state.rack;
+export const selectRack = selectRackRoot;
 
 export const selectCharacters = createSelector(
-  selectRack,
+  selectRackRoot,
   (rack): string[] => rack.filter((tile) => tile !== null) as string[],
 );
 
-export const selectLastSolvedParameters = (state: RootState): RootState['solve']['lastSolvedParameters'] => {
-  return state.solve.lastSolvedParameters;
-};
+export const selectLastSolvedParameters = createSelector([selectSolveRoot], (solve) => solve.lastSolvedParameters);
 
-export const selectIsLoading = (state: RootState): boolean => state.solve.isLoading;
+export const selectIsLoading = createSelector([selectSolveRoot], (solve) => solve.isLoading);
 
 export const selectHaveCharactersChanged = createSelector(
   [selectLastSolvedParameters, selectCharacters],
   (lastSolvedParameters, characters) => {
-    if (lastSolvedParameters.characters.length !== characters.length) {
-      return true;
-    }
-
-    const aSorted = [...lastSolvedParameters.characters].sort(stringComparator);
-    const bSorted = [...characters].sort(stringComparator);
-    const areEqual = aSorted.every((character, index) => character === bSorted[index]);
-    return !areEqual;
+    return !unorderedArraysEqual(lastSolvedParameters.characters, characters);
   },
 );
 
 export const selectHasBoardChanged = createSelector(
-  [selectLastSolvedParameters, selectBoard],
+  [selectLastSolvedParameters, selectBoardRoot],
   (lastSolvedParameters, board) => !lastSolvedParameters.board.equals(board),
 );
 
@@ -148,43 +116,9 @@ export const selectAreResultsOutdated = createSelector(
   (hasBoardChanged, haveCharactersChanged) => hasBoardChanged || haveCharactersChanged,
 );
 
-export const selectDictionaryRoot = (state: RootState): RootState['dictionary'] => state.dictionary;
-
 export const selectRemainingTiles = createSelector(
-  [selectConfig, selectCharacters, selectRows],
-  (config, characters, rows): RemainingTile[] => {
-    const nonEmptyCells = rows.flat().filter((cell) => !cell.isEmpty);
-    const letterCells = nonEmptyCells.filter((cell) => !cell.tile.isBlank);
-    const remainingTiles = Object.fromEntries(config.tiles.map((tile) => [tile.character, { ...tile, usedCount: 0 }]));
-    const blank: RemainingTile = {
-      character: BLANK,
-      count: config.numberOfBlanks,
-      score: config.blankScore,
-      usedCount:
-        nonEmptyCells.filter((cell) => cell.tile.isBlank).length +
-        characters.filter((character) => character === BLANK).length,
-    };
-    const letters = [
-      ...letterCells.map((cell) => cell.tile.character),
-      ...characters.filter((letter) => letter !== BLANK),
-    ];
-    const unknownLetters = letters.filter((letter) => typeof remainingTiles[letter] === 'undefined');
-
-    for (const letter of unknownLetters) {
-      remainingTiles[letter] = {
-        character: letter,
-        count: 0,
-        score: 0,
-        usedCount: 0,
-      };
-    }
-
-    for (const letter of letters) {
-      ++remainingTiles[letter].usedCount;
-    }
-
-    return [...Object.values(remainingTiles).sort(createKeyComparator('character')), blank];
-  },
+  [selectConfig, selectBoardRoot, selectCharacters],
+  getRemainingTiles,
 );
 
 export const selectHasOverusedTiles = createSelector([selectRemainingTiles], (remainingTiles) => {
@@ -192,32 +126,7 @@ export const selectHasOverusedTiles = createSelector([selectRemainingTiles], (re
 });
 
 export const selectRemainingTilesCount = createSelector([selectRemainingTiles], (remainingTiles) => {
-  return getRemainingCount(remainingTiles);
+  return getRemainingTilesCount(remainingTiles);
 });
 
-export const selectRemainingTilesGroups = createSelector([selectRemainingTiles], (remainingTiles) => {
-  const consonants = remainingTiles.filter(({ character }) => CONSONANTS.includes(character));
-  const vowels = remainingTiles.filter(({ character }) => VOWELS.includes(character));
-  const blanks = remainingTiles.filter(({ character }) => character === BLANK);
-  const groups: RemainingTilesGroup[] = [
-    {
-      remainingCount: getRemainingCount(vowels),
-      tiles: vowels,
-      translationKey: 'common.vowels',
-      totalCount: getTotalCount(vowels),
-    },
-    {
-      remainingCount: getRemainingCount(consonants),
-      tiles: consonants,
-      translationKey: 'common.consonants',
-      totalCount: getTotalCount(consonants),
-    },
-    {
-      remainingCount: getRemainingCount(blanks),
-      tiles: blanks,
-      translationKey: 'common.blanks',
-      totalCount: getTotalCount(blanks),
-    },
-  ];
-  return groups;
-});
+export const selectRemainingTilesGroups = createSelector([selectRemainingTiles], getRemainingTilesGroups);

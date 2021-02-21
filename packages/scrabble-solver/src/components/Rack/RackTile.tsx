@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 
 import { createKeyboardNavigation } from 'lib';
 import { TILE_SIZE } from 'parameters';
-import { rackSlice, selectConfig, useTranslate, useTypedSelector } from 'state';
+import { rackSlice, selectConfig, selectTilePoints, useTranslate, useTypedSelector } from 'state';
 
 import Tile from '../Tile';
 
@@ -31,6 +31,7 @@ const RackTile: FunctionComponent<Props> = ({ activeIndexRef, character, index, 
   const dispatch = useDispatch();
   const translate = useTranslate();
   const config = useTypedSelector(selectConfig);
+  const points = useTypedSelector((state) => selectTilePoints(state, tile));
 
   const handleFocus = useCallback(() => {
     activeIndexRef.current = index;
@@ -69,6 +70,7 @@ const RackTile: FunctionComponent<Props> = ({ activeIndexRef, character, index, 
       isBlank={character === BLANK}
       key={index}
       placeholder={translate('rack.placeholder')[index]}
+      points={points}
       raised
       size={TILE_SIZE}
       onFocus={handleFocus}
