@@ -6,19 +6,25 @@ import i18n from 'i18n';
 import { unorderedArraysEqual } from 'lib';
 import { Translations } from 'types';
 
+import { RootState } from '../types';
+
 import { findCell, getRemainingCount, getRemainingTiles, getRemainingTilesGroups, sortResults } from './lib';
-import {
-  selectBoardRoot,
-  selectDictionaryRoot,
-  selectRackRoot,
-  selectResultsRoot,
-  selectSettingsRoot,
-  selectSolveRoot,
-} from './root';
 
 const selectCell = (_: unknown, cell: Cell): Cell => cell;
 
 const selectTile = (_: unknown, tile: Tile | null): Tile | null => tile;
+
+const selectBoardRoot = (state: RootState): RootState['board'] => state.board;
+
+const selectDictionaryRoot = (state: RootState): RootState['dictionary'] => state.dictionary;
+
+const selectRackRoot = (state: RootState): RootState['rack'] => state.rack;
+
+const selectResultsRoot = (state: RootState): RootState['results'] => state.results;
+
+const selectSettingsRoot = (state: RootState): RootState['settings'] => state.settings;
+
+const selectSolveRoot = (state: RootState): RootState['solve'] => state.solve;
 
 export const selectDictionary = selectDictionaryRoot;
 
