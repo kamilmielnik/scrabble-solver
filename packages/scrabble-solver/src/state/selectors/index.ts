@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getLocaleConfig } from '@scrabble-solver/configs';
-import { Cell, Config, Result } from '@scrabble-solver/types';
+import { Cell, Config, Tile } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
 import { unorderedArraysEqual } from 'lib';
@@ -17,6 +17,8 @@ import {
 } from './root';
 
 const selectCell = (_: unknown, cell: Cell): Cell => cell;
+
+const selectCellTile = (_: unknown, cell: Cell): Tile => cell.tile;
 
 export const selectDictionary = selectDictionaryRoot;
 
@@ -45,7 +47,7 @@ export const selectResultCandidate = createSelector([selectResultsRoot], (result
 
 export const selectResultCandidateCells = createSelector(
   [selectResultCandidate],
-  (resultCandidate) => (resultCandidate?.cells || []) as Cell[],
+  (resultCandidate): Cell[] => resultCandidate?.cells || [],
 );
 
 export const selectRowsWithCandidate = createSelector([selectBoardRoot, selectResultCandidateCells], (board, cells) => {
@@ -56,12 +58,9 @@ export const selectBonus = createSelector([selectConfig, selectCell], (config: C
   return config.getCellBonus(cell);
 });
 
-export const selectCharacterPoints = createSelector(
-  [selectConfig, selectCell],
-  (config: Config, cell: Cell): number => {
-    return cell.tile.isBlank ? config.blankScore : config.pointsMap[cell.tile.character];
-  },
-);
+export const selectCharacterPoints = createSelector([selectConfig, selectCellTile], (config: Config, tile: Tile) => {
+  return config.getTilePoints(tile);
+});
 
 export const selectTranslations = createSelector([selectLocale], (locale) => i18n[locale]);
 

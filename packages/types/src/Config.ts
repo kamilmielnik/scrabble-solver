@@ -5,6 +5,7 @@ import BonusValue from './BonusValue';
 import Cell from './Cell';
 import CharacterBonus from './CharacterBonus';
 import ConfigJson from './ConfigJson';
+import Tile from './Tile';
 import TileConfig from './TileConfig';
 import WordBonus from './WordBonus';
 
@@ -59,6 +60,10 @@ class Config {
 
   public getCharacterPoints(character: string): number | undefined {
     return this.pointsMap[character];
+  }
+
+  public getTilePoints(tile: Tile): number | undefined {
+    return tile.isBlank ? this.blankScore : this.getCharacterPoints(tile.character);
   }
 
   public hasCharacter(character: string): boolean {
