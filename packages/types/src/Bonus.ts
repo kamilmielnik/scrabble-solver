@@ -22,7 +22,7 @@ abstract class Bonus {
   }
 
   public canApply(_config: Config, cell: Cell): boolean {
-    return this.matchesCellCoordinates(cell);
+    return !cell.isEmpty && this.matchesCellCoordinates(cell);
   }
 
   public matchesCellCoordinates(cell: Cell): boolean {

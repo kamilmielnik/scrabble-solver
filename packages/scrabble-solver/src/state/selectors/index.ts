@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getLocaleConfig } from '@scrabble-solver/configs';
 import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
-import { Bonus, Cell, Config, Result } from '@scrabble-solver/types';
+import { Cell, Config, Result } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
 import { createKeyComparator, stringComparator } from 'lib';
@@ -31,20 +31,24 @@ export const selectConfigId = createSelector([selectSettingsRoot], (settings) =>
 
 export const selectConfig = createSelector([selectConfigId, selectLocale], getLocaleConfig);
 
-export const selectResults = createSelector([selectResultsRoot], ({ results }) => results);
+export const selectResults = createSelector([selectResultsRoot], (results) => results.results);
 
-export const selectResultsSortColumn = createSelector([selectResultsRoot], ({ sort }) => sort.column);
+export const selectResultsSortColumn = createSelector([selectResultsRoot], (results) => results.sort.column);
 
-export const selectResultsSortDirection = createSelector([selectResultsRoot], ({ sort }) => sort.direction);
+export const selectResultsSortDirection = createSelector([selectResultsRoot], (results) => results.sort.direction);
 
 export const selectSortedResults = createSelector(
   [selectResults, selectResultsSortColumn, selectResultsSortDirection],
   (results, column, direction): Result[] | undefined => {
-    return typeof results === 'undefined' ? results : sortResults(results, column, direction);
+    if (typeof results === 'undefined') {
+      return results;
+    }
+
+    return sortResults(results, column, direction);
   },
 );
 
-export const selectResultCandidate = createSelector([selectResultsRoot], ({ candidate }) => candidate);
+export const selectResultCandidate = createSelector([selectResultsRoot], (results) => results.candidate);
 
 export const selectResultCandidateCells = createSelector(
   [selectResultCandidate],
@@ -55,10 +59,8 @@ export const selectRowsWithCandidate = createSelector([selectBoardRoot, selectRe
   return board.rows.map((row: Cell[], y: number) => row.map((cell: Cell, x: number) => findCell(cells, x, y) || cell));
 });
 
-export const selectBonus = createSelector([selectConfig, selectCell], (config: Config, cell: Cell):
-  | Bonus
-  | undefined => {
-  return config.bonuses.find((bonus: Bonus) => bonus.matchesCellCoordinates(cell));
+export const selectBonus = createSelector([selectConfig, selectCell], (config: Config, cell: Cell) => {
+  return config.getCellBonus(cell);
 });
 
 export const selectCharacterPoints = createSelector(

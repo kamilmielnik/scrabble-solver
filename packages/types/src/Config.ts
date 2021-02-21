@@ -49,18 +49,12 @@ class Config {
     return this.config.boardWidth;
   }
 
+  public getCellBonus(cell: Cell): Bonus | undefined {
+    return this.bonuses.find((bonus) => bonus.canApply(this, cell));
+  }
+
   public getCellBonusValue(cell: Cell): BonusValue {
-    if (!cell.isEmpty) {
-      return NO_BONUS;
-    }
-
-    const cellBonus = this.bonuses.find((bonus) => bonus.canApply(this, cell));
-
-    if (!cellBonus) {
-      return NO_BONUS;
-    }
-
-    return cellBonus.value;
+    return this.getCellBonus(cell)?.value || NO_BONUS;
   }
 
   public getCharacterPoints(character: string): number | undefined {
