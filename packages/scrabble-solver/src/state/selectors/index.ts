@@ -4,10 +4,10 @@ import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 import { Bonus, Cell, Config, Result } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
-import { createKeyComparator, reverseComparator, stringComparator } from 'lib';
-import { RemainingTile, RemainingTilesGroup, SortDirection, Translations } from 'types';
+import { createKeyComparator, stringComparator } from 'lib';
+import { RemainingTile, RemainingTilesGroup, Translations } from 'types';
 
-import { comparators, findCell, getRemainingCount, getTotalCount } from './lib';
+import { findCell, getRemainingCount, getTotalCount, sortResults } from './lib';
 import {
   selectBoardRoot,
   selectDictionaryRoot,
@@ -46,13 +46,7 @@ export const selectResultsSortDirection = createSelector([selectResultsRoot], ({
 export const selectSortedResults = createSelector(
   [selectResults, selectResultsSortColumn, selectResultsSortDirection],
   (results, column, direction): Result[] | undefined => {
-    if (typeof results === 'undefined') {
-      return results;
-    }
-
-    const comparator = comparators[column];
-    const finalComparator = direction === SortDirection.Descending ? reverseComparator(comparator) : comparator;
-    return [...results].sort(finalComparator);
+    return typeof results === 'undefined' ? results : sortResults(results, column, direction);
   },
 );
 
