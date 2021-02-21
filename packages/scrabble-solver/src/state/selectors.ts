@@ -13,7 +13,7 @@ import {
 } from 'lib';
 import { Translations } from 'types';
 
-import { RootState } from '../types';
+import { RootState } from './types';
 
 const selectCell = (_: unknown, cell: Cell): Cell => cell;
 
