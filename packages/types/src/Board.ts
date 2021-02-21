@@ -43,6 +43,10 @@ class Board {
     this.numberOfRows = rows.length;
   }
 
+  public get cells(): Cell[] {
+    return this.rows.reduce<Cell[]>((cells: Cell[], row: Cell[]) => cells.concat(row), []);
+  }
+
   public get center(): Cell {
     const x = Math.floor(this.numberOfColumns / 2);
     const y = Math.floor(this.numberOfRows / 2);

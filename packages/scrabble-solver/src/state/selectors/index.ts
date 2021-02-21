@@ -27,10 +27,6 @@ export const selectLocale = createSelector([selectSettingsRoot], (settings) => s
 
 export const selectBoard = selectBoardRoot;
 
-export const selectCells = createSelector([selectBoardRoot], (board) => {
-  return board.rows.reduce<Cell[]>((cells: Cell[], row: Cell[]) => cells.concat(row), []);
-});
-
 export const selectConfigId = createSelector([selectSettingsRoot], (settings) => settings.configId);
 
 export const selectConfig = createSelector([selectConfigId, selectLocale], (configId, locale) => {
