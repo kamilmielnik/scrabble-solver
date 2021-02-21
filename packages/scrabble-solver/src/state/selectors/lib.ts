@@ -1,8 +1,8 @@
-import { BLANK } from '@scrabble-solver/constants';
+import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 import { Board, Cell, Config, Result } from '@scrabble-solver/types';
 
 import { createKeyComparator, reverseComparator } from 'lib';
-import { Comparator, RemainingTile, ResultColumn, SortDirection } from 'types';
+import { Comparator, RemainingTile, RemainingTilesGroup, ResultColumn, SortDirection } from 'types';
 
 const comparators: Record<ResultColumn, Comparator<Result>> = {
   [ResultColumn.BlanksCount]: createKeyComparator('numberOfBlanks'),
@@ -54,6 +54,33 @@ export const getRemainingTiles = (config: Config, board: Board, characters: stri
   }
 
   return [...Object.values(remainingTiles).sort(createKeyComparator('character')), blank];
+};
+
+export const getRemainingTilesGroups = (remainingTiles: RemainingTile[]): RemainingTilesGroup[] => {
+  const consonants = remainingTiles.filter(({ character }) => CONSONANTS.includes(character));
+  const vowels = remainingTiles.filter(({ character }) => VOWELS.includes(character));
+  const blanks = remainingTiles.filter(({ character }) => character === BLANK);
+
+  return [
+    {
+      remainingCount: getRemainingCount(vowels),
+      tiles: vowels,
+      translationKey: 'common.vowels',
+      totalCount: getTotalCount(vowels),
+    },
+    {
+      remainingCount: getRemainingCount(consonants),
+      tiles: consonants,
+      translationKey: 'common.consonants',
+      totalCount: getTotalCount(consonants),
+    },
+    {
+      remainingCount: getRemainingCount(blanks),
+      tiles: blanks,
+      translationKey: 'common.blanks',
+      totalCount: getTotalCount(blanks),
+    },
+  ];
 };
 
 export const getTotalCount = (remainingTiles: RemainingTile[]): number => {

@@ -1,13 +1,12 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getLocaleConfig } from '@scrabble-solver/configs';
-import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 import { Cell, Config, Result } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
 import { unorderedArraysEqual } from 'lib';
-import { RemainingTilesGroup, Translations } from 'types';
+import { Translations } from 'types';
 
-import { findCell, getRemainingCount, getRemainingTiles, getTotalCount, sortResults } from './lib';
+import { findCell, getRemainingCount, getRemainingTiles, getRemainingTilesGroups, sortResults } from './lib';
 import {
   selectBoardRoot,
   selectDictionaryRoot,
@@ -126,29 +125,4 @@ export const selectRemainingTilesCount = createSelector([selectRemainingTiles], 
   return getRemainingCount(remainingTiles);
 });
 
-export const selectRemainingTilesGroups = createSelector([selectRemainingTiles], (remainingTiles) => {
-  const consonants = remainingTiles.filter(({ character }) => CONSONANTS.includes(character));
-  const vowels = remainingTiles.filter(({ character }) => VOWELS.includes(character));
-  const blanks = remainingTiles.filter(({ character }) => character === BLANK);
-  const groups: RemainingTilesGroup[] = [
-    {
-      remainingCount: getRemainingCount(vowels),
-      tiles: vowels,
-      translationKey: 'common.vowels',
-      totalCount: getTotalCount(vowels),
-    },
-    {
-      remainingCount: getRemainingCount(consonants),
-      tiles: consonants,
-      translationKey: 'common.consonants',
-      totalCount: getTotalCount(consonants),
-    },
-    {
-      remainingCount: getRemainingCount(blanks),
-      tiles: blanks,
-      translationKey: 'common.blanks',
-      totalCount: getTotalCount(blanks),
-    },
-  ];
-  return groups;
-});
+export const selectRemainingTilesGroups = createSelector([selectRemainingTiles], getRemainingTilesGroups);
