@@ -4,10 +4,10 @@ import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 import { Cell, Config, Result } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
-import { createKeyComparator, stringComparator } from 'lib';
+import { createKeyComparator } from 'lib';
 import { RemainingTile, RemainingTilesGroup, Translations } from 'types';
 
-import { findCell, getRemainingCount, getTotalCount, sortResults } from './lib';
+import { findCell, getRemainingCount, getTotalCount, sortResults, unorderedArraysEqual } from './lib';
 import {
   selectBoardRoot,
   selectDictionaryRoot,
@@ -99,14 +99,7 @@ export const selectIsLoading = createSelector([selectSolveRoot], (solve) => solv
 export const selectHaveCharactersChanged = createSelector(
   [selectLastSolvedParameters, selectCharacters],
   (lastSolvedParameters, characters) => {
-    if (lastSolvedParameters.characters.length !== characters.length) {
-      return true;
-    }
-
-    const aSorted = [...lastSolvedParameters.characters].sort(stringComparator);
-    const bSorted = [...characters].sort(stringComparator);
-    const areEqual = aSorted.every((character, index) => character === bSorted[index]);
-    return !areEqual;
+    return !unorderedArraysEqual(lastSolvedParameters.characters, characters);
   },
 );
 

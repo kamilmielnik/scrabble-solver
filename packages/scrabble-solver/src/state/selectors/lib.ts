@@ -1,6 +1,6 @@
 import { Cell, Result } from '@scrabble-solver/types';
 
-import { createKeyComparator, reverseComparator } from 'lib';
+import { comparator, createKeyComparator, reverseComparator } from 'lib';
 import { Comparator, RemainingTile, ResultColumn, SortDirection } from 'types';
 
 const comparators: Record<ResultColumn, Comparator<Result>> = {
@@ -29,4 +29,14 @@ export const sortResults = (results: Result[], column: ResultColumn, sortDirecti
   const comparator = comparators[column];
   const finalComparator = sortDirection === SortDirection.Descending ? reverseComparator(comparator) : comparator;
   return [...results].sort(finalComparator);
+};
+
+export const unorderedArraysEqual = <T>(a: T[], b: T[]): boolean => {
+  if (a.length !== b.length) {
+    return false;
+  }
+
+  const aSorted = [...a].sort(comparator);
+  const bSorted = [...b].sort(comparator);
+  return aSorted.every((character, index) => character === bSorted[index]);
 };

@@ -1,3 +1,4 @@
+export { default as comparator } from './comparator';
 export { default as createArray } from './createArray';
 export { default as createGridOf } from './createGridOf';
 export { default as createKeyboardNavigation } from './createKeyboardNavigation';
