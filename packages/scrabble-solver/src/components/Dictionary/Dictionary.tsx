@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import { selectDictionaryRoot, useTranslate, useTypedSelector } from 'state';
+import { selectDictionary, useTranslate, useTypedSelector } from 'state';
 
 import EmptyState from '../EmptyState';
 import Loading from '../Loading';
@@ -14,7 +14,7 @@ interface Props {
 
 const Dictionary: FunctionComponent<Props> = ({ className }) => {
   const translate = useTranslate();
-  const { definitions, isAllowed, isLoading, word } = useTypedSelector(selectDictionaryRoot);
+  const { definitions, isAllowed, isLoading, word } = useTypedSelector(selectDictionary);
 
   return (
     <div

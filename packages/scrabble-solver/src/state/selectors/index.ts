@@ -1,13 +1,20 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getLocaleConfig } from '@scrabble-solver/configs';
 import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
-import { Board, Bonus, Cell, Config, Result } from '@scrabble-solver/types';
+import { Bonus, Cell, Config, Result } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
 import { createKeyComparator, reverseComparator, stringComparator } from 'lib';
 import { Comparator, RemainingTile, RemainingTilesGroup, ResultColumn, SortDirection, Translations } from 'types';
 
-import { RootState } from '../types';
+import {
+  selectBoardRoot,
+  selectDictionaryRoot,
+  selectRackRoot,
+  selectResultsRoot,
+  selectSettingsRoot,
+  selectSolveRoot,
+} from './root';
 
 const findCell = (cells: Cell[], x: number, y: number): Cell | undefined => {
   return cells.find((cell) => cell.x === x && cell.y === y);
@@ -21,7 +28,7 @@ const getTotalCount = (remainingTiles: RemainingTile[]): number => {
   return remainingTiles.reduce((sum, { count }) => sum + count, 0);
 };
 
-const selectCell = (_: RootState, cell: Cell): Cell => cell;
+const selectCell = (_: unknown, cell: Cell): Cell => cell;
 
 const comparators: Record<ResultColumn, Comparator<Result>> = {
   [ResultColumn.BlanksCount]: createKeyComparator('numberOfBlanks'),
@@ -33,15 +40,15 @@ const comparators: Record<ResultColumn, Comparator<Result>> = {
   [ResultColumn.WordsCount]: createKeyComparator('numberOfWords'),
 };
 
-export const selectSettingsRoot = (state: RootState): RootState['settings'] => state.settings;
+export const selectDictionary = selectDictionaryRoot;
 
 export const selectAutoGroupTiles = createSelector([selectSettingsRoot], (settings) => settings.autoGroupTiles);
 
 export const selectLocale = createSelector([selectSettingsRoot], (settings) => settings.locale);
 
-export const selectBoard = (state: RootState): Board => state.board;
+export const selectBoard = selectBoardRoot;
 
-export const selectCells = createSelector([selectBoard], (board) => {
+export const selectCells = createSelector([selectBoardRoot], (board) => {
   return board.rows.reduce<Cell[]>((cells: Cell[], row: Cell[]) => cells.concat(row), []);
 });
 
@@ -51,11 +58,11 @@ export const selectConfig = createSelector([selectConfigId, selectLocale], (conf
   return getLocaleConfig(configId, locale);
 });
 
-export const selectResults = (state: RootState): Result[] | undefined => state.results.results;
+export const selectResults = createSelector([selectResultsRoot], ({ results }) => results);
 
-export const selectResultsSortColumn = (state: RootState): ResultColumn => state.results.sort.column;
+export const selectResultsSortColumn = createSelector([selectResultsRoot], ({ sort }) => sort.column);
 
-export const selectResultsSortDirection = (state: RootState): SortDirection => state.results.sort.direction;
+export const selectResultsSortDirection = createSelector([selectResultsRoot], ({ sort }) => sort.direction);
 
 export const selectSortedResults = createSelector(
   [selectResults, selectResultsSortColumn, selectResultsSortDirection],
@@ -70,14 +77,14 @@ export const selectSortedResults = createSelector(
   },
 );
 
-export const selectResultCandidate = (state: RootState): Result | null => state.results.candidate;
+export const selectResultCandidate = createSelector([selectResultsRoot], ({ candidate }) => candidate);
 
 export const selectResultCandidateCells = createSelector(
   [selectResultCandidate],
   (resultCandidate) => (resultCandidate?.cells || []) as Cell[],
 );
 
-export const selectRowsWithCandidate = createSelector([selectBoard, selectResultCandidateCells], (board, cells) => {
+export const selectRowsWithCandidate = createSelector([selectBoardRoot, selectResultCandidateCells], (board, cells) => {
   return board.rows.map((row: Cell[], y: number) => row.map((cell: Cell, x: number) => findCell(cells, x, y) || cell));
 });
 
@@ -97,7 +104,7 @@ export const selectCharacterPoints = createSelector(
 export const selectTranslations = createSelector([selectLocale], (locale) => i18n[locale]);
 
 export const selectTranslation = createSelector(
-  [selectTranslations, selectLocale, (_: RootState, id: keyof Translations) => id],
+  [selectTranslations, selectLocale, (_: unknown, id: keyof Translations) => id],
   (translations, locale, id): string => {
     const translation = translations[id];
 
@@ -109,18 +116,16 @@ export const selectTranslation = createSelector(
   },
 );
 
-export const selectRack = (state: RootState): (string | null)[] => state.rack;
+export const selectRack = selectRackRoot;
 
 export const selectCharacters = createSelector(
-  selectRack,
+  selectRackRoot,
   (rack): string[] => rack.filter((tile) => tile !== null) as string[],
 );
 
-export const selectLastSolvedParameters = (state: RootState): RootState['solve']['lastSolvedParameters'] => {
-  return state.solve.lastSolvedParameters;
-};
+export const selectLastSolvedParameters = createSelector([selectSolveRoot], (solve) => solve.lastSolvedParameters);
 
-export const selectIsLoading = (state: RootState): boolean => state.solve.isLoading;
+export const selectIsLoading = createSelector([selectSolveRoot], (solve) => solve.isLoading);
 
 export const selectHaveCharactersChanged = createSelector(
   [selectLastSolvedParameters, selectCharacters],
@@ -137,7 +142,7 @@ export const selectHaveCharactersChanged = createSelector(
 );
 
 export const selectHasBoardChanged = createSelector(
-  [selectLastSolvedParameters, selectBoard],
+  [selectLastSolvedParameters, selectBoardRoot],
   (lastSolvedParameters, board) => !lastSolvedParameters.board.equals(board),
 );
 
@@ -146,10 +151,8 @@ export const selectAreResultsOutdated = createSelector(
   (hasBoardChanged, haveCharactersChanged) => hasBoardChanged || haveCharactersChanged,
 );
 
-export const selectDictionaryRoot = (state: RootState): RootState['dictionary'] => state.dictionary;
-
 export const selectRemainingTiles = createSelector(
-  [selectConfig, selectCharacters, selectBoard],
+  [selectConfig, selectCharacters, selectBoardRoot],
   (config, characters, board): RemainingTile[] => {
     const nonEmptyCells = board.rows.flat().filter((cell) => !cell.isEmpty);
     const letterCells = nonEmptyCells.filter((cell) => !cell.tile.isBlank);

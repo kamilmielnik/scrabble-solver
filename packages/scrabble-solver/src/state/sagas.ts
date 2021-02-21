@@ -11,7 +11,7 @@ import {
   selectBoard,
   selectCharacters,
   selectConfig,
-  selectDictionaryRoot,
+  selectDictionary,
   selectLocale,
 } from './selectors';
 import { boardSlice, dictionarySlice, rackSlice, resultsSlice, settingsSlice, solveSlice } from './slices';
@@ -45,7 +45,7 @@ function* onConfigIdChange() {
 }
 
 function* onDictionarySubmit() {
-  const { input: word } = yield select(selectDictionaryRoot);
+  const { input: word } = yield select(selectDictionary);
   const locale = yield select(selectLocale);
 
   if (!memoizedFindWordDefinition.hasCache(locale, word)) {
