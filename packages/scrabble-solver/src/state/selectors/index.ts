@@ -18,7 +18,7 @@ import {
 
 const selectCell = (_: unknown, cell: Cell): Cell => cell;
 
-const selectCellTile = (_: unknown, cell: Cell): Tile => cell.tile;
+const selectTile = (_: unknown, tile: Tile | null): Tile | null => tile;
 
 export const selectDictionary = selectDictionaryRoot;
 
@@ -54,11 +54,11 @@ export const selectRowsWithCandidate = createSelector([selectBoardRoot, selectRe
   return board.rows.map((row: Cell[], y: number) => row.map((cell: Cell, x: number) => findCell(cells, x, y) || cell));
 });
 
-export const selectBonus = createSelector([selectConfig, selectCell], (config: Config, cell: Cell) => {
+export const selectCellBonus = createSelector([selectConfig, selectCell], (config: Config, cell: Cell) => {
   return config.getCellBonus(cell);
 });
 
-export const selectCharacterPoints = createSelector([selectConfig, selectCellTile], (config: Config, tile: Tile) => {
+export const selectTilePoints = createSelector([selectConfig, selectTile], (config: Config, tile: Tile | null) => {
   return config.getTilePoints(tile);
 });
 

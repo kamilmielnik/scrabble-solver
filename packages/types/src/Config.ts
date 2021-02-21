@@ -62,7 +62,11 @@ class Config {
     return this.pointsMap[character];
   }
 
-  public getTilePoints(tile: Tile): number | undefined {
+  public getTilePoints(tile: Tile | null): number | undefined {
+    if (tile === null) {
+      return undefined;
+    }
+
     return tile.isBlank ? this.blankScore : this.getCharacterPoints(tile.character);
   }
 

@@ -4,7 +4,7 @@ import React, { FunctionComponent, RefObject, useCallback, useMemo } from 'react
 import { useDispatch } from 'react-redux';
 
 import { getTileSizes } from 'lib';
-import { boardSlice, selectBonus, useTranslate, useTypedSelector } from 'state';
+import { boardSlice, selectCellBonus, selectTilePoints, useTranslate, useTypedSelector } from 'state';
 
 import CellPure from './CellPure';
 
@@ -22,7 +22,8 @@ const Cell: FunctionComponent<Props> = ({ cell, className, direction, inputRef, 
   const { tile, x, y } = cell;
   const dispatch = useDispatch();
   const translate = useTranslate();
-  const bonus = useTypedSelector((state) => selectBonus(state, cell));
+  const bonus = useTypedSelector((state) => selectCellBonus(state, cell));
+  const points = useTypedSelector((state) => selectTilePoints(state, cell.tile));
   const { tileFontSize } = getTileSizes(size);
   const isEmpty = tile.character === EMPTY_CELL;
   const style = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
@@ -53,6 +54,7 @@ const Cell: FunctionComponent<Props> = ({ cell, className, direction, inputRef, 
       direction={direction}
       inputRef={inputRef}
       isEmpty={isEmpty}
+      points={points}
       size={size}
       style={style}
       tile={tile}

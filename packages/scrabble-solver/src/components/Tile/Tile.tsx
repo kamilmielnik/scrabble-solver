@@ -10,7 +10,6 @@ import React, {
 } from 'react';
 
 import { getTileSizes } from 'lib';
-import { selectConfig, useTypedSelector } from 'state';
 
 import TilePure from './TilePure';
 
@@ -23,6 +22,7 @@ interface Props {
   inputRef?: RefObject<HTMLInputElement>;
   isBlank?: boolean;
   placeholder?: string;
+  points?: number;
   raised?: boolean;
   size: number;
   onBlur?: FocusEventHandler<HTMLInputElement>;
@@ -39,6 +39,7 @@ const Tile: FunctionComponent<Props> = ({
   inputRef: ref,
   isBlank,
   placeholder,
+  points,
   raised,
   size,
   onFocus,
@@ -49,8 +50,6 @@ const Tile: FunctionComponent<Props> = ({
   const inputStyle = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
   const pointsStyle = useMemo(() => ({ fontSize: pointsFontSize }), [pointsFontSize]);
   const inputRef = useMemo<RefObject<HTMLInputElement>>(() => ref || createRef(), [ref]);
-  const config = useTypedSelector(selectConfig);
-  const points = isBlank ? config.blankScore : config.getCharacterPoints(character);
   const isEmpty = !character || character === EMPTY_CELL;
   const canShowPoints = (isBlank || !isEmpty) && typeof points !== 'undefined';
 
