@@ -41,10 +41,8 @@ export const selectLocale = createSelector([selectSettingsRoot], (settings) => s
 
 export const selectBoard = (state: RootState): Board => state.board;
 
-export const selectRows = (state: RootState): Cell[][] => state.board.rows;
-
-export const selectCells = createSelector([selectRows], (rows) => {
-  return rows.reduce<Cell[]>((cells: Cell[], row: Cell[]) => cells.concat(row), []);
+export const selectCells = createSelector([selectBoard], (board) => {
+  return board.rows.reduce<Cell[]>((cells: Cell[], row: Cell[]) => cells.concat(row), []);
 });
 
 export const selectConfigId = createSelector([selectSettingsRoot], (settings) => settings.configId);
@@ -79,8 +77,8 @@ export const selectResultCandidateCells = createSelector(
   (resultCandidate) => (resultCandidate?.cells || []) as Cell[],
 );
 
-export const selectRowsWithCandidate = createSelector([selectRows, selectResultCandidateCells], (rows, cells) => {
-  return rows.map((row: Cell[], y: number) => row.map((cell: Cell, x: number) => findCell(cells, x, y) || cell));
+export const selectRowsWithCandidate = createSelector([selectBoard, selectResultCandidateCells], (board, cells) => {
+  return board.rows.map((row: Cell[], y: number) => row.map((cell: Cell, x: number) => findCell(cells, x, y) || cell));
 });
 
 export const selectBonus = createSelector([selectConfig, selectCell], (config: Config, cell: Cell):
@@ -151,9 +149,9 @@ export const selectAreResultsOutdated = createSelector(
 export const selectDictionaryRoot = (state: RootState): RootState['dictionary'] => state.dictionary;
 
 export const selectRemainingTiles = createSelector(
-  [selectConfig, selectCharacters, selectRows],
-  (config, characters, rows): RemainingTile[] => {
-    const nonEmptyCells = rows.flat().filter((cell) => !cell.isEmpty);
+  [selectConfig, selectCharacters, selectBoard],
+  (config, characters, board): RemainingTile[] => {
+    const nonEmptyCells = board.rows.flat().filter((cell) => !cell.isEmpty);
     const letterCells = nonEmptyCells.filter((cell) => !cell.tile.isBlank);
     const remainingTiles = Object.fromEntries(config.tiles.map((tile) => [tile.character, { ...tile, usedCount: 0 }]));
     const blank: RemainingTile = {
