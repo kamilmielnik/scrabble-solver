@@ -4,10 +4,10 @@ import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 import { Cell, Config, Result } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
-import { createKeyComparator } from 'lib';
+import { createKeyComparator, unorderedArraysEqual } from 'lib';
 import { RemainingTile, RemainingTilesGroup, Translations } from 'types';
 
-import { findCell, getRemainingCount, getTotalCount, sortResults, unorderedArraysEqual } from './lib';
+import { findCell, getRemainingCount, getTotalCount, sortResults } from './lib';
 import {
   selectBoardRoot,
   selectDictionaryRoot,

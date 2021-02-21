@@ -16,4 +16,6 @@ export { default as noop } from './noop';
 export { default as numberComparator } from './numberComparator';
 export { default as reverseComparator } from './reverseComparator';
 export { default as stringComparator } from './stringComparator';
+export { default as unorderedArraysEqual } from './unorderedArraysEqual';
 export { default as zipCharactersAndTiles } from './zipCharactersAndTiles';
+
