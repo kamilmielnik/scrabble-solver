@@ -29,9 +29,7 @@ export const selectBoard = selectBoardRoot;
 
 export const selectConfigId = createSelector([selectSettingsRoot], (settings) => settings.configId);
 
-export const selectConfig = createSelector([selectConfigId, selectLocale], (configId, locale) => {
-  return getLocaleConfig(configId, locale);
-});
+export const selectConfig = createSelector([selectConfigId, selectLocale], getLocaleConfig);
 
 export const selectResults = createSelector([selectResultsRoot], ({ results }) => results);
 
