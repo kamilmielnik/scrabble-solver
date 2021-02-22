@@ -17,7 +17,7 @@ import { RootState } from './types';
 
 const selectCell = (_: unknown, cell: Cell): Cell => cell;
 
-const selectCharacter = (_: unknown, character: string): string => character;
+const selectCharacter = (_: unknown, character: string | null): string | null => character;
 
 const selectTile = (_: unknown, tile: Tile | null): Tile | null => tile;
 
@@ -78,7 +78,7 @@ export const selectCellBonus = createSelector([selectConfig, selectCell], (confi
 
 export const selectCharacterPoints = createSelector(
   [selectConfig, selectCharacter],
-  (config: Config, character: string) => {
+  (config: Config, character: string | null) => {
     return config.getCharacterPoints(character);
   },
 );
