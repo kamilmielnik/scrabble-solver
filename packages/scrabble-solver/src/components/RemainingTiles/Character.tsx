@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
 import { REMAINING_TILES_TILE_SIZE } from 'parameters';
+import { selectCharacterPoints, useTypedSelector } from 'state';
 import { RemainingTile } from 'types';
 
 import Tile from '../Tile';
@@ -16,6 +17,7 @@ interface Props {
 const Character: FunctionComponent<Props> = ({ tile }) => {
   const { character, count, usedCount } = tile;
   const remainingCount = count - usedCount;
+  const points = useTypedSelector((state) => selectCharacterPoints(state, character));
 
   return (
     <div
@@ -30,6 +32,7 @@ const Character: FunctionComponent<Props> = ({ tile }) => {
         className={styles.tile}
         disabled
         isBlank={character === BLANK}
+        points={points}
         raised
         size={REMAINING_TILES_TILE_SIZE}
       />
