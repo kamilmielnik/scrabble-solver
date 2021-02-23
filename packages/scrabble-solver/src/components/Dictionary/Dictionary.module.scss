@@ -1,8 +1,6 @@
 .dictionary {
   position: relative;
   min-height: calc(var(--dictionary--height) - var(--text-input--height));
-  height: calc(var(--dictionary--height) - var(--text-input--height));
-  max-height: calc(var(--dictionary--height) - var(--text-input--height));
   overflow-y: auto;
   word-break: break-word;
   transition: var(--transition);
