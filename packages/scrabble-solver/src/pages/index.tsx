@@ -92,6 +92,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           <div className={styles.content} ref={contentRef}>
             <form className={styles.boardContainer} onSubmit={handleSubmit}>
               {contentWidth > 0 && <Board cellSize={cellSize} innerRef={boardRef} />}
+              <input className={styles.submitInput} tabIndex={-1} type="submit" />
             </form>
 
             <div className={styles.sidebar} style={{ height: boardHeight + 1 }}>
@@ -103,7 +104,6 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
               <Well className={styles.dictionary}>
                 <Dictionary className={styles.dictionaryOutput} />
-
                 <DictionaryInput />
               </Well>
             </div>
@@ -112,6 +112,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
         <form className={styles.rackContainer} onSubmit={handleSubmit}>
           <Rack className={styles.rack} />
+          <input className={styles.submitInput} tabIndex={-1} type="submit" />
         </form>
       </div>
 
