@@ -13,7 +13,7 @@ class CharacterBonus extends Bonus {
   }
 
   public matchesCellTileScore(config: Config, cell: Cell): boolean {
-    return cell.isEmpty || this.score === config.pointsMap[cell.tile.character];
+    return this.score === config.pointsMap[cell.tile.character];
   }
 
   public get value(): BonusValue {
