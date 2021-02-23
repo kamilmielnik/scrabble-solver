@@ -1,6 +1,6 @@
 .emptyState {
   margin: 0 auto;
-  max-width: 320px;
+  max-width: calc(2 * var(--sidebar--width) / 3);
   padding: var(--spacing--xl);
   font-family: var(--font--family);
   color: var(--color--foreground--secondary);
