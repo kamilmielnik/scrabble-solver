@@ -1,3 +1,4 @@
+import { NO_BONUS } from '@scrabble-solver/constants';
 import { Cell, Config, Pattern } from '@scrabble-solver/types';
 
 class ScoresCalculator {
@@ -37,7 +38,8 @@ class ScoresCalculator {
     { multiplier, score }: { multiplier: number; score: number },
     cell: Cell,
   ): { multiplier: number; score: number } => {
-    const { characterMultiplier, wordMultiplier } = this.config.getCellBonusValue(cell);
+    const bonus = this.config.getCellBonus(cell);
+    const { characterMultiplier, wordMultiplier } = bonus && bonus.canApply(this.config, cell) ? bonus.value : NO_BONUS;
     const characterScore = cell.tile.isBlank ? this.config.blankScore : this.config.pointsMap[cell.tile.character];
 
     return {

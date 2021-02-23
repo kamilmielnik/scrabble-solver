@@ -51,7 +51,7 @@ class Config {
   }
 
   public getCellBonus(cell: Cell): Bonus | undefined {
-    return this.bonuses.find((bonus) => bonus.canApply(this, cell));
+    return this.bonuses.find((bonus) => bonus.matchesCellCoordinates(cell));
   }
 
   public getCellBonusValue(cell: Cell): BonusValue {
