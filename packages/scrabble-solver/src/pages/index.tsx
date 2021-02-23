@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
-import React, { AnimationEvent, FormEventHandler, FunctionComponent, useState } from 'react';
+import React, { AnimationEvent, FormEvent, FunctionComponent, useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure } from 'react-use';
@@ -9,6 +9,7 @@ import { useEffectOnce, useMeasure } from 'react-use';
 import {
   Board,
   Dictionary,
+  DictionaryInput,
   KeyMap,
   Logo,
   NavButtons,
@@ -53,7 +54,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     dispatch(reset());
   };
 
-  const handleSubmit: FormEventHandler = (event) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(solveSlice.actions.submit());
   };
@@ -73,7 +74,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
   return (
     <>
-      <form className={classNames(styles.index, { [styles.initialized]: isInitialized })} onSubmit={handleSubmit}>
+      <div className={classNames(styles.index, { [styles.initialized]: isInitialized })}>
         <div className={styles.nav}>
           <div className={styles.logoContainer} title={`scrabble-solver@${version}`}>
             <Logo className={styles.logo} />
@@ -89,9 +90,9 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
         <div className={styles.contentWrapper}>
           <div className={styles.content} ref={contentRef}>
-            <div className={styles.boardContainer}>
+            <form className={styles.boardContainer} onSubmit={handleSubmit}>
               {contentWidth > 0 && <Board cellSize={cellSize} innerRef={boardRef} />}
-            </div>
+            </form>
 
             <div className={styles.sidebar} style={{ height: boardHeight + 1 }}>
               <Well className={styles.resultsContainer} ref={resultsContainerRef}>
@@ -101,16 +102,18 @@ const Index: FunctionComponent<Props> = ({ version }) => {
               </Well>
 
               <Well className={styles.dictionary}>
-                <Dictionary />
+                <Dictionary className={styles.dictionaryOutput} />
+
+                <DictionaryInput />
               </Well>
             </div>
           </div>
         </div>
 
-        <div className={styles.rackContainer}>
+        <form className={styles.rackContainer} onSubmit={handleSubmit}>
           <Rack className={styles.rack} />
-        </div>
-      </form>
+        </form>
+      </div>
 
       <Settings isOpen={showSettings} onClose={() => setShowSettings(false)} />
 
