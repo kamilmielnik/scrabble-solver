@@ -102,9 +102,11 @@ const Index: FunctionComponent<Props> = ({ version }) => {
                 )}
               </Well>
 
-              <Well className={styles.dictionary}>
-                <Dictionary className={styles.dictionaryOutput} />
-                <DictionaryInput />
+              <Well>
+                <div className={styles.dictionary} style={{ height: DICTIONARY_HEIGHT }}>
+                  <Dictionary className={styles.dictionaryOutput} />
+                  <DictionaryInput className={styles.dictionaryInput} />
+                </div>
               </Well>
             </div>
           </div>

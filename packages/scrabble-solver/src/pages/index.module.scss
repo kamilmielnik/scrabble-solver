@@ -91,12 +91,15 @@
 .dictionary {
   display: flex;
   flex-direction: column;
-  flex: 1 0 auto;
 }
 
 .dictionaryOutput {
   flex: 1;
   border-bottom: var(--border);
+}
+
+.dictionaryInput {
+  flex: 0 0 auto;
 }
 
 .resultsContainer {

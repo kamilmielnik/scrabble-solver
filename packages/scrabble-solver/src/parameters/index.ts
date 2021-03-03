@@ -17,7 +17,7 @@ export const BOARD_TILE_FONT_SIZE_POINTS_MIN = 10;
 export const BOARD_TILE_SIZE_MAX = 64;
 export const BOARD_TILE_SIZE_MIN = 32;
 
-export const DICTIONARY_HEIGHT = 212;
+export const DICTIONARY_HEIGHT = 220;
 
 export const TILE_SIZE = 80;
 
