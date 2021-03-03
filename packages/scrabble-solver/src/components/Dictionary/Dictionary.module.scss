@@ -1,9 +1,6 @@
-$height: 210px;
-
 .dictionary {
-  min-height: $height;
-  height: $height;
-  max-height: $height;
+  position: relative;
+  min-height: calc(var(--dictionary--height) - var(--text-input--height));
   overflow-y: auto;
   word-break: break-word;
   transition: var(--transition);
