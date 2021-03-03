@@ -67,14 +67,14 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --spacing--xl: 40px;
   --spacing--xxl: 80px;
 
-  --sidebar--width: 580px;
-  --dictionary--height: 220px;
-  --text-input--height: 42px;
-
   --transition--duration: 100ms;
   --transition--duration--long: 250ms;
   --transition--easing: #{$easeOutSine};
   --transition: all var(--transition--duration) var(--transition--easing);
 
   --focus--box-shadow--size: 6px;
+
+  --sidebar--width: 580px;
+  --dictionary--height: 220px;
+  --text-input--height: 42px;
 }
