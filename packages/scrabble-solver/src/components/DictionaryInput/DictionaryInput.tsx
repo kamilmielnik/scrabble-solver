@@ -25,7 +25,7 @@ const DictionaryInput: FunctionComponent<Props> = ({ className }) => {
 
   return (
     <form className={classNames(styles.dictionaryInput, className)} onSubmit={handleSubmit}>
-      <input className={styles.input} type="text" value={input} onChange={handleChange} />
+      <input className={styles.input} required type="text" value={input} onChange={handleChange} />
     </form>
   );
 };
