@@ -13,7 +13,7 @@ class CharacterBonus extends Bonus {
   }
 
   public matchesCellTileScore(config: Config, cell: Cell): boolean {
-    if(typeof this.score === 'undefined') {
+    if (typeof this.score === 'undefined') {
       return true;
     }
 
