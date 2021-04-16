@@ -29,8 +29,8 @@ const tilesPl = [
   { character: 'w', count: 4, score: 1 },
   { character: 'y', count: 4, score: 2 },
   { character: 'z', count: 5, score: 1 },
-  { character: 'ź', count: 1, score: 5 },
-  { character: 'ż', count: 1, score: 9 },
+  { character: 'ź', count: 1, score: 9 },
+  { character: 'ż', count: 1, score: 5 },
 ];
 
 export default tilesPl;
