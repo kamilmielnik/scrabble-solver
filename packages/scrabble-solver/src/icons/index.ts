@@ -1,4 +1,4 @@
-export { default as ArrowDown } from './A;rrowDown.svg';
+export { default as ArrowDown } from './ArrowDown.svg';
 export { default as ArrowLeft } from './ArrowLeft.svg';
 export { default as ArrowRight } from './ArrowRight.svg';
 export { default as ArrowUp } from './ArrowUp.svg';
