@@ -20,22 +20,19 @@ It's cross-platform - all you need is [Node.js](https://nodejs.org/).
 
 ![alt User Interface](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/screencast.gif)
 
-## Run
-
-```Shell
-npx scrabble-solver
-```
-
-or
+## Install
 
 ```Shell
 npm install -g scrabble-solver
+```
 
-# and then run anytime with:
+## Run
+
+```
 scrabble-solver
 ```
 
-Open http://localhost:3333/ if it didn't open up for you.
+Open http://localhost:3333/ in case it didn't open up for you.
 
 ## Uninstall
 
