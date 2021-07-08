@@ -1,32 +1,31 @@
 import React from 'react';
 
-import { arrowDown, arrowLeft, arrowRight, arrowUp } from 'icons';
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from 'icons';
 import { isMac } from 'lib';
 
 import Key from '../Key';
-import SvgIcon from '../SvgIcon';
 
 const ARROW_DOWN = (
   <Key>
-    <SvgIcon icon={arrowLeft} />
+    <ArrowLeft />
   </Key>
 );
 
 const ARROW_LEFT = (
   <Key>
-    <SvgIcon icon={arrowUp} />
+    <ArrowUp />
   </Key>
 );
 
 const ARROW_RIGHT = (
   <Key>
-    <SvgIcon icon={arrowRight} />
+    <ArrowRight />
   </Key>
 );
 
 const ARROW_UP = (
   <Key>
-    <SvgIcon icon={arrowDown} />
+    <ArrowDown />
   </Key>
 );
 

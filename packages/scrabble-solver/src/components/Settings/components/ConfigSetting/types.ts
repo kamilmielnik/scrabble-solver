@@ -2,7 +2,7 @@ import { Locale } from '@scrabble-solver/types';
 
 export interface Option {
   className: string;
-  icon: BrowserSpriteSymbol;
+  Icon: SvgComponent;
   label: string;
   value: Locale;
 }

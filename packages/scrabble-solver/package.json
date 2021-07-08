@@ -50,6 +50,7 @@
     "store2": "^2.12.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^5.5.0",
     "@types/classnames": "^2.2.11",
     "@types/react": "^17.0.0",
     "@types/react-modal": "^3.10.6",
@@ -57,8 +58,7 @@
     "@types/react-window": "^1.8.2",
     "@types/redux": "^3.6.31",
     "@types/redux-saga": "^0.10.5",
-    "sass": "^1.32.5",
-    "svg-sprite-loader": "^5.2.1"
+    "sass": "^1.32.5"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }

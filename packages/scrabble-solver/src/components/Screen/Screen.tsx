@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { AnimationEventHandler, FunctionComponent, ReactNode } from 'react';
 
-import { cross } from 'icons';
+import { Cross } from 'icons';
 import { useTranslate } from 'state';
 
 import Button from '../Button';
@@ -22,7 +22,7 @@ const Screen: FunctionComponent<Props> = ({ children, className, contentClassNam
   return (
     <div className={classNames(styles.screen, className)} onAnimationEnd={onAnimationEnd}>
       {onClose && (
-        <Button className={styles.closeButton} icon={cross} title={translate('common.close')} onClick={onClose}>
+        <Button className={styles.closeButton} Icon={Cross} title={translate('common.close')} onClick={onClose}>
           {translate('common.close')}
         </Button>
       )}

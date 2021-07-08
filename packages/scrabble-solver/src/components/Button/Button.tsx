@@ -6,14 +6,14 @@ import Content from './Content';
 import Link from './Link';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  icon: BrowserSpriteSymbol;
+  Icon: SvgComponent;
   title: string;
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Button: FunctionComponent<Props> = ({ children, className, icon, ...props }) => (
+const Button: FunctionComponent<Props> = ({ children, className, Icon, ...props }) => (
   <button className={classNames(styles.button, className)} type="button" {...props}>
-    <Content icon={icon}>{children}</Content>
+    <Content Icon={Icon}>{children}</Content>
   </button>
 );
 

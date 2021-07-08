@@ -2,10 +2,9 @@ import { Bonus, Cell, Tile as TileModel } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import React, { CSSProperties, FocusEventHandler, FunctionComponent, memo, MouseEventHandler, RefObject } from 'react';
 
-import { arrowDown } from 'icons';
+import { ArrowDown } from 'icons';
 import { Translate } from 'types';
 
-import SvgIcon from '../../../SvgIcon';
 import Tile from '../../../Tile';
 
 import Button from './Button';
@@ -65,11 +64,10 @@ const CellPure: FunctionComponent<Props> = ({
 
     <div className={styles.actions}>
       <Button title={translate('cell.toggle-direction')} onClick={onDirectionToggleClick}>
-        <SvgIcon
+        <ArrowDown
           className={classNames(styles.toggleDirection, {
             [styles.right]: direction === 'horizontal',
           })}
-          icon={arrowDown}
         />
       </Button>
 

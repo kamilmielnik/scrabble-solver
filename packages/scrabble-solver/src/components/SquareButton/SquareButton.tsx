@@ -6,14 +6,14 @@ import Link from './Link';
 import styles from './SquareButton.module.scss';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  icon: BrowserSpriteSymbol;
+  Icon: SvgComponent;
   title: string;
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const SquareButton: FunctionComponent<Props> = ({ children, className, icon, ...props }) => (
+const SquareButton: FunctionComponent<Props> = ({ children, className, Icon, ...props }) => (
   <button className={classNames(styles.squareButton, className)} type="button" {...props}>
-    <Content icon={icon}>{children}</Content>
+    <Content Icon={Icon}>{children}</Content>
   </button>
 );
 

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import { cog, eraser, github, keyboard, sack } from 'icons';
+import { Cog, Eraser, Github, Keyboard, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { selectHasOverusedTiles, useTranslate, useTypedSelector } from 'state';
 
@@ -25,7 +25,7 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowRem
       <SquareButton.Link
         className={styles.button}
         href={GITHUB_PROJECT_URL}
-        icon={github}
+        Icon={Github}
         rel="noopener noreferrer"
         target="_blank"
         title={translate('github')}
@@ -35,7 +35,7 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowRem
 
       <div className={styles.separator} />
 
-      <SquareButton className={styles.button} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap}>
+      <SquareButton className={styles.button} Icon={Keyboard} title={translate('keyMap')} onClick={onShowKeyMap}>
         {translate('keyMap')}
       </SquareButton>
 
@@ -43,7 +43,7 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowRem
         className={classNames(styles.button, {
           [styles.error]: hasOverusedTiles,
         })}
-        icon={sack}
+        Icon={Sack}
         title={translate('remaining-tiles')}
         onClick={onShowRemainingTiles}
       >
@@ -52,11 +52,11 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowRem
 
       <div className={styles.separator} />
 
-      <SquareButton className={styles.button} icon={eraser} title={translate('common.clear')} onClick={onClear}>
+      <SquareButton className={styles.button} Icon={Eraser} title={translate('common.clear')} onClick={onClear}>
         {translate('common.clear')}
       </SquareButton>
 
-      <SquareButton className={styles.button} icon={cog} title={translate('settings')} onClick={onShowSettings}>
+      <SquareButton className={styles.button} Icon={Cog} title={translate('settings')} onClick={onShowSettings}>
         {translate('settings')}
       </SquareButton>
     </div>

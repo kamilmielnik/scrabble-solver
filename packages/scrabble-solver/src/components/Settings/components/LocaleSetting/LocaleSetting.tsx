@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 import { selectLocale, settingsSlice, useTypedSelector } from 'state';
 
 import Radio from '../../../Radio';
-import SvgIcon from '../../../SvgIcon';
 
 import styles from './LocaleSetting.module.scss';
 import options from './options';
@@ -27,7 +26,7 @@ const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
 
   return (
     <div className={className}>
-      {options.map((option) => (
+      {options.map(({ Icon, ...option }) => (
         <Radio
           checked={locale === option.value}
           className={classNames(styles.option, className, {
@@ -42,8 +41,7 @@ const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
           onChange={handleChange}
         >
           <span className={styles.label}>
-            <SvgIcon className={classNames(styles.flag, option.className)} icon={option.icon} />
-
+            <Icon className={classNames(styles.flag, option.className)} />
             <span>{option.label}</span>
           </span>
         </Radio>

@@ -5,14 +5,14 @@ import Content from './Content';
 import styles from './SquareButton.module.scss';
 
 interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  icon: BrowserSpriteSymbol;
   href: string;
+  Icon: SvgComponent;
   title: string;
 }
 
-const Link: FunctionComponent<Props> = ({ children, className, icon, ...props }) => (
+const Link: FunctionComponent<Props> = ({ children, className, Icon, ...props }) => (
   <a className={classNames(styles.squareButton, className)} {...props}>
-    <Content icon={icon}>{children}</Content>
+    <Content Icon={Icon}>{children}</Content>
   </a>
 );
 

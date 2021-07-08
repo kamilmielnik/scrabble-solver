@@ -35,7 +35,14 @@ module.exports = {
         ...config.module.rules,
         {
           test: /\.svg$/,
-          loader: 'svg-sprite-loader',
+          use: [
+            {
+              loader: '@svgr/webpack',
+              options: {
+                svgo: false,
+              },
+            },
+          ],
         },
       ],
     },

@@ -30,13 +30,13 @@ module.exports = {
 
   globals: {
     beforeAll: true,
-    BrowserSpriteSymbol: true,
     define: true,
     describe: true,
     expect: true,
     globalThis: true,
     it: true,
     jest: true,
+    SvgComponent: true,
   },
 
   overrides: [

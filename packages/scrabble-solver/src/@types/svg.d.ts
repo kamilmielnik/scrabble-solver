@@ -1,18 +1,12 @@
 /* eslint-disable */
 
-type BrowserSpriteSymbol = {
-  content: string;
-  id: string;
-  node: SVGSymbolElement;
-  viewBox: string;
-};
+import { ComponentType, SVGProps } from 'react';
 
-declare module '*.svg' {
-  const symbol: BrowserSpriteSymbol;
-  export default symbol;
+declare global {
+  type SvgComponent = ComponentType<SVGProps<SVGElement>>;
 }
 
-declare module '*.scss' {
-  const classesMap: Record<string, string>;
-  export default classesMap;
+declare module '*.svg' {
+  const svgComponent: SvgComponent;
+  export default svgComponent;
 }

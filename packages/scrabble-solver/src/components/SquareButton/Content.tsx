@@ -1,17 +1,15 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 
-import { SvgIcon } from 'components';
-
 import styles from './SquareButton.module.scss';
 
 interface Props {
   children?: ReactNode;
-  icon: BrowserSpriteSymbol;
+  Icon: SvgComponent;
 }
 
-const Content: FunctionComponent<Props> = ({ children, icon }) => (
+const Content: FunctionComponent<Props> = ({ children, Icon }) => (
   <span className={styles.content}>
-    <SvgIcon className={styles.icon} icon={icon} />
+    <Icon className={styles.icon} />
     <span className={styles.label}>{children}</span>
   </span>
 );

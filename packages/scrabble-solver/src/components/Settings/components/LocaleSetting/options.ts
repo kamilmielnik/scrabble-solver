@@ -1,12 +1,12 @@
 import { Locale } from '@scrabble-solver/types';
 
-import { flagFr, flagGb, flagPl, flagUs } from 'icons';
+import { FlagFr, FlagGb, FlagPl, FlagUs } from 'icons';
 
 import styles from './LocaleSetting.module.scss';
 
 interface Option {
   className: string;
-  icon: BrowserSpriteSymbol;
+  Icon: SvgComponent;
   label: string;
   value: Locale;
 }
@@ -14,25 +14,25 @@ interface Option {
 const options: Option[] = [
   {
     className: styles.gb,
-    icon: flagGb,
+    Icon: FlagGb,
     label: 'English (GB)',
     value: Locale.EN_GB,
   },
   {
     className: styles.us,
-    icon: flagUs,
+    Icon: FlagUs,
     label: 'English (US)',
     value: Locale.EN_US,
   },
   {
     className: styles.fr,
-    icon: flagFr,
+    Icon: FlagFr,
     label: 'Français',
     value: Locale.FR_FR,
   },
   {
     className: styles.pl,
-    icon: flagPl,
+    Icon: FlagPl,
     label: 'Polski',
     value: Locale.PL_PL,
   },
