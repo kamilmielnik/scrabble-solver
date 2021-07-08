@@ -36,6 +36,7 @@
     "@scrabble-solver/types": "^2.4.9",
     "@scrabble-solver/word-definitions": "^2.4.9",
     "classnames": "^2.2.6",
+    "env-cmd": "^10.1.0",
     "next": "^10.0.5",
     "normalize.css": "^8.0.1",
     "react": "^17.0.1",
@@ -56,7 +57,6 @@
     "@types/react-window": "^1.8.2",
     "@types/redux": "^3.6.31",
     "@types/redux-saga": "^0.10.5",
-    "env-cmd": "^10.1.0",
     "sass": "^1.32.5",
     "svg-sprite-loader": "^5.2.1"
   },
