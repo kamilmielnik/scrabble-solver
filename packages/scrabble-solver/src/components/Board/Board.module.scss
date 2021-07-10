@@ -1,7 +1,8 @@
 .board {
   display: table;
-  border-collapse: collapse;
   box-shadow: var(--box-shadow);
+  border-top: var(--border);
+  border-left: var(--border);
 }
 
 .row {

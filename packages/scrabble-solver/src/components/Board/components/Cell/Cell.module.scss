@@ -8,7 +8,8 @@ $icon-size: 16px;
   position: relative;
   display: table-cell;
   background-color: white;
-  border: var(--border);
+  border-right: var(--border);
+  border-bottom: var(--border);
   transition: var(--transition);
   background-clip: padding-box;
 
