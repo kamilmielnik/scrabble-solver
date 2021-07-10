@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/word-definitions",
-  "version": "2.4.9",
+  "version": "2.4.10",
   "description": "Scrabble Solver 2 - Word definitions",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -23,7 +23,7 @@
     "clean": "rimraf build/ node_modules/ package-lock.json"
   },
   "dependencies": {
-    "@scrabble-solver/types": "^2.4.9",
+    "@scrabble-solver/types": "^2.4.10",
     "cheerio": "^1.0.0-rc.5",
     "follow-redirects": "^1.13.2",
     "striptags": "^3.1.1"

@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/scrabble-solver",
-  "version": "2.4.9",
+  "version": "2.4.10",
   "description": "Scrabble Solver 2 - App",
   "engines": {
     "node": ">=12.4.0"
@@ -28,13 +28,13 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
-    "@scrabble-solver/configs": "^2.4.9",
-    "@scrabble-solver/constants": "^2.4.9",
-    "@scrabble-solver/dictionaries": "^2.4.9",
-    "@scrabble-solver/logger": "^2.4.9",
-    "@scrabble-solver/solver": "^2.4.9",
-    "@scrabble-solver/types": "^2.4.9",
-    "@scrabble-solver/word-definitions": "^2.4.9",
+    "@scrabble-solver/configs": "^2.4.10",
+    "@scrabble-solver/constants": "^2.4.10",
+    "@scrabble-solver/dictionaries": "^2.4.10",
+    "@scrabble-solver/logger": "^2.4.10",
+    "@scrabble-solver/solver": "^2.4.10",
+    "@scrabble-solver/types": "^2.4.10",
+    "@scrabble-solver/word-definitions": "^2.4.10",
     "classnames": "^2.2.6",
     "next": "^10.0.5",
     "normalize.css": "^8.0.1",
