@@ -1,6 +1,6 @@
 import { Locale } from '@scrabble-solver/types';
 
-import { flagFr, flagGb, flagPl, flagUs } from 'icons';
+import { flagEs, flagFr, flagGb, flagPl, flagUs } from 'icons';
 
 import styles from './LocaleSetting.module.scss';
 
@@ -35,6 +35,12 @@ const options: Option[] = [
     icon: flagPl,
     label: 'Polski',
     value: Locale.PL_PL,
+  },
+  {
+    className: styles.es,
+    icon: flagEs,
+    label: 'Español',
+    value: Locale.ES_ES,
   },
 ];
 

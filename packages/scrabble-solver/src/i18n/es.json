@@ -32,7 +32,7 @@
   "keyMap.board-and-rack.submit": "Empezar a resolver",
   "keyMap.rack": "Espacio en Blanco",
   "keyMap.rack.insert-blank": "Insertar espacio en blanco (barra espaciadora)",
-  "rack.placeholder": "Letras",
+  "rack.placeholder": "Letras…",
   "remaining-tiles": "Casillas Restantes",
   "results.empty-state.no-filtered-results": "Ningún resultado coincide con esta consulta.",
   "results.empty-state.no-results": "No hay resultados; no se pueden generar palabras",

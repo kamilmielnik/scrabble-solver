@@ -28,6 +28,12 @@
   box-shadow: var(--box-shadow--null);
   transition: var(--transition);
 
+  &.es {
+    $aspect-ratio: 1.5;
+
+    width: $height * $aspect-ratio;
+  }
+
   &.fr {
     $aspect-ratio: 1.6;
 
