@@ -30,6 +30,10 @@ class Config {
     return getAllCharacters(this.config);
   }
 
+  public get doubleCharacterTiles(): string[] {
+    return this.config.tiles.filter((tile) => tile.character.length === 2).map((tile) => tile.character);
+  }
+
   public get allTilesBonusScore(): number {
     return this.config.allTilesBonusScore;
   }
