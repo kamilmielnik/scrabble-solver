@@ -14,7 +14,7 @@
   "common.words": "Palabras",
   "dictionary.empty-state.no-definitions": "La palabra existe en el diccionario pero no tiene una definición.",
   "dictionary.empty-state.no-results": "No se puede encontrar la definición de palabra en el diccionario.",
-  "dictionary.empty-state.not-allowed": "Esta palabra no es aceptable según es.wiktionary.org.",
+  "dictionary.empty-state.not-allowed": "Esta palabra no es aceptable.",
   "dictionary.empty-state.uninitialized": "Aquí se mostrará la definición del diccionario de la última palabra resaltada.",
   "dictionary.input.placeholder": "Busca el diccionario...",
   "empty-state.error": "Error",
