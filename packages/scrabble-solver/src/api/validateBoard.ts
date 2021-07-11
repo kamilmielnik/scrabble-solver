@@ -17,14 +17,10 @@ const validateBoard = (board: unknown, config: Config): void => {
     throw new Error(`Invalid "board" parameter: ${error.message}`);
   }
 
-  const cells: Cell[] = board.flat();
+  const cells: Cell[] = board.flat().filter((cell) => cell.tile.character.length === 1);
 
-  cells.forEach((cell) => {
-    if (cell.tile.character.length !== 1) {
-      return;
-    }
-
-    config.doubleCharacterTiles.forEach((characters) => {
+  for (const cell of cells) {
+    for (const characters of config.doubleCharacterTiles) {
       if (characters.startsWith(cell.tile.character)) {
         const canCheckDown = cell.y < board.length - 1;
         const canCheckRight = cell.x < board[0].length - 1;
@@ -37,8 +33,8 @@ const validateBoard = (board: unknown, config: Config): void => {
           throw new Error(`Invalid "board" parameter: ${characters} can only be used as a single tile`);
         }
       }
-    });
-  });
+    }
+  }
 };
 
 export default validateBoard;
