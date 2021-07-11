@@ -2,11 +2,12 @@ import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { FixedSizeList } from 'react-window';
 
-import { RESULTS_HEADER_HEIGHT, RESULTS_ITEM_HEIGHT } from 'parameters';
+import { RESULTS_HEADER_HEIGHT, RESULTS_INPUT_HEIGHT, RESULTS_ITEM_HEIGHT } from 'parameters';
 import { selectAreResultsOutdated, selectIsLoading, selectSortedResults, useTranslate, useTypedSelector } from 'state';
 
 import EmptyState from '../EmptyState';
 import Loading from '../Loading';
+import ResultsInput from '../ResultsInput';
 
 import Header from './Header';
 import Result from './Result';
@@ -53,7 +54,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
                   className={classNames(styles.list, {
                     [styles.outdated]: isOutdated,
                   })}
-                  height={height - RESULTS_HEADER_HEIGHT}
+                  height={height - RESULTS_HEADER_HEIGHT - RESULTS_INPUT_HEIGHT}
                   itemCount={results.length}
                   itemSize={RESULTS_ITEM_HEIGHT}
                   width={width}
@@ -61,6 +62,8 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
                   {Result}
                 </FixedSizeList>
               )}
+
+              {results.length > 0 && <ResultsInput />}
 
               {results.length === 0 && (
                 <EmptyState className={styles.emptyState} type="warning">

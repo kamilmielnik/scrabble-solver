@@ -61,6 +61,7 @@
 }
 
 @mixin text-input {
+  width: 100%;
   min-height: var(--text-input--height);
   height: var(--text-input--height);
   max-height: var(--text-input--height);

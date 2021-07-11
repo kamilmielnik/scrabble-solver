@@ -17,6 +17,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
 .list {
   transition: var(--transition);
+  border-bottom: var(--border);
 
   &.outdated {
     filter: blur(2px);
