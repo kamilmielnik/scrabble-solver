@@ -1,4 +1,4 @@
-import { Config } from '@scrabble-solver/types';
+import { Cell, Config } from '@scrabble-solver/types';
 
 import validateRow from './validateRow';
 
@@ -16,6 +16,29 @@ const validateBoard = (board: unknown, config: Config): void => {
   } catch (error) {
     throw new Error(`Invalid "board" parameter: ${error.message}`);
   }
+
+  (board as Cell[][]).forEach((row, rowIndex) => {
+    row.forEach((cell, columnIndex) => {
+      if (cell.tile.character.length !== 1) {
+        return;
+      }
+
+      config.doubleCharacterTiles.forEach((characters) => {
+        if (characters.startsWith(cell.tile.character)) {
+          const canCheckDown = rowIndex < board.length - 1;
+          const canCheckRight = columnIndex < board[0].length - 1;
+
+          if (canCheckDown && board[rowIndex + 1][columnIndex].tile.character === characters[1]) {
+            throw new Error(`Invalid "board" parameter: ${characters} can only be used as a single tile`);
+          }
+
+          if (canCheckRight && board[rowIndex][columnIndex + 1].tile.character === characters[1]) {
+            throw new Error(`Invalid "board" parameter: ${characters} can only be used as a single tile`);
+          }
+        }
+      });
+    });
+  });
 };
 
 export default validateBoard;
