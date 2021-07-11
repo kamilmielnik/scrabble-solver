@@ -5,6 +5,8 @@ import { ParseResult } from '../types';
 const parseSpanish = (html: string): ParseResult => {
   const $ = cheerio.load(html);
   $('.verdBold14 + .gris11 + .gris13').remove();
+  $('br + .gris13').remove();
+  $('.grisItalic13 + .gris13').remove();
   $('font[class^="verd"]').remove();
   $('font.gris11').remove();
   $('font[class^="grisBold"]').remove();
