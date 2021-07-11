@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { ChangeEvent, FormEvent, FunctionComponent } from 'react';
+import React, { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { resultsSlice, selectDictionary, useTypedSelector } from 'state';
@@ -18,13 +18,8 @@ const ResultsInput: FunctionComponent<Props> = ({ className }) => {
     dispatch(resultsSlice.actions.changeInput(event.target.value));
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    dispatch(resultsSlice.actions.submit());
-  };
-
   return (
-    <form className={classNames(styles.resultsInput, className)} onSubmit={handleSubmit}>
+    <form className={classNames(styles.resultsInput, className)}>
       <input className={styles.input} required type="text" value={input} onChange={handleChange} />
     </form>
   );
