@@ -1,4 +1,4 @@
-![alt Scrabble Solver 2](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/logo.png)
+![alt Scrabble Solver 2](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/img/logo.png)
 
 # scrabble-solver
 
@@ -18,7 +18,7 @@ It's cross-platform - all you need is [Node.js](https://nodejs.org/).
 ![Test](https://github.com/kamilmielnik/scrabble-solver/workflows/Test/badge.svg)
 ![ESLint](https://github.com/kamilmielnik/scrabble-solver/workflows/ESLint/badge.svg)
 
-![alt User Interface](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/screencast.gif)
+![alt User Interface](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/img/screencast.gif)
 
 ## Run
 
