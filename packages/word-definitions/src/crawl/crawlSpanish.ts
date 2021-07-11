@@ -3,8 +3,8 @@ import { request } from '../lib';
 const crawlSpanish = (word: string): Promise<string> => {
   return request({
     protocol: 'https',
-    hostname: 'dle.rae.es',
-    path: `/?w=${encodeURIComponent(word)}`,
+    hostname: 'www.diccionarios.com',
+    path: `/diccionario/espanol/${encodeURIComponent(word)}`,
   });
 };
 

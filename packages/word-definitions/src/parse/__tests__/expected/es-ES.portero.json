@@ -1,8 +1,9 @@
 {
   "definitions": [
-    "Empleado que se encarga de la vigilancia de la puerta de un edificio o una empresa y que además puede tener otras funciones.",
-    "Jugador que en algunos deportes defiende la portería de su bando.",
-    "Dicho de un ladrillo: Que no se ha cocido bastante."
+    "Se aplica al ladrillo que no está bastante cocido.",
+    "Persona que guarda la portería en las casas de vecinos.",
+    "Funcionario subalterno que se encarga de la vigilancia, limpieza o servicios auxiliares en oficinas públicas.",
+    "Jugador que en algunos deportes defiende la portería."
   ],
   "isAllowed": true
 }

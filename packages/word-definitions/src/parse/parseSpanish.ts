@@ -4,13 +4,29 @@ import { ParseResult } from '../types';
 
 const parseSpanish = (html: string): ParseResult => {
   const $ = cheerio.load(html);
-  $('#resultados p[class^="j"] span').remove();
-  $('#resultados p[class^="j"] abbr').remove();
-  const $definitions = $('#resultados p[class^="j"]');
+  $('.verdBold14 + .gris11 + .gris13').remove();
+  $('font[class^="verd"]').remove();
+  $('font.gris11').remove();
+  $('font[class^="grisBold"]').remove();
+  $('font[class^="grisItalic"]').remove();
+
+  Array.from($('.gris13')).forEach((element) => {
+    const children = $(element).find('.gris13');
+
+    if (children && children.length > 0) {
+      children.remove();
+    }
+  });
+
+  const definitions = Array.from($('.dcom-search-result .gris13'));
 
   return {
-    definitions: Array.from($definitions).map((definition) => $(definition).text()),
-    isAllowed: $definitions.length > 0,
+    definitions: definitions
+      .map((definition) => $(definition).text().trim())
+      .filter(Boolean)
+      .map((definition) => definition.replace(/\s+\.$/g, ''))
+      .map((definition) => (definition.endsWith('.') ? definition : `${definition}.`)),
+    isAllowed: definitions.length > 0,
   };
 };
 
