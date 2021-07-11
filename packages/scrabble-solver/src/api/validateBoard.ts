@@ -17,26 +17,26 @@ const validateBoard = (board: unknown, config: Config): void => {
     throw new Error(`Invalid "board" parameter: ${error.message}`);
   }
 
-  (board as Cell[][]).forEach((row, rowIndex) => {
-    row.forEach((cell, columnIndex) => {
-      if (cell.tile.character.length !== 1) {
-        return;
-      }
+  const cells: Cell[] = board.flat();
 
-      config.doubleCharacterTiles.forEach((characters) => {
-        if (characters.startsWith(cell.tile.character)) {
-          const canCheckDown = rowIndex < board.length - 1;
-          const canCheckRight = columnIndex < board[0].length - 1;
+  cells.forEach((cell) => {
+    if (cell.tile.character.length !== 1) {
+      return;
+    }
 
-          if (canCheckDown && board[rowIndex + 1][columnIndex].tile.character === characters[1]) {
-            throw new Error(`Invalid "board" parameter: ${characters} can only be used as a single tile`);
-          }
+    config.doubleCharacterTiles.forEach((characters) => {
+      if (characters.startsWith(cell.tile.character)) {
+        const canCheckDown = cell.y < board.length - 1;
+        const canCheckRight = cell.x < board[0].length - 1;
 
-          if (canCheckRight && board[rowIndex][columnIndex + 1].tile.character === characters[1]) {
-            throw new Error(`Invalid "board" parameter: ${characters} can only be used as a single tile`);
-          }
+        if (canCheckDown && board[cell.y + 1][cell.x].tile.character === characters[1]) {
+          throw new Error(`Invalid "board" parameter: ${characters} can only be used as a single tile`);
         }
-      });
+
+        if (canCheckRight && board[cell.y][cell.x + 1].tile.character === characters[1]) {
+          throw new Error(`Invalid "board" parameter: ${characters} can only be used as a single tile`);
+        }
+      }
     });
   });
 };
