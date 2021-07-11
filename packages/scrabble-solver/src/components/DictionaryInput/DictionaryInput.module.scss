@@ -7,12 +7,7 @@
 }
 
 .input {
-  width: 100%;
-  min-height: var(--text-input--height);
-  height: var(--text-input--height);
-  max-height: var(--text-input--height);
-  padding: 0 var(--spacing--l);
-  transition: var(--transition);
-  font-size: var(--font--size--s);
+  @include text-input;
+
   border: none;
 }

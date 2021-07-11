@@ -59,3 +59,13 @@
   margin-block-end: 0;
   list-style-type: none;
 }
+
+@mixin text-input {
+  min-height: var(--text-input--height);
+  height: var(--text-input--height);
+  max-height: var(--text-input--height);
+  padding: 0 var(--spacing--l);
+  transition: var(--transition);
+  font-size: var(--font--size--s);
+  border: none;
+}
