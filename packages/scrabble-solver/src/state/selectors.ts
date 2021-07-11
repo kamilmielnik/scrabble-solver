@@ -47,6 +47,8 @@ export const selectConfig = createSelector([selectConfigId, selectLocale], getLo
 
 export const selectResults = createSelector([selectResultsRoot], (results) => results.results);
 
+export const selectResultsQuery = createSelector([selectResultsRoot], (results) => results.query);
+
 export const selectResultsSortColumn = createSelector([selectResultsRoot], (results) => results.sort.column);
 
 export const selectResultsSortDirection = createSelector([selectResultsRoot], (results) => results.sort.direction);
@@ -54,6 +56,20 @@ export const selectResultsSortDirection = createSelector([selectResultsRoot], (r
 export const selectSortedResults = createSelector(
   [selectResults, selectResultsSortColumn, selectResultsSortDirection],
   sortResults,
+);
+
+export const selectSortedFilteredResults = createSelector(
+  [selectSortedResults, selectResultsQuery],
+  (results, query) => {
+    if (!results || query.trim().length === 0) {
+      return results;
+    }
+
+    return results.filter((result) => {
+      const regExp = new RegExp(query, 'gi');
+      return regExp.test(result.word);
+    });
+  },
 );
 
 export const selectResultCandidate = createSelector([selectResultsRoot], (results) => results.candidate);

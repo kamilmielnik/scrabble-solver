@@ -1,6 +1,6 @@
 @import 'styles/mixins';
 
-.dictionaryInput {
+.resultsInput {
   &:focus-within {
     @include focus-effect;
   }

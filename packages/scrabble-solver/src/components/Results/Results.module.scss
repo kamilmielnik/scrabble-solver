@@ -144,3 +144,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   height: $size;
   margin-left: var(--spacing--s);
 }
+
+.input {
+  border-top: var(--border);
+}

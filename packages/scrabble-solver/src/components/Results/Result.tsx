@@ -1,7 +1,7 @@
 import React, { CSSProperties, ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { resultsSlice, selectSortedResults, useTypedSelector } from 'state';
+import { resultsSlice, selectSortedFilteredResults, useTypedSelector } from 'state';
 
 import Cell from './Cell';
 import styles from './Results.module.scss';
@@ -14,7 +14,7 @@ interface Props {
 const Result = ({ index, style }: Props): ReactElement => {
   const dispatch = useDispatch();
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const results = useTypedSelector(selectSortedResults)!;
+  const results = useTypedSelector(selectSortedFilteredResults)!;
   const result = results[index];
 
   const handleClick = () => {

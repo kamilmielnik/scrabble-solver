@@ -47,3 +47,4 @@ export const REMAINING_TILES_TILE_SIZE = 50;
 
 export const RESULTS_HEADER_HEIGHT = 35;
 export const RESULTS_ITEM_HEIGHT = 34;
+export const RESULTS_INPUT_HEIGHT = 43;
