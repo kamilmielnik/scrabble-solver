@@ -3,7 +3,14 @@ import React, { FunctionComponent } from 'react';
 import { FixedSizeList } from 'react-window';
 
 import { RESULTS_HEADER_HEIGHT, RESULTS_INPUT_HEIGHT, RESULTS_ITEM_HEIGHT } from 'parameters';
-import { selectAreResultsOutdated, selectIsLoading, selectSortedResults, useTranslate, useTypedSelector } from 'state';
+import {
+  selectAreResultsOutdated,
+  selectIsLoading,
+  selectSortedFilteredResults,
+  selectSortedResults,
+  useTranslate,
+  useTypedSelector,
+} from 'state';
 
 import EmptyState from '../EmptyState';
 import Loading from '../Loading';
@@ -21,7 +28,8 @@ interface Props {
 
 const Results: FunctionComponent<Props> = ({ height, width }) => {
   const translate = useTranslate();
-  const results = useTypedSelector(selectSortedResults);
+  const allResults = useTypedSelector(selectSortedResults);
+  const results = useTypedSelector(selectSortedFilteredResults);
   const isLoading = useTypedSelector(selectIsLoading);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
 
@@ -37,7 +45,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
         </EmptyState>
       )}
 
-      {typeof results !== 'undefined' && (
+      {typeof results !== 'undefined' && typeof allResults !== 'undefined' && (
         <>
           {isOutdated && (
             <EmptyState className={styles.emptyState} type="info">
@@ -63,13 +71,19 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
                 </FixedSizeList>
               )}
 
-              {results.length > 0 && <ResultsInput />}
-
-              {results.length === 0 && (
+              {allResults.length === 0 && (
                 <EmptyState className={styles.emptyState} type="warning">
                   {translate('results.empty-state.no-results')}
                 </EmptyState>
               )}
+
+              {allResults.length > 0 && results.length === 0 && (
+                <EmptyState className={styles.emptyState} type="info">
+                  {translate('results.empty-state.no-filtered-results')}
+                </EmptyState>
+              )}
+
+              {allResults.length > 0 && <ResultsInput />}
             </>
           )}
         </>

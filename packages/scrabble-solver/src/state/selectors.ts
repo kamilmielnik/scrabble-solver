@@ -58,6 +58,20 @@ export const selectSortedResults = createSelector(
   sortResults,
 );
 
+export const selectSortedFilteredResults = createSelector(
+  [selectSortedResults, selectResultsQuery],
+  (results, query) => {
+    if (!results || query.trim().length === 0) {
+      return results;
+    }
+
+    return results.filter((result) => {
+      const regExp = new RegExp(query, 'gi');
+      return regExp.test(result.word);
+    });
+  },
+);
+
 export const selectResultCandidate = createSelector([selectResultsRoot], (results) => results.candidate);
 
 export const selectResultCandidateCells = createSelector(
