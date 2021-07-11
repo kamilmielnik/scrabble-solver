@@ -47,6 +47,8 @@ export const selectConfig = createSelector([selectConfigId, selectLocale], getLo
 
 export const selectResults = createSelector([selectResultsRoot], (results) => results.results);
 
+export const selectResultsQuery = createSelector([selectResultsRoot], (results) => results.query);
+
 export const selectResultsSortColumn = createSelector([selectResultsRoot], (results) => results.sort.column);
 
 export const selectResultsSortDirection = createSelector([selectResultsRoot], (results) => results.sort.direction);

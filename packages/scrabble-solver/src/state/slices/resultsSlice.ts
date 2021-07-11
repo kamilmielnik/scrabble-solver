@@ -17,6 +17,11 @@ const resultsSlice = createSlice({
       return resultsInitialState;
     },
 
+    changeQuery: (state, action: PayloadAction<string>) => {
+      const newQuery = action.payload;
+      return { ...state, query: newQuery };
+    },
+
     changeResultCandidate: (state, action: PayloadAction<Result | null>) => {
       const candidate = action.payload;
       return { ...state, candidate };
@@ -24,7 +29,12 @@ const resultsSlice = createSlice({
 
     changeResults: (state, action: PayloadAction<Result[]>) => {
       const newResults = action.payload;
-      return { ...state, results: newResults };
+      return {
+        ...state,
+        candidate: resultsInitialState.candidate,
+        query: resultsInitialState.query,
+        results: newResults,
+      };
     },
 
     sort: (state, action: PayloadAction<ResultColumn>) => {
