@@ -33,7 +33,7 @@
   "keyMap.rack": "Espacio en Blanco",
   "keyMap.rack.insert-blank": "Insertar espacio en blanco (barra espaciadora)",
   "rack.placeholder": "Letras…",
-  "remaining-tiles": "Casillas Restantes",
+  "remaining-tiles": "Casillas restantes",
   "results.empty-state.no-filtered-results": "Ningún resultado coincide con esta consulta.",
   "results.empty-state.no-results": "No hay resultados; no se pueden generar palabras",
   "results.empty-state.outdated": "Los resultados están desactualizados. Haga clic a continuación para actualizar.",
