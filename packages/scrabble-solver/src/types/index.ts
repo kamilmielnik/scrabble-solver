@@ -47,6 +47,7 @@ export type TranslationKey =
   | 'dictionary.empty-state.no-results'
   | 'dictionary.empty-state.not-allowed'
   | 'dictionary.empty-state.uninitialized'
+  | 'dictionary.input.placeholder'
   | 'empty-state.error'
   | 'empty-state.info'
   | 'empty-state.success'
