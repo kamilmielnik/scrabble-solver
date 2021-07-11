@@ -13,25 +13,25 @@ const validateBoard = (board: unknown, config: Config): void => {
 
   try {
     board.forEach((row, rowIndex) => validateRow(row, rowIndex, config));
+    validateDoubleCharacterTiles(board, config);
   } catch (error) {
     throw new Error(`Invalid "board" parameter: ${error.message}`);
   }
+};
 
+const validateDoubleCharacterTiles = (board: Cell[][], config: Config): void => {
   const cells: Cell[] = board.flat().filter((cell) => cell.tile.character.length === 1);
 
   for (const cell of cells) {
     for (const characters of config.doubleCharacterTiles) {
-      if (characters.startsWith(cell.tile.character)) {
-        const canCheckDown = cell.y < board.length - 1;
-        const canCheckRight = cell.x < board[0].length - 1;
+      const canCheckDown = cell.y + 1 < board.length;
+      const canCheckRight = cell.x + 1 < board[0].length;
+      const collidesDown = canCheckDown && board[cell.y + 1][cell.x].tile.character === characters[1];
+      const collidesRight = canCheckRight && board[cell.y][cell.x + 1].tile.character === characters[1];
+      const collides = collidesDown || collidesRight;
 
-        if (canCheckDown && board[cell.y + 1][cell.x].tile.character === characters[1]) {
-          throw new Error(`Invalid "board" parameter: ${characters} can only be used as a single tile`);
-        }
-
-        if (canCheckRight && board[cell.y][cell.x + 1].tile.character === characters[1]) {
-          throw new Error(`Invalid "board" parameter: ${characters} can only be used as a single tile`);
-        }
+      if (characters.startsWith(cell.tile.character) && collides) {
+        throw new Error(`${characters} can only be used as a single tile`);
       }
     }
   }
