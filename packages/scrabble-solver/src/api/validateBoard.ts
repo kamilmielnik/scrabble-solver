@@ -20,7 +20,7 @@ const validateBoard = (board: unknown, config: Config): void => {
 };
 
 const validateDoubleCharacterTiles = (board: Cell[][], config: Config): void => {
-  const cells: Cell[] = board.flat().filter((cell) => cell.tile.character.length === 1);
+  const cells: Cell[] = board.flat().filter((cell) => config.isDoubleCharacterPrefix(cell.tile.character));
 
   for (const cell of cells) {
     for (const characters of config.doubleCharacterTiles) {

@@ -86,6 +86,10 @@ class Config {
     return this.alphabet.includes(character);
   }
 
+  public isDoubleCharacterPrefix(character: string): boolean {
+    return character.length === 1 && this.doubleCharacterTiles.some((characters) => characters.startsWith(character));
+  }
+
   public get maximumNumberOfCharacters(): number {
     return this.config.maximumNumberOfCharacters;
   }

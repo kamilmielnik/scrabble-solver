@@ -1,4 +1,5 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
+import { Cell } from '@scrabble-solver/types';
 import { createRef, KeyboardEventHandler, RefObject, useCallback, useMemo, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLatest } from 'react-use';
@@ -8,11 +9,6 @@ import { boardSlice, selectConfig, useTypedSelector } from 'state';
 
 import { getPositionInGrid } from '../lib';
 import { Point } from '../types';
-
-interface Parameters {
-  height: number;
-  width: number;
-}
 
 interface State {
   lastDirection: 'horizontal' | 'vertical';
@@ -25,7 +21,9 @@ interface Actions {
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
 }
 
-const useGrid = ({ height, width }: Parameters): [State, Actions] => {
+const useGrid = (rows: Cell[][]): [State, Actions] => {
+  const height = rows.length;
+  const width = rows[0].length;
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const refs = useMemo(
@@ -133,18 +131,76 @@ const useGrid = ({ height, width }: Parameters): [State, Actions] => {
           return;
         }
 
+        const { x, y } = position;
         const character = event.key.toLowerCase();
         const isTogglingBlank = isCtrl(event) && character === 'b';
 
         if (isTogglingBlank) {
           dispatch(boardSlice.actions.toggleCellIsBlank(position));
         } else if (config.hasCharacter(character)) {
+          const canCheckUp = y - 1 > 0;
+          const canCheckLeft = x > 0;
+          const canCheckRight = x + 1 < width;
+          const canCheckDown = y + 1 < height;
+
+          if (canCheckUp) {
+            const cellUp = rows[y - 1][x];
+            const doubleCharacterCandidate = cellUp.tile.character + character;
+
+            if (config.doubleCharacterTiles.includes(doubleCharacterCandidate)) {
+              dispatch(boardSlice.actions.changeCellValue({ ...position, y: y - 1, value: doubleCharacterCandidate }));
+              return;
+            }
+          }
+
+          if (canCheckDown) {
+            const cellDown = rows[y + 1][x];
+            const doubleCharacterCandidate = character + cellDown.tile.character;
+
+            if (config.doubleCharacterTiles.includes(doubleCharacterCandidate)) {
+              dispatch(boardSlice.actions.changeCellValue({ ...position, value: doubleCharacterCandidate }));
+              dispatch(boardSlice.actions.changeCellValue({ ...position, y: y + 1, value: EMPTY_CELL }));
+              return;
+            }
+          }
+
+          if (canCheckLeft) {
+            const cellLeft = rows[y][x - 1];
+            const doubleCharacterCandidate = cellLeft.tile.character + character;
+
+            if (config.doubleCharacterTiles.includes(doubleCharacterCandidate)) {
+              dispatch(boardSlice.actions.changeCellValue({ ...position, x: x - 1, value: doubleCharacterCandidate }));
+              return;
+            }
+          }
+
+          if (canCheckRight) {
+            const cellRight = rows[y][x + 1];
+            const doubleCharacterCandidate = character + cellRight.tile.character;
+
+            if (config.doubleCharacterTiles.includes(doubleCharacterCandidate)) {
+              dispatch(boardSlice.actions.changeCellValue({ ...position, value: doubleCharacterCandidate }));
+              dispatch(boardSlice.actions.changeCellValue({ ...position, x: x + 1, value: EMPTY_CELL }));
+              return;
+            }
+          }
+
+          if (!canCheckDown || !canCheckRight) {
+            const cell = rows[y][x];
+            const doubleCharacterCandidate = cell.tile.character + character;
+
+            if (config.doubleCharacterTiles.includes(doubleCharacterCandidate)) {
+              dispatch(boardSlice.actions.changeCellValue({ ...position, value: doubleCharacterCandidate }));
+              return;
+            }
+          }
+
           dispatch(boardSlice.actions.changeCellValue({ ...position, value: character }));
           onMoveFocus('forward');
         }
       },
     });
-  }, [changeActiveIndex, config, dispatch, lastDirectionRef, onDirectionToggle]);
+  }, [changeActiveIndex, config, dispatch, lastDirectionRef, onDirectionToggle, rows]);
 
   return [
     { lastDirection, refs },
