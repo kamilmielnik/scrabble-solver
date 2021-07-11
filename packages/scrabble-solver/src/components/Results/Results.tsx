@@ -57,7 +57,19 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
 
           {!isOutdated && (
             <>
-              {results.length > 0 && (
+              {allResults.length === 0 && (
+                <EmptyState className={styles.emptyState} type="warning">
+                  {translate('results.empty-state.no-results')}
+                </EmptyState>
+              )}
+
+              {allResults.length > 0 && results.length === 0 && (
+                <EmptyState className={styles.emptyState} type="info">
+                  {translate('results.empty-state.no-filtered-results')}
+                </EmptyState>
+              )}
+
+              {allResults.length > 0 && results.length > 0 && (
                 <FixedSizeList
                   className={classNames(styles.list, {
                     [styles.outdated]: isOutdated,
@@ -71,19 +83,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
                 </FixedSizeList>
               )}
 
-              {allResults.length === 0 && (
-                <EmptyState className={styles.emptyState} type="warning">
-                  {translate('results.empty-state.no-results')}
-                </EmptyState>
-              )}
-
-              {allResults.length > 0 && results.length === 0 && (
-                <EmptyState className={styles.emptyState} type="info">
-                  {translate('results.empty-state.no-filtered-results')}
-                </EmptyState>
-              )}
-
-              {allResults.length > 0 && <ResultsInput />}
+              {allResults.length > 0 && <ResultsInput className={styles.input} />}
             </>
           )}
         </>
