@@ -26,6 +26,7 @@ interface Props {
   pointsStyle?: CSSProperties;
   raised?: boolean;
   style?: CSSProperties;
+  tabIndex?: number;
   onFocus?: FocusEventHandler<HTMLInputElement>;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
 }
@@ -47,6 +48,7 @@ const TilePure: FunctionComponent<Props> = ({
   pointsStyle,
   raised,
   style,
+  tabIndex,
   onFocus,
   onKeyDown,
 }) => (
@@ -75,6 +77,7 @@ const TilePure: FunctionComponent<Props> = ({
       ref={inputRef}
       spellCheck={false}
       style={inputStyle}
+      tabIndex={tabIndex}
       value={character || ''}
       onChange={handleChange}
       onFocus={onFocus}

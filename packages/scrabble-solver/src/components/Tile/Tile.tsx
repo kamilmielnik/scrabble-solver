@@ -25,6 +25,7 @@ interface Props {
   points?: number;
   raised?: boolean;
   size: number;
+  tabIndex?: number;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
@@ -42,6 +43,7 @@ const Tile: FunctionComponent<Props> = ({
   points,
   raised,
   size,
+  tabIndex,
   onFocus,
   onKeyDown,
 }) => {
@@ -75,6 +77,7 @@ const Tile: FunctionComponent<Props> = ({
       pointsStyle={pointsStyle}
       raised={raised}
       style={style}
+      tabIndex={tabIndex}
       onFocus={onFocus}
       onKeyDown={onKeyDown}
     />

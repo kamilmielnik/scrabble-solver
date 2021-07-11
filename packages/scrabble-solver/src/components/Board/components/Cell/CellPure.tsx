@@ -60,6 +60,7 @@ const CellPure: FunctionComponent<Props> = ({
       points={points}
       raised={!isEmpty}
       size={size}
+      tabIndex={cell.x === 0 && cell.y === 0 ? undefined : -1}
       onFocus={onFocus}
     />
 

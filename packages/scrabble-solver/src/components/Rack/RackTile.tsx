@@ -73,6 +73,7 @@ const RackTile: FunctionComponent<Props> = ({ activeIndexRef, character, index, 
       points={points}
       raised
       size={TILE_SIZE}
+      tabIndex={index === 0 ? undefined : -1}
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
     />
