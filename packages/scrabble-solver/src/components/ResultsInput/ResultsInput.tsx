@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { resultsSlice, selectResultsQuery, useTypedSelector } from 'state';
+import { resultsSlice, selectResultsQuery, useTranslate, useTypedSelector } from 'state';
 
 import styles from './ResultsInput.module.scss';
 
@@ -12,6 +12,7 @@ interface Props {
 
 const ResultsInput: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
+  const translate = useTranslate();
   const value = useTypedSelector(selectResultsQuery);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +21,13 @@ const ResultsInput: FunctionComponent<Props> = ({ className }) => {
 
   return (
     <form className={classNames(styles.resultsInput, className)}>
-      <input className={styles.input} type="text" value={value} onChange={handleChange} />
+      <input
+        className={styles.input}
+        placeholder={translate('results.input.placeholder')}
+        type="text"
+        value={value}
+        onChange={handleChange}
+      />
     </form>
   );
 };

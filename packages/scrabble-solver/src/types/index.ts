@@ -68,6 +68,7 @@ export type TranslationKey =
   | 'results.empty-state.outdated'
   | 'results.empty-state.no-results'
   | 'results.empty-state.uninitialized'
+  | 'results.input.placeholder'
   | 'results.solve'
   | 'settings'
   | 'settings.autoGroupTiles'
