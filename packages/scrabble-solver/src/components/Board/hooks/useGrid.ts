@@ -158,8 +158,9 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
             const doubleCharacterCandidate = character + cellDown.tile.character;
 
             if (config.doubleCharacterTiles.includes(doubleCharacterCandidate)) {
-              dispatch(boardSlice.actions.changeCellValue({ ...position, value: doubleCharacterCandidate }));
+              dispatch(boardSlice.actions.changeCellValue({ ...position, value: character }));
               dispatch(boardSlice.actions.changeCellValue({ ...position, y: y + 1, value: EMPTY_CELL }));
+              onMoveFocus('forward');
               return;
             }
           }
@@ -179,8 +180,9 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
             const doubleCharacterCandidate = character + cellRight.tile.character;
 
             if (config.doubleCharacterTiles.includes(doubleCharacterCandidate)) {
-              dispatch(boardSlice.actions.changeCellValue({ ...position, value: doubleCharacterCandidate }));
+              dispatch(boardSlice.actions.changeCellValue({ ...position, value: character }));
               dispatch(boardSlice.actions.changeCellValue({ ...position, x: x + 1, value: EMPTY_CELL }));
+              onMoveFocus('forward');
               return;
             }
           }
