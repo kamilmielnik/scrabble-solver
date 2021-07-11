@@ -29,12 +29,22 @@ const Result = ({ index, style }: Props): ReactElement => {
     dispatch(resultsSlice.actions.changeResultCandidate(null));
   };
 
+  const handleFocus = () => {
+    dispatch(resultsSlice.actions.changeResultCandidate(result));
+  };
+
+  const handleBlur = () => {
+    dispatch(resultsSlice.actions.changeResultCandidate(null));
+  };
+
   return (
     <button
       className={styles.result}
       style={style}
       type="button"
+      onBlur={handleBlur}
       onClick={handleClick}
+      onFocus={handleFocus}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
