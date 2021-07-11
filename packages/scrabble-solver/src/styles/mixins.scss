@@ -8,6 +8,9 @@
   }
 }
 
+/**
+ * It does not work when applied on input elements.
+ */
 @mixin focus-effect {
   position: relative;
 
