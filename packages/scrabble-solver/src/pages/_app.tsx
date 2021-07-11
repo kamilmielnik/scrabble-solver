@@ -10,17 +10,20 @@ import 'styles/global.scss';
 const DESCRIPTION = 'Scrabble Solver 2 - The ultimate cheating app for Scrabble and Literaki';
 const KEYWORDS = [
   'Scrabble',
-  'Literaki',
   'Solver',
   'Finder',
   'Cheating',
+  'Literaki',
   'Word',
   'English',
   'Français',
   'Polski',
+  'Español',
   'SOWPODS',
   'TWL06',
   'SJP',
+  'FISE-2017',
+  'FISE-2',
   'CNRTL',
   'Kamil Mielnik',
 ].join(',');
