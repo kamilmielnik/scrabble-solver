@@ -18,7 +18,7 @@
   "dictionary.empty-state.uninitialized": "Aquí se mostrará la definición del diccionario de la última palabra resaltada.",
   "dictionary.input.placeholder": "Busca el diccionario...",
   "empty-state.error": "Error",
-  "empty-state.info": "Informasion",
+  "empty-state.info": "Info",
   "empty-state.success": "Sí!",
   "empty-state.warning": "Vaya!",
   "github": "Ver este proyecto en GitHub",
