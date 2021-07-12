@@ -1,5 +1,5 @@
-import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Trie } from '@kamilmielnik/trie';
+import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Config, Pattern, Tile } from '@scrabble-solver/types';
 
 class PatternsFiller {
