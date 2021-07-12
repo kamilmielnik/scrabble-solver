@@ -3,14 +3,7 @@ import { getLocaleConfig } from '@scrabble-solver/configs';
 import { Cell, Config, Tile } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
-import {
-  findCell,
-  getRemainingTiles,
-  getRemainingTilesCount,
-  getRemainingTilesGroups,
-  sortResults,
-  unorderedArraysEqual,
-} from 'lib';
+import { findCell, getRemainingTiles, getRemainingTilesGroups, sortResults, unorderedArraysEqual } from 'lib';
 import { Translations } from 'types';
 
 import { RootState } from './types';
@@ -153,10 +146,6 @@ export const selectRemainingTiles = createSelector(
 
 export const selectHasOverusedTiles = createSelector([selectRemainingTiles], (remainingTiles) => {
   return remainingTiles.some(({ count, usedCount }) => usedCount > count);
-});
-
-export const selectRemainingTilesCount = createSelector([selectRemainingTiles], (remainingTiles) => {
-  return getRemainingTilesCount(remainingTiles);
 });
 
 export const selectRemainingTilesGroups = createSelector([selectRemainingTiles], getRemainingTilesGroups);
