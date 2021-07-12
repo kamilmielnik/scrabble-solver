@@ -23,6 +23,7 @@
     "build": "env-cmd next build",
     "clean": "rimraf .next/ node_modules/ scrabble-solver-all.log scrabble-solver-error.log",
     "clean:force": "npm run clean && rimraf package-lock.json",
+    "debug": "NODE_OPTIONS='--inspect' next dev",
     "dev": "env-cmd next dev",
     "start": "env-cmd next start -p 3333"
   },
