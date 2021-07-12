@@ -26,10 +26,6 @@ class Config {
     this.pointsMap = getPointsMap(this.config);
   }
 
-  public get allCharacters(): string {
-    return getAllCharacters(this.config);
-  }
-
   public get doubleCharacterTiles(): string[] {
     return this.config.tiles.filter((tile) => tile.character.length === 2).map((tile) => tile.character);
   }
@@ -120,12 +116,6 @@ const getBonuses = (config: ConfigJson): Bonus[] => {
     throw new Error(`Unsupported Bonus type: "${bonus.type}"`);
   });
 };
-
-const getAllCharacters = (config: ConfigJson) =>
-  config.tiles.reduce(
-    (allCharacters, { character, count }) => allCharacters + Array(count).fill(character).join(''),
-    Array(config.numberOfBlanks).fill(BLANK).join(''),
-  );
 
 const getAlphabet = (config: ConfigJson): string[] => config.tiles.map(({ character }) => character);
 
