@@ -40,6 +40,7 @@ export type TranslationKey =
   | 'common.consonants'
   | 'common.points'
   | 'common.tiles'
+  | 'common.two-letter-tiles'
   | 'common.vowels'
   | 'common.word'
   | 'common.words'
