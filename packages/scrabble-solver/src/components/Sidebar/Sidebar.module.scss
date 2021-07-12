@@ -56,6 +56,9 @@ $width: 370px;
 }
 
 .title {
+  @include ellipsis;
+
+  padding-right: calc(var(--square-button-size) + var(--spacing--s));
   font-size: var(--font--size--h1);
   font-weight: 300;
 }
