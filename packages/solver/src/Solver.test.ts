@@ -1,13 +1,21 @@
-import { literaki } from '@scrabble-solver/configs';
+import { literaki, scrabble } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
-import { Board, Locale, Tile } from '@scrabble-solver/types';
+import { Board, Locale, Result, Tile } from '@scrabble-solver/types';
 
 import Solver from './Solver';
 
-const generateTiles = (characters: string): Tile[] =>
-  characters.split('').map((character) => new Tile({ character, isBlank: false }));
+const generateTiles = (characters: string[]): Tile[] => {
+  return characters.map((character) => new Tile({ character, isBlank: false }));
+};
 
-describe('Solver', () => {
+const getBestResult = ([firstResult, ...results]: Result[]): Result => {
+  return results.reduce(
+    (bestResultCandidate, result) => (result.points > bestResultCandidate.points ? result : bestResultCandidate),
+    firstResult,
+  );
+};
+
+describe('Solver - PL', () => {
   const locale = Locale.PL_PL;
   const config = literaki[locale];
   let solver: Solver | undefined;
@@ -36,7 +44,7 @@ describe('Solver', () => {
       '               ',
       '               ',
     ]);
-    const tiles = generateTiles('lino');
+    const tiles = generateTiles(['l', 'i', 'n', 'o']);
     const results = solver!.solve(board, tiles);
     expect(results.length).toBe(60);
   });
@@ -59,12 +67,9 @@ describe('Solver', () => {
       '               ',
       '               ',
     ]);
-    const tiles = generateTiles('aaąrtwz');
-    const [firstResult, ...results] = solver!.solve(board, tiles);
-    const bestResult = results.reduce(
-      (bestResultCandidate, result) => (result.points > bestResultCandidate.points ? result : bestResultCandidate),
-      firstResult,
-    );
+    const tiles = generateTiles(['a', 'a', 'ą', 'r', 't', 'w', 'z']);
+    const results = solver!.solve(board, tiles);
+    const bestResult = getBestResult(results);
     expect(bestResult.word).toBe('zmartwychwstałą');
     expect(bestResult.points).toBe(682);
   });
@@ -87,13 +92,47 @@ describe('Solver', () => {
       'da do    ot    ',
       'ar  ń    m     ',
     ]);
-    const tiles = generateTiles('ąchtwwz');
-    const [firstResult, ...results] = solver!.solve(board, tiles);
-    const bestResult = results.reduce(
-      (bestResultCandidate, result) => (result.points > bestResultCandidate.points ? result : bestResultCandidate),
-      firstResult,
-    );
+    const tiles = generateTiles(['ą', 'c', 'h', 't', 'w', 'w', 'z']);
+    const results = solver!.solve(board, tiles);
+    const bestResult = getBestResult(results);
     expect(bestResult.word).toBe('zmartwychwstałą');
     expect(bestResult.points).toBe(1157);
+  });
+});
+
+describe('Solver - ES', () => {
+  const locale = Locale.ES_ES;
+  const config = scrabble[locale];
+  let solver: Solver | undefined;
+
+  beforeAll(() => {
+    return dictionaries.get(locale).then((trie) => {
+      solver = new Solver(config, trie);
+    });
+  });
+
+  it('llana', () => {
+    const board = Board.fromStringArray([
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+    ]);
+    const tiles = generateTiles(['ll', 'a', 'n', 'a']);
+    const results = solver!.solve(board, tiles);
+    const bestResult = getBestResult(results);
+    expect(results.length).toBe(24);
+    expect(bestResult.points).toBe(22);
   });
 });
