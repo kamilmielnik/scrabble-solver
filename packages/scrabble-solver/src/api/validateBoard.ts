@@ -1,4 +1,4 @@
-import { Cell, Config } from '@scrabble-solver/types';
+import { CellJson, Config } from '@scrabble-solver/types';
 
 import validateRow from './validateRow';
 
@@ -19,18 +19,22 @@ const validateBoard = (board: unknown, config: Config): void => {
   }
 };
 
-const validateDoubleCharacterTiles = (board: Cell[][], config: Config): void => {
-  const cells: Cell[] = board.flat().filter((cell) => config.isDoubleCharacterPrefix(cell.tile.character));
+const validateDoubleCharacterTiles = (board: CellJson[][], config: Config): void => {
+  const cells: CellJson[] = board
+    .flat()
+    .filter((cell) => cell.tile && config.isDoubleCharacterPrefix(cell.tile.character));
 
   for (const cell of cells) {
     for (const characters of config.doubleCharacterTiles) {
       const canCheckDown = cell.y + 1 < board.length;
       const canCheckRight = cell.x + 1 < board[0].length;
-      const collidesDown = canCheckDown && board[cell.y + 1][cell.x].tile.character === characters[1];
-      const collidesRight = canCheckRight && board[cell.y][cell.x + 1].tile.character === characters[1];
+      const cellDown = board[cell.y + 1][cell.x];
+      const cellRight = board[cell.y][cell.x + 1];
+      const collidesDown = canCheckDown && cellDown.tile && cellDown.tile.character === characters[1];
+      const collidesRight = canCheckRight && cellRight.tile && cellRight.tile.character === characters[1];
       const collides = collidesDown || collidesRight;
 
-      if (characters.startsWith(cell.tile.character) && collides) {
+      if (cell.tile && characters.startsWith(cell.tile.character) && collides) {
         throw new Error(`${characters} can only be used as a single tile`);
       }
     }
