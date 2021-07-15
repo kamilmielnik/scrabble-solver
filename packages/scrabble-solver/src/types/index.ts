@@ -38,6 +38,7 @@ export type TranslationKey =
   | 'common.loading'
   | 'common.blanks'
   | 'common.consonants'
+  | 'common.insert'
   | 'common.points'
   | 'common.tiles'
   | 'common.two-letter-tiles'

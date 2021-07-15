@@ -26,10 +26,6 @@ class Config {
     this.pointsMap = getPointsMap(this.config);
   }
 
-  public get doubleCharacterTiles(): string[] {
-    return this.config.tiles.filter((tile) => tile.character.length === 2).map((tile) => tile.character);
-  }
-
   public get allTilesBonusScore(): number {
     return this.config.allTilesBonusScore;
   }
@@ -48,6 +44,10 @@ class Config {
 
   public get boardWidth(): number {
     return this.config.boardWidth;
+  }
+
+  public get twoCharacterTiles(): string[] {
+    return this.config.tiles.filter((tile) => tile.character.length === 2).map((tile) => tile.character);
   }
 
   public getCellBonus(cell: Cell): Bonus | undefined {
@@ -83,7 +83,7 @@ class Config {
   }
 
   public isDoubleCharacterPrefix(character: string): boolean {
-    return character.length === 1 && this.doubleCharacterTiles.some((characters) => characters.startsWith(character));
+    return character.length === 1 && this.twoCharacterTiles.some((characters) => characters.startsWith(character));
   }
 
   public get maximumNumberOfCharacters(): number {

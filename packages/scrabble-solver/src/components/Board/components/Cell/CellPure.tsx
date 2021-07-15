@@ -13,6 +13,7 @@ import styles from './Cell.module.scss';
 import { getBonusClassname } from './lib';
 
 interface Props {
+  alternativeTile?: string;
   bonus: Bonus | undefined;
   cell: Cell;
   className?: string;
@@ -24,12 +25,14 @@ interface Props {
   style?: CSSProperties;
   tile: TileModel;
   translate: Translate;
+  onAlternativeTileClick: MouseEventHandler<HTMLButtonElement>;
   onDirectionToggleClick: MouseEventHandler<HTMLButtonElement>;
   onFocus: FocusEventHandler<HTMLInputElement>;
   onToggleBlankClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 const CellPure: FunctionComponent<Props> = ({
+  alternativeTile,
   bonus,
   cell,
   className,
@@ -41,6 +44,7 @@ const CellPure: FunctionComponent<Props> = ({
   style,
   tile,
   translate,
+  onAlternativeTileClick,
   onDirectionToggleClick,
   onFocus,
   onToggleBlankClick,
@@ -83,6 +87,15 @@ const CellPure: FunctionComponent<Props> = ({
           onClick={onToggleBlankClick}
         >
           B
+        </Button>
+      )}
+
+      {alternativeTile && (
+        <Button
+          title={`${translate('common.insert')} "${alternativeTile.toUpperCase()}"`}
+          onClick={onAlternativeTileClick}
+        >
+          {alternativeTile.toUpperCase()}
         </Button>
       )}
     </div>

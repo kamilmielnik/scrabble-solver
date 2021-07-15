@@ -4,7 +4,7 @@ import { Cell, Config, Tile } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
 import { findCell, getRemainingTiles, getRemainingTilesGroups, sortResults, unorderedArraysEqual } from 'lib';
-import { Translations } from 'types';
+import { RemainingTile, Translations } from 'types';
 
 import { RootState } from './types';
 
@@ -149,3 +149,17 @@ export const selectHasOverusedTiles = createSelector([selectRemainingTiles], (re
 });
 
 export const selectRemainingTilesGroups = createSelector([selectRemainingTiles], getRemainingTilesGroups);
+
+export const selectCellAlternativeTile = createSelector(
+  [selectConfig, selectRemainingTiles, selectCell],
+  (config: Config, remainingTiles: RemainingTile[], cell: Cell) => {
+    const alternativeTile = config.twoCharacterTiles.find(([firstLetter]) => firstLetter === cell.tile.character);
+    const remainingTile = remainingTiles.find(({ character }) => character === alternativeTile);
+
+    if (!remainingTile) {
+      return remainingTile;
+    }
+
+    return remainingTile.count - remainingTile.usedCount > 0 ? alternativeTile : undefined;
+  },
+);

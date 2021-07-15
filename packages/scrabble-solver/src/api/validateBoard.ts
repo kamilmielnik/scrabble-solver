@@ -25,7 +25,7 @@ const validateDoubleCharacterTiles = (board: CellJson[][], config: Config): void
     .filter((cell) => cell.tile && config.isDoubleCharacterPrefix(cell.tile.character));
 
   for (const cell of cells) {
-    for (const characters of config.doubleCharacterTiles) {
+    for (const characters of config.twoCharacterTiles) {
       const canCheckDown = cell.y + 1 < board.length;
       const canCheckRight = cell.x + 1 < board[0].length;
       const cellDown = board[cell.y + 1][cell.x];

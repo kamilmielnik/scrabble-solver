@@ -147,7 +147,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
             const cellUp = rows[y - 1][x];
             const doubleCharacterCandidate = cellUp.tile.character + character;
 
-            if (config.doubleCharacterTiles.includes(doubleCharacterCandidate)) {
+            if (config.twoCharacterTiles.includes(doubleCharacterCandidate)) {
               dispatch(boardSlice.actions.changeCellValue({ ...position, y: y - 1, value: doubleCharacterCandidate }));
               return;
             }
@@ -157,7 +157,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
             const cellDown = rows[y + 1][x];
             const doubleCharacterCandidate = character + cellDown.tile.character;
 
-            if (config.doubleCharacterTiles.includes(doubleCharacterCandidate)) {
+            if (config.twoCharacterTiles.includes(doubleCharacterCandidate)) {
               dispatch(boardSlice.actions.changeCellValue({ ...position, value: character }));
               dispatch(boardSlice.actions.changeCellValue({ ...position, y: y + 1, value: EMPTY_CELL }));
               onMoveFocus('forward');
@@ -169,7 +169,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
             const cellLeft = rows[y][x - 1];
             const doubleCharacterCandidate = cellLeft.tile.character + character;
 
-            if (config.doubleCharacterTiles.includes(doubleCharacterCandidate)) {
+            if (config.twoCharacterTiles.includes(doubleCharacterCandidate)) {
               dispatch(boardSlice.actions.changeCellValue({ ...position, x: x - 1, value: doubleCharacterCandidate }));
               return;
             }
@@ -179,7 +179,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
             const cellRight = rows[y][x + 1];
             const doubleCharacterCandidate = character + cellRight.tile.character;
 
-            if (config.doubleCharacterTiles.includes(doubleCharacterCandidate)) {
+            if (config.twoCharacterTiles.includes(doubleCharacterCandidate)) {
               dispatch(boardSlice.actions.changeCellValue({ ...position, value: character }));
               dispatch(boardSlice.actions.changeCellValue({ ...position, x: x + 1, value: EMPTY_CELL }));
               onMoveFocus('forward');
@@ -191,7 +191,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
             const cell = rows[y][x];
             const doubleCharacterCandidate = cell.tile.character + character;
 
-            if (config.doubleCharacterTiles.includes(doubleCharacterCandidate)) {
+            if (config.twoCharacterTiles.includes(doubleCharacterCandidate)) {
               dispatch(boardSlice.actions.changeCellValue({ ...position, value: doubleCharacterCandidate }));
               return;
             }

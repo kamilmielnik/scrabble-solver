@@ -4,7 +4,14 @@ import React, { FunctionComponent, RefObject, useCallback, useMemo } from 'react
 import { useDispatch } from 'react-redux';
 
 import { getTileSizes } from 'lib';
-import { boardSlice, selectCellBonus, selectTilePoints, useTranslate, useTypedSelector } from 'state';
+import {
+  boardSlice,
+  selectCellAlternativeTile,
+  selectCellBonus,
+  selectTilePoints,
+  useTranslate,
+  useTypedSelector,
+} from 'state';
 
 import CellPure from './CellPure';
 
@@ -24,6 +31,7 @@ const Cell: FunctionComponent<Props> = ({ cell, className, direction, inputRef, 
   const translate = useTranslate();
   const bonus = useTypedSelector((state) => selectCellBonus(state, cell));
   const points = useTypedSelector((state) => selectTilePoints(state, cell.tile));
+  const alternativeTile = useTypedSelector((state) => selectCellAlternativeTile(state, cell));
   const { tileFontSize } = getTileSizes(size);
   const isEmpty = tile.character === EMPTY_CELL;
   const style = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
@@ -38,6 +46,16 @@ const Cell: FunctionComponent<Props> = ({ cell, className, direction, inputRef, 
     dispatch(boardSlice.actions.toggleCellIsBlank({ x, y }));
   }, [dispatch, x, y]);
 
+  const handleAlternativeTileClick = useCallback(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+
+    if (alternativeTile) {
+      dispatch(boardSlice.actions.changeCellValue({ x, y, value: alternativeTile }));
+    }
+  }, [alternativeTile, dispatch]);
+
   const handleDirectionToggleClick = useCallback(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -48,6 +66,7 @@ const Cell: FunctionComponent<Props> = ({ cell, className, direction, inputRef, 
 
   return (
     <CellPure
+      alternativeTile={alternativeTile}
       bonus={bonus}
       cell={cell}
       className={className}
@@ -59,6 +78,7 @@ const Cell: FunctionComponent<Props> = ({ cell, className, direction, inputRef, 
       style={style}
       tile={tile}
       translate={translate}
+      onAlternativeTileClick={handleAlternativeTileClick}
       onDirectionToggleClick={handleDirectionToggleClick}
       onFocus={handleFocus}
       onToggleBlankClick={handleToggleBlankClick}
