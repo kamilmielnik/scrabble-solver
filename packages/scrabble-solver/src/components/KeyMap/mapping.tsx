@@ -6,41 +6,43 @@ import { isMac } from 'lib';
 import Key from '../Key';
 import SvgIcon from '../SvgIcon';
 
-const ARROW_DOWN = (
+export const ARROW_DOWN = (
   <Key>
     <SvgIcon icon={arrowLeft} />
   </Key>
 );
 
-const ARROW_LEFT = (
+export const ARROW_LEFT = (
   <Key>
     <SvgIcon icon={arrowUp} />
   </Key>
 );
 
-const ARROW_RIGHT = (
+export const ARROW_RIGHT = (
   <Key>
     <SvgIcon icon={arrowRight} />
   </Key>
 );
 
-const ARROW_UP = (
+export const ARROW_UP = (
   <Key>
     <SvgIcon icon={arrowDown} />
   </Key>
 );
 
-const B = <Key>B</Key>;
+export const B = <Key>B</Key>;
 
-const BACKSPACE = <Key>← Backspace</Key>;
+export const BACKSPACE = <Key>← Backspace</Key>;
 
-const CTRL = <Key>{isMac() ? '⌘' : 'Ctrl'}</Key>;
+export const CTRL = <Key>{isMac() ? '⌘' : 'Ctrl'}</Key>;
 
-const DEL = <Key>Del</Key>;
+export const DEL = <Key>Del</Key>;
 
-const ENTER = <Key>Enter ⏎</Key>;
+export const ENTER = <Key>Enter ⏎</Key>;
 
-const ARROWS = (
+export const SHIFT = <Key>Shift ⇧</Key>;
+
+export const ARROWS = (
   <>
     {ARROW_DOWN}
     {ARROW_LEFT}
@@ -49,7 +51,7 @@ const ARROWS = (
   </>
 );
 
-const SPACE = <Key>␣</Key>;
+export const SPACE = <Key>␣</Key>;
 
 const mapping = {
   insertBlank: [SPACE],

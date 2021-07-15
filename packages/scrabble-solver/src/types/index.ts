@@ -60,6 +60,7 @@ export type TranslationKey =
   | 'keyMap.board.toggle-blank'
   | 'keyMap.board.toggle-direction'
   | 'keyMap.board-and-rack'
+  | 'keyMap.board-and-rack.insert-two-letter-tile'
   | 'keyMap.board-and-rack.navigate'
   | 'keyMap.board-and-rack.remove-tile'
   | 'keyMap.board-and-rack.submit'

@@ -29,6 +29,7 @@
   "keyMap.board.toggle-blank": "Mark/unmark tile as a blank",
   "keyMap.board.toggle-direction": "Toggle typing direction",
   "keyMap.board-and-rack": "Board & rack",
+  "keyMap.board-and-rack.insert-two-letter-tile": "Insert two-letter tile",
   "keyMap.board-and-rack.navigate": "Navigate",
   "keyMap.board-and-rack.remove-tile": "Remove tile",
   "keyMap.board-and-rack.submit": "Start solving",

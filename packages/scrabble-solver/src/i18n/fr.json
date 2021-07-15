@@ -29,6 +29,7 @@
   "keyMap.board.toggle-blank": "Marqué/Démarqué la case en tant que vide",
   "keyMap.board.toggle-direction": "Faire basculer la direction d'écriture",
   "keyMap.board-and-rack": "Plateau & chevalet",
+  "keyMap.board-and-rack.insert-two-letter-tile": "Insérer une tuile de deux lettres",
   "keyMap.board-and-rack.navigate": "Naviguer",
   "keyMap.board-and-rack.remove-tile": "Supprimer une case",
   "keyMap.board-and-rack.submit": "Commencer la résolution",

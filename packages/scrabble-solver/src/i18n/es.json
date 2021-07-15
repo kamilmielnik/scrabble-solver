@@ -29,6 +29,7 @@
   "keyMap.board.toggle-blank": "Marcar / desmarcar un espacio en blanco",
   "keyMap.board.toggle-direction": "Alternar dirección de escritura",
   "keyMap.board-and-rack": "Tablero y estante",
+  "keyMap.board-and-rack.insert-two-letter-tile": "Insertar mosaico de dos letras",
   "keyMap.board-and-rack.navigate": "Navegar",
   "keyMap.board-and-rack.remove-tile": "Quitar Letra",
   "keyMap.board-and-rack.submit": "Empezar a resolver",
