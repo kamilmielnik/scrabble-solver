@@ -141,7 +141,8 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
           return;
         }
 
-        if (event.shiftKey && twoCharacterTile) {
+        if (isCtrl(event) && twoCharacterTile) {
+          event.preventDefault();
           dispatch(boardSlice.actions.changeCellValue({ x, y, value: twoCharacterTile }));
           return;
         }

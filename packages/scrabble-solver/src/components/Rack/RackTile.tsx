@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { createKeyboardNavigation } from 'lib';
+import { createKeyboardNavigation, isCtrl } from 'lib';
 import { TILE_SIZE } from 'parameters';
 import { rackSlice, selectCharacterPoints, selectConfig, useTranslate, useTypedSelector } from 'state';
 
@@ -52,7 +52,8 @@ const RackTile: FunctionComponent<Props> = ({ activeIndexRef, character, index, 
         const newCharacter = event.key.toLowerCase();
         const twoCharacterTile = config.getTwoCharacterTileByPrefix(newCharacter);
 
-        if (event.shiftKey && twoCharacterTile) {
+        if (isCtrl(event) && twoCharacterTile) {
+          event.preventDefault();
           handleCharacterChange(twoCharacterTile);
         } else if (config.hasCharacter(newCharacter) || newCharacter === BLANK) {
           handleCharacterChange(newCharacter);

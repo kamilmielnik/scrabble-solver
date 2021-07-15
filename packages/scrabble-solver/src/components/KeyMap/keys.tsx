@@ -38,8 +38,6 @@ export const DEL = <Key>Del</Key>;
 
 export const ENTER = <Key>Enter ⏎</Key>;
 
-export const SHIFT = <Key>Shift ⇧</Key>;
-
 export const ARROWS = (
   <>
     {ARROW_DOWN}

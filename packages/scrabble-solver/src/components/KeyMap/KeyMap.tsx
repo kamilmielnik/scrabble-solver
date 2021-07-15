@@ -6,7 +6,7 @@ import Key from '../Key';
 import Sidebar from '../Sidebar';
 
 import { Mapping } from './components';
-import { ARROWS, BACKSPACE, CTRL, DEL, ENTER, SHIFT, SPACE } from './keys';
+import { ARROWS, BACKSPACE, CTRL, DEL, ENTER, SPACE } from './keys';
 
 interface Props {
   className?: string;
@@ -29,7 +29,7 @@ const KeyMap: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
             description={translate('keyMap.board-and-rack.insert-two-letter-tile')}
             mapping={[
               [
-                SHIFT,
+                CTRL,
                 <>
                   {config.twoCharacterTiles.map(([firstLetter]) => (
                     <Key key={firstLetter}>{firstLetter.toUpperCase()}</Key>
