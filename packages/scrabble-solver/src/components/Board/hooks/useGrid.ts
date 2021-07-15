@@ -134,15 +134,15 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         const { x, y } = position;
         const character = event.key.toLowerCase();
         const isTogglingBlank = isCtrl(event) && character === 'b';
-        const doubleCharacterPrefix = config.getDoubleCharacterPrefix(character);
+        const twoCharacterPrefix = config.getTwoCharacterPrefix(character);
 
         if (isTogglingBlank) {
           dispatch(boardSlice.actions.toggleCellIsBlank(position));
           return;
         }
 
-        if (event.shiftKey && doubleCharacterPrefix) {
-          dispatch(boardSlice.actions.changeCellValue({ x, y, value: doubleCharacterPrefix }));
+        if (event.shiftKey && twoCharacterPrefix) {
+          dispatch(boardSlice.actions.changeCellValue({ x, y, value: twoCharacterPrefix }));
           return;
         }
 
@@ -157,19 +157,19 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
         if (canCheckUp) {
           const cellUp = rows[y - 1][x];
-          const doubleCharacterCandidate = cellUp.tile.character + character;
+          const twoCharacterCandidate = cellUp.tile.character + character;
 
-          if (config.twoCharacterTiles.includes(doubleCharacterCandidate)) {
-            dispatch(boardSlice.actions.changeCellValue({ ...position, y: y - 1, value: doubleCharacterCandidate }));
+          if (config.twoCharacterTiles.includes(twoCharacterCandidate)) {
+            dispatch(boardSlice.actions.changeCellValue({ ...position, y: y - 1, value: twoCharacterCandidate }));
             return;
           }
         }
 
         if (canCheckDown) {
           const cellDown = rows[y + 1][x];
-          const doubleCharacterCandidate = character + cellDown.tile.character;
+          const twoCharacterCandidate = character + cellDown.tile.character;
 
-          if (config.twoCharacterTiles.includes(doubleCharacterCandidate)) {
+          if (config.twoCharacterTiles.includes(twoCharacterCandidate)) {
             dispatch(boardSlice.actions.changeCellValue({ ...position, value: character }));
             dispatch(boardSlice.actions.changeCellValue({ ...position, y: y + 1, value: EMPTY_CELL }));
             onMoveFocus('forward');
@@ -179,19 +179,19 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
         if (canCheckLeft) {
           const cellLeft = rows[y][x - 1];
-          const doubleCharacterCandidate = cellLeft.tile.character + character;
+          const twoCharacterCandidate = cellLeft.tile.character + character;
 
-          if (config.twoCharacterTiles.includes(doubleCharacterCandidate)) {
-            dispatch(boardSlice.actions.changeCellValue({ ...position, x: x - 1, value: doubleCharacterCandidate }));
+          if (config.twoCharacterTiles.includes(twoCharacterCandidate)) {
+            dispatch(boardSlice.actions.changeCellValue({ ...position, x: x - 1, value: twoCharacterCandidate }));
             return;
           }
         }
 
         if (canCheckRight) {
           const cellRight = rows[y][x + 1];
-          const doubleCharacterCandidate = character + cellRight.tile.character;
+          const twoCharacterCandidate = character + cellRight.tile.character;
 
-          if (config.twoCharacterTiles.includes(doubleCharacterCandidate)) {
+          if (config.twoCharacterTiles.includes(twoCharacterCandidate)) {
             dispatch(boardSlice.actions.changeCellValue({ ...position, value: character }));
             dispatch(boardSlice.actions.changeCellValue({ ...position, x: x + 1, value: EMPTY_CELL }));
             onMoveFocus('forward');
@@ -201,10 +201,10 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
         if (!canCheckDown || !canCheckRight) {
           const cell = rows[y][x];
-          const doubleCharacterCandidate = cell.tile.character + character;
+          const twoCharacterCandidate = cell.tile.character + character;
 
-          if (config.twoCharacterTiles.includes(doubleCharacterCandidate)) {
-            dispatch(boardSlice.actions.changeCellValue({ ...position, value: doubleCharacterCandidate }));
+          if (config.twoCharacterTiles.includes(twoCharacterCandidate)) {
+            dispatch(boardSlice.actions.changeCellValue({ ...position, value: twoCharacterCandidate }));
             return;
           }
         }

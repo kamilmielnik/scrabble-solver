@@ -13,16 +13,16 @@ const validateBoard = (board: unknown, config: Config): void => {
 
   try {
     board.forEach((row, rowIndex) => validateRow(row, rowIndex, config));
-    validateDoubleCharacterTiles(board, config);
+    validateTwoCharacterTiles(board, config);
   } catch (error) {
     throw new Error(`Invalid "board" parameter: ${error.message}`);
   }
 };
 
-const validateDoubleCharacterTiles = (board: CellJson[][], config: Config): void => {
+const validateTwoCharacterTiles = (board: CellJson[][], config: Config): void => {
   const cells: CellJson[] = board
     .flat()
-    .filter((cell) => cell.tile && config.isDoubleCharacterPrefix(cell.tile.character));
+    .filter((cell) => cell.tile && config.isTwoCharacterTilePrefix(cell.tile.character));
 
   for (const cell of cells) {
     for (const characters of config.twoCharacterTiles) {

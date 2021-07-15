@@ -70,7 +70,7 @@ class Config {
     return this.pointsMap[character];
   }
 
-  public getDoubleCharacterPrefix(character: string): string | undefined {
+  public getTwoCharacterPrefix(character: string): string | undefined {
     if (character.length !== 1) {
       return undefined;
     }
@@ -90,8 +90,8 @@ class Config {
     return this.alphabet.includes(character);
   }
 
-  public isDoubleCharacterPrefix(character: string): boolean {
-    return typeof this.getDoubleCharacterPrefix(character) !== 'undefined';
+  public isTwoCharacterTilePrefix(character: string): boolean {
+    return typeof this.getTwoCharacterPrefix(character) !== 'undefined';
   }
 
   public get maximumNumberOfCharacters(): number {
