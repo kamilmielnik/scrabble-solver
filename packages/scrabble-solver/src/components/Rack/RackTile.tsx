@@ -50,8 +50,11 @@ const RackTile: FunctionComponent<Props> = ({ activeIndexRef, character, index, 
       onDelete: () => handleCharacterChange(null),
       onKeyDown: (event) => {
         const newCharacter = event.key.toLowerCase();
+        const twoCharacterTile = config.getTwoCharacterTileByPrefix(newCharacter);
 
-        if (config.hasCharacter(newCharacter) || newCharacter === BLANK) {
+        if (event.shiftKey && twoCharacterTile) {
+          handleCharacterChange(twoCharacterTile);
+        } else if (config.hasCharacter(newCharacter) || newCharacter === BLANK) {
           handleCharacterChange(newCharacter);
         }
 

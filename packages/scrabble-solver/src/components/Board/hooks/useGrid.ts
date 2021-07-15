@@ -134,15 +134,15 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         const { x, y } = position;
         const character = event.key.toLowerCase();
         const isTogglingBlank = isCtrl(event) && character === 'b';
-        const twoCharacterPrefix = config.getTwoCharacterPrefix(character);
+        const twoCharacterTile = config.getTwoCharacterTileByPrefix(character);
 
         if (isTogglingBlank) {
           dispatch(boardSlice.actions.toggleCellIsBlank(position));
           return;
         }
 
-        if (event.shiftKey && twoCharacterPrefix) {
-          dispatch(boardSlice.actions.changeCellValue({ x, y, value: twoCharacterPrefix }));
+        if (event.shiftKey && twoCharacterTile) {
+          dispatch(boardSlice.actions.changeCellValue({ x, y, value: twoCharacterTile }));
           return;
         }
 

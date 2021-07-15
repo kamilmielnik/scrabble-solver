@@ -70,7 +70,7 @@ class Config {
     return this.pointsMap[character];
   }
 
-  public getTwoCharacterPrefix(character: string): string | undefined {
+  public getTwoCharacterTileByPrefix(character: string): string | undefined {
     if (character.length !== 1) {
       return undefined;
     }
@@ -91,7 +91,7 @@ class Config {
   }
 
   public isTwoCharacterTilePrefix(character: string): boolean {
-    return typeof this.getTwoCharacterPrefix(character) !== 'undefined';
+    return typeof this.getTwoCharacterTileByPrefix(character) !== 'undefined';
   }
 
   public get maximumNumberOfCharacters(): number {
