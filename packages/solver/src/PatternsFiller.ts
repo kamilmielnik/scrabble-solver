@@ -1,4 +1,5 @@
 import { Trie } from '@kamilmielnik/trie';
+import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Config, Pattern, Tile } from '@scrabble-solver/types';
 
 class PatternsFiller {
@@ -48,8 +49,9 @@ class PatternsFiller {
         const previousTile = pattern.cells[indexOfFirstCellWithoutTile].tile;
         pattern.cells[indexOfFirstCellWithoutTile].tile = tile;
         const indexOfNextCellWithoutTile = pattern.getIndexOfFirstCellWithoutTile();
-        const newWordPrefix = word.substring(0, indexOfFirstCellWithoutTile) + tile.character;
-        const newWord = newWordPrefix + word.substring(indexOfFirstCellWithoutTile + 1);
+        const indexOfFirstEmptyLetter = word.indexOf(EMPTY_CELL);
+        const newWordPrefix = word.substring(0, indexOfFirstEmptyLetter) + tile.character;
+        const newWord = newWordPrefix + word.substring(indexOfFirstEmptyLetter + 1);
         if (indexOfNextCellWithoutTile === -1) {
           if (this.canAddPattern(pattern, newWord)) {
             onPatternFound(pattern.clone());

@@ -1,7 +1,5 @@
 @import 'styles/mixins';
 
-$size: 32px;
-
 .squareButton {
   @include button-reset;
   @include focus-effect;
@@ -44,8 +42,8 @@ $size: 32px;
 }
 
 .icon {
-  width: $size;
-  height: $size;
+  width: var(--square-button-size);
+  height: var(--square-button-size);
   pointer-events: none;
 }
 

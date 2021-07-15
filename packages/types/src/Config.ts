@@ -26,10 +26,6 @@ class Config {
     this.pointsMap = getPointsMap(this.config);
   }
 
-  public get allCharacters(): string {
-    return getAllCharacters(this.config);
-  }
-
   public get allTilesBonusScore(): number {
     return this.config.allTilesBonusScore;
   }
@@ -48,6 +44,10 @@ class Config {
 
   public get boardWidth(): number {
     return this.config.boardWidth;
+  }
+
+  public get twoCharacterTiles(): string[] {
+    return this.config.tiles.filter((tile) => tile.character.length === 2).map((tile) => tile.character);
   }
 
   public getCellBonus(cell: Cell): Bonus | undefined {
@@ -70,6 +70,14 @@ class Config {
     return this.pointsMap[character];
   }
 
+  public getTwoCharacterTileByPrefix(character: string): string | undefined {
+    if (character.length !== 1) {
+      return undefined;
+    }
+
+    return this.twoCharacterTiles.find((characters) => characters.startsWith(character));
+  }
+
   public getTilePoints(tile: Tile | null): number | undefined {
     if (tile === null) {
       return undefined;
@@ -80,6 +88,10 @@ class Config {
 
   public hasCharacter(character: string): boolean {
     return this.alphabet.includes(character);
+  }
+
+  public isTwoCharacterTilePrefix(character: string): boolean {
+    return typeof this.getTwoCharacterTileByPrefix(character) !== 'undefined';
   }
 
   public get maximumNumberOfCharacters(): number {
@@ -112,12 +124,6 @@ const getBonuses = (config: ConfigJson): Bonus[] => {
     throw new Error(`Unsupported Bonus type: "${bonus.type}"`);
   });
 };
-
-const getAllCharacters = (config: ConfigJson) =>
-  config.tiles.reduce(
-    (allCharacters, { character, count }) => allCharacters + Array(count).fill(character).join(''),
-    Array(config.numberOfBlanks).fill(BLANK).join(''),
-  );
 
 const getAlphabet = (config: ConfigJson): string[] => config.tiles.map(({ character }) => character);
 

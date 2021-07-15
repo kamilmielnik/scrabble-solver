@@ -1,4 +1,4 @@
-import { Config } from '@scrabble-solver/types';
+import { CellJson, Config } from '@scrabble-solver/types';
 
 import validateRow from './validateRow';
 
@@ -13,8 +13,31 @@ const validateBoard = (board: unknown, config: Config): void => {
 
   try {
     board.forEach((row, rowIndex) => validateRow(row, rowIndex, config));
+    validateTwoCharacterTiles(board, config);
   } catch (error) {
     throw new Error(`Invalid "board" parameter: ${error.message}`);
+  }
+};
+
+const validateTwoCharacterTiles = (board: CellJson[][], config: Config): void => {
+  const cells: CellJson[] = board
+    .flat()
+    .filter((cell) => cell.tile && config.isTwoCharacterTilePrefix(cell.tile.character));
+
+  for (const cell of cells) {
+    for (const characters of config.twoCharacterTiles) {
+      const canCheckDown = cell.y + 1 < board.length;
+      const canCheckRight = cell.x + 1 < board[0].length;
+      const cellDown = board[cell.y + 1][cell.x];
+      const cellRight = board[cell.y][cell.x + 1];
+      const collidesDown = canCheckDown && cellDown.tile && cellDown.tile.character === characters[1];
+      const collidesRight = canCheckRight && cellRight.tile && cellRight.tile.character === characters[1];
+      const collides = collidesDown || collidesRight;
+
+      if (cell.tile && characters.startsWith(cell.tile.character) && collides) {
+        throw new Error(`${characters} can only be used as a single tile`);
+      }
+    }
   }
 };
 

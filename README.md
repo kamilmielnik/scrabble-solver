@@ -4,7 +4,7 @@
 
 The ultimate cheating app for [Scrabble](https://en.wikipedia.org/wiki/Scrabble) and [Literaki](https://pl.wikipedia.org/wiki/Literaki).
 
-Available at https://scrabble-solver.kamilmielnik.com/ in English, French & Polish.
+Available at https://scrabble-solver.kamilmielnik.com/ in English, French, Polish & Spanish.
 
 Run it locally for better performance (your machine surely is faster than that server).
 
@@ -60,6 +60,7 @@ rm -rf $HOME/.scrabble-solver
 | 🇺🇸 English | en-US  | [TWL06](https://en.wikipedia.org/wiki/NASPA_Word_List)                     | [download](https://www.wordgamedictionary.com/twl06/download/twl06.txt)                                  | [Merriam-Webster](https://www.merriam-webster.com/)                            |
 | 🇫🇷 French  | fr-FR  | [hbenbel/French-Dictionary](https://github.com/hbenbel/French-Dictionary/) | [download](https://raw.githubusercontent.com/hbenbel/French-Dictionary/master/dictionary/dictionary.txt) | [Centre National de Ressources Textuelles et Lexicales](https://www.cnrtl.fr/) |
 | 🇵🇱 Polish  | pl-PL  | [SJP.PL](https://sjp.pl/slownik/dp.phtml)                                  | [download](https://sjp.pl/slownik/growy/)                                                                | [SJP.PL](https://sjp.pl)                                                       |
+| 🇪🇸 Spanish | es-ES  | [FISE-2](https://fisescrabble.org/)                                        | [download](https://github.com/kamilmielnik/fise-2/blob/master/fise-2.txt)                                | [Diccionarios.com](www.diccionarios.com)                                       |
 
 ## Tech stack
 
