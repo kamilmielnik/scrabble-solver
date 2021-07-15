@@ -32,7 +32,7 @@ const KeyMap: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
                 SHIFT,
                 <>
                   {config.twoCharacterTiles.map(([firstLetter]) => (
-                    <Key>{firstLetter.toUpperCase()}</Key>
+                    <Key key={firstLetter}>{firstLetter.toUpperCase()}</Key>
                   ))}
                 </>,
               ],
@@ -42,7 +42,7 @@ const KeyMap: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
       </Sidebar.Section>
 
       <Sidebar.Section title={translate('keyMap.board')}>
-        <Mapping description={translate('keyMap.board.toggle-blank')} mapping={[[CTRL, <Key>B</Key>]]} />
+        <Mapping description={translate('keyMap.board.toggle-blank')} mapping={[[CTRL, <Key key="b">B</Key>]]} />
         <Mapping description={translate('keyMap.board.toggle-direction')} mapping={[[CTRL, ARROWS]]} />
       </Sidebar.Section>
 
