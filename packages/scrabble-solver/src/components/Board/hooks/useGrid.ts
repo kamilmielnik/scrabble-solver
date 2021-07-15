@@ -144,6 +144,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         if (isCtrl(event) && twoCharacterTile) {
           event.preventDefault();
           dispatch(boardSlice.actions.changeCellValue({ x, y, value: twoCharacterTile }));
+          onMoveFocus('forward');
           return;
         }
 
