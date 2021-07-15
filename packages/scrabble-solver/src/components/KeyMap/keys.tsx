@@ -30,8 +30,6 @@ export const ARROW_UP = (
   </Key>
 );
 
-export const B = <Key>B</Key>;
-
 export const BACKSPACE = <Key>← Backspace</Key>;
 
 export const CTRL = <Key>{isMac() ? '⌘' : 'Ctrl'}</Key>;
@@ -52,14 +50,3 @@ export const ARROWS = (
 );
 
 export const SPACE = <Key>␣</Key>;
-
-const mapping = {
-  insertBlank: [SPACE],
-  navigate: [ARROWS],
-  removeTile: [DEL, BACKSPACE],
-  submit: [ENTER],
-  toggleBlank: [[CTRL, B]],
-  toggleDirection: [[CTRL, ARROWS]],
-};
-
-export default mapping;
