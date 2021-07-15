@@ -70,6 +70,14 @@ class Config {
     return this.pointsMap[character];
   }
 
+  public getDoubleCharacterPrefix(character: string): string | undefined {
+    if (character.length !== 1) {
+      return undefined;
+    }
+
+    return this.twoCharacterTiles.find((characters) => characters.startsWith(character));
+  }
+
   public getTilePoints(tile: Tile | null): number | undefined {
     if (tile === null) {
       return undefined;
@@ -83,7 +91,7 @@ class Config {
   }
 
   public isDoubleCharacterPrefix(character: string): boolean {
-    return character.length === 1 && this.twoCharacterTiles.some((characters) => characters.startsWith(character));
+    return typeof this.getDoubleCharacterPrefix(character) !== 'undefined';
   }
 
   public get maximumNumberOfCharacters(): number {
