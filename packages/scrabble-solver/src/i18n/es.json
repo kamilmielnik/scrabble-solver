@@ -32,7 +32,7 @@
   "keyMap.board-and-rack.navigate": "Navegar",
   "keyMap.board-and-rack.remove-tile": "Quitar Letra",
   "keyMap.board-and-rack.submit": "Empezar a resolver",
-  "keyMap.rack": "Espacio en Blanco",
+  "keyMap.rack": "Estante",
   "keyMap.rack.insert-blank": "Insertar espacio en blanco (barra espaciadora)",
   "rack.placeholder": "Letras…",
   "remaining-tiles": "Casillas restantes",
