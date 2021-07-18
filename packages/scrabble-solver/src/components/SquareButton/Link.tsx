@@ -9,13 +9,13 @@ import Tooltip from '../Tooltip';
 import styles from './SquareButton.module.scss';
 
 interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  children?: never;
   icon: BrowserSpriteSymbol;
   href: string;
   tooltip: string;
 }
 
 const Link: FunctionComponent<Props> = ({
-  children,
   className,
   icon,
   tooltip,
