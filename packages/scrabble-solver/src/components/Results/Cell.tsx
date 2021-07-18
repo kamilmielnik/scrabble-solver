@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react';
 import { useTranslate } from 'state';
 import { TranslationKey } from 'types';
 
-import Tooltip from '../Tooltip';
+import { useTooltip } from '../Tooltip';
 
 import styles from './Results.module.scss';
 
@@ -16,23 +16,12 @@ interface Props {
 
 const Cell: FunctionComponent<Props> = ({ className, translationKey, value }) => {
   const translate = useTranslate();
+  const triggerProps = useTooltip(`${translate(translationKey)}: ${value}`);
 
   return (
-    <Tooltip tooltip={`${translate(translationKey)}: ${value}`}>
-      {({ ariaAttributes, setReferenceElement, onHide, onShow }) => (
-        <span
-          {...ariaAttributes}
-          className={classNames(styles.cell, className)}
-          ref={setReferenceElement}
-          onBlur={onHide}
-          onFocus={onShow}
-          onMouseOut={onHide}
-          onMouseOver={onShow}
-        >
-          {value}
-        </span>
-      )}
-    </Tooltip>
+    <span className={classNames(styles.cell, className)} {...triggerProps}>
+      {value}
+    </span>
   );
 };
 
