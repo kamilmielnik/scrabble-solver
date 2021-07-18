@@ -2,12 +2,11 @@ import classNames from 'classnames';
 import React, { FocusEventHandler, MouseEventHandler, ReactNode, useCallback, useMemo, useState } from 'react';
 import { usePopper } from 'react-popper';
 
-import { useUniqueId } from 'hooks';
+import { usePortal, useUniqueId } from 'hooks';
 import { noop } from 'lib';
 
 import { MODIFIERS } from './constants';
 import styles from './Tooltip.module.scss';
-import usePortal from './usePortal';
 
 interface Props {
   className?: string;
