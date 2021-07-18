@@ -49,7 +49,6 @@ const AutoGroupTilesSetting: FunctionComponent<Props> = ({ className, disabled }
           id="autoGroupTiles"
           key={option.value}
           name="autoGroupTiles"
-          title={option.label}
           value={option.value}
           onChange={handleChange}
         >
