@@ -65,7 +65,7 @@ const CellPure: FunctionComponent<Props> = ({
     />
 
     <div className={styles.actions}>
-      <Button title={translate('cell.toggle-direction')} onClick={onDirectionToggleClick}>
+      <Button tooltip={translate('cell.toggle-direction')} onClick={onDirectionToggleClick}>
         <SvgIcon
           className={classNames(styles.toggleDirection, {
             [styles.right]: direction === 'horizontal',
@@ -79,7 +79,7 @@ const CellPure: FunctionComponent<Props> = ({
           className={classNames(styles.blank, {
             [styles.active]: tile.isBlank,
           })}
-          title={tile.isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
+          tooltip={tile.isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
           onClick={onToggleBlankClick}
         >
           B
