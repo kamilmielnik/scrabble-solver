@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useMemo } from 'react';
+import { ReactNode, useLayoutEffect, useMemo } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { Portal } from 'react-portal';
 
@@ -9,7 +9,7 @@ const canUseDom = typeof window !== 'undefined' && window.document && window.doc
 const usePortal = (children: ReactNode): void => {
   const element = useMemo(() => document.createElement('div'), []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.body.appendChild(element);
 
     return () => {
@@ -18,7 +18,7 @@ const usePortal = (children: ReactNode): void => {
     };
   }, [element]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     render(<Portal>{children}</Portal>, element);
   }, [children, element]);
 };
