@@ -53,22 +53,21 @@ const useTooltip = (
   };
 
   usePortal(
-    isEnabled && isShown && (
-      <div
-        className={classNames(styles.tooltip, className, {
-          [styles.top]: computedPlacement === 'top',
-          [styles.right]: computedPlacement === 'right',
-          [styles.bottom]: computedPlacement === 'bottom',
-          [styles.left]: computedPlacement === 'left',
-        })}
-        ref={setPopperElement}
-        style={popperStyles.popper}
-        {...attributes.popper}
-      >
-        <div>{tooltip}</div>
-        <div className={styles.arrow} ref={setArrowElement} style={popperStyles.arrow} />
-      </div>
-    ),
+    <div
+      className={classNames(styles.tooltip, className, {
+        [styles.top]: computedPlacement === 'top',
+        [styles.right]: computedPlacement === 'right',
+        [styles.bottom]: computedPlacement === 'bottom',
+        [styles.left]: computedPlacement === 'left',
+      })}
+      ref={setPopperElement}
+      style={popperStyles.popper}
+      {...attributes.popper}
+    >
+      <div>{tooltip}</div>
+      <div className={styles.arrow} ref={setArrowElement} style={popperStyles.arrow} />
+    </div>,
+    { disabled: !isEnabled || !isShown },
   );
 
   return {
