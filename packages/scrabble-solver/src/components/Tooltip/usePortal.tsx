@@ -1,4 +1,4 @@
-import { ReactNode, useLayoutEffect, useMemo } from 'react';
+import React, { ReactNode, useLayoutEffect, useMemo } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { Portal } from 'react-portal';
 
