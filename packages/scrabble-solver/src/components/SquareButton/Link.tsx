@@ -11,21 +11,21 @@ import styles from './SquareButton.module.scss';
 interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
   icon: BrowserSpriteSymbol;
   href: string;
-  title: string;
+  tooltip: string;
 }
 
 const Link: FunctionComponent<Props> = ({
   children,
   className,
   icon,
+  tooltip,
   onBlur = noop,
   onFocus = noop,
   onMouseOut = noop,
   onMouseOver = noop,
-  title,
   ...props
 }) => (
-  <Tooltip tooltip={title}>
+  <Tooltip tooltip={tooltip}>
     {({ ariaAttributes, setReferenceElement, onHide, onShow }) => (
       <a
         {...ariaAttributes}

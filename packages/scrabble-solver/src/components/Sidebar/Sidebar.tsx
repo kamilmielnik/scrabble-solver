@@ -44,7 +44,7 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, isOpen, title,
           <SquareButton
             className={styles.closeButton}
             icon={cross}
-            title={translate('common.close')}
+            tooltip={translate('common.close')}
             onClick={onClose}
           />
         </div>

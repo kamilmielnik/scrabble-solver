@@ -28,27 +28,27 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowRem
         icon={github}
         rel="noopener noreferrer"
         target="_blank"
-        title={translate('github')}
+        tooltip={translate('github')}
       />
 
       <div className={styles.separator} />
 
-      <SquareButton className={styles.button} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap} />
+      <SquareButton className={styles.button} icon={keyboard} tooltip={translate('keyMap')} onClick={onShowKeyMap} />
 
       <SquareButton
         className={classNames(styles.button, {
           [styles.error]: hasOverusedTiles,
         })}
         icon={sack}
-        title={translate('remaining-tiles')}
+        tooltip={translate('remaining-tiles')}
         onClick={onShowRemainingTiles}
       />
 
       <div className={styles.separator} />
 
-      <SquareButton className={styles.button} icon={eraser} title={translate('common.clear')} onClick={onClear} />
+      <SquareButton className={styles.button} icon={eraser} tooltip={translate('common.clear')} onClick={onClear} />
 
-      <SquareButton className={styles.button} icon={cog} title={translate('settings')} onClick={onShowSettings} />
+      <SquareButton className={styles.button} icon={cog} tooltip={translate('settings')} onClick={onShowSettings} />
     </div>
   );
 };
