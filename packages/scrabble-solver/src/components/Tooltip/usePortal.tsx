@@ -4,25 +4,36 @@ import { Portal } from 'react-portal';
 
 import { noop } from 'lib';
 
+interface Props {
+  disabled?: boolean;
+  tagName?: TagName;
+}
+
 type TagName = Parameters<typeof document.createElement>[0];
 
 const canUseDom = typeof window !== 'undefined' && window.document && window.document.createElement;
 
-const usePortal = (children: ReactNode, tagName: TagName = 'div'): void => {
+const usePortal = (children: ReactNode, { disabled = false, tagName = 'div' }: Props = {}): void => {
   const element = useMemo(() => document.createElement(tagName), [tagName]);
 
   useLayoutEffect(() => {
+    if (disabled) {
+      return noop;
+    }
+
     document.body.appendChild(element);
 
     return () => {
       unmountComponentAtNode(element);
       document.body.removeChild(element);
     };
-  }, [element]);
+  }, [disabled, element]);
 
   useLayoutEffect(() => {
-    render(<Portal>{children}</Portal>, element);
-  }, [children, element]);
+    if (!disabled) {
+      render(<Portal>{children}</Portal>, element);
+    }
+  }, [children, disabled, element]);
 };
 
 export default canUseDom ? usePortal : noop;
