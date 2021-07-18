@@ -14,17 +14,15 @@ interface Props {
   disabled?: boolean;
   id: string;
   name: string;
-  title: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-const Checkbox: FunctionComponent<Props> = ({ checked, children, className, disabled, id, name, title, onChange }) => (
+const Checkbox: FunctionComponent<Props> = ({ checked, children, className, disabled, id, name, onChange }) => (
   <label
     className={classNames(styles.checkbox, className, {
       [styles.checked]: checked,
     })}
     htmlFor={id}
-    title={title}
   >
     <input
       checked={checked}
