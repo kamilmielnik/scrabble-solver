@@ -23,4 +23,5 @@ export { default as Splash } from './Splash';
 export { default as SquareButton } from './SquareButton';
 export { default as SvgIcon } from './SvgIcon';
 export { default as Tile } from './Tile';
+export { default as Tooltip } from './Tooltip';
 export { default as Well } from './Well';
