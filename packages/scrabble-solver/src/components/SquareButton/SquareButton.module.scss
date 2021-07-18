@@ -9,14 +9,6 @@
   cursor: pointer;
   transition: var(--transition);
 
-  &:active,
-  &:focus,
-  &:hover {
-    .label {
-      opacity: 1;
-    }
-  }
-
   &:focus,
   &:hover {
     text-decoration: none;
@@ -30,31 +22,14 @@
 
 .content {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.icon,
-.label {
-  color: inherit;
-  transition: var(--transition);
 }
 
 .icon {
   width: var(--square-button-size);
   height: var(--square-button-size);
   pointer-events: none;
-}
-
-.label {
-  position: absolute;
-  top: calc(100% + var(--spacing--s));
-  padding: var(--spacing--xs);
+  color: inherit;
   transition: var(--transition);
-  opacity: 0;
-  font-size: var(--font--size--xs);
-  text-transform: uppercase;
-  pointer-events: none;
-  user-select: none;
 }

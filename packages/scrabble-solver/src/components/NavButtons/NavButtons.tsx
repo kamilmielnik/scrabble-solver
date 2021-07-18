@@ -29,15 +29,11 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowRem
         rel="noopener noreferrer"
         target="_blank"
         title={translate('github')}
-      >
-        GitHub
-      </SquareButton.Link>
+      />
 
       <div className={styles.separator} />
 
-      <SquareButton className={styles.button} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap}>
-        {translate('keyMap')}
-      </SquareButton>
+      <SquareButton className={styles.button} icon={keyboard} title={translate('keyMap')} onClick={onShowKeyMap} />
 
       <SquareButton
         className={classNames(styles.button, {
@@ -46,19 +42,13 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowRem
         icon={sack}
         title={translate('remaining-tiles')}
         onClick={onShowRemainingTiles}
-      >
-        {translate('remaining-tiles')}
-      </SquareButton>
+      />
 
       <div className={styles.separator} />
 
-      <SquareButton className={styles.button} icon={eraser} title={translate('common.clear')} onClick={onClear}>
-        {translate('common.clear')}
-      </SquareButton>
+      <SquareButton className={styles.button} icon={eraser} title={translate('common.clear')} onClick={onClear} />
 
-      <SquareButton className={styles.button} icon={cog} title={translate('settings')} onClick={onShowSettings}>
-        {translate('settings')}
-      </SquareButton>
+      <SquareButton className={styles.button} icon={cog} title={translate('settings')} onClick={onShowSettings} />
     </div>
   );
 };
