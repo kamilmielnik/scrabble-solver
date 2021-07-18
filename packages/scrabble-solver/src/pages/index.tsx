@@ -76,7 +76,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     <>
       <div className={classNames(styles.index, { [styles.initialized]: isInitialized })}>
         <div className={styles.nav}>
-          <div className={styles.logoContainer} title={`scrabble-solver@${version}`}>
+          <div className={styles.logoContainer}>
             <Logo className={styles.logo} />
           </div>
 
@@ -116,6 +116,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           <Rack className={styles.rack} />
           <input className={styles.submitInput} tabIndex={-1} type="submit" />
         </form>
+
+        <span className={styles.version}>v{version}</span>
       </div>
 
       <Settings isOpen={showSettings} onClose={() => setShowSettings(false)} />
