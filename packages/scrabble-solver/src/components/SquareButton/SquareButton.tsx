@@ -15,10 +15,10 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const SquareButton: FunctionComponent<Props> = ({ className, icon, tooltip, ...props }) => {
-  const attributes = useTooltip(tooltip, props);
+  const triggerProps = useTooltip(tooltip, props);
 
   return (
-    <button className={classNames(styles.squareButton, className)} type="button" {...attributes} {...props}>
+    <button className={classNames(styles.squareButton, className)} type="button" {...triggerProps} {...props}>
       <span className={styles.content}>
         <SvgIcon className={styles.icon} icon={icon} />
       </span>
