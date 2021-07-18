@@ -26,7 +26,7 @@ interface Props {
 const Tooltip: FunctionComponent<Props> = ({ children, className, placement = 'top', tooltip }) => {
   const id = useUniqueId();
   const isEnabled = Boolean(tooltip) || tooltip === 0;
-  const [isShown, setIsShown] = useState<boolean>(true);
+  const [isShown, setIsShown] = useState<boolean>(false);
   const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
   const [popperElement, setPopperElement] = useState<HTMLElement | null>(null);
   const [arrowElement, setArrowElement] = useState<HTMLElement | null>(null);
