@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent, ReactNode, useState } from 'react';
 import { usePopper } from 'react-popper';
+import { Portal } from 'react-portal';
 
 import { useUniqueId } from 'hooks';
 
@@ -54,22 +55,24 @@ const Tooltip: FunctionComponent<Props> = ({ children, className, placement = 't
       })}
 
       {isEnabled && isShown && (
-        <div
-          className={classNames(styles.tooltip, className, {
-            [styles.top]: computedPlacement === 'top',
-            [styles.right]: computedPlacement === 'right',
-            [styles.bottom]: computedPlacement === 'bottom',
-            [styles.left]: computedPlacement === 'left',
-          })}
-          ref={setPopperElement}
-          style={popperStyles.popper}
-          onMouseEnter={onShow}
-          onMouseLeave={onHide}
-          {...attributes.popper}
-        >
-          <div>{tooltip}</div>
-          <div className={styles.arrow} ref={setArrowElement} style={popperStyles.arrow} />
-        </div>
+        <Portal>
+          <div
+            className={classNames(styles.tooltip, className, {
+              [styles.top]: computedPlacement === 'top',
+              [styles.right]: computedPlacement === 'right',
+              [styles.bottom]: computedPlacement === 'bottom',
+              [styles.left]: computedPlacement === 'left',
+            })}
+            ref={setPopperElement}
+            style={popperStyles.popper}
+            onMouseEnter={onShow}
+            onMouseLeave={onHide}
+            {...attributes.popper}
+          >
+            <div>{tooltip}</div>
+            <div className={styles.arrow} ref={setArrowElement} style={popperStyles.arrow} />
+          </div>
+        </Portal>
       )}
     </>
   );
