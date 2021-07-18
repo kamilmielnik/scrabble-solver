@@ -16,7 +16,8 @@ import EmptyState from '../EmptyState';
 import Loading from '../Loading';
 import ResultsInput from '../ResultsInput';
 
-import Header from './Header';
+import { COLUMNS } from './constants';
+import HeaderButton from './HeaderButton';
 import Result from './Result';
 import styles from './Results.module.scss';
 import SolveButton from './SolveButton';
@@ -35,7 +36,11 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
 
   return (
     <div className={styles.results}>
-      <Header />
+      <div className={styles.header}>
+        {COLUMNS.map((column) => (
+          <HeaderButton column={column} key={column.id} />
+        ))}
+      </div>
 
       {typeof results === 'undefined' && (
         <EmptyState className={styles.emptyState} type="info">
