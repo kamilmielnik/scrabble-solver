@@ -37,9 +37,7 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, isOpen, title,
     >
       <div className={classNames(styles.sidebar, className)}>
         <div className={styles.header}>
-          <h1 className={styles.title} title={title}>
-            {title}
-          </h1>
+          <h1 className={styles.title}>{title}</h1>
 
           <SquareButton
             className={styles.closeButton}
