@@ -13,7 +13,7 @@ import {
 import { ResultColumn, SortDirection } from 'types';
 
 import SvgIcon from '../SvgIcon';
-import Tooltip from '../Tooltip';
+import { useTooltip } from '../Tooltip';
 
 import styles from './Results.module.scss';
 import { Column } from './types';
@@ -27,39 +27,28 @@ const HeaderButton = ({ column }: Props): ReactElement => {
   const translate = useTranslate();
   const sortColumn = useTypedSelector(selectResultsSortColumn);
   const sortDirection = useTypedSelector(selectResultsSortDirection);
+  const triggerProps = useTooltip(translate(column.translationKey));
 
   const handleOrderChange = (columnId: ResultColumn) => {
     dispatch(resultsSlice.actions.sort(columnId));
   };
 
   return (
-    <Tooltip tooltip={translate(column.translationKey)}>
-      {({ ariaAttributes, setReferenceElement, onHide, onShow }) => (
-        <button
-          {...ariaAttributes}
-          className={classNames(styles.headerButton, column.className)}
-          key={column.id}
-          ref={setReferenceElement}
-          type="button"
-          onBlur={onHide}
-          onClick={() => handleOrderChange(column.id)}
-          onFocus={onShow}
-          onMouseOut={onHide}
-          onMouseOver={onShow}
-        >
-          <span className={styles.cell}>
-            <span className={styles.headerButtonLabel}>{translate(column.translationKey)}</span>
+    <button
+      className={classNames(styles.headerButton, column.className)}
+      key={column.id}
+      type="button"
+      onClick={() => handleOrderChange(column.id)}
+      {...triggerProps}
+    >
+      <span className={styles.cell}>
+        <span className={styles.headerButtonLabel}>{translate(column.translationKey)}</span>
 
-            {sortColumn === column.id && (
-              <SvgIcon
-                className={styles.sortIcon}
-                icon={sortDirection === SortDirection.Ascending ? sortUp : sortDown}
-              />
-            )}
-          </span>
-        </button>
-      )}
-    </Tooltip>
+        {sortColumn === column.id && (
+          <SvgIcon className={styles.sortIcon} icon={sortDirection === SortDirection.Ascending ? sortUp : sortDown} />
+        )}
+      </span>
+    </button>
   );
 };
 
