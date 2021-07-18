@@ -99,9 +99,12 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
     padding-right: $row-padding-horizontal;
   }
 
+  .result &:last-child {
+    justify-content: flex-end;
+  }
+
   &:last-child {
     flex: 1;
-    text-align: right;
   }
 }
 
@@ -118,7 +121,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
   flex: 0 0 $width;
   max-width: $width;
-  text-align: center;
+  justify-content: center;
 }
 
 .points {
