@@ -63,8 +63,6 @@ const useTooltip = (
         })}
         ref={setPopperElement}
         style={popperStyles.popper}
-        onMouseEnter={onShow}
-        onMouseLeave={onHide}
         {...attributes.popper}
       >
         <div>{tooltip}</div>
