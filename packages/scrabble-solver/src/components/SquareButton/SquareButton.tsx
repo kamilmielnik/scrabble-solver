@@ -1,8 +1,6 @@
 import classNames from 'classnames';
 import React, { ButtonHTMLAttributes, FunctionComponent, MouseEventHandler } from 'react';
 
-import { noop } from 'lib';
-
 import SvgIcon from '../SvgIcon';
 import { useTooltip } from '../Tooltip';
 
@@ -16,42 +14,11 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const SquareButton: FunctionComponent<Props> = ({
-  className,
-  icon,
-  tooltip,
-  onBlur = noop,
-  onFocus = noop,
-  onMouseOut = noop,
-  onMouseOver = noop,
-  ...props
-}) => {
-  const { ariaAttributes, onHide, onShow, setReferenceElement } = useTooltip(tooltip);
+const SquareButton: FunctionComponent<Props> = ({ className, icon, tooltip, ...props }) => {
+  const attributes = useTooltip(tooltip, props);
 
   return (
-    <button
-      {...ariaAttributes}
-      className={classNames(styles.squareButton, className)}
-      ref={setReferenceElement}
-      type="button"
-      onBlur={(event) => {
-        onHide();
-        onBlur(event);
-      }}
-      onFocus={(event) => {
-        onShow();
-        onFocus(event);
-      }}
-      onMouseOut={(event) => {
-        onHide();
-        onMouseOut(event);
-      }}
-      onMouseOver={(event) => {
-        onShow();
-        onMouseOver(event);
-      }}
-      {...props}
-    >
+    <button className={classNames(styles.squareButton, className)} type="button" {...attributes} {...props}>
       <span className={styles.content}>
         <SvgIcon className={styles.icon} icon={icon} />
       </span>
