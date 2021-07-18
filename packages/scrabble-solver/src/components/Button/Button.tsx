@@ -7,7 +7,6 @@ import Link from './Link';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon: BrowserSpriteSymbol;
-  title: string;
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
