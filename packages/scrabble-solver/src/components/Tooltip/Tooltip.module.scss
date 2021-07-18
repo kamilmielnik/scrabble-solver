@@ -2,6 +2,7 @@ $arrow-size: 4px;
 
 :export {
   ARROW_SIZE: $arrow-size;
+  PREVENT_OVERFLOW: 10px;
   OFFSET: 2px;
 }
 
