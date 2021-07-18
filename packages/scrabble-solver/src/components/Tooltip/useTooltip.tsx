@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FocusEventHandler, MouseEventHandler, ReactNode, useState } from 'react';
+import React, { FocusEventHandler, MouseEventHandler, ReactNode, useCallback, useMemo, useState } from 'react';
 import { usePopper } from 'react-popper';
 
 import { useUniqueId } from 'hooks';
@@ -42,15 +42,59 @@ const useTooltip = (
     placement,
   });
   const computedPlacement = attributes.popper ? attributes.popper['data-popper-placement'] : placement;
-  const ariaAttributes = isShown ? { 'aria-describedby': id } : {};
+  const ariaAttributes = useMemo(() => (isShown ? { 'aria-describedby': id } : {}), [id, isShown]);
 
-  const onHide = () => {
+  const onHide = useCallback(() => {
     setIsShown(false);
-  };
+  }, []);
 
-  const onShow = () => {
+  const onShow = useCallback(() => {
     setIsShown(true);
-  };
+  }, []);
+
+  const handleBlur = useCallback(
+    (event) => {
+      onBlur(event);
+      onHide();
+    },
+    [onBlur, onHide],
+  );
+
+  const handleFocus = useCallback(
+    (event) => {
+      onFocus(event);
+      onShow();
+    },
+    [onFocus, onShow],
+  );
+
+  const handleMouseOut = useCallback(
+    (event) => {
+      onMouseOut(event);
+      onHide();
+    },
+    [onMouseOut, onHide],
+  );
+
+  const handleMouseOver = useCallback(
+    (event) => {
+      onMouseOver(event);
+      onShow();
+    },
+    [onMouseOver, onShow],
+  );
+
+  const triggerProps = useMemo(
+    () => ({
+      ...ariaAttributes,
+      ref: setReferenceElement,
+      onBlur: handleBlur,
+      onFocus: handleFocus,
+      onMouseOut: handleMouseOut,
+      onMouseOver: handleMouseOver,
+    }),
+    [ariaAttributes, handleBlur, handleFocus, handleMouseOut, handleMouseOver],
+  );
 
   usePortal(
     <div
@@ -70,26 +114,7 @@ const useTooltip = (
     { disabled: !isEnabled || !isShown },
   );
 
-  return {
-    ...ariaAttributes,
-    ref: setReferenceElement,
-    onBlur: (event) => {
-      onBlur(event);
-      onHide();
-    },
-    onFocus: (event) => {
-      onFocus(event);
-      onShow();
-    },
-    onMouseOut: (event) => {
-      onMouseOut(event);
-      onHide();
-    },
-    onMouseOver: (event) => {
-      onMouseOver(event);
-      onShow();
-    },
-  };
+  return triggerProps;
 };
 
 export default useTooltip;
