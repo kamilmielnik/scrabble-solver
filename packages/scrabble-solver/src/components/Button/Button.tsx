@@ -3,11 +3,10 @@ import React, { ButtonHTMLAttributes, FunctionComponent, MouseEventHandler, Reac
 
 import { noop } from 'lib';
 
+import SvgIcon from '../SvgIcon';
 import Tooltip from '../Tooltip';
 
 import styles from './Button.module.scss';
-import Content from './Content';
-import Link from './Link';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon: BrowserSpriteSymbol;
@@ -51,12 +50,13 @@ const Button: FunctionComponent<Props> = ({
         }}
         {...props}
       >
-        <Content icon={icon}>{children}</Content>
+        <span className={styles.content}>
+          <span className={styles.label}>{children}</span>
+          <SvgIcon className={styles.icon} icon={icon} />
+        </span>
       </button>
     )}
   </Tooltip>
 );
 
-export default Object.assign(Button, {
-  Link,
-});
+export default Button;
