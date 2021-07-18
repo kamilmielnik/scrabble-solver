@@ -1,9 +1,6 @@
 $size: 32px;
 
 .navButtons {
-  position: relative;
-  top: calc(-1 * var(--spacing--xs));
-  right: calc(-1 * var(--spacing--xs));
   display: flex;
   align-items: center;
 }
@@ -20,9 +17,6 @@ $size: 32px;
 .separator {
   margin-right: calc(var(--spacing--l) - var(--spacing--xs));
   margin-left: var(--spacing--xs);
-}
-
-.separator {
   border-right: var(--border);
   border-color: var(--color--inactive);
   height: calc(#{$size} - 2 * var(--spacing--xs));
