@@ -2,10 +2,11 @@ $arrow-size: 4px;
 
 :export {
   ARROW_SIZE: $arrow-size;
+  OFFSET: 2px;
 }
 
 .tooltip {
-  padding: var(--spacing--m) var(--spacing--l);
+  padding: var(--spacing--s) var(--spacing--m);
   box-shadow: var(--box-shadow);
   border-radius: var(--border--radius);
   background-color: var(--tooltip--background);

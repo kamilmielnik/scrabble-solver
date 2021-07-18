@@ -1,6 +1,7 @@
 import styles from './Tooltip.module.scss';
 
 const ARROW_SIZE = parseInt(styles.ARROW_SIZE, 10);
+const OFFSET = parseInt(styles.OFFSET, 10);
 
 export const MODIFIERS = [
   {
@@ -21,7 +22,7 @@ export const MODIFIERS = [
   {
     name: 'offset',
     options: {
-      offset: [0, ARROW_SIZE],
+      offset: [0, OFFSET + ARROW_SIZE],
     },
   },
 ];
