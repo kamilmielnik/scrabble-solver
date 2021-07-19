@@ -32,7 +32,6 @@ const SolveButton: FunctionComponent = () => {
       className={styles.outdatedButton}
       disabled={isLoading || !isOutdated || !hasTiles}
       icon={play}
-      title={translate('results.solve')}
       type="submit"
       onClick={handleRefresh}
     >

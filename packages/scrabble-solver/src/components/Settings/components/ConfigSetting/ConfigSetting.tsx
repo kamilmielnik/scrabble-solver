@@ -31,7 +31,6 @@ const ConfigSetting: FunctionComponent<Props> = ({ className, disabled }) => {
           id="configId"
           key={option.value}
           name="configId"
-          title={option.label}
           value={option.value}
           onChange={handleChange}
         >

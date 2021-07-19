@@ -1,22 +1,28 @@
 import classNames from 'classnames';
-import React, { ButtonHTMLAttributes, FunctionComponent, MouseEventHandler } from 'react';
+import React, { ButtonHTMLAttributes, FunctionComponent, MouseEventHandler, ReactNode } from 'react';
+
+import SvgIcon from '../SvgIcon';
+import { useTooltip } from '../Tooltip';
 
 import styles from './Button.module.scss';
-import Content from './Content';
-import Link from './Link';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon: BrowserSpriteSymbol;
-  title: string;
   onClick: MouseEventHandler<HTMLButtonElement>;
+  tooltip?: ReactNode;
 }
 
-const Button: FunctionComponent<Props> = ({ children, className, icon, ...props }) => (
-  <button className={classNames(styles.button, className)} type="button" {...props}>
-    <Content icon={icon}>{children}</Content>
-  </button>
-);
+const Button: FunctionComponent<Props> = ({ children, className, icon, tooltip, ...props }) => {
+  const triggerProps = useTooltip(tooltip, props);
 
-export default Object.assign(Button, {
-  Link,
-});
+  return (
+    <button className={classNames(styles.button, className)} type="button" {...props} {...triggerProps}>
+      <span className={styles.content}>
+        <span className={styles.label}>{children}</span>
+        <SvgIcon className={styles.icon} icon={icon} />
+      </span>
+    </button>
+  );
+};
+
+export default Button;

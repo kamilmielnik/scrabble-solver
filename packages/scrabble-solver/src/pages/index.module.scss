@@ -127,3 +127,13 @@
 .submitInput {
   display: none;
 }
+
+.version {
+  position: fixed;
+  bottom: var(--spacing--m);
+  left: 0;
+  right: 0;
+  font-size: var(--font--size--xs);
+  color: var(--color--background);
+  text-align: center;
+}

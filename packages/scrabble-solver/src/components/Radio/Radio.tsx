@@ -10,28 +10,16 @@ interface Props {
   disabled?: boolean;
   id: string;
   name: string;
-  title: string;
   value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-const Radio: FunctionComponent<Props> = ({
-  checked,
-  children,
-  className,
-  disabled,
-  id,
-  name,
-  title,
-  value,
-  onChange,
-}) => (
+const Radio: FunctionComponent<Props> = ({ checked, children, className, disabled, id, name, value, onChange }) => (
   <label
     className={classNames(styles.radio, className, {
       [styles.checked]: checked,
     })}
     htmlFor={id}
-    title={title}
   >
     <input
       checked={checked}

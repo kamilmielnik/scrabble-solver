@@ -77,7 +77,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   display: flex;
   align-items: center;
   justify-content: space-between;
-  text-align: left;
 
   .word {
     @include ellipsis;
@@ -87,11 +86,14 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 .cell {
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: var(--spacing--s);
 
   .result &:first-child,
   .headerButton:first-child & {
     padding-left: $row-padding-horizontal;
+    justify-content: flex-start;
+    text-align: left;
   }
 
   .result &:last-child,
@@ -101,7 +103,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
   &:last-child {
     flex: 1;
-    text-align: right;
   }
 }
 
@@ -118,7 +119,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
   flex: 0 0 $width;
   max-width: $width;
-  text-align: center;
+  justify-content: center;
 }
 
 .points {
