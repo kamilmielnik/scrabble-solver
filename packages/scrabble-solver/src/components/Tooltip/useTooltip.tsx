@@ -43,44 +43,36 @@ const useTooltip = (
   const computedPlacement = attributes.popper ? attributes.popper['data-popper-placement'] : placement;
   const ariaAttributes = useMemo(() => (isShown ? { 'aria-describedby': id } : {}), [id, isShown]);
 
-  const onHide = useCallback(() => {
-    setIsShown(false);
-  }, []);
-
-  const onShow = useCallback(() => {
-    setIsShown(true);
-  }, []);
-
   const handleBlur = useCallback(
     (event) => {
       onBlur(event);
-      onHide();
+      setIsShown(false);
     },
-    [onBlur, onHide],
+    [onBlur],
   );
 
   const handleFocus = useCallback(
     (event) => {
       onFocus(event);
-      onShow();
+      setIsShown(true);
     },
-    [onFocus, onShow],
+    [onFocus],
   );
 
   const handleMouseOut = useCallback(
     (event) => {
       onMouseOut(event);
-      onHide();
+      setIsShown(false);
     },
-    [onMouseOut, onHide],
+    [onMouseOut],
   );
 
   const handleMouseOver = useCallback(
     (event) => {
       onMouseOver(event);
-      onShow();
+      setIsShown(true);
     },
-    [onMouseOver, onShow],
+    [onMouseOver],
   );
 
   const triggerProps = useMemo(
