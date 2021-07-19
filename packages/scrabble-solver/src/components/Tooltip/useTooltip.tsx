@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { FocusEventHandler, MouseEventHandler, ReactNode, useCallback, useMemo, useState } from 'react';
 import { usePopper } from 'react-popper';
+import { useMountedState, useRafLoop } from 'react-use';
 
 import { usePortal, useUniqueId } from 'hooks';
 import { noop } from 'lib';
@@ -32,11 +33,12 @@ const useTooltip = (
 ): TriggerProps => {
   const id = useUniqueId();
   const isEnabled = Boolean(tooltip) || tooltip === 0;
+  const isMounted = useMountedState();
   const [isShown, setIsShown] = useState<boolean>(false);
   const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
   const [popperElement, setPopperElement] = useState<HTMLElement | null>(null);
   const [arrowElement, setArrowElement] = useState<HTMLElement | null>(null);
-  const { attributes, styles: popperStyles } = usePopper(referenceElement, popperElement, {
+  const { attributes, styles: popperStyles, update } = usePopper(referenceElement, popperElement, {
     modifiers: [{ name: 'arrow', options: { element: arrowElement } }, ...MODIFIERS],
     placement,
   });
@@ -86,6 +88,12 @@ const useTooltip = (
     }),
     [ariaAttributes, handleBlur, handleFocus, handleMouseOut, handleMouseOver],
   );
+
+  useRafLoop(() => {
+    if (isMounted() && update) {
+      update();
+    }
+  });
 
   usePortal(
     <div
