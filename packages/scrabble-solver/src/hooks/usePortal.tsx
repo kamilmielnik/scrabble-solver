@@ -2,7 +2,7 @@ import React, { ReactNode, useLayoutEffect, useMemo } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { Portal } from 'react-portal';
 
-import { noop } from 'lib';
+import { canUseDom, noop } from 'lib';
 
 interface Props {
   disabled?: boolean;
@@ -10,8 +10,6 @@ interface Props {
 }
 
 type TagName = Parameters<typeof document.createElement>[0];
-
-const canUseDom = typeof window !== 'undefined' && window.document && window.document.createElement;
 
 const usePortal = (children: ReactNode, { disabled = false, tagName = 'div' }: Props = {}): void => {
   const element = useMemo(() => document.createElement(tagName), [tagName]);

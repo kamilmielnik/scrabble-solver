@@ -1,3 +1,4 @@
+export { default as canUseDom } from './canUseDom';
 export { default as comparator } from './comparator';
 export { default as createArray } from './createArray';
 export { default as createGridOf } from './createGridOf';
