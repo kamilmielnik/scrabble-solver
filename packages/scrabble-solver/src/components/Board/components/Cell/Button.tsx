@@ -20,8 +20,8 @@ const Button: FunctionComponent<Props> = ({ children, className, tooltip, ...pro
       // because alternative key combos are provided.
       tabIndex={-1}
       type="button"
-      {...triggerProps}
       {...props}
+      {...triggerProps}
     >
       {children}
     </button>

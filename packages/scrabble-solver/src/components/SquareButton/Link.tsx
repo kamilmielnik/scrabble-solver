@@ -17,7 +17,7 @@ const Link: FunctionComponent<Props> = ({ className, icon, tooltip, ...props }) 
   const triggerProps = useTooltip(tooltip, props);
 
   return (
-    <a className={classNames(styles.squareButton, className)} type="button" {...triggerProps} {...props}>
+    <a className={classNames(styles.squareButton, className)} type="button" {...props} {...triggerProps}>
       <span className={styles.content}>
         <SvgIcon className={styles.icon} icon={icon} />
       </span>
