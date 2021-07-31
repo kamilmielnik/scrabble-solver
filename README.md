@@ -42,7 +42,7 @@ Open http://localhost:3333/ if it didn't open up for you.
 ```Shell
 npm uninstall -g scrabble-solver
 
-# The package stores logs and dicionaries in $HOME/.scrabble-solver
+# The package stores logs and dictionaries in $HOME/.scrabble-solver
 # It uses os.homedir() to get $HOME location.
 rm -rf $HOME/.scrabble-solver
 ```
