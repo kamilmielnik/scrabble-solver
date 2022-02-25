@@ -7,6 +7,7 @@ import parseEnglish from './parseEnglish';
 import parseFrench from './parseFrench';
 import parsePolish from './parsePolish';
 import parseSpanish from './parseSpanish';
+import parseGerman from './parseGerman';
 
 const parsePerLocale: Record<Locale, (html: string) => ParseResult> = {
   [Locale.EN_GB]: parseEnglish,
@@ -14,10 +15,11 @@ const parsePerLocale: Record<Locale, (html: string) => ParseResult> = {
   [Locale.ES_ES]: parseSpanish,
   [Locale.FR_FR]: parseFrench,
   [Locale.PL_PL]: parsePolish,
+  [Locale.DE_DE]: parseGerman,
 };
 
 const parse = (locale: Locale, html: string): ParseResult => {
-  const { definitions, isAllowed } = parsePerLocale[locale](html);
+  const {definitions, isAllowed} = parsePerLocale[locale](html);
 
   return {
     definitions: unique(definitions.map(normalizeDefinition).filter(Boolean)),

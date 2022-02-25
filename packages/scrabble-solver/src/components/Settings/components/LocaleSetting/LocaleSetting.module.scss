@@ -57,4 +57,10 @@
 
     width: $height * $aspect-ratio;
   }
+
+  &.de {
+    $aspect-ratio: 1.6;
+
+    width: $height * $aspect-ratio;
+  }
 }

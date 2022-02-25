@@ -5,6 +5,7 @@ enum Locale {
   ES_ES = 'es-ES',
   FR_FR = 'fr-FR',
   PL_PL = 'pl-PL',
+  DE_DE = 'de-DE',
 }
 
 export default Locale;
