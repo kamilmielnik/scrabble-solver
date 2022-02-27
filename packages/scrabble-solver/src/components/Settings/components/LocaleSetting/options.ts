@@ -31,6 +31,12 @@ const options: Option[] = [
     value: Locale.FR_FR,
   },
   {
+    className: styles.de,
+    icon: flagDe,
+    label: 'German',
+    value: Locale.DE_DE,
+  },
+  {
     className: styles.pl,
     icon: flagPl,
     label: 'Polski',
@@ -41,12 +47,6 @@ const options: Option[] = [
     icon: flagEs,
     label: 'Español',
     value: Locale.ES_ES,
-  },
-  {
-    className: styles.de,
-    icon: flagDe,
-    label: 'German',
-    value: Locale.DE_DE,
   },
 ];
 
