@@ -5,6 +5,7 @@ import { ParseResult } from '../types';
 
 import parseEnglish from './parseEnglish';
 import parseFrench from './parseFrench';
+import parseGerman from './parseGerman';
 import parsePolish from './parsePolish';
 import parseSpanish from './parseSpanish';
 
@@ -14,6 +15,7 @@ const parsePerLocale: Record<Locale, (html: string) => ParseResult> = {
   [Locale.ES_ES]: parseSpanish,
   [Locale.FR_FR]: parseFrench,
   [Locale.PL_PL]: parsePolish,
+  [Locale.DE_DE]: parseGerman,
 };
 
 const parse = (locale: Locale, html: string): ParseResult => {

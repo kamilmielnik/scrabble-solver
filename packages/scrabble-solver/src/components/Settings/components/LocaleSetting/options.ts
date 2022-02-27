@@ -1,6 +1,6 @@
 import { Locale } from '@scrabble-solver/types';
 
-import { flagEs, flagFr, flagGb, flagPl, flagUs } from 'icons';
+import { flagEs, flagFr, flagGb, flagPl, flagUs, flagDe } from 'icons';
 
 import styles from './LocaleSetting.module.scss';
 
@@ -41,6 +41,12 @@ const options: Option[] = [
     icon: flagEs,
     label: 'Español',
     value: Locale.ES_ES,
+  },
+  {
+    className: styles.de,
+    icon: flagDe,
+    label: 'German',
+    value: Locale.DE_DE,
   },
 ];
 

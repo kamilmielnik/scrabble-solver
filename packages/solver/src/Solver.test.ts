@@ -46,7 +46,7 @@ describe('Solver - PL', () => {
     ]);
     const tiles = generateTiles(['l', 'i', 'n', 'o']);
     const results = solver!.solve(board, tiles);
-    expect(results.length).toBe(60);
+    expect(results.length).toBe(61);
   });
 
   it('zmartwychwstałą x9', () => {

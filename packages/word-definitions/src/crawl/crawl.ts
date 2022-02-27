@@ -2,6 +2,7 @@ import { Locale } from '@scrabble-solver/types';
 
 import crawlEnglish from './crawlEnglish';
 import crawlFrench from './crawlFrench';
+import crawlGerman from './crawlGerman';
 import crawlPolish from './crawlPolish';
 import crawlSpanish from './crawlSpanish';
 
@@ -11,6 +12,7 @@ const crawlPerLocale: Record<Locale, (word: string) => Promise<string>> = {
   [Locale.ES_ES]: crawlSpanish,
   [Locale.FR_FR]: crawlFrench,
   [Locale.PL_PL]: crawlPolish,
+  [Locale.DE_DE]: crawlGerman,
 };
 
 const crawl = (locale: Locale, word: string): Promise<string> => {
