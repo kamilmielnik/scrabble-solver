@@ -2,9 +2,9 @@ import { Locale } from '@scrabble-solver/types';
 
 import crawlEnglish from './crawlEnglish';
 import crawlFrench from './crawlFrench';
+import crawlGerman from './crawlGerman';
 import crawlPolish from './crawlPolish';
 import crawlSpanish from './crawlSpanish';
-import crawlGerman from './crawlGerman';
 
 const crawlPerLocale: Record<Locale, (word: string) => Promise<string>> = {
   [Locale.EN_GB]: crawlEnglish,
