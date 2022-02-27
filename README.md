@@ -4,7 +4,7 @@
 
 The ultimate cheating app for [Scrabble](https://en.wikipedia.org/wiki/Scrabble) and [Literaki](https://pl.wikipedia.org/wiki/Literaki).
 
-Available at https://scrabble-solver.kamilmielnik.com/ in English, French, Polish, Spanish & German.
+Available at https://scrabble-solver.org/ in English, French, German, Polish & Spanish.
 
 Run it locally for better performance (your machine surely is faster than that server).
 

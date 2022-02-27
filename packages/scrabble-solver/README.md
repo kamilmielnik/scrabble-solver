@@ -2,7 +2,7 @@
 
 The Scrabble Solver app.
 
-Available at: https://scrabble-solver.kamilmielnik.com/
+Available at: https://scrabble-solver.org/
 
 ## Scripts
 
