@@ -2,7 +2,7 @@
 
 # scrabble-solver
 
-The ultimate cheating app for [Scrabble](https://en.wikipedia.org/wiki/Scrabble) and [Literaki](https://pl.wikipedia.org/wiki/Literaki).
+The ultimate, open-source cheating app for [Scrabble](https://en.wikipedia.org/wiki/Scrabble) and [Literaki](https://pl.wikipedia.org/wiki/Literaki).
 
 Available at https://scrabble-solver.org/ in English, French, German, Polish & Spanish.
 

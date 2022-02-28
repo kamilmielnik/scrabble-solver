@@ -7,10 +7,11 @@ import { createAppStore } from 'state';
 
 import 'styles/global.scss';
 
-const DESCRIPTION = 'Scrabble Solver 2 - The ultimate cheating app for Scrabble and Literaki';
+const DESCRIPTION = 'Scrabble Solver 2 - The ultimate, open-source cheating app for Scrabble and Literaki';
 const KEYWORDS = [
   'Scrabble',
   'Solver',
+  'Open-source',
   'Finder',
   'Cheating',
   'Literaki',
