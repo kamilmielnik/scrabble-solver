@@ -53,6 +53,10 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
     </Head>
 
     <Provider store={store}>
+      <p style={{ fontSize: 0 }}>
+        Scrabble Solver 2 is the most popular, online, open-source, cheating app for Scrabble. It's available in
+        English, French, German, Polish &amp; Spanish! Source code is available on GitHub - contributions are welcome!
+      </p>
       <Component {...pageProps} />
     </Provider>
   </>
