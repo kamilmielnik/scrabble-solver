@@ -17,6 +17,7 @@ const KEYWORDS = [
   'Word',
   'English',
   'Français',
+  'Deutsch',
   'Polski',
   'Español',
   'SOWPODS',

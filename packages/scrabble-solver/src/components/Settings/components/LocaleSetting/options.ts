@@ -33,7 +33,7 @@ const options: Option[] = [
   {
     className: styles.de,
     icon: flagDe,
-    label: 'German',
+    label: 'Deutsch',
     value: Locale.DE_DE,
   },
   {
