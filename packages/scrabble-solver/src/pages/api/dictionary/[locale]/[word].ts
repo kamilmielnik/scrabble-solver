@@ -25,11 +25,9 @@ const dictionary = async (request: NextApiRequest, response: NextApiResponse): P
     const result = await getWordDefinition(locale, word);
     response.status(200).send(result.toJson());
   } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
     logger.error('dictionary - error', { error, meta });
-    response.status(500).send({
-      error: 'Server error',
-      message: error.message,
-    });
+    response.status(500).send({ error: 'Server error', message });
   }
 };
 

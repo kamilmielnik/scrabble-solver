@@ -15,7 +15,8 @@ const validateCharacters = (characters: unknown, config: Config): void => {
     try {
       validateCharacter(character, config);
     } catch (error) {
-      throw new Error(`Invalid "characters" parameter: characters[${characterIndex}] ${error.message}`);
+      const message = error instanceof Error ? error.message : 'unknown';
+      throw new Error(`Invalid "characters" parameter: characters[${characterIndex}] ${message}`);
     }
   });
 };

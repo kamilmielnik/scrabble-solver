@@ -38,11 +38,9 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
     const results = solver.solve(board, tiles);
     response.status(200).send(results.map((result) => result.toJson()));
   } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
     logger.error('solve - error', { error, meta });
-    response.status(500).send({
-      error: 'Server error',
-      message: error.message,
-    });
+    response.status(500).send({ error: 'Server error', message });
   }
 };
 

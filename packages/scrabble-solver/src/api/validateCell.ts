@@ -32,7 +32,8 @@ const validateCell = (cell: unknown, rowIndex: number, cellIndex: number, config
   try {
     validateTile(tile, config);
   } catch (error) {
-    throw new Error(`board[${rowIndex}][${cellIndex}].tile ${error.message}`);
+    const message = error instanceof Error ? error.message : 'unknown';
+    throw new Error(`board[${rowIndex}][${cellIndex}].tile ${message}`);
   }
 };
 

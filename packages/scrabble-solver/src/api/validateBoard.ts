@@ -15,7 +15,8 @@ const validateBoard = (board: unknown, config: Config): void => {
     board.forEach((row, rowIndex) => validateRow(row, rowIndex, config));
     validateTwoCharacterTiles(board, config);
   } catch (error) {
-    throw new Error(`Invalid "board" parameter: ${error.message}`);
+    const message = error instanceof Error ? error.message : 'unknown';
+    throw new Error(`Invalid "board" parameter: ${message}`);
   }
 };
 
