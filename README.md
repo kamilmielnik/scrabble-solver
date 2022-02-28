@@ -1,10 +1,12 @@
 ![alt Scrabble Solver 2](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/img/logo.png)
 
+https://scrabble-solver.org
+
 # scrabble-solver
 
 The ultimate, open-source cheating app for [Scrabble](https://en.wikipedia.org/wiki/Scrabble) and [Literaki](https://pl.wikipedia.org/wiki/Literaki).
 
-Available at https://scrabble-solver.org/ in English, French, German, Polish & Spanish.
+Available at https://scrabble-solver.org in English, French, German, Polish & Spanish.
 
 Run it locally for better performance (your machine surely is faster than that server).
 
