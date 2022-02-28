@@ -42,6 +42,14 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
       <meta name="keywords" content={KEYWORDS} />
       <meta name="robots" content="index, follow, notranslate, noimageindex" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta property="og:title" content={DESCRIPTION} />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://scrabble-solver.org" />
+      <meta property="og:image" content="https://scrabble-solver.org/og.png" />
+      <meta property="og:image:type" content="image/png" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={DESCRIPTION} />
     </Head>
 
     <Provider store={store}>
