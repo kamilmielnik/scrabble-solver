@@ -4,7 +4,7 @@ const tilesFr = [
   { character: 'c', count: 2, score: 3 },
   { character: 'd', count: 3, score: 2 },
   { character: 'e', count: 15, score: 1 },
-  { character: 'f', count: 2, score: 1 },
+  { character: 'f', count: 2, score: 4 },
   { character: 'g', count: 2, score: 2 },
   { character: 'h', count: 2, score: 4 },
   { character: 'i', count: 8, score: 1 },
