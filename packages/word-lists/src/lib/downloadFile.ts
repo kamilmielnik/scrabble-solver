@@ -1,5 +1,4 @@
-import http from 'http';
-import https from 'https';
+import { http, https } from 'follow-redirects';
 import { Writable } from 'stream';
 
 const downloadFile = (url: string, outputStream: Writable): Promise<void> => {

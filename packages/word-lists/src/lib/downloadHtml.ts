@@ -1,5 +1,4 @@
-import http from 'http';
-import https from 'https';
+import { http, https } from 'follow-redirects';
 
 const downloadHtml = (url: string): Promise<string> => {
   return new Promise((resolve, reject) => {
