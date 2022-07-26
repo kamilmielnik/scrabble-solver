@@ -5,7 +5,7 @@ import { URL } from 'url';
 
 import { downloadFile, downloadHtml, extractWords, getTempFilename } from './lib';
 
-const PAGE_URL = 'https://sjp.pl/slownik/growy/';
+const PAGE_URL = 'https://sjp.pl/sl/growy/';
 const FILE_TO_EXTRACT_FROM_ZIP = 'slowa.txt';
 
 const getPlPlWordList = async (): Promise<string[]> => {
