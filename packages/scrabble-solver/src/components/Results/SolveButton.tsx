@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { play } from 'icons';
+import { Play } from 'icons';
 import {
   selectAreResultsOutdated,
   selectIsLoading,
@@ -31,7 +31,7 @@ const SolveButton: FunctionComponent = () => {
     <Button
       className={styles.outdatedButton}
       disabled={isLoading || !isOutdated || !hasTiles}
-      icon={play}
+      Icon={Play}
       type="submit"
       onClick={handleRefresh}
     >

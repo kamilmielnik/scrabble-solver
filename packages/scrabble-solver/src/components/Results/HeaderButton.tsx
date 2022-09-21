@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { sortDown, sortUp } from 'icons';
+import { SortDown, SortUp } from 'icons';
 import {
   resultsSlice,
   selectResultsSortColumn,
@@ -12,7 +12,6 @@ import {
 } from 'state';
 import { ResultColumn, SortDirection } from 'types';
 
-import SvgIcon from '../SvgIcon';
 import { useTooltip } from '../Tooltip';
 
 import styles from './Results.module.scss';
@@ -45,7 +44,10 @@ const HeaderButton = ({ column }: Props): ReactElement => {
         <span className={styles.headerButtonLabel}>{translate(column.translationKey)}</span>
 
         {sortColumn === column.id && (
-          <SvgIcon className={styles.sortIcon} icon={sortDirection === SortDirection.Ascending ? sortUp : sortDown} />
+          <>
+            {sortDirection === SortDirection.Ascending && <SortUp className={styles.sortIcon} />}
+            {sortDirection === SortDirection.Descending && <SortDown className={styles.sortIcon} />}
+          </>
         )}
       </span>
     </button>

@@ -25,14 +25,14 @@
   },
   "dependencies": {
     "@scrabble-solver/types": "^2.7.2",
-    "cheerio": "^1.0.0-rc.5",
-    "follow-redirects": "^1.15.1",
-    "memfs": "^3.2.0",
+    "cheerio": "^1.0.0-rc.12",
+    "follow-redirects": "^1.15.2",
+    "memfs": "^3.4.7",
     "unzipper": "^0.10.11"
   },
   "devDependencies": {
     "@types/follow-redirects": "^1.14.1",
-    "@types/unzipper": "^0.10.3"
+    "@types/unzipper": "^0.10.5"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }

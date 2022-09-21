@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, useMemo } from 'react';
+import React, { FunctionComponent, ReactNode, useMemo } from 'react';
 
 import { COLOR_BLUE, COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from 'parameters';
 import { useTranslate } from 'state';
@@ -10,8 +10,8 @@ import PlainTiles from '../PlainTiles';
 import styles from './EmptyState.module.scss';
 
 interface Props {
+  children: ReactNode;
   className?: string;
-  tiles?: string[][];
   type: 'error' | 'info' | 'success' | 'warning';
 }
 

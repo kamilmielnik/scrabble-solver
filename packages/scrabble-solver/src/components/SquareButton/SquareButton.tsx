@@ -1,7 +1,6 @@
 import classNames from 'classnames';
-import React, { ButtonHTMLAttributes, FunctionComponent, MouseEventHandler } from 'react';
+import React, { ButtonHTMLAttributes, FunctionComponent, MouseEventHandler, SVGAttributes } from 'react';
 
-import SvgIcon from '../SvgIcon';
 import { useTooltip } from '../Tooltip';
 
 import Link from './Link';
@@ -9,18 +8,18 @@ import styles from './SquareButton.module.scss';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: never;
-  icon: BrowserSpriteSymbol;
+  Icon: FunctionComponent<SVGAttributes<SVGElement>>;
   tooltip: string;
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const SquareButton: FunctionComponent<Props> = ({ className, icon, tooltip, ...props }) => {
+const SquareButton: FunctionComponent<Props> = ({ className, Icon, tooltip, ...props }) => {
   const triggerProps = useTooltip(tooltip, props);
 
   return (
     <button className={classNames(styles.squareButton, className)} type="button" {...props} {...triggerProps}>
       <span className={styles.content}>
-        <SvgIcon className={styles.icon} icon={icon} />
+        <Icon className={styles.icon} />
       </span>
     </button>
   );

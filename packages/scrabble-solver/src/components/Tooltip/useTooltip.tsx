@@ -1,5 +1,14 @@
 import classNames from 'classnames';
-import React, { FocusEventHandler, MouseEventHandler, ReactNode, useCallback, useMemo, useState } from 'react';
+import React, {
+  FocusEvent,
+  FocusEventHandler,
+  MouseEvent,
+  MouseEventHandler,
+  ReactNode,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
 import { usePopper } from 'react-popper';
 import { useMountedState, useRafLoop } from 'react-use';
 
@@ -38,7 +47,11 @@ const useTooltip = (
   const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
   const [popperElement, setPopperElement] = useState<HTMLElement | null>(null);
   const [arrowElement, setArrowElement] = useState<HTMLElement | null>(null);
-  const { attributes, styles: popperStyles, update } = usePopper(referenceElement, popperElement, {
+  const {
+    attributes,
+    styles: popperStyles,
+    update,
+  } = usePopper(referenceElement, popperElement, {
     modifiers: [{ name: 'arrow', options: { element: arrowElement } }, ...MODIFIERS],
     placement,
   });
@@ -46,7 +59,7 @@ const useTooltip = (
   const ariaAttributes = useMemo(() => (isShown ? { 'aria-describedby': id } : {}), [id, isShown]);
 
   const handleBlur = useCallback(
-    (event) => {
+    (event: FocusEvent) => {
       onBlur(event);
       setIsShown(false);
     },
@@ -54,7 +67,7 @@ const useTooltip = (
   );
 
   const handleFocus = useCallback(
-    (event) => {
+    (event: FocusEvent) => {
       onFocus(event);
       setIsShown(true);
     },
@@ -62,7 +75,7 @@ const useTooltip = (
   );
 
   const handleMouseOut = useCallback(
-    (event) => {
+    (event: MouseEvent) => {
       onMouseOut(event);
       setIsShown(false);
     },
@@ -70,7 +83,7 @@ const useTooltip = (
   );
 
   const handleMouseOver = useCallback(
-    (event) => {
+    (event: MouseEvent) => {
       onMouseOver(event);
       setIsShown(true);
     },

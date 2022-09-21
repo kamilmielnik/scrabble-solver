@@ -30,7 +30,6 @@ module.exports = {
 
   globals: {
     beforeAll: true,
-    BrowserSpriteSymbol: true,
     define: true,
     describe: true,
     expect: true,

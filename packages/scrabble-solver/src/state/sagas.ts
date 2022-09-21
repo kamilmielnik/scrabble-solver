@@ -20,7 +20,7 @@ const SUBMIT_DELAY = 150;
 
 const memoizedFindWordDefinition = memoize(findWordDefinition);
 
-export function* rootSaga(): Generator {
+export function* rootSaga(): Generator<any, any, any> {
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
   yield takeEvery(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
   yield takeEvery(settingsSlice.actions.changeConfigId.type, onConfigIdChange);
@@ -31,20 +31,20 @@ export function* rootSaga(): Generator {
   yield takeLatest(solveSlice.actions.submit.type, onSubmit);
 }
 
-function* onApplyResult({ payload: result }: PayloadAction<Result>) {
+function* onApplyResult({ payload: result }: PayloadAction<Result>): Generator<any, any, any> {
   const autoGroupTiles = yield select(selectAutoGroupTiles);
   yield put(boardSlice.actions.applyResult(result));
   yield put(rackSlice.actions.removeTiles(result.tiles));
   yield put(rackSlice.actions.groupTiles(autoGroupTiles));
 }
 
-function* onConfigIdChange() {
+function* onConfigIdChange(): Generator<any, any, any> {
   yield put(resultsSlice.actions.reset());
   yield put(solveSlice.actions.submit());
   yield* ensureProperTilesCount();
 }
 
-function* onDictionarySubmit() {
+function* onDictionarySubmit(): Generator<any, any, any> {
   const { input: word } = yield select(selectDictionary);
   const locale = yield select(selectLocale);
 
@@ -60,32 +60,32 @@ function* onDictionarySubmit() {
   }
 }
 
-function* onInitialize() {
+function* onInitialize(): Generator<any, any, any> {
   yield call(visit);
   yield* ensureProperTilesCount();
 }
 
-function* onReset() {
+function* onReset(): Generator<any, any, any> {
   yield put(boardSlice.actions.reset());
   yield put(dictionarySlice.actions.reset());
   yield put(rackSlice.actions.reset());
   yield put(resultsSlice.actions.reset());
 }
 
-function* onLocaleChange() {
+function* onLocaleChange(): Generator<any, any, any> {
   yield put(solveSlice.actions.submit());
   yield put(resultsSlice.actions.changeResultCandidate(null));
   yield put(dictionarySlice.actions.reset());
 }
 
-function* onResultCandidateChange({ payload: result }: PayloadAction<Result | null>) {
+function* onResultCandidateChange({ payload: result }: PayloadAction<Result | null>): Generator<any, any, any> {
   if (result) {
     yield put(dictionarySlice.actions.changeInput(result.word));
     yield put(dictionarySlice.actions.submit());
   }
 }
 
-function* onSubmit() {
+function* onSubmit(): Generator<any, any, any> {
   const board = yield select(selectBoard);
   const { config } = yield select(selectConfig);
   const locale = yield select(selectLocale);
@@ -112,7 +112,7 @@ function* onSubmit() {
   }
 }
 
-function* ensureProperTilesCount() {
+function* ensureProperTilesCount(): Generator<any, any, any> {
   const { config } = yield select(selectConfig);
   const characters = yield select(selectCharacters);
 
