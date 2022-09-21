@@ -1,6 +1,7 @@
 import { getTxtWordList } from './lib';
 
-const FILE_URL = 'https://raw.githubusercontent.com/hbenbel/French-Dictionary/a573eab10cc798d7d5da7daab4d2ac0259bb46a3/dictionary/dictionary.txt';
+const FILE_URL =
+  'https://raw.githubusercontent.com/hbenbel/French-Dictionary/a573eab10cc798d7d5da7daab4d2ac0259bb46a3/dictionary/dictionary.txt';
 
 const getFrFrWordList = async (): Promise<string[]> => {
   const words = await getTxtWordList(FILE_URL);
