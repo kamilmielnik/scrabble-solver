@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import { cog, eraser, github, keyboard, sack } from 'icons';
+import { Cog, Eraser, Github, Keyboard, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { selectHasOverusedTiles, useTranslate, useTypedSelector } from 'state';
 
@@ -25,7 +25,7 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowRem
       <SquareButton.Link
         className={styles.button}
         href={GITHUB_PROJECT_URL}
-        icon={github}
+        Icon={Github}
         rel="noopener noreferrer"
         target="_blank"
         tooltip={translate('github')}
@@ -33,22 +33,22 @@ const NavButtons: FunctionComponent<Props> = ({ onClear, onShowKeyMap, onShowRem
 
       <div className={styles.separator} />
 
-      <SquareButton className={styles.button} icon={keyboard} tooltip={translate('keyMap')} onClick={onShowKeyMap} />
+      <SquareButton className={styles.button} Icon={Keyboard} tooltip={translate('keyMap')} onClick={onShowKeyMap} />
 
       <SquareButton
         className={classNames(styles.button, {
           [styles.error]: hasOverusedTiles,
         })}
-        icon={sack}
+        Icon={Sack}
         tooltip={translate('remaining-tiles')}
         onClick={onShowRemainingTiles}
       />
 
       <div className={styles.separator} />
 
-      <SquareButton className={styles.button} icon={eraser} tooltip={translate('common.clear')} onClick={onClear} />
+      <SquareButton className={styles.button} Icon={Eraser} tooltip={translate('common.clear')} onClick={onClear} />
 
-      <SquareButton className={styles.button} icon={cog} tooltip={translate('settings')} onClick={onShowSettings} />
+      <SquareButton className={styles.button} Icon={Cog} tooltip={translate('settings')} onClick={onShowSettings} />
     </div>
   );
 };

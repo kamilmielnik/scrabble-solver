@@ -57,7 +57,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
     });
   }, []);
 
-  const onFocus = useCallback((x, y) => {
+  const onFocus = useCallback((x: number, y: number) => {
     activeIndexRef.current = { x, y };
   }, []);
 

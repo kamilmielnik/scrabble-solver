@@ -1,12 +1,13 @@
 import { Locale } from '@scrabble-solver/types';
+import { FunctionComponent, SVGAttributes } from 'react';
 
-import { flagEs, flagFr, flagGb, flagPl, flagUs, flagDe } from 'icons';
+import { FlagEs, FlagFr, FlagGb, FlagPl, FlagUs, FlagDe } from 'icons';
 
 import styles from './LocaleSetting.module.scss';
 
 interface Option {
   className: string;
-  icon: BrowserSpriteSymbol;
+  Icon: FunctionComponent<SVGAttributes<SVGElement>>;
   label: string;
   value: Locale;
 }
@@ -14,37 +15,37 @@ interface Option {
 const options: Option[] = [
   {
     className: styles.gb,
-    icon: flagGb,
+    Icon: FlagGb,
     label: 'English (GB)',
     value: Locale.EN_GB,
   },
   {
     className: styles.us,
-    icon: flagUs,
+    Icon: FlagUs,
     label: 'English (US)',
     value: Locale.EN_US,
   },
   {
     className: styles.fr,
-    icon: flagFr,
+    Icon: FlagFr,
     label: 'Français',
     value: Locale.FR_FR,
   },
   {
     className: styles.de,
-    icon: flagDe,
+    Icon: FlagDe,
     label: 'Deutsch',
     value: Locale.DE_DE,
   },
   {
     className: styles.pl,
-    icon: flagPl,
+    Icon: FlagPl,
     label: 'Polski',
     value: Locale.PL_PL,
   },
   {
     className: styles.es,
-    icon: flagEs,
+    Icon: FlagEs,
     label: 'Español',
     value: Locale.ES_ES,
   },

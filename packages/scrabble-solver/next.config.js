@@ -16,7 +16,6 @@ const tsConfigAliases = Object.keys(tsConfigJson.compilerOptions.paths).reduce(
 module.exports = {
   compress: false,
   devIndicators: {
-    autoPrerender: false,
     buildActivity: false,
   },
   reactStrictMode: true,
@@ -35,7 +34,8 @@ module.exports = {
         ...config.module.rules,
         {
           test: /\.svg$/,
-          loader: 'svg-sprite-loader',
+          issuer: /\.tsx?$/,
+          use: ['@svgr/webpack'],
         },
       ],
     },

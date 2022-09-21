@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent, ReactNode } from 'react';
 import Modal from 'react-modal';
 
-import { cross } from 'icons';
+import { Cross } from 'icons';
 import { TRANSITION_DURATION_LONG } from 'parameters';
 import { useTranslate } from 'state';
 
@@ -41,7 +41,7 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, isOpen, title,
 
           <SquareButton
             className={styles.closeButton}
-            icon={cross}
+            Icon={Cross}
             tooltip={translate('common.close')}
             onClick={onClose}
           />

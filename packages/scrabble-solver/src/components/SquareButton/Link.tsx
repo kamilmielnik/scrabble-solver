@@ -1,7 +1,6 @@
 import classNames from 'classnames';
-import React, { AnchorHTMLAttributes, FunctionComponent } from 'react';
+import React, { AnchorHTMLAttributes, FunctionComponent, SVGAttributes } from 'react';
 
-import SvgIcon from '../SvgIcon';
 import { useTooltip } from '../Tooltip';
 
 import styles from './SquareButton.module.scss';
@@ -9,17 +8,17 @@ import styles from './SquareButton.module.scss';
 interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
   children?: never;
   href: string;
-  icon: BrowserSpriteSymbol;
+  Icon: FunctionComponent<SVGAttributes<SVGElement>>;
   tooltip: string;
 }
 
-const Link: FunctionComponent<Props> = ({ className, icon, tooltip, ...props }) => {
+const Link: FunctionComponent<Props> = ({ className, Icon, tooltip, ...props }) => {
   const triggerProps = useTooltip(tooltip, props);
 
   return (
     <a className={classNames(styles.squareButton, className)} type="button" {...props} {...triggerProps}>
       <span className={styles.content}>
-        <SvgIcon className={styles.icon} icon={icon} />
+        <Icon className={styles.icon} />
       </span>
     </a>
   );

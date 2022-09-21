@@ -41,10 +41,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [showSettings, setShowSettings] = useState(false);
   const [boardRef, { height: boardHeight }] = useMeasure<HTMLDivElement>();
   const [contentRef, { height: contentHeight, width: contentWidth }] = useMeasure<HTMLDivElement>();
-  const [
-    resultsContainerRef,
-    { height: resultsContainerHeight, width: resultsContainerWidth },
-  ] = useMeasure<HTMLDivElement>();
+  const [resultsContainerRef, { height: resultsContainerHeight, width: resultsContainerWidth }] =
+    useMeasure<HTMLDivElement>();
   const config = useTypedSelector(selectConfig);
   const cellSize = getCellSize(config, contentWidth - resultsContainerWidth, contentHeight);
   const isInitialized = contentWidth > 0 && boardHeight > 0 && resultsContainerWidth > 0;

@@ -1,9 +1,7 @@
 import classNames from 'classnames';
 import React, { ChangeEventHandler, FunctionComponent, ReactNode } from 'react';
 
-import { checkboxChecked, checkboxEmpty } from 'icons';
-
-import SvgIcon from '../SvgIcon';
+import { CheckboxChecked, CheckboxEmpty } from 'icons';
 
 import styles from './Checkbox.module.scss';
 
@@ -34,7 +32,7 @@ const Checkbox: FunctionComponent<Props> = ({ checked, children, className, disa
       onChange={onChange}
     />
 
-    <SvgIcon className={styles.icon} icon={checked ? checkboxChecked : checkboxEmpty} />
+    {checked ? <CheckboxChecked className={styles.icon} /> : <CheckboxEmpty className={styles.icon} />}
 
     <div className={styles.content}>{children}</div>
   </label>

@@ -26,7 +26,6 @@ interface Props {
   raised?: boolean;
   size: number;
   tabIndex?: number;
-  onBlur?: FocusEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
 }
