@@ -3,9 +3,8 @@ import { Locale } from '@scrabble-solver/types';
 
 import { Cache } from '../types';
 
-const createCacheTimestampComparator =
-  (locale: Locale) =>
-  (a: Cache<Locale, Trie>, b: Cache<Locale, Trie>): number => {
+const createCacheTimestampComparator = (locale: Locale) => {
+  return (a: Cache<Locale, Trie>, b: Cache<Locale, Trie>): number => {
     const aTimestamp = a.getLastModifiedTimestamp(locale);
     const bTimestamp = b.getLastModifiedTimestamp(locale);
 
@@ -23,5 +22,6 @@ const createCacheTimestampComparator =
 
     return bTimestamp - aTimestamp;
   };
+};
 
 export default createCacheTimestampComparator;
