@@ -1,11 +1,11 @@
+const tsConfig = require('./tsconfig.jest.json');
+
 module.exports = {
   coveragePathIgnorePatterns: ['/node_modules/', '/build/'],
   preset: 'ts-jest',
   setupFilesAfterEnv: ['./jest.setup.js'],
   testEnvironment: 'node',
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.jest.json',
-    },
+  transform: {
+    '^.+.tsx?$': ['ts-jest', tsConfig],
   },
 };
