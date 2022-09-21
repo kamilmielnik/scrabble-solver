@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/types",
-  "version": "2.7.2",
+  "version": "2.8.0",
   "description": "Scrabble Solver 2 - Types",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -24,7 +24,7 @@
     "clean:force": "npm run clean && rimraf package-lock.json"
   },
   "dependencies": {
-    "@scrabble-solver/constants": "^2.7.2"
+    "@scrabble-solver/constants": "^2.8.0"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }
