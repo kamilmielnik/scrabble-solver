@@ -1,4 +1,4 @@
-import React, { FunctionComponent, Ref } from 'react';
+import { FunctionComponent, Ref } from 'react';
 
 import { selectRowsWithCandidate, useTypedSelector } from 'state';
 

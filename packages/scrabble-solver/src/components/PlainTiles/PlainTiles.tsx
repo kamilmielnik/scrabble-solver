@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { CSSProperties, FunctionComponent, useMemo } from 'react';
+import { CSSProperties, FunctionComponent, useMemo } from 'react';
 
 import { createPlainTiles, getViewbox } from './lib';
 import styles from './PlainTiles.module.scss';

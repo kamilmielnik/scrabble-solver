@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, ReactNode } from 'react';
+import { FunctionComponent, ReactNode } from 'react';
 import Modal from 'react-modal';
 
 import { Cross } from 'icons';

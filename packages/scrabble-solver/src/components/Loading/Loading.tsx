@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, useMemo } from 'react';
+import { FunctionComponent, useMemo } from 'react';
 
 import { useTranslate } from 'state';
 

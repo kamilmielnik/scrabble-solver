@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 
 import { DashCircleFill } from 'icons';
 

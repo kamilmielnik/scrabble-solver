@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactElement } from 'react';
+import { CSSProperties, ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { resultsSlice, selectSortedFilteredResults, useTypedSelector } from 'state';

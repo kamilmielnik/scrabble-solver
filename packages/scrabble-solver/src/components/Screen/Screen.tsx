@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { AnimationEventHandler, FunctionComponent, ReactNode } from 'react';
+import { AnimationEventHandler, FunctionComponent, ReactNode } from 'react';
 
 import styles from './Screen.module.scss';
 

@@ -1,6 +1,6 @@
 import { BLANK } from '@scrabble-solver/constants';
 import { Tile as TileModel } from '@scrabble-solver/types';
-import React, {
+import {
   FunctionComponent,
   KeyboardEventHandler,
   MutableRefObject,

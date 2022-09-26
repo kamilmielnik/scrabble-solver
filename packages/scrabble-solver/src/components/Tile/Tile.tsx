@@ -1,5 +1,5 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import React, {
+import {
   createRef,
   FocusEventHandler,
   FunctionComponent,

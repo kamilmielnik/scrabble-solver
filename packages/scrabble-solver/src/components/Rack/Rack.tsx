@@ -1,6 +1,6 @@
 import { BLANK } from '@scrabble-solver/constants';
 import classNames from 'classnames';
-import React, { createRef, FunctionComponent, useCallback, useMemo, useRef } from 'react';
+import { createRef, FunctionComponent, useCallback, useMemo, useRef } from 'react';
 
 import { createArray, createKeyboardNavigation, zipCharactersAndTiles } from 'lib';
 import { selectConfig, selectRack, selectResultCandidateTiles, useTypedSelector } from 'state';

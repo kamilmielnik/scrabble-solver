@@ -1,4 +1,4 @@
-import React, { ReactNode, useLayoutEffect, useRef } from 'react';
+import { ReactNode, useLayoutEffect, useRef } from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import { Portal } from 'react-portal';
 

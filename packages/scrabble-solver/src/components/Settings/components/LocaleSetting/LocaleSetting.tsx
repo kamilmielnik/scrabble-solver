@@ -1,6 +1,6 @@
 import { Locale } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import React, { ChangeEvent, FunctionComponent } from 'react';
+import { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { selectLocale, settingsSlice, useTypedSelector } from 'state';

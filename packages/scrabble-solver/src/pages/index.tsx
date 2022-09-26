@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
-import React, { AnimationEvent, FormEvent, FunctionComponent, useState } from 'react';
+import { AnimationEvent, FormEvent, FunctionComponent, useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure } from 'react-use';

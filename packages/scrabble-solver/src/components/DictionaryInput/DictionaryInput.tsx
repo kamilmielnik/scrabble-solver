@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { ChangeEvent, FormEvent, FunctionComponent } from 'react';
+import { ChangeEvent, FormEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { dictionarySlice, selectDictionary, useTranslate, useTypedSelector } from 'state';

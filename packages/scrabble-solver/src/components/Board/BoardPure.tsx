@@ -1,6 +1,6 @@
 import { Cell } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import React, { FunctionComponent, KeyboardEventHandler, memo, Ref, RefObject } from 'react';
+import { FunctionComponent, KeyboardEventHandler, memo, Ref, RefObject } from 'react';
 
 import styles from './Board.module.scss';
 import { Cell as CellComponent } from './components';

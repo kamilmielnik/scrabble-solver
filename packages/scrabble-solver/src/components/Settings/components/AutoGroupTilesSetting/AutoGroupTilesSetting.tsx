@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent } from 'react';
+import { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { selectAutoGroupTiles, settingsSlice, useTranslate, useTypedSelector } from 'state';

@@ -1,6 +1,6 @@
 import { Bonus, Cell, Tile as TileModel } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import React, { CSSProperties, FocusEventHandler, FunctionComponent, memo, MouseEventHandler, RefObject } from 'react';
+import { CSSProperties, FocusEventHandler, FunctionComponent, memo, MouseEventHandler, RefObject } from 'react';
 
 import { ArrowDown } from 'icons';
 import { Translate } from 'types';

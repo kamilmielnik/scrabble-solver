@@ -1,4 +1,4 @@
-import React, { CSSProperties, FunctionComponent } from 'react';
+import { CSSProperties, FunctionComponent } from 'react';
 
 import PlainTiles from '../PlainTiles';
 

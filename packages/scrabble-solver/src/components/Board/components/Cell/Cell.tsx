@@ -1,6 +1,6 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Cell as CellModel } from '@scrabble-solver/types';
-import React, { FunctionComponent, RefObject, useCallback, useMemo } from 'react';
+import { FunctionComponent, RefObject, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { getTileSizes } from 'lib';

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { FixedSizeList } from 'react-window';
 
 import { RESULTS_HEADER_HEIGHT, RESULTS_INPUT_HEIGHT, RESULTS_ITEM_HEIGHT } from 'parameters';

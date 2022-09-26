@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { forwardRef, HTMLAttributes, ReactNode } from 'react';
+import { forwardRef, HTMLAttributes, ReactNode } from 'react';
 
 import styles from './Well.module.scss';
 

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, ReactNode, useMemo } from 'react';
+import { FunctionComponent, ReactNode, useMemo } from 'react';
 
 import { COLOR_BLUE, COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from 'parameters';
 import { useTranslate } from 'state';

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { AnimationEventHandler, FunctionComponent } from 'react';
+import { AnimationEventHandler, FunctionComponent } from 'react';
 
 import Logo from '../Logo';
 import Screen from '../Screen';

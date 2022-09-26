@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 
 import { Cog, Eraser, Github, Keyboard, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';

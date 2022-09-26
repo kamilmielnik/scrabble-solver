@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent } from 'react';
+import { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { selectConfigId, settingsSlice, useTypedSelector } from 'state';

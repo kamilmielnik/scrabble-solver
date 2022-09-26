@@ -1,6 +1,6 @@
 import { BLANK } from '@scrabble-solver/constants';
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 
 import { REMAINING_TILES_TILE_SIZE } from 'parameters';
 import { selectCharacterPoints, useTypedSelector } from 'state';

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 
 import { selectConfig, useTranslate, useTypedSelector } from 'state';
 

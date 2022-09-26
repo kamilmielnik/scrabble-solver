@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, ReactNode } from 'react';
+import { FunctionComponent, ReactNode } from 'react';
 
 import styles from './Mapping.module.scss';
 

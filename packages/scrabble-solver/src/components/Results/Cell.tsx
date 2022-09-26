@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 
 import { useTranslate } from 'state';
 import { TranslationKey } from 'types';

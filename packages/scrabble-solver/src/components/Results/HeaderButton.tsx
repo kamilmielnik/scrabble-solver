@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { SortDown, SortUp } from 'icons';
