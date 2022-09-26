@@ -28,13 +28,13 @@ class LayeredCache implements Cache<Locale, Trie> {
   }
 
   public getLastModifiedTimestamp(locale: Locale): number | undefined {
-    const cached = this.getLastModifiedLayer(locale);
+    const cache = this.getLastModifiedLayer(locale);
 
-    if (!cached) {
+    if (!cache) {
       return undefined;
     }
 
-    return cached.getLastModifiedTimestamp(locale);
+    return cache.getLastModifiedTimestamp(locale);
   }
 
   public has(locale: Locale): boolean {
@@ -54,7 +54,9 @@ class LayeredCache implements Cache<Locale, Trie> {
   }
 
   public async set(locale: Locale, trie: Trie): Promise<void> {
-    await Promise.all(this.layers.map((cache) => cache.set(locale, trie)));
+    const [memoryCache, diskCache] = this.layers;
+    await diskCache.set(locale, trie);
+    await memoryCache.set(locale, trie);
   }
 
   private getLastModifiedLayer(locale: Locale): Cache<Locale, Trie> | undefined {
