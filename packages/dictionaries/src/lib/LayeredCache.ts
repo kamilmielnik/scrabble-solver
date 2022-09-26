@@ -10,14 +10,21 @@ import MemoryCache from './MemoryCache';
 class LayeredCache implements Cache<Locale, Trie> {
   private readonly layers = [new MemoryCache(), new DiskCache()];
 
-  public get(locale: Locale): Promise<Trie | undefined> {
-    const cached = this.getLastModifiedLayer(locale);
+  public async get(locale: Locale): Promise<Trie | undefined> {
+    const cache = this.getLastModifiedLayer(locale);
 
-    if (!cached) {
+    if (!cache) {
       return Promise.resolve(undefined);
     }
 
-    return cached.get(locale);
+    const [memoryCache, diskCache] = this.layers;
+    const value = await cache.get(locale);
+
+    if (cache === diskCache && typeof value !== 'undefined') {
+      await memoryCache.set(locale, value);
+    }
+
+    return value;
   }
 
   public getLastModifiedTimestamp(locale: Locale): number | undefined {
