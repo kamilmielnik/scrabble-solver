@@ -1,5 +1,5 @@
 interface AnyFunction {
-  (...parameters: any): any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  (...parameters: any[]): any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 interface AnyCachedFunction<T extends AnyFunction> extends AnyFunction {
