@@ -1,5 +1,5 @@
-import React, { ReactNode, useLayoutEffect, useMemo } from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
+import React, { ReactNode, useLayoutEffect, useRef } from 'react';
+import { createRoot, Root } from 'react-dom/client';
 import { Portal } from 'react-portal';
 
 import { canUseDom, noop } from 'lib';
@@ -12,26 +12,36 @@ interface Props {
 type TagName = Parameters<typeof document.createElement>[0];
 
 const usePortal = (children: ReactNode, { disabled = false, tagName = 'div' }: Props = {}): void => {
-  const element = useMemo(() => document.createElement(tagName), [tagName]);
+  const rootRef = useRef<Root | null>(null);
 
   useLayoutEffect(() => {
     if (disabled) {
       return noop;
     }
 
+    const element = document.createElement(tagName);
     document.body.appendChild(element);
+    const root = createRoot(element);
+    rootRef.current = root;
 
     return () => {
-      unmountComponentAtNode(element);
-      document.body.removeChild(element);
+      // We need setTimeout for async unmount, otherwise we get this warning:
+      // "Attempted to synchronously unmount a root while React was already
+      // rendering. React cannot finish unmounting the root until the current
+      // render has completed, which may lead to a race condition.""
+      setTimeout(() => {
+        rootRef.current = null;
+        root.unmount();
+        element.remove();
+      }, 0);
     };
-  }, [disabled, element]);
+  }, [disabled, tagName]);
 
   useLayoutEffect(() => {
-    if (!disabled) {
-      render(<Portal>{children}</Portal>, element);
+    if (rootRef.current) {
+      rootRef.current.render(<Portal>{children}</Portal>);
     }
-  }, [children, disabled, element]);
+  }, [children, disabled, rootRef]);
 };
 
 export default canUseDom ? usePortal : noop;
