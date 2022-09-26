@@ -45,7 +45,6 @@ class PatternsFiller {
     } else {
       for (let index = 0; index < tiles.length; ++index) {
         const tile = tiles[index];
-        const remainingTiles = tiles.slice(0, index).concat(tiles.slice(index + 1));
         const previousTile = pattern.cells[indexOfFirstCellWithoutTile].tile;
         pattern.cells[indexOfFirstCellWithoutTile].tile = tile;
         const indexOfNextCellWithoutTile = pattern.getIndexOfFirstCellWithoutTile();
@@ -57,7 +56,9 @@ class PatternsFiller {
             onPatternFound(pattern.clone());
           }
         } else if (this.trie.hasPrefix(newWordPrefix)) {
-          this.fillPattern(pattern, newWord, remainingTiles, onPatternFound);
+          tiles.splice(index, 1);
+          this.fillPattern(pattern, newWord, tiles, onPatternFound);
+          tiles.splice(index, 0, tile);
         }
         pattern.cells[indexOfFirstCellWithoutTile].tile = previousTile;
       }
