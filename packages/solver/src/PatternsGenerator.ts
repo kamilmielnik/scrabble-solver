@@ -66,22 +66,23 @@ class PatternsGenerator {
     cells: Cell[];
     PatternModel: new (parameters: { board: Board; cells: Cell[] }) => P;
   }): P[] {
-    return this.generateStartIndices(cells).reduce<P[]>(
-      (patterns, startIndex) =>
-        patterns.concat(
-          this.generateEndIndices(cells, startIndex).reduce<P[]>((placeablePatterns, endIndex) => {
-            const pattern = new PatternModel({
-              board,
-              cells: cells.slice(startIndex, endIndex + 1),
-            });
-            if (pattern.canBePlaced(this.config)) {
-              placeablePatterns.push(pattern);
-            }
-            return placeablePatterns;
-          }, []),
-        ),
-      [],
-    );
+    return this.generateStartIndices(cells).flatMap((startIndex) => {
+      const endIndices = this.generateEndIndices(cells, startIndex);
+      const patterns: P[] = [];
+
+      for (let endIndex of endIndices) {
+        const pattern = new PatternModel({
+          board,
+          cells: cells.slice(startIndex, endIndex + 1),
+        });
+
+        if (pattern.canBePlaced(this.config)) {
+          patterns.push(pattern);
+        }
+      }
+
+      return patterns;
+    });
   }
 
   public generateStartIndices(cells: Cell[]): number[] {
