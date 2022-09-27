@@ -1,5 +1,5 @@
 import { Trie } from '@kamilmielnik/trie';
-import { Board, Config, Pattern, Result, Tile } from '@scrabble-solver/types';
+import { Board, Config, Result, Tile } from '@scrabble-solver/types';
 import uniqBy from 'lodash/uniqBy';
 
 import PatternsFiller from './PatternsFiller';
@@ -22,10 +22,7 @@ class Solver {
   public solve(board: Board, tiles: Tile[]): Result[] {
     const patterns = this.patternsGenerator
       .generate(board)
-      .reduce<Pattern[]>(
-        (filledPatterns, pattern) => filledPatterns.concat(this.patternsFiller.fill(pattern, tiles)),
-        [],
-      );
+      .flatMap((pattern) => this.patternsFiller.fill(pattern, tiles));
     const uniquePatterns = uniqBy(patterns, (pattern) => JSON.stringify(pattern.toJson()));
     const results = uniquePatterns.map(
       (pattern, index) =>
