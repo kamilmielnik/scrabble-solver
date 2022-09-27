@@ -70,7 +70,7 @@ class PatternsGenerator {
       const endIndices = this.generateEndIndices(cells, startIndex);
       const patterns: P[] = [];
 
-      for (let endIndex of endIndices) {
+      for (const endIndex of endIndices) {
         const pattern = new PatternModel({
           board,
           cells: cells.slice(startIndex, endIndex + 1),
