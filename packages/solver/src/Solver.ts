@@ -20,10 +20,9 @@ class Solver {
   }
 
   public solve(board: Board, tiles: Tile[]): Result[] {
-    const patterns = this.patternsGenerator
-      .generate(board)
-      .flatMap((pattern) => this.patternsFiller.fill(pattern, tiles));
-    const uniquePatterns = uniqBy(patterns, (pattern) => JSON.stringify(pattern.toJson()));
+    const patterns = this.patternsGenerator.generate(board);
+    const filledPatterns = patterns.flatMap((pattern) => this.patternsFiller.fill(pattern, tiles));
+    const uniquePatterns = uniqBy(filledPatterns, (pattern) => JSON.stringify(pattern.toJson()));
     const results = uniquePatterns.map(
       (pattern, index) =>
         new Result({
