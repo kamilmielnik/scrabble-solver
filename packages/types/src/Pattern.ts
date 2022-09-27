@@ -67,7 +67,7 @@ class Pattern {
   }
 
   public toString(): string {
-    return this.cells.map(String).join('');
+    return this.cells.reduce((result, cell) => result + cell.toString(), '');
   }
 }
 

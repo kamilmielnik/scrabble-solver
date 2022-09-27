@@ -75,7 +75,7 @@ class Cell {
   }
 
   public toString(): string {
-    return String(this.tile);
+    return this.tile.toString();
   }
 }
 
