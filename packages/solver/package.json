@@ -24,7 +24,7 @@
     "clean:force": "npm run clean && rimraf package-lock.json"
   },
   "dependencies": {
-    "@kamilmielnik/trie": "^1.0.3",
+    "@kamilmielnik/trie": "^2.0.0",
     "@scrabble-solver/types": "^2.8.3",
     "lodash": "^4.17.21"
   },
