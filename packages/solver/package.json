@@ -32,7 +32,7 @@
     "@scrabble-solver/configs": "^2.8.3",
     "@scrabble-solver/constants": "^2.8.3",
     "@scrabble-solver/dictionaries": "^2.8.3",
-    "@types/lodash": "^4.14.185"
+    "@types/lodash": "^4.14.186"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }
