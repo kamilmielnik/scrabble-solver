@@ -1,2 +1,2 @@
-__tests__/expected/* linguist-vendored
-__tests__/input/* linguist-vendored
+packages/word-definitions/src/parse/__tests__/expected/** linguist-vendored
+packages/word-definitions/src/parse/__tests__/input/** linguist-vendored
