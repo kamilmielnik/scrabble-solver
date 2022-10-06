@@ -9,15 +9,14 @@ const PAGE_URL = 'https://sjp.pl/sl/growy/';
 const FILE_TO_EXTRACT_FROM_ZIP = 'slowa.txt';
 
 const getPlPlWordList = async (): Promise<string[]> => {
-  const zipTempFilename = getTempFilename();
   const tempFilename = getTempFilename();
   const zipUrl = await fetchZipUrl(PAGE_URL);
-  await downloadFile(zipUrl, fs.createWriteStream(zipTempFilename));
+  const zipTempFilename = await downloadFile(zipUrl);
   await unzip(zipTempFilename, tempFilename);
   fs.unlinkSync(zipTempFilename);
   const file = fs.readFileSync(tempFilename, 'utf-8');
   fs.unlinkSync(tempFilename);
-  const words = extractWords(file.toString());
+  const words = extractWords(file.toLocaleString());
   return words;
 };
 
