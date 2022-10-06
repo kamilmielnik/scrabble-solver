@@ -6,8 +6,6 @@ import { CACHE_STALE_THRESHOLD } from '../constants';
 import { Cache } from '../types';
 
 import getDictionaryFilepath from './getDictionaryFilepath';
-import readFile from './readFile';
-import writeFile from './writeFile';
 
 class DiskCache implements Cache<Locale, Trie> {
   public async get(locale: Locale): Promise<Trie | undefined> {
@@ -16,7 +14,7 @@ class DiskCache implements Cache<Locale, Trie> {
     }
 
     const filepath = getDictionaryFilepath(locale);
-    const serialized = await readFile(filepath);
+    const serialized = await fs.promises.readFile(filepath, 'utf-8');
     const trie = Trie.deserialize(serialized);
     return trie;
   }
@@ -54,7 +52,7 @@ class DiskCache implements Cache<Locale, Trie> {
 
   public async set(locale: Locale, trie: Trie): Promise<void> {
     const filepath = getDictionaryFilepath(locale);
-    await writeFile(filepath, trie.serialize());
+    await fs.promises.writeFile(filepath, trie.serialize());
   }
 }
 

@@ -134,20 +134,11 @@ export const getStaticProps = async (): Promise<{ props: Props }> => {
   return { props: { version } };
 };
 
-const readVersion = (): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const packageJsonFilepath = path.resolve(process.cwd(), 'package.json');
-
-    fs.readFile(packageJsonFilepath, 'utf-8', (error, data) => {
-      if (error) {
-        reject(error);
-        return;
-      }
-
-      const packageJson = JSON.parse(data);
-      resolve(packageJson.version);
-    });
-  });
+const readVersion = async (): Promise<string> => {
+  const packageJsonFilepath = path.resolve(process.cwd(), 'package.json');
+  const data = await fs.promises.readFile(packageJsonFilepath, 'utf-8');
+  const packageJson = JSON.parse(data);
+  return packageJson.version;
 };
 
 export default Index;
