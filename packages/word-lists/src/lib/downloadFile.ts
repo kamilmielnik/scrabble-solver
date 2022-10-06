@@ -6,17 +6,16 @@ import getTempFilename from './getTempFilename';
 const downloadFile = (url: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     const tempFilename = getTempFilename();
-    const writeStream = fs.createWriteStream(tempFilename);
     const protocol = url.startsWith('https') ? https : http;
+    const writeStream = fs.createWriteStream(tempFilename);
     const request = protocol.get(url, (response) => {
       if (typeof response.statusCode === 'undefined' || response.statusCode >= 400) {
-        writeStream.on('finish', () => writeStream.close());
         reject(new Error(`Cannot download file: ${url}`));
         return;
       }
 
       response.on('error', (error) => {
-        writeStream.on('finish', () => writeStream.close());
+        writeStream.close();
         reject(error);
       });
 
@@ -31,7 +30,7 @@ const downloadFile = (url: string): Promise<string> => {
     });
 
     request.on('error', (error) => {
-      writeStream.on('finish', () => writeStream.close());
+      writeStream.close();
       reject(error);
     });
   });
