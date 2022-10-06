@@ -24,7 +24,7 @@ class PatternsFiller {
 
     for (let index = 0; index < tilesPermutations.length; ++index) {
       const tilesPermutation = tilesPermutations[index];
-      this.fillPattern(pattern, String(pattern), tilesPermutation, onPatternFound);
+      this.fillPattern(pattern, pattern.toString(), tilesPermutation, onPatternFound);
     }
 
     return patterns;
@@ -66,13 +66,7 @@ class PatternsFiller {
   }
 
   public canAddPattern(pattern: Pattern, word: string): boolean {
-    return (
-      this.trie.has(word) &&
-      pattern
-        .getCollisions()
-        .map(String)
-        .every((collision) => this.trie.has(collision))
-    );
+    return this.trie.has(word) && pattern.getCollisions().every((collision) => this.trie.has(collision.toString()));
   }
 
   public generateBlankTilesPermutations(tiles: Tile[]): Tile[][] {
