@@ -11,6 +11,7 @@ interface Parameters {
   onDelete?: KeyboardEventHandler<HTMLInputElement>;
   onEnter?: KeyboardEventHandler<HTMLInputElement>;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
+  onSpace?: KeyboardEventHandler<HTMLInputElement>;
 }
 
 const createKeyboardNavigation = ({
@@ -22,6 +23,7 @@ const createKeyboardNavigation = ({
   onDelete = noop,
   onEnter = noop,
   onKeyDown = noop,
+  onSpace = noop,
 }: Parameters): KeyboardEventHandler<HTMLInputElement> => {
   const handlers: Record<string, KeyboardEventHandler<HTMLInputElement>> = {
     ArrowUp: onArrowUp,
@@ -31,6 +33,7 @@ const createKeyboardNavigation = ({
     Backspace: onBackspace,
     Delete: onDelete,
     Enter: onEnter,
+    ' ': onSpace,
   };
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {

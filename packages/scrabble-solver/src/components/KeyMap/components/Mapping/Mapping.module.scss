@@ -24,6 +24,10 @@
   margin: 0 var(--spacing--s);
 }
 
+.slash {
+  margin: 0 var(--spacing--m);
+}
+
 .group {
   &:first-child {
     margin-left: 0;

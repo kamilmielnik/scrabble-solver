@@ -214,6 +214,15 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         dispatch(boardSlice.actions.changeCellValue({ ...position, value: character }));
         onMoveFocus('forward');
       },
+      onSpace: (event) => {
+        const position = getInputRefPosition(event.target as HTMLInputElement);
+
+        if (!position) {
+          return;
+        }
+
+        dispatch(boardSlice.actions.toggleCellIsBlank(position));
+      },
     });
   }, [changeActiveIndex, config, dispatch, lastDirectionRef, onDirectionToggle, rows]);
 

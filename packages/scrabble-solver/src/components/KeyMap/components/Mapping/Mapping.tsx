@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FunctionComponent, ReactNode } from 'react';
+import { Fragment, FunctionComponent, ReactNode } from 'react';
 
 import styles from './Mapping.module.scss';
 
@@ -15,17 +15,21 @@ const Mapping: FunctionComponent<Props> = ({ className, description, mapping }) 
 
     <div className={styles.keys}>
       {mapping.map((key, index) => (
-        <div className={styles.group} key={index}>
-          {Array.isArray(key) ? (
-            <>
-              {key[0]}
-              <span className={styles.plus}>+</span>
-              {key[1]}
-            </>
-          ) : (
-            key
-          )}
-        </div>
+        <Fragment key={index}>
+          <div className={styles.group}>
+            {Array.isArray(key) ? (
+              <>
+                {key[0]}
+                <span className={styles.plus}>+</span>
+                {key[1]}
+              </>
+            ) : (
+              key
+            )}
+          </div>
+
+          {mapping.length > 1 && index < mapping.length - 1 && <span className={styles.slash}>/</span>}
+        </Fragment>
       ))}
     </div>
   </div>
