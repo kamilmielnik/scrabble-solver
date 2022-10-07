@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import { CSSProperties, FunctionComponent, useMemo } from 'react';
 
+import SvgFontCss from '../SvgFontCss';
+
 import { createPlainTiles, getViewbox } from './lib';
 import styles from './PlainTiles.module.scss';
 import Tile from './Tile';
@@ -28,6 +30,8 @@ const PlainTiles: FunctionComponent<Props> = ({ className, color, content, dropS
       viewBox={getViewbox(content)}
       xmlns="http://www.w3.org/2000/svg"
     >
+      <SvgFontCss />
+
       {tiles.map((tile, index) => (
         <Tile
           character={tile.character}
