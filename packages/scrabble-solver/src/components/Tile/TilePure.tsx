@@ -66,7 +66,7 @@ const TilePure: FunctionComponent<Props> = ({
     style={style}
   >
     <input
-      autoCapitalize="off"
+      autoCapitalize="none"
       autoComplete="off"
       autoCorrect="off"
       autoFocus={autoFocus}
