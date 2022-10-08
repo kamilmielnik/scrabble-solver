@@ -1,16 +1,6 @@
-![alt Scrabble Solver 2](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/img/logo.png)
-
-https://scrabble-solver.org
-
 # scrabble-solver
 
-The ultimate, open-source cheating app for [Scrabble](https://en.wikipedia.org/wiki/Scrabble) and [Literaki](https://pl.wikipedia.org/wiki/Literaki).
-
-Available at https://scrabble-solver.org in English, French, German, Polish & Spanish.
-
-Run it locally for better performance (your machine surely is faster than that server).
-
-It's cross-platform - all you need is [Node.js](https://nodejs.org/).
+![alt Scrabble Solver 2](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/img/logo.png)
 
 ![Version](https://img.shields.io/github/package-json/v/kamilmielnik/scrabble-solver)
 ![License](https://img.shields.io/npm/l/scrabble-solver)
@@ -20,7 +10,28 @@ It's cross-platform - all you need is [Node.js](https://nodejs.org/).
 ![Test](https://github.com/kamilmielnik/scrabble-solver/workflows/Test/badge.svg)
 ![ESLint](https://github.com/kamilmielnik/scrabble-solver/workflows/ESLint/badge.svg)
 
+Free and open-source analysis tool for [Scrabble](https://en.wikipedia.org/wiki/Scrabble) and [Literaki](https://pl.wikipedia.org/wiki/Literaki).
+Quickly find top scoring words using given letters and board state.
+
+Available at https://scrabble-solver.org in:
+
+- 🇬🇧 English (GB)
+- 🇺🇸 English (US)
+- 🇫🇷 French
+- 🇩🇪 German
+- 🇵🇱 Polish
+- 🇪🇸 Spanish
+
+Run it locally for better performance (your machine surely is faster than that server).
+
+It's cross-platform - all you need is [Node.js](https://nodejs.org/).
+
 ![alt User Interface](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/img/screencast.gif)
+
+## Requirements
+
+- [Node.js](https://nodejs.org/) 16+
+- min. `1000px x 700px` viewport size (`1500px x 1200px` recommended)
 
 ## Run
 
@@ -49,15 +60,10 @@ npm uninstall -g scrabble-solver
 rm -rf $HOME/.scrabble-solver
 ```
 
-## Requirements
-
-- [Node.js](https://nodejs.org/) 16+
-- min. `1000px x 700px` viewport size (`1500px x 1200px` recommended)
-
 ## Dictionaries
 
 | Language   | Word list                                                                  | Word list                                                                                                                                | Word definitions                                    |
-|------------|----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------|
+| ---------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
 | 🇬🇧 English | [SOWPODS](https://en.wikipedia.org/wiki/Collins_Scrabble_Words)            | [Source](https://www.wordgamedictionary.com/sowpods/download/sowpods.txt)                                                                | [Merriam-Webster](https://www.merriam-webster.com/) |
 | 🇺🇸 English | [TWL06](https://en.wikipedia.org/wiki/NASPA_Word_List)                     | [Source](https://www.wordgamedictionary.com/twl06/download/twl06.txt)                                                                    | [Merriam-Webster](https://www.merriam-webster.com/) |
 | 🇫🇷 French  | [hbenbel/French-Dictionary](https://github.com/hbenbel/French-Dictionary/) | [Source](https://raw.githubusercontent.com/hbenbel/French-Dictionary/a573eab10cc798d7d5da7daab4d2ac0259bb46a3/dictionary/dictionary.txt) | [CNRTL](https://www.cnrtl.fr/)                      |

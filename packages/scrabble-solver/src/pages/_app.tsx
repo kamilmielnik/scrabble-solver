@@ -7,7 +7,9 @@ import { createAppStore } from 'state';
 
 import 'styles/global.scss';
 
-const DESCRIPTION = 'Scrabble Solver 2 - The ultimate, open-source cheating app for Scrabble and Literaki';
+const DESCRIPTION =
+  // eslint-disable-next-line max-len
+  'Scrabble Solver 2 - Free and open-source analysis tool for Scrabble and Literaki. Quickly find top scoring words using given letters and board state. Available in English, French, German, Polish & Spanish.';
 const KEYWORDS = [
   'Scrabble',
   'Solver',
@@ -54,8 +56,9 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
 
     <Provider store={store}>
       <p style={{ fontSize: 0 }}>
-        Scrabble Solver 2 is the most popular, online, open-source, cheating app for Scrabble. It's available in
-        English, French, German, Polish &amp; Spanish! Source code is available on GitHub - contributions are welcome!
+        Scrabble Solver 2 is a free and open-source analysis tool for Scrabble and Literaki. Quickly find top scoring
+        words using given letters and board state. Available in English, French, German, Polish & Spanish. Source code
+        is available on GitHub - contributions are welcome!
       </p>
       <Component {...pageProps} />
     </Provider>
