@@ -8,6 +8,7 @@ import { Cell as CellComponent } from './components';
 interface Props {
   className?: string;
   cellSize: number;
+  center: Cell;
   innerRef?: Ref<HTMLDivElement>;
   lastDirection: 'horizontal' | 'vertical';
   refs: RefObject<HTMLInputElement>[][];
@@ -19,11 +20,12 @@ interface Props {
 
 const BoardPure: FunctionComponent<Props> = ({
   className,
+  cellSize,
+  center,
   innerRef,
   lastDirection,
   refs,
   rows,
-  cellSize,
   onDirectionToggle,
   onFocus,
   onKeyDown,
@@ -37,6 +39,7 @@ const BoardPure: FunctionComponent<Props> = ({
             cell={cell}
             direction={lastDirection}
             inputRef={refs[y][x]}
+            isCenter={center.x === x && center.y === y}
             key={x}
             size={cellSize}
             onDirectionToggle={onDirectionToggle}

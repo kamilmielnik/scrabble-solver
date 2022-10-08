@@ -20,8 +20,16 @@ const CHARACTER_MULTIPLIER_CLASSNAMES: Record<number, string> = {
   3: styles.bonusCharacterMultiplier3,
 };
 
-export const getBonusClassname = (cell: Cell, bonus: Bonus | undefined): string | undefined => {
-  if (!bonus || !cell.isEmpty) {
+export const getBonusClassname = (cell: Cell, bonus: Bonus | undefined, isCenter: boolean): string | undefined => {
+  if (!cell.isEmpty) {
+    return undefined;
+  }
+
+  if (isCenter) {
+    return styles.bonusStart;
+  }
+
+  if (!bonus) {
     return undefined;
   }
 

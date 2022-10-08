@@ -13,12 +13,22 @@ interface Props {
   className?: string;
   direction: 'horizontal' | 'vertical';
   inputRef: RefObject<HTMLInputElement>;
+  isCenter: boolean;
   size: number;
   onDirectionToggle: () => void;
   onFocus: (x: number, y: number) => void;
 }
 
-const Cell: FunctionComponent<Props> = ({ cell, className, direction, inputRef, size, onDirectionToggle, onFocus }) => {
+const Cell: FunctionComponent<Props> = ({
+  cell,
+  className,
+  direction,
+  inputRef,
+  isCenter,
+  size,
+  onDirectionToggle,
+  onFocus,
+}) => {
   const { tile, x, y } = cell;
   const dispatch = useDispatch();
   const translate = useTranslate();
@@ -53,6 +63,7 @@ const Cell: FunctionComponent<Props> = ({ cell, className, direction, inputRef, 
       className={className}
       direction={direction}
       inputRef={inputRef}
+      isCenter={isCenter}
       isEmpty={isEmpty}
       points={points}
       size={size}

@@ -17,6 +17,7 @@ interface Props {
   className?: string;
   direction: 'horizontal' | 'vertical';
   inputRef: RefObject<HTMLInputElement>;
+  isCenter: boolean;
   isEmpty: boolean;
   points?: number;
   size: number;
@@ -34,6 +35,7 @@ const CellPure: FunctionComponent<Props> = ({
   className,
   direction,
   inputRef,
+  isCenter,
   isEmpty,
   points,
   size,
@@ -45,7 +47,7 @@ const CellPure: FunctionComponent<Props> = ({
   onToggleBlankClick,
 }) => (
   <div
-    className={classNames(styles.cell, getBonusClassname(cell, bonus), className, {
+    className={classNames(styles.cell, getBonusClassname(cell, bonus, isCenter), className, {
       [styles.candidate]: cell.isCandidate(),
     })}
     style={style}
