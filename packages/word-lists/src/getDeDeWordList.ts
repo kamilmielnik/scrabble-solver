@@ -1,6 +1,6 @@
 import { getTxtWordList } from './lib';
 
-const FILE_URL = 'https://raw.githubusercontent.com/HanSolo80/German-Dictionary/master/dictionary.txt';
+const FILE_URL = 'https://raw.githubusercontent.com/enz/german-wordlist/master/words';
 
 const getDeDeWordList = async (): Promise<string[]> => {
   return getTxtWordList(FILE_URL);
