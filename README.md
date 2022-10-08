@@ -11,9 +11,10 @@
 ![ESLint](https://github.com/kamilmielnik/scrabble-solver/workflows/ESLint/badge.svg)
 
 Free and open-source analysis tool for [Scrabble](https://en.wikipedia.org/wiki/Scrabble) and [Literaki](https://pl.wikipedia.org/wiki/Literaki).
+
 Quickly find top scoring words using given letters and board state.
 
-Available at https://scrabble-solver.org in:
+Available at https://scrabble-solver.org in 6 languages:
 
 - 🇬🇧 English (GB)
 - 🇺🇸 English (US)
