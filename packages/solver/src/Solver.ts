@@ -1,7 +1,7 @@
 import { Trie } from '@kamilmielnik/trie';
 import { Board, Config, Result, Tile } from '@scrabble-solver/types';
-import uniqBy from 'lodash/uniqBy';
 
+import getUniquePatterns from './getUniquePatterns';
 import PatternsFiller from './PatternsFiller';
 import PatternsGenerator from './PatternsGenerator';
 import ScoresCalculator from './ScoresCalculator';
@@ -22,7 +22,7 @@ class Solver {
   public solve(board: Board, tiles: Tile[]): Result[] {
     const patterns = this.patternsGenerator.generate(board);
     const filledPatterns = patterns.flatMap((pattern) => this.patternsFiller.fill(pattern, tiles));
-    const uniquePatterns = uniqBy(filledPatterns, (pattern) => JSON.stringify(pattern.toJson()));
+    const uniquePatterns = getUniquePatterns(filledPatterns);
     const results = uniquePatterns.map(
       (pattern, index) =>
         new Result({
