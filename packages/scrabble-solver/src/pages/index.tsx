@@ -75,9 +75,9 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       <div className={classNames(styles.index, { [styles.initialized]: isInitialized })}>
         <div className={styles.nav}>
           <div className={styles.navLogo}>
-            <div className={styles.logoContainer} title={version}>
+            <a className={styles.logoContainer} href="/" title={version}>
               <Logo className={styles.logo} />
-            </div>
+            </a>
           </div>
 
           <NavButtons
