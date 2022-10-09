@@ -5,6 +5,7 @@ const getPatternHash = (pattern: Pattern): string => {
     .map((cell) => {
       const blank = cell.tile.isBlank ? '!' : '';
       const tile = cell.tile.character + blank;
+      // eslint-disable-next-line prefer-template
       return cell.x + ',' + cell.y + ',' + tile;
     })
     .join('-');
