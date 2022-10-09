@@ -74,8 +74,10 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     <>
       <div className={classNames(styles.index, { [styles.initialized]: isInitialized })}>
         <div className={styles.nav}>
-          <div className={styles.logoContainer}>
-            <Logo className={styles.logo} />
+          <div className={styles.navLogo}>
+            <div className={styles.logoContainer} title={version}>
+              <Logo className={styles.logo} />
+            </div>
           </div>
 
           <NavButtons
@@ -114,8 +116,6 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           <Rack className={styles.rack} />
           <input className={styles.submitInput} tabIndex={-1} type="submit" />
         </form>
-
-        <span className={styles.version}>v{version}</span>
       </div>
 
       <Settings isOpen={showSettings} onClose={() => setShowSettings(false)} />
@@ -138,7 +138,7 @@ const readVersion = async (): Promise<string> => {
   const packageJsonFilepath = path.resolve(process.cwd(), 'package.json');
   const data = await fs.promises.readFile(packageJsonFilepath, 'utf-8');
   const packageJson = JSON.parse(data);
-  return packageJson.version;
+  return `v${packageJson.version}`;
 };
 
 export default Index;
