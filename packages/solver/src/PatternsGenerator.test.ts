@@ -8,7 +8,7 @@ const board = Board.fromStringArray([' t ', 'do ', '   ']);
 const patternsGenerator = new PatternsGenerator({
   boardHeight: 3,
   boardWidth: 3,
-  maximumNumberOfCharacters: 7,
+  maximumCharactersCount: 7,
 } as Config);
 
 describe('PatternsGenerator', () => {
@@ -45,7 +45,7 @@ describe('PatternsGenerator', () => {
   it('generates vectors', () => {
     const vectors = patternsGenerator.generateVectors({
       getNthVector: () => [],
-      numberOfVectors: 3,
+      vectorsCount: 3,
     });
     expect(vectors.length).toBe(3);
     expect(vectors).toEqual([[], [], []]);

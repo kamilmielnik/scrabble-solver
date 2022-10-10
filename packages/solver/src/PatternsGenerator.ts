@@ -15,8 +15,8 @@ class PatternsGenerator {
     return this.generatePatterns({
       board,
       getNthVector: (index) => board.getRow(index),
-      numberOfVectors: this.config.boardHeight,
       PatternModel: HorizontalPattern,
+      vectorsCount: this.config.boardHeight,
     });
   }
 
@@ -24,35 +24,35 @@ class PatternsGenerator {
     return this.generatePatterns({
       board,
       getNthVector: (index) => board.getColumn(index),
-      numberOfVectors: this.config.boardWidth,
       PatternModel: VerticalPattern,
+      vectorsCount: this.config.boardWidth,
     });
   }
 
   public generatePatterns<P extends Pattern>({
     board,
     getNthVector,
-    numberOfVectors,
+    vectorsCount,
     PatternModel,
   }: {
     board: Board;
     getNthVector: (index: number) => Cell[];
-    numberOfVectors: number;
     PatternModel: new (parameters: { board: Board; cells: Cell[] }) => P;
+    vectorsCount: number;
   }): P[] {
-    return this.generateVectors({ getNthVector, numberOfVectors }).reduce<P[]>((patterns, cells) => {
+    return this.generateVectors({ getNthVector, vectorsCount }).reduce<P[]>((patterns, cells) => {
       return patterns.concat(this.generateCellsPatterns<P>({ board, PatternModel, cells }));
     }, []);
   }
 
   public generateVectors({
     getNthVector,
-    numberOfVectors,
+    vectorsCount,
   }: {
     getNthVector: (index: number) => Cell[];
-    numberOfVectors: number;
+    vectorsCount: number;
   }): Cell[][] {
-    return Array(numberOfVectors)
+    return Array(vectorsCount)
       .fill(0)
       .map((_, index) => getNthVector(index));
   }

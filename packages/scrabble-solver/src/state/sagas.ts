@@ -121,12 +121,12 @@ function* ensureProperTilesCount(): AnyGenerator {
   const { config } = yield select(selectConfig);
   const characters = yield select(selectCharacters);
 
-  if (config.maximumNumberOfCharacters > characters.length) {
-    const differenceCount = Math.abs(config.maximumNumberOfCharacters - characters.length);
+  if (config.maximumCharactersCount > characters.length) {
+    const differenceCount = Math.abs(config.maximumCharactersCount - characters.length);
     yield put(rackSlice.actions.init([...characters, ...Array(differenceCount).fill(null)]));
-  } else if (config.maximumNumberOfCharacters < characters.length) {
-    const nonNulls = characters.filter(Boolean).slice(0, config.maximumNumberOfCharacters);
-    const differenceCount = Math.abs(config.maximumNumberOfCharacters - nonNulls.length);
+  } else if (config.maximumCharactersCount < characters.length) {
+    const nonNulls = characters.filter(Boolean).slice(0, config.maximumCharactersCount);
+    const differenceCount = Math.abs(config.maximumCharactersCount - nonNulls.length);
     const autoGroupTiles = yield select(selectAutoGroupTiles);
     yield put(rackSlice.actions.init([...nonNulls, ...Array(differenceCount).fill(null)]));
     yield put(rackSlice.actions.groupTiles(autoGroupTiles));

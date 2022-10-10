@@ -7,30 +7,24 @@ import Tile from './Tile';
 class Result {
   public static fromJson(json: ResultJson): Result {
     return new Result({
-      cells: json.cells.map(Cell.fromJson),
       id: json.id,
-      numberOfCollisions: json.numberOfCollisions,
+      cells: json.cells.map(Cell.fromJson),
+      collisionsCount: json.collisionsCount,
       points: json.points,
     });
   }
 
+  public readonly blanksCount: number;
+
   public readonly cells: Cell[];
+
+  public readonly collisionsCount: number;
+
+  public readonly consonantsCount: number;
 
   public readonly id: number;
 
   public readonly length: number;
-
-  public readonly numberOfBlanks: number;
-
-  public readonly numberOfCollisions: number;
-
-  public readonly numberOfConsonants: number;
-
-  public readonly numberOfTiles: number;
-
-  public readonly numberOfVowels: number;
-
-  public readonly numberOfWords: number;
 
   public readonly points: number;
 
@@ -40,41 +34,47 @@ class Result {
 
   public readonly tilesCharacters: string;
 
+  public readonly tilesCount: number;
+
+  public readonly vowelsCount: number;
+
   public readonly word: string;
+
+  public readonly wordsCount: number;
 
   constructor({
     cells,
     id,
-    numberOfCollisions,
+    collisionsCount,
     points,
   }: {
     cells: Cell[];
     id: number;
-    numberOfCollisions: number;
+    collisionsCount: number;
     points: number;
   }) {
     const tiles = getTiles(cells);
+    this.blanksCount = getBlanks(tiles).length;
     this.cells = cells;
+    this.collisionsCount = collisionsCount;
+    this.consonantsCount = getConsonants(tiles).length;
     this.id = id;
     this.length = cells.length;
-    this.numberOfCollisions = numberOfCollisions;
-    this.numberOfConsonants = getConsonants(tiles).length;
-    this.numberOfBlanks = getBlanks(tiles).length;
-    this.numberOfTiles = tiles.length;
-    this.numberOfVowels = getVowels(tiles).length;
-    this.numberOfWords = 1 + this.numberOfCollisions;
     this.points = points;
     this.pointsRatio = getPointsRatio(tiles, points);
     this.tiles = tiles;
     this.tilesCharacters = getTilesCharacters(tiles);
+    this.tilesCount = tiles.length;
+    this.vowelsCount = getVowels(tiles).length;
     this.word = getWord(cells);
+    this.wordsCount = 1 + this.collisionsCount;
   }
 
   public toJson(): ResultJson {
     return {
       cells: this.cells.map((cell) => cell.toJson()),
       id: this.id,
-      numberOfCollisions: this.numberOfCollisions,
+      collisionsCount: this.collisionsCount,
       points: this.points,
     };
   }

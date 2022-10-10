@@ -11,7 +11,7 @@ const getRemainingTiles = (config: Config, board: Board, characters: string[]): 
   const remainingTiles = Object.fromEntries(config.tiles.map((tile) => [tile.character, { ...tile, usedCount: 0 }]));
   const blank: RemainingTile = {
     character: BLANK,
-    count: config.numberOfBlanks,
+    count: config.blanksCount,
     score: config.blankScore,
     usedCount:
       nonEmptyCells.filter((cell) => cell.tile.isBlank).length +

@@ -14,11 +14,10 @@ class Pattern {
   }
 
   public canBePlaced(config: Config): boolean {
-    const numberOfEmptyCells = this.getNumberOfEmptyCells();
-    const isNumberOfUsedCellsInRange =
-      numberOfEmptyCells >= 1 && numberOfEmptyCells <= config.maximumNumberOfCharacters;
+    const emptyCellsCount = this.getEmptyCellsCount();
+    const isUsedCellsCountInRange = emptyCellsCount >= 1 && emptyCellsCount <= config.maximumCharactersCount;
     return (
-      isNumberOfUsedCellsInRange &&
+      isUsedCellsCountInRange &&
       (this.hasAtLeast1NonEmptyCell() || this.collides() || (this.goesThroughBoardCenter() && this.board.isEmpty()))
     );
   }
@@ -38,7 +37,7 @@ class Pattern {
     return this.cells.findIndex((cell) => !cell.hasTile());
   }
 
-  public getNumberOfEmptyCells(): number {
+  public getEmptyCellsCount(): number {
     return this.cells.filter((cell) => cell.isEmpty).length;
   }
 

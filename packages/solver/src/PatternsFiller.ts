@@ -15,7 +15,7 @@ class PatternsFiller {
   public fill(pattern: Pattern, tiles: Tile[]): Pattern[] {
     const patterns: Pattern[] = [];
 
-    if (pattern.getNumberOfEmptyCells() > tiles.length) {
+    if (pattern.getEmptyCellsCount() > tiles.length) {
       return [];
     }
 

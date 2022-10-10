@@ -31,21 +31,21 @@ class Board {
     });
   }
 
+  public readonly columnsCount: number;
+
   public readonly rows: Cell[][];
 
-  public readonly numberOfColumns: number;
-
-  public readonly numberOfRows: number;
+  public readonly rowsCount: number;
 
   constructor({ rows }: { rows: Cell[][] }) {
     this.rows = rows;
-    this.numberOfColumns = rows[0].length;
-    this.numberOfRows = rows.length;
+    this.columnsCount = rows[0].length;
+    this.rowsCount = rows.length;
   }
 
   public get center(): Cell {
-    const x = Math.floor(this.numberOfColumns / 2);
-    const y = Math.floor(this.numberOfRows / 2);
+    const x = Math.floor(this.columnsCount / 2);
+    const y = Math.floor(this.rowsCount / 2);
     return this.rows[y][x];
   }
 
@@ -59,7 +59,7 @@ class Board {
   }
 
   public collidesDown({ x, y }: Cell): boolean {
-    return y < this.numberOfRows - 1 && !this.rows[y + 1][x].isEmpty;
+    return y < this.rowsCount - 1 && !this.rows[y + 1][x].isEmpty;
   }
 
   public collidesLeft({ x, y }: Cell): boolean {
@@ -67,7 +67,7 @@ class Board {
   }
 
   public collidesRight({ x, y }: Cell): boolean {
-    return x < this.numberOfColumns - 1 && !this.rows[y][x + 1].isEmpty;
+    return x < this.columnsCount - 1 && !this.rows[y][x + 1].isEmpty;
   }
 
   public collidesUp({ x, y }: Cell): boolean {
@@ -76,8 +76,8 @@ class Board {
 
   public equals(other: Board): boolean {
     return (
-      this.numberOfColumns === other.numberOfColumns &&
-      this.numberOfRows === other.numberOfRows &&
+      this.columnsCount === other.columnsCount &&
+      this.rowsCount === other.rowsCount &&
       this.rows.every((row, rowIndex) => {
         return row.every((cell, cellIndex) => {
           return cell.equals(other.rows[rowIndex][cellIndex]);

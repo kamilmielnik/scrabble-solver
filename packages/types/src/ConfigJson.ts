@@ -4,13 +4,13 @@ import TileConfig from './TileConfig';
 interface ConfigJson {
   allTilesBonusScore: number;
   blankScore: number;
+  blanksCount: number;
   boardHeight: number;
   boardWidth: number;
   bonuses: BonusJson[];
   id: string;
-  maximumNumberOfCharacters: number;
+  maximumCharactersCount: number;
   name: string;
-  numberOfBlanks: number;
   tiles: TileConfig[];
 }
 

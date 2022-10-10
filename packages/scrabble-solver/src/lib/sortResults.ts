@@ -6,13 +6,13 @@ import createKeyComparator from './createKeyComparator';
 import reverseComparator from './reverseComparator';
 
 const comparators: Record<ResultColumn, Comparator<Result>> = {
-  [ResultColumn.BlanksCount]: createKeyComparator('numberOfBlanks'),
-  [ResultColumn.ConsonantsCount]: createKeyComparator('numberOfConsonants'),
+  [ResultColumn.BlanksCount]: createKeyComparator('blanksCount'),
+  [ResultColumn.ConsonantsCount]: createKeyComparator('consonantsCount'),
   [ResultColumn.Points]: createKeyComparator('points'),
-  [ResultColumn.TilesCount]: createKeyComparator('numberOfTiles'),
-  [ResultColumn.VowelsCount]: createKeyComparator('numberOfVowels'),
+  [ResultColumn.TilesCount]: createKeyComparator('tilesCount'),
+  [ResultColumn.VowelsCount]: createKeyComparator('vowelsCount'),
   [ResultColumn.Word]: createKeyComparator('word'),
-  [ResultColumn.WordsCount]: createKeyComparator('numberOfWords'),
+  [ResultColumn.WordsCount]: createKeyComparator('wordsCount'),
 };
 
 const sortResults = (

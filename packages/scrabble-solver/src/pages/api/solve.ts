@@ -65,7 +65,7 @@ const validateRequest = ({ board, characters, config }: RequestData): void => {
   const blankTilesCount = characters.filter((character) => character === BLANK).length;
   const blanksCount = board.getBlanksCount() + blankTilesCount;
 
-  if (blanksCount > config.numberOfBlanks) {
+  if (blanksCount > config.blanksCount) {
     throw new Error(`Too many blank tiles passed (board: ${board.getBlanksCount()}, tiles: ${blankTilesCount})`);
   }
 };

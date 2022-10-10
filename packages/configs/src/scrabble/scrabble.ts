@@ -6,13 +6,13 @@ import { tilesEn, tilesEs, tilesFr, tilesPl, tilesDe } from './tiles';
 const base = {
   allTilesBonusScore: 50,
   blankScore: 0,
+  blanksCount: 2,
   boardHeight: 15,
   boardWidth: 15,
   bonuses,
   id: 'scrabble',
-  maximumNumberOfCharacters: 7,
+  maximumCharactersCount: 7,
   name: 'Scrabble',
-  numberOfBlanks: 2,
 };
 
 const scrabble = {

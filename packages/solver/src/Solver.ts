@@ -27,8 +27,8 @@ class Solver {
       (pattern, index) =>
         new Result({
           cells: pattern.cells,
+          collisionsCount: pattern.getCollisions().length,
           id: index,
-          numberOfCollisions: pattern.getCollisions().length,
           points: this.scoresCalculator.calculate(pattern),
         }),
     );

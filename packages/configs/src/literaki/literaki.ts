@@ -6,13 +6,13 @@ import { tilesDe, tilesEn, tilesEs, tilesFr, tilesPl } from './tiles';
 const base = {
   allTilesBonusScore: 50,
   blankScore: 0,
+  blanksCount: 2,
   boardHeight: 15,
   boardWidth: 15,
   bonuses,
   id: 'literaki',
-  maximumNumberOfCharacters: 7,
+  maximumCharactersCount: 7,
   name: 'Literaki',
-  numberOfBlanks: 2,
 };
 
 const literaki = {

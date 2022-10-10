@@ -50,11 +50,11 @@ const Result = ({ index, style }: Props): ReactElement => {
     >
       <span className={styles.resultContent}>
         <Cell className={styles.word} translationKey="common.word" value={result.word} />
-        <Cell className={styles.stat} translationKey="common.tiles" value={result.numberOfTiles} />
-        <Cell className={styles.stat} translationKey="common.consonants" value={result.numberOfConsonants} />
-        <Cell className={styles.stat} translationKey="common.vowels" value={result.numberOfVowels} />
-        <Cell className={styles.stat} translationKey="common.blanks" value={result.numberOfBlanks} />
-        <Cell className={styles.stat} translationKey="common.words" value={result.numberOfWords} />
+        <Cell className={styles.stat} translationKey="common.tiles" value={result.tilesCount} />
+        <Cell className={styles.stat} translationKey="common.consonants" value={result.consonantsCount} />
+        <Cell className={styles.stat} translationKey="common.vowels" value={result.vowelsCount} />
+        <Cell className={styles.stat} translationKey="common.blanks" value={result.blanksCount} />
+        <Cell className={styles.stat} translationKey="common.words" value={result.wordsCount} />
         <Cell className={styles.points} translationKey="common.points" value={result.points} />
       </span>
     </button>

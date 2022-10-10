@@ -38,6 +38,10 @@ class Config {
     return this.config.blankScore;
   }
 
+  public get blanksCount(): number {
+    return this.config.blanksCount;
+  }
+
   public get boardHeight(): number {
     return this.config.boardHeight;
   }
@@ -94,12 +98,8 @@ class Config {
     return typeof this.getTwoCharacterTileByPrefix(character) !== 'undefined';
   }
 
-  public get maximumNumberOfCharacters(): number {
-    return this.config.maximumNumberOfCharacters;
-  }
-
-  public get numberOfBlanks(): number {
-    return this.config.numberOfBlanks;
+  public get maximumCharactersCount(): number {
+    return this.config.maximumCharactersCount;
   }
 
   public get tiles(): TileConfig[] {

@@ -13,7 +13,7 @@ class ScoresCalculator {
   }
 
   public calculateBonusScore(pattern: Pattern): number {
-    const areAllTilesUsed = pattern.getNumberOfEmptyCells() === this.config.maximumNumberOfCharacters;
+    const areAllTilesUsed = pattern.getEmptyCellsCount() === this.config.maximumCharactersCount;
     return areAllTilesUsed ? this.config.allTilesBonusScore : 0;
   }
 
