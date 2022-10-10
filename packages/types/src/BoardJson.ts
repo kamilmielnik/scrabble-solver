@@ -1,5 +1,25 @@
-import CellJson from './CellJson';
+import CellJson, { isCellJson } from './CellJson';
 
-type BoardJson = (CellJson | null)[][];
+type BoardJson = CellJson[][];
+
+export const isBoardJson = (value: unknown): value is BoardJson => {
+  if (!Array.isArray(value)) {
+    return false;
+  }
+
+  for (const row of value) {
+    if (!Array.isArray(value)) {
+      return false;
+    }
+
+    for (const cell of row) {
+      if (!isCellJson(cell)) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+};
 
 export default BoardJson;

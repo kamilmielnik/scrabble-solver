@@ -1,7 +1,7 @@
 import CellJson from './CellJson';
 
 interface PatternJson {
-  cells: (CellJson | null)[];
+  cells: CellJson[];
   collisions: PatternJson[];
   word: string;
 }

@@ -1,12 +1,12 @@
-import { getLocaleConfig } from '@scrabble-solver/configs';
+import { getLocaleConfig, isConfigId } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import logger from '@scrabble-solver/logger';
 import Solver from '@scrabble-solver/solver';
-import { Board, Config, Locale, Tile } from '@scrabble-solver/types';
+import { Board, Config, isBoardJson, isLocale, Locale, Tile } from '@scrabble-solver/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { getServerLoggingData, validateBoard, validateCharacters, validateConfigId, validateLocale } from 'api';
+import { getServerLoggingData, validateBoard, validateCharacters } from 'api';
 
 interface RequestData {
   board: Board;
@@ -20,6 +20,7 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
 
   try {
     const { board, characters, config, locale } = parseRequest(request);
+
     logger.info('solve - request', {
       meta,
       payload: {
@@ -31,6 +32,7 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
         locale,
       },
     });
+
     validateRequest({ board, characters, config, locale });
     const trie = await dictionaries.get(locale);
     const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
@@ -47,9 +49,20 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
 const parseRequest = (request: NextApiRequest): RequestData => {
   const { board, characters, configId, locale } = request.body;
 
-  validateConfigId(configId);
-  validateLocale(locale);
+  if (!isLocale(locale)) {
+    throw new Error('Invalid "locale" parameter');
+  }
+
+  if (!isConfigId(configId)) {
+    throw new Error('Invalid "configId" parameter');
+  }
+
   const config = getLocaleConfig(configId, locale);
+
+  if (!isBoardJson(board)) {
+    throw new Error('Invalid "board" parameter');
+  }
+
   validateBoard(board, config);
   validateCharacters(characters, config);
 

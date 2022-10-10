@@ -1,29 +1,34 @@
+import { scrabble } from '@scrabble-solver/configs';
 import logger from '@scrabble-solver/logger';
-import { Locale } from '@scrabble-solver/types';
+import { isLocale, Locale } from '@scrabble-solver/types';
 import { getWordDefinition } from '@scrabble-solver/word-definitions';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { getServerLoggingData, validateLocale, validateWord } from 'api';
+import { getServerLoggingData } from 'api';
 
 interface RequestData {
   locale: Locale;
-  word: string;
+  words: string[];
 }
+
+const MAXIMUM_WORDS_COUNT = scrabble['en-US'].maximumCharactersCount;
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
   const meta = getServerLoggingData(request);
 
   try {
-    const { locale, word } = parseRequest(request);
+    const { locale, words } = parseRequest(request);
+
     logger.info('dictionary - request', {
       meta,
       payload: {
         locale,
-        word,
+        words,
       },
     });
-    const result = await getWordDefinition(locale, word);
-    response.status(200).send(result.toJson());
+
+    const results = await Promise.all(words.map((word) => getWordDefinition(locale, word)));
+    response.status(200).send(results.map((result) => result.toJson()));
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     logger.error('dictionary - error', { error, meta });
@@ -34,12 +39,23 @@ const dictionary = async (request: NextApiRequest, response: NextApiResponse): P
 const parseRequest = (request: NextApiRequest): RequestData => {
   const { locale, word } = request.query;
 
-  validateLocale(locale);
-  validateWord(word);
+  if (!isLocale(locale)) {
+    throw new Error('Invalid "locale" parameter');
+  }
+
+  if (typeof word !== 'string' || word.length === 0) {
+    throw new Error('Invalid "word" parameter');
+  }
+
+  const words = word.split(',').map((part) => part.trim());
+
+  if (words.length > MAXIMUM_WORDS_COUNT) {
+    throw new Error('Invalid "word" parameter');
+  }
 
   return {
-    locale: locale as Locale,
-    word: word as string,
+    locale,
+    words,
   };
 };
 

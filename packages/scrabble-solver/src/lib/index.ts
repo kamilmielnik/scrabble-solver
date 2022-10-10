@@ -15,7 +15,6 @@ export { default as getTotalRemainingTilesCount } from './getTotalRemainingTiles
 export { default as getTileSizes } from './getTileSizes';
 export { default as inverseDirection } from './inverseDirection';
 export { default as isCtrl } from './isCtrl';
-export { default as isLocale } from './isLocale';
 export { default as isMac } from './isMac';
 export { default as isRegExp } from './isRegExp';
 export { default as memoize } from './memoize';

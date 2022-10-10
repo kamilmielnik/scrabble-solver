@@ -1,8 +1,8 @@
-import { CellJson, Config } from '@scrabble-solver/types';
+import { BoardJson, CellJson, Config } from '@scrabble-solver/types';
 
 import validateRow from './validateRow';
 
-const validateBoard = (board: unknown, config: Config): void => {
+const validateBoard = (board: BoardJson, config: Config): void => {
   if (!Array.isArray(board)) {
     throw new Error('Invalid "board" parameter: not an array');
   }
@@ -23,7 +23,7 @@ const validateBoard = (board: unknown, config: Config): void => {
 const validateTwoCharacterTiles = (board: CellJson[][], config: Config): void => {
   const cells: CellJson[] = board
     .flat()
-    .filter((cell) => cell.tile && config.isTwoCharacterTilePrefix(cell.tile.character));
+    .filter((cell) => cell && cell.tile && config.isTwoCharacterTilePrefix(cell.tile.character));
 
   for (const cell of cells) {
     for (const characters of config.twoCharacterTiles) {

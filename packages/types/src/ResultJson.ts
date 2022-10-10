@@ -1,7 +1,7 @@
 import CellJson from './CellJson';
 
 interface ResultJson {
-  cells: (CellJson | null)[];
+  cells: CellJson[];
   collisionsCount: number;
   id: number;
   points: number;

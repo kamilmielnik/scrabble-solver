@@ -2,11 +2,7 @@ import CellJson from './CellJson';
 import Tile from './Tile';
 
 class Cell {
-  public static fromJson(json: CellJson | null): Cell {
-    if (!json) {
-      return Cell.Null;
-    }
-
+  public static fromJson(json: CellJson): Cell {
     return new Cell({
       isEmpty: json.isEmpty,
       tile: Tile.fromJson(json.tile),
@@ -14,19 +10,6 @@ class Cell {
       y: json.y,
     });
   }
-
-  public static readonly Null: Cell = Object.freeze({
-    isEmpty: true,
-    tile: Tile.Null,
-    x: 0,
-    y: 0,
-    clone: () => Cell.Null,
-    equals: (other: Cell) => other === Cell.Null,
-    hasTile: () => false,
-    isCandidate: () => false,
-    toString: () => '',
-    toJson: () => null,
-  });
 
   public readonly isEmpty: boolean;
 
@@ -65,7 +48,7 @@ class Cell {
     return this.isEmpty && this.hasTile();
   }
 
-  public toJson(): CellJson | null {
+  public toJson(): CellJson {
     return {
       isEmpty: this.isEmpty,
       tile: this.tile.toJson(),
