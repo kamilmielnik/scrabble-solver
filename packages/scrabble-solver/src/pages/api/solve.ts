@@ -6,7 +6,8 @@ import Solver from '@scrabble-solver/solver';
 import { Board, Config, isBoardJson, isLocale, Locale, Tile } from '@scrabble-solver/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { getServerLoggingData, validateBoard, validateCharacters } from 'api';
+import { getServerLoggingData, isBoardValid } from 'api';
+import { isStringArray } from 'lib';
 
 interface RequestData {
   board: Board;
@@ -33,7 +34,6 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
       },
     });
 
-    validateRequest({ board, characters, config, locale });
     const trie = await dictionaries.get(locale);
     const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
     const solver = new Solver(config, trie);
@@ -47,7 +47,7 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
 };
 
 const parseRequest = (request: NextApiRequest): RequestData => {
-  const { board, characters, configId, locale } = request.body;
+  const { board: boardJson, characters, configId, locale } = request.body;
 
   if (!isLocale(locale)) {
     throw new Error('Invalid "locale" parameter');
@@ -59,28 +59,34 @@ const parseRequest = (request: NextApiRequest): RequestData => {
 
   const config = getLocaleConfig(configId, locale);
 
-  if (!isBoardJson(board)) {
+  if (!isBoardJson(boardJson) || !isBoardValid(boardJson, config)) {
     throw new Error('Invalid "board" parameter');
   }
 
-  validateBoard(board, config);
-  validateCharacters(characters, config);
+  if (!isStringArray(characters) || characters.length === 0) {
+    throw new Error('Invalid "characters" parameter');
+  }
 
-  return {
-    board: Board.fromJson(board),
-    characters,
-    config,
-    locale,
-  };
-};
+  for (const character of characters) {
+    if (!config.hasCharacter(character) && character !== BLANK) {
+      throw new Error('Invalid "characters" parameter');
+    }
+  }
 
-const validateRequest = ({ board, characters, config }: RequestData): void => {
+  const board = Board.fromJson(boardJson);
   const blankTilesCount = characters.filter((character) => character === BLANK).length;
   const blanksCount = board.getBlanksCount() + blankTilesCount;
 
   if (blanksCount > config.blanksCount) {
-    throw new Error(`Too many blank tiles passed (board: ${board.getBlanksCount()}, tiles: ${blankTilesCount})`);
+    throw new Error('Too many blank tiles passed');
   }
+
+  return {
+    board,
+    characters,
+    config,
+    locale,
+  };
 };
 
 export default solve;

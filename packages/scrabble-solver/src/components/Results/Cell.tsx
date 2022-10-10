@@ -11,12 +11,13 @@ import styles from './Results.module.scss';
 interface Props {
   className?: string;
   translationKey: TranslationKey;
+  tooltipValue?: string | number;
   value: string | number;
 }
 
-const Cell: FunctionComponent<Props> = ({ className, translationKey, value }) => {
+const Cell: FunctionComponent<Props> = ({ className, translationKey, tooltipValue, value }) => {
   const translate = useTranslate();
-  const triggerProps = useTooltip(`${translate(translationKey)}: ${value}`);
+  const triggerProps = useTooltip(`${translate(translationKey)}: ${tooltipValue || value}`);
 
   return (
     <span className={classNames(styles.cell, className)} {...triggerProps}>

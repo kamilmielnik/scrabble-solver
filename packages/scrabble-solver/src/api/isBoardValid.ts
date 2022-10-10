@@ -1,26 +1,22 @@
 import { BoardJson, CellJson, Config } from '@scrabble-solver/types';
 
-import validateRow from './validateRow';
+import isRowValid from './isRowValid';
 
-const validateBoard = (board: BoardJson, config: Config): void => {
-  if (!Array.isArray(board)) {
-    throw new Error('Invalid "board" parameter: not an array');
-  }
-
+const isBoardValid = (board: BoardJson, config: Config): boolean => {
   if (board.length !== config.boardHeight) {
-    throw new Error(`Invalid "board" parameter: does not have ${config.boardHeight} rows`);
+    return false;
   }
 
-  try {
-    board.forEach((row, rowIndex) => validateRow(row, rowIndex, config));
-    validateTwoCharacterTiles(board, config);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'unknown';
-    throw new Error(`Invalid "board" parameter: ${message}`);
+  for (const row of board) {
+    if (!isRowValid(row, config)) {
+      return false;
+    }
   }
+
+  return areTwoCharacterTilesValid(board, config);
 };
 
-const validateTwoCharacterTiles = (board: CellJson[][], config: Config): void => {
+const areTwoCharacterTilesValid = (board: CellJson[][], config: Config): boolean => {
   const cells: CellJson[] = board
     .flat()
     .filter((cell) => cell && cell.tile && config.isTwoCharacterTilePrefix(cell.tile.character));
@@ -36,10 +32,12 @@ const validateTwoCharacterTiles = (board: CellJson[][], config: Config): void =>
       const collides = collidesDown || collidesRight;
 
       if (cell.tile && characters.startsWith(cell.tile.character) && collides) {
-        throw new Error(`${characters} can only be used as a single tile`);
+        return false;
       }
     }
   }
+
+  return true;
 };
 
-export default validateBoard;
+export default isBoardValid;
