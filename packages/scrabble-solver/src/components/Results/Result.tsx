@@ -16,6 +16,7 @@ const Result = ({ index, style }: Props): ReactElement => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const results = useTypedSelector(selectSortedFilteredResults)!;
   const result = results[index];
+  const otherWords = result.words.slice(1).join(' / ').toLocaleUpperCase();
 
   const handleClick = () => {
     dispatch(resultsSlice.actions.applyResult(result));
@@ -49,12 +50,21 @@ const Result = ({ index, style }: Props): ReactElement => {
       onMouseLeave={handleMouseLeave}
     >
       <span className={styles.resultContent}>
-        <Cell className={styles.word} translationKey="common.word" value={result.word} />
+        <Cell
+          className={styles.word}
+          translationKey="common.word"
+          value={`${result.word.toLocaleUpperCase()}${otherWords.length > 0 ? ` (${otherWords})` : ''}`}
+        />
         <Cell className={styles.stat} translationKey="common.tiles" value={result.tilesCount} />
         <Cell className={styles.stat} translationKey="common.consonants" value={result.consonantsCount} />
         <Cell className={styles.stat} translationKey="common.vowels" value={result.vowelsCount} />
         <Cell className={styles.stat} translationKey="common.blanks" value={result.blanksCount} />
-        <Cell className={styles.stat} translationKey="common.words" value={result.wordsCount} />
+        <Cell
+          className={styles.stat}
+          translationKey="common.words"
+          tooltip={`${result.wordsCount} (${result.words.join(' / ').toLocaleUpperCase()})`}
+          value={result.wordsCount}
+        />
         <Cell className={styles.points} translationKey="common.points" value={result.points} />
       </span>
     </button>

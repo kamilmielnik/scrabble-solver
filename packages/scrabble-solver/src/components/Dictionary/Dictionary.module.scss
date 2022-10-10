@@ -7,6 +7,26 @@
   font-size: var(--font--size--s);
 }
 
+.result {
+  transition: var(--transition);
+
+  &.isAllowed {
+    & + & {
+      .content {
+        padding-top: 0;
+      }
+    }
+  }
+
+  &.isNotAllowed {
+    & + & {
+      .content {
+        padding-top: 0;
+      }
+    }
+  }
+}
+
 .content {
   padding: var(--spacing--l);
 }

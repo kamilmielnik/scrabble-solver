@@ -33,6 +33,7 @@ const dictionary = async (request: NextApiRequest, response: NextApiResponse): P
     const message = error instanceof Error ? error.message : 'Unknown error';
     logger.error('dictionary - error', { error, meta });
     response.status(500).send({ error: 'Server error', message });
+    throw error;
   }
 };
 
@@ -47,7 +48,14 @@ const parseRequest = (request: NextApiRequest): RequestData => {
     throw new Error('Invalid "word" parameter');
   }
 
-  const words = word.split(',').map((part) => part.trim());
+  const words = Array.from(
+    new Set(
+      word
+        .split(',')
+        .map((part) => part.trim())
+        .filter(Boolean),
+    ),
+  );
 
   if (words.length > MAXIMUM_WORDS_COUNT) {
     throw new Error('Invalid "word" parameter');

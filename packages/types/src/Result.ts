@@ -4,12 +4,14 @@ import Cell from './Cell';
 import ResultJson from './ResultJson';
 import Tile from './Tile';
 
+type Collision = Cell[];
+
 class Result {
   public static fromJson(json: ResultJson): Result {
     return new Result({
       id: json.id,
       cells: json.cells.map(Cell.fromJson),
-      collisionsCount: json.collisionsCount,
+      collisions: json.collisions.map((collision) => collision.map(Cell.fromJson)),
       points: json.points,
     });
   }
@@ -18,7 +20,7 @@ class Result {
 
   public readonly cells: Cell[];
 
-  public readonly collisionsCount: number;
+  public readonly collisions: Collision[];
 
   public readonly consonantsCount: number;
 
@@ -40,23 +42,25 @@ class Result {
 
   public readonly word: string;
 
+  public readonly words: string[];
+
   public readonly wordsCount: number;
 
   constructor({
     cells,
     id,
-    collisionsCount,
+    collisions,
     points,
   }: {
     cells: Cell[];
     id: number;
-    collisionsCount: number;
+    collisions: Collision[];
     points: number;
   }) {
     const tiles = getTiles(cells);
     this.blanksCount = getBlanks(tiles).length;
     this.cells = cells;
-    this.collisionsCount = collisionsCount;
+    this.collisions = collisions;
     this.consonantsCount = getConsonants(tiles).length;
     this.id = id;
     this.length = cells.length;
@@ -67,14 +71,15 @@ class Result {
     this.tilesCount = tiles.length;
     this.vowelsCount = getVowels(tiles).length;
     this.word = getWord(cells);
-    this.wordsCount = 1 + this.collisionsCount;
+    this.words = getWords(cells, collisions);
+    this.wordsCount = 1 + this.collisions.length;
   }
 
   public toJson(): ResultJson {
     return {
       cells: this.cells.map((cell) => cell.toJson()),
       id: this.id,
-      collisionsCount: this.collisionsCount,
+      collisions: this.collisions.map((collision) => collision.map((cell) => cell.toJson())),
       points: this.points,
     };
   }
@@ -99,6 +104,11 @@ const getTiles = (cells: Cell[]): Tile[] => cells.filter(({ isEmpty }) => isEmpt
 const getTilesCharacters = (tiles: Tile[]): string => getNonBlankCharacters(tiles).sort(charactersComparator).join('');
 
 const getWord = (cells: Cell[]): string => cells.map(String).join('');
+
+const getWords = (cells: Cell[], collisions: Collision[]): string[] => [
+  getWord(cells),
+  ...collisions.map((collision) => collision.map(String).join('')),
+];
 
 const isConsonant = ({ character, isBlank }: Tile): boolean => CONSONANTS.includes(character) && !isBlank;
 

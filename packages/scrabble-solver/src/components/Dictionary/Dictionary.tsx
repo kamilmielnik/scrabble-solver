@@ -14,44 +14,55 @@ interface Props {
 
 const Dictionary: FunctionComponent<Props> = ({ className }) => {
   const translate = useTranslate();
-  const { definitions, isAllowed, isLoading, word } = useTypedSelector(selectDictionary);
+  const { results, isLoading } = useTypedSelector(selectDictionary);
+  const isFirstAllowed = results.length > 0 ? results[0].isAllowed : undefined;
 
   return (
     <div
       className={classNames(styles.dictionary, className, {
-        [styles.isAllowed]: isAllowed === true,
-        [styles.isNotAllowed]: isAllowed === false,
+        [styles.isAllowed]: isFirstAllowed === true,
+        [styles.isNotAllowed]: isFirstAllowed === false,
       })}
     >
-      {typeof word === 'undefined' && (
-        <EmptyState type="info">{translate('dictionary.empty-state.uninitialized')}</EmptyState>
-      )}
-
-      {typeof word !== 'undefined' && (
-        <div className={styles.content}>
-          {word && <h2 className={styles.word}>{word}</h2>}
-
-          {isAllowed === false && <div>{translate('dictionary.empty-state.not-allowed')}</div>}
-
-          {isAllowed === true && (
-            <>
-              {definitions.length === 0 && <div>{translate('dictionary.empty-state.no-definitions')}</div>}
-
-              {definitions.length > 0 && (
-                <ul className={styles.definitions}>
-                  {definitions.map((result, index) => (
-                    <li key={index} className={styles.definition}>
-                      {result}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </>
+      {results.map(({ definitions, isAllowed, word }) => (
+        <div
+          className={classNames(styles.result, {
+            [styles.isAllowed]: isAllowed === true,
+            [styles.isNotAllowed]: isAllowed === false,
+          })}
+          key={word}
+        >
+          {typeof word === 'undefined' && (
+            <EmptyState type="info">{translate('dictionary.empty-state.uninitialized')}</EmptyState>
           )}
 
-          {!isLoading && isAllowed === null && <div>{translate('dictionary.empty-state.no-results')}</div>}
+          {typeof word !== 'undefined' && (
+            <div className={styles.content}>
+              {word && <h2 className={styles.word}>{word}</h2>}
+
+              {isAllowed === false && <div>{translate('dictionary.empty-state.not-allowed')}</div>}
+
+              {isAllowed === true && (
+                <>
+                  {definitions.length === 0 && <div>{translate('dictionary.empty-state.no-definitions')}</div>}
+
+                  {definitions.length > 0 && (
+                    <ul className={styles.definitions}>
+                      {definitions.map((result, index) => (
+                        <li key={index} className={styles.definition}>
+                          {result}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </>
+              )}
+
+              {!isLoading && isAllowed === null && <div>{translate('dictionary.empty-state.no-results')}</div>}
+            </div>
+          )}
         </div>
-      )}
+      ))}
 
       {isLoading && <Loading />}
     </div>

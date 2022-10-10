@@ -1,9 +1,9 @@
+import { WordDefinition } from '@scrabble-solver/types';
+
 const dictionaryInitialState = {
-  definitions: [] as string[],
   input: '',
-  isAllowed: null as boolean | null,
   isLoading: false,
-  word: undefined as string | undefined,
+  results: [] as WordDefinition[],
 };
 
 export default dictionaryInitialState;

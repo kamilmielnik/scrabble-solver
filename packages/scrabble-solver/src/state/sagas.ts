@@ -3,7 +3,7 @@ import { Result } from '@scrabble-solver/types';
 import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { memoize } from 'lib';
-import { findWordDefinition, solve, visit } from 'sdk';
+import { findWordDefinitions, solve, visit } from 'sdk';
 
 import { initialize, reset } from './actions';
 import {
@@ -18,7 +18,7 @@ import { boardSlice, dictionarySlice, rackSlice, resultsSlice, settingsSlice, so
 
 const SUBMIT_DELAY = 150;
 
-const memoizedFindWordDefinition = memoize(findWordDefinition);
+const memoizedFindWordDefinitions = memoize(findWordDefinitions);
 
 // Can't conveniently type generators for sagas yet,
 // see: https://github.com/microsoft/TypeScript/issues/43632
@@ -53,13 +53,13 @@ function* onDictionarySubmit(): AnyGenerator {
   const { input: word } = yield select(selectDictionary);
   const locale = yield select(selectLocale);
 
-  if (!memoizedFindWordDefinition.hasCache(locale, word)) {
+  if (!memoizedFindWordDefinitions.hasCache(locale, word)) {
     yield delay(SUBMIT_DELAY);
   }
 
   try {
-    const wordDefinition = yield call(memoizedFindWordDefinition, locale, word);
-    yield put(dictionarySlice.actions.submitSuccess(wordDefinition));
+    const wordDefinitions = yield call(memoizedFindWordDefinitions, locale, word);
+    yield put(dictionarySlice.actions.submitSuccess(wordDefinitions));
   } catch (error) {
     yield put(dictionarySlice.actions.submitFailure());
   }
@@ -85,7 +85,7 @@ function* onLocaleChange(): AnyGenerator {
 
 function* onResultCandidateChange({ payload: result }: PayloadAction<Result | null>): AnyGenerator {
   if (result) {
-    yield put(dictionarySlice.actions.changeInput(result.word));
+    yield put(dictionarySlice.actions.changeInput(result.words.join(', ')));
     yield put(dictionarySlice.actions.submit());
   }
 }

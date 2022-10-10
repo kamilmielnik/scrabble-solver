@@ -16,30 +16,24 @@ const dictionarySlice = createSlice({
     submit: (state) => {
       return {
         ...state,
-        definitions: dictionaryInitialState.definitions,
-        isAllowed: dictionaryInitialState.isAllowed,
         isLoading: true,
-        word: dictionaryInitialState.word,
+        results: dictionaryInitialState.results,
       };
     },
 
     submitFailure: (state) => {
       return {
         ...state,
-        definitions: dictionaryInitialState.definitions,
-        isAllowed: false,
         isLoading: false,
-        word: state.input,
+        results: dictionaryInitialState.results,
       };
     },
 
-    submitSuccess: (state, action: PayloadAction<WordDefinition>) => {
+    submitSuccess: (state, action: PayloadAction<WordDefinition[]>) => {
       return {
         ...state,
-        definitions: action.payload.definitions,
-        isAllowed: action.payload.isAllowed,
         isLoading: false,
-        word: action.payload.word,
+        results: action.payload,
       };
     },
   },

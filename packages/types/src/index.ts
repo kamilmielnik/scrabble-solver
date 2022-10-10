@@ -6,6 +6,8 @@ export { default as BonusValue } from './BonusValue';
 export { default as Cell } from './Cell';
 export { default as CellJson, isCellJson } from './CellJson';
 export { default as CharacterBonus } from './CharacterBonus';
+export { default as Collision } from './Collision';
+export { default as CollisionJson } from './CollisionJson';
 export { default as Config } from './Config';
 export { default as ConfigJson } from './ConfigJson';
 export { default as HorizontalPattern } from './HorizontalPattern';

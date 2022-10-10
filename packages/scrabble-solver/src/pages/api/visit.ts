@@ -13,6 +13,7 @@ const visit = async (request: NextApiRequest, response: NextApiResponse): Promis
     const message = error instanceof Error ? error.message : 'Unknown error';
     logger.error('visit - error', { error, meta });
     response.status(500).send({ error: 'Server error', message });
+    throw error;
   }
 };
 

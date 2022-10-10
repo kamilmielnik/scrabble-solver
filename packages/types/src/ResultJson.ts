@@ -1,8 +1,9 @@
 import CellJson from './CellJson';
+import CollisionJson from './CollisionJson';
 
 interface ResultJson {
   cells: CellJson[];
-  collisionsCount: number;
+  collisions: CollisionJson[];
   id: number;
   points: number;
 }
