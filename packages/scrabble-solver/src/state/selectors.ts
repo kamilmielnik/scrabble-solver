@@ -59,8 +59,12 @@ export const selectSortedFilteredResults = createSelector(
     }
 
     return results.filter((result) => {
-      const regExp = new RegExp(query, 'gi');
-      return regExp.test(result.word);
+      try {
+        const regExp = new RegExp(query, 'gi');
+        return regExp.test(result.word);
+      } catch {
+        return false;
+      }
     });
   },
 );

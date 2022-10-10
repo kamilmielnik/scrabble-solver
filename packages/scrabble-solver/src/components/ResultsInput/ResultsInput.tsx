@@ -1,7 +1,8 @@
 import classNames from 'classnames';
-import { ChangeEvent, FunctionComponent } from 'react';
+import { ChangeEvent, FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { isRegExp } from 'lib';
 import { resultsSlice, selectResultsQuery, useTranslate, useTypedSelector } from 'state';
 
 import styles from './ResultsInput.module.scss';
@@ -14,9 +15,16 @@ const ResultsInput: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const value = useTypedSelector(selectResultsQuery);
+  const [localValue, setLocalValue] = useState(value);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(resultsSlice.actions.changeQuery(event.target.value));
+    const newValue = event.target.value;
+
+    setLocalValue(newValue);
+
+    if (isRegExp(newValue)) {
+      dispatch(resultsSlice.actions.changeQuery(newValue));
+    }
   };
 
   return (
@@ -25,7 +33,7 @@ const ResultsInput: FunctionComponent<Props> = ({ className }) => {
         className={styles.input}
         placeholder={translate('results.input.placeholder')}
         type="text"
-        value={value}
+        value={localValue}
         onChange={handleChange}
       />
     </form>
