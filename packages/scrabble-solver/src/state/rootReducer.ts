@@ -1,9 +1,18 @@
 import { combineReducers } from 'redux';
 
-import { boardSlice, dictionarySlice, rackSlice, resultsSlice, settingsSlice, solveSlice } from './slices';
+import {
+  boardSlice,
+  dictionarySlice,
+  cellFilterSlice,
+  rackSlice,
+  resultsSlice,
+  settingsSlice,
+  solveSlice,
+} from './slices';
 
 const rootReducer = combineReducers({
   board: boardSlice.reducer,
+  cellFilter: cellFilterSlice.reducer,
   dictionary: dictionarySlice.reducer,
   rack: rackSlice.reducer,
   results: resultsSlice.reducer,

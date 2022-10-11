@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getLocaleConfig } from '@scrabble-solver/configs';
-import { Cell, Config, Tile } from '@scrabble-solver/types';
+import { Cell, Config, Result, Tile } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
 import { findCell, getRemainingTiles, getRemainingTilesGroups, sortResults, unorderedArraysEqual } from 'lib';
@@ -10,6 +10,8 @@ import { RootState } from './types';
 
 const selectCell = (_: unknown, cell: Cell): Cell => cell;
 
+const selectPoint = (_: unknown, point: { x: number; y: number }): { x: number; y: number } => point;
+
 const selectCharacter = (_: unknown, character: string | null): string | null => character;
 
 const selectTile = (_: unknown, tile: Tile | null): Tile | null => tile;
@@ -17,6 +19,8 @@ const selectTile = (_: unknown, tile: Tile | null): Tile | null => tile;
 const selectBoardRoot = (state: RootState): RootState['board'] => state.board;
 
 const selectDictionaryRoot = (state: RootState): RootState['dictionary'] => state.dictionary;
+
+const selectCellFilterRoot = (state: RootState): RootState['cellFilter'] => state.cellFilter;
 
 const selectRackRoot = (state: RootState): RootState['rack'] => state.rack;
 
@@ -38,6 +42,12 @@ export const selectConfigId = createSelector([selectSettingsRoot], (settings) =>
 
 export const selectConfig = createSelector([selectConfigId, selectLocale], getLocaleConfig);
 
+export const selectCellFilter = selectCellFilterRoot;
+
+export const selectCellIsFiltered = createSelector([selectCellFilter, selectPoint], (cellFilter, { x, y }) => {
+  return cellFilter.some((cell) => cell.x === x && cell.y === y);
+});
+
 export const selectResults = createSelector([selectResultsRoot], (results) => results.results);
 
 export const selectResultsQuery = createSelector([selectResultsRoot], (results) => results.query);
@@ -51,20 +61,39 @@ export const selectSortedResults = createSelector(
   sortResults,
 );
 
+const filterResultsByQuery = (results: Result[], query: string): Result[] => {
+  if (query.trim().length === 0) {
+    return results;
+  }
+
+  let regExp: RegExp | undefined = undefined;
+
+  try {
+    regExp = new RegExp(query, 'gi');
+  } catch {
+    return results;
+  }
+
+  return results.filter((result) => {
+    return regExp!.test(result.word);
+  });
+};
+
 export const selectSortedFilteredResults = createSelector(
-  [selectSortedResults, selectResultsQuery],
-  (results, query) => {
-    if (!results || query.trim().length === 0) {
+  [selectSortedResults, selectResultsQuery, selectCellFilter],
+  (results, query, cellFilter) => {
+    if (!results) {
       return results;
     }
 
-    return results.filter((result) => {
-      try {
-        const regExp = new RegExp(query, 'gi');
-        return regExp.test(result.word);
-      } catch {
-        return false;
-      }
+    const filteredByQuery = filterResultsByQuery(results, query);
+
+    if (!cellFilter) {
+      return filteredByQuery;
+    }
+
+    return filteredByQuery.filter((result) => {
+      return cellFilter.every(({ x, y }) => result.cells.some((cell) => cell.x === x && cell.y === y));
     });
   },
 );

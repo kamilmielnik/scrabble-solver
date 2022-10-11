@@ -8,6 +8,7 @@ export { default as Cog } from './Cog.svg';
 export { default as Cross } from './Cross.svg';
 export { default as DashCircleFill } from './DashCircleFill.svg';
 export { default as Eraser } from './Eraser.svg';
+export { default as Flag } from './Flag.svg';
 export { default as FlagEs } from './FlagEs.svg';
 export { default as FlagFr } from './FlagFr.svg';
 export { default as FlagGb } from './FlagGb.svg';

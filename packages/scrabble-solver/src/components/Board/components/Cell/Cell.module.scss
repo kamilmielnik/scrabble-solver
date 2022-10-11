@@ -168,6 +168,7 @@ $icon-size: 16px;
   }
 
   &,
+  .filterCell,
   .toggleDirection {
     width: $icon-size;
     height: $icon-size;
@@ -180,8 +181,6 @@ $icon-size: 16px;
 }
 
 .toggleDirection {
-  transition: var(--transition);
-
   &.right {
     transform: rotate(-90deg);
   }
@@ -193,4 +192,33 @@ $icon-size: 16px;
   &.active {
     font-weight: bold;
   }
+}
+
+.filterCell {
+  color: var(--color--inactive);
+
+  &.filtered {
+    color: var(--color--foreground--secondary);
+  }
+}
+
+.flagContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(1px 1px var(--border--color));
+  backdrop-filter: blur(1px);
+}
+
+.flag {
+  $size: 24px;
+
+  width: $size;
+  height: $size;
+  color: var(--color--primary);
 }
