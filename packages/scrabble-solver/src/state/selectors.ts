@@ -66,7 +66,7 @@ const filterResultsByQuery = (results: Result[], query: string): Result[] => {
     return results;
   }
 
-  let regExp: RegExp | undefined = undefined;
+  let regExp: RegExp | undefined;
 
   try {
     regExp = new RegExp(query, 'gi');
@@ -75,6 +75,7 @@ const filterResultsByQuery = (results: Result[], query: string): Result[] => {
   }
 
   return results.filter((result) => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return regExp!.test(result.word);
   });
 };

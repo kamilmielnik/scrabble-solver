@@ -9,7 +9,6 @@ import { initialize, reset } from './actions';
 import {
   selectAutoGroupTiles,
   selectBoard,
-  selectCellFilter,
   selectCellIsFiltered,
   selectCharacters,
   selectConfig,
