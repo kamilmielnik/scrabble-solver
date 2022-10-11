@@ -1,5 +1,7 @@
 export { default as boardInitialState } from './boardInitialState';
 export { default as boardSlice } from './boardSlice';
+export { default as cellFilterInitialState } from './cellFilterInitialState';
+export { default as cellFilterSlice } from './cellFilterSlice';
 export { default as dictionaryInitialState } from './dictionaryInitialState';
 export { default as dictionarySlice } from './dictionarySlice';
 export { default as rackInitialState } from './rackInitialState';

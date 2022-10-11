@@ -1,4 +1,5 @@
 {
+  "cell.filter-cell": "Target destination - click to toggle",
   "cell.set-blank": "Mark it a blank",
   "cell.set-not-blank": "Mark it not a blank",
   "cell.toggle-direction": "Typing direction - click to toggle",

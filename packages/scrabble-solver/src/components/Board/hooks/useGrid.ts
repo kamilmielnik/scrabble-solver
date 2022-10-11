@@ -1,3 +1,4 @@
+/* eslint-disable max-lines, max-statements */
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Cell } from '@scrabble-solver/types';
 import { createRef, KeyboardEventHandler, RefObject, useCallback, useMemo, useState, useRef } from 'react';

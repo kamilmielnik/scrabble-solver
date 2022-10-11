@@ -2,7 +2,7 @@ import { Bonus, Cell, Tile as TileModel } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import { CSSProperties, FocusEventHandler, FunctionComponent, memo, MouseEventHandler, RefObject } from 'react';
 
-import { ArrowDown } from 'icons';
+import { ArrowDown, Flag, Star } from 'icons';
 import { Translate } from 'types';
 
 import Tile from '../../../Tile';
@@ -19,6 +19,7 @@ interface Props {
   inputRef: RefObject<HTMLInputElement>;
   isCenter: boolean;
   isEmpty: boolean;
+  isFiltered: boolean;
   points?: number;
   size: number;
   style?: CSSProperties;
@@ -27,6 +28,7 @@ interface Props {
   onDirectionToggleClick: MouseEventHandler<HTMLButtonElement>;
   onFocus: FocusEventHandler<HTMLInputElement>;
   onToggleBlankClick: MouseEventHandler<HTMLButtonElement>;
+  onToggleFilterCellClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 const CellPure: FunctionComponent<Props> = ({
@@ -37,6 +39,7 @@ const CellPure: FunctionComponent<Props> = ({
   inputRef,
   isCenter,
   isEmpty,
+  isFiltered,
   points,
   size,
   style,
@@ -45,6 +48,7 @@ const CellPure: FunctionComponent<Props> = ({
   onDirectionToggleClick,
   onFocus,
   onToggleBlankClick,
+  onToggleFilterCellClick,
 }) => (
   <div
     className={classNames(styles.cell, getBonusClassname(cell, bonus, isCenter), className, {
@@ -52,6 +56,18 @@ const CellPure: FunctionComponent<Props> = ({
     })}
     style={style}
   >
+    {isCenter && (
+      <div className={classNames(styles.iconContainer)}>
+        <Star className={styles.star} />
+      </div>
+    )}
+
+    {isFiltered && (
+      <div className={classNames(styles.iconContainer, styles.flagContainer)}>
+        <Flag className={styles.flag} />
+      </div>
+    )}
+
     <Tile
       className={styles.tile}
       character={isEmpty ? undefined : tile.character}
@@ -73,6 +89,18 @@ const CellPure: FunctionComponent<Props> = ({
           })}
         />
       </Button>
+
+      {isEmpty && (
+        <Button
+          className={classNames(styles.filterCell, {
+            [styles.filtered]: isFiltered,
+          })}
+          tooltip={translate('cell.filter-cell')}
+          onClick={onToggleFilterCellClick}
+        >
+          <Flag />
+        </Button>
+      )}
 
       {!isEmpty && (
         <Button

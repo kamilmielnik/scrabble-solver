@@ -4,7 +4,15 @@ import { FunctionComponent, RefObject, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { getTileSizes } from 'lib';
-import { boardSlice, selectCellBonus, selectTilePoints, useTranslate, useTypedSelector } from 'state';
+import {
+  boardSlice,
+  cellFilterSlice,
+  selectCellBonus,
+  selectCellIsFiltered,
+  selectTilePoints,
+  useTranslate,
+  useTypedSelector,
+} from 'state';
 
 import CellPure from './CellPure';
 
@@ -34,9 +42,18 @@ const Cell: FunctionComponent<Props> = ({
   const translate = useTranslate();
   const bonus = useTypedSelector((state) => selectCellBonus(state, cell));
   const points = useTypedSelector((state) => selectTilePoints(state, cell.tile));
+  const isFiltered = useTypedSelector((state) => selectCellIsFiltered(state, cell));
   const { tileFontSize } = getTileSizes(size);
   const isEmpty = tile.character === EMPTY_CELL;
   const style = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
+
+  const handleDirectionToggleClick = useCallback(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+
+    onDirectionToggle();
+  }, [onDirectionToggle]);
 
   const handleFocus = useCallback(() => onFocus(x, y), [x, y, onFocus]);
 
@@ -48,13 +65,13 @@ const Cell: FunctionComponent<Props> = ({
     dispatch(boardSlice.actions.toggleCellIsBlank({ x, y }));
   }, [dispatch, x, y]);
 
-  const handleDirectionToggleClick = useCallback(() => {
+  const handleToggleFilterCellClick = useCallback(() => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
 
-    onDirectionToggle();
-  }, [onDirectionToggle]);
+    dispatch(cellFilterSlice.actions.toggle({ x, y }));
+  }, [dispatch, x, y]);
 
   return (
     <CellPure
@@ -65,6 +82,7 @@ const Cell: FunctionComponent<Props> = ({
       inputRef={inputRef}
       isCenter={isCenter}
       isEmpty={isEmpty}
+      isFiltered={isFiltered}
       points={points}
       size={size}
       style={style}
@@ -73,6 +91,7 @@ const Cell: FunctionComponent<Props> = ({
       onDirectionToggleClick={handleDirectionToggleClick}
       onFocus={handleFocus}
       onToggleBlankClick={handleToggleBlankClick}
+      onToggleFilterCellClick={handleToggleFilterCellClick}
     />
   );
 };

@@ -9,12 +9,21 @@ import { initialize, reset } from './actions';
 import {
   selectAutoGroupTiles,
   selectBoard,
+  selectCellIsFiltered,
   selectCharacters,
   selectConfig,
   selectDictionary,
   selectLocale,
 } from './selectors';
-import { boardSlice, dictionarySlice, rackSlice, resultsSlice, settingsSlice, solveSlice } from './slices';
+import {
+  boardSlice,
+  cellFilterSlice,
+  dictionarySlice,
+  rackSlice,
+  resultsSlice,
+  settingsSlice,
+  solveSlice,
+} from './slices';
 
 const SUBMIT_DELAY = 150;
 
@@ -26,6 +35,7 @@ const memoizedFindWordDefinitions = memoize(findWordDefinitions);
 type AnyGenerator = Generator<any, any, any>;
 
 export function* rootSaga(): AnyGenerator {
+  yield takeEvery(boardSlice.actions.changeCellValue.type, onCellValueChange);
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
   yield takeEvery(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
   yield takeEvery(settingsSlice.actions.changeConfigId.type, onConfigIdChange);
@@ -36,9 +46,18 @@ export function* rootSaga(): AnyGenerator {
   yield takeLatest(solveSlice.actions.submit.type, onSubmit);
 }
 
+function* onCellValueChange({ payload }: PayloadAction<{ value: string; x: number; y: number }>): AnyGenerator {
+  const isFiltered = yield select((state) => selectCellIsFiltered(state, payload));
+
+  if (isFiltered) {
+    yield put(cellFilterSlice.actions.toggle(payload));
+  }
+}
+
 function* onApplyResult({ payload: result }: PayloadAction<Result>): AnyGenerator {
   const autoGroupTiles = yield select(selectAutoGroupTiles);
   yield put(boardSlice.actions.applyResult(result));
+  yield put(cellFilterSlice.actions.reset());
   yield put(rackSlice.actions.removeTiles(result.tiles));
   yield put(rackSlice.actions.groupTiles(autoGroupTiles));
 }
@@ -72,6 +91,7 @@ function* onInitialize(): AnyGenerator {
 
 function* onReset(): AnyGenerator {
   yield put(boardSlice.actions.reset());
+  yield put(cellFilterSlice.actions.reset());
   yield put(dictionarySlice.actions.reset());
   yield put(rackSlice.actions.reset());
   yield put(resultsSlice.actions.reset());

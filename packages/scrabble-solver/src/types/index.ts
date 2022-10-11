@@ -30,6 +30,7 @@ export enum ResultColumn {
 }
 
 export type TranslationKey =
+  | 'cell.filter-cell'
   | 'cell.set-blank'
   | 'cell.set-not-blank'
   | 'cell.toggle-direction'
