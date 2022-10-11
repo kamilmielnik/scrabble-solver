@@ -208,8 +208,7 @@ $icon-size: 16px;
 }
 
 .flagContainer {
-  filter: drop-shadow(1px 1px var(--border--color));
-  backdrop-filter: blur(1px);
+  background-color: var(--color--primary);
 }
 
 .flag,
@@ -218,12 +217,5 @@ $icon-size: 16px;
 
   width: $size;
   height: $size;
-}
-
-.flag {
-  color: var(--color--primary);
-}
-
-.star {
   color: white;
 }
