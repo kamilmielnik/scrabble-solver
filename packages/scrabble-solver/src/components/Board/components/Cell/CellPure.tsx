@@ -2,7 +2,7 @@ import { Bonus, Cell, Tile as TileModel } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import { CSSProperties, FocusEventHandler, FunctionComponent, memo, MouseEventHandler, RefObject } from 'react';
 
-import { ArrowDown, Flag } from 'icons';
+import { ArrowDown, Flag, Star } from 'icons';
 import { Translate } from 'types';
 
 import Tile from '../../../Tile';
@@ -56,8 +56,14 @@ const CellPure: FunctionComponent<Props> = ({
     })}
     style={style}
   >
+    {isCenter && (
+      <div className={classNames(styles.iconContainer)}>
+        <Star className={styles.star} />
+      </div>
+    )}
+
     {isFiltered && (
-      <div className={styles.flagContainer}>
+      <div className={classNames(styles.iconContainer, styles.flagContainer)}>
         <Flag className={styles.flag} />
       </div>
     )}

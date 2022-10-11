@@ -13,7 +13,6 @@ $icon-size: 16px;
   transition: var(--transition);
   background-clip: padding-box;
 
-  &.bonusStart,
   &.bonusWord2,
   &.bonusWord3 {
     position: relative;
@@ -33,12 +32,7 @@ $icon-size: 16px;
   }
 
   &.bonusStart {
-    background-color: var(--color--red--light);
-
-    &:before {
-      content: '★';
-      color: var(--color--foreground--secondary);
-    }
+    background-color: var(--color--violet--light);
   }
 
   &.bonusCharacter1 {
@@ -202,7 +196,7 @@ $icon-size: 16px;
   }
 }
 
-.flagContainer {
+.iconContainer {
   position: absolute;
   top: 0;
   right: 0;
@@ -211,14 +205,25 @@ $icon-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.flagContainer {
   filter: drop-shadow(1px 1px var(--border--color));
   backdrop-filter: blur(1px);
 }
 
-.flag {
+.flag,
+.star {
   $size: 24px;
 
   width: $size;
   height: $size;
+}
+
+.flag {
   color: var(--color--primary);
+}
+
+.star {
+  color: white;
 }
