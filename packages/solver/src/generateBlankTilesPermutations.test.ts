@@ -8,7 +8,7 @@ describe('generateBlankTilesPermutations', () => {
   const config = literaki[locale];
 
   it('does not affect non-blank tiles', () => {
-    const permutations = generateBlankTilesPermutations(config.alphabet, [
+    const permutations = generateBlankTilesPermutations(config, [
       new Tile({ character: 'a', isBlank: false }),
       new Tile({ character: 'b', isBlank: false }),
       new Tile({ character: 'c', isBlank: false }),
@@ -19,7 +19,7 @@ describe('generateBlankTilesPermutations', () => {
   });
 
   it('replaces blank tiles', () => {
-    const permutations = generateBlankTilesPermutations(config.alphabet, [
+    const permutations = generateBlankTilesPermutations(config, [
       new Tile({ character: 'a', isBlank: false }),
       new Tile({ character: 'a', isBlank: false }),
       new Tile({ character: '', isBlank: true }),

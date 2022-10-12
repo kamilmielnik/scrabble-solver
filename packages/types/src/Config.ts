@@ -91,7 +91,7 @@ class Config {
   }
 
   public hasCharacter(character: string): boolean {
-    return this.alphabet.includes(character);
+    return character in this.pointsMap;
   }
 
   public isTwoCharacterTilePrefix(character: string): boolean {

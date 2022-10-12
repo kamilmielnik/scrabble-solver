@@ -1,7 +1,7 @@
-import { Tile } from '@scrabble-solver/types';
+import { Config, Tile } from '@scrabble-solver/types';
 
-const generateBlankTilesPermutations = (alphabet: string[], tiles: Tile[]): Tile[][] => {
-  const firstBlankIndex = tiles.findIndex(({ character, isBlank }) => isBlank && !alphabet.includes(character));
+const generateBlankTilesPermutations = (config: Config, tiles: Tile[]): Tile[][] => {
+  const firstBlankIndex = tiles.findIndex(({ character, isBlank }) => isBlank && !config.hasCharacter(character));
 
   if (firstBlankIndex === -1) {
     return [tiles];
@@ -9,11 +9,11 @@ const generateBlankTilesPermutations = (alphabet: string[], tiles: Tile[]): Tile
 
   const remainingTiles = tiles.slice(0, firstBlankIndex).concat(tiles.slice(firstBlankIndex + 1));
 
-  return alphabet.flatMap((character) => {
+  return config.alphabet.flatMap((character) => {
     const newTile = new Tile({ character, isBlank: true });
     const newTiles = [...remainingTiles, newTile];
 
-    return generateBlankTilesPermutations(alphabet, newTiles);
+    return generateBlankTilesPermutations(config, newTiles);
   });
 };
 

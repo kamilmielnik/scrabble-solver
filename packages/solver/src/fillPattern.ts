@@ -1,17 +1,17 @@
 /* eslint-disable max-params */
 import { Trie } from '@kamilmielnik/trie';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import { FinalPattern, Pattern, Tile } from '@scrabble-solver/types';
+import { Config, FinalPattern, Pattern, Tile } from '@scrabble-solver/types';
 
 import generateBlankTilesPermutations from './generateBlankTilesPermutations';
 
-const fillPattern = (trie: Trie, alphabet: string[], pattern: Pattern, tiles: Tile[]): Pattern[] => {
+const fillPattern = (trie: Trie, config: Config, pattern: Pattern, tiles: Tile[]): Pattern[] => {
   if (pattern.getEmptyCellsCount() > tiles.length) {
     return [];
   }
 
   const results: Pattern[] = [];
-  const tilesPermutations = generateBlankTilesPermutations(alphabet, tiles);
+  const tilesPermutations = generateBlankTilesPermutations(config, tiles);
 
   for (let index = 0; index < tilesPermutations.length; ++index) {
     fillPatternWithoutBlanks(results, trie, pattern, pattern.toString(), tilesPermutations[index]);

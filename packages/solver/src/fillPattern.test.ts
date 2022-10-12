@@ -28,7 +28,7 @@ describe('fillPattern', () => {
       new Tile({ character: 'a', isBlank: false }),
       new Tile({ character: 'd', isBlank: false }),
     ];
-    const filledPatterns = fillPattern(trie!, config.alphabet, pattern, tiles);
+    const filledPatterns = fillPattern(trie!, config, pattern, tiles);
 
     expect(filledPatterns.length).toBe(1);
   });
@@ -40,7 +40,7 @@ describe('fillPattern', () => {
       new Cell({ x: 0, y: 2, isEmpty: false, tile: new Tile({ character: 'o', isBlank: false }) }),
     ]);
     const tiles = [new Tile({ character: 'ń', isBlank: false })];
-    const filledPatterns = fillPattern(trie!, config.alphabet, pattern, tiles);
+    const filledPatterns = fillPattern(trie!, config, pattern, tiles);
 
     expect(filledPatterns.length).toBe(1);
     expect(filledPatterns[0]).toEqual(pattern);
@@ -53,7 +53,7 @@ describe('fillPattern', () => {
       new Cell({ x: 0, y: 2, isEmpty: false, tile: new Tile({ character: 'd', isBlank: false }) }),
     ]);
     const tiles = [new Tile({ character: 'ń', isBlank: false })];
-    const filledPatterns = fillPattern(trie!, config.alphabet, pattern, tiles);
+    const filledPatterns = fillPattern(trie!, config, pattern, tiles);
 
     expect(filledPatterns.length).toBe(0);
   });

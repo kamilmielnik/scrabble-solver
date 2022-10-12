@@ -8,7 +8,7 @@ import getUniquePatterns from './getUniquePatterns';
 
 const solve = (trie: Trie, config: Config, board: Board, tiles: Tile[]): Result[] => {
   const patterns = generatePatterns(config, board);
-  const filledPatterns = patterns.flatMap((pattern) => fillPattern(trie, config.alphabet, pattern, tiles));
+  const filledPatterns = patterns.flatMap((pattern) => fillPattern(trie, config, pattern, tiles));
   const uniquePatterns = getUniquePatterns(filledPatterns);
   const results = uniquePatterns.map(
     (pattern, index) =>
