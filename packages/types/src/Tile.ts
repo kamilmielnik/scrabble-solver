@@ -23,9 +23,9 @@ class Tile {
     toString: () => EMPTY_CELL,
   });
 
-  public readonly character: string;
+  public character: string;
 
-  public readonly isBlank: boolean;
+  public isBlank: boolean;
 
   constructor({ character, isBlank = false }: { character: string; isBlank?: boolean }) {
     this.character = character;
