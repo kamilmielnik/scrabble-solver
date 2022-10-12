@@ -1,7 +1,7 @@
 import { Trie } from '@kamilmielnik/trie';
 import { literaki } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
-import { Board, Cell, Locale, Tile, VerticalPattern } from '@scrabble-solver/types';
+import { Board, Cell, FinalPattern, Locale, Tile, VerticalPattern } from '@scrabble-solver/types';
 
 import fillPattern from './fillPattern';
 
@@ -34,11 +34,13 @@ describe('fillPattern', () => {
   });
 
   it('does not modify filled patterns', () => {
-    const pattern = new VerticalPattern(board, [
-      new Cell({ x: 0, y: 0, isEmpty: false, tile: new Tile({ character: 'o', isBlank: false }) }),
-      new Cell({ x: 0, y: 1, isEmpty: false, tile: new Tile({ character: 'k', isBlank: false }) }),
-      new Cell({ x: 0, y: 2, isEmpty: false, tile: new Tile({ character: 'o', isBlank: false }) }),
-    ]);
+    const pattern = new FinalPattern(
+      new VerticalPattern(board, [
+        new Cell({ x: 0, y: 0, isEmpty: false, tile: new Tile({ character: 'o', isBlank: false }) }),
+        new Cell({ x: 0, y: 1, isEmpty: false, tile: new Tile({ character: 'k', isBlank: false }) }),
+        new Cell({ x: 0, y: 2, isEmpty: false, tile: new Tile({ character: 'o', isBlank: false }) }),
+      ]),
+    );
     const tiles = [new Tile({ character: 'ń', isBlank: false })];
     const filledPatterns = fillPattern(trie!, config, pattern, tiles);
 
