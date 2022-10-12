@@ -1,7 +1,7 @@
 /* eslint-disable max-params */
 import { Trie } from '@kamilmielnik/trie';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import { Pattern, Tile } from '@scrabble-solver/types';
+import { FinalPattern, Pattern, Tile } from '@scrabble-solver/types';
 
 import generateBlankTilesPermutations from './generateBlankTilesPermutations';
 
@@ -14,7 +14,7 @@ const fillPattern = (trie: Trie, alphabet: string[], pattern: Pattern, tiles: Ti
 
   const onPatternFilled = (newPattern: Pattern, word: string) => {
     if (trie.has(word) && pattern.getCollisions().every((collision) => trie.has(collision.toString()))) {
-      patterns.push(newPattern.clone());
+      patterns.push(new FinalPattern(newPattern.clone()));
     }
   };
 

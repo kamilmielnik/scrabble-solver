@@ -18,14 +18,11 @@ describe('fillPattern', () => {
   });
 
   it('fills patterns', () => {
-    const pattern = new VerticalPattern({
-      board,
-      cells: [
-        new Cell({ x: 0, y: 0 }),
-        new Cell({ x: 0, y: 1, tile: new Tile({ character: 'd', isBlank: false }) }),
-        new Cell({ x: 0, y: 2 }),
-      ],
-    });
+    const pattern = new VerticalPattern(board, [
+      new Cell({ x: 0, y: 0 }),
+      new Cell({ x: 0, y: 1, tile: new Tile({ character: 'd', isBlank: false }) }),
+      new Cell({ x: 0, y: 2 }),
+    ]);
     const tiles = [
       new Tile({ character: 'o', isBlank: false }),
       new Tile({ character: 'a', isBlank: false }),
@@ -37,14 +34,11 @@ describe('fillPattern', () => {
   });
 
   it('does not modify filled patterns', () => {
-    const pattern = new VerticalPattern({
-      board,
-      cells: [
-        new Cell({ x: 0, y: 0, isEmpty: false, tile: new Tile({ character: 'o', isBlank: false }) }),
-        new Cell({ x: 0, y: 1, isEmpty: false, tile: new Tile({ character: 'k', isBlank: false }) }),
-        new Cell({ x: 0, y: 2, isEmpty: false, tile: new Tile({ character: 'o', isBlank: false }) }),
-      ],
-    });
+    const pattern = new VerticalPattern(board, [
+      new Cell({ x: 0, y: 0, isEmpty: false, tile: new Tile({ character: 'o', isBlank: false }) }),
+      new Cell({ x: 0, y: 1, isEmpty: false, tile: new Tile({ character: 'k', isBlank: false }) }),
+      new Cell({ x: 0, y: 2, isEmpty: false, tile: new Tile({ character: 'o', isBlank: false }) }),
+    ]);
     const tiles = [new Tile({ character: 'ń', isBlank: false })];
     const filledPatterns = fillPattern(trie!, config.alphabet, pattern, tiles);
 
@@ -53,14 +47,11 @@ describe('fillPattern', () => {
   });
 
   it('does not accept non-placeable filled patterns', () => {
-    const pattern = new VerticalPattern({
-      board,
-      cells: [
-        new Cell({ x: 0, y: 0, isEmpty: false, tile: new Tile({ character: 'd', isBlank: false }) }),
-        new Cell({ x: 0, y: 1, isEmpty: false, tile: new Tile({ character: 'd', isBlank: false }) }),
-        new Cell({ x: 0, y: 2, isEmpty: false, tile: new Tile({ character: 'd', isBlank: false }) }),
-      ],
-    });
+    const pattern = new VerticalPattern(board, [
+      new Cell({ x: 0, y: 0, isEmpty: false, tile: new Tile({ character: 'd', isBlank: false }) }),
+      new Cell({ x: 0, y: 1, isEmpty: false, tile: new Tile({ character: 'd', isBlank: false }) }),
+      new Cell({ x: 0, y: 2, isEmpty: false, tile: new Tile({ character: 'd', isBlank: false }) }),
+    ]);
     const tiles = [new Tile({ character: 'ń', isBlank: false })];
     const filledPatterns = fillPattern(trie!, config.alphabet, pattern, tiles);
 

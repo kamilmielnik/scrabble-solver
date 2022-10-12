@@ -8,7 +8,7 @@ class Pattern {
 
   public readonly cells: Cell[];
 
-  constructor({ board, cells }: { board: Board; cells: Cell[] }) {
+  constructor(board: Board, cells: Cell[]) {
     this.board = board;
     this.cells = cells;
   }
@@ -23,10 +23,10 @@ class Pattern {
   }
 
   public clone(): Pattern {
-    return new Pattern({
-      board: this.board,
-      cells: this.cells.map((cell) => cell.clone()),
-    });
+    return new Pattern(
+      this.board,
+      this.cells.map((cell) => cell.clone()),
+    );
   }
 
   public collides(): boolean {

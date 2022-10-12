@@ -103,12 +103,10 @@ const getTiles = (cells: Cell[]): Tile[] => cells.filter(({ isEmpty }) => isEmpt
 
 const getTilesCharacters = (tiles: Tile[]): string => getNonBlankCharacters(tiles).sort(charactersComparator).join('');
 
-const getWord = (cells: Cell[]): string => cells.map(String).join('');
+// eslint-disable-next-line prefer-template
+const getWord = (cells: Cell[]): string => cells.reduce((word, cell) => word + cell.toString(), '');
 
-const getWords = (cells: Cell[], collisions: Collision[]): string[] => [
-  getWord(cells),
-  ...collisions.map((collision) => collision.map(String).join('')),
-];
+const getWords = (cells: Cell[], collisions: Collision[]): string[] => [cells, ...collisions].map(getWord);
 
 const isConsonant = ({ character, isBlank }: Tile): boolean => CONSONANTS.includes(character) && !isBlank;
 

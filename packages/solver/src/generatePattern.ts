@@ -12,7 +12,7 @@ const generatePattern = <P extends Pattern>({
   board: Board;
   cells: Cell[];
   config: Config;
-  PatternModel: new (parameters: { board: Board; cells: Cell[] }) => P;
+  PatternModel: new (board: Board, cells: Cell[]) => P;
 }): P[] => {
   const startIndices = generateStartIndices(cells);
 
@@ -21,10 +21,7 @@ const generatePattern = <P extends Pattern>({
     const patterns: P[] = [];
 
     for (const endIndex of endIndices) {
-      const pattern = new PatternModel({
-        board,
-        cells: cells.slice(startIndex, endIndex + 1),
-      });
+      const pattern = new PatternModel(board, cells.slice(startIndex, endIndex + 1));
 
       if (pattern.canBePlaced(config)) {
         patterns.push(pattern);

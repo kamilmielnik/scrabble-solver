@@ -2,10 +2,10 @@ import Pattern from './Pattern';
 
 class HorizontalPattern extends Pattern {
   public clone(): Pattern {
-    return new HorizontalPattern({
-      board: this.board,
-      cells: this.cells.map((cell) => cell.clone()),
-    });
+    return new HorizontalPattern(
+      this.board,
+      this.cells.map((cell) => cell.clone()),
+    );
   }
 
   public getCollisions(): Pattern[] {
@@ -27,7 +27,7 @@ class HorizontalPattern extends Pattern {
         const nextCells = column.slice(cell.y + 1, y);
         const cells = [...previousCells, cell, ...nextCells];
         if (cells.length > 1) {
-          const pattern = new Pattern({ board: this.board, cells });
+          const pattern = new Pattern(this.board, cells);
           collisions.push(pattern);
         }
       });
