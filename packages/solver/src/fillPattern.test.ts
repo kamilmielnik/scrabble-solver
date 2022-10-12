@@ -1,45 +1,19 @@
+import { Trie } from '@kamilmielnik/trie';
 import { literaki } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import { Board, Cell, Locale, Tile, VerticalPattern } from '@scrabble-solver/types';
 
-import PatternsFiller from './PatternsFiller';
+import fillPattern from './fillPattern';
 
-describe('PatternsFiller', () => {
+describe('fillPattern', () => {
   const board = Board.fromStringArray([' t ', 'do ', '   ']);
   const locale = Locale.PL_PL;
   const config = literaki[locale];
-  let patternsFiller: PatternsFiller | undefined;
+  let trie: Trie | undefined;
 
   beforeAll(() => {
-    return dictionaries.get(locale).then((trie) => {
-      patternsFiller = new PatternsFiller(config, trie);
-    });
-  });
-
-  it('does not affect non-blank tiles', () => {
-    const permutations = patternsFiller!.generateBlankTilesPermutations([
-      new Tile({ character: 'a', isBlank: false }),
-      new Tile({ character: 'b', isBlank: false }),
-      new Tile({ character: 'c', isBlank: false }),
-    ]);
-    expect(permutations.length).toBe(1);
-    expect(permutations[0].map(String).join('')).toEqual('abc');
-  });
-
-  it('replaces blank tiles', () => {
-    const permutations = patternsFiller!.generateBlankTilesPermutations([
-      new Tile({ character: 'a', isBlank: false }),
-      new Tile({ character: 'a', isBlank: false }),
-      new Tile({ character: '', isBlank: true }),
-    ]);
-    expect(permutations.length).toBe(config.alphabet.length);
-    expect(permutations[0][2].toJson()).toEqual({
-      character: config.alphabet[0],
-      isBlank: true,
-    });
-    expect(permutations[permutations.length - 1][2].toJson()).toEqual({
-      character: config.alphabet[config.alphabet.length - 1],
-      isBlank: true,
+    return dictionaries.get(locale).then((loadedTrie) => {
+      trie = loadedTrie;
     });
   });
 
@@ -57,7 +31,8 @@ describe('PatternsFiller', () => {
       new Tile({ character: 'a', isBlank: false }),
       new Tile({ character: 'd', isBlank: false }),
     ];
-    const filledPatterns = patternsFiller!.fill(pattern, tiles);
+    const filledPatterns = fillPattern(trie!, config.alphabet, pattern, tiles);
+
     expect(filledPatterns.length).toBe(1);
   });
 
@@ -71,7 +46,8 @@ describe('PatternsFiller', () => {
       ],
     });
     const tiles = [new Tile({ character: 'ń', isBlank: false })];
-    const filledPatterns = patternsFiller!.fill(pattern, tiles);
+    const filledPatterns = fillPattern(trie!, config.alphabet, pattern, tiles);
+
     expect(filledPatterns.length).toBe(1);
     expect(filledPatterns[0]).toEqual(pattern);
   });
@@ -86,7 +62,8 @@ describe('PatternsFiller', () => {
       ],
     });
     const tiles = [new Tile({ character: 'ń', isBlank: false })];
-    const filledPatterns = patternsFiller!.fill(pattern, tiles);
+    const filledPatterns = fillPattern(trie!, config.alphabet, pattern, tiles);
+
     expect(filledPatterns.length).toBe(0);
   });
 });

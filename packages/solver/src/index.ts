@@ -1,1 +1,1 @@
-export { default } from './Solver';
+export { default as solve } from './solve';

@@ -1,8 +1,9 @@
+import { Trie } from '@kamilmielnik/trie';
 import { literaki, scrabble } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import { Board, Locale, Result, Tile } from '@scrabble-solver/types';
 
-import Solver from './Solver';
+import solve from './solve';
 
 const generateTiles = (characters: string[]): Tile[] => {
   return characters.map((character) => new Tile({ character, isBlank: false }));
@@ -15,14 +16,14 @@ const getBestResult = ([firstResult, ...results]: Result[]): Result => {
   );
 };
 
-describe('Solver - PL', () => {
+describe('solve - PL', () => {
   const locale = Locale.PL_PL;
   const config = literaki[locale];
-  let solver: Solver | undefined;
+  let trie: Trie | undefined;
 
   beforeAll(() => {
-    return dictionaries.get(locale).then((trie) => {
-      solver = new Solver(config, trie);
+    return dictionaries.get(locale).then((loadedTrie) => {
+      trie = loadedTrie;
     });
   });
 
@@ -45,7 +46,7 @@ describe('Solver - PL', () => {
       '               ',
     ]);
     const tiles = generateTiles(['l', 'i', 'n', 'o']);
-    const results = solver!.solve(board, tiles);
+    const results = solve(trie!, config, board, tiles);
     expect(results.length).toBe(61);
   });
 
@@ -68,7 +69,7 @@ describe('Solver - PL', () => {
       '               ',
     ]);
     const tiles = generateTiles(['a', 'a', 'ą', 'r', 't', 'w', 'z']);
-    const results = solver!.solve(board, tiles);
+    const results = solve(trie!, config, board, tiles);
     const bestResult = getBestResult(results);
     expect(bestResult.word).toBe('zmartwychwstałą');
     expect(bestResult.points).toBe(682);
@@ -93,21 +94,21 @@ describe('Solver - PL', () => {
       'ar  ń    m     ',
     ]);
     const tiles = generateTiles(['ą', 'c', 'h', 't', 'w', 'w', 'z']);
-    const results = solver!.solve(board, tiles);
+    const results = solve(trie!, config, board, tiles);
     const bestResult = getBestResult(results);
     expect(bestResult.word).toBe('zmartwychwstałą');
     expect(bestResult.points).toBe(1157);
   });
 });
 
-describe('Solver - ES', () => {
+describe('solve - ES', () => {
   const locale = Locale.ES_ES;
   const config = scrabble[locale];
-  let solver: Solver | undefined;
+  let trie: Trie | undefined;
 
   beforeAll(() => {
-    return dictionaries.get(locale).then((trie) => {
-      solver = new Solver(config, trie);
+    return dictionaries.get(locale).then((loadedTrie) => {
+      trie = loadedTrie;
     });
   });
 
@@ -130,7 +131,7 @@ describe('Solver - ES', () => {
       '               ',
     ]);
     const tiles = generateTiles(['ll', 'a', 'n', 'a']);
-    const results = solver!.solve(board, tiles);
+    const results = solve(trie!, config, board, tiles);
     const bestResult = getBestResult(results);
     expect(results.length).toBe(24);
     expect(bestResult.points).toBe(22);

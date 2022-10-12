@@ -2,7 +2,7 @@ import { getLocaleConfig, isConfigId } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import logger from '@scrabble-solver/logger';
-import Solver from '@scrabble-solver/solver';
+import { solve as solveScrabble } from '@scrabble-solver/solver';
 import { Board, Config, isBoardJson, isLocale, Locale, Tile } from '@scrabble-solver/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -36,8 +36,7 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
 
     const trie = await dictionaries.get(locale);
     const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
-    const solver = new Solver(config, trie);
-    const results = solver.solve(board, tiles);
+    const results = solveScrabble(trie, config, board, tiles);
     response.status(200).send(results.map((result) => result.toJson()));
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
