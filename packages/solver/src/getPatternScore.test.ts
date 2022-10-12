@@ -1,10 +1,9 @@
 import { literaki } from '@scrabble-solver/configs';
 import { Board, Cell, HorizontalPattern, Locale, Pattern, Tile, VerticalPattern } from '@scrabble-solver/types';
 
-import ScoresCalculator from './ScoresCalculator';
+import getPatternScore from './getPatternScore';
 
 const config = literaki[Locale.PL_PL];
-const scoresCalculator = new ScoresCalculator(config);
 const board = Board.fromStringArray([
   ' kasom         ',
   '     i         ',
@@ -23,7 +22,7 @@ const board = Board.fromStringArray([
   '            t  ',
 ]);
 
-describe('ScoresCalculator', () => {
+describe('getPatternScore', () => {
   it('gives proper score without collisions', () => {
     const pattern = new Pattern({
       board,
@@ -38,7 +37,7 @@ describe('ScoresCalculator', () => {
         new Cell({ x: 7, y: 0, tile: new Tile({ character: 'ź' }), isEmpty: false }),
       ],
     });
-    const score = scoresCalculator.calculate(pattern);
+    const score = getPatternScore(config, pattern);
     expect(score).toBe(128);
   });
 
@@ -52,7 +51,7 @@ describe('ScoresCalculator', () => {
         new Cell({ x: 2, y: 14, tile: new Tile({ character: 'o' }), isEmpty: true }),
       ],
     });
-    const score = scoresCalculator.calculate(pattern);
+    const score = getPatternScore(config, pattern);
     expect(score).toBe(44);
   });
 
@@ -64,7 +63,7 @@ describe('ScoresCalculator', () => {
         new Cell({ x: 12, y: 14, tile: new Tile({ character: 't' }), isEmpty: false }),
       ],
     });
-    const score = scoresCalculator.calculate(pattern);
+    const score = getPatternScore(config, pattern);
     expect(score).toBe(2);
   });
 });
