@@ -1,3 +1,4 @@
+export { default as Badge } from './Badge';
 export { default as Board } from './Board';
 export { default as Button } from './Button';
 export { default as Checkbox } from './Checkbox';
@@ -25,3 +26,4 @@ export { default as SvgFontCss } from './SvgFontCss';
 export { default as Tile } from './Tile';
 export { useTooltip } from './Tooltip';
 export { default as Well } from './Well';
+export { default as Words } from './Words';

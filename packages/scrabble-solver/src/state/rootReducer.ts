@@ -8,6 +8,7 @@ import {
   resultsSlice,
   settingsSlice,
   solveSlice,
+  verifySlice,
 } from './slices';
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   results: resultsSlice.reducer,
   settings: settingsSlice.reducer,
   solve: solveSlice.reducer,
+  verify: verifySlice.reducer,
 });
 
 export default rootReducer;

@@ -49,5 +49,8 @@
   "settings.autoGroupTiles.right": "Rechte Seite",
   "settings.autoGroupTiles.null": "Nicht gruppieren",
   "settings.game": "Spiel",
-  "settings.language": "Sprache"
+  "settings.language": "Sprache",
+  "words": "Gebildete Wörter",
+  "words.invalid": "Falsch",
+  "words.valid": "Korrekt"
 }

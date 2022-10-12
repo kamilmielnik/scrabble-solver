@@ -30,6 +30,8 @@ const selectSettingsRoot = (state: RootState): RootState['settings'] => state.se
 
 const selectSolveRoot = (state: RootState): RootState['solve'] => state.solve;
 
+const selectVerifyRoot = (state: RootState): RootState['verify'] => state.verify;
+
 export const selectDictionary = selectDictionaryRoot;
 
 export const selectAutoGroupTiles = createSelector([selectSettingsRoot], (settings) => settings.autoGroupTiles);
@@ -183,3 +185,9 @@ export const selectHasOverusedTiles = createSelector([selectRemainingTiles], (re
 });
 
 export const selectRemainingTilesGroups = createSelector([selectRemainingTiles], getRemainingTilesGroups);
+
+export const selectVerify = selectVerifyRoot;
+
+export const selectHasInvalidWords = createSelector([selectVerify], ({ invalidWords }) => {
+  return invalidWords.length > 0;
+});

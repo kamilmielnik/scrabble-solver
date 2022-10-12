@@ -1,0 +1,13 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing--xs) var(--spacing--s);
+  border-radius: var(--border--radius);
+  background-color: var(--color--violet--light);
+  box-shadow: va(--box-shadow);
+  line-height: var(--line-height);
+  font-size: var(--font--size--s);
+  font-weight: bold;
+  color: white;
+}

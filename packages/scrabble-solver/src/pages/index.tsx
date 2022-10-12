@@ -19,6 +19,7 @@ import {
   Settings,
   Splash,
   Well,
+  Words,
 } from 'components';
 import { useIsTablet, useLocalStorage } from 'hooks';
 import { getCellSize } from 'lib';
@@ -39,6 +40,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [showKeyMap, setShowKeyMap] = useState(false);
   const [showRemainingTiles, setShowRemainingTiles] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showWords, setShowWords] = useState(false);
   const [boardRef, { height: boardHeight }] = useMeasure<HTMLDivElement>();
   const [contentRef, { height: contentHeight, width: contentWidth }] = useMeasure<HTMLDivElement>();
   const [resultsContainerRef, { height: resultsContainerHeight, width: resultsContainerWidth }] =
@@ -85,6 +87,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
             onShowKeyMap={() => setShowKeyMap(true)}
             onShowRemainingTiles={() => setShowRemainingTiles(true)}
             onShowSettings={() => setShowSettings(true)}
+            onShowWords={() => setShowWords(true)}
           />
         </div>
 
@@ -121,6 +124,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       <Settings isOpen={showSettings} onClose={() => setShowSettings(false)} />
 
       <KeyMap isOpen={showKeyMap} onClose={() => setShowKeyMap(false)} />
+
+      <Words isOpen={showWords} onClose={() => setShowWords(false)} />
 
       <RemainingTiles isOpen={showRemainingTiles} onClose={() => setShowRemainingTiles(false)} />
 

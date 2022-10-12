@@ -3,7 +3,7 @@ import { Result } from '@scrabble-solver/types';
 import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { memoize } from 'lib';
-import { findWordDefinitions, solve, visit } from 'sdk';
+import { findWordDefinitions, solve, verify, visit } from 'sdk';
 
 import { initialize, reset } from './actions';
 import {
@@ -23,6 +23,7 @@ import {
   resultsSlice,
   settingsSlice,
   solveSlice,
+  verifySlice,
 } from './slices';
 
 const SUBMIT_DELAY = 150;
@@ -43,7 +44,8 @@ export function* rootSaga(): AnyGenerator {
   yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
   yield takeLatest(initialize.type, onInitialize);
   yield takeLatest(reset.type, onReset);
-  yield takeLatest(solveSlice.actions.submit.type, onSubmit);
+  yield takeLatest(solveSlice.actions.submit.type, onSolve);
+  yield takeLatest(verifySlice.actions.submit.type, onVerify);
 }
 
 function* onCellValueChange({ payload }: PayloadAction<{ value: string; x: number; y: number }>): AnyGenerator {
@@ -52,6 +54,8 @@ function* onCellValueChange({ payload }: PayloadAction<{ value: string; x: numbe
   if (isFiltered) {
     yield put(cellFilterSlice.actions.toggle(payload));
   }
+
+  yield put(verifySlice.actions.submit());
 }
 
 function* onApplyResult({ payload: result }: PayloadAction<Result>): AnyGenerator {
@@ -60,11 +64,13 @@ function* onApplyResult({ payload: result }: PayloadAction<Result>): AnyGenerato
   yield put(cellFilterSlice.actions.reset());
   yield put(rackSlice.actions.removeTiles(result.tiles));
   yield put(rackSlice.actions.groupTiles(autoGroupTiles));
+  yield put(verifySlice.actions.submit());
 }
 
 function* onConfigIdChange(): AnyGenerator {
   yield put(resultsSlice.actions.reset());
   yield put(solveSlice.actions.submit());
+  yield put(verifySlice.actions.submit());
   yield* ensureProperTilesCount();
 }
 
@@ -95,12 +101,14 @@ function* onReset(): AnyGenerator {
   yield put(dictionarySlice.actions.reset());
   yield put(rackSlice.actions.reset());
   yield put(resultsSlice.actions.reset());
+  yield put(verifySlice.actions.submit());
 }
 
 function* onLocaleChange(): AnyGenerator {
-  yield put(solveSlice.actions.submit());
-  yield put(resultsSlice.actions.changeResultCandidate(null));
   yield put(dictionarySlice.actions.reset());
+  yield put(resultsSlice.actions.changeResultCandidate(null));
+  yield put(solveSlice.actions.submit());
+  yield put(verifySlice.actions.submit());
 }
 
 function* onResultCandidateChange({ payload: result }: PayloadAction<Result | null>): AnyGenerator {
@@ -110,7 +118,7 @@ function* onResultCandidateChange({ payload: result }: PayloadAction<Result | nu
   }
 }
 
-function* onSubmit(): AnyGenerator {
+function* onSolve(): AnyGenerator {
   const board = yield select(selectBoard);
   const { config } = yield select(selectConfig);
   const locale = yield select(selectLocale);
@@ -129,11 +137,30 @@ function* onSubmit(): AnyGenerator {
       configId: config.id,
       locale,
     });
-    yield put(solveSlice.actions.submitSuccess({ board, characters }));
     yield put(resultsSlice.actions.changeResults(results.map(Result.fromJson)));
+    yield put(solveSlice.actions.submitSuccess({ board, characters }));
   } catch (error) {
     yield put(resultsSlice.actions.changeResults([]));
     yield put(solveSlice.actions.submitFailure());
+  }
+}
+
+function* onVerify(): AnyGenerator {
+  yield delay(SUBMIT_DELAY);
+
+  const board = yield select(selectBoard);
+  const { config } = yield select(selectConfig);
+  const locale = yield select(selectLocale);
+
+  try {
+    const { invalidWords, validWords } = yield call(verify, {
+      board: board.toJson(),
+      configId: config.id,
+      locale,
+    });
+    yield put(verifySlice.actions.submitSuccess({ board, invalidWords, validWords }));
+  } catch (error) {
+    yield put(verifySlice.actions.submitFailure());
   }
 }
 

@@ -1,15 +1,16 @@
-.group {
-  margin-bottom: var(--spacing--l);
-}
-
 .title {
-  margin-bottom: var(--spacing--m);
-  font-size: var(--font--size--h2);
-  font-weight: 300;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .content {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: var(--spacing--m);
+}
+
+.badge {
+  margin-left: var(--spacing--m);
 }

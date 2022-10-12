@@ -6,7 +6,7 @@ import styles from './Section.module.scss';
 interface Props {
   children: ReactNode;
   className?: string;
-  title: string;
+  title: ReactNode;
 }
 
 const Section: FunctionComponent<Props> = ({ children, className, title }) => (

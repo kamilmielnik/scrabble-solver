@@ -12,3 +12,5 @@ export { default as settingsInitialState } from './settingsInitialState';
 export { default as settingsSlice } from './settingsSlice';
 export { default as solveInitialState } from './solveInitialState';
 export { default as solveSlice } from './solveSlice';
+export { default as verifyInitialState } from './verifyInitialState';
+export { default as verifySlice } from './verifySlice';

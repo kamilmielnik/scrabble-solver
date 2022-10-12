@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react';
 
 import { selectRemainingTilesGroups, useTranslate, useTypedSelector } from 'state';
+import Badge from '../Badge';
 
 import Sidebar from '../Sidebar';
 
@@ -20,15 +21,23 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }
   return (
     <Sidebar className={className} isOpen={isOpen} title={translate('remaining-tiles')} onClose={onClose}>
       {groups.map(({ remainingCount, tiles, translationKey, totalCount }) => (
-        <div className={styles.group} key={translationKey}>
-          <h2 className={styles.title}>{`${translate(translationKey)} (${remainingCount} / ${totalCount})`}</h2>
-
+        <Sidebar.Section
+          key={translationKey}
+          title={
+            <span className={styles.title}>
+              <span>{translate(translationKey)}</span>
+              <Badge className={styles.badge}>
+                {remainingCount} / {totalCount}
+              </Badge>
+            </span>
+          }
+        >
           <div className={styles.content}>
             {tiles.map((tile) => {
               return <Character key={tile.character} tile={tile} />;
             })}
           </div>
-        </div>
+        </Sidebar.Section>
       ))}
     </Sidebar>
   );

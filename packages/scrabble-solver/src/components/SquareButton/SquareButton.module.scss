@@ -18,6 +18,11 @@
   &:active {
     color: var(--color--foreground);
   }
+
+  &[disabled] {
+    pointer-events: none;
+    opacity: 0.25;
+  }
 }
 
 .content {

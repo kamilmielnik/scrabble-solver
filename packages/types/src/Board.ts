@@ -106,6 +106,28 @@ class Board {
     }, 0);
   }
 
+  public getWords(): string[] {
+    const columns: Cell[][] = [];
+
+    for (let x = 0; x < this.columnsCount; ++x) {
+      const column: Cell[] = [];
+
+      for (let y = 0; y < this.rowsCount; ++y) {
+        column.push(this.rows[y][x]);
+      }
+
+      columns.push(column);
+    }
+
+    const columnsBoard = new Board({ rows: columns });
+    const lines = this.toString().split('\n').concat(columnsBoard.toString().split('\n'));
+    const words = lines
+      .flatMap((line) => line.replaceAll(/\s+/g, EMPTY_CELL).split(' '))
+      .filter((word) => word.length > 1);
+
+    return words;
+  }
+
   public isEmpty(): boolean {
     return this.rows.every((row) => row.every(({ isEmpty }) => isEmpty));
   }
@@ -115,7 +137,7 @@ class Board {
   }
 
   public toString(): string {
-    return this.rows.map((row) => row.map(String)).join('\n');
+    return this.rows.map((row) => row.map(String).join('')).join('\n');
   }
 
   public updateCell(x: number, y: number, updateCell: (cell: Cell) => Cell): void {

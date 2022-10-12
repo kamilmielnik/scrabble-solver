@@ -49,5 +49,8 @@
   "settings.autoGroupTiles.right": "Vers la gauche",
   "settings.autoGroupTiles.null": "Ne pas grouper",
   "settings.game": "Jeu",
-  "settings.language": "Langue"
+  "settings.language": "Langue",
+  "words": "Mots créés",
+  "words.invalid": "Incorrect",
+  "words.valid": "Corriger"
 }

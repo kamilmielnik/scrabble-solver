@@ -80,7 +80,10 @@ export type TranslationKey =
   | 'settings.autoGroupTiles.right'
   | 'settings.autoGroupTiles.null'
   | 'settings.game'
-  | 'settings.language';
+  | 'settings.language'
+  | 'words'
+  | 'words.invalid'
+  | 'words.valid';
 
 export type Translate = (key: TranslationKey) => string;
 
