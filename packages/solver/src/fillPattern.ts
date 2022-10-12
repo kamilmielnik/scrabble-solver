@@ -37,7 +37,9 @@ const fillPatternRecursive = (
   for (let index = 0; index < tiles.length; ++index) {
     const tile = tiles[index];
     const previousTile = pattern.cells[indexOfFirstCellWithoutTile].tile;
+
     pattern.cells[indexOfFirstCellWithoutTile].tile = tile;
+
     const indexOfNextCellWithoutTile = pattern.getIndexOfFirstCellWithoutTile();
     const indexOfFirstEmptyLetter = word.indexOf(EMPTY_CELL);
     const prefix = word.substring(0, indexOfFirstEmptyLetter);

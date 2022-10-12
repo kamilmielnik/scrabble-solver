@@ -33,6 +33,27 @@ describe('fillPattern', () => {
     expect(filledPatterns.length).toBe(1);
   });
 
+  it('fills patterns with blanks', () => {
+    const pattern = new VerticalPattern(board, [board.rows[0][1], board.rows[1][1], board.rows[2][1]]);
+    const tiles = [new Tile({ character: ' ', isBlank: true }), new Tile({ character: 'ó', isBlank: false })];
+    const filledPatterns = fillPattern(trie!, config, pattern, tiles);
+
+    expect(filledPatterns.map(String)).toEqual([
+      'toć',
+      'tog',
+      'toi',
+      'tok',
+      'tom',
+      'ton',
+      'toń',
+      'top',
+      'tor',
+      'tos',
+      'toy',
+      'toż',
+    ]);
+  });
+
   it('does not modify filled patterns', () => {
     const pattern = new FinalPattern(
       new VerticalPattern(board, [
