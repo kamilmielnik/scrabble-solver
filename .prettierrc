@@ -5,7 +5,7 @@ arrowParens: always
 trailingComma: all
 
 overrides:
-  - files: "*.scss"
+  - files: '*.scss'
     options:
-        parser: scss
-        singleQuote: true
+      parser: scss
+      singleQuote: true
