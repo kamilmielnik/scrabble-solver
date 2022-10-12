@@ -1,14 +1,15 @@
 import { Trie } from '@kamilmielnik/trie';
 import { literaki } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
-import { Board, Cell, FinalPattern, Locale, Tile, VerticalPattern } from '@scrabble-solver/types';
+import { Board, Cell, FinalPattern, Locale, Pattern, Tile, VerticalPattern } from '@scrabble-solver/types';
 
-import fillPattern from './fillPattern';
+import fillPattern, { fillPatternRecursive } from './fillPattern';
+
+const board = Board.fromStringArray([' t ', 'do ', '   ']);
+const locale = Locale.PL_PL;
+const config = literaki[locale];
 
 describe('fillPattern', () => {
-  const board = Board.fromStringArray([' t ', 'do ', '   ']);
-  const locale = Locale.PL_PL;
-  const config = literaki[locale];
   let trie: Trie | undefined;
 
   beforeAll(() => {
@@ -79,5 +80,28 @@ describe('fillPattern', () => {
     const filledPatterns = fillPattern(trie!, config, pattern, tiles);
 
     expect(filledPatterns.length).toBe(0);
+  });
+});
+
+describe('fillPatternRecursive', () => {
+  let trie: Trie | undefined;
+
+  beforeAll(() => {
+    return dictionaries.get(locale).then((loadedTrie) => {
+      trie = loadedTrie;
+    });
+  });
+
+  it('checks collisions', () => {
+    const pattern = new VerticalPattern(board, [
+      new Cell({ x: 2, y: 0, isEmpty: true, tile: new Tile({ character: 'k', isBlank: false }) }),
+      new Cell({ x: 2, y: 1, isEmpty: true, tile: new Tile({ character: 'o', isBlank: false }) }),
+      new Cell({ x: 2, y: 2, isEmpty: true, tile: new Tile({ character: 't', isBlank: false }) }),
+    ]);
+    const results: Pattern[] = [];
+    const tiles = [new Tile({ character: 'ń', isBlank: false })];
+    fillPatternRecursive(results, trie!, config, pattern, pattern.toString(), tiles);
+
+    expect(results.length).toBe(0);
   });
 });

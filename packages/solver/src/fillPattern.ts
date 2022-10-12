@@ -15,7 +15,7 @@ const fillPattern = (trie: Trie, config: Config, pattern: Pattern, tiles: Tile[]
   return results;
 };
 
-const fillPatternRecursive = (
+export const fillPatternRecursive = (
   /** gets mutated when this function is called */
   results: Pattern[],
   trie: Trie,
