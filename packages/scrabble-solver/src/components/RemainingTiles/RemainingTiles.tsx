@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'react';
 
 import { selectRemainingTilesGroups, useTranslate, useTypedSelector } from 'state';
-import Badge from '../Badge';
 
+import Badge from '../Badge';
 import Sidebar from '../Sidebar';
 
 import Character from './Character';

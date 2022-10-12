@@ -4,10 +4,10 @@ import { FunctionComponent } from 'react';
 import { Check, Cross } from 'icons';
 import { selectVerify, useTranslate, useTypedSelector } from 'state';
 
+import Badge from '../Badge';
 import Sidebar from '../Sidebar';
 
 import styles from './Words.module.scss';
-import Badge from '../Badge';
 
 interface Props {
   className?: string;
