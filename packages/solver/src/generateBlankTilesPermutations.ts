@@ -9,12 +9,12 @@ const generateBlankTilesPermutations = (alphabet: string[], tiles: Tile[]): Tile
 
   const remainingTiles = tiles.slice(0, firstBlankIndex).concat(tiles.slice(firstBlankIndex + 1));
 
-  return alphabet.reduce<Tile[][]>((permutations, character) => {
+  return alphabet.flatMap((character) => {
     const newTile = new Tile({ character, isBlank: true });
     const newTiles = [...remainingTiles, newTile];
 
-    return permutations.concat(generateBlankTilesPermutations(alphabet, newTiles));
-  }, []);
+    return generateBlankTilesPermutations(alphabet, newTiles);
+  });
 };
 
 export default generateBlankTilesPermutations;
