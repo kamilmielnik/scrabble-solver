@@ -10,34 +10,30 @@ const fillPattern = (trie: Trie, alphabet: string[], pattern: Pattern, tiles: Ti
     return [];
   }
 
-  const patterns: Pattern[] = [];
-
-  const onPatternFilled = (newPattern: Pattern, word: string) => {
-    if (trie.has(word) && pattern.getCollisions().every((collision) => trie.has(collision.toString()))) {
-      patterns.push(new FinalPattern(newPattern.clone()));
-    }
-  };
-
+  const results: Pattern[] = [];
   const tilesPermutations = generateBlankTilesPermutations(alphabet, tiles);
 
   for (let index = 0; index < tilesPermutations.length; ++index) {
-    fillPatternWithoutBlanks(trie, pattern, pattern.toString(), tilesPermutations[index], onPatternFilled);
+    fillPatternWithoutBlanks(results, trie, pattern, pattern.toString(), tilesPermutations[index]);
   }
 
-  return patterns;
+  return results;
 };
 
 const fillPatternWithoutBlanks = (
+  /** gets mutated when this function is called */
+  results: Pattern[],
   trie: Trie,
   pattern: Pattern,
   word: string,
   tiles: Tile[],
-  onPatternFilled: (pattern: Pattern, word: string) => void,
 ): void => {
   const indexOfFirstCellWithoutTile = pattern.getIndexOfFirstCellWithoutTile();
 
   if (indexOfFirstCellWithoutTile === -1) {
-    onPatternFilled(pattern, word);
+    if (trie.has(word) && pattern.getCollisions().every((collision) => trie.has(collision.toString()))) {
+      results.push(new FinalPattern(pattern.clone()));
+    }
   } else {
     for (let index = 0; index < tiles.length; ++index) {
       const tile = tiles[index];
@@ -48,10 +44,12 @@ const fillPatternWithoutBlanks = (
       const newWordPrefix = word.substring(0, indexOfFirstEmptyLetter) + tile.character;
       const newWord = newWordPrefix + word.substring(indexOfFirstEmptyLetter + 1);
       if (indexOfNextCellWithoutTile === -1) {
-        onPatternFilled(pattern, newWord);
+        if (trie.has(newWord) && pattern.getCollisions().every((collision) => trie.has(collision.toString()))) {
+          results.push(new FinalPattern(pattern.clone()));
+        }
       } else if (trie.hasPrefix(newWordPrefix)) {
         tiles.splice(index, 1);
-        fillPatternWithoutBlanks(trie, pattern, newWord, tiles, onPatternFilled);
+        fillPatternWithoutBlanks(results, trie, pattern, newWord, tiles);
         tiles.splice(index, 0, tile);
       }
       pattern.cells[indexOfFirstCellWithoutTile].tile = previousTile;
