@@ -1,21 +1,25 @@
 import { BLANK } from '@scrabble-solver/constants';
 import { Tile as TileModel } from '@scrabble-solver/types';
 import {
+  ChangeEvent,
+  ChangeEventHandler,
   FunctionComponent,
   KeyboardEventHandler,
   MutableRefObject,
   RefObject,
   useCallback,
   useMemo,
+  useRef,
 } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { createKeyboardNavigation, isCtrl } from 'lib';
+import { createKeyboardNavigation } from 'lib';
 import { TILE_SIZE } from 'parameters';
 import { rackSlice, selectCharacterPoints, selectConfig, useTranslate, useTypedSelector } from 'state';
 
 import Tile from '../Tile';
 
+import extractCharacters from './extractCharacters';
 import styles from './Rack.module.scss';
 
 interface Props {
@@ -24,45 +28,58 @@ interface Props {
   index: number;
   inputRef: RefObject<HTMLInputElement>;
   tile: TileModel | null;
+  onChange: ChangeEventHandler<HTMLInputElement>;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
+  onKeyUp: KeyboardEventHandler<HTMLInputElement>;
 }
 
-const RackTile: FunctionComponent<Props> = ({ activeIndexRef, character, index, inputRef, tile, onKeyDown }) => {
+const RackTile: FunctionComponent<Props> = ({
+  activeIndexRef,
+  character,
+  index,
+  inputRef,
+  tile,
+  onChange,
+  onKeyDown,
+  onKeyUp,
+}) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const config = useTypedSelector(selectConfig);
   const points = useTypedSelector((state) => selectCharacterPoints(state, character));
+  const isFocusedRef = useRef(false);
 
   const handleFocus = useCallback(() => {
     activeIndexRef.current = index;
+    isFocusedRef.current = true;
   }, [index]);
 
-  const handleCharacterChange = useCallback(
-    (value: string | null) => {
-      dispatch(rackSlice.actions.changeCharacter({ character: value, index }));
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value.toLocaleLowerCase();
+      const characters = value ? extractCharacters(config, value) : [null];
+
+      dispatch(rackSlice.actions.changeCharacters({ characters, index }));
+
+      if (characters.length > 0) {
+        onChange(event);
+      } else {
+        event.preventDefault();
+        event.stopPropagation();
+      }
     },
-    [index],
+    [config, index, onChange],
   );
 
   const handleKeyDown = useMemo(() => {
     return createKeyboardNavigation({
-      onBackspace: () => handleCharacterChange(null),
-      onDelete: () => handleCharacterChange(null),
-      onKeyDown: (event) => {
-        const newCharacter = event.key.toLowerCase();
-        const twoCharacterTile = config.getTwoCharacterTileByPrefix(newCharacter);
-
-        if (isCtrl(event) && twoCharacterTile) {
-          event.preventDefault();
-          handleCharacterChange(twoCharacterTile);
-        } else if (config.hasCharacter(newCharacter) || newCharacter === BLANK) {
-          handleCharacterChange(newCharacter);
-        }
-
-        onKeyDown(event);
+      onBackspace: (event) => {
+        event.preventDefault();
+        dispatch(rackSlice.actions.changeCharacter({ character: null, index }));
       },
+      onKeyDown,
     });
-  }, [config, handleCharacterChange, onKeyDown]);
+  }, [index, onKeyDown]);
 
   return (
     <Tile
@@ -78,8 +95,10 @@ const RackTile: FunctionComponent<Props> = ({ activeIndexRef, character, index, 
       raised
       size={TILE_SIZE}
       tabIndex={index === 0 ? undefined : -1}
+      onChange={handleChange}
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
+      onKeyUp={onKeyUp}
     />
   );
 };

@@ -1,6 +1,6 @@
 import { KeyboardEvent } from 'react';
 
-const isCtrl = <T>(event: KeyboardEvent<T>): boolean => {
+const isCtrl = <T>(event: KeyboardEvent<T> | globalThis.KeyboardEvent): boolean => {
   return event.ctrlKey || event.metaKey;
 };
 

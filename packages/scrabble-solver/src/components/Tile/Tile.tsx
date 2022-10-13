@@ -1,5 +1,6 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import {
+  ChangeEventHandler,
   createRef,
   FocusEventHandler,
   FunctionComponent,
@@ -9,7 +10,7 @@ import {
   useMemo,
 } from 'react';
 
-import { getTileSizes } from 'lib';
+import { getTileSizes, noop } from 'lib';
 
 import TilePure from './TilePure';
 
@@ -26,8 +27,10 @@ interface Props {
   raised?: boolean;
   size: number;
   tabIndex?: number;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
+  onKeyUp?: KeyboardEventHandler<HTMLInputElement>;
 }
 
 const Tile: FunctionComponent<Props> = ({
@@ -43,8 +46,10 @@ const Tile: FunctionComponent<Props> = ({
   raised,
   size,
   tabIndex,
-  onFocus,
-  onKeyDown,
+  onChange,
+  onFocus = noop,
+  onKeyDown = noop,
+  onKeyUp,
 }) => {
   const { pointsFontSize, tileFontSize, tileSize } = getTileSizes(size);
   const style = useMemo(() => ({ height: tileSize, width: tileSize }), [tileSize]);
@@ -53,6 +58,25 @@ const Tile: FunctionComponent<Props> = ({
   const inputRef = useMemo<RefObject<HTMLInputElement>>(() => ref || createRef(), [ref]);
   const isEmpty = !character || character === EMPTY_CELL;
   const canShowPoints = (isBlank || !isEmpty) && typeof points !== 'undefined';
+
+  const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
+    inputRef.current?.select();
+    onKeyDown(event);
+  };
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.addEventListener(
+        'keydown',
+        () => {
+          inputRef.current?.select();
+        },
+        {
+          capture: true,
+        },
+      );
+    }
+  }, [inputRef]);
 
   useEffect(() => {
     if (autoFocus && inputRef.current) {
@@ -77,8 +101,10 @@ const Tile: FunctionComponent<Props> = ({
       raised={raised}
       style={style}
       tabIndex={tabIndex}
+      onChange={onChange}
       onFocus={onFocus}
-      onKeyDown={onKeyDown}
+      onKeyDown={handleKeyDown}
+      onKeyUp={onKeyUp}
     />
   );
 };

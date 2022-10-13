@@ -19,6 +19,20 @@ const rackSlice = createSlice({
       return [...state.slice(0, index), character, ...state.slice(index + 1)];
     },
 
+    changeCharacters: (state, action: PayloadAction<{ characters: (string | null)[]; index: number }>) => {
+      const { characters, index } = action.payload;
+      const expectedRackLength = state.length;
+      const rack = [...state.slice(0, index), ...characters, ...state.slice(index + characters.length)];
+      /**
+       * onChange event may contain multiple characters in value:
+       * - when typing fast (since input does not have maxLength="1")
+       * - when pasting
+       * We want to put all of them in rack in order, but in case there is too many, for the last rack slot we
+       * will pick the last item in array, since it represents the last keystroke (the first, more common case).
+       */
+      return [...rack.slice(0, expectedRackLength - 1), rack[rack.length - 1]];
+    },
+
     groupTiles: (state, action: PayloadAction<'left' | 'right' | null>) => {
       const direction = action.payload;
 

@@ -27,11 +27,11 @@ interface Props {
   raised?: boolean;
   style?: CSSProperties;
   tabIndex?: number;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
+  onKeyUp?: KeyboardEventHandler<HTMLInputElement>;
 }
-
-const handleChange: ChangeEventHandler = (event) => event.preventDefault();
 
 const TilePure: FunctionComponent<Props> = ({
   autoFocus,
@@ -49,8 +49,10 @@ const TilePure: FunctionComponent<Props> = ({
   raised,
   style,
   tabIndex,
+  onChange,
   onFocus,
   onKeyDown,
+  onKeyUp,
 }) => (
   <div
     className={classNames(styles.tile, className, {
@@ -72,16 +74,16 @@ const TilePure: FunctionComponent<Props> = ({
       autoFocus={autoFocus}
       className={styles.character}
       disabled={disabled}
-      maxLength={1}
       placeholder={placeholder}
       ref={inputRef}
       spellCheck={false}
       style={inputStyle}
       tabIndex={tabIndex}
       value={character || ''}
-      onChange={handleChange}
+      onChange={onChange}
       onFocus={onFocus}
       onKeyDown={onKeyDown}
+      onKeyUp={onKeyUp}
     />
 
     {canShowPoints && (

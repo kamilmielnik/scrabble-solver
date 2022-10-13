@@ -1,10 +1,10 @@
-import { BLANK } from '@scrabble-solver/constants';
 import classNames from 'classnames';
-import { createRef, FunctionComponent, useCallback, useMemo, useRef } from 'react';
+import { ChangeEvent, createRef, FunctionComponent, KeyboardEvent, useCallback, useMemo, useRef } from 'react';
 
 import { createArray, createKeyboardNavigation, zipCharactersAndTiles } from 'lib';
 import { selectConfig, selectRack, selectResultCandidateTiles, useTypedSelector } from 'state';
 
+import extractCharacters from './extractCharacters';
 import styles from './Rack.module.scss';
 import RackTile from './RackTile';
 
@@ -35,7 +35,16 @@ const Rack: FunctionComponent<Props> = ({ className }) => {
     [activeIndexRef, tilesCount, tilesRefs],
   );
 
-  const onKeyDown = useMemo(() => {
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value.toLocaleLowerCase();
+      const characters = value ? extractCharacters(config, value) : [];
+      changeActiveIndex(characters.length);
+    },
+    [changeActiveIndex, config],
+  );
+
+  const handleKeyDown = useMemo(() => {
     return createKeyboardNavigation({
       onArrowLeft: (event) => {
         event.preventDefault();
@@ -45,18 +54,21 @@ const Rack: FunctionComponent<Props> = ({ className }) => {
         event.preventDefault();
         changeActiveIndex(1);
       },
-      onBackspace: () => {
+      onBackspace: (event) => {
+        event.preventDefault();
         changeActiveIndex(-1);
       },
-      onKeyDown: (event) => {
-        const character = event.key.toLowerCase();
-
-        if (config.hasCharacter(character) || character === BLANK) {
-          changeActiveIndex(1);
-        }
-      },
     });
-  }, [changeActiveIndex, config]);
+  }, [changeActiveIndex]);
+
+  const handleKeyUp = useCallback(
+    (event: KeyboardEvent<HTMLInputElement>) => {
+      if (event.currentTarget.value === event.key) {
+        changeActiveIndex(1);
+      }
+    },
+    [changeActiveIndex],
+  );
 
   return (
     <div className={classNames(styles.rack, className)}>
@@ -68,7 +80,9 @@ const Rack: FunctionComponent<Props> = ({ className }) => {
           inputRef={tilesRefs[index]}
           key={index}
           tile={tile}
-          onKeyDown={onKeyDown}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          onKeyUp={handleKeyUp}
         />
       ))}
     </div>
