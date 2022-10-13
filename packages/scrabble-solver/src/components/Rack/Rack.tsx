@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { ChangeEvent, createRef, FunctionComponent, useCallback, useMemo, useRef } from 'react';
 
-import { createArray, createKeyboardNavigation, zipCharactersAndTiles } from 'lib';
+import { createArray, createKeyboardNavigation, isCtrl, zipCharactersAndTiles } from 'lib';
 import { selectConfig, selectRack, selectResultCandidateTiles, useTypedSelector } from 'state';
 
 import extractCharacters from './extractCharacters';
@@ -59,14 +59,16 @@ const Rack: FunctionComponent<Props> = ({ className }) => {
         changeActiveIndex(-1);
       },
       onKeyDown: (event) => {
-        if (event.currentTarget.value === event.key) {
+        if (isCtrl(event) && config.isTwoCharacterTilePrefix(event.key)) {
+          changeActiveIndex(1);
+        } else if (event.currentTarget.value === event.key) {
           event.preventDefault();
           event.stopPropagation();
           changeActiveIndex(1);
         }
       },
     });
-  }, [changeActiveIndex]);
+  }, [changeActiveIndex, config]);
 
   return (
     <div className={classNames(styles.rack, className)}>

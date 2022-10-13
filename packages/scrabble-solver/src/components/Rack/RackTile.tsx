@@ -13,7 +13,7 @@ import {
 } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { createKeyboardNavigation } from 'lib';
+import { createKeyboardNavigation, isCtrl } from 'lib';
 import { TILE_SIZE } from 'parameters';
 import { rackSlice, selectCharacterPoints, selectConfig, useTranslate, useTypedSelector } from 'state';
 
@@ -75,7 +75,16 @@ const RackTile: FunctionComponent<Props> = ({
         event.preventDefault();
         dispatch(rackSlice.actions.changeCharacter({ character: null, index }));
       },
-      onKeyDown,
+      onKeyDown: (event) => {
+        if (isCtrl(event) && config.isTwoCharacterTilePrefix(event.key)) {
+          event.preventDefault();
+          event.stopPropagation();
+          const twoTilesCharacter = config.getTwoCharacterTileByPrefix(event.key);
+          dispatch(rackSlice.actions.changeCharacter({ character: twoTilesCharacter!, index }));
+        }
+
+        onKeyDown(event);
+      },
     });
   }, [index, onKeyDown]);
 
