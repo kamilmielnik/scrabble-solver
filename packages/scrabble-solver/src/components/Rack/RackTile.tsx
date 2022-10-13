@@ -81,6 +81,7 @@ const RackTile: FunctionComponent<Props> = ({
           event.preventDefault();
           event.stopPropagation();
           const twoTilesCharacter = config.getTwoCharacterTileByPrefix(event.key);
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           dispatch(rackSlice.actions.changeCharacter({ character: twoTilesCharacter!, index }));
         }
 
