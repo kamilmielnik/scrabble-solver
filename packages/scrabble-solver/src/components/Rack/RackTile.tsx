@@ -20,6 +20,7 @@ import { rackSlice, selectCharacterPoints, selectConfig, useTranslate, useTypedS
 import Tile from '../Tile';
 
 import extractCharacters from './extractCharacters';
+import extractInputValue from './extractInputValue';
 import styles from './Rack.module.scss';
 
 interface Props {
@@ -54,7 +55,7 @@ const RackTile: FunctionComponent<Props> = ({
 
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      const value = event.target.value.toLocaleLowerCase();
+      const value = extractInputValue(event.target);
       const characters = value ? extractCharacters(config, value) : [null];
 
       dispatch(rackSlice.actions.changeCharacters({ characters, index }));

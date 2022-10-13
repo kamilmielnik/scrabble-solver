@@ -5,6 +5,7 @@ import { createArray, createKeyboardNavigation, isCtrl, zipCharactersAndTiles } 
 import { selectConfig, selectRack, selectResultCandidateTiles, useTypedSelector } from 'state';
 
 import extractCharacters from './extractCharacters';
+import extractInputValue from './extractInputValue';
 import styles from './Rack.module.scss';
 import RackTile from './RackTile';
 
@@ -37,7 +38,7 @@ const Rack: FunctionComponent<Props> = ({ className }) => {
 
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      const value = event.target.value.toLocaleLowerCase();
+      const value = extractInputValue(event.target);
       const characters = value ? extractCharacters(config, value) : [];
       changeActiveIndex(characters.length);
     },
