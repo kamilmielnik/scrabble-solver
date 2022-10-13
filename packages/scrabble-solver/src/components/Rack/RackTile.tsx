@@ -30,7 +30,6 @@ interface Props {
   tile: TileModel | null;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
-  onKeyUp: KeyboardEventHandler<HTMLInputElement>;
 }
 
 const RackTile: FunctionComponent<Props> = ({
@@ -41,7 +40,6 @@ const RackTile: FunctionComponent<Props> = ({
   tile,
   onChange,
   onKeyDown,
-  onKeyUp,
 }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
@@ -98,7 +96,6 @@ const RackTile: FunctionComponent<Props> = ({
       onChange={handleChange}
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
-      onKeyUp={onKeyUp}
     />
   );
 };

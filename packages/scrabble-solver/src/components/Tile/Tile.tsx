@@ -30,7 +30,6 @@ interface Props {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
-  onKeyUp?: KeyboardEventHandler<HTMLInputElement>;
 }
 
 const Tile: FunctionComponent<Props> = ({
@@ -49,7 +48,6 @@ const Tile: FunctionComponent<Props> = ({
   onChange,
   onFocus = noop,
   onKeyDown = noop,
-  onKeyUp,
 }) => {
   const { pointsFontSize, tileFontSize, tileSize } = getTileSizes(size);
   const style = useMemo(() => ({ height: tileSize, width: tileSize }), [tileSize]);
@@ -63,20 +61,6 @@ const Tile: FunctionComponent<Props> = ({
     inputRef.current?.select();
     onKeyDown(event);
   };
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.addEventListener(
-        'keydown',
-        () => {
-          inputRef.current?.select();
-        },
-        {
-          capture: true,
-        },
-      );
-    }
-  }, [inputRef]);
 
   useEffect(() => {
     if (autoFocus && inputRef.current) {
@@ -104,7 +88,6 @@ const Tile: FunctionComponent<Props> = ({
       onChange={onChange}
       onFocus={onFocus}
       onKeyDown={handleKeyDown}
-      onKeyUp={onKeyUp}
     />
   );
 };

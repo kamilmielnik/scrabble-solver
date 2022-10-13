@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ChangeEvent, createRef, FunctionComponent, KeyboardEvent, useCallback, useMemo, useRef } from 'react';
+import { ChangeEvent, createRef, FunctionComponent, useCallback, useMemo, useRef } from 'react';
 
 import { createArray, createKeyboardNavigation, zipCharactersAndTiles } from 'lib';
 import { selectConfig, selectRack, selectResultCandidateTiles, useTypedSelector } from 'state';
@@ -58,17 +58,15 @@ const Rack: FunctionComponent<Props> = ({ className }) => {
         event.preventDefault();
         changeActiveIndex(-1);
       },
+      onKeyDown: (event) => {
+        if (event.currentTarget.value === event.key) {
+          event.preventDefault();
+          event.stopPropagation();
+          changeActiveIndex(1);
+        }
+      },
     });
   }, [changeActiveIndex]);
-
-  const handleKeyUp = useCallback(
-    (event: KeyboardEvent<HTMLInputElement>) => {
-      if (event.currentTarget.value === event.key) {
-        changeActiveIndex(1);
-      }
-    },
-    [changeActiveIndex],
-  );
 
   return (
     <div className={classNames(styles.rack, className)}>
@@ -82,7 +80,6 @@ const Rack: FunctionComponent<Props> = ({ className }) => {
           tile={tile}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          onKeyUp={handleKeyUp}
         />
       ))}
     </div>

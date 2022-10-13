@@ -30,7 +30,6 @@ interface Props {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
-  onKeyUp?: KeyboardEventHandler<HTMLInputElement>;
 }
 
 const TilePure: FunctionComponent<Props> = ({
@@ -52,7 +51,6 @@ const TilePure: FunctionComponent<Props> = ({
   onChange,
   onFocus,
   onKeyDown,
-  onKeyUp,
 }) => (
   <div
     className={classNames(styles.tile, className, {
@@ -83,7 +81,6 @@ const TilePure: FunctionComponent<Props> = ({
       onChange={onChange}
       onFocus={onFocus}
       onKeyDown={onKeyDown}
-      onKeyUp={onKeyUp}
     />
 
     {canShowPoints && (
