@@ -9,7 +9,6 @@ import {
   RefObject,
   useCallback,
   useMemo,
-  useRef,
 } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -44,11 +43,9 @@ const RackTile: FunctionComponent<Props> = ({
   const translate = useTranslate();
   const config = useTypedSelector(selectConfig);
   const points = useTypedSelector((state) => selectCharacterPoints(state, character));
-  const isFocusedRef = useRef(false);
 
   const handleFocus = useCallback(() => {
     activeIndexRef.current = index;
-    isFocusedRef.current = true;
   }, [index]);
 
   const handleChange = useCallback(
