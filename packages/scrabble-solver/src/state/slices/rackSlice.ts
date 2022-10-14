@@ -25,10 +25,14 @@ const rackSlice = createSlice({
       const rack = [...state.slice(0, index), ...characters, ...state.slice(index + characters.length)];
       /**
        * onChange event may contain multiple characters in value:
-       * - when typing fast (since input does not have maxLength="1")
-       * - when pasting
-       * We want to put all of them in rack in order, but in case there is too many, for the last rack slot we
-       * will pick the last item in array, since it represents the last keystroke (the first, more common case).
+       * 1. when typing on mobile
+       * 2. when typing inside the last cell
+       * 3. when typing fast (since input does not have maxLength="1")
+       * 4. when pasting
+       * 5. when dragging & dropping
+       * We want to put all of them in rack in order. In case there are too many, for the last rack slot we
+       * will pick the last item in the array, since it represents the last keystroke (case 2) - desired behavior.
+       * Consequences of this behavior are not ideal but acceptable in other cases.
        */
       return [...rack.slice(0, expectedRackLength - 1), rack[rack.length - 1]];
     },
