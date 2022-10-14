@@ -1,11 +1,16 @@
 import classNames from 'classnames';
 import { ChangeEvent, createRef, FunctionComponent, useCallback, useMemo, useRef } from 'react';
 
-import { createArray, createKeyboardNavigation, isCtrl, zipCharactersAndTiles } from 'lib';
+import {
+  createArray,
+  createKeyboardNavigation,
+  extractCharacters,
+  extractInputValue,
+  isCtrl,
+  zipCharactersAndTiles,
+} from 'lib';
 import { selectConfig, selectRack, selectResultCandidateTiles, useTypedSelector } from 'state';
 
-import extractCharacters from './extractCharacters';
-import extractInputValue from './extractInputValue';
 import styles from './Rack.module.scss';
 import RackTile from './RackTile';
 

@@ -13,14 +13,12 @@ import {
 } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { createKeyboardNavigation, isCtrl } from 'lib';
+import { createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
 import { TILE_SIZE } from 'parameters';
 import { rackSlice, selectCharacterPoints, selectConfig, useTranslate, useTypedSelector } from 'state';
 
 import Tile from '../Tile';
 
-import extractCharacters from './extractCharacters';
-import extractInputValue from './extractInputValue';
 import styles from './Rack.module.scss';
 
 interface Props {
