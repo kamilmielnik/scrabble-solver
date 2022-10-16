@@ -12,6 +12,7 @@ export { default as Config } from './Config';
 export { default as ConfigJson } from './ConfigJson';
 export { default as FinalPattern } from './FinalPattern';
 export { default as HorizontalPattern } from './HorizontalPattern';
+export { default as isError } from './isError';
 export { default as isObject } from './isObject';
 export { default as Locale, isLocale } from './Locale';
 export { default as Pattern } from './Pattern';
