@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getLocaleConfig } from '@scrabble-solver/configs';
-import { Cell, Config, Result, Tile } from '@scrabble-solver/types';
+import { Cell, Config, isError, Result, Tile } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
 import { findCell, getRemainingTiles, getRemainingTilesGroups, sortResults, unorderedArraysEqual } from 'lib';
@@ -157,6 +157,10 @@ export const selectCharacters = createSelector(
 export const selectLastSolvedParameters = createSelector([selectSolveRoot], (solve) => solve.lastSolvedParameters);
 
 export const selectIsLoading = createSelector([selectSolveRoot], (solve) => solve.isLoading);
+
+export const selectSolveError = createSelector([selectSolveRoot], (solve) => {
+  return isError(solve.error) ? solve.error : undefined;
+});
 
 export const selectHaveCharactersChanged = createSelector(
   [selectLastSolvedParameters, selectCharacters],

@@ -16,13 +16,14 @@ const solveSlice = createSlice({
       return { ...state, isLoading: true };
     },
 
-    submitFailure: (state) => {
-      return { ...state, isLoading: false };
+    submitFailure: (state, action: PayloadAction<unknown>) => {
+      const error = action.payload;
+      return { ...state, error, isLoading: false };
     },
 
     submitSuccess: (state, action: PayloadAction<SolveParameters>) => {
       const lastSolvedParameters = action.payload;
-      return { ...state, isLoading: false, lastSolvedParameters };
+      return { ...state, error: undefined, isLoading: false, lastSolvedParameters };
     },
   },
 });

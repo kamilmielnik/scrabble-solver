@@ -141,7 +141,7 @@ function* onSolve(): AnyGenerator {
     yield put(solveSlice.actions.submitSuccess({ board, characters }));
   } catch (error) {
     yield put(resultsSlice.actions.changeResults([]));
-    yield put(solveSlice.actions.submitFailure());
+    yield put(solveSlice.actions.submitFailure(error));
   }
 }
 
