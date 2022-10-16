@@ -37,7 +37,7 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
     const trie = await dictionaries.get(locale);
     const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
     const results = solveScrabble(trie, config, board, tiles);
-    response.status(200).send(results.map((result) => result.toJson()));
+    response.status(200).send(results);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     logger.error('solve - error', { error, meta });
