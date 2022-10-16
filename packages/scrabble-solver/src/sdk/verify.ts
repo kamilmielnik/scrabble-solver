@@ -14,7 +14,7 @@ interface Response {
 }
 
 const verify = async ({ board, configId, locale }: Payload): Promise<Response> => {
-  return fetchJson<Response>('/api/solve', {
+  return fetchJson<Response>('/api/verify', {
     method: 'POST',
     body: JSON.stringify({ board, configId, locale }),
   });
