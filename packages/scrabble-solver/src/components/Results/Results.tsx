@@ -95,9 +95,9 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
                     [styles.outdated]: isOutdated,
                   })}
                   height={height - RESULTS_HEADER_HEIGHT - RESULTS_INPUT_HEIGHT}
+                  innerRef={listRef}
                   itemCount={results.length}
                   itemSize={RESULTS_ITEM_HEIGHT}
-                  ref={listRef}
                   width={width}
                 >
                   {Result}
