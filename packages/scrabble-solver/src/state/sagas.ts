@@ -86,7 +86,7 @@ function* onDictionarySubmit(): AnyGenerator {
     const wordDefinitions = yield call(memoizedFindWordDefinitions, locale, word);
     yield put(dictionarySlice.actions.submitSuccess(wordDefinitions));
   } catch (error) {
-    yield put(dictionarySlice.actions.submitFailure());
+    yield put(dictionarySlice.actions.submitFailure(error));
   }
 }
 

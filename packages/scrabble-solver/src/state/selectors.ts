@@ -34,6 +34,10 @@ const selectVerifyRoot = (state: RootState): RootState['verify'] => state.verify
 
 export const selectDictionary = selectDictionaryRoot;
 
+export const selectDictionaryError = createSelector([selectDictionaryRoot], (dictionary) => {
+  return isError(dictionary.error) ? dictionary.error : undefined;
+});
+
 export const selectAutoGroupTiles = createSelector([selectSettingsRoot], (settings) => settings.autoGroupTiles);
 
 export const selectLocale = createSelector([selectSettingsRoot], (settings) => settings.locale);

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 
-import { selectDictionary, useTranslate, useTypedSelector } from 'state';
+import { selectDictionary, selectDictionaryError, useTranslate, useTypedSelector } from 'state';
 
 import EmptyState from '../EmptyState';
 import Loading from '../Loading';
@@ -15,6 +15,7 @@ interface Props {
 const Dictionary: FunctionComponent<Props> = ({ className }) => {
   const translate = useTranslate();
   const { results, isLoading } = useTypedSelector(selectDictionary);
+  const error = useTypedSelector(selectDictionaryError);
   const isFirstAllowed = results.length > 0 ? results[0].isAllowed : undefined;
 
   return (
@@ -24,6 +25,12 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
         [styles.isNotAllowed]: isFirstAllowed === false,
       })}
     >
+      {typeof error !== 'undefined' && (
+        <EmptyState className={styles.emptyState} type="error">
+          {error.message}
+        </EmptyState>
+      )}
+
       {results.map(({ definitions, isAllowed, word }) => (
         <div
           className={classNames(styles.result, {
