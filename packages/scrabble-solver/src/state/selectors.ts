@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getLocaleConfig } from '@scrabble-solver/configs';
-import { Cell, Config, Result, Tile } from '@scrabble-solver/types';
+import { Cell, Config, isError, Result, Tile } from '@scrabble-solver/types';
 
 import i18n from 'i18n';
 import { findCell, getRemainingTiles, getRemainingTilesGroups, sortResults, unorderedArraysEqual } from 'lib';
@@ -33,6 +33,10 @@ const selectSolveRoot = (state: RootState): RootState['solve'] => state.solve;
 const selectVerifyRoot = (state: RootState): RootState['verify'] => state.verify;
 
 export const selectDictionary = selectDictionaryRoot;
+
+export const selectDictionaryError = createSelector([selectDictionaryRoot], (dictionary) => {
+  return isError(dictionary.error) ? dictionary.error : undefined;
+});
 
 export const selectAutoGroupTiles = createSelector([selectSettingsRoot], (settings) => settings.autoGroupTiles);
 
@@ -157,6 +161,10 @@ export const selectCharacters = createSelector(
 export const selectLastSolvedParameters = createSelector([selectSolveRoot], (solve) => solve.lastSolvedParameters);
 
 export const selectIsLoading = createSelector([selectSolveRoot], (solve) => solve.isLoading);
+
+export const selectSolveError = createSelector([selectSolveRoot], (solve) => {
+  return isError(solve.error) ? solve.error : undefined;
+});
 
 export const selectHaveCharactersChanged = createSelector(
   [selectLastSolvedParameters, selectCharacters],

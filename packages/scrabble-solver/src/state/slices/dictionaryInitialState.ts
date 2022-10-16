@@ -1,9 +1,17 @@
 import { WordDefinition } from '@scrabble-solver/types';
 
-const dictionaryInitialState = {
+interface DictionaryInitialState {
+  error: unknown | undefined;
+  input: string;
+  isLoading: boolean;
+  results: WordDefinition[];
+}
+
+const dictionaryInitialState: DictionaryInitialState = {
+  error: undefined,
   input: '',
   isLoading: false,
-  results: [] as WordDefinition[],
+  results: [],
 };
 
 export default dictionaryInitialState;

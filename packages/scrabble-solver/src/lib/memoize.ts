@@ -1,5 +1,5 @@
 interface AnyFunction {
-  (...parameters: any[]): any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  (...parameters: any[]): any | Promise<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 interface AnyCachedFunction<T extends AnyFunction> extends AnyFunction {
@@ -20,6 +20,14 @@ const memoize = <T extends AnyFunction>(fn: T): AnyCachedFunction<T> => {
     return cache.find((entry) => parametersEqual(entry.parameters, parameters))?.result;
   };
 
+  const removeCache = (parameters: Parameters<T>): void => {
+    const index = cache.findIndex((entry) => parametersEqual(entry.parameters, parameters));
+
+    if (index >= 0) {
+      cache.splice(index, 1);
+    }
+  };
+
   const writeCache = (parameters: Parameters<T>, result: ReturnType<T>): void => {
     cache.push({ parameters, result });
   };
@@ -32,6 +40,12 @@ const memoize = <T extends AnyFunction>(fn: T): AnyCachedFunction<T> => {
     }
 
     const result = fn(...parameters);
+
+    if (result instanceof Promise) {
+      result.catch(() => {
+        removeCache(parameters);
+      });
+    }
 
     writeCache(parameters, result);
 

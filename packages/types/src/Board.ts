@@ -88,7 +88,7 @@ class Board {
 
   public getBlanksCount(): number {
     return this.rows.reduce((count, row) => {
-      return count + row.reduce((rowCount, cell) => (cell.tile.isBlank ? rowCount + 1 : rowCount), 0);
+      return count + row.reduce((rowCount, cell) => rowCount + (cell.tile.isBlank ? 1 : 0), 0);
     }, 0);
   }
 
@@ -102,7 +102,7 @@ class Board {
 
   public getTilesCount(): number {
     return this.rows.reduce((count, row) => {
-      return count + row.reduce((rowCount, cell) => (cell.hasTile() ? rowCount + 1 : rowCount), 0);
+      return count + row.reduce((rowCount, cell) => rowCount + (cell.hasTile() ? 1 : 0), 0);
     }, 0);
   }
 

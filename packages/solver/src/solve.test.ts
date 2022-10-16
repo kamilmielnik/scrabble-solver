@@ -70,7 +70,7 @@ describe('solve - PL', () => {
     ]);
     const tiles = generateTiles(['a', 'a', 'ą', 'r', 't', 'w', 'z']);
     const results = solve(trie!, config, board, tiles);
-    const bestResult = getBestResult(results);
+    const bestResult = getBestResult(results.map((result) => Result.fromJson(result)));
     expect(bestResult.word).toBe('zmartwychwstałą');
     expect(bestResult.points).toBe(682);
   });
@@ -95,7 +95,7 @@ describe('solve - PL', () => {
     ]);
     const tiles = generateTiles(['ą', 'c', 'h', 't', 'w', 'w', 'z']);
     const results = solve(trie!, config, board, tiles);
-    const bestResult = getBestResult(results);
+    const bestResult = getBestResult(results.map((result) => Result.fromJson(result)));
     expect(bestResult.word).toBe('zmartwychwstałą');
     expect(bestResult.points).toBe(1157);
   });
@@ -132,7 +132,7 @@ describe('solve - ES', () => {
     ]);
     const tiles = generateTiles(['ll', 'a', 'n', 'a']);
     const results = solve(trie!, config, board, tiles);
-    const bestResult = getBestResult(results);
+    const bestResult = getBestResult(results.map((result) => Result.fromJson(result)));
     expect(results.length).toBe(24);
     expect(bestResult.points).toBe(22);
   });
