@@ -1,5 +1,7 @@
 import { BoardJson, Locale } from '@scrabble-solver/types';
 
+import fetchJson from './fetchJson';
+
 interface Payload {
   board: BoardJson;
   configId: string;
@@ -11,14 +13,11 @@ interface Response {
   validWords: string[];
 }
 
-const verify = ({ board, configId, locale }: Payload): Promise<Response> => {
-  return fetch('/api/verify', {
+const verify = async ({ board, configId, locale }: Payload): Promise<Response> => {
+  return fetchJson<Response>('/api/solve', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify({ board, configId, locale }),
-  }).then((response) => response.json());
+  });
 };
 
 export default verify;

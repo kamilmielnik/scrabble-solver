@@ -1,4 +1,6 @@
-import { BoardJson, Locale, ResultJson } from '@scrabble-solver/types';
+import { BoardJson, Locale, Result, ResultJson } from '@scrabble-solver/types';
+
+import fetchJson from './fetchJson';
 
 interface Payload {
   board: BoardJson;
@@ -7,14 +9,13 @@ interface Payload {
   locale: Locale;
 }
 
-const solve = ({ board, characters, configId, locale }: Payload): Promise<ResultJson[]> => {
-  return fetch('/api/solve', {
+const solve = async ({ board, characters, configId, locale }: Payload): Promise<Result[]> => {
+  const json = await fetchJson<ResultJson[]>('/api/solve', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
     body: JSON.stringify({ board, characters, configId, locale }),
-  }).then((response) => response.json());
+  });
+
+  return json.map(Result.fromJson);
 };
 
 export default solve;

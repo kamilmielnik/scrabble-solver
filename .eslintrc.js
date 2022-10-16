@@ -23,6 +23,8 @@ module.exports = {
   plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import'],
 
   globals: {
+    RequestInfo: true,
+    RequestInit: true,
     beforeAll: true,
     define: true,
     describe: true,

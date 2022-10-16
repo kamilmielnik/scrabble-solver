@@ -137,7 +137,7 @@ function* onSolve(): AnyGenerator {
       configId: config.id,
       locale,
     });
-    yield put(resultsSlice.actions.changeResults(results.map(Result.fromJson)));
+    yield put(resultsSlice.actions.changeResults(results));
     yield put(solveSlice.actions.submitSuccess({ board, characters }));
   } catch (error) {
     yield put(resultsSlice.actions.changeResults([]));
