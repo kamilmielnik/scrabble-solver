@@ -14,27 +14,21 @@ const dictionarySlice = createSlice({
     reset: () => dictionaryInitialState,
 
     submit: (state) => {
-      return {
-        ...state,
-        isLoading: true,
-        results: dictionaryInitialState.results,
-      };
+      const error = dictionaryInitialState.error;
+      const results = dictionaryInitialState.results;
+      return { ...state, error, isLoading: true, results };
     },
 
-    submitFailure: (state) => {
-      return {
-        ...state,
-        isLoading: false,
-        results: dictionaryInitialState.results,
-      };
+    submitFailure: (state, action: PayloadAction<unknown>) => {
+      const error = action.payload;
+      const results = dictionaryInitialState.results;
+      return { ...state, error, isLoading: false, results };
     },
 
     submitSuccess: (state, action: PayloadAction<WordDefinition[]>) => {
-      return {
-        ...state,
-        isLoading: false,
-        results: action.payload,
-      };
+      const error = dictionaryInitialState.error;
+      const results = action.payload;
+      return { ...state, error, isLoading: false, results };
     },
   },
 });

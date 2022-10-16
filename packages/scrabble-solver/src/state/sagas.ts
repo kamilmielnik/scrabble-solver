@@ -86,7 +86,7 @@ function* onDictionarySubmit(): AnyGenerator {
     const wordDefinitions = yield call(memoizedFindWordDefinitions, locale, word);
     yield put(dictionarySlice.actions.submitSuccess(wordDefinitions));
   } catch (error) {
-    yield put(dictionarySlice.actions.submitFailure());
+    yield put(dictionarySlice.actions.submitFailure(error));
   }
 }
 
@@ -137,11 +137,11 @@ function* onSolve(): AnyGenerator {
       configId: config.id,
       locale,
     });
-    yield put(resultsSlice.actions.changeResults(results.map(Result.fromJson)));
+    yield put(resultsSlice.actions.changeResults(results));
     yield put(solveSlice.actions.submitSuccess({ board, characters }));
   } catch (error) {
     yield put(resultsSlice.actions.changeResults([]));
-    yield put(solveSlice.actions.submitFailure());
+    yield put(solveSlice.actions.submitFailure(error));
   }
 }
 
