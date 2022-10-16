@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useLayoutEffect, useRef } from 'react';
 import { FixedSizeList } from 'react-window';
 
 import { RESULTS_HEADER_HEIGHT, RESULTS_INPUT_HEIGHT, RESULTS_ITEM_HEIGHT } from 'parameters';
@@ -35,6 +35,13 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
   const isLoading = useTypedSelector(selectIsLoading);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const error = useTypedSelector(selectSolveError);
+  const listRef = useRef<HTMLElement>();
+
+  useLayoutEffect(() => {
+    if (listRef.current) {
+      listRef.current.scrollTo(0, 0);
+    }
+  }, [listRef, results]);
 
   return (
     <div className={styles.results}>
@@ -90,6 +97,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
                   height={height - RESULTS_HEADER_HEIGHT - RESULTS_INPUT_HEIGHT}
                   itemCount={results.length}
                   itemSize={RESULTS_ITEM_HEIGHT}
+                  ref={listRef}
                   width={width}
                 >
                   {Result}
