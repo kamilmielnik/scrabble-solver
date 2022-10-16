@@ -1,15 +1,12 @@
 import { Cell } from '@scrabble-solver/types';
 
-const generateVectors = ({
-  getNthVector,
-  vectorsCount,
-}: {
+interface Parameters {
   getNthVector: (index: number) => Cell[];
   vectorsCount: number;
-}): Cell[][] => {
-  return Array(vectorsCount)
-    .fill(0)
-    .map((_, index) => getNthVector(index));
+}
+
+const generateVectors = ({ getNthVector, vectorsCount }: Parameters): Cell[][] => {
+  return Array.from({ length: vectorsCount }, (_, index) => getNthVector(index));
 };
 
 export default generateVectors;

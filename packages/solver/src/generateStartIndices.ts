@@ -1,10 +1,19 @@
 import { Cell } from '@scrabble-solver/types';
 
 const generateStartIndices = (cells: Cell[]): number[] => {
-  return Array(cells.length - 1)
-    .fill(0)
-    .map((_, startIndex) => startIndex)
-    .filter((startIndex) => startIndex === 0 || !cells[startIndex - 1].hasTile());
+  if (cells.length === 0) {
+    return [];
+  }
+
+  const startIndices: number[] = [0];
+
+  for (let startIndex = 1; startIndex < cells.length - 1; ++startIndex) {
+    if (!cells[startIndex - 1].hasTile()) {
+      startIndices.push(startIndex);
+    }
+  }
+
+  return startIndices;
 };
 
 export default generateStartIndices;

@@ -1,10 +1,21 @@
 import { Cell } from '@scrabble-solver/types';
 
 const generateEndIndices = (cells: Cell[], startIndex: number): number[] => {
-  return Array(cells.length - startIndex - 1)
-    .fill(0)
-    .map((_, endIndex) => endIndex + startIndex + 1)
-    .filter((endIndex) => endIndex >= cells.length - 1 || !cells[endIndex + 1].hasTile());
+  if (cells.length === 0) {
+    return [];
+  }
+
+  const endIndices: number[] = [];
+
+  for (let endIndex = startIndex + 1; endIndex < cells.length - 1; ++endIndex) {
+    if (!cells[endIndex + 1].hasTile()) {
+      endIndices.push(endIndex);
+    }
+  }
+
+  endIndices.push(cells.length - 1);
+
+  return endIndices;
 };
 
 export default generateEndIndices;
