@@ -129,6 +129,8 @@ const BoardV2: FunctionComponent<Props> = ({ cellSize, className /* innerRef */ 
   };
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
+    // TODO: ctrl + a
+    // TODO: useKeyboardNavigation
     if (event.key === 'ArrowDown') {
       event.preventDefault();
       moveFocus('down');
