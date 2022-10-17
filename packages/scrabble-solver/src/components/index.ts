@@ -1,5 +1,6 @@
 export { default as Badge } from './Badge';
 export { default as Board } from './Board';
+export { default as BoardV2 } from './BoardV2';
 export { default as Button } from './Button';
 export { default as Checkbox } from './Checkbox';
 export { default as Dictionary } from './Dictionary';

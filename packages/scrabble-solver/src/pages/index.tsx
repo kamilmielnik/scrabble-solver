@@ -8,6 +8,7 @@ import { useEffectOnce, useMeasure } from 'react-use';
 
 import {
   Board,
+  BoardV2,
   Dictionary,
   DictionaryInput,
   KeyMap,
@@ -95,6 +96,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           <div className={styles.content} ref={contentRef}>
             <form className={styles.boardContainer} onSubmit={handleSubmit}>
               {contentWidth > 0 && <Board cellSize={cellSize} innerRef={boardRef} />}
+              {contentWidth > 0 && <BoardV2 cellSize={cellSize} /* innerRef={boardRef} */ />}
               <input className={styles.submitInput} tabIndex={-1} type="submit" />
             </form>
 
