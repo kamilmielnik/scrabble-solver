@@ -14,6 +14,12 @@
   &:focus {
     outline: none;
   }
+
+  // font-size: 0;
+
+  &::selection {
+    // background: transparent;
+  }
 }
 
 .focusedCell {
