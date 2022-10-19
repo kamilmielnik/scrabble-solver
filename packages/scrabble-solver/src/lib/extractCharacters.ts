@@ -13,14 +13,14 @@ const extractCharacters = (config: Config, value: string): string[] => {
     if (config.twoCharacterTiles.includes(twoCharacterTileCandidate)) {
       characters.push(twoCharacterTileCandidate);
       ++index;
-    } else {
+    } else if (config.hasCharacter(character) || character === BLANK) {
       characters.push(character);
     }
 
     ++index;
   }
 
-  return characters.filter((character) => config.hasCharacter(character) || character === BLANK);
+  return characters;
 };
 
 export default extractCharacters;

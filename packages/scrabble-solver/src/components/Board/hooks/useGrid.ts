@@ -1,5 +1,5 @@
 /* eslint-disable max-lines, max-statements */
-import { EMPTY_CELL } from '@scrabble-solver/constants';
+import { BLANK, EMPTY_CELL } from '@scrabble-solver/constants';
 import { Board, Cell } from '@scrabble-solver/types';
 import {
   createRef,
@@ -91,7 +91,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       let board = new Board({ rows: rows.map((row) => row.map((cell) => cell.clone())) });
       let { x, y } = position;
       const value = extractInputValue(event.target);
-      const characters = value ? extractCharacters(config, value) : [];
+      const characters = value ? extractCharacters(config, value).filter((character) => character !== BLANK) : [];
 
       const scheduleMoveFocus = () => {
         if (lastDirection === 'horizontal') {
