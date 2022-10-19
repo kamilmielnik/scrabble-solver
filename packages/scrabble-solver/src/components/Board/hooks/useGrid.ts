@@ -86,12 +86,25 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         return;
       }
 
-      event.preventDefault();
-
+      const value = extractInputValue(event.target);
+      const characters = value ? extractCharacters(config, value).filter((character) => character !== BLANK) : [BLANK];
       let board = new Board({ rows: rows.map((row) => row.map((cell) => cell.clone())) });
       let { x, y } = position;
-      const value = extractInputValue(event.target);
-      const characters = value ? extractCharacters(config, value).filter((character) => character !== BLANK) : [];
+
+      if (!value) {
+        dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
+        moveFocus(-1);
+        return;
+      }
+
+      if (value === EMPTY_CELL) {
+        const cell = board.rows[y][x];
+
+        if (cell.hasTile()) {
+          dispatch(boardSlice.actions.toggleCellIsBlank(position));
+          return;
+        }
+      }
 
       const scheduleMoveFocus = () => {
         if (lastDirection === 'horizontal') {

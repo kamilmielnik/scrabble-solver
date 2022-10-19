@@ -50,17 +50,12 @@ const RackTile: FunctionComponent<Props> = ({
 
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
+      event.preventDefault();
+      event.stopPropagation();
       const value = extractInputValue(event.target);
       const characters = value ? extractCharacters(config, value) : [null];
-
       dispatch(rackSlice.actions.changeCharacters({ characters, index }));
-
-      if (characters.length > 0) {
-        onChange(event);
-      } else {
-        event.preventDefault();
-        event.stopPropagation();
-      }
+      onChange(event);
     },
     [config, index, onChange],
   );

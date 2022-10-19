@@ -45,7 +45,7 @@ const Rack: FunctionComponent<Props> = ({ className }) => {
     (event: ChangeEvent<HTMLInputElement>) => {
       const value = extractInputValue(event.target);
       const characters = value ? extractCharacters(config, value) : [];
-      changeActiveIndex(characters.length);
+      changeActiveIndex(value ? characters.length : -1);
     },
     [changeActiveIndex, config],
   );
