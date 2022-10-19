@@ -23,18 +23,7 @@ const rackSlice = createSlice({
       const { characters, index } = action.payload;
       const expectedRackLength = state.length;
       const rack = [...state.slice(0, index), ...characters, ...state.slice(index + characters.length)];
-      /**
-       * onChange event may contain multiple characters in value:
-       * 1. when typing on mobile
-       * 2. when typing inside the last cell
-       * 3. when typing fast (since input does not have maxLength="1")
-       * 4. when pasting
-       * 5. when dragging & dropping
-       * We want to put all of them in rack in order. In case there are too many, for the last rack slot we
-       * will pick the last item in the array, since it represents the last keystroke (case 2) - desired behavior.
-       * Consequences of this behavior are not ideal but acceptable in other cases.
-       */
-      return [...rack.slice(0, expectedRackLength - 1), rack[rack.length - 1]];
+      return rack.slice(0, expectedRackLength);
     },
 
     groupTiles: (state, action: PayloadAction<'left' | 'right' | null>) => {
