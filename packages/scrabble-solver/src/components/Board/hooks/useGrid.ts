@@ -101,7 +101,11 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         }
       };
 
-      for (const character of characters) {
+      characters.forEach((character) => {
+        if (x >= config.boardWidth || y >= config.boardHeight) {
+          return;
+        }
+
         const canCheckUp = y - 1 > 0;
         const canCheckLeft = x > 0;
         const canCheckRight = x + 1 < width;
@@ -116,7 +120,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
               board,
               boardSlice.actions.changeCellValue({ x, y: y - 1, value: twoCharacterCandidate }),
             );
-            continue;
+            return;
           }
         }
 
@@ -128,7 +132,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
             board = boardSlice.reducer(board, boardSlice.actions.changeCellValue({ x, y, value: character }));
             board = boardSlice.reducer(board, boardSlice.actions.changeCellValue({ x, y: y + 1, value: EMPTY_CELL }));
             scheduleMoveFocus();
-            continue;
+            return;
           }
         }
 
@@ -141,7 +145,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
               board,
               boardSlice.actions.changeCellValue({ x: x - 1, y, value: twoCharacterCandidate }),
             );
-            continue;
+            return;
           }
         }
 
@@ -153,7 +157,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
             board = boardSlice.reducer(board, boardSlice.actions.changeCellValue({ x, y, value: character }));
             board = boardSlice.reducer(board, boardSlice.actions.changeCellValue({ x: x + 1, y, value: EMPTY_CELL }));
             scheduleMoveFocus();
-            continue;
+            return;
           }
         }
 
@@ -166,13 +170,13 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
               board,
               boardSlice.actions.changeCellValue({ x, y, value: twoCharacterCandidate }),
             );
-            continue;
+            return;
           }
         }
 
         board = boardSlice.reducer(board, boardSlice.actions.changeCellValue({ x, y, value: character }));
         scheduleMoveFocus();
-      }
+      });
 
       moveFocus(Math.abs(position.x - x) + Math.abs(position.y - y));
       dispatch(boardSlice.actions.change(board));
