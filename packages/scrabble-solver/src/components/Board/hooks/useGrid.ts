@@ -1,22 +1,37 @@
 /* eslint-disable max-lines, max-statements */
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import { Cell } from '@scrabble-solver/types';
-import { createRef, KeyboardEventHandler, RefObject, useCallback, useMemo, useState, useRef } from 'react';
+import { Board, Cell } from '@scrabble-solver/types';
+import {
+  createRef,
+  KeyboardEventHandler,
+  RefObject,
+  useCallback,
+  useMemo,
+  useState,
+  useRef,
+  ChangeEventHandler,
+  ChangeEvent,
+} from 'react';
 import { useDispatch } from 'react-redux';
 import { useLatest } from 'react-use';
 
-import { createGridOf, createKeyboardNavigation, isCtrl } from 'lib';
+import { createGridOf, createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
 import { boardSlice, selectConfig, useTypedSelector } from 'state';
 
 import { getPositionInGrid } from '../lib';
 import { Point } from '../types';
 
+const toggleDirection = (direction: Direction) => (direction === 'vertical' ? 'horizontal' : 'vertical');
+
+type Direction = 'horizontal' | 'vertical';
+
 interface State {
-  lastDirection: 'horizontal' | 'vertical';
+  lastDirection: Direction;
   refs: RefObject<HTMLInputElement>[][];
 }
 
 interface Actions {
+  onChange: ChangeEventHandler<HTMLInputElement>;
   onFocus: (x: number, y: number) => void;
   onDirectionToggle: () => void;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
@@ -32,7 +47,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
     [width, height],
   );
   const activeIndexRef = useRef<Point>({ x: 0, y: 0 });
-  const [lastDirection, setLastDirection] = useState<'horizontal' | 'vertical'>('horizontal');
+  const [lastDirection, setLastDirection] = useState<Direction>('horizontal');
   const lastDirectionRef = useLatest(lastDirection);
 
   const changeActiveIndex = useCallback(
@@ -52,20 +67,8 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
     [refs],
   );
 
-  const onDirectionToggle = useCallback(() => {
-    setLastDirection((direction) => {
-      return direction === 'vertical' ? 'horizontal' : 'vertical';
-    });
-  }, []);
-
-  const onFocus = useCallback((x: number, y: number) => {
-    activeIndexRef.current = { x, y };
-  }, []);
-
-  const onMoveFocus = useCallback(
-    (direction: 'backward' | 'forward') => {
-      const offset = direction === 'forward' ? 1 : -1;
-
+  const moveFocus = useCallback(
+    (offset: number) => {
       if (lastDirectionRef.current === 'horizontal') {
         changeActiveIndex(offset, 0);
       } else {
@@ -74,6 +77,114 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
     },
     [changeActiveIndex, lastDirectionRef],
   );
+
+  const onChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const position = getInputRefPosition(event.target);
+
+      if (!position) {
+        return;
+      }
+
+      event.preventDefault();
+
+      let board = new Board({ rows: rows.map((row) => row.map((cell) => cell.clone())) });
+      let { x, y } = position;
+      const value = extractInputValue(event.target);
+      const characters = value ? extractCharacters(config, value) : [];
+
+      const scheduleMoveFocus = () => {
+        if (lastDirection === 'horizontal') {
+          ++x;
+        } else {
+          ++y;
+        }
+      };
+
+      for (const character of characters) {
+        const canCheckUp = y - 1 > 0;
+        const canCheckLeft = x > 0;
+        const canCheckRight = x + 1 < width;
+        const canCheckDown = y + 1 < height;
+
+        if (canCheckUp) {
+          const cellUp = board.rows[y - 1][x];
+          const twoCharacterCandidate = cellUp.tile.character + character;
+
+          if (!cellUp.tile.isBlank && config.twoCharacterTiles.includes(twoCharacterCandidate)) {
+            board = boardSlice.reducer(
+              board,
+              boardSlice.actions.changeCellValue({ x, y: y - 1, value: twoCharacterCandidate }),
+            );
+            continue;
+          }
+        }
+
+        if (canCheckDown) {
+          const cellDown = board.rows[y + 1][x];
+          const twoCharacterCandidate = character + cellDown.tile.character;
+
+          if (!cellDown.tile.isBlank && config.twoCharacterTiles.includes(twoCharacterCandidate)) {
+            board = boardSlice.reducer(board, boardSlice.actions.changeCellValue({ x, y, value: character }));
+            board = boardSlice.reducer(board, boardSlice.actions.changeCellValue({ x, y: y + 1, value: EMPTY_CELL }));
+            scheduleMoveFocus();
+            continue;
+          }
+        }
+
+        if (canCheckLeft) {
+          const cellLeft = board.rows[y][x - 1];
+          const twoCharacterCandidate = cellLeft.tile.character + character;
+
+          if (!cellLeft.tile.isBlank && config.twoCharacterTiles.includes(twoCharacterCandidate)) {
+            board = boardSlice.reducer(
+              board,
+              boardSlice.actions.changeCellValue({ x: x - 1, y, value: twoCharacterCandidate }),
+            );
+            continue;
+          }
+        }
+
+        if (canCheckRight) {
+          const cellRight = board.rows[y][x + 1];
+          const twoCharacterCandidate = character + cellRight.tile.character;
+
+          if (!cellRight.tile.isBlank && config.twoCharacterTiles.includes(twoCharacterCandidate)) {
+            board = boardSlice.reducer(board, boardSlice.actions.changeCellValue({ x, y, value: character }));
+            board = boardSlice.reducer(board, boardSlice.actions.changeCellValue({ x: x + 1, y, value: EMPTY_CELL }));
+            scheduleMoveFocus();
+            continue;
+          }
+        }
+
+        if (!canCheckDown || !canCheckRight) {
+          const cell = board.rows[y][x];
+          const twoCharacterCandidate = cell.tile.character + character;
+
+          if (!cell.tile.isBlank && config.twoCharacterTiles.includes(twoCharacterCandidate)) {
+            board = boardSlice.reducer(
+              board,
+              boardSlice.actions.changeCellValue({ x, y, value: twoCharacterCandidate }),
+            );
+            continue;
+          }
+        }
+
+        board = boardSlice.reducer(board, boardSlice.actions.changeCellValue({ x, y, value: character }));
+        scheduleMoveFocus();
+      }
+
+      moveFocus(Math.abs(position.x - x) + Math.abs(position.y - y));
+      dispatch(boardSlice.actions.change(board));
+    },
+    [config, lastDirection, moveFocus, rows],
+  );
+
+  const onDirectionToggle = useCallback(() => setLastDirection(toggleDirection), []);
+
+  const onFocus = useCallback((x: number, y: number) => {
+    activeIndexRef.current = { x, y };
+  }, []);
 
   const onKeyDown = useMemo(() => {
     return createKeyboardNavigation({
@@ -106,6 +217,8 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         }
       },
       onBackspace: (event) => {
+        event.preventDefault();
+
         const position = getInputRefPosition(event.target as HTMLInputElement);
 
         if (!position) {
@@ -113,7 +226,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         }
 
         dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
-        onMoveFocus('backward');
+        moveFocus(-1);
       },
       onDelete: (event) => {
         const position = getInputRefPosition(event.target as HTMLInputElement);
@@ -123,7 +236,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         }
 
         dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
-        onMoveFocus('forward');
+        moveFocus(1);
       },
       onKeyDown: (event) => {
         const position = getInputRefPosition(event.target as HTMLInputElement);
@@ -145,75 +258,28 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         if (isCtrl(event) && twoCharacterTile) {
           event.preventDefault();
           dispatch(boardSlice.actions.changeCellValue({ x, y, value: twoCharacterTile }));
-          onMoveFocus('forward');
+          moveFocus(1);
           return;
         }
 
-        if (!config.hasCharacter(character)) {
+        const cell = rows[y][x];
+        const twoCharacterCandidate = cell.tile.character + character;
+
+        if (config.twoCharacterTiles.includes(twoCharacterCandidate)) {
+          event.preventDefault();
+          event.stopPropagation();
+          dispatch(boardSlice.actions.changeCellValue({ ...position, value: twoCharacterCandidate }));
+          moveFocus(1);
           return;
         }
 
-        const canCheckUp = y - 1 > 0;
-        const canCheckLeft = x > 0;
-        const canCheckRight = x + 1 < width;
-        const canCheckDown = y + 1 < height;
-
-        if (canCheckUp) {
-          const cellUp = rows[y - 1][x];
-          const twoCharacterCandidate = cellUp.tile.character + character;
-
-          if (config.twoCharacterTiles.includes(twoCharacterCandidate)) {
-            dispatch(boardSlice.actions.changeCellValue({ ...position, y: y - 1, value: twoCharacterCandidate }));
-            return;
-          }
+        if (event.target instanceof HTMLInputElement && event.target.value === event.key) {
+          // change event did not fire because the same character was typed over the current one
+          // but we still want to move the caret
+          event.preventDefault();
+          event.stopPropagation();
+          moveFocus(1);
         }
-
-        if (canCheckDown) {
-          const cellDown = rows[y + 1][x];
-          const twoCharacterCandidate = character + cellDown.tile.character;
-
-          if (config.twoCharacterTiles.includes(twoCharacterCandidate)) {
-            dispatch(boardSlice.actions.changeCellValue({ ...position, value: character }));
-            dispatch(boardSlice.actions.changeCellValue({ ...position, y: y + 1, value: EMPTY_CELL }));
-            onMoveFocus('forward');
-            return;
-          }
-        }
-
-        if (canCheckLeft) {
-          const cellLeft = rows[y][x - 1];
-          const twoCharacterCandidate = cellLeft.tile.character + character;
-
-          if (config.twoCharacterTiles.includes(twoCharacterCandidate)) {
-            dispatch(boardSlice.actions.changeCellValue({ ...position, x: x - 1, value: twoCharacterCandidate }));
-            return;
-          }
-        }
-
-        if (canCheckRight) {
-          const cellRight = rows[y][x + 1];
-          const twoCharacterCandidate = character + cellRight.tile.character;
-
-          if (config.twoCharacterTiles.includes(twoCharacterCandidate)) {
-            dispatch(boardSlice.actions.changeCellValue({ ...position, value: character }));
-            dispatch(boardSlice.actions.changeCellValue({ ...position, x: x + 1, value: EMPTY_CELL }));
-            onMoveFocus('forward');
-            return;
-          }
-        }
-
-        if (!canCheckDown || !canCheckRight) {
-          const cell = rows[y][x];
-          const twoCharacterCandidate = cell.tile.character + character;
-
-          if (config.twoCharacterTiles.includes(twoCharacterCandidate)) {
-            dispatch(boardSlice.actions.changeCellValue({ ...position, value: twoCharacterCandidate }));
-            return;
-          }
-        }
-
-        dispatch(boardSlice.actions.changeCellValue({ ...position, value: character }));
-        onMoveFocus('forward');
       },
       onSpace: (event) => {
         const position = getInputRefPosition(event.target as HTMLInputElement);
@@ -229,7 +295,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
   return [
     { lastDirection, refs },
-    { onDirectionToggle, onFocus, onKeyDown },
+    { onChange, onDirectionToggle, onFocus, onKeyDown },
   ];
 };
 
