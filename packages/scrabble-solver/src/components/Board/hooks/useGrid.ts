@@ -189,6 +189,8 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   const onKeyDown = useMemo(() => {
     return createKeyboardNavigation({
       onArrowDown: (event) => {
+        event.preventDefault();
+
         if (isCtrl(event)) {
           onDirectionToggle();
         } else {
@@ -196,6 +198,8 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         }
       },
       onArrowLeft: (event) => {
+        event.preventDefault();
+
         if (isCtrl(event)) {
           onDirectionToggle();
         } else {
@@ -203,6 +207,8 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         }
       },
       onArrowRight: (event) => {
+        event.preventDefault();
+
         if (isCtrl(event)) {
           onDirectionToggle();
         } else {
@@ -210,6 +216,8 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         }
       },
       onArrowUp: (event) => {
+        event.preventDefault();
+
         if (isCtrl(event)) {
           onDirectionToggle();
         } else {
@@ -217,14 +225,13 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         }
       },
       onBackspace: (event) => {
-        event.preventDefault();
-
         const position = getInputRefPosition(event.target as HTMLInputElement);
 
         if (!position) {
           return;
         }
 
+        event.preventDefault();
         dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
         moveFocus(-1);
       },
@@ -235,6 +242,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
           return;
         }
 
+        event.preventDefault();
         dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
         moveFocus(1);
       },
@@ -251,6 +259,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         const twoCharacterTile = config.getTwoCharacterTileByPrefix(character);
 
         if (isTogglingBlank) {
+          event.preventDefault();
           dispatch(boardSlice.actions.toggleCellIsBlank(position));
           return;
         }
@@ -267,7 +276,6 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
         if (config.twoCharacterTiles.includes(twoCharacterCandidate)) {
           event.preventDefault();
-          event.stopPropagation();
           dispatch(boardSlice.actions.changeCellValue({ ...position, value: twoCharacterCandidate }));
           moveFocus(1);
           return;
@@ -277,7 +285,6 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
           // change event did not fire because the same character was typed over the current one
           // but we still want to move the caret
           event.preventDefault();
-          event.stopPropagation();
           moveFocus(1);
         }
       },
@@ -288,6 +295,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
           return;
         }
 
+        event.preventDefault();
         dispatch(boardSlice.actions.toggleCellIsBlank(position));
       },
     });
