@@ -14,20 +14,22 @@ interface Props {
 const Board: FunctionComponent<Props> = ({ cellSize, className, innerRef }) => {
   const rows = useTypedSelector(selectRowsWithCandidate);
   const board = useTypedSelector(selectBoard);
-  const [{ lastDirection, refs }, { onDirectionToggle, onFocus, onKeyDown }] = useGrid(rows);
+  const [{ direction, refs }, { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste }] = useGrid(rows);
 
   return (
     <BoardPure
       className={className}
       cellSize={cellSize}
       center={board.center}
+      direction={direction}
       innerRef={innerRef}
-      lastDirection={lastDirection}
       refs={refs}
       rows={rows}
+      onChange={onChange}
       onDirectionToggle={onDirectionToggle}
       onFocus={onFocus}
       onKeyDown={onKeyDown}
+      onPaste={onPaste}
     />
   );
 };

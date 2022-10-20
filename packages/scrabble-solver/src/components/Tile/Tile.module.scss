@@ -62,6 +62,10 @@
     color: var(--color--inactive);
   }
 
+  &::selection {
+    background: transparent;
+  }
+
   &:disabled {
     color: inherit;
   }

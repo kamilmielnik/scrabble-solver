@@ -6,6 +6,8 @@ export { default as createKeyboardNavigation } from './createKeyboardNavigation'
 export { default as createKeyComparator } from './createKeyComparator';
 export { default as createNullMovingComparator } from './createNullMovingComparator';
 export { default as detectLocale } from './detectLocale';
+export { default as extractCharacters } from './extractCharacters';
+export { default as extractInputValue } from './extractInputValue';
 export { default as findCell } from './findCell';
 export { default as getCellSize } from './getCellSize';
 export { default as getRemainingTiles } from './getRemainingTiles';

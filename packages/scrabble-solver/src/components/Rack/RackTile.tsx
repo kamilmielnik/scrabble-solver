@@ -1,6 +1,8 @@
 import { BLANK } from '@scrabble-solver/constants';
 import { Tile as TileModel } from '@scrabble-solver/types';
 import {
+  ChangeEvent,
+  ChangeEventHandler,
   FunctionComponent,
   KeyboardEventHandler,
   MutableRefObject,
@@ -10,7 +12,7 @@ import {
 } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { createKeyboardNavigation, isCtrl } from 'lib';
+import { createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
 import { TILE_SIZE } from 'parameters';
 import { rackSlice, selectCharacterPoints, selectConfig, useTranslate, useTypedSelector } from 'state';
 
@@ -24,10 +26,19 @@ interface Props {
   index: number;
   inputRef: RefObject<HTMLInputElement>;
   tile: TileModel | null;
+  onChange: ChangeEventHandler<HTMLInputElement>;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
 }
 
-const RackTile: FunctionComponent<Props> = ({ activeIndexRef, character, index, inputRef, tile, onKeyDown }) => {
+const RackTile: FunctionComponent<Props> = ({
+  activeIndexRef,
+  character,
+  index,
+  inputRef,
+  tile,
+  onChange,
+  onKeyDown,
+}) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const config = useTypedSelector(selectConfig);
@@ -37,32 +48,37 @@ const RackTile: FunctionComponent<Props> = ({ activeIndexRef, character, index, 
     activeIndexRef.current = index;
   }, [index]);
 
-  const handleCharacterChange = useCallback(
-    (value: string | null) => {
-      dispatch(rackSlice.actions.changeCharacter({ character: value, index }));
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const value = extractInputValue(event.target);
+      const characters = value ? extractCharacters(config, value) : [null];
+      dispatch(rackSlice.actions.changeCharacters({ characters, index }));
+      onChange(event);
     },
-    [index],
+    [config, index, onChange],
   );
 
   const handleKeyDown = useMemo(() => {
     return createKeyboardNavigation({
-      onBackspace: () => handleCharacterChange(null),
-      onDelete: () => handleCharacterChange(null),
+      onBackspace: (event) => {
+        event.preventDefault();
+        dispatch(rackSlice.actions.changeCharacter({ character: null, index }));
+      },
       onKeyDown: (event) => {
-        const newCharacter = event.key.toLowerCase();
-        const twoCharacterTile = config.getTwoCharacterTileByPrefix(newCharacter);
-
-        if (isCtrl(event) && twoCharacterTile) {
+        if (isCtrl(event) && config.isTwoCharacterTilePrefix(event.key)) {
           event.preventDefault();
-          handleCharacterChange(twoCharacterTile);
-        } else if (config.hasCharacter(newCharacter) || newCharacter === BLANK) {
-          handleCharacterChange(newCharacter);
+          event.stopPropagation();
+          const twoTilesCharacter = config.getTwoCharacterTileByPrefix(event.key);
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          dispatch(rackSlice.actions.changeCharacter({ character: twoTilesCharacter!, index }));
         }
 
         onKeyDown(event);
       },
     });
-  }, [config, handleCharacterChange, onKeyDown]);
+  }, [index, onKeyDown]);
 
   return (
     <Tile
@@ -78,6 +94,7 @@ const RackTile: FunctionComponent<Props> = ({ activeIndexRef, character, index, 
       raised
       size={TILE_SIZE}
       tabIndex={index === 0 ? undefined : -1}
+      onChange={handleChange}
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
     />

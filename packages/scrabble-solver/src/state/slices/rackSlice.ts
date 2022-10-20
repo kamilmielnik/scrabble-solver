@@ -19,6 +19,13 @@ const rackSlice = createSlice({
       return [...state.slice(0, index), character, ...state.slice(index + 1)];
     },
 
+    changeCharacters: (state, action: PayloadAction<{ characters: (string | null)[]; index: number }>) => {
+      const { characters, index } = action.payload;
+      const expectedRackLength = state.length;
+      const rack = [...state.slice(0, index), ...characters, ...state.slice(index + characters.length)];
+      return rack.slice(0, expectedRackLength);
+    },
+
     groupTiles: (state, action: PayloadAction<'left' | 'right' | null>) => {
       const direction = action.payload;
 

@@ -1,6 +1,16 @@
 import { Cell } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import { FunctionComponent, KeyboardEventHandler, memo, Ref, RefObject } from 'react';
+import {
+  ChangeEventHandler,
+  ClipboardEventHandler,
+  FunctionComponent,
+  KeyboardEventHandler,
+  memo,
+  Ref,
+  RefObject,
+} from 'react';
+
+import { Direction } from 'types';
 
 import styles from './Board.module.scss';
 import { Cell as CellComponent } from './components';
@@ -9,35 +19,45 @@ interface Props {
   className?: string;
   cellSize: number;
   center: Cell;
+  direction: Direction;
   innerRef?: Ref<HTMLDivElement>;
-  lastDirection: 'horizontal' | 'vertical';
   refs: RefObject<HTMLInputElement>[][];
   rows: Cell[][];
+  onChange: ChangeEventHandler<HTMLInputElement>;
   onDirectionToggle: () => void;
   onFocus: (x: number, y: number) => void;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
+  onPaste: ClipboardEventHandler<HTMLInputElement>;
 }
 
 const BoardPure: FunctionComponent<Props> = ({
   className,
   cellSize,
   center,
+  direction,
   innerRef,
-  lastDirection,
   refs,
   rows,
+  onChange,
   onDirectionToggle,
   onFocus,
   onKeyDown,
+  onPaste,
 }) => (
-  <div className={classNames(styles.board, className)} ref={innerRef} onKeyDown={onKeyDown}>
+  <div
+    className={classNames(styles.board, className)}
+    ref={innerRef}
+    onChange={onChange}
+    onKeyDown={onKeyDown}
+    onPaste={onPaste}
+  >
     {rows.map((cells, y) => (
       <div className={styles.row} key={y}>
         {cells.map((cell, x) => (
           <CellComponent
             className={styles.cell}
             cell={cell}
-            direction={lastDirection}
+            direction={direction}
             inputRef={refs[y][x]}
             isCenter={center.x === x && center.y === y}
             key={x}

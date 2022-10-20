@@ -304,7 +304,7 @@ module.exports = {
     'newline-per-chained-call': 'off',
     'no-array-constructor': 'error',
     'no-bitwise': 'error',
-    'no-continue': 'error',
+    'no-continue': 'off',
     'no-inline-comments': 'off',
     'no-lonely-if': 'error',
     'no-mixed-operators': 'off',
