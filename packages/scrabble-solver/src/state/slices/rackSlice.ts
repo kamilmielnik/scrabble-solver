@@ -9,11 +9,6 @@ const rackSlice = createSlice({
   initialState: rackInitialState,
   name: 'rack',
   reducers: {
-    change: (_state, action: PayloadAction<(string | null)[]>) => {
-      const rack = action.payload;
-      return rack;
-    },
-
     changeCharacter: (state, action: PayloadAction<{ character: string | null; index: number }>) => {
       const { character, index } = action.payload;
       return [...state.slice(0, index), character, ...state.slice(index + 1)];

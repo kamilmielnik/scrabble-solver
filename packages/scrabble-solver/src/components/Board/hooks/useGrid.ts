@@ -15,6 +15,7 @@ import {
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLatest } from 'react-use';
+import { AnyAction } from 'redux';
 
 import { createGridOf, createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
 import { boardSlice, selectConfig, useTypedSelector } from 'state';
@@ -82,6 +83,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   const insertValue = useCallback(
     (position: Point, value: string) => {
       const characters = value ? extractCharacters(config, value).filter((character) => character !== BLANK) : [BLANK];
+      const actions: AnyAction[] = [];
       let board = new Board({ rows: rows.map((row) => row.map((cell) => cell.clone())) });
       let { x, y } = position;
 
@@ -108,10 +110,9 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
           const twoCharacterCandidate = cellUp.tile.character + character;
 
           if (!cellUp.tile.isBlank && config.twoCharacterTiles.includes(twoCharacterCandidate)) {
-            board = boardSlice.reducer(
-              board,
-              boardSlice.actions.changeCellValue({ x, y: y - 1, value: twoCharacterCandidate }),
-            );
+            const action = boardSlice.actions.changeCellValue({ x, y: y - 1, value: twoCharacterCandidate });
+            board = boardSlice.reducer(board, action);
+            actions.push(action);
             return;
           }
         }
@@ -121,8 +122,10 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
           const twoCharacterCandidate = character + cellDown.tile.character;
 
           if (!cellDown.tile.isBlank && config.twoCharacterTiles.includes(twoCharacterCandidate)) {
-            board = boardSlice.reducer(board, boardSlice.actions.changeCellValue({ x, y, value: character }));
-            board = boardSlice.reducer(board, boardSlice.actions.changeCellValue({ x, y: y + 1, value: EMPTY_CELL }));
+            const action1 = boardSlice.actions.changeCellValue({ x, y, value: character });
+            const action2 = boardSlice.actions.changeCellValue({ x, y: y + 1, value: EMPTY_CELL });
+            board = boardSlice.reducer(boardSlice.reducer(board, action1), action2);
+            actions.push(action1, action2);
             scheduleMoveFocus();
             return;
           }
@@ -133,10 +136,9 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
           const twoCharacterCandidate = cellLeft.tile.character + character;
 
           if (!cellLeft.tile.isBlank && config.twoCharacterTiles.includes(twoCharacterCandidate)) {
-            board = boardSlice.reducer(
-              board,
-              boardSlice.actions.changeCellValue({ x: x - 1, y, value: twoCharacterCandidate }),
-            );
+            const action = boardSlice.actions.changeCellValue({ x: x - 1, y, value: twoCharacterCandidate });
+            board = boardSlice.reducer(board, action);
+            actions.push(action);
             return;
           }
         }
@@ -146,8 +148,10 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
           const twoCharacterCandidate = character + cellRight.tile.character;
 
           if (!cellRight.tile.isBlank && config.twoCharacterTiles.includes(twoCharacterCandidate)) {
-            board = boardSlice.reducer(board, boardSlice.actions.changeCellValue({ x, y, value: character }));
-            board = boardSlice.reducer(board, boardSlice.actions.changeCellValue({ x: x + 1, y, value: EMPTY_CELL }));
+            const action1 = boardSlice.actions.changeCellValue({ x, y, value: character });
+            const action2 = boardSlice.actions.changeCellValue({ x: x + 1, y, value: EMPTY_CELL });
+            board = boardSlice.reducer(boardSlice.reducer(board, action1), action2);
+            actions.push(action1, action2);
             scheduleMoveFocus();
             return;
           }
@@ -158,20 +162,21 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
           const twoCharacterCandidate = cell.tile.character + character;
 
           if (!cell.tile.isBlank && config.twoCharacterTiles.includes(twoCharacterCandidate)) {
-            board = boardSlice.reducer(
-              board,
-              boardSlice.actions.changeCellValue({ x, y, value: twoCharacterCandidate }),
-            );
+            const action = boardSlice.actions.changeCellValue({ x, y, value: twoCharacterCandidate });
+            board = boardSlice.reducer(board, action);
+            actions.push(action);
             return;
           }
         }
 
-        board = boardSlice.reducer(board, boardSlice.actions.changeCellValue({ x, y, value: character }));
+        const action = boardSlice.actions.changeCellValue({ x, y, value: character });
+        board = boardSlice.reducer(board, action);
+        actions.push(action);
         scheduleMoveFocus();
       });
 
       moveFocus(Math.abs(position.x - x) + Math.abs(position.y - y));
-      dispatch(boardSlice.actions.change(board));
+      actions.forEach(dispatch);
     },
     [config, directionRef, dispatch, moveFocus, rows],
   );
