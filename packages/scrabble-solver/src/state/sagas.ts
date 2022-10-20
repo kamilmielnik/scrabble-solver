@@ -37,6 +37,7 @@ type AnyGenerator = Generator<any, any, any>;
 
 export function* rootSaga(): AnyGenerator {
   yield takeEvery(boardSlice.actions.changeCellValue.type, onCellValueChange);
+  yield takeEvery([rackSlice.actions.changeCharacter.type, rackSlice.actions.changeCharacters.type], onRackValueChange);
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
   yield takeEvery(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
   yield takeEvery(settingsSlice.actions.changeConfigId.type, onConfigIdChange);
@@ -55,7 +56,12 @@ function* onCellValueChange({ payload }: PayloadAction<{ value: string; x: numbe
     yield put(cellFilterSlice.actions.toggle(payload));
   }
 
+  yield put(resultsSlice.actions.changeResultCandidate(null));
   yield put(verifySlice.actions.submit());
+}
+
+function* onRackValueChange(): AnyGenerator {
+  yield put(resultsSlice.actions.changeResultCandidate(null));
 }
 
 function* onApplyResult({ payload: result }: PayloadAction<Result>): AnyGenerator {
