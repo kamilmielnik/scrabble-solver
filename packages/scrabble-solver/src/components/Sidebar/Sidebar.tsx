@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import { FunctionComponent, ReactNode } from 'react';
+import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import { useKey } from 'react-use';
 
 import { CrossFill } from 'icons';
 import { TRANSITION_DURATION_LONG } from 'parameters';
@@ -21,6 +22,23 @@ export interface Props {
 
 const Sidebar: FunctionComponent<Props> = ({ children, className, isOpen, title, onClose }) => {
   const translate = useTranslate();
+  const [shouldReturnFocusAfterClose, setShouldReturnFocusAfterClose] = useState(true);
+
+  useKey(
+    'Escape',
+    () => {
+      setShouldReturnFocusAfterClose(false);
+      onClose();
+    },
+    undefined,
+    [onClose],
+  );
+
+  useEffect(() => {
+    if (isOpen) {
+      setShouldReturnFocusAfterClose(true);
+    }
+  }, [isOpen]);
 
   return (
     <Modal
@@ -33,6 +51,7 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, isOpen, title,
       contentLabel={title}
       isOpen={isOpen}
       overlayClassName={styles.overlay}
+      shouldReturnFocusAfterClose={shouldReturnFocusAfterClose}
       onRequestClose={onClose}
     >
       <div className={classNames(styles.sidebar, className)}>
