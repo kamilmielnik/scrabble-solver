@@ -1,1 +1,13 @@
+export { default as fillPattern } from './fillPattern';
+export { default as generateEndIndices } from './generateEndIndices';
+export { default as generateHorizontalPatterns } from './generateHorizontalPatterns';
+export { default as generatePattern } from './generatePattern';
+export { default as generatePatterns } from './generatePatterns';
+export { default as generateStartIndices } from './generateStartIndices';
+export { default as generateVectors } from './generateVectors';
+export { default as generateVerticalPatterns } from './generateVerticalPatterns';
+export { default as getCellsScore } from './getCellsScore';
+export { default as getPatternHash } from './getPatternHash';
+export { default as getPatternScore } from './getPatternScore';
+export { default as getUniquePatterns } from './getUniquePatterns';
 export { default as solve } from './solve';
