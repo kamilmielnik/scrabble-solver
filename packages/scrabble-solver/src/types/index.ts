@@ -1,5 +1,7 @@
 export type Comparator<T> = (a: T, B: T) => number;
 
+export type Direction = 'horizontal' | 'vertical';
+
 export enum SortDirection {
   Ascending = 'ascending',
   Descending = 'descending',

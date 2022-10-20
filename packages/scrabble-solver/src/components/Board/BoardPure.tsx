@@ -2,6 +2,8 @@ import { Cell } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import { ChangeEventHandler, FunctionComponent, KeyboardEventHandler, memo, Ref, RefObject } from 'react';
 
+import { Direction } from 'types';
+
 import styles from './Board.module.scss';
 import { Cell as CellComponent } from './components';
 
@@ -9,8 +11,8 @@ interface Props {
   className?: string;
   cellSize: number;
   center: Cell;
+  direction: Direction;
   innerRef?: Ref<HTMLDivElement>;
-  lastDirection: 'horizontal' | 'vertical';
   refs: RefObject<HTMLInputElement>[][];
   rows: Cell[][];
   onChange: ChangeEventHandler<HTMLInputElement>;
@@ -23,8 +25,8 @@ const BoardPure: FunctionComponent<Props> = ({
   className,
   cellSize,
   center,
+  direction,
   innerRef,
-  lastDirection,
   refs,
   rows,
   onChange,
@@ -39,7 +41,7 @@ const BoardPure: FunctionComponent<Props> = ({
           <CellComponent
             className={styles.cell}
             cell={cell}
-            direction={lastDirection}
+            direction={direction}
             inputRef={refs[y][x]}
             isCenter={center.x === x && center.y === y}
             key={x}

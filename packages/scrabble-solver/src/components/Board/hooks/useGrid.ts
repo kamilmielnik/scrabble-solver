@@ -17,23 +17,22 @@ import { useLatest } from 'react-use';
 
 import { createGridOf, createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
 import { boardSlice, selectConfig, useTypedSelector } from 'state';
+import { Direction } from 'types';
 
 import { getPositionInGrid } from '../lib';
 import { Point } from '../types';
 
 const toggleDirection = (direction: Direction) => (direction === 'vertical' ? 'horizontal' : 'vertical');
 
-type Direction = 'horizontal' | 'vertical';
-
 interface State {
-  lastDirection: Direction;
+  direction: Direction;
   refs: RefObject<HTMLInputElement>[][];
 }
 
 interface Actions {
   onChange: ChangeEventHandler<HTMLInputElement>;
-  onFocus: (x: number, y: number) => void;
   onDirectionToggle: () => void;
+  onFocus: (x: number, y: number) => void;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
 }
 
@@ -47,8 +46,8 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
     [width, height],
   );
   const activeIndexRef = useRef<Point>({ x: 0, y: 0 });
-  const [lastDirection, setLastDirection] = useState<Direction>('horizontal');
-  const lastDirectionRef = useLatest(lastDirection);
+  const [direction, setLastDirection] = useState<Direction>('horizontal');
+  const directionRef = useLatest(direction);
 
   const changeActiveIndex = useCallback(
     (offsetX: number, offsetY: number) => {
@@ -69,13 +68,13 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
   const moveFocus = useCallback(
     (offset: number) => {
-      if (lastDirectionRef.current === 'horizontal') {
+      if (directionRef.current === 'horizontal') {
         changeActiveIndex(offset, 0);
       } else {
         changeActiveIndex(0, offset);
       }
     },
-    [changeActiveIndex, lastDirectionRef],
+    [changeActiveIndex, directionRef],
   );
 
   const onChange = useCallback(
@@ -107,7 +106,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       }
 
       const scheduleMoveFocus = () => {
-        if (lastDirection === 'horizontal') {
+        if (directionRef.current === 'horizontal') {
           ++x;
         } else {
           ++y;
@@ -194,7 +193,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       moveFocus(Math.abs(position.x - x) + Math.abs(position.y - y));
       dispatch(boardSlice.actions.change(board));
     },
-    [config, lastDirection, moveFocus, rows],
+    [config, directionRef, moveFocus, rows],
   );
 
   const onDirectionToggle = useCallback(() => setLastDirection(toggleDirection), []);
@@ -316,10 +315,10 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         dispatch(boardSlice.actions.toggleCellIsBlank(position));
       },
     });
-  }, [changeActiveIndex, config, dispatch, lastDirectionRef, onDirectionToggle, rows]);
+  }, [changeActiveIndex, config, dispatch, onDirectionToggle, rows]);
 
   return [
-    { lastDirection, refs },
+    { direction, refs },
     { onChange, onDirectionToggle, onFocus, onKeyDown },
   ];
 };
