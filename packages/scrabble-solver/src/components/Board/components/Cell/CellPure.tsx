@@ -81,39 +81,41 @@ const CellPure: FunctionComponent<Props> = ({
       onFocus={onFocus}
     />
 
-    <div className={styles.actions}>
-      <Button tooltip={translate('cell.toggle-direction')} onClick={onDirectionToggleClick}>
-        <ArrowDown
-          className={classNames(styles.toggleDirection, {
-            [styles.right]: direction === 'horizontal',
-          })}
-        />
-      </Button>
-
-      {isEmpty && (
-        <Button
-          className={classNames(styles.filterCell, {
-            [styles.filtered]: isFiltered,
-          })}
-          tooltip={translate('cell.filter-cell')}
-          onClick={onToggleFilterCellClick}
-        >
-          <Flag />
+    {!cell.isCandidate() && (
+      <div className={styles.actions}>
+        <Button tooltip={translate('cell.toggle-direction')} onClick={onDirectionToggleClick}>
+          <ArrowDown
+            className={classNames(styles.toggleDirection, {
+              [styles.right]: direction === 'horizontal',
+            })}
+          />
         </Button>
-      )}
 
-      {!isEmpty && (
-        <Button
-          className={classNames(styles.blank, {
-            [styles.active]: tile.isBlank,
-          })}
-          tooltip={tile.isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
-          onClick={onToggleBlankClick}
-        >
-          B
-        </Button>
-      )}
-    </div>
+        {isEmpty && (
+          <Button
+            className={classNames(styles.filterCell, {
+              [styles.filtered]: isFiltered,
+            })}
+            tooltip={translate('cell.filter-cell')}
+            onClick={onToggleFilterCellClick}
+          >
+            <Flag />
+          </Button>
+        )}
+
+        {!isEmpty && (
+          <Button
+            className={classNames(styles.blank, {
+              [styles.active]: tile.isBlank,
+            })}
+            tooltip={tile.isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
+            onClick={onToggleBlankClick}
+          >
+            B
+          </Button>
+        )}
+      </div>
+    )}
   </div>
 );
 
