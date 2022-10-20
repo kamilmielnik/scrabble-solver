@@ -1,6 +1,14 @@
 import { Cell } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import { ChangeEventHandler, FunctionComponent, KeyboardEventHandler, memo, Ref, RefObject } from 'react';
+import {
+  ChangeEventHandler,
+  ClipboardEventHandler,
+  FunctionComponent,
+  KeyboardEventHandler,
+  memo,
+  Ref,
+  RefObject,
+} from 'react';
 
 import { Direction } from 'types';
 
@@ -19,6 +27,7 @@ interface Props {
   onDirectionToggle: () => void;
   onFocus: (x: number, y: number) => void;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
+  onPaste: ClipboardEventHandler<HTMLInputElement>;
 }
 
 const BoardPure: FunctionComponent<Props> = ({
@@ -33,8 +42,15 @@ const BoardPure: FunctionComponent<Props> = ({
   onDirectionToggle,
   onFocus,
   onKeyDown,
+  onPaste,
 }) => (
-  <div className={classNames(styles.board, className)} ref={innerRef} onChange={onChange} onKeyDown={onKeyDown}>
+  <div
+    className={classNames(styles.board, className)}
+    ref={innerRef}
+    onChange={onChange}
+    onKeyDown={onKeyDown}
+    onPaste={onPaste}
+  >
     {rows.map((cells, y) => (
       <div className={styles.row} key={y}>
         {cells.map((cell, x) => (

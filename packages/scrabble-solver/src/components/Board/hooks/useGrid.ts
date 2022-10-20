@@ -11,6 +11,7 @@ import {
   useRef,
   ChangeEventHandler,
   ChangeEvent,
+  ClipboardEventHandler,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLatest } from 'react-use';
@@ -34,6 +35,7 @@ interface Actions {
   onDirectionToggle: () => void;
   onFocus: (x: number, y: number) => void;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
+  onPaste: ClipboardEventHandler<HTMLInputElement>;
 }
 
 const useGrid = (rows: Cell[][]): [State, Actions] => {
@@ -77,33 +79,11 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
     [changeActiveIndex, directionRef],
   );
 
-  const onChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      const position = getInputRefPosition(event.target);
-
-      if (!position) {
-        return;
-      }
-
-      const value = extractInputValue(event.target);
+  const insertValue = useCallback(
+    (position: Point, value: string) => {
       const characters = value ? extractCharacters(config, value).filter((character) => character !== BLANK) : [BLANK];
       let board = new Board({ rows: rows.map((row) => row.map((cell) => cell.clone())) });
       let { x, y } = position;
-
-      if (!value) {
-        dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
-        moveFocus(-1);
-        return;
-      }
-
-      if (value === EMPTY_CELL) {
-        const cell = board.rows[y][x];
-
-        if (cell.hasTile()) {
-          dispatch(boardSlice.actions.toggleCellIsBlank(position));
-          return;
-        }
-      }
 
       const scheduleMoveFocus = () => {
         if (directionRef.current === 'horizontal') {
@@ -193,7 +173,38 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       moveFocus(Math.abs(position.x - x) + Math.abs(position.y - y));
       dispatch(boardSlice.actions.change(board));
     },
-    [config, directionRef, moveFocus, rows],
+    [config, directionRef, dispatch, moveFocus, rows],
+  );
+
+  const onChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const position = getInputRefPosition(event.target);
+
+      if (!position) {
+        return;
+      }
+
+      const value = extractInputValue(event.target);
+
+      if (!value) {
+        dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
+        moveFocus(-1);
+        return;
+      }
+
+      if (value === EMPTY_CELL) {
+        const { x, y } = position;
+        const cell = rows[y][x];
+
+        if (cell.hasTile()) {
+          dispatch(boardSlice.actions.toggleCellIsBlank(position));
+          return;
+        }
+      }
+
+      insertValue(position, value);
+    },
+    [dispatch, insertValue, moveFocus, rows],
   );
 
   const onDirectionToggle = useCallback(() => setLastDirection(toggleDirection), []);
@@ -317,9 +328,29 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
     });
   }, [changeActiveIndex, config, dispatch, onDirectionToggle, rows]);
 
+  const onPaste = useCallback<ClipboardEventHandler>(
+    (event) => {
+      if (!(event.target instanceof HTMLInputElement)) {
+        return;
+      }
+
+      const position = getInputRefPosition(event.target);
+
+      if (!position) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const value = event.clipboardData.getData('text/plain').toLocaleLowerCase();
+      insertValue(position, value);
+    },
+    [insertValue],
+  );
+
   return [
     { direction, refs },
-    { onChange, onDirectionToggle, onFocus, onKeyDown },
+    { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
   ];
 };
 
