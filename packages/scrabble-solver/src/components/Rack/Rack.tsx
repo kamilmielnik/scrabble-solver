@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import { ChangeEvent, createRef, FunctionComponent, useCallback, useMemo, useRef } from 'react';
+import { ChangeEvent, ClipboardEvent, createRef, FunctionComponent, useCallback, useMemo, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
 import {
   createArray,
@@ -9,7 +10,7 @@ import {
   isCtrl,
   zipCharactersAndTiles,
 } from 'lib';
-import { selectConfig, selectRack, selectResultCandidateTiles, useTypedSelector } from 'state';
+import { rackSlice, selectConfig, selectRack, selectResultCandidateTiles, useTypedSelector } from 'state';
 
 import styles from './Rack.module.scss';
 import RackTile from './RackTile';
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const Rack: FunctionComponent<Props> = ({ className }) => {
+  const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const rack = useTypedSelector(selectRack);
   const resultCandidateTiles = useTypedSelector(selectResultCandidateTiles);
@@ -50,6 +52,23 @@ const Rack: FunctionComponent<Props> = ({ className }) => {
     [changeActiveIndex, config],
   );
 
+  const handlePaste = useCallback(
+    (event: ClipboardEvent<HTMLInputElement>) => {
+      const index = activeIndexRef.current;
+
+      if (typeof index === 'undefined') {
+        return;
+      }
+
+      event.preventDefault();
+      const value = event.clipboardData.getData('text/plain').toLocaleLowerCase();
+      const characters = value ? extractCharacters(config, value) : [];
+      changeActiveIndex(value ? characters.length : -1);
+      dispatch(rackSlice.actions.changeCharacters({ characters, index }));
+    },
+    [changeActiveIndex, config, dispatch],
+  );
+
   const handleKeyDown = useMemo(() => {
     return createKeyboardNavigation({
       onArrowLeft: (event) => {
@@ -79,7 +98,7 @@ const Rack: FunctionComponent<Props> = ({ className }) => {
   }, [changeActiveIndex, config]);
 
   return (
-    <div className={classNames(styles.rack, className)}>
+    <div className={classNames(styles.rack, className)} onPaste={handlePaste}>
       {tiles.map(({ character, tile }, index) => (
         <RackTile
           activeIndexRef={activeIndexRef}
