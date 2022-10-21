@@ -23,9 +23,7 @@ Available at https://scrabble-solver.org in 6 languages:
 - 🇵🇱 Polish
 - 🇪🇸 Spanish
 
-Run it locally for better performance (your machine surely is faster than that server).
-
-It's cross-platform - all you need is [Node.js](https://nodejs.org/).
+You can run it on your machine. It's cross-platform - all you need is [Node.js](https://nodejs.org/).
 
 ![alt User Interface](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/img/screencast.gif)
 
