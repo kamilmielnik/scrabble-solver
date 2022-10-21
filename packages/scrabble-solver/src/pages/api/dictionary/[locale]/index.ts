@@ -33,7 +33,7 @@ const dictionary = async (request: NextApiRequest, response: NextApiResponse): P
 };
 
 const parseRequest = (request: NextApiRequest): RequestData => {
-  const { locale } = request.body;
+  const { locale } = request.query;
 
   if (!isLocale(locale)) {
     throw new Error('Invalid "locale" parameter');

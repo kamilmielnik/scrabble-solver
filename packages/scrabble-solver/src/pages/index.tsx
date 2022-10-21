@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
-import { AnimationEvent, FormEvent, FunctionComponent, useState } from 'react';
+import { AnimationEvent, FormEvent, FunctionComponent, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure } from 'react-use';
@@ -24,6 +24,7 @@ import {
 import { useIsTablet, useLocalStorage } from 'hooks';
 import { getCellSize } from 'lib';
 import { COMPONENTS_SPACING, COMPONENTS_SPACING_MOBILE, DICTIONARY_HEIGHT } from 'parameters';
+import { registerServiceWorker } from 'serviceWorkerManager';
 import { initialize, localStorage, reset, selectConfig, solveSlice, useTypedSelector } from 'state';
 
 import styles from './index.module.scss';
@@ -71,6 +72,12 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   useEffectOnce(() => {
     dispatch(initialize());
   });
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      registerServiceWorker();
+    }
+  }, []);
 
   return (
     <>

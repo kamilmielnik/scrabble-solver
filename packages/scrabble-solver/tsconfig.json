@@ -18,6 +18,7 @@
       "pages": ["./src/pages"],
       "parameters": ["./src/parameters"],
       "sdk": ["./src/sdk"],
+      "serviceWorkerManager": ["./src/serviceWorkerManager"],
       "state": ["./src/state"],
       "styles": ["./src/styles"],
       "types": ["./src/types"]
