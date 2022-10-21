@@ -15,15 +15,15 @@ const routeSolveRequests = () => {
     ({ url }) => url.pathname === '/api/solve',
     async ({ request }) => {
       const { board, characters, configId, locale } = await request.clone().json();
-      const trie = getDictionary(locale);
+      const dictionary = getDictionary(locale);
 
-      if (!trie) {
+      if (!dictionary) {
         return fetch(request);
       }
 
       const config = getConfig(configId)[locale as Locale];
       const tiles = characters.map((character: string) => new Tile({ character, isBlank: character === BLANK }));
-      const resultsJson = solve(trie, config, Board.fromJson(board), tiles);
+      const resultsJson = solve(dictionary, config, Board.fromJson(board), tiles);
       const json = JSON.stringify(resultsJson);
       return new Response(json, { headers });
     },
