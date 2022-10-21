@@ -7,6 +7,7 @@ text {
   font-family: 'Open Sans';
 }`;
 
-const SvgFontCss: FunctionComponent = () => <style type="text/css">{CSS}</style>;
+// eslint-disable-next-line react/no-danger
+const SvgFontCss: FunctionComponent = () => <style type="text/css" dangerouslySetInnerHTML={{ __html: CSS }} />;
 
 export default SvgFontCss;
