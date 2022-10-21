@@ -89,4 +89,10 @@ const parseRequest = (request: NextApiRequest): RequestData => {
   };
 };
 
+export const config = {
+  api: {
+    responseLimit: '25mb',
+  },
+};
+
 export default solve;
