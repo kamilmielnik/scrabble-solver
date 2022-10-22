@@ -28,6 +28,7 @@
     "start": "env-cmd next start -p 3333"
   },
   "dependencies": {
+    "@kamilmielnik/trie": "^2.0.1",
     "@popperjs/core": "^2.11.6",
     "@reduxjs/toolkit": "^1.8.6",
     "@scrabble-solver/configs": "^2.8.11",
@@ -51,7 +52,11 @@
     "redux": "^4.2.0",
     "redux-saga": "^1.2.1",
     "store2": "^2.14.2",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "workbox-expiration": "^6.5.4",
+    "workbox-precaching": "^6.5.4",
+    "workbox-routing": "^6.5.4",
+    "workbox-window": "^6.5.4"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.5.0",
@@ -66,7 +71,8 @@
     "@types/redux-saga": "^0.10.5",
     "@types/uuid": "^8.3.4",
     "env-cmd": "^10.1.0",
-    "sass": "^1.55.0"
+    "sass": "^1.55.0",
+    "workbox-webpack-plugin": "^6.5.4"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }

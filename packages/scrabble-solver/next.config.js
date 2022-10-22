@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 const tsConfig = fs.readFileSync(path.resolve(__dirname, 'tsconfig.json'), 'utf-8');
 const tsConfigJson = JSON.parse(tsConfig);
@@ -39,5 +40,15 @@ module.exports = {
         },
       ],
     },
+    plugins: [
+      ...config.plugins,
+      process.env.NODE_ENV === 'production'
+        ? new WorkboxPlugin.InjectManifest({
+            swSrc: path.join(__dirname, 'src/service-worker/index.ts'),
+            swDest: path.join(__dirname, 'public/service-worker.js'),
+            exclude: [/\.map$/, /\.next/, /_next/, /manifest/, /\.htaccess$/, /.*\/static\/.*/, /service-worker\.js$/],
+          })
+        : undefined,
+    ].filter(Boolean),
   }),
 };

@@ -25,6 +25,7 @@ module.exports = {
   globals: {
     RequestInfo: true,
     RequestInit: true,
+    ServiceWorkerGlobalScope: true,
     beforeAll: true,
     define: true,
     describe: true,
@@ -373,7 +374,7 @@ module.exports = {
     'space-in-parens': ['error', 'never'],
     'space-infix-ops': 'error',
     'space-unary-ops': 'error',
-    'spaced-comment': ['error', 'always'],
+    'spaced-comment': 'off',
     'unicode-bom': ['error', 'never'],
     'wrap-regex': 'off',
 

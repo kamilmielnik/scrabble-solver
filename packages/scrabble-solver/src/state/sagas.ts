@@ -99,6 +99,7 @@ function* onDictionarySubmit(): AnyGenerator {
 function* onInitialize(): AnyGenerator {
   yield call(visit);
   yield* ensureProperTilesCount();
+  yield put(verifySlice.actions.submit());
 }
 
 function* onReset(): AnyGenerator {
