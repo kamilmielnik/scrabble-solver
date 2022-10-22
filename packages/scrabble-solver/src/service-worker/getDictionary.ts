@@ -49,8 +49,6 @@ const revalidateDictionary = async (url: string): Promise<void> => {
   const cache = await caches.open(DICTIONARY_CACHE);
   await cache.put(url, response.clone());
   await expirationManager.updateTimestamp(url);
-
-  return;
 };
 
 export default getDictionary;

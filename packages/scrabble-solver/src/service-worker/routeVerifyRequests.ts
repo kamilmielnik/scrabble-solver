@@ -12,16 +12,16 @@ const routeVerifyRequests = () => {
     ({ url }) => url.origin === location.origin && url.pathname === '/api/verify',
     async ({ request }) => {
       const { board: boardJson, locale } = await request.clone().json();
-      const dictionary = await getTrie(locale);
+      const trie = await getTrie(locale);
 
-      if (!dictionary) {
+      if (!trie) {
         return fetch(request);
       }
 
       const board = Board.fromJson(boardJson);
       const words = board.getWords().sort((a, b) => a.localeCompare(b));
-      const invalidWords = words.filter((word) => !dictionary.has(word));
-      const validWords = words.filter((word) => dictionary.has(word));
+      const invalidWords = words.filter((word) => !trie.has(word));
+      const validWords = words.filter((word) => trie.has(word));
       const json = JSON.stringify({ invalidWords, validWords });
       return new Response(json, { headers });
     },
