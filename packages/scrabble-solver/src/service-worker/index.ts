@@ -8,11 +8,11 @@ import routeVerifyRequests from './routeVerifyRequests';
 declare const self: ServiceWorkerGlobalScope;
 
 self.addEventListener('install', () => {
+  routeSolveRequests();
+  routeVerifyRequests();
   self.skipWaiting();
 });
 
 cleanupOutdatedCaches();
 // eslint-disable-next-line no-underscore-dangle
 precacheAndRoute(self.__WB_MANIFEST);
-routeSolveRequests();
-routeVerifyRequests();

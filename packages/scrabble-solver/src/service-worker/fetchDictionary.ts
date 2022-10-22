@@ -32,7 +32,7 @@ const readOrFetchDictionary = async (url: string): Promise<Response> => {
     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
   }
 
-  await cache.put(url, response);
+  await cache.put(url, response.clone());
   await expirationManager.updateTimestamp(url);
 
   return response;
