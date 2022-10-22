@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { Board, Result } from '@scrabble-solver/types';
+import { Result } from '@scrabble-solver/types';
 import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { memoize } from 'lib';
@@ -99,12 +99,7 @@ function* onDictionarySubmit(): AnyGenerator {
 function* onInitialize(): AnyGenerator {
   yield call(visit);
   yield* ensureProperTilesCount();
-
-  const board = yield select(selectBoard) as unknown as Board;
-
-  if (board.getTilesCount() > 0) {
-    yield put(verifySlice.actions.submit());
-  }
+  yield put(verifySlice.actions.submit());
 }
 
 function* onReset(): AnyGenerator {
