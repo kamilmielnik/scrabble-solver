@@ -1,7 +1,7 @@
 import { Trie } from '@kamilmielnik/trie';
 import { Locale } from '@scrabble-solver/types';
 
-import getDictionary from './getDictionary';
+import { getDictionary } from './dictionaries';
 
 const cache: Partial<Record<Locale, { trie: Trie; dictionary: string } | undefined>> = {};
 
