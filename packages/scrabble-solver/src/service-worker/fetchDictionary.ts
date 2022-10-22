@@ -1,17 +1,24 @@
-import { Trie } from '@kamilmielnik/trie';
 import { Locale } from '@scrabble-solver/types';
+import { CacheExpiration } from 'workbox-expiration';
 
-const DICTIONARY_CACHE = 'dictionary-cache';
+const DICTIONARY_CACHE = 'dictionary-api-cache';
 
-const fetchDictionary = async (locale: Locale): Promise<Trie> => {
-  const response = await readOrFetchDictionary(`/api/dictionary/${locale}`);
+const MAX_AGE = 30 * 24 * 60 * 60 * 1000;
+
+const expirationManager = new CacheExpiration(DICTIONARY_CACHE, {
+  maxAgeSeconds: MAX_AGE / 1000,
+});
+
+const fetchDictionary = async (locale: Locale): Promise<string> => {
+  const url = `/api/dictionary/${locale}`;
+  const response = await readOrFetchDictionary(url);
   const serialized = await response.clone().text();
-  const trie = Trie.deserialize(serialized);
-
-  return trie;
+  return serialized;
 };
 
 const readOrFetchDictionary = async (url: string): Promise<Response> => {
+  await expirationManager.expireEntries();
+
   const cache = await caches.open(DICTIONARY_CACHE);
   const cached = await cache.match(url);
 
@@ -25,7 +32,8 @@ const readOrFetchDictionary = async (url: string): Promise<Response> => {
     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
   }
 
-  cache.put(url, response);
+  await cache.put(url, response);
+  await expirationManager.updateTimestamp(url);
 
   return response;
 };

@@ -1,7 +1,7 @@
 import { Board } from '@scrabble-solver/types';
 import { registerRoute } from 'workbox-routing';
 
-import { getDictionary } from './dictionaries';
+import getTrie from './getTrie';
 
 const headers = {
   'Content-Type': 'application/json; charset=utf-8',
@@ -9,10 +9,10 @@ const headers = {
 
 const routeVerifyRequests = () => {
   registerRoute(
-    ({ url }) => url.pathname === '/api/verify',
+    ({ url }) => url.origin === location.origin && url.pathname === '/api/verify',
     async ({ request }) => {
       const { board: boardJson, locale } = await request.clone().json();
-      const dictionary = getDictionary(locale);
+      const dictionary = await getTrie(locale);
 
       if (!dictionary) {
         return fetch(request);
