@@ -4,32 +4,32 @@ import { DICTIONARY_CACHE } from './constants';
 import expirationManager from './expirationManager';
 import getDictionaryUrl from './getDictionaryUrl';
 
-const requests: Partial<Record<string, Promise<Response> | undefined>> = {};
+const requests: Partial<Record<Locale, Promise<Response> | undefined>> = {};
 
 const revalidateDictionary = async (locale: Locale): Promise<void> => {
-  const url = getDictionaryUrl(locale);
-
-  if (requests[url] instanceof Promise) {
+  if (requests[locale] instanceof Promise) {
     return;
   }
 
-  const request = fetch(url);
-  requests[url] = request;
   let response: Response | undefined;
+  const url = getDictionaryUrl(locale);
+  const request = fetch(url);
+  requests[locale] = request;
 
   try {
     response = await request;
+
+    if (!response.ok) {
+      requests[locale] = undefined;
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    const cache = await caches.open(DICTIONARY_CACHE);
+    await cache.put(url, response.clone());
+    await expirationManager.updateTimestamp(url);
   } finally {
-    requests[url] = undefined;
+    requests[locale] = undefined;
   }
-
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-  }
-
-  const cache = await caches.open(DICTIONARY_CACHE);
-  await cache.put(url, response.clone());
-  await expirationManager.updateTimestamp(url);
 };
 
 export default revalidateDictionary;
