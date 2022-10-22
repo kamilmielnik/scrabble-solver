@@ -1,6 +1,7 @@
 import { Board } from '@scrabble-solver/types';
 import { registerRoute } from 'workbox-routing';
 
+import { revalidateDictionary } from './dictionaries';
 import getTrie from './getTrie';
 
 const headers = {
@@ -15,7 +16,9 @@ const routeVerifyRequests = () => {
       const trie = await getTrie(locale);
 
       if (!trie) {
-        return fetch(request);
+        const response = await fetch(request);
+        revalidateDictionary(locale);
+        return response;
       }
 
       const board = Board.fromJson(boardJson);

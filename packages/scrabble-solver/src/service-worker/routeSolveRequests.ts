@@ -4,6 +4,7 @@ import { solve } from '@scrabble-solver/solver';
 import { Board, Locale, Tile } from '@scrabble-solver/types';
 import { registerRoute } from 'workbox-routing';
 
+import { revalidateDictionary } from './dictionaries';
 import getTrie from './getTrie';
 
 const headers = {
@@ -18,7 +19,9 @@ const routeSolveRequests = () => {
       const trie = await getTrie(locale);
 
       if (!trie) {
-        return fetch(request);
+        const response = await fetch(request);
+        revalidateDictionary(locale);
+        return response;
       }
 
       const config = getConfig(configId)[locale as Locale];
