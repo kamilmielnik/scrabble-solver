@@ -48,7 +48,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     useMeasure<HTMLDivElement>();
   const config = useTypedSelector(selectConfig);
   const cellSize = getCellSize(config, contentWidth - resultsContainerWidth, contentHeight);
-  const isInitialized = contentWidth > 0 && boardHeight > 0 && resultsContainerWidth > 0;
+  const isInitializedInitial = contentWidth > 0 && boardHeight > 0 && resultsContainerWidth > 0;
+  const [isInitialized, setIsInitialized] = useState(isInitializedInitial);
   const resultsHeight = boardHeight - DICTIONARY_HEIGHT - (isTablet ? COMPONENTS_SPACING_MOBILE : COMPONENTS_SPACING);
 
   const handleClear = () => {
@@ -71,6 +72,10 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
   useEffectOnce(() => {
     dispatch(initialize());
+
+    setTimeout(() => {
+      setIsInitialized(true);
+    }, 100);
   });
 
   useEffect(() => {
