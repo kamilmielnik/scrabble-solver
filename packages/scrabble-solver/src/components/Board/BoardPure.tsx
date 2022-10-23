@@ -44,13 +44,7 @@ const BoardPure: FunctionComponent<Props> = ({
   onKeyDown,
   onPaste,
 }) => (
-  <div
-    className={classNames(styles.board, className)}
-    ref={innerRef}
-    onChange={onChange}
-    onKeyDown={onKeyDown}
-    onPaste={onPaste}
-  >
+  <div className={classNames(styles.board, className)} ref={innerRef} onKeyDown={onKeyDown} onPaste={onPaste}>
     {rows.map((cells, y) => (
       <div className={styles.row} key={y}>
         {cells.map((cell, x) => (
@@ -62,6 +56,7 @@ const BoardPure: FunctionComponent<Props> = ({
             isCenter={center.x === x && center.y === y}
             key={x}
             size={cellSize}
+            onChange={onChange}
             onDirectionToggle={onDirectionToggle}
             onFocus={onFocus}
           />

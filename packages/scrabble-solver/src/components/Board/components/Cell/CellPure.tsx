@@ -1,6 +1,14 @@
 import { Bonus, Cell, Tile as TileModel } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import { CSSProperties, FocusEventHandler, FunctionComponent, memo, MouseEventHandler, RefObject } from 'react';
+import {
+  ChangeEventHandler,
+  CSSProperties,
+  FocusEventHandler,
+  FunctionComponent,
+  memo,
+  MouseEventHandler,
+  RefObject,
+} from 'react';
 
 import { ArrowDown, Flag, Star } from 'icons';
 import { Translate } from 'types';
@@ -25,6 +33,7 @@ interface Props {
   style?: CSSProperties;
   tile: TileModel;
   translate: Translate;
+  onChange: ChangeEventHandler<HTMLInputElement>;
   onDirectionToggleClick: MouseEventHandler<HTMLButtonElement>;
   onFocus: FocusEventHandler<HTMLInputElement>;
   onToggleBlankClick: MouseEventHandler<HTMLButtonElement>;
@@ -45,6 +54,7 @@ const CellPure: FunctionComponent<Props> = ({
   style,
   tile,
   translate,
+  onChange,
   onDirectionToggleClick,
   onFocus,
   onToggleBlankClick,
@@ -78,6 +88,7 @@ const CellPure: FunctionComponent<Props> = ({
       raised={!isEmpty}
       size={size}
       tabIndex={cell.x === 0 && cell.y === 0 ? undefined : -1}
+      onChange={onChange}
       onFocus={onFocus}
     />
 

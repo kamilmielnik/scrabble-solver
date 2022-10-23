@@ -1,6 +1,6 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Cell as CellModel } from '@scrabble-solver/types';
-import { FunctionComponent, RefObject, useCallback, useMemo } from 'react';
+import { ChangeEventHandler, FunctionComponent, RefObject, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { getTileSizes } from 'lib';
@@ -23,6 +23,7 @@ interface Props {
   inputRef: RefObject<HTMLInputElement>;
   isCenter: boolean;
   size: number;
+  onChange: ChangeEventHandler<HTMLInputElement>;
   onDirectionToggle: () => void;
   onFocus: (x: number, y: number) => void;
 }
@@ -34,6 +35,7 @@ const Cell: FunctionComponent<Props> = ({
   inputRef,
   isCenter,
   size,
+  onChange,
   onDirectionToggle,
   onFocus,
 }) => {
@@ -88,6 +90,7 @@ const Cell: FunctionComponent<Props> = ({
       style={style}
       tile={tile}
       translate={translate}
+      onChange={onChange}
       onDirectionToggleClick={handleDirectionToggleClick}
       onFocus={handleFocus}
       onToggleBlankClick={handleToggleBlankClick}
