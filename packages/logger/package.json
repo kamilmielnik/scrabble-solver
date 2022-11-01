@@ -21,7 +21,8 @@
   "scripts": {
     "build": "tsc --project .",
     "clean": "rimraf build/ node_modules/",
-    "clean:force": "npm run clean && rimraf package-lock.json"
+    "clean:force": "npm run clean && rimraf package-lock.json",
+    "stats": "node scripts/stats.js"
   },
   "dependencies": {
     "winston": "^3.8.2"
