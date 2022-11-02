@@ -1,8 +1,10 @@
+**/bin/*.js
 **/build/**/*
 **/coverage/**/*
 **/dist/**/*
 **/node_modules/**/*
+*.d.ts
 .eslintrc.js
 next.config.js
-*.d.ts
-**/bin/*.js
+packages/logger/scripts/stats.js
+packages/scrabble-solver/public/service-worker.js
