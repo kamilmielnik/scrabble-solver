@@ -1,11 +1,11 @@
 // eslint-disable-next-line no-shadow
 enum Locale {
+  DE_DE = 'de-DE',
   EN_GB = 'en-GB',
   EN_US = 'en-US',
   ES_ES = 'es-ES',
   FR_FR = 'fr-FR',
   PL_PL = 'pl-PL',
-  DE_DE = 'de-DE',
 }
 
 const locales = Object.values(Locale);
