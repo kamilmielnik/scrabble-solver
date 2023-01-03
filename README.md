@@ -1,31 +1,49 @@
-# scrabble-solver
+<div align="center">
+  <p>
+    <a href="https://scrabble-solver.org">
+      <img alt="Scrabble Solver logo" height="120" src="https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/img/logo.svg" />
+    </a>
+  </p>
 
-![alt Scrabble Solver 2](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/img/logo.png)
+  <p>
+    Free and open-source analysis tool for <a href="https://en.wikipedia.org/wiki/Scrabble">Scrabble</a> and <a href="https://pl.wikipedia.org/wiki/Literaki">Literaki</a>.
+  </p>
 
-![Version](https://img.shields.io/github/package-json/v/kamilmielnik/scrabble-solver)
-![License](https://img.shields.io/npm/l/scrabble-solver)
-![Node version](https://img.shields.io/node/v/scrabble-solver)
-![Dependencies](https://img.shields.io/librariesio/release/npm/scrabble-solver)
-![Build](https://github.com/kamilmielnik/scrabble-solver/workflows/Build/badge.svg)
-![Test](https://github.com/kamilmielnik/scrabble-solver/workflows/Test/badge.svg)
-![ESLint](https://github.com/kamilmielnik/scrabble-solver/workflows/ESLint/badge.svg)
+  <p>
+    Quickly find top scoring words using given letters and board state.
+  </p>
 
-Free and open-source analysis tool for [Scrabble](https://en.wikipedia.org/wiki/Scrabble) and [Literaki](https://pl.wikipedia.org/wiki/Literaki).
+  <p>
+    Available at <a href="https://scrabble-solver.org">https://scrabble-solver.org</a>, in 6 languages.
+  </p>
 
-Quickly find top scoring words using given letters and board state.
+  <p>
+    <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1ec-1f1e7.svg" alt="Flag of United Kingdom" title="English (GB)" />
+    <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1fa-1f1f8.svg" alt="Flag of United States" title="English (US)" />
+    <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1eb-1f1f7.svg" alt="Flag of France" title="French" />
+    <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1e9-1f1ea.svg" alt="Flag of Germany" title="German" />
+    <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1f5-1f1f1.svg" alt="Flag of Poland" title="Polish" />
+    <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1ea-1f1f8.svg" alt="Flag of Spain" title="Spanish" />
+  </p>
 
-Available at https://scrabble-solver.org in 6 languages:
+  <p>
+    <img src="https://img.shields.io/github/package-json/v/kamilmielnik/scrabble-solver" alt="Version" />
+    <img src="https://img.shields.io/npm/l/scrabble-solver" alt="License" />
+    <img src="https://img.shields.io/node/v/scrabble-solver" alt="Node version" />
+  </p>
 
-- 🇬🇧 English (GB)
-- 🇺🇸 English (US)
-- 🇫🇷 French
-- 🇩🇪 German
-- 🇵🇱 Polish
-- 🇪🇸 Spanish
+  <p>
+    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/Build/badge.svg" alt="Build" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/Test/badge.svg" alt="Test" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/ESLint/badge.svg" alt="ESLint" />
+  </p>
 
-You can run it on your machine. It's cross-platform - all you need is [Node.js](https://nodejs.org/).
+  <p>
+    You can run it on your machine, it's cross-platform - all you need is <a href="https://nodejs.org/">Node.js</a>.
+  </p>
 
-![alt User Interface](https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/img/screencast.gif)
+  <img alt="Screencast GIF showing user interface when solving for oxyphenbutazone, which is a top-scoring word in English version of Scrabble" src="https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/img/screencast.gif" />
+</div>
 
 ## Requirements
 
