@@ -1,0 +1,82 @@
+<svg viewBox="0 0 682 166" xmlns="http://www.w3.org/2000/svg">
+  <style type="text/css">@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&amp;display=swap');
+    text {
+      font-family: 'Open Sans';
+    }
+  </style>
+
+  <g transform="rotate(0, 40, 40)">
+    <rect fill="#efe3ae" height="80" width="80" x="0" y="0" />
+    <text dominant-baseline="central" font-family="Open Sans" font-size="48" font-weight="bold" text-anchor="middle" x="40" y="40">S</text>
+  </g>
+
+  <g transform="rotate(0, 126, 40)">
+    <rect fill="#c7d8f9" height="80" width="80" x="86" y="0" />
+    <text dominant-baseline="central" font-family="Open Sans" font-size="48" font-weight="bold" text-anchor="middle" x="126" y="40">C</text>
+  </g>
+
+  <g transform="rotate(0, 212, 40)">
+    <rect fill="#efe3ae" height="80" width="80" x="172" y="0" />
+    <text dominant-baseline="central" font-family="Open Sans" font-size="48" font-weight="bold" text-anchor="middle" x="212" y="40">R</text>
+  </g>
+
+  <g transform="rotate(0, 298, 40)">
+    <rect fill="#efe3ae" height="80" width="80" x="258" y="0" />
+    <text dominant-baseline="central" font-family="Open Sans" font-size="48" font-weight="bold" text-anchor="middle" x="298" y="40">A</text>
+  </g>
+
+  <g transform="rotate(0, 384, 40)">
+    <rect fill="#c7d8f9" height="80" width="80" x="344" y="0" />
+    <text dominant-baseline="central" font-family="Open Sans" font-size="48" font-weight="bold" text-anchor="middle" x="384" y="40">B</text>
+  </g>
+
+  <g transform="rotate(0, 470, 40)">
+    <rect fill="#c7d8f9" height="80" width="80" x="430" y="0" />
+    <text dominant-baseline="central" font-family="Open Sans" font-size="48" font-weight="bold" text-anchor="middle" x="470" y="40">B</text>
+  </g>
+
+  <g transform="rotate(0, 556, 40)">
+    <rect fill="#efe3ae" height="80" width="80" x="516" y="0" />
+    <text dominant-baseline="central" font-family="Open Sans" font-size="48" font-weight="bold" text-anchor="middle" x="556" y="40">L</text>
+  </g>
+
+  <g transform="rotate(0, 642, 40)">
+    <rect fill="#efe3ae" height="80" width="80" x="602" y="0" />
+    <text dominant-baseline="central" font-family="Open Sans" font-size="48" font-weight="bold" text-anchor="middle" x="642" y="40">E</text>
+  </g>
+
+  <g transform="rotate(0, 40, 40)">
+    <rect fill="#efe3ae" height="80" width="80" x="0" y="86" />
+    <text dominant-baseline="central" font-family="Open Sans" font-size="48" font-weight="bold" text-anchor="middle" x="40" y="126">S</text>
+  </g>
+
+  <g transform="rotate(0, 126, 40)">
+    <rect fill="#efe3ae" height="80" width="80" x="86" y="86" />
+    <text dominant-baseline="central" font-family="Open Sans" font-size="48" font-weight="bold" text-anchor="middle" x="126" y="126">O</text>
+  </g>
+
+  <g transform="rotate(0, 212, 40)">
+    <rect fill="#efe3ae" height="80" width="80" x="172" y="86" />
+    <text dominant-baseline="central" font-family="Open Sans" font-size="48" font-weight="bold" text-anchor="middle" x="212" y="126">L</text>
+  </g>
+
+  <g transform="rotate(0, 298, 40)">
+    <rect fill="#f7c2aa" height="80" width="80" x="258" y="86" />
+    <text dominant-baseline="central" font-family="Open Sans" font-size="48" font-weight="bold" text-anchor="middle" x="298" y="126">V</text>
+  </g>
+
+  <g transform="rotate(0, 384, 40)">
+    <rect fill="#efe3ae" height="80" width="80" x="344" y="86" />
+    <text dominant-baseline="central" font-family="Open Sans" font-size="48" font-weight="bold" text-anchor="middle" x="384" y="126">E</text>
+  </g>
+
+  <g transform="rotate(0, 470, 40)">
+    <rect fill="#efe3ae" height="80" width="80" x="430" y="86" />
+    <text dominant-baseline="central" font-family="Open Sans" font-size="48" font-weight="bold" text-anchor="middle" x="470" y="126">R</text>
+  </g>
+
+  <g transform="rotate(0, 642, 40)">
+    <rect fill="#bae3ba" height="80" width="80" x="602" y="86" />
+    <text dominant-baseline="central" font-family="Open Sans" font-size="48" font-weight="bold" text-anchor="middle" x="642" y="126">2</text>
+  </g>
+</svg>
