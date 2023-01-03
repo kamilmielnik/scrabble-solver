@@ -1,9 +1,9 @@
 <svg viewBox="0 0 682 166" xmlns="http://www.w3.org/2000/svg">
-  <style type="text/css">@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&amp;display=swap');
-    text {
-      font-family: 'Open Sans';
-    }
-  </style>
+  <defs>
+    <style type="text/css">
+      @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700');
+    </style>
+  </defs>
 
   <g transform="rotate(0, 40, 40)">
     <rect fill="#efe3ae" height="80" width="80" x="0" y="0" />
