@@ -6,7 +6,7 @@ const EMPHASIS_TAGS = ['a', 'b', 'em', 'internalXref'];
 
 const normalizeHtmlTags: Normalize = (definition) => striptags(striptags(definition, EMPHASIS_TAGS), undefined, '"');
 
-const normalizeLineBreaks: Normalize = (definition) => definition.replace(/[\r\n]/g, '');
+const normalizeLineBreaks: Normalize = (definition) => definition.replace(/[\r\n]/g, '\n');
 
 const normalizeQuotes: Normalize = (definition) => definition.replace(/\."/g, '".');
 

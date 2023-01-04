@@ -53,6 +53,7 @@
 
 .definition {
   margin-bottom: var(--spacing--s);
+  white-space: pre-wrap;
 
   &:last-child {
     margin-bottom: 0;
