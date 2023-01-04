@@ -1,9 +1,9 @@
-import cheerio from 'cheerio';
+import { load } from 'cheerio';
 
 import { ParseResult } from '../types';
 
 const parseSpanish = (html: string): ParseResult => {
-  const $ = cheerio.load(html);
+  const $ = load(html);
   $('.verdBold14 + .gris11 + .gris13').remove();
   $('br + .gris13').remove();
   $('.grisItalic13 + .gris13').remove();

@@ -1,9 +1,9 @@
-import cheerio from 'cheerio';
+import { load } from 'cheerio';
 
 import { ParseResult } from '../types';
 
 const parseFrench = (html: string): ParseResult => {
-  const $ = cheerio.load(html);
+  const $ = load(html);
   const $definitions = $('.tlf_cdefinition');
 
   return {

@@ -1,9 +1,9 @@
-import cheerio from 'cheerio';
+import { load } from 'cheerio';
 
 import { ParseResult } from '../types';
 
 const parseGerman = (html: string): ParseResult => {
-  const $ = cheerio.load(html);
+  const $ = load(html);
   const $meaningOverview = $('.bedeutungsuebersicht');
   let $definitions;
   if ($meaningOverview.length > 0) {

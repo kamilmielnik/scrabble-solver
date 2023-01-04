@@ -1,9 +1,9 @@
-import cheerio from 'cheerio';
+import { load } from 'cheerio';
 
 import { ParseResult } from '../types';
 
 const parsePolish = (html: string): ParseResult => {
-  const $ = cheerio.load(html);
+  const $ = load(html);
   const $header = $($('h1')[0]);
   const $isAllowed = $header.next();
   const $definitions = $header.next().next().next().next();

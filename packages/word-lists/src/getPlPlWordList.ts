@@ -1,4 +1,4 @@
-import cheerio from 'cheerio';
+import { load } from 'cheerio';
 import { fs } from 'memfs';
 import unzipper from 'unzipper';
 import { URL } from 'url';
@@ -28,7 +28,7 @@ const fetchZipUrl = async (url: string): Promise<string> => {
 };
 
 const parseZipContainingPage = (html: string): string => {
-  const $ = cheerio.load(html);
+  const $ = load(html);
   const $links = $('a');
   const links = Array.from($links)
     .map((link) => $(link).attr('href'))

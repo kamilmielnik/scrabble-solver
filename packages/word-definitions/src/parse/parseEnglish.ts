@@ -1,9 +1,9 @@
-import cheerio from 'cheerio';
+import { load } from 'cheerio';
 
 import { ParseResult } from '../types';
 
 const parseEnglish = (html: string): ParseResult => {
-  const $ = cheerio.load(html);
+  const $ = load(html);
   $('strong.mw_t_bc').replaceWith(', ');
   $('.text-lowercase').remove();
   $('[id^=dictionary-entry]').find('.dtText > *:not(a)').remove();
