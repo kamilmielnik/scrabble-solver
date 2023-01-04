@@ -8,7 +8,7 @@ const parseFrench = (html: string): ParseResult => {
 
   return {
     definitions: Array.from($definitions).map((definition) => $(definition).text()),
-    isAllowed: $('#vitemselected span').length > 0,
+    exists: $('#vitemselected span').length > 0,
   };
 };
 

@@ -1,4 +1,5 @@
 import { scrabble } from '@scrabble-solver/configs';
+import { dictionaries } from '@scrabble-solver/dictionaries';
 import logger from '@scrabble-solver/logger';
 import { isLocale, Locale } from '@scrabble-solver/types';
 import { getWordDefinition } from '@scrabble-solver/word-definitions';
@@ -27,7 +28,8 @@ const dictionary = async (request: NextApiRequest, response: NextApiResponse): P
       },
     });
 
-    const results = await Promise.all(words.map((word) => getWordDefinition(locale, word)));
+    const trie = await dictionaries.get(locale);
+    const results = await Promise.all(words.map((word) => getWordDefinition(locale, word, trie.has(word))));
     response.status(200).send(results.map((result) => result.toJson()));
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';

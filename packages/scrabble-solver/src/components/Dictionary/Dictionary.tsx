@@ -31,7 +31,7 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
         </EmptyState>
       )}
 
-      {results.map(({ definitions, isAllowed, word }) => (
+      {results.map(({ definitions, exists, isAllowed, word }) => (
         <div
           className={classNames(styles.result, {
             [styles.isAllowed]: isAllowed === true,
@@ -51,7 +51,12 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
 
               {isAllowed === true && (
                 <>
-                  {definitions.length === 0 && <div>{translate('dictionary.empty-state.no-definitions')}</div>}
+                  {definitions.length === 0 && (
+                    <>
+                      {exists && <div>{translate('dictionary.empty-state.no-definitions')}</div>}
+                      {!exists && <div>{translate('dictionary.empty-state.no-results')}</div>}
+                    </>
+                  )}
 
                   {definitions.length > 0 && (
                     <ul className={styles.definitions}>

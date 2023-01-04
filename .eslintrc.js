@@ -351,7 +351,14 @@ module.exports = {
     ],
     'padded-blocks': ['error', 'never'],
     'quote-props': ['error', 'as-needed'],
-    quotes: ['error', 'single'],
+    quotes: [
+      'error',
+      'single',
+      {
+        allowTemplateLiterals: true,
+        avoidEscape: true,
+      },
+    ],
     'require-jsdoc': 'off',
     semi: ['error', 'always'],
     'semi-spacing': [

@@ -10,7 +10,7 @@ const parsePolish = (html: string): ParseResult => {
 
   return {
     definitions: $definitions.text().trim().split(/\d+\./),
-    isAllowed: $isAllowed.text().trim().indexOf('dopuszczalne w grach') >= 0,
+    exists: $isAllowed.text().trim().indexOf('dopuszczalne w grach') >= 0,
   };
 };
 

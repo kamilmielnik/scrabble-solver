@@ -8,6 +8,7 @@ class WordDefinition {
 
     return new WordDefinition({
       definitions: json.definitions,
+      exists: json.exists,
       isAllowed: json.isAllowed,
       word: json.word,
     });
@@ -15,6 +16,7 @@ class WordDefinition {
 
   public static readonly Null: WordDefinition = Object.freeze({
     definitions: [],
+    exists: false,
     isAllowed: false,
     word: '',
     toJson: () => null,
@@ -22,12 +24,21 @@ class WordDefinition {
 
   public readonly definitions: string[];
 
+  /**
+   * Does the word have an entry in a corresponding online dictionary?
+   */
+  public readonly exists: boolean;
+
+  /**
+   * Can the word be legally used in the game?
+   */
   public readonly isAllowed: boolean;
 
   public readonly word: string;
 
-  constructor({ definitions, isAllowed, word }: { definitions: string[]; isAllowed: boolean; word: string }) {
+  constructor({ definitions, exists, isAllowed, word }: WordDefinitionJson) {
     this.definitions = definitions;
+    this.exists = exists;
     this.isAllowed = isAllowed;
     this.word = word;
   }
@@ -35,6 +46,7 @@ class WordDefinition {
   public toJson(): WordDefinitionJson | null {
     return {
       definitions: this.definitions,
+      exists: this.exists,
       isAllowed: this.isAllowed,
       word: this.word,
     };

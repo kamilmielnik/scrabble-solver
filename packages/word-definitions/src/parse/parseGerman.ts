@@ -9,18 +9,18 @@ const parseGerman = (html: string): ParseResult => {
     (results, parse) => (results.length === 0 ? parse($) : results),
     [],
   );
-  const isAllowed = Array.from($('.label-danger')).every((label) => $(label).text() !== 'Hinweis');
+  const exists = Array.from($('.label-danger')).every((label) => $(label).text() !== 'Hinweis');
 
-  return { definitions, isAllowed };
+  return { definitions, exists };
 };
 
 const parseBedeutungsubersicht = ($: CheerioAPI): string[] => {
   Array.from($('.bedeutungsuebersicht ol > li > a')).forEach((item) => {
-    $(item).text($(item).text().replaceAll('\n', ''));
+    $(item).text($(item).text().replace(/\n/g, ''));
   });
 
   Array.from($('.bedeutungsuebersicht ol > li > ol > li')).forEach((item) => {
-    const text = `\n${$(item).text().replaceAll('\n', '')}`;
+    const text = `\n${$(item).text().replace(/\n/g, '')}`;
     const $text = $(`<div>${text}</div>`);
     $(item).replaceWith($text);
   });
@@ -47,7 +47,7 @@ const parseBedeutung = ($: CheerioAPI): string[] => {
 };
 
 const parseBedeutungen = ($: CheerioAPI): string[] => {
-  let definitions = parseDefinitions($, $('.dwdswb-lesart .dwdswb-definition'));
+  const definitions = parseDefinitions($, $('.dwdswb-lesart .dwdswb-definition'));
 
   if (definitions.length > 0) {
     return definitions;
