@@ -45,6 +45,8 @@
   <img alt="Screencast GIF showing user interface when solving for oxyphenbutazone, which is a top-scoring word in English version of Scrabble" src="https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/img/screencast.gif" />
 </div>
 
+# scrabble-solver
+
 ## Requirements
 
 - [Node.js](https://nodejs.org/) 16+
