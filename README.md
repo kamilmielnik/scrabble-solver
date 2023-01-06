@@ -93,7 +93,7 @@ rm -rf $HOME/.scrabble-solver
 ## Develop
 
 - All commands below are meant to be executed in the root directory
-- It can take some time if you have never run some of these commands before
+- Some of these commands can take a lot of time if you have never run them before
 
 ### Setup
 
@@ -102,18 +102,20 @@ npm install
 npm run install:dev
 ```
 
+### App dev server
+
+Runs at [http://localhost:3000/](http://localhost:3000/).
+
+```Shell
+npx lerna run dev --scope=@scrabble-solver/scrabble-solver
+```
+
+Hot code reload works for [`scrabble-solver` package](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver) only.
+
 ### Rebuild a single package
 
 ```Shell
 npx lerna run build --scope=@scrabble-solver/PACKAGE_NAME_HERE
-```
-
-### App dev server
-
-The following command will start a development server with hot code reload for the app at http://localhost:3000/ (`@scrabble-solver/scrabble-solver` package only).
-
-```Shell
-npx lerna run dev --scope=@scrabble-solver/scrabble-solver
 ```
 
 ## Tech stack
