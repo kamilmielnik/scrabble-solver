@@ -47,6 +47,17 @@
 
 # scrabble-solver
 
+## Dictionaries
+
+| Language   | Word list                                                                  | Word list source                                                                                                                           | Word definitions                                    | [Highest-scoring word](https://codesandbox.io/s/highest-scoring-words-in-scrabble-vbj1ns?file=/src/index.js) |
+| ---------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| 🇬🇧 English | [SOWPODS](https://en.wikipedia.org/wiki/Collins_Scrabble_Words)            | [Download](https://www.wordgamedictionary.com/sowpods/download/sowpods.txt)                                                                | [Merriam-Webster](https://www.merriam-webster.com/) | oxyphenbutazone (1458)                                                                                       |
+| 🇺🇸 English | [TWL06](https://en.wikipedia.org/wiki/NASPA_Word_List)                     | [Download](https://www.wordgamedictionary.com/twl06/download/twl06.txt)                                                                    | [Merriam-Webster](https://www.merriam-webster.com/) | oxyphenbutazone (1458)                                                                                       |
+| 🇫🇷 French  | [hbenbel/French-Dictionary](https://github.com/hbenbel/French-Dictionary/) | [Download](https://raw.githubusercontent.com/hbenbel/French-Dictionary/a573eab10cc798d7d5da7daab4d2ac0259bb46a3/dictionary/dictionary.txt) | [CNRTL](https://www.cnrtl.fr/)                      | encyclopediques (1512)                                                                                       |
+| 🇩🇪 German  | [hippler/german-wordlist](https://github.com/hippler/german-wordlist)      | [Download](https://raw.githubusercontent.com/hippler/german-wordlist/master/words.txt)                                                     | [DWDS](https://www.dwds.de)                         | polytoxikomanem (1512)                                                                                       |
+| 🇵🇱 Polish  | [SJP.PL](https://sjp.pl/slownik/dp.phtml)                                  | [Download](https://sjp.pl/slownik/growy/)                                                                                                  | [SJP.PL](https://sjp.pl)                            | współposiądźmyż (1512)                                                                                       |
+| 🇪🇸 Spanish | [FISE-2](https://fisescrabble.org/)                                        | [Download](https://github.com/kamilmielnik/fise-2/blob/master/fise-2.txt)                                                                  | [Diccionarios.com](https://www.diccionarios.com/)   | flexibilizabais (1323)                                                                                       |
+
 ## Requirements
 
 - [Node.js](https://nodejs.org/) 16+
@@ -104,17 +115,6 @@ The following command will start a development server with hot code reload for t
 ```Shell
 npx lerna run dev --scope=@scrabble-solver/scrabble-solver
 ```
-
-## Dictionaries
-
-| Language   | Word list                                                                  | Word list source                                                                                                                           | Word definitions                                    | [Highest-scoring word](https://codesandbox.io/s/highest-scoring-words-in-scrabble-vbj1ns?file=/src/index.js) |
-| ---------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| 🇬🇧 English | [SOWPODS](https://en.wikipedia.org/wiki/Collins_Scrabble_Words)            | [Download](https://www.wordgamedictionary.com/sowpods/download/sowpods.txt)                                                                | [Merriam-Webster](https://www.merriam-webster.com/) | oxyphenbutazone (1458)                                                                                       |
-| 🇺🇸 English | [TWL06](https://en.wikipedia.org/wiki/NASPA_Word_List)                     | [Download](https://www.wordgamedictionary.com/twl06/download/twl06.txt)                                                                    | [Merriam-Webster](https://www.merriam-webster.com/) | oxyphenbutazone (1458)                                                                                       |
-| 🇫🇷 French  | [hbenbel/French-Dictionary](https://github.com/hbenbel/French-Dictionary/) | [Download](https://raw.githubusercontent.com/hbenbel/French-Dictionary/a573eab10cc798d7d5da7daab4d2ac0259bb46a3/dictionary/dictionary.txt) | [CNRTL](https://www.cnrtl.fr/)                      | encyclopediques (1512)                                                                                       |
-| 🇩🇪 German  | [hippler/german-wordlist](https://github.com/hippler/german-wordlist)      | [Download](https://raw.githubusercontent.com/hippler/german-wordlist/master/words.txt)                                                     | [DWDS](https://www.dwds.de)                         | polytoxikomanem (1512)                                                                                       |
-| 🇵🇱 Polish  | [SJP.PL](https://sjp.pl/slownik/dp.phtml)                                  | [Download](https://sjp.pl/slownik/growy/)                                                                                                  | [SJP.PL](https://sjp.pl)                            | współposiądźmyż (1512)                                                                                       |
-| 🇪🇸 Spanish | [FISE-2](https://fisescrabble.org/)                                        | [Download](https://github.com/kamilmielnik/fise-2/blob/master/fise-2.txt)                                                                  | [Diccionarios.com](https://www.diccionarios.com/)   | flexibilizabais (1323)                                                                                       |
 
 ## Tech stack
 
