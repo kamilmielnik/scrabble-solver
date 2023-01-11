@@ -1,10 +1,10 @@
 {
-  "packages": [
-    "packages/*"
-  ],
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "packages": ["packages/*"],
   "publishConfig": {
     "access": "public"
   },
   "tagVersionPrefix": "",
+  "useWorkspaces": true,
   "version": "2.9.2"
 }
