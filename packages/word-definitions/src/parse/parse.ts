@@ -15,7 +15,7 @@ const parsePerLocale: Record<Locale, (html: string) => ParseResult> = {
   [Locale.EN_GB]: parseEnglish,
   [Locale.EN_US]: parseEnglish,
   [Locale.ES_ES]: parseSpanish,
-  [Locale.FA_FA]: parseFarsi,
+  [Locale.FA_IR]: parseFarsi,
   [Locale.FR_FR]: parseFrench,
   [Locale.PL_PL]: parsePolish,
 };

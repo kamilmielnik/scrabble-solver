@@ -4,7 +4,7 @@ import getDeDeWordList from './getDeDeWordList';
 import getEnGbWordList from './getEnGbWordList';
 import getEnUsWordList from './getEnUsWordList';
 import getEsEsWordList from './getEsEsWordList';
-import getFaFaWordList from './getFaFaWordList';
+import getFaIrWordList from './getFaIrWordList';
 import getFrFrWordList from './getFrFrWordList';
 import getPlPlWordList from './getPlPlWordList';
 
@@ -13,7 +13,7 @@ const localeMap: Record<Locale, () => Promise<string[]>> = {
   [Locale.EN_GB]: getEnGbWordList,
   [Locale.EN_US]: getEnUsWordList,
   [Locale.ES_ES]: getEsEsWordList,
-  [Locale.FA_FA]: getFaFaWordList,
+  [Locale.FA_IR]: getFaIrWordList,
   [Locale.FR_FR]: getFrFrWordList,
   [Locale.PL_PL]: getPlPlWordList,
 };

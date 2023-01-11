@@ -29,7 +29,7 @@ const options: Option[] = [
     className: styles.fa,
     Icon: FlagFa,
     label: 'فارسی',
-    value: Locale.FA_FA,
+    value: Locale.FA_IR,
   },
   {
     className: styles.fr,

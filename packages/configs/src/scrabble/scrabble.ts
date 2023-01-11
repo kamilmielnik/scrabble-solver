@@ -22,7 +22,7 @@ const scrabble = {
   [Locale.DE_DE]: Config.fromJson({ ...base, tiles: tilesDe }),
   [Locale.EN_US]: Config.fromJson({ ...base, tiles: tilesEn }),
   [Locale.ES_ES]: Config.fromJson({ ...base, tiles: tilesEs }),
-  [Locale.FA_FA]: Config.fromJson({ ...base, tiles: tilesFa }),
+  [Locale.FA_IR]: Config.fromJson({ ...base, tiles: tilesFa }),
   [Locale.FR_FR]: Config.fromJson({ ...base, tiles: tilesFr }),
   [Locale.PL_PL]: Config.fromJson({ ...base, tiles: tilesPl }),
 };
