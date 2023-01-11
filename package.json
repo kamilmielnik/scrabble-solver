@@ -53,7 +53,7 @@
     "release:prepare": "npm run reinstall",
     "release:publish": "npm run version:bump && np && lerna publish from-package --yes",
     "start": "npm-run-all --parallel start:*",
-    "start:app": "lerna run start --scope=scrabble-solver",
+    "start:app": "lerna run start --scope=@scrabble-solver/scrabble-solver",
     "start:browser": "open-cli http://localhost:3333",
     "test": "jest --no-cache --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache --watch",
