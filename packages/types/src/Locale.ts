@@ -4,7 +4,7 @@ enum Locale {
   EN_GB = 'en-GB',
   EN_US = 'en-US',
   ES_ES = 'es-ES',
-  FA_FA = 'fa-Fa',
+  FA_IR = 'fa-IR',
   FR_FR = 'fr-FR',
   PL_PL = 'pl-PL',
 }
