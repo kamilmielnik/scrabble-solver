@@ -1,7 +1,7 @@
 <div align="center">
   <p>
     <a href="https://scrabble-solver.org">
-      <img alt="Scrabble Solver logo" height="120" src="https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/img/logo.svg" />
+      <img alt="Scrabble Solver logo" height="120" src="https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/packages/scrabble-solver/src/components/Logo/Logo.svg" />
     </a>
   </p>
 
