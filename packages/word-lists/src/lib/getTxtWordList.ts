@@ -1,4 +1,4 @@
-import { fs } from 'memfs';
+import fs from 'fs';
 
 import downloadFile from './downloadFile';
 import extractWords from './extractWords';

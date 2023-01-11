@@ -1,21 +1,21 @@
 import { load } from 'cheerio';
-import { fs } from 'memfs';
+import fs from 'fs';
 import unzipper from 'unzipper';
 import { URL } from 'url';
 
-import { downloadFile, downloadHtml, extractWords, getTempFilename } from './lib';
+import { downloadFile, downloadHtml, extractWords, getTempFilepath } from './lib';
 
 const PAGE_URL = 'https://sjp.pl/sl/growy/';
 const FILE_TO_EXTRACT_FROM_ZIP = 'slowa.txt';
 
 const getPlPlWordList = async (): Promise<string[]> => {
-  const tempFilename = getTempFilename();
+  const tempFilepath = getTempFilepath();
   const zipUrl = await fetchZipUrl(PAGE_URL);
   const zipTempFilename = await downloadFile(zipUrl);
-  await unzip(zipTempFilename, tempFilename);
+  await unzip(zipTempFilename, tempFilepath);
   fs.unlinkSync(zipTempFilename);
-  const file = fs.readFileSync(tempFilename, 'utf-8');
-  fs.unlinkSync(tempFilename);
+  const file = fs.readFileSync(tempFilepath, 'utf-8');
+  fs.unlinkSync(tempFilepath);
   const words = extractWords(file.toLocaleString());
   return words;
 };

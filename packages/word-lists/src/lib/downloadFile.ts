@@ -1,13 +1,13 @@
 import { http, https } from 'follow-redirects';
-import { fs } from 'memfs';
+import fs from 'fs';
 
-import getTempFilename from './getTempFilename';
+import getTempFilepath from './getTempFilepath';
 
 const downloadFile = (url: string): Promise<string> => {
   return new Promise((resolve, reject) => {
-    const tempFilename = getTempFilename();
+    const tempFilepath = getTempFilepath();
     const protocol = url.startsWith('https') ? https : http;
-    const writeStream = fs.createWriteStream(tempFilename);
+    const writeStream = fs.createWriteStream(tempFilepath);
     const request = protocol.get(url, (response) => {
       if (typeof response.statusCode === 'undefined' || response.statusCode >= 400) {
         reject(new Error(`Cannot download file: ${url}`));
@@ -22,7 +22,7 @@ const downloadFile = (url: string): Promise<string> => {
       response.on('end', () => {
         writeStream.on('finish', () => {
           writeStream.close();
-          resolve(tempFilename);
+          resolve(tempFilepath);
         });
       });
 

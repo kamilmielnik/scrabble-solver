@@ -27,7 +27,6 @@
     "@scrabble-solver/types": "^2.9.3",
     "cheerio": "^1.0.0-rc.12",
     "follow-redirects": "^1.15.2",
-    "memfs": "^3.4.7",
     "unzipper": "^0.10.11"
   },
   "devDependencies": {
