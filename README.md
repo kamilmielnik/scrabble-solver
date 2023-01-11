@@ -107,7 +107,7 @@ npm run install:dev
 Runs at [http://localhost:3000/](http://localhost:3000/).
 
 ```Shell
-npm run dev --workspace=@scrabble-solver/scrabble-solver
+npx lerna run dev --scope=@scrabble-solver/scrabble-solver
 ```
 
 Hot code reload works for [`scrabble-solver` package](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver) only.
@@ -115,7 +115,7 @@ Hot code reload works for [`scrabble-solver` package](https://github.com/kamilmi
 ### Rebuild a single package
 
 ```Shell
-npm run build --workspace=@scrabble-solver/PACKAGE_NAME_HERE
+npx lerna run build --scope=@scrabble-solver/PACKAGE_NAME_HERE
 ```
 
 ## Tech stack
