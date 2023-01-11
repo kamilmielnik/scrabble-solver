@@ -40,6 +40,12 @@
     width: $height * $aspect-ratio;
   }
 
+  &.fa {
+    $aspect-ratio: 1.75;
+
+    width: $height * $aspect-ratio;
+  }
+
   &.gb {
     $aspect-ratio: 2;
 

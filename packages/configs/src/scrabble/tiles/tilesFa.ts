@@ -1,4 +1,4 @@
-//FIXME scores are based on persian scrabble wiki but the counts are made up, we know total should be 100
+//FIXME scores are based on persian scrabble wiki but the counts are made up!
 
 const tilesFa = [
   { character: 'ا', count: 5, score: 1 },

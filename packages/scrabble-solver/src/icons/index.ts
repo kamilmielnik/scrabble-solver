@@ -13,6 +13,7 @@ export { default as DashCircleFill } from './DashCircleFill.svg';
 export { default as Eraser } from './Eraser.svg';
 export { default as Flag } from './Flag.svg';
 export { default as FlagEs } from './FlagEs.svg';
+export { default as FlagFa } from './FlagFa.svg';
 export { default as FlagFr } from './FlagFr.svg';
 export { default as FlagGb } from './FlagGb.svg';
 export { default as FlagPl } from './FlagPl.svg';
