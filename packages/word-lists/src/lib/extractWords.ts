@@ -1,12 +1,18 @@
 import findFirstWordIndex from './findFirstWordIndex';
 
 const extractWords = (file: string): string[] => {
-  const lines = file.replace(/\r/g, '').split('\n');
+  const lines = file.split(/\r?\n/g);
   const firstWordIndex = findFirstWordIndex(lines);
-  const words = lines
-    .slice(firstWordIndex)
-    .filter((word) => word.trim().length > 0)
-    .map((word) => word.toLocaleLowerCase());
+  const words: string[] = [];
+
+  for (let i = firstWordIndex; i < lines.length; ++i) {
+    const trimmed = lines[i].trim();
+
+    if (trimmed.length > 0) {
+      words.push(trimmed.toLocaleLowerCase());
+    }
+  }
+
   return words;
 };
 
