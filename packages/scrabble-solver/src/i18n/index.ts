@@ -5,7 +5,6 @@ import { Translations } from 'types';
 import de from './de.json';
 import en from './en.json';
 import es from './es.json';
-//TODO will translate after i could get it to work :)
 import fa from './fa.json';
 import fr from './fr.json';
 import pl from './pl.json';
