@@ -35,7 +35,7 @@
   "keyMap.board-and-rack.submit": "حل کردن",
   "keyMap.rack": "کیسه",
   "keyMap.rack.insert-blank": "وارد کردن کاشی خالی (دکمه اسپیس)",
-  "rack.placeholder": "حروف",
+  "rack.placeholder": "لیستحرف",
   "remaining-tiles": "کاشی های باقی مانده",
   "results.empty-state.no-filtered-results": "پاسخی یافت نشد.",
   "results.empty-state.no-results": "کلمه قابل استفاده پیدا نشد.",
