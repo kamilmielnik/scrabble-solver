@@ -30,44 +30,51 @@ const NavButtons: FunctionComponent<Props> = ({
 
   return (
     <div className={styles.navButtons}>
-      <SquareButton className={styles.button} Icon={Eraser} tooltip={translate('common.clear')} onClick={onClear} />
+      <div className={styles.group}>
+        <SquareButton className={styles.button} Icon={Eraser} tooltip={translate('common.clear')} onClick={onClear} />
+      </div>
 
       <div className={styles.separator} />
 
-      <SquareButton
-        className={classNames(styles.button, {
-          [styles.error]: hasOverusedTiles,
-        })}
-        Icon={Sack}
-        tooltip={translate('remaining-tiles')}
-        onClick={onShowRemainingTiles}
-      />
+      <div className={styles.group}>
+        <SquareButton
+          className={classNames(styles.button, {
+            [styles.error]: hasOverusedTiles,
+          })}
+          Icon={Sack}
+          tooltip={translate('remaining-tiles')}
+          onClick={onShowRemainingTiles}
+        />
 
-      <SquareButton
-        className={classNames(styles.button, {
-          [styles.error]: hasInvalidWords,
-        })}
-        Icon={BookHalf}
-        tooltip={translate('words')}
-        onClick={onShowWords}
-      />
-
-      <div className={styles.separator} />
-
-      <SquareButton.Link
-        className={styles.button}
-        href={GITHUB_PROJECT_URL}
-        Icon={Github}
-        rel="noopener noreferrer"
-        target="_blank"
-        tooltip={translate('github')}
-      />
+        <SquareButton
+          className={classNames(styles.button, {
+            [styles.error]: hasInvalidWords,
+          })}
+          Icon={BookHalf}
+          tooltip={translate('words')}
+          onClick={onShowWords}
+        />
+      </div>
 
       <div className={styles.separator} />
 
-      <SquareButton className={styles.button} Icon={Keyboard} tooltip={translate('keyMap')} onClick={onShowKeyMap} />
+      <div className={styles.group}>
+        <SquareButton.Link
+          className={styles.button}
+          href={GITHUB_PROJECT_URL}
+          Icon={Github}
+          rel="noopener noreferrer"
+          target="_blank"
+          tooltip={translate('github')}
+        />
+      </div>
 
-      <SquareButton className={styles.button} Icon={Cog} tooltip={translate('settings')} onClick={onShowSettings} />
+      <div className={styles.separator} />
+
+      <div className={styles.group}>
+        <SquareButton className={styles.button} Icon={Keyboard} tooltip={translate('keyMap')} onClick={onShowKeyMap} />
+        <SquareButton className={styles.button} Icon={Cog} tooltip={translate('settings')} onClick={onShowSettings} />
+      </div>
     </div>
   );
 };
