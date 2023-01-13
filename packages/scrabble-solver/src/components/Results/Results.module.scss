@@ -88,6 +88,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   align-items: center;
   justify-content: center;
   padding: var(--spacing--s);
+  gap: var(--spacing--s);
 
   .result &:first-child,
   .headerButton:first-child & {
@@ -143,7 +144,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   flex: 0 0 auto;
   width: $size;
   height: $size;
-  margin-left: var(--spacing--s);
 }
 
 .input {
