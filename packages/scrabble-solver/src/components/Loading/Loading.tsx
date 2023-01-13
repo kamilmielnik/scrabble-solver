@@ -13,9 +13,15 @@ interface Props {
   wave?: boolean;
 }
 
+const prepareContent = (message: string): string[][] => {
+  const uppercased = message.toLocaleUpperCase();
+  const parts = uppercased.split(' ');
+  return [parts];
+};
+
 const Loading: FunctionComponent<Props> = ({ className, wave = true }) => {
   const translate = useTranslate();
-  const content = useMemo<string[][]>(() => [[translate('common.loading').toUpperCase()]], [translate]);
+  const content = useMemo(() => prepareContent(translate('common.loading')), [translate]);
 
   return (
     <div className={classNames(styles.loading, className)}>
