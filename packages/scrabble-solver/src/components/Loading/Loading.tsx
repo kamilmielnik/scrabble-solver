@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import { FunctionComponent, useMemo } from 'react';
 
-import { useTranslate } from 'state';
+import { LOCALE_FEATURES } from 'i18n';
+import { selectLocale, useTranslate, useTypedSelector } from 'state';
 
 import PlainTiles from '../PlainTiles';
 
@@ -21,7 +22,11 @@ const prepareContent = (message: string): string[][] => {
 
 const Loading: FunctionComponent<Props> = ({ className, wave = true }) => {
   const translate = useTranslate();
-  const content = useMemo(() => prepareContent(translate('common.loading')), [translate]);
+  const locale = useTypedSelector(selectLocale);
+  const { direction } = LOCALE_FEATURES[locale];
+  const translation = translate('common.loading');
+  const message = direction === 'ltr' ? translation : translation.split('').reverse().join('');
+  const content = useMemo(() => prepareContent(message), [message]);
 
   return (
     <div className={classNames(styles.loading, className)}>

@@ -21,6 +21,7 @@ const normalizeTrailingSymbols: Normalize = (definition) => definition.trim().re
 
 const normalizeLeadingSymbols: Normalize = (definition) => definition.trim().replace(/^:/, '');
 
+// https://stackoverflow.com/a/40732368
 const normalizeNonWords: Normalize = (definition) => (/[\w\u0621-\u064A]+/.test(definition) ? definition : '');
 
 const normalizeCommas: Normalize = (definition) => {

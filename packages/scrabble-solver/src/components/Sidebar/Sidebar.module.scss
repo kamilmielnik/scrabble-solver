@@ -3,10 +3,21 @@
 $z-index: 100;
 $width: 370px;
 
+.modal,
+.closeButton {
+  top: 0;
+
+  [dir='ltr'] & {
+    right: 0;
+  }
+
+  [dir='rtl'] & {
+    left: 0;
+  }
+}
+
 .modal {
   position: fixed;
-  top: 0;
-  right: 0;
   z-index: $z-index;
   height: 100vh;
   width: $width;
@@ -21,15 +32,25 @@ $width: 370px;
 
 .afterOpen {
   .sidebar {
-    transform: translateX(0);
-    opacity: 1;
+    [dir='ltr'] &,
+    [dir='rtl'] & {
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
 }
 
 .beforeClose {
   .sidebar {
-    transform: translateX($width);
     opacity: 0;
+
+    [dir='ltr'] & {
+      transform: translateX($width);
+    }
+
+    [dir='rtl'] & {
+      transform: translateX(-$width);
+    }
   }
 }
 
@@ -47,6 +68,14 @@ $width: 370px;
   transition-duration: var(--transition--duration--long);
   transform: translateX($width);
   opacity: 0;
+
+  [dir='ltr'] & {
+    transform: translateX($width);
+  }
+
+  [dir='rtl'] & {
+    transform: translateX(-$width);
+  }
 }
 
 .header {
@@ -56,15 +85,20 @@ $width: 370px;
 }
 
 .title {
-  padding-right: calc(var(--square-button-size) + var(--spacing--s));
   font-size: var(--font--size--h1);
   font-weight: 300;
+
+  [dir='ltr'] & {
+    padding-right: calc(var(--square-button-size) + var(--spacing--s));
+  }
+
+  [dir='rtl'] & {
+    padding-left: calc(var(--square-button-size) + var(--spacing--s));
+  }
 }
 
 .closeButton {
   position: absolute !important;
-  top: 0;
-  right: 0;
   z-index: $z-index + 1;
   margin: var(--spacing--l);
 }

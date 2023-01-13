@@ -122,13 +122,20 @@ $icon-size: 16px;
 .actions {
   display: none;
   position: absolute;
-  left: calc(100% + var(--spacing--s) - #{$icon-size});
   top: -$icon-size;
   z-index: 2;
   transition: var(--transition);
   pointer-events: none;
   box-shadow: var(--box-shadow);
   border-radius: var(--border--radius);
+
+  [dir='ltr'] & {
+    left: calc(100% + var(--spacing--s) - #{$icon-size});
+  }
+
+  [dir='rtl'] & {
+    right: calc(100% + var(--spacing--s) - #{$icon-size});
+  }
 }
 
 .action {
@@ -142,8 +149,6 @@ $icon-size: 16px;
   box-sizing: content-box;
   background-color: white;
   border: var(--border);
-  border-top-left-radius: var(--border--radius);
-  border-bottom-left-radius: var(--border--radius);
   font-size: var(--font--size--m);
   line-height: $icon-size;
   color: var(--color--foreground--secondary);
@@ -151,14 +156,37 @@ $icon-size: 16px;
   cursor: pointer;
 
   & + & {
-    border-left: none;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    [dir='ltr'] & {
+      border-left: none;
+    }
+
+    [dir='rtl'] & {
+      border-right: none;
+    }
   }
 
-  &:last-child {
-    border-top-right-radius: var(--border--radius);
-    border-bottom-right-radius: var(--border--radius);
+  [dir='ltr'] & {
+    &:first-child {
+      border-top-left-radius: var(--border--radius);
+      border-bottom-left-radius: var(--border--radius);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--border--radius);
+      border-bottom-right-radius: var(--border--radius);
+    }
+  }
+
+  [dir='rtl'] & {
+    &:first-child {
+      border-top-right-radius: var(--border--radius);
+      border-bottom-right-radius: var(--border--radius);
+    }
+
+    &:last-child {
+      border-top-left-radius: var(--border--radius);
+      border-bottom-left-radius: var(--border--radius);
+    }
   }
 
   &,
@@ -177,6 +205,10 @@ $icon-size: 16px;
 .toggleDirection {
   &.right {
     transform: rotate(-90deg);
+
+    [dir='rtl'] & {
+      transform: rotate(90deg);
+    }
   }
 }
 
