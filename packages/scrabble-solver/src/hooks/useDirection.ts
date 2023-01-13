@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 import { noop } from 'lib';
 
 const useDirection = (direction: 'ltr' | 'rtl') => {
-  useEffect(() => {
+  useLayoutEffect(() => {
     const html = document.body.parentElement;
 
     if (!html) {
