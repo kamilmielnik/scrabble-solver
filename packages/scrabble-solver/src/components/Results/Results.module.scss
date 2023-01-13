@@ -107,10 +107,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 }
 
 .word {
-  $width: 180px;
-
-  flex: 0 0 $width;
-  max-width: $width;
+  flex: 1 0 180px;
   text-transform: uppercase;
 }
 
@@ -123,7 +120,10 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 }
 
 .points {
-  flex: 1 0 80px;
+  $width: 80px;
+
+  flex: 1 0 $width;
+  max-width: $width;
   font-weight: bold;
 }
 
