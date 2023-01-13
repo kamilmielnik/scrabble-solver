@@ -13,4 +13,8 @@
 
 .badge {
   margin-left: var(--spacing--m);
+
+  [lang='fa-IR'] & {
+    font-family: 'Open Sans', sans-serif;
+  }
 }

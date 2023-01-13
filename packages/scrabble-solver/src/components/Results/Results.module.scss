@@ -128,6 +128,13 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   font-weight: bold;
 }
 
+.stat,
+.points {
+  [lang='fa-IR'] & {
+    font-family: 'Lato', sans-serif;
+  }
+}
+
 .outdatedButton {
   display: block;
   margin: 0 auto;
