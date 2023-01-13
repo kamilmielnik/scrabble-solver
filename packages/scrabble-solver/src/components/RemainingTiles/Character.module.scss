@@ -30,4 +30,8 @@
   padding: var(--spacing--xs) 0;
   text-align: center;
   font-size: var(--font--size--s);
+
+  [lang='fa-IR'] & {
+    font-family: 'Open Sans', sans-serif;
+  }
 }

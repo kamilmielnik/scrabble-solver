@@ -66,6 +66,10 @@ $icon-size: 16px;
     &:before {
       font-size: 75%;
       color: white;
+
+      [lang='fa-IR'] & {
+        font-family: 'Open Sans', sans-serif;
+      }
     }
   }
 
