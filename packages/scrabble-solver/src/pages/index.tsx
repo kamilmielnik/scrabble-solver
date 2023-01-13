@@ -21,11 +21,12 @@ import {
   Well,
   Words,
 } from 'components';
-import { useIsTablet, useLocalStorage } from 'hooks';
+import { useDirection, useIsTablet, useLanguage, useLocalStorage } from 'hooks';
+import { LOCALE_FEATURES } from 'i18n';
 import { getCellSize } from 'lib';
 import { COMPONENTS_SPACING, COMPONENTS_SPACING_MOBILE, DICTIONARY_HEIGHT } from 'parameters';
 import { registerServiceWorker } from 'serviceWorkerManager';
-import { initialize, localStorage, reset, selectConfig, solveSlice, useTypedSelector } from 'state';
+import { initialize, localStorage, reset, selectConfig, selectLocale, solveSlice, useTypedSelector } from 'state';
 
 import styles from './index.module.scss';
 
@@ -37,6 +38,7 @@ interface Props {
 
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
+  const locale = useTypedSelector(selectLocale);
   const isTablet = useIsTablet();
   const [showKeyMap, setShowKeyMap] = useState(false);
   const [showRemainingTiles, setShowRemainingTiles] = useState(false);
@@ -68,6 +70,9 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     }
   };
 
+  const { direction } = LOCALE_FEATURES[locale];
+  useDirection(direction);
+  useLanguage(locale);
   useLocalStorage();
 
   useEffectOnce(() => {
