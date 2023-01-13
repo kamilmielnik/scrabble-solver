@@ -14,7 +14,7 @@
   </p>
 
   <p>
-    Available at <a href="https://scrabble-solver.org">https://scrabble-solver.org</a>, in 6 languages.
+    Available at <a href="https://scrabble-solver.org">https://scrabble-solver.org</a>, in 7 languages.
   </p>
 
   <p>
@@ -22,6 +22,7 @@
     <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1fa-1f1f8.svg" alt="Flag of United States" title="English (US)" />
     <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1eb-1f1f7.svg" alt="Flag of France" title="French" />
     <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1e9-1f1ea.svg" alt="Flag of Germany" title="German" />
+    <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1ee-1f1f7.svg" alt="Flag of Iran" title="Persian" />
     <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1f5-1f1f1.svg" alt="Flag of Poland" title="Polish" />
     <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1ea-1f1f8.svg" alt="Flag of Spain" title="Spanish" />
   </p>
@@ -55,6 +56,7 @@
 | 🇺🇸 English | [💾](https://www.wordgamedictionary.com/twl06/download/twl06.txt) [TWL06](https://en.wikipedia.org/wiki/NASPA_Word_List)                                                                                        | [Merriam-Webster](https://www.merriam-webster.com/) | oxyphenbutazone (1458)                                                                                       |
 | 🇫🇷 French  | [💾](https://raw.githubusercontent.com/hbenbel/French-Dictionary/a573eab10cc798d7d5da7daab4d2ac0259bb46a3/dictionary/dictionary.txt) [hbenbel/French-Dictionary](https://github.com/hbenbel/French-Dictionary/) | [CNRTL](https://www.cnrtl.fr/)                      | encyclopediques (1512)                                                                                       |
 | 🇩🇪 German  | [💾](https://raw.githubusercontent.com/hippler/german-wordlist/master/words.txt) [hippler/german-wordlist](https://github.com/hippler/german-wordlist)                                                          | [DWDS](https://www.dwds.de)                         | polytoxikomanem (1512)                                                                                       |
+| 🇮🇷 Persian | [💾](https://raw.githubusercontent.com/MansourM/persian-to-persian-dictionary/main/moein/words.txt) [MansourM/persian-to-persian-dictionary](https://github.com/MansourM/persian-to-persian-dictionary)         | [واژه یاب](https://vajehyab.com)                    | ‏(756) گزیستانسیالیست‏                                                                                       |
 | 🇵🇱 Polish  | [💾](https://sjp.pl/slownik/growy/) [SJP.PL](https://sjp.pl/slownik/dp.phtml)                                                                                                                                   | [SJP.PL](https://sjp.pl)                            | współposiądźmyż (1512)                                                                                       |
 | 🇪🇸 Spanish | [💾](https://github.com/kamilmielnik/fise-2/blob/master/fise-2.txt) [FISE-2](https://fisescrabble.org/)                                                                                                         | [Diccionarios.com](https://www.diccionarios.com/)   | flexibilizabais (1323)                                                                                       |
 
