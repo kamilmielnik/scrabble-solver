@@ -73,11 +73,13 @@ const Rack: FunctionComponent<Props> = ({ className }) => {
     return createKeyboardNavigation({
       onArrowLeft: (event) => {
         event.preventDefault();
-        changeActiveIndex(-1);
+        const direction = document.body.parentElement?.dir || 'ltr';
+        changeActiveIndex(direction === 'ltr' ? -1 : 1);
       },
       onArrowRight: (event) => {
         event.preventDefault();
-        changeActiveIndex(1);
+        const direction = document.body.parentElement?.dir || 'ltr';
+        changeActiveIndex(direction === 'ltr' ? 1 : -1);
       },
       onBackspace: (event) => {
         event.preventDefault();

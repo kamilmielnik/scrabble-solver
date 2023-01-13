@@ -235,7 +235,8 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         if (isCtrl(event)) {
           onDirectionToggle();
         } else {
-          changeActiveIndex(-1, 0);
+          const direction = document.body.parentElement?.dir || 'ltr';
+          changeActiveIndex(direction === 'ltr' ? -1 : 1, 0);
         }
       },
       onArrowRight: (event) => {
@@ -244,7 +245,8 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         if (isCtrl(event)) {
           onDirectionToggle();
         } else {
-          changeActiveIndex(1, 0);
+          const direction = document.body.parentElement?.dir || 'ltr';
+          changeActiveIndex(direction === 'ltr' ? 1 : -1, 0);
         }
       },
       onArrowUp: (event) => {
