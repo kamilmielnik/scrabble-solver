@@ -105,6 +105,13 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   &:last-child {
     flex: 1;
   }
+
+  &.stat,
+  &.points {
+    [lang='fa-IR'] & {
+      font-family: 'Open Sans', sans-serif;
+    }
+  }
 }
 
 .word {
@@ -126,13 +133,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   flex: 1 0 $width;
   max-width: $width;
   font-weight: bold;
-}
-
-.stat,
-.points {
-  [lang='fa-IR'] & {
-    font-family: 'Lato', sans-serif;
-  }
 }
 
 .outdatedButton {

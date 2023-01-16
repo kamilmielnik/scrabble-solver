@@ -1,38 +1,35 @@
 import { FunctionComponent, useLayoutEffect } from 'react';
 
-// eslint-disable-next-line max-len
-const CSS = `@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Open+Sans:wght@400;700&family=Vazirmatn:wght@300;400;700&family=Roboto+Mono&display=swap');
+import { noop } from 'lib';
 
-text {
-  font-family: 'Open Sans';
-}`;
+import createCss from './createCss';
+import createSvg from './createSvg';
 
 let isInitialized = false;
 
-const createSvg = () => {
-  const svg = document.createElement('svg');
-  svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-  svg.appendChild(createStyle());
-  return svg;
-};
+interface Props {
+  fontFamily: string;
+}
 
-const createStyle = () => {
-  const style = document.createElement('style');
-  style.innerHTML = CSS;
-  return style;
-};
-
-const SvgFontCss: FunctionComponent = () => {
+const SvgFontCss: FunctionComponent<Props> = ({ fontFamily }) => {
   useLayoutEffect(() => {
-    if (!isInitialized) {
-      // prevent text flickering when re-mounting SVGs
-      document.body.appendChild(createSvg());
-      isInitialized = true;
+    if (isInitialized) {
+      return noop;
     }
-  }, []);
+
+    const svg = createSvg(fontFamily);
+    // prevent text flickering when re-mounting SVGs
+    document.body.appendChild(svg);
+    isInitialized = true;
+
+    return () => {
+      svg.remove();
+      isInitialized = false;
+    };
+  }, [fontFamily]);
 
   // eslint-disable-next-line react/no-danger
-  return <style type="text/css" dangerouslySetInnerHTML={{ __html: CSS }} />;
+  return <style type="text/css" dangerouslySetInnerHTML={{ __html: createCss(fontFamily) }} />;
 };
 
 export default SvgFontCss;
