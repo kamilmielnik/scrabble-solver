@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 
 import { REMAINING_TILES_TILE_SIZE } from 'parameters';
-import { selectCharacterPoints, useTypedSelector } from 'state';
+import { selectCharacterPoints, useFormatNumber, useTypedSelector } from 'state';
 import { RemainingTile } from 'types';
 
 import Tile from '../Tile';
@@ -15,6 +15,7 @@ interface Props {
 }
 
 const Character: FunctionComponent<Props> = ({ tile }) => {
+  const formatNumber = useFormatNumber();
   const { character, count, usedCount } = tile;
   const remainingCount = count - usedCount;
   const points = useTypedSelector((state) => selectCharacterPoints(state, character));
@@ -37,7 +38,7 @@ const Character: FunctionComponent<Props> = ({ tile }) => {
         size={REMAINING_TILES_TILE_SIZE}
       />
       <div className={styles.count}>
-        {remainingCount} / {count}
+        {formatNumber(remainingCount)} / {formatNumber(count)}
       </div>
     </div>
   );

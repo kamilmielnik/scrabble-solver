@@ -13,6 +13,7 @@ import {
 import { getTileSizes, noop } from 'lib';
 
 import TilePure from './TilePure';
+import { useFormatNumber } from 'state';
 
 interface Props {
   autoFocus?: boolean;
@@ -49,6 +50,7 @@ const Tile: FunctionComponent<Props> = ({
   onFocus = noop,
   onKeyDown = noop,
 }) => {
+  const formatNumber = useFormatNumber();
   const { pointsFontSize, tileFontSize, tileSize } = getTileSizes(size);
   const style = useMemo(() => ({ height: tileSize, width: tileSize }), [tileSize]);
   const inputStyle = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
@@ -56,6 +58,7 @@ const Tile: FunctionComponent<Props> = ({
   const inputRef = useMemo<RefObject<HTMLInputElement>>(() => ref || createRef(), [ref]);
   const isEmpty = !character || character === EMPTY_CELL;
   const canShowPoints = (isBlank || !isEmpty) && typeof points !== 'undefined';
+  const pointsFormatted = typeof points === 'number' ? formatNumber(points) : '';
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
     inputRef.current?.select();
@@ -81,6 +84,7 @@ const Tile: FunctionComponent<Props> = ({
       isBlank={isBlank}
       placeholder={placeholder}
       points={points}
+      pointsFormatted={pointsFormatted}
       pointsStyle={pointsStyle}
       raised={raised}
       style={style}

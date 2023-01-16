@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 
-import { useTranslate } from 'state';
+import { useFormatNumber, useTranslate } from 'state';
 import { TranslationKey } from 'types';
 
 import { useTooltip } from '../Tooltip';
@@ -17,11 +17,13 @@ interface Props {
 
 const Cell: FunctionComponent<Props> = ({ className, translationKey, tooltip, value }) => {
   const translate = useTranslate();
-  const triggerProps = useTooltip(`${translate(translationKey)}: ${tooltip || value}`);
+  const formatNumber = useFormatNumber();
+  const formattedValue = typeof value === 'string' ? value : formatNumber(value);
+  const triggerProps = useTooltip(`${translate(translationKey)}: ${tooltip || formattedValue}`);
 
   return (
     <span className={classNames(styles.cell, className)} {...triggerProps}>
-      {value}
+      {formattedValue}
     </span>
   );
 };

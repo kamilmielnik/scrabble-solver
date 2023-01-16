@@ -105,13 +105,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   &:last-child {
     flex: 1;
   }
-
-  &.stat,
-  &.points {
-    [lang='fa-IR'] & {
-      font-family: 'Open Sans', sans-serif;
-    }
-  }
 }
 
 .word {

@@ -23,6 +23,7 @@ interface Props {
   isBlank?: boolean;
   placeholder?: string;
   points?: number;
+  pointsFormatted?: string;
   pointsStyle?: CSSProperties;
   raised?: boolean;
   style?: CSSProperties;
@@ -44,6 +45,7 @@ const TilePure: FunctionComponent<Props> = ({
   isBlank,
   placeholder,
   points,
+  pointsFormatted,
   pointsStyle,
   raised,
   style,
@@ -85,7 +87,7 @@ const TilePure: FunctionComponent<Props> = ({
 
     {canShowPoints && (
       <span className={styles.points} style={pointsStyle}>
-        {points}
+        {pointsFormatted}
       </span>
     )}
   </div>
