@@ -11,9 +11,9 @@ import {
 } from 'react';
 
 import { getTileSizes, noop } from 'lib';
+import { useFormatNumber } from 'state';
 
 import TilePure from './TilePure';
-import { useFormatNumber } from 'state';
 
 interface Props {
   autoFocus?: boolean;
