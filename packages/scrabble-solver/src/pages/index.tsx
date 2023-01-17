@@ -18,6 +18,7 @@ import {
   Results,
   Settings,
   Splash,
+  SvgFontFix,
   Well,
   Words,
 } from 'components';
@@ -91,6 +92,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
   return (
     <>
+      <SvgFontFix />
+
       <div className={classNames(styles.index, { [styles.initialized]: isInitialized })}>
         <div className={styles.nav}>
           <div className={styles.navLogo}>
