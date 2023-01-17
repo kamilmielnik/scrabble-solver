@@ -4,6 +4,7 @@ interface Props {
   character: string;
   className?: string;
   color: string;
+  fontFamily: string;
   points?: number;
   size: number;
   transform?: string;
@@ -11,13 +12,13 @@ interface Props {
   y: number;
 }
 
-const Tile: FunctionComponent<Props> = ({ character, className, color, points, size, transform, x, y }) => (
+const Tile: FunctionComponent<Props> = ({ character, className, color, fontFamily, points, size, transform, x, y }) => (
   <g className={className} transform={transform}>
     <rect fill={color} height={size} width={size} x={x} y={y} />
 
     <text
       dominantBaseline="central"
-      fontFamily="Open Sans"
+      fontFamily={fontFamily}
       fontSize={0.6 * size}
       fontWeight="bold"
       textAnchor="middle"
@@ -30,7 +31,7 @@ const Tile: FunctionComponent<Props> = ({ character, className, color, points, s
     {typeof points === 'number' && (
       <text
         dominantBaseline="text-after-edge"
-        fontFamily="Open Sans"
+        fontFamily={fontFamily}
         fontSize={0.25 * size}
         fontWeight="bold"
         textAnchor="end"

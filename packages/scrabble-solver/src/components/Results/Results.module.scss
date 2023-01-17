@@ -54,6 +54,10 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
   flex: 0 1 auto;
   text-align: left;
+
+  [dir='rtl'] & {
+    text-align: right;
+  }
 }
 
 .result {
@@ -78,6 +82,10 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   align-items: center;
   justify-content: space-between;
 
+  [dir='rtl'] & {
+    flex-direction: row-reverse;
+  }
+
   .word {
     @include ellipsis;
   }
@@ -88,12 +96,17 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   align-items: center;
   justify-content: center;
   padding: var(--spacing--s);
+  gap: var(--spacing--s);
 
   .result &:first-child,
   .headerButton:first-child & {
     padding-left: $row-padding-horizontal;
     justify-content: flex-start;
     text-align: left;
+
+    [dir='rtl'] & {
+      text-align: right;
+    }
   }
 
   .result &:last-child,
@@ -107,10 +120,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 }
 
 .word {
-  $width: 180px;
-
-  flex: 0 0 $width;
-  max-width: $width;
+  flex: 1 0 180px;
   text-transform: uppercase;
 }
 
@@ -123,7 +133,10 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 }
 
 .points {
-  flex: 1 0 80px;
+  $width: 80px;
+
+  flex: 1 0 $width;
+  max-width: $width;
   font-weight: bold;
 }
 
@@ -143,7 +156,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   flex: 0 0 auto;
   width: $size;
   height: $size;
-  margin-left: var(--spacing--s);
 }
 
 .input {

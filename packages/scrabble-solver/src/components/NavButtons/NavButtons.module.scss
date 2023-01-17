@@ -1,25 +1,26 @@
-$size: 32px;
-
 .navButtons {
   display: flex;
   align-items: center;
+  gap: var(--spacing--l);
+  gap: calc(var(--spacing--l) - var(--spacing--xs));
 }
 
 .button,
 .separator {
-  margin-right: calc(var(--spacing--l) - 2 * var(--spacing--xs));
-
   &:last-child {
     margin-right: 0;
   }
 }
 
+.group {
+  display: flex;
+  gap: var(--spacing--l);
+}
+
 .separator {
-  margin-right: calc(var(--spacing--l) - var(--spacing--xs));
-  margin-left: var(--spacing--xs);
   border-right: var(--border);
   border-color: var(--color--inactive);
-  height: calc(#{$size} - 2 * var(--spacing--xs));
+  height: 32px;
 }
 
 .error {

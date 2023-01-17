@@ -5,39 +5,64 @@ import { RemainingTile, RemainingTilesGroup } from 'types';
 import getRemainingTilesCount from './getRemainingTilesCount';
 import getTotalRemainingTilesCount from './getTotalRemainingTilesCount';
 
-export const getRemainingTilesGroups = (remainingTiles: RemainingTile[]): RemainingTilesGroup[] => {
-  const consonants = remainingTiles.filter(({ character }) => CONSONANTS.includes(character));
-  const vowels = remainingTiles.filter(({ character }) => VOWELS.includes(character));
-  const twoCharacterTiles = remainingTiles.filter(({ character }) => character.length === 2);
-  const blanks = remainingTiles.filter(({ character }) => character === BLANK);
-  const groups: RemainingTilesGroup[] = [
-    {
+const getRemainingTilesGroups = (remainingTiles: RemainingTile[]): RemainingTilesGroup[] => {
+  const consonants = remainingTiles.filter(isConsonant);
+  const vowels = remainingTiles.filter(isVowel);
+  const groups: RemainingTilesGroup[] = [];
+
+  if (consonants.length + vowels.length > 0) {
+    groups.push({
       remainingCount: getRemainingTilesCount(vowels),
       tiles: vowels,
       translationKey: 'common.vowels',
       totalCount: getTotalRemainingTilesCount(vowels),
-    },
-    {
+    });
+
+    groups.push({
       remainingCount: getRemainingTilesCount(consonants),
       tiles: consonants,
       translationKey: 'common.consonants',
       totalCount: getTotalRemainingTilesCount(consonants),
-    },
-    {
-      remainingCount: getRemainingTilesCount(twoCharacterTiles),
-      tiles: twoCharacterTiles,
-      translationKey: 'common.two-letter-tiles',
-      totalCount: getTotalRemainingTilesCount(twoCharacterTiles),
-    },
-    {
-      remainingCount: getRemainingTilesCount(blanks),
-      tiles: blanks,
-      translationKey: 'common.blanks',
-      totalCount: getTotalRemainingTilesCount(blanks),
-    },
-  ];
+    });
+  } else {
+    const tiles = remainingTiles.filter(isLetter);
+
+    groups.push({
+      remainingCount: getRemainingTilesCount(tiles),
+      tiles,
+      translationKey: 'common.tiles',
+      totalCount: getTotalRemainingTilesCount(tiles),
+    });
+  }
+
+  const twoCharacterTiles = remainingTiles.filter(isTwoCharacter);
+  const blanks = remainingTiles.filter(isBlank);
+
+  groups.push({
+    remainingCount: getRemainingTilesCount(twoCharacterTiles),
+    tiles: twoCharacterTiles,
+    translationKey: 'common.two-letter-tiles',
+    totalCount: getTotalRemainingTilesCount(twoCharacterTiles),
+  });
+
+  groups.push({
+    remainingCount: getRemainingTilesCount(blanks),
+    tiles: blanks,
+    translationKey: 'common.blanks',
+    totalCount: getTotalRemainingTilesCount(blanks),
+  });
 
   return groups.filter(({ totalCount }) => totalCount > 0);
 };
+
+const isConsonant = (tile: RemainingTile): boolean => CONSONANTS.includes(tile.character);
+
+const isVowel = (tile: RemainingTile): boolean => VOWELS.includes(tile.character);
+
+const isLetter = (tile: RemainingTile): boolean => !isBlank(tile) && !isTwoCharacter(tile);
+
+const isTwoCharacter = (tile: RemainingTile): boolean => tile.character.length === 2;
+
+const isBlank = (tile: RemainingTile): boolean => tile.character === BLANK;
 
 export default getRemainingTilesGroups;

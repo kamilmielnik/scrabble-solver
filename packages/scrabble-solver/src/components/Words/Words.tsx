@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 
 import { Check, Cross } from 'icons';
-import { selectVerify, useTranslate, useTypedSelector } from 'state';
+import { selectLocale, selectVerify, useTranslate, useTypedSelector } from 'state';
 
 import Badge from '../Badge';
 import Sidebar from '../Sidebar';
@@ -17,6 +17,7 @@ interface Props {
 
 const Words: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
+  const locale = useTypedSelector(selectLocale);
   const { invalidWords, validWords } = useTypedSelector(selectVerify);
 
   return (
@@ -25,7 +26,7 @@ const Words: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
         title={
           <span className={styles.title}>
             <span>{translate('words.invalid')}</span>
-            <Badge className={styles.badge}>{invalidWords.length}</Badge>
+            <Badge className={styles.badge}>{invalidWords.length.toLocaleString(locale)}</Badge>
           </span>
         }
       >
@@ -40,7 +41,7 @@ const Words: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
         title={
           <span className={styles.title}>
             <span>{translate('words.valid')}</span>
-            <Badge className={styles.badge}>{validWords.length}</Badge>
+            <Badge className={styles.badge}>{validWords.length.toLocaleString(locale)}</Badge>
           </span>
         }
       >

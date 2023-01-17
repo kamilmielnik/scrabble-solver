@@ -1,9 +1,11 @@
 import { Comparator } from 'types';
 
+import createStringComparator from './createStringComparator';
 import numberComparator from './numberComparator';
-import stringComparator from './stringComparator';
 
-const createKeyComparator = <T extends Record<keyof T, unknown>>(key: keyof T): Comparator<T> => {
+const createKeyComparator = <T extends Record<keyof T, unknown>>(key: keyof T, locale: string): Comparator<T> => {
+  const stringComparator = createStringComparator(locale);
+
   return (a: T, b: T): number => {
     const aValue = a[key];
     const bValue = b[key];

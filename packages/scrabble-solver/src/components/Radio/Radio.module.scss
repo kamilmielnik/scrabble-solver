@@ -10,6 +10,7 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
 
   display: flex;
   align-items: center;
+  gap: var(--spacing--l);
   padding: var(--spacing--m);
   transition: var(--transition);
   cursor: pointer;
@@ -65,5 +66,4 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
 
 .content {
   flex: 1;
-  margin-left: var(--spacing--l);
 }

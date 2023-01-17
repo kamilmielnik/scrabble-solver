@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import { FunctionComponent, useMemo } from 'react';
 
-import { useTranslate } from 'state';
+import { LOCALE_FEATURES } from 'i18n';
+import { selectLocale, useTranslate, useTypedSelector } from 'state';
 
 import PlainTiles from '../PlainTiles';
 
@@ -13,9 +14,19 @@ interface Props {
   wave?: boolean;
 }
 
+const prepareContent = (message: string): string[][] => {
+  const uppercased = message.toLocaleUpperCase();
+  const parts = uppercased.split(' ');
+  return [parts];
+};
+
 const Loading: FunctionComponent<Props> = ({ className, wave = true }) => {
   const translate = useTranslate();
-  const content = useMemo<string[][]>(() => [[translate('common.loading').toUpperCase()]], [translate]);
+  const locale = useTypedSelector(selectLocale);
+  const { direction } = LOCALE_FEATURES[locale];
+  const translation = translate('common.loading');
+  const message = direction === 'ltr' ? translation : translation.split('').reverse().join('');
+  const content = useMemo(() => prepareContent(message), [message]);
 
   return (
     <div className={classNames(styles.loading, className)}>

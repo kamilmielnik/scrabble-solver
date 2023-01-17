@@ -1,7 +1,7 @@
 import { Locale } from '@scrabble-solver/types';
 import { FunctionComponent, SVGAttributes } from 'react';
 
-import { FlagEs, FlagFr, FlagGb, FlagPl, FlagUs, FlagDe } from 'icons';
+import { FlagEs, FlagFa, FlagFr, FlagGb, FlagPl, FlagUs, FlagDe } from 'icons';
 
 import styles from './LocaleSetting.module.scss';
 
@@ -24,6 +24,12 @@ const options: Option[] = [
     Icon: FlagUs,
     label: 'English (US)',
     value: Locale.EN_US,
+  },
+  {
+    className: styles.fa,
+    Icon: FlagFa,
+    label: 'فارسی',
+    value: Locale.FA_IR,
   },
   {
     className: styles.fr,

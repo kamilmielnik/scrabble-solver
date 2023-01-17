@@ -39,7 +39,7 @@ const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
           value={option.value}
           onChange={handleChange}
         >
-          <span className={styles.label}>
+          <span className={classNames(styles.label, option.className)}>
             <Icon className={classNames(styles.flag, option.className)} />
 
             <span>{option.label}</span>

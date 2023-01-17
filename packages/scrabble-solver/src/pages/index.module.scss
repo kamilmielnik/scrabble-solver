@@ -58,6 +58,11 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+  gap: var(--spacing--xl);
+
+  @include tablet {
+    gap: var(--spacing--l);
+  }
 }
 
 .boardContainer {
@@ -68,27 +73,11 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  padding-left: var(--spacing--xl);
   flex: 0 0 var(--sidebar--width);
-
-  > * {
-    margin-bottom: var(--spacing--xl);
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
+  gap: var(--spacing--xl);
 
   @include tablet {
-    padding-left: var(--spacing--l);
-
-    > * {
-      margin-bottom: var(--spacing--l);
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
+    gap: var(--spacing--l);
   }
 }
 

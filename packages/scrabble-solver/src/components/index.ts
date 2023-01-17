@@ -23,6 +23,7 @@ export { default as Sidebar } from './Sidebar';
 export { default as Splash } from './Splash';
 export { default as SquareButton } from './SquareButton';
 export { default as SvgFontCss } from './SvgFontCss';
+export { default as SvgFontFix } from './SvgFontFix';
 export { default as Tile } from './Tile';
 export { useTooltip } from './Tooltip';
 export { default as Well } from './Well';

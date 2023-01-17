@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 import { FunctionComponent, ReactNode, useMemo } from 'react';
 
+import { LOCALE_FEATURES } from 'i18n';
 import { COLOR_BLUE, COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from 'parameters';
-import { useTranslate } from 'state';
+import { selectLocale, useTranslate, useTypedSelector } from 'state';
 import { Translations } from 'types';
 
 import PlainTiles from '../PlainTiles';
@@ -31,8 +32,11 @@ const COLORS_PER_TYPE: Record<Props['type'], string> = {
 
 const EmptyState: FunctionComponent<Props> = ({ className, children, type }) => {
   const translate = useTranslate();
+  const locale = useTypedSelector(selectLocale);
+  const { direction } = LOCALE_FEATURES[locale];
   const title = useMemo(() => translate(TITLE_KEY_PER_TYPE[type]), [translate]);
-  const content = useMemo(() => [[title.toUpperCase()]], [title]);
+  const message = direction === 'ltr' ? title : title.split('').reverse().join('');
+  const content = useMemo(() => [[message.toUpperCase()]], [title]);
 
   return (
     <div className={classNames(styles.emptyState, className)}>

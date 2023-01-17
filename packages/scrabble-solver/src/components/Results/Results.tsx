@@ -2,10 +2,12 @@ import classNames from 'classnames';
 import { FunctionComponent, useLayoutEffect, useRef } from 'react';
 import { FixedSizeList } from 'react-window';
 
+import { LOCALE_FEATURES } from 'i18n';
 import { RESULTS_HEADER_HEIGHT, RESULTS_INPUT_HEIGHT, RESULTS_ITEM_HEIGHT } from 'parameters';
 import {
   selectAreResultsOutdated,
   selectIsLoading,
+  selectLocale,
   selectSolveError,
   selectSortedFilteredResults,
   selectSortedResults,
@@ -17,7 +19,7 @@ import EmptyState from '../EmptyState';
 import Loading from '../Loading';
 import ResultsInput from '../ResultsInput';
 
-import { COLUMNS } from './constants';
+import getColumns from './getColumns';
 import HeaderButton from './HeaderButton';
 import Result from './Result';
 import styles from './Results.module.scss';
@@ -29,6 +31,7 @@ interface Props {
 }
 
 const Results: FunctionComponent<Props> = ({ height, width }) => {
+  const locale = useTypedSelector(selectLocale);
   const translate = useTranslate();
   const allResults = useTypedSelector(selectSortedResults);
   const results = useTypedSelector(selectSortedFilteredResults);
@@ -36,6 +39,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const error = useTypedSelector(selectSolveError);
   const listRef = useRef<HTMLElement>();
+  const columns = getColumns(LOCALE_FEATURES[locale]);
 
   useLayoutEffect(() => {
     if (listRef.current) {
@@ -46,7 +50,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
   return (
     <div className={styles.results}>
       <div className={styles.header}>
-        {COLUMNS.map((column) => (
+        {columns.map((column) => (
           <HeaderButton column={column} key={column.id} />
         ))}
       </div>

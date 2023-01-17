@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Open+Sans:wght@400;700&family=Roboto+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Open+Sans:wght@400;700&family=Vazirmatn:wght@300;400;700&family=Roboto+Mono&display=swap');
 
 @import '~normalize.css';
 
@@ -50,4 +50,9 @@ h4 {
   -webkit-margin-before: 0;
   -webkit-margin-after: 0;
   margin: 0;
+}
+
+[lang='fa-IR'] {
+  --font--family: 'Vazirmatn', 'Open Sans', sans-serif;
+  --font--family--title: 'Vazirmatn', 'Lato', sans-serif;
 }

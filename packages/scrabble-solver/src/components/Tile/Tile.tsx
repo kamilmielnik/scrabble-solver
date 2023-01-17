@@ -11,6 +11,7 @@ import {
 } from 'react';
 
 import { getTileSizes, noop } from 'lib';
+import { selectLocale, useTypedSelector } from 'state';
 
 import TilePure from './TilePure';
 
@@ -49,6 +50,7 @@ const Tile: FunctionComponent<Props> = ({
   onFocus = noop,
   onKeyDown = noop,
 }) => {
+  const locale = useTypedSelector(selectLocale);
   const { pointsFontSize, tileFontSize, tileSize } = getTileSizes(size);
   const style = useMemo(() => ({ height: tileSize, width: tileSize }), [tileSize]);
   const inputStyle = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
@@ -56,6 +58,7 @@ const Tile: FunctionComponent<Props> = ({
   const inputRef = useMemo<RefObject<HTMLInputElement>>(() => ref || createRef(), [ref]);
   const isEmpty = !character || character === EMPTY_CELL;
   const canShowPoints = (isBlank || !isEmpty) && typeof points !== 'undefined';
+  const pointsFormatted = typeof points === 'number' ? points.toLocaleString(locale) : '';
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
     inputRef.current?.select();
@@ -81,6 +84,7 @@ const Tile: FunctionComponent<Props> = ({
       isBlank={isBlank}
       placeholder={placeholder}
       points={points}
+      pointsFormatted={pointsFormatted}
       pointsStyle={pointsStyle}
       raised={raised}
       style={style}

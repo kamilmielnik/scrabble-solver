@@ -18,13 +18,18 @@
 .label {
   display: flex;
   align-items: center;
+  gap: var(--spacing--l);
+  font-family: 'Open Sans', sans-serif;
+
+  &.fa {
+    font-family: 'Vazirmatn', 'Open Sans', sans-serif;
+  }
 }
 
 .flag {
   $height: 32px;
 
   height: $height;
-  margin-right: var(--spacing--l);
   box-shadow: var(--box-shadow--null);
   transition: var(--transition);
 
@@ -36,6 +41,12 @@
 
   &.fr {
     $aspect-ratio: 1.6;
+
+    width: $height * $aspect-ratio;
+  }
+
+  &.fa {
+    $aspect-ratio: 1.75;
 
     width: $height * $aspect-ratio;
   }
