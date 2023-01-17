@@ -16,7 +16,7 @@ const getPlPlWordList = async (): Promise<string[]> => {
   fs.unlinkSync(zipTempFilename);
   const file = fs.readFileSync(tempFilepath, 'utf-8');
   fs.unlinkSync(tempFilepath);
-  const words = extractWords(file.toLocaleString());
+  const words = extractWords(file.toLocaleString(), 'pl-PL');
   return words;
 };
 

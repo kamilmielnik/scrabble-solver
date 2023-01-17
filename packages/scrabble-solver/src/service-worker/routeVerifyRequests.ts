@@ -22,7 +22,7 @@ const routeVerifyRequests = () => {
       }
 
       const board = Board.fromJson(boardJson);
-      const words = board.getWords().sort((a, b) => a.localeCompare(b));
+      const words = board.getWords().sort((a, b) => a.localeCompare(b, locale));
       const invalidWords = words.filter((word) => !trie.has(word));
       const validWords = words.filter((word) => trie.has(word));
       const json = JSON.stringify({ invalidWords, validWords });

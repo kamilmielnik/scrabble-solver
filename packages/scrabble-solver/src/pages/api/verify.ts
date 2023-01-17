@@ -30,7 +30,7 @@ const verify = async (request: NextApiRequest, response: NextApiResponse): Promi
     });
 
     const trie = await dictionaries.get(locale);
-    const words = board.getWords().sort((a, b) => a.localeCompare(b));
+    const words = board.getWords().sort((a, b) => a.localeCompare(b, locale));
     const invalidWords = words.filter((word) => !trie.has(word));
     const validWords = words.filter((word) => trie.has(word));
     response.status(200).send({ invalidWords, validWords });
