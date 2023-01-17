@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 
-import { selectRemainingTilesGroups, useFormatNumber, useTranslate, useTypedSelector } from 'state';
+import { selectLocale, selectRemainingTilesGroups, useTranslate, useTypedSelector } from 'state';
 
 import Badge from '../Badge';
 import Sidebar from '../Sidebar';
@@ -16,7 +16,7 @@ interface Props {
 
 const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
-  const formatNumber = useFormatNumber();
+  const locale = useTypedSelector(selectLocale);
   const groups = useTypedSelector(selectRemainingTilesGroups);
 
   return (
@@ -28,7 +28,7 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }
             <span className={styles.title}>
               <span>{translate(translationKey)}</span>
               <Badge className={styles.badge}>
-                {formatNumber(remainingCount)} / {formatNumber(totalCount)}
+                {remainingCount.toLocaleString(locale)} / {totalCount.toLocaleString(locale)}
               </Badge>
             </span>
           }

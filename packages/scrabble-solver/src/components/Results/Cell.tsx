@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 
-import { useFormatNumber, useTranslate } from 'state';
+import { selectLocale, useTranslate, useTypedSelector } from 'state';
 import { TranslationKey } from 'types';
 
 import { useTooltip } from '../Tooltip';
@@ -17,8 +17,8 @@ interface Props {
 
 const Cell: FunctionComponent<Props> = ({ className, translationKey, tooltip, value }) => {
   const translate = useTranslate();
-  const formatNumber = useFormatNumber();
-  const formattedValue = typeof value === 'string' ? value : formatNumber(value);
+  const locale = useTypedSelector(selectLocale);
+  const formattedValue = value.toLocaleString(locale);
   const triggerProps = useTooltip(`${translate(translationKey)}: ${tooltip || formattedValue}`);
 
   return (
