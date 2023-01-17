@@ -23,7 +23,7 @@ const getStats = (event, lines, since) => {
 
   const filteredDays = Object.fromEntries(
     Object.entries(days).filter(([key]) => {
-      return key.localeCompare(since) !== -1;
+      return key.localeCompare(since) >= 0;
     }),
   );
 
