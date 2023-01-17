@@ -48,7 +48,14 @@
 
 .definitions {
   margin: 0;
-  padding-left: var(--spacing--l);
+
+  [dir='ltr'] & {
+    padding-left: var(--spacing--l);
+  }
+
+  [dir='rtl'] & {
+    padding-right: var(--spacing--l);
+  }
 }
 
 .definition {

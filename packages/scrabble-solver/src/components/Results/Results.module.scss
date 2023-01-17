@@ -100,18 +100,28 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
   .result &:first-child,
   .headerButton:first-child & {
-    padding-left: $row-padding-horizontal;
     justify-content: flex-start;
-    text-align: left;
+
+    [dir='ltr'] & {
+      padding-left: $row-padding-horizontal;
+      text-align: left;
+    }
 
     [dir='rtl'] & {
+      padding-right: $row-padding-horizontal;
       text-align: right;
     }
   }
 
   .result &:last-child,
   .headerButton:last-child & {
-    padding-right: $row-padding-horizontal;
+    [dir='ltr'] & {
+      padding-right: $row-padding-horizontal;
+    }
+
+    [dir='rtl'] & {
+      padding-left: $row-padding-horizontal;
+    }
   }
 
   &:last-child {
