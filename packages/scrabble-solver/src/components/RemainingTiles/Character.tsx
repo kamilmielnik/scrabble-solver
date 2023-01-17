@@ -2,6 +2,7 @@ import { BLANK } from '@scrabble-solver/constants';
 import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 
+import { LOCALE_FEATURES } from 'i18n';
 import { REMAINING_TILES_TILE_SIZE } from 'parameters';
 import { selectCharacterPoints, selectLocale, useTypedSelector } from 'state';
 import { RemainingTile } from 'types';
@@ -16,9 +17,12 @@ interface Props {
 
 const Character: FunctionComponent<Props> = ({ tile }) => {
   const locale = useTypedSelector(selectLocale);
+  const { direction } = LOCALE_FEATURES[locale];
   const { character, count, usedCount } = tile;
   const remainingCount = count - usedCount;
   const points = useTypedSelector((state) => selectCharacterPoints(state, character));
+  const current = direction === 'ltr' ? remainingCount : count;
+  const total = direction === 'ltr' ? count : remainingCount;
 
   return (
     <div
@@ -38,7 +42,7 @@ const Character: FunctionComponent<Props> = ({ tile }) => {
         size={REMAINING_TILES_TILE_SIZE}
       />
       <div className={styles.count}>
-        {remainingCount.toLocaleString(locale)} / {count.toLocaleString(locale)}
+        {current.toLocaleString(locale)} / {total.toLocaleString(locale)}
       </div>
     </div>
   );
