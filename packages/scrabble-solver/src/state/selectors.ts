@@ -63,7 +63,7 @@ export const selectResultsSortColumn = createSelector([selectResultsRoot], (resu
 export const selectResultsSortDirection = createSelector([selectResultsRoot], (results) => results.sort.direction);
 
 export const selectSortedResults = createSelector(
-  [selectResults, selectResultsSortColumn, selectResultsSortDirection],
+  [selectResults, selectResultsSortColumn, selectResultsSortDirection, selectLocale],
   sortResults,
 );
 
@@ -167,9 +167,9 @@ export const selectSolveError = createSelector([selectSolveRoot], (solve) => {
 });
 
 export const selectHaveCharactersChanged = createSelector(
-  [selectLastSolvedParameters, selectCharacters],
-  (lastSolvedParameters, characters) => {
-    return !unorderedArraysEqual(lastSolvedParameters.characters, characters);
+  [selectLastSolvedParameters, selectCharacters, selectLocale],
+  (lastSolvedParameters, characters, locale) => {
+    return !unorderedArraysEqual(lastSolvedParameters.characters, characters, locale);
   },
 );
 
@@ -184,7 +184,7 @@ export const selectAreResultsOutdated = createSelector(
 );
 
 export const selectRemainingTiles = createSelector(
-  [selectConfig, selectBoardRoot, selectCharacters],
+  [selectConfig, selectBoardRoot, selectCharacters, selectLocale],
   getRemainingTiles,
 );
 

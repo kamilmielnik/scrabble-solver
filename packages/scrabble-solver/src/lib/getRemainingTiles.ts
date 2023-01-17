@@ -5,7 +5,7 @@ import { RemainingTile } from 'types';
 
 import createKeyComparator from './createKeyComparator';
 
-const getRemainingTiles = (config: Config, board: Board, characters: string[]): RemainingTile[] => {
+const getRemainingTiles = (config: Config, board: Board, characters: string[], locale: string): RemainingTile[] => {
   const nonEmptyCells = board.rows.flat().filter((cell) => !cell.isEmpty);
   const letterCells = nonEmptyCells.filter((cell) => !cell.tile.isBlank);
   const remainingTiles = Object.fromEntries(config.tiles.map((tile) => [tile.character, { ...tile, usedCount: 0 }]));
@@ -36,7 +36,9 @@ const getRemainingTiles = (config: Config, board: Board, characters: string[]): 
     ++remainingTiles[letter].usedCount;
   }
 
-  return [...Object.values(remainingTiles).sort(createKeyComparator('character')), blank];
+  const comparator = createKeyComparator('character', locale);
+
+  return [...Object.values(remainingTiles).sort(comparator), blank];
 };
 
 export default getRemainingTiles;
