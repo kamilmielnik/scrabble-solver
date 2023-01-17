@@ -34,8 +34,6 @@ class Result {
 
   public readonly tiles: Tile[];
 
-  public readonly tilesCharacters: string;
-
   public readonly tilesCount: number;
 
   public readonly vowelsCount: number;
@@ -67,7 +65,6 @@ class Result {
     this.points = points;
     this.pointsRatio = getPointsRatio(tiles, points);
     this.tiles = tiles;
-    this.tilesCharacters = getTilesCharacters(tiles);
     this.tilesCount = tiles.length;
     this.vowelsCount = getVowels(tiles).length;
     this.word = getWord(cells);
@@ -85,23 +82,15 @@ class Result {
   }
 }
 
-const charactersComparator = (a: string, b: string): number => a.localeCompare(b);
-
 const getBlanks = (tiles: Tile[]): Tile[] => tiles.filter(({ isBlank }) => isBlank);
 
 const getConsonants = (tiles: Tile[]): Tile[] => tiles.filter(isConsonant);
 
 const getVowels = (tiles: Tile[]): Tile[] => tiles.filter(isVowel);
 
-const getNonBlankCharacters = (tiles: Tile[]): string[] => getNonBlanks(tiles).map(({ character }) => character);
-
-const getNonBlanks = (tiles: Tile[]): Tile[] => tiles.filter(({ isBlank }) => !isBlank);
-
 const getPointsRatio = (tiles: Tile[], points: number): number => points / tiles.length;
 
 const getTiles = (cells: Cell[]): Tile[] => cells.filter(({ isEmpty }) => isEmpty).map(({ tile }) => tile);
-
-const getTilesCharacters = (tiles: Tile[]): string => getNonBlankCharacters(tiles).sort(charactersComparator).join('');
 
 // eslint-disable-next-line prefer-template
 const getWord = (cells: Cell[]): string => cells.reduce((word, cell) => word + cell.toString(), '');
