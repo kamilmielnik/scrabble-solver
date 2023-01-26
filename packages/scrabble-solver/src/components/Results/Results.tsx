@@ -61,7 +61,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
         </EmptyState>
       )}
 
-      {typeof results === 'undefined' && typeof error === 'undefined' && (
+      {typeof error === 'undefined' && typeof results === 'undefined' && (
         <EmptyState className={styles.emptyState} type="info">
           {translate('results.empty-state.uninitialized')}
 
@@ -69,7 +69,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
         </EmptyState>
       )}
 
-      {typeof results !== 'undefined' && typeof allResults !== 'undefined' && typeof error === 'undefined' && (
+      {typeof error === 'undefined' && typeof results !== 'undefined' && typeof allResults !== 'undefined' && (
         <>
           {isOutdated && (
             <EmptyState className={styles.emptyState} type="info">

@@ -74,8 +74,15 @@ function* onApplyResult({ payload: result }: PayloadAction<Result>): AnyGenerato
 }
 
 function* onConfigIdChange(): AnyGenerator {
+  const characters = yield select(selectCharacters);
+
+  if (characters.length > 0) {
+    yield put(solveSlice.actions.submit());
+  } else {
+    yield put(resultsSlice.actions.reset());
+  }
+
   yield put(resultsSlice.actions.reset());
-  yield put(solveSlice.actions.submit());
   yield put(verifySlice.actions.submit());
   yield* ensureProperTilesCount();
 }
@@ -112,9 +119,16 @@ function* onReset(): AnyGenerator {
 }
 
 function* onLocaleChange(): AnyGenerator {
+  const characters = yield select(selectCharacters);
+
+  if (characters.length > 0) {
+    yield put(solveSlice.actions.submit());
+  } else {
+    yield put(resultsSlice.actions.reset());
+  }
+
   yield put(dictionarySlice.actions.reset());
   yield put(resultsSlice.actions.changeResultCandidate(null));
-  yield put(solveSlice.actions.submit());
   yield put(verifySlice.actions.submit());
 }
 
