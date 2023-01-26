@@ -10,7 +10,8 @@ const parseEnglish = (html: string): ParseResult => {
   const $ = load(html);
   $('strong.mw_t_bc').replaceWith(', ');
   $('.text-lowercase').remove();
-  $('[id^=dictionary-entry]').find('.dtText > *:not(a)').remove();
+  $('.sub-content-thread').remove();
+
   const $definitions = $('[id^=dictionary-entry]').find('.dtText, .cxl-ref');
 
   return {
