@@ -94,7 +94,7 @@ const Rack: FunctionComponent<Props> = ({ className }) => {
         }
 
         event.preventDefault();
-        dispatch(rackSlice.actions.changeCharacters({ characters: [''], index }));
+        dispatch(rackSlice.actions.changeCharacters({ characters: [null], index }));
         changeActiveIndex(1);
       },
       onKeyDown: (event) => {
