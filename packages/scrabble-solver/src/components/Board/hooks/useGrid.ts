@@ -17,8 +17,9 @@ import { useDispatch } from 'react-redux';
 import { useLatest } from 'react-use';
 import { AnyAction } from 'redux';
 
+import { LOCALE_FEATURES } from 'i18n';
 import { createGridOf, createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
-import { boardSlice, selectConfig, useTypedSelector } from 'state';
+import { boardSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
 import { Direction } from 'types';
 
 import { getPositionInGrid } from '../lib';
@@ -44,6 +45,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   const width = rows[0].length;
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
+  const locale = useTypedSelector(selectLocale);
   const refs = useMemo(
     () => createGridOf<RefObject<HTMLInputElement>>(width, height, () => createRef()),
     [width, height],
@@ -235,8 +237,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         if (isCtrl(event)) {
           onDirectionToggle();
         } else {
-          const isRtl = document.body.parentElement?.dir === 'rtl';
-          changeActiveIndex(isRtl ? 1 : -1, 0);
+          changeActiveIndex(LOCALE_FEATURES[locale].direction === 'ltr' ? -1 : 1, 0);
         }
       },
       onArrowRight: (event) => {
@@ -245,8 +246,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         if (isCtrl(event)) {
           onDirectionToggle();
         } else {
-          const isRtl = document.body.parentElement?.dir === 'rtl';
-          changeActiveIndex(isRtl ? -1 : 1, 0);
+          changeActiveIndex(LOCALE_FEATURES[locale].direction === 'ltr' ? 1 : -1, 0);
         }
       },
       onArrowUp: (event) => {
@@ -333,7 +333,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         dispatch(boardSlice.actions.toggleCellIsBlank(position));
       },
     });
-  }, [changeActiveIndex, config, dispatch, onDirectionToggle, rows]);
+  }, [changeActiveIndex, config, dispatch, locale, onDirectionToggle, rows]);
 
   const onPaste = useCallback<ClipboardEventHandler>(
     (event) => {
