@@ -40,7 +40,7 @@
   "results.empty-state.no-filtered-results": "Aucun résultat ne correspond à cette requête",
   "results.empty-state.no-results": "Pas de résultats - impossible de générer des mots.",
   "results.empty-state.outdated": "Les résultats sont dépassé. Cliquer ci-dessous pour mettre à jour.",
-  "results.empty-state.uninitialized": "Words generated from your letters will be shown here.",
+  "results.empty-state.uninitialized": "Les mots générés à partir de vos lettres seront affichés ici.",
   "results.input.placeholder": "Rechercher les résultats... (RegExp)",
   "results.solve": "Résoudre",
   "settings": "Options",
