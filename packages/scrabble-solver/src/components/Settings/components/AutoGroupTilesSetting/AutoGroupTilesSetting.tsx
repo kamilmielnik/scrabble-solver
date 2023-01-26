@@ -17,7 +17,7 @@ interface Props {
 const AutoGroupTilesSetting: FunctionComponent<Props> = ({ className, disabled }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
-  const configId = useTypedSelector(selectAutoGroupTiles);
+  const value = useTypedSelector(selectAutoGroupTiles);
 
   const options = [
     {
@@ -43,7 +43,7 @@ const AutoGroupTilesSetting: FunctionComponent<Props> = ({ className, disabled }
     <div className={className}>
       {options.map((option) => (
         <Radio
-          checked={configId === parseValue(option.value)}
+          checked={value === parseValue(option.value)}
           className={styles.option}
           disabled={disabled}
           id="autoGroupTiles"

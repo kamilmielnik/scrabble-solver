@@ -7,13 +7,13 @@ import { findWordDefinitions, solve, verify, visit } from 'sdk';
 
 import { initialize, reset } from './actions';
 import {
-  selectAutoGroupTiles,
   selectBoard,
   selectCellIsFiltered,
   selectCharacters,
   selectConfig,
   selectDictionary,
   selectLocale,
+  selectLocaleAutoGroupTiles,
 } from './selectors';
 import {
   boardSlice,
@@ -65,7 +65,7 @@ function* onRackValueChange(): AnyGenerator {
 }
 
 function* onApplyResult({ payload: result }: PayloadAction<Result>): AnyGenerator {
-  const autoGroupTiles = yield select(selectAutoGroupTiles);
+  const autoGroupTiles = yield select(selectLocaleAutoGroupTiles);
   yield put(boardSlice.actions.applyResult(result));
   yield put(cellFilterSlice.actions.reset());
   yield put(rackSlice.actions.removeTiles(result.tiles));
@@ -181,7 +181,7 @@ function* ensureProperTilesCount(): AnyGenerator {
   } else if (config.maximumCharactersCount < characters.length) {
     const nonNulls = characters.filter(Boolean).slice(0, config.maximumCharactersCount);
     const differenceCount = Math.abs(config.maximumCharactersCount - nonNulls.length);
-    const autoGroupTiles = yield select(selectAutoGroupTiles);
+    const autoGroupTiles = yield select(selectLocaleAutoGroupTiles);
     yield put(rackSlice.actions.init([...nonNulls, ...Array(differenceCount).fill(null)]));
     yield put(rackSlice.actions.groupTiles(autoGroupTiles));
   }

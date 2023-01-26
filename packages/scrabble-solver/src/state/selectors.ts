@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { getLocaleConfig } from '@scrabble-solver/configs';
 import { Cell, Config, isError, Result, Tile } from '@scrabble-solver/types';
 
-import i18n from 'i18n';
+import i18n, { LOCALE_FEATURES } from 'i18n';
 import { findCell, getRemainingTiles, getRemainingTilesGroups, sortResults, unorderedArraysEqual } from 'lib';
 import { Translations } from 'types';
 
@@ -38,9 +38,17 @@ export const selectDictionaryError = createSelector([selectDictionaryRoot], (dic
   return isError(dictionary.error) ? dictionary.error : undefined;
 });
 
+export const selectLocale = createSelector([selectSettingsRoot], (settings) => settings.locale);
+
 export const selectAutoGroupTiles = createSelector([selectSettingsRoot], (settings) => settings.autoGroupTiles);
 
-export const selectLocale = createSelector([selectSettingsRoot], (settings) => settings.locale);
+export const selectLocaleAutoGroupTiles = createSelector([selectLocale, selectSettingsRoot], (locale, settings) => {
+  if (LOCALE_FEATURES[locale].direction === 'ltr' || settings.autoGroupTiles === null) {
+    return settings.autoGroupTiles;
+  }
+
+  return settings.autoGroupTiles === 'left' ? 'right' : 'left';
+});
 
 export const selectBoard = selectBoardRoot;
 
