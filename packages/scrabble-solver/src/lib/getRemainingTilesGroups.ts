@@ -8,32 +8,29 @@ import getTotalRemainingTilesCount from './getTotalRemainingTilesCount';
 const getRemainingTilesGroups = (remainingTiles: RemainingTile[]): RemainingTilesGroup[] => {
   const consonants = remainingTiles.filter(isConsonant);
   const vowels = remainingTiles.filter(isVowel);
+  const other = remainingTiles.filter(isOther);
   const groups: RemainingTilesGroup[] = [];
 
-  if (consonants.length + vowels.length > 0) {
-    groups.push({
-      remainingCount: getRemainingTilesCount(vowels),
-      tiles: vowels,
-      translationKey: 'common.vowels',
-      totalCount: getTotalRemainingTilesCount(vowels),
-    });
+  groups.push({
+    remainingCount: getRemainingTilesCount(vowels),
+    tiles: vowels,
+    translationKey: 'common.vowels',
+    totalCount: getTotalRemainingTilesCount(vowels),
+  });
 
-    groups.push({
-      remainingCount: getRemainingTilesCount(consonants),
-      tiles: consonants,
-      translationKey: 'common.consonants',
-      totalCount: getTotalRemainingTilesCount(consonants),
-    });
-  } else {
-    const tiles = remainingTiles.filter(isLetter);
+  groups.push({
+    remainingCount: getRemainingTilesCount(consonants),
+    tiles: consonants,
+    translationKey: 'common.consonants',
+    totalCount: getTotalRemainingTilesCount(consonants),
+  });
 
-    groups.push({
-      remainingCount: getRemainingTilesCount(tiles),
-      tiles,
-      translationKey: 'common.tiles',
-      totalCount: getTotalRemainingTilesCount(tiles),
-    });
-  }
+  groups.push({
+    remainingCount: getRemainingTilesCount(other),
+    tiles: other,
+    translationKey: 'common.tiles',
+    totalCount: getTotalRemainingTilesCount(other),
+  });
 
   const twoCharacterTiles = remainingTiles.filter(isTwoCharacter);
   const blanks = remainingTiles.filter(isBlank);
@@ -59,10 +56,11 @@ const isConsonant = (tile: RemainingTile): boolean => CONSONANTS.includes(tile.c
 
 const isVowel = (tile: RemainingTile): boolean => VOWELS.includes(tile.character);
 
-const isLetter = (tile: RemainingTile): boolean => !isBlank(tile) && !isTwoCharacter(tile);
-
 const isTwoCharacter = (tile: RemainingTile): boolean => tile.character.length === 2;
 
 const isBlank = (tile: RemainingTile): boolean => tile.character === BLANK;
+
+const isOther = (tile: RemainingTile) =>
+  !isConsonant(tile) && !isVowel(tile) && !isBlank(tile) && !isTwoCharacter(tile);
 
 export default getRemainingTilesGroups;

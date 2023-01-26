@@ -23,6 +23,7 @@ export const CONSONANTS = [
   'm',
   'n',
   'ń',
+  'ñ',
   'p',
   'q',
   'r',
