@@ -86,6 +86,17 @@ const Rack: FunctionComponent<Props> = ({ className }) => {
         event.preventDefault();
         changeActiveIndex(-1);
       },
+      onDelete: (event) => {
+        const index = activeIndexRef.current;
+
+        if (typeof index === 'undefined') {
+          return;
+        }
+
+        event.preventDefault();
+        dispatch(rackSlice.actions.changeCharacters({ characters: [''], index }));
+        changeActiveIndex(1);
+      },
       onKeyDown: (event) => {
         if (isCtrl(event) && config.isTwoCharacterTilePrefix(event.key)) {
           changeActiveIndex(1);
