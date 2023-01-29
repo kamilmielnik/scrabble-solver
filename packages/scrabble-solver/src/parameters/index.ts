@@ -1,5 +1,7 @@
 export const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';
 
+export const INITIALIZATION_DURATION = 100;
+
 export const TRANSITION_DURATION = 100;
 export const TRANSITION_DURATION_LONG = 250;
 
