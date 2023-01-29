@@ -20,6 +20,7 @@ export { default as ResultsInput } from './ResultsInput';
 export { default as Screen } from './Screen';
 export { default as Settings } from './Settings';
 export { default as Sidebar } from './Sidebar';
+export { default as Solver } from './Solver';
 export { default as Splash } from './Splash';
 export { default as SquareButton } from './SquareButton';
 export { default as SvgFontCss } from './SvgFontCss';

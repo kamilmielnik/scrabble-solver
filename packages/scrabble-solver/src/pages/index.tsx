@@ -1,33 +1,17 @@
 import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
-import { AnimationEvent, FormEvent, FunctionComponent, useEffect, useState } from 'react';
+import { AnimationEvent, FunctionComponent, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
-import { useEffectOnce, useMeasure } from 'react-use';
+import { useEffectOnce } from 'react-use';
 
-import {
-  Board,
-  Dictionary,
-  DictionaryInput,
-  KeyMap,
-  Logo,
-  NavButtons,
-  Rack,
-  RemainingTiles,
-  Results,
-  Settings,
-  Splash,
-  SvgFontFix,
-  Well,
-  Words,
-} from 'components';
-import { useDirection, useIsTablet, useLanguage, useLocalStorage } from 'hooks';
+import { KeyMap, Logo, NavButtons, RemainingTiles, Settings, Solver, Splash, SvgFontFix, Words } from 'components';
+import { useDirection, useLanguage, useLocalStorage } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
-import { getCellSize } from 'lib';
-import { COMPONENTS_SPACING, COMPONENTS_SPACING_MOBILE, DICTIONARY_HEIGHT, INITIALIZATION_DURATION } from 'parameters';
+import { INITIALIZATION_DURATION } from 'parameters';
 import { registerServiceWorker } from 'serviceWorkerManager';
-import { initialize, localStorage, reset, selectConfig, selectLocale, solveSlice, useTypedSelector } from 'state';
+import { initialize, localStorage, reset, selectLocale, useTypedSelector } from 'state';
 
 import styles from './index.module.scss';
 
@@ -39,30 +23,15 @@ interface Props {
 
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
-  const isTablet = useIsTablet();
   const locale = useTypedSelector(selectLocale);
-  const { direction } = LOCALE_FEATURES[locale];
   const [showKeyMap, setShowKeyMap] = useState(false);
   const [showRemainingTiles, setShowRemainingTiles] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showWords, setShowWords] = useState(false);
-  const [boardRef, { height: boardHeight }] = useMeasure<HTMLDivElement>();
-  const [contentRef, { height: contentHeight, width: contentWidth }] = useMeasure<HTMLDivElement>();
-  const [resultsContainerRef, { height: resultsContainerHeight, width: resultsContainerWidth }] =
-    useMeasure<HTMLDivElement>();
-  const config = useTypedSelector(selectConfig);
-  const cellSize = getCellSize(config, contentWidth - resultsContainerWidth, contentHeight);
-  const isInitializedInitial = contentWidth > 0 && boardHeight > 0 && resultsContainerWidth > 0;
-  const [isInitialized, setIsInitialized] = useState(isInitializedInitial);
-  const resultsHeight = boardHeight - DICTIONARY_HEIGHT - (isTablet ? COMPONENTS_SPACING_MOBILE : COMPONENTS_SPACING);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const handleClear = () => {
     dispatch(reset());
-  };
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    dispatch(solveSlice.actions.submit());
   };
 
   const handleSplashAnimationEnd = (event: AnimationEvent<HTMLDivElement>) => {
@@ -72,7 +41,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     }
   };
 
-  useDirection(direction);
+  useDirection(LOCALE_FEATURES[locale].direction);
   useLanguage(locale);
   useLocalStorage();
 
@@ -111,44 +80,13 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           />
         </div>
 
-        <div className={styles.contentWrapper}>
-          <div className={styles.content} ref={contentRef}>
-            <form className={styles.boardContainer} onSubmit={handleSubmit}>
-              {contentWidth > 0 && <Board cellSize={cellSize} innerRef={boardRef} />}
-              <input className={styles.submitInput} tabIndex={-1} type="submit" />
-            </form>
-
-            <div className={styles.sidebar} style={{ height: boardHeight + 1 }}>
-              <Well className={styles.resultsContainer} ref={resultsContainerRef}>
-                {resultsContainerWidth > 0 && resultsContainerHeight > 0 && (
-                  <Results height={resultsHeight} width={resultsContainerWidth} />
-                )}
-              </Well>
-
-              <Well>
-                <div className={styles.dictionary} style={{ height: DICTIONARY_HEIGHT }}>
-                  <Dictionary className={styles.dictionaryOutput} />
-                  <DictionaryInput className={styles.dictionaryInput} />
-                </div>
-              </Well>
-            </div>
-          </div>
-        </div>
-
-        <form className={styles.rackContainer} onSubmit={handleSubmit}>
-          <Rack className={styles.rack} />
-          <input className={styles.submitInput} tabIndex={-1} type="submit" />
-        </form>
+        <Solver className={styles.solver} />
       </div>
 
       <Settings isOpen={showSettings} onClose={() => setShowSettings(false)} />
-
       <KeyMap isOpen={showKeyMap} onClose={() => setShowKeyMap(false)} />
-
       <Words isOpen={showWords} onClose={() => setShowWords(false)} />
-
       <RemainingTiles isOpen={showRemainingTiles} onClose={() => setShowRemainingTiles(false)} />
-
       <Splash forceShow={!isInitialized} onAnimationEnd={handleSplashAnimationEnd} />
     </>
   );
