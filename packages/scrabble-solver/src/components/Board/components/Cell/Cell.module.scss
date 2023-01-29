@@ -207,6 +207,8 @@ $icon-size: 16px;
 }
 
 .toggleDirection {
+  transition: var(--transition);
+
   &.right {
     transform: rotate(-90deg);
 
