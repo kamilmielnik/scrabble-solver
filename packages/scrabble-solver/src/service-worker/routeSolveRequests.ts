@@ -1,3 +1,4 @@
+import { Trie } from '@kamilmielnik/trie';
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { solve } from '@scrabble-solver/solver';
@@ -30,32 +31,41 @@ const routeSolveRequests = () => {
     ({ url }) => url.origin === location.origin && url.pathname === '/api/solve',
     async ({ request }) => {
       const { board, characters, configId, locale } = await request.clone().json();
-      const trie = await getTrie(locale);
-      const shouldMeasure = trie && typeof isSlowDevice() === 'undefined';
 
-      if (trie && !isSlowDevice()) {
-        const start = Date.now();
+      const solveLocal = async (trie: Trie) => {
         const config = getConfig(configId)[locale as Locale];
         const tiles = characters.map((character: string) => new Tile({ character, isBlank: character === BLANK }));
         const resultsJson = solve(trie, config, Board.fromJson(board), tiles);
         const json = JSON.stringify(resultsJson);
+        return new Response(json, { headers });
+      };
 
-        if (shouldMeasure) {
-          localDurations.push(Date.now() - start);
-        }
+      const solveServer = () => fetch(request);
 
-        if (isSlowDevice() === false) {
-          return new Response(json, { headers });
-        }
+      const trie = await getTrie(locale);
+
+      if (trie && typeof isSlowDevice() === 'undefined') {
+        const response = await Promise.race([
+          (async () => {
+            const start = Date.now();
+            const result = await solveLocal(trie);
+            localDurations.push(Date.now() - start);
+            return result;
+          })(),
+          (async () => {
+            const start = Date.now();
+            const result = await solveServer();
+            serverDurations.push(Date.now() - start);
+            return result;
+          })(),
+        ]);
+
+        revalidateDictionary(locale);
+        return response;
       }
 
-      const start = Date.now();
-      const response = await fetch(request);
-
-      if (shouldMeasure) {
-        serverDurations.push(Date.now() - start);
-      }
-
+      const handleSolve = trie && !isSlowDevice() ? () => solveLocal(trie) : () => solveServer();
+      const response = await handleSolve();
       revalidateDictionary(locale);
       return response;
     },
