@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 
+import { useIsTouchDevice } from 'hooks';
 import { BookHalf, Cog, Eraser, Github, Keyboard, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { selectHasInvalidWords, selectHasOverusedTiles, useTranslate, useTypedSelector } from 'state';
@@ -27,6 +28,7 @@ const NavButtons: FunctionComponent<Props> = ({
   const translate = useTranslate();
   const hasOverusedTiles = useTypedSelector(selectHasOverusedTiles);
   const hasInvalidWords = useTypedSelector(selectHasInvalidWords);
+  const isTouchDevice = useIsTouchDevice();
 
   return (
     <div className={styles.navButtons}>
@@ -72,7 +74,15 @@ const NavButtons: FunctionComponent<Props> = ({
       <div className={styles.separator} />
 
       <div className={styles.group}>
-        <SquareButton className={styles.button} Icon={Keyboard} tooltip={translate('keyMap')} onClick={onShowKeyMap} />
+        {!isTouchDevice && (
+          <SquareButton
+            className={styles.button}
+            Icon={Keyboard}
+            tooltip={translate('keyMap')}
+            onClick={onShowKeyMap}
+          />
+        )}
+
         <SquareButton className={styles.button} Icon={Cog} tooltip={translate('settings')} onClick={onShowSettings} />
       </div>
     </div>
