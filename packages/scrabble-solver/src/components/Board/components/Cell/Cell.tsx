@@ -9,6 +9,7 @@ import {
   cellFilterSlice,
   selectCellBonus,
   selectCellIsFiltered,
+  selectCellIsValid,
   selectTilePoints,
   useTranslate,
   useTypedSelector,
@@ -45,6 +46,7 @@ const Cell: FunctionComponent<Props> = ({
   const bonus = useTypedSelector((state) => selectCellBonus(state, cell));
   const points = useTypedSelector((state) => selectTilePoints(state, cell.tile));
   const isFiltered = useTypedSelector((state) => selectCellIsFiltered(state, cell));
+  const isValid = useTypedSelector((state) => selectCellIsValid(state, cell));
   const { tileFontSize } = getTileSizes(size);
   const isEmpty = tile.character === EMPTY_CELL;
   const style = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
@@ -85,6 +87,7 @@ const Cell: FunctionComponent<Props> = ({
       isCenter={isCenter}
       isEmpty={isEmpty}
       isFiltered={isFiltered}
+      isValid={isValid}
       points={points}
       size={size}
       style={style}

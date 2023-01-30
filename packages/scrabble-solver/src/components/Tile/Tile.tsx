@@ -23,6 +23,7 @@ interface Props {
   highlighted?: boolean;
   inputRef?: RefObject<HTMLInputElement>;
   isBlank?: boolean;
+  isValid?: boolean;
   placeholder?: string;
   points?: number;
   raised?: boolean;
@@ -41,6 +42,7 @@ const Tile: FunctionComponent<Props> = ({
   highlighted,
   inputRef: ref,
   isBlank,
+  isValid,
   placeholder,
   points,
   raised,
@@ -82,6 +84,7 @@ const Tile: FunctionComponent<Props> = ({
       inputRef={inputRef}
       inputStyle={inputStyle}
       isBlank={isBlank}
+      isValid={isValid}
       placeholder={placeholder}
       points={points}
       pointsFormatted={pointsFormatted}

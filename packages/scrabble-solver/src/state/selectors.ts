@@ -1,5 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getLocaleConfig } from '@scrabble-solver/configs';
+import { BLANK } from '@scrabble-solver/constants';
 import { Cell, Config, isError, Result, Tile } from '@scrabble-solver/types';
 
 import i18n, { LOCALE_FEATURES } from 'i18n';
@@ -60,6 +61,14 @@ export const selectCellFilter = selectCellFilterRoot;
 
 export const selectCellIsFiltered = createSelector([selectCellFilter, selectPoint], (cellFilter, { x, y }) => {
   return cellFilter.some((cell) => cell.x === x && cell.y === y);
+});
+
+export const selectCellIsValid = createSelector([selectConfig, selectCell], (config, cell) => {
+  if (!cell.hasTile()) {
+    return true;
+  }
+
+  return config.tiles.some((tile) => tile.character === cell.tile.character);
 });
 
 export const selectResults = createSelector([selectResultsRoot], (results) => results.results);
@@ -137,6 +146,17 @@ export const selectCharacterPoints = createSelector(
   [selectConfig, selectCharacter],
   (config: Config, character: string | null) => {
     return config.getCharacterPoints(character);
+  },
+);
+
+export const selectCharacterIsValid = createSelector(
+  [selectConfig, selectCharacter],
+  (config: Config, character: string | null) => {
+    if (character === null || character === BLANK) {
+      return true;
+    }
+
+    return config.tiles.some((tile) => tile.character === character);
   },
 );
 

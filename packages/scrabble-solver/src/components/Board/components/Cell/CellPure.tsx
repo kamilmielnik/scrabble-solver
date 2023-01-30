@@ -28,6 +28,7 @@ interface Props {
   isCenter: boolean;
   isEmpty: boolean;
   isFiltered: boolean;
+  isValid: boolean;
   points?: number;
   size: number;
   style?: CSSProperties;
@@ -49,6 +50,7 @@ const CellPure: FunctionComponent<Props> = ({
   isCenter,
   isEmpty,
   isFiltered,
+  isValid,
   points,
   size,
   style,
@@ -66,7 +68,7 @@ const CellPure: FunctionComponent<Props> = ({
     })}
     style={style}
   >
-    {isCenter && (
+    {isCenter && isEmpty && (
       <div className={classNames(styles.iconContainer)}>
         <Star className={styles.star} />
       </div>
@@ -84,6 +86,7 @@ const CellPure: FunctionComponent<Props> = ({
       highlighted={cell.isCandidate()}
       inputRef={inputRef}
       isBlank={tile.isBlank}
+      isValid={isValid}
       points={points}
       raised={!isEmpty}
       size={size}

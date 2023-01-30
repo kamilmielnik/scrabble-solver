@@ -11,6 +11,7 @@ export { default as Cross } from './Cross.svg';
 export { default as CrossFill } from './CrossFill.svg';
 export { default as DashCircleFill } from './DashCircleFill.svg';
 export { default as Eraser } from './Eraser.svg';
+export { default as ExclamationSquareFill } from './ExclamationSquareFill.svg';
 export { default as Flag } from './Flag.svg';
 export { default as FlagEs } from './FlagEs.svg';
 export { default as FlagFa } from './FlagFa.svg';

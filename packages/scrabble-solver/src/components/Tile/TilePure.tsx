@@ -9,6 +9,8 @@ import {
   RefObject,
 } from 'react';
 
+import { ExclamationSquareFill } from 'icons';
+
 import styles from './Tile.module.scss';
 
 interface Props {
@@ -21,6 +23,7 @@ interface Props {
   inputRef: RefObject<HTMLInputElement>;
   inputStyle?: CSSProperties;
   isBlank?: boolean;
+  isValid?: boolean;
   placeholder?: string;
   points?: number;
   pointsFormatted?: string;
@@ -43,6 +46,7 @@ const TilePure: FunctionComponent<Props> = ({
   inputRef,
   inputStyle,
   isBlank,
+  isValid,
   placeholder,
   points,
   pointsFormatted,
@@ -56,8 +60,9 @@ const TilePure: FunctionComponent<Props> = ({
 }) => (
   <div
     className={classNames(styles.tile, className, {
-      [styles.highlighted]: highlighted,
       [styles.blank]: isBlank,
+      [styles.highlighted]: highlighted,
+      [styles.invalid]: !isValid,
       [styles.raised]: raised,
       [styles.points1]: points === 1,
       [styles.points2]: points === 2,
@@ -90,6 +95,8 @@ const TilePure: FunctionComponent<Props> = ({
         {pointsFormatted}
       </span>
     )}
+
+    {!isValid && <ExclamationSquareFill className={styles.alert} />}
   </div>
 );
 

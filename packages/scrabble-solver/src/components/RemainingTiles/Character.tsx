@@ -37,6 +37,7 @@ const Character: FunctionComponent<Props> = ({ tile }) => {
         className={styles.tile}
         disabled
         isBlank={character === BLANK}
+        isValid={remainingCount >= 0}
         points={points}
         raised
         size={REMAINING_TILES_TILE_SIZE}

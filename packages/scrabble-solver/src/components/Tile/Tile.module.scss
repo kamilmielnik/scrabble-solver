@@ -44,6 +44,11 @@
       color: inherit;
     }
   }
+
+  &.invalid {
+    background-color: var(--color--red--light);
+    color: var(--color--error);
+  }
 }
 
 .character {
@@ -52,6 +57,7 @@
   padding: 0;
   box-sizing: border-box;
   background-color: transparent;
+  color: inherit;
   border: none;
   font-weight: bold;
   text-transform: uppercase;
@@ -86,5 +92,23 @@
   [dir='rtl'] & {
     top: 1%;
     left: 9%;
+  }
+}
+
+.alert {
+  $size: 30%;
+
+  position: absolute;
+  width: $size;
+  height: $size;
+
+  [dir='ltr'] & {
+    top: 0;
+    right: 0;
+  }
+
+  [dir='rtl'] & {
+    bottom: 0;
+    right: 0;
   }
 }
