@@ -25,7 +25,9 @@ interface Props {
   className?: string;
   direction: 'horizontal' | 'vertical';
   inputRef: RefObject<HTMLInputElement>;
+  isBottom: boolean;
   isCenter: boolean;
+  isRight: boolean;
   isEmpty: boolean;
   isFiltered: boolean;
   isValid: boolean;
@@ -47,7 +49,9 @@ const CellPure: FunctionComponent<Props> = ({
   className,
   direction,
   inputRef,
+  isBottom,
   isCenter,
+  isRight,
   isEmpty,
   isFiltered,
   isValid,
@@ -63,8 +67,10 @@ const CellPure: FunctionComponent<Props> = ({
   onToggleFilterCellClick,
 }) => (
   <div
-    className={classNames(styles.cell, getBonusClassname(cell, bonus, isCenter), className, {
+    className={classNames(styles.cell, className, getBonusClassname(cell, bonus, isCenter), {
+      [styles.bottom]: isBottom,
       [styles.candidate]: cell.isCandidate(),
+      [styles.right]: isRight,
     })}
     style={style}
   >

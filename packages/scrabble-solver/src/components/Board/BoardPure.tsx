@@ -53,7 +53,9 @@ const BoardPure: FunctionComponent<Props> = ({
             cell={cell}
             direction={direction}
             inputRef={refs[y][x]}
+            isBottom={y === rows.length - 1}
             isCenter={center.x === x && center.y === y}
+            isRight={x === cells.length - 1}
             key={x}
             size={cellSize}
             onChange={onChange}

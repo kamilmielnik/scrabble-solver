@@ -2,6 +2,7 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
 
 :root {
   --border--color: #cdcdcd;
+  --border--color--light: #d9d9d9;
   --border--radius: 5px;
   --border--width: 1px;
   --border: var(--border--width) solid var(--border--color);

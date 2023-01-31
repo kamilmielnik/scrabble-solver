@@ -8,110 +8,102 @@ $icon-size: 16px;
   position: relative;
   display: table-cell;
   background-color: white;
-  border-right: var(--border);
-  border-bottom: var(--border);
+  border-right: var(--border--width) dotted var(--border--color--light);
+  border-bottom: var(--border--width) dotted var(--border--color--light);
   transition: var(--transition);
   background-clip: padding-box;
 
-  &.bonusWord2,
-  &.bonusWord3 {
-    position: relative;
+  &.bottom {
+    border-bottom: none;
+  }
 
-    &:before {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      font-weight: bold;
-      pointer-events: none;
-    }
+  &.right {
+    border-right: none;
   }
 
   &.bonusStart {
-    background-color: var(--color--violet--light);
+    &:before {
+      background-color: var(--color--violet--light);
+    }
   }
 
   &.bonusCharacter1 {
-    background-color: var(--color--yellow--light);
+    &:before {
+      background-color: var(--color--yellow--light);
+    }
   }
 
   &.bonusCharacter2 {
-    background-color: var(--color--green--light);
+    &:before {
+      background-color: var(--color--green--light);
+    }
   }
 
   &.bonusCharacter3 {
-    background-color: var(--color--blue--light);
+    &:before {
+      background-color: var(--color--blue--light);
+    }
   }
 
   &.bonusCharacter5 {
-    background-color: var(--color--red--light);
+    &:before {
+      background-color: var(--color--red--light);
+    }
   }
 
   &.bonusCharacterMultiplier2 {
-    background-color: var(--color--light-blue--light);
+    &:before {
+      background-color: var(--color--light-blue--light);
+    }
   }
 
   &.bonusCharacterMultiplier3 {
-    background-color: var(--color--dark-blue--light);
-  }
-
-  &.bonusWord2 {
-    background-color: var(--color--orange);
-  }
-
-  &.bonusWord3 {
-    background-color: var(--color--pink);
-  }
-
-  &.bonusWord2,
-  &.bonusWord3 {
     &:before {
-      font-size: 75%;
-      color: white;
-
-      [lang='fa-IR'] & {
-        font-family: 'Open Sans', sans-serif;
-      }
+      background-color: var(--color--dark-blue--light);
     }
   }
 
   &.bonusWord2 {
     &:before {
       content: 'x2';
+      background-color: var(--color--orange);
     }
   }
 
   &.bonusWord3 {
     &:before {
       content: 'x3';
+      background-color: var(--color--pink);
     }
   }
 
-  &.characterPoints1 {
-    background-color: var(--color--yellow);
-  }
-
-  &.characterPoints2 {
-    background-color: var(--color--green);
-  }
-
-  &.characterPoints3 {
-    background-color: var(--color--blue);
-  }
-
-  &.characterPoints5 {
-    background-color: var(--color--red);
-  }
-
   &.candidate {
-    background-color: var(--color--primary);
-
     &:before {
-      display: none;
+      content: ' ';
+      background-color: var(--color--primary);
+    }
+  }
+
+  &:before {
+    $size: 80%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: (100% - $size) / 2;
+    left: (100% - $size) / 2;
+    width: $size;
+    height: $size;
+    border-radius: var(--border--radius);
+    pointer-events: none;
+    font-size: 60%;
+    font-weight: bold;
+    color: white;
+    content: ' ';
+
+    [lang='fa-IR'] & {
+      font-family: 'Open Sans', sans-serif;
     }
   }
 
@@ -257,9 +249,19 @@ $icon-size: 16px;
 
 .flag,
 .star {
+  color: white;
+}
+
+.star {
+  $size: 40%;
+
+  width: $size;
+  height: $size;
+}
+
+.flag {
   $size: 50%;
 
   width: $size;
   height: $size;
-  color: white;
 }

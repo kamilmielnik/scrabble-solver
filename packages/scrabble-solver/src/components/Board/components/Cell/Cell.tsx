@@ -22,7 +22,9 @@ interface Props {
   className?: string;
   direction: 'horizontal' | 'vertical';
   inputRef: RefObject<HTMLInputElement>;
+  isBottom: boolean;
   isCenter: boolean;
+  isRight: boolean;
   size: number;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onDirectionToggle: () => void;
@@ -34,7 +36,10 @@ const Cell: FunctionComponent<Props> = ({
   className,
   direction,
   inputRef,
+  isBottom,
   isCenter,
+  isEdge,
+  isRight,
   size,
   onChange,
   onDirectionToggle,
@@ -84,7 +89,9 @@ const Cell: FunctionComponent<Props> = ({
       className={className}
       direction={direction}
       inputRef={inputRef}
+      isBottom={isBottom}
       isCenter={isCenter}
+      isRight={isRight}
       isEmpty={isEmpty}
       isFiltered={isFiltered}
       isValid={isValid}
