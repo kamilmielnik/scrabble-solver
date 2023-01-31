@@ -1,6 +1,8 @@
-import { CSSProperties, ReactElement } from 'react';
+import { CSSProperties, ReactElement, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useClickAway } from 'react-use';
 
+import { useIsTouchDevice } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { resultsSlice, selectLocale, selectSortedFilteredResults, useTypedSelector } from 'state';
 
@@ -14,6 +16,9 @@ interface Props {
 
 const Result = ({ index, style }: Props): ReactElement => {
   const dispatch = useDispatch();
+  const isTouchDevice = useIsTouchDevice();
+  const ref = useRef<HTMLButtonElement>(null);
+  const [isSelected, setIsSelected] = useState(false);
   const locale = useTypedSelector(selectLocale);
   const { consonants, vowels } = LOCALE_FEATURES[locale];
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -21,8 +26,23 @@ const Result = ({ index, style }: Props): ReactElement => {
   const result = results[index];
   const otherWords = result.words.slice(1).join(' / ').toLocaleUpperCase();
 
+  useClickAway(ref, () => {
+    if (isSelected) {
+      setIsSelected(false);
+    }
+  });
+
   const handleClick = () => {
-    dispatch(resultsSlice.actions.applyResult(result));
+    if (isTouchDevice) {
+      if (isSelected) {
+        dispatch(resultsSlice.actions.applyResult(result));
+        setIsSelected(false);
+      } else {
+        setIsSelected(true);
+      }
+    } else {
+      dispatch(resultsSlice.actions.applyResult(result));
+    }
   };
 
   const handleMouseEnter = () => {
@@ -44,6 +64,7 @@ const Result = ({ index, style }: Props): ReactElement => {
   return (
     <button
       className={styles.result}
+      ref={ref}
       style={style}
       type="button"
       onBlur={handleBlur}
