@@ -12,7 +12,8 @@ interface RequestData {
   words: string[];
 }
 
-const MAXIMUM_WORDS_COUNT = scrabble['en-US'].maximumCharactersCount;
+const MAXIMUM_COLLISIONS_COUNT = scrabble['en-US'].maximumCharactersCount;
+const MAXIMUM_WORDS_COUNT = MAXIMUM_COLLISIONS_COUNT + 1;
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
   const meta = getServerLoggingData(request);
