@@ -38,7 +38,6 @@ const Cell: FunctionComponent<Props> = ({
   inputRef,
   isBottom,
   isCenter,
-  isEdge,
   isRight,
   size,
   onChange,
