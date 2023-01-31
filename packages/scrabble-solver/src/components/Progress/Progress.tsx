@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { FunctionComponent, HTMLProps } from 'react';
 
 import { PROGRESS_COLOR_BACKGROUND, PROGRESS_COLOR_VALUE } from 'parameters';
+import { selectLocale, useTypedSelector } from 'state';
 
 import styles from './Progress.module.scss';
 
@@ -17,7 +18,9 @@ const getGradient = (progress: number, color: string, background: string) => {
 };
 
 const Progress: FunctionComponent<Props> = ({ className, max, min = 0, style, value, ...props }) => {
+  const locale = useTypedSelector(selectLocale);
   const progress = value / (max - min);
+  const percent = Math.round(100 * progress);
 
   return (
     <div
@@ -27,6 +30,7 @@ const Progress: FunctionComponent<Props> = ({ className, max, min = 0, style, va
         ...style,
         backgroundImage: getGradient(progress, PROGRESS_COLOR_VALUE, PROGRESS_COLOR_BACKGROUND),
       }}
+      title={`${percent.toLocaleString(locale)}%`}
     />
   );
 };
