@@ -8,17 +8,30 @@ $icon-size: 16px;
   position: relative;
   display: table-cell;
   background-color: white;
-  border-right: var(--border--width) dotted var(--border--color--light);
   border-bottom: var(--border--width) dotted var(--border--color--light);
   transition: var(--transition);
   background-clip: padding-box;
+
+  [dir='ltr'] & {
+    border-right: var(--border--width) dotted var(--border--color--light);
+  }
+
+  [dir='rtl'] & {
+    border-left: var(--border--width) dotted var(--border--color--light);
+  }
 
   &.bottom {
     border-bottom: none;
   }
 
   &.right {
-    border-right: none;
+    [dir='ltr'] & {
+      border-right: none;
+    }
+
+    [dir='rtl'] & {
+      border-left: none;
+    }
   }
 
   &.bonusStart {
