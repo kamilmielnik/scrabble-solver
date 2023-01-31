@@ -41,13 +41,15 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --color--blue: #c7d8f9;
   --color--blue--light: #dde4f6;
   --color--light-blue: #7bb5e5;
-  --color--light-blue--light: #{rgba(#7bb5e5, 0.5)};
+  --color--light-blue--light: #b8d5ed;
   --color--dark-blue: #1868ad;
-  --color--dark-blue--light: #{rgba(#1868ad, 0.5)};
+  --color--dark-blue--light: #86aed1;
   --color--red: #f7c2aa;
   --color--red--light: #fbe0d4;
   --color--violet: #78387f;
-  --color--violet--light: #{rgba(#78387f, 0.5)};
+  --color--violet--light: #b284b8;
+  --color--orange: #fbc997;
+  --color--pink: #f19393;
 
   --font--family: 'Open Sans', sans-serif;
   --font--family--title: 'Lato', sans-serif;

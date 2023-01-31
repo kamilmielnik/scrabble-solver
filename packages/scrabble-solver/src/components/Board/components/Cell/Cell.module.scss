@@ -59,10 +59,16 @@ $icon-size: 16px;
     background-color: var(--color--dark-blue--light);
   }
 
+  &.bonusWord2 {
+    background-color: var(--color--orange);
+  }
+
+  &.bonusWord3 {
+    background-color: var(--color--pink);
+  }
+
   &.bonusWord2,
   &.bonusWord3 {
-    background-color: var(--color--inactive);
-
     &:before {
       font-size: 75%;
       color: white;
