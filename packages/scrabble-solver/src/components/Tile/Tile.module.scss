@@ -13,33 +13,23 @@
 
   &.points1 {
     --background-color: var(--color--yellow);
-
-    background-color: var(--background-color);
   }
 
   &.points2 {
     --background-color: var(--color--green);
-
-    background-color: var(--background-color);
   }
 
   &.points3,
   &.points4 {
     --background-color: var(--color--blue);
-
-    background-color: var(--background-color);
   }
 
   &.points5 {
     --background-color: var(--color--red);
-
-    background-color: var(--background-color);
   }
 
   &.blank {
     --background-color: white;
-
-    background-color: var(--background-color);
 
     .character {
       color: black;
@@ -49,7 +39,6 @@
   &.highlighted {
     --background-color: var(--color--primary);
 
-    background-color: var(--background-color);
     color: white;
 
     .character {
@@ -64,7 +53,6 @@
   &.invalid {
     --background-color: var(--color--red--light);
 
-    background-color: var(--background-color);
     color: var(--color--error);
   }
 }
@@ -86,7 +74,7 @@
     color: var(--color--inactive);
   }
 
-  &::selection {
+  &::selection:not(:disabled) {
     background: transparent;
   }
 

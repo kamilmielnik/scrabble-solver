@@ -7,6 +7,7 @@ import { REMAINING_TILES_TILE_SIZE } from 'parameters';
 import { selectCharacterPoints, selectLocale, useTypedSelector } from 'state';
 import { RemainingTile } from 'types';
 
+import Progress from '../Progress';
 import Tile from '../Tile';
 
 import styles from './Character.module.scss';
@@ -30,7 +31,6 @@ const Character: FunctionComponent<Props> = ({ tile }) => {
         [styles.finished]: remainingCount <= 0,
         [styles.overused]: remainingCount < 0,
       })}
-      key={character}
     >
       <Tile
         character={character}
@@ -42,6 +42,16 @@ const Character: FunctionComponent<Props> = ({ tile }) => {
         raised
         size={REMAINING_TILES_TILE_SIZE}
       />
+
+      <Progress
+        className={styles.remaining}
+        max={count}
+        style={{
+          width: REMAINING_TILES_TILE_SIZE,
+        }}
+        value={remainingCount}
+      />
+
       <div className={styles.count}>
         {current.toLocaleString(locale)} / {total.toLocaleString(locale)}
       </div>

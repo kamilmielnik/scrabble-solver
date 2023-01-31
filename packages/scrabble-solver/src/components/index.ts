@@ -12,6 +12,7 @@ export { default as Logo } from './Logo';
 export { default as NavButtons } from './NavButtons';
 export { default as NotFound } from './NotFound';
 export { default as PlainTiles } from './PlainTiles';
+export { default as Progress } from './Progress';
 export { default as Rack } from './Rack';
 export { default as Radio } from './Radio';
 export { default as RemainingTiles } from './RemainingTiles';

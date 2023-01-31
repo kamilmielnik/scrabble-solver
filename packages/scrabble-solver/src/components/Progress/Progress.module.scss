@@ -1,0 +1,9 @@
+.progress {
+  width: 100%;
+  min-height: 1px;
+  border-radius: var(--border--radius);
+
+  [dir='rtl'] & {
+    transform: scaleX(-1);
+  }
+}

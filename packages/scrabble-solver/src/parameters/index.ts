@@ -45,6 +45,9 @@ export const PLAIN_TILES_TILE_SIZE = 80;
 export const PLAIN_TILES_VERSION_TILE_COLOR = COLOR_GREEN;
 export const PLAIN_TILES_VERSION_TILE_SIZE = TILE_SIZE;
 
+export const PROGRESS_COLOR_VALUE = 'var(--color--violet--light)';
+export const PROGRESS_COLOR_BACKGROUND = 'var(--color--inactive)';
+
 export const REMAINING_TILES_TILE_SIZE = 50;
 
 export const RESULTS_HEADER_HEIGHT = 35;

@@ -25,6 +25,11 @@
   }
 }
 
+.remaining {
+  height: 6px;
+  margin-top: var(--spacing--m);
+}
+
 .count {
   padding: var(--spacing--xs) 0;
   text-align: center;
