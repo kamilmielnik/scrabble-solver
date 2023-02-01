@@ -23,7 +23,7 @@ interface Props {
 
 const Solver: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
-  const isMobile = useMediaQuery('<l');
+  const isMobile = useMediaQuery('<l', false);
   const [boardRef, { height: boardHeight }] = useMeasure<HTMLDivElement>();
   const [contentRef, { height: contentHeight, width: contentWidth }] = useMeasure<HTMLDivElement>();
   const [resultsContainerRef, { height: resultsContainerHeight, width: resultsContainerWidth }] =
