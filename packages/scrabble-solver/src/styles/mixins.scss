@@ -1,12 +1,12 @@
-@mixin tablet {
-  @media (max-width: 1024px) {
-    @content;
-  }
+@import 'include-media';
 
-  @media (max-height: 800px) {
-    @content;
-  }
-}
+$breakpoints: (
+  xs: 480px,
+  s: 768px,
+  m: 992px,
+  l: 1200px,
+  xl: 1400px,
+);
 
 /**
  * It does not work when applied on input elements.

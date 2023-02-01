@@ -155,7 +155,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   margin: 0 auto;
   margin-top: var(--spacing--xxl);
 
-  @include tablet {
+  @include media('<l') {
     margin-top: var(--spacing--l);
   }
 }

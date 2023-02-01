@@ -1,3 +1,11 @@
+export const BREAKPOINTS = {
+  xs: 480,
+  s: 768,
+  m: 992,
+  l: 1200,
+  xl: 1400,
+};
+
 export const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';
 
 export const INITIALIZATION_DURATION = 100;

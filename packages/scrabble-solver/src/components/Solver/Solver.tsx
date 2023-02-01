@@ -3,7 +3,7 @@ import { FormEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useMeasure } from 'react-use';
 
-import { useIsTablet } from 'hooks';
+import { useMediaQuery } from 'hooks';
 import { getCellSize } from 'lib';
 import { COMPONENTS_SPACING, COMPONENTS_SPACING_MOBILE, DICTIONARY_HEIGHT } from 'parameters';
 import { selectConfig, solveSlice, useTypedSelector } from 'state';
@@ -23,14 +23,14 @@ interface Props {
 
 const Solver: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
-  const isTablet = useIsTablet();
+  const isMobile = useMediaQuery('<l');
   const [boardRef, { height: boardHeight }] = useMeasure<HTMLDivElement>();
   const [contentRef, { height: contentHeight, width: contentWidth }] = useMeasure<HTMLDivElement>();
   const [resultsContainerRef, { height: resultsContainerHeight, width: resultsContainerWidth }] =
     useMeasure<HTMLDivElement>();
   const config = useTypedSelector(selectConfig);
   const cellSize = getCellSize(config, contentWidth - resultsContainerWidth, contentHeight);
-  const componentsSpacing = isTablet ? COMPONENTS_SPACING_MOBILE : COMPONENTS_SPACING;
+  const componentsSpacing = isMobile ? COMPONENTS_SPACING_MOBILE : COMPONENTS_SPACING;
   const resultsHeight = boardHeight - DICTIONARY_HEIGHT - componentsSpacing;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {

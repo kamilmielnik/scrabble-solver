@@ -38,7 +38,7 @@
   height: 60px;
   user-select: none;
 
-  @include tablet {
+  @include media('<l') {
     height: 48px;
   }
 }

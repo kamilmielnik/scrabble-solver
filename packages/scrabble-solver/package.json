@@ -39,6 +39,8 @@
     "@scrabble-solver/types": "^2.10.3",
     "@scrabble-solver/word-definitions": "^2.10.3",
     "classnames": "^2.3.2",
+    "include-media": "^2.0.0",
+    "include-media-query-builder": "^1.0.4",
     "next": "^13.1.6",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",

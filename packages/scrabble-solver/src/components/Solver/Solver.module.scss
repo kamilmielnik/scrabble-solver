@@ -23,7 +23,7 @@
   height: 100%;
   gap: var(--spacing--xl);
 
-  @include tablet {
+  @include media('<l') {
     gap: var(--spacing--l);
   }
 }
@@ -39,7 +39,7 @@
   flex: 0 0 var(--sidebar--width);
   gap: var(--spacing--xl);
 
-  @include tablet {
+  @include media('<l') {
     gap: var(--spacing--l);
   }
 }
@@ -71,7 +71,7 @@
   justify-content: center;
   margin: var(--spacing--xl) var(--spacing--l);
 
-  @include tablet {
+  @include media('<l') {
     margin: var(--spacing--l);
   }
 }
