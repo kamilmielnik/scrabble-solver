@@ -125,6 +125,7 @@ npx lerna run build --scope=@scrabble-solver/PACKAGE_NAME_HERE
 - [Node.js](https://nodejs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Next.js](https://nextjs.org/)
+- [Express](https://expressjs.com/)
 - [Workbox](https://developer.chrome.com/docs/workbox/)
 - [React](https://reactjs.org/)
 - [Redux](https://redux.js.org/)
