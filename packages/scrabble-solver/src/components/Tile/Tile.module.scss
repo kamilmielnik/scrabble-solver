@@ -74,8 +74,8 @@
     color: var(--color--inactive);
   }
 
-  &::selection:not(:disabled) {
-    background: transparent;
+  &:not(:disabled)::selection {
+    --background--color: transparent;
   }
 
   &:disabled {
