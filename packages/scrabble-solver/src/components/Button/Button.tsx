@@ -17,8 +17,8 @@ const Button: FunctionComponent<Props> = ({ children, className, Icon, tooltip, 
   return (
     <button className={classNames(styles.button, className)} type="button" {...props} {...triggerProps}>
       <span className={styles.content}>
-        <span className={styles.label}>{children}</span>
         <Icon className={styles.icon} />
+        <span className={styles.label}>{children}</span>
       </span>
     </button>
   );

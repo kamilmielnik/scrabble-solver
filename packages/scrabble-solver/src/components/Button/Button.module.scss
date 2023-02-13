@@ -1,7 +1,5 @@
 @import 'styles/mixins';
 
-$size: 32px;
-
 .button {
   @include button-reset;
   @include focus-effect;
@@ -37,27 +35,18 @@ $size: 32px;
     color: var(--color--inactive);
     box-shadow: none;
     cursor: not-allowed;
-
-    .icon {
-      transform: scale(1);
-    }
   }
 
   &:hover {
     opacity: 1;
-
-    &:not(:disabled) {
-      .icon {
-        transform: scale(1.1);
-      }
-    }
   }
 }
 
 .content {
   display: flex;
   align-items: center;
-  padding: var(--spacing--xs) var(--spacing--m);
+  gap: var(--spacing--m);
+  padding: var(--spacing--s) var(--spacing--l);
 }
 
 .icon,
@@ -66,16 +55,14 @@ $size: 32px;
 }
 
 .icon {
-  width: $size;
-  height: $size;
+  width: var(--font--size--m);
+  height: var(--font--size--m);
   pointer-events: none;
   transition: var(--transition);
-  transform: scale(1);
   color: inherit;
 }
 
 .label {
-  padding: 0 var(--spacing--m);
   transition: var(--transition);
   font-size: var(--font--size--m);
   text-transform: uppercase;

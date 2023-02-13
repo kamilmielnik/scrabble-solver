@@ -5,7 +5,7 @@ import { useMeasure } from 'react-use';
 
 import { useMediaQuery } from 'hooks';
 import { getCellSize } from 'lib';
-import { COMPONENTS_SPACING, COMPONENTS_SPACING_MOBILE, DICTIONARY_HEIGHT } from 'parameters';
+import { COMPONENTS_SPACING, COMPONENTS_SPACING_MOBILE, DICTIONARY_HEIGHT, TILE_SIZE } from 'parameters';
 import { selectConfig, solveSlice, useTypedSelector } from 'state';
 
 import Board from '../Board';
@@ -65,7 +65,7 @@ const Solver: FunctionComponent<Props> = ({ className }) => {
       </div>
 
       <form className={styles.rackContainer} onSubmit={handleSubmit}>
-        <Rack className={styles.rack} />
+        <Rack className={styles.rack} tileSize={TILE_SIZE} />
         <input className={styles.submitInput} tabIndex={-1} type="submit" />
       </form>
     </div>

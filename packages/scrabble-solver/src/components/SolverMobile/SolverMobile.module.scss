@@ -20,3 +20,17 @@
   padding: var(--spacing--l);
   overflow: auto;
 }
+
+.rackContainer {
+  display: flex;
+  justify-content: center;
+  margin: var(--spacing--l);
+}
+
+.rack {
+  border: var(--border);
+}
+
+.submitInput {
+  display: none;
+}

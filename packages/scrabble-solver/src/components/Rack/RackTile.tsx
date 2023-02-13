@@ -13,7 +13,6 @@ import {
 import { useDispatch } from 'react-redux';
 
 import { createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
-import { TILE_SIZE } from 'parameters';
 import {
   rackSlice,
   selectCharacterIsValid,
@@ -32,6 +31,7 @@ interface Props {
   character: string | null;
   index: number;
   inputRef: RefObject<HTMLInputElement>;
+  size: number;
   tile: TileModel | null;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
@@ -42,6 +42,7 @@ const RackTile: FunctionComponent<Props> = ({
   character,
   index,
   inputRef,
+  size,
   tile,
   onChange,
   onKeyDown,
@@ -101,7 +102,7 @@ const RackTile: FunctionComponent<Props> = ({
       placeholder={translate('rack.placeholder')[index]}
       points={points}
       raised
-      size={TILE_SIZE}
+      size={size}
       tabIndex={index === 0 ? undefined : -1}
       onChange={handleChange}
       onFocus={handleFocus}

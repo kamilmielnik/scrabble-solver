@@ -5,7 +5,7 @@
   flex-direction: column;
   height: 100%;
   opacity: 0;
-  overflow: hidden;
+  overflow: auto;
   transition: var(--transition);
   transition-duration: var(--transition--duration--long);
 
