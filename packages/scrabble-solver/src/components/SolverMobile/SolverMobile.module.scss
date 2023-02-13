@@ -1,0 +1,22 @@
+.solverMobile {
+  position: relative;
+  margin: 0 var(--spacing--l);
+}
+
+.sizer {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.board {
+  margin: 0 auto;
+}
+
+.boardContainer {
+  margin: calc(-1 * var(--spacing--l));
+  padding: var(--spacing--l);
+  overflow: auto;
+}

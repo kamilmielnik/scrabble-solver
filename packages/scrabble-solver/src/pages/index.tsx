@@ -6,7 +6,18 @@ import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce } from 'react-use';
 
-import { KeyMap, Logo, NavButtons, RemainingTiles, Settings, Solver, Splash, SvgFontFix, Words } from 'components';
+import {
+  KeyMap,
+  Logo,
+  NavButtons,
+  RemainingTiles,
+  Settings,
+  Solver,
+  SolverMobile,
+  Splash,
+  SvgFontFix,
+  Words,
+} from 'components';
 import { useDirection, useLanguage, useLocalStorage } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { INITIALIZATION_DURATION } from 'parameters';
@@ -80,7 +91,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           />
         </div>
 
-        <Solver className={styles.solver} />
+        <SolverMobile className={styles.solver} />
       </div>
 
       <Settings isOpen={showSettings} onClose={() => setShowSettings(false)} />
