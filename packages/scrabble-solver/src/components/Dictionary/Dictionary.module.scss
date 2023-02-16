@@ -1,10 +1,9 @@
 .dictionary {
   position: relative;
-  min-height: calc(var(--dictionary--height) - var(--text-input--height));
+  height: var(--dictionary--height);
   overflow-y: auto;
   word-break: break-word;
   transition: var(--transition);
-  font-size: var(--font--size--s);
 }
 
 .result {

@@ -8,7 +8,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   flex-direction: column;
   height: 100%;
   font-family: var(--font--family--title);
-  font-size: var(--font--size--s);
 }
 
 .emptyState {
@@ -16,6 +15,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 }
 
 .list {
+  flex: 1 1 auto;
   transition: var(--transition);
 
   &.outdated {
@@ -30,7 +30,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   align-items: center;
   justify-content: space-between;
   border-bottom: var(--border);
-  font-size: var(--font--size--s);
+  font-size: var(--font--size--h3);
   font-weight: 700;
 }
 
@@ -41,6 +41,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   cursor: pointer;
   text-transform: uppercase;
   transition: var(--transition);
+  padding: var(--spacing--s) 0;
 
   &:focus,
   &:hover {
@@ -95,7 +96,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing--s);
+  padding: 0 var(--spacing--s);
   gap: var(--spacing--s);
 
   .result &:first-child,
@@ -161,7 +162,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 }
 
 .sortIcon {
-  $size: 15px;
+  $size: 19px;
 
   flex: 0 0 auto;
   width: $size;

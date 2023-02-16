@@ -27,7 +27,7 @@ export const BOARD_TILE_FONT_SIZE_POINTS_MIN = 10;
 export const BOARD_TILE_SIZE_MAX = 64;
 export const BOARD_TILE_SIZE_MIN = 32;
 
-export const DICTIONARY_HEIGHT = 220;
+export const DICTIONARY_HEIGHT = 260;
 
 export const TILE_SIZE = 80;
 
@@ -56,8 +56,12 @@ export const PLAIN_TILES_VERSION_TILE_SIZE = TILE_SIZE;
 export const PROGRESS_COLOR_VALUE = 'var(--color--violet--light)';
 export const PROGRESS_COLOR_BACKGROUND = 'var(--color--inactive)';
 
+export const RACK_TILE_SIZE_MAX = 64;
+
 export const REMAINING_TILES_TILE_SIZE = 50;
 
-export const RESULTS_HEADER_HEIGHT = 35;
-export const RESULTS_ITEM_HEIGHT = 34;
-export const RESULTS_INPUT_HEIGHT = 43;
+export const RESULTS_HEADER_HEIGHT = 38;
+export const RESULTS_ITEM_HEIGHT = 40;
+export const RESULTS_INPUT_HEIGHT = 40;
+
+export const WELL_BORDER_WIDTH = 1;

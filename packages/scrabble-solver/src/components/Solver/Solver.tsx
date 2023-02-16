@@ -5,7 +5,13 @@ import { useMeasure } from 'react-use';
 
 import { useMediaQuery } from 'hooks';
 import { getCellSize } from 'lib';
-import { COMPONENTS_SPACING, COMPONENTS_SPACING_MOBILE, DICTIONARY_HEIGHT, TILE_SIZE } from 'parameters';
+import {
+  COMPONENTS_SPACING,
+  COMPONENTS_SPACING_MOBILE,
+  DICTIONARY_HEIGHT,
+  TILE_SIZE,
+  WELL_BORDER_WIDTH,
+} from 'parameters';
 import { selectConfig, solveSlice, useTypedSelector } from 'state';
 
 import Board from '../Board';
@@ -31,7 +37,7 @@ const Solver: FunctionComponent<Props> = ({ className }) => {
   const config = useTypedSelector(selectConfig);
   const cellSize = getCellSize(config, contentWidth - resultsContainerWidth, contentHeight);
   const componentsSpacing = isMobile ? COMPONENTS_SPACING_MOBILE : COMPONENTS_SPACING;
-  const resultsHeight = boardHeight - DICTIONARY_HEIGHT - componentsSpacing;
+  const resultsHeight = boardHeight - DICTIONARY_HEIGHT - componentsSpacing - 4 * WELL_BORDER_WIDTH;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

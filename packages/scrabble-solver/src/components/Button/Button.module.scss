@@ -55,8 +55,8 @@
 }
 
 .icon {
-  width: var(--font--size--m);
-  height: var(--font--size--m);
+  width: var(--font--size--h3);
+  height: var(--font--size--h3);
   pointer-events: none;
   transition: var(--transition);
   color: inherit;
@@ -64,7 +64,7 @@
 
 .label {
   transition: var(--transition);
-  font-size: var(--font--size--m);
+  font-size: var(--font--size--h3);
   text-transform: uppercase;
   pointer-events: none;
   user-select: none;

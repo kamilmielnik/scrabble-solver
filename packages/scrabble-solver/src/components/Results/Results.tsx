@@ -65,7 +65,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
         <EmptyState className={styles.emptyState} type="info">
           {translate('results.empty-state.uninitialized')}
 
-          <SolveButton />
+          <SolveButton className={styles.solveButton} />
         </EmptyState>
       )}
 
@@ -75,7 +75,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
             <EmptyState className={styles.emptyState} type="info">
               {translate('results.empty-state.outdated')}
 
-              <SolveButton />
+              <SolveButton className={styles.solveButton} />
             </EmptyState>
           )}
 

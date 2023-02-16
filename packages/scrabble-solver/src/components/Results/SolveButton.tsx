@@ -13,9 +13,11 @@ import {
 
 import Button from '../Button';
 
-import styles from './Results.module.scss';
+interface Props {
+  className?: string;
+}
 
-const SolveButton: FunctionComponent = () => {
+const SolveButton: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isLoading = useTypedSelector(selectIsLoading);
@@ -23,17 +25,17 @@ const SolveButton: FunctionComponent = () => {
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const hasTiles = rack.some((tile) => tile !== null);
 
-  const handleRefresh = () => {
+  const handleClick = () => {
     dispatch(solveSlice.actions.submit());
   };
 
   return (
     <Button
-      className={styles.solveButton}
+      className={className}
       disabled={isLoading || !isOutdated || !hasTiles}
       Icon={Search}
       type="submit"
-      onClick={handleRefresh}
+      onClick={handleClick}
     >
       {translate('results.solve')}
     </Button>
