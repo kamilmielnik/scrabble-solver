@@ -1,13 +1,12 @@
 import { FunctionComponent } from 'react';
 
-import { BookHalf, Cog, Github, Sack } from 'icons';
+import { CardChecklist, Cog, Github, Sack } from 'icons';
+import { GITHUB_PROJECT_URL } from 'parameters';
 import { useTranslate } from 'state';
 
-import Button from '../Button';
 import Sidebar from '../Sidebar';
 
 import styles from './Menu.module.scss';
-import { GITHUB_PROJECT_URL } from 'parameters';
 
 interface Props {
   className?: string;
@@ -36,7 +35,7 @@ const Menu: FunctionComponent<Props> = ({
       </button>
 
       <button className={styles.button} onClick={onShowWords}>
-        <BookHalf className={styles.icon} />
+        <CardChecklist className={styles.icon} />
         <div className={styles.content}>{translate('words')}</div>
       </button>
 

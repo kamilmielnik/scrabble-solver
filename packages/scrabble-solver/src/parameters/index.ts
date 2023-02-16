@@ -56,7 +56,7 @@ export const PLAIN_TILES_VERSION_TILE_SIZE = TILE_SIZE;
 export const PROGRESS_COLOR_VALUE = 'var(--color--violet--light)';
 export const PROGRESS_COLOR_BACKGROUND = 'var(--color--inactive)';
 
-export const RACK_TILE_SIZE_MAX = 64;
+export const RACK_TILE_SIZE_MAX = 80;
 
 export const REMAINING_TILES_TILE_SIZE = 50;
 

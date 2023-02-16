@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 
 import { useIsTouchDevice } from 'hooks';
-import { BookHalf, Cog, Eraser, Github, Keyboard, Sack } from 'icons';
+import { CardChecklist, Cog, Eraser, Github, Keyboard, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { selectHasInvalidWords, selectHasOverusedTiles, useTranslate, useTypedSelector } from 'state';
 
@@ -52,7 +52,7 @@ const NavButtons: FunctionComponent<Props> = ({
           className={classNames(styles.button, {
             [styles.error]: hasInvalidWords,
           })}
-          Icon={BookHalf}
+          Icon={CardChecklist}
           tooltip={translate('words')}
           onClick={onShowWords}
         />
