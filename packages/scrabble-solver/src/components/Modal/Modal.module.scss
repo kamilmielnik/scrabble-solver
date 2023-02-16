@@ -80,10 +80,11 @@
 }
 
 .header {
-  flex: 0 0 auto;
   position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
   padding: var(--spacing--l);
-  padding-bottom: 0;
+  background-color: var(--color--background);
 }
 
 .title {
@@ -106,8 +107,9 @@
 }
 
 .content {
-  flex: 1;
   position: relative;
+  flex: 1;
+  margin-top: calc(-1 * var(--spacing--l));
   padding: var(--spacing--l);
   overflow: auto;
 }
