@@ -68,6 +68,7 @@ export type TranslationKey =
   | 'keyMap.board-and-rack.submit'
   | 'keyMap.rack'
   | 'keyMap.rack.insert-blank'
+  | 'menu'
   | 'rack.placeholder'
   | 'remaining-tiles'
   | 'results.empty-state.no-filtered-results'

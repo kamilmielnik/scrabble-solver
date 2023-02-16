@@ -1,0 +1,44 @@
+@import 'styles/mixins';
+
+.button {
+  @include button-reset;
+  @include focus-effect;
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--l);
+  margin-bottom: var(--spacing--m);
+  padding: var(--spacing--m);
+  border-radius: var(--border--radius);
+  transition: var(--transition);
+  cursor: pointer;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:focus,
+  &:hover {
+    text-decoration: none;
+
+    .icon {
+      color: var(--color--foreground--secondary);
+    }
+  }
+}
+
+.icon {
+  $size: 24px;
+
+  width: $size;
+  height: $size;
+  flex: 0 0 auto;
+  color: var(--color--inactive);
+  transition: var(--transition);
+}
+
+.content {
+  flex: 1;
+  text-align: left;
+}

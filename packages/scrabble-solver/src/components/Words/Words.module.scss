@@ -6,7 +6,13 @@
 }
 
 .badge {
-  margin-left: var(--spacing--m);
+  [dir='ltr'] & {
+    margin-left: var(--spacing--m);
+  }
+
+  [dir='rtl'] & {
+    margin-right: var(--spacing--m);
+  }
 }
 
 .word {

@@ -9,6 +9,7 @@ export { default as Key } from './Key';
 export { default as KeyMap } from './KeyMap';
 export { default as Loading } from './Loading';
 export { default as Logo } from './Logo';
+export { default as Menu } from './Menu';
 export { default as NavButtons } from './NavButtons';
 export { default as NotFound } from './NotFound';
 export { default as PlainTiles } from './PlainTiles';

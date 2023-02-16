@@ -22,6 +22,7 @@ export { default as FlagUs } from './FlagUs.svg';
 export { default as FlagDe } from './FlagDe.svg';
 export { default as Github } from './Github.svg';
 export { default as Keyboard } from './Keyboard.svg';
+export { default as List } from './List.svg';
 export { default as Sack } from './Sack.svg';
 export { default as Search } from './Search.svg';
 export { default as SortDown } from './SortDown.svg';

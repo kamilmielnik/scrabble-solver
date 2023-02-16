@@ -35,6 +35,7 @@
   "keyMap.board-and-rack.submit": "Empezar a resolver",
   "keyMap.rack": "Estante",
   "keyMap.rack.insert-blank": "Insertar espacio en blanco (barra espaciadora)",
+  "menu": "Menú",
   "rack.placeholder": "Letras…",
   "remaining-tiles": "Casillas restantes",
   "results.empty-state.no-filtered-results": "Ningún resultado coincide con esta consulta.",

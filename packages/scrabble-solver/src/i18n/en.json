@@ -35,6 +35,7 @@
   "keyMap.board-and-rack.submit": "Start solving",
   "keyMap.rack": "Rack",
   "keyMap.rack.insert-blank": "Insert blank (spacebar)",
+  "menu": "Menu",
   "rack.placeholder": "Letters",
   "remaining-tiles": "Remaining tiles",
   "results.empty-state.no-filtered-results": "No result matches this query.",

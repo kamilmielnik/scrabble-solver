@@ -35,6 +35,7 @@
   "keyMap.board-and-rack.submit": "Rozpocznij wyszukiwanie",
   "keyMap.rack": "Stojak",
   "keyMap.rack.insert-blank": "Wstaw blanka (spacja)",
+  "menu": "Menu",
   "rack.placeholder": "Literki",
   "remaining-tiles": "Pozostałe płytki",
   "results.empty-state.no-filtered-results": "Żaden wynik nie pasuje do tej kwerendy.",

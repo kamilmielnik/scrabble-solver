@@ -9,22 +9,25 @@ import { useEffectOnce } from 'react-use';
 import {
   KeyMap,
   Logo,
+  Menu,
   NavButtons,
   RemainingTiles,
   Settings,
   Solver,
   SolverMobile,
   Splash,
+  SquareButton,
   SvgFontFix,
   Words,
 } from 'components';
-import { useDirection, useLanguage, useLocalStorage } from 'hooks';
+import { useDirection, useLanguage, useLocalStorage, useMediaQuery } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { INITIALIZATION_DURATION } from 'parameters';
 import { registerServiceWorker } from 'serviceWorkerManager';
-import { initialize, localStorage, reset, selectLocale, useTypedSelector } from 'state';
+import { initialize, localStorage, reset, selectLocale, useTranslate, useTypedSelector } from 'state';
 
 import styles from './index.module.scss';
+import { List } from 'icons';
 
 Modal.setAppElement('#__next');
 
@@ -34,12 +37,16 @@ interface Props {
 
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
+  const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const [showKeyMap, setShowKeyMap] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const [showRemainingTiles, setShowRemainingTiles] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showWords, setShowWords] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
+  const isMobile = useMediaQuery('<m');
+  const SolverComponent = isMobile ? SolverMobile : Solver;
 
   const handleClear = () => {
     dispatch(reset());
@@ -82,18 +89,36 @@ const Index: FunctionComponent<Props> = ({ version }) => {
             </a>
           </div>
 
-          <NavButtons
-            onClear={handleClear}
-            onShowKeyMap={() => setShowKeyMap(true)}
-            onShowRemainingTiles={() => setShowRemainingTiles(true)}
-            onShowSettings={() => setShowSettings(true)}
-            onShowWords={() => setShowWords(true)}
-          />
+          {!isMobile && (
+            <NavButtons
+              onClear={handleClear}
+              onShowKeyMap={() => setShowKeyMap(true)}
+              onShowRemainingTiles={() => setShowRemainingTiles(true)}
+              onShowSettings={() => setShowSettings(true)}
+              onShowWords={() => setShowWords(true)}
+            />
+          )}
+
+          {isMobile && (
+            <SquareButton
+              className={classNames(styles.button)}
+              Icon={List}
+              tooltip={translate('menu')}
+              onClick={() => setShowMenu(true)}
+            />
+          )}
         </div>
 
-        <SolverMobile className={styles.solver} />
+        <SolverComponent className={styles.solver} />
       </div>
 
+      <Menu
+        isOpen={showMenu}
+        onClose={() => setShowMenu(false)}
+        onShowRemainingTiles={() => setShowRemainingTiles(true)}
+        onShowSettings={() => setShowSettings(true)}
+        onShowWords={() => setShowWords(true)}
+      />
       <Settings isOpen={showSettings} onClose={() => setShowSettings(false)} />
       <KeyMap isOpen={showKeyMap} onClose={() => setShowKeyMap(false)} />
       <Words isOpen={showWords} onClose={() => setShowWords(false)} />

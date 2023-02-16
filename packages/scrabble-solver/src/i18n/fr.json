@@ -35,6 +35,7 @@
   "keyMap.board-and-rack.submit": "Commencer la résolution",
   "keyMap.rack": "Chevalet",
   "keyMap.rack.insert-blank": "Inserer une case vide (spacebar)",
+  "menu": "Menu",
   "rack.placeholder": "Lettres",
   "remaining-tiles": "Cases restantes",
   "results.empty-state.no-filtered-results": "Aucun résultat ne correspond à cette requête",

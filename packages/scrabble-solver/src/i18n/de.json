@@ -35,6 +35,7 @@
   "keyMap.board-and-rack.submit": "Lösen starten",
   "keyMap.rack": "Ablage",
   "keyMap.rack.insert-blank": "Blanko hinzufügen (Leertaste)",
+  "menu": "Menü",
   "rack.placeholder": "Steine…",
   "remaining-tiles": "Restliche Steine",
   "results.empty-state.no-filtered-results": "Keine Ergebnisse für diese Anfrage.",

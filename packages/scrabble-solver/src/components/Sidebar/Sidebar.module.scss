@@ -28,7 +28,7 @@ $z-index: 100;
     outline: none;
   }
 
-  @include media('<s') {
+  @include media('<m') {
     --sidebar--width: 100%;
   }
 }
@@ -85,6 +85,7 @@ $z-index: 100;
   flex: 0 0 auto;
   position: relative;
   padding: var(--spacing--l);
+  padding-bottom: 0;
 }
 
 .title {
@@ -110,6 +111,6 @@ $z-index: 100;
   flex: 1;
   position: relative;
   padding: var(--spacing--l);
-  padding-top: 0;
+
   overflow: auto;
 }
