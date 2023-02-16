@@ -60,7 +60,7 @@ export const RACK_TILE_SIZE_MAX = 64;
 
 export const REMAINING_TILES_TILE_SIZE = 50;
 
-export const RESULTS_HEADER_HEIGHT = 38;
+export const RESULTS_HEADER_HEIGHT = 35;
 export const RESULTS_ITEM_HEIGHT = 40;
 export const RESULTS_INPUT_HEIGHT = 40;
 
