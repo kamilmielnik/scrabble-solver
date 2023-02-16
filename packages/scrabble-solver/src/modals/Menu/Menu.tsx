@@ -1,10 +1,9 @@
 import { FunctionComponent } from 'react';
 
+import { Modal } from 'components';
 import { CardChecklist, Cog, Github, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { useTranslate } from 'state';
-
-import Modal from '../Modal';
 
 import styles from './Menu.module.scss';
 

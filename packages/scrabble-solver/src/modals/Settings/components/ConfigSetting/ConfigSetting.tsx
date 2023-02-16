@@ -1,9 +1,8 @@
 import { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { Radio } from 'components';
 import { selectConfigId, settingsSlice, useTypedSelector } from 'state';
-
-import Radio from '../../../Radio';
 
 import styles from './ConfigSetting.module.scss';
 import options from './options';

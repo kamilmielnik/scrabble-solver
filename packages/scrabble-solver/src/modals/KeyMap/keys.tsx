@@ -1,9 +1,8 @@
 import React from 'react';
 
+import { Key } from 'components';
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from 'icons';
 import { isMac } from 'lib';
-
-import Key from '../Key';
 
 export const ARROW_DOWN = (
   <Key>

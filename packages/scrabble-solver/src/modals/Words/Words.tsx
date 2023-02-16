@@ -1,11 +1,9 @@
 import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 
+import { Badge, Modal } from 'components';
 import { Check, Cross } from 'icons';
 import { selectLocale, selectVerify, useTranslate, useTypedSelector } from 'state';
-
-import Badge from '../Badge';
-import Modal from '../Modal';
 
 import styles from './Words.module.scss';
 

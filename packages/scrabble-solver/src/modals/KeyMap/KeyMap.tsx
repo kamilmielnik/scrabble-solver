@@ -1,9 +1,7 @@
 import { FunctionComponent } from 'react';
 
+import { Key, Modal } from 'components';
 import { selectConfig, useTranslate, useTypedSelector } from 'state';
-
-import Key from '../Key';
-import Modal from '../Modal';
 
 import { Mapping } from './components';
 import { ARROWS, BACKSPACE, CTRL, DEL, ENTER, SPACE } from './keys';

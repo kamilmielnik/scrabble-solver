@@ -1,12 +1,10 @@
 import { FunctionComponent } from 'react';
 
+import { Badge, Modal } from 'components';
 import { LOCALE_FEATURES } from 'i18n';
 import { selectLocale, selectRemainingTilesGroups, useTranslate, useTypedSelector } from 'state';
 
-import Badge from '../Badge';
-import Modal from '../Modal';
-
-import Character from './Character';
+import { Character } from './components';
 import styles from './RemainingTiles.module.scss';
 
 interface Props {

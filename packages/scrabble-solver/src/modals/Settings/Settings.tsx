@@ -1,8 +1,7 @@
 import { FunctionComponent } from 'react';
 
+import { Modal } from 'components';
 import { useTranslate } from 'state';
-
-import Modal from '../Modal';
 
 import { AutoGroupTilesSetting, ConfigSetting, LocaleSetting } from './components';
 

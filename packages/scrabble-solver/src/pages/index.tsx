@@ -6,21 +6,10 @@ import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce } from 'react-use';
 
-import {
-  KeyMap,
-  Logo,
-  Menu,
-  NavButtons,
-  RemainingTiles,
-  Settings,
-  Solver,
-  SolverMobile,
-  Splash,
-  SvgFontFix,
-  Words,
-} from 'components';
+import { Logo, NavButtons, Solver, SolverMobile, Splash, SvgFontFix } from 'components';
 import { useDirection, useLanguage, useLocalStorage, useMediaQuery } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
+import { KeyMap, Menu, RemainingTiles, Settings, Words } from 'modals';
 import { INITIALIZATION_DURATION } from 'parameters';
 import { registerServiceWorker } from 'serviceWorkerManager';
 import { initialize, localStorage, reset, selectLocale, useTypedSelector } from 'state';
@@ -106,10 +95,15 @@ const Index: FunctionComponent<Props> = ({ version }) => {
         onShowSettings={() => setShowSettings(true)}
         onShowWords={() => setShowWords(true)}
       />
+
       <Settings isOpen={showSettings} onClose={() => setShowSettings(false)} />
+
       <KeyMap isOpen={showKeyMap} onClose={() => setShowKeyMap(false)} />
+
       <Words isOpen={showWords} onClose={() => setShowWords(false)} />
+
       <RemainingTiles isOpen={showRemainingTiles} onClose={() => setShowRemainingTiles(false)} />
+
       <Splash forceShow={!isInitialized} onAnimationEnd={handleSplashAnimationEnd} />
     </>
   );
