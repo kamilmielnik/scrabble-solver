@@ -1,7 +1,5 @@
 @import 'styles/mixins';
 
-$z-index: 100;
-
 .modal,
 .closeButton {
   top: 0;
@@ -17,7 +15,7 @@ $z-index: 100;
 
 .modal {
   position: fixed;
-  z-index: $z-index;
+  z-index: var(--z-index--modal);
   height: 100vh;
   width: var(--modal--width);
   padding: 0;
@@ -103,7 +101,7 @@ $z-index: 100;
 
 .closeButton {
   position: absolute !important;
-  z-index: $z-index + 1;
+  z-index: var(--z-index--close-button);
   margin: var(--spacing--l);
 }
 
@@ -111,6 +109,5 @@ $z-index: 100;
   flex: 1;
   position: relative;
   padding: var(--spacing--l);
-
   overflow: auto;
 }

@@ -24,7 +24,7 @@ $breakpoints: (
     z-index: 1;
     transition: var(--transition);
     border-radius: var(--border--radius);
-    box-shadow: 0 0 0 var(--focus--box-shadow--size) transparent;
+    box-shadow: 0 0 0 var(--box-shadow--focus--spread) transparent;
     pointer-events: none;
   }
 
@@ -35,7 +35,7 @@ $breakpoints: (
     }
 
     &:after {
-      box-shadow: 0 0 0 var(--focus--box-shadow--size) var(--color--focus);
+      box-shadow: 0 0 0 var(--box-shadow--focus--spread) var(--color--focus);
     }
   }
 }
