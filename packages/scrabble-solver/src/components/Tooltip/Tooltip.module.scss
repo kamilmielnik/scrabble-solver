@@ -12,7 +12,6 @@ $arrow-size: 4px;
   border-radius: var(--border--radius);
   background-color: var(--tooltip--background);
   color: var(--tooltip--foreground);
-  font-size: var(--font--size--s);
   z-index: 200;
 
   &.top {
