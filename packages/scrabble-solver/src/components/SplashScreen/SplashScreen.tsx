@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { AnimationEventHandler, FunctionComponent, ReactNode } from 'react';
 
-import styles from './Screen.module.scss';
+import styles from './SplashScreen.module.scss';
 
 interface Props {
   children?: ReactNode;
@@ -10,10 +10,10 @@ interface Props {
   onAnimationEnd?: AnimationEventHandler<HTMLDivElement>;
 }
 
-const Screen: FunctionComponent<Props> = ({ children, className, contentClassName, onAnimationEnd }) => (
-  <div className={classNames(styles.screen, className)} onAnimationEnd={onAnimationEnd}>
+const SplashScreen: FunctionComponent<Props> = ({ children, className, contentClassName, onAnimationEnd }) => (
+  <div className={classNames(styles.splashScreen, className)} onAnimationEnd={onAnimationEnd}>
     <div className={classNames(styles.content, contentClassName)}>{children}</div>
   </div>
 );
 
-export default Screen;
+export default SplashScreen;

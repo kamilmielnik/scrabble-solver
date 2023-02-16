@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import { AnimationEventHandler, FunctionComponent } from 'react';
 
 import Logo from '../Logo';
-import Screen from '../Screen';
+import SplashScreen from '../SplashScreen';
 
-import styles from './Splash.module.scss';
+import styles from './LogoSplashScreen.module.scss';
 
 interface Props {
   className?: string;
@@ -12,9 +12,9 @@ interface Props {
   onAnimationEnd?: AnimationEventHandler<HTMLDivElement>;
 }
 
-const Splash: FunctionComponent<Props> = ({ className, forceShow, onAnimationEnd }) => (
-  <Screen
-    className={classNames(styles.splash, className, {
+const LogoSplashScreen: FunctionComponent<Props> = ({ className, forceShow, onAnimationEnd }) => (
+  <SplashScreen
+    className={classNames(styles.logoSplashScreen, className, {
       [styles.animated]: !forceShow,
     })}
     onAnimationEnd={onAnimationEnd}
@@ -25,7 +25,7 @@ const Splash: FunctionComponent<Props> = ({ className, forceShow, onAnimationEnd
     </div>
 
     <h1 className={styles.author}>by Kamil Mielnik</h1>
-  </Screen>
+  </SplashScreen>
 );
 
-export default Splash;
+export default LogoSplashScreen;

@@ -6,7 +6,7 @@ import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce } from 'react-use';
 
-import { Logo, NavButtons, Solver, SolverMobile, Splash, SvgFontFix } from 'components';
+import { Logo, LogoSplashScreen, NavButtons, Solver, SolverMobile, SvgFontFix } from 'components';
 import { useDirection, useLanguage, useLocalStorage, useMediaQuery } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { KeyMap, Menu, RemainingTiles, Settings, Words } from 'modals';
@@ -104,7 +104,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
       <RemainingTiles isOpen={showRemainingTiles} onClose={() => setShowRemainingTiles(false)} />
 
-      <Splash forceShow={!isInitialized} onAnimationEnd={handleSplashAnimationEnd} />
+      <LogoSplashScreen forceShow={!isInitialized} onAnimationEnd={handleSplashAnimationEnd} />
     </>
   );
 };
