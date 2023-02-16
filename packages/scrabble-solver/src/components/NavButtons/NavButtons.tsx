@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 
-import { useIsTouchDevice } from 'hooks';
-import { CardChecklist, Cog, Eraser, Github, Keyboard, Sack } from 'icons';
+import { useIsTouchDevice, useMediaQuery } from 'hooks';
+import { CardChecklist, Cog, Eraser, Github, Keyboard, List, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { selectHasInvalidWords, selectHasOverusedTiles, useTranslate, useTypedSelector } from 'state';
 
@@ -13,6 +13,7 @@ import styles from './NavButtons.module.scss';
 interface Props {
   onClear: () => void;
   onShowKeyMap: () => void;
+  onShowMenu: () => void;
   onShowRemainingTiles: () => void;
   onShowSettings: () => void;
   onShowWords: () => void;
@@ -21,6 +22,7 @@ interface Props {
 const NavButtons: FunctionComponent<Props> = ({
   onClear,
   onShowKeyMap,
+  onShowMenu,
   onShowRemainingTiles,
   onShowSettings,
   onShowWords,
@@ -29,6 +31,23 @@ const NavButtons: FunctionComponent<Props> = ({
   const hasOverusedTiles = useTypedSelector(selectHasOverusedTiles);
   const hasInvalidWords = useTypedSelector(selectHasInvalidWords);
   const isTouchDevice = useIsTouchDevice();
+  const isMobile = useMediaQuery('<m');
+
+  if (isMobile) {
+    return (
+      <div className={styles.navButtons}>
+        <div className={styles.group}>
+          <SquareButton className={styles.button} Icon={Eraser} tooltip={translate('common.clear')} onClick={onClear} />
+        </div>
+
+        <div className={styles.separator} />
+
+        <div className={styles.group}>
+          <SquareButton className={styles.button} Icon={List} tooltip={translate('menu')} onClick={onShowMenu} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.navButtons}>

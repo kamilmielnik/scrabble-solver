@@ -16,7 +16,6 @@ import {
   Solver,
   SolverMobile,
   Splash,
-  SquareButton,
   SvgFontFix,
   Words,
 } from 'components';
@@ -24,10 +23,9 @@ import { useDirection, useLanguage, useLocalStorage, useMediaQuery } from 'hooks
 import { LOCALE_FEATURES } from 'i18n';
 import { INITIALIZATION_DURATION } from 'parameters';
 import { registerServiceWorker } from 'serviceWorkerManager';
-import { initialize, localStorage, reset, selectLocale, useTranslate, useTypedSelector } from 'state';
+import { initialize, localStorage, reset, selectLocale, useTypedSelector } from 'state';
 
 import styles from './index.module.scss';
-import { List } from 'icons';
 
 Modal.setAppElement('#__next');
 
@@ -37,7 +35,6 @@ interface Props {
 
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
-  const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const [showKeyMap, setShowKeyMap] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -89,24 +86,14 @@ const Index: FunctionComponent<Props> = ({ version }) => {
             </a>
           </div>
 
-          {!isMobile && (
-            <NavButtons
-              onClear={handleClear}
-              onShowKeyMap={() => setShowKeyMap(true)}
-              onShowRemainingTiles={() => setShowRemainingTiles(true)}
-              onShowSettings={() => setShowSettings(true)}
-              onShowWords={() => setShowWords(true)}
-            />
-          )}
-
-          {isMobile && (
-            <SquareButton
-              className={classNames(styles.button)}
-              Icon={List}
-              tooltip={translate('menu')}
-              onClick={() => setShowMenu(true)}
-            />
-          )}
+          <NavButtons
+            onClear={handleClear}
+            onShowKeyMap={() => setShowKeyMap(true)}
+            onShowMenu={() => setShowMenu(true)}
+            onShowRemainingTiles={() => setShowRemainingTiles(true)}
+            onShowSettings={() => setShowSettings(true)}
+            onShowWords={() => setShowWords(true)}
+          />
         </div>
 
         <SolverComponent className={styles.solver} />
