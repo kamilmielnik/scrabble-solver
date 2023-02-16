@@ -4,7 +4,7 @@ import { CardChecklist, Cog, Github, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { useTranslate } from 'state';
 
-import Sidebar from '../Sidebar';
+import Modal from '../Modal';
 
 import styles from './Menu.module.scss';
 
@@ -28,7 +28,7 @@ const Menu: FunctionComponent<Props> = ({
   const translate = useTranslate();
 
   return (
-    <Sidebar className={className} isOpen={isOpen} title={translate('menu')} onClose={onClose}>
+    <Modal className={className} isOpen={isOpen} title={translate('menu')} onClose={onClose}>
       <button className={styles.button} onClick={onShowRemainingTiles}>
         <Sack className={styles.icon} />
         <div className={styles.content}>{translate('remaining-tiles')}</div>
@@ -48,7 +48,7 @@ const Menu: FunctionComponent<Props> = ({
         <Cog className={styles.icon} />
         <div className={styles.content}>{translate('settings')}</div>
       </button>
-    </Sidebar>
+    </Modal>
   );
 };
 

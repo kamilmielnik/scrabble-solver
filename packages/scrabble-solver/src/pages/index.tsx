@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
 import { AnimationEvent, FunctionComponent, useEffect, useState } from 'react';
-import Modal from 'react-modal';
+import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce } from 'react-use';
 
@@ -27,7 +27,7 @@ import { initialize, localStorage, reset, selectLocale, useTypedSelector } from 
 
 import styles from './index.module.scss';
 
-Modal.setAppElement('#__next');
+ReactModal.setAppElement('#__next');
 
 interface Props {
   version: string;

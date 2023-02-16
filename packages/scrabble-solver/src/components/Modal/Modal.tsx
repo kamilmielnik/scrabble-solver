@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
-import Modal from 'react-modal';
+import ReactModal from 'react-modal';
 import { useKey } from 'react-use';
 
 import { CrossFill } from 'icons';
@@ -10,7 +10,7 @@ import { useTranslate } from 'state';
 import SquareButton from '../SquareButton';
 
 import { Section } from './components';
-import styles from './Sidebar.module.scss';
+import styles from './Modal.module.scss';
 
 export interface Props {
   children: ReactNode;
@@ -20,7 +20,7 @@ export interface Props {
   onClose: () => void;
 }
 
-const Sidebar: FunctionComponent<Props> = ({ children, className, isOpen, title, onClose }) => {
+const Modal: FunctionComponent<Props> = ({ children, className, isOpen, title, onClose }) => {
   const translate = useTranslate();
   const [shouldReturnFocusAfterClose, setShouldReturnFocusAfterClose] = useState(true);
 
@@ -41,7 +41,7 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, isOpen, title,
   }, [isOpen]);
 
   return (
-    <Modal
+    <ReactModal
       className={{
         afterOpen: styles.afterOpen,
         base: styles.modal,
@@ -54,7 +54,7 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, isOpen, title,
       shouldReturnFocusAfterClose={shouldReturnFocusAfterClose}
       onRequestClose={onClose}
     >
-      <div className={classNames(styles.sidebar, className)}>
+      <div className={classNames(styles.container, className)}>
         <div className={styles.header}>
           <h1 className={styles.title}>{title}</h1>
 
@@ -68,10 +68,10 @@ const Sidebar: FunctionComponent<Props> = ({ children, className, isOpen, title,
 
         <div className={styles.content}>{children}</div>
       </div>
-    </Modal>
+    </ReactModal>
   );
 };
 
-export default Object.assign(Sidebar, {
+export default Object.assign(Modal, {
   Section,
 });

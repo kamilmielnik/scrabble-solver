@@ -19,7 +19,7 @@ $z-index: 100;
   position: fixed;
   z-index: $z-index;
   height: 100vh;
-  width: var(--sidebar--width);
+  width: var(--modal--width);
   padding: 0;
   border-radius: 0;
   border: none;
@@ -29,12 +29,12 @@ $z-index: 100;
   }
 
   @include media('<m') {
-    --sidebar--width: 100%;
+    --modal--width: 100%;
   }
 }
 
 .afterOpen {
-  .sidebar {
+  .container {
     [dir='ltr'] &,
     [dir='rtl'] & {
       transform: translateX(0);
@@ -44,15 +44,15 @@ $z-index: 100;
 }
 
 .beforeClose {
-  .sidebar {
+  .container {
     opacity: 0;
 
     [dir='ltr'] & {
-      transform: translateX(var(--sidebar--width));
+      transform: translateX(var(--modal--width));
     }
 
     [dir='rtl'] & {
-      transform: translateX(calc(-1 * var(--sidebar--width)));
+      transform: translateX(calc(-1 * var(--modal--width)));
     }
   }
 }
@@ -61,7 +61,7 @@ $z-index: 100;
   background-color: transparent;
 }
 
-.sidebar {
+.container {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -69,15 +69,15 @@ $z-index: 100;
   box-shadow: var(--box-shadow--left);
   transition: var(--transition);
   transition-duration: var(--transition--duration--long);
-  transform: translateX(var(--sidebar--width));
+  transform: translateX(var(--modal--width));
   opacity: 0;
 
   [dir='ltr'] & {
-    transform: translateX(var(--sidebar--width));
+    transform: translateX(var(--modal--width));
   }
 
   [dir='rtl'] & {
-    transform: translateX(calc(-1 * var(--sidebar--width)));
+    transform: translateX(calc(-1 * var(--modal--width)));
   }
 }
 

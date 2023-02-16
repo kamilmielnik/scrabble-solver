@@ -4,7 +4,7 @@ import { LOCALE_FEATURES } from 'i18n';
 import { selectLocale, selectRemainingTilesGroups, useTranslate, useTypedSelector } from 'state';
 
 import Badge from '../Badge';
-import Sidebar from '../Sidebar';
+import Modal from '../Modal';
 
 import Character from './Character';
 import styles from './RemainingTiles.module.scss';
@@ -22,13 +22,13 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }
   const { direction } = LOCALE_FEATURES[locale];
 
   return (
-    <Sidebar className={className} isOpen={isOpen} title={translate('remaining-tiles')} onClose={onClose}>
+    <Modal className={className} isOpen={isOpen} title={translate('remaining-tiles')} onClose={onClose}>
       {groups.map(({ remainingCount, tiles, translationKey, totalCount }) => {
         const current = direction === 'ltr' ? remainingCount : totalCount;
         const total = direction === 'ltr' ? totalCount : remainingCount;
 
         return (
-          <Sidebar.Section
+          <Modal.Section
             key={translationKey}
             title={
               <span className={styles.title}>
@@ -48,10 +48,10 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }
                 );
               })}
             </div>
-          </Sidebar.Section>
+          </Modal.Section>
         );
       })}
-    </Sidebar>
+    </Modal>
   );
 };
 

@@ -5,7 +5,7 @@ import { Check, Cross } from 'icons';
 import { selectLocale, selectVerify, useTranslate, useTypedSelector } from 'state';
 
 import Badge from '../Badge';
-import Sidebar from '../Sidebar';
+import Modal from '../Modal';
 
 import styles from './Words.module.scss';
 
@@ -21,8 +21,8 @@ const Words: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const { invalidWords, validWords } = useTypedSelector(selectVerify);
 
   return (
-    <Sidebar className={className} isOpen={isOpen} title={translate('words')} onClose={onClose}>
-      <Sidebar.Section
+    <Modal className={className} isOpen={isOpen} title={translate('words')} onClose={onClose}>
+      <Modal.Section
         title={
           <span className={styles.title}>
             <span>{translate('words.invalid')}</span>
@@ -35,9 +35,9 @@ const Words: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
             <Cross className={classNames(styles.icon, styles.invalid)} /> {word}
           </div>
         ))}
-      </Sidebar.Section>
+      </Modal.Section>
 
-      <Sidebar.Section
+      <Modal.Section
         title={
           <span className={styles.title}>
             <span>{translate('words.valid')}</span>
@@ -50,8 +50,8 @@ const Words: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
             <Check className={classNames(styles.icon, styles.valid)} /> {word}
           </div>
         ))}
-      </Sidebar.Section>
-    </Sidebar>
+      </Modal.Section>
+    </Modal>
   );
 };
 

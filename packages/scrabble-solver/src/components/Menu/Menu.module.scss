@@ -6,11 +6,13 @@
 
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--spacing--l);
   margin-bottom: var(--spacing--m);
   padding: var(--spacing--m);
+  border: var(--border);
   border-radius: var(--border--radius);
+  background-color: var(--color--background--overlay);
   transition: var(--transition);
   cursor: pointer;
 
