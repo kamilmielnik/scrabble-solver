@@ -41,7 +41,11 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }
           >
             <div className={styles.content}>
               {tiles.map((tile) => {
-                return <Character key={tile.character} tile={tile} />;
+                return (
+                  <div className={styles.character} key={tile.character}>
+                    <Character tile={tile} />
+                  </div>
+                );
               })}
             </div>
           </Sidebar.Section>

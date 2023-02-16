@@ -1,15 +1,14 @@
 .emptyState {
-  margin: 0 auto;
-  max-width: calc(2 * var(--sidebar--width) / 3);
   padding: var(--spacing--xl);
   font-family: var(--font--family);
   color: var(--color--foreground--secondary);
   text-align: center;
   text-transform: none;
+}
 
-  .tiles {
-    margin-bottom: var(--spacing--m);
-    height: 40px;
-    overflow: visible;
-  }
+.tiles {
+  display: inline-block;
+  margin-bottom: var(--spacing--m);
+  height: 40px;
+  overflow: visible;
 }

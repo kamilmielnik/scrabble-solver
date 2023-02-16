@@ -33,10 +33,10 @@
   position: relative;
 }
 
-.sidebar {
+.column {
   display: flex;
   flex-direction: column;
-  flex: 0 0 var(--sidebar--width);
+  flex: 0 0 var(--solver-column--width);
   gap: var(--spacing--xl);
 
   @include media('<l') {

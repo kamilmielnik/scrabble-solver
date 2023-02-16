@@ -53,7 +53,7 @@ const Solver: FunctionComponent<Props> = ({ className }) => {
             <input className={styles.submitInput} tabIndex={-1} type="submit" />
           </form>
 
-          <div className={styles.sidebar} style={{ height: boardHeight + 1 }}>
+          <div className={styles.column} style={{ height: boardHeight + 1 }}>
             <Well className={styles.resultsContainer} ref={resultsContainerRef}>
               {resultsContainerWidth > 0 && resultsContainerHeight > 0 && (
                 <Results height={resultsHeight} width={resultsContainerWidth} />

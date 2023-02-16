@@ -1,7 +1,6 @@
 @import 'styles/mixins';
 
 $z-index: 100;
-$width: 370px;
 
 .modal,
 .closeButton {
@@ -20,13 +19,17 @@ $width: 370px;
   position: fixed;
   z-index: $z-index;
   height: 100vh;
-  width: $width;
+  width: var(--sidebar--width);
   padding: 0;
   border-radius: 0;
   border: none;
 
   &:focus {
     outline: none;
+  }
+
+  @include media('<s') {
+    --sidebar--width: 100%;
   }
 }
 
@@ -45,11 +48,11 @@ $width: 370px;
     opacity: 0;
 
     [dir='ltr'] & {
-      transform: translateX($width);
+      transform: translateX(var(--sidebar--width));
     }
 
     [dir='rtl'] & {
-      transform: translateX(-$width);
+      transform: translateX(calc(-1 * var(--sidebar--width)));
     }
   }
 }
@@ -66,15 +69,15 @@ $width: 370px;
   box-shadow: var(--box-shadow--left);
   transition: var(--transition);
   transition-duration: var(--transition--duration--long);
-  transform: translateX($width);
+  transform: translateX(var(--sidebar--width));
   opacity: 0;
 
   [dir='ltr'] & {
-    transform: translateX($width);
+    transform: translateX(var(--sidebar--width));
   }
 
   [dir='rtl'] & {
-    transform: translateX(-$width);
+    transform: translateX(calc(-1 * var(--sidebar--width)));
   }
 }
 

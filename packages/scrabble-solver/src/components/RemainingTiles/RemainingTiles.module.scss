@@ -6,11 +6,23 @@
 }
 
 .content {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: var(--spacing--m);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing--l);
 }
 
 .badge {
-  margin-left: var(--spacing--m);
+  [dir='ltr'] & {
+    margin-left: var(--spacing--m);
+  }
+
+  [dir='rtl'] & {
+    margin-right: var(--spacing--m);
+  }
+}
+
+.character {
+  display: flex;
+  flex: 0 1;
+  max-width: 50px;
 }
