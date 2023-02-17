@@ -28,17 +28,32 @@
 
 .points {
   flex: 0 0 auto;
-  border-right: var(--border);
   font-weight: bold;
+
+  [dir='ltr'] & {
+    border-right: var(--border);
+  }
+
+  [dir='rtl'] & {
+    border-left: var(--border);
+  }
 }
 
 .word {
   @include ellipsis;
 
   flex: 1;
-  padding-right: 0;
   text-transform: uppercase;
-  text-align: left;
+
+  [dir='ltr'] & {
+    padding-right: 0;
+    text-align: left;
+  }
+
+  [dir='rtl'] & {
+    padding-left: 0;
+    text-align: right;
+  }
 }
 
 .iconContainer {
