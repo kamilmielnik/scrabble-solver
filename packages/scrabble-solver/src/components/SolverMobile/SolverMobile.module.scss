@@ -52,7 +52,7 @@
   gap: var(--spacing--l);
 }
 
-.resultPicker {
+.resultCandidatePicker {
   flex: 1;
 }
 
@@ -74,6 +74,11 @@
   &:hover {
     text-decoration: none;
     background-color: var(--color--primary);
+  }
+
+  &[disabled] {
+    pointer-events: none;
+    opacity: 0.25;
   }
 
   @include media('<xs') {

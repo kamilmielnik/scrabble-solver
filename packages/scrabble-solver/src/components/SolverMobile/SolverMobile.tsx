@@ -5,11 +5,11 @@ import { useMeasure } from 'react-use';
 
 import { CheckLarge } from 'icons';
 import { BOARD_TILE_SIZE_MAX, BOARD_TILE_SIZE_MIN, RACK_TILE_SIZE_MAX } from 'parameters';
-import { selectConfig, solveSlice, useTypedSelector } from 'state';
+import { resultsSlice, selectConfig, selectResultCandidate, solveSlice, useTypedSelector } from 'state';
 
 import Board from '../Board';
 import Rack from '../Rack';
-import ResultPicker from '../ResultPicker';
+import ResultCandidatePicker from '../ResultCandidatePicker';
 
 import styles from './SolverMobile.module.scss';
 
@@ -21,11 +21,16 @@ const SolverMobile: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const [sizerRef, { width: sizerWidth }] = useMeasure<HTMLDivElement>();
   const config = useTypedSelector(selectConfig);
+  const resultCandidate = useTypedSelector(selectResultCandidate);
   const cellSize = (sizerWidth - (config.boardWidth + 1)) / config.boardWidth;
   const cellSizeSafe = Math.min(Math.max(cellSize, BOARD_TILE_SIZE_MIN), BOARD_TILE_SIZE_MAX);
   const tileSize = sizerWidth / config.maximumCharactersCount;
 
-  const handleApply = () => {};
+  const handleApply = () => {
+    if (resultCandidate) {
+      dispatch(resultsSlice.actions.applyResult(resultCandidate));
+    }
+  };
 
   const handlePick = () => {};
 
@@ -48,9 +53,9 @@ const SolverMobile: FunctionComponent<Props> = ({ className }) => {
           </form>
 
           <div className={styles.controls}>
-            <ResultPicker className={styles.resultPicker} onClick={handlePick} />
+            <ResultCandidatePicker className={styles.resultCandidatePicker} onClick={handlePick} />
 
-            <button className={styles.apply} onClick={handleApply}>
+            <button className={styles.apply} disabled={!resultCandidate} onClick={handleApply}>
               <CheckLarge className={styles.applyIcon} />
             </button>
           </div>

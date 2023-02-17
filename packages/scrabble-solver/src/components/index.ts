@@ -16,6 +16,7 @@ export { default as PlainTiles } from './PlainTiles';
 export { default as Progress } from './Progress';
 export { default as Rack } from './Rack';
 export { default as Radio } from './Radio';
+export { default as ResultCandidatePicker } from './ResultCandidatePicker';
 export { default as Results } from './Results';
 export { default as ResultsInput } from './ResultsInput';
 export { default as Solver } from './Solver';
