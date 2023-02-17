@@ -1,0 +1,56 @@
+@import 'styles/mixins';
+
+.resultPicker {
+  @include button-reset;
+  @include focus-effect;
+
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  border: var(--border);
+  border-radius: var(--border--radius);
+  background-color: white;
+  box-shadow: var(--box-shadow);
+  line-height: 1.5;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.points,
+.word {
+  padding: var(--spacing--m) var(--spacing--l);
+}
+
+.points {
+  flex: 0 0 auto;
+  border-right: var(--border);
+  font-weight: bold;
+}
+
+.word {
+  @include ellipsis;
+
+  flex: 1;
+  padding-right: 0;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.iconContainer {
+  flex: 0 0 auto;
+  display: flex;
+  padding: 0 var(--spacing--l);
+}
+
+.icon {
+  $size: 20px;
+
+  width: $size;
+  height: $size;
+  color: var(--color--inactive);
+}

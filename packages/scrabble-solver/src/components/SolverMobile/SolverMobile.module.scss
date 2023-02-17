@@ -1,3 +1,5 @@
+@import 'styles/mixins';
+
 .solverMobile {
   position: relative;
   margin: 0 var(--spacing--l);
@@ -15,16 +17,14 @@
   margin: 0 auto;
 }
 
+.rackContainer,
 .controls {
-  display: flex;
-  justify-content: center;
   margin: var(--spacing--l) 0;
 }
 
 .rackContainer {
   display: flex;
   justify-content: center;
-  margin: var(--spacing--l) 0;
 }
 
 .rack {
@@ -33,4 +33,51 @@
 
 .submitInput {
   display: none;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing--l);
+}
+
+.resultPicker {
+  flex: 1;
+  max-width: 436px;
+}
+
+.apply {
+  @include button-reset;
+  @include focus-effect;
+
+  flex: 0 0 auto;
+  padding: var(--spacing--m) var(--spacing--xl);
+  border: var(--border);
+  border-radius: var(--border--radius);
+  color: white;
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+
+  &,
+  &:active,
+  &:focus,
+  &:hover {
+    text-decoration: none;
+    background-color: var(--color--primary);
+  }
+
+  @include media('<xs') {
+    padding: var(--spacing--m) var(--spacing--l);
+  }
+}
+
+.applyIcon {
+  --square-button-size: calc(var(--line-height) * var(--font--size--m));
+  display: block;
+  width: var(--square-button-size);
+  height: var(--square-button-size);
+  pointer-events: none;
+
+  transform: scale(1.25);
 }

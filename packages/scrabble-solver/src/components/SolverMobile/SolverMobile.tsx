@@ -3,12 +3,13 @@ import { FormEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useMeasure } from 'react-use';
 
+import { CheckLarge } from 'icons';
 import { BOARD_TILE_SIZE_MAX, BOARD_TILE_SIZE_MIN, RACK_TILE_SIZE_MAX } from 'parameters';
 import { selectConfig, solveSlice, useTypedSelector } from 'state';
 
 import Board from '../Board';
 import Rack from '../Rack';
-import SolveButton from '../Results/SolveButton';
+import ResultPicker from '../ResultPicker';
 
 import styles from './SolverMobile.module.scss';
 
@@ -41,7 +42,11 @@ const SolverMobile: FunctionComponent<Props> = ({ className }) => {
       </form>
 
       <div className={styles.controls}>
-        <SolveButton />
+        <ResultPicker className={styles.resultPicker} onClick={() => console.log('asd222')} />
+
+        <button className={styles.apply} onClick={() => console.log('asd')}>
+          <CheckLarge className={styles.applyIcon} />
+        </button>
       </div>
     </div>
   );
