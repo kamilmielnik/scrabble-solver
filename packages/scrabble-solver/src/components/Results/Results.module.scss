@@ -82,10 +82,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   align-items: center;
   justify-content: space-between;
 
-  [dir='rtl'] & {
-    flex-direction: row-reverse;
-  }
-
   .word {
     @include ellipsis;
   }

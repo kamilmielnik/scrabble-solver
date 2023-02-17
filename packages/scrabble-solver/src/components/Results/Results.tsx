@@ -31,8 +31,9 @@ interface Props {
 }
 
 const Results: FunctionComponent<Props> = ({ height, width }) => {
-  const locale = useTypedSelector(selectLocale);
   const translate = useTranslate();
+  const locale = useTypedSelector(selectLocale);
+  const { direction } = LOCALE_FEATURES[locale];
   const allResults = useTypedSelector(selectSortedResults);
   const results = useTypedSelector(selectSortedFilteredResults);
   const isLoading = useTypedSelector(selectIsLoading);
@@ -98,6 +99,7 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
                   className={classNames(styles.list, {
                     [styles.outdated]: isOutdated,
                   })}
+                  direction={direction}
                   height={height - RESULTS_HEADER_HEIGHT - RESULTS_INPUT_HEIGHT}
                   innerRef={listRef}
                   itemCount={results.length}
