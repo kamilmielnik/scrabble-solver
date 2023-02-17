@@ -1,9 +1,7 @@
 @import 'styles/mixins';
 
 .resultsInput {
-  &:focus-within {
-    @include focus-effect;
-  }
+  @include focus-effect;
 }
 
 .input {
