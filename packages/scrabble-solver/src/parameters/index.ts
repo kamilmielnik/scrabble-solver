@@ -25,7 +25,12 @@ export const BOARD_CELL_BORDER_WIDTH = 1;
 export const BOARD_TILE_FONT_SIZE_MIN = 14;
 export const BOARD_TILE_FONT_SIZE_POINTS_MIN = 10;
 export const BOARD_TILE_SIZE_MAX = 64;
-export const BOARD_TILE_SIZE_MIN = 32;
+/**
+ * 20 - fits all board tiles without horizontal scrollbar on 360px viewport width (font-size: 14px)
+ * 21 - fits all board tiles without horizontal scrollbar on 375px viewport width (font-size: 14px)
+ * 26 - tiles start to look good (font-size: 16px)
+ */
+export const BOARD_TILE_SIZE_MIN = 20;
 
 export const DICTIONARY_HEIGHT = 260;
 

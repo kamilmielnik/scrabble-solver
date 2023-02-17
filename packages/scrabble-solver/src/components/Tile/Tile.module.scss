@@ -92,6 +92,10 @@
   pointer-events: none;
   letter-spacing: -1px;
 
+  @include media('<xs') {
+    display: none;
+  }
+
   [dir='ltr'] & {
     bottom: 1%;
     right: 9%;

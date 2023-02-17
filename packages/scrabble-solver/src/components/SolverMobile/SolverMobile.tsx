@@ -33,9 +33,7 @@ const SolverMobile: FunctionComponent<Props> = ({ className }) => {
     <div className={classNames(styles.solverMobile, className)}>
       <div className={styles.sizer} ref={sizerRef} />
 
-      <div className={styles.boardContainer}>
-        <Board className={styles.board} cellSize={cellSizeSafe} />
-      </div>
+      <Board className={styles.board} cellSize={cellSizeSafe} />
 
       <form className={styles.rackContainer} onSubmit={handleSubmit}>
         <Rack className={styles.rack} tileSize={Math.min(tileSize, RACK_TILE_SIZE_MAX)} />
