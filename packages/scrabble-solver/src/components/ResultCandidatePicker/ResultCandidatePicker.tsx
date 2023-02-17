@@ -1,15 +1,8 @@
 import classNames from 'classnames';
-import { FunctionComponent, HTMLProps, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { FunctionComponent, HTMLProps } from 'react';
 
 import { ChevronDown } from 'icons';
-import {
-  resultsSlice,
-  selectLocale,
-  selectResultCandidate,
-  selectSortedFilteredResults,
-  useTypedSelector,
-} from 'state';
+import { selectLocale, selectResultCandidate, useTypedSelector } from 'state';
 
 import styles from './ResultCandidatePicker.module.scss';
 
@@ -19,18 +12,8 @@ interface Props extends HTMLProps<HTMLButtonElement> {
 }
 
 const ResultCandidatePicker: FunctionComponent<Props> = ({ className, ...props }) => {
-  const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
   const resultCandidate = useTypedSelector(selectResultCandidate);
-  const results = useTypedSelector(selectSortedFilteredResults)!;
-
-  const [bestResult] = results || [];
-
-  useEffect(() => {
-    if (bestResult) {
-      dispatch(resultsSlice.actions.changeResultCandidate(bestResult));
-    }
-  }, [bestResult, dispatch]);
 
   if (!resultCandidate) {
     return null;

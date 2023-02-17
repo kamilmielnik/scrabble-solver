@@ -1,11 +1,18 @@
 import classNames from 'classnames';
-import { FormEvent, FunctionComponent } from 'react';
+import { FormEvent, FunctionComponent, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useMeasure } from 'react-use';
 
 import { CheckLarge } from 'icons';
 import { BOARD_TILE_SIZE_MAX, BOARD_TILE_SIZE_MIN, RACK_TILE_SIZE_MAX } from 'parameters';
-import { resultsSlice, selectConfig, selectResultCandidate, solveSlice, useTypedSelector } from 'state';
+import {
+  resultsSlice,
+  selectConfig,
+  selectResultCandidate,
+  selectSortedFilteredResults,
+  solveSlice,
+  useTypedSelector,
+} from 'state';
 
 import Board from '../Board';
 import Rack from '../Rack';
@@ -22,6 +29,8 @@ const SolverMobile: FunctionComponent<Props> = ({ className }) => {
   const [sizerRef, { width: sizerWidth }] = useMeasure<HTMLDivElement>();
   const config = useTypedSelector(selectConfig);
   const resultCandidate = useTypedSelector(selectResultCandidate);
+  const results = useTypedSelector(selectSortedFilteredResults)!;
+  const [bestResult] = results || [];
   const cellSize = (sizerWidth - (config.boardWidth + 1)) / config.boardWidth;
   const cellSizeSafe = Math.min(Math.max(cellSize, BOARD_TILE_SIZE_MIN), BOARD_TILE_SIZE_MAX);
   const tileSize = sizerWidth / config.maximumCharactersCount;
@@ -38,6 +47,12 @@ const SolverMobile: FunctionComponent<Props> = ({ className }) => {
     event.preventDefault();
     dispatch(solveSlice.actions.submit());
   };
+
+  useEffect(() => {
+    if (bestResult) {
+      dispatch(resultsSlice.actions.changeResultCandidate(bestResult));
+    }
+  }, [bestResult, dispatch]);
 
   return (
     <div className={classNames(styles.solverMobile, className)}>
