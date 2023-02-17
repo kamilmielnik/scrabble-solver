@@ -25,6 +25,10 @@ const SolverMobile: FunctionComponent<Props> = ({ className }) => {
   const cellSizeSafe = Math.min(Math.max(cellSize, BOARD_TILE_SIZE_MIN), BOARD_TILE_SIZE_MAX);
   const tileSize = sizerWidth / config.maximumCharactersCount;
 
+  const handleApply = () => {};
+
+  const handlePick = () => {};
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(solveSlice.actions.submit());
@@ -36,17 +40,21 @@ const SolverMobile: FunctionComponent<Props> = ({ className }) => {
 
       <Board className={styles.board} cellSize={cellSizeSafe} />
 
-      <form className={styles.rackContainer} onSubmit={handleSubmit}>
-        <Rack className={styles.rack} tileSize={Math.min(tileSize, RACK_TILE_SIZE_MAX)} />
-        <input className={styles.submitInput} tabIndex={-1} type="submit" />
-      </form>
+      <div className={styles.bottomContainer}>
+        <div className={styles.bottomContent}>
+          <form className={styles.rackContainer} onSubmit={handleSubmit}>
+            <Rack className={styles.rack} tileSize={Math.min(tileSize, RACK_TILE_SIZE_MAX)} />
+            <input className={styles.submitInput} tabIndex={-1} type="submit" />
+          </form>
 
-      <div className={styles.controls}>
-        <ResultPicker className={styles.resultPicker} onClick={() => console.log('asd222')} />
+          <div className={styles.controls}>
+            <ResultPicker className={styles.resultPicker} onClick={handlePick} />
 
-        <button className={styles.apply} onClick={() => console.log('asd')}>
-          <CheckLarge className={styles.applyIcon} />
-        </button>
+            <button className={styles.apply} onClick={handleApply}>
+              <CheckLarge className={styles.applyIcon} />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

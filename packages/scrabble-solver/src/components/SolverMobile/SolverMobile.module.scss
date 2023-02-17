@@ -17,9 +17,18 @@
   margin: 0 auto;
 }
 
-.rackContainer,
-.controls {
-  margin: var(--spacing--l) 0;
+.bottomContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.bottomContent {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing--l);
+  margin: var(--spacing--l) auto;
+  min-width: 0;
 }
 
 .rackContainer {
@@ -36,6 +45,7 @@
 }
 
 .controls {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,7 +54,6 @@
 
 .resultPicker {
   flex: 1;
-  max-width: 436px;
 }
 
 .apply {
@@ -73,11 +82,11 @@
 }
 
 .applyIcon {
-  --square-button-size: calc(var(--line-height) * var(--font--size--m));
-  display: block;
-  width: var(--square-button-size);
-  height: var(--square-button-size);
-  pointer-events: none;
+  --size: calc(var(--line-height) * var(--font--size--m));
 
-  transform: scale(1.25);
+  display: block;
+  width: var(--size);
+  height: var(--size);
+  pointer-events: none;
+  transform: scale(1.5);
 }
