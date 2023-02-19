@@ -31,6 +31,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   justify-content: space-between;
   border-bottom: var(--border);
   font-weight: 700;
+  overflow: auto;
 }
 
 .headerButton {
@@ -69,7 +70,8 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   font-weight: 400;
 
   &:focus,
-  &:hover {
+  &:hover,
+  &.highlighted {
     &:not(:disabled) {
       background-color: var(--color--primary);
       color: white;

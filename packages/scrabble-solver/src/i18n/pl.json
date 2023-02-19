@@ -38,6 +38,7 @@
   "menu": "Menu",
   "rack.placeholder": "Literki",
   "remaining-tiles": "Pozostałe płytki",
+  "results": "Wyniki",
   "results.empty-state.no-filtered-results": "Żaden wynik nie pasuje do tej kwerendy.",
   "results.empty-state.no-results": "Brak wyników - nie można wygenerować żadnego słowa.",
   "results.empty-state.outdated": "Wyniki są nieaktualne. Kliknij poniżej, aby zaktualizować.",

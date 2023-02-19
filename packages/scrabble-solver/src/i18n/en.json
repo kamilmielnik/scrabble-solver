@@ -38,6 +38,7 @@
   "menu": "Menu",
   "rack.placeholder": "Letters",
   "remaining-tiles": "Remaining tiles",
+  "results": "Results",
   "results.empty-state.no-filtered-results": "No result matches this query.",
   "results.empty-state.no-results": "No results - unable to generate any words.",
   "results.empty-state.outdated": "Results are outdated. Click below to update.",

@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import { FunctionComponent, useLayoutEffect, useRef } from 'react';
+import { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { FixedSizeList } from 'react-window';
 
 import { LOCALE_FEATURES } from 'i18n';
-import { RESULTS_HEADER_HEIGHT, RESULTS_INPUT_HEIGHT, RESULTS_ITEM_HEIGHT } from 'parameters';
+import { BORDER_WIDTH, RESULTS_HEADER_HEIGHT, RESULTS_INPUT_HEIGHT, RESULTS_ITEM_HEIGHT } from 'parameters';
 import {
   selectAreResultsOutdated,
   selectIsLoading,
@@ -24,13 +24,16 @@ import HeaderButton from './HeaderButton';
 import Result from './Result';
 import styles from './Results.module.scss';
 import SolveButton from './SolveButton';
+import { ResultCallbacks, ResultData } from './types';
 
 interface Props {
+  callbacks: ResultCallbacks;
   height: number;
+  highlightedIndex?: number;
   width: number;
 }
 
-const Results: FunctionComponent<Props> = ({ height, width }) => {
+const Results: FunctionComponent<Props> = ({ callbacks, height, highlightedIndex, width }) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
@@ -39,14 +42,24 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
   const isLoading = useTypedSelector(selectIsLoading);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const error = useTypedSelector(selectSolveError);
-  const listRef = useRef<HTMLElement>();
+  const itemData = useMemo(() => ({ ...callbacks, highlightedIndex, results }), [callbacks, highlightedIndex, results]);
+  const [listRef, setListRef] = useState<FixedSizeList<ResultData> | null>(null);
   const columns = getColumns(LOCALE_FEATURES[locale]);
+  const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
 
-  useLayoutEffect(() => {
-    if (listRef.current) {
-      listRef.current.scrollTo(0, 0);
-    }
-  }, [listRef, results]);
+  useEffect(() => {
+    // without setTimeout, the initial scrolling offset is calculated
+    // incorrectly, as the list is not fully rendered by the browser yet
+    const timeout = globalThis.setTimeout(() => {
+      if (listRef) {
+        listRef.scrollToItem(scrollToIndex, 'center');
+      }
+    }, 0);
+
+    return () => {
+      globalThis.clearTimeout(timeout);
+    };
+  }, [listRef, scrollToIndex]);
 
   return (
     <div className={styles.results}>
@@ -100,10 +113,11 @@ const Results: FunctionComponent<Props> = ({ height, width }) => {
                     [styles.outdated]: isOutdated,
                   })}
                   direction={direction}
-                  height={height - RESULTS_HEADER_HEIGHT - RESULTS_INPUT_HEIGHT}
-                  innerRef={listRef}
+                  height={height - RESULTS_HEADER_HEIGHT - RESULTS_INPUT_HEIGHT - 2 * BORDER_WIDTH}
                   itemCount={results.length}
+                  itemData={itemData}
                   itemSize={RESULTS_ITEM_HEIGHT}
+                  ref={setListRef}
                   width={width}
                 >
                   {Result}

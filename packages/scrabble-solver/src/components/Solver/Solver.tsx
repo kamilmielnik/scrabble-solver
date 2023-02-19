@@ -1,18 +1,13 @@
+import { Result } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import { FormEvent, FunctionComponent } from 'react';
+import { FormEvent, FunctionComponent, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useMeasure } from 'react-use';
 
-import { useMediaQuery } from 'hooks';
+import { useIsTouchDevice, useMediaQuery } from 'hooks';
 import { getCellSize } from 'lib';
-import {
-  COMPONENTS_SPACING,
-  COMPONENTS_SPACING_MOBILE,
-  DICTIONARY_HEIGHT,
-  TILE_SIZE,
-  WELL_BORDER_WIDTH,
-} from 'parameters';
-import { selectConfig, solveSlice, useTypedSelector } from 'state';
+import { BORDER_WIDTH, COMPONENTS_SPACING, COMPONENTS_SPACING_MOBILE, DICTIONARY_HEIGHT, TILE_SIZE } from 'parameters';
+import { resultsSlice, selectConfig, selectResultCandidate, solveSlice, useTypedSelector } from 'state';
 
 import Board from '../Board';
 import Dictionary from '../Dictionary';
@@ -29,15 +24,51 @@ interface Props {
 
 const Solver: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
+  const isTouchDevice = useIsTouchDevice();
   const isMobile = useMediaQuery('<l', false);
   const [boardRef, { height: boardHeight }] = useMeasure<HTMLDivElement>();
   const [contentRef, { height: contentHeight, width: contentWidth }] = useMeasure<HTMLDivElement>();
   const [resultsContainerRef, { height: resultsContainerHeight, width: resultsContainerWidth }] =
     useMeasure<HTMLDivElement>();
   const config = useTypedSelector(selectConfig);
+  const resultCandidate = useTypedSelector(selectResultCandidate);
   const cellSize = getCellSize(config, contentWidth - resultsContainerWidth, contentHeight);
   const componentsSpacing = isMobile ? COMPONENTS_SPACING_MOBILE : COMPONENTS_SPACING;
-  const resultsHeight = boardHeight - DICTIONARY_HEIGHT - componentsSpacing - 4 * WELL_BORDER_WIDTH;
+  const resultsHeight = boardHeight - DICTIONARY_HEIGHT - componentsSpacing - 4 * BORDER_WIDTH;
+  const callbacks = useMemo(() => {
+    if (isTouchDevice) {
+      return {
+        onClick: (result: Result) => {
+          const isSelected = result === resultCandidate;
+
+          if (isSelected) {
+            dispatch(resultsSlice.actions.applyResult(result));
+          } else {
+            dispatch(resultsSlice.actions.changeResultCandidate(result));
+          }
+        },
+      };
+    }
+
+    return {
+      onBlur: () => {
+        dispatch(resultsSlice.actions.changeResultCandidate(null));
+      },
+
+      onClick: (result: Result) => {
+        dispatch(resultsSlice.actions.applyResult(result));
+      },
+      onFocus: (result: Result) => {
+        dispatch(resultsSlice.actions.changeResultCandidate(result));
+      },
+      onMouseEnter: (result: Result) => {
+        dispatch(resultsSlice.actions.changeResultCandidate(result));
+      },
+      onMouseLeave: () => {
+        dispatch(resultsSlice.actions.changeResultCandidate(null));
+      },
+    };
+  }, [dispatch, resultCandidate, isTouchDevice]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -56,7 +87,7 @@ const Solver: FunctionComponent<Props> = ({ className }) => {
           <div className={styles.column} style={{ height: boardHeight + 1 }}>
             <Well className={styles.resultsContainer} ref={resultsContainerRef}>
               {resultsContainerWidth > 0 && resultsContainerHeight > 0 && (
-                <Results height={resultsHeight} width={resultsContainerWidth} />
+                <Results callbacks={callbacks} height={resultsHeight} width={resultsContainerWidth} />
               )}
             </Well>
 

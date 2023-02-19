@@ -32,6 +32,8 @@ export const BOARD_TILE_SIZE_MAX = 64;
  */
 export const BOARD_TILE_SIZE_MIN = 20;
 
+export const BORDER_WIDTH = 1;
+
 export const DICTIONARY_HEIGHT = 260;
 
 export const TILE_SIZE = 80;
@@ -65,8 +67,6 @@ export const RACK_TILE_SIZE_MAX = 80;
 
 export const REMAINING_TILES_TILE_SIZE = 50;
 
-export const RESULTS_HEADER_HEIGHT = 35;
+export const RESULTS_HEADER_HEIGHT = 34;
 export const RESULTS_ITEM_HEIGHT = 40;
 export const RESULTS_INPUT_HEIGHT = 40;
-
-export const WELL_BORDER_WIDTH = 1;

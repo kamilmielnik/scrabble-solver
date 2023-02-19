@@ -9,7 +9,7 @@ import { useEffectOnce } from 'react-use';
 import { Logo, LogoSplashScreen, NavButtons, Solver, SolverMobile, SvgFontFix } from 'components';
 import { useDirection, useLanguage, useLocalStorage, useMediaQuery } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
-import { KeyMap, Menu, RemainingTiles, Settings, Words } from 'modals';
+import { KeyMap, Menu, RemainingTiles, Results, Settings, Words } from 'modals';
 import { INITIALIZATION_DURATION } from 'parameters';
 import { registerServiceWorker } from 'serviceWorkerManager';
 import { initialize, localStorage, reset, selectLocale, useTypedSelector } from 'state';
@@ -28,6 +28,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [showKeyMap, setShowKeyMap] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showRemainingTiles, setShowRemainingTiles] = useState(false);
+  const [showResults, setShowResults] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showWords, setShowWords] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
@@ -52,7 +53,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   useEffectOnce(() => {
     dispatch(initialize());
 
-    setTimeout(() => {
+    globalThis.setTimeout(() => {
       setIsInitialized(true);
     }, INITIALIZATION_DURATION);
   });
@@ -85,7 +86,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           />
         </div>
 
-        <SolverComponent className={styles.solver} />
+        <SolverComponent className={styles.solver} onShowResults={() => setShowResults(true)} />
       </div>
 
       <Menu
@@ -103,6 +104,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       <Words isOpen={showWords} onClose={() => setShowWords(false)} />
 
       <RemainingTiles isOpen={showRemainingTiles} onClose={() => setShowRemainingTiles(false)} />
+
+      <Results isOpen={showResults} onClose={() => setShowResults(false)} />
 
       <LogoSplashScreen forceShow={!isInitialized} onAnimationEnd={handleSplashAnimationEnd} />
     </>

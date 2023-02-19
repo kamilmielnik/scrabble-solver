@@ -22,13 +22,15 @@ import styles from './SolverMobile.module.scss';
 
 interface Props {
   className?: string;
+  onShowResults: () => void;
 }
 
-const SolverMobile: FunctionComponent<Props> = ({ className }) => {
+const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) => {
   const dispatch = useDispatch();
   const [sizerRef, { width: sizerWidth }] = useMeasure<HTMLDivElement>();
   const config = useTypedSelector(selectConfig);
   const resultCandidate = useTypedSelector(selectResultCandidate);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion,
   const results = useTypedSelector(selectSortedFilteredResults)!;
   const [bestResult] = results || [];
   const cellSize = (sizerWidth - (config.boardWidth + 1)) / config.boardWidth;
@@ -40,8 +42,6 @@ const SolverMobile: FunctionComponent<Props> = ({ className }) => {
       dispatch(resultsSlice.actions.applyResult(resultCandidate));
     }
   };
-
-  const handlePick = () => {};
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -68,7 +68,7 @@ const SolverMobile: FunctionComponent<Props> = ({ className }) => {
           </form>
 
           <div className={styles.controls}>
-            <ResultCandidatePicker className={styles.resultCandidatePicker} onClick={handlePick} />
+            <ResultCandidatePicker className={styles.resultCandidatePicker} onClick={onShowResults} />
 
             <button className={styles.apply} disabled={!resultCandidate} onClick={handleApply}>
               <CheckLarge className={styles.applyIcon} />

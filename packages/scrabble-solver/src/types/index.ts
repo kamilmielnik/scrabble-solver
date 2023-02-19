@@ -71,6 +71,7 @@ export type TranslationKey =
   | 'menu'
   | 'rack.placeholder'
   | 'remaining-tiles'
+  | 'results'
   | 'results.empty-state.no-filtered-results'
   | 'results.empty-state.no-results'
   | 'results.empty-state.outdated'

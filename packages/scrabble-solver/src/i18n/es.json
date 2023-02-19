@@ -38,6 +38,7 @@
   "menu": "Menú",
   "rack.placeholder": "Letras…",
   "remaining-tiles": "Casillas restantes",
+  "results": "Resultados",
   "results.empty-state.no-filtered-results": "Ningún resultado coincide con esta consulta.",
   "results.empty-state.no-results": "No hay resultados; no se pueden generar palabras",
   "results.empty-state.outdated": "Los resultados están desactualizados. Haga clic a continuación para actualizar.",
