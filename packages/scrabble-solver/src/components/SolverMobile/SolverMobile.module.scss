@@ -13,7 +13,7 @@
   right: 0;
 }
 
-.board {
+.boardContainer {
   margin: 0 auto;
 }
 
@@ -56,7 +56,7 @@
   flex: 1;
 }
 
-.apply {
+.submit {
   @include button-reset;
   @include focus-effect;
 
@@ -86,12 +86,15 @@
   }
 }
 
-.applyIcon {
+.submitIcon {
   --size: calc(var(--line-height) * var(--font--size--m));
 
   display: block;
   width: var(--size);
   height: var(--size);
   pointer-events: none;
-  transform: scale(1.5);
+}
+
+.check {
+  transform: scale(1.75);
 }

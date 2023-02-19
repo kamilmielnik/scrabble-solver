@@ -3,10 +3,11 @@ import { FormEvent, FunctionComponent, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useMeasure } from 'react-use';
 
-import { CheckLarge } from 'icons';
+import { Check, Search } from 'icons';
 import { BOARD_TILE_SIZE_MAX, BOARD_TILE_SIZE_MIN, RACK_TILE_SIZE_MAX } from 'parameters';
 import {
   resultsSlice,
+  selectAreResultsOutdated,
   selectConfig,
   selectResultCandidate,
   selectSortedFilteredResults,
@@ -30,6 +31,7 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
   const [sizerRef, { width: sizerWidth }] = useMeasure<HTMLDivElement>();
   const config = useTypedSelector(selectConfig);
   const resultCandidate = useTypedSelector(selectResultCandidate);
+  const isOutdated = useTypedSelector(selectAreResultsOutdated);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion,
   const results = useTypedSelector(selectSortedFilteredResults)!;
   const [bestResult] = results || [];
@@ -41,6 +43,10 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
     if (resultCandidate) {
       dispatch(resultsSlice.actions.applyResult(resultCandidate));
     }
+  };
+
+  const handleSolve = () => {
+    dispatch(solveSlice.actions.submit());
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -58,7 +64,10 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
     <div className={classNames(styles.solverMobile, className)}>
       <div className={styles.sizer} ref={sizerRef} />
 
-      <Board className={styles.board} cellSize={cellSizeSafe} />
+      <form className={styles.boardContainer} onSubmit={handleSubmit}>
+        <Board className={styles.board} cellSize={cellSizeSafe} />
+        <input className={styles.submitInput} tabIndex={-1} type="submit" />
+      </form>
 
       <div className={styles.bottomContainer}>
         <div className={styles.bottomContent}>
@@ -68,11 +77,23 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
           </form>
 
           <div className={styles.controls}>
-            <ResultCandidatePicker className={styles.resultCandidatePicker} onClick={onShowResults} />
+            <ResultCandidatePicker
+              className={styles.resultCandidatePicker}
+              disabled={isOutdated}
+              onClick={onShowResults}
+            />
 
-            <button className={styles.apply} disabled={!resultCandidate} onClick={handleApply}>
-              <CheckLarge className={styles.applyIcon} />
-            </button>
+            {isOutdated && (
+              <button className={styles.submit} onClick={handleSolve}>
+                <Search className={styles.submitIcon} />
+              </button>
+            )}
+
+            {!isOutdated && (
+              <button className={styles.submit} disabled={!resultCandidate} onClick={handleApply}>
+                <Check className={classNames(styles.submitIcon, styles.check)} />
+              </button>
+            )}
           </div>
         </div>
       </div>

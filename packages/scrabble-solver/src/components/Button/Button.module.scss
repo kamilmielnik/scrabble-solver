@@ -29,7 +29,7 @@
     }
   }
 
-  &:disabled {
+  &[disabled] {
     background-color: var(--color--background);
     color: var(--color--inactive);
     box-shadow: none;

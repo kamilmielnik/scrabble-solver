@@ -5,7 +5,6 @@ export { default as ArrowUp } from './ArrowUp.svg';
 export { default as BookHalf } from './BookHalf.svg';
 export { default as CardChecklist } from './CardChecklist.svg';
 export { default as Check } from './Check.svg';
-export { default as CheckLarge } from './CheckLarge.svg';
 export { default as CheckboxChecked } from './CheckboxChecked.svg';
 export { default as CheckboxEmpty } from './CheckboxEmpty.svg';
 export { default as ChevronDown } from './ChevronDown.svg';

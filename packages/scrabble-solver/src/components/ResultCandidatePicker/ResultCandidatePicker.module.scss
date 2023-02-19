@@ -12,6 +12,13 @@
   background-color: white;
   box-shadow: var(--box-shadow);
   cursor: pointer;
+
+  &[disabled] {
+    pointer-events: none;
+    opacity: 0.25;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
 }
 
 .content {
