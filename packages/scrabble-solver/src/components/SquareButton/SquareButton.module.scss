@@ -21,7 +21,7 @@
 
   &[disabled] {
     pointer-events: none;
-    opacity: 0.25;
+    opacity: var(--opacity--disabled);
   }
 }
 

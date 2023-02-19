@@ -10,8 +10,11 @@ import {
   selectAreResultsOutdated,
   selectConfig,
   selectResultCandidate,
+  selectSolveError,
   selectSortedFilteredResults,
+  selectSortedResults,
   solveSlice,
+  useTranslate,
   useTypedSelector,
 } from 'state';
 
@@ -28,10 +31,13 @@ interface Props {
 
 const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) => {
   const dispatch = useDispatch();
+  const translate = useTranslate();
   const [sizerRef, { width: sizerWidth }] = useMeasure<HTMLDivElement>();
   const config = useTypedSelector(selectConfig);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
+  const allResults = useTypedSelector(selectSortedResults);
+  const error = useTypedSelector(selectSolveError);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion,
   const results = useTypedSelector(selectSortedFilteredResults)!;
   const [bestResult] = results || [];
@@ -77,11 +83,35 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
           </form>
 
           <div className={styles.controls}>
-            <ResultCandidatePicker
-              className={styles.resultCandidatePicker}
-              disabled={isOutdated}
-              onClick={onShowResults}
-            />
+            {resultCandidate && (
+              <ResultCandidatePicker
+                className={styles.resultCandidatePicker}
+                disabled={isOutdated}
+                points={resultCandidate.points}
+                word={resultCandidate.word}
+                onClick={onShowResults}
+              />
+            )}
+
+            {!resultCandidate && (
+              <div className={styles.emptyState} onClick={onShowResults}>
+                {typeof error !== 'undefined' && <>{error.message}</>}
+
+                {typeof error === 'undefined' && typeof results === 'undefined' && (
+                  <>{translate('results.empty-state.uninitialized')}</>
+                )}
+
+                {typeof error === 'undefined' &&
+                  typeof results !== 'undefined' &&
+                  typeof allResults !== 'undefined' && (
+                    <>
+                      {isOutdated && <>{translate('results.empty-state.outdated')}</>}
+
+                      {!isOutdated && allResults.length === 0 && <>{translate('results.empty-state.no-results')}</>}
+                    </>
+                  )}
+              </div>
+            )}
 
             {isOutdated && (
               <button className={styles.submit} onClick={handleSolve}>

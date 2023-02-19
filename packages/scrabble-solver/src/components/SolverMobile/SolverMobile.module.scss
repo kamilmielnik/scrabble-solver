@@ -61,6 +61,7 @@
   @include focus-effect;
 
   flex: 0 0 auto;
+  height: 100%;
   padding: var(--spacing--m) var(--spacing--xl);
   border: var(--border);
   border-radius: var(--border--radius);
@@ -77,8 +78,9 @@
   }
 
   &[disabled] {
-    pointer-events: none;
-    opacity: 0.25;
+    opacity: var(--opacity--disabled);
+    box-shadow: none;
+    cursor: not-allowed;
   }
 
   @include media('<xs') {
@@ -97,4 +99,15 @@
 
 .check {
   transform: scale(1.75);
+}
+
+.emptyState {
+  min-width: 0;
+  width: 100%;
+  padding: var(--spacing--m) var(--spacing--l);
+  border: var(--border);
+  border-radius: var(--border--radius);
+  background-color: white;
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
 }

@@ -7,6 +7,7 @@
   display: flex;
   align-items: center;
   min-width: 0;
+  width: 100%;
   border: var(--border);
   border-radius: var(--border--radius);
   background-color: white;
@@ -14,8 +15,7 @@
   cursor: pointer;
 
   &[disabled] {
-    pointer-events: none;
-    opacity: 0.25;
+    opacity: var(--opacity--disabled);
     box-shadow: none;
     cursor: not-allowed;
   }
