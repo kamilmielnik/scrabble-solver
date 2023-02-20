@@ -3,7 +3,7 @@ import { ResultColumn } from 'types';
 import styles from './Results.module.scss';
 import { Column } from './types';
 
-const getColumns = (options: { consonants: boolean; vowels: boolean }): Column[] => {
+const getLocaleColumns = (options: { consonants: boolean; vowels: boolean }): Column[] => {
   const { consonants, vowels } = options;
   const columns: Column[] = [
     {
@@ -55,4 +55,4 @@ const getColumns = (options: { consonants: boolean; vowels: boolean }): Column[]
   return columns;
 };
 
-export default getColumns;
+export default getLocaleColumns;

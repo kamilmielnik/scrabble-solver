@@ -4,10 +4,12 @@ import { CSSProperties, FocusEventHandler, MouseEventHandler, ReactElement, useR
 import { LOCALE_FEATURES } from 'i18n';
 import { noop } from 'lib';
 import { selectLocale, useTypedSelector } from 'state';
+import { ResultColumn } from 'types';
 
 import Cell from './Cell';
 import styles from './Results.module.scss';
 import { ResultData } from './types';
+import useColumns from './useColumns';
 
 interface Props {
   data: ResultData;
@@ -30,6 +32,8 @@ const Result = ({ data, index, style }: Props): ReactElement => {
   const { consonants, vowels } = LOCALE_FEATURES[locale];
   const result = results[index];
   const otherWords = result.words.slice(1).join(' / ').toLocaleUpperCase();
+  const columns = useColumns();
+  const enabledColumns = Object.fromEntries(columns.map((column) => [column.id, true]));
 
   const handleClick: MouseEventHandler = (event) => onClick(result, event);
   const handleMouseEnter: MouseEventHandler = (event) => onMouseEnter(result, event);
@@ -52,24 +56,42 @@ const Result = ({ data, index, style }: Props): ReactElement => {
       onMouseLeave={handleMouseLeave}
     >
       <span className={styles.resultContent}>
-        <Cell
-          className={styles.word}
-          translationKey="common.word"
-          value={`${result.word.toLocaleUpperCase()}${otherWords.length > 0 ? ` (${otherWords})` : ''}`}
-        />
-        <Cell className={styles.stat} translationKey="common.tiles" value={result.tilesCount} />
-        {consonants && (
+        {enabledColumns[ResultColumn.Word] && (
+          <Cell
+            className={styles.word}
+            translationKey="common.word"
+            value={`${result.word.toLocaleUpperCase()}${otherWords.length > 0 ? ` (${otherWords})` : ''}`}
+          />
+        )}
+
+        {enabledColumns[ResultColumn.TilesCount] && (
+          <Cell className={styles.stat} translationKey="common.tiles" value={result.tilesCount} />
+        )}
+
+        {enabledColumns[ResultColumn.ConsonantsCount] && consonants && (
           <Cell className={styles.stat} translationKey="common.consonants" value={result.consonantsCount} />
         )}
-        {vowels && <Cell className={styles.stat} translationKey="common.vowels" value={result.vowelsCount} />}
-        <Cell className={styles.stat} translationKey="common.blanks" value={result.blanksCount} />
-        <Cell
-          className={styles.stat}
-          translationKey="common.words"
-          tooltip={`${result.wordsCount} (${result.words.join(' / ').toLocaleUpperCase()})`}
-          value={result.wordsCount}
-        />
-        <Cell className={styles.points} translationKey="common.points" value={result.points} />
+
+        {enabledColumns[ResultColumn.VowelsCount] && vowels && (
+          <Cell className={styles.stat} translationKey="common.vowels" value={result.vowelsCount} />
+        )}
+
+        {enabledColumns[ResultColumn.BlanksCount] && (
+          <Cell className={styles.stat} translationKey="common.blanks" value={result.blanksCount} />
+        )}
+
+        {enabledColumns[ResultColumn.WordsCount] && (
+          <Cell
+            className={styles.stat}
+            translationKey="common.words"
+            tooltip={`${result.wordsCount} (${result.words.join(' / ').toLocaleUpperCase()})`}
+            value={result.wordsCount}
+          />
+        )}
+
+        {enabledColumns[ResultColumn.Points] && (
+          <Cell className={styles.points} translationKey="common.points" value={result.points} />
+        )}
       </span>
     </button>
   );

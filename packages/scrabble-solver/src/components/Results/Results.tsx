@@ -19,12 +19,12 @@ import EmptyState from '../EmptyState';
 import Loading from '../Loading';
 import ResultsInput from '../ResultsInput';
 
-import getColumns from './getColumns';
 import HeaderButton from './HeaderButton';
 import Result from './Result';
 import styles from './Results.module.scss';
 import SolveButton from './SolveButton';
 import { ResultCallbacks, ResultData } from './types';
+import useColumns from './useColumns';
 
 interface Props {
   callbacks: ResultCallbacks;
@@ -45,7 +45,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, height, highlightedIndex
   const error = useTypedSelector(selectSolveError);
   const itemData = useMemo(() => ({ ...callbacks, highlightedIndex, results }), [callbacks, highlightedIndex, results]);
   const [listRef, setListRef] = useState<FixedSizeList<ResultData> | null>(null);
-  const columns = getColumns(LOCALE_FEATURES[locale]);
+  const columns = useColumns();
   const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
 
   useEffect(() => {
