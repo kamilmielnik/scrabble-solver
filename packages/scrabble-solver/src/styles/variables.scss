@@ -15,14 +15,6 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --box-shadow: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) var(--box-shadow--color);
   --box-shadow--focus--spread: 6px;
   --box-shadow--null: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) transparent;
-  --box-shadow--top: 0 var(--box-shadow--offset--negative) var(--box-shadow--blur) var(--box-shadow--spread)
-    var(--box-shadow--color);
-  --box-shadow--bottom: 0 var(--box-shadow--offset) var(--box-shadow--blur) var(--box-shadow--spread)
-    var(--box-shadow--color);
-  --box-shadow--left: var(--box-shadow--offset--negative) 0 var(--box-shadow--blur) var(--box-shadow--spread)
-    var(--box-shadow--color);
-  --box-shadow--right: var(--box-shadow--offset) 0 var(--box-shadow--blur) var(--box-shadow--spread)
-    var(--box-shadow--color);
   --box-shadow--error: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) var(--color--error);
 
   --color--background: #f4f4f4;

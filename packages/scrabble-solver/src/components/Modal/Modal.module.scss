@@ -64,7 +64,6 @@
   flex-direction: column;
   height: 100%;
   background-color: var(--color--background);
-  box-shadow: var(--box-shadow--left);
   transition: var(--transition);
   transition-duration: var(--transition--duration--long);
   transform: translateX(var(--modal--width));
@@ -72,10 +71,13 @@
 
   [dir='ltr'] & {
     transform: translateX(var(--modal--width));
+    box-shadow: var(--box-shadow--offset--negative) 0 var(--box-shadow--blur) var(--box-shadow--spread)
+      var(--box-shadow--color);
   }
 
   [dir='rtl'] & {
     transform: translateX(calc(-1 * var(--modal--width)));
+    box-shadow: var(--box-shadow--offset) 0 var(--box-shadow--blur) var(--box-shadow--spread) var(--box-shadow--color);
   }
 }
 
