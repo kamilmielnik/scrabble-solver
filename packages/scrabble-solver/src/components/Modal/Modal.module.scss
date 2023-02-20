@@ -26,7 +26,7 @@
     outline: none;
   }
 
-  @include media('<m') {
+  @include media('<s') {
     --modal--width: 100%;
   }
 }

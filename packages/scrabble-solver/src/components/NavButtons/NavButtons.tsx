@@ -31,7 +31,7 @@ const NavButtons: FunctionComponent<Props> = ({
   const hasOverusedTiles = useTypedSelector(selectHasOverusedTiles);
   const hasInvalidWords = useTypedSelector(selectHasInvalidWords);
   const isTouchDevice = useIsTouchDevice();
-  const isMobile = useMediaQuery('<m');
+  const isMobile = useMediaQuery('<s');
 
   if (isMobile) {
     return (
