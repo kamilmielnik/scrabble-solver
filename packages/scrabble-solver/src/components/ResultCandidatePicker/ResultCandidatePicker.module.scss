@@ -51,22 +51,20 @@
 
   flex: 1;
   text-transform: uppercase;
-
-  [dir='ltr'] & {
-    padding-right: 0;
-    text-align: left;
-  }
-
-  [dir='rtl'] & {
-    padding-left: 0;
-    text-align: right;
-  }
+  text-align: center;
 }
 
 .iconContainer {
   flex: 0 0 auto;
   display: flex;
-  padding: 0 var(--spacing--l);
+
+  [dir='ltr'] & {
+    padding-right: var(--spacing--l);
+  }
+
+  [dir='rtl'] & {
+    padding-left: var(--spacing--l);
+  }
 }
 
 .icon {

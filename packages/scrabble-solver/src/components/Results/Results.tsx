@@ -70,13 +70,13 @@ const Results: FunctionComponent<Props> = ({ callbacks, height, highlightedIndex
       </div>
 
       {typeof error !== 'undefined' && (
-        <EmptyState className={styles.emptyState} type="error">
+        <EmptyState className={styles.emptyState} variant="error">
           {error.message}
         </EmptyState>
       )}
 
       {typeof error === 'undefined' && typeof results === 'undefined' && (
-        <EmptyState className={styles.emptyState} type="info">
+        <EmptyState className={styles.emptyState} variant="info">
           {translate('results.empty-state.uninitialized')}
 
           <SolveButton className={styles.solveButton} />
@@ -86,7 +86,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, height, highlightedIndex
       {typeof error === 'undefined' && typeof results !== 'undefined' && typeof allResults !== 'undefined' && (
         <>
           {isOutdated && (
-            <EmptyState className={styles.emptyState} type="info">
+            <EmptyState className={styles.emptyState} variant="info">
               {translate('results.empty-state.outdated')}
 
               <SolveButton className={styles.solveButton} />
@@ -96,13 +96,13 @@ const Results: FunctionComponent<Props> = ({ callbacks, height, highlightedIndex
           {!isOutdated && (
             <>
               {allResults.length === 0 && (
-                <EmptyState className={styles.emptyState} type="warning">
+                <EmptyState className={styles.emptyState} variant="warning">
                   {translate('results.empty-state.no-results')}
                 </EmptyState>
               )}
 
               {allResults.length > 0 && results.length === 0 && (
-                <EmptyState className={styles.emptyState} type="info">
+                <EmptyState className={styles.emptyState} variant="info">
                   {translate('results.empty-state.no-filtered-results')}
                 </EmptyState>
               )}

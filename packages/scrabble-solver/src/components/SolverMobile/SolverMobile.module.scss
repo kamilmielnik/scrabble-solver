@@ -47,7 +47,7 @@
 .controls {
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: var(--spacing--l);
 }
@@ -61,7 +61,6 @@
   @include focus-effect;
 
   flex: 0 0 auto;
-  height: 100%;
   padding: var(--spacing--m) var(--spacing--xl);
   border: var(--border);
   border-radius: var(--border--radius);

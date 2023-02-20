@@ -1,0 +1,59 @@
+.emptyState {
+  display: flex;
+  min-width: 0;
+  width: 100%;
+  border: var(--border);
+  border-radius: var(--border--radius);
+  background-color: white;
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+  text-align: center;
+}
+
+.iconContainer {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing--m);
+  color: var(--color--foreground--secondary);
+
+  [dir='ltr'] & {
+    border-top-left-radius: var(--border--radius);
+    border-bottom-left-radius: var(--border--radius);
+    border-right: var(--border);
+  }
+
+  [dir='rtl'] & {
+    border-top-right-radius: var(--border--radius);
+    border-bottom-right-radius: var(--border--radius);
+    border-left: var(--border);
+  }
+
+  .error & {
+    background-color: var(--color--red--light);
+    color: var(--color--error);
+  }
+
+  .warning & {
+    background-color: var(--color--yellow--light);
+    color: var(--color--warning);
+  }
+
+  .info & {
+    background-color: var(--color--blue--light);
+    color: var(--color--info);
+  }
+}
+
+.icon {
+  $size: 24px;
+
+  width: $size;
+  height: $size;
+}
+
+.content {
+  flex: 1;
+  padding: var(--spacing--m) var(--spacing--l);
+}

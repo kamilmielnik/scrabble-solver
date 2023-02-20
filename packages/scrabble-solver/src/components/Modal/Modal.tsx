@@ -3,7 +3,7 @@ import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useKey } from 'react-use';
 
-import { CrossFill } from 'icons';
+import { CrossSquareFill } from 'icons';
 import { TRANSITION_DURATION_LONG } from 'parameters';
 import { useTranslate } from 'state';
 
@@ -60,7 +60,7 @@ const Modal: FunctionComponent<Props> = ({ children, className, isOpen, title, o
 
           <SquareButton
             className={styles.closeButton}
-            Icon={CrossFill}
+            Icon={CrossSquareFill}
             tooltip={translate('common.close')}
             onClick={onClose}
           />

@@ -4,11 +4,13 @@ import { useDispatch } from 'react-redux';
 import { useMeasure } from 'react-use';
 
 import { Check, Search } from 'icons';
-import { BOARD_TILE_SIZE_MAX, BOARD_TILE_SIZE_MIN, RACK_TILE_SIZE_MAX } from 'parameters';
+import { BOARD_TILE_SIZE_MAX, BOARD_TILE_SIZE_MIN, BORDER_WIDTH, RACK_TILE_SIZE_MAX } from 'parameters';
 import {
   resultsSlice,
   selectAreResultsOutdated,
   selectConfig,
+  selectIsLoading,
+  selectRack,
   selectResultCandidate,
   selectSolveError,
   selectSortedFilteredResults,
@@ -22,6 +24,7 @@ import Board from '../Board';
 import Rack from '../Rack';
 import ResultCandidatePicker from '../ResultCandidatePicker';
 
+import { EmptyState } from './components';
 import styles from './SolverMobile.module.scss';
 
 interface Props {
@@ -29,13 +32,17 @@ interface Props {
   onShowResults: () => void;
 }
 
+// eslint-disable-next-line max-statements
 const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const [sizerRef, { width: sizerWidth }] = useMeasure<HTMLDivElement>();
   const config = useTypedSelector(selectConfig);
   const resultCandidate = useTypedSelector(selectResultCandidate);
+  const isLoading = useTypedSelector(selectIsLoading);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
+  const rack = useTypedSelector(selectRack);
+  const hasTiles = rack.some((tile) => tile !== null);
   const allResults = useTypedSelector(selectSortedResults);
   const error = useTypedSelector(selectSolveError);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion,
@@ -43,7 +50,9 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
   const [bestResult] = results || [];
   const cellSize = (sizerWidth - (config.boardWidth + 1)) / config.boardWidth;
   const cellSizeSafe = Math.min(Math.max(cellSize, BOARD_TILE_SIZE_MIN), BOARD_TILE_SIZE_MAX);
-  const tileSize = sizerWidth / config.maximumCharactersCount;
+  const tileSize = Math.min(sizerWidth / config.maximumCharactersCount, RACK_TILE_SIZE_MAX);
+  const maxControlsWidth = tileSize * config.maximumCharactersCount + 2 * BORDER_WIDTH;
+  const showApplyButton = allResults && allResults.length > 0 && !isOutdated;
 
   const handleApply = () => {
     if (resultCandidate) {
@@ -52,11 +61,13 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
   };
 
   const handleSolve = () => {
+    onShowResults();
     dispatch(solveSlice.actions.submit());
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    onShowResults();
     dispatch(solveSlice.actions.submit());
   };
 
@@ -78,50 +89,62 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
       <div className={styles.bottomContainer}>
         <div className={styles.bottomContent}>
           <form className={styles.rackContainer} onSubmit={handleSubmit}>
-            <Rack className={styles.rack} tileSize={Math.min(tileSize, RACK_TILE_SIZE_MAX)} />
+            <Rack className={styles.rack} tileSize={tileSize} />
             <input className={styles.submitInput} tabIndex={-1} type="submit" />
           </form>
 
-          <div className={styles.controls}>
-            {resultCandidate && (
-              <ResultCandidatePicker
-                className={styles.resultCandidatePicker}
-                disabled={isOutdated}
-                points={resultCandidate.points}
-                word={resultCandidate.word}
-                onClick={onShowResults}
-              />
+          <div className={styles.controls} style={{ maxWidth: maxControlsWidth }}>
+            {typeof error !== 'undefined' && (
+              <EmptyState variant="error" onClick={onShowResults}>
+                {error.message}
+              </EmptyState>
             )}
 
-            {!resultCandidate && (
-              <div className={styles.emptyState} onClick={onShowResults}>
-                {typeof error !== 'undefined' && <>{error.message}</>}
+            {typeof error === 'undefined' && typeof results === 'undefined' && (
+              <EmptyState variant="info" onClick={onShowResults}>
+                {translate('results.empty-state.uninitialized')}
+              </EmptyState>
+            )}
 
-                {typeof error === 'undefined' && typeof results === 'undefined' && (
-                  <>{translate('results.empty-state.uninitialized')}</>
+            {typeof error === 'undefined' && typeof results !== 'undefined' && typeof allResults !== 'undefined' && (
+              <>
+                {isOutdated && (
+                  <EmptyState variant="info" onClick={onShowResults}>
+                    {translate('results.empty-state.outdated')}
+                  </EmptyState>
                 )}
 
-                {typeof error === 'undefined' &&
-                  typeof results !== 'undefined' &&
-                  typeof allResults !== 'undefined' && (
-                    <>
-                      {isOutdated && <>{translate('results.empty-state.outdated')}</>}
+                {!isOutdated && (
+                  <>
+                    {allResults.length === 0 && (
+                      <EmptyState variant="warning" onClick={onShowResults}>
+                        {translate('results.empty-state.no-results')}
+                      </EmptyState>
+                    )}
 
-                      {!isOutdated && allResults.length === 0 && <>{translate('results.empty-state.no-results')}</>}
-                    </>
-                  )}
-              </div>
+                    {allResults.length > 0 && resultCandidate && (
+                      <ResultCandidatePicker
+                        className={styles.resultCandidatePicker}
+                        disabled={isOutdated}
+                        points={resultCandidate.points}
+                        word={resultCandidate.word}
+                        onClick={onShowResults}
+                      />
+                    )}
+                  </>
+                )}
+              </>
             )}
 
-            {isOutdated && (
-              <button className={styles.submit} onClick={handleSolve}>
-                <Search className={styles.submitIcon} />
+            {showApplyButton && (
+              <button className={styles.submit} disabled={!resultCandidate} onClick={handleApply}>
+                <Check className={classNames(styles.submitIcon, styles.check)} />
               </button>
             )}
 
-            {!isOutdated && (
-              <button className={styles.submit} disabled={!resultCandidate} onClick={handleApply}>
-                <Check className={classNames(styles.submitIcon, styles.check)} />
+            {!showApplyButton && (
+              <button className={styles.submit} disabled={isLoading || !isOutdated || !hasTiles} onClick={handleSolve}>
+                <Search className={styles.submitIcon} />
               </button>
             )}
           </div>
