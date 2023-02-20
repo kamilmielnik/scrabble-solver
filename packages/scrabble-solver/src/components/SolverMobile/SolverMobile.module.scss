@@ -29,6 +29,11 @@
   gap: var(--spacing--l);
   margin: var(--spacing--l) auto;
   min-width: 0;
+  padding-bottom: calc(3 * var(--spacing--l) + var(--line-height) * var(--font--size--m));
+
+  @include media('<xs') {
+    padding-bottom: calc(1 * var(--spacing--m) + 2 * var(--spacing--l) + var(--line-height) * var(--font--size--m));
+  }
 }
 
 .rackContainer {
@@ -60,13 +65,30 @@
   @include button-reset;
   @include focus-effect;
 
-  flex: 0 0 auto;
-  padding: var(--spacing--m) var(--spacing--xl);
+  position: fixed;
+  bottom: var(--spacing--l);
+  padding: var(--spacing--l);
   border: var(--border);
-  border-radius: var(--border--radius);
+  border-radius: 50% 50%;
   color: white;
   box-shadow: var(--box-shadow);
   cursor: pointer;
+
+  [dir='ltr'] & {
+    right: var(--spacing--l);
+
+    @include media('<xs') {
+      right: var(--spacing--m);
+    }
+  }
+
+  [dir='rtl'] & {
+    left: var(--spacing--l);
+
+    @include media('<xs') {
+      left: var(--spacing--m);
+    }
+  }
 
   &,
   &:active,
@@ -83,7 +105,7 @@
   }
 
   @include media('<xs') {
-    padding: var(--spacing--m) var(--spacing--l);
+    bottom: var(--spacing--m);
   }
 }
 

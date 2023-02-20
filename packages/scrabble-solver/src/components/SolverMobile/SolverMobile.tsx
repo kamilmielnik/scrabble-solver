@@ -135,21 +135,21 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
                 )}
               </>
             )}
-
-            {showApplyButton && (
-              <button className={styles.submit} disabled={!resultCandidate} onClick={handleApply}>
-                <Check className={classNames(styles.submitIcon, styles.check)} />
-              </button>
-            )}
-
-            {!showApplyButton && (
-              <button className={styles.submit} disabled={isLoading || !isOutdated || !hasTiles} onClick={handleSolve}>
-                <Search className={styles.submitIcon} />
-              </button>
-            )}
           </div>
         </div>
       </div>
+
+      {showApplyButton && (
+        <button className={styles.submit} disabled={!resultCandidate} onClick={handleApply}>
+          <Check className={classNames(styles.submitIcon, styles.check)} />
+        </button>
+      )}
+
+      {!showApplyButton && (
+        <button className={styles.submit} disabled={isLoading || !isOutdated || !hasTiles} onClick={handleSolve}>
+          <Search className={styles.submitIcon} />
+        </button>
+      )}
     </div>
   );
 };
