@@ -12,7 +12,7 @@ interface Props {
   onClose: () => void;
 }
 
-const KeyMap: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
+const KeyMapModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
   const config = useTypedSelector(selectConfig);
 
@@ -51,4 +51,4 @@ const KeyMap: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   );
 };
 
-export default KeyMap;
+export default KeyMapModal;

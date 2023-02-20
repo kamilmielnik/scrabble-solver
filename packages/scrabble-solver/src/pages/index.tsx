@@ -9,7 +9,7 @@ import { useEffectOnce } from 'react-use';
 import { Logo, LogoSplashScreen, NavButtons, Solver, SolverMobile, SvgFontFix } from 'components';
 import { useDirection, useLanguage, useLocalStorage, useMediaQuery } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
-import { KeyMap, Menu, RemainingTiles, Results, Settings, Words } from 'modals';
+import { KeyMapModal, MenuModal, RemainingTilesModal, ResultsModal, SettingsModal, WordsModal } from 'modals';
 import { INITIALIZATION_DURATION } from 'parameters';
 import { registerServiceWorker } from 'serviceWorkerManager';
 import { initialize, localStorage, reset, selectLocale, useTypedSelector } from 'state';
@@ -89,7 +89,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
         <SolverComponent className={styles.solver} onShowResults={() => setShowResults(true)} />
       </div>
 
-      <Menu
+      <MenuModal
         isOpen={showMenu}
         onClose={() => setShowMenu(false)}
         onShowRemainingTiles={() => setShowRemainingTiles(true)}
@@ -97,15 +97,15 @@ const Index: FunctionComponent<Props> = ({ version }) => {
         onShowWords={() => setShowWords(true)}
       />
 
-      <Settings isOpen={showSettings} onClose={() => setShowSettings(false)} />
+      <SettingsModal isOpen={showSettings} onClose={() => setShowSettings(false)} />
 
-      <KeyMap isOpen={showKeyMap} onClose={() => setShowKeyMap(false)} />
+      <KeyMapModal isOpen={showKeyMap} onClose={() => setShowKeyMap(false)} />
 
-      <Words isOpen={showWords} onClose={() => setShowWords(false)} />
+      <WordsModal isOpen={showWords} onClose={() => setShowWords(false)} />
 
-      <RemainingTiles isOpen={showRemainingTiles} onClose={() => setShowRemainingTiles(false)} />
+      <RemainingTilesModal isOpen={showRemainingTiles} onClose={() => setShowRemainingTiles(false)} />
 
-      <Results isOpen={showResults} onClose={() => setShowResults(false)} />
+      <ResultsModal isOpen={showResults} onClose={() => setShowResults(false)} />
 
       <LogoSplashScreen forceShow={!isInitialized} onAnimationEnd={handleSplashAnimationEnd} />
     </>

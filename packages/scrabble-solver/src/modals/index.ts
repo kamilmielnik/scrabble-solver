@@ -1,6 +1,6 @@
-export { default as KeyMap } from './KeyMap';
-export { default as Menu } from './Menu';
-export { default as RemainingTiles } from './RemainingTiles';
-export { default as Results } from './Results';
-export { default as Settings } from './Settings';
-export { default as Words } from './Words';
+export { default as KeyMapModal } from './KeyMapModal';
+export { default as MenuModal } from './MenuModal';
+export { default as RemainingTilesModal } from './RemainingTilesModal';
+export { default as ResultsModal } from './ResultsModal';
+export { default as SettingsModal } from './SettingsModal';
+export { default as WordsModal } from './WordsModal';

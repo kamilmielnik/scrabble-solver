@@ -5,7 +5,7 @@ import { LOCALE_FEATURES } from 'i18n';
 import { selectLocale, selectRemainingTilesGroups, useTranslate, useTypedSelector } from 'state';
 
 import { Character } from './components';
-import styles from './RemainingTiles.module.scss';
+import styles from './RemainingTilesModal.module.scss';
 
 interface Props {
   className?: string;
@@ -13,7 +13,7 @@ interface Props {
   onClose: () => void;
 }
 
-const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
+const RemainingTilesModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const groups = useTypedSelector(selectRemainingTilesGroups);
@@ -53,4 +53,4 @@ const RemainingTiles: FunctionComponent<Props> = ({ className, isOpen, onClose }
   );
 };
 
-export default RemainingTiles;
+export default RemainingTilesModal;

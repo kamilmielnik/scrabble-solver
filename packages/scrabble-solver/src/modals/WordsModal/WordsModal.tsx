@@ -5,7 +5,7 @@ import { Badge, Modal } from 'components';
 import { Check, Cross } from 'icons';
 import { selectLocale, selectVerify, useTranslate, useTypedSelector } from 'state';
 
-import styles from './Words.module.scss';
+import styles from './WordsModal.module.scss';
 
 interface Props {
   className?: string;
@@ -13,7 +13,7 @@ interface Props {
   onClose: () => void;
 }
 
-const Words: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
+const WordsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const { invalidWords, validWords } = useTypedSelector(selectVerify);
@@ -53,4 +53,4 @@ const Words: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   );
 };
 
-export default Words;
+export default WordsModal;

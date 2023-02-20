@@ -5,7 +5,7 @@ import { CardChecklist, Cog, Github, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { useTranslate } from 'state';
 
-import styles from './Menu.module.scss';
+import styles from './MenuModal.module.scss';
 
 interface Props {
   className?: string;

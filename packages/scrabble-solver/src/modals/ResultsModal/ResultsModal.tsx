@@ -3,7 +3,7 @@ import { FunctionComponent, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useMeasure } from 'react-use';
 
-import { Modal, Results as ResultsComponent, Well } from 'components';
+import { Modal, Results, Well } from 'components';
 import {
   resultsSlice,
   selectResultCandidate,
@@ -12,7 +12,7 @@ import {
   useTypedSelector,
 } from 'state';
 
-import styles from './Results.module.scss';
+import styles from './ResultsModal.module.scss';
 
 interface Props {
   className?: string;
@@ -20,7 +20,7 @@ interface Props {
   onClose: () => void;
 }
 
-const Results: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
+const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const [sizerRef, { height, width }] = useMeasure<HTMLDivElement>();
@@ -43,10 +43,10 @@ const Results: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
       <Well className={styles.content}>
         <div className={styles.sizer} ref={sizerRef} />
 
-        <ResultsComponent callbacks={callbacks} height={height} highlightedIndex={highlightedIndex} width={width} />
+        <Results callbacks={callbacks} height={height} highlightedIndex={highlightedIndex} width={width} />
       </Well>
     </Modal>
   );
 };
 
-export default Results;
+export default ResultsModal;

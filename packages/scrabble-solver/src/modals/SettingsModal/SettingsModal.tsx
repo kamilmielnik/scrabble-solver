@@ -11,7 +11,7 @@ interface Props {
   onClose: () => void;
 }
 
-const Settings: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
+const SettingsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
 
   return (
@@ -31,4 +31,4 @@ const Settings: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   );
 };
 
-export default Settings;
+export default SettingsModal;
