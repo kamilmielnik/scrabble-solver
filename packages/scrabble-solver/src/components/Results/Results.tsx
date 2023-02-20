@@ -38,7 +38,8 @@ const Results: FunctionComponent<Props> = ({ callbacks, height, highlightedIndex
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const allResults = useTypedSelector(selectSortedResults);
-  const results = useTypedSelector(selectSortedFilteredResults);
+  const filteredResults = useTypedSelector(selectSortedFilteredResults);
+  const results = filteredResults || [];
   const isLoading = useTypedSelector(selectIsLoading);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const error = useTypedSelector(selectSolveError);
@@ -75,7 +76,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, height, highlightedIndex
         </EmptyState>
       )}
 
-      {typeof error === 'undefined' && typeof results === 'undefined' && (
+      {typeof error === 'undefined' && typeof filteredResults === 'undefined' && (
         <EmptyState className={styles.emptyState} variant="info">
           {translate('results.empty-state.uninitialized')}
 
@@ -83,7 +84,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, height, highlightedIndex
         </EmptyState>
       )}
 
-      {typeof error === 'undefined' && typeof results !== 'undefined' && typeof allResults !== 'undefined' && (
+      {typeof error === 'undefined' && typeof filteredResults !== 'undefined' && typeof allResults !== 'undefined' && (
         <>
           {isOutdated && (
             <EmptyState className={styles.emptyState} variant="info">
@@ -101,20 +102,20 @@ const Results: FunctionComponent<Props> = ({ callbacks, height, highlightedIndex
                 </EmptyState>
               )}
 
-              {allResults.length > 0 && results.length === 0 && (
+              {allResults.length > 0 && filteredResults.length === 0 && (
                 <EmptyState className={styles.emptyState} variant="info">
                   {translate('results.empty-state.no-filtered-results')}
                 </EmptyState>
               )}
 
-              {allResults.length > 0 && results.length > 0 && (
+              {allResults.length > 0 && filteredResults.length > 0 && (
                 <FixedSizeList
                   className={classNames(styles.list, {
                     [styles.outdated]: isOutdated,
                   })}
                   direction={direction}
                   height={height - RESULTS_HEADER_HEIGHT - RESULTS_INPUT_HEIGHT - 2 * BORDER_WIDTH}
-                  itemCount={results.length}
+                  itemCount={filteredResults.length}
                   itemData={itemData}
                   itemSize={RESULTS_ITEM_HEIGHT}
                   ref={setListRef}
