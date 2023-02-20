@@ -50,7 +50,7 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
   const [bestResult] = results || [];
   const cellSize = (sizerWidth - (config.boardWidth + 1)) / config.boardWidth;
   const cellSizeSafe = Math.min(Math.max(cellSize, BOARD_TILE_SIZE_MIN), BOARD_TILE_SIZE_MAX);
-  const tileSize = Math.min(sizerWidth / config.maximumCharactersCount, RACK_TILE_SIZE_MAX);
+  const tileSize = Math.min((sizerWidth - 2 * BORDER_WIDTH) / config.maximumCharactersCount, RACK_TILE_SIZE_MAX);
   const maxControlsWidth = tileSize * config.maximumCharactersCount + 2 * BORDER_WIDTH;
   const showApplyButton = allResults && allResults.length > 0 && !isOutdated;
 
