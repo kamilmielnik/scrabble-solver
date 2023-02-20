@@ -65,30 +65,10 @@
   @include button-reset;
   @include focus-effect;
 
-  position: fixed;
-  bottom: var(--spacing--l);
-  padding: var(--spacing--l);
   border: var(--border);
-  border-radius: 50% 50%;
   color: white;
   box-shadow: var(--box-shadow);
   cursor: pointer;
-
-  [dir='ltr'] & {
-    right: var(--spacing--l);
-
-    @include media('<xs') {
-      right: var(--spacing--m);
-    }
-  }
-
-  [dir='rtl'] & {
-    left: var(--spacing--l);
-
-    @include media('<xs') {
-      left: var(--spacing--m);
-    }
-  }
 
   &,
   &:active,
@@ -103,9 +83,36 @@
     box-shadow: none;
     cursor: not-allowed;
   }
+}
+
+.apply {
+  flex: 0 0 auto;
+  padding: var(--spacing--m) var(--spacing--xl);
+  border-radius: var(--border--radius);
 
   @include media('<xs') {
-    bottom: var(--spacing--m);
+    padding: var(--spacing--m) var(--spacing--l);
+  }
+}
+
+.search {
+  --spacing: var(--spacing--l);
+
+  position: fixed;
+  bottom: var(--spacing);
+  padding: var(--spacing--l);
+  border-radius: 50%;
+
+  @include media('<xs') {
+    --spacing: var(--spacing--m);
+  }
+
+  [dir='ltr'] & {
+    right: var(--spacing);
+  }
+
+  [dir='rtl'] & {
+    left: var(--spacing);
   }
 }
 
@@ -118,8 +125,13 @@
   pointer-events: none;
 }
 
-.check {
+.applyIcon {
   transform: scale(1.75);
+
+  @include media('<xs') {
+    transform: scale(1.5);
+  }
+
 }
 
 .emptyState {
