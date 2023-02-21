@@ -52,14 +52,13 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
   const [bottomContainerRef, { height: bottomContainerHeight }] = useMeasure<HTMLDivElement>();
-  const [resultsContainerRef, { height: resultsContainerHeight, width: resultsContainerWidth }] =
-    useMeasure<HTMLDivElement>();
+  const [resultsContainerRef, { width: resultsContainerWidth }] = useMeasure<HTMLDivElement>();
   const isSmallSpacing = useMediaQuery('<xl');
   const showControls = useMediaQuery('<l');
   const showColumn = useMediaQuery('>=l');
   const componentsSpacing = isSmallSpacing ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING;
-  const boardWidth = width - resultsContainerWidth - (showColumn ? componentsSpacing : 0) - 2 * componentsSpacing;
-  const boardHeight = Math.max(height - bottomContainerHeight, showColumn ? COLUMN_MIN_HEIGHT : 0);
+  const maxBoardWidth = width - resultsContainerWidth - (showColumn ? componentsSpacing : 0) - 2 * componentsSpacing;
+  const maxBoardHeight = Math.max(height - bottomContainerHeight, showColumn ? COLUMN_MIN_HEIGHT : 0);
   const config = useTypedSelector(selectConfig);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
@@ -67,11 +66,13 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
   const error = useTypedSelector(selectSolveError);
   const results = useTypedSelector(selectSortedFilteredResults);
   const [bestResult] = results || [];
-  const cellWidth = (boardWidth - (config.boardWidth + 1) * BORDER_WIDTH) / config.boardWidth;
-  const cellHeight = (boardHeight - (config.boardHeight + 1) * BORDER_WIDTH) / config.boardHeight;
+  const cellWidth = (maxBoardWidth - (config.boardWidth + 1) * BORDER_WIDTH) / config.boardWidth;
+  const cellHeight = (maxBoardHeight - (config.boardHeight + 1) * BORDER_WIDTH) / config.boardHeight;
   const cellSize = Math.min(cellWidth, cellHeight);
   const cellSizeSafe = Math.min(Math.max(cellSize, BOARD_TILE_SIZE_MIN), BOARD_TILE_SIZE_MAX);
-  const tileSize = Math.min((boardWidth - 2 * BORDER_WIDTH) / config.maximumCharactersCount, RACK_TILE_SIZE_MAX);
+  const tileSize = Math.min((maxBoardWidth - 2 * BORDER_WIDTH) / config.maximumCharactersCount, RACK_TILE_SIZE_MAX);
+  const boardSize = (cellSizeSafe + BORDER_WIDTH) * Math.max(config.boardWidth, config.boardHeight) + BORDER_WIDTH;
+  const resultsHeight = boardSize - DICTIONARY_HEIGHT - componentsSpacing - 4 * BORDER_WIDTH;
   const maxControlsWidth = tileSize * config.maximumCharactersCount + 2 * BORDER_WIDTH;
   const showApplyButton = allResults && allResults.length > 0 && !isOutdated;
   const showSolveButton = isTouchDevice && !showApplyButton;
@@ -134,8 +135,8 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
 
           <div className={styles.column}>
             <Well className={styles.resultsContainer} ref={resultsContainerRef}>
-              {resultsContainerWidth > 0 && resultsContainerHeight > 0 && (
-                <Results callbacks={callbacks} height={resultsContainerHeight} width={resultsContainerWidth} />
+              {resultsContainerWidth > 0 && resultsHeight > 0 && (
+                <Results callbacks={callbacks} height={resultsHeight} width={resultsContainerWidth} />
               )}
             </Well>
 
