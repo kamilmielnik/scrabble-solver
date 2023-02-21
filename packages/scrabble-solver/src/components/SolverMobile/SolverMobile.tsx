@@ -20,6 +20,7 @@ import {
 import Board from '../Board';
 import Rack from '../Rack';
 import ResultCandidatePicker from '../ResultCandidatePicker';
+import Sizer from '../Sizer';
 
 import { ApplyButton, EmptyState, SolveButton } from './components';
 import styles from './SolverMobile.module.scss';
@@ -62,7 +63,7 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
 
   return (
     <div className={classNames(styles.solverMobile, className)}>
-      <div className={styles.sizer} ref={sizerRef} />
+      <Sizer ref={sizerRef} />
 
       <form className={styles.boardContainer} onSubmit={handleSubmit}>
         <Board className={styles.board} cellSize={cellSizeSafe} />
