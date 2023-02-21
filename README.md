@@ -6,7 +6,7 @@
   </p>
 
   <p>
-    Free and open-source analysis tool for <a href="https://en.wikipedia.org/wiki/Scrabble">Scrabble</a> and <a href="https://pl.wikipedia.org/wiki/Literaki">Literaki</a>.
+    Free, open-source, and cross-platform analysis tool for <a href="https://en.wikipedia.org/wiki/Scrabble">Scrabble</a> and <a href="https://pl.wikipedia.org/wiki/Literaki">Literaki</a>.
   </p>
 
   <p>
@@ -39,10 +39,6 @@
     <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/ESLint/badge.svg" alt="ESLint" />
   </p>
 
-  <p>
-    You can run it on your machine, it's cross-platform - all you need is <a href="https://nodejs.org/">Node.js</a>.
-  </p>
-
   <img alt="Screencast GIF showing user interface when solving for oxyphenbutazone, which is a top-scoring word in English version of Scrabble" src="https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/img/screencast.gif" />
 </div>
 
@@ -60,11 +56,9 @@
 | 🇵🇱 Polish  | [💾](https://sjp.pl/slownik/growy/) [SJP.PL](https://sjp.pl/slownik/dp.phtml)                                                                                                                                   | [SJP.PL](https://sjp.pl)                            | współposiądźmyż (1512)                                                                                       |
 | 🇪🇸 Spanish | [💾](https://github.com/kamilmielnik/fise-2/blob/master/fise-2.txt) [FISE-2](https://fisescrabble.org/)                                                                                                         | [Diccionarios.com](https://www.diccionarios.com/)   | flexibilizabais (1323)                                                                                       |
 
-## Requirements
-
-- [Node.js](https://nodejs.org/) 16 or newer
-
 ## Run
+
+You can run Scrabble Solver on your machine - all you need is [Node.js](https://nodejs.org/) 16 or later.
 
 ```Shell
 npx scrabble-solver
@@ -79,7 +73,7 @@ npm install -g scrabble-solver
 scrabble-solver
 ```
 
-Open http://localhost:3333/ if it didn't open up for you.
+Dictionaries will be downloaded and processed during the first run - this can take a few minutes.
 
 ## Uninstall
 
@@ -93,9 +87,6 @@ rm -rf $HOME/.scrabble-solver
 
 ## Develop
 
-- All commands below are meant to be executed in the root directory
-- Some of these commands can take a lot of time if you have never run them before
-
 ### Setup
 
 ```Shell
@@ -105,13 +96,12 @@ npm run install:dev
 
 ### App dev server
 
-Runs at [http://localhost:3000/](http://localhost:3000/).
-
 ```Shell
 npx lerna run dev --scope=@scrabble-solver/scrabble-solver
 ```
 
-Hot code reload works for [`scrabble-solver` package](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver) only.
+- Starts server on [http://localhost:3000](http://localhost:3000)
+- Hot code reload works for [`scrabble-solver`](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver) package only
 
 ### Rebuild a single package
 
