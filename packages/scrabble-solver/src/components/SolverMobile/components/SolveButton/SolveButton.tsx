@@ -33,6 +33,7 @@ const SolveButton: FunctionComponent<Props> = ({ className, onClick = noop }) =>
       disabled={isLoading || !isOutdated || !hasTiles}
       Icon={Search}
       iconClassName={styles.icon}
+      type="submit"
       onClick={handleClick}
     />
   );

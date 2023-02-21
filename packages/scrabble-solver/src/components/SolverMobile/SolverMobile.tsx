@@ -62,12 +62,13 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
 
   return (
     <div className={classNames(styles.solverMobile, className)}>
-      <Sizer ref={sizerRef} />
-
-      <form className={styles.boardContainer} onSubmit={handleSubmit}>
-        <Board className={styles.board} cellSize={cellSizeSafe} />
-        <input className={styles.submitInput} tabIndex={-1} type="submit" />
-      </form>
+      <div className={styles.content}>
+        <form className={styles.boardContainer} onSubmit={handleSubmit}>
+          <Sizer ref={sizerRef} />
+          <Board className={styles.board} cellSize={cellSizeSafe} />
+          <input className={styles.submitInput} tabIndex={-1} type="submit" />
+        </form>
+      </div>
 
       <div className={styles.bottomContainer}>
         <div className={styles.bottomContent}>

@@ -28,6 +28,7 @@ const ApplyButton: FunctionComponent<Props> = ({ className }) => {
       disabled={!resultCandidate}
       Icon={Check}
       iconClassName={styles.icon}
+      type="submit"
       onClick={handleClick}
     />
   );

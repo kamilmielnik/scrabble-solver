@@ -5,8 +5,12 @@
   margin: 0 var(--spacing--l);
 }
 
-.boardContainer {
+.content {
   margin: 0 auto;
+}
+
+.boardContainer {
+
 }
 
 .bottomContainer {
@@ -74,15 +78,4 @@
   [dir='rtl'] & {
     left: var(--spacing);
   }
-}
-
-.emptyState {
-  min-width: 0;
-  width: 100%;
-  padding: var(--spacing--m) var(--spacing--l);
-  border: var(--border);
-  border-radius: var(--border--radius);
-  background-color: white;
-  box-shadow: var(--box-shadow);
-  cursor: pointer;
 }
