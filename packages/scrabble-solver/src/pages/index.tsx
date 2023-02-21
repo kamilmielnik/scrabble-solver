@@ -26,7 +26,7 @@ interface Props {
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
-  const isL = useMediaQuery('>=l');
+  const isLessThanL = useMediaQuery('<l');
   const [showKeyMap, setShowKeyMap] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showRemainingTiles, setShowRemainingTiles] = useState(false);
@@ -63,10 +63,10 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   });
 
   useEffect(() => {
-    if (isL) {
+    if (!isLessThanL) {
       setShowResults(false);
     }
-  }, [isL]);
+  }, [isLessThanL]);
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {

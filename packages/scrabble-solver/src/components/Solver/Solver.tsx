@@ -53,12 +53,11 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
   const isTouchDevice = useIsTouchDevice();
   const [bottomContainerRef, { height: bottomContainerHeight }] = useMeasure<HTMLDivElement>();
   const [resultsContainerRef, { width: resultsContainerWidth }] = useMeasure<HTMLDivElement>();
-  const isSmallSpacing = useMediaQuery('<xl');
-  const showControls = useMediaQuery('<l');
-  const showColumn = useMediaQuery('>=l');
-  const componentsSpacing = isSmallSpacing ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING;
-  const maxBoardWidth = width - resultsContainerWidth - (showColumn ? componentsSpacing : 0) - 2 * componentsSpacing;
-  const maxBoardHeight = Math.max(height - bottomContainerHeight, showColumn ? COLUMN_MIN_HEIGHT : 0);
+  const isLessThanXl = useMediaQuery('<xl');
+  const isLessThanL = useMediaQuery('<l');
+  const componentsSpacing = isLessThanXl ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING;
+  const maxBoardWidth = width - resultsContainerWidth - (isLessThanL ? 0 : componentsSpacing) - 2 * componentsSpacing;
+  const maxBoardHeight = Math.max(height - bottomContainerHeight, isLessThanL ? 0 : COLUMN_MIN_HEIGHT);
   const config = useTypedSelector(selectConfig);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
@@ -155,7 +154,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
             <input className={styles.submitInput} tabIndex={-1} type="submit" />
           </form>
 
-          {showControls && (
+          {isLessThanL && (
             <div className={styles.controls} style={{ maxWidth: maxControlsWidth }}>
               {typeof error !== 'undefined' && (
                 <EmptyState variant="error" onClick={onShowResults}>

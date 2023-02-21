@@ -17,24 +17,24 @@ const COLUMNS_L = [...COLUMNS_XS];
 const useColumns = (): Column[] => {
   const locale = useTypedSelector(selectLocale);
   const localeColumns = getLocaleColumns(LOCALE_FEATURES[locale]);
-  const isXs = useMediaQuery('<xs');
-  const isS = useMediaQuery('<s');
-  const isM = useMediaQuery('<m');
-  const isL = useMediaQuery('<l');
+  const isLessThanXs = useMediaQuery('<xs');
+  const isLessThanS = useMediaQuery('<s');
+  const isLessThanM = useMediaQuery('<m');
+  const isLessThanL = useMediaQuery('<l');
 
-  if (isXs) {
+  if (isLessThanXs) {
     return localeColumns.filter((column) => COLUMNS_XS.includes(column.id));
   }
 
-  if (isS) {
+  if (isLessThanS) {
     return localeColumns.filter((column) => COLUMNS_S.includes(column.id));
   }
 
-  if (isM) {
+  if (isLessThanM) {
     return localeColumns.filter((column) => COLUMNS_M.includes(column.id));
   }
 
-  if (isL) {
+  if (isLessThanL) {
     return localeColumns.filter((column) => COLUMNS_L.includes(column.id));
   }
 

@@ -25,7 +25,7 @@ const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) 
   const dispatch = useDispatch();
   const translate = useTranslate();
   const [sizerRef, { height, width }] = useMeasure<HTMLDivElement>();
-  const isM = useMediaQuery('<m');
+  const isLessThanM = useMediaQuery('<m');
   const results = useTypedSelector(selectSortedFilteredResults);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const index = (results || []).findIndex((result) => result.id === resultCandidate?.id);
@@ -36,12 +36,12 @@ const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) 
       onClick: (result: Result) => {
         dispatch(resultsSlice.actions.changeResultCandidate(result));
 
-        if (isM) {
+        if (isLessThanM) {
           onClose();
         }
       },
     }),
-    [dispatch, isM, onClose],
+    [dispatch, isLessThanM, onClose],
   );
 
   return (

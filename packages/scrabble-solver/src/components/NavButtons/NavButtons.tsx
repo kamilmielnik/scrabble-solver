@@ -31,9 +31,9 @@ const NavButtons: FunctionComponent<Props> = ({
   const hasOverusedTiles = useTypedSelector(selectHasOverusedTiles);
   const hasInvalidWords = useTypedSelector(selectHasInvalidWords);
   const isTouchDevice = useIsTouchDevice();
-  const isMobile = useMediaQuery('<s');
+  const isLessThanS = useMediaQuery('<s');
 
-  if (isMobile) {
+  if (isLessThanS) {
     return (
       <div className={styles.navButtons}>
         <div className={styles.group}>
