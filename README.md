@@ -127,3 +127,12 @@ npx lerna run build --scope=@scrabble-solver/PACKAGE_NAME_HERE
 - [Jest](https://jestjs.io/)
 - [ESLint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
+
+## Related projects
+
+### Lexatious
+
+The user interface and source code for the web front end of Lexatious is based on Scrabble Solver.
+
+- Web: https://lexatious.com
+- GitHub: https://github.com/ericgjackson/lexatious_web
