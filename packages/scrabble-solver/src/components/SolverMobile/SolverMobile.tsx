@@ -69,27 +69,26 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
   const tileSize = Math.min((width - 2 * BORDER_WIDTH) / config.maximumCharactersCount, RACK_TILE_SIZE_MAX);
   const maxControlsWidth = tileSize * config.maximumCharactersCount + 2 * BORDER_WIDTH;
   const showApplyButton = allResults && allResults.length > 0 && !isOutdated;
+  const showSolveButton = isTouchDevice && !showApplyButton;
+  const touchCallbacks = useMemo(
+    () => ({
+      onClick: (result: Result) => {
+        const isSelected = result === resultCandidate;
 
-  const callbacks = useMemo(() => {
-    if (isTouchDevice) {
-      return {
-        onClick: (result: Result) => {
-          const isSelected = result === resultCandidate;
-
-          if (isSelected) {
-            dispatch(resultsSlice.actions.applyResult(result));
-          } else {
-            dispatch(resultsSlice.actions.changeResultCandidate(result));
-          }
-        },
-      };
-    }
-
-    return {
+        if (isSelected) {
+          dispatch(resultsSlice.actions.applyResult(result));
+        } else {
+          dispatch(resultsSlice.actions.changeResultCandidate(result));
+        }
+      },
+    }),
+    [dispatch, resultCandidate],
+  );
+  const mouseCallbacks = useMemo(
+    () => ({
       onBlur: () => {
         dispatch(resultsSlice.actions.changeResultCandidate(null));
       },
-
       onClick: (result: Result) => {
         dispatch(resultsSlice.actions.applyResult(result));
       },
@@ -102,8 +101,10 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
       onMouseLeave: () => {
         dispatch(resultsSlice.actions.changeResultCandidate(null));
       },
-    };
-  }, [dispatch, resultCandidate, isTouchDevice]);
+    }),
+    [dispatch],
+  );
+  const callbacks = isTouchDevice ? touchCallbacks : mouseCallbacks;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -196,7 +197,7 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
         </div>
       </div>
 
-      {!showApplyButton && <SolveButton className={styles.solve} onClick={onShowResults} />}
+      {showSolveButton && <SolveButton className={styles.solve} onClick={onShowResults} />}
     </div>
   );
 };
