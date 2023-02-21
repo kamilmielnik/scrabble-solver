@@ -61,47 +61,15 @@
   flex: 1;
 }
 
-.submit {
-  @include button-reset;
-  @include focus-effect;
-
-  border: var(--border);
-  color: white;
-  box-shadow: var(--box-shadow);
-  cursor: pointer;
-
-  &,
-  &:active,
-  &:focus,
-  &:hover {
-    text-decoration: none;
-    background-color: var(--color--primary);
-  }
-
-  &[disabled] {
-    opacity: var(--opacity--disabled);
-    box-shadow: none;
-    cursor: not-allowed;
-  }
-}
-
 .apply {
   flex: 0 0 auto;
-  padding: var(--spacing--m) var(--spacing--xl);
-  border-radius: var(--border--radius);
-
-  @include media('<xs') {
-    padding: var(--spacing--m) var(--spacing--l);
-  }
 }
 
-.search {
+.solve {
   --spacing: var(--spacing--l);
 
   position: fixed;
   bottom: var(--spacing);
-  padding: var(--spacing--l);
-  border-radius: 50%;
 
   @include media('<xs') {
     --spacing: var(--spacing--m);
@@ -113,23 +81,6 @@
 
   [dir='rtl'] & {
     left: var(--spacing);
-  }
-}
-
-.submitIcon {
-  --size: calc(var(--line-height) * var(--font--size--m));
-
-  display: block;
-  width: var(--size);
-  height: var(--size);
-  pointer-events: none;
-}
-
-.applyIcon {
-  transform: scale(1.75);
-
-  @include media('<xs') {
-    transform: scale(1.5);
   }
 }
 

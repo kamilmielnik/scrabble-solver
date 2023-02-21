@@ -1,0 +1,9 @@
+@import 'styles/mixins';
+
+.icon {
+  transform: scale(1.75);
+
+  @include media('<xs') {
+    transform: scale(1.5);
+  }
+}

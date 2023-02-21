@@ -3,14 +3,11 @@ import { FormEvent, FunctionComponent, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useMeasure } from 'react-use';
 
-import { Check, Search } from 'icons';
 import { BOARD_TILE_SIZE_MAX, BOARD_TILE_SIZE_MIN, BORDER_WIDTH, RACK_TILE_SIZE_MAX } from 'parameters';
 import {
   resultsSlice,
   selectAreResultsOutdated,
   selectConfig,
-  selectIsLoading,
-  selectRack,
   selectResultCandidate,
   selectSolveError,
   selectSortedFilteredResults,
@@ -24,7 +21,7 @@ import Board from '../Board';
 import Rack from '../Rack';
 import ResultCandidatePicker from '../ResultCandidatePicker';
 
-import { EmptyState } from './components';
+import { ApplyButton, EmptyState, SolveButton } from './components';
 import styles from './SolverMobile.module.scss';
 
 interface Props {
@@ -39,10 +36,7 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
   const [sizerRef, { width: sizerWidth }] = useMeasure<HTMLDivElement>();
   const config = useTypedSelector(selectConfig);
   const resultCandidate = useTypedSelector(selectResultCandidate);
-  const isLoading = useTypedSelector(selectIsLoading);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
-  const rack = useTypedSelector(selectRack);
-  const hasTiles = rack.some((tile) => tile !== null);
   const allResults = useTypedSelector(selectSortedResults);
   const error = useTypedSelector(selectSolveError);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion,
@@ -53,17 +47,6 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
   const tileSize = Math.min((sizerWidth - 2 * BORDER_WIDTH) / config.maximumCharactersCount, RACK_TILE_SIZE_MAX);
   const maxControlsWidth = tileSize * config.maximumCharactersCount + 2 * BORDER_WIDTH;
   const showApplyButton = allResults && allResults.length > 0 && !isOutdated;
-
-  const handleApply = () => {
-    if (resultCandidate) {
-      dispatch(resultsSlice.actions.applyResult(resultCandidate));
-    }
-  };
-
-  const handleSolve = () => {
-    onShowResults();
-    dispatch(solveSlice.actions.submit());
-  };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -136,28 +119,12 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
               </>
             )}
 
-            {showApplyButton && (
-              <button
-                className={classNames(styles.submit, styles.apply)}
-                disabled={!resultCandidate}
-                onClick={handleApply}
-              >
-                <Check className={classNames(styles.submitIcon, styles.applyIcon)} />
-              </button>
-            )}
+            {showApplyButton && <ApplyButton className={classNames(styles.submit, styles.apply)} />}
           </div>
         </div>
       </div>
 
-      {!showApplyButton && (
-        <button
-          className={classNames(styles.submit, styles.search)}
-          disabled={isLoading || !isOutdated || !hasTiles}
-          onClick={handleSolve}
-        >
-          <Search className={styles.submitIcon} />
-        </button>
-      )}
+      {!showApplyButton && <SolveButton className={styles.solve} onClick={onShowResults} />}
     </div>
   );
 };

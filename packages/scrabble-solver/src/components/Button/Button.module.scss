@@ -5,16 +5,23 @@
   @include focus-effect;
 
   display: inline-block;
-  transition: var(--transition);
+  padding: var(--spacing--m) var(--spacing--xl);
+  border: var(--border);
   border-radius: var(--border--radius);
   box-shadow: none;
   color: var(--color--inactive);
+  transition: var(--transition);
   cursor: pointer;
+
+  @include media('<xs') {
+    padding: var(--spacing--m) var(--spacing--l);
+  }
 
   &,
   &:active,
   &:focus,
   &:hover {
+    text-decoration: none;
     background-color: var(--color--primary);
     box-shadow: var(--box-shadow);
     color: white;
@@ -30,14 +37,9 @@
   }
 
   &[disabled] {
-    background-color: var(--color--background);
-    color: var(--color--inactive);
+    opacity: var(--opacity--disabled);
     box-shadow: none;
     cursor: not-allowed;
-  }
-
-  &:hover {
-    opacity: 1;
   }
 }
 
@@ -45,26 +47,16 @@
   display: flex;
   align-items: center;
   gap: var(--spacing--m);
-  padding: var(--spacing--s) var(--spacing--l);
-}
-
-.icon,
-.label {
-  transition: var(--transition);
 }
 
 .icon {
-  width: var(--font--size--h3);
-  height: var(--font--size--h3);
-  pointer-events: none;
-  transition: var(--transition);
-  color: inherit;
+  --size: calc(var(--line-height) * var(--font--size--m));
+
+  width: var(--size);
+  height: var(--size);
 }
 
 .label {
-  transition: var(--transition);
   font-size: var(--font--size--h3);
   text-transform: uppercase;
-  pointer-events: none;
-  user-select: none;
 }
