@@ -19,7 +19,7 @@ export const COLOR_RED = '#f7c2aa';
 export const COLOR_YELLOW = '#efe3ae';
 
 export const COMPONENTS_SPACING = 40;
-export const COMPONENTS_SPACING_MOBILE = 20;
+export const COMPONENTS_SPACING_SMALL = 20;
 
 export const BOARD_CELL_BORDER_WIDTH = 1;
 export const BOARD_TILE_FONT_SIZE_MIN = 14;

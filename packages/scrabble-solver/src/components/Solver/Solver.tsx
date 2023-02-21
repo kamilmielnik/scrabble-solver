@@ -6,7 +6,7 @@ import { useMeasure } from 'react-use';
 
 import { useIsTouchDevice, useMediaQuery } from 'hooks';
 import { getCellSize } from 'lib';
-import { BORDER_WIDTH, COMPONENTS_SPACING, COMPONENTS_SPACING_MOBILE, DICTIONARY_HEIGHT, TILE_SIZE } from 'parameters';
+import { BORDER_WIDTH, COMPONENTS_SPACING, COMPONENTS_SPACING_SMALL, DICTIONARY_HEIGHT, TILE_SIZE } from 'parameters';
 import { resultsSlice, selectConfig, selectResultCandidate, solveSlice, useTypedSelector } from 'state';
 
 import Board from '../Board';
@@ -33,7 +33,7 @@ const Solver: FunctionComponent<Props> = ({ className }) => {
   const config = useTypedSelector(selectConfig);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const cellSize = getCellSize(config, contentWidth - resultsContainerWidth, contentHeight);
-  const componentsSpacing = isMobile ? COMPONENTS_SPACING_MOBILE : COMPONENTS_SPACING;
+  const componentsSpacing = isMobile ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING;
   const resultsHeight = boardHeight - DICTIONARY_HEIGHT - componentsSpacing - 4 * BORDER_WIDTH;
   const callbacks = useMemo(() => {
     if (isTouchDevice) {

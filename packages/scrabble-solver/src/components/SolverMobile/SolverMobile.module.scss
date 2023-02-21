@@ -25,8 +25,8 @@
   gap: var(--spacing);
   margin: 0 auto;
 
-  @include media('<m') {
-    display: block;
+  @include media('<l') {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -40,7 +40,7 @@
   flex: 0 0 var(--solver-column--width);
   gap: var(--spacing);
 
-  @include media('<m') {
+  @include media('<l') {
     display: none;
   }
 }

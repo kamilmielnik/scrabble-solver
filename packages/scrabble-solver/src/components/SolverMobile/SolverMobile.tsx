@@ -10,7 +10,7 @@ import {
   BOARD_TILE_SIZE_MIN,
   BORDER_WIDTH,
   COMPONENTS_SPACING,
-  COMPONENTS_SPACING_MOBILE,
+  COMPONENTS_SPACING_SMALL,
   DICTIONARY_HEIGHT,
   RACK_TILE_SIZE_MAX,
 } from 'parameters';
@@ -52,16 +52,17 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
   const [sizerRef, { width: sizerWidth }] = useMeasure<HTMLDivElement>();
   const [resultsContainerRef, { height: resultsContainerHeight, width: resultsContainerWidth }] =
     useMeasure<HTMLDivElement>();
-  const isMobile = useMediaQuery('<xl');
-  const componentsSpacing = isMobile ? COMPONENTS_SPACING_MOBILE : COMPONENTS_SPACING;
-  const width = sizerWidth - resultsContainerWidth - componentsSpacing;
+  const isSmallSpacing = useMediaQuery('<xl');
+  const showControls = useMediaQuery('<l');
+  const showColumn = useMediaQuery('>=l');
+  const componentsSpacing = isSmallSpacing ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING;
+  const width = sizerWidth - resultsContainerWidth - (showColumn ? componentsSpacing : 0);
   const config = useTypedSelector(selectConfig);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const allResults = useTypedSelector(selectSortedResults);
   const error = useTypedSelector(selectSolveError);
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion,
-  const results = useTypedSelector(selectSortedFilteredResults)!;
+  const results = useTypedSelector(selectSortedFilteredResults);
   const [bestResult] = results || [];
   const cellSize = (width - (config.boardWidth + 1)) / config.boardWidth;
   const cellSizeSafe = Math.min(Math.max(cellSize, BOARD_TILE_SIZE_MIN), BOARD_TILE_SIZE_MAX);
@@ -151,45 +152,47 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
             <input className={styles.submitInput} tabIndex={-1} type="submit" />
           </form>
 
-          <div className={styles.controls} style={{ maxWidth: maxControlsWidth }}>
-            {typeof error !== 'undefined' && (
-              <EmptyState variant="error" onClick={onShowResults}>
-                {error.message}
-              </EmptyState>
-            )}
+          {showControls && (
+            <div className={styles.controls} style={{ maxWidth: maxControlsWidth }}>
+              {typeof error !== 'undefined' && (
+                <EmptyState variant="error" onClick={onShowResults}>
+                  {error.message}
+                </EmptyState>
+              )}
 
-            {typeof error === 'undefined' && typeof results === 'undefined' && (
-              <EmptyState variant="info" onClick={onShowResults}>
-                {translate('results.empty-state.uninitialized')}
-              </EmptyState>
-            )}
+              {typeof error === 'undefined' && typeof results === 'undefined' && (
+                <EmptyState variant="info" onClick={onShowResults}>
+                  {translate('results.empty-state.uninitialized')}
+                </EmptyState>
+              )}
 
-            {typeof error === 'undefined' && typeof results !== 'undefined' && typeof allResults !== 'undefined' && (
-              <>
-                {isOutdated && (
-                  <EmptyState variant="info" onClick={onShowResults}>
-                    {translate('results.empty-state.outdated')}
-                  </EmptyState>
-                )}
+              {typeof error === 'undefined' && typeof results !== 'undefined' && typeof allResults !== 'undefined' && (
+                <>
+                  {isOutdated && (
+                    <EmptyState variant="info" onClick={onShowResults}>
+                      {translate('results.empty-state.outdated')}
+                    </EmptyState>
+                  )}
 
-                {!isOutdated && (
-                  <>
-                    {allResults.length === 0 && (
-                      <EmptyState variant="warning" onClick={onShowResults}>
-                        {translate('results.empty-state.no-results')}
-                      </EmptyState>
-                    )}
+                  {!isOutdated && (
+                    <>
+                      {allResults.length === 0 && (
+                        <EmptyState variant="warning" onClick={onShowResults}>
+                          {translate('results.empty-state.no-results')}
+                        </EmptyState>
+                      )}
 
-                    {allResults.length > 0 && resultCandidate && (
-                      <ResultCandidatePicker className={styles.resultCandidatePicker} onClick={onShowResults} />
-                    )}
-                  </>
-                )}
-              </>
-            )}
+                      {allResults.length > 0 && resultCandidate && (
+                        <ResultCandidatePicker className={styles.resultCandidatePicker} onClick={onShowResults} />
+                      )}
+                    </>
+                  )}
+                </>
+              )}
 
-            {showApplyButton && <ApplyButton className={classNames(styles.submit, styles.apply)} />}
-          </div>
+              {showApplyButton && <ApplyButton className={classNames(styles.submit, styles.apply)} />}
+            </div>
+          )}
         </div>
       </div>
 
