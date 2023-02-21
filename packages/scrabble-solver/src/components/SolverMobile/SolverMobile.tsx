@@ -30,7 +30,6 @@ interface Props {
   onShowResults: () => void;
 }
 
-// eslint-disable-next-line max-statements
 const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
@@ -107,13 +106,7 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
                     )}
 
                     {allResults.length > 0 && resultCandidate && (
-                      <ResultCandidatePicker
-                        className={styles.resultCandidatePicker}
-                        disabled={isOutdated}
-                        points={resultCandidate.points}
-                        word={resultCandidate.word}
-                        onClick={onShowResults}
-                      />
+                      <ResultCandidatePicker className={styles.resultCandidatePicker} onClick={onShowResults} />
                     )}
                   </>
                 )}
