@@ -44,6 +44,13 @@
 
 # scrabble-solver
 
+- [Dictionaries](#dictionaries)
+- [Run](#run)
+- [Uninstall](#uninstall)
+- [Develop](#develop)
+- [Tech stack](#tech-stack)
+- [Related projects](#related-projects)
+
 ## Dictionaries
 
 | Language   | Word list                                                                                                                                                                                                       | Word definitions                                    | [Highest-scoring word](https://codesandbox.io/s/highest-scoring-words-in-scrabble-vbj1ns?file=/src/index.js) |
