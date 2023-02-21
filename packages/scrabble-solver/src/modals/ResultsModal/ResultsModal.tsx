@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useMeasure } from 'react-use';
 
 import { Modal, Results, Sizer, Well } from 'components';
+import { useMediaQuery } from 'hooks';
 import {
   resultsSlice,
   selectResultCandidate,
@@ -24,18 +25,23 @@ const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) 
   const dispatch = useDispatch();
   const translate = useTranslate();
   const [sizerRef, { height, width }] = useMeasure<HTMLDivElement>();
+  const isM = useMediaQuery('<m');
   const results = useTypedSelector(selectSortedFilteredResults);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const index = (results || []).findIndex((result) => result.id === resultCandidate?.id);
   const highlightedIndex = index === -1 ? undefined : index;
+
   const callbacks = useMemo(
     () => ({
       onClick: (result: Result) => {
-        onClose();
         dispatch(resultsSlice.actions.changeResultCandidate(result));
+
+        if (isM) {
+          onClose();
+        }
       },
     }),
-    [onClose, dispatch],
+    [dispatch, isM, onClose],
   );
 
   return (

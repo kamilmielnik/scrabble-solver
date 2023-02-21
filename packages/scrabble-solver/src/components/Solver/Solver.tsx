@@ -74,8 +74,6 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
   const boardSize = (cellSizeSafe + BORDER_WIDTH) * Math.max(config.boardWidth, config.boardHeight) + BORDER_WIDTH;
   const resultsHeight = boardSize - DICTIONARY_HEIGHT - componentsSpacing - 4 * BORDER_WIDTH;
   const maxControlsWidth = tileSize * config.maximumCharactersCount + 2 * BORDER_WIDTH;
-  const showApplyButton = allResults && allResults.length > 0 && !isOutdated;
-  const showSolveButton = isTouchDevice && !showApplyButton;
   const touchCallbacks = useMemo(
     () => ({
       onClick: (result: Result) => {
@@ -195,13 +193,15 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
                 </>
               )}
 
-              {showApplyButton && <ApplyButton className={classNames(styles.submit, styles.apply)} />}
+              {allResults && allResults.length > 0 && !isOutdated && (
+                <ApplyButton className={classNames(styles.submit, styles.apply)} />
+              )}
             </div>
           )}
         </div>
       </div>
 
-      {showSolveButton && <SolveButton className={styles.solve} onClick={onShowResults} />}
+      {isTouchDevice && <SolveButton className={styles.solve} onClick={onShowResults} />}
     </div>
   );
 };

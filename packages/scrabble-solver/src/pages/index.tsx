@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure } from 'react-use';
 
 import { Logo, LogoSplashScreen, NavButtons, Solver, SvgFontFix } from 'components';
-import { useDirection, useLanguage, useLocalStorage } from 'hooks';
+import { useDirection, useLanguage, useLocalStorage, useMediaQuery } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { KeyMapModal, MenuModal, RemainingTilesModal, ResultsModal, SettingsModal, WordsModal } from 'modals';
 import { INITIALIZATION_DURATION } from 'parameters';
@@ -26,6 +26,7 @@ interface Props {
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
+  const isL = useMediaQuery('>=l');
   const [showKeyMap, setShowKeyMap] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showRemainingTiles, setShowRemainingTiles] = useState(false);
@@ -60,6 +61,12 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       setIsInitialized(true);
     }, INITIALIZATION_DURATION);
   });
+
+  useEffect(() => {
+    if (isL) {
+      setShowResults(false);
+    }
+  }, [isL]);
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
