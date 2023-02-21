@@ -19,8 +19,6 @@ export { default as Radio } from './Radio';
 export { default as ResultCandidatePicker } from './ResultCandidatePicker';
 export { default as Results } from './Results';
 export { default as ResultsInput } from './ResultsInput';
-export { default as Sizer } from './Sizer';
-export { default as Solver } from './Solver';
 export { default as SolverMobile } from './SolverMobile';
 export { default as SplashScreen } from './SplashScreen';
 export { default as SquareButton } from './SquareButton';
