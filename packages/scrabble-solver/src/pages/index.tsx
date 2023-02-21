@@ -6,8 +6,8 @@ import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce } from 'react-use';
 
-import { Logo, LogoSplashScreen, NavButtons, Solver, SolverMobile, SvgFontFix } from 'components';
-import { useDirection, useLanguage, useLocalStorage, useMediaQuery } from 'hooks';
+import { Logo, LogoSplashScreen, NavButtons, SolverMobile, SvgFontFix } from 'components';
+import { useDirection, useLanguage, useLocalStorage } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { KeyMapModal, MenuModal, RemainingTilesModal, ResultsModal, SettingsModal, WordsModal } from 'modals';
 import { INITIALIZATION_DURATION } from 'parameters';
@@ -32,8 +32,6 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [showSettings, setShowSettings] = useState(false);
   const [showWords, setShowWords] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
-  const isMobile = useMediaQuery('<m');
-  const SolverComponent = isMobile ? SolverMobile : Solver;
 
   const handleClear = () => {
     dispatch(reset());
@@ -86,7 +84,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           />
         </div>
 
-        <SolverComponent className={styles.solver} onShowResults={() => setShowResults(true)} />
+        <SolverMobile onShowResults={() => setShowResults(true)} />
       </div>
 
       <MenuModal
