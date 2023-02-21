@@ -37,7 +37,7 @@ import Results from '../Results';
 import Well from '../Well';
 
 import { ApplyButton, EmptyState, SolveButton } from './components';
-import styles from './SolverMobile.module.scss';
+import styles from './Solver.module.scss';
 
 interface Props {
   className?: string;
@@ -47,7 +47,7 @@ interface Props {
 }
 
 // eslint-disable-next-line max-statements
-const SolverMobile: FunctionComponent<Props> = ({ className, height, width, onShowResults }) => {
+const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResults }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
@@ -124,7 +124,7 @@ const SolverMobile: FunctionComponent<Props> = ({ className, height, width, onSh
   }, [bestResult, dispatch]);
 
   return (
-    <div className={classNames(styles.solverMobile, className)}>
+    <div className={classNames(styles.solver, className)}>
       <div className={styles.container}>
         <div className={styles.content}>
           <form className={styles.boardContainer} onSubmit={handleSubmit}>
@@ -205,4 +205,4 @@ const SolverMobile: FunctionComponent<Props> = ({ className, height, width, onSh
   );
 };
 
-export default SolverMobile;
+export default Solver;

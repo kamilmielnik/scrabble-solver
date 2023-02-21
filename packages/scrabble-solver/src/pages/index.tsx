@@ -6,7 +6,7 @@ import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure } from 'react-use';
 
-import { Logo, LogoSplashScreen, NavButtons, SolverMobile, SvgFontFix } from 'components';
+import { Logo, LogoSplashScreen, NavButtons, Solver, SvgFontFix } from 'components';
 import { useDirection, useLanguage, useLocalStorage } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { KeyMapModal, MenuModal, RemainingTilesModal, ResultsModal, SettingsModal, WordsModal } from 'modals';
@@ -74,7 +74,6 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       <div className={classNames(styles.index, { [styles.initialized]: isInitialized })} ref={indexRef}>
         <div className={styles.nav} ref={navRef}>
           <div className={styles.navContent}>
-
             <div className={styles.navLogo}>
               <a className={styles.logoContainer} href="/" title={version}>
                 <Logo className={styles.logo} />
@@ -92,7 +91,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           </div>
         </div>
 
-        <SolverMobile
+        <Solver
           className={styles.solver}
           height={solverHeight}
           width={solverWidth}
