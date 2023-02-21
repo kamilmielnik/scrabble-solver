@@ -62,8 +62,7 @@
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/) 16+
-- min. `1000px x 700px` viewport size (`1500px x 1200px` recommended)
+- [Node.js](https://nodejs.org/) 16 or newer
 
 ## Run
 
@@ -131,7 +130,7 @@ npx lerna run build --scope=@scrabble-solver/PACKAGE_NAME_HERE
 - [Redux](https://redux.js.org/)
 - [Redux Toolkit](https://redux-toolkit.js.org/)
 - [Redux-Saga](https://redux-saga.js.org/)
-- [SASS](https://sass-lang.com/)
+- [SCSS](https://sass-lang.com/)
 - [CSS Modules](https://github.com/css-modules/css-modules)
 - [include-media](https://eduardoboucas.github.io/include-media/)
 - [Lerna](https://lerna.js.org/)

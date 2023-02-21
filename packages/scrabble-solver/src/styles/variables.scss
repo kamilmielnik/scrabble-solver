@@ -13,24 +13,19 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --box-shadow--offset--negative: calc(-1 * var(--box-shadow--offset));
   --box-shadow--color: #{rgba(#000, 0.15)};
   --box-shadow: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) var(--box-shadow--color);
+  --box-shadow--focus--spread: 6px;
   --box-shadow--null: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) transparent;
-  --box-shadow--top: 0 var(--box-shadow--offset--negative) var(--box-shadow--blur) var(--box-shadow--spread)
-    var(--box-shadow--color);
-  --box-shadow--bottom: 0 var(--box-shadow--offset) var(--box-shadow--blur) var(--box-shadow--spread)
-    var(--box-shadow--color);
-  --box-shadow--left: var(--box-shadow--offset--negative) 0 var(--box-shadow--blur) var(--box-shadow--spread)
-    var(--box-shadow--color);
-  --box-shadow--right: var(--box-shadow--offset) 0 var(--box-shadow--blur) var(--box-shadow--spread)
-    var(--box-shadow--color);
   --box-shadow--error: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) var(--color--error);
 
   --color--background: #f4f4f4;
   --color--background--secondary: #111;
   --color--background--overlay: rgba(255, 255, 255, 0.65);
-  --color--error: #fc3d3d;
+  --color--error: hsl(0deg, 92%, 62%);
   --color--success: #00a900;
+  --color--info: var(--color--dark-blue);
+  --color--warning: hsl(35deg, 90%, 60%);
   --color--focus: #{rgba(#268fff, 0.5)};
-  --color--foreground: black;
+  --color--foreground: #222;
   --color--foreground--secondary: #444;
   --color--inactive: #cdcdcd;
   --color--primary: var(--color--violet);
@@ -59,10 +54,10 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --font--size--h2: 22px;
   --font--size--h3: 18px;
   --font--size--m: 16px;
-  --font--size--s: 14px;
-  --font--size--xs: 12px;
 
   --line-height: 1.5;
+
+  --opacity--disabled: 0.3;
 
   --spacing--xs: 2px;
   --spacing--s: 5px;
@@ -76,12 +71,15 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --transition--easing: #{$easeOutSine};
   --transition: all var(--transition--duration) var(--transition--easing);
 
-  --focus--box-shadow--size: 6px;
+  --z-index--modal: 100;
+  --z-index--close-button: 101;
 
-  --sidebar--width: 580px;
-  --dictionary--height: 220px;
-  --square-button-size: 32px;
-  --text-input--height: 42px;
+  --dictionary--height: 260px;
+  --modal--width: 370px;
+  --solver-column--width: 580px;
+  --square-button--size: 32px;
+  --button--icon--size: 24px;
+  --text-input--height: 40px;
   --tooltip--background: #222;
   --tooltip--foreground: #fff;
 }

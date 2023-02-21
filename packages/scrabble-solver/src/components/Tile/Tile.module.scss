@@ -78,7 +78,7 @@
     --background--color: transparent;
   }
 
-  &:disabled {
+  &[disabled] {
     color: inherit;
   }
 }
@@ -91,6 +91,10 @@
   user-select: none;
   pointer-events: none;
   letter-spacing: -1px;
+
+  @include media('<xs') {
+    display: none;
+  }
 
   [dir='ltr'] & {
     bottom: 1%;

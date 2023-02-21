@@ -1,4 +1,4 @@
-import { Cell } from '@scrabble-solver/types';
+import { Cell as CellModel } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import {
   ChangeEventHandler,
@@ -13,16 +13,16 @@ import {
 import { Direction } from 'types';
 
 import styles from './Board.module.scss';
-import { Cell as CellComponent } from './components';
+import { Cell } from './components';
 
 interface Props {
   className?: string;
   cellSize: number;
-  center: Cell;
+  center: CellModel;
   direction: Direction;
   innerRef?: Ref<HTMLDivElement>;
   refs: RefObject<HTMLInputElement>[][];
-  rows: Cell[][];
+  rows: CellModel[][];
   onChange: ChangeEventHandler<HTMLInputElement>;
   onDirectionToggle: () => void;
   onFocus: (x: number, y: number) => void;
@@ -48,7 +48,7 @@ const BoardPure: FunctionComponent<Props> = ({
     {rows.map((cells, y) => (
       <div className={styles.row} key={y}>
         {cells.map((cell, x) => (
-          <CellComponent
+          <Cell
             className={styles.cell}
             cell={cell}
             direction={direction}

@@ -4,10 +4,8 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-width: 900px;
-  min-height: 700px;
   opacity: 0;
-  overflow: hidden;
+  overflow: auto;
   transition: var(--transition);
   transition-duration: var(--transition--duration--long);
 
@@ -20,6 +18,10 @@
   position: relative;
   z-index: 1;
   flex: 0 0 auto;
+}
+
+.navContent {
+  width: 100%;
   display: flex;
   align-items: flex-start;
   padding: var(--spacing--l);

@@ -1,23 +1,23 @@
 @import 'styles/mixins';
 
-$size: 32px;
-
 .button {
   @include button-reset;
   @include focus-effect;
 
   display: inline-block;
-  transition: var(--transition);
+  padding: var(--spacing--m) var(--spacing--l);
+  border: var(--border);
   border-radius: var(--border--radius);
   box-shadow: none;
   color: var(--color--inactive);
+  transition: var(--transition);
   cursor: pointer;
-  opacity: 0.9;
 
   &,
   &:active,
   &:focus,
   &:hover {
+    text-decoration: none;
     background-color: var(--color--primary);
     box-shadow: var(--box-shadow);
     color: white;
@@ -32,53 +32,25 @@ $size: 32px;
     }
   }
 
-  &:disabled {
-    background-color: var(--color--background);
-    color: var(--color--inactive);
+  &[disabled] {
+    opacity: var(--opacity--disabled);
     box-shadow: none;
     cursor: not-allowed;
-
-    .icon {
-      transform: scale(1);
-    }
-  }
-
-  &:hover {
-    opacity: 1;
-
-    &:not(:disabled) {
-      .icon {
-        transform: scale(1.1);
-      }
-    }
   }
 }
 
 .content {
   display: flex;
   align-items: center;
-  padding: var(--spacing--xs) var(--spacing--m);
-}
-
-.icon,
-.label {
-  transition: var(--transition);
+  gap: var(--spacing--m);
 }
 
 .icon {
-  width: $size;
-  height: $size;
-  pointer-events: none;
-  transition: var(--transition);
-  transform: scale(1);
-  color: inherit;
+  width: var(--button--icon--size);
+  height: var(--button--icon--size);
 }
 
 .label {
-  padding: 0 var(--spacing--m);
-  transition: var(--transition);
-  font-size: var(--font--size--m);
+  font-size: var(--font--size--h3);
   text-transform: uppercase;
-  pointer-events: none;
-  user-select: none;
 }

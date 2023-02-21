@@ -1,0 +1,76 @@
+@import 'styles/mixins';
+
+.resultCandidatePicker {
+  @include button-reset;
+  @include focus-effect;
+
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  width: 100%;
+  border: var(--border);
+  border-radius: var(--border--radius);
+  background-color: white;
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+
+  &[disabled] {
+    opacity: var(--opacity--disabled);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.points,
+.word {
+  padding: var(--spacing--m) var(--spacing--l);
+}
+
+.points {
+  flex: 0 0 auto;
+  font-weight: bold;
+
+  [dir='ltr'] & {
+    border-right: var(--border);
+  }
+
+  [dir='rtl'] & {
+    border-left: var(--border);
+  }
+}
+
+.word {
+  @include ellipsis;
+
+  flex: 1;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.iconContainer {
+  flex: 0 0 auto;
+  display: flex;
+
+  [dir='ltr'] & {
+    padding-right: var(--spacing--l);
+  }
+
+  [dir='rtl'] & {
+    padding-left: var(--spacing--l);
+  }
+}
+
+.icon {
+  $size: 20px;
+
+  width: $size;
+  height: $size;
+  color: var(--color--inactive);
+}

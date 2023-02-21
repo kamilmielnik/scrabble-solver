@@ -13,34 +13,34 @@ import styles from './EmptyState.module.scss';
 interface Props {
   children: ReactNode;
   className?: string;
-  type: 'error' | 'info' | 'success' | 'warning';
+  variant: 'error' | 'info' | 'success' | 'warning';
 }
 
-const TITLE_KEY_PER_TYPE: Record<Props['type'], keyof Translations> = {
+const TITLE_KEY_PER_TYPE: Record<Props['variant'], keyof Translations> = {
   error: 'empty-state.error',
   info: 'empty-state.info',
   success: 'empty-state.success',
   warning: 'empty-state.warning',
 };
 
-const COLORS_PER_TYPE: Record<Props['type'], string> = {
+const COLORS_PER_TYPE: Record<Props['variant'], string> = {
   error: COLOR_RED,
   info: COLOR_BLUE,
   success: COLOR_GREEN,
   warning: COLOR_YELLOW,
 };
 
-const EmptyState: FunctionComponent<Props> = ({ className, children, type }) => {
+const EmptyState: FunctionComponent<Props> = ({ children, className, variant }) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
-  const title = useMemo(() => translate(TITLE_KEY_PER_TYPE[type]), [translate]);
+  const title = useMemo(() => translate(TITLE_KEY_PER_TYPE[variant]), [translate]);
   const message = direction === 'ltr' ? title : title.split('').reverse().join('');
   const content = useMemo(() => [[message.toUpperCase()]], [title]);
 
   return (
     <div className={classNames(styles.emptyState, className)}>
-      <PlainTiles className={styles.tiles} color={COLORS_PER_TYPE[type]} content={content} />
+      <PlainTiles className={styles.tiles} color={COLORS_PER_TYPE[variant]} content={content} />
 
       <div className={styles.content}>{children}</div>
     </div>

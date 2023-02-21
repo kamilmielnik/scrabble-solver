@@ -15,6 +15,7 @@
       "icons": ["./src/icons"],
       "i18n": ["./src/i18n"],
       "lib": ["./src/lib"],
+      "modals": ["./src/modals"],
       "pages": ["./src/pages"],
       "parameters": ["./src/parameters"],
       "sdk": ["./src/sdk"],

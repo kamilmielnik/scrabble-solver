@@ -1,0 +1,28 @@
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing--l);
+}
+
+.badge {
+  [dir='ltr'] & {
+    margin-left: var(--spacing--m);
+  }
+
+  [dir='rtl'] & {
+    margin-right: var(--spacing--m);
+  }
+}
+
+.character {
+  display: flex;
+  flex: 0 1;
+  max-width: 50px;
+}

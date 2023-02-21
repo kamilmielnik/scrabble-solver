@@ -7,4 +7,6 @@
 
 .tile {
   @include focus-effect;
+
+  --background-color: var(--color--background);
 }

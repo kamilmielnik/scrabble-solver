@@ -25,11 +25,7 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
         [styles.isNotAllowed]: isFirstAllowed === false,
       })}
     >
-      {typeof error !== 'undefined' && (
-        <EmptyState className={styles.emptyState} type="error">
-          {error.message}
-        </EmptyState>
-      )}
+      {typeof error !== 'undefined' && <EmptyState variant="error">{error.message}</EmptyState>}
 
       {results.map(({ definitions, exists, isAllowed, word }) => (
         <div
@@ -40,7 +36,7 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
           key={word}
         >
           {typeof word === 'undefined' && (
-            <EmptyState type="info">{translate('dictionary.empty-state.uninitialized')}</EmptyState>
+            <EmptyState variant="info">{translate('dictionary.empty-state.uninitialized')}</EmptyState>
           )}
 
           {typeof word !== 'undefined' && (

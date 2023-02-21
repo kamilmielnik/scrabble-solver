@@ -1,0 +1,117 @@
+@import 'styles/mixins';
+
+.modal,
+.closeButton {
+  top: 0;
+
+  [dir='ltr'] & {
+    right: 0;
+  }
+
+  [dir='rtl'] & {
+    left: 0;
+  }
+}
+
+.modal {
+  position: fixed;
+  z-index: var(--z-index--modal);
+  height: 100vh;
+  width: var(--modal--width);
+  padding: 0;
+  border-radius: 0;
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+
+  @include media('<s') {
+    --modal--width: 100%;
+  }
+}
+
+.afterOpen {
+  .container {
+    [dir='ltr'] &,
+    [dir='rtl'] & {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+}
+
+.beforeClose {
+  .container {
+    opacity: 0;
+
+    [dir='ltr'] & {
+      transform: translateX(var(--modal--width));
+    }
+
+    [dir='rtl'] & {
+      transform: translateX(calc(-1 * var(--modal--width)));
+    }
+  }
+}
+
+.overlay {
+  background-color: transparent;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--color--background);
+  transition: var(--transition);
+  transition-duration: var(--transition--duration--long);
+  transform: translateX(var(--modal--width));
+  opacity: 0;
+
+  [dir='ltr'] & {
+    transform: translateX(var(--modal--width));
+    box-shadow: var(--box-shadow--offset--negative) 0 var(--box-shadow--blur) var(--box-shadow--spread)
+      var(--box-shadow--color);
+  }
+
+  [dir='rtl'] & {
+    transform: translateX(calc(-1 * var(--modal--width)));
+    box-shadow: var(--box-shadow--offset) 0 var(--box-shadow--blur) var(--box-shadow--spread) var(--box-shadow--color);
+  }
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  padding: var(--spacing--l);
+  background-color: var(--color--background);
+}
+
+.title {
+  font-size: var(--font--size--h1);
+  font-weight: 300;
+
+  [dir='ltr'] & {
+    padding-right: calc(var(--square-button--size) + var(--spacing--s));
+  }
+
+  [dir='rtl'] & {
+    padding-left: calc(var(--square-button--size) + var(--spacing--s));
+  }
+}
+
+.closeButton {
+  position: absolute !important;
+  z-index: var(--z-index--close-button);
+  margin: var(--spacing--l);
+}
+
+.content {
+  position: relative;
+  flex: 1;
+  margin-top: calc(-1 * var(--spacing--l));
+  padding: var(--spacing--l);
+  overflow: auto;
+}

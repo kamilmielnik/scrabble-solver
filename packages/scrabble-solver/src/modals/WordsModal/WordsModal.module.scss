@@ -1,0 +1,41 @@
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.badge {
+  [dir='ltr'] & {
+    margin-left: var(--spacing--m);
+  }
+
+  [dir='rtl'] & {
+    margin-right: var(--spacing--m);
+  }
+}
+
+.word {
+  display: flex;
+  align-items: center;
+
+  & + & {
+    margin-top: var(--spacing--s);
+  }
+}
+
+.invalid {
+  color: var(--color--error);
+}
+
+.valid {
+  color: var(--color--success);
+}
+
+.icon {
+  $size: 24px;
+
+  width: $size;
+  height: $size;
+  margin-right: var(--spacing--s);
+}

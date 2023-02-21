@@ -19,15 +19,24 @@ export const COLOR_RED = '#f7c2aa';
 export const COLOR_YELLOW = '#efe3ae';
 
 export const COMPONENTS_SPACING = 40;
-export const COMPONENTS_SPACING_MOBILE = 20;
+export const COMPONENTS_SPACING_SMALL = 20;
 
 export const BOARD_CELL_BORDER_WIDTH = 1;
 export const BOARD_TILE_FONT_SIZE_MIN = 14;
 export const BOARD_TILE_FONT_SIZE_POINTS_MIN = 10;
 export const BOARD_TILE_SIZE_MAX = 64;
-export const BOARD_TILE_SIZE_MIN = 32;
+/**
+ * 20 - fits all board tiles without horizontal scrollbar on 360px viewport width (font-size: 14px)
+ * 21 - fits all board tiles without horizontal scrollbar on 375px viewport width (font-size: 14px)
+ * 26 - tiles start to look good (font-size: 16px)
+ */
+export const BOARD_TILE_SIZE_MIN = 20;
 
-export const DICTIONARY_HEIGHT = 220;
+export const BORDER_WIDTH = 1;
+
+export const COLUMN_MIN_HEIGHT = 588.5;
+
+export const DICTIONARY_HEIGHT = 260;
 
 export const TILE_SIZE = 80;
 
@@ -56,8 +65,10 @@ export const PLAIN_TILES_VERSION_TILE_SIZE = TILE_SIZE;
 export const PROGRESS_COLOR_VALUE = 'var(--color--violet--light)';
 export const PROGRESS_COLOR_BACKGROUND = 'var(--color--inactive)';
 
+export const RACK_TILE_SIZE_MAX = 80;
+
 export const REMAINING_TILES_TILE_SIZE = 50;
 
-export const RESULTS_HEADER_HEIGHT = 35;
-export const RESULTS_ITEM_HEIGHT = 34;
-export const RESULTS_INPUT_HEIGHT = 43;
+export const RESULTS_HEADER_HEIGHT = 34;
+export const RESULTS_ITEM_HEIGHT = 40;
+export const RESULTS_INPUT_HEIGHT = 40;

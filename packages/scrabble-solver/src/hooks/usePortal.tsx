@@ -29,7 +29,7 @@ const usePortal = (children: ReactNode, { disabled = false, tagName = 'div' }: P
       // "Attempted to synchronously unmount a root while React was already
       // rendering. React cannot finish unmounting the root until the current
       // render has completed, which may lead to a race condition.""
-      setTimeout(() => {
+      globalThis.setTimeout(() => {
         rootRef.current = null;
         root.unmount();
         element.remove();

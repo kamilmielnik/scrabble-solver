@@ -8,6 +8,10 @@ $breakpoints: (
   xl: 1400px,
 );
 
+$media-expressions: (
+  touch: '(hover: none)',
+);
+
 /**
  * It does not work when applied on input elements.
  */
@@ -24,7 +28,7 @@ $breakpoints: (
     z-index: 1;
     transition: var(--transition);
     border-radius: var(--border--radius);
-    box-shadow: 0 0 0 var(--focus--box-shadow--size) transparent;
+    box-shadow: 0 0 0 var(--box-shadow--focus--spread) transparent;
     pointer-events: none;
   }
 
@@ -35,7 +39,7 @@ $breakpoints: (
     }
 
     &:after {
-      box-shadow: 0 0 0 var(--focus--box-shadow--size) var(--color--focus);
+      box-shadow: 0 0 0 var(--box-shadow--focus--spread) var(--color--focus);
     }
   }
 }
@@ -65,12 +69,10 @@ $breakpoints: (
 
 @mixin text-input {
   width: 100%;
-  min-height: var(--text-input--height);
   height: var(--text-input--height);
-  max-height: var(--text-input--height);
   padding: 0 var(--spacing--l);
   transition: var(--transition);
-  font-size: var(--font--size--s);
+  font-size: var(--font--size--m);
   font-family: var(--font--family);
 }
 

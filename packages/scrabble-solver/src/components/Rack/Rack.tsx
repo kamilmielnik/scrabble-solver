@@ -18,9 +18,10 @@ import RackTile from './RackTile';
 
 interface Props {
   className?: string;
+  tileSize: number;
 }
 
-const Rack: FunctionComponent<Props> = ({ className }) => {
+const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
@@ -120,6 +121,7 @@ const Rack: FunctionComponent<Props> = ({ className }) => {
           index={index}
           inputRef={tilesRefs[index]}
           key={index}
+          size={tileSize}
           tile={tile}
           onChange={handleChange}
           onKeyDown={handleKeyDown}

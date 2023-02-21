@@ -1,46 +1,60 @@
 @import 'styles/mixins';
 
 .solver {
+  --spacing: var(--spacing--xl);
+
+  position: relative;
+  margin: 0 var(--spacing);
   display: flex;
   flex-direction: column;
-  height: 100%;
+
+  @include media('<xl') {
+    --spacing: var(--spacing--l);
+  }
+
+  @include media('<l', 'touch') {
+    margin-bottom: calc(3 * var(--spacing--l) + var(--button--icon--size));
+  }
+
+  @include media('<xs', 'touch') {
+    margin-bottom: calc(1 * var(--spacing--m) + 2 * var(--spacing--l) + var(--button--icon--size));
+  }
 }
 
-.contentWrapper {
-  $board-size: 15;
-  $tile-size-max: 60px;
-  $tile-border-size: 1px;
-
-  flex: 1;
-  padding: 0 var(--spacing--xl);
-  max-height: $board-size * ($tile-size-max + $tile-border-size) + $tile-border-size;
-}
-
-.content {
+.container {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  gap: var(--spacing--xl);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--solver-column--width);
+  gap: var(--spacing);
+  margin: 0 auto;
 
   @include media('<l') {
-    gap: var(--spacing--l);
+    grid-template-columns: 1fr;
   }
 }
 
 .boardContainer {
-  display: flex;
   position: relative;
 }
 
-.sidebar {
+.board {
+  margin: 0 auto;
+}
+
+.column {
   display: flex;
   flex-direction: column;
-  flex: 0 0 var(--sidebar--width);
-  gap: var(--spacing--xl);
+  flex: 0 0 var(--solver-column--width);
+  gap: var(--spacing);
 
   @include media('<l') {
-    gap: var(--spacing--l);
+    display: none;
   }
 }
 
@@ -63,17 +77,24 @@
   position: relative;
 }
 
-.rackContainer {
-  position: relative;
-  z-index: 1;
+.bottomContainer {
   flex: 0 0 auto;
   display: flex;
   justify-content: center;
-  margin: var(--spacing--xl) var(--spacing--l);
+}
 
-  @include media('<l') {
-    margin: var(--spacing--l);
-  }
+.bottomContent {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing);
+  margin: var(--spacing) auto;
+  min-width: 0;
+}
+
+.rackContainer {
+  display: flex;
+  justify-content: center;
 }
 
 .rack {
@@ -82,4 +103,39 @@
 
 .submitInput {
   display: none;
+}
+
+.controls {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--spacing--l);
+}
+
+.resultCandidatePicker {
+  flex: 1;
+}
+
+.apply {
+  flex: 0 0 auto;
+}
+
+.solve {
+  --spacing: var(--spacing--l);
+
+  position: fixed;
+  bottom: var(--spacing);
+
+  @include media('<xs') {
+    --spacing: var(--spacing--m);
+  }
+
+  [dir='ltr'] & {
+    right: var(--spacing);
+  }
+
+  [dir='rtl'] & {
+    left: var(--spacing);
+  }
 }
