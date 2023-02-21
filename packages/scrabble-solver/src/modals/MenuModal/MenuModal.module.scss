@@ -42,5 +42,12 @@
 
 .content {
   flex: 1;
-  text-align: left;
+
+  [dir='ltr'] & {
+    text-align: left;
+  }
+
+  [dir='rtl'] & {
+    text-align: right;
+  }
 }
