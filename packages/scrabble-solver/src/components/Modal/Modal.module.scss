@@ -94,11 +94,11 @@
   font-weight: 300;
 
   [dir='ltr'] & {
-    padding-right: calc(var(--square-button-size) + var(--spacing--s));
+    padding-right: calc(var(--square-button--size) + var(--spacing--s));
   }
 
   [dir='rtl'] & {
-    padding-left: calc(var(--square-button-size) + var(--spacing--s));
+    padding-left: calc(var(--square-button--size) + var(--spacing--s));
   }
 }
 

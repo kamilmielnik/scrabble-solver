@@ -50,10 +50,8 @@
 }
 
 .icon {
-  --size: calc(var(--line-height) * var(--font--size--m));
-
-  width: var(--size);
-  height: var(--size);
+  width: var(--button--icon--size);
+  height: var(--button--icon--size);
 }
 
 .label {

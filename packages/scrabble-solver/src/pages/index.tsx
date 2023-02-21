@@ -84,7 +84,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           />
         </div>
 
-        <SolverMobile onShowResults={() => setShowResults(true)} />
+        <SolverMobile className={styles.solver} onShowResults={() => setShowResults(true)} />
       </div>
 
       <MenuModal
