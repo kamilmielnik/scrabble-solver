@@ -34,6 +34,8 @@ export const BOARD_TILE_SIZE_MIN = 20;
 
 export const BORDER_WIDTH = 1;
 
+export const COLUMN_MIN_HEIGHT = 588.5;
+
 export const DICTIONARY_HEIGHT = 260;
 
 export const TILE_SIZE = 80;

@@ -18,6 +18,10 @@
   position: relative;
   z-index: 1;
   flex: 0 0 auto;
+}
+
+.navContent {
+  width: 100%;
   display: flex;
   align-items: flex-start;
   padding: var(--spacing--l);

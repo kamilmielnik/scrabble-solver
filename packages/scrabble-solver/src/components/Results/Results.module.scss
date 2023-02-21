@@ -150,8 +150,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
 .solveButton {
   display: block;
-  margin: 0 auto;
-  margin-top: var(--spacing--xl);
+  margin: var(--spacing--xl) auto 0;
 }
 
 .sortIcon {

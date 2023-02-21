@@ -4,7 +4,7 @@ import path from 'path';
 import { AnimationEvent, FunctionComponent, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
-import { useEffectOnce } from 'react-use';
+import { useEffectOnce, useMeasure } from 'react-use';
 
 import { Logo, LogoSplashScreen, NavButtons, SolverMobile, SvgFontFix } from 'components';
 import { useDirection, useLanguage, useLocalStorage } from 'hooks';
@@ -22,6 +22,7 @@ interface Props {
   version: string;
 }
 
+// eslint-disable-next-line max-statements
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
@@ -32,6 +33,10 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [showSettings, setShowSettings] = useState(false);
   const [showWords, setShowWords] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [indexRef, { height: indexHeight, width: indexWidth }] = useMeasure<HTMLDivElement>();
+  const [navRef, { height: navHeight }] = useMeasure<HTMLDivElement>();
+  const solverHeight = indexHeight - navHeight;
+  const solverWidth = indexWidth;
 
   const handleClear = () => {
     dispatch(reset());
@@ -66,25 +71,33 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     <>
       <SvgFontFix />
 
-      <div className={classNames(styles.index, { [styles.initialized]: isInitialized })}>
-        <div className={styles.nav}>
-          <div className={styles.navLogo}>
-            <a className={styles.logoContainer} href="/" title={version}>
-              <Logo className={styles.logo} />
-            </a>
-          </div>
+      <div className={classNames(styles.index, { [styles.initialized]: isInitialized })} ref={indexRef}>
+        <div className={styles.nav} ref={navRef}>
+          <div className={styles.navContent}>
 
-          <NavButtons
-            onClear={handleClear}
-            onShowKeyMap={() => setShowKeyMap(true)}
-            onShowMenu={() => setShowMenu(true)}
-            onShowRemainingTiles={() => setShowRemainingTiles(true)}
-            onShowSettings={() => setShowSettings(true)}
-            onShowWords={() => setShowWords(true)}
-          />
+            <div className={styles.navLogo}>
+              <a className={styles.logoContainer} href="/" title={version}>
+                <Logo className={styles.logo} />
+              </a>
+            </div>
+
+            <NavButtons
+              onClear={handleClear}
+              onShowKeyMap={() => setShowKeyMap(true)}
+              onShowMenu={() => setShowMenu(true)}
+              onShowRemainingTiles={() => setShowRemainingTiles(true)}
+              onShowSettings={() => setShowSettings(true)}
+              onShowWords={() => setShowWords(true)}
+            />
+          </div>
         </div>
 
-        <SolverMobile className={styles.solver} onShowResults={() => setShowResults(true)} />
+        <SolverMobile
+          className={styles.solver}
+          height={solverHeight}
+          width={solverWidth}
+          onShowResults={() => setShowResults(true)}
+        />
       </div>
 
       <MenuModal

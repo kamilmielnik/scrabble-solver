@@ -3,14 +3,22 @@
 .solverMobile {
   --spacing: var(--spacing--xl);
 
-  @include media('<xl') {
-    --spacing: var(--spacing--l);
-  }
-
   position: relative;
   margin: 0 var(--spacing);
   display: flex;
   flex-direction: column;
+
+  @include media('<xl') {
+    --spacing: var(--spacing--l);
+  }
+
+  @include media('<l', 'touch') {
+    margin-bottom: calc(3 * var(--spacing--l) + var(--button--icon--size));
+  }
+
+  @include media('<xs', 'touch') {
+    margin-bottom: calc(1 * var(--spacing--m) + 2 * var(--spacing--l) + var(--button--icon--size));
+  }
 }
 
 .container {
@@ -22,7 +30,6 @@
 
 .content {
   display: grid;
-  grid-template-columns: 1fr var(--solver-column--width);
   grid-template-columns: minmax(0, 1fr) var(--solver-column--width);
   gap: var(--spacing);
   margin: 0 auto;
@@ -83,14 +90,6 @@
   gap: var(--spacing);
   margin: var(--spacing) auto;
   min-width: 0;
-
-  @include media('<l', 'touch') {
-    padding-bottom: calc(3 * var(--spacing--l) + var(--button--icon--size));
-  }
-
-  @include media('<xs', 'touch') {
-    padding-bottom: calc(1 * var(--spacing--m) + 2 * var(--spacing--l) + var(--button--icon--size));
-  }
 }
 
 .rackContainer {

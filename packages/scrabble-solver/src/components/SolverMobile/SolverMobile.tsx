@@ -9,6 +9,7 @@ import {
   BOARD_TILE_SIZE_MAX,
   BOARD_TILE_SIZE_MIN,
   BORDER_WIDTH,
+  COLUMN_MIN_HEIGHT,
   COMPONENTS_SPACING,
   COMPONENTS_SPACING_SMALL,
   DICTIONARY_HEIGHT,
@@ -33,7 +34,6 @@ import DictionaryInput from '../DictionaryInput';
 import Rack from '../Rack';
 import ResultCandidatePicker from '../ResultCandidatePicker';
 import Results from '../Results';
-import Sizer from '../Sizer';
 import Well from '../Well';
 
 import { ApplyButton, EmptyState, SolveButton } from './components';
@@ -41,22 +41,25 @@ import styles from './SolverMobile.module.scss';
 
 interface Props {
   className?: string;
+  height: number;
+  width: number;
   onShowResults: () => void;
 }
 
 // eslint-disable-next-line max-statements
-const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) => {
+const SolverMobile: FunctionComponent<Props> = ({ className, height, width, onShowResults }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
-  const [sizerRef, { width: sizerWidth }] = useMeasure<HTMLDivElement>();
+  const [bottomContainerRef, { height: bottomContainerHeight }] = useMeasure<HTMLDivElement>();
   const [resultsContainerRef, { height: resultsContainerHeight, width: resultsContainerWidth }] =
     useMeasure<HTMLDivElement>();
   const isSmallSpacing = useMediaQuery('<xl');
   const showControls = useMediaQuery('<l');
   const showColumn = useMediaQuery('>=l');
   const componentsSpacing = isSmallSpacing ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING;
-  const width = sizerWidth - resultsContainerWidth - (showColumn ? componentsSpacing : 0);
+  const boardWidth = width - resultsContainerWidth - (showColumn ? componentsSpacing : 0) - 2 * componentsSpacing;
+  const boardHeight = Math.max(height - bottomContainerHeight, showColumn ? COLUMN_MIN_HEIGHT : 0);
   const config = useTypedSelector(selectConfig);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
@@ -64,9 +67,11 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
   const error = useTypedSelector(selectSolveError);
   const results = useTypedSelector(selectSortedFilteredResults);
   const [bestResult] = results || [];
-  const cellSize = (width - (config.boardWidth + 1)) / config.boardWidth;
+  const cellWidth = (boardWidth - (config.boardWidth + 1) * BORDER_WIDTH) / config.boardWidth;
+  const cellHeight = (boardHeight - (config.boardHeight + 1) * BORDER_WIDTH) / config.boardHeight;
+  const cellSize = Math.min(cellWidth, cellHeight);
   const cellSizeSafe = Math.min(Math.max(cellSize, BOARD_TILE_SIZE_MIN), BOARD_TILE_SIZE_MAX);
-  const tileSize = Math.min((width - 2 * BORDER_WIDTH) / config.maximumCharactersCount, RACK_TILE_SIZE_MAX);
+  const tileSize = Math.min((boardWidth - 2 * BORDER_WIDTH) / config.maximumCharactersCount, RACK_TILE_SIZE_MAX);
   const maxControlsWidth = tileSize * config.maximumCharactersCount + 2 * BORDER_WIDTH;
   const showApplyButton = allResults && allResults.length > 0 && !isOutdated;
   const showSolveButton = isTouchDevice && !showApplyButton;
@@ -121,8 +126,6 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
   return (
     <div className={classNames(styles.solverMobile, className)}>
       <div className={styles.container}>
-        <Sizer ref={sizerRef} />
-
         <div className={styles.content}>
           <form className={styles.boardContainer} onSubmit={handleSubmit}>
             <Board cellSize={cellSizeSafe} className={styles.board} />
@@ -146,7 +149,7 @@ const SolverMobile: FunctionComponent<Props> = ({ className, onShowResults }) =>
         </div>
       </div>
 
-      <div className={styles.bottomContainer}>
+      <div className={styles.bottomContainer} ref={bottomContainerRef}>
         <div className={styles.bottomContent}>
           <form className={styles.rackContainer} onSubmit={handleSubmit}>
             <Rack className={styles.rack} tileSize={tileSize} />

@@ -5,17 +5,13 @@
   @include focus-effect;
 
   display: inline-block;
-  padding: var(--spacing--m) var(--spacing--xl);
+  padding: var(--spacing--m) var(--spacing--l);
   border: var(--border);
   border-radius: var(--border--radius);
   box-shadow: none;
   color: var(--color--inactive);
   transition: var(--transition);
   cursor: pointer;
-
-  @include media('<xs') {
-    padding: var(--spacing--m) var(--spacing--l);
-  }
 
   &,
   &:active,
