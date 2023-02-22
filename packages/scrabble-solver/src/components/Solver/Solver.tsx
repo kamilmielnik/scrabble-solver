@@ -55,9 +55,14 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
   const [resultsContainerRef, { width: resultsContainerWidth }] = useMeasure<HTMLDivElement>();
   const isLessThanXl = useMediaQuery('<xl');
   const isLessThanL = useMediaQuery('<l');
+  const isLessThanM = useMediaQuery('<m');
   const componentsSpacing = isLessThanXl ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING;
   const maxBoardWidth = width - resultsContainerWidth - (isLessThanL ? 0 : componentsSpacing) - 2 * componentsSpacing;
-  const maxBoardHeight = Math.max(height - bottomContainerHeight, isLessThanL ? 0 : COLUMN_MIN_HEIGHT);
+  const maxBoardHeight = Math.max(
+    height - bottomContainerHeight,
+    isLessThanL ? 0 : COLUMN_MIN_HEIGHT,
+    isLessThanM ? Number.POSITIVE_INFINITY : 0,
+  );
   const config = useTypedSelector(selectConfig);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
