@@ -6,7 +6,7 @@
   </p>
 
   <p>
-    Free, open-source, and cross-platform analysis tool for <a href="https://en.wikipedia.org/wiki/Scrabble">Scrabble</a> and <a href="https://pl.wikipedia.org/wiki/Literaki">Literaki</a>.
+    Free, open-source, and cross-platform analysis tool for <a href="https://en.wikipedia.org/wiki/Scrabble">Scrabble</a> &amp; <a href="https://pl.wikipedia.org/wiki/Literaki">Literaki</a>.
   </p>
 
   <p>
