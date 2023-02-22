@@ -18,7 +18,7 @@ $arrow-size: 4px;
     .arrow {
       bottom: -$arrow-size;
 
-      &:after {
+      &::after {
         left: 0;
         bottom: 0;
         border-top-color: var(--tooltip--background);
@@ -31,7 +31,7 @@ $arrow-size: 4px;
     .arrow {
       left: -$arrow-size;
 
-      &:after {
+      &::after {
         left: 0;
         top: 0;
         border-right-color: var(--tooltip--background);
@@ -44,7 +44,7 @@ $arrow-size: 4px;
     .arrow {
       top: -$arrow-size;
 
-      &:after {
+      &::after {
         top: 0;
         left: 0;
         border-bottom-color: var(--tooltip--background);
@@ -57,7 +57,7 @@ $arrow-size: 4px;
     .arrow {
       right: -$arrow-size;
 
-      &:after {
+      &::after {
         right: 0;
         top: 0;
         border-left-color: var(--tooltip--background);
@@ -72,7 +72,7 @@ $arrow-size: 4px;
   width: 2 * $arrow-size;
   height: 2 * $arrow-size;
 
-  &:after {
+  &::after {
     content: ' ';
     position: absolute;
     height: 0;

@@ -35,69 +35,69 @@ $icon-size: 16px;
   }
 
   &.bonusStart {
-    &:before {
+    &::before {
       background-color: var(--color--violet--light);
     }
   }
 
   &.bonusCharacter1 {
-    &:before {
+    &::before {
       background-color: var(--color--yellow--light);
     }
   }
 
   &.bonusCharacter2 {
-    &:before {
+    &::before {
       background-color: var(--color--green--light);
     }
   }
 
   &.bonusCharacter3 {
-    &:before {
+    &::before {
       background-color: var(--color--blue--light);
     }
   }
 
   &.bonusCharacter5 {
-    &:before {
+    &::before {
       background-color: var(--color--red--light);
     }
   }
 
   &.bonusCharacterMultiplier2 {
-    &:before {
+    &::before {
       background-color: var(--color--light-blue--light);
     }
   }
 
   &.bonusCharacterMultiplier3 {
-    &:before {
+    &::before {
       background-color: var(--color--dark-blue--light);
     }
   }
 
   &.bonusWord2 {
-    &:before {
+    &::before {
       content: 'x2';
       background-color: var(--color--orange);
     }
   }
 
   &.bonusWord3 {
-    &:before {
+    &::before {
       content: 'x3';
       background-color: var(--color--pink);
     }
   }
 
   &.candidate {
-    &:before {
+    &::before {
       content: ' ';
       background-color: var(--color--primary);
     }
   }
 
-  &:before {
+  &::before {
     $size: 80%;
 
     display: flex;

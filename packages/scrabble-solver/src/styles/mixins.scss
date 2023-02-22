@@ -18,7 +18,7 @@ $media-expressions: (
 @mixin focus-effect {
   position: relative;
 
-  &:after {
+  &::after {
     content: '';
     position: absolute;
     top: 0;
@@ -38,7 +38,7 @@ $media-expressions: (
       outline: none;
     }
 
-    &:after {
+    &::after {
       box-shadow: 0 0 0 var(--box-shadow--focus--spread) var(--color--focus);
     }
   }

@@ -24,7 +24,7 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
 
   &.checked {
     .icon {
-      &:after {
+      &::after {
         background-color: var(--color--primary);
       }
     }
@@ -51,7 +51,7 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
   box-shadow: var(--box-shadow--null);
   pointer-events: none;
 
-  &:after {
+  &::after {
     content: ' ';
     position: absolute;
     top: $radio-inner-border;
