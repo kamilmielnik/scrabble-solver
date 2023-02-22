@@ -17,11 +17,11 @@ interface Props {
   autoFocus?: boolean;
   canShowPoints?: boolean;
   character?: string;
+  characterStyle?: CSSProperties;
   className?: string;
   disabled?: boolean;
   highlighted?: boolean;
   inputRef: RefObject<HTMLInputElement>;
-  inputStyle?: CSSProperties;
   isBlank?: boolean;
   isValid?: boolean;
   placeholder?: string;
@@ -40,11 +40,11 @@ const TilePure: FunctionComponent<Props> = ({
   autoFocus,
   canShowPoints,
   character,
+  characterStyle,
   className,
   disabled,
   highlighted,
   inputRef,
-  inputStyle,
   isBlank,
   isValid,
   placeholder,
@@ -61,6 +61,8 @@ const TilePure: FunctionComponent<Props> = ({
   <div
     className={classNames(styles.tile, className, {
       [styles.blank]: isBlank,
+      [styles.disabled]: disabled,
+      [styles.empty]: !character,
       [styles.highlighted]: highlighted,
       [styles.invalid]: !isValid,
       [styles.raised]: raised,
@@ -77,18 +79,20 @@ const TilePure: FunctionComponent<Props> = ({
       autoComplete="off"
       autoCorrect="off"
       autoFocus={autoFocus}
-      className={styles.character}
+      className={styles.input}
       disabled={disabled}
-      placeholder={placeholder}
       ref={inputRef}
       spellCheck={false}
-      style={inputStyle}
       tabIndex={tabIndex}
       value={character || ''}
       onChange={onChange}
       onFocus={onFocus}
       onKeyDown={onKeyDown}
     />
+
+    <div className={styles.character} style={characterStyle} tabIndex={-1}>
+      {character || placeholder}
+    </div>
 
     {canShowPoints && (
       <span className={styles.points} style={pointsStyle}>

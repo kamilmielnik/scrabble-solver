@@ -4,12 +4,7 @@
   --background-color: transparent;
 
   position: relative;
-  background-color: var(--background-color);
   transition: var(--transition);
-
-  &.raised {
-    box-shadow: inset -2px -2px 2px -1px rgba(34, 34, 34, 0.8);
-  }
 
   &.points1 {
     --background-color: var(--color--yellow);
@@ -55,31 +50,53 @@
 
     color: var(--color--error);
   }
+
+  &:not(.disabled) {
+    .input::selection {
+      --background--color: transparent;
+    }
+  }
 }
 
+.input,
 .character {
-  width: 100%;
-  height: 100%;
   padding: 0;
-  box-sizing: border-box;
-  background-color: transparent;
-  color: inherit;
-  border: none;
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
   caret-color: transparent;
+  box-sizing: border-box;
+}
 
-  &::placeholder {
+.input {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  color: transparent;
+  border: none;
+  font-size: 16px; // prevent iOS from automatically zooming in on focus
+}
+
+.character {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-color);
+  transition: var(--transition);
+  pointer-events: none;
+  user-select: none;
+
+  .empty & {
     color: var(--color--inactive);
   }
 
-  &:not(:disabled)::selection {
-    --background--color: transparent;
-  }
-
-  &[disabled] {
-    color: inherit;
+  .raised & {
+    box-shadow: inset -2px -2px 2px -1px rgba(34, 34, 34, 0.8);
   }
 }
 

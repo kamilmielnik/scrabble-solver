@@ -55,7 +55,7 @@ const Tile: FunctionComponent<Props> = ({
   const locale = useTypedSelector(selectLocale);
   const { pointsFontSize, tileFontSize, tileSize } = getTileSizes(size);
   const style = useMemo(() => ({ height: tileSize, width: tileSize }), [tileSize]);
-  const inputStyle = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
+  const characterStyle = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
   const pointsStyle = useMemo(() => ({ fontSize: pointsFontSize }), [pointsFontSize]);
   const inputRef = useMemo<RefObject<HTMLInputElement>>(() => ref || createRef(), [ref]);
   const isEmpty = !character || character === EMPTY_CELL;
@@ -78,11 +78,11 @@ const Tile: FunctionComponent<Props> = ({
       autoFocus={autoFocus}
       canShowPoints={canShowPoints}
       character={character}
+      characterStyle={characterStyle}
       className={className}
       disabled={disabled}
       highlighted={highlighted}
       inputRef={inputRef}
-      inputStyle={inputStyle}
       isBlank={isBlank}
       isValid={isValid}
       placeholder={placeholder}
