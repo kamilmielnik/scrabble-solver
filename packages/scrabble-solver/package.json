@@ -30,7 +30,7 @@
   "dependencies": {
     "@kamilmielnik/trie": "^2.0.1",
     "@popperjs/core": "^2.11.6",
-    "@reduxjs/toolkit": "^1.9.2",
+    "@reduxjs/toolkit": "^1.9.3",
     "@scrabble-solver/configs": "^2.10.5",
     "@scrabble-solver/constants": "^2.10.5",
     "@scrabble-solver/dictionaries": "^2.10.5",
@@ -63,17 +63,17 @@
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",
     "@types/classnames": "^2.3.0",
-    "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
     "@types/react-modal": "^3.13.1",
     "@types/react-portal": "^4.0.4",
     "@types/react-redux": "^7.1.25",
     "@types/react-window": "^1.8.5",
     "@types/redux": "^3.6.31",
     "@types/redux-saga": "^0.10.5",
-    "@types/uuid": "^9.0.0",
+    "@types/uuid": "^9.0.1",
     "env-cmd": "^10.1.0",
-    "sass": "^1.57.1",
+    "sass": "^1.58.3",
     "workbox-webpack-plugin": "^6.5.4"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
