@@ -174,29 +174,25 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
 
               {typeof error === 'undefined' && typeof results !== 'undefined' && typeof allResults !== 'undefined' && (
                 <>
-                  {isOutdated && (
+                  {(isOutdated || !resultCandidate) && (
                     <EmptyState variant="info" onClick={onShowResults}>
                       {translate('results.empty-state.outdated')}
                     </EmptyState>
                   )}
 
-                  {!isOutdated && (
-                    <>
-                      {allResults.length === 0 && (
-                        <EmptyState variant="warning" onClick={onShowResults}>
-                          {translate('results.empty-state.no-results')}
-                        </EmptyState>
-                      )}
+                  {!isOutdated && allResults.length === 0 && (
+                    <EmptyState variant="warning" onClick={onShowResults}>
+                      {translate('results.empty-state.no-results')}
+                    </EmptyState>
+                  )}
 
-                      {allResults.length > 0 && resultCandidate && (
-                        <ResultCandidatePicker className={styles.resultCandidatePicker} onClick={onShowResults} />
-                      )}
-                    </>
+                  {!isOutdated && allResults.length > 0 && resultCandidate && (
+                    <ResultCandidatePicker className={styles.resultCandidatePicker} onClick={onShowResults} />
                   )}
                 </>
               )}
 
-              {allResults && allResults.length > 0 && !isOutdated && (
+              {allResults && allResults.length > 0 && !isOutdated && resultCandidate && (
                 <ApplyButton className={classNames(styles.submit, styles.apply)} />
               )}
             </div>
