@@ -111,7 +111,11 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onShowResults();
+
+    if (isLessThanL) {
+      onShowResults();
+    }
+
     dispatch(solveSlice.actions.submit());
   };
 
@@ -200,7 +204,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
         </div>
       </div>
 
-      {isTouchDevice && <SolveButton className={styles.solve} onClick={onShowResults} />}
+      {isTouchDevice && <SolveButton className={styles.solve} onClick={handleSubmit} />}
     </div>
   );
 };
