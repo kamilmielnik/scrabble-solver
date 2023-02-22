@@ -2,10 +2,9 @@
 
 .button {
   width: 100%;
-  margin-bottom: var(--spacing--m);
   text-transform: none;
 
-  &:last-child {
-    margin-bottom: 0;
+  & + & {
+    margin-top: var(--spacing--l);
   }
 }
