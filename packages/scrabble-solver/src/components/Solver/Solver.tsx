@@ -1,6 +1,6 @@
 import { Result } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import { FormEvent, FunctionComponent, useEffect, useMemo } from 'react';
+import { FunctionComponent, SyntheticEvent, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useMeasure } from 'react-use';
 
@@ -109,7 +109,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
   );
   const callbacks = isTouchDevice ? touchCallbacks : mouseCallbacks;
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
 
     if (isLessThanL) {
