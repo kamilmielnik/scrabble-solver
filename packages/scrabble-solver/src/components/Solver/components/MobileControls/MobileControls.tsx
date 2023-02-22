@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { FunctionComponent, HTMLProps } from 'react';
 
 import {
@@ -10,18 +9,15 @@ import {
   useTypedSelector,
 } from 'state';
 
-import ApplyButton from '../ApplyButton';
 import EmptyState from '../EmptyState';
 import ResultCandidatePicker from '../ResultCandidatePicker';
-
-import styles from './MobileControls.module.scss';
 
 interface Props extends HTMLProps<HTMLDivElement> {
   onShowResults: () => void;
 }
 
 // eslint-disable-next-line max-statements
-const MobileControls: FunctionComponent<Props> = ({ className, onShowResults, ...props }) => {
+const MobileControls: FunctionComponent<Props> = ({ onShowResults, ...props }) => {
   const translate = useTranslate();
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
@@ -29,7 +25,7 @@ const MobileControls: FunctionComponent<Props> = ({ className, onShowResults, ..
   const error = useTypedSelector(selectSolveError);
 
   return (
-    <div className={classNames(styles.controls, className)} {...props}>
+    <div {...props}>
       {typeof error !== 'undefined' && (
         <EmptyState variant="error" onClick={onShowResults}>
           {error.message}
@@ -56,14 +52,8 @@ const MobileControls: FunctionComponent<Props> = ({ className, onShowResults, ..
             </EmptyState>
           )}
 
-          {!isOutdated && allResults.length > 0 && resultCandidate && (
-            <ResultCandidatePicker className={styles.resultCandidatePicker} onClick={onShowResults} />
-          )}
+          {!isOutdated && allResults.length > 0 && resultCandidate && <ResultCandidatePicker onClick={onShowResults} />}
         </>
-      )}
-
-      {typeof allResults !== 'undefined' && allResults.length > 0 && !isOutdated && resultCandidate && (
-        <ApplyButton className={styles.apply} />
       )}
     </div>
   );

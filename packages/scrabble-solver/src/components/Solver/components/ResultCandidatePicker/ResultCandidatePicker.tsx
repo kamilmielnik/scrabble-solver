@@ -13,14 +13,11 @@ import {
 } from 'state';
 
 import Button from '../../../Button';
+import ApplyButton from '../ApplyButton';
 
 import styles from './ResultCandidatePicker.module.scss';
 
-interface Props extends HTMLProps<HTMLButtonElement> {
-  type?: 'button' | 'submit' | 'reset' | undefined;
-}
-
-const ResultCandidatePicker: FunctionComponent<Props> = ({ className, ...props }) => {
+const ResultCandidatePicker: FunctionComponent<HTMLProps<HTMLDivElement>> = ({ className, ...props }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
@@ -51,7 +48,7 @@ const ResultCandidatePicker: FunctionComponent<Props> = ({ className, ...props }
   };
 
   return (
-    <div className={classNames(styles.resultCandidatePicker, className)}>
+    <div className={classNames(styles.resultCandidatePicker, className)} {...props}>
       <div className={styles.buttons}>
         <Button
           className={styles.button}
@@ -62,13 +59,15 @@ const ResultCandidatePicker: FunctionComponent<Props> = ({ className, ...props }
         <Button className={styles.button} disabled={isNextDisabled} Icon={ChevronRight} onClick={handleNextClick} />
       </div>
 
-      <button className={styles.resultCandidate} disabled={isOutdated} type="button" {...props}>
+      <button className={styles.resultCandidate} disabled={isOutdated} type="button">
         <div className={styles.points}>{resultCandidate.points.toLocaleString(locale)}</div>
         <div className={styles.word}>{resultCandidate.word}</div>
         <div className={styles.iconContainer}>
           <ChevronDown className={styles.icon} />
         </div>
       </button>
+
+      <ApplyButton className={styles.apply} />
     </div>
   );
 };
