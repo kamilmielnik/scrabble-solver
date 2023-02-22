@@ -34,6 +34,7 @@ const SolveButton: FunctionComponent<Props> = ({ className, onClick = noop }) =>
       Icon={Search}
       iconClassName={styles.icon}
       type="submit"
+      variant="primary"
       onClick={handleClick}
     />
   );

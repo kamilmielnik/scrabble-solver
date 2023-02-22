@@ -1,53 +1,11 @@
 @import 'styles/mixins';
 
 .button {
-  @include button-reset;
-  @include focus-effect;
-
   width: 100%;
-  display: flex;
-  align-items: flex-start;
-  gap: var(--spacing--l);
   margin-bottom: var(--spacing--m);
-  padding: var(--spacing--m);
-  border: var(--border);
-  border-radius: var(--border--radius);
-  background-color: var(--color--background--overlay);
-  transition: var(--transition);
-  cursor: pointer;
+  text-transform: none;
 
   &:last-child {
     margin-bottom: 0;
-  }
-
-  &:focus,
-  &:hover {
-    text-decoration: none;
-
-    .icon {
-      color: var(--color--foreground--secondary);
-    }
-  }
-}
-
-.icon {
-  $size: 24px;
-
-  width: $size;
-  height: $size;
-  flex: 0 0 auto;
-  color: var(--color--inactive);
-  transition: var(--transition);
-}
-
-.content {
-  flex: 1;
-
-  [dir='ltr'] & {
-    text-align: left;
-  }
-
-  [dir='rtl'] & {
-    text-align: right;
   }
 }

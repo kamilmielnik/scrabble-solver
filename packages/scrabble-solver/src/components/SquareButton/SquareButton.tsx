@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ButtonHTMLAttributes, FunctionComponent, MouseEventHandler, SVGAttributes } from 'react';
+import { ButtonHTMLAttributes, FunctionComponent, MouseEventHandler, ReactNode, SVGAttributes } from 'react';
 
 import { useTooltip } from '../Tooltip';
 
@@ -9,7 +9,7 @@ import styles from './SquareButton.module.scss';
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: never;
   Icon: FunctionComponent<SVGAttributes<SVGElement>>;
-  tooltip: string;
+  tooltip: ReactNode;
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 

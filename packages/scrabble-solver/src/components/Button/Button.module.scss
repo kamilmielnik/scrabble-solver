@@ -8,8 +8,8 @@
   padding: var(--spacing--m) var(--spacing--l);
   border: var(--border);
   border-radius: var(--border--radius);
-  box-shadow: none;
   color: var(--color--inactive);
+  text-transform: uppercase;
   transition: var(--transition);
   cursor: pointer;
 
@@ -17,10 +17,31 @@
   &:active,
   &:focus,
   &:hover {
-    text-decoration: none;
-    background-color: var(--color--primary);
     box-shadow: var(--box-shadow);
-    color: white;
+    text-decoration: none;
+
+    &.primary {
+      background-color: var(--color--primary);
+      color: white;
+    }
+
+    &.default {
+      background-color: var(--color--background--overlay);
+      color: var(--color--foreground);
+
+      .icon {
+        color: var(--color--inactive);
+      }
+    }
+  }
+
+  &:focus,
+  &:hover {
+    &.default {
+      .icon {
+        color: var(--color--foreground--secondary);
+      }
+    }
   }
 
   &:active {
@@ -42,15 +63,16 @@
 .content {
   display: flex;
   align-items: center;
-  gap: var(--spacing--m);
+  gap: 20px;
 }
 
 .icon {
   width: var(--button--icon--size);
   height: var(--button--icon--size);
+  transition: var(--transition);
 }
 
 .label {
   font-size: var(--font--size--h3);
-  text-transform: uppercase;
+  transition: var(--transition);
 }

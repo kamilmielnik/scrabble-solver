@@ -35,6 +35,7 @@ const SolveButton: FunctionComponent<Props> = ({ className }) => {
       disabled={isLoading || !isOutdated || !hasTiles}
       Icon={Search}
       type="submit"
+      variant="primary"
       onClick={handleClick}
     >
       {translate('results.solve')}

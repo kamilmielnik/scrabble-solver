@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 
-import { Modal } from 'components';
+import { Button, Modal } from 'components';
 import { CardChecklist, Cog, Github, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { useTranslate } from 'state';
@@ -28,25 +28,27 @@ const Menu: FunctionComponent<Props> = ({
 
   return (
     <Modal className={className} isOpen={isOpen} title={translate('menu')} onClose={onClose}>
-      <button className={styles.button} onClick={onShowRemainingTiles}>
-        <Sack className={styles.icon} />
-        <div className={styles.content}>{translate('remaining-tiles')}</div>
-      </button>
+      <Button className={styles.button} Icon={Sack} onClick={onShowRemainingTiles}>
+        {translate('remaining-tiles')}
+      </Button>
 
-      <button className={styles.button} onClick={onShowWords}>
-        <CardChecklist className={styles.icon} />
-        <div className={styles.content}>{translate('words')}</div>
-      </button>
+      <Button className={styles.button} Icon={CardChecklist} onClick={onShowWords}>
+        {translate('words')}
+      </Button>
 
-      <a className={styles.button} href={GITHUB_PROJECT_URL} rel="noopener noreferrer" target="_blank">
-        <Github className={styles.icon} />
-        <div className={styles.content}>{translate('github')}</div>
-      </a>
+      <Button.Link
+        className={styles.button}
+        href={GITHUB_PROJECT_URL}
+        Icon={Github}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {translate('github')}
+      </Button.Link>
 
-      <button className={styles.button} onClick={onShowSettings}>
-        <Cog className={styles.icon} />
-        <div className={styles.content}>{translate('settings')}</div>
-      </button>
+      <Button className={styles.button} Icon={Cog} onClick={onShowSettings}>
+        {translate('settings')}
+      </Button>
     </Modal>
   );
 };

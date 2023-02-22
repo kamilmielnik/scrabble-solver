@@ -1,19 +1,19 @@
 import classNames from 'classnames';
-import { ButtonHTMLAttributes, FunctionComponent, ReactNode, SVGAttributes } from 'react';
+import { AnchorHTMLAttributes, FunctionComponent, ReactNode, SVGAttributes } from 'react';
 
 import { useTooltip } from '../Tooltip';
 
 import styles from './Button.module.scss';
-import Link from './Link';
 
-interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  Icon?: FunctionComponent<SVGAttributes<SVGElement>>;
+interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  href: string;
+  Icon: FunctionComponent<SVGAttributes<SVGElement>>;
   iconClassName?: string;
   tooltip?: ReactNode;
   variant?: 'default' | 'primary';
 }
 
-const Button: FunctionComponent<Props> = ({
+const Link: FunctionComponent<Props> = ({
   children,
   className,
   Icon,
@@ -25,12 +25,11 @@ const Button: FunctionComponent<Props> = ({
   const triggerProps = useTooltip(tooltip, props);
 
   return (
-    <button
+    <a
       className={classNames(styles.button, className, {
         [styles.default]: variant === 'default',
         [styles.primary]: variant === 'primary',
       })}
-      type="button"
       {...props}
       {...triggerProps}
     >
@@ -38,10 +37,8 @@ const Button: FunctionComponent<Props> = ({
         {Icon && <Icon className={classNames(styles.icon, iconClassName)} />}
         {children && <span className={styles.label}>{children}</span>}
       </span>
-    </button>
+    </a>
   );
 };
 
-export default Object.assign(Button, {
-  Link,
-});
+export default Link;

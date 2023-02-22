@@ -29,6 +29,7 @@ const ApplyButton: FunctionComponent<Props> = ({ className }) => {
       Icon={Check}
       iconClassName={styles.icon}
       type="submit"
+      variant="primary"
       onClick={handleClick}
     />
   );
