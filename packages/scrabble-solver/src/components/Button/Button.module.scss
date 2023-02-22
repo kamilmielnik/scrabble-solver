@@ -8,7 +8,6 @@
   padding: var(--spacing--m) var(--spacing--l);
   border: var(--border);
   border-radius: var(--border--radius);
-  color: var(--color--inactive);
   text-transform: uppercase;
   transition: var(--transition);
   cursor: pointer;
@@ -37,7 +36,7 @@
 
   &:focus,
   &:hover {
-    &.default {
+    &.default:not(:disabled) {
       .icon {
         color: var(--color--foreground--secondary);
       }
@@ -54,9 +53,7 @@
   }
 
   &[disabled] {
-    opacity: var(--opacity--disabled);
-    box-shadow: none;
-    cursor: not-allowed;
+    @include disabled;
   }
 }
 

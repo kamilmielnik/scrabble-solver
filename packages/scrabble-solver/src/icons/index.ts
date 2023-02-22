@@ -8,6 +8,8 @@ export { default as Check } from './Check.svg';
 export { default as CheckboxChecked } from './CheckboxChecked.svg';
 export { default as CheckboxEmpty } from './CheckboxEmpty.svg';
 export { default as ChevronDown } from './ChevronDown.svg';
+export { default as ChevronLeft } from './ChevronLeft.svg';
+export { default as ChevronRight } from './ChevronRight.svg';
 export { default as Cog } from './Cog.svg';
 export { default as Cross } from './Cross.svg';
 export { default as CrossCircleFill } from './CrossCircleFill.svg';

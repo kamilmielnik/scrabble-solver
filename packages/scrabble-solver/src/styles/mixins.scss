@@ -44,6 +44,12 @@ $media-expressions: (
   }
 }
 
+@mixin disabled {
+  opacity: var(--opacity--disabled);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
 @mixin ellipsis {
   display: block;
   text-overflow: ellipsis;

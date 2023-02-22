@@ -1,9 +1,51 @@
 @import 'styles/mixins';
 
 .resultCandidatePicker {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing--l);
+}
+
+.buttons {
+  flex: 0 0 auto;
+  display: flex;
+  border-radius: var(--border--radius);
+  box-shadow: var(--box-shadow);
+
+  @include media('<xs') {
+    display: none;
+  }
+}
+
+.button {
+  padding: var(--spacing--m);
+  box-shadow: none;
+
+  &:focus-within {
+    z-index: 1;
+  }
+
+  &:first-child {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  [dir='rtl'] & {
+    transform: rotate(180deg);
+  }
+}
+
+.resultCandidate {
   @include button-reset;
   @include focus-effect;
 
+  flex: 1;
   display: flex;
   align-items: center;
   min-width: 0;
@@ -15,9 +57,7 @@
   cursor: pointer;
 
   &[disabled] {
-    opacity: var(--opacity--disabled);
-    box-shadow: none;
-    cursor: not-allowed;
+    @include disabled;
   }
 }
 
