@@ -47,6 +47,10 @@
   margin: 0 auto;
 }
 
+.submitInput {
+  display: none;
+}
+
 .column {
   display: flex;
   flex-direction: column;
@@ -56,6 +60,11 @@
   @include media('<l') {
     display: none;
   }
+}
+
+.resultsContainer {
+  flex: 1;
+  position: relative;
 }
 
 .dictionary {
@@ -70,11 +79,6 @@
 
 .dictionaryInput {
   flex: 0 0 auto;
-}
-
-.resultsContainer {
-  flex: 1;
-  position: relative;
 }
 
 .bottomContainer {
@@ -101,24 +105,8 @@
   border: var(--border);
 }
 
-.submitInput {
-  display: none;
-}
-
 .controls {
   width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: var(--spacing--l);
-}
-
-.resultCandidatePicker {
-  flex: 1;
-}
-
-.apply {
-  flex: 0 0 auto;
 }
 
 .solve {

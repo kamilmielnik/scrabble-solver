@@ -17,14 +17,10 @@ import {
 } from 'parameters';
 import {
   resultsSlice,
-  selectAreResultsOutdated,
   selectConfig,
   selectResultCandidate,
-  selectSolveError,
   selectSortedFilteredResults,
-  selectSortedResults,
   solveSlice,
-  useTranslate,
   useTypedSelector,
 } from 'state';
 
@@ -32,11 +28,10 @@ import Board from '../Board';
 import Dictionary from '../Dictionary';
 import DictionaryInput from '../DictionaryInput';
 import Rack from '../Rack';
-import ResultCandidatePicker from '../ResultCandidatePicker';
 import Results from '../Results';
 import Well from '../Well';
 
-import { ApplyButton, EmptyState, SolveButton } from './components';
+import { MobileControls, SolveButton } from './components';
 import styles from './Solver.module.scss';
 
 interface Props {
@@ -49,7 +44,6 @@ interface Props {
 // eslint-disable-next-line max-statements
 const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResults }) => {
   const dispatch = useDispatch();
-  const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
   const [bottomContainerRef, { height: bottomContainerHeight }] = useMeasure<HTMLDivElement>();
   const [resultsContainerRef, { width: resultsContainerWidth }] = useMeasure<HTMLDivElement>();
@@ -65,9 +59,6 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
   );
   const config = useTypedSelector(selectConfig);
   const resultCandidate = useTypedSelector(selectResultCandidate);
-  const isOutdated = useTypedSelector(selectAreResultsOutdated);
-  const allResults = useTypedSelector(selectSortedResults);
-  const error = useTypedSelector(selectSolveError);
   const results = useTypedSelector(selectSortedFilteredResults);
   const [bestResult] = results || [];
   const cellWidth = (maxBoardWidth - (config.boardWidth + 1) * BORDER_WIDTH) / config.boardWidth;
@@ -164,43 +155,11 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
           </form>
 
           {isLessThanL && (
-            <div className={styles.controls} style={{ maxWidth: maxControlsWidth }}>
-              {typeof error !== 'undefined' && (
-                <EmptyState variant="error" onClick={onShowResults}>
-                  {error.message}
-                </EmptyState>
-              )}
-
-              {typeof error === 'undefined' && typeof results === 'undefined' && (
-                <EmptyState variant="info" onClick={onShowResults}>
-                  {translate('results.empty-state.uninitialized')}
-                </EmptyState>
-              )}
-
-              {typeof error === 'undefined' && typeof results !== 'undefined' && typeof allResults !== 'undefined' && (
-                <>
-                  {(isOutdated || !resultCandidate) && (
-                    <EmptyState variant="info" onClick={onShowResults}>
-                      {translate('results.empty-state.outdated')}
-                    </EmptyState>
-                  )}
-
-                  {!isOutdated && allResults.length === 0 && (
-                    <EmptyState variant="warning" onClick={onShowResults}>
-                      {translate('results.empty-state.no-results')}
-                    </EmptyState>
-                  )}
-
-                  {!isOutdated && allResults.length > 0 && resultCandidate && (
-                    <ResultCandidatePicker className={styles.resultCandidatePicker} onClick={onShowResults} />
-                  )}
-                </>
-              )}
-
-              {allResults && allResults.length > 0 && !isOutdated && resultCandidate && (
-                <ApplyButton className={classNames(styles.submit, styles.apply)} />
-              )}
-            </div>
+            <MobileControls
+              className={styles.controls}
+              style={{ maxWidth: maxControlsWidth }}
+              onShowResults={onShowResults}
+            />
           )}
         </div>
       </div>

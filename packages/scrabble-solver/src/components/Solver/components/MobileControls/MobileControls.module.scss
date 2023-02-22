@@ -1,0 +1,14 @@
+.controls {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--spacing--l);
+}
+
+.resultCandidatePicker {
+  flex: 1;
+}
+
+.apply {
+  flex: 0 0 auto;
+}
