@@ -48,10 +48,11 @@
 
 1. [Dictionaries](#dictionaries)
 2. [Run](#run)
-3. [Uninstall](#uninstall)
-4. [Develop](#develop)
-5. [Tech stack](#tech-stack)
-6. [Related projects](#related-projects)
+3. [Install](#install)
+4. [Uninstall](#uninstall)
+5. [Develop](#develop)
+6. [Tech stack](#tech-stack)
+7. [Related projects](#related-projects)
 
 ## Dictionaries
 
@@ -70,10 +71,10 @@
 You can run Scrabble Solver on your machine - all you need is [Node.js](https://nodejs.org/) 16 or later.
 
 ```Shell
-npx scrabble-solver
+npx scrabble-solver@latest
 ```
 
-or
+## Install
 
 ```Shell
 npm install -g scrabble-solver
@@ -81,8 +82,6 @@ npm install -g scrabble-solver
 # and then run anytime with:
 scrabble-solver
 ```
-
-Dictionaries will be downloaded and processed during the first run - this can take a few minutes.
 
 ## Uninstall
 
