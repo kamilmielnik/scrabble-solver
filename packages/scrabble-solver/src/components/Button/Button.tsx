@@ -7,6 +7,7 @@ import styles from './Button.module.scss';
 import Link from './Link';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+  'aria-label': string;
   Icon?: FunctionComponent<SVGAttributes<SVGElement>>;
   iconClassName?: string;
   tooltip?: ReactNode;

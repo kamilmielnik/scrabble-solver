@@ -31,6 +31,7 @@ const SolveButton: FunctionComponent<Props> = ({ className }) => {
 
   return (
     <Button
+      aria-label={translate('results.solve')}
       className={className}
       disabled={isLoading || !isOutdated || !hasTiles}
       Icon={Search}

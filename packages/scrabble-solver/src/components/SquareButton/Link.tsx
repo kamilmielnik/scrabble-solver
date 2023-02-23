@@ -6,6 +6,7 @@ import { useTooltip } from '../Tooltip';
 import styles from './SquareButton.module.scss';
 
 interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  'aria-label': string;
   children?: never;
   href: string;
   Icon: FunctionComponent<SVGAttributes<SVGElement>>;

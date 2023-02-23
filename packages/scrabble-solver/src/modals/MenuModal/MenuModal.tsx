@@ -28,15 +28,21 @@ const Menu: FunctionComponent<Props> = ({
 
   return (
     <Modal className={className} isOpen={isOpen} title={translate('menu')} onClose={onClose}>
-      <Button className={styles.button} Icon={Sack} onClick={onShowRemainingTiles}>
+      <Button
+        aria-label={translate('remaining-tiles')}
+        className={styles.button}
+        Icon={Sack}
+        onClick={onShowRemainingTiles}
+      >
         {translate('remaining-tiles')}
       </Button>
 
-      <Button className={styles.button} Icon={CardChecklist} onClick={onShowWords}>
+      <Button aria-label={translate('words')} className={styles.button} Icon={CardChecklist} onClick={onShowWords}>
         {translate('words')}
       </Button>
 
       <Button.Link
+        aria-label={translate('github')}
         className={styles.button}
         href={GITHUB_PROJECT_URL}
         Icon={Github}
@@ -46,7 +52,7 @@ const Menu: FunctionComponent<Props> = ({
         {translate('github')}
       </Button.Link>
 
-      <Button className={styles.button} Icon={Cog} onClick={onShowSettings}>
+      <Button aria-label={translate('settings')} className={styles.button} Icon={Cog} onClick={onShowSettings}>
         {translate('settings')}
       </Button>
     </Modal>

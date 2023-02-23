@@ -34,6 +34,7 @@ const HeaderButton = ({ column }: Props): ReactElement => {
 
   return (
     <button
+      aria-label={translate(column.translationKey)}
       className={classNames(styles.headerButton, column.className)}
       key={column.id}
       type="button"

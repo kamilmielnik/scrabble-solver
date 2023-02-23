@@ -9,6 +9,7 @@ import {
   selectLocale,
   selectResultCandidate,
   selectSortedResults,
+  useTranslate,
   useTypedSelector,
 } from 'state';
 
@@ -19,6 +20,7 @@ import styles from './ResultCandidatePicker.module.scss';
 
 const ResultCandidatePicker: FunctionComponent<HTMLProps<HTMLDivElement>> = ({ className, ...props }) => {
   const dispatch = useDispatch();
+  const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const sortedResults = useTypedSelector(selectSortedResults);
@@ -51,15 +53,23 @@ const ResultCandidatePicker: FunctionComponent<HTMLProps<HTMLDivElement>> = ({ c
     <div className={classNames(styles.resultCandidatePicker, className)} {...props}>
       <div className={styles.buttons}>
         <Button
+          aria-label={translate('common.previous')}
           className={styles.button}
           disabled={isPreviousDisabled}
           Icon={ChevronLeft}
           onClick={handlePreviousClick}
         />
-        <Button className={styles.button} disabled={isNextDisabled} Icon={ChevronRight} onClick={handleNextClick} />
+
+        <Button
+          aria-label={translate('common.next')}
+          className={styles.button}
+          disabled={isNextDisabled}
+          Icon={ChevronRight}
+          onClick={handleNextClick}
+        />
       </div>
 
-      <button className={styles.resultCandidate} disabled={isOutdated} type="button">
+      <button aria-label={translate('results')} className={styles.resultCandidate} disabled={isOutdated} type="button">
         <div className={styles.points}>{resultCandidate.points.toLocaleString(locale)}</div>
         <div className={styles.word}>{resultCandidate.word}</div>
         <div className={styles.iconContainer}>

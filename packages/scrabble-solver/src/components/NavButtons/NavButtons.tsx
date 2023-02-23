@@ -37,13 +37,25 @@ const NavButtons: FunctionComponent<Props> = ({
     return (
       <div className={styles.navButtons}>
         <div className={styles.group}>
-          <SquareButton className={styles.button} Icon={Eraser} tooltip={translate('common.clear')} onClick={onClear} />
+          <SquareButton
+            aria-label={translate('common.clear')}
+            className={styles.button}
+            Icon={Eraser}
+            tooltip={translate('common.clear')}
+            onClick={onClear}
+          />
         </div>
 
         <div className={styles.separator} />
 
         <div className={styles.group}>
-          <SquareButton className={styles.button} Icon={List} tooltip={translate('menu')} onClick={onShowMenu} />
+          <SquareButton
+            aria-label={translate('menu')}
+            className={styles.button}
+            Icon={List}
+            tooltip={translate('menu')}
+            onClick={onShowMenu}
+          />
         </div>
       </div>
     );
@@ -52,13 +64,20 @@ const NavButtons: FunctionComponent<Props> = ({
   return (
     <div className={styles.navButtons}>
       <div className={styles.group}>
-        <SquareButton className={styles.button} Icon={Eraser} tooltip={translate('common.clear')} onClick={onClear} />
+        <SquareButton
+          aria-label={translate('common.clear')}
+          className={styles.button}
+          Icon={Eraser}
+          tooltip={translate('common.clear')}
+          onClick={onClear}
+        />
       </div>
 
       <div className={styles.separator} />
 
       <div className={styles.group}>
         <SquareButton
+          aria-label={translate('remaining-tiles')}
           className={classNames(styles.button, {
             [styles.error]: hasOverusedTiles,
           })}
@@ -68,6 +87,7 @@ const NavButtons: FunctionComponent<Props> = ({
         />
 
         <SquareButton
+          aria-label={translate('words')}
           className={classNames(styles.button, {
             [styles.error]: hasInvalidWords,
           })}
@@ -81,6 +101,7 @@ const NavButtons: FunctionComponent<Props> = ({
 
       <div className={styles.group}>
         <SquareButton.Link
+          aria-label={translate('github')}
           className={styles.button}
           href={GITHUB_PROJECT_URL}
           Icon={Github}
@@ -95,6 +116,7 @@ const NavButtons: FunctionComponent<Props> = ({
       <div className={styles.group}>
         {!isTouchDevice && (
           <SquareButton
+            aria-label={translate('keyMap')}
             className={styles.button}
             Icon={Keyboard}
             tooltip={translate('keyMap')}

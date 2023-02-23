@@ -6,6 +6,7 @@ import { useTooltip } from '../../../Tooltip';
 import styles from './Cell.module.scss';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+  'aria-label': string;
   onClick: MouseEventHandler<HTMLButtonElement>;
   tooltip: ReactNode;
 }

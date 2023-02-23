@@ -4,7 +4,14 @@ import { useDispatch } from 'react-redux';
 
 import { Search } from 'icons';
 import { noop } from 'lib';
-import { selectAreResultsOutdated, selectIsLoading, selectRack, solveSlice, useTypedSelector } from 'state';
+import {
+  selectAreResultsOutdated,
+  selectIsLoading,
+  selectRack,
+  solveSlice,
+  useTranslate,
+  useTypedSelector,
+} from 'state';
 
 import Button from '../../../Button';
 
@@ -17,6 +24,7 @@ interface Props {
 
 const SolveButton: FunctionComponent<Props> = ({ className, onClick = noop }) => {
   const dispatch = useDispatch();
+  const translate = useTranslate();
   const isLoading = useTypedSelector(selectIsLoading);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const rack = useTypedSelector(selectRack);
@@ -33,6 +41,7 @@ const SolveButton: FunctionComponent<Props> = ({ className, onClick = noop }) =>
       disabled={isLoading || !isOutdated || !hasTiles}
       Icon={Search}
       iconClassName={styles.icon}
+      tooltip={translate('results.solve')}
       type="submit"
       variant="primary"
       onClick={handleClick}
