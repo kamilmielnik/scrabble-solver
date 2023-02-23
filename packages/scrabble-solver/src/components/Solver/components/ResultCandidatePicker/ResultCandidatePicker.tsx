@@ -31,8 +31,9 @@ const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onResultCl
   const results = sortedResults || [];
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const index = resultCandidate ? results.findIndex((result) => result.id === resultCandidate.id) : -1;
-  const isPreviousDisabled = index <= 0;
-  const isNextDisabled = index >= results.length - 1;
+  const disabled = isOutdated || !resultCandidate;
+  const isPreviousDisabled = index <= 0 || disabled;
+  const isNextDisabled = index >= results.length - 1 || disabled;
 
   const handleNextClick = () => {
     if (!isNextDisabled) {
@@ -71,7 +72,7 @@ const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onResultCl
       <button
         aria-label={translate('results')}
         className={styles.resultCandidate}
-        disabled={isOutdated || !resultCandidate}
+        disabled={disabled}
         type="button"
         onClick={onResultClick}
       >
