@@ -37,6 +37,7 @@ const SolveButton: FunctionComponent<Props> = ({ className, onClick = noop }) =>
 
   return (
     <Button
+      aria-label={translate('results.solve')}
       className={classNames(styles.solveButton, className)}
       disabled={isLoading || !isOutdated || !hasTiles}
       Icon={Search}

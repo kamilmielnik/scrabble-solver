@@ -31,6 +31,7 @@ const Character: FunctionComponent<Props> = ({ tile }) => {
       })}
     >
       <Tile
+        aria-label={character}
         character={character}
         className={styles.tile}
         disabled

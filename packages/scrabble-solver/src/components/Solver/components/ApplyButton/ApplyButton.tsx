@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Check } from 'icons';
-import { resultsSlice, selectResultCandidate, useTypedSelector } from 'state';
+import { resultsSlice, selectResultCandidate, useTranslate, useTypedSelector } from 'state';
 
 import Button from '../../../Button';
 
@@ -14,6 +14,7 @@ interface Props {
 
 const ApplyButton: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
+  const translate = useTranslate();
   const resultCandidate = useTypedSelector(selectResultCandidate);
 
   const handleClick = () => {
@@ -24,6 +25,7 @@ const ApplyButton: FunctionComponent<Props> = ({ className }) => {
 
   return (
     <Button
+      aria-label={translate('results.insert')}
       className={className}
       disabled={!resultCandidate}
       Icon={Check}

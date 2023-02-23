@@ -48,6 +48,7 @@
   "results.empty-state.outdated": "Los resultados están desactualizados. Haga clic a continuación para actualizar.",
   "results.empty-state.uninitialized": "Aquí se mostrarán las palabras generadas a partir de sus letras.",
   "results.input.placeholder": "Busque una solución... (RegExp)",
+  "results.insert": "Insertar",
   "results.solve": "Resolver",
   "settings": "Configuración",
   "settings.autoGroupTiles": "Agrupar casillas restantes",
