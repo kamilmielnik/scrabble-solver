@@ -12,7 +12,7 @@ import {
 import { usePopper } from 'react-popper';
 import { useMountedState, useRafLoop } from 'react-use';
 
-import { usePortal, useUniqueId } from 'hooks';
+import { useIsTouchDevice, usePortal, useUniqueId } from 'hooks';
 import { noop } from 'lib';
 
 import { MODIFIERS } from './constants';
@@ -36,11 +36,13 @@ interface TriggerProps {
   onMouseOver?: MouseEventHandler;
 }
 
+// eslint-disable-next-line max-statements
 const useTooltip = (
   tooltip: ReactNode,
   { className, placement = 'top', onBlur = noop, onFocus = noop, onMouseOut = noop, onMouseOver = noop }: Props = {},
 ): TriggerProps => {
   const id = useUniqueId();
+  const isTouchDevice = useIsTouchDevice();
   const isEnabled = Boolean(tooltip) || tooltip === 0;
   const isMounted = useMountedState();
   const [isShown, setIsShown] = useState<boolean>(false);
@@ -90,7 +92,7 @@ const useTooltip = (
     [onMouseOver],
   );
 
-  const triggerProps = useMemo(
+  const mouseTriggerProps = useMemo(
     () => ({
       ...ariaAttributes,
       ref: setReferenceElement,
@@ -101,6 +103,16 @@ const useTooltip = (
     }),
     [ariaAttributes, handleBlur, handleFocus, handleMouseOut, handleMouseOver],
   );
+
+  const touchTriggerProps = useMemo(
+    () => ({
+      ...ariaAttributes,
+      ref: setReferenceElement,
+    }),
+    [ariaAttributes],
+  );
+
+  const triggerProps = isTouchDevice ? touchTriggerProps : mouseTriggerProps;
 
   useRafLoop(() => {
     if (isMounted() && update) {
