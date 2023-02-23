@@ -17,6 +17,7 @@ import {
 } from 'parameters';
 import {
   resultsSlice,
+  selectAreResultsOutdated,
   selectConfig,
   selectResultCandidate,
   selectSortedFilteredResults,
@@ -58,6 +59,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
     isLessThanM ? Number.POSITIVE_INFINITY : 0,
   );
   const config = useTypedSelector(selectConfig);
+  const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const results = useTypedSelector(selectSortedFilteredResults);
   const [bestResult] = results || [];
@@ -116,10 +118,10 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
   };
 
   useEffect(() => {
-    if (bestResult) {
+    if (isLessThanL && bestResult && !isOutdated) {
       dispatch(resultsSlice.actions.changeResultCandidate(bestResult));
     }
-  }, [bestResult, dispatch]);
+  }, [bestResult, dispatch, isLessThanL, isOutdated]);
 
   return (
     <div className={classNames(styles.solver, className)}>

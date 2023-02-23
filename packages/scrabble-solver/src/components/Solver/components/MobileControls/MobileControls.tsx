@@ -40,7 +40,7 @@ const MobileControls: FunctionComponent<Props> = ({ onShowResults, ...props }) =
 
       {typeof error === 'undefined' && typeof allResults !== 'undefined' && (
         <>
-          {(isOutdated || !resultCandidate) && (
+          {isOutdated && (
             <EmptyState variant="info" onClick={onShowResults}>
               {translate('results.empty-state.outdated')}
             </EmptyState>
