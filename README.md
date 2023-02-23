@@ -44,12 +44,14 @@
 
 # scrabble-solver
 
-- [Dictionaries](#dictionaries)
-- [Run](#run)
-- [Uninstall](#uninstall)
-- [Develop](#develop)
-- [Tech stack](#tech-stack)
-- [Related projects](#related-projects)
+## Table of contents
+
+1. [Dictionaries](#dictionaries)
+2. [Run](#run)
+3. [Uninstall](#uninstall)
+4. [Develop](#develop)
+5. [Tech stack](#tech-stack)
+6. [Related projects](#related-projects)
 
 ## Dictionaries
 
