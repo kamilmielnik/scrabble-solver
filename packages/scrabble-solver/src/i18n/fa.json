@@ -22,6 +22,7 @@
   "dictionary.empty-state.not-allowed": "این کلمه مجاز نیست.",
   "dictionary.empty-state.uninitialized": "معنی لغت اینجا نمایش داده خواهد شد.",
   "dictionary.input.placeholder": "جستجو در فرهنگ لغت ...",
+  "dictionary.input.title": "کلمات جدا شده با کاما",
   "empty-state.error": "خطا",
   "empty-state.info": "اطلاعات",
   "empty-state.success": "حله!",

@@ -1,3 +1,4 @@
+import { COMMA_ARABIC, COMMA_LATIN } from '@scrabble-solver/constants';
 import classNames from 'classnames';
 import { ChangeEvent, FormEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
@@ -28,8 +29,10 @@ const DictionaryInput: FunctionComponent<Props> = ({ className }) => {
     <form className={classNames(styles.dictionaryInput, className)} onSubmit={handleSubmit}>
       <input
         className={styles.input}
+        pattern={`.*[^\\s${COMMA_ARABIC}${COMMA_LATIN}].*`}
         placeholder={translate('dictionary.input.placeholder')}
         required
+        title={translate('dictionary.input.title')}
         type="text"
         value={input}
         onChange={handleChange}

@@ -22,6 +22,7 @@
   "dictionary.empty-state.not-allowed": "Esta palabra no es aceptable.",
   "dictionary.empty-state.uninitialized": "Aquí se mostrará la definición del diccionario de la última palabra resaltada.",
   "dictionary.input.placeholder": "Busca el diccionario...",
+  "dictionary.input.title": "Palabras separadas por comas",
   "empty-state.error": "Error",
   "empty-state.info": "Info",
   "empty-state.success": "Sí!",

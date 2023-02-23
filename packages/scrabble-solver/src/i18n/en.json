@@ -22,6 +22,7 @@
   "dictionary.empty-state.not-allowed": "This word is not allowed.",
   "dictionary.empty-state.uninitialized": "Dictionary definition of the most recently highlighted word will be shown here.",
   "dictionary.input.placeholder": "Search dictionary...",
+  "dictionary.input.title": "Comma-separated words",
   "empty-state.error": "Error",
   "empty-state.info": "Info",
   "empty-state.success": "Yeah!",

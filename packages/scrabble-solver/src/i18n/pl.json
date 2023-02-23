@@ -22,6 +22,7 @@
   "dictionary.empty-state.not-allowed": "To słowo nie jest dopuszczalne w grach.",
   "dictionary.empty-state.uninitialized": "Tu zostanie wyświetlona słownikowa definicja ostatnio podświetlonego słowa.",
   "dictionary.input.placeholder": "Szukaj w słowniku...",
+  "dictionary.input.title": "Słowa rozdzielone przecinkiem",
   "empty-state.error": "Błąd",
   "empty-state.info": "Info",
   "empty-state.success": "Hurra!",

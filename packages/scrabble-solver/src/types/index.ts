@@ -55,6 +55,7 @@ export type TranslationKey =
   | 'dictionary.empty-state.not-allowed'
   | 'dictionary.empty-state.uninitialized'
   | 'dictionary.input.placeholder'
+  | 'dictionary.input.title'
   | 'empty-state.error'
   | 'empty-state.info'
   | 'empty-state.success'

@@ -22,6 +22,7 @@
   "dictionary.empty-state.not-allowed": "Dieses Wort ist nicht erlaubt.",
   "dictionary.empty-state.uninitialized": "Die Wörterbuchdefinition des letzten markierten Wortes wird hier angezeigt.",
   "dictionary.input.placeholder": "Durchsuche Wörterbuch...",
+  "dictionary.input.title": "Durch Kommas getrennte Wörter",
   "empty-state.error": "Fehler",
   "empty-state.info": "Info",
   "empty-state.success": "Juhuu!",

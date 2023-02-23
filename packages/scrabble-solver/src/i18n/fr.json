@@ -22,6 +22,7 @@
   "dictionary.empty-state.not-allowed": "Ce mot n'est pas pas acceptable.",
   "dictionary.empty-state.uninitialized": "La définition dictionaire du dernier mot surligné sera affichée ici.",
   "dictionary.input.placeholder": "Rechercher dans le dictionnaire...",
+  "dictionary.input.title": "Mots séparées par des virgules",
   "empty-state.error": "Erreur",
   "empty-state.info": "Info",
   "empty-state.success": "Ouais!",
