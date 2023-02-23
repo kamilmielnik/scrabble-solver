@@ -14,6 +14,8 @@ interface RequestData {
 
 const MAXIMUM_COLLISIONS_COUNT = scrabble['en-US'].maximumCharactersCount;
 const MAXIMUM_WORDS_COUNT = MAXIMUM_COLLISIONS_COUNT + 1;
+const ARABIC_COMMA = '،';
+const LATIN_COMMA = ',';
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
   const meta = getServerLoggingData(request);
@@ -54,7 +56,8 @@ const parseRequest = (request: NextApiRequest): RequestData => {
   const words = Array.from(
     new Set(
       word
-        .split(',')
+        .replaceAll(ARABIC_COMMA, LATIN_COMMA)
+        .split(LATIN_COMMA)
         .map((part) => part.trim())
         .filter(Boolean),
     ),
