@@ -1,4 +1,5 @@
 import { scrabble } from '@scrabble-solver/configs';
+import { COMMA_ARABIC, COMMA_LATIN } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import logger from '@scrabble-solver/logger';
 import { isLocale, Locale } from '@scrabble-solver/types';
@@ -14,8 +15,6 @@ interface RequestData {
 
 const MAXIMUM_COLLISIONS_COUNT = scrabble['en-US'].maximumCharactersCount;
 const MAXIMUM_WORDS_COUNT = MAXIMUM_COLLISIONS_COUNT + 1;
-const ARABIC_COMMA = '،';
-const LATIN_COMMA = ',';
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
   const meta = getServerLoggingData(request);
@@ -56,8 +55,8 @@ const parseRequest = (request: NextApiRequest): RequestData => {
   const words = Array.from(
     new Set(
       word
-        .replaceAll(ARABIC_COMMA, LATIN_COMMA)
-        .split(LATIN_COMMA)
+        .replaceAll(COMMA_ARABIC, COMMA_LATIN)
+        .split(COMMA_LATIN)
         .map((part) => part.trim())
         .filter(Boolean),
     ),

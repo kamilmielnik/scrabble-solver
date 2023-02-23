@@ -1,3 +1,7 @@
+export const COMMA_ARABIC = '،';
+
+export const COMMA_LATIN = ',';
+
 export const BLANK = ' ';
 
 export const BONUS_CHARACTER = 'BONUS_CHARACTER';
