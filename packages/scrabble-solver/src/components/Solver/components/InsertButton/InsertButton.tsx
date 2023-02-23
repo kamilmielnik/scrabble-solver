@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -27,7 +28,7 @@ const InsertButton: FunctionComponent<Props> = ({ className }) => {
   return (
     <Button
       aria-label={translate('results.insert')}
-      className={className}
+      className={classNames(styles.insertButton, className)}
       disabled={isOutdated || !resultCandidate}
       Icon={Check}
       iconClassName={styles.icon}

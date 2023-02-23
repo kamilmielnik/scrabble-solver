@@ -1,5 +1,15 @@
 @import 'styles/mixins';
 
+.insertButton {
+  @include media('>=s') {
+    padding: var(--spacing--m) var(--spacing--xl);
+  }
+
+  @include media('<xs') {
+    padding: var(--spacing--m);
+  }
+}
+
 .icon {
   transform: scale(1.5);
 }
