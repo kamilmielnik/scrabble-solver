@@ -3,8 +3,8 @@ import { ButtonHTMLAttributes, FunctionComponent, MouseEventHandler, SVGAttribut
 
 import { useTooltip } from '../Tooltip';
 
+import styles from './IconButton.module.scss';
 import Link from './Link';
-import styles from './SquareButton.module.scss';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   'aria-label': string;
@@ -14,11 +14,11 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const SquareButton: FunctionComponent<Props> = ({ className, Icon, tooltip, ...props }) => {
+const IconButton: FunctionComponent<Props> = ({ className, Icon, tooltip, ...props }) => {
   const triggerProps = useTooltip(tooltip, props);
 
   return (
-    <button className={classNames(styles.squareButton, className)} type="button" {...props} {...triggerProps}>
+    <button className={classNames(styles.iconButton, className)} type="button" {...props} {...triggerProps}>
       <span className={styles.content}>
         <Icon className={styles.icon} />
       </span>
@@ -26,6 +26,6 @@ const SquareButton: FunctionComponent<Props> = ({ className, Icon, tooltip, ...p
   );
 };
 
-export default Object.assign(SquareButton, {
+export default Object.assign(IconButton, {
   Link,
 });

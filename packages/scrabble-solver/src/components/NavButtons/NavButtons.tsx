@@ -6,7 +6,7 @@ import { CardChecklist, Cog, Eraser, Github, Keyboard, List, Sack } from 'icons'
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { selectHasInvalidWords, selectHasOverusedTiles, useTranslate, useTypedSelector } from 'state';
 
-import SquareButton from '../SquareButton';
+import IconButton from '../IconButton';
 
 import styles from './NavButtons.module.scss';
 
@@ -37,7 +37,7 @@ const NavButtons: FunctionComponent<Props> = ({
     return (
       <div className={styles.navButtons}>
         <div className={styles.group}>
-          <SquareButton
+          <IconButton
             aria-label={translate('common.clear')}
             className={styles.button}
             Icon={Eraser}
@@ -49,7 +49,7 @@ const NavButtons: FunctionComponent<Props> = ({
         <div className={styles.separator} />
 
         <div className={styles.group}>
-          <SquareButton
+          <IconButton
             aria-label={translate('menu')}
             className={styles.button}
             Icon={List}
@@ -64,7 +64,7 @@ const NavButtons: FunctionComponent<Props> = ({
   return (
     <div className={styles.navButtons}>
       <div className={styles.group}>
-        <SquareButton
+        <IconButton
           aria-label={translate('common.clear')}
           className={styles.button}
           Icon={Eraser}
@@ -76,7 +76,7 @@ const NavButtons: FunctionComponent<Props> = ({
       <div className={styles.separator} />
 
       <div className={styles.group}>
-        <SquareButton
+        <IconButton
           aria-label={translate('remaining-tiles')}
           className={classNames(styles.button, {
             [styles.error]: hasOverusedTiles,
@@ -86,7 +86,7 @@ const NavButtons: FunctionComponent<Props> = ({
           onClick={onShowRemainingTiles}
         />
 
-        <SquareButton
+        <IconButton
           aria-label={translate('words')}
           className={classNames(styles.button, {
             [styles.error]: hasInvalidWords,
@@ -100,7 +100,7 @@ const NavButtons: FunctionComponent<Props> = ({
       <div className={styles.separator} />
 
       <div className={styles.group}>
-        <SquareButton.Link
+        <IconButton.Link
           aria-label={translate('github')}
           className={styles.button}
           href={GITHUB_PROJECT_URL}
@@ -115,7 +115,7 @@ const NavButtons: FunctionComponent<Props> = ({
 
       <div className={styles.group}>
         {!isTouchDevice && (
-          <SquareButton
+          <IconButton
             aria-label={translate('keyMap')}
             className={styles.button}
             Icon={Keyboard}
@@ -124,7 +124,7 @@ const NavButtons: FunctionComponent<Props> = ({
           />
         )}
 
-        <SquareButton
+        <IconButton
           aria-label={translate('settings')}
           className={styles.button}
           Icon={Cog}

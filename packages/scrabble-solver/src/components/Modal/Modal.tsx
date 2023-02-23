@@ -7,7 +7,7 @@ import { CrossSquareFill } from 'icons';
 import { TRANSITION_DURATION_LONG } from 'parameters';
 import { useTranslate } from 'state';
 
-import SquareButton from '../SquareButton';
+import IconButton from '../IconButton';
 
 import { Section } from './components';
 import styles from './Modal.module.scss';
@@ -58,7 +58,7 @@ const Modal: FunctionComponent<Props> = ({ children, className, isOpen, title, o
         <div className={styles.header}>
           <h1 className={styles.title}>{title}</h1>
 
-          <SquareButton
+          <IconButton
             aria-label={translate('common.close')}
             className={styles.closeButton}
             Icon={CrossSquareFill}
