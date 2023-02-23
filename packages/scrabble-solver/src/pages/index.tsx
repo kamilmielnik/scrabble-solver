@@ -38,6 +38,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [navRef, { height: navHeight }] = useMeasure<HTMLDivElement>();
   const solverHeight = indexHeight - navHeight;
   const solverWidth = indexWidth;
+  const [isClient, setIsClient] = useState(false);
 
   const handleClear = () => {
     dispatch(reset());
@@ -55,6 +56,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   useLocalStorage();
 
   useEffectOnce(() => {
+    setIsClient(true);
     dispatch(initialize());
 
     globalThis.setTimeout(() => {
@@ -98,12 +100,14 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           </div>
         </div>
 
-        <Solver
-          className={styles.solver}
-          height={solverHeight}
-          width={solverWidth}
-          onShowResults={() => setShowResults(true)}
-        />
+        {isClient && (
+          <Solver
+            className={styles.solver}
+            height={solverHeight}
+            width={solverWidth}
+            onShowResults={() => setShowResults(true)}
+          />
+        )}
       </div>
 
       <MenuModal
