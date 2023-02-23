@@ -109,6 +109,10 @@
   width: 100%;
 }
 
+.emptyState {
+  margin-top: var(--spacing);
+}
+
 .solve {
   --spacing: var(--spacing--l);
 

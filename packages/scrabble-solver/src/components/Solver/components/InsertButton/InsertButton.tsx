@@ -2,20 +2,21 @@ import { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Check } from 'icons';
-import { resultsSlice, selectResultCandidate, useTranslate, useTypedSelector } from 'state';
+import { resultsSlice, selectAreResultsOutdated, selectResultCandidate, useTranslate, useTypedSelector } from 'state';
 
 import Button from '../../../Button';
 
-import styles from './ApplyButton.module.scss';
+import styles from './InsertButton.module.scss';
 
 interface Props {
   className?: string;
 }
 
-const ApplyButton: FunctionComponent<Props> = ({ className }) => {
+const InsertButton: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const resultCandidate = useTypedSelector(selectResultCandidate);
+  const isOutdated = useTypedSelector(selectAreResultsOutdated);
 
   const handleClick = () => {
     if (resultCandidate) {
@@ -27,7 +28,7 @@ const ApplyButton: FunctionComponent<Props> = ({ className }) => {
     <Button
       aria-label={translate('results.insert')}
       className={className}
-      disabled={!resultCandidate}
+      disabled={isOutdated || !resultCandidate}
       Icon={Check}
       iconClassName={styles.icon}
       type="submit"
@@ -37,4 +38,4 @@ const ApplyButton: FunctionComponent<Props> = ({ className }) => {
   );
 };
 
-export default ApplyButton;
+export default InsertButton;

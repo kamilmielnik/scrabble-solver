@@ -20,8 +20,11 @@ import {
   selectAreResultsOutdated,
   selectConfig,
   selectResultCandidate,
+  selectSolveError,
   selectSortedFilteredResults,
+  selectSortedResults,
   solveSlice,
+  useTranslate,
   useTypedSelector,
 } from 'state';
 
@@ -32,7 +35,7 @@ import Rack from '../Rack';
 import Results from '../Results';
 import Well from '../Well';
 
-import { MobileControls, SolveButton } from './components';
+import { EmptyState, ResultCandidatePicker, SolveButton } from './components';
 import styles from './Solver.module.scss';
 
 interface Props {
@@ -45,6 +48,7 @@ interface Props {
 // eslint-disable-next-line max-statements
 const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResults }) => {
   const dispatch = useDispatch();
+  const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
   const [bottomContainerRef, { height: bottomContainerHeight }] = useMeasure<HTMLDivElement>();
   const [resultsContainerRef, { width: resultsContainerWidth }] = useMeasure<HTMLDivElement>();
@@ -59,8 +63,10 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
     isLessThanM ? Number.POSITIVE_INFINITY : 0,
   );
   const config = useTypedSelector(selectConfig);
+  const error = useTypedSelector(selectSolveError);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const resultCandidate = useTypedSelector(selectResultCandidate);
+  const allResults = useTypedSelector(selectSortedResults);
   const results = useTypedSelector(selectSortedFilteredResults);
   const [bestResult] = results || [];
   const cellWidth = (maxBoardWidth - (config.boardWidth + 1) * BORDER_WIDTH) / config.boardWidth;
@@ -157,11 +163,21 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
           </form>
 
           {isLessThanL && (
-            <MobileControls
-              className={styles.controls}
-              style={{ maxWidth: maxControlsWidth }}
-              onShowResults={onShowResults}
-            />
+            <div className={styles.controls} style={{ maxWidth: maxControlsWidth }}>
+              <ResultCandidatePicker onResultClick={onShowResults} />
+
+              {error && (
+                <EmptyState className={styles.emptyState} variant="error">
+                  {error.message}
+                </EmptyState>
+              )}
+
+              {allResults && allResults.length === 0 && !isOutdated && (
+                <EmptyState className={styles.emptyState} variant="warning">
+                  {translate('results.empty-state.no-results')}
+                </EmptyState>
+              )}
+            </div>
           )}
         </div>
       </div>
