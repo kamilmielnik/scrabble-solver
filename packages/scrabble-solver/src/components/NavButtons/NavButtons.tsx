@@ -124,7 +124,13 @@ const NavButtons: FunctionComponent<Props> = ({
           />
         )}
 
-        <SquareButton className={styles.button} Icon={Cog} tooltip={translate('settings')} onClick={onShowSettings} />
+        <SquareButton
+          aria-label={translate('settings')}
+          className={styles.button}
+          Icon={Cog}
+          tooltip={translate('settings')}
+          onClick={onShowSettings}
+        />
       </div>
     </div>
   );

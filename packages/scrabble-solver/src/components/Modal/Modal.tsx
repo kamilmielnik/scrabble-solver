@@ -59,6 +59,7 @@ const Modal: FunctionComponent<Props> = ({ children, className, isOpen, title, o
           <h1 className={styles.title}>{title}</h1>
 
           <SquareButton
+            aria-label={translate('common.close')}
             className={styles.closeButton}
             Icon={CrossSquareFill}
             tooltip={translate('common.close')}

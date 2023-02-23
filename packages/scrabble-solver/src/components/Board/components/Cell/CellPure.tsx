@@ -20,6 +20,7 @@ import styles from './Cell.module.scss';
 import { getBonusClassname } from './lib';
 
 interface Props {
+  'aria-label': string;
   bonus: Bonus | undefined;
   cell: Cell;
   className?: string;
@@ -44,6 +45,7 @@ interface Props {
 }
 
 const CellPure: FunctionComponent<Props> = ({
+  'aria-label': ariaLabel,
   bonus,
   cell,
   className,
@@ -87,6 +89,7 @@ const CellPure: FunctionComponent<Props> = ({
     )}
 
     <Tile
+      aria-label={ariaLabel}
       className={styles.tile}
       character={isEmpty ? undefined : tile.character}
       highlighted={cell.isCandidate()}
@@ -103,7 +106,11 @@ const CellPure: FunctionComponent<Props> = ({
 
     {!cell.isCandidate() && (
       <div className={styles.actions}>
-        <Button tooltip={translate('cell.toggle-direction')} onClick={onDirectionToggleClick}>
+        <Button
+          aria-label={translate('cell.toggle-direction')}
+          tooltip={translate('cell.toggle-direction')}
+          onClick={onDirectionToggleClick}
+        >
           <ArrowDown
             className={classNames(styles.toggleDirection, {
               [styles.right]: direction === 'horizontal',
@@ -113,6 +120,7 @@ const CellPure: FunctionComponent<Props> = ({
 
         {isEmpty && (
           <Button
+            aria-label={translate('cell.filter-cell')}
             className={classNames(styles.filterCell, {
               [styles.filtered]: isFiltered,
             })}
@@ -125,6 +133,7 @@ const CellPure: FunctionComponent<Props> = ({
 
         {!isEmpty && (
           <Button
+            aria-label={tile.isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
             className={classNames(styles.blank, {
               [styles.active]: tile.isBlank,
             })}

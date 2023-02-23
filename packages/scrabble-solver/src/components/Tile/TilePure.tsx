@@ -14,6 +14,7 @@ import { ExclamationSquareFill } from 'icons';
 import styles from './Tile.module.scss';
 
 interface Props {
+  'aria-label': string;
   autoFocus?: boolean;
   canShowPoints?: boolean;
   character?: string;
@@ -37,6 +38,7 @@ interface Props {
 }
 
 const TilePure: FunctionComponent<Props> = ({
+  'aria-label': ariaLabel,
   autoFocus,
   canShowPoints,
   character,
@@ -75,6 +77,7 @@ const TilePure: FunctionComponent<Props> = ({
     style={style}
   >
     <input
+      aria-label={ariaLabel}
       autoCapitalize="none"
       autoComplete="off"
       autoCorrect="off"

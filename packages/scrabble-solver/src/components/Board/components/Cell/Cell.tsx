@@ -10,6 +10,7 @@ import {
   selectCellBonus,
   selectCellIsFiltered,
   selectCellIsValid,
+  selectLocale,
   selectTilePoints,
   useTranslate,
   useTypedSelector,
@@ -47,6 +48,7 @@ const Cell: FunctionComponent<Props> = ({
   const { tile, x, y } = cell;
   const dispatch = useDispatch();
   const translate = useTranslate();
+  const locale = useTypedSelector(selectLocale);
   const bonus = useTypedSelector((state) => selectCellBonus(state, cell));
   const points = useTypedSelector((state) => selectTilePoints(state, cell.tile));
   const isFiltered = useTypedSelector((state) => selectCellIsFiltered(state, cell));
@@ -83,6 +85,10 @@ const Cell: FunctionComponent<Props> = ({
 
   return (
     <CellPure
+      aria-label={translate('cell.tile.location', {
+        x: (x + 1).toLocaleString(locale),
+        y: (y + 1).toLocaleString(locale),
+      })}
       bonus={bonus}
       cell={cell}
       className={className}

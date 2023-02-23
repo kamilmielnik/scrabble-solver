@@ -16,6 +16,7 @@ import { selectLocale, useTypedSelector } from 'state';
 import TilePure from './TilePure';
 
 interface Props {
+  'aria-label': string;
   autoFocus?: boolean;
   character?: string;
   className?: string;
@@ -35,6 +36,7 @@ interface Props {
 }
 
 const Tile: FunctionComponent<Props> = ({
+  'aria-label': ariaLabel,
   autoFocus,
   className,
   character = '',
@@ -75,6 +77,7 @@ const Tile: FunctionComponent<Props> = ({
 
   return (
     <TilePure
+      aria-label={ariaLabel}
       autoFocus={autoFocus}
       canShowPoints={canShowPoints}
       character={character}

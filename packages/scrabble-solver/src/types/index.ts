@@ -36,6 +36,7 @@ export type TranslationKey =
   | 'cell.set-blank'
   | 'cell.set-not-blank'
   | 'cell.toggle-direction'
+  | 'cell.tile.location'
   | 'common.clear'
   | 'common.close'
   | 'common.loading'
@@ -72,6 +73,7 @@ export type TranslationKey =
   | 'keyMap.rack.insert-blank'
   | 'menu'
   | 'rack.placeholder'
+  | 'rack.tile.location'
   | 'remaining-tiles'
   | 'results'
   | 'results.empty-state.no-filtered-results'
@@ -91,6 +93,6 @@ export type TranslationKey =
   | 'words.invalid'
   | 'words.valid';
 
-export type Translate = (key: TranslationKey) => string;
+export type Translate = (key: TranslationKey, replacements?: Record<string, string>) => string;
 
 export type Translations = Record<TranslationKey, string>;
