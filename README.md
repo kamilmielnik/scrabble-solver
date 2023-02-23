@@ -108,8 +108,7 @@ npm run install:dev
 npx lerna run dev --scope=@scrabble-solver/scrabble-solver
 ```
 
-- Starts server on [http://localhost:3000](http://localhost:3000)
-- Hot code reload works for [`scrabble-solver`](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver) package only
+Note: hot code reload works only for the [`scrabble-solver`](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver) package.
 
 ### Rebuild a single package
 
