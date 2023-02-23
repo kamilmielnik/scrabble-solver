@@ -6,13 +6,13 @@ import { resultsSlice, selectResultCandidate, useTranslate, useTypedSelector } f
 
 import Button from '../../../Button';
 
-import styles from './ApplyButton.module.scss';
+import styles from './InsertButton.module.scss';
 
 interface Props {
   className?: string;
 }
 
-const ApplyButton: FunctionComponent<Props> = ({ className }) => {
+const InsertButton: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const resultCandidate = useTypedSelector(selectResultCandidate);
@@ -37,4 +37,4 @@ const ApplyButton: FunctionComponent<Props> = ({ className }) => {
   );
 };
 
-export default ApplyButton;
+export default InsertButton;

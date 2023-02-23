@@ -14,7 +14,7 @@ import {
 } from 'state';
 
 import Button from '../../../Button';
-import ApplyButton from '../ApplyButton';
+import InsertButton from '../InsertButton';
 
 import styles from './ResultCandidatePicker.module.scss';
 
@@ -82,14 +82,14 @@ const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onResultCl
           </>
         )}
 
-        {!resultCandidate && <div className={styles.word}>-</div>}
+        {!resultCandidate && <div className={styles.word}> </div>}
 
         <div className={styles.iconContainer}>
           <ChevronDown className={styles.icon} />
         </div>
       </button>
 
-      <ApplyButton className={styles.apply} />
+      <InsertButton className={styles.insert} />
     </div>
   );
 };

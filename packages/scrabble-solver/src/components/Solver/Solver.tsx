@@ -166,7 +166,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
             <div className={styles.controls} style={{ maxWidth: maxControlsWidth }}>
               <ResultCandidatePicker onResultClick={onShowResults} />
 
-              {typeof error !== 'undefined' && (
+              {error && (
                 <EmptyState className={styles.emptyState} variant="error">
                   {error.message}
                 </EmptyState>
