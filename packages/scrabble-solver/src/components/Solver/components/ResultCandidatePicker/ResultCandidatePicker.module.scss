@@ -10,7 +10,6 @@
   flex: 0 0 auto;
   display: flex;
   border-radius: var(--border--radius);
-  box-shadow: var(--box-shadow);
 
   @include media('<xs') {
     display: none;
@@ -19,7 +18,6 @@
 
 .button {
   padding: var(--spacing--m);
-  box-shadow: none;
 
   &:focus-within {
     z-index: 1;

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FunctionComponent, HTMLProps } from 'react';
+import { FunctionComponent, HTMLProps, MouseEventHandler } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { ChevronDown, ChevronLeft, ChevronRight } from 'icons';
@@ -18,7 +18,11 @@ import ApplyButton from '../ApplyButton';
 
 import styles from './ResultCandidatePicker.module.scss';
 
-const ResultCandidatePicker: FunctionComponent<HTMLProps<HTMLDivElement>> = ({ className, ...props }) => {
+interface Props extends HTMLProps<HTMLDivElement> {
+  onResultClick: MouseEventHandler<HTMLButtonElement>;
+}
+
+const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onResultClick, ...props }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
@@ -26,12 +30,7 @@ const ResultCandidatePicker: FunctionComponent<HTMLProps<HTMLDivElement>> = ({ c
   const sortedResults = useTypedSelector(selectSortedResults);
   const results = sortedResults || [];
   const resultCandidate = useTypedSelector(selectResultCandidate);
-
-  if (!resultCandidate) {
-    return null;
-  }
-
-  const index = results.findIndex((result) => result.id === resultCandidate.id);
+  const index = resultCandidate ? results.findIndex((result) => result.id === resultCandidate.id) : -1;
   const isPreviousDisabled = index <= 0;
   const isNextDisabled = index >= results.length - 1;
 
@@ -69,9 +68,22 @@ const ResultCandidatePicker: FunctionComponent<HTMLProps<HTMLDivElement>> = ({ c
         />
       </div>
 
-      <button aria-label={translate('results')} className={styles.resultCandidate} disabled={isOutdated} type="button">
-        <div className={styles.points}>{resultCandidate.points.toLocaleString(locale)}</div>
-        <div className={styles.word}>{resultCandidate.word}</div>
+      <button
+        aria-label={translate('results')}
+        className={styles.resultCandidate}
+        disabled={isOutdated || !resultCandidate}
+        type="button"
+        onClick={onResultClick}
+      >
+        {resultCandidate && (
+          <>
+            <div className={styles.points}>{resultCandidate.points.toLocaleString(locale)}</div>
+            <div className={styles.word}>{resultCandidate.word}</div>
+          </>
+        )}
+
+        {!resultCandidate && <div className={styles.word}>-</div>}
+
         <div className={styles.iconContainer}>
           <ChevronDown className={styles.icon} />
         </div>
