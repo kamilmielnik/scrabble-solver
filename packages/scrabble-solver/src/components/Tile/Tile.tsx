@@ -1,13 +1,14 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
+import mergeRefs from 'merge-refs';
 import {
   ChangeEventHandler,
-  createRef,
   FocusEventHandler,
   FunctionComponent,
   KeyboardEventHandler,
   RefObject,
   useEffect,
   useMemo,
+  useRef,
 } from 'react';
 
 import { getTileSizes, noop } from 'lib';
@@ -22,7 +23,7 @@ interface Props {
   className?: string;
   disabled?: boolean;
   highlighted?: boolean;
-  inputRef?: RefObject<HTMLInputElement>;
+  inputRef?: RefObject<HTMLInputElement | null>;
   isBlank?: boolean;
   isValid?: boolean;
   placeholder?: string;
@@ -59,21 +60,22 @@ const Tile: FunctionComponent<Props> = ({
   const style = useMemo(() => ({ height: tileSize, width: tileSize }), [tileSize]);
   const characterStyle = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
   const pointsStyle = useMemo(() => ({ fontSize: pointsFontSize }), [pointsFontSize]);
-  const inputRef = useMemo<RefObject<HTMLInputElement>>(() => ref || createRef(), [ref]);
+  const ref = useRef<HTMLInputElement>(null);
+  const mergedRef = inputRef ? mergeRefs(ref, inputRef) : ref;
   const isEmpty = !character || character === EMPTY_CELL;
   const canShowPoints = (isBlank || !isEmpty) && typeof points !== 'undefined';
   const pointsFormatted = typeof points === 'number' ? points.toLocaleString(locale) : '';
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
-    inputRef.current?.select();
+    ref.current?.select();
     onKeyDown(event);
   };
 
   useEffect(() => {
-    if (autoFocus && inputRef.current) {
-      inputRef.current.focus();
+    if (autoFocus && ref.current) {
+      ref.current.focus();
     }
-  }, [autoFocus, inputRef]);
+  }, [autoFocus, ref]);
 
   return (
     <TilePure

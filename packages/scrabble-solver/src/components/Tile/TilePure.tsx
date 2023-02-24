@@ -6,7 +6,7 @@ import {
   FunctionComponent,
   KeyboardEventHandler,
   memo,
-  RefObject,
+  Ref,
 } from 'react';
 
 import { ExclamationSquareFill } from 'icons';
@@ -22,7 +22,7 @@ interface Props {
   className?: string;
   disabled?: boolean;
   highlighted?: boolean;
-  inputRef: RefObject<HTMLInputElement>;
+  inputRef: Ref<HTMLInputElement>;
   isBlank?: boolean;
   isValid?: boolean;
   placeholder?: string;
