@@ -9,4 +9,8 @@
   @include focus-effect;
 
   --background-color: var(--color--background);
+
+  &:focus-within {
+    z-index: 1;
+  }
 }

@@ -12,6 +12,7 @@ import {
 } from 'react';
 
 import { getTileSizes, noop } from 'lib';
+import { EASE_OUT_CUBIC, TILE_APPEAR_DURATION, TILE_APPEAR_KEYFRAMES } from 'parameters';
 import { selectLocale, useTypedSelector } from 'state';
 
 import TilePure from './TilePure';
@@ -23,7 +24,7 @@ interface Props {
   className?: string;
   disabled?: boolean;
   highlighted?: boolean;
-  inputRef?: RefObject<HTMLInputElement | null>;
+  inputRef?: RefObject<HTMLInputElement>;
   isBlank?: boolean;
   isValid?: boolean;
   placeholder?: string;
@@ -43,7 +44,7 @@ const Tile: FunctionComponent<Props> = ({
   character = '',
   disabled,
   highlighted,
-  inputRef: ref,
+  inputRef,
   isBlank,
   isValid,
   placeholder,
@@ -77,6 +78,18 @@ const Tile: FunctionComponent<Props> = ({
     }
   }, [autoFocus, ref]);
 
+  useEffect(() => {
+    if (!ref.current?.parentElement || !character) {
+      return;
+    }
+
+    ref.current.parentElement.animate(TILE_APPEAR_KEYFRAMES, {
+      duration: TILE_APPEAR_DURATION,
+      easing: EASE_OUT_CUBIC,
+      fill: 'forwards',
+    });
+  }, [character]);
+
   return (
     <TilePure
       aria-label={ariaLabel}
@@ -87,7 +100,7 @@ const Tile: FunctionComponent<Props> = ({
       className={className}
       disabled={disabled}
       highlighted={highlighted}
-      inputRef={inputRef}
+      inputRef={mergedRef}
       isBlank={isBlank}
       isValid={isValid}
       placeholder={placeholder}
