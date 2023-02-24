@@ -4,6 +4,7 @@
   --background-color: transparent;
 
   position: relative;
+  display: flex;
   transition: var(--transition);
 
   &.points1 {
@@ -26,6 +27,7 @@
   &.blank {
     --background-color: white;
 
+    .placeholder,
     .character {
       color: black;
     }
@@ -36,6 +38,7 @@
 
     color: white;
 
+    .placeholder,
     .character {
       color: inherit;
     }
@@ -59,7 +62,8 @@
 }
 
 .input,
-.character {
+.character,
+.placeholder {
   padding: 0;
   font-weight: bold;
   text-transform: uppercase;
@@ -77,7 +81,8 @@
   font-size: 16px; // prevent iOS from automatically zooming in on focus
 }
 
-.character {
+.character,
+.placeholder {
   position: absolute;
   top: 0;
   right: 0;
@@ -101,6 +106,14 @@
     @include media('<xs') {
       box-shadow: inset -2px -2px 1px -1px rgba(34, 34, 34, 0.8);
     }
+  }
+}
+
+.character {
+  opacity: 1;
+
+  .empty & {
+    opacity: 0;
   }
 }
 

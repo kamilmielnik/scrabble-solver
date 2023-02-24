@@ -93,8 +93,14 @@ const TilePure: FunctionComponent<Props> = ({
       onKeyDown={onKeyDown}
     />
 
+    {placeholder && (
+      <div className={styles.placeholder} style={characterStyle} tabIndex={-1}>
+        {placeholder}
+      </div>
+    )}
+
     <div className={styles.character} style={characterStyle} tabIndex={-1}>
-      {character || placeholder}
+      {character}
     </div>
 
     {canShowPoints && (
