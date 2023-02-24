@@ -97,6 +97,10 @@
 
   .raised & {
     box-shadow: inset -2px -2px 2px -1px rgba(34, 34, 34, 0.8);
+
+    @include media('<xs') {
+      box-shadow: inset -2px -2px 1px -1px rgba(34, 34, 34, 0.8);
+    }
   }
 }
 
