@@ -18,9 +18,10 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --box-shadow--error: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) var(--color--error);
 
   --color--background: #f4f4f4;
-  --color--background--secondary: #111;
+  --color--background--element: hsl(0deg, 0%, 99%);
   --color--background--overlay: rgba(255, 255, 255, 0.65);
   --color--error: hsl(0deg, 92%, 62%);
+  --color--error--opposite: #f2f2f2;
   --color--success: #00a900;
   --color--info: var(--color--dark-blue);
   --color--warning: hsl(35deg, 90%, 60%);

@@ -48,12 +48,6 @@
     }
   }
 
-  &.invalid {
-    --background-color: var(--color--red--light);
-
-    color: var(--color--error);
-  }
-
   &:not(.disabled) {
     .input::selection {
       --background--color: transparent;
@@ -147,6 +141,8 @@
   position: absolute;
   width: $size;
   height: $size;
+  background-color: var(--color--error--opposite);
+  color: var(--color--error);
 
   [dir='ltr'] & {
     top: 0;
