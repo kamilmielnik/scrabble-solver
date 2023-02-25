@@ -75,22 +75,24 @@ const TilePure: FunctionComponent<Props> = ({
     })}
     style={style}
   >
-    <input
-      aria-label={ariaLabel}
-      autoCapitalize="none"
-      autoComplete="off"
-      autoCorrect="off"
-      autoFocus={autoFocus}
-      className={styles.input}
-      disabled={disabled}
-      ref={inputRef}
-      spellCheck={false}
-      tabIndex={tabIndex}
-      value={character || ''}
-      onChange={onChange}
-      onFocus={onFocus}
-      onKeyDown={onKeyDown}
-    />
+    <div className={styles.inputContainer}>
+      <input
+        aria-label={ariaLabel}
+        autoCapitalize="none"
+        autoComplete="off"
+        autoCorrect="off"
+        autoFocus={autoFocus}
+        className={styles.input}
+        disabled={disabled}
+        ref={inputRef}
+        spellCheck={false}
+        tabIndex={tabIndex}
+        value={character || ''}
+        onChange={onChange}
+        onFocus={onFocus}
+        onKeyDown={onKeyDown}
+      />
+    </div>
 
     {placeholder && (
       <div className={styles.placeholder} style={characterStyle} tabIndex={-1}>
