@@ -19,6 +19,11 @@ const boardSlice = createSlice({
       return newBoard;
     },
 
+    change: (_state, action: PayloadAction<Board>) => {
+      const board = action.payload;
+      return board;
+    },
+
     changeCellValue: (state, action: PayloadAction<{ value: string; x: number; y: number }>) => {
       const newBoard = state.clone();
       const { value, x, y } = action.payload;
@@ -30,11 +35,6 @@ const boardSlice = createSlice({
       });
 
       return newBoard;
-    },
-
-    change: (_state, action: PayloadAction<Board>) => {
-      const board = action.payload;
-      return board;
     },
 
     init: (_state, action: PayloadAction<Board>) => {
