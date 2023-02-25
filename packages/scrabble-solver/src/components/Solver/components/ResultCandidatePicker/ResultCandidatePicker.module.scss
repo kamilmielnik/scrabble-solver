@@ -13,6 +13,14 @@
   flex: 0 0 auto;
   display: flex;
   border-radius: var(--border--radius);
+
+  &.bothEnabled {
+    box-shadow: var(--box-shadow);
+
+    .button {
+      box-shadow: none;
+    }
+  }
 }
 
 .button {

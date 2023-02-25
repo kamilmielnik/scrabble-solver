@@ -34,6 +34,7 @@ const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onResultCl
   const disabled = isOutdated || !resultCandidate;
   const isPreviousDisabled = index <= 0 || disabled;
   const isNextDisabled = index >= results.length - 1 || disabled;
+  const bothEnabled = !isPreviousDisabled && !isNextDisabled;
 
   const handleNextClick = () => {
     if (!isNextDisabled) {
@@ -51,7 +52,7 @@ const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onResultCl
 
   return (
     <div className={classNames(styles.resultCandidatePicker, className)} {...props}>
-      <div className={styles.buttons}>
+      <div className={classNames(styles.buttons, { [styles.bothEnabled]: bothEnabled })}>
         <Button
           aria-label={translate('common.previous')}
           className={styles.button}
