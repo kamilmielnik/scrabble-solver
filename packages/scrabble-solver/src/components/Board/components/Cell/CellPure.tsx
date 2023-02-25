@@ -10,7 +10,7 @@ import {
   RefObject,
 } from 'react';
 
-import { ArrowDown, Flag, Star } from 'icons';
+import { ArrowDown, Flag, Square, SquareFill, Star } from 'icons';
 import { Translate } from 'types';
 
 import Tile from '../../../Tile';
@@ -134,13 +134,10 @@ const CellPure: FunctionComponent<Props> = ({
         {!isEmpty && (
           <Button
             aria-label={tile.isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
-            className={classNames(styles.blank, {
-              [styles.active]: tile.isBlank,
-            })}
             tooltip={tile.isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
             onClick={onToggleBlankClick}
           >
-            B
+            {tile.isBlank ? <SquareFill /> : <Square />}
           </Button>
         )}
       </div>

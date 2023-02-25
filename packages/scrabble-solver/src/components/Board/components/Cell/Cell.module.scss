@@ -229,14 +229,6 @@ $icon-size: 16px;
   }
 }
 
-.blank {
-  user-select: none;
-
-  &.active {
-    font-weight: bold;
-  }
-}
-
 .filterCell {
   color: var(--color--inactive);
 

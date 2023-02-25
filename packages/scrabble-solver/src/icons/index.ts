@@ -34,4 +34,6 @@ export { default as Sack } from './Sack.svg';
 export { default as Search } from './Search.svg';
 export { default as SortDown } from './SortDown.svg';
 export { default as SortUp } from './SortUp.svg';
+export { default as Square } from './Square.svg';
+export { default as SquareFill } from './SquareFill.svg';
 export { default as Star } from './Star.svg';
