@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
 
+import { SeoMessage } from 'components';
 import { createAppStore } from 'state';
 
 import 'styles/global.scss';
@@ -10,10 +11,16 @@ import 'styles/global.scss';
 const DESCRIPTION =
   // eslint-disable-next-line max-len
   'Scrabble Solver 2 - Free and open-source analysis tool for Scrabble and Literaki. Quickly find top scoring words using given letters and board state. Available in English, French, German, Polish & Spanish.';
+
 const KEYWORDS = [
+  'Scrabble Solver',
   'Scrabble',
   'Solver',
+  'Board',
   'Open-source',
+  'Open',
+  'Source',
+  'Word',
   'Finder',
   'Cheating',
   'Literaki',
@@ -22,6 +29,7 @@ const KEYWORDS = [
   'Français',
   'Deutsch',
   'Polski',
+  'فارسی',
   'Español',
   'SOWPODS',
   'TWL06',
@@ -55,11 +63,7 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
     </Head>
 
     <Provider store={store}>
-      <p style={{ fontSize: 0 }}>
-        Scrabble Solver 2 is a free and open-source analysis tool for Scrabble and Literaki. Quickly find top scoring
-        words using given letters and board state. Available in English, French, German, Polish & Spanish. Source code
-        is available on GitHub - contributions are welcome!
-      </p>
+      <SeoMessage />
       <Component {...pageProps} />
     </Provider>
   </>
