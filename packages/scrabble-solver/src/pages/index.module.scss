@@ -6,8 +6,7 @@
   height: 100%;
   opacity: 0;
   overflow: auto;
-  transition: var(--transition);
-  transition-duration: var(--transition--duration--long);
+  transition: var(--transition--long);
 
   &.initialized {
     opacity: 1;

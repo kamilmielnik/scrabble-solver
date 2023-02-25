@@ -10,9 +10,9 @@ $arrow-size: 4px;
   padding: var(--spacing--s) var(--spacing--m);
   box-shadow: var(--box-shadow);
   border-radius: var(--border--radius);
-  background-color: var(--tooltip--background);
-  color: var(--tooltip--foreground);
-  z-index: 200;
+  background-color: var(--color--tooltip--background);
+  color: var(--color--tooltip--foreground);
+  z-index: var(--z-index--tooltip);
 
   &.top {
     .arrow {
@@ -21,7 +21,7 @@ $arrow-size: 4px;
       &::after {
         left: 0;
         bottom: 0;
-        border-top-color: var(--tooltip--background);
+        border-top-color: var(--color--tooltip--background);
         border-bottom: none;
       }
     }
@@ -34,7 +34,7 @@ $arrow-size: 4px;
       &::after {
         left: 0;
         top: 0;
-        border-right-color: var(--tooltip--background);
+        border-right-color: var(--color--tooltip--background);
         border-left: none;
       }
     }
@@ -47,7 +47,7 @@ $arrow-size: 4px;
       &::after {
         top: 0;
         left: 0;
-        border-bottom-color: var(--tooltip--background);
+        border-bottom-color: var(--color--tooltip--background);
         border-top: none;
       }
     }
@@ -60,7 +60,7 @@ $arrow-size: 4px;
       &::after {
         right: 0;
         top: 0;
-        border-left-color: var(--tooltip--background);
+        border-left-color: var(--color--tooltip--background);
         border-right: none;
       }
     }

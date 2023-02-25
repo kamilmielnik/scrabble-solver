@@ -16,6 +16,8 @@ $media-expressions: (
  * It does not work when applied on input elements.
  */
 @mixin focus-effect {
+  --focus-effect--size: 6px;
+
   position: relative;
 
   &::after {
@@ -28,7 +30,7 @@ $media-expressions: (
     z-index: 1;
     transition: var(--transition);
     border-radius: var(--border--radius);
-    box-shadow: 0 0 0 var(--box-shadow--focus--spread) transparent;
+    box-shadow: 0 0 0 var(--focus-effect--size) transparent;
     pointer-events: none;
   }
 
@@ -39,7 +41,7 @@ $media-expressions: (
     }
 
     &::after {
-      box-shadow: 0 0 0 var(--box-shadow--focus--spread) var(--color--focus);
+      box-shadow: 0 0 0 var(--focus-effect--size) var(--color--focus);
     }
   }
 }

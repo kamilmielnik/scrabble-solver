@@ -1,17 +1,8 @@
 @import 'styles/mixins';
 
 .option {
-  margin-bottom: var(--spacing--m);
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  &:hover,
-  &.checked {
-    .flag {
-      box-shadow: var(--box-shadow);
-    }
+  & + & {
+    margin-top: var(--spacing--m);
   }
 }
 
@@ -19,10 +10,10 @@
   display: flex;
   align-items: center;
   gap: var(--spacing--l);
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font--family), sans-serif;
 
   &.fa {
-    font-family: 'Vazirmatn', 'Open Sans', sans-serif;
+    font-family: var(--font--family--arabic), var(--font--family), sans-serif;
   }
 }
 
@@ -30,8 +21,13 @@
   $height: 32px;
 
   height: $height;
-  box-shadow: var(--box-shadow--null);
   transition: var(--transition);
+
+  &.de {
+    $aspect-ratio: 1.6;
+
+    width: $height * $aspect-ratio;
+  }
 
   &.es {
     $aspect-ratio: 1.5;
@@ -39,14 +35,14 @@
     width: $height * $aspect-ratio;
   }
 
-  &.fr {
-    $aspect-ratio: 1.6;
+  &.fa {
+    $aspect-ratio: 1.75;
 
     width: $height * $aspect-ratio;
   }
 
-  &.fa {
-    $aspect-ratio: 1.75;
+  &.fr {
+    $aspect-ratio: 1.6;
 
     width: $height * $aspect-ratio;
   }
@@ -65,12 +61,6 @@
 
   &.us {
     $aspect-ratio: 1.9;
-
-    width: $height * $aspect-ratio;
-  }
-
-  &.de {
-    $aspect-ratio: 1.6;
 
     width: $height * $aspect-ratio;
   }

@@ -1,25 +1,26 @@
 $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
 
 :root {
+  --border: var(--border--width) solid var(--border--color);
   --border--color: #cdcdcd;
   --border--color--light: #d9d9d9;
   --border--radius: 5px;
   --border--width: 1px;
-  --border: var(--border--width) solid var(--border--color);
 
-  --box-shadow--blur: 10px;
-  --box-shadow--spread: 1px;
-  --box-shadow--offset: 1px;
-  --box-shadow--offset--negative: calc(-1 * var(--box-shadow--offset));
-  --box-shadow--color: #{rgba(#000, 0.15)};
   --box-shadow: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) var(--box-shadow--color);
-  --box-shadow--focus--spread: 6px;
+  --box-shadow--blur: 10px;
+  --box-shadow--color: rgba(0, 0, 0, 0.1);
+  --box-shadow--spread: 1px;
   --box-shadow--null: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) transparent;
   --box-shadow--error: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) var(--color--error);
+
+  --box-shadow--blur: calc(2 * var(--box-shadow--spread));
+  --box-shadow--spread: 5px;
 
   --color--background: #f4f4f4;
   --color--background--element: hsl(0deg, 0%, 99%);
   --color--background--overlay: rgba(255, 255, 255, 0.65);
+
   --color--error: hsl(0deg, 92%, 62%);
   --color--error--opposite: #f2f2f2;
   --color--success: #00a900;
@@ -30,6 +31,8 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --color--foreground--secondary: #444;
   --color--inactive: #cdcdcd;
   --color--primary: var(--color--violet);
+  --color--tooltip--background: #222;
+  --color--tooltip--foreground: hsl(0deg, 0%, 99%);
 
   --color--yellow: #efe3ae;
   --color--yellow--light: #f7f1d6;
@@ -49,8 +52,9 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --color--pink: #f19393;
 
   --font--family: 'Open Sans', sans-serif;
-  --font--family--title: 'Lato', sans-serif;
+  --font--family--arabic: 'Vazirmatn', sans-serif;
   --font--family--monospace: 'Roboto Mono', monospace;
+  --font--family--title: 'Lato', sans-serif;
   --font--size--h1: 30px;
   --font--size--h2: 22px;
   --font--size--h3: 18px;
@@ -71,9 +75,11 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --transition--duration--long: 250ms;
   --transition--easing: #{$easeOutSine};
   --transition: all var(--transition--duration) var(--transition--easing);
+  --transition--long: all var(--transition--duration--long) var(--transition--easing);
 
   --z-index--modal: 100;
   --z-index--close-button: 101;
+  --z-index--tooltip: 102;
 
   --dictionary--height: 260px;
   --modal--width: 370px;
@@ -81,6 +87,4 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --square-button--size: 32px;
   --button--icon--size: 24px;
   --text-input--height: 40px;
-  --tooltip--background: #222;
-  --tooltip--foreground: #fff;
 }
