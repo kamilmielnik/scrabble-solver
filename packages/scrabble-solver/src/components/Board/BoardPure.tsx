@@ -10,8 +10,6 @@ import {
   RefObject,
 } from 'react';
 
-import { Direction } from 'types';
-
 import styles from './Board.module.scss';
 import { Cell } from './components';
 
@@ -19,12 +17,10 @@ interface Props {
   className?: string;
   cellSize: number;
   center: CellModel;
-  direction: Direction;
   innerRef?: Ref<HTMLDivElement>;
   refs: RefObject<HTMLInputElement>[][];
   rows: CellModel[][];
   onChange: ChangeEventHandler<HTMLInputElement>;
-  onDirectionToggle: () => void;
   onFocus: (x: number, y: number) => void;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
   onPaste: ClipboardEventHandler<HTMLInputElement>;
@@ -34,12 +30,10 @@ const BoardPure: FunctionComponent<Props> = ({
   className,
   cellSize,
   center,
-  direction,
   innerRef,
   refs,
   rows,
   onChange,
-  onDirectionToggle,
   onFocus,
   onKeyDown,
   onPaste,
@@ -51,7 +45,6 @@ const BoardPure: FunctionComponent<Props> = ({
           <Cell
             className={styles.cell}
             cell={cell}
-            direction={direction}
             inputRef={refs[y][x]}
             isBottom={y === rows.length - 1}
             isCenter={center.x === x && center.y === y}
@@ -59,7 +52,6 @@ const BoardPure: FunctionComponent<Props> = ({
             key={x}
             size={cellSize}
             onChange={onChange}
-            onDirectionToggle={onDirectionToggle}
             onFocus={onFocus}
           />
         ))}
