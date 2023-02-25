@@ -1,4 +1,4 @@
 module.exports = {
-  presets: ['@babel/preset-env'],
+  presets: ['@next/babel'],
   plugins: ['@babel/plugin-proposal-class-properties'],
 };
