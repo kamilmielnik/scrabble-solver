@@ -76,6 +76,10 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     }
   }, []);
 
+  if (!isClient) {
+    return null;
+  }
+
   return (
     <>
       <SvgFontFix />
@@ -100,14 +104,12 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           </div>
         </div>
 
-        {isClient && (
-          <Solver
-            className={styles.solver}
-            height={solverHeight}
-            width={solverWidth}
-            onShowResults={() => setShowResults(true)}
-          />
-        )}
+        <Solver
+          className={styles.solver}
+          height={solverHeight}
+          width={solverWidth}
+          onShowResults={() => setShowResults(true)}
+        />
       </div>
 
       <MenuModal
