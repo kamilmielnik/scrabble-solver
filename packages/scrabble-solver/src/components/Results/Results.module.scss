@@ -45,7 +45,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   &:focus,
   &:hover {
     background-color: var(--color--primary);
-    color: white;
+    color: var(--color--primary--opposite);
   }
 }
 
@@ -73,7 +73,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   &.highlighted {
     &:not(:disabled) {
       background-color: var(--color--primary);
-      color: white;
+      color: var(--color--primary--opposite);
     }
   }
 }

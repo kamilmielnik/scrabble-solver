@@ -9,30 +9,28 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
 
   --box-shadow: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) var(--box-shadow--color);
   --box-shadow--blur: 10px;
-  --box-shadow--color: rgba(0, 0, 0, 0.1);
+  --box-shadow--color: rgba(0, 0, 0, 0.15);
   --box-shadow--spread: 1px;
   --box-shadow--null: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) transparent;
   --box-shadow--error: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) var(--color--error);
 
-  --box-shadow--blur: calc(2 * var(--box-shadow--spread));
-  --box-shadow--spread: 5px;
-
+  --color--white: #ffffff;
+  --color--focus: #{rgba(#268fff, 0.5)};
+  --color--inactive: #cdcdcd;
   --color--background: #f4f4f4;
   --color--background--element: hsl(0deg, 0%, 99%);
   --color--background--overlay: rgba(255, 255, 255, 0.65);
-
-  --color--error: hsl(0deg, 92%, 62%);
-  --color--error--opposite: #f2f2f2;
-  --color--success: #00a900;
-  --color--info: var(--color--dark-blue);
-  --color--warning: hsl(35deg, 90%, 60%);
-  --color--focus: #{rgba(#268fff, 0.5)};
   --color--foreground: #222;
   --color--foreground--secondary: #444;
-  --color--inactive: #cdcdcd;
+  --color--error: hsl(0deg, 92%, 62%);
+  --color--error--opposite: #f2f2f2;
+  --color--info: var(--color--dark-blue);
+  --color--success: #00a900;
+  --color--warning: hsl(35deg, 90%, 60%);
   --color--primary: var(--color--violet);
+  --color--primary--opposite: var(--color--white);
   --color--tooltip--background: #222;
-  --color--tooltip--foreground: hsl(0deg, 0%, 99%);
+  --color--tooltip--foreground: var(--color--white);
 
   --color--yellow: #efe3ae;
   --color--yellow--light: #f7f1d6;

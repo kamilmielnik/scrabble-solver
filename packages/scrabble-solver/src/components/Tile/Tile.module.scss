@@ -25,18 +25,18 @@
   }
 
   &.blank {
-    --background-color: white;
+    --background-color: var(--color--white);
 
     .placeholder,
     .character {
-      color: black;
+      color: var(--color--foreground);
     }
   }
 
   &.highlighted {
     --background-color: var(--color--primary);
 
-    color: white;
+    color: var(--color--primary--opposite);
 
     .placeholder,
     .character {

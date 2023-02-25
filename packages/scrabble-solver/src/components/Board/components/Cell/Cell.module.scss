@@ -7,7 +7,7 @@ $icon-size: 16px;
 
   position: relative;
   display: table-cell;
-  background-color: white;
+  background-color: var(--color--white);
   border-bottom: var(--border--width) dotted var(--border--color--light);
   transition: var(--transition);
   background-clip: padding-box;
@@ -112,7 +112,7 @@ $icon-size: 16px;
     pointer-events: none;
     font-size: 60%;
     font-weight: bold;
-    color: white;
+    color: var(--color--white);
     content: ' ';
 
     [lang='fa-IR'] & {
@@ -162,7 +162,7 @@ $icon-size: 16px;
   user-select: none;
   pointer-events: none;
   box-sizing: content-box;
-  background-color: white;
+  background-color: var(--color--white);
   border: var(--border);
   font-size: var(--font--size--m);
   line-height: $icon-size;
@@ -262,7 +262,7 @@ $icon-size: 16px;
 
 .flag,
 .star {
-  color: white;
+  color: var(--color--white);
 }
 
 .star {
