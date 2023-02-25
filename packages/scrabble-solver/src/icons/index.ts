@@ -19,6 +19,7 @@ export { default as Eraser } from './Eraser.svg';
 export { default as ExclamationSquareFill } from './ExclamationSquareFill.svg';
 export { default as ExclamationTriangleFill } from './ExclamationTriangleFill.svg';
 export { default as Flag } from './Flag.svg';
+export { default as FlagFill } from './FlagFill.svg';
 export { default as FlagEs } from './FlagEs.svg';
 export { default as FlagFa } from './FlagFa.svg';
 export { default as FlagFr } from './FlagFr.svg';

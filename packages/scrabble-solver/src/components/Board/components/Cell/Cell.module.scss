@@ -1,7 +1,5 @@
 @import 'styles/mixins';
 
-$icon-size: 16px;
-
 .cell {
   @include focus-effect;
 
@@ -135,9 +133,15 @@ $icon-size: 16px;
 }
 
 .actions {
+  --offset: var(--spacing--m);
+
+  @include media('<xs') {
+    --offset: var(--spacing--s);
+  }
+
   display: none;
   position: absolute;
-  top: -$icon-size;
+  bottom: calc(100% - var(--offset));
   z-index: 2;
   transition: var(--transition);
   pointer-events: none;
@@ -145,30 +149,17 @@ $icon-size: 16px;
   border-radius: var(--border--radius);
 
   [dir='ltr'] & {
-    left: calc(100% + var(--spacing--s) - #{$icon-size});
+    left: calc(100% - var(--offset));
   }
 
   [dir='rtl'] & {
-    right: calc(100% + var(--spacing--s) - #{$icon-size});
+    right: calc(100% - var(--offset));
   }
 }
 
 .action {
-  @include button-reset;
-
-  display: flex;
-  justify-content: center;
-  padding: var(--spacing--s);
-  user-select: none;
-  pointer-events: none;
-  box-sizing: content-box;
-  background-color: var(--color--white);
-  border: var(--border);
-  font-size: var(--font--size--m);
-  line-height: $icon-size;
-  color: var(--color--foreground--secondary);
-  transition: var(--transition);
-  cursor: pointer;
+  padding: var(--spacing--m);
+  box-shadow: none !important;
 
   & + & {
     [dir='ltr'] & {
@@ -182,33 +173,26 @@ $icon-size: 16px;
 
   [dir='ltr'] & {
     &:first-child {
-      border-top-left-radius: var(--border--radius);
-      border-bottom-left-radius: var(--border--radius);
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
     }
 
     &:last-child {
-      border-top-right-radius: var(--border--radius);
-      border-bottom-right-radius: var(--border--radius);
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
     }
   }
 
   [dir='rtl'] & {
     &:first-child {
-      border-top-right-radius: var(--border--radius);
-      border-bottom-right-radius: var(--border--radius);
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
     }
 
     &:last-child {
-      border-top-left-radius: var(--border--radius);
-      border-bottom-left-radius: var(--border--radius);
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
     }
-  }
-
-  &,
-  .filterCell,
-  .toggleDirection {
-    width: $icon-size;
-    height: $icon-size;
   }
 
   &:active,
@@ -226,14 +210,6 @@ $icon-size: 16px;
     [dir='rtl'] & {
       transform: rotate(90deg);
     }
-  }
-}
-
-.filterCell {
-  color: var(--color--inactive);
-
-  &.filtered {
-    color: var(--color--foreground--secondary);
   }
 }
 

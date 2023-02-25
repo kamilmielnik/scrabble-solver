@@ -10,12 +10,12 @@ import {
   RefObject,
 } from 'react';
 
-import { ArrowDown, Flag, Square, SquareFill, Star } from 'icons';
+import { ArrowDown, Flag, FlagFill, Square, SquareFill, Star } from 'icons';
 import { Translate } from 'types';
 
+import Button from '../../../Button';
 import Tile from '../../../Tile';
 
-import Button from './Button';
 import styles from './Cell.module.scss';
 import { getBonusClassname } from './lib';
 
@@ -84,7 +84,7 @@ const CellPure: FunctionComponent<Props> = ({
 
     {isFiltered && (
       <div className={classNames(styles.iconContainer, styles.flagContainer)}>
-        <Flag className={styles.flag} />
+        <FlagFill className={styles.flag} />
       </div>
     )}
 
@@ -108,37 +108,33 @@ const CellPure: FunctionComponent<Props> = ({
       <div className={styles.actions}>
         <Button
           aria-label={translate('cell.toggle-direction')}
+          className={styles.action}
+          Icon={ArrowDown}
+          iconClassName={classNames(styles.toggleDirection, {
+            [styles.right]: direction === 'horizontal',
+          })}
           tooltip={translate('cell.toggle-direction')}
           onClick={onDirectionToggleClick}
-        >
-          <ArrowDown
-            className={classNames(styles.toggleDirection, {
-              [styles.right]: direction === 'horizontal',
-            })}
-          />
-        </Button>
+        />
 
         {isEmpty && (
           <Button
             aria-label={translate('cell.filter-cell')}
-            className={classNames(styles.filterCell, {
-              [styles.filtered]: isFiltered,
-            })}
+            className={classNames(styles.action)}
+            Icon={isFiltered ? Flag : FlagFill}
             tooltip={translate('cell.filter-cell')}
             onClick={onToggleFilterCellClick}
-          >
-            <Flag />
-          </Button>
+          />
         )}
 
         {!isEmpty && (
           <Button
             aria-label={tile.isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
+            className={styles.action}
+            Icon={tile.isBlank ? SquareFill : Square}
             tooltip={tile.isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
             onClick={onToggleBlankClick}
-          >
-            {tile.isBlank ? <SquareFill /> : <Square />}
-          </Button>
+          />
         )}
       </div>
     )}
