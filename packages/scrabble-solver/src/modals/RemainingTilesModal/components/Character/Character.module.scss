@@ -5,7 +5,7 @@
   transition: var(--transition);
 
   &.finished {
-    opacity: 0.2;
+    opacity: var(--opacity--disabled);
   }
 
   &.overused {

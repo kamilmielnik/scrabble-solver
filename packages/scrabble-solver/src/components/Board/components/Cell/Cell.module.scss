@@ -36,57 +36,57 @@ $icon-size: 16px;
 
   &.bonusStart {
     &::before {
-      background-color: var(--color--violet--light);
+      background-color: var(--color--bonus--start);
     }
   }
 
   &.bonusCharacter1 {
     &::before {
-      background-color: var(--color--yellow--light);
+      background-color: var(--color--bonus--character--1);
     }
   }
 
   &.bonusCharacter2 {
     &::before {
-      background-color: var(--color--green--light);
+      background-color: var(--color--bonus--character--2);
     }
   }
 
   &.bonusCharacter3 {
     &::before {
-      background-color: var(--color--blue--light);
+      background-color: var(--color--bonus--character--3);
     }
   }
 
   &.bonusCharacter5 {
     &::before {
-      background-color: var(--color--red--light);
+      background-color: var(--color--bonus--character--5);
     }
   }
 
   &.bonusCharacterMultiplier2 {
     &::before {
-      background-color: var(--color--light-blue--light);
+      background-color: var(--color--bonus--character-multiplier--2);
     }
   }
 
   &.bonusCharacterMultiplier3 {
     &::before {
-      background-color: var(--color--dark-blue--light);
+      background-color: var(--color--bonus--character-multiplier--3);
     }
   }
 
   &.bonusWord2 {
     &::before {
       content: 'x2';
-      background-color: var(--color--orange);
+      background-color: var(--color--bonus--word-multiplier--2);
     }
   }
 
   &.bonusWord3 {
     &::before {
       content: 'x3';
-      background-color: var(--color--pink);
+      background-color: var(--color--bonus--word-multiplier--3);
     }
   }
 
