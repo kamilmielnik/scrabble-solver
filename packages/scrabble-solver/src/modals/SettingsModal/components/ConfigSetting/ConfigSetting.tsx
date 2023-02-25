@@ -22,12 +22,11 @@ const ConfigSetting: FunctionComponent<Props> = ({ className, disabled }) => {
 
   return (
     <div className={className}>
-      {options.map((option, index) => (
+      {options.map((option) => (
         <Radio
           checked={configId === option.value}
           className={styles.option}
           disabled={disabled}
-          id={`configId-${index}`}
           key={option.value}
           name="configId"
           value={option.value}

@@ -25,14 +25,13 @@ const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
 
   return (
     <div className={className}>
-      {options.map(({ Icon, ...option }, index) => (
+      {options.map(({ Icon, ...option }) => (
         <Radio
           checked={locale === option.value}
           className={classNames(styles.option, className, {
             [styles.checked]: locale === option.value,
           })}
           disabled={disabled}
-          id={`locale-${index}`}
           key={option.value}
           name="locale"
           value={option.value}

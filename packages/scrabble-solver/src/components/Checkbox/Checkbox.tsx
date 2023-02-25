@@ -10,23 +10,20 @@ interface Props {
   children?: ReactNode;
   className?: string;
   disabled?: boolean;
-  id: string;
   name: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-const Checkbox: FunctionComponent<Props> = ({ checked, children, className, disabled, id, name, onChange }) => (
+const Checkbox: FunctionComponent<Props> = ({ checked, children, className, disabled, name, onChange }) => (
   <label
     className={classNames(styles.checkbox, className, {
       [styles.checked]: checked,
     })}
-    htmlFor={id}
   >
     <input
       checked={checked}
       className={styles.input}
       disabled={disabled}
-      id={id}
       name={name}
       type="checkbox"
       onChange={onChange}
