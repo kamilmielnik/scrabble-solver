@@ -95,6 +95,13 @@
     }
   }
 
+  &.filtered {
+    &::before {
+      content: ' ';
+      background-color: var(--color--foreground--secondary);
+    }
+  }
+
   &::before {
     $size: 80%;
 
@@ -123,36 +130,14 @@
   }
 }
 
-.iconContainer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.flagContainer {
-  background-color: var(--color--primary);
-}
-
-.flag,
-.star {
-  color: var(--color--white);
-}
-
-.star {
+.icon {
   $size: 40%;
 
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: $size;
   height: $size;
-}
-
-.flag {
-  $size: 50%;
-
-  width: $size;
-  height: $size;
+  transform: translate(-50%, -50%);
+  color: var(--color--white);
 }

@@ -52,21 +52,14 @@ const CellPure: FunctionComponent<Props> = ({
     className={classNames(styles.cell, className, getBonusClassname(cell, bonus, isCenter), {
       [styles.bottom]: isBottom,
       [styles.candidate]: cell.isCandidate(),
+      [styles.filtered]: isFiltered,
       [styles.right]: isRight,
     })}
     style={style}
   >
-    {isCenter && isEmpty && (
-      <div className={classNames(styles.iconContainer)}>
-        <Star className={styles.star} />
-      </div>
-    )}
+    {isCenter && isEmpty && !isFiltered && <Star className={styles.icon} />}
 
-    {isFiltered && (
-      <div className={classNames(styles.iconContainer, styles.flagContainer)}>
-        <FlagFill className={styles.flag} />
-      </div>
-    )}
+    {isFiltered && <FlagFill className={styles.icon} />}
 
     <Tile
       aria-label={ariaLabel}
