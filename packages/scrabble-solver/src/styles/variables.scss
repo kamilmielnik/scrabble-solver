@@ -54,6 +54,7 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --color--tooltip--foreground: var(--color--white);
 
   --font--family: 'Open Sans', sans-serif;
+  --font--family--latin: 'Open Sans', sans-serif;
   --font--family--arabic: 'Vazirmatn', sans-serif;
   --font--family--monospace: 'Roboto Mono', monospace;
   --font--family--title: 'Lato', sans-serif;
@@ -79,6 +80,8 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --transition--duration--long: 250ms;
   --transition--easing: #{$easeOutSine};
 
+  --z-index--focus-effect: 1;
+  --z-index--actions: 2;
   --z-index--modal: 100;
   --z-index--close-button: 101;
   --z-index--tooltip: 102;

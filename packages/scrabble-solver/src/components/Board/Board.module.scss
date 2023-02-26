@@ -10,15 +10,7 @@
 
 .actions {
   position: absolute;
-  z-index: 1;
+  z-index: var(--z-index--actions);
   width: max-content;
   height: max-content;
-
-  [dir='ltr'] & {
-    transform: translateX(100%);
-  }
-
-  [dir='rtl'] & {
-    transform: translateX(-100%);
-  }
 }
