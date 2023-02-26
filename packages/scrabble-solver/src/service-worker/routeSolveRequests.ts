@@ -23,7 +23,10 @@ const isSlowDevice = (): boolean | undefined => {
   }
 
   const count = Math.min(localDurations.length, serverDurations.length);
-  return average(localDurations.slice(0, count)) > average(serverDurations.slice(0, count));
+  const local = localDurations.slice(0, count).sort().slice(1, -1);
+  const server = serverDurations.slice(0, count).sort().slice(1, -1);
+
+  return average(local) > average(server);
 };
 
 const routeSolveRequests = () => {
