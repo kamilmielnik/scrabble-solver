@@ -78,7 +78,7 @@ export const RESULTS_INPUT_HEIGHT = 40;
 export const TILE_APPEAR_DURATION = 200;
 
 export const TILE_APPEAR_KEYFRAMES = [
-  { transform: 'translateY(0)', zIndex: 2 },
-  { transform: 'translateY(10%)', offset: 0.5, zIndex: 2 },
-  { transform: 'translateY(0)', zIndex: 1 },
+  { transform: 'translateY(0)' },
+  { transform: 'translateY(10%)', offset: 0.5 },
+  { transform: 'translateY(0)' },
 ];
