@@ -3,14 +3,12 @@ import classNames from 'classnames';
 import {
   ChangeEventHandler,
   ClipboardEventHandler,
+  FocusEventHandler,
   FunctionComponent,
   KeyboardEventHandler,
   memo,
-  Ref,
   RefObject,
 } from 'react';
-
-import { Direction } from 'types';
 
 import styles from './Board.module.scss';
 import { Cell } from './components';
@@ -19,12 +17,10 @@ interface Props {
   className?: string;
   cellSize: number;
   center: CellModel;
-  direction: Direction;
-  innerRef?: Ref<HTMLDivElement>;
-  refs: RefObject<HTMLInputElement>[][];
+  inputRefs: RefObject<HTMLInputElement>[][];
   rows: CellModel[][];
+  onBlur: FocusEventHandler;
   onChange: ChangeEventHandler<HTMLInputElement>;
-  onDirectionToggle: () => void;
   onFocus: (x: number, y: number) => void;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
   onPaste: ClipboardEventHandler<HTMLInputElement>;
@@ -34,32 +30,28 @@ const BoardPure: FunctionComponent<Props> = ({
   className,
   cellSize,
   center,
-  direction,
-  innerRef,
-  refs,
+  inputRefs,
   rows,
+  onBlur,
   onChange,
-  onDirectionToggle,
   onFocus,
   onKeyDown,
   onPaste,
 }) => (
-  <div className={classNames(styles.board, className)} ref={innerRef} onKeyDown={onKeyDown} onPaste={onPaste}>
+  <div className={classNames(styles.board, className)} onBlur={onBlur} onKeyDown={onKeyDown} onPaste={onPaste}>
     {rows.map((cells, y) => (
       <div className={styles.row} key={y}>
         {cells.map((cell, x) => (
           <Cell
             className={styles.cell}
             cell={cell}
-            direction={direction}
-            inputRef={refs[y][x]}
+            inputRef={inputRefs[y][x]}
             isBottom={y === rows.length - 1}
             isCenter={center.x === x && center.y === y}
             isRight={x === cells.length - 1}
             key={x}
             size={cellSize}
             onChange={onChange}
-            onDirectionToggle={onDirectionToggle}
             onFocus={onFocus}
           />
         ))}

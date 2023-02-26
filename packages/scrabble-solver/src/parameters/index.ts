@@ -7,6 +7,7 @@ export const BREAKPOINTS = {
 };
 
 export const EASE_OUT_CUBIC = 'cubic-bezier(0.33, 1, 0.68, 1)'; // https://easings.net/#easeOutCubic
+export const TRANSITION = 'var(--transition)';
 
 export const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';
 
@@ -23,6 +24,7 @@ export const COLOR_YELLOW = '#efe3ae';
 export const COMPONENTS_SPACING = 40;
 export const COMPONENTS_SPACING_SMALL = 20;
 
+export const BOARD_CELL_ACTIONS_OFFSET = 3;
 export const BOARD_CELL_BORDER_WIDTH = 1;
 export const BOARD_TILE_FONT_SIZE_MIN = 14;
 export const BOARD_TILE_FONT_SIZE_POINTS_MIN = 10;
@@ -78,7 +80,7 @@ export const RESULTS_INPUT_HEIGHT = 40;
 export const TILE_APPEAR_DURATION = 200;
 
 export const TILE_APPEAR_KEYFRAMES = [
-  { transform: 'translateY(0)', zIndex: 2 },
-  { transform: 'translateY(10%)', offset: 0.5, zIndex: 2 },
-  { transform: 'translateY(0)', zIndex: 1 },
+  { transform: 'translateY(0)' },
+  { transform: 'translateY(10%)', offset: 0.5 },
+  { transform: 'translateY(0)' },
 ];

@@ -11,6 +11,7 @@ import {
   useRef,
 } from 'react';
 
+import { useMediaQuery } from 'hooks';
 import { getTileSizes, noop } from 'lib';
 import { EASE_OUT_CUBIC, TILE_APPEAR_DURATION, TILE_APPEAR_KEYFRAMES } from 'parameters';
 import { selectLocale, useTypedSelector } from 'state';
@@ -64,7 +65,8 @@ const Tile: FunctionComponent<Props> = ({
   const ref = useRef<HTMLInputElement>(null);
   const mergedRef = inputRef ? mergeRefs(ref, inputRef) : ref;
   const isEmpty = !character || character === EMPTY_CELL;
-  const canShowPoints = (isBlank || !isEmpty) && typeof points !== 'undefined';
+  const isLessThanXs = useMediaQuery('<xs');
+  const canShowPoints = (isBlank || !isEmpty) && typeof points !== 'undefined' && !isLessThanXs;
   const pointsFormatted = typeof points === 'number' ? points.toLocaleString(locale) : '';
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {

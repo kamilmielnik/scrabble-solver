@@ -1,19 +1,9 @@
 import { Bonus, Cell, Tile as TileModel } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import {
-  ChangeEventHandler,
-  CSSProperties,
-  FocusEventHandler,
-  FunctionComponent,
-  memo,
-  MouseEventHandler,
-  RefObject,
-} from 'react';
+import { ChangeEventHandler, CSSProperties, FocusEventHandler, FunctionComponent, memo, RefObject } from 'react';
 
-import { ArrowDown, Flag, FlagFill, Square, SquareFill, Star } from 'icons';
-import { Translate } from 'types';
+import { FlagFill, Star } from 'icons';
 
-import Button from '../../../Button';
 import Tile from '../../../Tile';
 
 import styles from './Cell.module.scss';
@@ -24,7 +14,6 @@ interface Props {
   bonus: Bonus | undefined;
   cell: Cell;
   className?: string;
-  direction: 'horizontal' | 'vertical';
   inputRef: RefObject<HTMLInputElement>;
   isBottom: boolean;
   isCenter: boolean;
@@ -36,12 +25,8 @@ interface Props {
   size: number;
   style?: CSSProperties;
   tile: TileModel;
-  translate: Translate;
   onChange: ChangeEventHandler<HTMLInputElement>;
-  onDirectionToggleClick: MouseEventHandler<HTMLButtonElement>;
   onFocus: FocusEventHandler<HTMLInputElement>;
-  onToggleBlankClick: MouseEventHandler<HTMLButtonElement>;
-  onToggleFilterCellClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 const CellPure: FunctionComponent<Props> = ({
@@ -49,7 +34,6 @@ const CellPure: FunctionComponent<Props> = ({
   bonus,
   cell,
   className,
-  direction,
   inputRef,
   isBottom,
   isCenter,
@@ -61,32 +45,20 @@ const CellPure: FunctionComponent<Props> = ({
   size,
   style,
   tile,
-  translate,
   onChange,
-  onDirectionToggleClick,
   onFocus,
-  onToggleBlankClick,
-  onToggleFilterCellClick,
 }) => (
   <div
     className={classNames(styles.cell, className, getBonusClassname(cell, bonus, isCenter), {
       [styles.bottom]: isBottom,
-      [styles.candidate]: cell.isCandidate(),
+      [styles.filtered]: isFiltered,
       [styles.right]: isRight,
     })}
     style={style}
   >
-    {isCenter && isEmpty && (
-      <div className={classNames(styles.iconContainer)}>
-        <Star className={styles.star} />
-      </div>
-    )}
+    {isCenter && isEmpty && !isFiltered && <Star className={styles.icon} />}
 
-    {isFiltered && (
-      <div className={classNames(styles.iconContainer, styles.flagContainer)}>
-        <FlagFill className={styles.flag} />
-      </div>
-    )}
+    {isFiltered && <FlagFill className={styles.icon} />}
 
     <Tile
       aria-label={ariaLabel}
@@ -103,41 +75,6 @@ const CellPure: FunctionComponent<Props> = ({
       onChange={onChange}
       onFocus={onFocus}
     />
-
-    {!cell.isCandidate() && (
-      <div className={styles.actions}>
-        <Button
-          aria-label={translate('cell.toggle-direction')}
-          className={styles.action}
-          Icon={ArrowDown}
-          iconClassName={classNames(styles.toggleDirection, {
-            [styles.right]: direction === 'horizontal',
-          })}
-          tooltip={translate('cell.toggle-direction')}
-          onClick={onDirectionToggleClick}
-        />
-
-        {isEmpty && (
-          <Button
-            aria-label={translate('cell.filter-cell')}
-            className={classNames(styles.action)}
-            Icon={isFiltered ? Flag : FlagFill}
-            tooltip={translate('cell.filter-cell')}
-            onClick={onToggleFilterCellClick}
-          />
-        )}
-
-        {!isEmpty && (
-          <Button
-            aria-label={tile.isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
-            className={styles.action}
-            Icon={tile.isBlank ? SquareFill : Square}
-            tooltip={tile.isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
-            onClick={onToggleBlankClick}
-          />
-        )}
-      </div>
-    )}
   </div>
 );
 

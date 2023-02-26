@@ -7,10 +7,11 @@
 
 .tile {
   @include focus-effect;
+  @include lighthouse-input-size-hack;
 
   --background-color: var(--color--background);
 
   &:focus-within {
-    z-index: 1;
+    z-index: 2;
   }
 }

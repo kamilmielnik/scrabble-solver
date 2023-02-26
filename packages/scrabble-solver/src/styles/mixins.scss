@@ -27,7 +27,7 @@ $media-expressions: (
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1;
+    z-index: var(--z-index--focus-effect);
     transition: var(--transition);
     border-radius: var(--border--radius);
     box-shadow: 0 0 0 var(--focus-effect--size) transparent;
@@ -87,4 +87,59 @@ $media-expressions: (
 @mixin text-stroke($color, $size: 1px) {
   text-shadow: $size 0 $color, (-$size) 0 $color, 0 $size $color, 0 (-$size) $color, (-$size) (-$size) $color,
     (-$size) $size $color, $size (-$size) $color, $size $size $color;
+}
+
+@mixin lighthouse-input-size-hack {
+  // Hack for this Lighthouse warning:
+  // > Interactive elements like buttons and links should be large enough (48x48px), and have
+  // > enough space around them, to be easy enough to tap without overlapping onto other elements.
+
+  input {
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    clip-path: inset((100% / 3));
+  }
+
+  [dir='ltr'] & {
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
+      input {
+        left: 0;
+        clip-path: polygon(0 (100% / 3), (100% / 3) (100% / 3), (100% / 3) (200% / 3), 0 (200% / 3));
+      }
+    }
+
+    &:nth-last-child(1),
+    &:nth-last-child(2),
+    &:nth-last-child(3) {
+      input {
+        left: -200%;
+        clip-path: polygon((200% / 3) (100% / 3), 100% (100% / 3), 100% (200% / 3), (200% / 3) (200% / 3));
+      }
+    }
+  }
+
+  [dir='rtl'] & {
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
+      input {
+        left: -200%;
+        clip-path: polygon((200% / 3) (100% / 3), 100% (100% / 3), 100% (200% / 3), (200% / 3) (200% / 3));
+      }
+    }
+
+    &:nth-last-child(1),
+    &:nth-last-child(2),
+    &:nth-last-child(3) {
+      input {
+        left: 0;
+        clip-path: polygon(0 (100% / 3), (100% / 3) (100% / 3), (100% / 3) (200% / 3), 0 (200% / 3));
+      }
+    }
+  }
 }

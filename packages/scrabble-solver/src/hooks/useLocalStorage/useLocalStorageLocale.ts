@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce } from 'react-use';
 
@@ -8,6 +8,7 @@ import { localStorage, selectLocale, settingsSlice, useTypedSelector } from 'sta
 const useLocalStorageLocale = (): void => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffectOnce(() => {
     const persistedLocale = localStorage.getLocale();
@@ -17,13 +18,15 @@ const useLocalStorageLocale = (): void => {
     } else {
       dispatch(settingsSlice.actions.init({ locale: detectLocale() }));
     }
+
+    setIsLoaded(true);
   });
 
   useEffect(() => {
-    if (locale) {
+    if (locale && isLoaded) {
       localStorage.setLocale(locale);
     }
-  }, [locale]);
+  }, [locale, isLoaded]);
 };
 
 export default useLocalStorageLocale;

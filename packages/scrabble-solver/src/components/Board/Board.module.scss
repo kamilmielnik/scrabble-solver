@@ -1,3 +1,5 @@
+@import 'styles/animations';
+
 .board {
   display: table;
   box-shadow: var(--box-shadow);
@@ -6,4 +8,16 @@
 
 .row {
   display: table-row;
+}
+
+.actions {
+  position: absolute;
+  z-index: var(--z-index--actions);
+  width: max-content;
+  height: max-content;
+  animation: var(--transition--duration) var(--transition--easing) hide;
+
+  &.shown {
+    animation: var(--transition--duration) var(--transition--easing) show;
+  }
 }

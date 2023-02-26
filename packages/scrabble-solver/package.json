@@ -28,6 +28,7 @@
     "start": "env-cmd next start -p 3333"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.19.2",
     "@kamilmielnik/trie": "^2.0.1",
     "@popperjs/core": "^2.11.6",
     "@reduxjs/toolkit": "^1.9.3",

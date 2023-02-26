@@ -2,16 +2,15 @@
 import { BLANK, EMPTY_CELL } from '@scrabble-solver/constants';
 import { Board, Cell } from '@scrabble-solver/types';
 import {
+  ChangeEvent,
+  ChangeEventHandler,
+  ClipboardEventHandler,
   createRef,
   KeyboardEventHandler,
   RefObject,
   useCallback,
   useMemo,
   useState,
-  useRef,
-  ChangeEventHandler,
-  ChangeEvent,
-  ClipboardEventHandler,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLatest } from 'react-use';
@@ -28,8 +27,9 @@ import { Point } from '../types';
 const toggleDirection = (direction: Direction) => (direction === 'vertical' ? 'horizontal' : 'vertical');
 
 interface State {
+  activeIndex: Point;
   direction: Direction;
-  refs: RefObject<HTMLInputElement>[][];
+  inputRefs: RefObject<HTMLInputElement>[][];
 }
 
 interface Actions {
@@ -46,29 +46,29 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
-  const refs = useMemo(
+  const inputRefs = useMemo(
     () => createGridOf<RefObject<HTMLInputElement>>(width, height, () => createRef()),
     [width, height],
   );
-  const activeIndexRef = useRef<Point>({ x: 0, y: 0 });
+  const [activeIndex, setActiveIndex] = useState<Point>({ x: 0, y: 0 });
   const [direction, setLastDirection] = useState<Direction>('horizontal');
   const directionRef = useLatest(direction);
 
   const changeActiveIndex = useCallback(
     (offsetX: number, offsetY: number) => {
-      const x = Math.min(Math.max(activeIndexRef.current.x + offsetX, 0), width - 1);
-      const y = Math.min(Math.max(activeIndexRef.current.y + offsetY, 0), height - 1);
-      activeIndexRef.current = { x, y };
-      refs[y][x].current?.focus();
+      const x = Math.min(Math.max(activeIndex.x + offsetX, 0), width - 1);
+      const y = Math.min(Math.max(activeIndex.y + offsetY, 0), height - 1);
+      setActiveIndex({ x, y });
+      inputRefs[y][x].current?.focus();
     },
-    [activeIndexRef, refs],
+    [activeIndex, inputRefs],
   );
 
   const getInputRefPosition = useCallback(
     (inputRef: HTMLInputElement): Point | undefined => {
-      return getPositionInGrid(refs, (ref) => ref.current === inputRef);
+      return getPositionInGrid(inputRefs, (ref) => ref.current === inputRef);
     },
-    [refs],
+    [inputRefs],
   );
 
   const moveFocus = useCallback(
@@ -217,7 +217,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   const onDirectionToggle = useCallback(() => setLastDirection(toggleDirection), []);
 
   const onFocus = useCallback((x: number, y: number) => {
-    activeIndexRef.current = { x, y };
+    setActiveIndex({ x, y });
   }, []);
 
   const onKeyDown = useMemo(() => {
@@ -356,7 +356,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   );
 
   return [
-    { direction, refs },
+    { activeIndex, direction, inputRefs },
     { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
   ];
 };

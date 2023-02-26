@@ -54,16 +54,6 @@
   }
 }
 
-.inputContainer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  overflow: hidden;
-}
-
 .input,
 .character,
 .placeholder {
@@ -82,22 +72,6 @@
   color: transparent;
   border: none;
   font-size: 16px; // prevent iOS from automatically zooming in on focus
-
-  // Hack for this Lighthouse warning:
-  // > Interactive elements like buttons and links should be large enough (48x48px), and have
-  // > enough space around them, to be easy enough to tap without overlapping onto other elements.
-  //
-  // .inputContainer exists only for the purpose of this hack
-  $min-tile-width: 20px;
-  $min-lighthouse-size: 48px;
-
-  position: absolute;
-  top: calc((100% - $min-lighthouse-size) / 2);
-  right: calc((100% - $min-lighthouse-size) / 2);
-  bottom: calc((100% - $min-lighthouse-size) / 2);
-  left: calc((100% - $min-lighthouse-size) / 2);
-  width: $min-lighthouse-size;
-  height: $min-lighthouse-size;
 }
 
 .character,
