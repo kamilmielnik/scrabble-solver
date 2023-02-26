@@ -25,6 +25,9 @@ const Actions = forwardRef<HTMLDivElement, Props>(
     const isBlank = cell.tile.isBlank;
     const isEmpty = cell.tile.character === EMPTY_CELL;
 
+    // On iOS it helps with losing focus too early which makes Actions disappear
+    const handleMouseDown: MouseEventHandler = (event) => event.preventDefault();
+
     return (
       <div className={classNames(styles.actions, className)} ref={ref} {...props}>
         <Button
@@ -37,6 +40,7 @@ const Actions = forwardRef<HTMLDivElement, Props>(
           tabIndex={disabled ? -1 : undefined}
           tooltip={translate('cell.toggle-direction')}
           onClick={onDirectionToggle}
+          onMouseDown={handleMouseDown}
         />
 
         {isEmpty && (
@@ -47,6 +51,7 @@ const Actions = forwardRef<HTMLDivElement, Props>(
             tabIndex={disabled ? -1 : undefined}
             tooltip={translate('cell.filter-cell')}
             onClick={onToggleFilterCell}
+            onMouseDown={handleMouseDown}
           />
         )}
 
@@ -58,6 +63,7 @@ const Actions = forwardRef<HTMLDivElement, Props>(
             tabIndex={disabled ? -1 : undefined}
             tooltip={isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
             onClick={onToggleBlank}
+            onMouseDown={handleMouseDown}
           />
         )}
       </div>
