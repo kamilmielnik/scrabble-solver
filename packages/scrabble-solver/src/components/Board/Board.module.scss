@@ -9,9 +9,16 @@
 }
 
 .actions {
-  position: fixed;
+  position: absolute;
+  z-index: 1;
   width: max-content;
   height: max-content;
-  transform: translateX(100%);
-  transition: var(--transition);
+
+  [dir='ltr'] & {
+    transform: translateX(100%);
+  }
+
+  [dir='rtl'] & {
+    transform: translateX(-100%);
+  }
 }

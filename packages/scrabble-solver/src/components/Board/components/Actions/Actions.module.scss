@@ -1,27 +1,10 @@
 @import 'styles/mixins';
 
 .actions {
-  --offset: var(--spacing--m);
-
-  @include media('<xs') {
-    --offset: var(--spacing--s);
-  }
-
-  position: absolute;
-  bottom: calc(100% - var(--offset));
-  z-index: 2;
   display: flex;
   box-shadow: var(--box-shadow);
   border-radius: var(--border--radius);
   transition: var(--transition);
-
-  [dir='ltr'] & {
-    left: calc(100% - var(--offset));
-  }
-
-  [dir='rtl'] & {
-    right: calc(100% - var(--offset));
-  }
 }
 
 .action {
