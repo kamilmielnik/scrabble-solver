@@ -18,7 +18,7 @@ interface Props {
   cellSize: number;
   center: CellModel;
   innerRef?: Ref<HTMLDivElement>;
-  refs: RefObject<HTMLInputElement>[][];
+  inputRefs: RefObject<HTMLInputElement>[][];
   rows: CellModel[][];
   onChange: ChangeEventHandler<HTMLInputElement>;
   onFocus: (x: number, y: number) => void;
@@ -31,7 +31,7 @@ const BoardPure: FunctionComponent<Props> = ({
   cellSize,
   center,
   innerRef,
-  refs,
+  inputRefs,
   rows,
   onChange,
   onFocus,
@@ -45,7 +45,7 @@ const BoardPure: FunctionComponent<Props> = ({
           <Cell
             className={styles.cell}
             cell={cell}
-            inputRef={refs[y][x]}
+            inputRef={inputRefs[y][x]}
             isBottom={y === rows.length - 1}
             isCenter={center.x === x && center.y === y}
             isRight={x === cells.length - 1}

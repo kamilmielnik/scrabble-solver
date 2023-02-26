@@ -7,3 +7,11 @@
 .row {
   display: table-row;
 }
+
+.actions {
+  position: fixed;
+  width: max-content;
+  height: max-content;
+  transform: translateX(100%);
+  transition: var(--transition);
+}

@@ -1,17 +1,11 @@
-import { EMPTY_CELL } from '@scrabble-solver/constants';
+import { autoUpdate, useFloating } from '@floating-ui/react';
 import { FunctionComponent, Ref } from 'react';
 import { useDispatch } from 'react-redux';
+import { useEffectOnce } from 'react-use';
 
-import {
-  boardSlice,
-  cellFilterSlice,
-  selectBoard,
-  selectCellIsFiltered,
-  selectRowsWithCandidate,
-  useTranslate,
-  useTypedSelector,
-} from 'state';
+import { boardSlice, cellFilterSlice, selectBoard, selectRowsWithCandidate, useTypedSelector } from 'state';
 
+import styles from './Board.module.scss';
 import BoardPure from './BoardPure';
 import { Actions } from './components';
 import { useGrid } from './hooks';
@@ -24,19 +18,22 @@ interface Props {
 
 const Board: FunctionComponent<Props> = ({ cellSize, className, innerRef }) => {
   const dispatch = useDispatch();
-  const translate = useTranslate();
   const rows = useTypedSelector(selectRowsWithCandidate);
   const board = useTypedSelector(selectBoard);
-  const [{ activeIndex, direction, refs }, { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste }] =
+  const [{ activeIndex, direction, inputRefs }, { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste }] =
     useGrid(rows);
-  const inputRef = refs[activeIndex.y][activeIndex.x];
+  const inputRef = inputRefs[activeIndex.y][activeIndex.x];
   const cell = rows[activeIndex.y][activeIndex.x];
-  const isFiltered = useTypedSelector((state) => selectCellIsFiltered(state, cell));
-  const isEmpty = cell.tile.character === EMPTY_CELL;
 
   const handleDirectionToggle = () => {
     inputRef.current?.focus();
     onDirectionToggle();
+  };
+
+  const handleFocus: typeof onFocus = (x, y) => {
+    const newInputRef = inputRefs[y][x];
+    refs.setReference(newInputRef.current?.parentElement || null);
+    onFocus(x, y);
   };
 
   const handleToggleBlank = () => {
@@ -49,6 +46,15 @@ const Board: FunctionComponent<Props> = ({ cellSize, className, innerRef }) => {
     dispatch(cellFilterSlice.actions.toggle(cell));
   };
 
+  const { x, y, strategy, refs } = useFloating({
+    placement: 'top-end',
+    whileElementsMounted: autoUpdate,
+  });
+
+  useEffectOnce(() => {
+    refs.setReference(inputRef.current);
+  });
+
   return (
     <>
       <BoardPure
@@ -56,20 +62,24 @@ const Board: FunctionComponent<Props> = ({ cellSize, className, innerRef }) => {
         cellSize={cellSize}
         center={board.center}
         innerRef={innerRef}
-        refs={refs}
+        inputRefs={inputRefs}
         rows={rows}
         onChange={onChange}
-        onFocus={onFocus}
+        onFocus={handleFocus}
         onKeyDown={onKeyDown}
         onPaste={onPaste}
       />
 
       <Actions
+        cell={cell}
+        className={styles.actions}
         direction={direction}
-        isBlank={cell.tile.isBlank}
-        isEmpty={isEmpty}
-        isFiltered={isFiltered}
-        translate={translate}
+        ref={refs.setFloating}
+        style={{
+          position: strategy,
+          top: y ?? 0,
+          left: x ?? 0,
+        }}
         onDirectionToggle={handleDirectionToggle}
         onToggleBlank={handleToggleBlank}
         onToggleFilterCell={handleToggleFilterCell}

@@ -29,7 +29,7 @@ const toggleDirection = (direction: Direction) => (direction === 'vertical' ? 'h
 interface State {
   activeIndex: Point;
   direction: Direction;
-  refs: RefObject<HTMLInputElement>[][];
+  inputRefs: RefObject<HTMLInputElement>[][];
 }
 
 interface Actions {
@@ -46,7 +46,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
-  const refs = useMemo(
+  const inputRefs = useMemo(
     () => createGridOf<RefObject<HTMLInputElement>>(width, height, () => createRef()),
     [width, height],
   );
@@ -59,16 +59,16 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       const x = Math.min(Math.max(activeIndex.x + offsetX, 0), width - 1);
       const y = Math.min(Math.max(activeIndex.y + offsetY, 0), height - 1);
       setActiveIndex({ x, y });
-      refs[y][x].current?.focus();
+      inputRefs[y][x].current?.focus();
     },
-    [activeIndex, refs],
+    [activeIndex, inputRefs],
   );
 
   const getInputRefPosition = useCallback(
     (inputRef: HTMLInputElement): Point | undefined => {
-      return getPositionInGrid(refs, (ref) => ref.current === inputRef);
+      return getPositionInGrid(inputRefs, (ref) => ref.current === inputRef);
     },
-    [refs],
+    [inputRefs],
   );
 
   const moveFocus = useCallback(
@@ -356,7 +356,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   );
 
   return [
-    { activeIndex, direction, refs },
+    { activeIndex, direction, inputRefs },
     { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
   ];
 };
