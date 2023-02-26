@@ -43,7 +43,7 @@
     "include-media": "^2.0.0",
     "include-media-query-builder": "^1.1.0",
     "merge-refs": "^1.1.2",
-    "next": "^13.1.6",
+    "next": "^13.2.1",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
