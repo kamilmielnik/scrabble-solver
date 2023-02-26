@@ -15,8 +15,8 @@
 
 .modal {
   position: fixed;
+  bottom: 0;
   z-index: var(--z-index--modal);
-  height: 100vh;
   width: var(--modal--width);
   padding: 0;
   border-radius: 0;
@@ -69,6 +69,7 @@
   background-color: var(--color--background);
   transition: var(--transition--long);
   transform: translateX(var(--modal--width));
+  overflow: hidden;
   opacity: 0;
 
   [dir='ltr'] & {
@@ -113,6 +114,7 @@
 .content {
   position: relative;
   flex: 1;
+  min-height: 0;
   margin-top: calc(-1 * var(--spacing--l));
   padding: var(--spacing--l);
   overflow: auto;
