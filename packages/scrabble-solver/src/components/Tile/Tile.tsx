@@ -1,11 +1,11 @@
+import { useMergeRefs } from '@floating-ui/react';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import mergeRefs from 'merge-refs';
 import {
   ChangeEventHandler,
   FocusEventHandler,
   FunctionComponent,
   KeyboardEventHandler,
-  RefObject,
+  Ref,
   useEffect,
   useMemo,
   useRef,
@@ -25,7 +25,7 @@ interface Props {
   className?: string;
   disabled?: boolean;
   highlighted?: boolean;
-  inputRef?: RefObject<HTMLInputElement>;
+  inputRef?: Ref<HTMLInputElement>;
   isBlank?: boolean;
   isValid?: boolean;
   placeholder?: string;
@@ -63,7 +63,7 @@ const Tile: FunctionComponent<Props> = ({
   const characterStyle = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
   const pointsStyle = useMemo(() => ({ fontSize: pointsFontSize }), [pointsFontSize]);
   const ref = useRef<HTMLInputElement>(null);
-  const mergedRef = inputRef ? mergeRefs(ref, inputRef) : ref;
+  const mergedRef = useMergeRefs(inputRef ? [ref, inputRef] : [ref]);
   const isEmpty = !character || character === EMPTY_CELL;
   const isLessThanXs = useMediaQuery('<xs');
   const canShowPoints = (isBlank || !isEmpty) && typeof points !== 'undefined' && !isLessThanXs;
