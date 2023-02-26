@@ -51,7 +51,6 @@ const CellPure: FunctionComponent<Props> = ({
   <div
     className={classNames(styles.cell, className, getBonusClassname(cell, bonus, isCenter), {
       [styles.bottom]: isBottom,
-      [styles.candidate]: cell.isCandidate(),
       [styles.filtered]: isFiltered,
       [styles.right]: isRight,
     })}

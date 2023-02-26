@@ -88,13 +88,6 @@
     }
   }
 
-  &.candidate {
-    &::before {
-      content: ' ';
-      background-color: var(--color--primary);
-    }
-  }
-
   &.filtered {
     &::before {
       content: ' ';
