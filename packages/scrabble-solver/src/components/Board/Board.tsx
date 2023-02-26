@@ -1,9 +1,10 @@
 import { autoUpdate, FloatingPortal, offset, shift, useFloating, useMergeRefs } from '@floating-ui/react';
-import { FunctionComponent, Ref } from 'react';
+import classNames from 'classnames';
+import { CSSProperties, FocusEventHandler, FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useEffectOnce, useMeasure } from 'react-use';
+import { useMeasure } from 'react-use';
 
-import { BOARD_CELL_ACTIONS_OFFSET } from 'parameters';
+import { BOARD_CELL_ACTIONS_OFFSET, TRANSITION } from 'parameters';
 import { boardSlice, cellFilterSlice, selectBoard, selectRowsWithCandidate, useTypedSelector } from 'state';
 
 import styles from './Board.module.scss';
@@ -14,10 +15,9 @@ import { useGrid } from './hooks';
 interface Props {
   cellSize: number;
   className?: string;
-  innerRef?: Ref<HTMLDivElement>;
 }
 
-const Board: FunctionComponent<Props> = ({ cellSize, className, innerRef }) => {
+const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
   const dispatch = useDispatch();
   const rows = useTypedSelector(selectRowsWithCandidate);
   const board = useTypedSelector(selectBoard);
@@ -26,27 +26,8 @@ const Board: FunctionComponent<Props> = ({ cellSize, className, innerRef }) => {
     useGrid(rows);
   const inputRef = inputRefs[activeIndex.y][activeIndex.x];
   const cell = rows[activeIndex.y][activeIndex.x];
-
-  const handleDirectionToggle = () => {
-    inputRef.current?.focus();
-    onDirectionToggle();
-  };
-
-  const handleFocus: typeof onFocus = (x, y) => {
-    const newInputRef = inputRefs[y][x];
-    refs.setReference(newInputRef.current?.parentElement || null);
-    onFocus(x, y);
-  };
-
-  const handleToggleBlank = () => {
-    inputRef.current?.focus();
-    dispatch(boardSlice.actions.toggleCellIsBlank(cell));
-  };
-
-  const handleToggleFilterCell = () => {
-    inputRef.current?.focus();
-    dispatch(cellFilterSlice.actions.toggle(cell));
-  };
+  const [showActions, setShowActions] = useState(false);
+  const [transition, setTransition] = useState<CSSProperties['transition']>(TRANSITION);
 
   const { x, y, strategy, refs } = useFloating({
     middleware: [
@@ -62,9 +43,51 @@ const Board: FunctionComponent<Props> = ({ cellSize, className, innerRef }) => {
 
   const actionsRef = useMergeRefs([actionsMeasureRef, refs.setFloating]);
 
-  useEffectOnce(() => {
-    refs.setReference(inputRef.current);
-  });
+  const handleBlur: FocusEventHandler = (event) => {
+    const eventComesFromActions = refs.floating.current?.contains(event.relatedTarget);
+    const eventComesFromBoard = event.currentTarget.contains(event.relatedTarget);
+    const isLocalEvent = eventComesFromActions || eventComesFromBoard;
+
+    if (!isLocalEvent) {
+      setShowActions(false);
+    }
+  };
+
+  const handleDirectionToggle = () => {
+    inputRef.current?.focus();
+    onDirectionToggle();
+  };
+
+  const handleFocus: typeof onFocus = (newX, newY) => {
+    const isFirstFocus = !showActions;
+    const originalTransition = refs.floating.current?.style.transition || '';
+    const newInputRef = inputRefs[newY][newX].current;
+    const newTileElement = newInputRef?.parentElement || null;
+
+    if (isFirstFocus) {
+      setTransition('none');
+    }
+
+    refs.setReference(newTileElement);
+    onFocus(newX, newY);
+    setShowActions(true);
+
+    if (isFirstFocus) {
+      setTimeout(() => {
+        setTransition(originalTransition);
+      }, 0);
+    }
+  };
+
+  const handleToggleBlank = () => {
+    inputRef.current?.focus();
+    dispatch(boardSlice.actions.toggleCellIsBlank(cell));
+  };
+
+  const handleToggleFilterCell = () => {
+    inputRef.current?.focus();
+    dispatch(cellFilterSlice.actions.toggle(cell));
+  };
 
   return (
     <>
@@ -72,11 +95,10 @@ const Board: FunctionComponent<Props> = ({ cellSize, className, innerRef }) => {
         className={className}
         cellSize={cellSize}
         center={board.center}
-        innerRef={innerRef}
         inputRefs={inputRefs}
         rows={rows}
+        onBlur={handleBlur}
         onChange={onChange}
-        // TODO: onBlur on container
         onFocus={handleFocus}
         onKeyDown={onKeyDown}
         onPaste={onPaste}
@@ -85,14 +107,20 @@ const Board: FunctionComponent<Props> = ({ cellSize, className, innerRef }) => {
       <FloatingPortal>
         <Actions
           cell={cell}
-          className={styles.actions}
+          className={classNames(styles.actions, {
+            [styles.shown]: showActions,
+          })}
+          disabled={!showActions}
           direction={direction}
-          // ref={actionsRef}
           ref={actionsRef}
           style={{
             position: strategy,
             top: y ?? 0,
             left: x ?? 0,
+            transition,
+            opacity: showActions ? 1 : 0,
+            pointerEvents: showActions ? 'auto' : 'none',
+            userSelect: showActions ? 'auto' : 'none',
             visibility: x === null || y === null ? 'hidden' : 'visible',
           }}
           onDirectionToggle={handleDirectionToggle}

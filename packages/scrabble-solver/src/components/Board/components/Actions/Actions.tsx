@@ -19,7 +19,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
 }
 
 const Actions = forwardRef<HTMLDivElement, Props>(
-  ({ cell, className, direction, onDirectionToggle, onToggleBlank, onToggleFilterCell, ...props }, ref) => {
+  ({ cell, className, direction, disabled, onDirectionToggle, onToggleBlank, onToggleFilterCell, ...props }, ref) => {
     const translate = useTranslate();
     const isFiltered = useTypedSelector((state) => selectCellIsFiltered(state, cell));
     const isBlank = cell.tile.isBlank;
@@ -34,6 +34,7 @@ const Actions = forwardRef<HTMLDivElement, Props>(
           iconClassName={classNames(styles.toggleDirection, {
             [styles.right]: direction === 'horizontal',
           })}
+          tabIndex={disabled ? -1 : undefined}
           tooltip={translate('cell.toggle-direction')}
           onClick={onDirectionToggle}
         />
@@ -43,6 +44,7 @@ const Actions = forwardRef<HTMLDivElement, Props>(
             aria-label={translate('cell.filter-cell')}
             className={classNames(styles.action)}
             Icon={isFiltered ? Flag : FlagFill}
+            tabIndex={disabled ? -1 : undefined}
             tooltip={translate('cell.filter-cell')}
             onClick={onToggleFilterCell}
           />
@@ -53,6 +55,7 @@ const Actions = forwardRef<HTMLDivElement, Props>(
             aria-label={isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
             className={styles.action}
             Icon={isBlank ? SquareFill : Square}
+            tabIndex={disabled ? -1 : undefined}
             tooltip={isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
             onClick={onToggleBlank}
           />

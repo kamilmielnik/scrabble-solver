@@ -8,6 +8,16 @@
   }
 }
 
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 @keyframes progress {
   0% {
     clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);

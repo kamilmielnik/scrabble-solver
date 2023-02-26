@@ -3,10 +3,10 @@ import classNames from 'classnames';
 import {
   ChangeEventHandler,
   ClipboardEventHandler,
+  FocusEventHandler,
   FunctionComponent,
   KeyboardEventHandler,
   memo,
-  Ref,
   RefObject,
 } from 'react';
 
@@ -17,9 +17,9 @@ interface Props {
   className?: string;
   cellSize: number;
   center: CellModel;
-  innerRef?: Ref<HTMLDivElement>;
   inputRefs: RefObject<HTMLInputElement>[][];
   rows: CellModel[][];
+  onBlur: FocusEventHandler;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onFocus: (x: number, y: number) => void;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
@@ -30,15 +30,15 @@ const BoardPure: FunctionComponent<Props> = ({
   className,
   cellSize,
   center,
-  innerRef,
   inputRefs,
   rows,
+  onBlur,
   onChange,
   onFocus,
   onKeyDown,
   onPaste,
 }) => (
-  <div className={classNames(styles.board, className)} ref={innerRef} onKeyDown={onKeyDown} onPaste={onPaste}>
+  <div className={classNames(styles.board, className)} onBlur={onBlur} onKeyDown={onKeyDown} onPaste={onPaste}>
     {rows.map((cells, y) => (
       <div className={styles.row} key={y}>
         {cells.map((cell, x) => (

@@ -7,6 +7,7 @@ export const BREAKPOINTS = {
 };
 
 export const EASE_OUT_CUBIC = 'cubic-bezier(0.33, 1, 0.68, 1)'; // https://easings.net/#easeOutCubic
+export const TRANSITION = 'var(--transition)';
 
 export const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';
 
