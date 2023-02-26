@@ -103,21 +103,43 @@ $media-expressions: (
     clip-path: inset((100% / 3));
   }
 
-  &:nth-child(1),
-  &:nth-child(2),
-  &:nth-child(3) {
-    input {
-      left: 0;
-      clip-path: polygon(0 (100% / 3), (100% / 3) (100% / 3), (100% / 3) (200% / 3), 0 (200% / 3));
+  [dir='ltr'] & {
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
+      input {
+        left: 0;
+        clip-path: polygon(0 (100% / 3), (100% / 3) (100% / 3), (100% / 3) (200% / 3), 0 (200% / 3));
+      }
+    }
+
+    &:nth-last-child(1),
+    &:nth-last-child(2),
+    &:nth-last-child(3) {
+      input {
+        left: -200%;
+        clip-path: polygon((200% / 3) (100% / 3), 100% (100% / 3), 100% (200% / 3), (200% / 3) (200% / 3));
+      }
     }
   }
 
-  &:nth-last-child(1),
-  &:nth-last-child(2),
-  &:nth-last-child(3) {
-    input {
-      left: -200%;
-      clip-path: polygon((200% / 3) (100% / 3), 100% (100% / 3), 100% (200% / 3), (200% / 3) (200% / 3));
+  [dir='rtl'] & {
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
+      input {
+        left: -200%;
+        clip-path: polygon((200% / 3) (100% / 3), 100% (100% / 3), 100% (200% / 3), (200% / 3) (200% / 3));
+      }
+    }
+
+    &:nth-last-child(1),
+    &:nth-last-child(2),
+    &:nth-last-child(3) {
+      input {
+        left: 0;
+        clip-path: polygon(0 (100% / 3), (100% / 3) (100% / 3), (100% / 3) (200% / 3), 0 (200% / 3));
+      }
     }
   }
 }
