@@ -81,7 +81,7 @@ const Tile: FunctionComponent<Props> = ({
   }, [autoFocus, ref]);
 
   useEffect(() => {
-    if (!ref.current?.parentElement || !character) {
+    if (!ref.current?.parentElement || !character || isLessThanXs) {
       return;
     }
 
@@ -90,7 +90,7 @@ const Tile: FunctionComponent<Props> = ({
       easing: EASE_OUT_CUBIC,
       fill: 'forwards',
     });
-  }, [character]);
+  }, [character, isLessThanXs]);
 
   return (
     <TilePure
