@@ -54,16 +54,6 @@
   }
 }
 
-.inputContainer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  overflow: hidden;
-}
-
 .input,
 .character,
 .placeholder {
@@ -76,8 +66,6 @@
 }
 
 .input {
-  width: 100%;
-  height: 100%;
   background-color: transparent;
   color: transparent;
   border: none;
@@ -86,18 +74,14 @@
   // Hack for this Lighthouse warning:
   // > Interactive elements like buttons and links should be large enough (48x48px), and have
   // > enough space around them, to be easy enough to tap without overlapping onto other elements.
-  //
-  // .inputContainer exists only for the purpose of this hack
-  $min-tile-width: 20px;
-  $min-lighthouse-size: 48px;
-
   position: absolute;
-  top: calc((100% - $min-lighthouse-size) / 2);
-  right: calc((100% - $min-lighthouse-size) / 2);
-  bottom: calc((100% - $min-lighthouse-size) / 2);
-  left: calc((100% - $min-lighthouse-size) / 2);
-  width: $min-lighthouse-size;
-  height: $min-lighthouse-size;
+  top: -100%;
+  right: -100%;
+  bottom: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  clip-path: inset((100% / 3));
 }
 
 .character,
