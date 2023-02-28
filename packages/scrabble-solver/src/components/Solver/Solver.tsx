@@ -33,7 +33,6 @@ import Dictionary from '../Dictionary';
 import DictionaryInput from '../DictionaryInput';
 import Rack from '../Rack';
 import Results from '../Results';
-import Well from '../Well';
 
 import { EmptyState, ResultCandidatePicker, SolveButton } from './components';
 import styles from './Solver.module.scss';
@@ -51,12 +50,12 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
   const [bottomContainerRef, { height: bottomContainerHeight }] = useMeasure<HTMLDivElement>();
-  const [resultsContainerRef, { width: resultsContainerWidth }] = useMeasure<HTMLDivElement>();
+  const [columnRef, { width: columnWidth }] = useMeasure<HTMLDivElement>();
   const isLessThanXl = useMediaQuery('<xl');
   const isLessThanL = useMediaQuery('<l');
   const isLessThanM = useMediaQuery('<m');
   const componentsSpacing = isLessThanXl ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING;
-  const maxBoardWidth = width - resultsContainerWidth - (isLessThanL ? 0 : componentsSpacing) - 2 * componentsSpacing;
+  const maxBoardWidth = width - columnWidth - (isLessThanL ? 0 : componentsSpacing) - 2 * componentsSpacing;
   const maxBoardHeight = Math.max(
     height - bottomContainerHeight,
     isLessThanL ? 0 : COLUMN_MIN_HEIGHT,
@@ -138,19 +137,15 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
             <input className={styles.submitInput} tabIndex={-1} type="submit" />
           </form>
 
-          <div className={styles.column}>
-            <Well className={styles.resultsContainer} ref={resultsContainerRef}>
-              {resultsContainerWidth > 0 && resultsHeight > 0 && (
-                <Results callbacks={callbacks} height={resultsHeight} width={resultsContainerWidth} />
-              )}
-            </Well>
+          <div className={styles.column} ref={columnRef}>
+            {columnWidth > 0 && resultsHeight > 0 && (
+              <Results callbacks={callbacks} height={resultsHeight} width={columnWidth} />
+            )}
 
-            <Well>
-              <div className={styles.dictionary} style={{ height: DICTIONARY_HEIGHT }}>
-                <Dictionary className={styles.dictionaryOutput} />
-                <DictionaryInput className={styles.dictionaryInput} />
-              </div>
-            </Well>
+            <div className={styles.dictionaryContainer} style={{ height: DICTIONARY_HEIGHT }}>
+              <Dictionary className={styles.dictionary} />
+              <DictionaryInput className={styles.dictionaryInput} />
+            </div>
           </div>
         </div>
       </div>

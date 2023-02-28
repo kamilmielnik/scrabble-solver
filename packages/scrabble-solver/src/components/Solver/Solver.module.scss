@@ -62,17 +62,16 @@
   }
 }
 
-.resultsContainer {
-  flex: 1;
-  position: relative;
+.dictionaryContainer {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color--background--element);
+  border: var(--border);
+  box-shadow: var(--box-shadow);
 }
 
 .dictionary {
-  display: flex;
-  flex-direction: column;
-}
-
-.dictionaryOutput {
   flex: 1;
   border-bottom: var(--border);
 }

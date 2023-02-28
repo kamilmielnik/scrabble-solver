@@ -3,7 +3,7 @@ import { FunctionComponent, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useMeasure } from 'react-use';
 
-import { Modal, Results, Sizer, Well } from 'components';
+import { Modal, Results, Sizer } from 'components';
 import { useMediaQuery } from 'hooks';
 import {
   resultsSlice,
@@ -46,11 +46,11 @@ const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) 
 
   return (
     <Modal className={className} isOpen={isOpen} title={translate('results')} onClose={onClose}>
-      <Well className={styles.content}>
+      <div className={styles.content}>
         <Sizer ref={sizerRef} />
 
         <Results callbacks={callbacks} height={height} highlightedIndex={highlightedIndex} width={width} />
-      </Well>
+      </div>
     </Modal>
   );
 };

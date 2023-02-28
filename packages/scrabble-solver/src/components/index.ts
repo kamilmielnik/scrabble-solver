@@ -27,4 +27,3 @@ export { default as SvgFontCss } from './SvgFontCss';
 export { default as SvgFontFix } from './SvgFontFix';
 export { default as Tile } from './Tile';
 export { useTooltip } from './Tooltip';
-export { default as Well } from './Well';
