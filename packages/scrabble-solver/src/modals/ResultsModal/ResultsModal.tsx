@@ -1,9 +1,8 @@
 import { Result } from '@scrabble-solver/types';
 import { FunctionComponent, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { useMeasure } from 'react-use';
 
-import { Modal, Results, Sizer } from 'components';
+import { Modal, Results } from 'components';
 import { useMediaQuery } from 'hooks';
 import {
   resultsSlice,
@@ -24,7 +23,6 @@ interface Props {
 const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
-  const [sizerRef, { height, width }] = useMeasure<HTMLDivElement>();
   const isLessThanS = useMediaQuery('<s');
   const results = useTypedSelector(selectSortedFilteredResults);
   const resultCandidate = useTypedSelector(selectResultCandidate);
@@ -47,9 +45,7 @@ const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) 
   return (
     <Modal className={className} isOpen={isOpen} title={translate('results')} onClose={onClose}>
       <div className={styles.content}>
-        <Sizer ref={sizerRef} />
-
-        <Results callbacks={callbacks} height={height} highlightedIndex={highlightedIndex} width={width} />
+        <Results callbacks={callbacks} highlightedIndex={highlightedIndex} />
       </div>
     </Modal>
   );
