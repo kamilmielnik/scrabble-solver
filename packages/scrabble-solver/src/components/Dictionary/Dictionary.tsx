@@ -27,7 +27,7 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
     >
       {typeof error !== 'undefined' && <EmptyState variant="error">{error.message}</EmptyState>}
 
-      {results.length === 0 && (
+      {typeof error === 'undefined' && results.length === 0 && (
         <EmptyState variant="info">{translate('dictionary.empty-state.uninitialized')}</EmptyState>
       )}
 
