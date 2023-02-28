@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ChangeEvent, FunctionComponent, useState } from 'react';
+import { ChangeEvent, FormEventHandler, FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { isRegExp } from 'lib';
@@ -27,8 +27,12 @@ const ResultsInput: FunctionComponent<Props> = ({ className }) => {
     }
   };
 
+  const handleSubmit: FormEventHandler = (event) => {
+    event.preventDefault();
+  };
+
   return (
-    <form className={classNames(styles.resultsInput, className)}>
+    <form className={classNames(styles.resultsInput, className)} onSubmit={handleSubmit}>
       <input
         className={styles.input}
         placeholder={translate('results.input.placeholder')}
