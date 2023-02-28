@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { FunctionComponent, useEffect, useMemo, useState } from 'react';
-import { FixedSizeList } from 'react-window';
 import { useMeasure } from 'react-use';
+import { FixedSizeList } from 'react-window';
 
 import { LOCALE_FEATURES } from 'i18n';
 import { RESULTS_ITEM_HEIGHT } from 'parameters';
@@ -91,51 +91,51 @@ const Results: FunctionComponent<Props> = ({ callbacks, highlightedIndex }) => {
         {typeof error === 'undefined' &&
           typeof filteredResults !== 'undefined' &&
           typeof allResults !== 'undefined' && (
-            <>
-              {isOutdated && (
-                <EmptyState className={styles.emptyState} variant="info">
-                  {translate('results.empty-state.outdated')}
+          <>
+            {isOutdated && (
+              <EmptyState className={styles.emptyState} variant="info">
+                {translate('results.empty-state.outdated')}
 
-                  <SolveButton className={styles.solveButton} />
-                </EmptyState>
-              )}
+                <SolveButton className={styles.solveButton} />
+              </EmptyState>
+            )}
 
-              {!isOutdated && (
-                <>
-                  {allResults.length === 0 && (
-                    <EmptyState className={styles.emptyState} variant="warning">
-                      {translate('results.empty-state.no-results')}
-                    </EmptyState>
-                  )}
+            {!isOutdated && (
+              <>
+                {allResults.length === 0 && (
+                  <EmptyState className={styles.emptyState} variant="warning">
+                    {translate('results.empty-state.no-results')}
+                  </EmptyState>
+                )}
 
-                  {allResults.length > 0 && filteredResults.length === 0 && (
-                    <EmptyState className={styles.emptyState} variant="info">
-                      {translate('results.empty-state.no-filtered-results')}
-                    </EmptyState>
-                  )}
+                {allResults.length > 0 && filteredResults.length === 0 && (
+                  <EmptyState className={styles.emptyState} variant="info">
+                    {translate('results.empty-state.no-filtered-results')}
+                  </EmptyState>
+                )}
 
-                  {allResults.length > 0 && filteredResults.length > 0 && (
-                    <div className={styles.listContainer}>
-                      <FixedSizeList
-                        className={classNames(styles.list, {
-                          [styles.outdated]: isOutdated,
-                        })}
-                        direction={direction}
-                        height={height}
-                        itemCount={filteredResults.length}
-                        itemData={itemData}
-                        itemSize={RESULTS_ITEM_HEIGHT}
-                        ref={setListRef}
-                        width={width}
-                      >
-                        {Result}
-                      </FixedSizeList>
-                    </div>
-                  )}
-                </>
-              )}
-            </>
-          )}
+                {allResults.length > 0 && filteredResults.length > 0 && (
+                  <div className={styles.listContainer}>
+                    <FixedSizeList
+                      className={classNames(styles.list, {
+                        [styles.outdated]: isOutdated,
+                      })}
+                      direction={direction}
+                      height={height}
+                      itemCount={filteredResults.length}
+                      itemData={itemData}
+                      itemSize={RESULTS_ITEM_HEIGHT}
+                      ref={setListRef}
+                      width={width}
+                    >
+                      {Result}
+                    </FixedSizeList>
+                  </div>
+                )}
+              </>
+            )}
+          </>
+        )}
       </div>
 
       {typeof error === 'undefined' && typeof filteredResults !== 'undefined' && typeof allResults !== 'undefined' && (
