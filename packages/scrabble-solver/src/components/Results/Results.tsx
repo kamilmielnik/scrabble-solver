@@ -1,9 +1,10 @@
 import classNames from 'classnames';
 import { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { FixedSizeList } from 'react-window';
+import { useMeasure } from 'react-use';
 
 import { LOCALE_FEATURES } from 'i18n';
-import { BORDER_WIDTH, RESULTS_HEADER_HEIGHT, RESULTS_INPUT_HEIGHT, RESULTS_ITEM_HEIGHT } from 'parameters';
+import { RESULTS_ITEM_HEIGHT } from 'parameters';
 import {
   selectAreResultsOutdated,
   selectIsLoading,
@@ -18,6 +19,7 @@ import {
 import EmptyState from '../EmptyState';
 import Loading from '../Loading';
 import ResultsInput from '../ResultsInput';
+import Sizer from '../Sizer';
 
 import HeaderButton from './HeaderButton';
 import Result from './Result';
@@ -28,12 +30,10 @@ import useColumns from './useColumns';
 
 interface Props {
   callbacks: ResultCallbacks;
-  height: number;
   highlightedIndex?: number;
-  width: number;
 }
 
-const Results: FunctionComponent<Props> = ({ callbacks, height, highlightedIndex, width }) => {
+const Results: FunctionComponent<Props> = ({ callbacks, highlightedIndex }) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
@@ -44,6 +44,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, height, highlightedIndex
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const error = useTypedSelector(selectSolveError);
   const itemData = useMemo(() => ({ ...callbacks, highlightedIndex, results }), [callbacks, highlightedIndex, results]);
+  const [sizerRef, { height, width }] = useMeasure<HTMLDivElement>();
   const [listRef, setListRef] = useState<FixedSizeList<ResultData> | null>(null);
   const columns = useColumns();
   const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
@@ -70,65 +71,75 @@ const Results: FunctionComponent<Props> = ({ callbacks, height, highlightedIndex
         ))}
       </div>
 
-      {typeof error !== 'undefined' && (
-        <EmptyState className={styles.emptyState} variant="error">
-          {error.message}
-        </EmptyState>
-      )}
+      <div className={styles.content}>
+        <Sizer ref={sizerRef} />
 
-      {typeof error === 'undefined' && typeof filteredResults === 'undefined' && (
-        <EmptyState className={styles.emptyState} variant="info">
-          {translate('results.empty-state.uninitialized')}
+        {typeof error !== 'undefined' && (
+          <EmptyState className={styles.emptyState} variant="error">
+            {error.message}
+          </EmptyState>
+        )}
 
-          <SolveButton className={styles.solveButton} />
-        </EmptyState>
-      )}
+        {typeof error === 'undefined' && typeof filteredResults === 'undefined' && (
+          <EmptyState className={styles.emptyState} variant="info">
+            {translate('results.empty-state.uninitialized')}
 
-      {typeof error === 'undefined' && typeof filteredResults !== 'undefined' && typeof allResults !== 'undefined' && (
-        <>
-          {isOutdated && (
-            <EmptyState className={styles.emptyState} variant="info">
-              {translate('results.empty-state.outdated')}
+            <SolveButton className={styles.solveButton} />
+          </EmptyState>
+        )}
 
-              <SolveButton className={styles.solveButton} />
-            </EmptyState>
-          )}
-
-          {!isOutdated && (
+        {typeof error === 'undefined' &&
+          typeof filteredResults !== 'undefined' &&
+          typeof allResults !== 'undefined' && (
             <>
-              {allResults.length === 0 && (
-                <EmptyState className={styles.emptyState} variant="warning">
-                  {translate('results.empty-state.no-results')}
-                </EmptyState>
-              )}
-
-              {allResults.length > 0 && filteredResults.length === 0 && (
+              {isOutdated && (
                 <EmptyState className={styles.emptyState} variant="info">
-                  {translate('results.empty-state.no-filtered-results')}
+                  {translate('results.empty-state.outdated')}
+
+                  <SolveButton className={styles.solveButton} />
                 </EmptyState>
               )}
 
-              {allResults.length > 0 && filteredResults.length > 0 && (
-                <FixedSizeList
-                  className={classNames(styles.list, {
-                    [styles.outdated]: isOutdated,
-                  })}
-                  direction={direction}
-                  height={height - RESULTS_HEADER_HEIGHT - RESULTS_INPUT_HEIGHT - 2 * BORDER_WIDTH}
-                  itemCount={filteredResults.length}
-                  itemData={itemData}
-                  itemSize={RESULTS_ITEM_HEIGHT}
-                  ref={setListRef}
-                  width={width}
-                >
-                  {Result}
-                </FixedSizeList>
-              )}
+              {!isOutdated && (
+                <>
+                  {allResults.length === 0 && (
+                    <EmptyState className={styles.emptyState} variant="warning">
+                      {translate('results.empty-state.no-results')}
+                    </EmptyState>
+                  )}
 
-              {allResults.length > 0 && <ResultsInput className={styles.input} />}
+                  {allResults.length > 0 && filteredResults.length === 0 && (
+                    <EmptyState className={styles.emptyState} variant="info">
+                      {translate('results.empty-state.no-filtered-results')}
+                    </EmptyState>
+                  )}
+
+                  {allResults.length > 0 && filteredResults.length > 0 && (
+                    <div className={styles.listContainer}>
+                      <FixedSizeList
+                        className={classNames(styles.list, {
+                          [styles.outdated]: isOutdated,
+                        })}
+                        direction={direction}
+                        height={height}
+                        itemCount={filteredResults.length}
+                        itemData={itemData}
+                        itemSize={RESULTS_ITEM_HEIGHT}
+                        ref={setListRef}
+                        width={width}
+                      >
+                        {Result}
+                      </FixedSizeList>
+                    </div>
+                  )}
+                </>
+              )}
             </>
           )}
-        </>
+      </div>
+
+      {typeof error === 'undefined' && typeof filteredResults !== 'undefined' && typeof allResults !== 'undefined' && (
+        <>{allResults.length > 0 && !isOutdated && <ResultsInput />}</>
       )}
 
       {isLoading && <Loading />}

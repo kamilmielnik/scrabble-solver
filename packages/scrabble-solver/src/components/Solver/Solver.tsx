@@ -9,10 +9,8 @@ import {
   BOARD_TILE_SIZE_MAX,
   BOARD_TILE_SIZE_MIN,
   BORDER_WIDTH,
-  COLUMN_MIN_HEIGHT,
   COMPONENTS_SPACING,
   COMPONENTS_SPACING_SMALL,
-  DICTIONARY_HEIGHT,
   RACK_TILE_SIZE_MAX,
 } from 'parameters';
 import {
@@ -56,11 +54,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
   const isLessThanM = useMediaQuery('<m');
   const componentsSpacing = isLessThanXl ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING;
   const maxBoardWidth = width - columnWidth - (isLessThanL ? 0 : componentsSpacing) - 2 * componentsSpacing;
-  const maxBoardHeight = Math.max(
-    height - bottomContainerHeight,
-    isLessThanL ? 0 : COLUMN_MIN_HEIGHT,
-    isLessThanM ? Number.POSITIVE_INFINITY : 0,
-  );
+  const maxBoardHeight = Math.max(height - bottomContainerHeight, isLessThanM ? Number.POSITIVE_INFINITY : 0);
   const config = useTypedSelector(selectConfig);
   const error = useTypedSelector(selectSolveError);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
@@ -73,8 +67,6 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
   const cellSize = Math.min(cellWidth, cellHeight);
   const cellSizeSafe = Math.min(Math.max(cellSize, BOARD_TILE_SIZE_MIN), BOARD_TILE_SIZE_MAX);
   const tileSize = Math.min((maxBoardWidth - 2 * BORDER_WIDTH) / config.maximumCharactersCount, RACK_TILE_SIZE_MAX);
-  const boardSize = (cellSizeSafe + BORDER_WIDTH) * Math.max(config.boardWidth, config.boardHeight) + BORDER_WIDTH;
-  const resultsHeight = boardSize - DICTIONARY_HEIGHT - componentsSpacing - 4 * BORDER_WIDTH;
   const maxControlsWidth = tileSize * config.maximumCharactersCount + 2 * BORDER_WIDTH;
   const touchCallbacks = useMemo(
     () => ({
@@ -138,11 +130,9 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
           </form>
 
           <div className={styles.column} ref={columnRef}>
-            {columnWidth > 0 && resultsHeight > 0 && (
-              <Results callbacks={callbacks} height={resultsHeight} width={columnWidth} />
-            )}
+            <Results callbacks={callbacks} />
 
-            <div className={styles.dictionaryContainer} style={{ height: DICTIONARY_HEIGHT }}>
+            <div className={styles.dictionaryContainer}>
               <Dictionary className={styles.dictionary} />
               <DictionaryInput className={styles.dictionaryInput} />
             </div>

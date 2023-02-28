@@ -7,7 +7,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: var(--color--background--element);
+  background: var(--color--background--element);
   border: var(--border);
   box-shadow: var(--box-shadow);
   font-family: var(--font--family--title);
@@ -17,8 +17,20 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   flex: 1;
 }
 
+.content {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  border-top: var(--border);
+  border-bottom: var(--border);
+}
+
+.listContainer {
+  position: absolute;
+  top: 0;
+}
+
 .list {
-  flex: 1 1 auto;
   transition: var(--transition);
 
   &.outdated {
@@ -32,7 +44,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: var(--border);
   font-weight: 700;
 }
 
@@ -161,8 +172,4 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   flex: 0 0 auto;
   width: $size;
   height: $size;
-}
-
-.input {
-  border-top: var(--border);
 }

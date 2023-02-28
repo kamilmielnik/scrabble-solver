@@ -32,6 +32,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) var(--solver-column--width);
   gap: var(--spacing);
+  height: 100%;
   margin: 0 auto;
 
   @include media('<l') {
@@ -64,6 +65,7 @@
 
 .dictionaryContainer {
   flex: 0 0 auto;
+  height: var(--dictionary--height);
   display: flex;
   flex-direction: column;
   background-color: var(--color--background--element);
