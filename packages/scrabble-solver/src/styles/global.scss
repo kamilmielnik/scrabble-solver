@@ -54,5 +54,5 @@ h4 {
 
 [lang='fa-IR'] {
   --font--family: 'Vazirmatn', sans-serif;
-  --font--family--title: 'Vazirmatn', sans-serif;
+  --font--family--title: var(--font--family);
 }

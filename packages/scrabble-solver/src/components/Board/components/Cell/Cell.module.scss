@@ -112,6 +112,7 @@
     font-size: 60%;
     font-weight: bold;
     color: var(--color--white);
+    transition: var(--transition);
     content: ' ';
 
     [lang='fa-IR'] & {
