@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { FunctionComponent, useEffect, useMemo, useState } from 'react';
-import { useMeasure } from 'react-use';
+import { useLatest, useMeasure } from 'react-use';
 import { FixedSizeList } from 'react-window';
 
 import { LOCALE_FEATURES } from 'i18n';
@@ -49,20 +49,21 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
   const [listRef, setListRef] = useState<FixedSizeList<ResultData> | null>(null);
   const columns = useColumns();
   const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
+  const scrollToIndexRef = useLatest(scrollToIndex);
 
   useEffect(() => {
     // without setTimeout, the initial scrolling offset is calculated
     // incorrectly, as the list is not fully rendered by the browser yet
     const timeout = globalThis.setTimeout(() => {
       if (listRef) {
-        listRef.scrollToItem(scrollToIndex, 'center');
+        listRef.scrollToItem(scrollToIndexRef.current, 'center');
       }
     }, 0);
 
     return () => {
       globalThis.clearTimeout(timeout);
     };
-  }, [listRef, scrollToIndex]);
+  }, [allResults, listRef, scrollToIndexRef]);
 
   return (
     <div className={classNames(styles.results, className)}>
@@ -140,7 +141,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
       </div>
 
       {typeof error === 'undefined' && typeof filteredResults !== 'undefined' && typeof allResults !== 'undefined' && (
-        <>{allResults.length > 0 && !isOutdated && <ResultsInput />}</>
+        <>{allResults.length > 0 && !isOutdated && <ResultsInput className={styles.input} />}</>
       )}
 
       {isLoading && <Loading />}
