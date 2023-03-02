@@ -29,7 +29,7 @@ const Loading: FunctionComponent<Props> = ({ className, wave = true }) => {
   const content = useMemo(() => prepareContent(message), [message]);
 
   return (
-    <div className={classNames(styles.loading, className)}>
+    <div aria-label={translation} className={classNames(styles.loading, className)} role="status">
       <div className={styles.dim} />
       <div className={styles.logo}>
         <PlainTiles className={classNames(styles.tiles)} content={content} dropShadow wave={wave} />
