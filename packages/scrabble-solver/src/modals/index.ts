@@ -1,3 +1,4 @@
+export { default as DictionaryModal } from './DictionaryModal';
 export { default as KeyMapModal } from './KeyMapModal';
 export { default as MenuModal } from './MenuModal';
 export { default as RemainingTilesModal } from './RemainingTilesModal';
