@@ -86,7 +86,7 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --z-index--close-button: 101;
   --z-index--tooltip: 102;
 
-  --dictionary--height: 260px;
+  --dictionary--height--max: 260px;
   --dictionary--height--min: 109px; // enough to display one-line definition without overlow
   --modal--width: 370px;
   --solver-column--width: 580px;

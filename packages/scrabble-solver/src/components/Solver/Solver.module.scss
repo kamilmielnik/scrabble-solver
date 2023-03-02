@@ -65,7 +65,7 @@
 
 .dictionaryContainer {
   flex: 0 0 auto;
-  height: var(--dictionary--height);
+  height: var(--dictionary--height--max);
   display: flex;
   flex-direction: column;
   background-color: var(--color--background--element);
