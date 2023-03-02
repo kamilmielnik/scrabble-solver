@@ -50,6 +50,8 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
   const columns = useColumns();
   const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
   const scrollToIndexRef = useLatest(scrollToIndex);
+  const hasResults =
+    typeof error === 'undefined' && typeof filteredResults !== 'undefined' && typeof allResults !== 'undefined';
 
   useEffect(() => {
     // without setTimeout, the initial scrolling offset is calculated
@@ -90,9 +92,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
           </EmptyState>
         )}
 
-        {typeof error === 'undefined' &&
-          typeof filteredResults !== 'undefined' &&
-          typeof allResults !== 'undefined' && (
+        {hasResults && (
           <>
             {isOutdated && (
               <EmptyState className={styles.emptyState} variant="info">
@@ -140,9 +140,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
         )}
       </div>
 
-      {typeof error === 'undefined' && typeof filteredResults !== 'undefined' && typeof allResults !== 'undefined' && (
-        <>{allResults.length > 0 && !isOutdated && <ResultsInput className={styles.input} />}</>
-      )}
+      {hasResults && allResults.length > 0 && !isOutdated && <ResultsInput className={styles.input} />}
 
       {isLoading && <Loading />}
     </div>

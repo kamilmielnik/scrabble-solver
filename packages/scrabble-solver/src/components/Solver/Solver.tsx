@@ -16,7 +16,7 @@ import {
   selectSortedResults,
   solveSlice,
   useTranslate,
-  useTypedSelector
+  useTypedSelector,
 } from 'state';
 
 import Board from '../Board';
