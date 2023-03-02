@@ -90,17 +90,6 @@
   flex: 0 0 auto;
   padding: var(--spacing--l);
   background-color: var(--color--background);
-
-  &:after {
-    // gradient instead of box-shadow, so that it does not overflow the modal (sidebar) horizontally
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    height: 6px;
-    content: ' ';
-    background: linear-gradient(0deg, transparent 0%, rgba(0, 0, 0, 0.1) 90%, rgba(0, 0, 0, 0.2) 100%);
-  }
 }
 
 .title {
