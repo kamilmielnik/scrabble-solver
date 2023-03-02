@@ -8,17 +8,17 @@
   gap: var(--spacing--l);
 }
 
+.results {
+  flex: 1;
+}
+
 .dictionary {
-  flex: 0 0 var(--dictionary--height--max);
+  flex: 0 0 calc(var(--dictionary--height) - var(--text-input--height));
   background-color: var(--color--background--element);
   border: var(--border);
   box-shadow: var(--box-shadow);
 
-  @include media('<s') {
-    flex: 0 0 var(--dictionary--height--min);
+  @media (max-height: 600px) {
+    display: none;
   }
-}
-
-.results {
-  flex: 1;
 }
