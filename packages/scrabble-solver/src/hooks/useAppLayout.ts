@@ -10,15 +10,15 @@ const useAppLayout = () => {
   const isLessThanM = useMediaQuery('<m');
   const isLessThanL = useMediaQuery('<l');
   const isLessThanXl = useMediaQuery('<xl');
-  const showCompactControls = isLessThanL;
+  const showColumn = !isLessThanL;
 
   return {
     animateTile: !isLessThanXs,
     componentsSpacing: isLessThanXl ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING,
     isBoardFullWidth: isLessThanM,
     isModalFullWidth: isLessThanS,
-    showColumn: !showCompactControls,
-    showCompactControls,
+    showColumn,
+    showCompactControls: !showColumn,
     showFloatingSolveButton: isTouchDevice,
     showKeyMap: !isTouchDevice,
     showResultsInModal: isLessThanL,
