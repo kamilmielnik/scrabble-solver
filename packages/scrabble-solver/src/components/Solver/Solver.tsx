@@ -16,7 +16,7 @@ import {
   selectSortedResults,
   solveSlice,
   useTranslate,
-  useTypedSelector,
+  useTypedSelector
 } from 'state';
 
 import Board from '../Board';
@@ -25,7 +25,7 @@ import DictionaryInput from '../DictionaryInput';
 import Rack from '../Rack';
 import Results from '../Results';
 
-import { EmptyState, ResultCandidatePicker, SolveButton } from './components';
+import { EmptyState, FloatingSolveButton, ResultCandidatePicker } from './components';
 import styles from './Solver.module.scss';
 
 interface Props {
@@ -154,7 +154,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
         </div>
       </div>
 
-      {showFloatingSolveButton && <SolveButton className={styles.solve} onClick={handleSubmit} />}
+      {showFloatingSolveButton && <FloatingSolveButton className={styles.solve} onClick={handleSubmit} />}
     </div>
   );
 };
