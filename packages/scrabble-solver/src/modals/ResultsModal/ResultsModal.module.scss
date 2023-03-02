@@ -1,3 +1,5 @@
+@import 'styles/mixins';
+
 .content {
   position: relative;
   display: flex;
@@ -11,6 +13,10 @@
   background-color: var(--color--background--element);
   border: var(--border);
   box-shadow: var(--box-shadow);
+
+  @include media('>=s', '<l') {
+    flex-basis: calc((var(--dictionary--height--min) + var(--dictionary--height--max) / 2));
+  }
 }
 
 .results {

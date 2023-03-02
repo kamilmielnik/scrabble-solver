@@ -3,6 +3,7 @@ import { FunctionComponent, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Dictionary, Modal, Results } from 'components';
+import { useAppLayout } from 'hooks';
 import {
   resultsSlice,
   selectResultCandidate,
@@ -22,6 +23,7 @@ interface Props {
 const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
+  const { isModalFullWidth, showResultsInModal } = useAppLayout();
   const results = useTypedSelector(selectSortedFilteredResults);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const index = (results || []).findIndex((result) => result.id === resultCandidate?.id);
@@ -30,10 +32,20 @@ const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) 
   const callbacks = useMemo(
     () => ({
       onClick: (result: Result) => {
-        dispatch(resultsSlice.actions.changeResultCandidate(result));
+        const isSelected = result === resultCandidate;
+
+        if (isSelected) {
+          if (showResultsInModal && !isModalFullWidth) {
+            dispatch(resultsSlice.actions.applyResult(result));
+          }
+
+          onClose();
+        } else {
+          dispatch(resultsSlice.actions.changeResultCandidate(result));
+        }
       },
     }),
-    [dispatch],
+    [dispatch, isModalFullWidth, onClose, resultCandidate, showResultsInModal],
   );
 
   return (

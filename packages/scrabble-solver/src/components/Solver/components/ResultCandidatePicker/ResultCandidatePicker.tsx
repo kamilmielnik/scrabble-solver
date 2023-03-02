@@ -2,10 +2,12 @@ import classNames from 'classnames';
 import { FunctionComponent, HTMLProps, MouseEventHandler } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { useAppLayout } from 'hooks';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'icons';
 import {
   resultsSlice,
   selectAreResultsOutdated,
+  selectIsLoading,
   selectLocale,
   selectResultCandidate,
   selectSortedResults,
@@ -14,6 +16,7 @@ import {
 } from 'state';
 
 import Button from '../../../Button';
+import Spinner from '../../../Spinner';
 import InsertButton from '../InsertButton';
 
 import styles from './ResultCandidatePicker.module.scss';
@@ -26,6 +29,7 @@ const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onResultCl
   const dispatch = useDispatch();
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
+  const isLoading = useTypedSelector(selectIsLoading);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const sortedResults = useTypedSelector(selectSortedResults);
   const results = sortedResults || [];
@@ -35,6 +39,7 @@ const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onResultCl
   const isPreviousDisabled = index <= 0 || disabled;
   const isNextDisabled = index >= results.length - 1 || disabled;
   const bothEnabled = !isPreviousDisabled && !isNextDisabled;
+  const { showFloatingSolveButton } = useAppLayout();
 
   const handleNextClick = () => {
     if (!isNextDisabled) {
@@ -87,7 +92,14 @@ const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onResultCl
         {!resultCandidate && <div className={styles.word}> </div>}
 
         <div className={styles.iconContainer}>
-          <ChevronDown className={styles.icon} />
+          {showFloatingSolveButton && <ChevronDown className={styles.icon} />}
+
+          {!showFloatingSolveButton && (
+            <>
+              {isLoading && <Spinner className={styles.loading} />}
+              {!isLoading && <ChevronDown className={styles.icon} />}
+            </>
+          )}
         </div>
       </button>
 

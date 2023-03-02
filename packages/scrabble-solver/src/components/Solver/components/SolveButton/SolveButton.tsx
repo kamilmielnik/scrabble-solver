@@ -14,6 +14,7 @@ import {
 } from 'state';
 
 import Button from '../../../Button';
+import Spinner from '../../../Spinner';
 
 import styles from './SolveButton.module.scss';
 
@@ -40,8 +41,11 @@ const SolveButton: FunctionComponent<Props> = ({ className, onClick = noop }) =>
       aria-label={translate('results.solve')}
       className={classNames(styles.solveButton, className)}
       disabled={isLoading || !isOutdated || !hasTiles}
-      Icon={Search}
-      iconClassName={styles.icon}
+      Icon={isLoading ? Spinner : Search}
+      iconClassName={classNames({
+        [styles.icon]: !isLoading,
+        [styles.loading]: isLoading,
+      })}
       tooltip={translate('results.solve')}
       type="submit"
       variant="primary"
