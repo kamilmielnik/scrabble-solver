@@ -114,6 +114,7 @@
 
   position: fixed;
   bottom: var(--spacing);
+  z-index: 1;
 
   @include media('<xs') {
     --spacing: var(--spacing--m);
