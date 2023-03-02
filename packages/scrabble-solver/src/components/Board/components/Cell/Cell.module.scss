@@ -2,7 +2,6 @@
 
 .cell {
   @include focus-effect;
-  @include lighthouse-input-size-hack;
 
   position: relative;
   display: table-cell;

@@ -10,6 +10,16 @@
   display: table-row;
 }
 
+.input {
+  position: absolute;
+  top: var(--border--width);
+  right: var(--border--width);
+  bottom: var(--border--width);
+  left: var(--border--width);
+  border: none;
+  opacity: 0;
+}
+
 .actions {
   position: absolute;
   z-index: var(--z-index--actions);

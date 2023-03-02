@@ -1,28 +1,17 @@
 import classNames from 'classnames';
-import {
-  ChangeEventHandler,
-  CSSProperties,
-  FocusEventHandler,
-  FunctionComponent,
-  KeyboardEventHandler,
-  memo,
-  Ref,
-} from 'react';
+import { CSSProperties, forwardRef, HTMLProps, memo } from 'react';
 
 import { ExclamationSquareFill } from 'icons';
 
 import styles from './Tile.module.scss';
 
-interface Props {
-  'aria-label': string;
-  autoFocus?: boolean;
+export interface Props extends HTMLProps<HTMLDivElement> {
   canShowPoints?: boolean;
   character?: string;
   characterStyle?: CSSProperties;
   className?: string;
   disabled?: boolean;
   highlighted?: boolean;
-  inputRef: Ref<HTMLInputElement>;
   isBlank?: boolean;
   isValid?: boolean;
   placeholder?: string;
@@ -30,86 +19,63 @@ interface Props {
   pointsFormatted?: string;
   pointsStyle?: CSSProperties;
   raised?: boolean;
-  style?: CSSProperties;
-  tabIndex?: number;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-  onFocus?: FocusEventHandler<HTMLInputElement>;
-  onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
 }
 
-const TilePure: FunctionComponent<Props> = ({
-  'aria-label': ariaLabel,
-  autoFocus,
-  canShowPoints,
-  character,
-  characterStyle,
-  className,
-  disabled,
-  highlighted,
-  inputRef,
-  isBlank,
-  isValid,
-  placeholder,
-  points,
-  pointsFormatted,
-  pointsStyle,
-  raised,
-  style,
-  tabIndex,
-  onChange,
-  onFocus,
-  onKeyDown,
-}) => (
-  <div
-    className={classNames(styles.tile, className, {
-      [styles.blank]: isBlank,
-      [styles.disabled]: disabled,
-      [styles.empty]: !character,
-      [styles.highlighted]: highlighted,
-      [styles.raised]: raised,
-      [styles.points1]: points === 1,
-      [styles.points2]: points === 2,
-      [styles.points3]: points === 3,
-      [styles.points4]: points === 4,
-      [styles.points5]: typeof points === 'number' && points >= 5,
-    })}
-    style={style}
-  >
-    <input
-      aria-label={ariaLabel}
-      autoCapitalize="none"
-      autoComplete="off"
-      autoCorrect="off"
-      autoFocus={autoFocus}
-      className={styles.input}
-      disabled={disabled}
-      ref={inputRef}
-      spellCheck={false}
-      tabIndex={tabIndex}
-      value={character || ''}
-      onChange={onChange}
-      onFocus={onFocus}
-      onKeyDown={onKeyDown}
-    />
+const TilePure = forwardRef<HTMLDivElement, Props>(
+  (
+    {
+      canShowPoints,
+      character,
+      characterStyle,
+      className,
+      disabled,
+      highlighted,
+      isBlank,
+      isValid,
+      placeholder,
+      points,
+      pointsFormatted,
+      pointsStyle,
+      raised,
+      ...props
+    },
+    ref,
+  ) => (
+    <div
+      {...props}
+      className={classNames(styles.tile, className, {
+        [styles.blank]: isBlank,
+        [styles.disabled]: disabled,
+        [styles.empty]: !character,
+        [styles.highlighted]: highlighted,
+        [styles.raised]: raised,
+        [styles.points1]: points === 1,
+        [styles.points2]: points === 2,
+        [styles.points3]: points === 3,
+        [styles.points4]: points === 4,
+        [styles.points5]: typeof points === 'number' && points >= 5,
+      })}
+      ref={ref}
+    >
+      {placeholder && (
+        <div className={styles.placeholder} role="presentation" style={characterStyle} tabIndex={-1}>
+          {placeholder}
+        </div>
+      )}
 
-    {placeholder && (
-      <div className={styles.placeholder} style={characterStyle} tabIndex={-1}>
-        {placeholder}
+      <div className={styles.character} style={characterStyle} tabIndex={-1}>
+        {character}
       </div>
-    )}
 
-    <div className={styles.character} style={characterStyle} tabIndex={-1}>
-      {character}
+      {canShowPoints && (
+        <span className={styles.points} style={pointsStyle}>
+          {pointsFormatted}
+        </span>
+      )}
+
+      {!isValid && <ExclamationSquareFill className={styles.alert} role="alert" />}
     </div>
-
-    {canShowPoints && (
-      <span className={styles.points} style={pointsStyle}>
-        {pointsFormatted}
-      </span>
-    )}
-
-    {!isValid && <ExclamationSquareFill className={styles.alert} />}
-  </div>
+  ),
 );
 
 export default memo(TilePure);

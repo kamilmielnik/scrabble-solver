@@ -100,7 +100,7 @@ const RackTile: FunctionComponent<Props> = ({
       className={styles.tile}
       character={character === null ? undefined : character}
       highlighted={tile !== null}
-      inputRef={inputRef}
+      ref={inputRef}
       isBlank={character === BLANK}
       isValid={isValid}
       key={index}

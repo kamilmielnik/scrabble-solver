@@ -1,6 +1,6 @@
 import { Bonus, Cell, Tile as TileModel } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import { ChangeEventHandler, CSSProperties, FocusEventHandler, FunctionComponent, memo, RefObject } from 'react';
+import { CSSProperties, FunctionComponent, memo, RefObject } from 'react';
 
 import { FlagFill, Star } from 'icons';
 
@@ -10,11 +10,9 @@ import styles from './Cell.module.scss';
 import { getBonusClassname } from './lib';
 
 interface Props {
-  'aria-label': string;
   bonus: Bonus | undefined;
   cell: Cell;
   className?: string;
-  inputRef: RefObject<HTMLInputElement>;
   isBottom: boolean;
   isCenter: boolean;
   isRight: boolean;
@@ -25,16 +23,13 @@ interface Props {
   size: number;
   style?: CSSProperties;
   tile: TileModel;
-  onChange: ChangeEventHandler<HTMLInputElement>;
-  onFocus: FocusEventHandler<HTMLInputElement>;
+  tileRef: RefObject<HTMLDivElement>;
 }
 
 const CellPure: FunctionComponent<Props> = ({
-  'aria-label': ariaLabel,
   bonus,
   cell,
   className,
-  inputRef,
   isBottom,
   isCenter,
   isRight,
@@ -45,8 +40,7 @@ const CellPure: FunctionComponent<Props> = ({
   size,
   style,
   tile,
-  onChange,
-  onFocus,
+  tileRef,
 }) => (
   <div
     className={classNames(styles.cell, className, getBonusClassname(cell, bonus, isCenter), {
@@ -58,22 +52,20 @@ const CellPure: FunctionComponent<Props> = ({
   >
     {isCenter && isEmpty && !isFiltered && <Star className={styles.icon} />}
 
-    {isFiltered && <FlagFill className={styles.icon} />}
+    {isFiltered && isEmpty && <FlagFill className={styles.icon} />}
 
     <Tile
-      aria-label={ariaLabel}
       className={styles.tile}
       character={isEmpty ? undefined : tile.character}
+      data-board-tile-x={cell.x}
+      data-board-tile-y={cell.y}
       highlighted={cell.isCandidate()}
-      inputRef={inputRef}
       isBlank={tile.isBlank}
       isValid={isValid}
       points={points}
       raised={!isEmpty}
+      ref={tileRef}
       size={size}
-      tabIndex={cell.x === 0 && cell.y === 0 ? undefined : -1}
-      onChange={onChange}
-      onFocus={onFocus}
     />
   </div>
 );

@@ -10,6 +10,7 @@ import {
   RefObject,
   useCallback,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
@@ -21,15 +22,15 @@ import { createGridOf, createKeyboardNavigation, extractCharacters, extractInput
 import { boardSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
 import { Direction } from 'types';
 
-import { getPositionInGrid } from '../lib';
 import { Point } from '../types';
 
 const toggleDirection = (direction: Direction) => (direction === 'vertical' ? 'horizontal' : 'vertical');
 
 interface State {
-  activeIndex: Point;
+  activePosition: Point;
   direction: Direction;
-  inputRefs: RefObject<HTMLInputElement>[][];
+  inputRef: RefObject<HTMLInputElement>;
+  tileRefs: RefObject<HTMLDivElement>[][];
 }
 
 interface Actions {
@@ -46,40 +47,34 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
-  const inputRefs = useMemo(
-    () => createGridOf<RefObject<HTMLInputElement>>(width, height, () => createRef()),
+  const tileRefs = useMemo(
+    () => createGridOf<RefObject<HTMLDivElement>>(width, height, () => createRef()),
     [width, height],
   );
-  const [activeIndex, setActiveIndex] = useState<Point>({ x: 0, y: 0 });
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [activePosition, setActivePosition] = useState<Point>({ x: 0, y: 0 });
   const [direction, setLastDirection] = useState<Direction>('horizontal');
   const directionRef = useLatest(direction);
 
-  const changeActiveIndex = useCallback(
+  const changeActivePosition = useCallback(
     (offsetX: number, offsetY: number) => {
-      const x = Math.min(Math.max(activeIndex.x + offsetX, 0), width - 1);
-      const y = Math.min(Math.max(activeIndex.y + offsetY, 0), height - 1);
-      setActiveIndex({ x, y });
-      inputRefs[y][x].current?.focus();
+      const x = Math.min(Math.max(activePosition.x + offsetX, 0), width - 1);
+      const y = Math.min(Math.max(activePosition.y + offsetY, 0), height - 1);
+      setActivePosition({ x, y });
+      inputRef.current?.focus();
     },
-    [activeIndex, inputRefs],
-  );
-
-  const getInputRefPosition = useCallback(
-    (inputRef: HTMLInputElement): Point | undefined => {
-      return getPositionInGrid(inputRefs, (ref) => ref.current === inputRef);
-    },
-    [inputRefs],
+    [activePosition, inputRef],
   );
 
   const moveFocus = useCallback(
     (offset: number) => {
       if (directionRef.current === 'horizontal') {
-        changeActiveIndex(offset, 0);
+        changeActivePosition(offset, 0);
       } else {
-        changeActiveIndex(0, offset);
+        changeActivePosition(0, offset);
       }
     },
-    [changeActiveIndex, directionRef],
+    [changeActivePosition, directionRef],
   );
 
   const insertValue = useCallback(
@@ -185,39 +180,37 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
   const onChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      const position = getInputRefPosition(event.target);
-
-      if (!position) {
+      if (!activePosition) {
         return;
       }
 
       const value = extractInputValue(event.target);
 
       if (!value) {
-        dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
+        dispatch(boardSlice.actions.changeCellValue({ ...activePosition, value: EMPTY_CELL }));
         moveFocus(-1);
         return;
       }
 
       if (value === EMPTY_CELL) {
-        const { x, y } = position;
+        const { x, y } = activePosition;
         const cell = rows[y][x];
 
         if (cell.hasTile()) {
-          dispatch(boardSlice.actions.toggleCellIsBlank(position));
+          dispatch(boardSlice.actions.toggleCellIsBlank(activePosition));
           return;
         }
       }
 
-      insertValue(position, value);
+      insertValue(activePosition, value);
     },
-    [dispatch, insertValue, moveFocus, rows],
+    [activePosition, dispatch, insertValue, moveFocus, rows],
   );
 
   const onDirectionToggle = useCallback(() => setLastDirection(toggleDirection), []);
 
   const onFocus = useCallback((x: number, y: number) => {
-    setActiveIndex({ x, y });
+    setActivePosition({ x, y });
   }, []);
 
   const onKeyDown = useMemo(() => {
@@ -228,7 +221,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         if (isCtrl(event)) {
           onDirectionToggle();
         } else {
-          changeActiveIndex(0, 1);
+          changeActivePosition(0, 1);
         }
       },
       onArrowLeft: (event) => {
@@ -237,7 +230,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         if (isCtrl(event)) {
           onDirectionToggle();
         } else {
-          changeActiveIndex(LOCALE_FEATURES[locale].direction === 'ltr' ? -1 : 1, 0);
+          changeActivePosition(LOCALE_FEATURES[locale].direction === 'ltr' ? -1 : 1, 0);
         }
       },
       onArrowRight: (event) => {
@@ -246,7 +239,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         if (isCtrl(event)) {
           onDirectionToggle();
         } else {
-          changeActiveIndex(LOCALE_FEATURES[locale].direction === 'ltr' ? 1 : -1, 0);
+          changeActivePosition(LOCALE_FEATURES[locale].direction === 'ltr' ? 1 : -1, 0);
         }
       },
       onArrowUp: (event) => {
@@ -255,46 +248,40 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         if (isCtrl(event)) {
           onDirectionToggle();
         } else {
-          changeActiveIndex(0, -1);
+          changeActivePosition(0, -1);
         }
       },
       onBackspace: (event) => {
-        const position = getInputRefPosition(event.target as HTMLInputElement);
-
-        if (!position) {
+        if (!activePosition) {
           return;
         }
 
         event.preventDefault();
-        dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
+        dispatch(boardSlice.actions.changeCellValue({ ...activePosition, value: EMPTY_CELL }));
         moveFocus(-1);
       },
       onDelete: (event) => {
-        const position = getInputRefPosition(event.target as HTMLInputElement);
-
-        if (!position) {
+        if (!activePosition) {
           return;
         }
 
         event.preventDefault();
-        dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
+        dispatch(boardSlice.actions.changeCellValue({ ...activePosition, value: EMPTY_CELL }));
         moveFocus(1);
       },
       onKeyDown: (event) => {
-        const position = getInputRefPosition(event.target as HTMLInputElement);
-
-        if (!position) {
+        if (!activePosition) {
           return;
         }
 
-        const { x, y } = position;
+        const { x, y } = activePosition;
         const character = event.key.toLowerCase();
         const isTogglingBlank = isCtrl(event) && character === 'b';
         const twoCharacterTile = config.getTwoCharacterTileByPrefix(character);
 
         if (isTogglingBlank) {
           event.preventDefault();
-          dispatch(boardSlice.actions.toggleCellIsBlank(position));
+          dispatch(boardSlice.actions.toggleCellIsBlank(activePosition));
           return;
         }
 
@@ -310,7 +297,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
         if (config.twoCharacterTiles.includes(twoCharacterCandidate)) {
           event.preventDefault();
-          dispatch(boardSlice.actions.changeCellValue({ ...position, value: twoCharacterCandidate }));
+          dispatch(boardSlice.actions.changeCellValue({ ...activePosition, value: twoCharacterCandidate }));
           moveFocus(1);
           return;
         }
@@ -323,17 +310,15 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         }
       },
       onSpace: (event) => {
-        const position = getInputRefPosition(event.target as HTMLInputElement);
-
-        if (!position) {
+        if (!activePosition) {
           return;
         }
 
         event.preventDefault();
-        dispatch(boardSlice.actions.toggleCellIsBlank(position));
+        dispatch(boardSlice.actions.toggleCellIsBlank(activePosition));
       },
     });
-  }, [changeActiveIndex, config, dispatch, locale, onDirectionToggle, rows]);
+  }, [activePosition, changeActivePosition, config, dispatch, locale, onDirectionToggle, rows]);
 
   const onPaste = useCallback<ClipboardEventHandler>(
     (event) => {
@@ -341,22 +326,20 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         return;
       }
 
-      const position = getInputRefPosition(event.target);
-
-      if (!position) {
+      if (!activePosition) {
         return;
       }
 
       event.preventDefault();
 
       const value = event.clipboardData.getData('text/plain').toLocaleLowerCase();
-      insertValue(position, value);
+      insertValue(activePosition, value);
     },
-    [insertValue],
+    [activePosition, insertValue],
   );
 
   return [
-    { activeIndex, direction, inputRefs },
+    { activePosition, direction, inputRef, tileRefs },
     { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
   ];
 };

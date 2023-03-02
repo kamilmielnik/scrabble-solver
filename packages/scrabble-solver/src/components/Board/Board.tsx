@@ -1,15 +1,15 @@
 import { autoUpdate, FloatingPortal, offset, shift, useFloating, useMergeRefs } from '@floating-ui/react';
 import classNames from 'classnames';
-import { CSSProperties, FocusEventHandler, FunctionComponent, useState } from 'react';
+import { CSSProperties, FocusEventHandler, FunctionComponent, MouseEventHandler, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useMeasure } from 'react-use';
 
-import { BOARD_CELL_ACTIONS_OFFSET, TRANSITION } from 'parameters';
+import { BOARD_CELL_ACTIONS_OFFSET, BORDER_WIDTH, TRANSITION } from 'parameters';
 import { boardSlice, cellFilterSlice, selectBoard, selectRowsWithCandidate, useTypedSelector } from 'state';
 
 import styles from './Board.module.scss';
 import BoardPure from './BoardPure';
-import { Actions } from './components';
+import { Actions, Input } from './components';
 import { useGrid } from './hooks';
 
 interface Props {
@@ -21,11 +21,13 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
   const dispatch = useDispatch();
   const rows = useTypedSelector(selectRowsWithCandidate);
   const board = useTypedSelector(selectBoard);
+  const boardRef = useRef<HTMLDivElement>(null);
   const [actionsMeasureRef, { width: actionsWidth }] = useMeasure<HTMLDivElement>();
-  const [{ activeIndex, direction, inputRefs }, { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste }] =
-    useGrid(rows);
-  const inputRef = inputRefs[activeIndex.y][activeIndex.x];
-  const cell = rows[activeIndex.y][activeIndex.x];
+  const [
+    { activePosition, direction, inputRef, tileRefs },
+    { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
+  ] = useGrid(rows);
+  const cell = rows[activePosition.y][activePosition.x];
   const [showActions, setShowActions] = useState(false);
   const [transition, setTransition] = useState<CSSProperties['transition']>(TRANSITION);
 
@@ -58,11 +60,21 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
     onDirectionToggle();
   };
 
-  const handleFocus: typeof onFocus = (newX, newY) => {
+  const handleFocus = () => {
+    setShowActions(true);
+  };
+
+  const handleMouseDown: MouseEventHandler = (event) => {
+    if (!boardRef.current) {
+      return;
+    }
+
+    const { left, top } = boardRef.current.getBoundingClientRect();
+    const newX = Math.floor((event.clientX - left) / (cellSize + BORDER_WIDTH));
+    const newY = Math.floor((event.clientY - top) / (cellSize + BORDER_WIDTH));
     const isFirstFocus = !showActions;
     const originalTransition = refs.floating.current?.style.transition || '';
-    const newInputRef = inputRefs[newY][newX].current;
-    const newTileElement = newInputRef?.parentElement || null;
+    const newTileElement = tileRefs[newY][newX].current;
 
     if (isFirstFocus) {
       setTransition('none');
@@ -95,12 +107,18 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
         className={className}
         cellSize={cellSize}
         center={board.center}
-        inputRefs={inputRefs}
+        ref={boardRef}
         rows={rows}
-        onBlur={handleBlur}
+        tileRefs={tileRefs}
+      />
+
+      <Input
+        activePosition={activePosition}
+        className={styles.input}
         onChange={onChange}
         onFocus={handleFocus}
         onKeyDown={onKeyDown}
+        onMouseDown={handleMouseDown}
         onPaste={onPaste}
       />
 
