@@ -14,15 +14,16 @@ import {
 } from 'state';
 
 import Button from '../../../Button';
+import Spinner from '../../../Spinner';
 
-import styles from './SolveButton.module.scss';
+import styles from './FloatingSolveButton.module.scss';
 
 interface Props {
   className?: string;
   onClick?: MouseEventHandler;
 }
 
-const SolveButton: FunctionComponent<Props> = ({ className, onClick = noop }) => {
+const FloatingSolveButton: FunctionComponent<Props> = ({ className, onClick = noop }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isLoading = useTypedSelector(selectIsLoading);
@@ -38,10 +39,9 @@ const SolveButton: FunctionComponent<Props> = ({ className, onClick = noop }) =>
   return (
     <Button
       aria-label={translate('results.solve')}
-      className={classNames(styles.solveButton, className)}
+      className={classNames(styles.floatingSolveButton, className)}
       disabled={isLoading || !isOutdated || !hasTiles}
-      Icon={Search}
-      iconClassName={styles.icon}
+      Icon={isLoading ? Spinner : Search}
       tooltip={translate('results.solve')}
       type="submit"
       variant="primary"
@@ -50,4 +50,4 @@ const SolveButton: FunctionComponent<Props> = ({ className, onClick = noop }) =>
   );
 };
 
-export default SolveButton;
+export default FloatingSolveButton;

@@ -17,6 +17,7 @@
   "common.vowels": "حروف مصوت",
   "common.word": "کلمه",
   "common.words": "کلمات",
+  "dictionary": "فرهنگ لغت",
   "dictionary.empty-state.no-definitions": "کلمه در فرهنگ لغت وجود دارد، ولی معنایی برای آن ثبت نشده است.",
   "dictionary.empty-state.no-results": "کلمه در فرهنگ لغت یافت نشد.",
   "dictionary.empty-state.not-allowed": "این کلمه مجاز نیست.",

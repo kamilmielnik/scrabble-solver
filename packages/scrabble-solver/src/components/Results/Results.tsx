@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { FunctionComponent, useEffect, useMemo, useState } from 'react';
-import { useMeasure } from 'react-use';
+import { useLatest, useMeasure } from 'react-use';
 import { FixedSizeList } from 'react-window';
 
 import { LOCALE_FEATURES } from 'i18n';
@@ -30,10 +30,11 @@ import useColumns from './useColumns';
 
 interface Props {
   callbacks: ResultCallbacks;
+  className?: string;
   highlightedIndex?: number;
 }
 
-const Results: FunctionComponent<Props> = ({ callbacks, highlightedIndex }) => {
+const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIndex }) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
@@ -48,23 +49,26 @@ const Results: FunctionComponent<Props> = ({ callbacks, highlightedIndex }) => {
   const [listRef, setListRef] = useState<FixedSizeList<ResultData> | null>(null);
   const columns = useColumns();
   const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
+  const scrollToIndexRef = useLatest(scrollToIndex);
+  const hasResults =
+    typeof error === 'undefined' && typeof filteredResults !== 'undefined' && typeof allResults !== 'undefined';
 
   useEffect(() => {
     // without setTimeout, the initial scrolling offset is calculated
     // incorrectly, as the list is not fully rendered by the browser yet
     const timeout = globalThis.setTimeout(() => {
       if (listRef) {
-        listRef.scrollToItem(scrollToIndex, 'center');
+        listRef.scrollToItem(scrollToIndexRef.current, 'center');
       }
     }, 0);
 
     return () => {
       globalThis.clearTimeout(timeout);
     };
-  }, [listRef, scrollToIndex]);
+  }, [allResults, listRef, scrollToIndexRef]);
 
   return (
-    <div className={styles.results}>
+    <div className={classNames(styles.results, className)}>
       <div className={styles.header}>
         {columns.map((column) => (
           <HeaderButton column={column} key={column.id} />
@@ -88,9 +92,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, highlightedIndex }) => {
           </EmptyState>
         )}
 
-        {typeof error === 'undefined' &&
-          typeof filteredResults !== 'undefined' &&
-          typeof allResults !== 'undefined' && (
+        {hasResults && (
           <>
             {isOutdated && (
               <EmptyState className={styles.emptyState} variant="info">
@@ -138,9 +140,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, highlightedIndex }) => {
         )}
       </div>
 
-      {typeof error === 'undefined' && typeof filteredResults !== 'undefined' && typeof allResults !== 'undefined' && (
-        <>{allResults.length > 0 && !isOutdated && <ResultsInput />}</>
-      )}
+      {hasResults && allResults.length > 0 && !isOutdated && <ResultsInput className={styles.input} />}
 
       {isLoading && <Loading />}
     </div>

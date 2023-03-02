@@ -1,6 +1,24 @@
+@import 'styles/mixins';
+
 .content {
   position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
+  gap: var(--spacing--l);
+}
+
+.results {
+  flex: 1;
+}
+
+.dictionary {
+  flex: 0 0 calc(var(--dictionary--height) - var(--text-input--height));
+  background-color: var(--color--background--element);
+  border: var(--border);
+  box-shadow: var(--box-shadow);
+
+  @media (max-height: 600px) {
+    display: none;
+  }
 }

@@ -17,6 +17,7 @@
   "common.vowels": "Samogłoski",
   "common.word": "Słowo",
   "common.words": "Słowa",
+  "dictionary": "Słownik",
   "dictionary.empty-state.no-definitions": "Słowo istnieje w słowniku ale nie posiada definicji.",
   "dictionary.empty-state.no-results": "Nie udało się znaleźć definicji słowa w słowniku.",
   "dictionary.empty-state.not-allowed": "To słowo nie jest dopuszczalne w grach.",

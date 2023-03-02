@@ -4,15 +4,8 @@ import { FunctionComponent, SyntheticEvent, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useMeasure } from 'react-use';
 
-import { useIsTouchDevice, useMediaQuery } from 'hooks';
-import {
-  BOARD_TILE_SIZE_MAX,
-  BOARD_TILE_SIZE_MIN,
-  BORDER_WIDTH,
-  COMPONENTS_SPACING,
-  COMPONENTS_SPACING_SMALL,
-  RACK_TILE_SIZE_MAX,
-} from 'parameters';
+import { useAppLayout, useIsTouchDevice } from 'hooks';
+import { BOARD_TILE_SIZE_MAX, BOARD_TILE_SIZE_MIN, BORDER_WIDTH, RACK_TILE_SIZE_MAX } from 'parameters';
 import {
   resultsSlice,
   selectAreResultsOutdated,
@@ -32,7 +25,7 @@ import DictionaryInput from '../DictionaryInput';
 import Rack from '../Rack';
 import Results from '../Results';
 
-import { EmptyState, ResultCandidatePicker, SolveButton } from './components';
+import { EmptyState, FloatingSolveButton, ResultCandidatePicker } from './components';
 import styles from './Solver.module.scss';
 
 interface Props {
@@ -47,14 +40,12 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
+  const { componentsSpacing, isBoardFullWidth, showColumn, showCompactControls, showFloatingSolveButton } =
+    useAppLayout();
   const [bottomContainerRef, { height: bottomContainerHeight }] = useMeasure<HTMLDivElement>();
   const [columnRef, { width: columnWidth }] = useMeasure<HTMLDivElement>();
-  const isLessThanXl = useMediaQuery('<xl');
-  const isLessThanL = useMediaQuery('<l');
-  const isLessThanM = useMediaQuery('<m');
-  const componentsSpacing = isLessThanXl ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING;
-  const maxBoardWidth = width - columnWidth - (isLessThanL ? 0 : componentsSpacing) - 2 * componentsSpacing;
-  const maxBoardHeight = Math.max(height - bottomContainerHeight, isLessThanM ? Number.POSITIVE_INFINITY : 0);
+  const maxBoardWidth = width - columnWidth - (showColumn ? componentsSpacing : 0) - 2 * componentsSpacing;
+  const maxBoardHeight = isBoardFullWidth ? Number.POSITIVE_INFINITY : Math.max(height - bottomContainerHeight, 0);
   const config = useTypedSelector(selectConfig);
   const error = useTypedSelector(selectSolveError);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
@@ -107,18 +98,14 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
 
-    if (isLessThanL) {
-      onShowResults();
-    }
-
     dispatch(solveSlice.actions.submit());
   };
 
   useEffect(() => {
-    if (isLessThanL && bestResult && !isOutdated) {
+    if (showCompactControls && bestResult && !isOutdated) {
       dispatch(resultsSlice.actions.changeResultCandidate(bestResult));
     }
-  }, [bestResult, dispatch, isLessThanL, isOutdated]);
+  }, [bestResult, dispatch, showCompactControls, isOutdated]);
 
   return (
     <div className={classNames(styles.solver, className)}>
@@ -147,7 +134,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
             <input className={styles.submitInput} tabIndex={-1} type="submit" />
           </form>
 
-          {isLessThanL && (
+          {showCompactControls && (
             <div className={styles.controls} style={{ maxWidth: maxControlsWidth }}>
               <ResultCandidatePicker onResultClick={onShowResults} />
 
@@ -167,7 +154,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
         </div>
       </div>
 
-      {isTouchDevice && <SolveButton className={styles.solve} onClick={handleSubmit} />}
+      {showFloatingSolveButton && <FloatingSolveButton className={styles.solve} onClick={handleSubmit} />}
     </div>
   );
 };

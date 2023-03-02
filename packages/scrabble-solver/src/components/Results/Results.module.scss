@@ -21,8 +21,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   flex: 1;
   position: relative;
   height: 100%;
-  border-top: var(--border);
-  border-bottom: var(--border);
 }
 
 .listContainer {
@@ -45,6 +43,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   align-items: center;
   justify-content: space-between;
   font-weight: 700;
+  border-bottom: var(--border);
 }
 
 .headerButton {
@@ -172,4 +171,8 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   flex: 0 0 auto;
   width: $size;
   height: $size;
+}
+
+.input {
+  border-top: var(--border);
 }

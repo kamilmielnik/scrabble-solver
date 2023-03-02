@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 
 import { Button, Modal } from 'components';
-import { CardChecklist, Cog, Github, Sack } from 'icons';
+import { BookHalf, CardChecklist, Cog, Github, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { useTranslate } from 'state';
 
@@ -11,6 +11,7 @@ interface Props {
   className?: string;
   isOpen: boolean;
   onClose: () => void;
+  onShowDictionary: () => void;
   onShowRemainingTiles: () => void;
   onShowSettings: () => void;
   onShowWords: () => void;
@@ -20,6 +21,7 @@ const Menu: FunctionComponent<Props> = ({
   className,
   isOpen,
   onClose,
+  onShowDictionary,
   onShowRemainingTiles,
   onShowSettings,
   onShowWords,
@@ -39,6 +41,10 @@ const Menu: FunctionComponent<Props> = ({
 
       <Button aria-label={translate('words')} className={styles.button} Icon={CardChecklist} onClick={onShowWords}>
         {translate('words')}
+      </Button>
+
+      <Button aria-label={translate('dictionary')} className={styles.button} Icon={BookHalf} onClick={onShowDictionary}>
+        {translate('dictionary')}
       </Button>
 
       <Button.Link

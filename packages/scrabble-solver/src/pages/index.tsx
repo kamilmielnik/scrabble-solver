@@ -7,9 +7,17 @@ import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure } from 'react-use';
 
 import { Logo, LogoSplashScreen, NavButtons, Solver, SvgFontFix } from 'components';
-import { useDirection, useLanguage, useLocalStorage, useMediaQuery } from 'hooks';
+import { useAppLayout, useDirection, useLanguage, useLocalStorage } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
-import { KeyMapModal, MenuModal, RemainingTilesModal, ResultsModal, SettingsModal, WordsModal } from 'modals';
+import {
+  DictionaryModal,
+  KeyMapModal,
+  MenuModal,
+  RemainingTilesModal,
+  ResultsModal,
+  SettingsModal,
+  WordsModal,
+} from 'modals';
 import { INITIALIZATION_DURATION } from 'parameters';
 import { registerServiceWorker } from 'serviceWorkerManager';
 import { initialize, localStorage, reset, selectLocale, useTypedSelector } from 'state';
@@ -26,7 +34,8 @@ interface Props {
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
-  const isLessThanL = useMediaQuery('<l');
+  const { showResultsInModal } = useAppLayout();
+  const [showDictionary, setShowDictionary] = useState(false);
   const [showKeyMap, setShowKeyMap] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showRemainingTiles, setShowRemainingTiles] = useState(false);
@@ -65,10 +74,10 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   });
 
   useEffect(() => {
-    if (!isLessThanL) {
+    if (!showResultsInModal) {
       setShowResults(false);
     }
-  }, [isLessThanL]);
+  }, [showResultsInModal]);
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
@@ -115,6 +124,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       <MenuModal
         isOpen={showMenu}
         onClose={() => setShowMenu(false)}
+        onShowDictionary={() => setShowDictionary(true)}
         onShowRemainingTiles={() => setShowRemainingTiles(true)}
         onShowSettings={() => setShowSettings(true)}
         onShowWords={() => setShowWords(true)}
@@ -129,6 +139,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       <RemainingTilesModal isOpen={showRemainingTiles} onClose={() => setShowRemainingTiles(false)} />
 
       <ResultsModal isOpen={showResults} onClose={() => setShowResults(false)} />
+
+      <DictionaryModal isOpen={showDictionary} onClose={() => setShowDictionary(false)} />
 
       <LogoSplashScreen forceShow={!isInitialized} onAnimationEnd={handleSplashAnimationEnd} />
     </>

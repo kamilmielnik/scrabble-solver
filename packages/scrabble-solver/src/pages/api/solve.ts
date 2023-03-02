@@ -57,29 +57,28 @@ const parseRequest = (request: NextApiRequest): RequestData => {
     throw new Error('Invalid "configId" parameter');
   }
 
-  const config = getLocaleConfig(configId, locale);
-
-  if (!isBoardJson(boardJson) || !isBoardValid(boardJson, config)) {
-    throw new Error('Invalid "board" parameter');
-  }
-
   if (!isStringArray(characters) || characters.length === 0) {
     throw new Error('Invalid "characters" parameter');
   }
+
+  const config = getLocaleConfig(configId, locale);
 
   for (const character of characters) {
     if (!config.hasCharacter(character) && character !== BLANK) {
       throw new Error('Invalid "characters" parameter');
     }
   }
-
-  const board = Board.fromJson(boardJson);
-  const blankTilesCount = characters.filter((character) => character === BLANK).length;
-  const blanksCount = board.getBlanksCount() + blankTilesCount;
+  const blanksCount = characters.filter((character) => character === BLANK).length;
 
   if (blanksCount > config.blanksCount) {
     throw new Error('Too many blank tiles passed');
   }
+
+  if (!isBoardJson(boardJson) || !isBoardValid(boardJson, config)) {
+    throw new Error('Invalid "board" parameter');
+  }
+
+  const board = Board.fromJson(boardJson);
 
   return {
     board,

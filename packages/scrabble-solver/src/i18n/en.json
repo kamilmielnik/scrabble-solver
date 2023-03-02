@@ -17,6 +17,7 @@
   "common.vowels": "Vowels",
   "common.word": "Word",
   "common.words": "Words",
+  "dictionary": "Dictionary",
   "dictionary.empty-state.no-definitions": "Word exists in the dictionary but it does not have a definition.",
   "dictionary.empty-state.no-results": "Unable to find word definition in the dictionary.",
   "dictionary.empty-state.not-allowed": "This word is not allowed.",

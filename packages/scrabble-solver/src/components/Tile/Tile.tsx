@@ -11,7 +11,7 @@ import {
   useRef,
 } from 'react';
 
-import { useMediaQuery } from 'hooks';
+import { useAppLayout } from 'hooks';
 import { getTileSizes, noop } from 'lib';
 import { EASE_OUT_CUBIC, TILE_APPEAR_DURATION, TILE_APPEAR_KEYFRAMES } from 'parameters';
 import { selectLocale, useTypedSelector } from 'state';
@@ -58,6 +58,7 @@ const Tile: FunctionComponent<Props> = ({
   onKeyDown = noop,
 }) => {
   const locale = useTypedSelector(selectLocale);
+  const { animateTile, showTilePoints } = useAppLayout();
   const { pointsFontSize, tileFontSize, tileSize } = getTileSizes(size);
   const style = useMemo(() => ({ height: tileSize, width: tileSize }), [tileSize]);
   const characterStyle = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
@@ -65,8 +66,7 @@ const Tile: FunctionComponent<Props> = ({
   const ref = useRef<HTMLInputElement>(null);
   const mergedRef = useMergeRefs(inputRef ? [ref, inputRef] : [ref]);
   const isEmpty = !character || character === EMPTY_CELL;
-  const isLessThanXs = useMediaQuery('<xs');
-  const canShowPoints = (isBlank || !isEmpty) && typeof points !== 'undefined' && !isLessThanXs;
+  const canShowPoints = showTilePoints && (!isEmpty || isBlank) && typeof points !== 'undefined';
   const pointsFormatted = typeof points === 'number' ? points.toLocaleString(locale) : '';
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
@@ -81,7 +81,7 @@ const Tile: FunctionComponent<Props> = ({
   }, [autoFocus, ref]);
 
   useEffect(() => {
-    if (!ref.current?.parentElement || !character || isLessThanXs) {
+    if (!ref.current?.parentElement || !character || !animateTile) {
       return;
     }
 
@@ -90,7 +90,7 @@ const Tile: FunctionComponent<Props> = ({
       easing: EASE_OUT_CUBIC,
       fill: 'forwards',
     });
-  }, [character, isLessThanXs]);
+  }, [character, animateTile]);
 
   return (
     <TilePure

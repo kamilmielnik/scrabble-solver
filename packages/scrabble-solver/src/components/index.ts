@@ -22,6 +22,7 @@ export { default as ResultsInput } from './ResultsInput';
 export { default as SeoMessage } from './SeoMessage';
 export { default as Sizer } from './Sizer';
 export { default as Solver } from './Solver';
+export { default as Spinner } from './Spinner';
 export { default as SplashScreen } from './SplashScreen';
 export { default as SvgFontCss } from './SvgFontCss';
 export { default as SvgFontFix } from './SvgFontFix';

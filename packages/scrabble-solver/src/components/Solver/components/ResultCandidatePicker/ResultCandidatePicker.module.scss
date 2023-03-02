@@ -1,6 +1,7 @@
 @import 'styles/mixins';
 
 .resultCandidatePicker {
+  position: relative;
   display: flex;
   gap: var(--spacing--l);
 
@@ -137,12 +138,26 @@
   }
 }
 
-.icon {
-  $size: 20px;
+.spinnerContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  width: $size;
-  height: $size;
+.loading,
+.icon {
+  width: var(--button--icon--size);
+  height: var(--button--icon--size);
   color: var(--color--inactive);
+}
+
+.loading {
+  border-color: var(--color--inactive);
 }
 
 .insert {
