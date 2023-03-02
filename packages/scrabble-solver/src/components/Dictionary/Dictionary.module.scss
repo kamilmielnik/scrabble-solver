@@ -1,5 +1,6 @@
 .dictionary {
   position: relative;
+  max-height: var(--dictionary--height--max);
   height: var(--dictionary--height--max);
   overflow-y: auto;
   word-break: break-word;

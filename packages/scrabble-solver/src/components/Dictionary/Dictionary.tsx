@@ -25,9 +25,9 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
         [styles.isNotAllowed]: isLastAllowed === false,
       })}
     >
-      {typeof error !== 'undefined' && <EmptyState variant="error">{error.message}</EmptyState>}
+      {typeof error !== 'undefined' && !isLoading && <EmptyState variant="error">{error.message}</EmptyState>}
 
-      {typeof error === 'undefined' && results.length === 0 && (
+      {typeof error === 'undefined' && !isLoading && results.length === 0 && (
         <EmptyState variant="info">{translate('dictionary.empty-state.uninitialized')}</EmptyState>
       )}
 
