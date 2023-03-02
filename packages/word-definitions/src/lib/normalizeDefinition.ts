@@ -8,7 +8,7 @@ const normalizeHtmlTags: Normalize = (definition) => striptags(striptags(definit
 
 const normalizeLineBreaks: Normalize = (definition) => definition.replace(/\r\n/g, '\n');
 
-const normalizeWhitespace: Normalize = (definition) => definition.replace(/[ ]+/g, ' ');
+const normalizeWhitespace: Normalize = (definition) => definition.replace(/[^\S\n ]+/g, ' ').replace(/[ ]+/g, ' ');
 
 const normalizeQuotes: Normalize = (definition) => definition.replace(/\."/g, '".');
 

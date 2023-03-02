@@ -15,6 +15,7 @@ const tests = [
   { locale: Locale.DE_DE, word: 'kolla' },
   { locale: Locale.DE_DE, word: 'vom' },
   { locale: Locale.EN_US, word: 'awe' },
+  { locale: Locale.EN_US, word: 'oe' },
   { locale: Locale.EN_US, word: 'pawn' },
   { locale: Locale.EN_US, word: 'pawnee' },
   { locale: Locale.EN_US, word: 'pean' },
