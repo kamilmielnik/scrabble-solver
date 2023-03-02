@@ -42,10 +42,6 @@ const FloatingSolveButton: FunctionComponent<Props> = ({ className, onClick = no
       className={classNames(styles.floatingSolveButton, className)}
       disabled={isLoading || !isOutdated || !hasTiles}
       Icon={isLoading ? Spinner : Search}
-      iconClassName={classNames({
-        [styles.icon]: !isLoading,
-        [styles.loading]: isLoading,
-      })}
       tooltip={translate('results.solve')}
       type="submit"
       variant="primary"
