@@ -4,12 +4,22 @@
   overflow-y: auto;
   word-break: break-word;
   transition: var(--transition);
+
+  &.isAllowed {
+    background-color: var(--color--green--light);
+  }
+
+  &.isNotAllowed {
+    background-color: var(--color--red--light);
+  }
 }
 
 .result {
   transition: var(--transition);
 
   &.isAllowed {
+    background-color: var(--color--green--light);
+
     & + & {
       .content {
         padding-top: 0;
@@ -18,6 +28,8 @@
   }
 
   &.isNotAllowed {
+    background-color: var(--color--red--light);
+
     & + & {
       .content {
         padding-top: 0;
@@ -35,14 +47,6 @@
   font-family: var(--font--family--title);
   font-size: var(--font--size--h2);
   text-transform: uppercase;
-}
-
-.isAllowed {
-  background-color: var(--color--green--light);
-}
-
-.isNotAllowed {
-  background-color: var(--color--red--light);
 }
 
 .definitions {
