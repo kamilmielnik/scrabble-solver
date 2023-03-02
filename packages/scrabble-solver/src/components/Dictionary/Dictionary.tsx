@@ -16,13 +16,13 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
   const translate = useTranslate();
   const { results, isLoading } = useTypedSelector(selectDictionary);
   const error = useTypedSelector(selectDictionaryError);
-  const isFirstAllowed = results.length > 0 ? results[0].isAllowed : undefined;
+  const isLastAllowed = results.length > 0 ? results[results.length - 1].isAllowed : undefined;
 
   return (
     <div
       className={classNames(styles.dictionary, className, {
-        [styles.isAllowed]: isFirstAllowed === true,
-        [styles.isNotAllowed]: isFirstAllowed === false,
+        [styles.isAllowed]: isLastAllowed === true,
+        [styles.isNotAllowed]: isLastAllowed === false,
       })}
     >
       {typeof error !== 'undefined' && <EmptyState variant="error">{error.message}</EmptyState>}
