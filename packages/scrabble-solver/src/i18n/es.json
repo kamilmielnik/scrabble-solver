@@ -17,6 +17,7 @@
   "common.vowels": "Vocales",
   "common.word": "Palabra",
   "common.words": "Palabras",
+  "dictionary": "Diccionario",
   "dictionary.empty-state.no-definitions": "La palabra existe en el diccionario pero no tiene una definición.",
   "dictionary.empty-state.no-results": "No se puede encontrar la definición de palabra en el diccionario.",
   "dictionary.empty-state.not-allowed": "Esta palabra no es aceptable.",

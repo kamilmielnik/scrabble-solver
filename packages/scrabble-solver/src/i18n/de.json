@@ -17,6 +17,7 @@
   "common.vowels": "Vokale",
   "common.word": "Wort",
   "common.words": "Wörter",
+  "dictionary": "Wörterbuch",
   "dictionary.empty-state.no-definitions": "Wort existiert im Wörterbuch aber hat keine Definition.",
   "dictionary.empty-state.no-results": "Wort kann nicht im Wörterbuch gefunden werden.",
   "dictionary.empty-state.not-allowed": "Dieses Wort ist nicht erlaubt.",

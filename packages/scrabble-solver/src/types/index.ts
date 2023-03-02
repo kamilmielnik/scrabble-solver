@@ -50,6 +50,7 @@ export type TranslationKey =
   | 'common.vowels'
   | 'common.word'
   | 'common.words'
+  | 'dictionary'
   | 'dictionary.empty-state.no-definitions'
   | 'dictionary.empty-state.no-results'
   | 'dictionary.empty-state.not-allowed'

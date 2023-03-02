@@ -17,6 +17,7 @@
   "common.vowels": "Voyelles",
   "common.word": "Mot",
   "common.words": "Mots",
+  "dictionary": "Dictionnaire",
   "dictionary.empty-state.no-definitions": "Le mot existe dans le dictionary mais n'a pas de définition.",
   "dictionary.empty-state.no-results": "Impossible de trouver une définition pour ce mot dans le dictionaire.",
   "dictionary.empty-state.not-allowed": "Ce mot n'est pas pas acceptable.",
