@@ -3,4 +3,16 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  gap: var(--spacing--l);
+}
+
+.dictionary {
+  flex: 0 0 var(--dictionary--height--min);
+  background-color: var(--color--background--element);
+  border: var(--border);
+  box-shadow: var(--box-shadow);
+}
+
+.results {
+  flex: 1;
 }

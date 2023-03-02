@@ -30,10 +30,11 @@ import useColumns from './useColumns';
 
 interface Props {
   callbacks: ResultCallbacks;
+  className?: string;
   highlightedIndex?: number;
 }
 
-const Results: FunctionComponent<Props> = ({ callbacks, highlightedIndex }) => {
+const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIndex }) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
@@ -64,7 +65,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, highlightedIndex }) => {
   }, [listRef, scrollToIndex]);
 
   return (
-    <div className={styles.results}>
+    <div className={classNames(styles.results, className)}>
       <div className={styles.header}>
         {columns.map((column) => (
           <HeaderButton column={column} key={column.id} />
