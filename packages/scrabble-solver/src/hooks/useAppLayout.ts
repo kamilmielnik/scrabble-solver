@@ -16,7 +16,6 @@ const useAppLayout = () => {
     animateTile: !isLessThanXs,
     componentsSpacing: isLessThanXl ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING,
     isBoardFullWidth: isLessThanM,
-    isModalFullWidth: isLessThanS,
     showColumn,
     showCompactControls: !showColumn,
     showFloatingSolveButton: isTouchDevice,
