@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 
-import { useIsTouchDevice, useMediaQuery } from 'hooks';
+import { useAppLayout } from 'hooks';
 import { CardChecklist, Cog, Eraser, Github, Keyboard, List, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { selectHasInvalidWords, selectHasOverusedTiles, useTranslate, useTypedSelector } from 'state';
@@ -30,10 +30,9 @@ const NavButtons: FunctionComponent<Props> = ({
   const translate = useTranslate();
   const hasOverusedTiles = useTypedSelector(selectHasOverusedTiles);
   const hasInvalidWords = useTypedSelector(selectHasInvalidWords);
-  const isTouchDevice = useIsTouchDevice();
-  const isLessThanS = useMediaQuery('<s');
+  const { showKeyMap, showShortNav } = useAppLayout();
 
-  if (isLessThanS) {
+  if (showShortNav) {
     return (
       <div className={styles.navButtons}>
         <div className={styles.group}>
@@ -114,7 +113,7 @@ const NavButtons: FunctionComponent<Props> = ({
       <div className={styles.separator} />
 
       <div className={styles.group}>
-        {!isTouchDevice && (
+        {showKeyMap && (
           <IconButton
             aria-label={translate('keyMap')}
             className={styles.button}
