@@ -1,0 +1,11 @@
+@import 'styles/animations';
+
+.spinner {
+  width: var(--button--icon--size);
+  height: var(--button--icon--size);
+  border: var(--border);
+  border-width: 2px;
+  border-radius: 50%;
+  border-right-color: transparent !important;
+  animation: 750ms linear infinite rotate;
+}
