@@ -131,26 +131,21 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
 
   return (
     <>
-      <BoardPure
-        className={className}
-        cellSize={cellSize}
-        center={board.center}
-        ref={boardRef}
-        rows={rows}
-        tileRefs={tileRefs}
-      />
+      <div className={classNames(styles.boardContainer, className)}>
+        <BoardPure cellSize={cellSize} center={board.center} ref={boardRef} rows={rows} tileRefs={tileRefs} />
 
-      <Input
-        activePosition={activePosition}
-        className={styles.input}
-        onBlur={handleBlur}
-        onChange={onChange}
-        onFocus={handleFocus}
-        onKeyDown={onKeyDown}
-        onTouchStart={handleTouchStart}
-        onMouseDown={handleMouseDown}
-        onPaste={onPaste}
-      />
+        <Input
+          activePosition={activePosition}
+          className={styles.input}
+          onBlur={handleBlur}
+          onChange={onChange}
+          onFocus={handleFocus}
+          onKeyDown={onKeyDown}
+          onTouchStart={handleTouchStart}
+          onMouseDown={handleMouseDown}
+          onPaste={onPaste}
+        />
+      </div>
 
       <FloatingPortal>
         <Actions

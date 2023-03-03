@@ -10,7 +10,6 @@ export interface Props extends HTMLProps<HTMLDivElement> {
   character?: string;
   characterStyle?: CSSProperties;
   className?: string;
-  disabled?: boolean;
   highlighted?: boolean;
   isBlank?: boolean;
   isValid?: boolean;
@@ -28,7 +27,6 @@ const TilePure = forwardRef<HTMLDivElement, Props>(
       character,
       characterStyle,
       className,
-      disabled,
       highlighted,
       isBlank,
       isValid,
@@ -45,7 +43,6 @@ const TilePure = forwardRef<HTMLDivElement, Props>(
       {...props}
       className={classNames(styles.tile, className, {
         [styles.blank]: isBlank,
-        [styles.disabled]: disabled,
         [styles.empty]: !character,
         [styles.highlighted]: highlighted,
         [styles.raised]: raised,

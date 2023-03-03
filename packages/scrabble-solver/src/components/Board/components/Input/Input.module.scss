@@ -1,3 +1,5 @@
 .input {
-
+  border: none;
+  opacity: 0;
+  font-size: 16px; // prevent iOS from automatically zooming in on focus
 }

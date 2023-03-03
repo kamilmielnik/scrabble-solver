@@ -1,5 +1,10 @@
 @import 'styles/animations';
 
+.boardContainer {
+  position: relative;
+  display: flex;
+}
+
 .board {
   display: table;
   box-shadow: var(--box-shadow);
@@ -18,9 +23,6 @@
   left: var(--border--width);
   width: calc(100% - 2 * var(--border--width));
   height: calc(100% - 2 * var(--border--width));
-  border: none;
-  opacity: 0;
-  font-size: 0;
 }
 
 .actions {

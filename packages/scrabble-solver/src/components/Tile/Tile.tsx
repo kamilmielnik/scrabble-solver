@@ -12,7 +12,6 @@ import TilePure, { Props as TilePureProps } from './TilePure';
 interface Props extends TilePureProps {
   character?: string;
   className?: string;
-  disabled?: boolean;
   highlighted?: boolean;
   isBlank?: boolean;
   isValid?: boolean;
@@ -23,10 +22,7 @@ interface Props extends TilePureProps {
 }
 
 const Tile = forwardRef<HTMLDivElement, Props>(
-  (
-    { className, character = '', disabled, highlighted, isBlank, isValid, placeholder, points, raised, size, ...props },
-    ref,
-  ) => {
+  ({ className, character = '', highlighted, isBlank, isValid, placeholder, points, raised, size, ...props }, ref) => {
     const locale = useTypedSelector(selectLocale);
     const { animateTile, showTilePoints } = useAppLayout();
     const { pointsFontSize, tileFontSize, tileSize } = getTileSizes(size);
@@ -58,7 +54,6 @@ const Tile = forwardRef<HTMLDivElement, Props>(
         character={character}
         characterStyle={characterStyle}
         className={className}
-        disabled={disabled}
         highlighted={highlighted}
         isBlank={isBlank}
         isValid={isValid}
