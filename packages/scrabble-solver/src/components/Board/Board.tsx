@@ -5,6 +5,7 @@ import {
   FocusEventHandler,
   FunctionComponent,
   MouseEventHandler,
+  TouchEventHandler,
   useEffect,
   useRef,
   useState,
@@ -25,6 +26,7 @@ interface Props {
   className?: string;
 }
 
+// eslint-disable-next-line max-statements
 const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
   const dispatch = useDispatch();
   const rows = useTypedSelector(selectRowsWithCandidate);
@@ -72,14 +74,14 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
     setShowActions(true);
   };
 
-  const handleMouseDown: MouseEventHandler = (event) => {
+  const setFocus = (clientX: number, clientY: number) => {
     if (!boardRef.current) {
       return;
     }
 
     const boardRect = boardRef.current.getBoundingClientRect();
-    const newX = Math.floor((event.clientX - boardRect.left) / (cellSize + BORDER_WIDTH));
-    const newY = Math.floor((event.clientY - boardRect.top) / (cellSize + BORDER_WIDTH));
+    const newX = Math.floor((clientX - boardRect.left) / (cellSize + BORDER_WIDTH));
+    const newY = Math.floor((clientY - boardRect.top) / (cellSize + BORDER_WIDTH));
     const isFirstFocus = !showActions;
     const originalTransition = refs.floating.current?.style.transition || '';
     const newTileElement = tileRefs[newY][newX].current;
@@ -99,6 +101,10 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
     }
   };
 
+  const handleMouseDown: MouseEventHandler = (event) => {
+    setFocus(event.clientX, event.clientY);
+  };
+
   const handleToggleBlank = () => {
     inputRef.current?.focus();
     dispatch(boardSlice.actions.toggleCellIsBlank(cell));
@@ -107,6 +113,15 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
   const handleToggleFilterCell = () => {
     inputRef.current?.focus();
     dispatch(cellFilterSlice.actions.toggle(cell));
+  };
+
+  const handleTouchStart: TouchEventHandler = (event) => {
+    if (!boardRef.current || event.targetTouches.length === 0) {
+      return;
+    }
+
+    const touch = event.targetTouches.item(0);
+    setFocus(touch.clientX, touch.clientY);
   };
 
   useEffect(() => {
@@ -132,6 +147,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
         onChange={onChange}
         onFocus={handleFocus}
         onKeyDown={onKeyDown}
+        onTouchStart={handleTouchStart}
         onMouseDown={handleMouseDown}
         onPaste={onPaste}
       />
