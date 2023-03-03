@@ -169,9 +169,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   };
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!activePosition) {
-      return;
-    }
+    const value = event.target.value.toLocaleLowerCase();
 
     const value = extractInputValue(event.target);
 
@@ -238,28 +236,16 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       }
     },
     onBackspace: (event) => {
-      if (!activePosition) {
-        return;
-      }
-
       event.preventDefault();
       dispatch(boardSlice.actions.changeCellValue({ ...activePosition, value: EMPTY_CELL }));
       moveFocus(-1);
     },
     onDelete: (event) => {
-      if (!activePosition) {
-        return;
-      }
-
       event.preventDefault();
       dispatch(boardSlice.actions.changeCellValue({ ...activePosition, value: EMPTY_CELL }));
       moveFocus(1);
     },
     onKeyDown: (event) => {
-      if (!activePosition) {
-        return;
-      }
-
       const { x, y } = activePosition;
       const character = event.key.toLowerCase();
       const isTogglingBlank = isCtrl(event) && character === 'b';
@@ -296,10 +282,6 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       }
     },
     onSpace: (event) => {
-      if (!activePosition) {
-        return;
-      }
-
       event.preventDefault();
       dispatch(boardSlice.actions.toggleCellIsBlank(activePosition));
     },
@@ -307,10 +289,6 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
   const onPaste: ClipboardEventHandler = (event) => {
     if (!(event.target instanceof HTMLInputElement)) {
-      return;
-    }
-
-    if (!activePosition) {
       return;
     }
 
