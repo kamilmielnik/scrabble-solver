@@ -1,6 +1,14 @@
 import { autoUpdate, FloatingPortal, offset, shift, useFloating, useMergeRefs } from '@floating-ui/react';
 import classNames from 'classnames';
-import { CSSProperties, FocusEventHandler, FunctionComponent, MouseEventHandler, useRef, useState } from 'react';
+import {
+  CSSProperties,
+  FocusEventHandler,
+  FunctionComponent,
+  MouseEventHandler,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import { useDispatch } from 'react-redux';
 import { useMeasure } from 'react-use';
 
@@ -69,9 +77,9 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
       return;
     }
 
-    const { left, top } = boardRef.current.getBoundingClientRect();
-    const newX = Math.floor((event.clientX - left) / (cellSize + BORDER_WIDTH));
-    const newY = Math.floor((event.clientY - top) / (cellSize + BORDER_WIDTH));
+    const boardRect = boardRef.current.getBoundingClientRect();
+    const newX = Math.floor((event.clientX - boardRect.left) / (cellSize + BORDER_WIDTH));
+    const newY = Math.floor((event.clientY - boardRect.top) / (cellSize + BORDER_WIDTH));
     const isFirstFocus = !showActions;
     const originalTransition = refs.floating.current?.style.transition || '';
     const newTileElement = tileRefs[newY][newX].current;
@@ -101,6 +109,11 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
     dispatch(cellFilterSlice.actions.toggle(cell));
   };
 
+  useEffect(() => {
+    const newTileElement = tileRefs[activePosition.y][activePosition.x].current;
+    refs.setReference(newTileElement);
+  }, [activePosition]);
+
   return (
     <>
       <BoardPure
@@ -115,6 +128,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
       <Input
         activePosition={activePosition}
         className={styles.input}
+        onBlur={handleBlur}
         onChange={onChange}
         onFocus={handleFocus}
         onKeyDown={onKeyDown}

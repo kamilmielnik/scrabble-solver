@@ -57,8 +57,6 @@ const CellPure: FunctionComponent<Props> = ({
     <Tile
       className={styles.tile}
       character={isEmpty ? undefined : tile.character}
-      data-board-tile-x={cell.x}
-      data-board-tile-y={cell.y}
       highlighted={cell.isCandidate()}
       isBlank={tile.isBlank}
       isValid={isValid}

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { forwardRef, HTMLProps, KeyboardEventHandler, useEffect, useRef } from 'react';
 
 import { noop } from 'lib';
-import { selectLocale, useTranslate, useTypedSelector } from 'state';
+import { selectLocale, selectRowsWithCandidate, useTranslate, useTypedSelector } from 'state';
 
 import { Point } from '../../types';
 
@@ -17,6 +17,8 @@ const Input = forwardRef<HTMLInputElement, Props>(
   ({ activePosition, autoFocus, className, onKeyDown = noop, ...props }, ref) => {
     const translate = useTranslate();
     const locale = useTypedSelector(selectLocale);
+    const rows = useTypedSelector(selectRowsWithCandidate);
+    const cell = rows[activePosition.y][activePosition.x];
     const inputRef = useRef<HTMLInputElement>(null);
     const mergedRef = useMergeRefs(ref ? [inputRef, ref] : [inputRef]);
 
@@ -44,11 +46,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
         className={classNames(styles.input, className)}
         ref={mergedRef}
         spellCheck={false}
-        // value={character || ''}
-        // onBlur={handleBlur}
-        // onPaste={onPaste}
-        // onChange={onChange}
-        // onFocus={onFocus}
+        value={cell.tile.character || ''}
         onKeyDown={handleKeyDown}
         {...props}
       />

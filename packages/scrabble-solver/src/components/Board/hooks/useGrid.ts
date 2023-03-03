@@ -318,7 +318,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         dispatch(boardSlice.actions.toggleCellIsBlank(activePosition));
       },
     });
-  }, [activePosition, changeActivePosition, config, dispatch, locale, onDirectionToggle, rows]);
+  }, [activePosition, changeActivePosition, config, dispatch, locale, moveFocus, onDirectionToggle, rows]);
 
   const onPaste = useCallback<ClipboardEventHandler>(
     (event) => {
