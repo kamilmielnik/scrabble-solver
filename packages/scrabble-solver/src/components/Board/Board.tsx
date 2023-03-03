@@ -55,25 +55,6 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
 
   const actionsRef = useMergeRefs([actionsMeasureRef, refs.setFloating]);
 
-  const handleBlur: FocusEventHandler = (event) => {
-    const eventComesFromActions = refs.floating.current?.contains(event.relatedTarget);
-    const eventComesFromBoard = event.currentTarget.contains(event.relatedTarget);
-    const isLocalEvent = eventComesFromActions || eventComesFromBoard;
-
-    if (!isLocalEvent) {
-      setShowActions(false);
-    }
-  };
-
-  const handleDirectionToggle = () => {
-    inputRef.current?.focus();
-    onDirectionToggle();
-  };
-
-  const handleFocus = () => {
-    setShowActions(true);
-  };
-
   const setFocus = (clientX: number, clientY: number) => {
     if (!boardRef.current) {
       return;
@@ -99,6 +80,25 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
         setTransition(originalTransition);
       }, 0);
     }
+  };
+
+  const handleBlur: FocusEventHandler = (event) => {
+    const eventComesFromActions = refs.floating.current?.contains(event.relatedTarget);
+    const eventComesFromBoard = event.currentTarget.contains(event.relatedTarget);
+    const isLocalEvent = eventComesFromActions || eventComesFromBoard;
+
+    if (!isLocalEvent) {
+      setShowActions(false);
+    }
+  };
+
+  const handleDirectionToggle = () => {
+    inputRef.current?.focus();
+    onDirectionToggle();
+  };
+
+  const handleFocus = () => {
+    setShowActions(true);
   };
 
   const handleMouseDown: MouseEventHandler = (event) => {
