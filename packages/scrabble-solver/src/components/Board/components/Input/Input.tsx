@@ -36,6 +36,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
     return (
       <input
         aria-label={translate('cell.tile.location', {
+          character: cell.tile.character,
           x: (activePosition.x + 1).toLocaleString(locale),
           y: (activePosition.y + 1).toLocaleString(locale),
         })}

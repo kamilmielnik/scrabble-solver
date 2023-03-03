@@ -2,7 +2,7 @@
   "cell.filter-cell": "Miejsce docelowe - kliknij aby zmienić",
   "cell.set-blank": "Oznacz jako blank",
   "cell.set-not-blank": "Oznacz jako nie blank",
-  "cell.tile.location": "Plansza: płytka ({{x}}, {{y}})",
+  "cell.tile.location": "Plansza: płytka \"{{character}}\" ({{x}}, {{y}})",
   "cell.toggle-direction": "Kierunek wpisywania - kliknij aby zmienić",
   "common.blanks": "Blanki",
   "common.clear": "Wyczyść",

@@ -2,7 +2,7 @@
   "cell.filter-cell": "Destination cible - cliquer pour changer",
   "cell.set-blank": "Marquer comme vide",
   "cell.set-not-blank": "Marquer comme non vide",
-  "cell.tile.location": "Plateau: la case ({{x}}, {{y}})",
+  "cell.tile.location": "Plateau: la case \"{{character}}\" ({{x}}, {{y}})",
   "cell.toggle-direction": "Direction d'écriture - cliquer pour changer",
   "common.blanks": "Cases vides",
   "common.clear": "Effacer",

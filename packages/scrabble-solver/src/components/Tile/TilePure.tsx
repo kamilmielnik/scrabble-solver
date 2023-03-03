@@ -55,12 +55,12 @@ const TilePure = forwardRef<HTMLDivElement, Props>(
       ref={ref}
     >
       {placeholder && (
-        <div className={styles.placeholder} role="presentation" style={characterStyle} tabIndex={-1}>
+        <div className={styles.placeholder} role="presentation" style={characterStyle}>
           {placeholder}
         </div>
       )}
 
-      <div className={styles.character} style={characterStyle} tabIndex={-1}>
+      <div className={styles.character} style={characterStyle}>
         {character}
       </div>
 

@@ -2,7 +2,7 @@
   "cell.filter-cell": "Zielort - klicken zum Wechseln",
   "cell.set-blank": "Als Blanko markieren",
   "cell.set-not-blank": "Nicht als Blanko markieren",
-  "cell.tile.location": "Brett: Stein ({{x}}, {{y}})",
+  "cell.tile.location": "Brett: Stein \"{{character}}\" ({{x}}, {{y}})",
   "cell.toggle-direction": "Schreibrichtung - klicken zum Wechseln",
   "common.blanks": "Blankos",
   "common.clear": "Löschen",
