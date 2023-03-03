@@ -7,7 +7,7 @@ import {
   MouseEventHandler,
   useEffect,
   useRef,
-  useState
+  useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { useMeasure } from 'react-use';
