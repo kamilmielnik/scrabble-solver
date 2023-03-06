@@ -286,13 +286,6 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         moveFocus(1);
         return;
       }
-
-      if (event.target instanceof HTMLInputElement && event.target.value === event.key) {
-        // change event did not fire because the same character was typed over the current one
-        // but we still want to move the caret
-        event.preventDefault();
-        moveFocus(1);
-      }
     },
     onSpace: (event) => {
       event.preventDefault();
