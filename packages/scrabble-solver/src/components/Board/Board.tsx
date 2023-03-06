@@ -119,7 +119,6 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
       return;
     }
 
-    event.preventDefault(); // prevent gaining focus before giving it to input
     const touch = event.targetTouches.item(0);
     setFocus(touch.clientX, touch.clientY);
   };

@@ -1,4 +1,3 @@
-import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Cell } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import { forwardRef, HTMLProps, MouseEventHandler } from 'react';
@@ -23,7 +22,7 @@ const Actions = forwardRef<HTMLDivElement, Props>(
     const translate = useTranslate();
     const isFiltered = useTypedSelector((state) => selectCellIsFiltered(state, cell));
     const isBlank = cell.tile.isBlank;
-    const isEmpty = cell.tile.character === EMPTY_CELL;
+    const isEmpty = cell.isEmpty;
 
     // On iOS it helps with losing focus too early which makes Actions disappear
     const handleMouseDown: MouseEventHandler = (event) => event.preventDefault();

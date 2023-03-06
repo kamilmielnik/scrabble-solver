@@ -4,9 +4,11 @@ import BoardJson from './BoardJson';
 import Cell from './Cell';
 import Tile from './Tile';
 
+const SERIALIZED_EMPTY_CELL = ' ';
+
 class Board {
   public static create(width: number, height: number): Board {
-    return Board.fromStringArray(Array(height).fill(Array(width).fill(' ').join('')));
+    return Board.fromStringArray(Array(height).fill(Array(width).fill(SERIALIZED_EMPTY_CELL).join('')));
   }
 
   public static fromJson(json: BoardJson): Board {
@@ -25,8 +27,8 @@ class Board {
         row.split('').map(
           (character, x) =>
             new Cell({
-              isEmpty: !character || character === EMPTY_CELL,
-              tile: character === EMPTY_CELL ? Tile.Null : new Tile({ character }),
+              isEmpty: !character || character === SERIALIZED_EMPTY_CELL,
+              tile: character === SERIALIZED_EMPTY_CELL ? Tile.Null : new Tile({ character }),
               x,
               y,
             }),

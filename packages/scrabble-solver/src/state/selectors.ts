@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getLocaleConfig } from '@scrabble-solver/configs';
-import { BLANK } from '@scrabble-solver/constants';
+import { BLANK, EMPTY_CELL } from '@scrabble-solver/constants';
 import { Cell, Config, isError, Result, Tile } from '@scrabble-solver/types';
 
 import i18n, { LOCALE_FEATURES } from 'i18n';
@@ -152,7 +152,7 @@ export const selectCharacterPoints = createSelector(
 export const selectCharacterIsValid = createSelector(
   [selectConfig, selectCharacter],
   (config: Config, character: string | null) => {
-    if (character === null || character === BLANK) {
+    if (character === null || character === BLANK || character === EMPTY_CELL) {
       return true;
     }
 

@@ -1,6 +1,7 @@
 import { useMergeRefs } from '@floating-ui/react';
 import classNames from 'classnames';
 import { ChangeEventHandler, FocusEventHandler, forwardRef, HTMLProps, useEffect, useRef, useState } from 'react';
+import { useLatest } from 'react-use';
 
 import { noop } from 'lib';
 import { selectLocale, selectRowsWithCandidate, useTranslate, useTypedSelector } from 'state';
@@ -21,7 +22,8 @@ const Input = forwardRef<HTMLInputElement, Props>(
     const cell = rows[activePosition.y][activePosition.x];
     const inputRef = useRef<HTMLInputElement>(null);
     const mergedRef = useMergeRefs(ref ? [inputRef, ref] : [inputRef]);
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState(cell.tile.character);
+    const characterRef = useLatest(cell.tile.character);
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
       setValue(event.target.value);
@@ -34,7 +36,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
     };
 
     useEffect(() => {
-      setValue('');
+      setValue(characterRef.current);
     }, [focusPosition]);
 
     return (

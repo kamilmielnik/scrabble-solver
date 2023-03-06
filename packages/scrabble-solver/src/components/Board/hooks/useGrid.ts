@@ -87,7 +87,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
     const position = { ...focusPosition };
     let board = focusBoard.clone();
 
-    const scheduleMoveFocus = () => {
+    const movePosition = () => {
       if (directionRef.current === 'horizontal') {
         ++position.x;
       } else {
@@ -124,7 +124,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
           const action2 = boardSlice.actions.changeCellValue({ x, y: y + 1, value: EMPTY_CELL });
           board = boardSlice.reducer(boardSlice.reducer(board, action1), action2);
           actions.push(action1, action2);
-          scheduleMoveFocus();
+          movePosition();
           return;
         }
       }
@@ -150,7 +150,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
           const action2 = boardSlice.actions.changeCellValue({ x: x + 1, y, value: EMPTY_CELL });
           board = boardSlice.reducer(boardSlice.reducer(board, action1), action2);
           actions.push(action1, action2);
-          scheduleMoveFocus();
+          movePosition();
           return;
         }
       }
@@ -170,25 +170,30 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       const action = boardSlice.actions.changeCellValue({ x, y, value: character });
       board = boardSlice.reducer(board, action);
       actions.push(action);
-      scheduleMoveFocus();
+      movePosition();
     });
 
-    moveFocus(Math.abs(position.x - activePosition.x) + Math.abs(position.y - activePosition.y), {
-      preserveFocusPosition: true,
+    setActivePosition({
+      x: Math.max(Math.min(position.x, config.boardWidth - 1), 0),
+      y: Math.max(Math.min(position.y, config.boardHeight - 1), 0),
     });
-    actions.forEach(dispatch);
+
+    if (actions.length > 0) {
+      dispatch(boardSlice.actions.change(focusBoard));
+      actions.forEach(dispatch);
+    }
   };
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.toLocaleLowerCase();
 
-    if (!value) {
+    if (!value || value === EMPTY_CELL) {
       dispatch(boardSlice.actions.changeCellValue({ ...activePosition, value: EMPTY_CELL }));
       moveFocus(-1);
       return;
     }
 
-    if (value === EMPTY_CELL) {
+    if (value === BLANK) {
       const { x, y } = activePosition;
       const cell = rows[y][x];
 
