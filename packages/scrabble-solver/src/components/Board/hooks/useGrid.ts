@@ -17,11 +17,9 @@ import { useLatest } from 'react-use';
 import { AnyAction } from 'redux';
 
 import { LOCALE_FEATURES } from 'i18n';
-import { createGridOf, createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
+import { createGridOf, createKeyboardNavigation, extractCharacters, isCtrl } from 'lib';
 import { boardSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
-import { Direction } from 'types';
-
-import { Point } from '../types';
+import { Direction, Point } from 'types';
 
 const toggleDirection = (direction: Direction) => (direction === 'vertical' ? 'horizontal' : 'vertical');
 
@@ -52,29 +50,39 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   );
   const inputRef = useRef<HTMLInputElement>(null);
   const [activePosition, setActivePosition] = useState<Point>({ x: 0, y: 0 });
+  const [focusPosition, setFocusPosition] = useState(activePosition);
   const [direction, setLastDirection] = useState<Direction>('horizontal');
   const directionRef = useLatest(direction);
 
-  const changeActivePosition = (offsetX: number, offsetY: number) => {
+  const changeActivePosition = (
+    offsetX: number,
+    offsetY: number,
+    { preserveFocusPosition }: { preserveFocusPosition?: boolean } = {},
+  ) => {
     const x = Math.min(Math.max(activePosition.x + offsetX, 0), width - 1);
     const y = Math.min(Math.max(activePosition.y + offsetY, 0), height - 1);
     setActivePosition({ x, y });
+
+    if (!preserveFocusPosition) {
+      setFocusPosition({ x, y });
+    }
+
     inputRef.current?.focus();
   };
 
-  const moveFocus = (offset: number) => {
+  const moveFocus = (offset: number, { preserveFocusPosition }: { preserveFocusPosition?: boolean } = {}) => {
     if (directionRef.current === 'horizontal') {
-      changeActivePosition(offset, 0);
+      changeActivePosition(offset, 0, { preserveFocusPosition });
     } else {
-      changeActivePosition(0, offset);
+      changeActivePosition(0, offset, { preserveFocusPosition });
     }
   };
 
-  const insertValue = (position: Point, value: string) => {
+  const insertValue = (value: string) => {
     const characters = value ? extractCharacters(config, value).filter((character) => character !== BLANK) : [BLANK];
     const actions: AnyAction[] = [];
     let board = new Board({ rows: rows.map((row) => row.map((cell) => cell.clone())) });
-    let { x, y } = position;
+    let { x, y } = focusPosition;
 
     const scheduleMoveFocus = () => {
       if (directionRef.current === 'horizontal') {
@@ -164,14 +172,14 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       scheduleMoveFocus();
     });
 
-    moveFocus(Math.abs(position.x - x) + Math.abs(position.y - y));
+    moveFocus(Math.abs(x - activePosition.x) + Math.abs(y - activePosition.y), {
+      preserveFocusPosition: true,
+    });
     actions.forEach(dispatch);
   };
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.toLocaleLowerCase();
-
-    const value = extractInputValue(event.target);
 
     if (!value) {
       dispatch(boardSlice.actions.changeCellValue({ ...activePosition, value: EMPTY_CELL }));
@@ -189,13 +197,14 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       }
     }
 
-    insertValue(activePosition, value);
+    insertValue(value);
   };
 
   const onDirectionToggle = () => setLastDirection(toggleDirection);
 
   const onFocus = (x: number, y: number) => {
     setActivePosition({ x, y });
+    setFocusPosition({ x, y });
   };
 
   const onKeyDown = createKeyboardNavigation({
@@ -295,7 +304,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
     event.preventDefault();
 
     const value = event.clipboardData.getData('text/plain').toLocaleLowerCase();
-    insertValue(activePosition, value);
+    insertValue(value);
   };
 
   return [

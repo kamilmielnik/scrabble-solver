@@ -7,6 +7,11 @@ export enum SortDirection {
   Descending = 'descending',
 }
 
+export interface Point {
+  x: number;
+  y: number;
+}
+
 export interface RemainingTile {
   character: string;
   count: number;

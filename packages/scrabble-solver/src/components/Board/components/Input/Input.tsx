@@ -1,11 +1,10 @@
 import { useMergeRefs } from '@floating-ui/react';
 import classNames from 'classnames';
-import { forwardRef, HTMLProps, KeyboardEventHandler, useEffect, useRef } from 'react';
+import { ChangeEventHandler, FocusEventHandler, forwardRef, HTMLProps, useRef, useState } from 'react';
 
 import { noop } from 'lib';
 import { selectLocale, selectRowsWithCandidate, useTranslate, useTypedSelector } from 'state';
-
-import { Point } from '../../types';
+import { Point } from 'types';
 
 import styles from './Input.module.scss';
 
@@ -14,24 +13,24 @@ interface Props extends HTMLProps<HTMLInputElement> {
 }
 
 const Input = forwardRef<HTMLInputElement, Props>(
-  ({ activePosition, autoFocus, className, onKeyDown = noop, ...props }, ref) => {
+  ({ activePosition, autoFocus, className, onChange = noop, onFocus = noop, ...props }, ref) => {
     const translate = useTranslate();
     const locale = useTypedSelector(selectLocale);
     const rows = useTypedSelector(selectRowsWithCandidate);
     const cell = rows[activePosition.y][activePosition.x];
     const inputRef = useRef<HTMLInputElement>(null);
     const mergedRef = useMergeRefs(ref ? [inputRef, ref] : [inputRef]);
+    const [value, setValue] = useState(cell.tile.character);
 
-    const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
-      inputRef.current?.select();
-      onKeyDown(event);
+    const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+      setValue(event.target.value);
+      onChange(event);
     };
 
-    useEffect(() => {
-      if (autoFocus && inputRef.current) {
-        inputRef.current.focus();
-      }
-    }, [autoFocus, inputRef]);
+    const handleFocus: FocusEventHandler<HTMLInputElement> = (event) => {
+      setValue(cell.tile.character);
+      onFocus(event);
+    };
 
     return (
       <input
@@ -47,8 +46,9 @@ const Input = forwardRef<HTMLInputElement, Props>(
         className={classNames(styles.input, className)}
         ref={mergedRef}
         spellCheck={false}
-        value={cell.tile.character || ''}
-        onKeyDown={handleKeyDown}
+        value={value}
+        onChange={handleChange}
+        onFocus={handleFocus}
         {...props}
       />
     );

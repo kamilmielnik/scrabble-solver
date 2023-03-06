@@ -85,10 +85,12 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
 
   const handleBlur: FocusEventHandler = (event) => {
     const eventComesFromActions = refs.floating.current?.contains(event.relatedTarget);
-    const eventComesFromBoard = event.currentTarget.contains(event.relatedTarget);
+    const eventComesFromBoard = boardRef.current?.contains(event.relatedTarget);
     const isLocalEvent = eventComesFromActions || eventComesFromBoard;
 
-    if (!isLocalEvent) {
+    if (isLocalEvent) {
+      inputRef.current?.focus();
+    } else {
       setShowActions(false);
     }
   };
@@ -138,6 +140,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
           center={board.center}
           ref={boardRef}
           rows={rows}
+          tabIndex={0}
           tileRefs={tileRefs}
           onTouchStart={handleTouchStart}
           onMouseDown={handleMouseDown}
@@ -146,6 +149,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
         <Input
           activePosition={activePosition}
           className={styles.input}
+          ref={inputRef}
           onBlur={handleBlur}
           onChange={onChange}
           onFocus={handleFocus}
