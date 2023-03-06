@@ -60,6 +60,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
       return;
     }
 
+    inputRef.current?.focus();
     const boardRect = boardRef.current.getBoundingClientRect();
     const newX = Math.floor((clientX - boardRect.left) / (cellSize + BORDER_WIDTH));
     const newY = Math.floor((clientY - boardRect.top) / (cellSize + BORDER_WIDTH));
@@ -132,7 +133,15 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
   return (
     <>
       <div className={classNames(styles.boardContainer, className)}>
-        <BoardPure cellSize={cellSize} center={board.center} ref={boardRef} rows={rows} tileRefs={tileRefs} />
+        <BoardPure
+          cellSize={cellSize}
+          center={board.center}
+          ref={boardRef}
+          rows={rows}
+          tileRefs={tileRefs}
+          onTouchStart={handleTouchStart}
+          onMouseDown={handleMouseDown}
+        />
 
         <Input
           activePosition={activePosition}
@@ -141,8 +150,6 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
           onChange={onChange}
           onFocus={handleFocus}
           onKeyDown={onKeyDown}
-          onTouchStart={handleTouchStart}
-          onMouseDown={handleMouseDown}
           onPaste={onPaste}
         />
       </div>
