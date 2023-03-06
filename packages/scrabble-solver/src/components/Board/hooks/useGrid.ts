@@ -26,6 +26,7 @@ const toggleDirection = (direction: Direction) => (direction === 'vertical' ? 'h
 interface State {
   activePosition: Point;
   direction: Direction;
+  focusPosition: Point;
   inputRef: RefObject<HTMLInputElement>;
   tileRefs: RefObject<HTMLDivElement>[][];
 }
@@ -200,7 +201,10 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
     insertValue(value);
   };
 
-  const onDirectionToggle = () => setLastDirection(toggleDirection);
+  const onDirectionToggle = () => {
+    setLastDirection(toggleDirection);
+    setFocusPosition(activePosition);
+  };
 
   const onFocus = (x: number, y: number) => {
     setActivePosition({ x, y });
@@ -308,7 +312,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   };
 
   return [
-    { activePosition, direction, inputRef, tileRefs },
+    { activePosition, direction, focusPosition, inputRef, tileRefs },
     { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
   ];
 };

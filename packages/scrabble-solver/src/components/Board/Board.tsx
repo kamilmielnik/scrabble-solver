@@ -34,7 +34,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
   const boardRef = useRef<HTMLDivElement>(null);
   const [actionsMeasureRef, { width: actionsWidth }] = useMeasure<HTMLDivElement>();
   const [
-    { activePosition, direction, inputRef, tileRefs },
+    { activePosition, direction, focusPosition, inputRef, tileRefs },
     { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
   ] = useGrid(rows);
   const cell = rows[activePosition.y][activePosition.x];
@@ -88,15 +88,12 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
     const eventComesFromBoard = boardRef.current?.contains(event.relatedTarget);
     const isLocalEvent = eventComesFromActions || eventComesFromBoard;
 
-    if (isLocalEvent) {
-      inputRef.current?.focus();
-    } else {
+    if (!isLocalEvent) {
       setShowActions(false);
     }
   };
 
   const handleDirectionToggle = () => {
-    inputRef.current?.focus();
     onDirectionToggle();
   };
 
@@ -105,16 +102,15 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
   };
 
   const handleMouseDown: MouseEventHandler = (event) => {
+    event.preventDefault(); // prevent gaining focus before giving it to input
     setFocus(event.clientX, event.clientY);
   };
 
   const handleToggleBlank = () => {
-    inputRef.current?.focus();
     dispatch(boardSlice.actions.toggleCellIsBlank(cell));
   };
 
   const handleToggleFilterCell = () => {
-    inputRef.current?.focus();
     dispatch(cellFilterSlice.actions.toggle(cell));
   };
 
@@ -123,6 +119,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
       return;
     }
 
+    event.preventDefault(); // prevent gaining focus before giving it to input
     const touch = event.targetTouches.item(0);
     setFocus(touch.clientX, touch.clientY);
   };
@@ -149,6 +146,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
         <Input
           activePosition={activePosition}
           className={styles.input}
+          focusPosition={focusPosition}
           ref={inputRef}
           onBlur={handleBlur}
           onChange={onChange}

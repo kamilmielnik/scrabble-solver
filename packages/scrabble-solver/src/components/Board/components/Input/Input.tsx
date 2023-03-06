@@ -1,6 +1,6 @@
 import { useMergeRefs } from '@floating-ui/react';
 import classNames from 'classnames';
-import { ChangeEventHandler, FocusEventHandler, forwardRef, HTMLProps, useRef, useState } from 'react';
+import { ChangeEventHandler, FocusEventHandler, forwardRef, HTMLProps, useEffect, useRef, useState } from 'react';
 
 import { noop } from 'lib';
 import { selectLocale, selectRowsWithCandidate, useTranslate, useTypedSelector } from 'state';
@@ -10,17 +10,18 @@ import styles from './Input.module.scss';
 
 interface Props extends HTMLProps<HTMLInputElement> {
   activePosition: Point;
+  focusPosition: Point;
 }
 
 const Input = forwardRef<HTMLInputElement, Props>(
-  ({ activePosition, autoFocus, className, onChange = noop, onFocus = noop, ...props }, ref) => {
+  ({ activePosition, autoFocus, className, focusPosition, onChange = noop, onFocus = noop, ...props }, ref) => {
     const translate = useTranslate();
     const locale = useTypedSelector(selectLocale);
     const rows = useTypedSelector(selectRowsWithCandidate);
     const cell = rows[activePosition.y][activePosition.x];
     const inputRef = useRef<HTMLInputElement>(null);
     const mergedRef = useMergeRefs(ref ? [inputRef, ref] : [inputRef]);
-    const [value, setValue] = useState(cell.tile.character);
+    const [value, setValue] = useState('');
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
       setValue(event.target.value);
@@ -31,6 +32,10 @@ const Input = forwardRef<HTMLInputElement, Props>(
       setValue(cell.tile.character);
       onFocus(event);
     };
+
+    useEffect(() => {
+      setValue('');
+    }, [focusPosition]);
 
     return (
       <input
