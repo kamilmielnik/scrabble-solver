@@ -52,6 +52,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [activePosition, setActivePosition] = useState<Point>({ x: 0, y: 0 });
   const [focusPosition, setFocusPosition] = useState(activePosition);
+  const [focusBoard, setFocusBoard] = useState(() => Board.fromRows(rows));
   const [direction, setLastDirection] = useState<Direction>('horizontal');
   const directionRef = useLatest(direction);
 
@@ -66,6 +67,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
     if (!preserveFocusPosition) {
       setFocusPosition({ x, y });
+      setFocusBoard(Board.fromRows(rows));
     }
 
     inputRef.current?.focus();
@@ -82,22 +84,20 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   const insertValue = (value: string) => {
     const characters = value ? extractCharacters(config, value).filter((character) => character !== BLANK) : [BLANK];
     const actions: AnyAction[] = [];
-    let board = new Board({ rows: rows.map((row) => row.map((cell) => cell.clone())) });
-    let { x, y } = focusPosition;
+    const position = { ...focusPosition };
+    let board = focusBoard.clone();
 
     const scheduleMoveFocus = () => {
       if (directionRef.current === 'horizontal') {
-        ++x;
+        ++position.x;
       } else {
-        ++y;
+        ++position.y;
       }
     };
 
     characters.forEach((character) => {
-      if (x >= config.boardWidth || y >= config.boardHeight) {
-        return;
-      }
-
+      const x = Math.max(Math.min(position.x, config.boardWidth - 1), 0);
+      const y = Math.max(Math.min(position.y, config.boardHeight - 1), 0);
       const canCheckUp = y - 1 > 0;
       const canCheckLeft = x > 0;
       const canCheckRight = x + 1 < width;
@@ -173,7 +173,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       scheduleMoveFocus();
     });
 
-    moveFocus(Math.abs(x - activePosition.x) + Math.abs(y - activePosition.y), {
+    moveFocus(Math.abs(position.x - activePosition.x) + Math.abs(position.y - activePosition.y), {
       preserveFocusPosition: true,
     });
     actions.forEach(dispatch);
@@ -204,11 +204,13 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   const onDirectionToggle = () => {
     setLastDirection(toggleDirection);
     setFocusPosition(activePosition);
+    setFocusBoard(Board.fromRows(rows));
   };
 
   const onFocus = (x: number, y: number) => {
     setActivePosition({ x, y });
     setFocusPosition({ x, y });
+    setFocusBoard(Board.fromRows(rows));
   };
 
   const onKeyDown = createKeyboardNavigation({

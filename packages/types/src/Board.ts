@@ -15,6 +15,10 @@ class Board {
     });
   }
 
+  public static fromRows(rows: Cell[][]): Board {
+    return new Board({ rows: rows.map((row) => row.map((cell) => cell.clone())) });
+  }
+
   public static fromStringArray(stringArray: string[]): Board {
     return new Board({
       rows: stringArray.map((row, y) =>
