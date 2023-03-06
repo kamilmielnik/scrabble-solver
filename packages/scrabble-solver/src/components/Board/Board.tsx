@@ -41,7 +41,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
   const [showActions, setShowActions] = useState(false);
   const [transition, setTransition] = useState<CSSProperties['transition']>(TRANSITION);
 
-  const { x, y, strategy, refs } = useFloating({
+  const floatingActions = useFloating({
     middleware: [
       offset({
         mainAxis: -BOARD_CELL_ACTIONS_OFFSET,
@@ -53,7 +53,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
     whileElementsMounted: autoUpdate,
   });
 
-  const actionsRef = useMergeRefs([actionsMeasureRef, refs.setFloating]);
+  const actionsRef = useMergeRefs([actionsMeasureRef, floatingActions.refs.setFloating]);
 
   const setFocus = (clientX: number, clientY: number) => {
     if (!boardRef.current) {
@@ -65,14 +65,14 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
     const newX = Math.floor((clientX - boardRect.left) / (cellSize + BORDER_WIDTH));
     const newY = Math.floor((clientY - boardRect.top) / (cellSize + BORDER_WIDTH));
     const isFirstFocus = !showActions;
-    const originalTransition = refs.floating.current?.style.transition || '';
+    const originalTransition = floatingActions.refs.floating.current?.style.transition || '';
     const newTileElement = tileRefs[newY][newX].current;
 
     if (isFirstFocus) {
       setTransition('none');
     }
 
-    refs.setReference(newTileElement);
+    floatingActions.refs.setReference(newTileElement);
     onFocus(newX, newY);
     setShowActions(true);
 
@@ -84,7 +84,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
   };
 
   const handleBlur: FocusEventHandler = (event) => {
-    const eventComesFromActions = refs.floating.current?.contains(event.relatedTarget);
+    const eventComesFromActions = floatingActions.refs.floating.current?.contains(event.relatedTarget);
     const eventComesFromBoard = boardRef.current?.contains(event.relatedTarget);
     const isLocalEvent = eventComesFromActions || eventComesFromBoard;
 
@@ -125,7 +125,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
 
   useEffect(() => {
     const newTileElement = tileRefs[activePosition.y][activePosition.x].current;
-    refs.setReference(newTileElement);
+    floatingActions.refs.setReference(newTileElement);
   }, [activePosition]);
 
   return (
@@ -165,14 +165,14 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
           direction={direction}
           ref={actionsRef}
           style={{
-            position: strategy,
-            top: y ?? 0,
-            left: x ?? 0,
+            position: floatingActions.strategy,
+            top: floatingActions.y ?? 0,
+            left: floatingActions.x ?? 0,
             transition,
             opacity: showActions ? 1 : 0,
             pointerEvents: showActions ? 'auto' : 'none',
             userSelect: showActions ? 'auto' : 'none',
-            visibility: x === null || y === null ? 'hidden' : 'visible',
+            visibility: floatingActions.x === null || floatingActions.y === null ? 'hidden' : 'visible',
           }}
           onDirectionToggle={handleDirectionToggle}
           onToggleBlank={handleToggleBlank}
