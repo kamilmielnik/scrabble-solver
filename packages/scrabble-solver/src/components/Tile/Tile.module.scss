@@ -5,6 +5,7 @@
 
   position: relative;
   transition: var(--transition);
+  cursor: text;
 
   &.points1 {
     --background-color: var(--color--yellow);
