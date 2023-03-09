@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { autoUpdate, FloatingPortal, offset, shift, useFloating, useMergeRefs } from '@floating-ui/react';
 import classNames from 'classnames';
 import {
@@ -38,7 +39,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
     { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
   ] = useGrid(rows);
   const cell = rows[activePosition.y][activePosition.x];
-  const [showActions, setShowActions] = useState(false);
+  const [hasFocus, setHasFocus] = useState(false);
   const [transition, setTransition] = useState<CSSProperties['transition']>(TRANSITION);
 
   const floatingActions = useFloating({
@@ -53,6 +54,19 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
     whileElementsMounted: autoUpdate,
   });
 
+  const floatingFocus = useFloating({
+    placement: 'top-start',
+    whileElementsMounted: autoUpdate,
+  });
+
+  const floatingStyle: CSSProperties = {
+    transition,
+    opacity: hasFocus ? 1 : 0,
+    pointerEvents: hasFocus ? 'auto' : 'none',
+    userSelect: hasFocus ? 'auto' : 'none',
+    visibility: floatingFocus.x === null || floatingActions.y === null ? 'hidden' : 'visible',
+  };
+
   const actionsRef = useMergeRefs([actionsMeasureRef, floatingActions.refs.setFloating]);
 
   const setFocus = (clientX: number, clientY: number) => {
@@ -64,7 +78,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
     const boardRect = boardRef.current.getBoundingClientRect();
     const newX = Math.floor((clientX - boardRect.left) / (cellSize + BORDER_WIDTH));
     const newY = Math.floor((clientY - boardRect.top) / (cellSize + BORDER_WIDTH));
-    const isFirstFocus = !showActions;
+    const isFirstFocus = !hasFocus;
     const originalTransition = floatingActions.refs.floating.current?.style.transition || '';
     const newTileElement = tileRefs[newY][newX].current;
 
@@ -73,8 +87,9 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
     }
 
     floatingActions.refs.setReference(newTileElement);
+    floatingFocus.refs.setReference(newTileElement);
     onFocus(newX, newY);
-    setShowActions(true);
+    setHasFocus(true);
 
     if (isFirstFocus) {
       setTimeout(() => {
@@ -89,7 +104,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
     const isLocalEvent = eventComesFromActions || eventComesFromBoard;
 
     if (!isLocalEvent) {
-      setShowActions(false);
+      setHasFocus(false);
     }
   };
 
@@ -98,7 +113,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
   };
 
   const handleFocus = () => {
-    setShowActions(true);
+    setHasFocus(true);
   };
 
   const handleMouseDown: MouseEventHandler = (event) => {
@@ -126,7 +141,8 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
   useEffect(() => {
     const newTileElement = tileRefs[activePosition.y][activePosition.x].current;
     floatingActions.refs.setReference(newTileElement);
-  }, [activePosition]);
+    floatingFocus.refs.setReference(newTileElement);
+  }, [activePosition, floatingActions.refs, floatingFocus.refs]);
 
   return (
     <>
@@ -156,23 +172,34 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
       </div>
 
       <FloatingPortal>
+        <div
+          className={classNames(styles.focus, {
+            [styles.shown]: hasFocus,
+          })}
+          ref={floatingFocus.refs.setFloating}
+          style={{
+            ...floatingStyle,
+            position: floatingFocus.strategy,
+            top: floatingFocus.y ? floatingFocus.y + cellSize : 0,
+            left: floatingFocus.x ?? 0,
+            width: cellSize,
+            height: cellSize,
+          }}
+        />
+
         <Actions
           cell={cell}
           className={classNames(styles.actions, {
-            [styles.shown]: showActions,
+            [styles.shown]: hasFocus,
           })}
-          disabled={!showActions}
+          disabled={!hasFocus}
           direction={direction}
           ref={actionsRef}
           style={{
+            ...floatingStyle,
             position: floatingActions.strategy,
             top: floatingActions.y ?? 0,
             left: floatingActions.x ?? 0,
-            transition,
-            opacity: showActions ? 1 : 0,
-            pointerEvents: showActions ? 'auto' : 'none',
-            userSelect: showActions ? 'auto' : 'none',
-            visibility: floatingActions.x === null || floatingActions.y === null ? 'hidden' : 'visible',
           }}
           onDirectionToggle={handleDirectionToggle}
           onToggleBlank={handleToggleBlank}

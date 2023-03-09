@@ -1,4 +1,5 @@
 @import 'styles/animations';
+@import 'styles/mixins';
 
 .boardContainer {
   position: relative;
@@ -25,7 +26,8 @@
   height: calc(100% - 2 * var(--border--width));
 }
 
-.actions {
+.actions,
+.focus {
   position: absolute;
   z-index: var(--z-index--actions);
   width: max-content;
@@ -34,5 +36,13 @@
 
   &.shown {
     animation: var(--transition--duration) var(--transition--easing) show;
+  }
+}
+
+.focus {
+  @include focus-effect;
+
+  &::after {
+    box-shadow: 0 0 0 var(--focus-effect--size) var(--color--focus);
   }
 }
