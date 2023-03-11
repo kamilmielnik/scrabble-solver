@@ -8,7 +8,6 @@ import {
   createKeyboardNavigation,
   extractCharacters,
   extractInputValue,
-  isCtrl,
   zipCharactersAndTiles,
 } from 'lib';
 import { rackSlice, selectConfig, selectLocale, selectRack, selectResultCandidateTiles, useTypedSelector } from 'state';
@@ -99,9 +98,7 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
         changeActiveIndex(1);
       },
       onKeyDown: (event) => {
-        if (isCtrl(event) && config.isTwoCharacterTilePrefix(event.key)) {
-          changeActiveIndex(1);
-        } else if (event.currentTarget.value === event.key) {
+        if (event.currentTarget.value === event.key) {
           // change event did not fire because the same character was typed over the current one
           // but we still want to move the caret
           event.preventDefault();
