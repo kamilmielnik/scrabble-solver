@@ -7,12 +7,13 @@ import {
   MouseEventHandler,
   ReactNode,
   useCallback,
+  useId,
   useMemo,
   useRef,
   useState,
 } from 'react';
 
-import { useIsTouchDevice, usePortal, useUniqueId } from 'hooks';
+import { useIsTouchDevice, usePortal } from 'hooks';
 import { noop } from 'lib';
 
 import styles from './Tooltip.module.scss';
@@ -43,7 +44,7 @@ const useTooltip = (
   tooltip: ReactNode,
   { className, placement = 'top', onBlur = noop, onFocus = noop, onMouseOut = noop, onMouseOver = noop }: Props = {},
 ): TriggerProps => {
-  const id = useUniqueId();
+  const id = useId();
   const isTouchDevice = useIsTouchDevice();
   const isEnabled = Boolean(tooltip) || tooltip === 0;
   const [isShown, setIsShown] = useState<boolean>(false);
