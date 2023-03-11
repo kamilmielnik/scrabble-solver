@@ -30,7 +30,6 @@
   "dependencies": {
     "@floating-ui/react": "^0.20.1",
     "@kamilmielnik/trie": "^2.0.1",
-    "@popperjs/core": "^2.11.6",
     "@reduxjs/toolkit": "^1.9.3",
     "@scrabble-solver/configs": "^2.11.0",
     "@scrabble-solver/constants": "^2.11.0",
@@ -47,7 +46,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",
-    "react-popper": "^2.3.0",
     "react-portal": "^4.2.2",
     "react-redux": "^8.0.5",
     "react-use": "^17.4.0",
