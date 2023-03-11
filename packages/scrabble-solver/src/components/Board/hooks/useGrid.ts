@@ -1,4 +1,5 @@
 /* eslint-disable max-lines, max-statements */
+import { PayloadAction } from '@reduxjs/toolkit';
 import { BLANK, EMPTY_CELL } from '@scrabble-solver/constants';
 import { Board, Cell } from '@scrabble-solver/types';
 import {
@@ -14,7 +15,6 @@ import {
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLatest } from 'react-use';
-import { AnyAction } from 'redux';
 
 import { LOCALE_FEATURES } from 'i18n';
 import { createGridOf, createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
@@ -85,7 +85,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   const insertValue = useCallback(
     (position: Point, value: string) => {
       const characters = value ? extractCharacters(config, value).filter((character) => character !== BLANK) : [BLANK];
-      const actions: AnyAction[] = [];
+      const actions: PayloadAction<unknown>[] = [];
       let board = new Board({ rows: rows.map((row) => row.map((cell) => cell.clone())) });
       let { x, y } = position;
 
