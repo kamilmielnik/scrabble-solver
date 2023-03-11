@@ -225,7 +225,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       onArrowDown: (event) => {
         event.preventDefault();
 
-        if (isCtrl(event)) {
+        if (direction === 'horizontal') {
           onDirectionToggle();
         } else {
           changeActiveIndex(0, 1);
@@ -234,7 +234,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       onArrowLeft: (event) => {
         event.preventDefault();
 
-        if (isCtrl(event)) {
+        if (direction === 'vertical') {
           onDirectionToggle();
         } else {
           changeActiveIndex(LOCALE_FEATURES[locale].direction === 'ltr' ? -1 : 1, 0);
@@ -243,7 +243,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       onArrowRight: (event) => {
         event.preventDefault();
 
-        if (isCtrl(event)) {
+        if (direction === 'vertical') {
           onDirectionToggle();
         } else {
           changeActiveIndex(LOCALE_FEATURES[locale].direction === 'ltr' ? 1 : -1, 0);
@@ -252,7 +252,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       onArrowUp: (event) => {
         event.preventDefault();
 
-        if (isCtrl(event)) {
+        if (direction === 'horizontal') {
           onDirectionToggle();
         } else {
           changeActiveIndex(0, -1);
@@ -333,7 +333,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         dispatch(boardSlice.actions.toggleCellIsBlank(position));
       },
     });
-  }, [changeActiveIndex, config, dispatch, locale, moveFocus, onDirectionToggle, rows]);
+  }, [changeActiveIndex, config, direction, dispatch, locale, moveFocus, onDirectionToggle, rows]);
 
   const onPaste = useCallback<ClipboardEventHandler>(
     (event) => {

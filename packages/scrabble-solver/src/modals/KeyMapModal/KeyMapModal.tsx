@@ -41,7 +41,7 @@ const KeyMapModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) =
 
       <Modal.Section title={translate('keyMap.board')}>
         <Mapping description={translate('keyMap.board.toggle-blank')} mapping={[SPACE, [CTRL, <Key key="b">B</Key>]]} />
-        <Mapping description={translate('keyMap.board.toggle-direction')} mapping={[[CTRL, ARROWS]]} />
+        <Mapping description={translate('keyMap.board.toggle-direction')} mapping={[ARROWS]} />
       </Modal.Section>
 
       <Modal.Section title={translate('keyMap.rack')}>
