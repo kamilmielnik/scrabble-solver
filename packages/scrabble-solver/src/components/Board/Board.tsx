@@ -107,17 +107,17 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
     }
   };
 
+  const handleClick: MouseEventHandler = (event) => {
+    event.preventDefault(); // prevent gaining focus before giving it to input
+    setFocus(event.clientX, event.clientY);
+  };
+
   const handleDirectionToggle = () => {
     onDirectionToggle();
   };
 
   const handleFocus = () => {
     setHasFocus(true);
-  };
-
-  const handleMouseDown: MouseEventHandler = (event) => {
-    event.preventDefault(); // prevent gaining focus before giving it to input
-    setFocus(event.clientX, event.clientY);
   };
 
   const handleToggleBlank = () => {
@@ -143,7 +143,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
           ref={boardRef}
           rows={rows}
           tileRefs={tileRefs}
-          onClick={handleMouseDown}
+          onClick={handleClick}
         />
 
         <Input
