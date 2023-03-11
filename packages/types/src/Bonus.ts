@@ -1,3 +1,5 @@
+import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
+
 import BonusJson from './BonusJson';
 import BonusValue from './BonusValue';
 import Cell from './Cell';
@@ -8,7 +10,7 @@ abstract class Bonus {
 
   public readonly score: number | undefined;
 
-  public abstract readonly type: string;
+  public abstract readonly type: typeof BONUS_CHARACTER | typeof BONUS_WORD;
 
   public readonly x: number;
 
