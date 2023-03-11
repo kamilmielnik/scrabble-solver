@@ -111,7 +111,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
     <div className={classNames(styles.solver, className)}>
       <div className={styles.container}>
         <div className={styles.content}>
-          <form className={styles.boardContainer} onSubmit={handleSubmit}>
+          <form id="a" className={styles.boardContainer} onSubmit={handleSubmit}>
             <Board cellSize={cellSizeSafe} className={styles.board} />
             <input className={styles.submitInput} tabIndex={-1} type="submit" />
           </form>
@@ -129,7 +129,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
 
       <div className={styles.bottomContainer} ref={bottomContainerRef}>
         <div className={styles.bottomContent}>
-          <form onSubmit={handleSubmit}>
+          <form id="b" onSubmit={handleSubmit}>
             <Rack className={styles.rack} tileSize={tileSize} />
             <input className={styles.submitInput} tabIndex={-1} type="submit" />
           </form>
