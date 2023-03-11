@@ -102,8 +102,6 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
     const eventComesFromFocus = floatingFocus.refs.floating.current?.contains(event.relatedTarget);
     const isLocalEvent = eventComesFromActions || eventComesFromBoard || eventComesFromFocus;
 
-    debugger;
-
     if (!isLocalEvent) {
       setHasFocus(false);
     }
