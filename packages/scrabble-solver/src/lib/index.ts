@@ -17,7 +17,6 @@ export { default as getRemainingTilesGroups } from './getRemainingTilesGroups';
 export { default as getTotalRemainingTilesCount } from './getTotalRemainingTilesCount';
 export { default as getTileSizes } from './getTileSizes';
 export { default as inverseDirection } from './inverseDirection';
-export { default as isCtrl } from './isCtrl';
 export { default as isMac } from './isMac';
 export { default as isRegExp } from './isRegExp';
 export { default as isStringArray } from './isStringArray';

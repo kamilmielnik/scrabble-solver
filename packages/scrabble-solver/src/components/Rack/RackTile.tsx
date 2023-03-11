@@ -12,7 +12,7 @@ import {
 } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
+import { createKeyboardNavigation, extractCharacters, extractInputValue } from 'lib';
 import {
   rackSlice,
   selectCharacterIsValid,
@@ -76,17 +76,6 @@ const RackTile: FunctionComponent<Props> = ({
       onBackspace: (event) => {
         event.preventDefault();
         dispatch(rackSlice.actions.changeCharacter({ character: null, index }));
-      },
-      onKeyDown: (event) => {
-        if (isCtrl(event) && config.isTwoCharacterTilePrefix(event.key)) {
-          event.preventDefault();
-          event.stopPropagation();
-          const twoTilesCharacter = config.getTwoCharacterTileByPrefix(event.key);
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          dispatch(rackSlice.actions.changeCharacter({ character: twoTilesCharacter!, index }));
-        }
-
-        onKeyDown(event);
       },
     });
   }, [index, onKeyDown]);
