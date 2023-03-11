@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
-import { AnimationEvent, FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce, useMeasure } from 'react-use';
@@ -20,7 +20,7 @@ import {
 } from 'modals';
 import { INITIALIZATION_DURATION } from 'parameters';
 import { registerServiceWorker } from 'serviceWorkerManager';
-import { initialize, localStorage, reset, selectLocale, useTypedSelector } from 'state';
+import { initialize, reset, selectLocale, useTypedSelector } from 'state';
 
 import styles from './index.module.scss';
 
@@ -51,13 +51,6 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
   const handleClear = () => {
     dispatch(reset());
-  };
-
-  const handleSplashAnimationEnd = (event: AnimationEvent<HTMLDivElement>) => {
-    if (event.target === event.currentTarget && !localStorage.getHasVisited()) {
-      setShowSettings(true);
-      localStorage.setHasVisited(true);
-    }
   };
 
   useDirection(LOCALE_FEATURES[locale].direction);
@@ -142,7 +135,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
       <DictionaryModal isOpen={showDictionary} onClose={() => setShowDictionary(false)} />
 
-      <LogoSplashScreen forceShow={!isInitialized} onAnimationEnd={handleSplashAnimationEnd} />
+      <LogoSplashScreen forceShow={!isInitialized} />
     </>
   );
 };

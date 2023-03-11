@@ -3,7 +3,6 @@ import store2 from 'store2';
 
 const BOARD = 'board';
 const CONFIG_ID = 'config-id';
-const HAS_VISITED = 'has-visited';
 const LOCALE = 'locale';
 const RACK = 'rack';
 
@@ -26,14 +25,6 @@ const localStorage = {
 
   setConfigId(configId: string | undefined): void {
     store.set(CONFIG_ID, configId, true);
-  },
-
-  getHasVisited(): boolean {
-    return Boolean(store.get(HAS_VISITED));
-  },
-
-  setHasVisited(hasVisited: boolean): void {
-    store.set(HAS_VISITED, hasVisited, true);
   },
 
   getLocale(): Locale | undefined {
