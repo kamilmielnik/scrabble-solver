@@ -24,6 +24,8 @@
   left: var(--border--width);
   width: calc(100% - 2 * var(--border--width));
   height: calc(100% - 2 * var(--border--width));
+  cursor: text;
+  z-index: 1;
 }
 
 .actions,
@@ -41,6 +43,7 @@
 
 .focus {
   @include focus-effect;
+  cursor: text;
 
   &::after {
     box-shadow: 0 0 0 var(--focus-effect--size) var(--color--focus);

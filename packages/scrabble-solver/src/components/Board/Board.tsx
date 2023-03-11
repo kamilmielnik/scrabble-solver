@@ -6,7 +6,6 @@ import {
   FocusEventHandler,
   FunctionComponent,
   MouseEventHandler,
-  TouchEventHandler,
   useEffect,
   useRef,
   useState,
@@ -74,7 +73,6 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
       return;
     }
 
-    inputRef.current?.focus();
     const boardRect = boardRef.current.getBoundingClientRect();
     const newX = Math.floor((clientX - boardRect.left) / (cellSize + BORDER_WIDTH));
     const newY = Math.floor((clientY - boardRect.top) / (cellSize + BORDER_WIDTH));
@@ -101,7 +99,10 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
   const handleBlur: FocusEventHandler = (event) => {
     const eventComesFromActions = floatingActions.refs.floating.current?.contains(event.relatedTarget);
     const eventComesFromBoard = boardRef.current?.contains(event.relatedTarget);
-    const isLocalEvent = eventComesFromActions || eventComesFromBoard;
+    const eventComesFromFocus = floatingFocus.refs.floating.current?.contains(event.relatedTarget);
+    const isLocalEvent = eventComesFromActions || eventComesFromBoard || eventComesFromFocus;
+
+    debugger;
 
     if (!isLocalEvent) {
       setHasFocus(false);
@@ -129,15 +130,6 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
     dispatch(cellFilterSlice.actions.toggle(cell));
   };
 
-  const handleTouchStart: TouchEventHandler = (event) => {
-    if (!boardRef.current || event.targetTouches.length === 0) {
-      return;
-    }
-
-    const touch = event.targetTouches.item(0);
-    setFocus(touch.clientX, touch.clientY);
-  };
-
   useEffect(() => {
     const newTileElement = tileRefs[activePosition.y][activePosition.x].current;
     floatingActions.refs.setReference(newTileElement);
@@ -152,10 +144,8 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
           center={board.center}
           ref={boardRef}
           rows={rows}
-          tabIndex={0}
           tileRefs={tileRefs}
-          onTouchStart={handleTouchStart}
-          onMouseDown={handleMouseDown}
+          onClick={handleMouseDown}
         />
 
         <Input
@@ -185,6 +175,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
             width: cellSize,
             height: cellSize,
           }}
+          tabIndex={0}
         />
 
         <Actions

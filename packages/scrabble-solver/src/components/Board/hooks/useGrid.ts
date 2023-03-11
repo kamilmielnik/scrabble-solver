@@ -71,6 +71,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
     }
 
     inputRef.current?.focus();
+    inputRef.current?.select();
   };
 
   const moveFocus = (offset: number, { preserveFocusPosition }: { preserveFocusPosition?: boolean } = {}) => {
@@ -187,7 +188,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.toLocaleLowerCase();
 
-    if (!value || value === EMPTY_CELL) {
+    if (!value) {
       dispatch(boardSlice.actions.changeCellValue({ ...activePosition, value: EMPTY_CELL }));
       moveFocus(-1);
       return;
@@ -216,6 +217,8 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
     setActivePosition({ x, y });
     setFocusPosition({ x, y });
     setFocusBoard(Board.fromRows(rows));
+    inputRef.current?.focus();
+    inputRef.current?.select();
   };
 
   const onKeyDown = createKeyboardNavigation({
