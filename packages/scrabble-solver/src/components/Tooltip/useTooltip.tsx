@@ -1,3 +1,4 @@
+import { arrow, autoUpdate, flip, FloatingArrow, offset, shift, useFloating } from '@floating-ui/react';
 import classNames from 'classnames';
 import {
   FocusEvent,
@@ -7,15 +8,13 @@ import {
   ReactNode,
   useCallback,
   useMemo,
+  useRef,
   useState,
 } from 'react';
-import { usePopper } from 'react-popper';
-import { useMountedState, useRafLoop } from 'react-use';
 
 import { useIsTouchDevice, usePortal, useUniqueId } from 'hooks';
 import { noop } from 'lib';
 
-import { MODIFIERS } from './constants';
 import styles from './Tooltip.module.scss';
 
 interface Props {
@@ -36,6 +35,9 @@ interface TriggerProps {
   onMouseOver?: MouseEventHandler;
 }
 
+const ARROW_SIZE = 7;
+const ARROW_GAP = 0;
+
 // eslint-disable-next-line max-statements
 const useTooltip = (
   tooltip: ReactNode,
@@ -44,21 +46,15 @@ const useTooltip = (
   const id = useUniqueId();
   const isTouchDevice = useIsTouchDevice();
   const isEnabled = Boolean(tooltip) || tooltip === 0;
-  const isMounted = useMountedState();
   const [isShown, setIsShown] = useState<boolean>(false);
-  const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
-  const [popperElement, setPopperElement] = useState<HTMLElement | null>(null);
-  const [arrowElement, setArrowElement] = useState<HTMLElement | null>(null);
-  const {
-    attributes,
-    styles: popperStyles,
-    update,
-  } = usePopper(referenceElement, popperElement, {
-    modifiers: [{ name: 'arrow', options: { element: arrowElement } }, ...MODIFIERS],
-    placement,
-  });
-  const computedPlacement = attributes.popper ? attributes.popper['data-popper-placement'] : placement;
+  const arrowRef = useRef(null);
   const ariaAttributes = useMemo(() => (isShown ? { 'aria-describedby': id } : {}), [id, isShown]);
+
+  const { x, y, context, refs, strategy } = useFloating({
+    middleware: [offset(ARROW_SIZE + ARROW_GAP), arrow({ element: arrowRef }), flip(), shift()],
+    placement,
+    whileElementsMounted: autoUpdate,
+  });
 
   const handleBlur = useCallback(
     (event: FocusEvent) => {
@@ -95,7 +91,7 @@ const useTooltip = (
   const mouseTriggerProps = useMemo(
     () => ({
       ...ariaAttributes,
-      ref: setReferenceElement,
+      ref: refs.setReference,
       onBlur: handleBlur,
       onFocus: handleFocus,
       onMouseOut: handleMouseOut,
@@ -107,33 +103,25 @@ const useTooltip = (
   const touchTriggerProps = useMemo(
     () => ({
       ...ariaAttributes,
-      ref: setReferenceElement,
+      ref: refs.setReference,
     }),
     [ariaAttributes],
   );
 
   const triggerProps = isTouchDevice ? touchTriggerProps : mouseTriggerProps;
 
-  useRafLoop(() => {
-    if (isMounted() && update) {
-      update();
-    }
-  });
-
   usePortal(
     <div
-      className={classNames(styles.tooltip, className, {
-        [styles.top]: computedPlacement === 'top',
-        [styles.right]: computedPlacement === 'right',
-        [styles.bottom]: computedPlacement === 'bottom',
-        [styles.left]: computedPlacement === 'left',
-      })}
-      ref={setPopperElement}
-      style={popperStyles.popper}
-      {...attributes.popper}
+      className={classNames(styles.tooltip, className)}
+      ref={refs.setFloating}
+      style={{
+        position: strategy,
+        top: y ?? 0,
+        left: x ?? 0,
+      }}
     >
       <div>{tooltip}</div>
-      <div className={styles.arrow} ref={setArrowElement} style={popperStyles.arrow} />
+      <FloatingArrow className={styles.arrow} context={context} ref={arrowRef} />
     </div>,
     { disabled: !isEnabled || !isShown },
   );
