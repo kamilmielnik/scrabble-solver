@@ -37,7 +37,8 @@ interface TriggerProps {
 }
 
 const ARROW_SIZE = 7;
-const ARROW_GAP = 0;
+const ARROW_GAP = 3;
+const PADDING = 10;
 
 // eslint-disable-next-line max-statements
 const useTooltip = (
@@ -52,7 +53,7 @@ const useTooltip = (
   const ariaAttributes = useMemo(() => (isShown ? { 'aria-describedby': id } : {}), [id, isShown]);
 
   const { x, y, context, refs, strategy } = useFloating({
-    middleware: [offset(ARROW_SIZE + ARROW_GAP), arrow({ element: arrowRef }), flip(), shift()],
+    middleware: [flip(), shift({ padding: PADDING }), offset(ARROW_SIZE + ARROW_GAP), arrow({ element: arrowRef })],
     placement,
     whileElementsMounted: autoUpdate,
   });
