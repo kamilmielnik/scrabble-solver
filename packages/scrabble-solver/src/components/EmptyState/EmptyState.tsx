@@ -41,8 +41,7 @@ const EmptyState: FunctionComponent<Props> = ({ children, className, variant }) 
   return (
     <div className={classNames(styles.emptyState, className)}>
       <PlainTiles className={styles.tiles} color={COLORS_PER_TYPE[variant]} content={content} />
-
-      <div className={styles.content}>{children}</div>
+      <div>{children}</div>
     </div>
   );
 };

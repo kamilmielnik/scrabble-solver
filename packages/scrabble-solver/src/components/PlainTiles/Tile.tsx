@@ -14,12 +14,12 @@ interface Props {
 
 const Tile: FunctionComponent<Props> = ({ character, className, color, fontFamily, points, size, transform, x, y }) => (
   <g className={className} transform={transform}>
-    <rect fill={color} height={size} width={size} x={x} y={y} />
+    <rect fill={color} height={size} rx={size * 0.15} width={size} x={x} y={y} />
 
     <text
       dominantBaseline="central"
       fontFamily={fontFamily}
-      fontSize={0.6 * size}
+      fontSize={size * 0.6}
       fontWeight="bold"
       textAnchor="middle"
       x={x + size / 2}
@@ -32,7 +32,7 @@ const Tile: FunctionComponent<Props> = ({ character, className, color, fontFamil
       <text
         dominantBaseline="text-after-edge"
         fontFamily={fontFamily}
-        fontSize={0.25 * size}
+        fontSize={size * 0.25}
         fontWeight="bold"
         textAnchor="end"
         x={x + size * 0.9}
