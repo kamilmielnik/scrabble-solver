@@ -19,13 +19,14 @@ import {
   useTypedSelector,
 } from 'state';
 
+import Alert from '../Alert';
 import Board from '../Board';
 import Dictionary from '../Dictionary';
 import DictionaryInput from '../DictionaryInput';
 import Rack from '../Rack';
 import Results from '../Results';
 
-import { EmptyState, FloatingSolveButton, ResultCandidatePicker } from './components';
+import { FloatingSolveButton, ResultCandidatePicker } from './components';
 import styles from './Solver.module.scss';
 
 interface Props {
@@ -139,15 +140,15 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
               <ResultCandidatePicker onResultClick={onShowResults} />
 
               {error && (
-                <EmptyState className={styles.emptyState} variant="error">
+                <Alert className={styles.emptyState} variant="error">
                   {error.message}
-                </EmptyState>
+                </Alert>
               )}
 
               {allResults && allResults.length === 0 && !isOutdated && (
-                <EmptyState className={styles.emptyState} variant="warning">
+                <Alert className={styles.emptyState} variant="warning">
                   {translate('results.empty-state.no-results')}
-                </EmptyState>
+                </Alert>
               )}
             </div>
           )}

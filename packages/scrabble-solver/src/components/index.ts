@@ -1,3 +1,4 @@
+export { default as Alert } from './Alert';
 export { default as Badge } from './Badge';
 export { default as Board } from './Board';
 export { default as Button } from './Button';
