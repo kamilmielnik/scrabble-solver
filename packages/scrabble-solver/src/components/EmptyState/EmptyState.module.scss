@@ -8,6 +8,7 @@
 
 .tiles {
   display: inline-block;
+  max-width: 100%;
   margin-bottom: var(--spacing--m);
   height: 40px;
   overflow: visible;
