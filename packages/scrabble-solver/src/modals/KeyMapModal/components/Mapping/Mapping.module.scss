@@ -29,6 +29,10 @@
 }
 
 .group {
+  [dir='rtl'] & {
+    flex-direction: row-reverse;
+  }
+
   &:first-child {
     margin-left: 0;
   }
