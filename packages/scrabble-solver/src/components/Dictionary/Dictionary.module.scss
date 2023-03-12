@@ -1,4 +1,8 @@
+@import 'styles/mixins';
+
 .dictionary {
+  @include scrollbars;
+
   position: relative;
   max-height: var(--dictionary--height);
   height: var(--dictionary--height);

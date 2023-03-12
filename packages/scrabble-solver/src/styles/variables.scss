@@ -74,6 +74,11 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --spacing--xl: 40px;
   --spacing--xxl: 80px;
 
+  --scrollbar--size: 5px;
+  --scrollbar--thumb--color: var(--border--color);
+  --scrollbar--thumb--color--highlight: var(--color--foreground--secondary);
+  --scrollbar--track--color: transparent;
+
   --transition: all var(--transition--duration) var(--transition--easing);
   --transition--long: all var(--transition--duration--long) var(--transition--easing);
   --transition--duration: 100ms;

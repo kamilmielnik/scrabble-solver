@@ -112,6 +112,8 @@
 }
 
 .content {
+  @include scrollbars;
+
   position: relative;
   flex: 1;
   min-height: 0;

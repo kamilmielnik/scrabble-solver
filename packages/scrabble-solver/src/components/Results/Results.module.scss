@@ -29,6 +29,9 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 }
 
 .list {
+  @include scrollbars;
+
+  scrollbar-gutter: stable;
   transition: var(--transition);
 
   &.outdated {
