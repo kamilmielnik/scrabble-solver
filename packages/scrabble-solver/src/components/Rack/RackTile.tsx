@@ -77,6 +77,7 @@ const RackTile: FunctionComponent<Props> = ({
         event.preventDefault();
         dispatch(rackSlice.actions.changeCharacter({ character: null, index }));
       },
+      onKeyDown,
     });
   }, [index, onKeyDown]);
 
