@@ -37,5 +37,12 @@
 
   width: $size;
   height: $size;
-  margin-right: var(--spacing--s);
+
+  [dir='ltr'] & {
+    margin-right: var(--spacing--s);
+  }
+
+  [dir='rtl'] & {
+    margin-left: var(--spacing--s);
+  }
 }

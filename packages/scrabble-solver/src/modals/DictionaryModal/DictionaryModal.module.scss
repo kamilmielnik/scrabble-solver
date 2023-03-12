@@ -4,15 +4,20 @@
   flex-direction: column;
   background-color: var(--color--background--element);
   border: var(--border);
+  border-radius: var(--border--radius);
   box-shadow: var(--box-shadow);
 }
 
 .dictionary {
   flex: 1;
-  border-bottom: var(--border);
   max-height: initial;
+  border-bottom: var(--border);
+  border-top-left-radius: var(--border--radius);
+  border-top-right-radius: var(--border--radius);
 }
 
 .dictionaryInput {
   flex: 0 0 auto;
+  border-bottom-left-radius: var(--border--radius);
+  border-bottom-right-radius: var(--border--radius);
 }

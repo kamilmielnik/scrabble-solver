@@ -5,6 +5,7 @@
 
   position: relative;
   transition: var(--transition);
+  border-radius: var(--border--radius);
 
   &.points1 {
     --background-color: var(--color--yellow);
@@ -85,6 +86,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--background-color);
+  border-radius: inherit;
   transition: var(--transition);
   pointer-events: none;
   user-select: none;
@@ -94,10 +96,18 @@
   }
 
   .raised & {
-    box-shadow: inset -2px -2px 2px -1px rgba(34, 34, 34, 0.8);
+    --shadow--size: 2px;
+    --shadow--blur: 2px;
+    --shadow--spread: -1px;
+    --shadow--color: rgba(34, 34, 34, 0.8);
+
+    box-shadow: inset calc(-1 * var(--shadow--size)) calc(-1 * var(--shadow--size)) var(--shadow--blur)
+      var(--shadow--spread) var(--shadow--color);
 
     @include media('<xs') {
-      box-shadow: inset -2px -2px 1px -1px rgba(34, 34, 34, 0.8);
+      --shadow--size: 1px;
+      --shadow--spread: 0;
+      --shadow--blur: 1px;
     }
   }
 }
@@ -146,10 +156,12 @@
   [dir='ltr'] & {
     top: 0;
     right: 0;
+    border-top-right-radius: inherit;
   }
 
   [dir='rtl'] & {
     bottom: 0;
     right: 0;
+    border-bottom-right-radius: inherit;
   }
 }

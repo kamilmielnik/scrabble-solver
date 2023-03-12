@@ -125,6 +125,47 @@
   }
 }
 
+.tile {
+  .sharpTopLeft & {
+    [dir='ltr'] & {
+      border-top-left-radius: 0;
+    }
+
+    [dir='rtl'] & {
+      border-top-right-radius: 0;
+    }
+  }
+
+  .sharpTopRight & {
+    [dir='ltr'] & {
+      border-top-right-radius: 0;
+    }
+
+    [dir='rtl'] & {
+      border-top-left-radius: 0;
+    }
+  }
+
+  .sharpBottomLeft & {
+    [dir='ltr'] & {
+      border-bottom-left-radius: 0;
+    }
+
+    [dir='rtl'] & {
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  .sharpBottomRight & {
+    [dir='ltr'] & {
+      border-bottom-right-radius: 0;
+    }
+
+    [dir='rtl'] & {
+      border-bottom-left-radius: 0;
+    }
+  }
+}
 .icon {
   $size: 40%;
 

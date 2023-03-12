@@ -21,6 +21,8 @@
   $height: 32px;
 
   height: $height;
+  border-radius: var(--border--radius);
+  box-shadow: var(--box-shadow);
   transition: var(--transition);
 
   &.de {

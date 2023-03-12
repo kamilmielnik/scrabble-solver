@@ -9,6 +9,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   height: 100%;
   background: var(--color--background--element);
   border: var(--border);
+  border-radius: var(--border--radius);
   box-shadow: var(--box-shadow);
   font-family: var(--font--family--title);
 }
@@ -47,6 +48,8 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   justify-content: space-between;
   font-weight: 700;
   border-bottom: var(--border);
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
 }
 
 .headerButton {
@@ -62,6 +65,26 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   &:hover {
     background-color: var(--color--primary);
     color: var(--color--primary--opposite);
+  }
+
+  &:first-child {
+    [dir='ltr'] & {
+      border-top-left-radius: inherit;
+    }
+
+    [dir='rtl'] & {
+      border-top-right-radius: inherit;
+    }
+  }
+
+  &:last-child {
+    [dir='ltr'] & {
+      border-top-right-radius: inherit;
+    }
+
+    [dir='rtl'] & {
+      border-top-left-radius: inherit;
+    }
   }
 }
 
@@ -178,4 +201,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
 .input {
   border-top: var(--border);
+  border-bottom-left-radius: var(--border--radius);
+  border-bottom-right-radius: var(--border--radius);
 }

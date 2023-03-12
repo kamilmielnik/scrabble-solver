@@ -3,6 +3,7 @@
 .rack {
   display: flex;
   box-shadow: var(--box-shadow);
+  border-radius: var(--border--radius);
 }
 
 .tile {
@@ -13,5 +14,29 @@
 
   &:focus-within {
     z-index: 2;
+  }
+}
+
+.sharpLeft {
+  [dir='ltr'] & {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  [dir='rtl'] & {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+.sharpRight {
+  [dir='ltr'] & {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  [dir='rtl'] & {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 }

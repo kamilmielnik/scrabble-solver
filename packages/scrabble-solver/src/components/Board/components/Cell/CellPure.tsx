@@ -13,6 +13,10 @@ interface Props {
   'aria-label': string;
   bonus: Bonus | undefined;
   cell: Cell;
+  cellBottom?: Cell;
+  cellLeft?: Cell;
+  cellRight?: Cell;
+  cellTop?: Cell;
   className?: string;
   inputRef: RefObject<HTMLInputElement>;
   isBottom: boolean;
@@ -33,6 +37,10 @@ const CellPure: FunctionComponent<Props> = ({
   'aria-label': ariaLabel,
   bonus,
   cell,
+  cellBottom,
+  cellLeft,
+  cellRight,
+  cellTop,
   className,
   inputRef,
   isBottom,
@@ -53,6 +61,10 @@ const CellPure: FunctionComponent<Props> = ({
       [styles.bottom]: isBottom,
       [styles.filtered]: isFiltered,
       [styles.right]: isRight,
+      [styles.sharpTopLeft]: cellTop?.hasTile() || cellLeft?.hasTile(),
+      [styles.sharpTopRight]: cellTop?.hasTile() || cellRight?.hasTile(),
+      [styles.sharpBottomLeft]: cellBottom?.hasTile() || cellLeft?.hasTile(),
+      [styles.sharpBottomRight]: cellBottom?.hasTile() || cellRight?.hasTile(),
     })}
     style={style}
   >

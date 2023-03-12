@@ -1,5 +1,6 @@
 import { BLANK } from '@scrabble-solver/constants';
 import { Tile as TileModel } from '@scrabble-solver/types';
+import classNames from 'classnames';
 import {
   ChangeEvent,
   ChangeEventHandler,
@@ -30,6 +31,7 @@ import styles from './Rack.module.scss';
 interface Props {
   activeIndexRef: MutableRefObject<number | undefined>;
   character: string | null;
+  className?: string;
   index: number;
   inputRef: RefObject<HTMLInputElement>;
   size: number;
@@ -41,6 +43,7 @@ interface Props {
 const RackTile: FunctionComponent<Props> = ({
   activeIndexRef,
   character,
+  className,
   index,
   inputRef,
   size,
@@ -87,7 +90,7 @@ const RackTile: FunctionComponent<Props> = ({
         index: (index + 1).toLocaleString(locale),
       })}
       autoFocus={index === 0}
-      className={styles.tile}
+      className={classNames(styles.tile, className)}
       character={character === null ? undefined : character}
       highlighted={tile !== null}
       inputRef={inputRef}

@@ -17,6 +17,10 @@ import CellPure from './CellPure';
 
 interface Props {
   cell: CellModel;
+  cellBottom?: CellModel;
+  cellLeft?: CellModel;
+  cellRight?: CellModel;
+  cellTop?: CellModel;
   className?: string;
   inputRef: RefObject<HTMLInputElement>;
   isBottom: boolean;
@@ -29,6 +33,10 @@ interface Props {
 
 const Cell: FunctionComponent<Props> = ({
   cell,
+  cellBottom,
+  cellLeft,
+  cellRight,
+  cellTop,
   className,
   inputRef,
   isBottom,
@@ -59,6 +67,10 @@ const Cell: FunctionComponent<Props> = ({
       })}
       bonus={bonus}
       cell={cell}
+      cellBottom={cellBottom}
+      cellLeft={cellLeft}
+      cellRight={cellRight}
+      cellTop={cellTop}
       className={className}
       inputRef={inputRef}
       isBottom={isBottom}

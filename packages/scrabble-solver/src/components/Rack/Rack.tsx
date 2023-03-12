@@ -115,6 +115,10 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
         <RackTile
           activeIndexRef={activeIndexRef}
           character={character}
+          className={classNames({
+            [styles.sharpLeft]: index !== 0,
+            [styles.sharpRight]: index !== tiles.length - 1,
+          })}
           index={index}
           inputRef={tilesRefs[index]}
           key={index}

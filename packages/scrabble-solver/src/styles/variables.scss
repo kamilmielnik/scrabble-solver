@@ -1,3 +1,5 @@
+@import 'styles/mixins';
+
 $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
 
 :root {
@@ -8,7 +10,7 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --border--width: 1px;
 
   --box-shadow: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) var(--box-shadow--color);
-  --box-shadow--blur: 10px;
+  --box-shadow--blur: 8px;
   --box-shadow--color: rgba(0, 0, 0, 0.15);
   --box-shadow--spread: 1px;
   --box-shadow--null: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) transparent;
@@ -97,4 +99,12 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --solver-column--width: 580px;
   --square-button--size: 32px;
   --text-input--height: 40px;
+
+  @include media('<s') {
+    --box-shadow--blur: 5px;
+  }
+
+  @include media('<xs') {
+    --box-shadow--blur: 3px;
+  }
 }

@@ -45,6 +45,10 @@ const BoardPure: FunctionComponent<Props> = ({
           <Cell
             className={styles.cell}
             cell={cell}
+            cellBottom={y < rows.length - 1 ? rows[y + 1][x] : undefined}
+            cellLeft={x > 0 ? rows[y][x - 1] : undefined}
+            cellRight={x < rows.length - 1 ? rows[y][x + 1] : undefined}
+            cellTop={y > 0 ? rows[y - 1][x] : undefined}
             inputRef={inputRefs[y][x]}
             isBottom={y === rows.length - 1}
             isCenter={center.x === x && center.y === y}
