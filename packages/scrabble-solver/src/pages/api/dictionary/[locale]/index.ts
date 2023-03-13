@@ -28,7 +28,6 @@ const dictionary = async (request: NextApiRequest, response: NextApiResponse): P
     const message = error instanceof Error ? error.message : 'Unknown error';
     logger.error('dictionary - error', { error, meta });
     response.status(500).send({ error: 'Server error', message });
-    throw error;
   }
 };
 
