@@ -2,7 +2,7 @@
 
 $loading-duration: 250ms;
 $loaded-duration: 100ms;
-$hiding-duration: 200ms;
+$hiding-duration: 150ms;
 
 .logoSplashScreen {
   display: flex;
@@ -16,18 +16,21 @@ $hiding-duration: 200ms;
     animation-delay: $loading-duration + $loaded-duration;
     animation-duration: $hiding-duration;
     animation-fill-mode: forwards;
+    animation-timing-function: linear;
 
     .logos {
       animation: pulse;
       animation-delay: $loading-duration + $loaded-duration;
       animation-duration: $hiding-duration;
       animation-fill-mode: forwards;
+      animation-timing-function: linear;
     }
 
     .logoColor {
       animation: progress;
       animation-duration: $loading-duration;
       animation-fill-mode: forwards;
+      animation-timing-function: linear;
     }
   }
 }

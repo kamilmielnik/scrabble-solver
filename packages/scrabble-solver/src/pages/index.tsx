@@ -18,7 +18,6 @@ import {
   SettingsModal,
   WordsModal,
 } from 'modals';
-import { INITIALIZATION_DURATION } from 'parameters';
 import { registerServiceWorker } from 'serviceWorkerManager';
 import { initialize, reset, selectLocale, useTypedSelector } from 'state';
 
@@ -60,10 +59,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   useEffectOnce(() => {
     setIsClient(true);
     dispatch(initialize());
-
-    globalThis.setTimeout(() => {
-      setIsInitialized(true);
-    }, INITIALIZATION_DURATION);
+    setIsInitialized(true);
   });
 
   useEffect(() => {
