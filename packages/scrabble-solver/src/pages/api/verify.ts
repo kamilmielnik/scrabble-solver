@@ -38,7 +38,6 @@ const verify = async (request: NextApiRequest, response: NextApiResponse): Promi
     const message = error instanceof Error ? error.message : 'Unknown error';
     logger.error('verify - error', { error, meta });
     response.status(500).send({ error: 'Server error', message });
-    throw error;
   }
 };
 
