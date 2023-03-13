@@ -4,8 +4,37 @@
   --background-color: transparent;
 
   position: relative;
-  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background-color: var(--background-color);
   border-radius: var(--border--radius);
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  transition: var(--transition);
+  user-select: none;
+
+  &.blank {
+    --background-color: var(--color--white);
+
+    color: var(--color--foreground);
+  }
+
+  &.empty {
+    color: var(--color--inactive);
+  }
+
+  &.highlighted {
+    --background-color: var(--color--primary);
+
+    color: var(--color--primary--opposite);
+
+    .points {
+      color: inherit;
+    }
+  }
 
   &.points1 {
     --background-color: var(--color--yellow);
@@ -24,78 +53,7 @@
     --background-color: var(--color--red);
   }
 
-  &.blank {
-    --background-color: var(--color--white);
-
-    .placeholder,
-    .character {
-      color: var(--color--foreground);
-    }
-  }
-
-  &.highlighted {
-    --background-color: var(--color--primary);
-
-    color: var(--color--primary--opposite);
-
-    .placeholder,
-    .character {
-      color: inherit;
-    }
-
-    .points {
-      color: inherit;
-    }
-  }
-
-  &:not(.disabled) {
-    .input::selection {
-      --background--color: transparent;
-    }
-  }
-}
-
-.input,
-.character,
-.placeholder {
-  padding: 0;
-  font-weight: bold;
-  text-transform: uppercase;
-  text-align: center;
-  caret-color: transparent;
-  box-sizing: border-box;
-}
-
-.input {
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  color: transparent;
-  border: none;
-  font-size: 16px; // prevent iOS from automatically zooming in on focus
-}
-
-.character,
-.placeholder {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--background-color);
-  border-radius: inherit;
-  transition: var(--transition);
-  pointer-events: none;
-  user-select: none;
-
-  .empty & {
-    color: var(--color--inactive);
-  }
-
-  .raised & {
+  &.raised {
     --shadow--size: 2px;
     --shadow--blur: 2px;
     --shadow--spread: -1px;
@@ -112,11 +70,17 @@
   }
 }
 
-.character {
-  opacity: 1;
+.input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: transparent;
+  color: transparent;
+  caret-color: transparent;
+  font-size: 16px; // prevent iOS from automatically zooming in on focus
 
-  .empty & {
-    opacity: 0;
+  &::selection {
+    --background--color: transparent;
   }
 }
 

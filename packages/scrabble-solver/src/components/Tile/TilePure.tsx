@@ -64,15 +64,18 @@ const TilePure: FunctionComponent<Props> = ({
       [styles.disabled]: disabled,
       [styles.empty]: !character,
       [styles.highlighted]: highlighted,
-      [styles.raised]: raised,
+      [styles.placeholder]: !character,
       [styles.points1]: points === 1,
       [styles.points2]: points === 2,
       [styles.points3]: points === 3,
       [styles.points4]: points === 4,
       [styles.points5]: typeof points === 'number' && points >= 5,
+      [styles.raised]: raised,
     })}
     style={style}
   >
+    {character || placeholder}
+
     <input
       aria-label={ariaLabel}
       autoCapitalize="none"
@@ -89,16 +92,6 @@ const TilePure: FunctionComponent<Props> = ({
       onFocus={onFocus}
       onKeyDown={onKeyDown}
     />
-
-    {placeholder && (
-      <div className={styles.placeholder} tabIndex={-1}>
-        {placeholder}
-      </div>
-    )}
-
-    <div className={styles.character} tabIndex={-1}>
-      {character}
-    </div>
 
     {canShowPoints && (
       <span className={styles.points} style={pointsStyle}>
