@@ -44,7 +44,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [showWords, setShowWords] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
   const [indexRef, { height: indexHeight, width: indexWidth }] = useMeasure<HTMLDivElement>();
-  const [navRef, { height: navHeight }] = useMeasure<HTMLDivElement>();
+  const [navRef, { height: navHeight }] = useMeasure<HTMLElement>();
   const solverHeight = indexHeight - navHeight;
   const solverWidth = indexWidth;
   const [isClient, setIsClient] = useState(false);
@@ -87,7 +87,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       <SvgFontFix />
 
       <div className={classNames(styles.index, { [styles.initialized]: isInitialized })} ref={indexRef}>
-        <div className={styles.nav} ref={navRef}>
+        <nav className={styles.nav} ref={navRef}>
           <div className={styles.navContent}>
             <div className={styles.navLogo}>
               <a className={styles.logoContainer} href="/" title={version}>
@@ -104,7 +104,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
               onShowWords={() => setShowWords(true)}
             />
           </div>
-        </div>
+        </nav>
 
         <Solver
           className={styles.solver}
