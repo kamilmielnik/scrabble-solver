@@ -6,6 +6,7 @@
 
   position: relative;
   display: table-cell;
+  vertical-align: middle;
   background-color: var(--color--white);
   border-bottom: var(--border--width) dotted var(--border--color--light);
   transition: var(--transition);
@@ -35,42 +36,49 @@
 
   &.bonusStart {
     &::before {
+      content: '';
       background-color: var(--color--bonus--start);
     }
   }
 
   &.bonusCharacter1 {
     &::before {
+      content: '';
       background-color: var(--color--bonus--character--1);
     }
   }
 
   &.bonusCharacter2 {
     &::before {
+      content: '';
       background-color: var(--color--bonus--character--2);
     }
   }
 
   &.bonusCharacter3 {
     &::before {
+      content: '';
       background-color: var(--color--bonus--character--3);
     }
   }
 
   &.bonusCharacter5 {
     &::before {
+      content: '';
       background-color: var(--color--bonus--character--5);
     }
   }
 
   &.bonusCharacterMultiplier2 {
     &::before {
+      content: '';
       background-color: var(--color--bonus--character-multiplier--2);
     }
   }
 
   &.bonusCharacterMultiplier3 {
     &::before {
+      content: '';
       background-color: var(--color--bonus--character-multiplier--3);
     }
   }
@@ -91,7 +99,7 @@
 
   &.filtered {
     &::before {
-      content: ' ';
+      content: '';
       background-color: var(--color--foreground--secondary);
     }
   }
@@ -113,7 +121,6 @@
     font-weight: bold;
     color: var(--color--white);
     transition: var(--transition);
-    content: ' ';
 
     [lang='fa-IR'] & {
       font-family: var(--font--family--latin);
@@ -166,6 +173,7 @@
     }
   }
 }
+
 .icon {
   $size: 40%;
 
