@@ -41,18 +41,17 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
-  const { componentsSpacing, isBoardFullWidth, showColumn, showCompactControls, showFloatingSolveButton } =
+  const { columnWidth, componentsSpacing, isBoardFullWidth, showColumn, showCompactControls, showFloatingSolveButton } =
     useAppLayout();
-  const [bottomContainerRef, { height: bottomContainerHeight }] = useMeasure<HTMLDivElement>();
-  const [columnRef, { width: columnWidth }] = useMeasure<HTMLDivElement>();
-  const maxBoardWidth = width - columnWidth - (showColumn ? componentsSpacing : 0) - 2 * componentsSpacing;
-  const maxBoardHeight = isBoardFullWidth ? Number.POSITIVE_INFINITY : Math.max(height - bottomContainerHeight, 0);
   const config = useTypedSelector(selectConfig);
   const error = useTypedSelector(selectSolveError);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const allResults = useTypedSelector(selectSortedResults);
   const results = useTypedSelector(selectSortedFilteredResults);
+  const [bottomContainerRef, { height: bottomContainerHeight }] = useMeasure<HTMLDivElement>();
+  const maxBoardWidth = width - columnWidth - (showColumn ? componentsSpacing : 0) - 2 * componentsSpacing;
+  const maxBoardHeight = isBoardFullWidth ? Number.POSITIVE_INFINITY : Math.max(height - bottomContainerHeight, 0);
   const [bestResult] = results || [];
   const cellWidth = (maxBoardWidth - (config.boardWidth + 1) * BORDER_WIDTH) / config.boardWidth;
   const cellHeight = (maxBoardHeight - (config.boardHeight + 1) * BORDER_WIDTH) / config.boardHeight;
@@ -117,7 +116,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
             <input className={styles.submitInput} tabIndex={-1} type="submit" />
           </form>
 
-          <div className={styles.column} ref={columnRef}>
+          <div className={styles.column}>
             <Results callbacks={callbacks} />
 
             <div className={styles.dictionaryContainer}>

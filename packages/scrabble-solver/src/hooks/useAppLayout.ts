@@ -1,4 +1,4 @@
-import { COMPONENTS_SPACING, COMPONENTS_SPACING_SMALL } from 'parameters';
+import { COMPONENTS_SPACING, COMPONENTS_SPACING_SMALL, SOLVER_COLUMN_WIDTH } from 'parameters';
 
 import useIsTouchDevice from './useIsTouchDevice';
 import useMediaQuery from './useMediaQuery';
@@ -14,6 +14,7 @@ const useAppLayout = () => {
 
   return {
     animateTile: !isLessThanXs,
+    columnWidth: showColumn ? SOLVER_COLUMN_WIDTH : 0,
     componentsSpacing: isLessThanXl ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING,
     isBoardFullWidth: isLessThanM,
     showColumn,

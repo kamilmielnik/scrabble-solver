@@ -71,6 +71,8 @@ export const REMAINING_TILES_TILE_SIZE = 50;
 
 export const RESULTS_ITEM_HEIGHT = 40;
 
+export const SOLVER_COLUMN_WIDTH = 580;
+
 export const TILE_APPEAR_DURATION = 200;
 
 export const TILE_APPEAR_KEYFRAMES = [

@@ -106,12 +106,14 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           </div>
         </nav>
 
-        <Solver
-          className={styles.solver}
-          height={solverHeight}
-          width={solverWidth}
-          onShowResults={() => setShowResults(true)}
-        />
+        {solverHeight > 0 && solverWidth > 0 && (
+          <Solver
+            className={styles.solver}
+            height={solverHeight}
+            width={solverWidth}
+            onShowResults={() => setShowResults(true)}
+          />
+        )}
       </div>
 
       <MenuModal
