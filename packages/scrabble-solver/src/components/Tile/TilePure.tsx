@@ -18,7 +18,6 @@ interface Props {
   autoFocus?: boolean;
   canShowPoints?: boolean;
   character?: string;
-  characterStyle?: CSSProperties;
   className?: string;
   disabled?: boolean;
   highlighted?: boolean;
@@ -42,7 +41,6 @@ const TilePure: FunctionComponent<Props> = ({
   autoFocus,
   canShowPoints,
   character,
-  characterStyle,
   className,
   disabled,
   highlighted,
@@ -93,12 +91,12 @@ const TilePure: FunctionComponent<Props> = ({
     />
 
     {placeholder && (
-      <div className={styles.placeholder} style={characterStyle} tabIndex={-1}>
+      <div className={styles.placeholder} tabIndex={-1}>
         {placeholder}
       </div>
     )}
 
-    <div className={styles.character} style={characterStyle} tabIndex={-1}>
+    <div className={styles.character} tabIndex={-1}>
       {character}
     </div>
 

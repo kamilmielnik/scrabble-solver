@@ -60,8 +60,10 @@ const Tile: FunctionComponent<Props> = ({
   const locale = useTypedSelector(selectLocale);
   const { animateTile, showTilePoints } = useAppLayout();
   const { pointsFontSize, tileFontSize, tileSize } = getTileSizes(size);
-  const style = useMemo(() => ({ height: tileSize, width: tileSize }), [tileSize]);
-  const characterStyle = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
+  const style = useMemo(
+    () => ({ fontSize: tileFontSize, height: tileSize, width: tileSize }),
+    [tileSize, tileFontSize],
+  );
   const pointsStyle = useMemo(() => ({ fontSize: pointsFontSize }), [pointsFontSize]);
   const ref = useRef<HTMLInputElement>(null);
   const mergedRef = useMergeRefs(inputRef ? [ref, inputRef] : [ref]);
@@ -98,7 +100,6 @@ const Tile: FunctionComponent<Props> = ({
       autoFocus={autoFocus}
       canShowPoints={canShowPoints}
       character={character}
-      characterStyle={characterStyle}
       className={className}
       disabled={disabled}
       highlighted={highlighted}
