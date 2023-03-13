@@ -16,26 +16,6 @@
   transition: var(--transition);
   user-select: none;
 
-  &.blank {
-    --background-color: var(--color--white);
-
-    color: var(--color--foreground);
-  }
-
-  &.empty {
-    color: var(--color--inactive);
-  }
-
-  &.highlighted {
-    --background-color: var(--color--primary);
-
-    color: var(--color--primary--opposite);
-
-    .points {
-      color: inherit;
-    }
-  }
-
   &.points1 {
     --background-color: var(--color--yellow);
   }
@@ -66,6 +46,26 @@
       --shadow--size: 1px;
       --shadow--spread: 0;
       --shadow--blur: 1px;
+    }
+  }
+
+  &.blank {
+    --background-color: var(--color--white);
+
+    color: var(--color--foreground);
+  }
+
+  &.empty {
+    color: var(--color--inactive);
+  }
+
+  &.highlighted {
+    --background-color: var(--color--primary);
+
+    color: var(--color--primary--opposite);
+
+    .points {
+      color: inherit;
     }
   }
 }
