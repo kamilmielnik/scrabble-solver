@@ -9,11 +9,11 @@
 }
 
 .results {
-  flex: 1;
+  flex: 1 1 auto;
 }
 
 .dictionary {
-  flex: 0 0 calc(var(--dictionary--height) - var(--text-input--height));
+  flex: 0 1 calc(var(--dictionary--height) - var(--text-input--height));
   background-color: var(--color--background--element);
   border: var(--border);
   border-radius: var(--border--radius);

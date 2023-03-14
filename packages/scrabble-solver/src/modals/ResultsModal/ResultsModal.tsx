@@ -2,7 +2,8 @@ import { Result } from '@scrabble-solver/types';
 import { FunctionComponent, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Dictionary, Modal, Results } from 'components';
+import { Button, Dictionary, Modal, Results } from 'components';
+import { Check } from 'icons';
 import { resultsSlice, selectResultCandidate, selectResults, useTranslate, useTypedSelector } from 'state';
 
 import styles from './ResultsModal.module.scss';
@@ -37,7 +38,24 @@ const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) 
   );
 
   return (
-    <Modal className={className} isOpen={isOpen} title={translate('results')} onClose={onClose}>
+    <Modal
+      className={className}
+      footer={
+        <Button
+          aria-label={translate('results.insert')}
+          disabled={!resultCandidate}
+          Icon={Check}
+          tooltip={translate('results.insert')}
+          variant="primary"
+          onClick={onClose}
+        >
+          {translate('results.insert')}
+        </Button>
+      }
+      isOpen={isOpen}
+      title={translate('results')}
+      onClose={onClose}
+    >
       <div className={styles.content}>
         <Results callbacks={callbacks} className={styles.results} highlightedIndex={highlightedIndex} />
         <Dictionary className={styles.dictionary} />

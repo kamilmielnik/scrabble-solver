@@ -17,6 +17,7 @@ const useAppLayout = () => {
     columnWidth: showColumn ? SOLVER_COLUMN_WIDTH : 0,
     componentsSpacing: isLessThanXl ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING,
     isBoardFullWidth: isLessThanM,
+    isModalFullWidth: isLessThanS,
     showColumn,
     showCompactControls: !showColumn,
     showFloatingSolveButton: isTouchDevice,

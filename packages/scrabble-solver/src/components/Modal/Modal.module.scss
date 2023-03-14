@@ -120,3 +120,15 @@
   padding: var(--spacing--l);
   overflow: auto;
 }
+
+.footer {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--spacing--l);
+  box-shadow: var(--box-shadow);
+
+  @include media('>s') {
+    display: none;
+  }
+}

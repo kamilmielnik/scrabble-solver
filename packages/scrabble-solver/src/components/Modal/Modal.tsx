@@ -15,12 +15,13 @@ import styles from './Modal.module.scss';
 export interface Props {
   children: ReactNode;
   className?: string;
+  footer?: ReactNode;
   isOpen: boolean;
   title: string;
   onClose: () => void;
 }
 
-const Modal: FunctionComponent<Props> = ({ children, className, isOpen, title, onClose }) => {
+const Modal: FunctionComponent<Props> = ({ children, className, footer, isOpen, title, onClose }) => {
   const translate = useTranslate();
   const [shouldReturnFocusAfterClose, setShouldReturnFocusAfterClose] = useState(true);
 
@@ -68,6 +69,8 @@ const Modal: FunctionComponent<Props> = ({ children, className, isOpen, title, o
         </div>
 
         <div className={styles.content}>{children}</div>
+
+        {footer && <div className={styles.footer}>{footer}</div>}
       </div>
     </ReactModal>
   );
