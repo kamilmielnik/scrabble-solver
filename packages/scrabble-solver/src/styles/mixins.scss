@@ -119,7 +119,9 @@ $media-expressions: (
   input {
     position: absolute;
     top: -100%;
+    right: -100%;
     left: -100%;
+    bottom: -100%;
     width: 300%;
     height: 300%;
     clip-path: inset((100% / 3));
