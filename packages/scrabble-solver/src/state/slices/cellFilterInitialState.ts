@@ -1,6 +1,4 @@
-import { Cell } from '@scrabble-solver/types';
-
-export type Point = Pick<Cell, 'x' | 'y'>;
+import { Point } from 'types';
 
 const cellFilterInitialState: Point[] = [];
 

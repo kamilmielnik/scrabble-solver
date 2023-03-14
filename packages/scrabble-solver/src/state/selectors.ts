@@ -6,12 +6,13 @@ import { Cell, Config, isError, Result, Tile } from '@scrabble-solver/types';
 import i18n, { LOCALE_FEATURES } from 'i18n';
 import { findCell, getRemainingTiles, getRemainingTilesGroups, sortResults, unorderedArraysEqual } from 'lib';
 import { Translations } from 'types';
+import { Point, Translations } from 'types';
 
 import { RootState } from './types';
 
 const selectCell = (_: unknown, cell: Cell): Cell => cell;
 
-const selectPoint = (_: unknown, point: { x: number; y: number }): { x: number; y: number } => point;
+const selectPoint = (_: unknown, point: Point): Point => point;
 
 const selectCharacter = (_: unknown, character: string | null): string | null => character;
 

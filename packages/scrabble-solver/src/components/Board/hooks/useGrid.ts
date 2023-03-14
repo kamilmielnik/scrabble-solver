@@ -19,10 +19,9 @@ import { useLatest } from 'react-use';
 import { LOCALE_FEATURES } from 'i18n';
 import { createGridOf, createKeyboardNavigation, extractCharacters, extractInputValue } from 'lib';
 import { boardSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
-import { Direction } from 'types';
+import { Direction, Point } from 'types';
 
 import { getPositionInGrid } from '../lib';
-import { Point } from '../types';
 
 const toggleDirection = (direction: Direction) => (direction === 'vertical' ? 'horizontal' : 'vertical');
 

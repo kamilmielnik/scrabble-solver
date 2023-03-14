@@ -2,6 +2,11 @@ export type Comparator<T> = (a: T, B: T) => number;
 
 export type Direction = 'horizontal' | 'vertical';
 
+export interface Point {
+  x: number;
+  y: number;
+}
+
 export enum SortDirection {
   Ascending = 'ascending',
   Descending = 'descending',
@@ -30,7 +35,6 @@ export enum ResultColumn {
   Word = 'word',
   WordsCount = 'words-count',
 }
-
 export type TranslationKey =
   | 'cell.filter-cell'
   | 'cell.set-blank'
