@@ -2,8 +2,14 @@
 
 .button {
   width: 100%;
-  box-shadow: 0px 1px 1px 0px var(--box-shadow--color);
   text-transform: none;
+
+  &,
+  &:active,
+  &:focus,
+  &:hover {
+    box-shadow: 0px 1px 1px 0px var(--box-shadow--color);
+  }
 
   & + & {
     margin-top: var(--spacing--l);
