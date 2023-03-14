@@ -59,6 +59,13 @@
     color: var(--color--inactive);
   }
 
+  &.invalid {
+    --background-color: var(--color--foreground);
+    --shadow--color: var(--box-shadow--color--inverse);
+
+    color: var(--color--white);
+  }
+
   &.highlighted {
     --background-color: var(--color--primary);
 
@@ -114,23 +121,29 @@
 }
 
 .alert {
-  $size: 30%;
+  --size: 30%;
 
   position: absolute;
-  width: $size;
-  height: $size;
-  background-color: var(--color--error--opposite);
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(
+    var(--color--error--opposite),
+    var(--color--error--opposite) 85%,
+    transparent 85%,
+    transparent
+  );
   color: var(--color--error);
+  pointer-events: none;
 
   [dir='ltr'] & {
-    top: 0;
-    right: 0;
-    border-top-right-radius: inherit;
-  }
-
-  [dir='rtl'] & {
     bottom: 0;
     right: 0;
     border-bottom-right-radius: inherit;
+  }
+
+  [dir='rtl'] & {
+    top: 0;
+    left: 0;
+    border-top-left-radius: inherit;
   }
 }

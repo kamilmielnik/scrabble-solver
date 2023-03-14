@@ -63,6 +63,7 @@ const TilePure: FunctionComponent<Props> = ({
       [styles.blank]: isBlank,
       [styles.disabled]: disabled,
       [styles.empty]: !character,
+      [styles.invalid]: !isValid,
       [styles.highlighted]: highlighted,
       [styles.placeholder]: !character,
       [styles.points1]: points === 1,
