@@ -1,7 +1,7 @@
 import boardInitialState, { BoardState } from './boardInitialState';
 
 export interface VerifyState {
-  isLoading: false;
+  isLoading: boolean;
   lastSolvedParameters: {
     board: BoardState;
   };

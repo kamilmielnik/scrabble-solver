@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import cellFilterInitialState, { Point } from './cellFilterInitialState';
+import { Point } from 'types';
+
+import cellFilterInitialState from './cellFilterInitialState';
 
 const cellFilterSlice = createSlice({
   initialState: cellFilterInitialState,
