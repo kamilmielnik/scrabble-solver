@@ -1,29 +1,18 @@
-import { scrabble } from '@scrabble-solver/configs';
+import { literaki, scrabble } from '@scrabble-solver/configs';
 import { Locale } from '@scrabble-solver/types';
 
-const getInitialLocale = (): Locale => {
-  if (!globalThis.navigator) {
-    return Locale.EN_US;
-  }
+import { guessLocale } from 'lib';
 
-  const locales = Object.values(Locale);
-  const exactMatch = locales.find((locale) => globalThis.navigator.language === locale);
+export interface SettingsState {
+  autoGroupTiles: 'left' | 'right' | null;
+  configId: typeof literaki.id | typeof scrabble.id;
+  locale: Locale;
+}
 
-  if (exactMatch) {
-    return exactMatch;
-  }
-
-  const partialMatch = locales.find((locale) => {
-    return globalThis.navigator.language === locale.substring(0, 2);
-  });
-
-  return partialMatch || Locale.EN_US;
-};
-
-const settingsInitialState = {
-  autoGroupTiles: 'left' as 'left' | 'right' | null,
+const settingsInitialState: SettingsState = {
+  autoGroupTiles: 'left',
   configId: scrabble.id,
-  locale: getInitialLocale(),
+  locale: guessLocale(),
 };
 
 export default settingsInitialState;

@@ -18,6 +18,7 @@ export { default as getRemainingTilesGroups } from './getRemainingTilesGroups';
 export { default as getTileSizes } from './getTileSizes';
 export { default as getTotalRemainingTilesCount } from './getTotalRemainingTilesCount';
 export { default as groupResults } from './groupResults';
+export { default as guessLocale } from './guessLocale';
 export { default as inverseDirection } from './inverseDirection';
 export { default as isMac } from './isMac';
 export { default as isRegExp } from './isRegExp';

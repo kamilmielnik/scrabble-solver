@@ -3,9 +3,11 @@ import { Board } from '@scrabble-solver/types';
 
 import settingsInitialState from './settingsInitialState';
 
+export type BoardState = Board;
+
 const { configId, locale } = settingsInitialState;
 const { boardHeight, boardWidth } = getLocaleConfig(configId, locale);
-const boardInitialState: Board = Board.create(boardWidth, boardHeight);
+const boardInitialState: BoardState = Board.create(boardWidth, boardHeight);
 
 // const createOxyphenbutazone = () => {
 //   // Tiles: oypbaze

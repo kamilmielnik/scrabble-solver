@@ -1,5 +1,7 @@
 import { Point } from 'types';
 
-const cellFilterInitialState: Point[] = [];
+export type CellFilterState = Point[];
+
+const cellFilterInitialState: CellFilterState = [];
 
 export default cellFilterInitialState;

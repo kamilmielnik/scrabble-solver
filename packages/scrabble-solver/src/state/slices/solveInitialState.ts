@@ -2,7 +2,7 @@ import { Board } from '@scrabble-solver/types';
 
 import boardInitialState from './boardInitialState';
 
-interface SolveInitialState {
+export interface SolveState {
   error: unknown | undefined;
   isLoading: boolean;
   lastSolvedParameters: {
@@ -11,7 +11,7 @@ interface SolveInitialState {
   };
 }
 
-const solveInitialState: SolveInitialState = {
+const solveInitialState: SolveState = {
   error: undefined,
   isLoading: false,
   lastSolvedParameters: {

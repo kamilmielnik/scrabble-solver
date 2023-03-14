@@ -1,12 +1,21 @@
-import boardInitialState from './boardInitialState';
+import boardInitialState, { BoardState } from './boardInitialState';
 
-const verifyInitialState = {
+export interface VerifyState {
+  isLoading: false;
+  lastSolvedParameters: {
+    board: BoardState;
+  };
+  invalidWords: string[];
+  validWords: string[];
+}
+
+const verifyInitialState: VerifyState = {
   isLoading: false,
   lastSolvedParameters: {
     board: boardInitialState,
   },
-  invalidWords: [] as string[],
-  validWords: [] as string[],
+  invalidWords: [],
+  validWords: [],
 };
 
 export default verifyInitialState;

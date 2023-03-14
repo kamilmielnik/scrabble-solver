@@ -1,11 +1,18 @@
 import { Result } from '@scrabble-solver/types';
 
-import { ResultColumn, SortDirection } from 'types';
+import { ResultColumn, Sort, SortDirection } from 'types';
 
-const resultsInitialState = {
-  candidate: null as Result | null,
+export interface ResultsState {
+  candidate: Result | null;
+  query: string;
+  results: Result[] | undefined;
+  sort: Sort;
+}
+
+const resultsInitialState: ResultsState = {
+  candidate: null,
   query: '',
-  results: undefined as Result[] | undefined,
+  results: undefined,
   sort: {
     column: ResultColumn.Points,
     direction: SortDirection.Descending,
