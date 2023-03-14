@@ -1,11 +1,20 @@
+/* eslint-disable max-lines */
+
 import { createSelector } from '@reduxjs/toolkit';
 import { getLocaleConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
-import { Cell, Config, isError, Result, Tile } from '@scrabble-solver/types';
+import { Cell, Config, isError, Tile } from '@scrabble-solver/types';
 
 import i18n, { LOCALE_FEATURES } from 'i18n';
-import { findCell, getRemainingTiles, getRemainingTilesGroups, sortResults, unorderedArraysEqual } from 'lib';
-import { Translations } from 'types';
+import {
+  createRegExp,
+  findCell,
+  getRemainingTiles,
+  getRemainingTilesGroups,
+  groupResults,
+  sortResults,
+  unorderedArraysEqual,
+} from 'lib';
 import { Point, Translations } from 'types';
 
 import { RootState } from './types';
@@ -13,6 +22,8 @@ import { RootState } from './types';
 const selectCell = (_: unknown, cell: Cell): Cell => cell;
 
 const selectPoint = (_: unknown, point: Point): Point => point;
+
+const selectResultIndex = (_: unknown, index: number): number => index;
 
 const selectCharacter = (_: unknown, character: string | null): string | null => character;
 
@@ -72,54 +83,42 @@ export const selectCellIsValid = createSelector([selectConfig, selectCell], (con
   return config.tiles.some((tile) => tile.character === cell.tile.character);
 });
 
-export const selectResults = createSelector([selectResultsRoot], (results) => results.results);
+export const selectResultsRaw = createSelector([selectResultsRoot], (results) => results.results);
 
 export const selectResultsQuery = createSelector([selectResultsRoot], (results) => results.query);
 
-export const selectResultsSortColumn = createSelector([selectResultsRoot], (results) => results.sort.column);
+export const selectResultsSort = createSelector([selectResultsRoot], (results) => results.sort);
 
-export const selectResultsSortDirection = createSelector([selectResultsRoot], (results) => results.sort.direction);
+export const selectSortedResults = createSelector([selectResultsRaw, selectResultsSort, selectLocale], sortResults);
 
-export const selectSortedResults = createSelector(
-  [selectResults, selectResultsSortColumn, selectResultsSortDirection, selectLocale],
-  sortResults,
+export const selectGroupedResults = createSelector(
+  [selectSortedResults, selectResultsQuery, selectCellFilter],
+  groupResults,
 );
 
-const filterResultsByQuery = (results: Result[], query: string): Result[] => {
-  if (query.trim().length === 0) {
-    return results;
-  }
+export const selectResults = createSelector([selectGroupedResults], (groupedResults) => {
+  return groupedResults ? [...groupedResults.matching, ...groupedResults.other] : groupedResults;
+});
 
-  let regExp: RegExp | undefined;
-
-  try {
-    regExp = new RegExp(query, 'gi');
-  } catch {
-    return results;
-  }
-
-  return results.filter((result) => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return regExp!.test(result.word);
-  });
-};
-
-export const selectSortedFilteredResults = createSelector(
-  [selectSortedResults, selectResultsQuery, selectCellFilter],
-  (results, query, cellFilter) => {
+export const selectIsResultMatching = createSelector(
+  [selectResults, selectResultsQuery, selectCellFilter, selectResultIndex],
+  (results, query, cellFilter, index) => {
     if (!results) {
-      return results;
+      return false;
     }
 
-    const filteredByQuery = filterResultsByQuery(results, query);
+    const result = results[index];
+    const regExp = createRegExp(query);
 
-    if (!cellFilter) {
-      return filteredByQuery;
+    if (!regExp.test(result.word)) {
+      return false;
     }
 
-    return filteredByQuery.filter((result) => {
+    if (cellFilter) {
       return cellFilter.every(({ x, y }) => result.cells.some((cell) => cell.x === x && cell.y === y));
-    });
+    }
+
+    return true;
   },
 );
 

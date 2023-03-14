@@ -3,13 +3,7 @@ import { ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { SortDown, SortUp } from 'icons';
-import {
-  resultsSlice,
-  selectResultsSortColumn,
-  selectResultsSortDirection,
-  useTranslate,
-  useTypedSelector,
-} from 'state';
+import { resultsSlice, selectResultsSort, useTranslate, useTypedSelector } from 'state';
 import { ResultColumn, SortDirection } from 'types';
 
 import { useTooltip } from '../Tooltip';
@@ -24,8 +18,7 @@ interface Props {
 const HeaderButton = ({ column }: Props): ReactElement => {
   const dispatch = useDispatch();
   const translate = useTranslate();
-  const sortColumn = useTypedSelector(selectResultsSortColumn);
-  const sortDirection = useTypedSelector(selectResultsSortDirection);
+  const sort = useTypedSelector(selectResultsSort);
   const triggerProps = useTooltip(translate(column.translationKey));
 
   const handleOrderChange = (columnId: ResultColumn) => {
@@ -44,10 +37,10 @@ const HeaderButton = ({ column }: Props): ReactElement => {
       <span className={styles.cell}>
         <span className={styles.headerButtonLabel}>{translate(column.translationKey)}</span>
 
-        {sortColumn === column.id && (
+        {sort.column === column.id && (
           <>
-            {sortDirection === SortDirection.Ascending && <SortUp className={styles.sortIcon} />}
-            {sortDirection === SortDirection.Descending && <SortDown className={styles.sortIcon} />}
+            {sort.direction === SortDirection.Ascending && <SortUp className={styles.sortIcon} />}
+            {sort.direction === SortDirection.Descending && <SortDown className={styles.sortIcon} />}
           </>
         )}
       </span>

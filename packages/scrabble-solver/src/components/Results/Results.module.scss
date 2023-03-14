@@ -115,6 +115,19 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
       color: var(--color--primary--opposite);
     }
   }
+
+  &.notMatching {
+    color: var(--color--inactive);
+
+    &:focus,
+    &:hover,
+    &.highlighted {
+      &:not(:disabled) {
+        background-color: var(--color--primary--light);
+        color: var(--color--primary--opposite);
+      }
+    }
+  }
 }
 
 .resultContent {

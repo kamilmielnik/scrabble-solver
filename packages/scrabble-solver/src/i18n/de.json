@@ -45,7 +45,6 @@
   "rack.tile.location": "Ablage: Stein ({{index}})",
   "remaining-tiles": "Restliche Steine",
   "results": "Ergebnisse",
-  "results.empty-state.no-filtered-results": "Keine Ergebnisse für diese Anfrage.",
   "results.empty-state.no-results": "Keine Ergebnisse - kein Wort konnte generiert werden.",
   "results.empty-state.outdated": "Ergebnisse sind alt. Klicken zum Aktualisieren.",
   "results.empty-state.uninitialized": "Wörter die aus deinen Buchstaben generiert wurden erscheinen hier.",

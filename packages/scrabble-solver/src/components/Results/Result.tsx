@@ -3,7 +3,7 @@ import { CSSProperties, FocusEventHandler, MouseEventHandler, ReactElement, useR
 
 import { LOCALE_FEATURES } from 'i18n';
 import { noop } from 'lib';
-import { selectLocale, useTypedSelector } from 'state';
+import { selectIsResultMatching, selectLocale, useTypedSelector } from 'state';
 import { ResultColumn } from 'types';
 
 import Cell from './Cell';
@@ -20,7 +20,7 @@ interface Props {
 const Result = ({ data, index, style }: Props): ReactElement => {
   const {
     highlightedIndex,
-    results,
+    results = [],
     onBlur = noop,
     onClick = noop,
     onFocus = noop,
@@ -28,11 +28,12 @@ const Result = ({ data, index, style }: Props): ReactElement => {
     onMouseLeave = noop,
   } = data;
   const ref = useRef<HTMLButtonElement>(null);
+  const columns = useColumns();
   const locale = useTypedSelector(selectLocale);
   const { consonants, vowels } = LOCALE_FEATURES[locale];
   const result = results[index];
+  const isMatching = useTypedSelector((state) => selectIsResultMatching(state, index));
   const otherWords = result.words.slice(1).join(' / ').toLocaleUpperCase();
-  const columns = useColumns();
   const enabledColumns = Object.fromEntries(columns.map((column) => [column.id, true]));
 
   const handleClick: MouseEventHandler = (event) => onClick(result, event);
@@ -46,6 +47,7 @@ const Result = ({ data, index, style }: Props): ReactElement => {
       aria-label={result.word}
       className={classNames(styles.result, {
         [styles.highlighted]: index === highlightedIndex,
+        [styles.notMatching]: !isMatching,
       })}
       ref={ref}
       style={style}

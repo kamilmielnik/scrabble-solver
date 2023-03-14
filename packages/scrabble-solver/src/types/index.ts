@@ -7,6 +7,11 @@ export interface Point {
   y: number;
 }
 
+export interface Sort {
+  column: ResultColumn;
+  direction: SortDirection;
+}
+
 export enum SortDirection {
   Ascending = 'ascending',
   Descending = 'descending',
@@ -82,7 +87,6 @@ export type TranslationKey =
   | 'rack.tile.location'
   | 'remaining-tiles'
   | 'results'
-  | 'results.empty-state.no-filtered-results'
   | 'results.empty-state.no-results'
   | 'results.empty-state.outdated'
   | 'results.empty-state.uninitialized'

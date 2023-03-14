@@ -41,6 +41,7 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --color--success: #00a900;
   --color--warning: hsl(35, 90%, 60%);
   --color--primary: var(--color--violet);
+  --color--primary--light: var(--color--violet--light);
   --color--primary--opposite: var(--color--white);
 
   --color--bonus--character--1: var(--color--yellow--light);

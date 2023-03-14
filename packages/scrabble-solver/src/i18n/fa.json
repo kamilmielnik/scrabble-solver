@@ -45,7 +45,6 @@
   "rack.tile.location": "({{index}}) کاشی: طاقچه",
   "remaining-tiles": "کاشی های باقی مانده",
   "results": "نتایج",
-  "results.empty-state.no-filtered-results": "پاسخی یافت نشد.",
   "results.empty-state.no-results": "کلمه قابل استفاده پیدا نشد.",
   "results.empty-state.outdated": "نتایج به روز نیستند، برای بروز رسانی کلیک کنید.",
   "results.empty-state.uninitialized": "کلمات تولید شده از حروف شما اینجا نمایش داده خواهد شد.",

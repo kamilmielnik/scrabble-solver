@@ -9,9 +9,8 @@ import {
   selectAreResultsOutdated,
   selectIsLoading,
   selectLocale,
+  selectResults,
   selectSolveError,
-  selectSortedFilteredResults,
-  selectSortedResults,
   useTranslate,
   useTypedSelector,
 } from 'state';
@@ -38,9 +37,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
-  const allResults = useTypedSelector(selectSortedResults);
-  const filteredResults = useTypedSelector(selectSortedFilteredResults);
-  const results = filteredResults || [];
+  const results = useTypedSelector(selectResults);
   const isLoading = useTypedSelector(selectIsLoading);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const error = useTypedSelector(selectSolveError);
@@ -50,8 +47,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
   const columns = useColumns();
   const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
   const scrollToIndexRef = useLatest(scrollToIndex);
-  const hasResults =
-    typeof error === 'undefined' && typeof filteredResults !== 'undefined' && typeof allResults !== 'undefined';
+  const hasResults = typeof error === 'undefined' && typeof results !== 'undefined';
 
   useEffect(() => {
     // without setTimeout, the initial scrolling offset is calculated
@@ -65,7 +61,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
     return () => {
       globalThis.clearTimeout(timeout);
     };
-  }, [allResults, listRef, scrollToIndexRef]);
+  }, [results, listRef, scrollToIndexRef]);
 
   return (
     <div className={classNames(styles.results, className)}>
@@ -84,7 +80,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
           </EmptyState>
         )}
 
-        {typeof error === 'undefined' && typeof filteredResults === 'undefined' && (
+        {typeof error === 'undefined' && typeof results === 'undefined' && (
           <EmptyState className={styles.emptyState} variant="info">
             {translate('results.empty-state.uninitialized')}
 
@@ -102,45 +98,35 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
               </EmptyState>
             )}
 
-            {!isOutdated && (
-              <>
-                {allResults.length === 0 && (
-                  <EmptyState className={styles.emptyState} variant="warning">
-                    {translate('results.empty-state.no-results')}
-                  </EmptyState>
-                )}
+            {!isOutdated && results.length === 0 && (
+              <EmptyState className={styles.emptyState} variant="warning">
+                {translate('results.empty-state.no-results')}
+              </EmptyState>
+            )}
 
-                {allResults.length > 0 && filteredResults.length === 0 && (
-                  <EmptyState className={styles.emptyState} variant="info">
-                    {translate('results.empty-state.no-filtered-results')}
-                  </EmptyState>
-                )}
-
-                {allResults.length > 0 && filteredResults.length > 0 && (
-                  <div className={styles.listContainer}>
-                    <FixedSizeList
-                      className={classNames(styles.list, {
-                        [styles.outdated]: isOutdated,
-                      })}
-                      direction={direction}
-                      height={height}
-                      itemCount={filteredResults.length}
-                      itemData={itemData}
-                      itemSize={RESULTS_ITEM_HEIGHT}
-                      ref={setListRef}
-                      width={width}
-                    >
-                      {Result}
-                    </FixedSizeList>
-                  </div>
-                )}
-              </>
+            {!isOutdated && results.length > 0 && (
+              <div className={styles.listContainer}>
+                <FixedSizeList
+                  className={classNames(styles.list, {
+                    [styles.outdated]: isOutdated,
+                  })}
+                  direction={direction}
+                  height={height}
+                  itemCount={results.length}
+                  itemData={itemData}
+                  itemSize={RESULTS_ITEM_HEIGHT}
+                  ref={setListRef}
+                  width={width}
+                >
+                  {Result}
+                </FixedSizeList>
+              </div>
             )}
           </>
         )}
       </div>
 
-      {hasResults && allResults.length > 0 && !isOutdated && <ResultsInput className={styles.input} />}
+      {hasResults && results.length > 0 && !isOutdated && <ResultsInput className={styles.input} />}
 
       {isLoading && <Loading />}
     </div>

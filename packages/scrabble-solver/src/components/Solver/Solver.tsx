@@ -11,9 +11,8 @@ import {
   selectAreResultsOutdated,
   selectConfig,
   selectResultCandidate,
+  selectResults,
   selectSolveError,
-  selectSortedFilteredResults,
-  selectSortedResults,
   solveSlice,
   useTranslate,
   useTypedSelector,
@@ -47,8 +46,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
   const error = useTypedSelector(selectSolveError);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const resultCandidate = useTypedSelector(selectResultCandidate);
-  const allResults = useTypedSelector(selectSortedResults);
-  const results = useTypedSelector(selectSortedFilteredResults);
+  const results = useTypedSelector(selectResults);
   const [bottomContainerRef, { height: bottomContainerHeight }] = useMeasure<HTMLDivElement>();
   const maxBoardWidth = width - columnWidth - (showColumn ? componentsSpacing : 0) - 2 * componentsSpacing;
   const maxBoardHeight = isBoardFullWidth ? Number.POSITIVE_INFINITY : Math.max(height - bottomContainerHeight, 0);
@@ -144,7 +142,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
                 </Alert>
               )}
 
-              {allResults && allResults.length === 0 && !isOutdated && (
+              {results && results.length === 0 && !isOutdated && (
                 <Alert className={styles.emptyState} variant="warning">
                   {translate('results.empty-state.no-results')}
                 </Alert>

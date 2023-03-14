@@ -19,5 +19,5 @@ export interface ResultCallbacks {
 
 export interface ResultData extends ResultCallbacks {
   highlightedIndex?: number;
-  results: Result[];
+  results: Result[] | undefined;
 }

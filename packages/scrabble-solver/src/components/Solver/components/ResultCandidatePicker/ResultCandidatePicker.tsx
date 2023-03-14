@@ -10,7 +10,7 @@ import {
   selectIsLoading,
   selectLocale,
   selectResultCandidate,
-  selectSortedResults,
+  selectResults,
   useTranslate,
   useTypedSelector,
 } from 'state';
@@ -31,13 +31,12 @@ const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onResultCl
   const locale = useTypedSelector(selectLocale);
   const isLoading = useTypedSelector(selectIsLoading);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
-  const sortedResults = useTypedSelector(selectSortedResults);
-  const results = sortedResults || [];
+  const results = useTypedSelector(selectResults);
   const resultCandidate = useTypedSelector(selectResultCandidate);
-  const index = resultCandidate ? results.findIndex((result) => result.id === resultCandidate.id) : -1;
+  const index = resultCandidate && results ? results.findIndex((result) => result.id === resultCandidate.id) : -1;
   const disabled = isOutdated || !resultCandidate;
-  const isPreviousDisabled = index <= 0 || disabled;
-  const isNextDisabled = index >= results.length - 1 || disabled;
+  const isPreviousDisabled = !results || index <= 0 || disabled;
+  const isNextDisabled = !results || index >= results.length - 1 || disabled;
   const bothEnabled = !isPreviousDisabled && !isNextDisabled;
   const { showFloatingSolveButton } = useAppLayout();
 

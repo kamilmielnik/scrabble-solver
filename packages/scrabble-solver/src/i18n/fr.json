@@ -45,7 +45,6 @@
   "rack.tile.location": "Chevalet: la case ({{index}})",
   "remaining-tiles": "Cases restantes",
   "results": "Résultats",
-  "results.empty-state.no-filtered-results": "Aucun résultat ne correspond à cette requête",
   "results.empty-state.no-results": "Pas de résultats - impossible de générer des mots.",
   "results.empty-state.outdated": "Les résultats sont dépassé. Cliquer ci-dessous pour mettre à jour.",
   "results.empty-state.uninitialized": "Les mots générés à partir de vos lettres seront affichés ici.",

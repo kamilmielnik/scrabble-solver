@@ -3,13 +3,7 @@ import { FunctionComponent, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Dictionary, Modal, Results } from 'components';
-import {
-  resultsSlice,
-  selectResultCandidate,
-  selectSortedFilteredResults,
-  useTranslate,
-  useTypedSelector,
-} from 'state';
+import { resultsSlice, selectResultCandidate, selectResults, useTranslate, useTypedSelector } from 'state';
 
 import styles from './ResultsModal.module.scss';
 
@@ -22,9 +16,9 @@ interface Props {
 const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
-  const results = useTypedSelector(selectSortedFilteredResults);
+  const results = useTypedSelector(selectResults);
   const resultCandidate = useTypedSelector(selectResultCandidate);
-  const index = (results || []).findIndex((result) => result.id === resultCandidate?.id);
+  const index = results ? results.findIndex((result) => result.id === resultCandidate?.id) : -1;
   const highlightedIndex = index === -1 ? undefined : index;
 
   const callbacks = useMemo(

@@ -1,6 +1,6 @@
 import { Result } from '@scrabble-solver/types';
 
-import { Comparator, ResultColumn, SortDirection } from 'types';
+import { Comparator, ResultColumn, Sort, SortDirection } from 'types';
 
 import createKeyComparator from './createKeyComparator';
 import reverseComparator from './reverseComparator';
@@ -15,20 +15,16 @@ const comparators: Record<ResultColumn, (locale: string) => Comparator<Result>> 
   [ResultColumn.WordsCount]: (locale: string) => createKeyComparator('wordsCount', locale),
 };
 
-const sortResults = (
-  results: Result[] | undefined,
-  column: ResultColumn,
-  sortDirection: SortDirection,
-  locale: string,
-): Result[] | undefined => {
+const sortResults = (results: Result[] | undefined, sort: Sort, locale: string): Result[] | undefined => {
   if (typeof results === 'undefined') {
     return results;
   }
 
-  const createComparator = comparators[column];
+  const createComparator = comparators[sort.column];
   const comparator = createComparator(locale);
-  const finalComparator = sortDirection === SortDirection.Descending ? reverseComparator(comparator) : comparator;
-  return [...results].sort(finalComparator);
+  const finalComparator = sort.direction === SortDirection.Descending ? reverseComparator(comparator) : comparator;
+  const sortedResults = [...results].sort(finalComparator);
+  return sortedResults;
 };
 
 export default sortResults;
