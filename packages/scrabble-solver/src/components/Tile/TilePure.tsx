@@ -61,11 +61,9 @@ const TilePure: FunctionComponent<Props> = ({
   <div
     className={classNames(styles.tile, className, {
       [styles.blank]: isBlank,
-      [styles.disabled]: disabled,
       [styles.empty]: !character,
       [styles.invalid]: !isValid,
       [styles.highlighted]: highlighted,
-      [styles.placeholder]: !character,
       [styles.points1]: points === 1,
       [styles.points2]: points === 2,
       [styles.points3]: points === 3,
