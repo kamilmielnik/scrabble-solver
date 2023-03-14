@@ -115,7 +115,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
           </form>
 
           <div className={styles.column}>
-            <Results callbacks={callbacks} />
+            <Results callbacks={callbacks} className={styles.results} />
 
             <div className={styles.dictionaryContainer}>
               <Dictionary className={styles.dictionary} />
