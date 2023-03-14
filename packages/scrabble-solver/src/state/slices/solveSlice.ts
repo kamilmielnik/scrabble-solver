@@ -12,6 +12,8 @@ const solveSlice = createSlice({
   initialState: solveInitialState,
   name: 'solve',
   reducers: {
+    reset: () => solveInitialState,
+
     submit: (state) => {
       const error = solveInitialState.error;
       return { ...state, error, isLoading: true };

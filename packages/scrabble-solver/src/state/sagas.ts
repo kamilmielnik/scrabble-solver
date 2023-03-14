@@ -116,6 +116,7 @@ function* onReset(): AnyGenerator {
   yield put(dictionarySlice.actions.reset());
   yield put(rackSlice.actions.reset());
   yield put(resultsSlice.actions.reset());
+  yield put(solveSlice.actions.reset());
   yield put(verifySlice.actions.submit());
 }
 
