@@ -8,6 +8,7 @@ import {
   createKeyboardNavigation,
   extractCharacters,
   extractInputValue,
+  getTileSizes,
   zipCharactersAndTiles,
 } from 'lib';
 import { rackSlice, selectConfig, selectLocale, selectRack, selectResultCandidateTiles, useTypedSelector } from 'state';
@@ -31,6 +32,7 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const tilesRefs = useMemo(() => createArray(tilesCount).map(() => createRef<HTMLInputElement>()), [tilesCount]);
   const activeIndexRef = useRef<number>();
   const { direction } = LOCALE_FEATURES[locale];
+  const { tileFontSize } = getTileSizes(tileSize);
 
   const changeActiveIndex = useCallback(
     (offset: number) => {
@@ -110,7 +112,7 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   }, [changeActiveIndex, config, direction]);
 
   return (
-    <div className={classNames(styles.rack, className)} onPaste={handlePaste}>
+    <div className={classNames(styles.rack, className)} style={{ fontSize: tileFontSize }} onPaste={handlePaste}>
       {tiles.map(({ character, tile }, index) => (
         <RackTile
           activeIndexRef={activeIndexRef}

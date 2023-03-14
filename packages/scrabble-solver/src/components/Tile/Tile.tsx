@@ -59,11 +59,8 @@ const Tile: FunctionComponent<Props> = ({
 }) => {
   const locale = useTypedSelector(selectLocale);
   const { animateTile, showTilePoints } = useAppLayout();
-  const { pointsFontSize, tileFontSize, tileSize } = getTileSizes(size);
-  const style = useMemo(
-    () => ({ fontSize: tileFontSize, height: tileSize, width: tileSize }),
-    [tileSize, tileFontSize],
-  );
+  const { pointsFontSize, tileSize } = getTileSizes(size);
+  const style = useMemo(() => ({ height: tileSize, width: tileSize }), [tileSize]);
   const pointsStyle = useMemo(() => ({ fontSize: pointsFontSize }), [pointsFontSize]);
   const ref = useRef<HTMLInputElement>(null);
   const mergedRef = useMergeRefs(inputRef ? [ref, inputRef] : [ref]);
