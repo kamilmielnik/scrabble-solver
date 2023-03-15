@@ -4,15 +4,17 @@ import { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Radio } from 'components';
+import { LOCALE_FLAGS } from 'i18n';
 import { selectLocale, settingsSlice, useTypedSelector } from 'state';
 
 import styles from './LocaleSetting.module.scss';
-import options from './options';
 
 interface Props {
   className?: string;
   disabled: boolean;
 }
+
+const OPTIONS = Object.values(LOCALE_FLAGS).sort((a, b) => a.name.localeCompare(b.name));
 
 const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
   const dispatch = useDispatch();
@@ -25,7 +27,7 @@ const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
 
   return (
     <div className={className}>
-      {options.map(({ Icon, ...option }) => (
+      {OPTIONS.map(({ Icon, ...option }) => (
         <Radio
           checked={locale === option.value}
           className={classNames(styles.option, className, {

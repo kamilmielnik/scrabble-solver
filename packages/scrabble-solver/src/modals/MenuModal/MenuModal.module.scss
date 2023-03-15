@@ -8,10 +8,26 @@
   &:active,
   &:focus,
   &:hover {
-    box-shadow: 0px 1px 1px 0px var(--box-shadow--color);
+    box-shadow: 0 1px 1px 0 var(--box-shadow--color);
   }
 
   & + & {
     margin-top: var(--spacing--l);
   }
+}
+
+.settings {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flag {
+  --height: var(--button--icon--size);
+
+  width: calc(var(--height) * var(--aspect--ratio));
+  height: var(--height);
+  border-radius: var(--border--radius);
+  box-shadow: 0 0 0 1px var(--box-shadow--color);
 }

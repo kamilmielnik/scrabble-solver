@@ -1,9 +1,10 @@
 import { FunctionComponent } from 'react';
 
 import { Button, Modal } from 'components';
+import { LOCALE_FLAGS } from 'i18n';
 import { BookHalf, CardChecklist, Cog, Github, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
-import { useTranslate } from 'state';
+import { selectLocale, useTranslate, useTypedSelector } from 'state';
 
 import styles from './MenuModal.module.scss';
 
@@ -27,6 +28,8 @@ const Menu: FunctionComponent<Props> = ({
   onShowWords,
 }) => {
   const translate = useTranslate();
+  const locale = useTypedSelector(selectLocale);
+  const Flag = LOCALE_FLAGS[locale];
 
   return (
     <Modal className={className} isOpen={isOpen} title={translate('menu')} onClose={onClose}>
@@ -59,7 +62,10 @@ const Menu: FunctionComponent<Props> = ({
       </Button.Link>
 
       <Button aria-label={translate('settings')} className={styles.button} Icon={Cog} onClick={onShowSettings}>
-        {translate('settings')}
+        <div className={styles.settings}>
+          <span>{translate('settings')}</span>
+          <Flag.Icon className={styles.flag} />
+        </div>
       </Button>
     </Modal>
   );
