@@ -25,7 +25,6 @@
     "stats": "node scripts/stats.js"
   },
   "dependencies": {
-    "untildify": "^4.0.0",
     "winston": "^3.8.2"
   },
   "devDependencies": {

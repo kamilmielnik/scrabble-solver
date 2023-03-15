@@ -1,7 +1,7 @@
 import path from 'path';
 import { createLogger, format, transports } from 'winston';
 
-import { LOGS_DIRECTORY } from './constants';
+import { OUTPUT_DIRECTORY } from './constants';
 
 const logger = createLogger({
   level: 'info',
@@ -16,11 +16,11 @@ const logger = createLogger({
   ),
   transports: [
     new transports.File({
-      filename: path.resolve(LOGS_DIRECTORY, 'error.log'),
+      filename: path.resolve(OUTPUT_DIRECTORY, 'error.log'),
       level: 'error',
     }),
     new transports.File({
-      filename: path.resolve(LOGS_DIRECTORY, 'all.log'),
+      filename: path.resolve(OUTPUT_DIRECTORY, 'all.log'),
     }),
     new transports.Console({
       format: format.combine(format.colorize(), format.simple()),
