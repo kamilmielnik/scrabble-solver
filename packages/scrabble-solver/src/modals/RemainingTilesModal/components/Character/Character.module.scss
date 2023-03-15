@@ -1,3 +1,5 @@
+@import 'styles/mixins';
+
 .character {
   display: flex;
   flex-direction: column;
@@ -29,6 +31,11 @@
 .remaining {
   height: 6px;
   margin-top: var(--spacing--m);
+  box-shadow: var(--box-shadow--raised);
+
+  @include media('<xs') {
+    box-shadow: var(--box-shadow--raised--subtle);
+  }
 }
 
 .count {

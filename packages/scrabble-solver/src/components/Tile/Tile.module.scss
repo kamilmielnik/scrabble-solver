@@ -34,18 +34,10 @@
   }
 
   &.raised {
-    --shadow--size: 2px;
-    --shadow--blur: 2px;
-    --shadow--spread: -1px;
-    --shadow--color: rgba(34, 34, 34, 0.8);
-
-    box-shadow: inset calc(-1 * var(--shadow--size)) calc(-1 * var(--shadow--size)) var(--shadow--blur)
-      var(--shadow--spread) var(--shadow--color);
+    box-shadow: var(--box-shadow--raised);
 
     @include media('<xs') {
-      --shadow--size: 1px;
-      --shadow--spread: 0;
-      --shadow--blur: 1px;
+      box-shadow: var(--box-shadow--raised--subtle);
     }
   }
 

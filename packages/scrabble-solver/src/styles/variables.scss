@@ -13,9 +13,12 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --box-shadow--blur: 8px;
   --box-shadow--color: rgba(0, 0, 0, 0.15);
   --box-shadow--color--inverse: rgba(255, 255, 255, 0.85);
+  --box-shadow--color--raised: rgba(34, 34, 34, 0.8);
   --box-shadow--spread: 1px;
   --box-shadow--null: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) transparent;
   --box-shadow--error: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) var(--color--error);
+  --box-shadow--raised: inset -2px -2px 2px -1px var(--box-shadow--color--raised);
+  --box-shadow--raised--subtle: inset -1px -1px 1px 0 var(--box-shadow--color--raised);
 
   --color--white: #ffffff;
   --color--blue: #c7d8f9;
