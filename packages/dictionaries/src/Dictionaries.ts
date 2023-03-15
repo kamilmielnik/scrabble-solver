@@ -3,7 +3,7 @@ import logger from '@scrabble-solver/logger';
 import { Locale } from '@scrabble-solver/types';
 import fs from 'fs';
 
-import { OUTPUT_DIRECTORY } from './constants';
+import { DICTIONARIES_DIRECTORY } from './constants';
 import { createAsyncProxy, downloadDictionary, LayeredCache } from './lib';
 import { Cache } from './types';
 
@@ -32,7 +32,7 @@ class Dictionaries {
   }
 
   public remove(): void {
-    fs.rmdirSync(OUTPUT_DIRECTORY, { recursive: true });
+    fs.rmdirSync(DICTIONARIES_DIRECTORY, { recursive: true });
   }
 
   public async update(force?: boolean): Promise<void> {
@@ -47,7 +47,7 @@ class Dictionaries {
 
   private async updateDictionary(locale: Locale): Promise<Trie> {
     logger.info('Dictionaries - updateDictionary', { locale });
-    fs.mkdirSync(OUTPUT_DIRECTORY, { recursive: true });
+    fs.mkdirSync(DICTIONARIES_DIRECTORY, { recursive: true });
     const downloadDictionaryProxy = this.downloadDictionaryProxies[locale];
     const trie = await downloadDictionaryProxy();
     await this.cache.set(locale, trie);
