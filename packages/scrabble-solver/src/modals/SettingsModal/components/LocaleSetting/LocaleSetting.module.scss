@@ -18,52 +18,39 @@
 }
 
 .flag {
-  $height: 32px;
+  --height: 32px;
 
-  height: $height;
+  width: calc(var(--height) * var(--aspect--ratio));
+  height: var(--height);
   border-radius: var(--border--radius);
   box-shadow: var(--box-shadow);
   transition: var(--transition);
 
   &.de {
-    $aspect-ratio: 20 / 12;
-
-    width: $height * $aspect-ratio;
+    --aspect-ratio: var(--flag--de--aspect-ratio);
   }
 
   &.es {
-    $aspect-ratio: 750 / 500;
-
-    width: $height * $aspect-ratio;
+    --aspect-ratio: var(--flag--es--aspect-ratio);
   }
 
   &.fa {
-    $aspect-ratio: 630 / 360;
-
-    width: $height * $aspect-ratio;
+    --aspect-ratio: var(--flag--fa--aspect-ratio);
   }
 
   &.fr {
-    $aspect-ratio: 24 / 15;
-
-    width: $height * $aspect-ratio;
+    --aspect-ratio: var(--flag--fr--aspect-ratio);
   }
 
   &.gb {
-    $aspect-ratio: 60 / 30;
-
-    width: $height * $aspect-ratio;
+    --aspect-ratio: var(--flag--gb--aspect-ratio);
   }
 
   &.pl {
-    $aspect-ratio: 16 / 10;
-
-    width: $height * $aspect-ratio;
+    --aspect-ratio: var(--flag--pl--aspect-ratio);
   }
 
   &.us {
-    $aspect-ratio: 7410 / 3900;
-
-    width: $height * $aspect-ratio;
+    --aspect-ratio: var(--flag--us--aspect-ratio);
   }
 }
