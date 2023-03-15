@@ -6,7 +6,7 @@ import { solve as solveScrabble } from '@scrabble-solver/solver';
 import { Board, Config, isBoardJson, isLocale, Locale, Tile } from '@scrabble-solver/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { getServerLoggingData, isBoardValid } from 'api';
+import { getServerLoggingData, isBoardValid, isCharacterValid } from 'api';
 import { isStringArray } from 'lib';
 
 interface RequestData {
@@ -63,10 +63,11 @@ const parseRequest = (request: NextApiRequest): RequestData => {
   const config = getLocaleConfig(configId, locale);
 
   for (const character of characters) {
-    if (!config.hasCharacter(character) && character !== BLANK) {
+    if (!isCharacterValid(character)) {
       throw new Error('Invalid "characters" parameter');
     }
   }
+
   const blanksCount = characters.filter((character) => character === BLANK).length;
 
   if (blanksCount > config.blanksCount) {

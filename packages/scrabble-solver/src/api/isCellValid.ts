@@ -1,5 +1,6 @@
-import { BLANK } from '@scrabble-solver/constants';
 import { CellJson, Config } from '@scrabble-solver/types';
+
+import isCharacterValid from './isCharacterValid';
 
 const isCellValid = (cell: CellJson, config: Config): boolean => {
   const { isEmpty, tile, x, y } = cell;
@@ -16,7 +17,7 @@ const isCellValid = (cell: CellJson, config: Config): boolean => {
     return false;
   }
 
-  if (tile !== null && !config.hasCharacter(tile.character) && tile.character !== BLANK) {
+  if (tile !== null && !isCharacterValid(tile.character)) {
     return false;
   }
 
