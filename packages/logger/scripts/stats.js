@@ -4,6 +4,8 @@ const path = require('path');
 const { argv } = require('process');
 
 const DAY = 24 * 60 * 60 * 1000;
+const DEFAULT_SCRABBLE_SOLVER_DIRECTORY = path.resolve(os.homedir(), '.scrabble-solver');
+const SCRABBLE_SOLVER_DIRECTORY = process.env.SCRABBLE_SOLVER_DIRECTORY || DEFAULT_SCRABBLE_SOLVER_DIRECTORY;
 
 const getStats = (event, lines, since) => {
   const daysCount = Math.ceil((Date.now() - Number(new Date(since))) / DAY);
@@ -41,7 +43,7 @@ const printStats = ({ daysCount, event, filteredDays, sum }) => {
   console.table(filteredDays);
 };
 
-const filepath = path.resolve(os.homedir(), '.scrabble-solver', 'logs', 'all.log');
+const filepath = path.resolve(SCRABBLE_SOLVER_DIRECTORY, 'logs', 'all.log');
 const file = fs.readFileSync(filepath, 'utf-8');
 const lines = file.split('\n');
 const since = argv[2] || '2021-06-01';

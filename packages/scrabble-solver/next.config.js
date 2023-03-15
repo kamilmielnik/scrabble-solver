@@ -44,8 +44,8 @@ module.exports = {
       ...config.plugins,
       process.env.NODE_ENV === 'production'
         ? new WorkboxPlugin.InjectManifest({
-            swSrc: path.join(__dirname, 'src/service-worker/index.ts'),
-            swDest: path.join(__dirname, 'public/service-worker.js'),
+            swSrc: path.resolve(__dirname, 'src/service-worker/index.ts'),
+            swDest: path.resolve(__dirname, 'public/service-worker.js'),
             exclude: [/\.map$/, /\.next/, /_next/, /manifest/, /\.htaccess$/, /.*\/static\/.*/, /service-worker\.js$/],
           })
         : undefined,

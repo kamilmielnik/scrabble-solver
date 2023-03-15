@@ -3,6 +3,6 @@
 const { execSync } = require('child_process');
 const path = require('path');
 
-const rootDirectory = path.join(__dirname, '..');
+const rootDirectory = path.resolve(__dirname, '..');
 process.chdir(rootDirectory);
 execSync('npm start');
