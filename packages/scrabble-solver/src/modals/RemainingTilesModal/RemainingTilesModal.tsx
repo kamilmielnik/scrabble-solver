@@ -2,6 +2,8 @@ import { FunctionComponent } from 'react';
 
 import { Badge, Modal } from 'components';
 import { LOCALE_FEATURES } from 'i18n';
+import { getTileSizes } from 'lib';
+import { REMAINING_TILES_TILE_SIZE } from 'parameters';
 import { selectLocale, selectRemainingTilesGroups, useTranslate, useTypedSelector } from 'state';
 
 import { Character } from './components';
@@ -17,6 +19,7 @@ const RemainingTilesModal: FunctionComponent<Props> = ({ className, isOpen, onCl
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const groups = useTypedSelector(selectRemainingTilesGroups);
+  const { tileFontSize } = getTileSizes(REMAINING_TILES_TILE_SIZE);
   const { direction } = LOCALE_FEATURES[locale];
 
   return (
@@ -37,7 +40,7 @@ const RemainingTilesModal: FunctionComponent<Props> = ({ className, isOpen, onCl
               </span>
             }
           >
-            <div className={styles.content}>
+            <div className={styles.content} style={{ fontSize: tileFontSize }}>
               {tiles.map((tile) => {
                 return (
                   <div className={styles.character} key={tile.character}>
