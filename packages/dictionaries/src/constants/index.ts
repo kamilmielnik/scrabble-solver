@@ -5,4 +5,6 @@ export const DAY = 24 * 60 * 60 * 1000;
 
 export const CACHE_STALE_THRESHOLD = 1 * DAY; // eslint-disable-line no-implicit-coercion
 
-export const OUTPUT_DIRECTORY = path.resolve(os.homedir(), '.scrabble-solver', 'dictionaries');
+const ROOT_DIRECTORY = process.env.CI ? process.cwd() : os.homedir();
+
+export const OUTPUT_DIRECTORY = path.resolve(ROOT_DIRECTORY, '.scrabble-solver', 'dictionaries');
