@@ -46,7 +46,7 @@
   "remaining-tiles": "کاشی های باقی مانده",
   "results": "نتایج",
   "results.empty-state.no-results": "کلمه قابل استفاده پیدا نشد.",
-  "results.empty-state.outdated": "نتایج به روز نیستند، برای بروز رسانی کلیک کنید.",
+  "results.empty-state.outdated": "نتایج به روز نیستند، برای بروز.",
   "results.empty-state.uninitialized": "کلمات تولید شده از حروف شما اینجا نمایش داده خواهد شد.",
   "results.input.placeholder": "جستجو در نتایج (RegExp)",
   "results.insert": "وارد کردن",
