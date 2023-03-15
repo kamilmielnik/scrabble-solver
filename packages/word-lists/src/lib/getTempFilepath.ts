@@ -3,12 +3,11 @@ import path from 'path';
 
 import getHash from './getHash';
 
-const DEFAULT_SCRABBLE_SOLVER_DIRECTORY = path.resolve(os.homedir(), '.scrabble-solver');
-const SCRABBLE_SOLVER_DIRECTORY = process.env.SCRABBLE_SOLVER_DIRECTORY || DEFAULT_SCRABBLE_SOLVER_DIRECTORY;
+const OUTPUT_DIRECTORY = path.resolve(os.homedir(), '.scrabble-solver');
 
 const getTempFilepath = (): string => {
   const filename = `${getHash()}.txt`;
-  return path.resolve(SCRABBLE_SOLVER_DIRECTORY, filename);
+  return path.join(OUTPUT_DIRECTORY, filename);
 };
 
 export default getTempFilepath;
