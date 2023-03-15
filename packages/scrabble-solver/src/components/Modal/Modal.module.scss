@@ -89,6 +89,7 @@
   z-index: 1;
   flex: 0 0 auto;
   padding: var(--spacing--l);
+  padding-bottom: 0;
   background-color: var(--color--background);
 }
 
@@ -117,8 +118,8 @@
   position: relative;
   flex: 1;
   min-height: 0;
-  padding: var(--spacing--l);
   overflow: auto;
+  padding: var(--spacing--l);
 }
 
 .footer {
@@ -126,7 +127,7 @@
   display: flex;
   justify-content: flex-end;
   padding: var(--spacing--l);
-  box-shadow: var(--box-shadow);
+  padding-top: 0;
 
   @include media('>s') {
     display: none;
