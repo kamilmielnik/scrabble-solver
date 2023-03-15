@@ -92,6 +92,7 @@ export type TranslationKey =
   | 'results.empty-state.uninitialized'
   | 'results.input.placeholder'
   | 'results.insert'
+  | 'results.preview'
   | 'results.solve'
   | 'settings'
   | 'settings.autoGroupTiles'

@@ -3,7 +3,7 @@ import { FunctionComponent, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Button, Dictionary, Modal, Results } from 'components';
-import { Check } from 'icons';
+import { Check, EyeFill } from 'icons';
 import { resultsSlice, selectResultCandidate, selectResults, useTranslate, useTypedSelector } from 'state';
 
 import styles from './ResultsModal.module.scss';
@@ -37,20 +37,44 @@ const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) 
     [dispatch, onClose, resultCandidate],
   );
 
+  const handleInsert = () => {
+    if (resultCandidate) {
+      dispatch(resultsSlice.actions.applyResult(resultCandidate));
+    }
+
+    onClose();
+  };
+
+  const handlePreview = () => {
+    onClose();
+  };
+
   return (
     <Modal
       className={className}
       footer={
-        <Button
-          aria-label={translate('results.insert')}
-          disabled={!resultCandidate}
-          Icon={Check}
-          tooltip={translate('results.insert')}
-          variant="primary"
-          onClick={onClose}
-        >
-          {translate('results.insert')}
-        </Button>
+        <>
+          <Button
+            aria-label={translate('results.insert')}
+            disabled={!resultCandidate}
+            Icon={Check}
+            tooltip={translate('results.insert')}
+            variant="primary"
+            onClick={handleInsert}
+          >
+            {translate('results.insert')}
+          </Button>
+
+          <Button
+            aria-label={translate('results.preview')}
+            disabled={!resultCandidate}
+            Icon={EyeFill}
+            tooltip={translate('results.preview')}
+            onClick={handlePreview}
+          >
+            {translate('results.preview')}
+          </Button>
+        </>
       }
       isOpen={isOpen}
       title={translate('results')}

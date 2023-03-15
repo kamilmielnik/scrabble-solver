@@ -50,6 +50,7 @@
   "results.empty-state.uninitialized": "Words generated from your letters will be shown here.",
   "results.input.placeholder": "Search results... (RegExp)",
   "results.insert": "Insert",
+  "results.preview": "Preview",
   "results.solve": "Solve",
   "settings": "Settings",
   "settings.autoGroupTiles": "Group remaining tiles",

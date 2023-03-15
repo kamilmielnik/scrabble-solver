@@ -50,6 +50,7 @@
   "results.empty-state.uninitialized": "Tu zostaną wyświetlone słowa wygenerowane z Twoich liter.",
   "results.input.placeholder": "Szukaj rozwiązania... (RegExp)",
   "results.insert": "Wstaw",
+  "results.preview": "Podgląd",
   "results.solve": "Rozwiąż",
   "settings": "Opcje",
   "settings.autoGroupTiles": "Grupuj pozostałe płytki",

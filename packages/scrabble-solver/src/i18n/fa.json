@@ -50,6 +50,7 @@
   "results.empty-state.uninitialized": "کلمات تولید شده از حروف شما اینجا نمایش داده خواهد شد.",
   "results.input.placeholder": "جستجو در نتایج (RegExp)",
   "results.insert": "وارد کردن",
+  "results.preview": "پیش نمایش",
   "results.solve": "حل کن",
   "settings": "تنظیمات",
   "settings.autoGroupTiles": "کاشی های باقی مانده ی طاقچه را کنار هم قرار بده",

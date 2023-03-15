@@ -60,7 +60,8 @@
 .content {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: var(--spacing--l);
+
 }
 
 .icon {
@@ -71,6 +72,8 @@
 }
 
 .label {
+  @include ellipsis;
+
   flex: 1;
   font-size: var(--font--size--h3);
   transition: var(--transition);

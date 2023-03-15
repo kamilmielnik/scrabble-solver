@@ -50,6 +50,7 @@
   "results.empty-state.uninitialized": "Wörter die aus deinen Buchstaben generiert wurden erscheinen hier.",
   "results.input.placeholder": "Suchergebnisse... (RegExp)",
   "results.insert": "Hinzufügen",
+  "results.preview": "Vorschau",
   "results.solve": "Lösen",
   "settings": "Einstellungen",
   "settings.autoGroupTiles": "Restliche Steine gruppieren",
