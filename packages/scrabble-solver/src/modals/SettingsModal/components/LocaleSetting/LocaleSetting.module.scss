@@ -26,43 +26,43 @@
   transition: var(--transition);
 
   &.de {
-    $aspect-ratio: 1.6;
+    $aspect-ratio: 20 / 12;
 
     width: $height * $aspect-ratio;
   }
 
   &.es {
-    $aspect-ratio: 1.5;
+    $aspect-ratio: 750 / 500;
 
     width: $height * $aspect-ratio;
   }
 
   &.fa {
-    $aspect-ratio: 1.75;
+    $aspect-ratio: 630 / 360;
 
     width: $height * $aspect-ratio;
   }
 
   &.fr {
-    $aspect-ratio: 1.6;
+    $aspect-ratio: 24 / 15;
 
     width: $height * $aspect-ratio;
   }
 
   &.gb {
-    $aspect-ratio: 2;
+    $aspect-ratio: 60 / 30;
 
     width: $height * $aspect-ratio;
   }
 
   &.pl {
-    $aspect-ratio: 1.6;
+    $aspect-ratio: 16 / 10;
 
     width: $height * $aspect-ratio;
   }
 
   &.us {
-    $aspect-ratio: 1.9;
+    $aspect-ratio: 7410 / 3900;
 
     width: $height * $aspect-ratio;
   }
