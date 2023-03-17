@@ -49,6 +49,7 @@
     "react-portal": "^4.2.2",
     "react-redux": "^8.0.5",
     "react-use": "^17.4.0",
+    "react-use-measure": "^2.1.1",
     "react-window": "^1.8.8",
     "redux-saga": "^1.2.2",
     "store2": "^2.14.2",

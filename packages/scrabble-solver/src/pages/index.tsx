@@ -4,7 +4,8 @@ import path from 'path';
 import { FunctionComponent, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
-import { useEffectOnce, useMeasure } from 'react-use';
+import { useEffectOnce } from 'react-use';
+import useMeasure from 'react-use-measure';
 
 import { Logo, LogoSplashScreen, NavButtons, Solver, SvgFontFix } from 'components';
 import { useAppLayout, useDirection, useLanguage, useLocalStorage } from 'hooks';
@@ -42,8 +43,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [showSettings, setShowSettings] = useState(false);
   const [showWords, setShowWords] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
-  const [indexRef, { height: indexHeight, width: indexWidth }] = useMeasure<HTMLDivElement>();
-  const [navRef, { height: navHeight }] = useMeasure<HTMLElement>();
+  const [indexRef, { height: indexHeight, width: indexWidth }] = useMeasure();
+  const [navRef, { height: navHeight }] = useMeasure();
   const solverHeight = indexHeight - navHeight;
   const solverWidth = indexWidth;
   const [isClient, setIsClient] = useState(false);

@@ -2,7 +2,7 @@ import { Result } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import { FunctionComponent, SyntheticEvent, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { useMeasure } from 'react-use';
+import useMeasure from 'react-use-measure';
 
 import { useAppLayout, useIsTouchDevice } from 'hooks';
 import { BOARD_TILE_SIZE_MAX, BOARD_TILE_SIZE_MIN, BORDER_WIDTH, RACK_TILE_SIZE_MAX } from 'parameters';
@@ -47,7 +47,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const results = useTypedSelector(selectResults);
-  const [bottomContainerRef, { height: bottomContainerHeight }] = useMeasure<HTMLDivElement>();
+  const [bottomContainerRef, { height: bottomContainerHeight }] = useMeasure();
   const maxBoardWidth = width - columnWidth - (showColumn ? componentsSpacing : 0) - 2 * componentsSpacing;
   const maxBoardHeight = isBoardFullWidth ? Number.POSITIVE_INFINITY : Math.max(height - bottomContainerHeight, 0);
   const [bestResult] = results || [];

@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { FunctionComponent, useEffect, useMemo, useState } from 'react';
-import { useLatest, useMeasure } from 'react-use';
+import { useLatest } from 'react-use';
+import useMeasure from 'react-use-measure';
 import { FixedSizeList } from 'react-window';
 
 import { LOCALE_FEATURES } from 'i18n';
@@ -42,7 +43,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const error = useTypedSelector(selectSolveError);
   const itemData = useMemo(() => ({ ...callbacks, highlightedIndex, results }), [callbacks, highlightedIndex, results]);
-  const [sizerRef, { height, width }] = useMeasure<HTMLDivElement>();
+  const [sizerRef, { height, width }] = useMeasure();
   const [listRef, setListRef] = useState<FixedSizeList<ResultData> | null>(null);
   const columns = useColumns();
   const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
