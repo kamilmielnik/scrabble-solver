@@ -63,7 +63,7 @@ const Menu: FunctionComponent<Props> = ({
 
       <Button aria-label={translate('settings')} className={styles.button} Icon={Cog} onClick={onShowSettings}>
         <div className={styles.settings}>
-          <span>{translate('settings')}</span>
+          <div className={styles.settingsLabel}>{translate('settings')}</div>
           <Flag.Icon className={styles.flag} />
         </div>
       </Button>
