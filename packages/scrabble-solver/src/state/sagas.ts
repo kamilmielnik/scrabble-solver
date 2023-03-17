@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 import { PayloadAction } from '@reduxjs/toolkit';
 import { COMMA_ARABIC, COMMA_LATIN } from '@scrabble-solver/constants';
 import { Locale, Result } from '@scrabble-solver/types';
@@ -105,9 +107,14 @@ function* onDictionarySubmit(): AnyGenerator {
 }
 
 function* onInitialize(): AnyGenerator {
+  const board = yield select(selectBoard);
+
   yield call(visit);
-  yield* ensureProperTilesCount();
-  yield put(verifySlice.actions.submit());
+
+  if (!board.isEmpty()) {
+    yield* ensureProperTilesCount();
+    yield put(verifySlice.actions.submit());
+  }
 }
 
 function* onReset(): AnyGenerator {
