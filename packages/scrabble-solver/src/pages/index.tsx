@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useCallback, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce } from 'react-use';
@@ -43,6 +43,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [showWords, setShowWords] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
   const [isClient, setIsClient] = useState(false);
+
+  const handleShowResults = useCallback(() => setShowResults(true), []);
 
   const handleClear = () => {
     dispatch(reset());
@@ -98,7 +100,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           </div>
         </nav>
 
-        <Solver className={styles.solver} onShowResults={() => setShowResults(true)} />
+        <Solver className={styles.solver} onShowResults={handleShowResults} />
       </div>
 
       <MenuModal

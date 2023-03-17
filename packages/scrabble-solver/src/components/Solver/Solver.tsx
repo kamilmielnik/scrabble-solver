@@ -1,6 +1,6 @@
 import { Result } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import { FunctionComponent, SyntheticEvent, useEffect, useMemo } from 'react';
+import { FunctionComponent, memo, SyntheticEvent, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useAppLayout, useIsTouchDevice } from 'hooks';
@@ -140,4 +140,4 @@ const Solver: FunctionComponent<Props> = ({ className, onShowResults }) => {
   );
 };
 
-export default Solver;
+export default memo(Solver);
