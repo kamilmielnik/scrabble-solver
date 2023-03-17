@@ -1,9 +1,9 @@
-import { autoUpdate, FloatingPortal, offset, shift, useFloating, useMergeRefs } from '@floating-ui/react';
+import { autoUpdate, FloatingPortal, offset, shift, useFloating } from '@floating-ui/react';
 import classNames from 'classnames';
 import { CSSProperties, FocusEventHandler, FunctionComponent, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import useMeasure from 'react-use-measure';
 
+import { useAppLayout } from 'hooks';
 import { BOARD_CELL_ACTIONS_OFFSET, TRANSITION } from 'parameters';
 import { boardSlice, cellFilterSlice, selectBoard, selectRowsWithCandidate, useTypedSelector } from 'state';
 
@@ -21,7 +21,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
   const dispatch = useDispatch();
   const rows = useTypedSelector(selectRowsWithCandidate);
   const board = useTypedSelector(selectBoard);
-  const [actionsMeasureRef, { width: actionsWidth }] = useMeasure();
+  const { actionsWidth } = useAppLayout();
   const [{ activeIndex, direction, inputRefs }, { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste }] =
     useGrid(rows);
   const inputRef = inputRefs[activeIndex.y][activeIndex.x];
@@ -40,8 +40,6 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
     placement: 'top-end',
     whileElementsMounted: autoUpdate,
   });
-
-  const actionsRef = useMergeRefs([actionsMeasureRef, refs.setFloating]);
 
   const handleBlur: FocusEventHandler = useCallback(
     (event) => {
@@ -118,7 +116,7 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
           })}
           disabled={!showActions}
           direction={direction}
-          ref={actionsRef}
+          ref={refs.setFloating}
           style={{
             position: strategy,
             top: y ?? 0,

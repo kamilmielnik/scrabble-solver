@@ -43,8 +43,10 @@ const useAppLayout = () => {
   const cellHeight = (maxBoardHeight - (config.boardHeight + 1) * BORDER_WIDTH) / config.boardHeight;
   const cellSize = Math.min(Math.max(Math.min(cellWidth, cellHeight), BOARD_TILE_SIZE_MIN), BOARD_TILE_SIZE_MAX);
   const maxControlsWidth = tileSize * config.maximumCharactersCount + 2 * BORDER_WIDTH;
+  const actionsWidth = 2 * BUTTON_HEIGHT - BORDER_WIDTH;
 
   return {
+    actionsWidth,
     animateTile: !isLessThanXs,
     cellSize,
     isModalFullWidth: isLessThanS,
