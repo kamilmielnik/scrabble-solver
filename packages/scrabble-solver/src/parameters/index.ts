@@ -19,8 +19,14 @@ export const COLOR_GREEN = '#bae3ba';
 export const COLOR_RED = '#f7c2aa';
 export const COLOR_YELLOW = '#efe3ae';
 
-export const COMPONENTS_SPACING = 40;
-export const COMPONENTS_SPACING_SMALL = 20;
+export const SPACING_XS = 2;
+export const SPACING_S = 5;
+export const SPACING_M = 10;
+export const SPACING_L = 20;
+export const SPACING_XL = 40;
+
+export const COMPONENTS_SPACING = SPACING_XL;
+export const COMPONENTS_SPACING_SMALL = SPACING_L;
 
 export const BOARD_CELL_ACTIONS_OFFSET = 3;
 export const BOARD_CELL_BORDER_WIDTH = 1;
@@ -35,6 +41,11 @@ export const BOARD_TILE_SIZE_MAX = 64;
 export const BOARD_TILE_SIZE_MIN = 20;
 
 export const BORDER_WIDTH = 1;
+
+export const LOGO_HEIGHT = 60;
+export const LOGO_HEIGHT_SMALL = 48;
+
+export const NAV_PADDING = SPACING_L;
 
 export const TILE_SIZE = 80;
 

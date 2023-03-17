@@ -34,7 +34,7 @@ interface Props {
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
-  const { showResultsInModal } = useAppLayout();
+  const { navHeight, showResultsInModal } = useAppLayout();
   const [showDictionary, setShowDictionary] = useState(false);
   const [showKeyMap, setShowKeyMap] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -44,7 +44,6 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [showWords, setShowWords] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
   const [indexRef, { height: indexHeight, width: indexWidth }] = useMeasure();
-  const [navRef, { height: navHeight }] = useMeasure();
   const solverHeight = indexHeight - navHeight;
   const solverWidth = indexWidth;
   const [isClient, setIsClient] = useState(false);
@@ -84,7 +83,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       <SvgFontFix />
 
       <div className={classNames(styles.index, { [styles.initialized]: isInitialized })} ref={indexRef}>
-        <nav className={styles.nav} ref={navRef}>
+        <nav className={styles.nav}>
           <div className={styles.navContent}>
             <div className={styles.navLogo}>
               <a className={styles.logoContainer} href="/" title={version}>

@@ -23,7 +23,7 @@
   width: 100%;
   display: flex;
   align-items: flex-start;
-  padding: var(--spacing--l);
+  padding: var(--nav--padding);
 }
 
 .navLogo {
@@ -36,12 +36,8 @@
 }
 
 .logo {
-  height: 60px;
+  height: var(--logo--height);
   user-select: none;
-
-  @include media('<l') {
-    height: 48px;
-  }
 }
 
 .solver {

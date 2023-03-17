@@ -1,4 +1,11 @@
-import { COMPONENTS_SPACING, COMPONENTS_SPACING_SMALL, SOLVER_COLUMN_WIDTH } from 'parameters';
+import {
+  COMPONENTS_SPACING,
+  COMPONENTS_SPACING_SMALL,
+  LOGO_HEIGHT,
+  LOGO_HEIGHT_SMALL,
+  NAV_PADDING,
+  SOLVER_COLUMN_WIDTH,
+} from 'parameters';
 
 import useIsTouchDevice from './useIsTouchDevice';
 import useMediaQuery from './useMediaQuery';
@@ -18,6 +25,7 @@ const useAppLayout = () => {
     componentsSpacing: isLessThanXl ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING,
     isBoardFullWidth: isLessThanM,
     isModalFullWidth: isLessThanS,
+    navHeight: NAV_PADDING + (isLessThanL ? LOGO_HEIGHT_SMALL : LOGO_HEIGHT),
     showColumn,
     showCompactControls: !showColumn,
     showFloatingSolveButton: isTouchDevice,

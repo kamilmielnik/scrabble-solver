@@ -108,10 +108,17 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
 
   --button--icon--size: 24px;
   --dictionary--height: 260px;
+  --logo--height: 60px;
   --modal--width: 370px;
+  --nav--height: calc(var(--logo--height) + var(--nav--padding));
+  --nav--padding: var(--spacing--l);
   --solver-column--width: 580px;
   --square-button--size: 32px;
   --text-input--height: 40px;
+
+  @include media('<l') {
+    --logo--height: 48px;
+  }
 
   @include media('<s') {
     --box-shadow--blur: 5px;
