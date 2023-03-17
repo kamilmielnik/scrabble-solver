@@ -1,6 +1,6 @@
 import { autoUpdate, FloatingPortal, offset, shift, useFloating, useMergeRefs } from '@floating-ui/react';
 import classNames from 'classnames';
-import { CSSProperties, FocusEventHandler, FunctionComponent, useState } from 'react';
+import { CSSProperties, FocusEventHandler, FunctionComponent, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import useMeasure from 'react-use-measure';
 
@@ -43,51 +43,57 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
 
   const actionsRef = useMergeRefs([actionsMeasureRef, refs.setFloating]);
 
-  const handleBlur: FocusEventHandler = (event) => {
-    const eventComesFromActions = refs.floating.current?.contains(event.relatedTarget);
-    const eventComesFromBoard = event.currentTarget.contains(event.relatedTarget);
-    const isLocalEvent = eventComesFromActions || eventComesFromBoard;
+  const handleBlur: FocusEventHandler = useCallback(
+    (event) => {
+      const eventComesFromActions = refs.floating.current?.contains(event.relatedTarget);
+      const eventComesFromBoard = event.currentTarget.contains(event.relatedTarget);
+      const isLocalEvent = eventComesFromActions || eventComesFromBoard;
 
-    if (!isLocalEvent) {
-      setShowActions(false);
-    }
-  };
+      if (!isLocalEvent) {
+        setShowActions(false);
+      }
+    },
+    [refs.floating],
+  );
 
-  const handleDirectionToggle = () => {
+  const handleDirectionToggle = useCallback(() => {
     inputRef.current?.focus();
     onDirectionToggle();
-  };
+  }, [inputRef, onDirectionToggle]);
 
-  const handleFocus: typeof onFocus = (newX, newY) => {
-    const isFirstFocus = !showActions;
-    const originalTransition = refs.floating.current?.style.transition || '';
-    const newInputRef = inputRefs[newY][newX].current;
-    const newTileElement = newInputRef?.parentElement || null;
+  const handleFocus: typeof onFocus = useCallback(
+    (newX, newY) => {
+      const isFirstFocus = !showActions;
+      const originalTransition = refs.floating.current?.style.transition || '';
+      const newInputRef = inputRefs[newY][newX].current;
+      const newTileElement = newInputRef?.parentElement || null;
 
-    if (isFirstFocus) {
-      setTransition('none');
-    }
+      if (isFirstFocus) {
+        setTransition('none');
+      }
 
-    refs.setReference(newTileElement);
-    onFocus(newX, newY);
-    setShowActions(true);
+      refs.setReference(newTileElement);
+      onFocus(newX, newY);
+      setShowActions(true);
 
-    if (isFirstFocus) {
-      setTimeout(() => {
-        setTransition(originalTransition);
-      }, 0);
-    }
-  };
+      if (isFirstFocus) {
+        setTimeout(() => {
+          setTransition(originalTransition);
+        }, 0);
+      }
+    },
+    [inputRefs, onFocus, refs.floating, refs.setReference, showActions],
+  );
 
-  const handleToggleBlank = () => {
+  const handleToggleBlank = useCallback(() => {
     inputRef.current?.focus();
     dispatch(boardSlice.actions.toggleCellIsBlank(cell));
-  };
+  }, [cell, dispatch, inputRef]);
 
-  const handleToggleFilterCell = () => {
+  const handleToggleFilterCell = useCallback(() => {
     inputRef.current?.focus();
     dispatch(cellFilterSlice.actions.toggle(cell));
-  };
+  }, [cell, dispatch, inputRef]);
 
   return (
     <>
