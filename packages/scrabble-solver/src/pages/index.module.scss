@@ -1,14 +1,3 @@
-@import 'styles/mixins';
-
-.index {
-  opacity: 0;
-  transition: var(--transition--long);
-
-  &.initialized {
-    opacity: 1;
-  }
-}
-
 .nav {
   position: relative;
   z-index: 1;

@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
 import { FunctionComponent, useCallback, useEffect, useState } from 'react';
@@ -6,7 +5,7 @@ import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce } from 'react-use';
 
-import { Logo, LogoSplashScreen, NavButtons, Solver, SvgFontFix } from 'components';
+import { Logo, NavButtons, Solver, SvgFontFix } from 'components';
 import { useAppLayout, useDirection, useLanguage, useLocalStorage } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import {
@@ -41,7 +40,6 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [showResults, setShowResults] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showWords, setShowWords] = useState(false);
-  const [isInitialized, setIsInitialized] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
   const handleShowResults = useCallback(() => setShowResults(true), []);
@@ -57,7 +55,6 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   useEffectOnce(() => {
     setIsClient(true);
     dispatch(initialize());
-    setIsInitialized(true);
   });
 
   useEffect(() => {
@@ -80,28 +77,26 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     <>
       <SvgFontFix />
 
-      <div className={classNames(styles.index, { [styles.initialized]: isInitialized })}>
-        <nav className={styles.nav}>
-          <div className={styles.navContent}>
-            <div className={styles.navLogo}>
-              <a className={styles.logoContainer} href="/" title={version}>
-                <Logo className={styles.logo} />
-              </a>
-            </div>
-
-            <NavButtons
-              onClear={handleClear}
-              onShowKeyMap={() => setShowKeyMap(true)}
-              onShowMenu={() => setShowMenu(true)}
-              onShowRemainingTiles={() => setShowRemainingTiles(true)}
-              onShowSettings={() => setShowSettings(true)}
-              onShowWords={() => setShowWords(true)}
-            />
+      <nav className={styles.nav}>
+        <div className={styles.navContent}>
+          <div className={styles.navLogo}>
+            <a className={styles.logoContainer} href="/" title={version}>
+              <Logo className={styles.logo} />
+            </a>
           </div>
-        </nav>
 
-        <Solver className={styles.solver} onShowResults={handleShowResults} />
-      </div>
+          <NavButtons
+            onClear={handleClear}
+            onShowKeyMap={() => setShowKeyMap(true)}
+            onShowMenu={() => setShowMenu(true)}
+            onShowRemainingTiles={() => setShowRemainingTiles(true)}
+            onShowSettings={() => setShowSettings(true)}
+            onShowWords={() => setShowWords(true)}
+          />
+        </div>
+      </nav>
+
+      <Solver className={styles.solver} onShowResults={handleShowResults} />
 
       <MenuModal
         isOpen={showMenu}
@@ -123,8 +118,6 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       <ResultsModal isOpen={showResults} onClose={() => setShowResults(false)} />
 
       <DictionaryModal isOpen={showDictionary} onClose={() => setShowDictionary(false)} />
-
-      <LogoSplashScreen forceShow={!isInitialized} />
     </>
   );
 };
