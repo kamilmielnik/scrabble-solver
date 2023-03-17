@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, memo } from 'react';
 
 import { Badge, Modal } from 'components';
 import { Check, Cross } from 'icons';
@@ -53,4 +53,4 @@ const WordsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) =>
   );
 };
 
-export default WordsModal;
+export default memo(WordsModal);

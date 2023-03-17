@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, memo } from 'react';
 
 import { Button, Modal } from 'components';
 import { LOCALE_FLAGS } from 'i18n';
@@ -18,7 +18,7 @@ interface Props {
   onShowWords: () => void;
 }
 
-const Menu: FunctionComponent<Props> = ({
+const MenuModal: FunctionComponent<Props> = ({
   className,
   isOpen,
   onClose,
@@ -71,4 +71,4 @@ const Menu: FunctionComponent<Props> = ({
   );
 };
 
-export default Menu;
+export default memo(MenuModal);

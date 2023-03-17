@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, memo } from 'react';
 
 import { Dictionary, DictionaryInput, Modal } from 'components';
 import { useTranslate } from 'state';
@@ -24,4 +24,4 @@ const DictionaryModal: FunctionComponent<Props> = ({ className, isOpen, onClose 
   );
 };
 
-export default DictionaryModal;
+export default memo(DictionaryModal);

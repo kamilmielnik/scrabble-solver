@@ -1,5 +1,5 @@
 import { Result } from '@scrabble-solver/types';
-import { FunctionComponent, useMemo } from 'react';
+import { FunctionComponent, memo, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Button, Dictionary, Modal, Results } from 'components';
@@ -88,4 +88,4 @@ const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) 
   );
 };
 
-export default ResultsModal;
+export default memo(ResultsModal);
