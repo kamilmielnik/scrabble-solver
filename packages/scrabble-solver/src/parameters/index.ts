@@ -46,6 +46,8 @@ export const BUTTON_ICON_SIZE = 24;
 export const BUTTON_PADDING_VERTICAL = SPACING_M;
 export const BUTTON_HEIGHT = BUTTON_ICON_SIZE + 2 * BUTTON_PADDING_VERTICAL + 2 * BORDER_WIDTH;
 
+export const DICTIONARY_HEIGHT = 260;
+
 export const LOGO_HEIGHT = 60;
 export const LOGO_HEIGHT_SMALL = 48;
 
@@ -82,9 +84,13 @@ export const RACK_TILE_SIZE_MAX = 80;
 
 export const REMAINING_TILES_TILE_SIZE = 50;
 
+export const RESULTS_HEADER_HEIGHT = 35;
+
 export const RESULTS_ITEM_HEIGHT = 40;
 
 export const SOLVER_COLUMN_WIDTH = 580;
+
+export const TEXT_INPUT_HEIGHT = 40;
 
 export const TILE_APPEAR_DURATION = 200;
 

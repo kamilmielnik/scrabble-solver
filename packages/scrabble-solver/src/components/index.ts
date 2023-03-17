@@ -21,7 +21,6 @@ export { default as Radio } from './Radio';
 export { default as Results } from './Results';
 export { default as ResultsInput } from './ResultsInput';
 export { default as SeoMessage } from './SeoMessage';
-export { default as Sizer } from './Sizer';
 export { default as Solver } from './Solver';
 export { default as Spinner } from './Spinner';
 export { default as SplashScreen } from './SplashScreen';

@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { useLatest } from 'react-use';
-import useMeasure from 'react-use-measure';
 import { FixedSizeList } from 'react-window';
 
+import { useAppLayout } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { RESULTS_ITEM_HEIGHT } from 'parameters';
 import {
@@ -19,7 +19,6 @@ import {
 import EmptyState from '../EmptyState';
 import Loading from '../Loading';
 import ResultsInput from '../ResultsInput';
-import Sizer from '../Sizer';
 
 import HeaderButton from './HeaderButton';
 import Result from './Result';
@@ -36,6 +35,7 @@ interface Props {
 
 const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIndex }) => {
   const translate = useTranslate();
+  const { resultsHeight, resultsWidth } = useAppLayout();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const results = useTypedSelector(selectResults);
@@ -43,7 +43,6 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const error = useTypedSelector(selectSolveError);
   const itemData = useMemo(() => ({ ...callbacks, highlightedIndex, results }), [callbacks, highlightedIndex, results]);
-  const [sizerRef, { height, width }] = useMeasure();
   const [listRef, setListRef] = useState<FixedSizeList<ResultData> | null>(null);
   const columns = useColumns();
   const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
@@ -73,8 +72,6 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
       </div>
 
       <div className={styles.content}>
-        <Sizer ref={sizerRef} />
-
         {typeof error !== 'undefined' && (
           <EmptyState className={styles.emptyState} variant="error">
             {error.message}
@@ -112,12 +109,12 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
                     [styles.outdated]: isOutdated,
                   })}
                   direction={direction}
-                  height={height}
+                  height={resultsHeight}
                   itemCount={results.length}
                   itemData={itemData}
                   itemSize={RESULTS_ITEM_HEIGHT}
                   ref={setListRef}
-                  width={width}
+                  width={resultsWidth}
                 >
                   {Result}
                 </FixedSizeList>
