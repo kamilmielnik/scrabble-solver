@@ -5,7 +5,6 @@ import { FunctionComponent, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { useEffectOnce } from 'react-use';
-import useMeasure from 'react-use-measure';
 
 import { Logo, LogoSplashScreen, NavButtons, Solver, SvgFontFix } from 'components';
 import { useAppLayout, useDirection, useLanguage, useLocalStorage } from 'hooks';
@@ -34,7 +33,7 @@ interface Props {
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
-  const { navHeight, showResultsInModal } = useAppLayout();
+  const { showResultsInModal, solverHeight, solverWidth } = useAppLayout();
   const [showDictionary, setShowDictionary] = useState(false);
   const [showKeyMap, setShowKeyMap] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -43,9 +42,6 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [showSettings, setShowSettings] = useState(false);
   const [showWords, setShowWords] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
-  const [indexRef, { height: indexHeight, width: indexWidth }] = useMeasure();
-  const solverHeight = indexHeight - navHeight;
-  const solverWidth = indexWidth;
   const [isClient, setIsClient] = useState(false);
 
   const handleClear = () => {
@@ -82,7 +78,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     <>
       <SvgFontFix />
 
-      <div className={classNames(styles.index, { [styles.initialized]: isInitialized })} ref={indexRef}>
+      <div className={classNames(styles.index, { [styles.initialized]: isInitialized })}>
         <nav className={styles.nav}>
           <div className={styles.navContent}>
             <div className={styles.navLogo}>
@@ -102,14 +98,12 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           </div>
         </nav>
 
-        {solverHeight > 0 && solverWidth > 0 && (
-          <Solver
-            className={styles.solver}
-            height={solverHeight}
-            width={solverWidth}
-            onShowResults={() => setShowResults(true)}
-          />
-        )}
+        <Solver
+          className={styles.solver}
+          height={solverHeight}
+          width={solverWidth}
+          onShowResults={() => setShowResults(true)}
+        />
       </div>
 
       <MenuModal

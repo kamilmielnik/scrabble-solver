@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import {
   COMPONENTS_SPACING,
   COMPONENTS_SPACING_SMALL,
@@ -9,8 +11,11 @@ import {
 
 import useIsTouchDevice from './useIsTouchDevice';
 import useMediaQuery from './useMediaQuery';
+import useOnWindowResize from './useOnWindowResize';
 
 const useAppLayout = () => {
+  const [viewportHeight, setViewportHeight] = useState(typeof window === 'undefined' ? 0 : window.innerHeight);
+  const [viewportWidth, setViewportWidth] = useState(typeof window === 'undefined' ? 0 : window.innerWidth);
   const isTouchDevice = useIsTouchDevice();
   const isLessThanXs = useMediaQuery('<xs');
   const isLessThanS = useMediaQuery('<s');
@@ -18,6 +23,12 @@ const useAppLayout = () => {
   const isLessThanL = useMediaQuery('<l');
   const isLessThanXl = useMediaQuery('<xl');
   const showColumn = !isLessThanL;
+  const navHeight = NAV_PADDING + (isLessThanL ? LOGO_HEIGHT_SMALL : LOGO_HEIGHT);
+
+  useOnWindowResize(() => {
+    setViewportHeight(window.innerHeight);
+    setViewportWidth(window.innerWidth);
+  });
 
   return {
     animateTile: !isLessThanXs,
@@ -25,7 +36,7 @@ const useAppLayout = () => {
     componentsSpacing: isLessThanXl ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING,
     isBoardFullWidth: isLessThanM,
     isModalFullWidth: isLessThanS,
-    navHeight: NAV_PADDING + (isLessThanL ? LOGO_HEIGHT_SMALL : LOGO_HEIGHT),
+    navHeight,
     showColumn,
     showCompactControls: !showColumn,
     showFloatingSolveButton: isTouchDevice,
@@ -33,6 +44,10 @@ const useAppLayout = () => {
     showResultsInModal: isLessThanL,
     showShortNav: isLessThanS,
     showTilePoints: !isLessThanXs,
+    solverHeight: viewportHeight - navHeight,
+    solverWidth: viewportWidth,
+    viewportHeight,
+    viewportWidth,
   };
 };
 
