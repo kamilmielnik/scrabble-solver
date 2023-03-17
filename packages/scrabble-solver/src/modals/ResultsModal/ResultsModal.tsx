@@ -1,8 +1,9 @@
 import { Result } from '@scrabble-solver/types';
-import { FunctionComponent, memo, useMemo } from 'react';
+import { FunctionComponent, memo, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Button, Dictionary, Modal, Results } from 'components';
+import { useAppLayout } from 'hooks';
 import { Check, EyeFill } from 'icons';
 import { resultsSlice, selectResultCandidate, selectResults, useTranslate, useTypedSelector } from 'state';
 
@@ -17,6 +18,7 @@ interface Props {
 const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
+  const { showResultsInModal } = useAppLayout();
   const results = useTypedSelector(selectResults);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const index = results ? results.findIndex((result) => result.id === resultCandidate?.id) : -1;
@@ -48,6 +50,12 @@ const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) 
   const handlePreview = () => {
     onClose();
   };
+
+  useEffect(() => {
+    if (!showResultsInModal) {
+      onClose();
+    }
+  }, [onClose, showResultsInModal]);
 
   return (
     <Modal

@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useEffectOnce } from 'react-use';
 
 import { Logo, NavButtons, Solver, SvgFontFix } from 'components';
-import { useAppLayout, useDirection, useLanguage, useLocalStorage } from 'hooks';
+import { useDirection, useLanguage, useLocalStorage } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import {
   DictionaryModal,
@@ -32,7 +32,6 @@ interface Props {
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
-  const { showResultsInModal } = useAppLayout();
   const [showDictionary, setShowDictionary] = useState(false);
   const [showKeyMap, setShowKeyMap] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -65,12 +64,6 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     setIsClient(true);
     dispatch(initialize());
   });
-
-  useEffect(() => {
-    if (!showResultsInModal) {
-      setShowResults(false);
-    }
-  }, [showResultsInModal]);
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
