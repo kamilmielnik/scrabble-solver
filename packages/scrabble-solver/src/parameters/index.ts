@@ -42,6 +42,10 @@ export const BOARD_TILE_SIZE_MIN = 20;
 
 export const BORDER_WIDTH = 1;
 
+export const BUTTON_ICON_SIZE = 24;
+export const BUTTON_PADDING_VERTICAL = SPACING_M;
+export const BUTTON_HEIGHT = BUTTON_ICON_SIZE + 2 * BUTTON_PADDING_VERTICAL + 2 * BORDER_WIDTH;
+
 export const LOGO_HEIGHT = 60;
 export const LOGO_HEIGHT_SMALL = 48;
 

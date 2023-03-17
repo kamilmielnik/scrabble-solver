@@ -2,14 +2,11 @@ import { Result } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import { FunctionComponent, SyntheticEvent, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import useMeasure from 'react-use-measure';
 
 import { useAppLayout, useIsTouchDevice } from 'hooks';
-import { BOARD_TILE_SIZE_MAX, BOARD_TILE_SIZE_MIN, BORDER_WIDTH, RACK_TILE_SIZE_MAX } from 'parameters';
 import {
   resultsSlice,
   selectAreResultsOutdated,
-  selectConfig,
   selectResultCandidate,
   selectResults,
   selectSolveError,
@@ -30,33 +27,19 @@ import styles from './Solver.module.scss';
 
 interface Props {
   className?: string;
-  height: number;
-  width: number;
   onShowResults: () => void;
 }
 
-// eslint-disable-next-line max-statements
-const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResults }) => {
+const Solver: FunctionComponent<Props> = ({ className, onShowResults }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
-  const { columnWidth, componentsSpacing, isBoardFullWidth, showColumn, showCompactControls, showFloatingSolveButton } =
-    useAppLayout();
-  const config = useTypedSelector(selectConfig);
+  const { cellSize, maxControlsWidth, showCompactControls, showFloatingSolveButton, tileSize } = useAppLayout();
   const error = useTypedSelector(selectSolveError);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const results = useTypedSelector(selectResults);
-  const [bottomContainerRef, { height: bottomContainerHeight }] = useMeasure();
-  const maxBoardWidth = width - columnWidth - (showColumn ? componentsSpacing : 0) - 2 * componentsSpacing;
-  const maxBoardHeight = isBoardFullWidth ? Number.POSITIVE_INFINITY : Math.max(height - bottomContainerHeight, 0);
   const [bestResult] = results || [];
-  const cellWidth = (maxBoardWidth - (config.boardWidth + 1) * BORDER_WIDTH) / config.boardWidth;
-  const cellHeight = (maxBoardHeight - (config.boardHeight + 1) * BORDER_WIDTH) / config.boardHeight;
-  const cellSize = Math.min(cellWidth, cellHeight);
-  const cellSizeSafe = Math.min(Math.max(cellSize, BOARD_TILE_SIZE_MIN), BOARD_TILE_SIZE_MAX);
-  const tileSize = Math.min((maxBoardWidth - 2 * BORDER_WIDTH) / config.maximumCharactersCount, RACK_TILE_SIZE_MAX);
-  const maxControlsWidth = tileSize * config.maximumCharactersCount + 2 * BORDER_WIDTH;
   const touchCallbacks = useMemo(
     () => ({
       onClick: (result: Result) => {
@@ -110,7 +93,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
       <div className={styles.container}>
         <div className={styles.content}>
           <form className={styles.boardContainer} onSubmit={handleSubmit}>
-            <Board cellSize={cellSizeSafe} className={styles.board} />
+            <Board cellSize={cellSize} className={styles.board} />
             <input className={styles.submitInput} tabIndex={-1} type="submit" />
           </form>
 
@@ -125,7 +108,7 @@ const Solver: FunctionComponent<Props> = ({ className, height, width, onShowResu
         </div>
       </div>
 
-      <div className={styles.bottomContainer} ref={bottomContainerRef}>
+      <div className={styles.bottomContainer}>
         <div className={styles.bottomContent}>
           <form onSubmit={handleSubmit}>
             <Rack className={styles.rack} tileSize={tileSize} />

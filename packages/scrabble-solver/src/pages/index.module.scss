@@ -1,11 +1,7 @@
 @import 'styles/mixins';
 
 .index {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
   opacity: 0;
-  overflow: auto;
   transition: var(--transition--long);
 
   &.initialized {

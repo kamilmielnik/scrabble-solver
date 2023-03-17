@@ -33,7 +33,7 @@ interface Props {
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
-  const { showResultsInModal, solverHeight, solverWidth } = useAppLayout();
+  const { showResultsInModal } = useAppLayout();
   const [showDictionary, setShowDictionary] = useState(false);
   const [showKeyMap, setShowKeyMap] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -98,12 +98,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           </div>
         </nav>
 
-        <Solver
-          className={styles.solver}
-          height={solverHeight}
-          width={solverWidth}
-          onShowResults={() => setShowResults(true)}
-        />
+        <Solver className={styles.solver} onShowResults={() => setShowResults(true)} />
       </div>
 
       <MenuModal
