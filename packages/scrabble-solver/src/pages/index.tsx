@@ -43,10 +43,19 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [isClient, setIsClient] = useState(false);
 
   const handleShowResults = useCallback(() => setShowResults(true), []);
-
-  const handleClear = () => {
-    dispatch(reset());
-  };
+  const handleClear = useCallback(() => dispatch(reset()), [dispatch]);
+  const handleHideDictionary = useCallback(() => setShowDictionary(false), []);
+  const handleHideKeyMap = useCallback(() => setShowKeyMap(false), []);
+  const handleHideRemainingTiles = useCallback(() => setShowRemainingTiles(false), []);
+  const handleHideResults = useCallback(() => setShowResults(false), []);
+  const handleHideSettings = useCallback(() => setShowSettings(false), []);
+  const handleHideWords = useCallback(() => setShowWords(false), []);
+  const handleShowDictionary = useCallback(() => setShowDictionary(true), []);
+  const handleShowKeyMap = useCallback(() => setShowKeyMap(true), []);
+  const handleShowMenu = useCallback(() => setShowMenu(true), []);
+  const handleShowRemainingTiles = useCallback(() => setShowRemainingTiles(true), []);
+  const handleShowSettings = useCallback(() => setShowSettings(true), []);
+  const handleShowWords = useCallback(() => setShowWords(true), []);
 
   useDirection(LOCALE_FEATURES[locale].direction);
   useLanguage(locale);
@@ -87,11 +96,11 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
           <NavButtons
             onClear={handleClear}
-            onShowKeyMap={() => setShowKeyMap(true)}
-            onShowMenu={() => setShowMenu(true)}
-            onShowRemainingTiles={() => setShowRemainingTiles(true)}
-            onShowSettings={() => setShowSettings(true)}
-            onShowWords={() => setShowWords(true)}
+            onShowKeyMap={handleShowKeyMap}
+            onShowMenu={handleShowMenu}
+            onShowRemainingTiles={handleShowRemainingTiles}
+            onShowSettings={handleShowSettings}
+            onShowWords={handleShowWords}
           />
         </div>
       </nav>
@@ -100,24 +109,24 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
       <MenuModal
         isOpen={showMenu}
-        onClose={() => setShowMenu(false)}
-        onShowDictionary={() => setShowDictionary(true)}
-        onShowRemainingTiles={() => setShowRemainingTiles(true)}
-        onShowSettings={() => setShowSettings(true)}
-        onShowWords={() => setShowWords(true)}
+        onClose={handleShowMenu}
+        onShowDictionary={handleShowDictionary}
+        onShowRemainingTiles={handleShowRemainingTiles}
+        onShowSettings={handleShowSettings}
+        onShowWords={handleShowWords}
       />
 
-      <SettingsModal isOpen={showSettings} onClose={() => setShowSettings(false)} />
+      <SettingsModal isOpen={showSettings} onClose={handleHideSettings} />
 
-      <KeyMapModal isOpen={showKeyMap} onClose={() => setShowKeyMap(false)} />
+      <KeyMapModal isOpen={showKeyMap} onClose={handleHideKeyMap} />
 
-      <WordsModal isOpen={showWords} onClose={() => setShowWords(false)} />
+      <WordsModal isOpen={showWords} onClose={handleHideWords} />
 
-      <RemainingTilesModal isOpen={showRemainingTiles} onClose={() => setShowRemainingTiles(false)} />
+      <RemainingTilesModal isOpen={showRemainingTiles} onClose={handleHideRemainingTiles} />
 
-      <ResultsModal isOpen={showResults} onClose={() => setShowResults(false)} />
+      <ResultsModal isOpen={showResults} onClose={handleHideResults} />
 
-      <DictionaryModal isOpen={showDictionary} onClose={() => setShowDictionary(false)} />
+      <DictionaryModal isOpen={showDictionary} onClose={handleHideDictionary} />
     </>
   );
 };
