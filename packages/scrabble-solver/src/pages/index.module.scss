@@ -21,6 +21,7 @@
 }
 
 .logo {
+  width: calc(var(--logo--aspect-ratio) * var(--logo--height));
   height: var(--logo--height);
   user-select: none;
 }

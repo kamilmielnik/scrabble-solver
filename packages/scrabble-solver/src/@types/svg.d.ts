@@ -1,4 +1,4 @@
-declare module '*.svg' {
+declare module 'icons/*.svg' {
   import { FunctionComponent, SVGAttributes } from 'react';
 
   const component: FunctionComponent<SVGAttributes<SVGElement>>;
