@@ -66,6 +66,13 @@ interface Flag {
 }
 
 export const LOCALE_FLAGS: Record<Locale, Flag> = {
+  [Locale.DE_DE]: {
+    className: styles.de,
+    Icon: FlagDe,
+    label: 'Deutsch',
+    name: 'German',
+    value: Locale.DE_DE,
+  },
   [Locale.EN_GB]: {
     className: styles.gb,
     Icon: FlagGb,
@@ -79,6 +86,13 @@ export const LOCALE_FLAGS: Record<Locale, Flag> = {
     label: 'English (US)',
     name: 'English (US)',
     value: Locale.EN_US,
+  },
+  [Locale.ES_ES]: {
+    className: styles.es,
+    Icon: FlagEs,
+    label: 'Español',
+    name: 'Spanish',
+    value: Locale.ES_ES,
   },
   [Locale.FA_IR]: {
     className: styles.fa,
@@ -94,25 +108,11 @@ export const LOCALE_FLAGS: Record<Locale, Flag> = {
     name: 'French',
     value: Locale.FR_FR,
   },
-  [Locale.DE_DE]: {
-    className: styles.de,
-    Icon: FlagDe,
-    label: 'Deutsch',
-    name: 'German',
-    value: Locale.DE_DE,
-  },
   [Locale.PL_PL]: {
     className: styles.pl,
     Icon: FlagPl,
     label: 'Polski',
     name: 'Polish',
     value: Locale.PL_PL,
-  },
-  [Locale.ES_ES]: {
-    className: styles.es,
-    Icon: FlagEs,
-    label: 'Español',
-    name: 'Spanish',
-    value: Locale.ES_ES,
   },
 };

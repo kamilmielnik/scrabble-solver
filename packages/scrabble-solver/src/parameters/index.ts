@@ -48,6 +48,7 @@ export const BUTTON_HEIGHT = BUTTON_ICON_SIZE + 2 * BUTTON_PADDING_VERTICAL + 2 
 
 export const DICTIONARY_HEIGHT = 260;
 
+export const LOGO_ASPECT_RATIO = 682 / 166;
 export const LOGO_HEIGHT = 60;
 export const LOGO_HEIGHT_SMALL = 48;
 

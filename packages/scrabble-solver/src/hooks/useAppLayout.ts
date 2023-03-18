@@ -8,6 +8,7 @@ import {
   COMPONENTS_SPACING,
   COMPONENTS_SPACING_SMALL,
   DICTIONARY_HEIGHT,
+  LOGO_ASPECT_RATIO,
   LOGO_HEIGHT,
   LOGO_HEIGHT_SMALL,
   NAV_PADDING,
@@ -32,7 +33,8 @@ const useAppLayout = () => {
   const componentsSpacing = isLessThanXl ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING;
   const showColumn = !isLessThanL;
   const columnWidth = showColumn ? SOLVER_COLUMN_WIDTH : 0;
-  const navHeight = 2 * NAV_PADDING + (isLessThanL ? LOGO_HEIGHT_SMALL : LOGO_HEIGHT);
+  const logoHeight = isLessThanL ? LOGO_HEIGHT_SMALL : LOGO_HEIGHT;
+  const navHeight = 2 * NAV_PADDING + logoHeight;
   const solverHeight = viewportHeight - navHeight;
   const solverWidth = viewportWidth;
   const maxBoardWidth = solverWidth - columnWidth - (showColumn ? componentsSpacing : 0) - 2 * componentsSpacing;
@@ -53,6 +55,8 @@ const useAppLayout = () => {
     animateTile: !isLessThanXs,
     cellSize,
     isModalFullWidth: isLessThanS,
+    logoHeight,
+    logoWidth: logoHeight * LOGO_ASPECT_RATIO,
     maxControlsWidth,
     resultsHeight: showColumn
       ? boardSize - RESULTS_HEADER_HEIGHT - TEXT_INPUT_HEIGHT - BORDER_WIDTH - componentsSpacing - DICTIONARY_HEIGHT
