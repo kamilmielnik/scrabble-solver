@@ -31,7 +31,7 @@ const Loading: FunctionComponent<Props> = ({ className, wave = true }) => {
   return (
     <div aria-label={translation} className={classNames(styles.loading, className)} role="status">
       <div className={styles.dim} />
-      <div className={styles.logo}>
+      <div className={styles.text}>
         <PlainTiles className={classNames(styles.tiles)} content={content} dropShadow wave={wave} />
       </div>
     </div>
