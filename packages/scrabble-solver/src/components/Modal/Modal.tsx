@@ -1,7 +1,6 @@
 import classNames from 'classnames';
-import { FunctionComponent, ReactNode, useEffect, useState } from 'react';
+import { FunctionComponent, ReactNode, useCallback, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
-import { useKey } from 'react-use';
 
 import { CrossSquareFill } from 'icons';
 import { TRANSITION_DURATION_LONG } from 'parameters';
@@ -25,15 +24,23 @@ const Modal: FunctionComponent<Props> = ({ children, className, footer, isOpen, 
   const translate = useTranslate();
   const [shouldReturnFocusAfterClose, setShouldReturnFocusAfterClose] = useState(true);
 
-  useKey(
-    'Escape',
-    () => {
-      setShouldReturnFocusAfterClose(false);
-      onClose();
+  const handleEscape = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setShouldReturnFocusAfterClose(false);
+        onClose();
+      }
     },
-    undefined,
     [onClose],
   );
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [handleEscape]);
 
   useEffect(() => {
     if (isOpen) {

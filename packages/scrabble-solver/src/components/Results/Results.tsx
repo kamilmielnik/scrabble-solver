@@ -1,9 +1,8 @@
 import classNames from 'classnames';
 import { FunctionComponent, useEffect, useMemo, useState } from 'react';
-import { useLatest } from 'react-use';
 import { FixedSizeList } from 'react-window';
 
-import { useAppLayout } from 'hooks';
+import { useAppLayout, useLatest } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { RESULTS_ITEM_HEIGHT } from 'parameters';
 import {

@@ -1,12 +1,11 @@
 import fs from 'fs';
 import path from 'path';
-import { FunctionComponent, useCallback, useEffect, useState } from 'react';
+import { FunctionComponent, useCallback, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
-import { useEffectOnce } from 'react-use';
 
 import { Logo, NavButtons, Solver, SvgFontFix } from 'components';
-import { useDirection, useLanguage, useLocalStorage } from 'hooks';
+import { useDirection, useEffectOnce, useLanguage, useLocalStorage } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import {
   DictionaryModal,
@@ -61,15 +60,13 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   useLocalStorage();
 
   useEffectOnce(() => {
-    setIsClient(true);
-    dispatch(initialize());
-  });
-
-  useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       registerServiceWorker();
     }
-  }, []);
+
+    setIsClient(true);
+    dispatch(initialize());
+  });
 
   if (!isClient) {
     return null;

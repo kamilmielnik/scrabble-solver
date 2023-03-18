@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useEffectOnce } from 'react-use';
 
 import { localStorage, rackSlice, selectRack, useTypedSelector } from 'state';
+
+import useEffectOnce from '../useEffectOnce';
 
 const useLocalStorageRack = (): void => {
   const dispatch = useDispatch();

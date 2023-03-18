@@ -14,8 +14,8 @@ import {
   useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLatest } from 'react-use';
 
+import { useLatest } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { createGridOf, createKeyboardNavigation, extractCharacters, extractInputValue } from 'lib';
 import { boardSlice, selectConfig, selectLocale, useTypedSelector } from 'state';

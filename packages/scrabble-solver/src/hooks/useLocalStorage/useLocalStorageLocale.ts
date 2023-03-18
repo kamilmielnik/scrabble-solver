@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useEffectOnce } from 'react-use';
 
 import { detectLocale } from 'lib';
 import { localStorage, selectLocale, settingsSlice, useTypedSelector } from 'state';
+
+import useEffectOnce from '../useEffectOnce';
 
 const useLocalStorageLocale = (): void => {
   const dispatch = useDispatch();
