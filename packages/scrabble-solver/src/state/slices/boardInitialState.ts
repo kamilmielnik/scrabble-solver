@@ -1,13 +1,20 @@
 import { getLocaleConfig } from '@scrabble-solver/configs';
 import { Board } from '@scrabble-solver/types';
 
+import localStorage from '../localStorage';
+
 import settingsInitialState from './settingsInitialState';
 
 export type BoardState = Board;
 
-const { configId, locale } = settingsInitialState;
-const { boardHeight, boardWidth } = getLocaleConfig(configId, locale);
-const boardInitialState: BoardState = Board.create(boardWidth, boardHeight);
+const getBoardDefaultState = (): BoardState => {
+  const { configId, locale } = settingsInitialState;
+  const { boardHeight, boardWidth } = getLocaleConfig(configId, locale);
+  const boardDefaultState = Board.create(boardWidth, boardHeight);
+  return boardDefaultState;
+};
+
+const boardInitialState: BoardState = localStorage.getBoard() || getBoardDefaultState();
 
 // const createOxyphenbutazone = () => {
 //   // Tiles: oypbaze

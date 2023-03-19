@@ -1,6 +1,8 @@
 import { Board, Locale } from '@scrabble-solver/types';
 import store2 from 'store2';
 
+import { Rack } from 'types';
+
 const BOARD = 'board';
 const CONFIG_ID = 'config-id';
 const LOCALE = 'locale';
@@ -35,11 +37,11 @@ const localStorage = {
     store.set(LOCALE, locale, true);
   },
 
-  getRack(): (string | null)[] | undefined {
+  getRack(): Rack | undefined {
     return store.get(RACK);
   },
 
-  setRack(rack: (string | null)[] | undefined): void {
+  setRack(rack: Rack | undefined): void {
     store.set(RACK, rack, true);
   },
 };

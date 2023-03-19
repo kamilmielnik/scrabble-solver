@@ -1,6 +1,8 @@
+import { AutoGroupTiles } from 'types';
+
 import { NULL_VALUE } from './constants';
 
-export const parseValue = (value: string): 'left' | 'right' | null => {
+export const parseValue = (value: string): AutoGroupTiles => {
   if (value === 'left' || value === 'right') {
     return value;
   }

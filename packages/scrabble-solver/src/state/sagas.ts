@@ -17,6 +17,7 @@ import {
   selectDictionary,
   selectLocale,
   selectLocaleAutoGroupTiles,
+  selectRack,
 } from './selectors';
 import {
   boardSlice,
@@ -198,7 +199,7 @@ function* onVerify(): AnyGenerator {
 
 function* ensureProperTilesCount(): AnyGenerator {
   const { config } = yield select(selectConfig);
-  const characters = yield select(selectCharacters);
+  const rack = yield select(selectRack);
 
   if (config.maximumCharactersCount > characters.length) {
     const differenceCount = Math.abs(config.maximumCharactersCount - characters.length);

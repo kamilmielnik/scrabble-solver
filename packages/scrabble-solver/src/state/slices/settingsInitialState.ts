@@ -3,6 +3,8 @@ import { Locale } from '@scrabble-solver/types';
 
 import { guessLocale } from 'lib';
 
+import localStorage from '../localStorage';
+
 export interface SettingsState {
   autoGroupTiles: 'left' | 'right' | null;
   configId: typeof literaki.id | typeof scrabble.id;
@@ -11,8 +13,8 @@ export interface SettingsState {
 
 const settingsInitialState: SettingsState = {
   autoGroupTiles: 'left',
-  configId: scrabble.id,
-  locale: guessLocale(),
+  configId: localStorage.getConfigId() || scrabble.id,
+  locale: localStorage.getLocale() || guessLocale(),
 };
 
 export default settingsInitialState;

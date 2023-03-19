@@ -7,6 +7,8 @@ export interface Point {
   y: number;
 }
 
+export type Rack = (string | null)[];
+
 export interface Sort {
   column: ResultColumn;
   direction: SortDirection;
