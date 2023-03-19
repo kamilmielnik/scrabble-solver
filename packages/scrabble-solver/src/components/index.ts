@@ -22,7 +22,5 @@ export { default as ResultsInput } from './ResultsInput';
 export { default as SeoMessage } from './SeoMessage';
 export { default as Solver } from './Solver';
 export { default as Spinner } from './Spinner';
-export { default as SvgFontCss } from './SvgFontCss';
-export { default as SvgFontFix } from './SvgFontFix';
 export { default as Tile } from './Tile';
 export { useTooltip } from './Tooltip';

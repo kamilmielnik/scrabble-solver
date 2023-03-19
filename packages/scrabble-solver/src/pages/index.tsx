@@ -4,7 +4,7 @@ import { FunctionComponent, useCallback, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 
-import { Logo, NavButtons, Solver, SvgFontFix } from 'components';
+import { Logo, NavButtons, Solver } from 'components';
 import { useDirection, useEffectOnce, useLanguage, useLocalStorage } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import {
@@ -75,8 +75,6 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
   return (
     <>
-      <SvgFontFix />
-
       <nav className={styles.nav}>
         <div className={styles.navContent}>
           <div className={styles.navLogo}>

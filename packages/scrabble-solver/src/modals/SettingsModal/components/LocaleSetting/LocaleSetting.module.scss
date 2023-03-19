@@ -10,11 +10,6 @@
   display: flex;
   align-items: center;
   gap: var(--spacing--l);
-  font-family: var(--font--family--latin);
-
-  &.fa {
-    font-family: var(--font--family--arabic);
-  }
 }
 
 .flag {

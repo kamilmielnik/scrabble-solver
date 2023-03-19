@@ -60,11 +60,9 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --color--tooltip--background: #222;
   --color--tooltip--foreground: var(--color--white);
 
-  --font--family: 'Open Sans', sans-serif;
-  --font--family--latin: 'Open Sans', sans-serif;
-  --font--family--arabic: 'Vazirmatn', sans-serif;
-  --font--family--monospace: 'Roboto Mono', monospace;
-  --font--family--title: 'Lato', sans-serif;
+  --font--family: system-ui, sans-serif;
+  --font--family--monospace: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono',
+    monospace;
   --font--size--h1: 30px;
   --font--size--h2: 22px;
   --font--size--h3: 18px;
