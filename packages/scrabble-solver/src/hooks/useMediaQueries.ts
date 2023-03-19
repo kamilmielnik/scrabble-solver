@@ -1,11 +1,11 @@
 import useMediaQuery from './useMediaQuery';
 
 const useMediaQueries = () => {
-  const isLessThanXs = useMediaQuery('<xs', true);
-  const isLessThanS = useMediaQuery('<s', true);
-  const isLessThanM = useMediaQuery('<m', true);
-  const isLessThanL = useMediaQuery('<l', true);
-  const isLessThanXl = useMediaQuery('<xl', true);
+  const isLessThanXs = useMediaQuery('<xs');
+  const isLessThanS = useMediaQuery('<s');
+  const isLessThanM = useMediaQuery('<m');
+  const isLessThanL = useMediaQuery('<l');
+  const isLessThanXl = useMediaQuery('<xl');
 
   return { isLessThanXs, isLessThanS, isLessThanM, isLessThanL, isLessThanXl };
 };
