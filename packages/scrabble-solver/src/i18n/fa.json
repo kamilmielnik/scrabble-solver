@@ -1,9 +1,9 @@
 {
-  "cell.filter-cell": "مقصد - کلیک برای تغییر",
+  "cell.filter-cell": "مقصد",
   "cell.set-blank": "علامت گذاری به عنوان خالی",
   "cell.set-not-blank": "علامت گذاری به عنوان غیر خالی",
-  "cell.toggle-direction": "جهت تایپ - کلیک برای تغییر",
   "cell.tile.location": "({{x}}، {{y}}) کاشی: صفحه",
+  "cell.toggle-direction": "جهت تایپ",
   "common.blanks": "خالی",
   "common.clear": "پاک کردن",
   "common.close": "بستن",

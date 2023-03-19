@@ -1,9 +1,9 @@
 {
-  "cell.filter-cell": "Destino objetivo: haga clic para alternar",
+  "cell.filter-cell": "Destino objetivo",
   "cell.set-blank": "Marcar como en blanco",
   "cell.set-not-blank": "Marcar como no en blanco",
   "cell.tile.location": "Tablero: espacio ({{x}}, {{y}})",
-  "cell.toggle-direction": "Dirección de escritura: haga clic para alternar",
+  "cell.toggle-direction": "Dirección de escritura",
   "common.blanks": "Blancos",
   "common.clear": "Borrar",
   "common.close": "Cerrar",

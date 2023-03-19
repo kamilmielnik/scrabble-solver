@@ -1,9 +1,9 @@
 {
-  "cell.filter-cell": "Miejsce docelowe - kliknij aby zmienić",
+  "cell.filter-cell": "Miejsce docelowe",
   "cell.set-blank": "Oznacz jako blank",
   "cell.set-not-blank": "Oznacz jako nie blank",
   "cell.tile.location": "Plansza: płytka ({{x}}, {{y}})",
-  "cell.toggle-direction": "Kierunek wpisywania - kliknij aby zmienić",
+  "cell.toggle-direction": "Kierunek wpisywania",
   "common.blanks": "Blanki",
   "common.clear": "Wyczyść",
   "common.close": "Zamknij",

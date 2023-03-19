@@ -1,9 +1,9 @@
 {
-  "cell.filter-cell": "Target destination - click to toggle",
+  "cell.filter-cell": "Target destination",
   "cell.set-blank": "Mark it a blank",
   "cell.set-not-blank": "Mark it not a blank",
   "cell.tile.location": "Board: tile ({{x}}, {{y}})",
-  "cell.toggle-direction": "Typing direction - click to toggle",
+  "cell.toggle-direction": "Typing direction",
   "common.blanks": "Blanks",
   "common.clear": "Clear",
   "common.close": "Close",
