@@ -201,11 +201,11 @@ function* ensureProperTilesCount(): AnyGenerator {
   const { config } = yield select(selectConfig);
   const rack = yield select(selectRack);
 
-  if (config.maximumCharactersCount > characters.length) {
-    const differenceCount = Math.abs(config.maximumCharactersCount - characters.length);
-    yield put(rackSlice.actions.init([...characters, ...Array(differenceCount).fill(null)]));
-  } else if (config.maximumCharactersCount < characters.length) {
-    const nonNulls = characters.filter(Boolean).slice(0, config.maximumCharactersCount);
+  if (config.maximumCharactersCount > rack.length) {
+    const differenceCount = Math.abs(config.maximumCharactersCount - rack.length);
+    yield put(rackSlice.actions.init([...rack, ...Array(differenceCount).fill(null)]));
+  } else if (config.maximumCharactersCount < rack.length) {
+    const nonNulls = rack.filter(Boolean).slice(0, config.maximumCharactersCount);
     const differenceCount = Math.abs(config.maximumCharactersCount - nonNulls.length);
     const autoGroupTiles = yield select(selectLocaleAutoGroupTiles);
     yield put(rackSlice.actions.init([...nonNulls, ...Array(differenceCount).fill(null)]));
