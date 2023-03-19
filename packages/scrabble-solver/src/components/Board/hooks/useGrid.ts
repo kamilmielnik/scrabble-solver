@@ -235,6 +235,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
         if (direction === 'vertical') {
           onDirectionToggle();
+          changeActiveIndex(LOCALE_FEATURES[locale].direction === 'ltr' ? -1 : 0, 0);
         } else {
           changeActiveIndex(LOCALE_FEATURES[locale].direction === 'ltr' ? -1 : 1, 0);
         }
@@ -244,6 +245,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
         if (direction === 'vertical') {
           onDirectionToggle();
+          changeActiveIndex(LOCALE_FEATURES[locale].direction === 'ltr' ? 0 : -1, 0);
         } else {
           changeActiveIndex(LOCALE_FEATURES[locale].direction === 'ltr' ? 1 : -1, 0);
         }
@@ -253,9 +255,9 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
         if (direction === 'horizontal') {
           onDirectionToggle();
-        } else {
-          changeActiveIndex(0, -1);
         }
+
+        changeActiveIndex(0, -1);
       },
       onBackspace: (event) => {
         const position = getInputRefPosition(event.target as HTMLInputElement);
