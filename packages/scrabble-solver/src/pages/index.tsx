@@ -44,6 +44,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const handleClear = useCallback(() => dispatch(reset()), [dispatch]);
   const handleHideDictionary = useCallback(() => setShowDictionary(false), []);
   const handleHideKeyMap = useCallback(() => setShowKeyMap(false), []);
+  const handleHideMenu = useCallback(() => setShowMenu(false), []);
   const handleHideRemainingTiles = useCallback(() => setShowRemainingTiles(false), []);
   const handleHideResults = useCallback(() => setShowResults(false), []);
   const handleHideSettings = useCallback(() => setShowSettings(false), []);
@@ -99,7 +100,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
       <MenuModal
         isOpen={showMenu}
-        onClose={handleShowMenu}
+        onClose={handleHideMenu}
         onShowDictionary={handleShowDictionary}
         onShowRemainingTiles={handleShowRemainingTiles}
         onShowSettings={handleShowSettings}
