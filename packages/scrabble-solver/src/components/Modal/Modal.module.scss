@@ -25,10 +25,6 @@
   &:focus {
     outline: none;
   }
-
-  @include media('<s') {
-    --modal--width: 100%;
-  }
 }
 
 .afterOpen {
@@ -130,7 +126,7 @@
   padding: var(--spacing--l);
   padding-top: 0;
 
-  @include media('>s') {
+  @include media('>l') {
     display: none;
   }
 

@@ -13,12 +13,8 @@
 }
 
 .dictionary {
-  flex: 0 1 calc(var(--dictionary--height) - var(--text-input--height));
+  flex: 0 0 var(--dictionary--height--mobile);
   background-color: var(--color--background--element);
   border: var(--border);
   border-radius: var(--border--radius);
-
-  @media (max-height: 600px) {
-    display: none;
-  }
 }

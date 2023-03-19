@@ -4,7 +4,7 @@ import { FixedSizeList } from 'react-window';
 
 import { useAppLayout, useLatest } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
-import { RESULTS_ITEM_HEIGHT } from 'parameters';
+import { BORDER_WIDTH, RESULTS_HEADER_HEIGHT, RESULTS_ITEM_HEIGHT, TEXT_INPUT_HEIGHT } from 'parameters';
 import {
   selectAreResultsOutdated,
   selectIsLoading,
@@ -47,6 +47,9 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
   const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
   const scrollToIndexRef = useLatest(scrollToIndex);
   const hasResults = typeof error === 'undefined' && typeof results !== 'undefined';
+  const showInput = hasResults && results.length > 0 && !isOutdated;
+  const height = resultsHeight - RESULTS_HEADER_HEIGHT - (showInput ? TEXT_INPUT_HEIGHT : 0) - 2 * BORDER_WIDTH;
+  const width = resultsWidth - 2 * BORDER_WIDTH;
 
   useEffect(() => {
     // without setTimeout, the initial scrolling offset is calculated
@@ -108,12 +111,12 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
                     [styles.outdated]: isOutdated,
                   })}
                   direction={direction}
-                  height={resultsHeight}
+                  height={height}
                   itemCount={results.length}
                   itemData={itemData}
                   itemSize={RESULTS_ITEM_HEIGHT}
                   ref={setListRef}
-                  width={resultsWidth}
+                  width={width}
                 >
                   {Result}
                 </FixedSizeList>
@@ -123,7 +126,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
         )}
       </div>
 
-      {hasResults && results.length > 0 && !isOutdated && <ResultsInput className={styles.input} />}
+      {showInput && <ResultsInput className={styles.input} />}
 
       {isLoading && <Loading />}
     </div>

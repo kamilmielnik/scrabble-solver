@@ -108,6 +108,7 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
 
   --button--icon--size: 24px;
   --dictionary--height: 260px;
+  --dictionary--height--mobile: 110px;
   --logo--aspect-ratio: 682 / 166;
   --logo--height: 60px;
   --modal--width: 370px;
@@ -123,6 +124,7 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
 
   @include media('<s') {
     --box-shadow--blur: 5px;
+    --modal--width: 100%;
   }
 
   @include media('<xs') {

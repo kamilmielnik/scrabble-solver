@@ -47,11 +47,15 @@ export const BUTTON_PADDING_VERTICAL = SPACING_M;
 export const BUTTON_HEIGHT = BUTTON_ICON_SIZE + 2 * BUTTON_PADDING_VERTICAL + 2 * BORDER_WIDTH;
 
 export const DICTIONARY_HEIGHT = 260;
+export const DICTIONARY_HEIGHT_MOBILE = 110;
 
 export const LOGO_ASPECT_RATIO = 682 / 166;
 export const LOGO_HEIGHT = 60;
 export const LOGO_HEIGHT_SMALL = 48;
 export const LOGO_SRC = '/logo.svg';
+
+export const MODAL_WIDTH = 370;
+export const MODAL_HEADER_HEIGHT = 45;
 
 export const NAV_PADDING = SPACING_L;
 
