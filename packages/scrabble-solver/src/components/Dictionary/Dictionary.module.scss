@@ -17,11 +17,6 @@
   &.isNotAllowed {
     background-color: var(--color--red--light);
   }
-
-  @include media('<l') {
-    max-height: var(--dictionary--height--mobile);
-    height: var(--dictionary--height--mobile);
-  }
 }
 
 .result {

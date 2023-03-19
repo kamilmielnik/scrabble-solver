@@ -119,6 +119,7 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --text-input--height: 40px;
 
   @include media('<l') {
+    --dictionary--height: var(--dictionary--height--mobile);
     --logo--height: 48px;
   }
 
