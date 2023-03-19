@@ -52,10 +52,10 @@ const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) 
   };
 
   useEffect(() => {
-    if (!showResultsInModal) {
+    if (isOpen && !showResultsInModal) {
       onClose();
     }
-  }, [onClose, showResultsInModal]);
+  }, [isOpen, onClose, showResultsInModal]);
 
   return (
     <Modal
