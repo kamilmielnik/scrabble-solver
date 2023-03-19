@@ -28,7 +28,7 @@
     "start": "env-cmd next start -p 3333"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.20.1",
+    "@floating-ui/react": "^0.21.1",
     "@kamilmielnik/trie": "^2.0.1",
     "@reduxjs/toolkit": "^1.9.3",
     "@scrabble-solver/configs": "^2.11.4",
@@ -49,7 +49,7 @@
     "react-portal": "^4.2.2",
     "react-redux": "^8.0.5",
     "react-window": "^1.8.8",
-    "redux-saga": "^1.2.2",
+    "redux-saga": "^1.2.3",
     "store2": "^2.14.2",
     "workbox-expiration": "^6.5.4",
     "workbox-precaching": "^6.5.4",
@@ -68,7 +68,7 @@
     "@types/redux": "^3.6.31",
     "@types/redux-saga": "^0.10.5",
     "env-cmd": "^10.1.0",
-    "sass": "^1.59.2",
+    "sass": "^1.59.3",
     "workbox-webpack-plugin": "^6.5.4"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
