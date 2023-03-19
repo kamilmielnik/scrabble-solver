@@ -4,7 +4,8 @@ import classNames from 'classnames';
 import { forwardRef, HTMLProps, MouseEventHandler } from 'react';
 
 import { ArrowDown, Flag, FlagFill, Square, SquareFill } from 'icons';
-import { selectCellIsFiltered, useTranslate, useTypedSelector } from 'state';
+import { findCell } from 'lib';
+import { selectCellIsFiltered, selectResultCandidateCells, useTranslate, useTypedSelector } from 'state';
 
 import Button from '../../../Button';
 
@@ -22,8 +23,9 @@ const Actions = forwardRef<HTMLDivElement, Props>(
   ({ cell, className, direction, disabled, onDirectionToggle, onToggleBlank, onToggleFilterCell, ...props }, ref) => {
     const translate = useTranslate();
     const isFiltered = useTypedSelector((state) => selectCellIsFiltered(state, cell));
+    const resultCandidateCells = useTypedSelector(selectResultCandidateCells);
     const isBlank = cell.tile.isBlank;
-    const isEmpty = cell.tile.character === EMPTY_CELL;
+    const isEmpty = cell.tile.character === EMPTY_CELL || Boolean(findCell(resultCandidateCells, cell.x, cell.y));
 
     // On iOS it helps with losing focus too early which makes Actions disappear
     const handleMouseDown: MouseEventHandler = (event) => event.preventDefault();
