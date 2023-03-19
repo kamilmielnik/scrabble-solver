@@ -126,7 +126,6 @@
   flex: 0 0 auto;
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-between;
   gap: var(--spacing--l);
   padding: var(--spacing--l);
   padding-top: 0;
@@ -137,6 +136,7 @@
 
   > * {
     min-width: 0;
+    max-width: fit-content;
     flex: 1;
   }
 }
