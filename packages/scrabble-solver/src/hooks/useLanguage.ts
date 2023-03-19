@@ -1,9 +1,9 @@
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 
 import { noop } from 'lib';
 
 const useLanguage = (language: string) => {
-  useLayoutEffect(() => {
+  useEffect(() => {
     const html = document.body.parentElement;
 
     if (!html) {
