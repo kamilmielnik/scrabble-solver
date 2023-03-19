@@ -103,7 +103,6 @@ $media-expressions: (
   padding: 0 var(--spacing--l);
   transition: var(--transition);
   font-size: var(--font--size--m);
-  font-family: var(--font--family);
 }
 
 @mixin text-stroke($color, $size: 1px) {

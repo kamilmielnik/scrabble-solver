@@ -179,10 +179,6 @@
     font-weight: bold;
     color: var(--color--white);
     transition: var(--transition);
-
-    [lang='fa-IR'] & {
-      font-family: var(--font--family--latin);
-    }
   }
 
   &:focus-within {
