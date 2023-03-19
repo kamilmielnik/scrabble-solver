@@ -3,6 +3,7 @@ import store2 from 'store2';
 
 import { Rack } from 'types';
 
+const AUTO_GROUP_TILES = 'auto-group-tiles';
 const BOARD = 'board';
 const CONFIG_ID = 'config-id';
 const LOCALE = 'locale';
@@ -11,6 +12,14 @@ const RACK = 'rack';
 const store = store2.namespace('scrabble-solver');
 
 const localStorage = {
+  getAutoGroupTiles(): AutoGroupTiles | undefined {
+    return store.get(AUTO_GROUP_TILES);
+  },
+
+  setAutoGroupTiles(autoGroupTiles: AutoGroupTiles | undefined): void {
+    store.set(AUTO_GROUP_TILES, autoGroupTiles, true);
+  },
+
   getBoard(): Board | undefined {
     const serialized = store.get(BOARD);
     return serialized ? Board.fromJson(JSON.parse(serialized)) : serialized;

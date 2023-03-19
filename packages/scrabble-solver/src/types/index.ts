@@ -1,5 +1,7 @@
 export type Comparator<T> = (a: T, B: T) => number;
 
+export type AutoGroupTiles = 'left' | 'right' | null;
+
 export type Direction = 'horizontal' | 'vertical';
 
 export interface Point {

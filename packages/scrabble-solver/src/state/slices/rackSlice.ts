@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Tile } from '@scrabble-solver/types';
 
 import { arrayEquals, createNullMovingComparator, inverseDirection, zipCharactersAndTiles } from 'lib';
-import { Rack } from 'types';
+import { AutoGroupTiles, Rack } from 'types';
 
 import rackInitialState from './rackInitialState';
 
@@ -27,7 +27,7 @@ const rackSlice = createSlice({
       return rack.slice(0, expectedRackLength);
     },
 
-    groupTiles: (state, action: PayloadAction<'left' | 'right' | null>) => {
+    groupTiles: (state, action: PayloadAction<AutoGroupTiles>) => {
       if (action.payload === null) {
         return state;
       }
