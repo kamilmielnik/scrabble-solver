@@ -7,14 +7,11 @@ import settingsInitialState from './settingsInitialState';
 
 export type BoardState = Board;
 
-const getBoardDefaultState = (): BoardState => {
-  const { configId, locale } = settingsInitialState;
-  const { boardHeight, boardWidth } = getLocaleConfig(configId, locale);
-  const boardDefaultState = Board.create(boardWidth, boardHeight);
-  return boardDefaultState;
-};
+const { configId, locale } = settingsInitialState;
+const { boardHeight, boardWidth } = getLocaleConfig(configId, locale);
+export const boardDefaultState = Board.create(boardWidth, boardHeight);
 
-const boardInitialState: BoardState = localStorage.getBoard() || getBoardDefaultState();
+const boardInitialState: BoardState = localStorage.getBoard() || boardDefaultState;
 
 // const createOxyphenbutazone = () => {
 //   // Tiles: oypbaze

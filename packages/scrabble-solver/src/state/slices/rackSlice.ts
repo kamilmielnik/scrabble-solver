@@ -4,7 +4,7 @@ import { Tile } from '@scrabble-solver/types';
 import { arrayEquals, createNullMovingComparator, inverseDirection, zipCharactersAndTiles } from 'lib';
 import { AutoGroupTiles, Rack } from 'types';
 
-import rackInitialState from './rackInitialState';
+import rackInitialState, { rackDefaultState } from './rackInitialState';
 
 const rackSlice = createSlice({
   initialState: rackInitialState,
@@ -48,7 +48,7 @@ const rackSlice = createSlice({
       return charactersWithoutMatchingTiles;
     },
 
-    reset: () => rackInitialState,
+    reset: () => rackDefaultState,
   },
 });
 

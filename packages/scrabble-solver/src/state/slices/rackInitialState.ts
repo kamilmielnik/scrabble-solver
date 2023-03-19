@@ -4,8 +4,8 @@ import localStorage from '../localStorage';
 
 export type RackState = Rack;
 
-const getRackDefaultState = (): RackState => [null, null, null, null, null, null, null];
+export const rackDefaultState: RackState = [null, null, null, null, null, null, null];
 
-const rackInitialState: RackState = localStorage.getRack() || getRackDefaultState();
+const rackInitialState: RackState = localStorage.getRack() || rackDefaultState;
 
 export default rackInitialState;
