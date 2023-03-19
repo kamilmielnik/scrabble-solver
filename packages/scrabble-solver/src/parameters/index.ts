@@ -51,6 +51,7 @@ export const DICTIONARY_HEIGHT = 260;
 export const LOGO_ASPECT_RATIO = 682 / 166;
 export const LOGO_HEIGHT = 60;
 export const LOGO_HEIGHT_SMALL = 48;
+export const LOGO_SRC = '/logo.svg';
 
 export const NAV_PADDING = SPACING_L;
 

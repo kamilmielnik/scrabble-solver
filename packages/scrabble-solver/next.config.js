@@ -39,13 +39,6 @@ module.exports = {
           issuer: /\.tsx?$/,
           use: ['@svgr/webpack'],
         },
-        {
-          test: /\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$/i,
-          exclude: [path.resolve(__dirname, 'src/icons')],
-          loader: 'next-image-loader',
-          issuer: /\.tsx?$/,
-          options: { isServer: true, isDev: true, basePath: '', assetPrefix: '' },
-        },
       ],
     },
     plugins: [
