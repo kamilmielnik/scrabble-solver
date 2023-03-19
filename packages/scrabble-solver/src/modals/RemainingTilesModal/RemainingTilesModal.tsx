@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, memo } from 'react';
 
 import { Badge, Modal } from 'components';
 import { LOCALE_FEATURES } from 'i18n';
@@ -56,4 +56,4 @@ const RemainingTilesModal: FunctionComponent<Props> = ({ className, isOpen, onCl
   );
 };
 
-export default RemainingTilesModal;
+export default memo(RemainingTilesModal);

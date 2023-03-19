@@ -1,4 +1,4 @@
-import { useMedia } from 'react-use';
+import useMedia from './useMedia';
 
 const useIsTouchDevice = () => {
   return useMedia('(hover: none)', false);

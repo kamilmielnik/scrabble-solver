@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Tile } from '@scrabble-solver/types';
 
-import { createNullMovingComparator, inverseDirection, zipCharactersAndTiles } from 'lib';
+import { arrayEquals, createNullMovingComparator, inverseDirection, zipCharactersAndTiles } from 'lib';
+import { AutoGroupTiles, Rack } from 'types';
 
-import rackInitialState from './rackInitialState';
+import rackInitialState, { rackDefaultState } from './rackInitialState';
 
 const rackSlice = createSlice({
   initialState: rackInitialState,
@@ -14,28 +15,30 @@ const rackSlice = createSlice({
       return [...state.slice(0, index), character, ...state.slice(index + 1)];
     },
 
-    changeCharacters: (state, action: PayloadAction<{ characters: (string | null)[]; index: number }>) => {
+    changeCharacters: (state, action: PayloadAction<{ characters: Rack; index: number }>) => {
       const { characters, index } = action.payload;
+
+      if (characters.length === 0) {
+        return state;
+      }
+
       const expectedRackLength = state.length;
       const rack = [...state.slice(0, index), ...characters, ...state.slice(index + characters.length)];
       return rack.slice(0, expectedRackLength);
     },
 
-    groupTiles: (state, action: PayloadAction<'left' | 'right' | null>) => {
-      const direction = action.payload;
-
-      if (direction === null) {
+    groupTiles: (state, action: PayloadAction<AutoGroupTiles>) => {
+      if (action.payload === null) {
         return state;
       }
 
-      const nullMovingComparator = createNullMovingComparator(inverseDirection(direction));
+      const nullMovingComparator = createNullMovingComparator(inverseDirection(action.payload));
       const sortedTiles = [...state].sort(nullMovingComparator);
-      return sortedTiles;
+      return arrayEquals(state, sortedTiles) ? state : sortedTiles;
     },
 
-    init: (_state, action: PayloadAction<(string | null)[]>) => {
-      const rack = action.payload;
-      return rack;
+    init: (state, action: PayloadAction<Rack>) => {
+      return arrayEquals(state, action.payload) ? state : action.payload;
     },
 
     removeTiles: (state, action: PayloadAction<Tile[]>) => {
@@ -45,7 +48,7 @@ const rackSlice = createSlice({
       return charactersWithoutMatchingTiles;
     },
 
-    reset: () => rackInitialState,
+    reset: () => rackDefaultState,
   },
 });
 

@@ -1,11 +1,15 @@
 export type Comparator<T> = (a: T, B: T) => number;
 
+export type AutoGroupTiles = 'left' | 'right' | null;
+
 export type Direction = 'horizontal' | 'vertical';
 
 export interface Point {
   x: number;
   y: number;
 }
+
+export type Rack = (string | null)[];
 
 export interface Sort {
   column: ResultColumn;

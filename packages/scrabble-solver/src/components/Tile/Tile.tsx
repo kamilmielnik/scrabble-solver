@@ -6,6 +6,7 @@ import {
   FunctionComponent,
   KeyboardEventHandler,
   Ref,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -68,10 +69,13 @@ const Tile: FunctionComponent<Props> = ({
   const canShowPoints = showTilePoints && (!isEmpty || isBlank) && typeof points !== 'undefined';
   const pointsFormatted = typeof points === 'number' ? points.toLocaleString(locale) : '';
 
-  const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
-    ref.current?.select();
-    onKeyDown(event);
-  };
+  const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      ref.current?.select();
+      onKeyDown(event);
+    },
+    [onKeyDown],
+  );
 
   useEffect(() => {
     if (autoFocus && ref.current) {

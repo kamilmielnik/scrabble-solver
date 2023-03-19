@@ -25,10 +25,6 @@
   &:focus {
     outline: none;
   }
-
-  @include media('<s') {
-    --modal--width: 100%;
-  }
 }
 
 .afterOpen {
@@ -126,12 +122,11 @@
   flex: 0 0 auto;
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-between;
   gap: var(--spacing--l);
   padding: var(--spacing--l);
   padding-top: 0;
 
-  @include media('>s') {
+  @include media('>l') {
     display: none;
   }
 

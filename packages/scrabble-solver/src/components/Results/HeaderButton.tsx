@@ -1,10 +1,10 @@
 import classNames from 'classnames';
-import { ReactElement } from 'react';
+import { ReactElement, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { SortDown, SortUp } from 'icons';
 import { resultsSlice, selectResultsSort, useTranslate, useTypedSelector } from 'state';
-import { ResultColumn, SortDirection } from 'types';
+import { SortDirection } from 'types';
 
 import { useTooltip } from '../Tooltip';
 
@@ -21,9 +21,9 @@ const HeaderButton = ({ column }: Props): ReactElement => {
   const sort = useTypedSelector(selectResultsSort);
   const triggerProps = useTooltip(translate(column.translationKey));
 
-  const handleOrderChange = (columnId: ResultColumn) => {
-    dispatch(resultsSlice.actions.sort(columnId));
-  };
+  const handleClick = useCallback(() => {
+    dispatch(resultsSlice.actions.sort(column.id));
+  }, [column.id, dispatch]);
 
   return (
     <button
@@ -31,7 +31,7 @@ const HeaderButton = ({ column }: Props): ReactElement => {
       className={classNames(styles.headerButton, column.className)}
       key={column.id}
       type="button"
-      onClick={() => handleOrderChange(column.id)}
+      onClick={handleClick}
       {...triggerProps}
     >
       <span className={styles.cell}>

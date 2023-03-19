@@ -14,6 +14,7 @@
   text-transform: uppercase;
   text-align: center;
   transition: var(--transition);
+  transition-property: background-color, color, box-shadow;
   user-select: none;
 
   &.points1 {
@@ -130,7 +131,7 @@
   [dir='ltr'] & {
     top: 0;
     right: 0;
-    border-bottom-right-radius: inherit;
+    border-top-right-radius: inherit;
   }
 
   [dir='rtl'] & {

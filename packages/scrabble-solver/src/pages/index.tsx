@@ -1,13 +1,11 @@
-import classNames from 'classnames';
 import fs from 'fs';
 import path from 'path';
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useCallback, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
-import { useEffectOnce, useMeasure } from 'react-use';
 
-import { Logo, LogoSplashScreen, NavButtons, Solver, SvgFontFix } from 'components';
-import { useAppLayout, useDirection, useLanguage, useLocalStorage } from 'hooks';
+import { Logo, NavButtons, Solver, SvgFontFix } from 'components';
+import { useDirection, useEffectOnce, useLanguage, useLocalStorage } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import {
   DictionaryModal,
@@ -33,7 +31,6 @@ interface Props {
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
-  const { showResultsInModal } = useAppLayout();
   const [showDictionary, setShowDictionary] = useState(false);
   const [showKeyMap, setShowKeyMap] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -41,38 +38,36 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [showResults, setShowResults] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showWords, setShowWords] = useState(false);
-  const [isInitialized, setIsInitialized] = useState(false);
-  const [indexRef, { height: indexHeight, width: indexWidth }] = useMeasure<HTMLDivElement>();
-  const [navRef, { height: navHeight }] = useMeasure<HTMLElement>();
-  const solverHeight = indexHeight - navHeight;
-  const solverWidth = indexWidth;
   const [isClient, setIsClient] = useState(false);
 
-  const handleClear = () => {
-    dispatch(reset());
-  };
+  const handleShowResults = useCallback(() => setShowResults(true), []);
+  const handleClear = useCallback(() => dispatch(reset()), [dispatch]);
+  const handleHideDictionary = useCallback(() => setShowDictionary(false), []);
+  const handleHideKeyMap = useCallback(() => setShowKeyMap(false), []);
+  const handleHideMenu = useCallback(() => setShowMenu(false), []);
+  const handleHideRemainingTiles = useCallback(() => setShowRemainingTiles(false), []);
+  const handleHideResults = useCallback(() => setShowResults(false), []);
+  const handleHideSettings = useCallback(() => setShowSettings(false), []);
+  const handleHideWords = useCallback(() => setShowWords(false), []);
+  const handleShowDictionary = useCallback(() => setShowDictionary(true), []);
+  const handleShowKeyMap = useCallback(() => setShowKeyMap(true), []);
+  const handleShowMenu = useCallback(() => setShowMenu(true), []);
+  const handleShowRemainingTiles = useCallback(() => setShowRemainingTiles(true), []);
+  const handleShowSettings = useCallback(() => setShowSettings(true), []);
+  const handleShowWords = useCallback(() => setShowWords(true), []);
 
   useDirection(LOCALE_FEATURES[locale].direction);
   useLanguage(locale);
   useLocalStorage();
 
   useEffectOnce(() => {
-    setIsClient(true);
-    dispatch(initialize());
-    setIsInitialized(true);
-  });
-
-  useEffect(() => {
-    if (!showResultsInModal) {
-      setShowResults(false);
-    }
-  }, [showResultsInModal]);
-
-  useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       registerServiceWorker();
     }
-  }, []);
+
+    setIsClient(true);
+    dispatch(initialize());
+  });
 
   if (!isClient) {
     return null;
@@ -82,58 +77,47 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     <>
       <SvgFontFix />
 
-      <div className={classNames(styles.index, { [styles.initialized]: isInitialized })} ref={indexRef}>
-        <nav className={styles.nav} ref={navRef}>
-          <div className={styles.navContent}>
-            <div className={styles.navLogo}>
-              <a className={styles.logoContainer} href="/" title={version}>
-                <Logo className={styles.logo} />
-              </a>
-            </div>
-
-            <NavButtons
-              onClear={handleClear}
-              onShowKeyMap={() => setShowKeyMap(true)}
-              onShowMenu={() => setShowMenu(true)}
-              onShowRemainingTiles={() => setShowRemainingTiles(true)}
-              onShowSettings={() => setShowSettings(true)}
-              onShowWords={() => setShowWords(true)}
-            />
+      <nav className={styles.nav}>
+        <div className={styles.navContent}>
+          <div className={styles.navLogo}>
+            <a className={styles.logoContainer} href="/" title={version}>
+              <Logo className={styles.logo} />
+            </a>
           </div>
-        </nav>
 
-        {solverHeight > 0 && solverWidth > 0 && (
-          <Solver
-            className={styles.solver}
-            height={solverHeight}
-            width={solverWidth}
-            onShowResults={() => setShowResults(true)}
+          <NavButtons
+            onClear={handleClear}
+            onShowKeyMap={handleShowKeyMap}
+            onShowMenu={handleShowMenu}
+            onShowRemainingTiles={handleShowRemainingTiles}
+            onShowSettings={handleShowSettings}
+            onShowWords={handleShowWords}
           />
-        )}
-      </div>
+        </div>
+      </nav>
+
+      <Solver className={styles.solver} onShowResults={handleShowResults} />
 
       <MenuModal
         isOpen={showMenu}
-        onClose={() => setShowMenu(false)}
-        onShowDictionary={() => setShowDictionary(true)}
-        onShowRemainingTiles={() => setShowRemainingTiles(true)}
-        onShowSettings={() => setShowSettings(true)}
-        onShowWords={() => setShowWords(true)}
+        onClose={handleHideMenu}
+        onShowDictionary={handleShowDictionary}
+        onShowRemainingTiles={handleShowRemainingTiles}
+        onShowSettings={handleShowSettings}
+        onShowWords={handleShowWords}
       />
 
-      <SettingsModal isOpen={showSettings} onClose={() => setShowSettings(false)} />
+      <SettingsModal isOpen={showSettings} onClose={handleHideSettings} />
 
-      <KeyMapModal isOpen={showKeyMap} onClose={() => setShowKeyMap(false)} />
+      <KeyMapModal isOpen={showKeyMap} onClose={handleHideKeyMap} />
 
-      <WordsModal isOpen={showWords} onClose={() => setShowWords(false)} />
+      <WordsModal isOpen={showWords} onClose={handleHideWords} />
 
-      <RemainingTilesModal isOpen={showRemainingTiles} onClose={() => setShowRemainingTiles(false)} />
+      <RemainingTilesModal isOpen={showRemainingTiles} onClose={handleHideRemainingTiles} />
 
-      <ResultsModal isOpen={showResults} onClose={() => setShowResults(false)} />
+      <ResultsModal isOpen={showResults} onClose={handleHideResults} />
 
-      <DictionaryModal isOpen={showDictionary} onClose={() => setShowDictionary(false)} />
-
-      <LogoSplashScreen forceShow={!isInitialized} />
+      <DictionaryModal isOpen={showDictionary} onClose={handleHideDictionary} />
     </>
   );
 };

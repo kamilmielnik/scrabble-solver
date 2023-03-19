@@ -23,13 +23,6 @@ body {
   font-family: var(--font--family);
   font-size: var(--font--size--m);
   line-height: var(--line-height);
-  overflow: hidden;
-}
-
-html,
-body,
-#__next {
-  height: 100%;
 }
 
 a {

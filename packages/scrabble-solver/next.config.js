@@ -35,6 +35,7 @@ module.exports = {
         ...config.module.rules,
         {
           test: /\.svg$/,
+          include: [path.resolve(__dirname, 'src/icons')],
           issuer: /\.tsx?$/,
           use: ['@svgr/webpack'],
         },

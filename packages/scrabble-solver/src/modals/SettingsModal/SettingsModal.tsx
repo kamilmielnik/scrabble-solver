@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, memo } from 'react';
 
 import { Modal } from 'components';
 import { useTranslate } from 'state';
@@ -31,4 +31,4 @@ const SettingsModal: FunctionComponent<Props> = ({ className, isOpen, onClose })
   );
 };
 
-export default SettingsModal;
+export default memo(SettingsModal);

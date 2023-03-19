@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import { FunctionComponent, useEffect, useMemo, useState } from 'react';
-import { useLatest, useMeasure } from 'react-use';
 import { FixedSizeList } from 'react-window';
 
+import { useAppLayout, useLatest } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
-import { RESULTS_ITEM_HEIGHT } from 'parameters';
+import { BORDER_WIDTH, RESULTS_HEADER_HEIGHT, RESULTS_ITEM_HEIGHT, TEXT_INPUT_HEIGHT } from 'parameters';
 import {
   selectAreResultsOutdated,
   selectIsLoading,
@@ -18,7 +18,6 @@ import {
 import EmptyState from '../EmptyState';
 import Loading from '../Loading';
 import ResultsInput from '../ResultsInput';
-import Sizer from '../Sizer';
 
 import HeaderButton from './HeaderButton';
 import Result from './Result';
@@ -35,6 +34,7 @@ interface Props {
 
 const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIndex }) => {
   const translate = useTranslate();
+  const { resultsHeight, resultsWidth } = useAppLayout();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const results = useTypedSelector(selectResults);
@@ -42,12 +42,14 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const error = useTypedSelector(selectSolveError);
   const itemData = useMemo(() => ({ ...callbacks, highlightedIndex, results }), [callbacks, highlightedIndex, results]);
-  const [sizerRef, { height, width }] = useMeasure<HTMLDivElement>();
   const [listRef, setListRef] = useState<FixedSizeList<ResultData> | null>(null);
   const columns = useColumns();
   const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
   const scrollToIndexRef = useLatest(scrollToIndex);
   const hasResults = typeof error === 'undefined' && typeof results !== 'undefined';
+  const showInput = hasResults && results.length > 0 && !isOutdated;
+  const height = resultsHeight - RESULTS_HEADER_HEIGHT - (showInput ? TEXT_INPUT_HEIGHT : 0) - 2 * BORDER_WIDTH;
+  const width = resultsWidth - 2 * BORDER_WIDTH;
 
   useEffect(() => {
     // without setTimeout, the initial scrolling offset is calculated
@@ -72,8 +74,6 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
       </div>
 
       <div className={styles.content}>
-        <Sizer ref={sizerRef} />
-
         {typeof error !== 'undefined' && (
           <EmptyState className={styles.emptyState} variant="error">
             {error.message}
@@ -126,7 +126,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
         )}
       </div>
 
-      {hasResults && results.length > 0 && !isOutdated && <ResultsInput className={styles.input} />}
+      {showInput && <ResultsInput className={styles.input} />}
 
       {isLoading && <Loading />}
     </div>

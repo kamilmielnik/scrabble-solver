@@ -20,7 +20,7 @@
 .flag {
   --height: 32px;
 
-  width: calc(var(--height) * var(--aspect--ratio));
+  width: calc(var(--height) * var(--aspect-ratio));
   height: var(--height);
   border-radius: var(--border--radius);
   box-shadow: var(--box-shadow);

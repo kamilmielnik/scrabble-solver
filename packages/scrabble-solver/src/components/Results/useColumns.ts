@@ -1,4 +1,4 @@
-import { useMediaQuery } from 'hooks';
+import { useMediaQueries } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { selectLocale, useTypedSelector } from 'state';
 import { ResultColumn } from 'types';
@@ -17,10 +17,7 @@ const COLUMNS_L = [...COLUMNS_XS];
 const useColumns = (): Column[] => {
   const locale = useTypedSelector(selectLocale);
   const localeColumns = getLocaleColumns(LOCALE_FEATURES[locale]);
-  const isLessThanXs = useMediaQuery('<xs');
-  const isLessThanS = useMediaQuery('<s');
-  const isLessThanM = useMediaQuery('<m');
-  const isLessThanL = useMediaQuery('<l');
+  const { isLessThanXs, isLessThanS, isLessThanM, isLessThanL } = useMediaQueries();
 
   if (isLessThanXs) {
     return localeColumns.filter((column) => COLUMNS_XS.includes(column.id));

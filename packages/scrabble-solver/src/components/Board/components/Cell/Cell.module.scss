@@ -1,5 +1,64 @@
 @import 'styles/mixins';
 
+@mixin lighthouse-input-size-hack {
+  // Hack for this Lighthouse warning:
+  // > Interactive elements like buttons and links should be large enough (48x48px), and have
+  // > enough space around them, to be easy enough to tap without overlapping onto other elements.
+
+  input {
+    position: absolute;
+    top: -100%;
+    right: -100%;
+    left: -100%;
+    bottom: -100%;
+    width: 300%;
+    height: 300%;
+    clip-path: inset((100% / 3));
+  }
+
+  [dir='ltr'] & {
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
+      input {
+        left: 0;
+        clip-path: polygon(0 (100% / 3), (100% / 3) (100% / 3), (100% / 3) (200% / 3), 0 (200% / 3));
+      }
+    }
+
+    &:nth-last-child(1),
+    &:nth-last-child(2),
+    &:nth-last-child(3) {
+      input {
+        left: -200%;
+        clip-path: polygon((200% / 3) (100% / 3), 100% (100% / 3), 100% (200% / 3), (200% / 3) (200% / 3));
+      }
+    }
+  }
+
+  [dir='rtl'] & {
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
+      input {
+        left: -200%;
+        right: 0;
+        clip-path: polygon((200% / 3) (100% / 3), 100% (100% / 3), 100% (200% / 3), (200% / 3) (200% / 3));
+      }
+    }
+
+    &:nth-last-child(1),
+    &:nth-last-child(2),
+    &:nth-last-child(3) {
+      input {
+        left: 0;
+        right: -200%;
+        clip-path: polygon(0 (100% / 3), (100% / 3) (100% / 3), (100% / 3) (200% / 3), 0 (200% / 3));
+      }
+    }
+  }
+}
+
 .cell {
   @include focus-effect;
   @include lighthouse-input-size-hack;
@@ -9,7 +68,6 @@
   vertical-align: middle;
   background-color: var(--color--white);
   border-bottom: var(--border--width) dotted var(--border--color--light);
-  transition: var(--transition);
   background-clip: padding-box;
 
   [dir='ltr'] & {

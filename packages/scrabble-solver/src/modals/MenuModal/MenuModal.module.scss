@@ -23,11 +23,35 @@
   justify-content: space-between;
 }
 
-.flag {
-  --height: var(--button--icon--size);
+.settingsLabel {
+  @include ellipsis;
 
-  width: calc(var(--height) * var(--aspect--ratio));
-  height: var(--height);
+  --quatar-flag-aspect-ratio: 2.545;
+  --highest-flag-aspect-ratio: var(--quatar-flag-aspect-ratio);
+  --aspect-ratio: var(--highest-flag-aspect-ratio);
+  --padding: calc(var(--spacing--l) + var(--button--icon--size) * var(--aspect-ratio));
+
+  [dir='ltr'] & {
+    padding-right: var(--padding);
+  }
+
+  [dir='rtl'] & {
+    padding-left: var(--padding);
+  }
+}
+
+.flag {
+  position: fixed;
+  width: calc(var(--button--icon--size) * var(--aspect-ratio));
+  height: var(--button--icon--size);
   border-radius: var(--border--radius);
   box-shadow: 0 0 0 1px var(--box-shadow--color);
+
+  [dir='ltr'] & {
+    right: calc(2 * var(--spacing--l));
+  }
+
+  [dir='rtl'] & {
+    left: calc(2 * var(--spacing--l));
+  }
 }

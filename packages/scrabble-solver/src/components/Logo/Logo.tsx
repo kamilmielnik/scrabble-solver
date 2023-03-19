@@ -1,21 +1,19 @@
-/**
- * This component is unused, but it serves as a blueprint for the Logo.svg.
- * Logo.svg is what this component generates with all the text nodes transformed
- * into paths (manually with Inkscape), and corner radius removed from tiles.
- */
-import { CSSProperties, FunctionComponent } from 'react';
+import Image from 'next/image';
+import { forwardRef } from 'react';
 
-import PlainTiles from '../PlainTiles';
+import { useAppLayout } from 'hooks';
+import { LOGO_SRC } from 'parameters';
 
 interface Props {
   className?: string;
-  style?: CSSProperties;
 }
 
-const CONTENT = [['SCRABBLE'], ['SOLVER', '2']];
+const Logo = forwardRef<HTMLImageElement, Props>((props, ref) => {
+  const { logoHeight, logoWidth } = useAppLayout();
 
-const Logo: FunctionComponent<Props> = ({ className, style }) => (
-  <PlainTiles className={className} content={CONTENT} style={style} />
-);
+  return (
+    <Image {...props} alt="Scrabble Solver 2" height={logoHeight} priority ref={ref} src={LOGO_SRC} width={logoWidth} />
+  );
+});
 
 export default Logo;

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, memo } from 'react';
 
 import { useAppLayout } from 'hooks';
 import { CardChecklist, Cog, Eraser, Github, Keyboard, List, Sack } from 'icons';
@@ -135,4 +135,4 @@ const NavButtons: FunctionComponent<Props> = ({
   );
 };
 
-export default NavButtons;
+export default memo(NavButtons);
