@@ -5,18 +5,18 @@ import { Provider } from 'react-redux';
 import { useAppLayout } from 'hooks';
 import { FlagFill, Star } from 'icons';
 import { getTileSizes } from 'lib';
-import {
-  BORDER_COLOR,
-  BORDER_COLOR_LIGHT,
-  BORDER_RADIUS,
-  BORDER_WIDTH,
-  COLOR_BONUS_START,
-  COLOR_FILTERED,
-} from 'parameters';
+import { BORDER_COLOR_LIGHT, BORDER_RADIUS, BORDER_WIDTH, COLOR_BONUS_START, COLOR_FILTERED } from 'parameters';
 import { selectCellFilter, selectConfig, store, useTypedSelector } from 'state';
 import { Point } from 'types';
 
 import { getBonusColor } from '../lib';
+
+const HORIZONTAL_LINE = 'h';
+const VERTICAL_LINE = 'v';
+const BONUS = 'b';
+const BONUS_TEXT_2 = 'b2';
+const BONUS_TEXT_3 = 'b3';
+const CELL_FILTER = 'c';
 
 const useBackgroundImage = () => {
   const { boardSize, cellSize } = useAppLayout();
@@ -45,69 +45,86 @@ const useBackgroundImage = () => {
         width={viewBoxWidth}
         xmlns="http://www.w3.org/2000/svg"
       >
-        <rect
-          fill="white"
-          height={viewBoxHeight}
-          rx={BORDER_RADIUS}
-          width={viewBoxWidth}
-          x="0"
-          y="0"
-        />
+        <defs>
+          <symbol id={HORIZONTAL_LINE}>
+            <rect fill={BORDER_COLOR_LIGHT} height={1} width={viewBoxWidth} />
+          </symbol>
+
+          <symbol id={VERTICAL_LINE}>
+            <rect fill={BORDER_COLOR_LIGHT} height={viewBoxHeight} width={1} />
+          </symbol>
+
+          <symbol id={BONUS}>
+            <rect height={bonusSize} rx={BORDER_RADIUS} width={bonusSize} x={bonusOffset} y={bonusOffset} />
+          </symbol>
+
+          <symbol id={BONUS_TEXT_2}>
+            <text
+              dominantBaseline="central"
+              fill="white"
+              fontFamily="system-ui, sans-serif"
+              fontSize={fontSize}
+              fontWeight="bold"
+              textAnchor="middle"
+              x={fontOffset}
+              y={fontOffset}
+            >
+              x2
+            </text>
+          </symbol>
+
+          <symbol id={BONUS_TEXT_3}>
+            <text
+              dominantBaseline="central"
+              fill="white"
+              fontFamily="system-ui, sans-serif"
+              fontSize={fontSize}
+              fontWeight="bold"
+              textAnchor="middle"
+              x={fontOffset}
+              y={fontOffset}
+            >
+              x3
+            </text>
+          </symbol>
+
+          <symbol id={CELL_FILTER}>
+            <rect
+              fill={COLOR_FILTERED}
+              height={bonusSize}
+              rx={BORDER_RADIUS}
+              width={bonusSize}
+              x={bonusOffset}
+              y={bonusOffset}
+            />
+
+            <FlagFill color="white" height={iconSize} width={iconSize} x={iconOffset} y={iconOffset} />
+          </symbol>
+        </defs>
+
+        <rect fill="white" height={viewBoxHeight} rx={BORDER_RADIUS} width={viewBoxWidth} x="0" y="0" />
 
         {Array.from({ length: config.boardHeight - 1 }).map((_value, index) => (
-          <rect
-            fill={BORDER_COLOR_LIGHT}
-            height={1}
-            key={index}
-            width={viewBoxWidth}
-            x="0"
-            y={(index + 1) * (cellSize + BORDER_WIDTH) - BORDER_WIDTH}
-          />
+          <use key={index} href={`#${HORIZONTAL_LINE}`} y={(index + 1) * (cellSize + BORDER_WIDTH) - BORDER_WIDTH} />
         ))}
 
         {Array.from({ length: config.boardWidth - 1 }).map((_value, index) => (
-          <rect
-            fill={BORDER_COLOR_LIGHT}
-            height={viewBoxHeight}
-            key={index}
-            width={1}
-            x={(index + 1) * (cellSize + BORDER_WIDTH) - BORDER_WIDTH}
-            y="0"
-          />
+          <use key={index} href={`#${VERTICAL_LINE}`} x={(index + 1) * (cellSize + BORDER_WIDTH) - BORDER_WIDTH} />
         ))}
 
-        {config.bonuses.map((bonus, index) => {
-          const fill = getBonusColor(bonus);
+        {config.bonuses.map((bonus, index) => (
+          <>
+            <use fill={getBonusColor(bonus)} key={index} href={`#${BONUS}`} x={getX(bonus)} y={getY(bonus)} />
 
-          return (
-            <>
-              <rect
-                fill={fill}
-                height={bonusSize}
-                key={index}
-                rx={BORDER_RADIUS}
-                width={bonusSize}
-                x={getX(bonus) + bonusOffset}
-                y={getY(bonus) + bonusOffset}
-              />
+            {bonus.type === BONUS_WORD && bonus.multiplier === 2 && (
+              <use fill={getBonusColor(bonus)} key={index} href={`#${BONUS_TEXT_2}`} x={getX(bonus)} y={getY(bonus)} />
+            )}
 
-              {bonus.type === BONUS_WORD && (
-                <text
-                  dominantBaseline="central"
-                  fill="white"
-                  fontFamily="system-ui, sans-serif"
-                  fontSize={fontSize}
-                  fontWeight="bold"
-                  textAnchor="middle"
-                  x={getX(bonus) + fontOffset}
-                  y={getY(bonus) + fontOffset}
-                >
-                  x{bonus.multiplier}
-                </text>
-              )}
-            </>
-          );
-        })}
+            {bonus.type === BONUS_WORD && bonus.multiplier === 3 && (
+              <use fill={getBonusColor(bonus)} key={index} href={`#${BONUS_TEXT_3}`} x={getX(bonus)} y={getY(bonus)} />
+            )}
+          </>
+        ))}
 
         <rect
           fill={COLOR_BONUS_START}
@@ -127,25 +144,7 @@ const useBackgroundImage = () => {
         />
 
         {cellFilter.map((cell, index) => (
-          <>
-            <rect
-              fill={COLOR_FILTERED}
-              height={bonusSize}
-              key={index}
-              rx={BORDER_RADIUS}
-              width={bonusSize}
-              x={getX(cell) + bonusOffset}
-              y={getY(cell) + bonusOffset}
-            />
-
-            <FlagFill
-              color="white"
-              height={iconSize}
-              width={iconSize}
-              x={getX(cell) + iconOffset}
-              y={getY(cell) + iconOffset}
-            />
-          </>
+          <use key={index} href={`#${CELL_FILTER}`} x={getX(cell)} y={getY(cell)} />
         ))}
       </svg>
     </Provider>,
