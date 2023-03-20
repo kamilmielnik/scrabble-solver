@@ -5,6 +5,7 @@ import {
   ClipboardEventHandler,
   CSSProperties,
   FocusEventHandler,
+  Fragment,
   FunctionComponent,
   KeyboardEventHandler,
   memo,
@@ -17,7 +18,6 @@ import { Cell } from './components';
 interface Props {
   className?: string;
   cellSize: number;
-  center: CellModel;
   inputRefs: RefObject<HTMLInputElement>[][];
   rows: CellModel[][];
   style?: CSSProperties;
@@ -31,7 +31,6 @@ interface Props {
 const BoardPure: FunctionComponent<Props> = ({
   className,
   cellSize,
-  center,
   inputRefs,
   rows,
   style,
@@ -49,7 +48,7 @@ const BoardPure: FunctionComponent<Props> = ({
     onPaste={onPaste}
   >
     {rows.map((cells, y) => (
-      <div className={styles.row} key={y}>
+      <Fragment key={y}>
         {cells.map((cell, x) => (
           <Cell
             className={styles.cell}
@@ -59,16 +58,13 @@ const BoardPure: FunctionComponent<Props> = ({
             cellRight={x < rows.length - 1 ? rows[y][x + 1] : undefined}
             cellTop={y > 0 ? rows[y - 1][x] : undefined}
             inputRef={inputRefs[y][x]}
-            isBottom={y === rows.length - 1}
-            isCenter={center.x === x && center.y === y}
-            isRight={x === cells.length - 1}
             key={x}
             size={cellSize}
             onChange={onChange}
             onFocus={onFocus}
           />
         ))}
-      </div>
+      </Fragment>
     ))}
   </div>
 );

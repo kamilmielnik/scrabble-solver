@@ -34,7 +34,7 @@ const Solver: FunctionComponent<Props> = ({ className, onShowResults }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
-  const { cellSize, maxControlsWidth, showCompactControls, showFloatingSolveButton, tileSize } = useAppLayout();
+  const { maxControlsWidth, showCompactControls, showFloatingSolveButton, tileSize } = useAppLayout();
   const error = useTypedSelector(selectSolveError);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const resultCandidate = useTypedSelector(selectResultCandidate);
@@ -93,7 +93,7 @@ const Solver: FunctionComponent<Props> = ({ className, onShowResults }) => {
       <div className={styles.container}>
         <div className={styles.content}>
           <form className={styles.boardContainer} onSubmit={handleSubmit}>
-            <Board cellSize={cellSize} className={styles.board} />
+            <Board className={styles.board} />
             <input className={styles.submitInput} tabIndex={-1} type="submit" />
           </form>
 

@@ -33,9 +33,9 @@ const useBackgroundImage = () => {
   const fontSize = tileFontSize * 0.6;
   const fontOffset = cellSize / 2;
 
-  const getX = (point: Point): number => BORDER_WIDTH + point.x * (cellSize + BORDER_WIDTH);
+  const getX = (point: Point): number => point.x * (cellSize + BORDER_WIDTH);
 
-  const getY = (point: Point): number => BORDER_WIDTH + point.y * (cellSize + BORDER_WIDTH);
+  const getY = (point: Point): number => point.y * (cellSize + BORDER_WIDTH);
 
   const backgroundSvg = renderToString(
     <Provider store={store}>
@@ -62,7 +62,7 @@ const useBackgroundImage = () => {
             key={index}
             width={viewBoxWidth}
             x="0"
-            y={(index + 1) * (cellSize + BORDER_WIDTH)}
+            y={(index + 1) * (cellSize + BORDER_WIDTH) - BORDER_WIDTH}
           />
         ))}
 
@@ -72,7 +72,7 @@ const useBackgroundImage = () => {
             height={viewBoxHeight}
             key={index}
             width={1}
-            x={(index + 1) * (cellSize + BORDER_WIDTH)}
+            x={(index + 1) * (cellSize + BORDER_WIDTH) - BORDER_WIDTH}
             y="0"
           />
         ))}

@@ -1,19 +1,13 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Cell as CellModel } from '@scrabble-solver/types';
-import { ChangeEventHandler, FunctionComponent, RefObject, useCallback, useMemo } from 'react';
+import classNames from 'classnames';
+import { ChangeEventHandler, FunctionComponent, RefObject, useCallback } from 'react';
 
-import { getTileSizes } from 'lib';
-import {
-  selectCellBonus,
-  selectCellIsFiltered,
-  selectCellIsValid,
-  selectLocale,
-  selectTilePoints,
-  useTranslate,
-  useTypedSelector,
-} from 'state';
+import { selectCellIsValid, selectLocale, selectTilePoints, useTranslate, useTypedSelector } from 'state';
 
-import CellPure from './CellPure';
+import Tile from '../../../Tile';
+
+import styles from './Cell.module.scss';
 
 interface Props {
   cell: CellModel;
@@ -23,9 +17,6 @@ interface Props {
   cellTop?: CellModel;
   className?: string;
   inputRef: RefObject<HTMLInputElement>;
-  isBottom: boolean;
-  isCenter: boolean;
-  isRight: boolean;
   size: number;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onFocus: (x: number, y: number) => void;
@@ -39,9 +30,6 @@ const Cell: FunctionComponent<Props> = ({
   cellTop,
   className,
   inputRef,
-  isBottom,
-  isCenter,
-  isRight,
   size,
   onChange,
   onFocus,
@@ -49,40 +37,33 @@ const Cell: FunctionComponent<Props> = ({
   const { tile, x, y } = cell;
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
-  const bonus = useTypedSelector((state) => selectCellBonus(state, cell));
   const points = useTypedSelector((state) => selectTilePoints(state, cell.tile));
-  const isFiltered = useTypedSelector((state) => selectCellIsFiltered(state, cell));
   const isValid = useTypedSelector((state) => selectCellIsValid(state, cell));
-  const { tileFontSize } = getTileSizes(size);
   const isEmpty = tile.character === EMPTY_CELL;
-  const style = useMemo(() => ({ fontSize: tileFontSize }), [tileFontSize]);
 
   const handleFocus = useCallback(() => onFocus(x, y), [x, y, onFocus]);
 
   return (
-    <CellPure
+    <Tile
       aria-label={translate('cell.tile.location', {
         x: (x + 1).toLocaleString(locale),
         y: (y + 1).toLocaleString(locale),
       })}
-      bonus={bonus}
-      cell={cell}
-      cellBottom={cellBottom}
-      cellLeft={cellLeft}
-      cellRight={cellRight}
-      cellTop={cellTop}
-      className={className}
+      className={classNames(styles.tile, className, {
+        [styles.sharpTopLeft]: cellTop?.hasTile() || cellLeft?.hasTile(),
+        [styles.sharpTopRight]: cellTop?.hasTile() || cellRight?.hasTile(),
+        [styles.sharpBottomLeft]: cellBottom?.hasTile() || cellLeft?.hasTile(),
+        [styles.sharpBottomRight]: cellBottom?.hasTile() || cellRight?.hasTile(),
+      })}
+      character={isEmpty ? undefined : tile.character}
+      highlighted={cell.isCandidate()}
       inputRef={inputRef}
-      isBottom={isBottom}
-      isCenter={isCenter}
-      isRight={isRight}
-      isEmpty={isEmpty}
-      isFiltered={isFiltered}
+      isBlank={tile.isBlank}
       isValid={isValid}
       points={points}
+      raised={!isEmpty}
       size={size}
-      style={style}
-      tile={tile}
+      tabIndex={cell.x === 0 && cell.y === 0 ? undefined : -1}
       onChange={onChange}
       onFocus={handleFocus}
     />
