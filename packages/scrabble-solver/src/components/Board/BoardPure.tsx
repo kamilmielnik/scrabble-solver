@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import {
   ChangeEventHandler,
   ClipboardEventHandler,
+  CSSProperties,
   FocusEventHandler,
   FunctionComponent,
   KeyboardEventHandler,
@@ -19,6 +20,7 @@ interface Props {
   center: CellModel;
   inputRefs: RefObject<HTMLInputElement>[][];
   rows: CellModel[][];
+  style?: CSSProperties;
   onBlur: FocusEventHandler;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onFocus: (x: number, y: number) => void;
@@ -32,13 +34,20 @@ const BoardPure: FunctionComponent<Props> = ({
   center,
   inputRefs,
   rows,
+  style,
   onBlur,
   onChange,
   onFocus,
   onKeyDown,
   onPaste,
 }) => (
-  <div className={classNames(styles.board, className)} onBlur={onBlur} onKeyDown={onKeyDown} onPaste={onPaste}>
+  <div
+    className={classNames(styles.board, className)}
+    style={style}
+    onBlur={onBlur}
+    onKeyDown={onKeyDown}
+    onPaste={onPaste}
+  >
     {rows.map((cells, y) => (
       <div className={styles.row} key={y}>
         {cells.map((cell, x) => (

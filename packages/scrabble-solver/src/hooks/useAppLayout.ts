@@ -60,6 +60,7 @@ const useAppLayout = () => {
   return {
     actionsWidth: 2 * BUTTON_HEIGHT - BORDER_WIDTH,
     animateTile: !isLessThanXs,
+    boardSize,
     cellSize,
     dictionaryHeight,
     isModalFullWidth: isLessThanS,
