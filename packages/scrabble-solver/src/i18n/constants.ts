@@ -47,7 +47,7 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_ARABIC,
     consonants: false,
     direction: 'rtl',
-    separator: ` ${COMMA_ARABIC}`,
+    separator: `${COMMA_ARABIC} `,
     vowels: false,
   },
   [Locale.FR_FR]: {

@@ -30,10 +30,10 @@ const Result = ({ data, index, style }: Props): ReactElement => {
   const ref = useRef<HTMLButtonElement>(null);
   const columns = useColumns();
   const locale = useTypedSelector(selectLocale);
-  const { consonants, separator, vowels } = LOCALE_FEATURES[locale];
+  const { consonants, direction, separator, vowels } = LOCALE_FEATURES[locale];
   const result = results[index];
   const isMatching = useTypedSelector((state) => selectIsResultMatching(state, index));
-  const otherWords = result.words.slice(1).join(separator);
+  const words = direction === 'rtl' ? [...result.words].reverse() : result.words;
   const enabledColumns = Object.fromEntries(columns.map((column) => [column.id, true]));
 
   const handleClick: MouseEventHandler = (event) => onClick(result, event);
@@ -60,11 +60,7 @@ const Result = ({ data, index, style }: Props): ReactElement => {
     >
       <span className={styles.resultContent}>
         {enabledColumns[ResultColumn.Word] && (
-          <Cell
-            className={styles.word}
-            translationKey="common.word"
-            value={`${result.word.toLocaleUpperCase()}${otherWords.length > 0 ? ` (${otherWords})` : ''}`}
-          />
+          <Cell className={styles.word} translationKey="common.word" value={result.word} />
         )}
 
         {enabledColumns[ResultColumn.TilesCount] && (
@@ -87,7 +83,7 @@ const Result = ({ data, index, style }: Props): ReactElement => {
           <Cell
             className={styles.stat}
             translationKey="common.words"
-            tooltip={`${result.wordsCount} (${result.words.join(' / ').toLocaleUpperCase()})`}
+            tooltip={`${result.wordsCount.toLocaleString(locale)} (${words.join(separator)})`}
             value={result.wordsCount}
           />
         )}
