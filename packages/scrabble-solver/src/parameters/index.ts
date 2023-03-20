@@ -19,6 +19,34 @@ export const COLOR_GREEN = '#bae3ba';
 export const COLOR_RED = '#f7c2aa';
 export const COLOR_YELLOW = '#efe3ae';
 
+export const COLOR_BONUS_CHARACTER_1 = '#f7f1d6';
+export const COLOR_BONUS_CHARACTER_2 = '#d6ebd6';
+export const COLOR_BONUS_CHARACTER_3 = '#dde4f6';
+export const COLOR_BONUS_CHARACTER_5 = '#fbe0d4';
+export const COLOR_BONUS_CHARACTER_MULTIPLIER_2 = '#b8d5ed';
+export const COLOR_BONUS_CHARACTER_MULTIPLIER_3 = '#86aed1';
+export const COLOR_BONUS_START = '#b284b8';
+export const COLOR_BONUS_WORD_MULTIPLIER_2 = '#fbc997';
+export const COLOR_BONUS_WORD_MULTIPLIER_3 = '#f19393';
+export const COLOR_FILTERED = '#444';
+
+export const COLOR_BONUS_CHARACTER: Record<number, string> = {
+  1: COLOR_BONUS_CHARACTER_1,
+  2: COLOR_BONUS_CHARACTER_2,
+  3: COLOR_BONUS_CHARACTER_3,
+  5: COLOR_BONUS_CHARACTER_5,
+};
+
+export const COLOR_BONUS_CHARACTER_MULTIPLIER: Record<number, string> = {
+  2: COLOR_BONUS_CHARACTER_MULTIPLIER_2,
+  3: COLOR_BONUS_CHARACTER_MULTIPLIER_3,
+};
+
+export const COLOR_BONUS_WORD: Record<number, string> = {
+  2: COLOR_BONUS_WORD_MULTIPLIER_2,
+  3: COLOR_BONUS_WORD_MULTIPLIER_3,
+};
+
 export const SPACING_XS = 2;
 export const SPACING_S = 5;
 export const SPACING_M = 10;
@@ -40,6 +68,9 @@ export const BOARD_TILE_SIZE_MAX = 64;
  */
 export const BOARD_TILE_SIZE_MIN = 20;
 
+export const BORDER_COLOR = '#cdcdcd';
+export const BORDER_COLOR_LIGHT = '#d9d9d9';
+export const BORDER_RADIUS = 5;
 export const BORDER_WIDTH = 1;
 
 export const BUTTON_ICON_SIZE = 24;

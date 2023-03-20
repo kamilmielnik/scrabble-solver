@@ -4,7 +4,7 @@ import { FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
 
 import { SeoMessage } from 'components';
-import { createAppStore } from 'state';
+import { store } from 'state';
 
 import 'styles/global.scss';
 
@@ -39,8 +39,6 @@ const KEYWORDS = [
   'CNRTL',
   'Kamil Mielnik',
 ].join(',');
-
-const store = createAppStore();
 
 const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
   <>

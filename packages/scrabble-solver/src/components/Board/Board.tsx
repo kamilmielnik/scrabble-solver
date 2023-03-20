@@ -1,33 +1,45 @@
 import { autoUpdate, FloatingPortal, offset, shift, useFloating } from '@floating-ui/react';
 import classNames from 'classnames';
-import { CSSProperties, FocusEventHandler, FunctionComponent, useCallback, useState } from 'react';
+import { CSSProperties, FocusEventHandler, FunctionComponent, useCallback, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from 'hooks';
+import { getTileSizes } from 'lib';
 import { BOARD_CELL_ACTIONS_OFFSET, TRANSITION } from 'parameters';
-import { boardSlice, cellFilterSlice, selectBoard, selectRowsWithCandidate, useTypedSelector } from 'state';
+import { boardSlice, cellFilterSlice, selectConfig, selectRowsWithCandidate, useTypedSelector } from 'state';
 
 import styles from './Board.module.scss';
 import BoardPure from './BoardPure';
 import { Actions } from './components';
-import { useGrid } from './hooks';
+import { useBackgroundImage, useGrid } from './hooks';
 
 interface Props {
-  cellSize: number;
   className?: string;
 }
 
-const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
+const Board: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const rows = useTypedSelector(selectRowsWithCandidate);
-  const board = useTypedSelector(selectBoard);
-  const { actionsWidth } = useAppLayout();
+  const config = useTypedSelector(selectConfig);
+  const { actionsWidth, cellSize } = useAppLayout();
+  const { tileFontSize } = getTileSizes(cellSize);
+
   const [{ activeIndex, direction, inputRefs }, { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste }] =
     useGrid(rows);
-  const inputRef = inputRefs[activeIndex.y][activeIndex.x];
-  const cell = rows[activeIndex.y][activeIndex.x];
+  const backgroundImage = useBackgroundImage();
+  const boardStyle = useMemo<CSSProperties>(
+    () => ({
+      backgroundImage,
+      fontSize: tileFontSize,
+      gridTemplateColumns: `repeat(${config.boardWidth}, 1fr)`,
+      gridTemplateRows: `repeat(${config.boardHeight}, 1fr)`,
+    }),
+    [backgroundImage, config.boardHeight, config.boardWidth, tileFontSize],
+  );
   const [showActions, setShowActions] = useState(false);
   const [transition, setTransition] = useState<CSSProperties['transition']>(TRANSITION);
+  const inputRef = inputRefs[activeIndex.y][activeIndex.x];
+  const cell = rows[activeIndex.y][activeIndex.x];
 
   const { x, y, strategy, refs } = useFloating({
     middleware: [
@@ -98,9 +110,9 @@ const Board: FunctionComponent<Props> = ({ cellSize, className }) => {
       <BoardPure
         className={className}
         cellSize={cellSize}
-        center={board.center}
         inputRefs={inputRefs}
         rows={rows}
+        style={boardStyle}
         onBlur={handleBlur}
         onChange={onChange}
         onFocus={handleFocus}

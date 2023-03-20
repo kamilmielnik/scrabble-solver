@@ -1,68 +1,11 @@
 @import 'styles/animations';
 
 .board {
-  display: table;
+  display: grid;
+  gap: var(--border--width);
   box-shadow: var(--box-shadow);
   border: var(--border);
   border-radius: var(--border--radius);
-}
-
-.row {
-  display: table-row;
-
-  &:first-child {
-    border-top-left-radius: var(--border--radius);
-    border-top-right-radius: var(--border--radius);
-
-    .cell {
-      &:first-child {
-        [dir='ltr'] & {
-          border-top-left-radius: var(--border--radius);
-        }
-
-        [dir='rtl'] & {
-          border-top-right-radius: var(--border--radius);
-        }
-      }
-
-      &:last-child {
-        [dir='ltr'] & {
-          border-top-right-radius: var(--border--radius);
-        }
-
-        [dir='rtl'] & {
-          border-top-left-radius: var(--border--radius);
-        }
-      }
-    }
-  }
-
-  &:last-child {
-    border-bottom-left-radius: var(--border--radius);
-    border-bottom-right-radius: var(--border--radius);
-
-    .cell {
-      &:first-child {
-        [dir='ltr'] & {
-          border-bottom-left-radius: var(--border--radius);
-        }
-
-        [dir='rtl'] & {
-          border-bottom-right-radius: var(--border--radius);
-        }
-      }
-
-      &:last-child {
-        [dir='ltr'] & {
-          border-bottom-right-radius: var(--border--radius);
-        }
-
-        [dir='rtl'] & {
-          border-bottom-left-radius: var(--border--radius);
-        }
-      }
-    }
-  }
 }
 
 .actions {
