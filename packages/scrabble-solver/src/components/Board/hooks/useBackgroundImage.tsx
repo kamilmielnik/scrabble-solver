@@ -1,4 +1,6 @@
-import { BONUS_WORD } from '@scrabble-solver/constants';
+/* eslint-disable max-statements */
+
+import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 
@@ -14,8 +16,8 @@ import { getBonusColor } from '../lib';
 const HORIZONTAL_LINE = 'h';
 const VERTICAL_LINE = 'v';
 const BONUS = 'b';
-const BONUS_TEXT_2 = 'b2';
-const BONUS_TEXT_3 = 'b3';
+const BONUS_WORD_2 = 'b2';
+const BONUS_WORD_3 = 'b3';
 const CELL_FILTER = 'c';
 
 const useBackgroundImage = () => {
@@ -32,6 +34,9 @@ const useBackgroundImage = () => {
   const { tileFontSize } = getTileSizes(cellSize);
   const fontSize = tileFontSize * 0.6;
   const fontOffset = cellSize / 2;
+  const characterBonuses = config.bonuses.filter((bonus) => bonus.type === BONUS_CHARACTER);
+  const word2Bonuses = config.bonuses.filter((bonus) => bonus.type === BONUS_WORD && bonus.multiplier === 2);
+  const word3Bonuses = config.bonuses.filter((bonus) => bonus.type === BONUS_WORD && bonus.multiplier === 3);
 
   const getX = (point: Point): number => point.x * (cellSize + BORDER_WIDTH);
 
@@ -58,7 +63,9 @@ const useBackgroundImage = () => {
             <rect height={bonusSize} rx={BORDER_RADIUS} width={bonusSize} x={bonusOffset} y={bonusOffset} />
           </symbol>
 
-          <symbol id={BONUS_TEXT_2}>
+          <symbol id={BONUS_WORD_2}>
+            <rect height={bonusSize} rx={BORDER_RADIUS} width={bonusSize} x={bonusOffset} y={bonusOffset} />
+
             <text
               dominantBaseline="central"
               fill="white"
@@ -73,7 +80,9 @@ const useBackgroundImage = () => {
             </text>
           </symbol>
 
-          <symbol id={BONUS_TEXT_3}>
+          <symbol id={BONUS_WORD_3}>
+            <rect height={bonusSize} rx={BORDER_RADIUS} width={bonusSize} x={bonusOffset} y={bonusOffset} />
+
             <text
               dominantBaseline="central"
               fill="white"
@@ -112,18 +121,16 @@ const useBackgroundImage = () => {
           <use key={index} href={`#${VERTICAL_LINE}`} x={(index + 1) * (cellSize + BORDER_WIDTH) - BORDER_WIDTH} />
         ))}
 
-        {config.bonuses.map((bonus, index) => (
-          <>
-            <use fill={getBonusColor(bonus)} key={index} href={`#${BONUS}`} x={getX(bonus)} y={getY(bonus)} />
+        {characterBonuses.map((bonus, index) => (
+          <use fill={getBonusColor(bonus)} key={index} href={`#${BONUS}`} x={getX(bonus)} y={getY(bonus)} />
+        ))}
 
-            {bonus.type === BONUS_WORD && bonus.multiplier === 2 && (
-              <use fill={getBonusColor(bonus)} key={index} href={`#${BONUS_TEXT_2}`} x={getX(bonus)} y={getY(bonus)} />
-            )}
+        {word2Bonuses.map((bonus, index) => (
+          <use fill={getBonusColor(bonus)} key={index} href={`#${BONUS_WORD_2}`} x={getX(bonus)} y={getY(bonus)} />
+        ))}
 
-            {bonus.type === BONUS_WORD && bonus.multiplier === 3 && (
-              <use fill={getBonusColor(bonus)} key={index} href={`#${BONUS_TEXT_3}`} x={getX(bonus)} y={getY(bonus)} />
-            )}
-          </>
+        {word3Bonuses.map((bonus, index) => (
+          <use fill={getBonusColor(bonus)} key={index} href={`#${BONUS_WORD_3}`} x={getX(bonus)} y={getY(bonus)} />
         ))}
 
         <rect
