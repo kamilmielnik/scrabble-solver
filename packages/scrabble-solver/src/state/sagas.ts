@@ -1,10 +1,10 @@
 /* eslint-disable max-lines */
 
 import { PayloadAction } from '@reduxjs/toolkit';
-import { COMMA_ARABIC, COMMA_LATIN } from '@scrabble-solver/constants';
 import { Locale, Result } from '@scrabble-solver/types';
 import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
+import { LOCALE_FEATURES } from 'i18n';
 import { memoize } from 'lib';
 import { findWordDefinitions, solve, verify, visit } from 'sdk';
 
@@ -144,9 +144,8 @@ function* onLocaleChange(): AnyGenerator {
 
 function* onResultCandidateChange({ payload: result }: PayloadAction<Result | null>): AnyGenerator {
   if (result) {
-    const locale = yield select(selectLocale);
-    const comma = locale === Locale.FA_IR ? ` ${COMMA_ARABIC}` : `${COMMA_LATIN} `;
-    yield put(dictionarySlice.actions.changeInput(result.words.join(comma)));
+    const locale: Locale = yield select(selectLocale);
+    yield put(dictionarySlice.actions.changeInput(result.words.join(LOCALE_FEATURES[locale].separator)));
     yield put(dictionarySlice.actions.submit());
   }
 }

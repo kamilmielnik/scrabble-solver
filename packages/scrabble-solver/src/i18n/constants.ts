@@ -1,3 +1,4 @@
+import { COMMA_ARABIC, COMMA_LATIN } from '@scrabble-solver/constants';
 import { Locale } from '@scrabble-solver/types';
 import { FunctionComponent, SVGAttributes } from 'react';
 
@@ -6,45 +7,61 @@ import { FlagDe, FlagEs, FlagFa, FlagFr, FlagGb, FlagPl, FlagUs } from 'icons';
 import styles from './i18n.module.scss';
 
 interface LocaleFeatures {
-  direction: 'ltr' | 'rtl';
+  comma: string;
   consonants: boolean;
+  direction: 'ltr' | 'rtl';
+  separator: string;
   vowels: boolean;
 }
 
 export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
   [Locale.DE_DE]: {
-    direction: 'ltr',
+    comma: COMMA_LATIN,
     consonants: true,
+    direction: 'ltr',
+    separator: `${COMMA_LATIN} `,
     vowels: true,
   },
   [Locale.EN_GB]: {
-    direction: 'ltr',
+    comma: COMMA_LATIN,
     consonants: true,
+    direction: 'ltr',
+    separator: `${COMMA_LATIN} `,
     vowels: true,
   },
   [Locale.EN_US]: {
-    direction: 'ltr',
+    comma: COMMA_LATIN,
     consonants: true,
+    direction: 'ltr',
+    separator: `${COMMA_LATIN} `,
     vowels: true,
   },
   [Locale.ES_ES]: {
-    direction: 'ltr',
+    comma: COMMA_LATIN,
     consonants: true,
+    direction: 'ltr',
+    separator: `${COMMA_LATIN} `,
     vowels: true,
   },
   [Locale.FA_IR]: {
-    direction: 'rtl',
+    comma: COMMA_ARABIC,
     consonants: false,
+    direction: 'rtl',
+    separator: ` ${COMMA_ARABIC}`,
     vowels: false,
   },
   [Locale.FR_FR]: {
-    direction: 'ltr',
+    comma: COMMA_LATIN,
     consonants: true,
+    direction: 'ltr',
+    separator: `${COMMA_LATIN} `,
     vowels: true,
   },
   [Locale.PL_PL]: {
-    direction: 'ltr',
+    comma: COMMA_LATIN,
     consonants: true,
+    direction: 'ltr',
+    separator: `${COMMA_LATIN} `,
     vowels: true,
   },
 };

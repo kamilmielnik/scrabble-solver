@@ -30,10 +30,10 @@ const Result = ({ data, index, style }: Props): ReactElement => {
   const ref = useRef<HTMLButtonElement>(null);
   const columns = useColumns();
   const locale = useTypedSelector(selectLocale);
-  const { consonants, vowels } = LOCALE_FEATURES[locale];
+  const { consonants, separator, vowels } = LOCALE_FEATURES[locale];
   const result = results[index];
   const isMatching = useTypedSelector((state) => selectIsResultMatching(state, index));
-  const otherWords = result.words.slice(1).join(' / ').toLocaleUpperCase();
+  const otherWords = result.words.slice(1).join(separator);
   const enabledColumns = Object.fromEntries(columns.map((column) => [column.id, true]));
 
   const handleClick: MouseEventHandler = (event) => onClick(result, event);

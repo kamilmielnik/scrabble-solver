@@ -135,6 +135,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 100%;
 
   .word {
     @include ellipsis;

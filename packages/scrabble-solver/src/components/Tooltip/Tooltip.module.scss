@@ -1,10 +1,12 @@
 .tooltip {
+  max-width: var(--tooltip--max-width);
   padding: var(--spacing--s) var(--spacing--m);
   box-shadow: var(--box-shadow);
   border-radius: var(--border--radius);
   background-color: var(--color--tooltip--background);
   color: var(--color--tooltip--foreground);
   z-index: var(--z-index--tooltip);
+  text-align: center;
 }
 
 .arrow {
