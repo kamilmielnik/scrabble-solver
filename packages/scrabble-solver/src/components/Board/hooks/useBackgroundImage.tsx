@@ -152,8 +152,8 @@ const useBackgroundImage = () => {
     </Provider>,
   );
 
-  const encodedSvg = encodeURIComponent(backgroundSvg);
-  const dataUrl = `data:image/svg+xml;utf8,${encodedSvg}`;
+  const encodedSvg = globalThis.btoa(backgroundSvg);
+  const dataUrl = `data:image/svg+xml;base64,${encodedSvg}`;
   const url = `url(${dataUrl})`;
 
   return url;
