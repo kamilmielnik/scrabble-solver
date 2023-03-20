@@ -60,7 +60,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   cursor: pointer;
   text-transform: uppercase;
   transition: var(--transition);
-  padding: var(--spacing--s) 0;
 
   &:focus,
   &:hover {
@@ -146,8 +145,10 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
   padding: 0 var(--spacing--s);
   gap: var(--spacing--s);
+  line-height: var(--results--item--height);
 
   .result &:first-child,
   .headerButton:first-child & {
@@ -181,12 +182,12 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 }
 
 .word {
-  flex: 1 0 180px;
+  flex: 1 0;
   text-transform: uppercase;
 }
 
 .stat {
-  $width: 50px;
+  $width: 55px;
 
   flex: 0 0 $width;
   max-width: $width;

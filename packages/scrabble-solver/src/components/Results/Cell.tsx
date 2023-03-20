@@ -22,9 +22,9 @@ const Cell: FunctionComponent<Props> = ({ className, translationKey, tooltip, va
   const triggerProps = useTooltip(`${translate(translationKey)}: ${tooltip || formattedValue}`);
 
   return (
-    <span className={classNames(styles.cell, className)} {...triggerProps}>
+    <div className={classNames(styles.cell, className)} {...triggerProps}>
       {formattedValue}
-    </span>
+    </div>
   );
 };
 
