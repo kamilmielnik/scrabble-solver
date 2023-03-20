@@ -46,7 +46,6 @@ const useBackgroundImage = () => {
         xmlns="http://www.w3.org/2000/svg"
       >
         <rect
-          stroke={BORDER_COLOR}
           fill="white"
           height={viewBoxHeight}
           rx={BORDER_RADIUS}
