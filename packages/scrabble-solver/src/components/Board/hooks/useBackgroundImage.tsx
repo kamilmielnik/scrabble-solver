@@ -94,7 +94,7 @@ const useBackgroundImage = () => {
 
               {bonus.type === BONUS_WORD && (
                 <text
-                  dominantBaseline="middle"
+                  dominantBaseline="central"
                   fill="white"
                   fontFamily="system-ui, sans-serif"
                   fontSize={fontSize}
