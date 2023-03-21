@@ -1,12 +1,13 @@
 /* eslint-disable max-statements */
 
 import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
+import { useMemo } from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 
 import { useAppLayout } from 'hooks';
 import { FlagFill, Star } from 'icons';
-import { getTileSizes } from 'lib';
+import { dataUrlToBlob, getTileSizes } from 'lib';
 import { BORDER_COLOR_LIGHT, BORDER_RADIUS, BORDER_WIDTH, COLOR_BONUS_START, COLOR_FILTERED } from 'parameters';
 import { selectCellFilter, selectConfig, store, useTypedSelector } from 'state';
 import { Point } from 'types';
@@ -159,7 +160,9 @@ const useBackgroundImage = () => {
 
   const encodedSvg = globalThis.btoa(backgroundSvg);
   const dataUrl = `data:image/svg+xml;base64,${encodedSvg}`;
-  const url = `url(${dataUrl})`;
+  const blob = useMemo(() => dataUrlToBlob(dataUrl), [dataUrl]);
+  const blobUrl = useMemo(() => URL.createObjectURL(blob), [blob]);
+  const url = `url(${blobUrl})`;
 
   return url;
 };

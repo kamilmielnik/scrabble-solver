@@ -8,6 +8,7 @@ export { default as createKeyComparator } from './createKeyComparator';
 export { default as createNullMovingComparator } from './createNullMovingComparator';
 export { default as createRegExp } from './createRegExp';
 export { default as createStringComparator } from './createStringComparator';
+export { default as dataUrlToBlob } from './dataUrlToBlob';
 export { default as detectLocale } from './detectLocale';
 export { default as extractCharacters } from './extractCharacters';
 export { default as extractInputValue } from './extractInputValue';
