@@ -27,6 +27,10 @@ export const guessLocale = (): Locale => {
     return Locale.RO_RO;
   }
 
+  if (languages.includes('ca') || languages.includes('ca-ES')) {
+    return Locale.CA_ES;
+  }
+
   const locales = Object.values(Locale);
   const exactMatch = locales.find((locale) => globalThis.navigator.language === String(locale));
 

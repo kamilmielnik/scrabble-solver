@@ -1,3 +1,4 @@
+export * from './catalan';
 export * from './english';
 export * from './german';
 export * from './french';

@@ -11,6 +11,7 @@ import english from './languages/english.json';
 export const englishTranslations: Translations = english;
 
 const loadTranslationsPerLocale: Record<Locale, () => Promise<Translations>> = {
+  [Locale.CA_ES]: async () => (await import('./languages/catalan.json')).default,
   [Locale.DE_DE]: async () => (await import('./languages/german.json')).default,
   [Locale.EN_GB]: async () => english,
   [Locale.EN_US]: async () => english,

@@ -4,6 +4,7 @@
  * @see https://en.wikipedia.org/wiki/ISO_3166-1
  */
 export enum Locale {
+  CA_ES = 'ca-ES',
   DE_DE = 'de-DE',
   EN_GB = 'en-GB',
   EN_US = 'en-US',
