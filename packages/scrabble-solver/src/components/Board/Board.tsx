@@ -41,7 +41,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
   const inputRef = inputRefs[activeIndex.y][activeIndex.x];
   const cell = rows[activeIndex.y][activeIndex.x];
 
-  const { x, y, strategy, refs } = useFloating({
+  const floatingActions = useFloating({
     middleware: [
       offset({
         mainAxis: -BOARD_CELL_ACTIONS_OFFSET,
@@ -55,7 +55,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
 
   const handleBlur: FocusEventHandler = useCallback(
     (event) => {
-      const eventComesFromActions = refs.floating.current?.contains(event.relatedTarget);
+      const eventComesFromActions = floatingActions.refs.floating.current?.contains(event.relatedTarget);
       const eventComesFromBoard = event.currentTarget.contains(event.relatedTarget);
       const isLocalEvent = eventComesFromActions || eventComesFromBoard;
 
@@ -63,7 +63,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
         setShowActions(false);
       }
     },
-    [refs.floating],
+    [floatingActions.refs.floating],
   );
 
   const handleDirectionToggle = useCallback(() => {
@@ -74,7 +74,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
   const handleFocus: typeof onFocus = useCallback(
     (newX, newY) => {
       const isFirstFocus = !showActions;
-      const originalTransition = refs.floating.current?.style.transition || '';
+      const originalTransition = floatingActions.refs.floating.current?.style.transition || '';
       const newInputRef = inputRefs[newY][newX].current;
       const newTileElement = newInputRef?.parentElement || null;
 
@@ -82,7 +82,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
         setTransition('none');
       }
 
-      refs.setReference(newTileElement);
+      floatingActions.refs.setReference(newTileElement);
       onFocus(newX, newY);
       setShowActions(true);
 
@@ -92,7 +92,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
         }, 0);
       }
     },
-    [inputRefs, onFocus, refs.floating, refs.setReference, showActions],
+    [inputRefs, onFocus, floatingActions.refs.floating, floatingActions.refs.setReference, showActions],
   );
 
   const handleToggleBlank = useCallback(() => {
@@ -128,16 +128,16 @@ const Board: FunctionComponent<Props> = ({ className }) => {
           })}
           disabled={!showActions}
           direction={direction}
-          ref={refs.setFloating}
+          ref={floatingActions.refs.setFloating}
           style={{
-            position: strategy,
-            top: y ?? 0,
-            left: x ?? 0,
+            position: floatingActions.strategy,
+            top: floatingActions.y ?? 0,
+            left: floatingActions.x ?? 0,
             transition,
             opacity: showActions ? 1 : 0,
             pointerEvents: showActions ? 'auto' : 'none',
             userSelect: showActions ? 'auto' : 'none',
-            visibility: x === null || y === null ? 'hidden' : 'visible',
+            visibility: floatingActions.x === null || floatingActions.y === null ? 'hidden' : 'visible',
           }}
           onDirectionToggle={handleDirectionToggle}
           onToggleBlank={handleToggleBlank}
