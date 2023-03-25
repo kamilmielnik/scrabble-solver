@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Locale } from '@scrabble-solver/types';
 
-import { AutoGroupTiles } from 'types';
+import { AutoGroupTiles, InputMode } from 'types';
 
 import settingsInitialState from './settingsInitialState';
 
@@ -17,6 +17,11 @@ const settingsSlice = createSlice({
     changeConfigId: (state, action: PayloadAction<string>) => {
       const configId = action.payload;
       return { ...state, configId };
+    },
+
+    changeInputMode: (state, action: PayloadAction<InputMode>) => {
+      const inputMode = action.payload;
+      return { ...state, inputMode };
     },
 
     changeLocale: (state, action: PayloadAction<Locale>) => {

@@ -4,6 +4,8 @@ export type AutoGroupTiles = 'left' | 'right' | null;
 
 export type Direction = 'horizontal' | 'vertical';
 
+export type InputMode = 'keyboard' | 'touchscreen';
+
 export interface Point {
   x: number;
   y: number;
@@ -104,6 +106,9 @@ export type TranslationKey =
   | 'settings.autoGroupTiles.right'
   | 'settings.autoGroupTiles.null'
   | 'settings.game'
+  | 'settings.inputMode'
+  | 'settings.inputMode.keyboard'
+  | 'settings.inputMode.touchscreen'
   | 'settings.language'
   | 'words'
   | 'words.invalid'
