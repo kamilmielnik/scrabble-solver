@@ -15,13 +15,6 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
   transition: var(--transition);
   cursor: pointer;
 
-  &:hover,
-  &.checked {
-    .icon {
-      box-shadow: var(--box-shadow);
-    }
-  }
-
   &.checked {
     .icon {
       &::after {
@@ -48,7 +41,6 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
   height: $radio-box-size;
   border-radius: 50%;
   border: $radio-inner-border solid var(--color--primary);
-  box-shadow: var(--box-shadow--null);
   pointer-events: none;
 
   &::after {
