@@ -2,7 +2,8 @@
 
 import { autoUpdate, FloatingPortal, offset, shift, useFloating } from '@floating-ui/react';
 import classNames from 'classnames';
-import { CSSProperties, FocusEventHandler, FunctionComponent, useCallback, useEffect, useMemo, useState } from 'react';
+import { CSSProperties, FocusEventHandler, FunctionComponent, useCallback, useMemo, useState } from 'react';
+import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from 'hooks';
@@ -109,12 +110,12 @@ const Board: FunctionComponent<Props> = ({ className }) => {
       }
     },
     [
-      inputRefs,
-      onFocus,
       floatingActions.refs.floating,
       floatingActions.refs.setReference,
       floatingFocus.refs.setReference,
       hasFocus,
+      inputRefs,
+      onFocus,
     ],
   );
 
@@ -128,12 +129,17 @@ const Board: FunctionComponent<Props> = ({ className }) => {
     dispatch(cellFilterSlice.actions.toggle(cell));
   }, [cell, dispatch, inputRef]);
 
+  const ref = useOnclickOutside(() => setHasFocus(false), {
+    ignoreClass: [styles.focus, styles.actions],
+  });
+
   return (
     <>
       <BoardPure
         className={className}
         cellSize={cellSize}
         inputRefs={inputRefs}
+        ref={ref}
         rows={rows}
         style={boardStyle}
         onBlur={handleBlur}

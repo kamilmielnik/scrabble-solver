@@ -60,7 +60,6 @@
 }
 
 .tile {
-  @include focus-effect;
   @include lighthouse-input-size-hack;
 
   &.sharpTopLeft {

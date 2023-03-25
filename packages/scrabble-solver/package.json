@@ -44,6 +44,7 @@
     "next": "^13.2.4",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
+    "react-cool-onclickoutside": "^1.7.0",
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",
     "react-portal": "^4.2.2",
