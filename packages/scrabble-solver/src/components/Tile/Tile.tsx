@@ -78,12 +78,6 @@ const Tile: FunctionComponent<Props> = ({
   );
 
   useEffect(() => {
-    if (autoFocus && ref.current) {
-      ref.current.focus();
-    }
-  }, [autoFocus, ref]);
-
-  useEffect(() => {
     if (!ref.current?.parentElement || !character || !animateTile) {
       return;
     }
