@@ -17,6 +17,10 @@
   transition-property: background-color, color, box-shadow;
   user-select: none;
 
+  @include media('<xs') {
+    --border--radius: 3px;
+  }
+
   &.points1 {
     --background-color: var(--color--yellow);
   }

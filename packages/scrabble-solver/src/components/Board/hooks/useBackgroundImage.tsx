@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 
-import { useAppLayout } from 'hooks';
+import { useAppLayout, useMediaQueries } from 'hooks';
 import { FlagFill, Star } from 'icons';
 import { dataUrlToBlob, getTileSizes } from 'lib';
 import { BORDER_COLOR_LIGHT, BORDER_RADIUS, BORDER_WIDTH, COLOR_BONUS_START, COLOR_FILTERED } from 'parameters';
@@ -14,6 +14,8 @@ import { Point } from 'types';
 
 import { getBonusColor } from '../lib';
 
+const BORDER_RADIUS_XS = 3;
+const GRID_LINE_SIZE = 1;
 const HORIZONTAL_LINE = 'h';
 const VERTICAL_LINE = 'v';
 const BONUS = 'b';
@@ -23,6 +25,8 @@ const CELL_FILTER = 'c';
 
 const useBackgroundImage = () => {
   const { boardSize, cellSize } = useAppLayout();
+  const { isLessThanXs } = useMediaQueries();
+  const borderRadius = isLessThanXs ? BORDER_RADIUS_XS : BORDER_RADIUS;
   const config = useTypedSelector(selectConfig);
   const center = { x: Math.floor(config.boardWidth / 2), y: Math.floor(config.boardHeight / 2) };
   const cellFilter = useTypedSelector(selectCellFilter);
@@ -53,19 +57,19 @@ const useBackgroundImage = () => {
       >
         <defs>
           <symbol id={HORIZONTAL_LINE}>
-            <rect fill={BORDER_COLOR_LIGHT} height={1} width={viewBoxWidth} />
+            <rect fill={BORDER_COLOR_LIGHT} height={GRID_LINE_SIZE} width={viewBoxWidth} />
           </symbol>
 
           <symbol id={VERTICAL_LINE}>
-            <rect fill={BORDER_COLOR_LIGHT} height={viewBoxHeight} width={1} />
+            <rect fill={BORDER_COLOR_LIGHT} height={viewBoxHeight} width={GRID_LINE_SIZE} />
           </symbol>
 
           <symbol id={BONUS}>
-            <rect height={bonusSize} rx={BORDER_RADIUS} width={bonusSize} x={bonusOffset} y={bonusOffset} />
+            <rect height={bonusSize} rx={borderRadius} width={bonusSize} x={bonusOffset} y={bonusOffset} />
           </symbol>
 
           <symbol id={BONUS_WORD_2}>
-            <rect height={bonusSize} rx={BORDER_RADIUS} width={bonusSize} x={bonusOffset} y={bonusOffset} />
+            <rect height={bonusSize} rx={borderRadius} width={bonusSize} x={bonusOffset} y={bonusOffset} />
 
             <text
               dominantBaseline="central"
@@ -82,7 +86,7 @@ const useBackgroundImage = () => {
           </symbol>
 
           <symbol id={BONUS_WORD_3}>
-            <rect height={bonusSize} rx={BORDER_RADIUS} width={bonusSize} x={bonusOffset} y={bonusOffset} />
+            <rect height={bonusSize} rx={borderRadius} width={bonusSize} x={bonusOffset} y={bonusOffset} />
 
             <text
               dominantBaseline="central"
@@ -102,7 +106,7 @@ const useBackgroundImage = () => {
             <rect
               fill={COLOR_FILTERED}
               height={bonusSize}
-              rx={BORDER_RADIUS}
+              rx={borderRadius}
               width={bonusSize}
               x={bonusOffset}
               y={bonusOffset}
@@ -112,7 +116,7 @@ const useBackgroundImage = () => {
           </symbol>
         </defs>
 
-        <rect fill="white" height={viewBoxHeight} rx={BORDER_RADIUS} width={viewBoxWidth} x="0" y="0" />
+        <rect fill="white" height={viewBoxHeight} rx={borderRadius} width={viewBoxWidth} x="0" y="0" />
 
         {Array.from({ length: config.boardHeight - 1 }).map((_value, index) => (
           <use key={index} href={`#${HORIZONTAL_LINE}`} y={(index + 1) * (cellSize + BORDER_WIDTH) - BORDER_WIDTH} />
@@ -137,7 +141,7 @@ const useBackgroundImage = () => {
         <rect
           fill={COLOR_BONUS_START}
           height={bonusSize}
-          rx={BORDER_RADIUS}
+          rx={borderRadius}
           width={bonusSize}
           x={getX(center) + bonusOffset}
           y={getY(center) + bonusOffset}
