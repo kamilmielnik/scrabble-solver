@@ -5,7 +5,9 @@ import {
   FocusEventHandler,
   FunctionComponent,
   KeyboardEventHandler,
+  MouseEventHandler,
   Ref,
+  TouchEventHandler,
   useCallback,
   useEffect,
   useMemo,
@@ -37,6 +39,8 @@ interface Props {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
+  onMouseDown?: MouseEventHandler<HTMLInputElement>;
+  onTouchStart?: TouchEventHandler<HTMLInputElement>;
 }
 
 const Tile: FunctionComponent<Props> = ({
@@ -57,6 +61,8 @@ const Tile: FunctionComponent<Props> = ({
   onChange,
   onFocus = noop,
   onKeyDown = noop,
+  onMouseDown = noop,
+  onTouchStart = noop,
 }) => {
   const locale = useTypedSelector(selectLocale);
   const { animateTile, showTilePoints } = useAppLayout();
@@ -111,6 +117,8 @@ const Tile: FunctionComponent<Props> = ({
       onChange={onChange}
       onFocus={onFocus}
       onKeyDown={handleKeyDown}
+      onMouseDown={onMouseDown}
+      onTouchStart={onTouchStart}
     />
   );
 };

@@ -6,7 +6,9 @@ import {
   FunctionComponent,
   KeyboardEventHandler,
   memo,
+  MouseEventHandler,
   Ref,
+  TouchEventHandler,
 } from 'react';
 
 import { ExclamationSquareFill } from 'icons';
@@ -34,6 +36,8 @@ interface Props {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
+  onMouseDown?: MouseEventHandler<HTMLInputElement>;
+  onTouchStart?: TouchEventHandler<HTMLInputElement>;
 }
 
 const TilePure: FunctionComponent<Props> = ({
@@ -57,6 +61,8 @@ const TilePure: FunctionComponent<Props> = ({
   onChange,
   onFocus,
   onKeyDown,
+  onMouseDown,
+  onTouchStart,
 }) => (
   <div
     className={classNames(styles.tile, className, {
@@ -90,6 +96,8 @@ const TilePure: FunctionComponent<Props> = ({
       onChange={onChange}
       onFocus={onFocus}
       onKeyDown={onKeyDown}
+      onMouseDown={onMouseDown}
+      onTouchStart={onTouchStart}
     />
 
     {canShowPoints && (
