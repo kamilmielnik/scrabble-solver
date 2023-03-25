@@ -1,6 +1,8 @@
+/* eslint-disable max-statements */
+
 import { autoUpdate, FloatingPortal, offset, shift, useFloating } from '@floating-ui/react';
 import classNames from 'classnames';
-import { CSSProperties, FocusEventHandler, FunctionComponent, useCallback, useMemo, useState } from 'react';
+import { CSSProperties, FocusEventHandler, FunctionComponent, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from 'hooks';
@@ -23,7 +25,6 @@ const Board: FunctionComponent<Props> = ({ className }) => {
   const config = useTypedSelector(selectConfig);
   const { actionsWidth, cellSize } = useAppLayout();
   const { tileFontSize } = getTileSizes(cellSize);
-
   const [{ activeIndex, direction, inputRefs }, { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste }] =
     useGrid(rows);
   const backgroundImage = useBackgroundImage();
@@ -36,7 +37,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
     }),
     [backgroundImage, config.boardHeight, config.boardWidth, tileFontSize],
   );
-  const [showActions, setShowActions] = useState(false);
+  const [hasFocus, setHasFocus] = useState(false);
   const [transition, setTransition] = useState<CSSProperties['transition']>(TRANSITION);
   const inputRef = inputRefs[activeIndex.y][activeIndex.x];
   const cell = rows[activeIndex.y][activeIndex.x];
@@ -53,17 +54,31 @@ const Board: FunctionComponent<Props> = ({ className }) => {
     whileElementsMounted: autoUpdate,
   });
 
+  const floatingFocus = useFloating({
+    placement: 'top-start',
+    whileElementsMounted: autoUpdate,
+  });
+
+  const floatingStyle: CSSProperties = {
+    transition,
+    opacity: hasFocus ? 1 : 0,
+    pointerEvents: hasFocus ? 'auto' : 'none',
+    userSelect: hasFocus ? 'auto' : 'none',
+    visibility: floatingFocus.x === null || floatingActions.y === null ? 'hidden' : 'visible',
+  };
+
   const handleBlur: FocusEventHandler = useCallback(
     (event) => {
       const eventComesFromActions = floatingActions.refs.floating.current?.contains(event.relatedTarget);
       const eventComesFromBoard = event.currentTarget.contains(event.relatedTarget);
-      const isLocalEvent = eventComesFromActions || eventComesFromBoard;
+      const eventComesFromFocus = floatingFocus.refs.floating.current?.contains(event.relatedTarget);
+      const isLocalEvent = eventComesFromActions || eventComesFromBoard || eventComesFromFocus;
 
       if (!isLocalEvent) {
-        setShowActions(false);
+        setHasFocus(false);
       }
     },
-    [floatingActions.refs.floating],
+    [floatingActions.refs.floating, floatingFocus.refs.floating],
   );
 
   const handleDirectionToggle = useCallback(() => {
@@ -73,7 +88,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
 
   const handleFocus: typeof onFocus = useCallback(
     (newX, newY) => {
-      const isFirstFocus = !showActions;
+      const isFirstFocus = !hasFocus;
       const originalTransition = floatingActions.refs.floating.current?.style.transition || '';
       const newInputRef = inputRefs[newY][newX].current;
       const newTileElement = newInputRef?.parentElement || null;
@@ -83,8 +98,9 @@ const Board: FunctionComponent<Props> = ({ className }) => {
       }
 
       floatingActions.refs.setReference(newTileElement);
+      floatingFocus.refs.setReference(newTileElement);
       onFocus(newX, newY);
-      setShowActions(true);
+      setHasFocus(true);
 
       if (isFirstFocus) {
         setTimeout(() => {
@@ -92,7 +108,14 @@ const Board: FunctionComponent<Props> = ({ className }) => {
         }, 0);
       }
     },
-    [inputRefs, onFocus, floatingActions.refs.floating, floatingActions.refs.setReference, showActions],
+    [
+      inputRefs,
+      onFocus,
+      floatingActions.refs.floating,
+      floatingActions.refs.setReference,
+      floatingFocus.refs.setReference,
+      hasFocus,
+    ],
   );
 
   const handleToggleBlank = useCallback(() => {
@@ -121,23 +144,35 @@ const Board: FunctionComponent<Props> = ({ className }) => {
       />
 
       <FloatingPortal>
+        <div
+          className={classNames(styles.focus, {
+            [styles.shown]: hasFocus,
+          })}
+          ref={floatingFocus.refs.setFloating}
+          style={{
+            ...floatingStyle,
+            position: floatingFocus.strategy,
+            top: floatingFocus.y ? floatingFocus.y + cellSize : 0,
+            left: floatingFocus.x ?? 0,
+            width: cellSize,
+            height: cellSize,
+          }}
+          tabIndex={0}
+        />
+
         <Actions
           cell={cell}
           className={classNames(styles.actions, {
-            [styles.shown]: showActions,
+            [styles.shown]: hasFocus,
           })}
-          disabled={!showActions}
+          disabled={!hasFocus}
           direction={direction}
           ref={floatingActions.refs.setFloating}
           style={{
+            ...floatingStyle,
             position: floatingActions.strategy,
             top: floatingActions.y ?? 0,
             left: floatingActions.x ?? 0,
-            transition,
-            opacity: showActions ? 1 : 0,
-            pointerEvents: showActions ? 'auto' : 'none',
-            userSelect: showActions ? 'auto' : 'none',
-            visibility: floatingActions.x === null || floatingActions.y === null ? 'hidden' : 'visible',
           }}
           onDirectionToggle={handleDirectionToggle}
           onToggleBlank={handleToggleBlank}
