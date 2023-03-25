@@ -19,7 +19,7 @@ const isTouchScreen = typeof globalThis.matchMedia !== 'undefined' && globalThis
 const settingsInitialState: SettingsState = {
   autoGroupTiles: typeof localStorageAutoGroupTiles === 'undefined' ? 'left' : localStorageAutoGroupTiles,
   configId: localStorage.getConfigId() || scrabble.id,
-  inputMode: isTouchScreen ? 'touchscreen' : 'keyboard',
+  inputMode: localStorage.getInputMode() || (isTouchScreen ? 'touchscreen' : 'keyboard'),
   locale: localStorage.getLocale() || guessLocale(),
 };
 
