@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from 'hooks';
 import { TRANSITION } from 'parameters';
-import { boardSlice, cellFilterSlice, selectRowsWithCandidate, useTypedSelector } from 'state';
+import { boardSlice, cellFilterSlice, selectInputMode, selectRowsWithCandidate, useTypedSelector } from 'state';
 
 import styles from './Board.module.scss';
 import BoardPure from './BoardPure';
@@ -20,6 +20,7 @@ interface Props {
 const Board: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const rows = useTypedSelector(selectRowsWithCandidate);
+  const inputMode = useTypedSelector(selectInputMode);
   const { cellSize } = useAppLayout();
   const [{ activeIndex, direction, inputRefs }, { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste }] =
     useGrid(rows);
@@ -44,11 +45,6 @@ const Board: FunctionComponent<Props> = ({ className }) => {
     },
     [floatingActions.refs.floating, floatingFocus.refs.floating],
   );
-
-  const handleDirectionToggle = useCallback(() => {
-    inputRef.current?.focus();
-    onDirectionToggle();
-  }, [inputRef, onDirectionToggle]);
 
   const handleFocus: typeof onFocus = useCallback(
     (newX, newY) => {
@@ -81,14 +77,28 @@ const Board: FunctionComponent<Props> = ({ className }) => {
   );
 
   const handleToggleBlank = useCallback(() => {
-    inputRef.current?.focus();
+    if (inputMode === 'keyboard') {
+      inputRef.current?.focus();
+    }
+
     dispatch(boardSlice.actions.toggleCellIsBlank(cell));
-  }, [cell, dispatch, inputRef]);
+  }, [cell, dispatch, inputMode, inputRef]);
+
+  const handleToggleDirection = useCallback(() => {
+    if (inputMode === 'keyboard') {
+      inputRef.current?.focus();
+    }
+
+    onDirectionToggle();
+  }, [inputMode, inputRef, onDirectionToggle]);
 
   const handleToggleFilterCell = useCallback(() => {
-    inputRef.current?.focus();
+    if (inputMode === 'keyboard') {
+      inputRef.current?.focus();
+    }
+
     dispatch(cellFilterSlice.actions.toggle(cell));
-  }, [cell, dispatch, inputRef]);
+  }, [cell, dispatch, inputMode, inputRef]);
 
   const ref = useOnclickOutside(() => setHasFocus(false), {
     ignoreClass: [styles.focus, styles.actions],
@@ -152,7 +162,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
             top: floatingActions.y ?? 0,
             left: floatingActions.x ?? 0,
           }}
-          onDirectionToggle={handleDirectionToggle}
+          onDirectionToggle={handleToggleDirection}
           onToggleBlank={handleToggleBlank}
           onToggleFilterCell={handleToggleFilterCell}
         />
