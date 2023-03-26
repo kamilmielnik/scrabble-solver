@@ -1,71 +1,46 @@
-/* eslint-disable max-statements */
-
-import { autoUpdate, FloatingPortal, offset, shift, useFloating } from '@floating-ui/react';
+import { FloatingPortal } from '@floating-ui/react';
 import classNames from 'classnames';
-import { CSSProperties, FocusEventHandler, FunctionComponent, useCallback, useMemo, useState } from 'react';
+import { CSSProperties, FocusEventHandler, FunctionComponent, useCallback, useState } from 'react';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from 'hooks';
-import { getTileSizes } from 'lib';
-import { BOARD_CELL_ACTIONS_OFFSET, TRANSITION } from 'parameters';
-import { boardSlice, cellFilterSlice, selectConfig, selectRowsWithCandidate, useTypedSelector } from 'state';
+import { TRANSITION } from 'parameters';
+import { boardSlice, cellFilterSlice, selectRowsWithCandidate, useTypedSelector } from 'state';
 
 import styles from './Board.module.scss';
 import BoardPure from './BoardPure';
 import { Actions } from './components';
-import { useBackgroundImage, useGrid } from './hooks';
+import { useBoardStyle, useFloatingActions, useFloatingFocus, useGrid } from './hooks';
 
 interface Props {
   className?: string;
 }
 
+
 const Board: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const rows = useTypedSelector(selectRowsWithCandidate);
-  const config = useTypedSelector(selectConfig);
-  const { actionsWidth, cellSize } = useAppLayout();
-  const { tileFontSize } = getTileSizes(cellSize);
+  const { cellSize } = useAppLayout();
   const [{ activeIndex, direction, inputRefs }, { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste }] =
     useGrid(rows);
-  const backgroundImage = useBackgroundImage();
-  const boardStyle = useMemo<CSSProperties>(
-    () => ({
-      backgroundImage,
-      fontSize: tileFontSize,
-      gridTemplateColumns: `repeat(${config.boardWidth}, 1fr)`,
-      gridTemplateRows: `repeat(${config.boardHeight}, 1fr)`,
-    }),
-    [backgroundImage, config.boardHeight, config.boardWidth, tileFontSize],
-  );
+  const boardStyle = useBoardStyle();
   const [hasFocus, setHasFocus] = useState(false);
   const [transition, setTransition] = useState<CSSProperties['transition']>(TRANSITION);
   const inputRef = inputRefs[activeIndex.y][activeIndex.x];
   const cell = rows[activeIndex.y][activeIndex.x];
-
-  const floatingActions = useFloating({
-    middleware: [
-      offset({
-        mainAxis: -BOARD_CELL_ACTIONS_OFFSET,
-        alignmentAxis: BOARD_CELL_ACTIONS_OFFSET - actionsWidth,
-      }),
-      shift(),
-    ],
-    placement: 'top-end',
-    whileElementsMounted: autoUpdate,
-  });
-
-  const floatingFocus = useFloating({
-    placement: 'top-start',
-    whileElementsMounted: autoUpdate,
-  });
+  const floatingActions = useFloatingActions();
+  const floatingFocus = useFloatingFocus();
 
   const floatingStyle: CSSProperties = {
     transition,
     opacity: hasFocus ? 1 : 0,
     pointerEvents: hasFocus ? 'auto' : 'none',
     userSelect: hasFocus ? 'auto' : 'none',
-    visibility: floatingFocus.x === null || floatingActions.y === null ? 'hidden' : 'visible',
+    visibility:
+      floatingFocus.x === null || floatingFocus.y === null || floatingActions.x ===null||floatingActions.y === null
+        ? 'hidden'
+        : 'visible',
   };
 
   const handleBlur: FocusEventHandler = useCallback(
