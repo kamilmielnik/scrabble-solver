@@ -19,6 +19,7 @@ import {
   selectCharacterIsValid,
   selectCharacterPoints,
   selectConfig,
+  selectInputMode,
   selectLocale,
   useTranslate,
   useTypedSelector,
@@ -55,6 +56,7 @@ const RackTile: FunctionComponent<Props> = ({
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const config = useTypedSelector(selectConfig);
+  const inputMode = useTypedSelector(selectInputMode);
   const points = useTypedSelector((state) => selectCharacterPoints(state, character));
   const isValid = useTypedSelector((state) => selectCharacterIsValid(state, character));
 
@@ -89,7 +91,7 @@ const RackTile: FunctionComponent<Props> = ({
       aria-label={translate('rack.tile.location', {
         index: (index + 1).toLocaleString(locale),
       })}
-      autoFocus={index === 0}
+      autoFocus={inputMode === 'keyboard' && index === 0}
       className={classNames(styles.tile, className)}
       character={character === null ? undefined : character}
       highlighted={tile !== null}
