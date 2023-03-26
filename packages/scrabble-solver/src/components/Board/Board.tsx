@@ -57,16 +57,14 @@ const Board: FunctionComponent<Props> = ({ className }) => {
       const newInputRef = inputRefs[newY][newX].current;
       const newTileElement = newInputRef?.parentElement || null;
 
-      if (isFirstFocus) {
-        setTransition('none');
-      }
-
       floatingActions.refs.setReference(newTileElement);
       floatingFocus.refs.setReference(newTileElement);
       onFocus(newX, newY);
       setHasFocus(true);
 
       if (isFirstFocus) {
+        setTransition('none');
+
         setTimeout(() => {
           setTransition(originalTransition);
         }, 0);
