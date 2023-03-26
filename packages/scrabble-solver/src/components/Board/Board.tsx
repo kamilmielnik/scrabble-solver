@@ -17,7 +17,6 @@ interface Props {
   className?: string;
 }
 
-
 const Board: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const rows = useTypedSelector(selectRowsWithCandidate);
@@ -31,17 +30,6 @@ const Board: FunctionComponent<Props> = ({ className }) => {
   const cell = rows[activeIndex.y][activeIndex.x];
   const floatingActions = useFloatingActions();
   const floatingFocus = useFloatingFocus();
-
-  const floatingStyle: CSSProperties = {
-    transition,
-    opacity: hasFocus ? 1 : 0,
-    pointerEvents: hasFocus ? 'auto' : 'none',
-    userSelect: hasFocus ? 'auto' : 'none',
-    visibility:
-      floatingFocus.x === null || floatingFocus.y === null || floatingActions.x ===null||floatingActions.y === null
-        ? 'hidden'
-        : 'visible',
-  };
 
   const handleBlur: FocusEventHandler = useCallback(
     (event) => {
@@ -107,6 +95,17 @@ const Board: FunctionComponent<Props> = ({ className }) => {
   const ref = useOnclickOutside(() => setHasFocus(false), {
     ignoreClass: [styles.focus, styles.actions],
   });
+
+  const floatingStyle: CSSProperties = {
+    transition,
+    opacity: hasFocus ? 1 : 0,
+    pointerEvents: hasFocus ? 'auto' : 'none',
+    userSelect: hasFocus ? 'auto' : 'none',
+    visibility:
+      floatingFocus.x === null || floatingFocus.y === null || floatingActions.x === null || floatingActions.y === null
+        ? 'hidden'
+        : 'visible',
+  };
 
   return (
     <>
