@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { FunctionComponent, memo } from 'react';
 
 import { useAppLayout } from 'hooks';
-import { CardChecklist, Cog, Eraser, Github, Keyboard, List, Sack } from 'icons';
+import { CardChecklist, Cog, Eraser, Github, KeyboardFill, List, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { selectHasInvalidWords, selectHasOverusedTiles, useTranslate, useTypedSelector } from 'state';
 
@@ -117,7 +117,7 @@ const NavButtons: FunctionComponent<Props> = ({
           <IconButton
             aria-label={translate('keyMap')}
             className={styles.button}
-            Icon={Keyboard}
+            Icon={KeyboardFill}
             tooltip={translate('keyMap')}
             onClick={onShowKeyMap}
           />

@@ -31,6 +31,7 @@ export { default as FlagUs } from './FlagUs.svg';
 export { default as Github } from './Github.svg';
 export { default as InfoCircleFill } from './InfoCircleFill.svg';
 export { default as Keyboard } from './Keyboard.svg';
+export { default as KeyboardFill } from './KeyboardFill.svg';
 export { default as List } from './List.svg';
 export { default as Sack } from './Sack.svg';
 export { default as Search } from './Search.svg';

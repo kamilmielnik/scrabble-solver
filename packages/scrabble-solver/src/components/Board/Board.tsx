@@ -1,3 +1,5 @@
+/* eslint-disable max-statements */
+
 import { FloatingPortal } from '@floating-ui/react';
 import classNames from 'classnames';
 import { CSSProperties, FocusEventHandler, FunctionComponent, useCallback, useState } from 'react';
@@ -75,6 +77,10 @@ const Board: FunctionComponent<Props> = ({ className }) => {
       onFocus,
     ],
   );
+
+  const handleEnterWord = useCallback(() => {
+    throw new Error('Not implemented');
+  }, []);
 
   const handleToggleBlank = useCallback(() => {
     if (inputMode === 'keyboard') {
@@ -163,6 +169,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
             left: floatingActions.x ?? 0,
           }}
           onDirectionToggle={handleToggleDirection}
+          onEnterWord={handleEnterWord}
           onToggleBlank={handleToggleBlank}
           onToggleFilterCell={handleToggleFilterCell}
         />

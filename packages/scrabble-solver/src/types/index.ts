@@ -47,6 +47,7 @@ export enum ResultColumn {
   WordsCount = 'words-count',
 }
 export type TranslationKey =
+  | 'cell.enter-word'
   | 'cell.filter-cell'
   | 'cell.set-blank'
   | 'cell.set-not-blank'
