@@ -87,6 +87,7 @@
   color: transparent;
   caret-color: transparent;
   font-size: 16px; // prevent iOS from automatically zooming in on focus
+  outline: none;
 
   &::selection {
     --background--color: transparent;
