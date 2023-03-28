@@ -1,10 +1,11 @@
 import { Locale } from '@scrabble-solver/types';
 
-import { english, french, german, persian, polish, romanian, spanish, turkish } from './languages';
+import { catalan, english, french, german, persian, polish, romanian, spanish, turkish } from './languages';
 import { normalizeDefinition, unique } from './lib';
 import { type ParsingResult } from './types';
 
 const parsePerLocale: Record<Locale, (html: string) => ParsingResult> = {
+  [Locale.CA_ES]: catalan.parse,
   [Locale.DE_DE]: german.parse,
   [Locale.EN_GB]: english.parse,
   [Locale.EN_US]: english.parse,
