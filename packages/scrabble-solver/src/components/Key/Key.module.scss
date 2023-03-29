@@ -1,19 +1,15 @@
-$key-size: 36px;
-$icon-size: 15px;
-
 .key {
   position: relative;
-  top: calc(0px - 2 * var(--border--width));
   display: inline-block;
-  min-width: $key-size;
-  height: $key-size;
+  min-width: var(--key--height);
+  height: var(--key--height);
   padding: var(--spacing--s) var(--spacing--m);
   background-color: var(--color--white);
   border: var(--border);
   border-radius: var(--border--radius);
   box-shadow: var(--box-shadow);
   font-family: var(--font--family--monospace);
-  line-height: calc(#{$key-size} - 2 * (var(--spacing--s) + var(--border--width)));
+  line-height: calc(var(--key--height) - 2 * (var(--spacing--s) + var(--border--width)));
   vertical-align: middle;
   text-align: center;
   white-space: nowrap;
@@ -24,9 +20,9 @@ $icon-size: 15px;
 
   :global(svg) {
     position: absolute;
-    top: calc(#{($key-size - $icon-size) / 2} - var(--border--width));
-    left: calc(#{($key-size - $icon-size) / 2} - var(--border--width));
-    width: $icon-size;
-    height: $icon-size;
+    top: calc((var(--key--height) - var(--key--icon--size)) / 2 - var(--border--width));
+    left: calc((var(--key--height) - var(--key--icon--size)) / 2 - var(--border--width));
+    width: var(--key--icon--size);
+    height: var(--key--icon--size);
   }
 }

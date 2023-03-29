@@ -18,13 +18,19 @@
   flex-wrap: wrap;
 }
 
-.group,
-.plus {
+.group {
   margin: 0 var(--spacing--s);
 }
 
-.slash {
-  margin: 0 var(--spacing--m);
+.slash,
+.plus {
+  min-width: var(--key--height);
+  height: var(--key--height);
+  padding: var(--spacing--s) var(--spacing--m);
+  font-family: var(--font--family--monospace);
+  line-height: calc(var(--key--height) - 2 * (var(--spacing--s) + var(--border--width)));
+  vertical-align: middle;
+  text-align: center;
 }
 
 .group {
