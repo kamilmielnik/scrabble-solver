@@ -13,7 +13,7 @@ import { boardSlice, cellFilterSlice, selectInputMode, selectRowsWithCandidate, 
 import styles from './Board.module.scss';
 import BoardPure from './BoardPure';
 import { Actions, InputPrompt } from './components';
-import { useBoardStyle, useFloatingActions, useFloatingFocus, useGrid } from './hooks';
+import { useBoardStyle, useFloatingActions, useFloatingFocus, useFloatingInputPrompt, useGrid } from './hooks';
 
 interface Props {
   className?: string;
@@ -33,7 +33,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
   const inputRef = inputRefs[activeIndex.y][activeIndex.x];
   const cell = rows[activeIndex.y][activeIndex.x];
   const floatingActions = useFloatingActions();
-  const floatingInputPrompt = useFloatingActions();
+  const floatingInputPrompt = useFloatingInputPrompt();
   const floatingFocus = useFloatingFocus();
 
   const handleBlur: FocusEventHandler = useCallback(
