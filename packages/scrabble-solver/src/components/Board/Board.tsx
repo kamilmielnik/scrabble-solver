@@ -15,7 +15,7 @@ import {
   selectInputMode,
   selectLocale,
   selectRowsWithCandidate,
-  useTypedSelector
+  useTypedSelector,
 } from 'state';
 
 import styles from './Board.module.scss';
