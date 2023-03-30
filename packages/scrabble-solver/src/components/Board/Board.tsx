@@ -1,4 +1,4 @@
-/* eslint-disable max-statements */
+/* eslint-disable max-lines, max-statements */
 
 import { FloatingPortal, ReferenceType } from '@floating-ui/react';
 import classNames from 'classnames';
@@ -24,8 +24,10 @@ const Board: FunctionComponent<Props> = ({ className }) => {
   const rows = useTypedSelector(selectRowsWithCandidate);
   const inputMode = useTypedSelector(selectInputMode);
   const { cellSize } = useAppLayout();
-  const [{ activeIndex, direction, inputRefs }, { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste }] =
-    useGrid(rows);
+  const [
+    { activeIndex, direction, inputRefs },
+    { insertValue, onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
+  ] = useGrid(rows);
   const boardStyle = useBoardStyle();
   const [hasFocus, setHasFocus] = useState(false);
   const [showInputPrompt, setShowInputPrompt] = useState(false);
@@ -38,16 +40,17 @@ const Board: FunctionComponent<Props> = ({ className }) => {
 
   const handleBlur: FocusEventHandler = useCallback(
     (event) => {
-      const eventComesFromActions = floatingActions.refs.floating.current?.contains(event.relatedTarget);
-      const eventComesFromBoard = event.currentTarget.contains(event.relatedTarget);
-      const eventComesFromFocus = floatingFocus.refs.floating.current?.contains(event.relatedTarget);
-      const isLocalEvent = eventComesFromActions || eventComesFromBoard || eventComesFromFocus;
+      const comesFromActions = floatingActions.refs.floating.current?.contains(event.relatedTarget);
+      const comesFromBoard = event.currentTarget.contains(event.relatedTarget);
+      const comesFromFocus = floatingFocus.refs.floating.current?.contains(event.relatedTarget);
+      const comesFromInputPrompt = floatingInputPrompt.refs.floating.current?.contains(event.relatedTarget);
+      const isLocalEvent = comesFromActions || comesFromBoard || comesFromFocus || comesFromInputPrompt;
 
       if (!isLocalEvent) {
         setHasFocus(false);
       }
     },
-    [floatingActions.refs.floating, floatingFocus.refs.floating],
+    [floatingActions.refs.floating, floatingFocus.refs.floating, floatingInputPrompt.refs.floating],
   );
 
   const updateFloatingReference = useCallback(
@@ -74,7 +77,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
       if (isFirstFocus) {
         setTransition('none');
 
-        setTimeout(() => {
+        globalThis.setTimeout(() => {
           setTransition(originalTransition);
         }, 0);
       }
@@ -85,6 +88,14 @@ const Board: FunctionComponent<Props> = ({ className }) => {
   const handleEnterWord = useCallback(() => {
     setShowInputPrompt(true);
   }, []);
+
+  const handleInsertWord = useCallback(
+    (word: string) => {
+      insertValue(activeIndex, word);
+      setShowInputPrompt(false);
+    },
+    [activeIndex],
+  );
 
   const handleToggleBlank = useCallback(() => {
     if (inputMode === 'keyboard') {
@@ -154,14 +165,11 @@ const Board: FunctionComponent<Props> = ({ className }) => {
             cell={cell}
             className={styles.floating}
             direction={direction}
-            disabled={!hasFocus || showInputPrompt}
             ref={floatingActions.refs.setFloating}
             style={{
               position: floatingActions.strategy,
               top: floatingActions.y ?? 0,
               left: floatingActions.x ?? 0,
-              opacity: hasFocus && !showInputPrompt ? 1 : 0,
-              visibility: floatingActions.x === null || floatingActions.y === null ? 'hidden' : 'visible',
               transition,
             }}
             onDirectionToggle={handleToggleDirection}
@@ -175,17 +183,16 @@ const Board: FunctionComponent<Props> = ({ className }) => {
           <InputPrompt
             className={styles.floating}
             direction={direction}
-            disabled={!hasFocus || !showInputPrompt}
+            initialValue={cell.tile.character}
             ref={floatingInputPrompt.refs.setFloating}
             style={{
               position: floatingInputPrompt.strategy,
               top: floatingInputPrompt.y ?? 0,
               left: floatingInputPrompt.x ?? 0,
-              opacity: hasFocus && showInputPrompt ? 1 : 0,
-              visibility: floatingInputPrompt.x === null || floatingInputPrompt.y === null ? 'hidden' : 'visible',
               transition,
             }}
             onDirectionToggle={handleToggleDirection}
+            onSubmit={handleInsertWord}
           />
         )}
       </FloatingPortal>

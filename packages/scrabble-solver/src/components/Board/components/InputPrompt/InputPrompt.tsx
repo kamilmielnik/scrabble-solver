@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FormEventHandler, forwardRef, HTMLProps, MouseEventHandler, useEffect, useRef, useState } from 'react';
+import { FormEventHandler, forwardRef, HTMLProps, MouseEventHandler, useEffect, useState } from 'react';
 
 import { Check } from 'icons';
 import { useTranslate } from 'state';
@@ -10,29 +10,34 @@ import ToggleDirectionButton from '../ToggleDirectionButton';
 
 import styles from './InputPrompt.module.scss';
 
-interface Props extends HTMLProps<HTMLFormElement> {
+interface Props extends Omit<HTMLProps<HTMLFormElement>, 'onSubmit'> {
   className?: string;
   direction: Direction;
+  initialValue: string;
   onDirectionToggle: MouseEventHandler<HTMLButtonElement>;
+  onSubmit: (input: string) => void;
 }
 
 const InputPrompt = forwardRef<HTMLFormElement, Props>(
-  ({ className, direction, disabled, onDirectionToggle, ...props }, ref) => {
+  ({ className, direction, disabled, initialValue, onDirectionToggle, onSubmit, ...props }, ref) => {
     const translate = useTranslate();
-    const inputRef = useRef<HTMLInputElement>(null);
-    const [input, setInput] = useState('');
+    const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
+    const [input, setInput] = useState(initialValue.trim());
 
     // On iOS it helps with losing focus too early which makes Actions disappear
     const handleMouseDown: MouseEventHandler = (event) => event.preventDefault();
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
       event.preventDefault();
-
-      console.log('submit');
+      event.stopPropagation();
+      onSubmit(input);
     };
 
     useEffect(() => {
-      inputRef.current?.focus();
+      if (inputRef) {
+        inputRef.focus();
+        inputRef.select();
+      }
     }, [inputRef]);
 
     return (
@@ -47,10 +52,10 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
 
         <div>
           <input
-            autoFocus
             className={styles.input}
             placeholder={translate('rack.placeholder')}
-            ref={inputRef}
+            ref={setInputRef}
+            tabIndex={disabled ? -1 : undefined}
             value={input}
             onChange={(event) => setInput(event.target.value)}
           />
