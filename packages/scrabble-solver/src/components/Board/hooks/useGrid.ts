@@ -17,7 +17,7 @@ import { useDispatch } from 'react-redux';
 
 import { useLatest } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
-import { createGridOf, createKeyboardNavigation, extractCharacters, extractInputValue } from 'lib';
+import { createGridOf, createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
 import { boardSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
 import { Direction, Point } from 'types';
 
@@ -290,6 +290,22 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
         const { x, y } = position;
         const character = event.key.toLowerCase();
+        const isTogglingBlank = isCtrl(event) && character === 'b';
+        const twoCharacterTile = config.getTwoCharacterTileByPrefix(character);
+
+        if (isTogglingBlank) {
+          event.preventDefault();
+          dispatch(boardSlice.actions.toggleCellIsBlank(position));
+          return;
+        }
+
+        if (isCtrl(event) && twoCharacterTile) {
+          event.preventDefault();
+          dispatch(boardSlice.actions.changeCellValue({ x, y, value: twoCharacterTile }));
+          moveFocus(1);
+          return;
+        }
+
         const cell = rows[y][x];
         const twoCharacterCandidate = cell.tile.character + character;
 
