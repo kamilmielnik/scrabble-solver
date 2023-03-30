@@ -9,7 +9,14 @@ import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from 'hooks';
 import { TRANSITION } from 'parameters';
-import { boardSlice, cellFilterSlice, selectInputMode, selectRowsWithCandidate, useTypedSelector } from 'state';
+import {
+  boardSlice,
+  cellFilterSlice,
+  selectInputMode,
+  selectLocale,
+  selectRowsWithCandidate,
+  useTypedSelector,
+} from 'state';
 
 import styles from './Board.module.scss';
 import BoardPure from './BoardPure';
@@ -22,6 +29,7 @@ interface Props {
 
 const Board: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
+  const locale = useTypedSelector(selectLocale);
   const rows = useTypedSelector(selectRowsWithCandidate);
   const inputMode = useTypedSelector(selectInputMode);
   const { cellSize } = useAppLayout();
@@ -95,12 +103,12 @@ const Board: FunctionComponent<Props> = ({ className }) => {
       if (word.length === 0) {
         dispatch(boardSlice.actions.changeCellValue({ ...activeIndex, value: EMPTY_CELL }));
       } else {
-        insertValue(activeIndex, word);
+        insertValue(activeIndex, word.toLocaleLowerCase(locale));
       }
 
       setShowInputPrompt(false);
     },
-    [activeIndex, dispatch],
+    [activeIndex, dispatch, locale],
   );
 
   const handleToggleBlank = useCallback(() => {

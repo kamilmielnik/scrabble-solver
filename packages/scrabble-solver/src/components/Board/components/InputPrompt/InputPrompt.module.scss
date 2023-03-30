@@ -23,10 +23,11 @@
 .input {
   @include text-input;
 
+  height: 100%;
+  max-width: 200px;
   border: none;
   border-top: var(--border);
   border-bottom: var(--border);
-  height: 100%;
 }
 
 .insert {
