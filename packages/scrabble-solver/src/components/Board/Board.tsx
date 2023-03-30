@@ -15,7 +15,7 @@ import {
   selectInputMode,
   selectLocale,
   selectRowsWithCandidate,
-  useTypedSelector,
+  useTypedSelector
 } from 'state';
 
 import styles from './Board.module.scss';
@@ -100,7 +100,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
 
   const handleInsertWord = useCallback(
     (word: string) => {
-      if (word.length === 0) {
+      if (word.trim().length === 0) {
         dispatch(boardSlice.actions.changeCellValue({ ...activeIndex, value: EMPTY_CELL }));
       } else {
         insertValue(activeIndex, word.toLocaleLowerCase(locale));
