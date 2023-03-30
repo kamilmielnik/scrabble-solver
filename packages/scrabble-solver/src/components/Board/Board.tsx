@@ -32,8 +32,8 @@ const Board: FunctionComponent<Props> = ({ className }) => {
   const [transition, setTransition] = useState<CSSProperties['transition']>(TRANSITION);
   const inputRef = inputRefs[activeIndex.y][activeIndex.x];
   const cell = rows[activeIndex.y][activeIndex.x];
-  const floatingActions = useFloatingActions();
-  const floatingInputPrompt = useFloatingActions();
+  const floatingActions = useFloatingActions('top-end');
+  const floatingInputPrompt = useFloatingActions('top');
   const floatingFocus = useFloatingFocus();
 
   const handleBlur: FocusEventHandler = useCallback(
