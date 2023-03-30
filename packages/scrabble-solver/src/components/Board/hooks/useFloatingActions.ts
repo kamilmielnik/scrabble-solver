@@ -1,9 +1,9 @@
-import { autoUpdate, offset, Placement, shift, useFloating } from '@floating-ui/react';
+import { autoUpdate, offset, shift, useFloating } from '@floating-ui/react';
 
 import { useAppLayout } from 'hooks';
 import { BOARD_CELL_ACTIONS_OFFSET } from 'parameters';
 
-const useFloatingActions = (placement: Placement) => {
+const useFloatingActions = () => {
   const { actionsWidth } = useAppLayout();
 
   return useFloating({
@@ -14,7 +14,7 @@ const useFloatingActions = (placement: Placement) => {
       }),
       shift(),
     ],
-    placement,
+    placement: 'top-end',
     whileElementsMounted: autoUpdate,
   });
 };
