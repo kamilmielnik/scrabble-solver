@@ -159,8 +159,8 @@ const Board: FunctionComponent<Props> = ({ className }) => {
           className={classNames(styles.actions, {
             [styles.shown]: hasFocus,
           })}
-          disabled={!hasFocus}
           direction={direction}
+          disabled={!hasFocus}
           ref={floatingActions.refs.setFloating}
           style={{
             ...floatingStyle,
