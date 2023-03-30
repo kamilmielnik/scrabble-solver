@@ -19,7 +19,7 @@ interface Props extends Omit<HTMLProps<HTMLFormElement>, 'onSubmit'> {
 }
 
 const InputPrompt = forwardRef<HTMLFormElement, Props>(
-  ({ className, direction, disabled, initialValue, onDirectionToggle, onSubmit, ...props }, ref) => {
+  ({ className, direction, initialValue, onDirectionToggle, onSubmit, ...props }, ref) => {
     const translate = useTranslate();
     const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
     const [input, setInput] = useState(initialValue.trim());
@@ -45,7 +45,6 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
         <ToggleDirectionButton
           className={styles.toggleDirection}
           direction={direction}
-          tabIndex={disabled ? -1 : undefined}
           onClick={onDirectionToggle}
           onMouseDown={handleMouseDown}
         />
@@ -55,7 +54,6 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
             className={styles.input}
             placeholder={translate('rack.placeholder')}
             ref={setInputRef}
-            tabIndex={disabled ? -1 : undefined}
             value={input}
             onChange={(event) => setInput(event.target.value)}
           />
@@ -66,7 +64,6 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
           className={styles.insert}
           Icon={Check}
           iconClassName={styles.insertIcon}
-          tabIndex={disabled ? -1 : undefined}
           tooltip={translate('results.insert')}
           type="submit"
           variant="primary"

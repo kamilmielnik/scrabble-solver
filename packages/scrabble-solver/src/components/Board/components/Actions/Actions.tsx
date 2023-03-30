@@ -30,17 +30,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
 
 const Actions = forwardRef<HTMLDivElement, Props>(
   (
-    {
-      cell,
-      className,
-      direction,
-      disabled,
-      onDirectionToggle,
-      onEnterWord,
-      onToggleBlank,
-      onToggleFilterCell,
-      ...props
-    },
+    { cell, className, direction, onDirectionToggle, onEnterWord, onToggleBlank, onToggleFilterCell, ...props },
     ref,
   ) => {
     const translate = useTranslate();
@@ -60,7 +50,6 @@ const Actions = forwardRef<HTMLDivElement, Props>(
             aria-label={translate('cell.enter-word')}
             className={styles.action}
             Icon={Keyboard}
-            tabIndex={disabled ? -1 : undefined}
             tooltip={translate('cell.enter-word')}
             onClick={onEnterWord}
             onMouseDown={handleMouseDown}
@@ -71,7 +60,6 @@ const Actions = forwardRef<HTMLDivElement, Props>(
           <ToggleDirectionButton
             className={styles.action}
             direction={direction}
-            tabIndex={disabled ? -1 : undefined}
             onClick={onDirectionToggle}
             onMouseDown={handleMouseDown}
           />
@@ -82,7 +70,6 @@ const Actions = forwardRef<HTMLDivElement, Props>(
             aria-label={translate('cell.filter-cell')}
             className={classNames(styles.action)}
             Icon={isFiltered ? Flag : FlagFill}
-            tabIndex={disabled ? -1 : undefined}
             tooltip={translate('cell.filter-cell')}
             onClick={onToggleFilterCell}
             onMouseDown={handleMouseDown}
@@ -94,7 +81,6 @@ const Actions = forwardRef<HTMLDivElement, Props>(
             aria-label={isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
             className={styles.action}
             Icon={isBlank ? SquareFill : Square}
-            tabIndex={disabled ? -1 : undefined}
             tooltip={isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
             onClick={onToggleBlank}
             onMouseDown={handleMouseDown}
