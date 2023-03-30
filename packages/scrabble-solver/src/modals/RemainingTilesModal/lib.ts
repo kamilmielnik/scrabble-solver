@@ -54,7 +54,7 @@ function isOverused({ count, usedCount }: RemainingTile): boolean {
   return typeof count !== 'undefined' && usedCount > count;
 }
 
-const isTwoCharacter = (tile: RemainingTile): boolean => tile.character.length === 2;
+const isTwoCharacter = (tile: RemainingTile): boolean => tile.character.length === 2 || tile.character === 'l·l';
 
 const isBlank = (tile: RemainingTile): boolean => tile.character === BLANK;
 
