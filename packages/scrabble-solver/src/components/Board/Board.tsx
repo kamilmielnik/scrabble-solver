@@ -1,6 +1,7 @@
 /* eslint-disable max-lines, max-statements */
 
 import { FloatingPortal, ReferenceType } from '@floating-ui/react';
+import { EMPTY_CELL } from '@scrabble-solver/constants';
 import classNames from 'classnames';
 import { CSSProperties, FocusEventHandler, FunctionComponent, useCallback, useState } from 'react';
 import useOnclickOutside from 'react-cool-onclickoutside';
@@ -91,10 +92,15 @@ const Board: FunctionComponent<Props> = ({ className }) => {
 
   const handleInsertWord = useCallback(
     (word: string) => {
-      insertValue(activeIndex, word);
+      if (word.length === 0) {
+        dispatch(boardSlice.actions.changeCellValue({ ...activeIndex, value: EMPTY_CELL }));
+      } else {
+        insertValue(activeIndex, word);
+      }
+
       setShowInputPrompt(false);
     },
-    [activeIndex],
+    [activeIndex, dispatch],
   );
 
   const handleToggleBlank = useCallback(() => {
