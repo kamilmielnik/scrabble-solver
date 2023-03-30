@@ -61,6 +61,7 @@ const Cell: FunctionComponent<Props> = ({
     (event) => {
       if (inputMode === 'touchscreen') {
         event.preventDefault();
+        event.target.blur();
       }
 
       onFocus(x, y);
