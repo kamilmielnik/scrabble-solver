@@ -1,0 +1,25 @@
+import { scrabble } from '@scrabble-solver/configs';
+import { BLANK } from '@scrabble-solver/constants';
+import { Locale } from '@scrabble-solver/types';
+
+import extractCharacters from './extractCharacters';
+
+const tests = [
+  { input: 'ab ', expected: ['a', 'b', BLANK] },
+  { input: 'śćźa', expected: ['a'] },
+  { input: 'bueno', expected: ['b', 'u', 'e', 'n', 'o'] },
+  { input: 'bellas', expected: ['b', 'e', 'll', 'a', 's'] },
+  { input: 'churro', expected: ['ch', 'u', 'rr', 'o'] },
+  { input: 'challulla', expected: ['ch', 'a', 'll', 'u', 'll', 'a'] },
+];
+
+describe('extractCharacters', () => {
+  const locale = Locale.ES_ES;
+  const config = scrabble[locale];
+
+  for (const { input, expected } of tests) {
+    it(`[${locale}] "${input}"`, () => {
+      expect(extractCharacters(config, input)).toEqual(expected);
+    });
+  }
+});
