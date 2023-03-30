@@ -6,11 +6,12 @@ const getCellsScore = (config: Config, cells: Cell[]): number => {
     ({ multiplier, score }, cell: Cell): { multiplier: number; score: number } => {
       const bonus = config.getCellBonus(cell);
       const { characterMultiplier, wordMultiplier } = bonus && bonus.canApply(config, cell) ? bonus.value : NO_BONUS;
-      const characterScore = cell.tile.isBlank ? config.blankScore : config.pointsMap[cell.tile.character];
+      const characterScore = config.pointsMap[cell.tile.character] || 0;
+      const tileScore = cell.tile.isBlank ? config.blankScore : characterScore;
 
       return {
         multiplier: multiplier * wordMultiplier,
-        score: score + characterScore * characterMultiplier,
+        score: score + tileScore * characterMultiplier,
       };
     },
     { multiplier: 1, score: 0 },
