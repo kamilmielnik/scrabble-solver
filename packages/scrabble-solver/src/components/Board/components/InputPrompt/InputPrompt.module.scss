@@ -1,0 +1,45 @@
+@import 'styles/mixins';
+
+.inputPrompt {
+  display: flex;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border--radius);
+  transition: var(--transition);
+}
+
+.toggleDirection {
+  [dir='ltr'] & {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  [dir='rtl'] & {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+.input {
+  @include text-input;
+
+  border: none;
+  border-top: var(--border);
+  border-bottom: var(--border);
+  height: 100%;
+}
+
+.insert {
+  [dir='ltr'] & {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  [dir='rtl'] & {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+.insertIcon {
+  transform: scale(1.5);
+}

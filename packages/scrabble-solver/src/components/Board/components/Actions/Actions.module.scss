@@ -11,6 +11,11 @@
   padding: var(--spacing--m);
   box-shadow: none !important;
 
+  &:active,
+  &:hover {
+    color: var(--color--foreground);
+  }
+
   & + & {
     [dir='ltr'] & {
       border-left: none;
@@ -42,23 +47,6 @@
     &:last-child {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
-    }
-  }
-
-  &:active,
-  &:hover {
-    color: var(--color--foreground);
-  }
-}
-
-.toggleDirection {
-  transition: var(--transition);
-
-  &.right {
-    transform: rotate(-90deg);
-
-    [dir='rtl'] & {
-      transform: rotate(90deg);
     }
   }
 }

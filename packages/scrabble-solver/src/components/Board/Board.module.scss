@@ -9,21 +9,25 @@
   border-radius: var(--border--radius);
 }
 
-.actions,
-.focus {
+.floating {
   position: absolute;
   z-index: var(--z-index--actions);
   width: max-content;
   height: max-content;
   animation: var(--transition--duration) var(--transition--easing) hide;
+  pointer-events: none;
+  user-select: none;
 
   &.shown {
     animation: var(--transition--duration) var(--transition--easing) show;
+    pointer-events: auto;
+    user-select: auto;
   }
 }
 
 .focus {
   @include focus-effect;
+
   cursor: text;
 
   &::after {

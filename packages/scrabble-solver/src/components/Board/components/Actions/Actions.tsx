@@ -3,7 +3,7 @@ import { Cell } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import { forwardRef, HTMLProps, MouseEventHandler } from 'react';
 
-import { ArrowDown, Flag, FlagFill, Keyboard, Square, SquareFill } from 'icons';
+import { Flag, FlagFill, Keyboard, Square, SquareFill } from 'icons';
 import { findCell } from 'lib';
 import {
   selectCellIsFiltered,
@@ -12,14 +12,17 @@ import {
   useTranslate,
   useTypedSelector,
 } from 'state';
+import { Direction } from 'types';
 
 import Button from '../../../Button';
+import ToggleDirectionButton from '../ToggleDirectionButton';
 
 import styles from './Actions.module.scss';
 
 interface Props extends HTMLProps<HTMLDivElement> {
   cell: Cell;
-  direction: 'horizontal' | 'vertical';
+  direction: Direction;
+  disabled: boolean;
   onDirectionToggle: MouseEventHandler<HTMLButtonElement>;
   onEnterWord: MouseEventHandler<HTMLButtonElement>;
   onToggleBlank: MouseEventHandler<HTMLButtonElement>;
@@ -66,15 +69,10 @@ const Actions = forwardRef<HTMLDivElement, Props>(
         )}
 
         {inputMode === 'keyboard' && (
-          <Button
-            aria-label={translate('cell.toggle-direction')}
+          <ToggleDirectionButton
             className={styles.action}
-            Icon={ArrowDown}
-            iconClassName={classNames(styles.toggleDirection, {
-              [styles.right]: direction === 'horizontal',
-            })}
+            direction={direction}
             tabIndex={disabled ? -1 : undefined}
-            tooltip={translate('cell.toggle-direction')}
             onClick={onDirectionToggle}
             onMouseDown={handleMouseDown}
           />

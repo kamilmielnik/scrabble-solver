@@ -1,0 +1,21 @@
+.button {
+  padding: var(--spacing--m);
+  box-shadow: none !important;
+
+  &:active,
+  &:hover {
+    color: var(--color--foreground);
+  }
+}
+
+.icon {
+  transition: var(--transition);
+
+  &.right {
+    transform: rotate(-90deg);
+
+    [dir='rtl'] & {
+      transform: rotate(90deg);
+    }
+  }
+}
