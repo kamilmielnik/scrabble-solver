@@ -133,7 +133,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
       <FloatingPortal>
         <div
           className={classNames(styles.floating, styles.focus, {
-            [styles.shown]: hasFocus,
+            [styles.hidden]: !hasFocus,
           })}
           ref={floatingFocus.refs.setFloating}
           style={{

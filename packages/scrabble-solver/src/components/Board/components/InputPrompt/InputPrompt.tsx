@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FormEventHandler, forwardRef, HTMLProps, MouseEventHandler, useRef, useState } from 'react';
+import { FormEventHandler, forwardRef, HTMLProps, MouseEventHandler, useEffect, useRef, useState } from 'react';
 
 import { Check } from 'icons';
 import { useTranslate } from 'state';
@@ -30,6 +30,10 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
 
       console.log('submit');
     };
+
+    useEffect(() => {
+      inputRef.current?.focus();
+    }, [inputRef]);
 
     return (
       <form className={classNames(styles.inputPrompt, className)} ref={ref} onSubmit={handleSubmit} {...props}>
