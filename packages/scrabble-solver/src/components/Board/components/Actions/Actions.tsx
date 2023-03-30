@@ -22,7 +22,6 @@ import styles from './Actions.module.scss';
 interface Props extends HTMLProps<HTMLDivElement> {
   cell: Cell;
   direction: Direction;
-  disabled: boolean;
   onDirectionToggle: MouseEventHandler<HTMLButtonElement>;
   onEnterWord: MouseEventHandler<HTMLButtonElement>;
   onToggleBlank: MouseEventHandler<HTMLButtonElement>;

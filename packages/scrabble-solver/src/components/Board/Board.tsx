@@ -149,45 +149,45 @@ const Board: FunctionComponent<Props> = ({ className }) => {
           tabIndex={0}
         />
 
-        <Actions
-          cell={cell}
-          className={classNames(styles.floating, {
-            [styles.shown]: hasFocus && !showInputPrompt,
-          })}
-          direction={direction}
-          disabled={!hasFocus || showInputPrompt}
-          ref={floatingActions.refs.setFloating}
-          style={{
-            position: floatingActions.strategy,
-            top: floatingActions.y ?? 0,
-            left: floatingActions.x ?? 0,
-            opacity: hasFocus && !showInputPrompt ? 1 : 0,
-            visibility: floatingActions.x === null || floatingActions.y === null ? 'hidden' : 'visible',
-            transition,
-          }}
-          onDirectionToggle={handleToggleDirection}
-          onEnterWord={handleEnterWord}
-          onToggleBlank={handleToggleBlank}
-          onToggleFilterCell={handleToggleFilterCell}
-        />
+        {hasFocus && !showInputPrompt && (
+          <Actions
+            cell={cell}
+            className={styles.floating}
+            direction={direction}
+            disabled={!hasFocus || showInputPrompt}
+            ref={floatingActions.refs.setFloating}
+            style={{
+              position: floatingActions.strategy,
+              top: floatingActions.y ?? 0,
+              left: floatingActions.x ?? 0,
+              opacity: hasFocus && !showInputPrompt ? 1 : 0,
+              visibility: floatingActions.x === null || floatingActions.y === null ? 'hidden' : 'visible',
+              transition,
+            }}
+            onDirectionToggle={handleToggleDirection}
+            onEnterWord={handleEnterWord}
+            onToggleBlank={handleToggleBlank}
+            onToggleFilterCell={handleToggleFilterCell}
+          />
+        )}
 
-        <InputPrompt
-          className={classNames(styles.floating, {
-            [styles.shown]: hasFocus && showInputPrompt,
-          })}
-          direction={direction}
-          disabled={!hasFocus || !showInputPrompt}
-          ref={floatingInputPrompt.refs.setFloating}
-          style={{
-            position: floatingInputPrompt.strategy,
-            top: floatingInputPrompt.y ?? 0,
-            left: floatingInputPrompt.x ?? 0,
-            opacity: hasFocus && showInputPrompt ? 1 : 0,
-            visibility: floatingInputPrompt.x === null || floatingInputPrompt.y === null ? 'hidden' : 'visible',
-            transition,
-          }}
-          onDirectionToggle={handleToggleDirection}
-        />
+        {hasFocus && showInputPrompt && (
+          <InputPrompt
+            className={styles.floating}
+            direction={direction}
+            disabled={!hasFocus || !showInputPrompt}
+            ref={floatingInputPrompt.refs.setFloating}
+            style={{
+              position: floatingInputPrompt.strategy,
+              top: floatingInputPrompt.y ?? 0,
+              left: floatingInputPrompt.x ?? 0,
+              opacity: hasFocus && showInputPrompt ? 1 : 0,
+              visibility: floatingInputPrompt.x === null || floatingInputPrompt.y === null ? 'hidden' : 'visible',
+              transition,
+            }}
+            onDirectionToggle={handleToggleDirection}
+          />
+        )}
       </FloatingPortal>
     </>
   );

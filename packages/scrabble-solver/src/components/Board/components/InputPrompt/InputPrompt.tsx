@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FormEventHandler, forwardRef, HTMLProps, MouseEventHandler, useEffect, useRef, useState } from 'react';
+import { FormEventHandler, forwardRef, HTMLProps, MouseEventHandler, useRef, useState } from 'react';
 
 import { Check } from 'icons';
 import { useTranslate } from 'state';
@@ -12,7 +12,6 @@ import styles from './InputPrompt.module.scss';
 
 interface Props extends HTMLProps<HTMLFormElement> {
   className?: string;
-  disabled: boolean;
   direction: Direction;
   onDirectionToggle: MouseEventHandler<HTMLButtonElement>;
 }
@@ -32,14 +31,6 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
       console.log('submit');
     };
 
-    useEffect(() => {
-      if (disabled) {
-        setInput('');
-      } else {
-        inputRef.current?.focus();
-      }
-    }, [disabled, inputRef]);
-
     return (
       <form className={classNames(styles.inputPrompt, className)} ref={ref} onSubmit={handleSubmit} {...props}>
         <ToggleDirectionButton
@@ -52,6 +43,7 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
 
         <div>
           <input
+            autoFocus
             className={styles.input}
             placeholder={translate('rack.placeholder')}
             ref={inputRef}

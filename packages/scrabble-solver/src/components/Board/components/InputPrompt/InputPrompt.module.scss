@@ -5,6 +5,7 @@
   box-shadow: var(--box-shadow);
   border-radius: var(--border--radius);
   transition: var(--transition);
+  transition-property: opacity;
 }
 
 .toggleDirection {

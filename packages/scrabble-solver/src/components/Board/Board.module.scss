@@ -14,15 +14,8 @@
   z-index: var(--z-index--actions);
   width: max-content;
   height: max-content;
-  animation: var(--transition--duration) var(--transition--easing) hide;
-  pointer-events: none;
-  user-select: none;
-
-  &.shown {
-    animation: var(--transition--duration) var(--transition--easing) show;
-    pointer-events: auto;
-    user-select: auto;
-  }
+  opacity: 0;
+  animation: var(--transition--duration) var(--transition--easing) show;
 }
 
 .focus {
