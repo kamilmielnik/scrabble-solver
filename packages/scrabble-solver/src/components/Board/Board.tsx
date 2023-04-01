@@ -109,6 +109,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
 
       setShowInputPrompt(false);
       dispatch(solveSlice.actions.submit());
+      setHasFocus(false);
     },
     [activeIndex, dispatch, locale],
   );
