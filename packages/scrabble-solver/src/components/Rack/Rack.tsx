@@ -61,10 +61,11 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const { direction } = LOCALE_FEATURES[locale];
   const { tileFontSize } = getTileSizes(tileSize);
   const showInputPrompt = inputMode === 'touchscreen' && hasFocus;
-  const rackRef = useRef<HTMLElement>(null);
-  const ref = useOnclickOutside(() => setHasFocus(false), {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useOnclickOutside(() => setHasFocus(false), {
     ignoreClass: [InputPrompt.styles.form, InputPrompt.styles.input],
-    refs: [rackRef],
+    refs: [ref],
   });
 
   const changeActiveIndex = useCallback(
@@ -109,13 +110,13 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
 
   const handleFocus = useCallback(() => {
     setHasFocus(true);
-    floatingInputPrompt.refs.setPositionReference(rackRef.current);
+    floatingInputPrompt.refs.setPositionReference(ref.current);
     const characters: string[] = rack.filter((character) => character !== null) as string[];
     const uppercasedDigraphs = characters.map((character) => {
       return character.length > 1 ? character.toLocaleUpperCase(locale) : character;
     });
     setInput(uppercasedDigraphs.join(''));
-  }, [rack, rackRef]);
+  }, [rack, ref]);
 
   const handleKeyDown = useMemo(() => {
     return createKeyboardNavigation({
