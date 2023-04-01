@@ -51,8 +51,12 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
 
         <div>
           <input
+            autoCapitalize="none"
+            autoComplete="off"
+            autoCorrect="off"
             className={styles.input}
             placeholder={translate('rack.placeholder')}
+            spellCheck={false}
             ref={setInputRef}
             value={input}
             onChange={(event) => setInput(event.target.value)}

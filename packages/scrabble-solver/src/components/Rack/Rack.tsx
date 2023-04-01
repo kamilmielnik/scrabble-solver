@@ -221,10 +221,15 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
             onSubmit={handleSubmit}
           >
             <input
+              autoCapitalize="none"
+              autoComplete="off"
+              autoCorrect="off"
               autoFocus
               className={styles.input}
-              onBlur={() => setHasFocus(false)}
+              spellCheck={false}
+              style={{ fontSize: tileFontSize }}
               value={input}
+              onBlur={() => setHasFocus(false)}
               onChange={(event) => setInput(event.target.value)}
             />
           </form>
