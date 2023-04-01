@@ -1,6 +1,6 @@
 /* eslint-disable max-lines, max-statements */
 
-import { FloatingPortal, autoUpdate, useFloating, useMergeRefs } from '@floating-ui/react';
+import { FloatingPortal, autoUpdate, useFloating } from '@floating-ui/react';
 import classNames from 'classnames';
 import {
   ChangeEvent,
@@ -61,11 +61,11 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const { direction } = LOCALE_FEATURES[locale];
   const { tileFontSize } = getTileSizes(tileSize);
   const showInputPrompt = inputMode === 'touchscreen' && hasFocus;
+  const rackRef = useRef<HTMLElement>(null);
   const ref = useOnclickOutside(() => setHasFocus(false), {
     ignoreClass: [InputPrompt.styles.form, InputPrompt.styles.input],
+    refs: [rackRef],
   });
-  const rackRef = useRef<HTMLElement>(null);
-  const finalRackRef = useMergeRefs([ref, rackRef]);
 
   const changeActiveIndex = useCallback(
     (offset: number) => {
@@ -167,7 +167,7 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
         className={classNames(styles.rack, className, {
           [styles.hidden]: showInputPrompt,
         })}
-        ref={finalRackRef}
+        ref={ref}
         style={{ fontSize: tileFontSize }}
         onPaste={handlePaste}
       >
