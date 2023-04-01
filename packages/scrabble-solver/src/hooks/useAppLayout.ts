@@ -63,6 +63,7 @@ const useAppLayout = () => {
     animateTile: !isLessThanXs,
     boardSize,
     cellSize,
+    componentsSpacing,
     dictionaryHeight,
     isModalFullWidth: isLessThanS,
     logoHeight,
