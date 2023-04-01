@@ -6,7 +6,6 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link crossOrigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
           <link rel="apple-touch-icon-precomposed" sizes="57x57" href="icons/apple-touch-icon-57x57.png" />
           <link rel="apple-touch-icon-precomposed" sizes="114x114" href="icons/apple-touch-icon-114x114.png" />
           <link rel="apple-touch-icon-precomposed" sizes="72x72" href="icons/apple-touch-icon-72x72.png" />
