@@ -1,7 +1,15 @@
 /* eslint-disable max-lines, max-statements */
 
 import classNames from 'classnames';
-import { CSSProperties, ChangeEventHandler, FormEventHandler, forwardRef, useCallback } from 'react';
+import {
+  CSSProperties,
+  ChangeEventHandler,
+  FormEventHandler,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from 'hooks';
@@ -23,9 +31,10 @@ interface Props {
 const InputPrompt = forwardRef<HTMLFormElement, Props>(
   ({ className, style, tileSize, value, onBlur, onChange, onSubmit, ...props }, ref) => {
     const dispatch = useDispatch();
-    const config = useTypedSelector(selectConfig);
     const { rackHeight, rackWidth } = useAppLayout();
     const { tileFontSize } = getTileSizes(tileSize);
+    const config = useTypedSelector(selectConfig);
+    const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
       (event) => {
@@ -39,6 +48,13 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
       },
       [config, value, onSubmit],
     );
+
+    useEffect(() => {
+      if (inputRef) {
+        inputRef.focus();
+        inputRef.select();
+      }
+    }, [inputRef]);
 
     return (
       <form
@@ -56,8 +72,8 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
           autoCapitalize="none"
           autoComplete="off"
           autoCorrect="off"
-          autoFocus
           className={styles.input}
+          ref={setInputRef}
           spellCheck={false}
           style={{ fontSize: tileFontSize }}
           value={value}
@@ -69,4 +85,6 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
   },
 );
 
-export default InputPrompt;
+export default Object.assign(InputPrompt, {
+  styles,
+});

@@ -60,9 +60,9 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const [input, setInput] = useState('');
   const { direction } = LOCALE_FEATURES[locale];
   const { tileFontSize } = getTileSizes(tileSize);
-
+  const showInputPrompt = inputMode === 'touchscreen' && hasFocus;
   const ref = useOnclickOutside(() => setHasFocus(false), {
-    ignoreClass: [styles.form, styles.input],
+    ignoreClass: [InputPrompt.styles.form, InputPrompt.styles.input],
   });
   const rackRef = useRef<HTMLElement>(null);
   const finalRackRef = useMergeRefs([ref, rackRef]);
@@ -165,7 +165,7 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
     <>
       <div
         className={classNames(styles.rack, className, {
-          [styles.hidden]: hasFocus,
+          [styles.hidden]: showInputPrompt,
         })}
         ref={finalRackRef}
         style={{ fontSize: tileFontSize }}
@@ -191,7 +191,7 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
         ))}
       </div>
 
-      {inputMode === 'touchscreen' && hasFocus && (
+      {showInputPrompt && (
         <FloatingPortal>
           <InputPrompt
             ref={floatingInputPrompt.refs.setFloating}
