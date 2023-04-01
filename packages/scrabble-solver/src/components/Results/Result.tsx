@@ -1,9 +1,10 @@
 import classNames from 'classnames';
 import { CSSProperties, FocusEventHandler, MouseEventHandler, ReactElement, useRef } from 'react';
+import Highlighter from 'react-highlight-words';
 
 import { LOCALE_FEATURES } from 'i18n';
 import { noop } from 'lib';
-import { selectIsResultMatching, selectLocale, useTypedSelector } from 'state';
+import { selectIsResultMatching, selectLocale, selectResultsQuery, useTypedSelector } from 'state';
 import { ResultColumn } from 'types';
 
 import Cell from './Cell';
@@ -30,6 +31,7 @@ const Result = ({ data, index, style }: Props): ReactElement => {
   const ref = useRef<HTMLButtonElement>(null);
   const columns = useColumns();
   const locale = useTypedSelector(selectLocale);
+  const query = useTypedSelector(selectResultsQuery);
   const { consonants, direction, separator, vowels } = LOCALE_FEATURES[locale];
   const result = results[index];
   const isMatching = useTypedSelector((state) => selectIsResultMatching(state, index));
@@ -60,7 +62,9 @@ const Result = ({ data, index, style }: Props): ReactElement => {
     >
       <span className={styles.resultContent}>
         {enabledColumns[ResultColumn.Word] && (
-          <Cell className={styles.word} translationKey="common.word" value={result.word} />
+          <Cell className={styles.word} translationKey="common.word" value={result.word}>
+            <Highlighter highlightClassName={styles.highlight} searchWords={[query]} textToHighlight={result.word} />
+          </Cell>
         )}
 
         {enabledColumns[ResultColumn.TilesCount] && (
