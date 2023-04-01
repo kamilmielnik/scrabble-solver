@@ -1,18 +1,42 @@
+/* eslint-disable max-lines, max-statements */
+
+import { FloatingPortal, autoUpdate, useFloating, useMergeRefs } from '@floating-ui/react';
 import classNames from 'classnames';
-import { ChangeEvent, ClipboardEvent, createRef, FunctionComponent, useCallback, useMemo, useRef } from 'react';
+import {
+  ChangeEvent,
+  ClipboardEvent,
+  FormEventHandler,
+  FunctionComponent,
+  createRef,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
+import { useAppLayout } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import {
   createArray,
   createKeyboardNavigation,
   extractCharacters,
+  extractCharactersByCase,
   extractInputValue,
   getTileSizes,
   isCtrl,
   zipCharactersAndTiles,
 } from 'lib';
-import { rackSlice, selectConfig, selectLocale, selectRack, selectResultCandidateTiles, useTypedSelector } from 'state';
+import {
+  rackSlice,
+  selectConfig,
+  selectInputMode,
+  selectLocale,
+  selectRack,
+  selectResultCandidateTiles,
+  useTypedSelector,
+} from 'state';
 
 import styles from './Rack.module.scss';
 import RackTile from './RackTile';
@@ -27,13 +51,23 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
   const rack = useTypedSelector(selectRack);
+  const inputMode = useTypedSelector(selectInputMode);
+  const { rackHeight, rackWidth } = useAppLayout();
   const resultCandidateTiles = useTypedSelector(selectResultCandidateTiles);
   const tiles = useMemo(() => zipCharactersAndTiles(rack, resultCandidateTiles), [rack, resultCandidateTiles]);
   const tilesCount = tiles.length;
   const tilesRefs = useMemo(() => createArray(tilesCount).map(() => createRef<HTMLInputElement>()), [tilesCount]);
   const activeIndexRef = useRef<number>();
+  const [hasFocus, setHasFocus] = useState(false);
+  const [input, setInput] = useState('');
   const { direction } = LOCALE_FEATURES[locale];
   const { tileFontSize } = getTileSizes(tileSize);
+
+  const ref = useOnclickOutside(() => setHasFocus(false), {
+    ignoreClass: [styles.form, styles.input],
+  });
+  const rackRef = useRef<HTMLElement>(null);
+  const finalRackRef = useMergeRefs([ref, rackRef]);
 
   const changeActiveIndex = useCallback(
     (offset: number) => {
@@ -75,6 +109,29 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
     [changeActiveIndex, config, dispatch],
   );
 
+  const handleFocus = useCallback(() => {
+    setHasFocus(true);
+    floatingInput.refs.setPositionReference(rackRef.current);
+    const characters: string[] = rack.filter((character) => character !== null) as string[];
+    const uppercasedDigraphs = characters.map((character) => {
+      return character.length > 1 ? character.toLocaleUpperCase(locale) : character;
+    });
+    setInput(uppercasedDigraphs.join(''));
+  }, [rack, rackRef]);
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
+    (event) => {
+      event.preventDefault();
+      setHasFocus(false);
+      const charactersByCase = extractCharactersByCase(config, input);
+      const characters = Array.from({ length: config.maximumCharactersCount }, (_, index) => {
+        return typeof charactersByCase[index] === 'string' ? charactersByCase[index] : null;
+      });
+      dispatch(rackSlice.actions.changeCharacters({ characters, index: 0 }));
+    },
+    [config, input],
+  );
+
   const handleKeyDown = useMemo(() => {
     return createKeyboardNavigation({
       onArrowLeft: (event) => {
@@ -114,26 +171,66 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
     });
   }, [changeActiveIndex, config, direction]);
 
+  const floatingInput = useFloating({
+    placement: 'bottom-start',
+    whileElementsMounted: autoUpdate,
+  });
+
   return (
-    <div className={classNames(styles.rack, className)} style={{ fontSize: tileFontSize }} onPaste={handlePaste}>
-      {tiles.map(({ character, tile }, index) => (
-        <RackTile
-          activeIndexRef={activeIndexRef}
-          character={character}
-          className={classNames({
-            [styles.sharpLeft]: index !== 0,
-            [styles.sharpRight]: index !== tiles.length - 1,
-          })}
-          index={index}
-          inputRef={tilesRefs[index]}
-          key={index}
-          size={tileSize}
-          tile={tile}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-        />
-      ))}
-    </div>
+    <>
+      <div
+        className={classNames(styles.rack, className, {
+          [styles.hidden]: hasFocus,
+        })}
+        ref={finalRackRef}
+        style={{ fontSize: tileFontSize }}
+        onPaste={handlePaste}
+      >
+        {tiles.map(({ character, tile }, index) => (
+          <RackTile
+            activeIndexRef={activeIndexRef}
+            character={character}
+            className={classNames({
+              [styles.sharpLeft]: index !== 0,
+              [styles.sharpRight]: index !== tiles.length - 1,
+            })}
+            index={index}
+            inputRef={tilesRefs[index]}
+            key={index}
+            size={tileSize}
+            tile={tile}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            onFocus={handleFocus}
+          />
+        ))}
+      </div>
+
+      {inputMode === 'touchscreen' && hasFocus && (
+        <FloatingPortal>
+          <form
+            className={styles.form}
+            ref={floatingInput.refs.setFloating}
+            style={{
+              width: rackWidth,
+              height: rackHeight,
+              position: floatingInput.strategy,
+              top: floatingInput.y ? floatingInput.y - rackHeight : 0,
+              left: floatingInput.x ?? 0,
+            }}
+            onSubmit={handleSubmit}
+          >
+            <input
+              autoFocus
+              className={styles.input}
+              onBlur={() => setHasFocus(false)}
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+            />
+          </form>
+        </FloatingPortal>
+      )}
+    </>
   );
 };
 

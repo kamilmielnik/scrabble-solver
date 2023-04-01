@@ -15,6 +15,7 @@ import {
   selectInputMode,
   selectLocale,
   selectRowsWithCandidate,
+  solveSlice,
   useTypedSelector,
 } from 'state';
 
@@ -107,6 +108,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
       }
 
       setShowInputPrompt(false);
+      dispatch(solveSlice.actions.submit());
     },
     [activeIndex, dispatch, locale],
   );

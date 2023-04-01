@@ -11,6 +11,7 @@ export { default as createStringComparator } from './createStringComparator';
 export { default as dataUrlToBlob } from './dataUrlToBlob';
 export { default as detectLocale } from './detectLocale';
 export { default as extractCharacters } from './extractCharacters';
+export { default as extractCharactersByCase } from './extractCharactersByCase';
 export { default as extractInputValue } from './extractInputValue';
 export { default as findCell } from './findCell';
 export { default as getCellSize } from './getCellSize';

@@ -113,23 +113,3 @@
 .emptyState {
   margin-top: var(--spacing);
 }
-
-.solve {
-  --spacing: var(--spacing--l);
-
-  position: fixed;
-  bottom: var(--spacing);
-  z-index: 1;
-
-  @include media('<xs') {
-    --spacing: var(--spacing--m);
-  }
-
-  [dir='ltr'] & {
-    right: var(--spacing);
-  }
-
-  [dir='rtl'] & {
-    left: var(--spacing);
-  }
-}
