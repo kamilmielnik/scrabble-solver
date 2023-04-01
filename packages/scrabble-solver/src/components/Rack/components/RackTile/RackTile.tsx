@@ -138,7 +138,7 @@ const RackTile: FunctionComponent<Props> = ({
         index: (index + 1).toLocaleString(locale),
       })}
       autoFocus={inputMode === 'keyboard' && index === 0}
-      className={classNames(styles.tile, className)}
+      className={classNames(styles.rackTile, className)}
       character={character === null ? undefined : character}
       highlighted={tile !== null}
       inputRef={inputRef}

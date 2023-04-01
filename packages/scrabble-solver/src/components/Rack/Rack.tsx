@@ -38,8 +38,8 @@ import {
   useTypedSelector,
 } from 'state';
 
+import { RackTile } from './components';
 import styles from './Rack.module.scss';
-import RackTile from './RackTile';
 
 interface Props {
   className?: string;
