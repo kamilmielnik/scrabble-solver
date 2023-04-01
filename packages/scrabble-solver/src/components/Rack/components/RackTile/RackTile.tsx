@@ -4,10 +4,13 @@ import classNames from 'classnames';
 import {
   ChangeEvent,
   ChangeEventHandler,
+  FocusEventHandler,
   FunctionComponent,
   KeyboardEventHandler,
+  MouseEventHandler,
   MutableRefObject,
   RefObject,
+  TouchEventHandler,
   useCallback,
   useMemo,
 } from 'react';
@@ -19,14 +22,15 @@ import {
   selectCharacterIsValid,
   selectCharacterPoints,
   selectConfig,
+  selectInputMode,
   selectLocale,
   useTranslate,
   useTypedSelector,
 } from 'state';
 
-import Tile from '../Tile';
+import Tile from '../../../Tile';
 
-import styles from './Rack.module.scss';
+import styles from './RackTile.module.scss';
 
 interface Props {
   activeIndexRef: MutableRefObject<number | undefined>;
@@ -38,6 +42,7 @@ interface Props {
   tile: TileModel | null;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
+  onFocus: () => void;
 }
 
 const RackTile: FunctionComponent<Props> = ({
@@ -50,17 +55,28 @@ const RackTile: FunctionComponent<Props> = ({
   tile,
   onChange,
   onKeyDown,
+  onFocus,
 }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const config = useTypedSelector(selectConfig);
+  const inputMode = useTypedSelector(selectInputMode);
   const points = useTypedSelector((state) => selectCharacterPoints(state, character));
   const isValid = useTypedSelector((state) => selectCharacterIsValid(state, character));
 
-  const handleFocus = useCallback(() => {
-    activeIndexRef.current = index;
-  }, [index]);
+  const handleFocus: FocusEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      if (inputMode === 'touchscreen') {
+        event.preventDefault();
+        event.target.blur();
+        onFocus();
+      }
+
+      activeIndexRef.current = index;
+    },
+    [activeIndexRef, index, inputMode, onFocus],
+  );
 
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -94,13 +110,35 @@ const RackTile: FunctionComponent<Props> = ({
     });
   }, [index, onKeyDown]);
 
+  const handleMouseDown: MouseEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      if (inputMode === 'touchscreen') {
+        event.preventDefault();
+      }
+
+      onFocus();
+    },
+    [inputMode, onFocus],
+  );
+
+  const handleTouchStart: TouchEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      if (inputMode === 'touchscreen') {
+        event.preventDefault();
+      }
+
+      onFocus();
+    },
+    [inputMode, onFocus],
+  );
+
   return (
     <Tile
       aria-label={translate('rack.tile.location', {
         index: (index + 1).toLocaleString(locale),
       })}
-      autoFocus={index === 0}
-      className={classNames(styles.tile, className)}
+      autoFocus={inputMode === 'keyboard' && index === 0}
+      className={classNames(styles.rackTile, className)}
       character={character === null ? undefined : character}
       highlighted={tile !== null}
       inputRef={inputRef}
@@ -115,6 +153,8 @@ const RackTile: FunctionComponent<Props> = ({
       onChange={handleChange}
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
+      onMouseDown={handleMouseDown}
+      onTouchStart={handleTouchStart}
     />
   );
 };

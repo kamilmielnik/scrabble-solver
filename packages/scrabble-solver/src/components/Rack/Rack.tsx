@@ -1,7 +1,21 @@
+/* eslint-disable max-lines, max-statements */
+
+import { FloatingPortal, autoUpdate, useFloating } from '@floating-ui/react';
 import classNames from 'classnames';
-import { ChangeEvent, ClipboardEvent, createRef, FunctionComponent, useCallback, useMemo, useRef } from 'react';
+import {
+  ChangeEvent,
+  ClipboardEvent,
+  FunctionComponent,
+  createRef,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
+import { useAppLayout } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import {
   createArray,
@@ -12,10 +26,18 @@ import {
   isCtrl,
   zipCharactersAndTiles,
 } from 'lib';
-import { rackSlice, selectConfig, selectLocale, selectRack, selectResultCandidateTiles, useTypedSelector } from 'state';
+import {
+  rackSlice,
+  selectConfig,
+  selectInputMode,
+  selectLocale,
+  selectRack,
+  selectResultCandidateTiles,
+  useTypedSelector,
+} from 'state';
 
+import { InputPrompt, RackTile } from './components';
 import styles from './Rack.module.scss';
-import RackTile from './RackTile';
 
 interface Props {
   className?: string;
@@ -27,13 +49,24 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
   const rack = useTypedSelector(selectRack);
+  const inputMode = useTypedSelector(selectInputMode);
+  const { rackHeight } = useAppLayout();
   const resultCandidateTiles = useTypedSelector(selectResultCandidateTiles);
   const tiles = useMemo(() => zipCharactersAndTiles(rack, resultCandidateTiles), [rack, resultCandidateTiles]);
   const tilesCount = tiles.length;
   const tilesRefs = useMemo(() => createArray(tilesCount).map(() => createRef<HTMLInputElement>()), [tilesCount]);
   const activeIndexRef = useRef<number>();
+  const [hasFocus, setHasFocus] = useState(false);
+  const [input, setInput] = useState('');
   const { direction } = LOCALE_FEATURES[locale];
   const { tileFontSize } = getTileSizes(tileSize);
+  const showInputPrompt = inputMode === 'touchscreen' && hasFocus;
+  const ref = useRef<HTMLDivElement>(null);
+
+  useOnclickOutside(() => setHasFocus(false), {
+    ignoreClass: [InputPrompt.styles.form, InputPrompt.styles.input],
+    refs: [ref],
+  });
 
   const changeActiveIndex = useCallback(
     (offset: number) => {
@@ -75,6 +108,16 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
     [changeActiveIndex, config, dispatch],
   );
 
+  const handleFocus = useCallback(() => {
+    setHasFocus(true);
+    floatingInputPrompt.refs.setPositionReference(ref.current);
+    const characters: string[] = rack.filter((character) => character !== null) as string[];
+    const uppercasedDigraphs = characters.map((character) => {
+      return character.length > 1 ? character.toLocaleUpperCase(locale) : character;
+    });
+    setInput(uppercasedDigraphs.join(''));
+  }, [rack, ref]);
+
   const handleKeyDown = useMemo(() => {
     return createKeyboardNavigation({
       onArrowLeft: (event) => {
@@ -114,26 +157,58 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
     });
   }, [changeActiveIndex, config, direction]);
 
+  const floatingInputPrompt = useFloating({
+    placement: 'bottom-start',
+    whileElementsMounted: autoUpdate,
+  });
+
   return (
-    <div className={classNames(styles.rack, className)} style={{ fontSize: tileFontSize }} onPaste={handlePaste}>
-      {tiles.map(({ character, tile }, index) => (
-        <RackTile
-          activeIndexRef={activeIndexRef}
-          character={character}
-          className={classNames({
-            [styles.sharpLeft]: index !== 0,
-            [styles.sharpRight]: index !== tiles.length - 1,
-          })}
-          index={index}
-          inputRef={tilesRefs[index]}
-          key={index}
-          size={tileSize}
-          tile={tile}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-        />
-      ))}
-    </div>
+    <>
+      <div
+        className={classNames(styles.rack, className, {
+          [styles.hidden]: showInputPrompt,
+        })}
+        ref={ref}
+        style={{ fontSize: tileFontSize }}
+        onPaste={handlePaste}
+      >
+        {tiles.map(({ character, tile }, index) => (
+          <RackTile
+            activeIndexRef={activeIndexRef}
+            character={character}
+            className={classNames(styles.tile, {
+              [styles.sharpLeft]: index !== 0,
+              [styles.sharpRight]: index !== tiles.length - 1,
+            })}
+            index={index}
+            inputRef={tilesRefs[index]}
+            key={index}
+            size={tileSize}
+            tile={tile}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            onFocus={handleFocus}
+          />
+        ))}
+      </div>
+
+      {showInputPrompt && (
+        <FloatingPortal>
+          <InputPrompt
+            ref={floatingInputPrompt.refs.setFloating}
+            style={{
+              position: floatingInputPrompt.strategy,
+              top: floatingInputPrompt.y ? floatingInputPrompt.y - rackHeight : 0,
+              left: floatingInputPrompt.x ?? 0,
+            }}
+            value={input}
+            onBlur={() => setHasFocus(false)}
+            onChange={(event) => setInput(event.target.value)}
+            onSubmit={() => setHasFocus(false)}
+          />
+        </FloatingPortal>
+      )}
+    </>
   );
 };
 

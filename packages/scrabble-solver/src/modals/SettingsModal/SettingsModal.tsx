@@ -3,7 +3,7 @@ import { FunctionComponent, memo } from 'react';
 import { Modal } from 'components';
 import { useTranslate } from 'state';
 
-import { AutoGroupTilesSetting, ConfigSetting, LocaleSetting } from './components';
+import { AutoGroupTilesSetting, ConfigSetting, InputModeSetting, LocaleSetting } from './components';
 
 interface Props {
   className?: string;
@@ -22,6 +22,10 @@ const SettingsModal: FunctionComponent<Props> = ({ className, isOpen, onClose })
 
       <Modal.Section title={translate('settings.language')}>
         <LocaleSetting disabled={!isOpen} />
+      </Modal.Section>
+
+      <Modal.Section title={translate('settings.inputMode')}>
+        <InputModeSetting disabled={!isOpen} />
       </Modal.Section>
 
       <Modal.Section title={translate('settings.autoGroupTiles')}>

@@ -4,6 +4,8 @@ export type AutoGroupTiles = 'left' | 'right' | null;
 
 export type Direction = 'horizontal' | 'vertical';
 
+export type InputMode = 'keyboard' | 'touchscreen';
+
 export interface Point {
   x: number;
   y: number;
@@ -45,6 +47,7 @@ export enum ResultColumn {
   WordsCount = 'words-count',
 }
 export type TranslationKey =
+  | 'cell.enter-word'
   | 'cell.filter-cell'
   | 'cell.set-blank'
   | 'cell.set-not-blank'
@@ -89,6 +92,7 @@ export type TranslationKey =
   | 'menu'
   | 'rack.placeholder'
   | 'rack.tile.location'
+  | 'rack.touchscreen.placeholder'
   | 'remaining-tiles'
   | 'results'
   | 'results.empty-state.no-results'
@@ -104,6 +108,9 @@ export type TranslationKey =
   | 'settings.autoGroupTiles.right'
   | 'settings.autoGroupTiles.null'
   | 'settings.game'
+  | 'settings.inputMode'
+  | 'settings.inputMode.keyboard'
+  | 'settings.inputMode.touchscreen'
   | 'settings.language'
   | 'words'
   | 'words.invalid'

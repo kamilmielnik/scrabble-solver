@@ -1,9 +1,24 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Cell as CellModel } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import { ChangeEventHandler, FunctionComponent, RefObject, useCallback } from 'react';
+import {
+  ChangeEventHandler,
+  FocusEventHandler,
+  FunctionComponent,
+  MouseEventHandler,
+  RefObject,
+  TouchEventHandler,
+  useCallback,
+} from 'react';
 
-import { selectCellIsValid, selectLocale, selectTilePoints, useTranslate, useTypedSelector } from 'state';
+import {
+  selectCellIsValid,
+  selectInputMode,
+  selectLocale,
+  selectTilePoints,
+  useTranslate,
+  useTypedSelector,
+} from 'state';
 
 import Tile from '../../../Tile';
 
@@ -37,11 +52,44 @@ const Cell: FunctionComponent<Props> = ({
   const { tile, x, y } = cell;
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
+  const inputMode = useTypedSelector(selectInputMode);
   const points = useTypedSelector((state) => selectTilePoints(state, cell.tile));
   const isValid = useTypedSelector((state) => selectCellIsValid(state, cell));
   const isEmpty = tile.character === EMPTY_CELL;
 
-  const handleFocus = useCallback(() => onFocus(x, y), [x, y, onFocus]);
+  const handleFocus: FocusEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      if (inputMode === 'touchscreen') {
+        event.preventDefault();
+        event.target.blur();
+      }
+
+      onFocus(x, y);
+    },
+    [inputMode, onFocus, x, y],
+  );
+
+  const handleMouseDown: MouseEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      if (inputMode === 'touchscreen') {
+        event.preventDefault();
+      }
+
+      onFocus(x, y);
+    },
+    [inputMode, onFocus, x, y],
+  );
+
+  const handleTouchStart: TouchEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      if (inputMode === 'touchscreen') {
+        event.preventDefault();
+      }
+
+      onFocus(x, y);
+    },
+    [inputMode, onFocus, x, y],
+  );
 
   return (
     <Tile
@@ -66,6 +114,8 @@ const Cell: FunctionComponent<Props> = ({
       tabIndex={cell.x === 0 && cell.y === 0 ? undefined : -1}
       onChange={onChange}
       onFocus={handleFocus}
+      onMouseDown={handleMouseDown}
+      onTouchStart={handleTouchStart}
     />
   );
 };

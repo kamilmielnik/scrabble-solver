@@ -60,20 +60,20 @@
 }
 
 .rack {
+  position: relative;
   display: flex;
   box-shadow: var(--box-shadow);
   border-radius: var(--border--radius);
+  transition: var(--transition);
+  opacity: 1;
 }
 
 .tile {
-  @include focus-effect;
   @include lighthouse-input-size-hack;
+}
 
-  --background-color: var(--color--background);
-
-  &:focus-within {
-    z-index: 2;
-  }
+.hidden {
+  opacity: 0;
 }
 
 .sharpLeft {

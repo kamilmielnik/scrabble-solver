@@ -22,7 +22,7 @@ import DictionaryInput from '../DictionaryInput';
 import Rack from '../Rack';
 import Results from '../Results';
 
-import { FloatingSolveButton, ResultCandidatePicker } from './components';
+import { ResultCandidatePicker } from './components';
 import styles from './Solver.module.scss';
 
 interface Props {
@@ -34,7 +34,7 @@ const Solver: FunctionComponent<Props> = ({ className, onShowResults }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
-  const { maxControlsWidth, showCompactControls, showFloatingSolveButton, tileSize } = useAppLayout();
+  const { maxControlsWidth, showCompactControls, tileSize } = useAppLayout();
   const error = useTypedSelector(selectSolveError);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const resultCandidate = useTypedSelector(selectResultCandidate);
@@ -134,8 +134,6 @@ const Solver: FunctionComponent<Props> = ({ className, onShowResults }) => {
           )}
         </div>
       </div>
-
-      {showFloatingSolveButton && <FloatingSolveButton className={styles.solve} onClick={handleSubmit} />}
     </div>
   );
 };

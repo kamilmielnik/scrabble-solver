@@ -3,25 +3,38 @@ import { Cell } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import { forwardRef, HTMLProps, MouseEventHandler } from 'react';
 
-import { ArrowDown, Flag, FlagFill, Square, SquareFill } from 'icons';
+import { Flag, FlagFill, Keyboard, Square, SquareFill } from 'icons';
 import { findCell } from 'lib';
-import { selectCellIsFiltered, selectResultCandidateCells, useTranslate, useTypedSelector } from 'state';
+import {
+  selectCellIsFiltered,
+  selectInputMode,
+  selectResultCandidateCells,
+  useTranslate,
+  useTypedSelector,
+} from 'state';
+import { Direction } from 'types';
 
 import Button from '../../../Button';
+import ToggleDirectionButton from '../ToggleDirectionButton';
 
 import styles from './Actions.module.scss';
 
 interface Props extends HTMLProps<HTMLDivElement> {
   cell: Cell;
-  direction: 'horizontal' | 'vertical';
+  direction: Direction;
   onDirectionToggle: MouseEventHandler<HTMLButtonElement>;
+  onEnterWord: MouseEventHandler<HTMLButtonElement>;
   onToggleBlank: MouseEventHandler<HTMLButtonElement>;
   onToggleFilterCell: MouseEventHandler<HTMLButtonElement>;
 }
 
 const Actions = forwardRef<HTMLDivElement, Props>(
-  ({ cell, className, direction, disabled, onDirectionToggle, onToggleBlank, onToggleFilterCell, ...props }, ref) => {
+  (
+    { cell, className, direction, onDirectionToggle, onEnterWord, onToggleBlank, onToggleFilterCell, ...props },
+    ref,
+  ) => {
     const translate = useTranslate();
+    const inputMode = useTypedSelector(selectInputMode);
     const isFiltered = useTypedSelector((state) => selectCellIsFiltered(state, cell));
     const resultCandidateCells = useTypedSelector(selectResultCandidateCells);
     const isBlank = cell.tile.isBlank;
@@ -32,25 +45,31 @@ const Actions = forwardRef<HTMLDivElement, Props>(
 
     return (
       <div className={classNames(styles.actions, className)} ref={ref} {...props}>
-        <Button
-          aria-label={translate('cell.toggle-direction')}
-          className={styles.action}
-          Icon={ArrowDown}
-          iconClassName={classNames(styles.toggleDirection, {
-            [styles.right]: direction === 'horizontal',
-          })}
-          tabIndex={disabled ? -1 : undefined}
-          tooltip={translate('cell.toggle-direction')}
-          onClick={onDirectionToggle}
-          onMouseDown={handleMouseDown}
-        />
+        {inputMode === 'touchscreen' && (
+          <Button
+            aria-label={translate('cell.enter-word')}
+            className={styles.action}
+            Icon={Keyboard}
+            tooltip={translate('cell.enter-word')}
+            onClick={onEnterWord}
+            onMouseDown={handleMouseDown}
+          />
+        )}
+
+        {inputMode === 'keyboard' && (
+          <ToggleDirectionButton
+            className={styles.action}
+            direction={direction}
+            onClick={onDirectionToggle}
+            onMouseDown={handleMouseDown}
+          />
+        )}
 
         {isEmpty && (
           <Button
             aria-label={translate('cell.filter-cell')}
             className={classNames(styles.action)}
             Icon={isFiltered ? Flag : FlagFill}
-            tabIndex={disabled ? -1 : undefined}
             tooltip={translate('cell.filter-cell')}
             onClick={onToggleFilterCell}
             onMouseDown={handleMouseDown}
@@ -62,7 +81,6 @@ const Actions = forwardRef<HTMLDivElement, Props>(
             aria-label={isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
             className={styles.action}
             Icon={isBlank ? SquareFill : Square}
-            tabIndex={disabled ? -1 : undefined}
             tooltip={isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
             onClick={onToggleBlank}
             onMouseDown={handleMouseDown}

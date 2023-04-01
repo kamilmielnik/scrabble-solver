@@ -32,6 +32,7 @@ interface State {
 }
 
 interface Actions {
+  insertValue: (position: Point, value: string) => void;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onDirectionToggle: () => void;
   onFocus: (x: number, y: number) => void;
@@ -358,7 +359,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
   return [
     { activeIndex, direction, inputRefs },
-    { onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
+    { insertValue, onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
   ];
 };
 

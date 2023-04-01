@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import { FunctionComponent, HTMLProps, MouseEventHandler } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useAppLayout } from 'hooks';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'icons';
 import {
   resultsSlice,
@@ -38,7 +37,6 @@ const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onResultCl
   const isPreviousDisabled = !results || index <= 0 || disabled;
   const isNextDisabled = !results || index >= results.length - 1 || disabled;
   const bothEnabled = !isPreviousDisabled && !isNextDisabled;
-  const { showFloatingSolveButton } = useAppLayout();
 
   const handleNextClick = () => {
     if (!isNextDisabled) {
@@ -91,14 +89,8 @@ const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onResultCl
         {!resultCandidate && <div className={styles.word}> </div>}
 
         <div className={styles.iconContainer}>
-          {showFloatingSolveButton && <ChevronDown className={styles.icon} />}
-
-          {!showFloatingSolveButton && (
-            <>
-              {isLoading && <Spinner className={styles.loading} />}
-              {!isLoading && <ChevronDown className={styles.icon} />}
-            </>
-          )}
+          {isLoading && <Spinner className={styles.loading} />}
+          {!isLoading && <ChevronDown className={styles.icon} />}
         </div>
       </button>
 

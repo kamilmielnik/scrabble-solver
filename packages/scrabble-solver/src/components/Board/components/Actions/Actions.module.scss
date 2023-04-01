@@ -5,11 +5,17 @@
   box-shadow: var(--box-shadow);
   border-radius: var(--border--radius);
   transition: var(--transition);
+  transition-property: opacity;
 }
 
 .action {
   padding: var(--spacing--m);
   box-shadow: none !important;
+
+  &:active,
+  &:hover {
+    color: var(--color--foreground);
+  }
 
   & + & {
     [dir='ltr'] & {
@@ -42,23 +48,6 @@
     &:last-child {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
-    }
-  }
-
-  &:active,
-  &:hover {
-    color: var(--color--foreground);
-  }
-}
-
-.toggleDirection {
-  transition: var(--transition);
-
-  &.right {
-    transform: rotate(-90deg);
-
-    [dir='rtl'] & {
-      transform: rotate(90deg);
     }
   }
 }

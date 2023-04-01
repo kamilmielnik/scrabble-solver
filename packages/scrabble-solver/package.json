@@ -28,7 +28,7 @@
     "start": "env-cmd next start -p 3333"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.21.1",
+    "@floating-ui/react": "^0.22.2",
     "@kamilmielnik/trie": "^2.0.1",
     "@reduxjs/toolkit": "^1.9.3",
     "@scrabble-solver/configs": "^2.11.8",
@@ -44,6 +44,7 @@
     "next": "^13.2.4",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
+    "react-cool-onclickoutside": "^1.7.0",
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",
     "react-portal": "^4.2.2",
@@ -57,9 +58,9 @@
     "workbox-window": "^6.5.4"
   },
   "devDependencies": {
-    "@svgr/webpack": "^6.5.1",
+    "@svgr/webpack": "^7.0.0",
     "@types/classnames": "^2.3.0",
-    "@types/react": "^18.0.28",
+    "@types/react": "^18.0.31",
     "@types/react-dom": "^18.0.11",
     "@types/react-modal": "^3.13.1",
     "@types/react-portal": "^4.0.4",
@@ -68,7 +69,7 @@
     "@types/redux": "^3.6.31",
     "@types/redux-saga": "^0.10.5",
     "env-cmd": "^10.1.0",
-    "sass": "^1.59.3",
+    "sass": "^1.60.0",
     "workbox-webpack-plugin": "^6.5.4"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"

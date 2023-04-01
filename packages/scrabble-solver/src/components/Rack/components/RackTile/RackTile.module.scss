@@ -1,0 +1,11 @@
+@import 'styles/mixins';
+
+.rackTile {
+  @include focus-effect;
+
+  --background-color: var(--color--background);
+
+  &:focus-within {
+    z-index: 2;
+  }
+}

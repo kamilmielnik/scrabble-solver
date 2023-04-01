@@ -5,6 +5,7 @@ import {
   selectAutoGroupTiles,
   selectBoard,
   selectConfigId,
+  selectInputMode,
   selectLocale,
   selectRack,
   useTypedSelector,
@@ -14,6 +15,7 @@ const useLocalStorage = () => {
   const autoGroupTiles = useTypedSelector(selectAutoGroupTiles);
   const board = useTypedSelector(selectBoard);
   const configId = useTypedSelector(selectConfigId);
+  const inputMode = useTypedSelector(selectInputMode);
   const locale = useTypedSelector(selectLocale);
   const rack = useTypedSelector(selectRack);
 
@@ -34,6 +36,12 @@ const useLocalStorage = () => {
       localStorage.setConfigId(configId);
     }
   }, [configId]);
+
+  useEffect(() => {
+    if (inputMode) {
+      localStorage.setInputMode(inputMode);
+    }
+  }, [inputMode]);
 
   useEffect(() => {
     if (locale) {

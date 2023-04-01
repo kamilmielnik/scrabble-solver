@@ -4,20 +4,22 @@ import { Config } from '@scrabble-solver/types';
 const extractCharacters = (config: Config, value: string): string[] => {
   let index = 0;
   const characters: string[] = [];
+  const valueLowercase = value.toLocaleLowerCase(config.locale);
 
-  while (index < value.length) {
-    const character = value[index];
-    const nextCharacter = value[index + 1];
-    const twoCharacterTileCandidate = `${character}${nextCharacter}`;
+  while (index < valueLowercase.length) {
+    const character = valueLowercase[index];
+    const nextCharacter = valueLowercase[index + 1];
+    const digraph = `${character}${nextCharacter}`;
 
-    if (config.twoCharacterTiles.includes(twoCharacterTileCandidate)) {
-      characters.push(twoCharacterTileCandidate);
-      ++index;
+    if (config.twoCharacterTiles.includes(digraph)) {
+      characters.push(digraph);
+      index += digraph.length;
     } else if (config.hasCharacter(character) || character === BLANK) {
       characters.push(character);
+      ++index;
+    } else {
+      ++index;
     }
-
-    ++index;
   }
 
   return characters;

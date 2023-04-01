@@ -56,6 +56,7 @@ const useAppLayout = () => {
   const resultsHeight = isLessThanL
     ? viewportHeight - dictionaryHeight - BUTTON_HEIGHT - MODAL_HEADER_HEIGHT - 5 * componentsSpacing
     : boardSize - componentsSpacing - dictionaryHeight;
+  const rackWidth = tileSize * config.maximumCharactersCount;
 
   return {
     actionsWidth: 2 * BUTTON_HEIGHT - BORDER_WIDTH,
@@ -67,10 +68,11 @@ const useAppLayout = () => {
     logoHeight,
     logoWidth: logoHeight * LOGO_ASPECT_RATIO,
     maxControlsWidth,
+    rackHeight: tileSize,
+    rackWidth,
     resultsHeight,
     resultsWidth: isLessThanL ? modalWidth - 2 * componentsSpacing : SOLVER_COLUMN_WIDTH,
     showCompactControls: !showColumn,
-    showFloatingSolveButton: isTouchDevice,
     showKeyMap: !isTouchDevice,
     showResultsInModal,
     showShortNav: isLessThanS,

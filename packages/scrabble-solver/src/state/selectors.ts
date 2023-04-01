@@ -65,6 +65,8 @@ export const selectLocaleAutoGroupTiles = createSelector([selectLocale, selectSe
 
 export const selectBoard = selectBoardRoot;
 
+export const selectInputMode = createSelector([selectSettingsRoot], (settings) => settings.inputMode);
+
 export const selectConfigId = createSelector([selectSettingsRoot], (settings) => settings.configId);
 
 export const selectConfig = createSelector([selectConfigId, selectLocale], getLocaleConfig);
