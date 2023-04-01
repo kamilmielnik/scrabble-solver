@@ -9,6 +9,7 @@ const tests = [
   { input: 'śćźa', expected: ['a'] },
   { input: 'bueno', expected: ['b', 'u', 'e', 'n', 'o'] },
   { input: 'bellas', expected: ['b', 'e', 'll', 'a', 's'] },
+  { input: 'BELLAS', expected: ['b', 'e', 'll', 'a', 's'] },
   { input: 'churro', expected: ['ch', 'u', 'rr', 'o'] },
   { input: 'challulla', expected: ['ch', 'a', 'll', 'u', 'll', 'a'] },
 ];
