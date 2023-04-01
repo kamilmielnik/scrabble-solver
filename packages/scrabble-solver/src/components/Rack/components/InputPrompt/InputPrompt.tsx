@@ -13,15 +13,14 @@ import {
 import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from 'hooks';
-import { extractCharactersByCase, getTileSizes } from 'lib';
-import { rackSlice, selectConfig, useTypedSelector } from 'state';
+import { extractCharactersByCase } from 'lib';
+import { rackSlice, selectConfig, useTranslate, useTypedSelector } from 'state';
 
 import styles from './InputPrompt.module.scss';
 
 interface Props {
   className?: string;
   style?: CSSProperties;
-  tileSize: number;
   value: string;
   onBlur: () => void;
   onChange: ChangeEventHandler<HTMLInputElement>;
@@ -29,10 +28,10 @@ interface Props {
 }
 
 const InputPrompt = forwardRef<HTMLFormElement, Props>(
-  ({ className, style, tileSize, value, onBlur, onChange, onSubmit, ...props }, ref) => {
+  ({ className, style, value, onBlur, onChange, onSubmit, ...props }, ref) => {
     const dispatch = useDispatch();
+    const translate = useTranslate();
     const { rackHeight, rackWidth } = useAppLayout();
-    const { tileFontSize } = getTileSizes(tileSize);
     const config = useTypedSelector(selectConfig);
     const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
 
@@ -73,9 +72,9 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
           autoComplete="off"
           autoCorrect="off"
           className={styles.input}
+          placeholder={translate('rack.touchscreen.placeholder')}
           ref={setInputRef}
           spellCheck={false}
-          style={{ fontSize: tileFontSize }}
           value={value}
           onBlur={onBlur}
           onChange={onChange}

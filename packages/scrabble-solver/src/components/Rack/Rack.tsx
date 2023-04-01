@@ -201,7 +201,6 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
               top: floatingInputPrompt.y ? floatingInputPrompt.y - rackHeight : 0,
               left: floatingInputPrompt.x ?? 0,
             }}
-            tileSize={tileSize}
             value={input}
             onBlur={() => setHasFocus(false)}
             onChange={(event) => setInput(event.target.value)}

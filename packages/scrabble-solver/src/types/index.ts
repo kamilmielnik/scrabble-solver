@@ -92,6 +92,7 @@ export type TranslationKey =
   | 'menu'
   | 'rack.placeholder'
   | 'rack.tile.location'
+  | 'rack.touchscreen.placeholder'
   | 'remaining-tiles'
   | 'results'
   | 'results.empty-state.no-results'
