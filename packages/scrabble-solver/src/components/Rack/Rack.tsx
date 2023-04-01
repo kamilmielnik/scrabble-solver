@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import {
   ChangeEvent,
   ClipboardEvent,
-  FormEventHandler,
   FunctionComponent,
   createRef,
   useCallback,
@@ -22,7 +21,6 @@ import {
   createArray,
   createKeyboardNavigation,
   extractCharacters,
-  extractCharactersByCase,
   extractInputValue,
   getTileSizes,
   isCtrl,
@@ -38,7 +36,7 @@ import {
   useTypedSelector,
 } from 'state';
 
-import { RackTile } from './components';
+import { InputPrompt, RackTile } from './components';
 import styles from './Rack.module.scss';
 
 interface Props {
@@ -52,7 +50,7 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const locale = useTypedSelector(selectLocale);
   const rack = useTypedSelector(selectRack);
   const inputMode = useTypedSelector(selectInputMode);
-  const { rackHeight, rackWidth } = useAppLayout();
+  const { rackHeight } = useAppLayout();
   const resultCandidateTiles = useTypedSelector(selectResultCandidateTiles);
   const tiles = useMemo(() => zipCharactersAndTiles(rack, resultCandidateTiles), [rack, resultCandidateTiles]);
   const tilesCount = tiles.length;
@@ -111,26 +109,13 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
 
   const handleFocus = useCallback(() => {
     setHasFocus(true);
-    floatingInput.refs.setPositionReference(rackRef.current);
+    floatingInputPrompt.refs.setPositionReference(rackRef.current);
     const characters: string[] = rack.filter((character) => character !== null) as string[];
     const uppercasedDigraphs = characters.map((character) => {
       return character.length > 1 ? character.toLocaleUpperCase(locale) : character;
     });
     setInput(uppercasedDigraphs.join(''));
   }, [rack, rackRef]);
-
-  const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
-    (event) => {
-      event.preventDefault();
-      setHasFocus(false);
-      const charactersByCase = extractCharactersByCase(config, input);
-      const characters = Array.from({ length: config.maximumCharactersCount }, (_, index) => {
-        return typeof charactersByCase[index] === 'string' ? charactersByCase[index] : null;
-      });
-      dispatch(rackSlice.actions.changeCharacters({ characters, index: 0 }));
-    },
-    [config, input],
-  );
 
   const handleKeyDown = useMemo(() => {
     return createKeyboardNavigation({
@@ -171,7 +156,7 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
     });
   }, [changeActiveIndex, config, direction]);
 
-  const floatingInput = useFloating({
+  const floatingInputPrompt = useFloating({
     placement: 'bottom-start',
     whileElementsMounted: autoUpdate,
   });
@@ -190,7 +175,7 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
           <RackTile
             activeIndexRef={activeIndexRef}
             character={character}
-            className={classNames({
+            className={classNames(styles.tile, {
               [styles.sharpLeft]: index !== 0,
               [styles.sharpRight]: index !== tiles.length - 1,
             })}
@@ -208,31 +193,19 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
 
       {inputMode === 'touchscreen' && hasFocus && (
         <FloatingPortal>
-          <form
-            className={styles.form}
-            ref={floatingInput.refs.setFloating}
+          <InputPrompt
+            ref={floatingInputPrompt.refs.setFloating}
             style={{
-              width: rackWidth,
-              height: rackHeight,
-              position: floatingInput.strategy,
-              top: floatingInput.y ? floatingInput.y - rackHeight : 0,
-              left: floatingInput.x ?? 0,
+              position: floatingInputPrompt.strategy,
+              top: floatingInputPrompt.y ? floatingInputPrompt.y - rackHeight : 0,
+              left: floatingInputPrompt.x ?? 0,
             }}
-            onSubmit={handleSubmit}
-          >
-            <input
-              autoCapitalize="none"
-              autoComplete="off"
-              autoCorrect="off"
-              autoFocus
-              className={styles.input}
-              spellCheck={false}
-              style={{ fontSize: tileFontSize }}
-              value={input}
-              onBlur={() => setHasFocus(false)}
-              onChange={(event) => setInput(event.target.value)}
-            />
-          </form>
+            tileSize={tileSize}
+            value={input}
+            onBlur={() => setHasFocus(false)}
+            onChange={(event) => setInput(event.target.value)}
+            onSubmit={() => setHasFocus(false)}
+          />
         </FloatingPortal>
       )}
     </>

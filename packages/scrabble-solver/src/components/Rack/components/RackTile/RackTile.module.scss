@@ -2,7 +2,6 @@
 
 .rackTile {
   @include focus-effect;
-  @include lighthouse-input-size-hack;
 
   --background-color: var(--color--background);
 

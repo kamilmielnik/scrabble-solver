@@ -28,9 +28,9 @@ import {
   useTypedSelector,
 } from 'state';
 
-import Tile from '../Tile';
+import Tile from '../../../Tile';
 
-import styles from './Rack.module.scss';
+import styles from './RackTile.module.scss';
 
 interface Props {
   activeIndexRef: MutableRefObject<number | undefined>;
