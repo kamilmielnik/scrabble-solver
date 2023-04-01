@@ -1,7 +1,9 @@
 /**
  * This component is unused, but it serves as a blueprint for the Logo.svg.
- * Logo.svg is what this component generates with all the text nodes transformed
- * into paths (manually with Inkscape), and corner radius removed from tiles.
+ * Logo.svg is what this component generates with all text nodes:
+ * - using font-family: Open Sans
+ * - transformed into paths (manually with Inkscape)
+ * - arranged (centered vertically against respective rows)
  */
 import { CSSProperties, FunctionComponent } from 'react';
 

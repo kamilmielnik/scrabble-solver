@@ -20,6 +20,7 @@ class MyDocument extends Document {
           <link rel="icon" type="image/png" href="icons/favicon-32x32.png" sizes="32x32" />
           <link rel="icon" type="image/png" href="icons/favicon-16x16.png" sizes="16x16" />
           <link rel="icon" type="image/png" href="icons/favicon-128.png" sizes="128x128" />
+          <link rel="icon" href="icons/favicon.svg" />
           <meta name="application-name" content="Scrabble Solver" />
           <meta name="msapplication-TileColor" content="#EFE3AE" />
           <meta name="msapplication-TileImage" content="icons/mstile-144x144.png" />
