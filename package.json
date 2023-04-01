@@ -79,9 +79,9 @@
     "open-cli": "^7.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.3",
+    "@babel/core": "^7.21.4",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-env": "^7.21.4",
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.11",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
@@ -99,6 +99,6 @@
     "prettier": "^2.8.7",
     "rimraf": "^4.4.1",
     "ts-jest": "^29.0.5",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.3"
   }
 }
