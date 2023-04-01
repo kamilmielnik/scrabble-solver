@@ -18,12 +18,5 @@
   height: 100%;
   border-radius: var(--border--radius);
   border: none;
-  opacity: 0;
-  caret-color: transparent;
   box-shadow: var(--box-shadow);
-
-  &:focus {
-    opacity: 1;
-    caret-color: auto;
-  }
 }
