@@ -68,7 +68,6 @@
 }
 
 .dictionaryContainer {
-  position: relative;
   flex: 0 0 auto;
   height: var(--dictionary--height);
   display: flex;
@@ -113,13 +112,4 @@
 
 .emptyState {
   margin-top: var(--spacing);
-}
-
-.productHuntBadge {
-  position: absolute;
-  right: 0;
-
-  @include media('<l') {
-    display: none;
-  }
 }

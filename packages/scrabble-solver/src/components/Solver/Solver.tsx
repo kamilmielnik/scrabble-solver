@@ -19,7 +19,6 @@ import Alert from '../Alert';
 import Board from '../Board';
 import Dictionary from '../Dictionary';
 import DictionaryInput from '../DictionaryInput';
-import ProductHuntBadge from '../ProductHuntBadge';
 import Rack from '../Rack';
 import Results from '../Results';
 
@@ -31,19 +30,16 @@ interface Props {
   onShowResults: () => void;
 }
 
-const DISPLAY_PRODUCT_HUNT_BADGE_UNTIL = new Date('2023/04/10');
-
 const Solver: FunctionComponent<Props> = ({ className, onShowResults }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
-  const { componentsSpacing, maxControlsWidth, showCompactControls, tileSize } = useAppLayout();
+  const { maxControlsWidth, showCompactControls, tileSize } = useAppLayout();
   const error = useTypedSelector(selectSolveError);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const results = useTypedSelector(selectResults);
   const [bestResult] = results || [];
-  const showProductHuntBadge = Date.now() < DISPLAY_PRODUCT_HUNT_BADGE_UNTIL.getTime();
   const touchCallbacks = useMemo(
     () => ({
       onClick: (result: Result) => {
@@ -107,15 +103,6 @@ const Solver: FunctionComponent<Props> = ({ className, onShowResults }) => {
             <div className={styles.dictionaryContainer}>
               <Dictionary className={styles.dictionary} />
               <DictionaryInput className={styles.dictionaryInput} />
-
-              {showProductHuntBadge && (
-                <ProductHuntBadge
-                  className={styles.productHuntBadge}
-                  style={{
-                    bottom: -componentsSpacing - tileSize,
-                  }}
-                />
-              )}
             </div>
           </div>
         </div>
