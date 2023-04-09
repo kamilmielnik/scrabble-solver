@@ -143,3 +143,7 @@ The user interface and source code for the web front end of Lexatious is based o
 
 - Web: https://lexatious.com
 - GitHub: https://github.com/ericgjackson/lexatious_web
+
+### Media
+
+- [5 Free Scrabble Solver Websites To Quickly Find Top Scoring Words](https://www.ilovefreesoftware.com/05/featured/free-scrabble-solver-websites-to-quickly-find-top-scoring-words.html)
