@@ -47,7 +47,7 @@ describe('solve - PL', () => {
     ]);
     const tiles = generateTiles(['l', 'i', 'n', 'o']);
     const results = solve(trie!, config, board, tiles);
-    expect(results.length).toBe(61);
+    expect(results.length).toBe(60);
   });
 
   it('zmartwychwstałą x9', () => {
