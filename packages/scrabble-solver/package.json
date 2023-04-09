@@ -28,7 +28,7 @@
     "start": "env-cmd next start -p 3333"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.22.2",
+    "@floating-ui/react": "^0.22.3",
     "@kamilmielnik/trie": "^2.0.1",
     "@reduxjs/toolkit": "^1.9.3",
     "@scrabble-solver/configs": "^2.12.1",
@@ -41,7 +41,7 @@
     "classnames": "^2.3.2",
     "include-media": "^2.0.0",
     "include-media-query-builder": "^1.1.0",
-    "next": "^13.2.4",
+    "next": "^13.3.0",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
     "react-cool-onclickoutside": "^1.7.0",
@@ -61,7 +61,7 @@
   "devDependencies": {
     "@svgr/webpack": "^7.0.0",
     "@types/classnames": "^2.3.0",
-    "@types/react": "^18.0.31",
+    "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
     "@types/react-highlight-words": "^0.16.4",
     "@types/react-modal": "^3.13.1",
@@ -71,7 +71,7 @@
     "@types/redux": "^3.6.31",
     "@types/redux-saga": "^0.10.5",
     "env-cmd": "^10.1.0",
-    "sass": "^1.60.0",
+    "sass": "^1.61.0",
     "workbox-webpack-plugin": "^6.5.4"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
