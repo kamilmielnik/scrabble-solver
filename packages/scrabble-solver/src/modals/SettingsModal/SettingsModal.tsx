@@ -1,6 +1,7 @@
 import { FunctionComponent, memo } from 'react';
 
 import { Modal } from 'components';
+import { useIsTouchDevice } from 'hooks';
 import { useTranslate } from 'state';
 
 import { AutoGroupTilesSetting, ConfigSetting, InputModeSetting, LocaleSetting } from './components';
@@ -13,6 +14,7 @@ interface Props {
 
 const SettingsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
+  const isTouchDevice = useIsTouchDevice();
 
   return (
     <Modal className={className} isOpen={isOpen} title={translate('settings')} onClose={onClose}>
@@ -24,9 +26,11 @@ const SettingsModal: FunctionComponent<Props> = ({ className, isOpen, onClose })
         <LocaleSetting disabled={!isOpen} />
       </Modal.Section>
 
-      <Modal.Section title={translate('settings.inputMode')}>
-        <InputModeSetting disabled={!isOpen} />
-      </Modal.Section>
+      {!isTouchDevice && (
+        <Modal.Section title={translate('settings.inputMode')}>
+          <InputModeSetting disabled={!isOpen} />
+        </Modal.Section>
+      )}
 
       <Modal.Section title={translate('settings.autoGroupTiles')}>
         <AutoGroupTilesSetting disabled={!isOpen} />
