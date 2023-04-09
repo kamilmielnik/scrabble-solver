@@ -57,4 +57,13 @@ describe('getPatternScore', () => {
 
     expect(getPatternScore(config, pattern)).toBe(2);
   });
+
+  it('gives 0 score for unknown characters', () => {
+    const pattern = new HorizontalPattern(board, [
+      new Cell({ x: 13, y: 14, tile: new Tile({ character: '?', isBlank: false }), isEmpty: true }),
+      new Cell({ x: 12, y: 14, tile: new Tile({ character: 't' }), isEmpty: false }),
+    ]);
+
+    expect(getPatternScore(config, pattern)).toBe(2);
+  });
 });
