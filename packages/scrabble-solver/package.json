@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/kamilmielnik/scrabble-solver/issues"
   },
-  "homepage": "https://github.com/kamilmielnik/scrabble-solver#readme",
+  "homepage": "https://scrabble-solver.org",
   "scripts": {
     "build": "env-cmd next build",
     "clean": "rimraf .next/ node_modules/",
