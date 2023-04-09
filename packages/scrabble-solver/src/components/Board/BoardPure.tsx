@@ -12,12 +12,17 @@ import {
   RefObject,
 } from 'react';
 
+import { FlagFill } from 'icons';
+import { BORDER_WIDTH } from 'parameters';
+import { Point } from 'types';
+
 import styles from './Board.module.scss';
 import { Cell } from './components';
 
 interface Props {
   className?: string;
   cellSize: number;
+  filteredCells: Point[];
   inputRefs: RefObject<HTMLInputElement>[][];
   rows: CellModel[][];
   style?: CSSProperties;
@@ -29,7 +34,10 @@ interface Props {
 }
 
 const BoardPure = forwardRef<HTMLDivElement, Props>(
-  ({ className, cellSize, inputRefs, rows, style, onBlur, onChange, onFocus, onKeyDown, onPaste }, ref) => (
+  (
+    { className, cellSize, filteredCells, inputRefs, rows, style, onBlur, onChange, onFocus, onKeyDown, onPaste },
+    ref,
+  ) => (
     <div
       className={classNames(styles.board, className)}
       ref={ref}
@@ -56,6 +64,22 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
             />
           ))}
         </Fragment>
+      ))}
+
+      {filteredCells.map(({ x, y }) => (
+        <div
+          className={styles.iconContainer}
+          key={[x, y].join('-')}
+          style={{
+            height: cellSize,
+            width: cellSize,
+            left: x * (cellSize + BORDER_WIDTH),
+            top: y * (cellSize + BORDER_WIDTH),
+          }}
+        >
+          <div className={styles.iconBackground} />
+          <FlagFill className={styles.icon} />
+        </div>
       ))}
     </div>
   ),

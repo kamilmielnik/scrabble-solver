@@ -33,3 +33,36 @@
   user-select: none;
   animation: var(--transition--duration) var(--transition--easing) hide;
 }
+
+.iconContainer {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.iconBackground,
+.icon {
+  position: absolute;
+  top: calc((100% - var(--size)) / 2);
+  right: calc((100% - var(--size)) / 2);
+  bottom: calc((100% - var(--size)) / 2);
+  left: calc((100% - var(--size)) / 2);
+  width: var(--size);
+  height: var(--size);
+}
+
+.iconBackground {
+  --size: 80%;
+
+  border-radius: var(--border--radius);
+  background-color: var(--color--foreground--secondary);
+}
+
+.icon {
+  --size: 40%;
+
+  color: var(--color--white);
+}

@@ -9,7 +9,7 @@ import { useAppLayout, useMediaQueries } from 'hooks';
 import { FlagFill, Star } from 'icons';
 import { dataUrlToBlob, getTileSizes } from 'lib';
 import { BORDER_COLOR_LIGHT, BORDER_RADIUS, BORDER_WIDTH, COLOR_BONUS_START, COLOR_FILTERED } from 'parameters';
-import { selectCellFilter, selectConfig, store, useTypedSelector } from 'state';
+import { selectConfig, store, useTypedSelector } from 'state';
 import { Point } from 'types';
 
 import { getBonusColor } from '../lib';
@@ -29,7 +29,6 @@ const useBackgroundImage = () => {
   const borderRadius = isLessThanXs ? BORDER_RADIUS_XS : BORDER_RADIUS;
   const config = useTypedSelector(selectConfig);
   const center = { x: Math.floor(config.boardWidth / 2), y: Math.floor(config.boardHeight / 2) };
-  const cellFilter = useTypedSelector(selectCellFilter);
   const viewBoxHeight = boardSize;
   const viewBoxWidth = boardSize;
   const bonusSize = cellSize * 0.8;
@@ -154,10 +153,6 @@ const useBackgroundImage = () => {
           x={getX(center) + iconOffset}
           y={getY(center) + iconOffset}
         />
-
-        {cellFilter.map((cell, index) => (
-          <use key={index} href={`#${CELL_FILTER}`} x={getX(cell)} y={getY(cell)} />
-        ))}
       </svg>
     </Provider>,
   );

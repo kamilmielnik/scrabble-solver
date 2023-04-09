@@ -71,9 +71,9 @@ export const selectConfigId = createSelector([selectSettingsRoot], (settings) =>
 
 export const selectConfig = createSelector([selectConfigId, selectLocale], getLocaleConfig);
 
-export const selectCellFilter = selectCellFilterRoot;
+export const selectFilteredCells = selectCellFilterRoot;
 
-export const selectCellIsFiltered = createSelector([selectCellFilter, selectPoint], (cellFilter, { x, y }) => {
+export const selectCellIsFiltered = createSelector([selectFilteredCells, selectPoint], (cellFilter, { x, y }) => {
   return cellFilter.some((cell) => cell.x === x && cell.y === y);
 });
 
@@ -94,7 +94,7 @@ export const selectResultsSort = createSelector([selectResultsRoot], (results) =
 export const selectSortedResults = createSelector([selectResultsRaw, selectResultsSort, selectLocale], sortResults);
 
 export const selectGroupedResults = createSelector(
-  [selectSortedResults, selectResultsQuery, selectCellFilter],
+  [selectSortedResults, selectResultsQuery, selectFilteredCells],
   groupResults,
 );
 
@@ -103,8 +103,8 @@ export const selectResults = createSelector([selectGroupedResults], (groupedResu
 });
 
 export const selectIsResultMatching = createSelector(
-  [selectResults, selectResultsQuery, selectCellFilter, selectResultIndex],
-  (results, query, cellFilter, index) => {
+  [selectResults, selectResultsQuery, selectFilteredCells, selectResultIndex],
+  (results, query, filteredCells, index) => {
     if (!results) {
       return false;
     }
@@ -116,8 +116,8 @@ export const selectIsResultMatching = createSelector(
       return false;
     }
 
-    if (cellFilter) {
-      return cellFilter.every(({ x, y }) => result.cells.some((cell) => cell.x === x && cell.y === y));
+    if (filteredCells) {
+      return filteredCells.every(({ x, y }) => result.cells.some((cell) => cell.x === x && cell.y === y));
     }
 
     return true;

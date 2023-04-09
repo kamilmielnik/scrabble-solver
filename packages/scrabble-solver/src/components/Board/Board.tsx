@@ -12,6 +12,7 @@ import { TRANSITION } from 'parameters';
 import {
   boardSlice,
   cellFilterSlice,
+  selectFilteredCells,
   selectInputMode,
   selectLocale,
   selectRowsWithCandidate,
@@ -22,7 +23,13 @@ import {
 import styles from './Board.module.scss';
 import BoardPure from './BoardPure';
 import { Actions, InputPrompt } from './components';
-import { useBoardStyle, useFloatingActions, useFloatingFocus, useFloatingInputPrompt, useGrid } from './hooks';
+import {
+  useBoardStyle,
+  useFloatingActions,
+  useFloatingFocus,
+  useFloatingInputPrompt,
+  useGrid,
+} from './hooks';
 
 interface Props {
   className?: string;
@@ -33,6 +40,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
   const locale = useTypedSelector(selectLocale);
   const rows = useTypedSelector(selectRowsWithCandidate);
   const inputMode = useTypedSelector(selectInputMode);
+  const filteredCells = useTypedSelector(selectFilteredCells);
   const { cellSize } = useAppLayout();
   const [
     { activeIndex, direction, inputRefs },
@@ -147,6 +155,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
       <BoardPure
         className={className}
         cellSize={cellSize}
+        filteredCells={filteredCells}
         inputRefs={inputRefs}
         ref={ref}
         rows={rows}
