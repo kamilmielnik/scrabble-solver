@@ -37,6 +37,7 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
       if (inputRef) {
         inputRef.focus();
         inputRef.select();
+        inputRef.scrollIntoView({ block: 'start', inline: 'center' });
       }
     }, [inputRef]);
 
