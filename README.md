@@ -53,6 +53,7 @@
 5. [Develop](#develop)
 6. [Tech stack](#tech-stack)
 7. [Related projects](#related-projects)
+8. [Media](#media)
 
 ## Dictionaries
 
