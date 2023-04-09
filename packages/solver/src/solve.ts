@@ -10,7 +10,10 @@ import getUniquePatterns from './getUniquePatterns';
 const solve = (trie: Trie, config: Config, board: Board, tiles: Tile[]): ResultJson[] => {
   const patterns = generatePatterns(config, board);
   const filledPatterns = patterns.flatMap((pattern) => fillPattern(trie, config, pattern, tiles));
-  const validPatterns = filledPatterns.filter((pattern) => areDigraphsValid(config, pattern));
+  const validPatterns =
+    config.twoCharacterTiles.length > 0
+      ? filledPatterns.filter((pattern) => areDigraphsValid(config, pattern))
+      : filledPatterns;
   const uniquePatterns = getUniquePatterns(validPatterns);
   const results = uniquePatterns.map((pattern, index) => ({
     cells: pattern.cells.map((cell) => cell.toJson()),
