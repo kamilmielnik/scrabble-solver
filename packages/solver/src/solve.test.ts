@@ -136,4 +136,28 @@ describe('solve - ES', () => {
     expect(results.length).toBe(24);
     expect(bestResult.points).toBe(22);
   });
+
+  it('chooho - does not use C + H to imitate CH', () => {
+    const board = Board.fromStringArray([
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+    ]);
+    const tiles = generateTiles(['ch', 'o', 'o', 'c', 'h']);
+    const results = solve(trie!, config, board, tiles);
+    const words = results.map((result) => result.cells.map((cell) => cell.tile?.character).join(''));
+    expect(words).not.toContain('chocho');
+  });
 });

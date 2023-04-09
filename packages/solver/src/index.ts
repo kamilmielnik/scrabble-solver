@@ -1,3 +1,4 @@
+export { default as areDigraphsValid } from './areDigraphsValid';
 export { default as fillPattern } from './fillPattern';
 export { default as generateEndIndices } from './generateEndIndices';
 export { default as generateHorizontalPatterns } from './generateHorizontalPatterns';
