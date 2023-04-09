@@ -47,7 +47,7 @@ describe('solve - PL', () => {
     ]);
     const tiles = generateTiles(['l', 'i', 'n', 'o']);
     const results = solve(trie!, config, board, tiles);
-    expect(results.length).toBe(60);
+    expect(results.length).toBe(33);
   });
 
   it('zmartwychwstałą x9', () => {
@@ -99,6 +99,29 @@ describe('solve - PL', () => {
     expect(bestResult.word).toBe('zmartwychwstałą');
     expect(bestResult.points).toBe(1157);
   });
+
+  it('does not duplicate results', () => {
+    const board = Board.fromStringArray([
+      '             a ',
+      '              a',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+    ]);
+    const tiles = generateTiles(['d']);
+    const results = solve(trie!, config, board, tiles);
+    expect(results.length).toBe(4);
+  });
 });
 
 describe('solve - ES', () => {
@@ -133,7 +156,7 @@ describe('solve - ES', () => {
     const tiles = generateTiles(['ll', 'a', 'n', 'a']);
     const results = solve(trie!, config, board, tiles);
     const bestResult = getBestResult(results.map((result) => Result.fromJson(result)));
-    expect(results.length).toBe(24);
+    expect(results.length).toBe(12);
     expect(bestResult.points).toBe(22);
   });
 
