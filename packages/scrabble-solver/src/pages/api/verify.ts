@@ -1,4 +1,4 @@
-import { getLocaleConfig, isConfigId } from '@scrabble-solver/configs';
+import { getConfig, isConfigId } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import logger from '@scrabble-solver/logger';
 import { Board, Config, isBoardJson, isLocale, Locale } from '@scrabble-solver/types';
@@ -52,7 +52,7 @@ const parseRequest = (request: NextApiRequest): RequestData => {
     throw new Error('Invalid "configId" parameter');
   }
 
-  const config = getLocaleConfig(configId, locale);
+  const config = getConfig(configId, locale);
 
   if (!isBoardJson(boardJson) || !isBoardValid(boardJson, config)) {
     throw new Error('Invalid "board" parameter');

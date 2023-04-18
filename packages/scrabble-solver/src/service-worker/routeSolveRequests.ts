@@ -2,7 +2,7 @@ import { Trie } from '@kamilmielnik/trie';
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { solve } from '@scrabble-solver/solver';
-import { Board, Locale, Tile } from '@scrabble-solver/types';
+import { Board, Tile } from '@scrabble-solver/types';
 import { registerRoute } from 'workbox-routing';
 
 import average from './average';
@@ -36,7 +36,7 @@ const routeSolveRequests = () => {
       const { board, characters, configId, locale } = await request.clone().json();
 
       const solveLocal = async (trie: Trie) => {
-        const config = getConfig(configId)[locale as Locale];
+        const config = getConfig(configId, locale);
         const tiles = characters.map((character: string) => new Tile({ character, isBlank: character === BLANK }));
         const resultsJson = solve(trie, config, Board.fromJson(board), tiles);
         const json = JSON.stringify(resultsJson);

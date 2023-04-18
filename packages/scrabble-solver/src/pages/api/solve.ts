@@ -1,4 +1,4 @@
-import { getLocaleConfig, isConfigId } from '@scrabble-solver/configs';
+import { getConfig, isConfigId } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import logger from '@scrabble-solver/logger';
@@ -60,7 +60,7 @@ const parseRequest = (request: NextApiRequest): RequestData => {
     throw new Error('Invalid "characters" parameter');
   }
 
-  const config = getLocaleConfig(configId, locale);
+  const config = getConfig(configId, locale);
 
   for (const character of characters) {
     if (!isCharacterValid(character)) {

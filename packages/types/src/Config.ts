@@ -51,6 +51,10 @@ class Config {
     return this.config.boardWidth;
   }
 
+  public get id(): string {
+    return this.config.id;
+  }
+
   public get locale(): Locale {
     return this.config.locale;
   }

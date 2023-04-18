@@ -1,23 +1,16 @@
 import { Config, Locale } from '@scrabble-solver/types';
 
-import literaki from './literaki';
-import scrabble from './scrabble';
+import * as locales from './locales';
 
-const configs = [literaki, scrabble];
+const getConfig = (configId: string, locale: Locale): Config => {
+  const configs = Object.values(locales).flat();
+  const localeConfig = configs.find((config) => config.id === configId && config.locale === locale);
 
-interface Result extends Record<Locale, Config> {
-  id: string;
-  name: string;
-}
-
-const getConfig = (configId: string): Result => {
-  const config = configs.find(({ id }) => id === configId);
-
-  if (!config) {
-    throw new Error(`Invalid "configId" parameter: not one of ${configs.map(({ id }) => id).join('/')}`);
+  if (typeof localeConfig === 'undefined') {
+    throw new Error(`No config for: "${configId}" in "${locale}"`);
   }
 
-  return config;
+  return localeConfig;
 };
 
 export default getConfig;
