@@ -17,6 +17,7 @@ const Radio: FunctionComponent<Props> = ({ checked, children, className, disable
   <label
     className={classNames(styles.radio, className, {
       [styles.checked]: checked,
+      [styles.disabled]: disabled,
     })}
   >
     <input
