@@ -7,7 +7,7 @@ const getConfig = (configId: string, locale: Locale): Config => {
   const localeConfig = configs.find((config) => config.id === configId && config.locale === locale);
 
   if (typeof localeConfig === 'undefined') {
-    throw new Error(`No config for: "${configId}" in "${locale}"`);
+    throw new Error(`No game for "${configId}" in "${locale}"`);
   }
 
   return localeConfig;

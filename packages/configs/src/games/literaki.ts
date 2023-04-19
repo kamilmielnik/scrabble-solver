@@ -1,4 +1,5 @@
 import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
+import { Game } from '@scrabble-solver/types';
 
 const literaki = {
   allTilesBonusScore: 50,
@@ -6,7 +7,7 @@ const literaki = {
   blanksCount: 2,
   boardHeight: 15,
   boardWidth: 15,
-  id: 'literaki',
+  id: Game.Literaki,
   maximumCharactersCount: 7,
   name: 'Literaki',
   bonuses: [

@@ -1,6 +1,6 @@
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
-import { Locale } from '@scrabble-solver/types';
+import { Game, Locale } from '@scrabble-solver/types';
 
 import extractCharacters from './extractCharacters';
 
@@ -16,7 +16,7 @@ const tests = [
 
 describe('extractCharacters', () => {
   const locale = Locale.ES_ES;
-  const config = getConfig('scrabble', locale);
+  const config = getConfig(Game.Scrabble, locale);
 
   for (const { input, expected } of tests) {
     it(`[${locale}] "${input}"`, () => {

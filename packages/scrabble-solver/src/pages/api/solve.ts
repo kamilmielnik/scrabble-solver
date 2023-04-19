@@ -1,9 +1,9 @@
-import { getConfig, isConfigId } from '@scrabble-solver/configs';
+import { getConfig, hasConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import logger from '@scrabble-solver/logger';
 import { solve as solveScrabble } from '@scrabble-solver/solver';
-import { Board, Config, isBoardJson, isLocale, Locale, Tile } from '@scrabble-solver/types';
+import { Board, Config, Locale, Tile, isBoardJson, isGame, isLocale } from '@scrabble-solver/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { getServerLoggingData, isBoardValid, isCharacterValid } from 'api';
@@ -52,12 +52,16 @@ const parseRequest = (request: NextApiRequest): RequestData => {
     throw new Error('Invalid "locale" parameter');
   }
 
-  if (!isConfigId(configId)) {
+  if (!isGame(configId)) {
     throw new Error('Invalid "configId" parameter');
   }
 
   if (!isStringArray(characters) || characters.length === 0) {
     throw new Error('Invalid "characters" parameter');
+  }
+
+  if (!hasConfig(configId, locale)) {
+    throw new Error(`No game for "${configId}" in "${locale}"`);
   }
 
   const config = getConfig(configId, locale);

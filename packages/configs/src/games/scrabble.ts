@@ -1,4 +1,5 @@
 import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
+import { Game } from '@scrabble-solver/types';
 
 const scrabble = {
   allTilesBonusScore: 50,
@@ -6,7 +7,7 @@ const scrabble = {
   blanksCount: 2,
   boardHeight: 15,
   boardWidth: 15,
-  id: 'scrabble',
+  id: Game.Scrabble,
   maximumCharactersCount: 7,
   name: 'Scrabble',
   bonuses: [

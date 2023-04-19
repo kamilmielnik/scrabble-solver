@@ -12,9 +12,8 @@ export { default as Config } from './Config';
 export { default as ConfigJson } from './ConfigJson';
 export { default as Dictionary } from './Dictionary';
 export { default as FinalPattern } from './FinalPattern';
+export { default as Game, isGame } from './Game';
 export { default as HorizontalPattern } from './HorizontalPattern';
-export { default as isError } from './isError';
-export { default as isObject } from './isObject';
 export { default as Locale, isLocale } from './Locale';
 export { default as Pattern } from './Pattern';
 export { default as PatternJson } from './PatternJson';
@@ -27,3 +26,6 @@ export { default as VerticalPattern } from './VerticalPattern';
 export { default as WordBonus } from './WordBonus';
 export { default as WordDefinition } from './WordDefinition';
 export { default as WordDefinitionJson } from './WordDefinitionJson';
+export { default as isError } from './isError';
+export { default as isObject } from './isObject';
+

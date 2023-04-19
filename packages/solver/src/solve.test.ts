@@ -1,7 +1,7 @@
 import { Trie } from '@kamilmielnik/trie';
 import { getConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
-import { Board, Locale, Result, Tile } from '@scrabble-solver/types';
+import { Board, Game, Locale, Result, Tile } from '@scrabble-solver/types';
 
 import solve from './solve';
 
@@ -18,7 +18,7 @@ const getBestResult = ([firstResult, ...results]: Result[]): Result => {
 
 describe('solve - PL', () => {
   const locale = Locale.PL_PL;
-  const config = getConfig('literaki', locale);
+  const config = getConfig(Game.Literaki, locale);
   let trie: Trie | undefined;
 
   beforeAll(() => {
@@ -126,7 +126,7 @@ describe('solve - PL', () => {
 
 describe('solve - ES', () => {
   const locale = Locale.ES_ES;
-  const config = getConfig('scrabble', locale);
+  const config = getConfig(Game.Scrabble, locale);
   let trie: Trie | undefined;
 
   beforeAll(() => {

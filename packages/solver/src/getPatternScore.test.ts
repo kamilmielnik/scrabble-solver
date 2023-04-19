@@ -1,10 +1,10 @@
 import { getConfig } from '@scrabble-solver/configs';
-import { Board, Cell, HorizontalPattern, Locale, Pattern, Tile, VerticalPattern } from '@scrabble-solver/types';
+import { Board, Cell, Game, HorizontalPattern, Locale, Pattern, Tile, VerticalPattern } from '@scrabble-solver/types';
 
 import getPatternScore from './getPatternScore';
 
 const locale = Locale.PL_PL;
-const config = getConfig('literaki', locale);
+const config = getConfig(Game.Literaki, locale);
 const board = Board.fromStringArray([
   ' kasom         ',
   '     i         ',
