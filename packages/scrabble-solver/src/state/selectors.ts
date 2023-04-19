@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 
 import { createSelector } from '@reduxjs/toolkit';
-import { getLocaleConfig } from '@scrabble-solver/configs';
+import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { Cell, Config, isError, Tile } from '@scrabble-solver/types';
 
@@ -67,9 +67,9 @@ export const selectBoard = selectBoardRoot;
 
 export const selectInputMode = createSelector([selectSettingsRoot], (settings) => settings.inputMode);
 
-export const selectConfigId = createSelector([selectSettingsRoot], (settings) => settings.configId);
+export const selectGame = createSelector([selectSettingsRoot], (settings) => settings.game);
 
-export const selectConfig = createSelector([selectConfigId, selectLocale], getLocaleConfig);
+export const selectConfig = createSelector([selectGame, selectLocale], getConfig);
 
 export const selectFilteredCells = selectCellFilterRoot;
 

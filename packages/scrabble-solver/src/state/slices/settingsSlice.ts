@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Locale } from '@scrabble-solver/types';
+import { Game, Locale } from '@scrabble-solver/types';
 
 import { AutoGroupTiles, InputMode } from 'types';
 
@@ -14,9 +14,9 @@ const settingsSlice = createSlice({
       return { ...state, autoGroupTiles };
     },
 
-    changeConfigId: (state, action: PayloadAction<string>) => {
-      const configId = action.payload;
-      return { ...state, configId };
+    changeGame: (state, action: PayloadAction<Game>) => {
+      const game = action.payload;
+      return { ...state, game };
     },
 
     changeInputMode: (state, action: PayloadAction<InputMode>) => {
@@ -29,7 +29,7 @@ const settingsSlice = createSlice({
       return { ...state, locale };
     },
 
-    init: (state, action: PayloadAction<Partial<Pick<typeof settingsInitialState, 'configId' | 'locale'>>>) => {
+    init: (state, action: PayloadAction<Partial<Pick<typeof settingsInitialState, 'game' | 'locale'>>>) => {
       return { ...state, ...action.payload };
     },
   },

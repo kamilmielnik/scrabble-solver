@@ -1,8 +1,8 @@
-import { scrabble } from '@scrabble-solver/configs';
+import { games } from '@scrabble-solver/configs';
 import { COMMA_ARABIC, COMMA_LATIN } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import logger from '@scrabble-solver/logger';
-import { isLocale, Locale } from '@scrabble-solver/types';
+import { Locale, isLocale } from '@scrabble-solver/types';
 import { getWordDefinition } from '@scrabble-solver/word-definitions';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -13,7 +13,10 @@ interface RequestData {
   words: string[];
 }
 
-const MAXIMUM_COLLISIONS_COUNT = scrabble['en-US'].maximumCharactersCount;
+const MAXIMUM_COLLISIONS_COUNT = Object.values(games).reduce(
+  (result, game) => Math.max(result, game.maximumCharactersCount),
+  0,
+);
 const MAXIMUM_WORDS_COUNT = MAXIMUM_COLLISIONS_COUNT + 1;
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {

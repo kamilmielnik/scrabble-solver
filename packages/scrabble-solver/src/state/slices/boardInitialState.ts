@@ -1,4 +1,4 @@
-import { getLocaleConfig } from '@scrabble-solver/configs';
+import { getConfig } from '@scrabble-solver/configs';
 import { Board } from '@scrabble-solver/types';
 
 import localStorage from '../localStorage';
@@ -7,8 +7,8 @@ import settingsInitialState from './settingsInitialState';
 
 export type BoardState = Board;
 
-const { configId, locale } = settingsInitialState;
-const { boardHeight, boardWidth } = getLocaleConfig(configId, locale);
+const { game, locale } = settingsInitialState;
+const { boardHeight, boardWidth } = getConfig(game, locale);
 export const boardDefaultState = Board.create(boardWidth, boardHeight);
 
 const boardInitialState: BoardState = localStorage.getBoard() || boardDefaultState;

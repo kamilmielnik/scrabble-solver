@@ -4,7 +4,7 @@ import {
   localStorage,
   selectAutoGroupTiles,
   selectBoard,
-  selectConfigId,
+  selectGame,
   selectInputMode,
   selectLocale,
   selectRack,
@@ -14,7 +14,7 @@ import {
 const useLocalStorage = () => {
   const autoGroupTiles = useTypedSelector(selectAutoGroupTiles);
   const board = useTypedSelector(selectBoard);
-  const configId = useTypedSelector(selectConfigId);
+  const game = useTypedSelector(selectGame);
   const inputMode = useTypedSelector(selectInputMode);
   const locale = useTypedSelector(selectLocale);
   const rack = useTypedSelector(selectRack);
@@ -32,10 +32,10 @@ const useLocalStorage = () => {
   }, [board]);
 
   useEffect(() => {
-    if (configId) {
-      localStorage.setConfigId(configId);
+    if (game) {
+      localStorage.setGame(game);
     }
-  }, [configId]);
+  }, [game]);
 
   useEffect(() => {
     if (inputMode) {

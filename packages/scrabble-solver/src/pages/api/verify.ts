@@ -1,7 +1,7 @@
-import { getLocaleConfig, isConfigId } from '@scrabble-solver/configs';
+import { getConfig, hasConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import logger from '@scrabble-solver/logger';
-import { Board, Config, isBoardJson, isLocale, Locale } from '@scrabble-solver/types';
+import { Board, Config, Locale, isBoardJson, isGame, isLocale } from '@scrabble-solver/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { getServerLoggingData, isBoardValid } from 'api';
@@ -24,7 +24,7 @@ const verify = async (request: NextApiRequest, response: NextApiResponse): Promi
         board: board.toString(),
         boardBlanksCount: board.getBlanksCount(),
         boardTilesCount: board.getTilesCount(),
-        configId: request.body.configId,
+        game: request.body.game,
         locale,
       },
     });
@@ -42,17 +42,21 @@ const verify = async (request: NextApiRequest, response: NextApiResponse): Promi
 };
 
 const parseRequest = (request: NextApiRequest): RequestData => {
-  const { board: boardJson, configId, locale } = request.body;
+  const { board: boardJson, game, locale } = request.body;
 
   if (!isLocale(locale)) {
     throw new Error('Invalid "locale" parameter');
   }
 
-  if (!isConfigId(configId)) {
-    throw new Error('Invalid "configId" parameter');
+  if (!isGame(game)) {
+    throw new Error('Invalid "game" parameter');
   }
 
-  const config = getLocaleConfig(configId, locale);
+  if (!hasConfig(game, locale)) {
+    throw new Error(`No game "${game}" in "${locale}"`);
+  }
+
+  const config = getConfig(game, locale);
 
   if (!isBoardJson(boardJson) || !isBoardValid(boardJson, config)) {
     throw new Error('Invalid "board" parameter');

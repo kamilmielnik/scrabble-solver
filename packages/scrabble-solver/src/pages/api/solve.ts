@@ -1,9 +1,9 @@
-import { getLocaleConfig, isConfigId } from '@scrabble-solver/configs';
+import { getConfig, hasConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import logger from '@scrabble-solver/logger';
 import { solve as solveScrabble } from '@scrabble-solver/solver';
-import { Board, Config, isBoardJson, isLocale, Locale, Tile } from '@scrabble-solver/types';
+import { Board, Config, Locale, Tile, isBoardJson, isGame, isLocale } from '@scrabble-solver/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { getServerLoggingData, isBoardValid, isCharacterValid } from 'api';
@@ -29,7 +29,7 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
         boardBlanksCount: board.getBlanksCount(),
         boardTilesCount: board.getTilesCount(),
         characters: characters.join(''),
-        configId: request.body.configId,
+        game: request.body.game,
         locale,
       },
     });
@@ -46,21 +46,25 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
 };
 
 const parseRequest = (request: NextApiRequest): RequestData => {
-  const { board: boardJson, characters, configId, locale } = request.body;
+  const { board: boardJson, characters, game, locale } = request.body;
 
   if (!isLocale(locale)) {
     throw new Error('Invalid "locale" parameter');
   }
 
-  if (!isConfigId(configId)) {
-    throw new Error('Invalid "configId" parameter');
+  if (!isGame(game)) {
+    throw new Error('Invalid "game" parameter');
   }
 
   if (!isStringArray(characters) || characters.length === 0) {
     throw new Error('Invalid "characters" parameter');
   }
 
-  const config = getLocaleConfig(configId, locale);
+  if (!hasConfig(game, locale)) {
+    throw new Error(`No game "${game}" in "${locale}"`);
+  }
+
+  const config = getConfig(game, locale);
 
   for (const character of characters) {
     if (!isCharacterValid(character)) {

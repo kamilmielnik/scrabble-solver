@@ -4,7 +4,7 @@ import fetchJson from './fetchJson';
 
 interface Payload {
   board: BoardJson;
-  configId: string;
+  game: string;
   locale: Locale;
 }
 
@@ -13,10 +13,10 @@ interface Response {
   validWords: string[];
 }
 
-const verify = async ({ board, configId, locale }: Payload): Promise<Response> => {
+const verify = async ({ board, game, locale }: Payload): Promise<Response> => {
   return fetchJson<Response>('/api/verify', {
     method: 'POST',
-    body: JSON.stringify({ board, configId, locale }),
+    body: JSON.stringify({ board, game, locale }),
   });
 };
 

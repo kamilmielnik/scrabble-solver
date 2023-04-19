@@ -1,6 +1,7 @@
 /* eslint-disable max-lines */
 
 import { PayloadAction } from '@reduxjs/toolkit';
+import { hasConfig, localesMap } from '@scrabble-solver/configs';
 import { Locale, Result } from '@scrabble-solver/types';
 import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
@@ -15,6 +16,7 @@ import {
   selectCharacters,
   selectConfig,
   selectDictionary,
+  selectGame,
   selectLocale,
   selectLocaleAutoGroupTiles,
   selectRack,
@@ -44,7 +46,7 @@ export function* rootSaga(): AnyGenerator {
   yield takeEvery([rackSlice.actions.changeCharacter.type, rackSlice.actions.changeCharacters.type], onRackValueChange);
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
   yield takeEvery(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
-  yield takeEvery(settingsSlice.actions.changeConfigId.type, onConfigIdChange);
+  yield takeEvery(settingsSlice.actions.changeGame.type, onConfigIdChange);
   yield takeEvery(settingsSlice.actions.changeLocale.type, onLocaleChange);
   yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
   yield takeLatest(initialize.type, onInitialize);
@@ -128,7 +130,14 @@ function* onReset(): AnyGenerator {
   yield put(verifySlice.actions.submit());
 }
 
-function* onLocaleChange(): AnyGenerator {
+function* onLocaleChange({ payload: locale }: PayloadAction<Locale>): AnyGenerator {
+  const game = yield select(selectGame);
+
+  if (!hasConfig(game, locale)) {
+    const defaultConfig = localesMap[locale][0];
+    yield put(settingsSlice.actions.changeGame(defaultConfig.game));
+  }
+
   const characters = yield select(selectCharacters);
 
   if (characters.length > 0) {
@@ -166,7 +175,7 @@ function* onSolve(): AnyGenerator {
     const results = yield call(solve, {
       board: board.toJson(),
       characters,
-      configId: config.id,
+      game: config.game,
       locale,
     });
     yield put(resultsSlice.actions.changeResults(results));
@@ -187,7 +196,7 @@ function* onVerify(): AnyGenerator {
   try {
     const { invalidWords, validWords } = yield call(verify, {
       board: board.toJson(),
-      configId: config.id,
+      game: config.game,
       locale,
     });
     yield put(verifySlice.actions.submitSuccess({ board, invalidWords, validWords }));

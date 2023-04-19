@@ -1,5 +1,4 @@
-import { literaki, scrabble } from '@scrabble-solver/configs';
-import { Locale } from '@scrabble-solver/types';
+import { Game, Locale } from '@scrabble-solver/types';
 
 import { guessLocale } from 'lib';
 import { AutoGroupTiles, InputMode } from 'types';
@@ -8,7 +7,7 @@ import localStorage from '../localStorage';
 
 export interface SettingsState {
   autoGroupTiles: AutoGroupTiles;
-  configId: typeof literaki.id | typeof scrabble.id;
+  game: Game;
   inputMode: InputMode;
   locale: Locale;
 }
@@ -18,7 +17,7 @@ const isTouchScreen = typeof globalThis.matchMedia !== 'undefined' && globalThis
 
 const settingsInitialState: SettingsState = {
   autoGroupTiles: typeof localStorageAutoGroupTiles === 'undefined' ? 'left' : localStorageAutoGroupTiles,
-  configId: localStorage.getConfigId() || scrabble.id,
+  game: localStorage.getGame() || Game.Scrabble,
   inputMode: localStorage.getInputMode() || (isTouchScreen ? 'touchscreen' : 'keyboard'),
   locale: localStorage.getLocale() || guessLocale(),
 };

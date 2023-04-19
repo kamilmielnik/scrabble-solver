@@ -5,6 +5,7 @@ import BonusValue from './BonusValue';
 import Cell from './Cell';
 import CharacterBonus from './CharacterBonus';
 import ConfigJson from './ConfigJson';
+import Game from './Game';
 import Locale from './Locale';
 import Tile from './Tile';
 import TileConfig from './TileConfig';
@@ -49,6 +50,10 @@ class Config {
 
   public get boardWidth(): number {
     return this.config.boardWidth;
+  }
+
+  public get game(): Game {
+    return this.config.game;
   }
 
   public get locale(): Locale {
