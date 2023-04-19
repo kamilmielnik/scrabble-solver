@@ -1,6 +1,7 @@
 /* eslint-disable max-lines */
 
 import { PayloadAction } from '@reduxjs/toolkit';
+import { hasConfig, localesMap } from '@scrabble-solver/configs';
 import { Locale, Result } from '@scrabble-solver/types';
 import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
@@ -14,6 +15,7 @@ import {
   selectCellIsFiltered,
   selectCharacters,
   selectConfig,
+  selectConfigId,
   selectDictionary,
   selectLocale,
   selectLocaleAutoGroupTiles,
@@ -128,7 +130,14 @@ function* onReset(): AnyGenerator {
   yield put(verifySlice.actions.submit());
 }
 
-function* onLocaleChange(): AnyGenerator {
+function* onLocaleChange({ payload: locale }: PayloadAction<Locale>): AnyGenerator {
+  const configId = yield select(selectConfigId);
+
+  if (!hasConfig(configId, locale)) {
+    const defaultConfig = localesMap[locale][0];
+    yield put(settingsSlice.actions.changeConfigId(defaultConfig.id));
+  }
+
   const characters = yield select(selectCharacters);
 
   if (characters.length > 0) {
