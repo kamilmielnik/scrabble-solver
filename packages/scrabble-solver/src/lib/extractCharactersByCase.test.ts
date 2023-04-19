@@ -1,4 +1,4 @@
-import { scrabble } from '@scrabble-solver/configs';
+import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { Locale } from '@scrabble-solver/types';
 
@@ -21,7 +21,7 @@ const tests = [
 
 describe('extractCharactersByCase', () => {
   const locale = Locale.ES_ES;
-  const config = scrabble[locale];
+  const config = getConfig('scrabble', locale);
 
   for (const { input, expected } of tests) {
     it(`[${locale}] "${input}"`, () => {

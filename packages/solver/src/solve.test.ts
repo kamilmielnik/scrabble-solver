@@ -1,5 +1,5 @@
 import { Trie } from '@kamilmielnik/trie';
-import { literaki, scrabble } from '@scrabble-solver/configs';
+import { getConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import { Board, Locale, Result, Tile } from '@scrabble-solver/types';
 
@@ -18,7 +18,7 @@ const getBestResult = ([firstResult, ...results]: Result[]): Result => {
 
 describe('solve - PL', () => {
   const locale = Locale.PL_PL;
-  const config = literaki[locale];
+  const config = getConfig('literaki', locale);
   let trie: Trie | undefined;
 
   beforeAll(() => {
@@ -126,7 +126,7 @@ describe('solve - PL', () => {
 
 describe('solve - ES', () => {
   const locale = Locale.ES_ES;
-  const config = scrabble[locale];
+  const config = getConfig('scrabble', locale);
   let trie: Trie | undefined;
 
   beforeAll(() => {
