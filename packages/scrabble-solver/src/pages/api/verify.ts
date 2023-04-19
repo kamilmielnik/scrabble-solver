@@ -24,7 +24,7 @@ const verify = async (request: NextApiRequest, response: NextApiResponse): Promi
         board: board.toString(),
         boardBlanksCount: board.getBlanksCount(),
         boardTilesCount: board.getTilesCount(),
-        configId: request.body.configId,
+        game: request.body.game,
         locale,
       },
     });
@@ -42,21 +42,21 @@ const verify = async (request: NextApiRequest, response: NextApiResponse): Promi
 };
 
 const parseRequest = (request: NextApiRequest): RequestData => {
-  const { board: boardJson, configId, locale } = request.body;
+  const { board: boardJson, game, locale } = request.body;
 
   if (!isLocale(locale)) {
     throw new Error('Invalid "locale" parameter');
   }
 
-  if (!isGame(configId)) {
-    throw new Error('Invalid "configId" parameter');
+  if (!isGame(game)) {
+    throw new Error('Invalid "game" parameter');
   }
 
-  if (!hasConfig(configId, locale)) {
-    throw new Error(`No game for "${configId}" in "${locale}"`);
+  if (!hasConfig(game, locale)) {
+    throw new Error(`No game "${game}" in "${locale}"`);
   }
 
-  const config = getConfig(configId, locale);
+  const config = getConfig(game, locale);
 
   if (!isBoardJson(boardJson) || !isBoardValid(boardJson, config)) {
     throw new Error('Invalid "board" parameter');

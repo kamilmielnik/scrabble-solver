@@ -28,4 +28,3 @@ export { default as WordDefinition } from './WordDefinition';
 export { default as WordDefinitionJson } from './WordDefinitionJson';
 export { default as isError } from './isError';
 export { default as isObject } from './isObject';
-

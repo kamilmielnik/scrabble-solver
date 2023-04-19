@@ -67,9 +67,9 @@ export const selectBoard = selectBoardRoot;
 
 export const selectInputMode = createSelector([selectSettingsRoot], (settings) => settings.inputMode);
 
-export const selectConfigId = createSelector([selectSettingsRoot], (settings) => settings.configId);
+export const selectGame = createSelector([selectSettingsRoot], (settings) => settings.game);
 
-export const selectConfig = createSelector([selectConfigId, selectLocale], getConfig);
+export const selectConfig = createSelector([selectGame, selectLocale], getConfig);
 
 export const selectFilteredCells = selectCellFilterRoot;
 

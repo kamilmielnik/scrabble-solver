@@ -7,8 +7,8 @@ import settingsInitialState from './settingsInitialState';
 
 export type BoardState = Board;
 
-const { configId, locale } = settingsInitialState;
-const { boardHeight, boardWidth } = getConfig(configId, locale);
+const { game, locale } = settingsInitialState;
+const { boardHeight, boardWidth } = getConfig(game, locale);
 export const boardDefaultState = Board.create(boardWidth, boardHeight);
 
 const boardInitialState: BoardState = localStorage.getBoard() || boardDefaultState;

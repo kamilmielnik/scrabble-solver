@@ -5,14 +5,14 @@ import fetchJson from './fetchJson';
 interface Payload {
   board: BoardJson;
   characters: string[];
-  configId: string;
+  game: string;
   locale: Locale;
 }
 
-const solve = async ({ board, characters, configId, locale }: Payload): Promise<Result[]> => {
+const solve = async ({ board, characters, game, locale }: Payload): Promise<Result[]> => {
   const json = await fetchJson<ResultJson[]>('/api/solve', {
     method: 'POST',
-    body: JSON.stringify({ board, characters, configId, locale }),
+    body: JSON.stringify({ board, characters, game, locale }),
   });
 
   return json.map(Result.fromJson);

@@ -1,13 +1,13 @@
-import { Config, Locale } from '@scrabble-solver/types';
+import { Config, Game, Locale } from '@scrabble-solver/types';
 
 import * as locales from './locales';
 
-const getConfig = (configId: string, locale: Locale): Config => {
+const getConfig = (game: Game, locale: Locale): Config => {
   const configs = Object.values(locales).flat();
-  const localeConfig = configs.find((config) => config.id === configId && config.locale === locale);
+  const localeConfig = configs.find((config) => config.game === game && config.locale === locale);
 
   if (typeof localeConfig === 'undefined') {
-    throw new Error(`No game for "${configId}" in "${locale}"`);
+    throw new Error(`No game "${game}" in "${locale}"`);
   }
 
   return localeConfig;

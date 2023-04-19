@@ -1,4 +1,5 @@
 import BonusJson from './BonusJson';
+import Game from './Game';
 import Locale from './Locale';
 import TileConfig from './TileConfig';
 
@@ -9,7 +10,7 @@ interface ConfigJson {
   boardHeight: number;
   boardWidth: number;
   bonuses: BonusJson[];
-  id: string;
+  game: Game;
   locale: Locale;
   maximumCharactersCount: number;
   name: string;

@@ -29,7 +29,7 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
         boardBlanksCount: board.getBlanksCount(),
         boardTilesCount: board.getTilesCount(),
         characters: characters.join(''),
-        configId: request.body.configId,
+        game: request.body.game,
         locale,
       },
     });
@@ -46,25 +46,25 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
 };
 
 const parseRequest = (request: NextApiRequest): RequestData => {
-  const { board: boardJson, characters, configId, locale } = request.body;
+  const { board: boardJson, characters, game, locale } = request.body;
 
   if (!isLocale(locale)) {
     throw new Error('Invalid "locale" parameter');
   }
 
-  if (!isGame(configId)) {
-    throw new Error('Invalid "configId" parameter');
+  if (!isGame(game)) {
+    throw new Error('Invalid "game" parameter');
   }
 
   if (!isStringArray(characters) || characters.length === 0) {
     throw new Error('Invalid "characters" parameter');
   }
 
-  if (!hasConfig(configId, locale)) {
-    throw new Error(`No game for "${configId}" in "${locale}"`);
+  if (!hasConfig(game, locale)) {
+    throw new Error(`No game "${game}" in "${locale}"`);
   }
 
-  const config = getConfig(configId, locale);
+  const config = getConfig(game, locale);
 
   for (const character of characters) {
     if (!isCharacterValid(character)) {

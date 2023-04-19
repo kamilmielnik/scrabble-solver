@@ -33,10 +33,10 @@ const routeSolveRequests = () => {
   registerRoute(
     ({ url }) => url.origin === location.origin && url.pathname === '/api/solve',
     async ({ request }) => {
-      const { board, characters, configId, locale } = await request.clone().json();
+      const { board, characters, game, locale } = await request.clone().json();
 
       const solveLocal = async (trie: Trie) => {
-        const config = getConfig(configId, locale);
+        const config = getConfig(game, locale);
         const tiles = characters.map((character: string) => new Tile({ character, isBlank: character === BLANK }));
         const resultsJson = solve(trie, config, Board.fromJson(board), tiles);
         const json = JSON.stringify(resultsJson);

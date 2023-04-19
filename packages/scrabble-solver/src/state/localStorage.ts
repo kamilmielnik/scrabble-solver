@@ -1,11 +1,11 @@
-import { Board, Locale } from '@scrabble-solver/types';
+import { Board, Game, Locale } from '@scrabble-solver/types';
 import store2 from 'store2';
 
 import { AutoGroupTiles, InputMode, Rack } from 'types';
 
 const AUTO_GROUP_TILES = 'auto-group-tiles';
 const BOARD = 'board';
-const CONFIG_ID = 'config-id';
+const GAME_ID = 'config-id';
 const INPUT_MODE = 'input-mode';
 const LOCALE = 'locale';
 const RACK = 'rack';
@@ -31,12 +31,12 @@ const localStorage = {
     store.set(BOARD, serialized, true);
   },
 
-  getConfigId(): string | undefined {
-    return store.get(CONFIG_ID);
+  getGame(): Game | undefined {
+    return store.get(GAME_ID);
   },
 
-  setConfigId(configId: string | undefined): void {
-    store.set(CONFIG_ID, configId, true);
+  setGame(game: Game | undefined): void {
+    store.set(GAME_ID, game, true);
   },
 
   getInputMode(): InputMode | undefined {

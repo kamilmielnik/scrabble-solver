@@ -1,9 +1,10 @@
 import { games, hasConfig } from '@scrabble-solver/configs';
+import { isGame } from '@scrabble-solver/types';
 import { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Radio } from 'components';
-import { selectConfigId, selectLocale, settingsSlice, useTypedSelector } from 'state';
+import { selectGame, selectLocale, settingsSlice, useTypedSelector } from 'state';
 
 import styles from './ConfigSetting.module.scss';
 
@@ -14,27 +15,29 @@ interface Props {
 
 const ConfigSetting: FunctionComponent<Props> = ({ className, disabled }) => {
   const dispatch = useDispatch();
-  const configId = useTypedSelector(selectConfigId);
+  const game = useTypedSelector(selectGame);
   const locale = useTypedSelector(selectLocale);
-  const options = Object.values(games).map((game) => ({
-    disabled: !hasConfig(game.id, locale),
-    label: game.name,
-    value: game.id,
+  const options = Object.values(games).map((gameConfig) => ({
+    disabled: !hasConfig(gameConfig.game, locale),
+    label: gameConfig.name,
+    value: gameConfig.game,
   }));
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(settingsSlice.actions.changeConfigId(event.target.value));
+    if (isGame(event.target.value)) {
+      dispatch(settingsSlice.actions.changeGame(event.target.value));
+    }
   };
 
   return (
     <div className={className}>
       {options.map((option) => (
         <Radio
-          checked={configId === option.value}
+          checked={game === option.value}
           className={styles.option}
           disabled={disabled || option.disabled}
           key={option.value}
-          name="configId"
+          name="game"
           value={option.value}
           onChange={handleChange}
         >
