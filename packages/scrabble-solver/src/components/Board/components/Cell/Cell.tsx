@@ -13,6 +13,7 @@ import {
 
 import {
   selectCellIsValid,
+  selectConfig,
   selectInputMode,
   selectLocale,
   selectTilePoints,
@@ -52,6 +53,7 @@ const Cell: FunctionComponent<Props> = ({
   const { tile, x, y } = cell;
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
+  const config = useTypedSelector(selectConfig);
   const inputMode = useTypedSelector(selectInputMode);
   const points = useTypedSelector((state) => selectTilePoints(state, cell.tile));
   const isValid = useTypedSelector((state) => selectCellIsValid(state, cell));
@@ -98,6 +100,8 @@ const Cell: FunctionComponent<Props> = ({
         y: (y + 1).toLocaleString(locale),
       })}
       className={classNames(styles.tile, className, {
+        [styles.first3]: x < 3,
+        [styles.last3]: config.boardWidth - x - 1 < 3,
         [styles.sharpTopLeft]: cellTop?.hasTile() || cellLeft?.hasTile(),
         [styles.sharpTopRight]: cellTop?.hasTile() || cellRight?.hasTile(),
         [styles.sharpBottomLeft]: cellBottom?.hasTile() || cellLeft?.hasTile(),
