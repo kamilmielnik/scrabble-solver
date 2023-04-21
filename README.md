@@ -126,7 +126,7 @@ npx lerna run build --scope=@scrabble-solver/PACKAGE_NAME_HERE
 #### Locale flag
 1. Find and download a flag representing the locale in an SVG format
     - I usually find them at https://commons.wikimedia.org/
-2. Rename the flag to `FlagXX.svg` and put it in [packages/scrabble-solver/src/icons](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver/src/icons)
+2. Rename the file to `FlagXX.svg` and put it in [packages/scrabble-solver/src/icons](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver/src/icons)
 3. Export the SVG file in [packages/scrabble-solver/src/icons/index.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/icons/index.ts)
 
 #### Language features
@@ -135,7 +135,7 @@ npx lerna run build --scope=@scrabble-solver/PACKAGE_NAME_HERE
       ```Shell
       npx lerna run build --scope=@scrabble-solver/types
       ```
-2. Update [packages/scrabble-solver/src/i18n/constants.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/i18n/constants.ts)
+2. Add locale configuration in [packages/scrabble-solver/src/i18n/constants.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/i18n/constants.ts)
 
 #### Game configs
 1. Add game configs for the new locale in in [packages/configs/src/locales](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/configs/src/locales)
@@ -148,7 +148,6 @@ npx lerna run build --scope=@scrabble-solver/PACKAGE_NAME_HERE
 
 #### Word list
 1. Add a function to fetch the list of words in the new locale in [packages/word-lists/src/getWordList.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-lists/src/getWordList.ts)
-2. Add the dictionary in [packages/configs/src/dictionaries/index.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/configs/src/dictionaries/index.ts)
 
 #### Word definitions
 1. Add a function to fetch the word definition in the new locale in [packages/word-definitions/src/crawl/crawl.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/crawl/crawl.ts)
