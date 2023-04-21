@@ -17,18 +17,14 @@
   }
 
   [dir='ltr'] & {
-    &:nth-child(15n + 1),
-    &:nth-child(15n + 2),
-    &:nth-child(15n + 3) {
+    &.first3 {
       input {
         left: 0;
         clip-path: polygon(0 (100% / 3), (100% / 3) (100% / 3), (100% / 3) (200% / 3), 0 (200% / 3));
       }
     }
 
-    &:nth-last-child(15n + 1),
-    &:nth-last-child(15n + 2),
-    &:nth-last-child(15n + 3) {
+    &.last3 {
       input {
         left: -200%;
         clip-path: polygon((200% / 3) (100% / 3), 100% (100% / 3), 100% (200% / 3), (200% / 3) (200% / 3));
@@ -37,9 +33,7 @@
   }
 
   [dir='rtl'] & {
-    &:nth-child(15n + 1),
-    &:nth-child(15n + 2),
-    &:nth-child(15n + 3) {
+    &.first3 {
       input {
         left: -200%;
         right: 0;
@@ -47,9 +41,7 @@
       }
     }
 
-    &:nth-last-child(15n + 1),
-    &:nth-last-child(15n + 2),
-    &:nth-last-child(15n + 3) {
+    &.last3 {
       input {
         left: 0;
         right: -200%;

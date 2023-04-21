@@ -10,12 +10,14 @@ import 'styles/global.scss';
 
 const DESCRIPTION =
   // eslint-disable-next-line max-len
-  'Scrabble Solver 2 - Free and open-source analysis tool for Scrabble and Literaki. Quickly find top scoring words using given letters and board state. Available in English, French, German, Polish & Spanish.';
+  'Scrabble Solver 2 - Free and open-source analysis tool for Scrabble, Super Scrabble & Literaki. Quickly find top scoring words using given letters and board state. Available in English, French, German, Polish & Spanish.';
 
 const KEYWORDS = [
   'Scrabble Solver',
   'Scrabble',
   'Solver',
+  'Super Scrabble',
+  'Super Scrabble Solver',
   'Board',
   'Open-source',
   'Open',

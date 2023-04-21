@@ -21,6 +21,7 @@ const VERTICAL_LINE = 'v';
 const BONUS = 'b';
 const BONUS_WORD_2 = 'b2';
 const BONUS_WORD_3 = 'b3';
+const BONUS_WORD_4 = 'b4';
 const CELL_FILTER = 'c';
 
 const useBackgroundImage = () => {
@@ -41,6 +42,7 @@ const useBackgroundImage = () => {
   const characterBonuses = config.bonuses.filter((bonus) => bonus.type === BONUS_CHARACTER);
   const word2Bonuses = config.bonuses.filter((bonus) => bonus.type === BONUS_WORD && bonus.multiplier === 2);
   const word3Bonuses = config.bonuses.filter((bonus) => bonus.type === BONUS_WORD && bonus.multiplier === 3);
+  const word4Bonuses = config.bonuses.filter((bonus) => bonus.type === BONUS_WORD && bonus.multiplier === 4);
 
   const getX = (point: Point): number => point.x * (cellSize + BORDER_WIDTH);
 
@@ -101,6 +103,23 @@ const useBackgroundImage = () => {
             </text>
           </symbol>
 
+          <symbol id={BONUS_WORD_4}>
+            <rect height={bonusSize} rx={borderRadius} width={bonusSize} x={bonusOffset} y={bonusOffset} />
+
+            <text
+              dominantBaseline="central"
+              fill="white"
+              fontFamily="system-ui, sans-serif"
+              fontSize={fontSize}
+              fontWeight="bold"
+              textAnchor="middle"
+              x={fontOffset}
+              y={fontOffset}
+            >
+              x4
+            </text>
+          </symbol>
+
           <symbol id={CELL_FILTER}>
             <rect
               fill={COLOR_FILTERED}
@@ -135,6 +154,10 @@ const useBackgroundImage = () => {
 
         {word3Bonuses.map((bonus, index) => (
           <use fill={getBonusColor(bonus)} key={index} href={`#${BONUS_WORD_3}`} x={getX(bonus)} y={getY(bonus)} />
+        ))}
+
+        {word4Bonuses.map((bonus, index) => (
+          <use fill={getBonusColor(bonus)} key={index} href={`#${BONUS_WORD_4}`} x={getX(bonus)} y={getY(bonus)} />
         ))}
 
         <rect

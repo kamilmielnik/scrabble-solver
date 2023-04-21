@@ -2,7 +2,6 @@
 
 import {
   BOARD_TILE_SIZE_MAX,
-  BOARD_TILE_SIZE_MIN,
   BORDER_WIDTH,
   BUTTON_HEIGHT,
   COMPONENTS_SPACING,
@@ -47,7 +46,7 @@ const useAppLayout = () => {
     : Math.max(solverHeight - bottomContainerHeight, 0);
   const cellWidth = (maxBoardWidth - (config.boardWidth + 1) * BORDER_WIDTH) / config.boardWidth;
   const cellHeight = (maxBoardHeight - (config.boardHeight + 1) * BORDER_WIDTH) / config.boardHeight;
-  const cellSize = Math.min(Math.max(Math.min(cellWidth, cellHeight), BOARD_TILE_SIZE_MIN), BOARD_TILE_SIZE_MAX);
+  const cellSize = Math.min(Math.min(cellWidth, cellHeight), BOARD_TILE_SIZE_MAX);
   const boardSize = (cellSize + BORDER_WIDTH) * config.boardWidth + BORDER_WIDTH;
   const maxControlsWidth = tileSize * config.maximumCharactersCount + 2 * BORDER_WIDTH;
   const showResultsInModal = isLessThanL;

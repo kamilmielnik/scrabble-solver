@@ -2,7 +2,7 @@
 
 import { PayloadAction } from '@reduxjs/toolkit';
 import { hasConfig, localesMap } from '@scrabble-solver/configs';
-import { Locale, Result } from '@scrabble-solver/types';
+import { Board, Locale, Result } from '@scrabble-solver/types';
 import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { LOCALE_FEATURES } from 'i18n';
@@ -46,7 +46,7 @@ export function* rootSaga(): AnyGenerator {
   yield takeEvery([rackSlice.actions.changeCharacter.type, rackSlice.actions.changeCharacters.type], onRackValueChange);
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
   yield takeEvery(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
-  yield takeEvery(settingsSlice.actions.changeGame.type, onConfigIdChange);
+  yield takeEvery(settingsSlice.actions.changeGame.type, onGameChange);
   yield takeEvery(settingsSlice.actions.changeLocale.type, onLocaleChange);
   yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
   yield takeLatest(initialize.type, onInitialize);
@@ -79,7 +79,7 @@ function* onApplyResult({ payload: result }: PayloadAction<Result>): AnyGenerato
   yield put(verifySlice.actions.submit());
 }
 
-function* onConfigIdChange(): AnyGenerator {
+function* onGameChange(): AnyGenerator {
   const characters = yield select(selectCharacters);
 
   if (characters.length > 0) {
@@ -121,7 +121,9 @@ function* onInitialize(): AnyGenerator {
 }
 
 function* onReset(): AnyGenerator {
-  yield put(boardSlice.actions.reset());
+  const config = yield select(selectConfig);
+
+  yield put(boardSlice.actions.init(Board.create(config.boardWidth, config.boardHeight)));
   yield put(cellFilterSlice.actions.reset());
   yield put(dictionarySlice.actions.reset());
   yield put(rackSlice.actions.reset());
