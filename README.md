@@ -128,8 +128,6 @@ npx lerna run build --scope=@scrabble-solver/PACKAGE_NAME_HERE
     - I usually find them at https://commons.wikimedia.org/
 2. Rename the flag to `FlagXX.svg` and put it in [packages/scrabble-solver/src/icons](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver/src/icons)
 3. Export the SVG file in [packages/scrabble-solver/src/icons/index.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/icons/index.ts)
-4. Add `--flag--xx--aspect-ratio` variable in [packages/scrabble-solver/src/styles/variables.scss](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/styles/variables.scss)
-5. Reference that aspect ratio variable in [packages/scrabble-solver/src/i18n/i18n.module.scss](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/i18n/i18n.module.scss)
 
 #### Language features
 1. Add IETF language tag for the new locale in [packages/types/src/Locale.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/types/src/Locale.ts)
