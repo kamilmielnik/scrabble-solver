@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 import { Trie } from '@kamilmielnik/trie';
 import { getConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
@@ -16,7 +18,7 @@ const getBestResult = ([firstResult, ...results]: Result[]): Result => {
   );
 };
 
-describe('solve - PL', () => {
+describe('solve - pl-PL', () => {
   const locale = Locale.PL_PL;
   const config = getConfig(Game.Literaki, locale);
   let trie: Trie | undefined;
@@ -47,7 +49,7 @@ describe('solve - PL', () => {
     ]);
     const tiles = generateTiles(['l', 'i', 'n', 'o']);
     const results = solve(trie!, config, board, tiles);
-    expect(results.length).toBe(33);
+    expect(results.length).toBe(60);
   });
 
   it('zmartwychwstałą x9', () => {
@@ -124,7 +126,7 @@ describe('solve - PL', () => {
   });
 });
 
-describe('solve - ES', () => {
+describe('solve - es-ES', () => {
   const locale = Locale.ES_ES;
   const config = getConfig(Game.Scrabble, locale);
   let trie: Trie | undefined;
@@ -156,7 +158,7 @@ describe('solve - ES', () => {
     const tiles = generateTiles(['ll', 'a', 'n', 'a']);
     const results = solve(trie!, config, board, tiles);
     const bestResult = getBestResult(results.map((result) => Result.fromJson(result)));
-    expect(results.length).toBe(12);
+    expect(results.length).toBe(24);
     expect(bestResult.points).toBe(22);
   });
 
@@ -182,5 +184,42 @@ describe('solve - ES', () => {
     const results = solve(trie!, config, board, tiles);
     const words = results.map((result) => result.cells.map((cell) => cell.tile?.character).join(''));
     expect(words).not.toContain('chocho');
+  });
+});
+
+describe('solve - en-GB', () => {
+  const locale = Locale.EN_GB;
+  const config = getConfig(Game.Scrabble, locale);
+  let trie: Trie | undefined;
+
+  beforeAll(() => {
+    return dictionaries.get(locale).then((loadedTrie) => {
+      trie = loadedTrie;
+    });
+  });
+
+  it('no', () => {
+    const board = Board.fromStringArray([
+      '               ',
+      '             ko',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+      '               ',
+    ]);
+    const tiles = generateTiles(['n']);
+    const results = solve(trie!, config, board, tiles).map(Result.fromJson);
+    expect(results.some((result) => result.word === 'no')).toBe(true);
+    expect(results.some((result) => result.word === 'on')).toBe(true);
+    expect(results.length).toBe(2);
   });
 });

@@ -1,4 +1,8 @@
-// eslint-disable-next-line no-shadow
+/**
+ * Locales are defined using IETF language tags
+ * @see https://en.wikipedia.org/wiki/IETF_language_tag
+ * @see https://en.wikipedia.org/wiki/ISO_3166-1
+ */
 enum Locale {
   DE_DE = 'de-DE',
   EN_GB = 'en-GB',
