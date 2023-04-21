@@ -1,9 +1,10 @@
 {
   "name": "scrabble-solver",
   "version": "2.12.2",
-  "description": "Scrabble Solver 2 - Free, open-source, and cross-platform analysis tool for Scrabble & Literaki. Quickly find top scoring words using given letters and board state. Available in English, French, German, Polish & Spanish.",
+  "description": "Scrabble Solver 2 - Free, open-source, and cross-platform analysis tool for Scrabble, Super Scrabble & Literaki. Quickly find top scoring words using given letters and board state. Available in English, French, German, Polish & Spanish.",
   "keywords": [
     "Scrabble",
+    "Super Scrabble",
     "Literaki",
     "Solver",
     "Finder",
