@@ -25,9 +25,11 @@ export const COLOR_BONUS_CHARACTER_3 = '#dde4f6';
 export const COLOR_BONUS_CHARACTER_5 = '#fbe0d4';
 export const COLOR_BONUS_CHARACTER_MULTIPLIER_2 = '#b8d5ed';
 export const COLOR_BONUS_CHARACTER_MULTIPLIER_3 = '#86aed1';
+export const COLOR_BONUS_CHARACTER_MULTIPLIER_4 = '#3477b2';
 export const COLOR_BONUS_START = '#b284b8';
 export const COLOR_BONUS_WORD_MULTIPLIER_2 = '#fbc997';
 export const COLOR_BONUS_WORD_MULTIPLIER_3 = '#f19393';
+export const COLOR_BONUS_WORD_MULTIPLIER_4 = '#ed5e5e';
 export const COLOR_FILTERED = '#444';
 
 export const COLOR_BONUS_CHARACTER: Record<number, string> = {
@@ -40,11 +42,13 @@ export const COLOR_BONUS_CHARACTER: Record<number, string> = {
 export const COLOR_BONUS_CHARACTER_MULTIPLIER: Record<number, string> = {
   2: COLOR_BONUS_CHARACTER_MULTIPLIER_2,
   3: COLOR_BONUS_CHARACTER_MULTIPLIER_3,
+  4: COLOR_BONUS_CHARACTER_MULTIPLIER_4,
 };
 
 export const COLOR_BONUS_WORD: Record<number, string> = {
   2: COLOR_BONUS_WORD_MULTIPLIER_2,
   3: COLOR_BONUS_WORD_MULTIPLIER_3,
+  4: COLOR_BONUS_WORD_MULTIPLIER_4,
 };
 
 export const SPACING_XS = 2;
@@ -61,12 +65,6 @@ export const BOARD_CELL_BORDER_WIDTH = 1;
 export const BOARD_TILE_FONT_SIZE_MIN = 14;
 export const BOARD_TILE_FONT_SIZE_POINTS_MIN = 10;
 export const BOARD_TILE_SIZE_MAX = 64;
-/**
- * 20 - fits all board tiles without horizontal scrollbar on 360px viewport width (font-size: 14px)
- * 21 - fits all board tiles without horizontal scrollbar on 375px viewport width (font-size: 14px)
- * 26 - tiles start to look good (font-size: 16px)
- */
-export const BOARD_TILE_SIZE_MIN = 20;
 
 export const BORDER_COLOR = '#cdcdcd';
 export const BORDER_COLOR_LIGHT = '#d9d9d9';

@@ -1,7 +1,7 @@
-// eslint-disable-next-line no-shadow
 enum Game {
   Literaki = 'literaki',
   Scrabble = 'scrabble',
+  SuperScrabble = 'super-scrabble',
 }
 
 const games = Object.values(Game);

@@ -2,7 +2,7 @@
 
 import { PayloadAction } from '@reduxjs/toolkit';
 import { hasConfig, localesMap } from '@scrabble-solver/configs';
-import { Locale, Result } from '@scrabble-solver/types';
+import { Board, Locale, Result } from '@scrabble-solver/types';
 import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { LOCALE_FEATURES } from 'i18n';
@@ -20,6 +20,7 @@ import {
   selectLocale,
   selectLocaleAutoGroupTiles,
   selectRack,
+  selectRowsWithCandidate,
 } from './selectors';
 import {
   boardSlice,
@@ -46,7 +47,7 @@ export function* rootSaga(): AnyGenerator {
   yield takeEvery([rackSlice.actions.changeCharacter.type, rackSlice.actions.changeCharacters.type], onRackValueChange);
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
   yield takeEvery(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
-  yield takeEvery(settingsSlice.actions.changeGame.type, onConfigIdChange);
+  yield takeEvery(settingsSlice.actions.changeGame.type, onGameChange);
   yield takeEvery(settingsSlice.actions.changeLocale.type, onLocaleChange);
   yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
   yield takeLatest(initialize.type, onInitialize);
@@ -79,7 +80,14 @@ function* onApplyResult({ payload: result }: PayloadAction<Result>): AnyGenerato
   yield put(verifySlice.actions.submit());
 }
 
-function* onConfigIdChange(): AnyGenerator {
+function* onGameChange(): AnyGenerator {
+  const rows = yield select(selectRowsWithCandidate);
+  const config = yield select(selectConfig);
+
+  if (rows.length !== config.boardHeight || rows[0].length !== config.boardWidth) {
+    yield put(boardSlice.actions.init(Board.create(config.boardWidth, config.boardHeight)));
+  }
+
   const characters = yield select(selectCharacters);
 
   if (characters.length > 0) {
