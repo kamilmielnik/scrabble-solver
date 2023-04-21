@@ -151,7 +151,7 @@ npx lerna run build --scope=@scrabble-solver/PACKAGE_NAME_HERE
 
 #### Word definitions
 1. Add a function to fetch the word definition in the new locale in [packages/word-definitions/src/crawl/crawl.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/crawl/crawl.ts)
-6. Add a function to parse the word definition crawled in step 3 in [packages/word-definitions/src/parse/parse.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/parse/parse.ts)
+6. Add a function to parse the word definition crawled in the previous step in [packages/word-definitions/src/parse/parse.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/parse/parse.ts)
     - Bonus points for adding tests in [packages/word-definitions/src/parse/parse.test.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/parse/parse.test.ts)
 
 ## Tech stack

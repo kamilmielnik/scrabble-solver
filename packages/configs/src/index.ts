@@ -6,4 +6,3 @@ const localesMap = Object.fromEntries(Object.values(locales).map((configs) => [c
 export { default as getConfig } from './getConfig';
 export { default as hasConfig } from './hasConfig';
 export { games, locales, localesMap };
-
