@@ -60,6 +60,7 @@ const boardSlice = createSlice({
     [settingsSlice.actions.changeGame.type]: (state, action: PayloadAction<Game>) => {
       const game = action.payload;
       const config = Object.values(games).find((gameConfig) => gameConfig.game === game);
+
       if (!config) {
         throw new Error(`Cannot find config for game "${game}"`);
       }
