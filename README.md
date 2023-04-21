@@ -51,6 +51,10 @@
 3. [Install](#install)
 4. [Uninstall](#uninstall)
 5. [Develop](#develop)
+    1. [Setup](#setup)
+    2. [App dev server](#app-dev-server)
+    3. [Rebuild a single package](#rebuild-a-single-package)
+    4. [Add a new language](#add-a-new-language)
 6. [Tech stack](#tech-stack)
 7. [Related projects](#related-projects)
 8. [Media](#media)
@@ -89,8 +93,8 @@ scrabble-solver
 ```Shell
 npm uninstall -g scrabble-solver
 
-# The package stores logs and dictionaries in $HOME/.scrabble-solver
-# It uses os.homedir() to get $HOME location.
+# Logs and dictionaries are stored in $HOME/.scrabble-solver
+# $HOME location is acquired using os.homedir()
 rm -rf $HOME/.scrabble-solver
 ```
 
@@ -116,6 +120,41 @@ Note: hot code reload works only for the [`scrabble-solver`](https://github.com/
 ```Shell
 npx lerna run build --scope=@scrabble-solver/PACKAGE_NAME_HERE
 ```
+
+### Add a new language
+
+#### Locale flag
+1. Find and download a flag representing the locale in an SVG format
+    - I usually find them at https://commons.wikimedia.org/
+2. Rename the flag to `FlagXX.svg` and put it in [packages/scrabble-solver/src/icons](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver/src/icons)
+3. Export the SVG file in [packages/scrabble-solver/src/icons/index.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/icons/index.ts)
+4. Add `--flag--xx--aspect-ratio` variable in [packages/scrabble-solver/src/styles/variables.scss](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/styles/variables.scss)
+5. Reference that aspect ratio variable in [packages/scrabble-solver/src/i18n/i18n.module.scss](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/i18n/i18n.module.scss)
+
+#### Language features
+1. Add IETF language tag for the new locale in [packages/types/src/Locale.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/types/src/Locale.ts)
+    - Rebuild the types package after this step
+      ```Shell
+      npx lerna run build --scope=@scrabble-solver/types
+      ```
+2. Update [packages/scrabble-solver/src/i18n/constants.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/i18n/constants.ts)
+
+#### Game configs
+1. Add game configs for the new locale in in [packages/configs/src/locales](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/configs/src/locales)
+2. Add an export for this locale in [packages/configs/src/locales/index.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/configs/src/locales/index.ts)
+
+#### Translations
+1. Add a translation file called `xx.json` in [packages/scrabble-solver/src/i18n](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver/src/i18n) and fill it with translations.
+    - It's easier to copy an existing file, e.g. `en.json` and modify it
+5. Add an entry for the translations in [packages/scrabble-solver/src/i18n/i18n.ts](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver/src/i18n/i18n.ts)
+
+#### Word list
+1. Add a function to fetch the list of words in the new locale in [packages/word-lists/src/getWordList.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-lists/src/getWordList.ts)
+
+#### Word definitions
+1. Add a function to fetch the word definition in the new locale in [packages/word-definitions/src/crawl/crawl.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/crawl/crawl.ts)
+6. Add a function to parse the word definition crawled in step 3 in [packages/word-definitions/src/parse/parse.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/parse/parse.ts)
+    - Bonus points for adding tests in [packages/word-definitions/src/parse/parse.test.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/parse/parse.test.ts)
 
 ## Tech stack
 
