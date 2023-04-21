@@ -20,7 +20,6 @@ import {
   selectLocale,
   selectLocaleAutoGroupTiles,
   selectRack,
-  selectRowsWithCandidate,
 } from './selectors';
 import {
   boardSlice,
@@ -81,13 +80,6 @@ function* onApplyResult({ payload: result }: PayloadAction<Result>): AnyGenerato
 }
 
 function* onGameChange(): AnyGenerator {
-  const rows = yield select(selectRowsWithCandidate);
-  const config = yield select(selectConfig);
-
-  if (rows.length !== config.boardHeight || rows[0].length !== config.boardWidth) {
-    yield put(boardSlice.actions.init(Board.create(config.boardWidth, config.boardHeight)));
-  }
-
   const characters = yield select(selectCharacters);
 
   if (characters.length > 0) {
@@ -129,7 +121,9 @@ function* onInitialize(): AnyGenerator {
 }
 
 function* onReset(): AnyGenerator {
-  yield put(boardSlice.actions.reset());
+  const config = yield select(selectConfig);
+
+  yield put(boardSlice.actions.init(Board.create(config.boardWidth, config.boardHeight)));
   yield put(cellFilterSlice.actions.reset());
   yield put(dictionarySlice.actions.reset());
   yield put(rackSlice.actions.reset());

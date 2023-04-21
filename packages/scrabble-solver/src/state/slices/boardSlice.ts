@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { games } from '@scrabble-solver/configs';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import { Board, Cell, Result, Tile } from '@scrabble-solver/types';
+import { Board, Cell, Game, Result, Tile } from '@scrabble-solver/types';
 
-import boardInitialState, { boardDefaultState } from './boardInitialState';
+import boardInitialState from './boardInitialState';
+import settingsSlice from './settingsSlice';
 
 const boardSlice = createSlice({
   initialState: boardInitialState,
@@ -42,10 +44,6 @@ const boardSlice = createSlice({
       return board;
     },
 
-    reset: () => {
-      return boardDefaultState;
-    },
-
     toggleCellIsBlank: (state, action: PayloadAction<{ x: number; y: number }>) => {
       const newBoard = state.clone();
       const { x, y } = action.payload;
@@ -56,6 +54,21 @@ const boardSlice = createSlice({
       });
 
       return newBoard;
+    },
+  },
+  extraReducers: {
+    [settingsSlice.actions.changeGame.type]: (state, action: PayloadAction<Game>) => {
+      const game = action.payload;
+      const config = Object.values(games).find((gameConfig) => gameConfig.game === game);
+      if (!config) {
+        throw new Error(`Cannot find config for game "${game}"`);
+      }
+
+      if (state.rows.length !== config.boardHeight || state.rows[0].length !== config.boardWidth) {
+        return Board.create(config.boardWidth, config.boardHeight);
+      }
+
+      return state;
     },
   },
 });
