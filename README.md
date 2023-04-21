@@ -148,6 +148,7 @@ npx lerna run build --scope=@scrabble-solver/PACKAGE_NAME_HERE
 
 #### Word list
 1. Add a function to fetch the list of words in the new locale in [packages/word-lists/src/getWordList.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-lists/src/getWordList.ts)
+2. Add the dictionary in [packages/configs/src/dictionaries/index.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/configs/src/dictionaries/index.ts)
 
 #### Word definitions
 1. Add a function to fetch the word definition in the new locale in [packages/word-definitions/src/crawl/crawl.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/crawl/crawl.ts)
