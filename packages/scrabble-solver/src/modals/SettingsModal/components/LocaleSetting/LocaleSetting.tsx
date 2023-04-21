@@ -4,7 +4,7 @@ import { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Radio } from 'components';
-import { LOCALE_FLAGS } from 'i18n';
+import { LOCALE_FEATURES } from 'i18n';
 import { selectLocale, settingsSlice, useTypedSelector } from 'state';
 
 import styles from './LocaleSetting.module.scss';
@@ -14,7 +14,7 @@ interface Props {
   disabled: boolean;
 }
 
-const OPTIONS = Object.values(LOCALE_FLAGS).sort((a, b) => a.name.localeCompare(b.name));
+const OPTIONS = Object.values(LOCALE_FEATURES).sort((a, b) => a.name.localeCompare(b.name));
 
 const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
   const dispatch = useDispatch();
@@ -29,18 +29,18 @@ const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
     <div className={className}>
       {OPTIONS.map(({ Icon, ...option }) => (
         <Radio
-          checked={locale === option.value}
+          checked={locale === option.locale}
           className={classNames(styles.option, className, {
-            [styles.checked]: locale === option.value,
+            [styles.checked]: locale === option.locale,
           })}
           disabled={disabled}
-          key={option.value}
+          key={option.locale}
           name="locale"
-          value={option.value}
+          value={option.locale}
           onChange={handleChange}
         >
-          <span className={classNames(styles.label, option.className)}>
-            <Icon className={classNames(styles.flag, option.className)} />
+          <span className={styles.label}>
+            <Icon className={styles.flag} />
 
             <span>{option.label}</span>
           </span>

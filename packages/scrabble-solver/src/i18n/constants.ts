@@ -4,12 +4,14 @@ import { FunctionComponent, SVGAttributes } from 'react';
 
 import { FlagDe, FlagEs, FlagFa, FlagFr, FlagGb, FlagPl, FlagUs } from 'icons';
 
-import styles from './i18n.module.scss';
-
 interface LocaleFeatures {
   comma: string;
   consonants: boolean;
   direction: 'ltr' | 'rtl';
+  Icon: FunctionComponent<SVGAttributes<SVGElement>>;
+  label: string;
+  locale: Locale;
+  name: string;
   separator: string;
   vowels: boolean;
 }
@@ -19,6 +21,10 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_LATIN,
     consonants: true,
     direction: 'ltr',
+    Icon: FlagDe,
+    label: 'Deutsch',
+    locale: Locale.DE_DE,
+    name: 'German',
     separator: `${COMMA_LATIN} `,
     vowels: true,
   },
@@ -26,6 +32,10 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_LATIN,
     consonants: true,
     direction: 'ltr',
+    Icon: FlagGb,
+    label: 'English (GB)',
+    locale: Locale.EN_GB,
+    name: 'English (GB)',
     separator: `${COMMA_LATIN} `,
     vowels: true,
   },
@@ -33,6 +43,10 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_LATIN,
     consonants: true,
     direction: 'ltr',
+    Icon: FlagUs,
+    label: 'English (US)',
+    locale: Locale.EN_US,
+    name: 'English (US)',
     separator: `${COMMA_LATIN} `,
     vowels: true,
   },
@@ -40,6 +54,10 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_LATIN,
     consonants: true,
     direction: 'ltr',
+    Icon: FlagEs,
+    label: 'Español',
+    locale: Locale.ES_ES,
+    name: 'Spanish',
     separator: `${COMMA_LATIN} `,
     vowels: true,
   },
@@ -47,6 +65,10 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_ARABIC,
     consonants: false,
     direction: 'rtl',
+    Icon: FlagFa,
+    label: 'فارسی',
+    locale: Locale.FA_IR,
+    name: 'Persian',
     separator: `${COMMA_ARABIC} `,
     vowels: false,
   },
@@ -54,6 +76,10 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_LATIN,
     consonants: true,
     direction: 'ltr',
+    Icon: FlagFr,
+    label: 'Français',
+    locale: Locale.FR_FR,
+    name: 'French',
     separator: `${COMMA_LATIN} `,
     vowels: true,
   },
@@ -61,67 +87,11 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_LATIN,
     consonants: true,
     direction: 'ltr',
-    separator: `${COMMA_LATIN} `,
-    vowels: true,
-  },
-};
-
-interface Flag {
-  className: string;
-  Icon: FunctionComponent<SVGAttributes<SVGElement>>;
-  label: string;
-  name: string;
-  value: Locale;
-}
-
-export const LOCALE_FLAGS: Record<Locale, Flag> = {
-  [Locale.DE_DE]: {
-    className: styles.de,
-    Icon: FlagDe,
-    label: 'Deutsch',
-    name: 'German',
-    value: Locale.DE_DE,
-  },
-  [Locale.EN_GB]: {
-    className: styles.gb,
-    Icon: FlagGb,
-    label: 'English (GB)',
-    name: 'English (GB)',
-    value: Locale.EN_GB,
-  },
-  [Locale.EN_US]: {
-    className: styles.us,
-    Icon: FlagUs,
-    label: 'English (US)',
-    name: 'English (US)',
-    value: Locale.EN_US,
-  },
-  [Locale.ES_ES]: {
-    className: styles.es,
-    Icon: FlagEs,
-    label: 'Español',
-    name: 'Spanish',
-    value: Locale.ES_ES,
-  },
-  [Locale.FA_IR]: {
-    className: styles.fa,
-    Icon: FlagFa,
-    label: 'فارسی',
-    name: 'Persian',
-    value: Locale.FA_IR,
-  },
-  [Locale.FR_FR]: {
-    className: styles.fr,
-    Icon: FlagFr,
-    label: 'Français',
-    name: 'French',
-    value: Locale.FR_FR,
-  },
-  [Locale.PL_PL]: {
-    className: styles.pl,
     Icon: FlagPl,
     label: 'Polski',
+    locale: Locale.PL_PL,
     name: 'Polish',
-    value: Locale.PL_PL,
+    separator: `${COMMA_LATIN} `,
+    vowels: true,
   },
 };

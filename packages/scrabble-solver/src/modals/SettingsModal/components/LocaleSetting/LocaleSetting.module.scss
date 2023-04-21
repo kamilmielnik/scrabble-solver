@@ -13,10 +13,7 @@
 }
 
 .flag {
-  --height: 32px;
-
-  width: calc(var(--height) * var(--aspect-ratio));
-  height: var(--height);
+  height: 32px;
   border-radius: var(--border--radius);
   box-shadow: var(--box-shadow);
   transition: var(--transition);

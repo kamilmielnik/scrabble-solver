@@ -1,7 +1,7 @@
 import { FunctionComponent, memo } from 'react';
 
 import { Button, Modal } from 'components';
-import { LOCALE_FLAGS } from 'i18n';
+import { LOCALE_FEATURES } from 'i18n';
 import { BookHalf, CardChecklist, Cog, Github, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { selectLocale, useTranslate, useTypedSelector } from 'state';
@@ -29,7 +29,7 @@ const MenuModal: FunctionComponent<Props> = ({
 }) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
-  const Flag = LOCALE_FLAGS[locale];
+  const { Icon } = LOCALE_FEATURES[locale];
 
   return (
     <Modal className={className} isOpen={isOpen} title={translate('menu')} onClose={onClose}>
@@ -64,7 +64,7 @@ const MenuModal: FunctionComponent<Props> = ({
       <Button aria-label={translate('settings')} className={styles.button} Icon={Cog} onClick={onShowSettings}>
         <div className={styles.settings}>
           <div className={styles.settingsLabel}>{translate('settings')}</div>
-          <Flag.Icon className={styles.flag} />
+          <Icon className={styles.flag} />
         </div>
       </Button>
     </Modal>

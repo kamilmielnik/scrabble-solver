@@ -42,7 +42,6 @@
 
 .flag {
   position: fixed;
-  width: calc(var(--button--icon--size) * var(--aspect-ratio));
   height: var(--button--icon--size);
   border-radius: var(--border--radius);
   box-shadow: 0 0 0 1px var(--box-shadow--color);
