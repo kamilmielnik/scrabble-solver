@@ -73,6 +73,7 @@ const RackTile: FunctionComponent<Props> = ({
         onFocus();
       }
 
+      // eslint-disable-next-line no-param-reassign
       activeIndexRef.current = index;
     },
     [activeIndexRef, index, inputMode, onFocus],

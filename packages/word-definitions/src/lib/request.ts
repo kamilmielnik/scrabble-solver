@@ -9,7 +9,7 @@ const request = ({ protocol, ...options }: Options): Promise<string> => {
   const agent = protocol === 'https' ? https : http;
 
   return new Promise((resolve, reject) => {
-    return agent
+    agent
       .get(options, (response) => {
         let data = '';
         response.setEncoding('utf8');

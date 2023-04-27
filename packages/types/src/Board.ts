@@ -122,7 +122,7 @@ class Board {
     const columnsBoard = new Board({ rows: columns });
     const lines = this.toString().split('\n').concat(columnsBoard.toString().split('\n'));
     const words = lines
-      .flatMap((line) => line.replaceAll(/\s+/g, EMPTY_CELL).split(' '))
+      .flatMap((line) => line.replaceAll(/\s+/gu, EMPTY_CELL).split(' '))
       .filter((word) => word.length > 1);
 
     return words;

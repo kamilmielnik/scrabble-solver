@@ -1,4 +1,4 @@
-/* eslint-disable max-params, max-statements */
+/* eslint-disable max-params, max-statements, no-param-reassign */
 import { Trie } from '@kamilmielnik/trie';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Config, FinalPattern, Pattern, Tile } from '@scrabble-solver/types';

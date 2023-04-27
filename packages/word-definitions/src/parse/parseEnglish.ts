@@ -15,7 +15,7 @@ const parseEnglish = (html: string): ParseResult => {
   const $definitions = $('[id^=dictionary-entry]').find('.dtText, .cxl-ref');
 
   return {
-    definitions: Array.from($definitions).map((definition) => $(definition).text().replace(/\n/g, '')),
+    definitions: Array.from($definitions).map((definition) => $(definition).text().replace(/\n/gu, '')),
     exists: $('.spelling-suggestion-text').text().trim() !== DOES_NOT_EXIST_MESSAGE,
   };
 };

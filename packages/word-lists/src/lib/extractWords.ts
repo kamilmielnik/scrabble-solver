@@ -1,7 +1,7 @@
 import findFirstWordIndex from './findFirstWordIndex';
 
 const extractWords = (file: string, locale: string): string[] => {
-  const lines = file.split(/\r?\n/g);
+  const lines = file.split(/\r?\n/gu);
   const firstWordIndex = findFirstWordIndex(lines, locale);
   const words: string[] = [];
 

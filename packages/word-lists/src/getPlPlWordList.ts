@@ -45,7 +45,7 @@ const parseZipContainingPage = (html: string): string => {
 const unzip = (zipFilename: string, outputFilename: string): Promise<void> => {
   return fs
     .createReadStream(zipFilename)
-    .pipe(unzipper.Parse())
+    .pipe(unzipper.Parse()) // eslint-disable-line new-cap
     .on('entry', (entry) => {
       const fileName = entry.path;
 

@@ -11,7 +11,7 @@ const getEsEsWordList = async (): Promise<string[]> => {
 
 const normalizeWord = (word: string): string => {
   // normalization from https://stackoverflow.com/a/37511463
-  return word.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return word.normalize('NFD').replace(/[\u0300-\u036f]/gu, '');
 };
 
 export default getEsEsWordList;

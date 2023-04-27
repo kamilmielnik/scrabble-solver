@@ -9,7 +9,7 @@ const parsePolish = (html: string): ParseResult => {
   const $definitions = $header.next().next().next().next();
 
   return {
-    definitions: $definitions.text().trim().split(/\d+\./),
+    definitions: $definitions.text().trim().split(/\d+\./u),
     exists: $isAllowed.text().trim().indexOf('dopuszczalne w grach') >= 0,
   };
 };

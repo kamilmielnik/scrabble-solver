@@ -16,11 +16,11 @@ const parseGerman = (html: string): ParseResult => {
 
 const parseBedeutungsubersicht = ($: CheerioAPI): string[] => {
   Array.from($('.bedeutungsuebersicht ol > li > a')).forEach((item) => {
-    $(item).text($(item).text().replace(/\n/g, ''));
+    $(item).text($(item).text().replace(/\n/gu, ''));
   });
 
   Array.from($('.bedeutungsuebersicht ol > li > ol > li')).forEach((item) => {
-    const text = `\n${$(item).text().replace(/\n/g, '')}`;
+    const text = `\n${$(item).text().replace(/\n/gu, '')}`;
     const $text = $(`<div>${text}</div>`);
     $(item).replaceWith($text);
   });
@@ -71,9 +71,9 @@ const parseDefinitions = ($: CheerioAPI, $definitions: Cheerio<Element>) => {
   return Array.from($definitions).map((definition) =>
     $(definition)
       .text()
-      .replace(/[ ]+/g, ' ')
-      .replace(/[ ]\n/g, '\n')
-      .replace(/^[0-9]+\.\s/g, ''),
+      .replace(/[ ]+/gu, ' ')
+      .replace(/[ ]\n/gu, '\n')
+      .replace(/^[0-9]+\.\s/gu, ''),
   );
 };
 

@@ -26,7 +26,7 @@ const parseSpanish = (html: string): ParseResult => {
     definitions: definitions
       .map((definition) => $(definition).text().trim())
       .filter(Boolean)
-      .map((definition) => definition.replace(/\s+\.$/g, ''))
+      .map((definition) => definition.replace(/\s+\.$/gu, ''))
       .map((definition) => (definition.endsWith('.') ? definition : `${definition}.`)),
     exists: $('.wrapper > p > strong').text() !== 'No se ha encontrado la palabra exacta',
   };

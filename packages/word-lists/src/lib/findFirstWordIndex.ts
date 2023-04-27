@@ -2,7 +2,7 @@ const findFirstWordIndex = (lines: string[], locale: string): number => {
   const firstWordIndex = lines.findIndex((line, index) => {
     const nextLine = line[index + 1] || '';
     const isNextLineInOrder = line.localeCompare(nextLine, locale) > 0;
-    const hasWhitespace = Boolean(line.match(/\s/));
+    const hasWhitespace = Boolean(line.match(/\s/u));
     const isEmpty = line.trim().length === 0;
 
     return !isEmpty && !hasWhitespace && isNextLineInOrder;
