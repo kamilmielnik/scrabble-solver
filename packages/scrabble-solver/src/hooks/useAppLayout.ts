@@ -1,4 +1,4 @@
-/* eslint-disable max-statements */
+/* eslint-disable max-lines-per-function, max-statements */
 
 import {
   BOARD_TILE_SIZE_MAX,

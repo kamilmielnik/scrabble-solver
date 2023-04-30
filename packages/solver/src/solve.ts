@@ -7,6 +7,7 @@ import generatePatterns from './generatePatterns';
 import getPatternScore from './getPatternScore';
 import getUniquePatterns from './getUniquePatterns';
 
+// eslint-disable-next-line max-params
 const solve = (trie: Trie, config: Config, board: Board, tiles: Tile[]): ResultJson[] => {
   const patterns = generatePatterns(config, board);
   const filledPatterns = patterns.flatMap((pattern) => fillPattern(trie, config, pattern, tiles));

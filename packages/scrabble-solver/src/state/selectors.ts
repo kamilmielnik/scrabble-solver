@@ -104,6 +104,7 @@ export const selectResults = createSelector([selectGroupedResults], (groupedResu
 
 export const selectIsResultMatching = createSelector(
   [selectResults, selectResultsQuery, selectFilteredCells, selectResultIndex],
+  // eslint-disable-next-line max-params
   (results, query, filteredCells, index) => {
     if (!results) {
       return false;

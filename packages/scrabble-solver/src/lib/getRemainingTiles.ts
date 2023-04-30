@@ -5,6 +5,7 @@ import { RemainingTile } from 'types';
 
 import createKeyComparator from './createKeyComparator';
 
+// eslint-disable-next-line max-params
 const getRemainingTiles = (config: Config, board: Board, characters: string[], locale: string): RemainingTile[] => {
   const nonEmptyCells = board.rows.flat().filter((cell) => !cell.isEmpty);
   const letterCells = nonEmptyCells.filter((cell) => !cell.tile.isBlank);

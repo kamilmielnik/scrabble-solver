@@ -20,11 +20,11 @@ const Cell: FunctionComponent<Props> = ({ children, className, translationKey, t
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const formattedValue = value.toLocaleString(locale);
-  const triggerProps = useTooltip(`${translate(translationKey)}: ${tooltip || formattedValue}`);
+  const triggerProps = useTooltip(`${translate(translationKey)}: ${tooltip ?? formattedValue}`);
 
   return (
     <div className={classNames(styles.cell, className)} {...triggerProps}>
-      {children || formattedValue}
+      {children ?? formattedValue}
     </div>
   );
 };

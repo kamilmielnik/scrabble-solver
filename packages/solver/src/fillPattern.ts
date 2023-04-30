@@ -1,4 +1,5 @@
 /* eslint-disable max-params, max-statements, no-param-reassign */
+
 import { Trie } from '@kamilmielnik/trie';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Config, FinalPattern, Pattern, Tile } from '@scrabble-solver/types';
@@ -15,8 +16,10 @@ const fillPattern = (trie: Trie, config: Config, pattern: Pattern, tiles: Tile[]
   return results;
 };
 
+/**
+ * @param result - gets mutated when this function is called
+ */
 export const fillPatternRecursive = (
-  /** gets mutated when this function is called */
   results: Pattern[],
   trie: Trie,
   config: Config,

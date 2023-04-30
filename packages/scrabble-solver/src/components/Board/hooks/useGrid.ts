@@ -1,4 +1,5 @@
-/* eslint-disable max-lines, max-statements */
+/* eslint-disable max-lines, max-lines-per-function, max-statements */
+
 import { PayloadAction } from '@reduxjs/toolkit';
 import { BLANK, EMPTY_CELL } from '@scrabble-solver/constants';
 import { Board, Cell } from '@scrabble-solver/types';
