@@ -1,7 +1,7 @@
-import { Game, Locale } from '@scrabble-solver/types';
+import { Game, type Locale } from '@scrabble-solver/types';
 
 import { guessLocale } from 'lib';
-import { AutoGroupTiles, InputMode } from 'types';
+import type { AutoGroupTiles, InputMode } from 'types';
 
 import localStorage from '../localStorage';
 

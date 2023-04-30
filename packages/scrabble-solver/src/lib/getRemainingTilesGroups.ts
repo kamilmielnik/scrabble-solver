@@ -1,6 +1,6 @@
 import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 
-import { RemainingTile, RemainingTilesGroup } from 'types';
+import type { RemainingTile, RemainingTilesGroup } from 'types';
 
 import getRemainingTilesCount from './getRemainingTilesCount';
 import getTotalRemainingTilesCount from './getTotalRemainingTilesCount';

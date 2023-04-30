@@ -1,4 +1,4 @@
-import { Locale } from '@scrabble-solver/types';
+import type { Locale } from '@scrabble-solver/types';
 
 const isUpperCase = (locale: Locale, value: string): boolean => {
   return value === value.toLocaleUpperCase(locale);

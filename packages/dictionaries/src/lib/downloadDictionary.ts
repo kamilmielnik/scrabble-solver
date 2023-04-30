@@ -1,6 +1,6 @@
 import { Trie } from '@kamilmielnik/trie';
 import logger from '@scrabble-solver/logger';
-import { Locale } from '@scrabble-solver/types';
+import type { Locale } from '@scrabble-solver/types';
 import { getWordList } from '@scrabble-solver/word-lists';
 
 const downloadDictionary = async (locale: Locale): Promise<Trie> => {

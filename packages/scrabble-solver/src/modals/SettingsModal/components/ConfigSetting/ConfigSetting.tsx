@@ -1,6 +1,6 @@
 import { games, hasConfig } from '@scrabble-solver/configs';
 import { isGame } from '@scrabble-solver/types';
-import { ChangeEvent, FunctionComponent } from 'react';
+import type { ChangeEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Radio } from 'components';

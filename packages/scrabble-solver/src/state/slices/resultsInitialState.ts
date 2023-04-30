@@ -1,6 +1,6 @@
-import { Result } from '@scrabble-solver/types';
+import type { Result } from '@scrabble-solver/types';
 
-import { ResultColumn, Sort, SortDirection } from 'types';
+import { ResultColumn, type Sort, SortDirection } from 'types';
 
 export interface ResultsState {
   candidate: Result | null;

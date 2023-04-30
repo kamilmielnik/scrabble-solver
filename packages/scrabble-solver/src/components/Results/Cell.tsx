@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import { FunctionComponent, ReactNode } from 'react';
+import type { FunctionComponent, ReactNode } from 'react';
 
 import { selectLocale, useTranslate, useTypedSelector } from 'state';
-import { TranslationKey } from 'types';
+import type { TranslationKey } from 'types';
 
 import { useTooltip } from '../Tooltip';
 
@@ -12,8 +12,8 @@ interface Props {
   children?: ReactNode;
   className?: string;
   translationKey: TranslationKey;
-  tooltip?: string | number;
-  value: string | number;
+  tooltip?: number | string;
+  value: number | string;
 }
 
 const Cell: FunctionComponent<Props> = ({ children, className, translationKey, tooltip, value }) => {

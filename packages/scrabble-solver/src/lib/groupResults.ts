@@ -1,6 +1,6 @@
-import { Result } from '@scrabble-solver/types';
+import type { Result } from '@scrabble-solver/types';
 
-import { Point } from 'types';
+import type { Point } from 'types';
 
 import createRegExp from './createRegExp';
 

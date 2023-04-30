@@ -1,6 +1,6 @@
-import { Result } from '@scrabble-solver/types';
+import type { Result } from '@scrabble-solver/types';
 
-import { Comparator, ResultColumn, Sort, SortDirection } from 'types';
+import { type Comparator, ResultColumn, type Sort, SortDirection } from 'types';
 
 import createKeyComparator from './createKeyComparator';
 import reverseComparator from './reverseComparator';

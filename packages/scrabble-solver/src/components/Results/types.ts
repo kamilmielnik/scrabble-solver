@@ -1,7 +1,7 @@
-import { Result } from '@scrabble-solver/types';
-import { FocusEvent, MouseEvent } from 'react';
+import type { Result } from '@scrabble-solver/types';
+import type { FocusEvent, MouseEvent } from 'react';
 
-import { ResultColumn, TranslationKey } from 'types';
+import type { ResultColumn, TranslationKey } from 'types';
 
 export interface Column {
   className: string;

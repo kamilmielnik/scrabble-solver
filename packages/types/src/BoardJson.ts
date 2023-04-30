@@ -1,4 +1,5 @@
-import CellJson, { isCellJson } from './CellJson';
+import type CellJson from './CellJson';
+import { isCellJson } from './CellJson';
 
 type BoardJson = CellJson[][];
 

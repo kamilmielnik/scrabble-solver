@@ -1,5 +1,5 @@
 import { http, https } from 'follow-redirects';
-import { RequestOptions } from 'http';
+import type { RequestOptions } from 'http';
 
 interface Options extends RequestOptions {
   protocol?: 'http' | 'https';
@@ -14,7 +14,7 @@ const request = ({ protocol, ...options }: Options): Promise<string> => {
         let data = '';
         response.setEncoding('utf8');
         response.on('data', (chunk) => {
-          data += chunk;
+          data += String(chunk);
         });
         response.on('end', () => {
           try {

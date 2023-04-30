@@ -1,7 +1,7 @@
 import { BLANK } from '@scrabble-solver/constants';
-import { Board, Config } from '@scrabble-solver/types';
+import type { Board, Config } from '@scrabble-solver/types';
 
-import { RemainingTile } from 'types';
+import type { RemainingTile } from 'types';
 
 import createKeyComparator from './createKeyComparator';
 

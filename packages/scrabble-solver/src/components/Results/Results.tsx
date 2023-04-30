@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FunctionComponent, useEffect, useMemo, useState } from 'react';
+import { type FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { FixedSizeList } from 'react-window';
 
 import { useAppLayout, useLatest } from 'hooks';
@@ -23,7 +23,7 @@ import HeaderButton from './HeaderButton';
 import Result from './Result';
 import styles from './Results.module.scss';
 import SolveButton from './SolveButton';
-import { ResultCallbacks, ResultData } from './types';
+import type { ResultCallbacks, ResultData } from './types';
 import useColumns from './useColumns';
 
 interface Props {

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { CSSProperties, FocusEventHandler, MouseEventHandler, ReactElement, useRef } from 'react';
+import { type CSSProperties, type FocusEventHandler, type MouseEventHandler, type ReactElement, useRef } from 'react';
 import Highlighter from 'react-highlight-words';
 
 import { LOCALE_FEATURES } from 'i18n';
@@ -9,7 +9,7 @@ import { ResultColumn } from 'types';
 
 import Cell from './Cell';
 import styles from './Results.module.scss';
-import { ResultData } from './types';
+import type { ResultData } from './types';
 import useColumns from './useColumns';
 
 interface Props {
@@ -38,11 +38,21 @@ const Result = ({ data, index, style }: Props): ReactElement => {
   const words = direction === 'rtl' ? [...result.words].reverse() : result.words;
   const enabledColumns = Object.fromEntries(columns.map((column) => [column.id, true]));
 
-  const handleClick: MouseEventHandler = (event) => onClick(result, event);
-  const handleMouseEnter: MouseEventHandler = (event) => onMouseEnter(result, event);
-  const handleMouseLeave: MouseEventHandler = (event) => onMouseLeave(result, event);
-  const handleBlur: FocusEventHandler = (event) => onBlur(result, event);
-  const handleFocus: FocusEventHandler = (event) => onFocus(result, event);
+  const handleClick: MouseEventHandler = (event) => {
+    onClick(result, event);
+  };
+  const handleMouseEnter: MouseEventHandler = (event) => {
+    onMouseEnter(result, event);
+  };
+  const handleMouseLeave: MouseEventHandler = (event) => {
+    onMouseLeave(result, event);
+  };
+  const handleBlur: FocusEventHandler = (event) => {
+    onBlur(result, event);
+  };
+  const handleFocus: FocusEventHandler = (event) => {
+    onFocus(result, event);
+  };
 
   return (
     <button

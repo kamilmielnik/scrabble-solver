@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ChangeEventHandler, FunctionComponent, ReactNode } from 'react';
+import type { ChangeEventHandler, FunctionComponent, ReactNode } from 'react';
 
 import { CheckboxChecked, CheckboxEmpty } from 'icons';
 

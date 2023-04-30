@@ -2,9 +2,9 @@
 
 import classNames from 'classnames';
 import {
-  CSSProperties,
-  ChangeEventHandler,
-  FormEventHandler,
+  type CSSProperties,
+  type ChangeEventHandler,
+  type FormEventHandler,
   forwardRef,
   useCallback,
   useEffect,

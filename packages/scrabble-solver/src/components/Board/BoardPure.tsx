@@ -1,20 +1,20 @@
-import { Cell as CellModel } from '@scrabble-solver/types';
+import type { Cell as CellModel } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import {
-  ChangeEventHandler,
-  ClipboardEventHandler,
-  CSSProperties,
-  FocusEventHandler,
+  type ChangeEventHandler,
+  type ClipboardEventHandler,
+  type CSSProperties,
+  type FocusEventHandler,
   forwardRef,
   Fragment,
-  KeyboardEventHandler,
+  type KeyboardEventHandler,
   memo,
-  RefObject,
+  type RefObject,
 } from 'react';
 
 import { FlagFill } from 'icons';
 import { BORDER_WIDTH } from 'parameters';
-import { Point } from 'types';
+import type { Point } from 'types';
 
 import styles from './Board.module.scss';
 import { Cell } from './components';

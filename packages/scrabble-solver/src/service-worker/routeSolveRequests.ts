@@ -1,4 +1,4 @@
-import { Trie } from '@kamilmielnik/trie';
+import type { Trie } from '@kamilmielnik/trie';
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { solve } from '@scrabble-solver/solver';

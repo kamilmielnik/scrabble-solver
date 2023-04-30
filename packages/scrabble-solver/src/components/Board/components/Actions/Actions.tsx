@@ -1,7 +1,7 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import { Cell } from '@scrabble-solver/types';
+import type { Cell } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import { forwardRef, HTMLProps, MouseEventHandler } from 'react';
+import { forwardRef, type HTMLProps, type MouseEventHandler } from 'react';
 
 import { Flag, FlagFill, Keyboard, Square, SquareFill } from 'icons';
 import { findCell } from 'lib';
@@ -12,7 +12,7 @@ import {
   useTranslate,
   useTypedSelector,
 } from 'state';
-import { Direction } from 'types';
+import type { Direction } from 'types';
 
 import Button from '../../../Button';
 import ToggleDirectionButton from '../ToggleDirectionButton';
@@ -41,7 +41,9 @@ const Actions = forwardRef<HTMLDivElement, Props>(
     const isEmpty = cell.tile.character === EMPTY_CELL || Boolean(findCell(resultCandidateCells, cell.x, cell.y));
 
     // On iOS it helps with losing focus too early which makes Actions disappear
-    const handleMouseDown: MouseEventHandler = (event) => event.preventDefault();
+    const handleMouseDown: MouseEventHandler = (event) => {
+      event.preventDefault();
+    };
 
     return (
       <div className={classNames(styles.actions, className)} ref={ref} {...props}>

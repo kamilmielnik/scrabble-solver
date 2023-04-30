@@ -1,4 +1,4 @@
-import { Config } from '@scrabble-solver/types';
+import type { Config } from '@scrabble-solver/types';
 
 import { BOARD_CELL_BORDER_WIDTH, BOARD_TILE_SIZE_MAX } from 'parameters';
 

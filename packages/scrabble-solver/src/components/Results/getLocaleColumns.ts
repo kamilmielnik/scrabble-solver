@@ -1,7 +1,7 @@
 import { ResultColumn } from 'types';
 
 import styles from './Results.module.scss';
-import { Column } from './types';
+import type { Column } from './types';
 
 const WORD: Column = {
   className: styles.word,

@@ -1,5 +1,5 @@
 import { BLANK } from '@scrabble-solver/constants';
-import { Config } from '@scrabble-solver/types';
+import type { Config } from '@scrabble-solver/types';
 
 import isUpperCase from './isUpperCase';
 

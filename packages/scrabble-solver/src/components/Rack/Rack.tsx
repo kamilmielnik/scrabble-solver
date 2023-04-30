@@ -3,9 +3,9 @@
 import { FloatingPortal, autoUpdate, useFloating } from '@floating-ui/react';
 import classNames from 'classnames';
 import {
-  ChangeEvent,
-  ClipboardEvent,
-  FunctionComponent,
+  type ChangeEvent,
+  type ClipboardEvent,
+  type FunctionComponent,
   createRef,
   useCallback,
   useMemo,
@@ -63,10 +63,15 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const showInputPrompt = inputMode === 'touchscreen' && hasFocus;
   const ref = useRef<HTMLDivElement>(null);
 
-  useOnclickOutside(() => setHasFocus(false), {
-    ignoreClass: [InputPrompt.styles.form, InputPrompt.styles.input],
-    refs: [ref],
-  });
+  useOnclickOutside(
+    () => {
+      setHasFocus(false);
+    },
+    {
+      ignoreClass: [InputPrompt.styles.form, InputPrompt.styles.input],
+      refs: [ref],
+    },
+  );
 
   const changeActiveIndex = useCallback(
     (offset: number) => {
@@ -202,9 +207,15 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
               left: floatingInputPrompt.x ?? 0,
             }}
             value={input}
-            onBlur={() => setHasFocus(false)}
-            onChange={(event) => setInput(event.target.value)}
-            onSubmit={() => setHasFocus(false)}
+            onBlur={() => {
+              setHasFocus(false);
+            }}
+            onChange={(event) => {
+              setInput(event.target.value);
+            }}
+            onSubmit={() => {
+              setHasFocus(false);
+            }}
           />
         </FloatingPortal>
       )}

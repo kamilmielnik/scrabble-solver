@@ -1,4 +1,4 @@
-import { CSSProperties, FunctionComponent } from 'react';
+import type { CSSProperties, FunctionComponent } from 'react';
 
 const INVISIBLE_STYLE: CSSProperties = {
   color: 'transparent',

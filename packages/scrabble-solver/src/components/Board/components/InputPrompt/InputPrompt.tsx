@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import { FormEventHandler, forwardRef, HTMLProps, MouseEventHandler, useEffect, useState } from 'react';
+import { type FormEventHandler, forwardRef, type HTMLProps, type MouseEventHandler, useEffect, useState } from 'react';
 
 import { Check } from 'icons';
 import { useTranslate } from 'state';
-import { Direction } from 'types';
+import type { Direction } from 'types';
 
 import Button from '../../../Button';
 import ToggleDirectionButton from '../ToggleDirectionButton';
@@ -25,7 +25,9 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
     const [input, setInput] = useState(initialValue.trim());
 
     // On iOS it helps with losing focus too early which makes Actions disappear
-    const handleMouseDown: MouseEventHandler = (event) => event.preventDefault();
+    const handleMouseDown: MouseEventHandler = (event) => {
+      event.preventDefault();
+    };
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
       event.preventDefault();
@@ -60,7 +62,9 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
             spellCheck={false}
             ref={setInputRef}
             value={input}
-            onChange={(event) => setInput(event.target.value)}
+            onChange={(event) => {
+              setInput(event.target.value);
+            }}
           />
         </div>
 

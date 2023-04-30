@@ -1,19 +1,8 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 
-import TileJson from './TileJson';
+import type TileJson from './TileJson';
 
 class Tile {
-  public static fromJson(json: TileJson | null): Tile {
-    if (!json) {
-      return Tile.Null;
-    }
-
-    return new Tile({
-      character: json.character,
-      isBlank: json.isBlank,
-    });
-  }
-
   public static readonly Null: Tile = Object.freeze({
     character: EMPTY_CELL,
     isBlank: false,
@@ -30,6 +19,17 @@ class Tile {
   constructor({ character, isBlank = false }: { character: string; isBlank?: boolean }) {
     this.character = character;
     this.isBlank = isBlank;
+  }
+
+  public static fromJson(json: TileJson | null): Tile {
+    if (!json) {
+      return Tile.Null;
+    }
+
+    return new Tile({
+      character: json.character,
+      isBlank: json.isBlank,
+    });
   }
 
   public clone(): Tile {

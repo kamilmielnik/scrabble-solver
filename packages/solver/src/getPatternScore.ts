@@ -1,4 +1,4 @@
-import { Config, Pattern } from '@scrabble-solver/types';
+import type { Config, Pattern } from '@scrabble-solver/types';
 
 import getCellsScore from './getCellsScore';
 

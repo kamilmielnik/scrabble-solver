@@ -1,7 +1,7 @@
 import { Locale } from '@scrabble-solver/types';
 
 import { normalizeDefinition, unique } from '../lib';
-import { ParseResult } from '../types';
+import type { ParseResult } from '../types';
 
 import parseEnglish from './parseEnglish';
 import parseFarsi from './parseFarsi';

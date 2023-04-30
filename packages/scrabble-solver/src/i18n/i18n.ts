@@ -1,6 +1,6 @@
 import { Locale } from '@scrabble-solver/types';
 
-import { Translations } from 'types';
+import type { Translations } from 'types';
 
 import de from './de.json';
 import en from './en.json';

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { FunctionComponent, useCallback, useState } from 'react';
+import { type FunctionComponent, useCallback, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 
@@ -40,21 +40,49 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const [showWords, setShowWords] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
-  const handleShowResults = useCallback(() => setShowResults(true), []);
+  const handleShowResults = useCallback(() => {
+    setShowResults(true);
+  }, []);
   const handleClear = useCallback(() => dispatch(reset()), [dispatch]);
-  const handleHideDictionary = useCallback(() => setShowDictionary(false), []);
-  const handleHideKeyMap = useCallback(() => setShowKeyMap(false), []);
-  const handleHideMenu = useCallback(() => setShowMenu(false), []);
-  const handleHideRemainingTiles = useCallback(() => setShowRemainingTiles(false), []);
-  const handleHideResults = useCallback(() => setShowResults(false), []);
-  const handleHideSettings = useCallback(() => setShowSettings(false), []);
-  const handleHideWords = useCallback(() => setShowWords(false), []);
-  const handleShowDictionary = useCallback(() => setShowDictionary(true), []);
-  const handleShowKeyMap = useCallback(() => setShowKeyMap(true), []);
-  const handleShowMenu = useCallback(() => setShowMenu(true), []);
-  const handleShowRemainingTiles = useCallback(() => setShowRemainingTiles(true), []);
-  const handleShowSettings = useCallback(() => setShowSettings(true), []);
-  const handleShowWords = useCallback(() => setShowWords(true), []);
+  const handleHideDictionary = useCallback(() => {
+    setShowDictionary(false);
+  }, []);
+  const handleHideKeyMap = useCallback(() => {
+    setShowKeyMap(false);
+  }, []);
+  const handleHideMenu = useCallback(() => {
+    setShowMenu(false);
+  }, []);
+  const handleHideRemainingTiles = useCallback(() => {
+    setShowRemainingTiles(false);
+  }, []);
+  const handleHideResults = useCallback(() => {
+    setShowResults(false);
+  }, []);
+  const handleHideSettings = useCallback(() => {
+    setShowSettings(false);
+  }, []);
+  const handleHideWords = useCallback(() => {
+    setShowWords(false);
+  }, []);
+  const handleShowDictionary = useCallback(() => {
+    setShowDictionary(true);
+  }, []);
+  const handleShowKeyMap = useCallback(() => {
+    setShowKeyMap(true);
+  }, []);
+  const handleShowMenu = useCallback(() => {
+    setShowMenu(true);
+  }, []);
+  const handleShowRemainingTiles = useCallback(() => {
+    setShowRemainingTiles(true);
+  }, []);
+  const handleShowSettings = useCallback(() => {
+    setShowSettings(true);
+  }, []);
+  const handleShowWords = useCallback(() => {
+    setShowWords(true);
+  }, []);
 
   useDirection(LOCALE_FEATURES[locale].direction);
   useLanguage(locale);

@@ -1,5 +1,5 @@
-import { ReactNode, useLayoutEffect, useRef } from 'react';
-import { createRoot, Root } from 'react-dom/client';
+import { type ReactNode, useLayoutEffect, useRef } from 'react';
+import { createRoot, type Root } from 'react-dom/client';
 import { Portal } from 'react-portal';
 
 import { canUseDom, noop } from 'lib';

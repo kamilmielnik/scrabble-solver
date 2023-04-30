@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 
-import { ParseResult } from '../types';
+import type { ParseResult } from '../types';
 
 const parsePolish = (html: string): ParseResult => {
   const $ = load(html);
@@ -10,7 +10,7 @@ const parsePolish = (html: string): ParseResult => {
 
   return {
     definitions: $definitions.text().trim().split(/\d+\./u),
-    exists: $isAllowed.text().trim().indexOf('dopuszczalne w grach') >= 0,
+    exists: $isAllowed.text().trim().includes('dopuszczalne w grach'),
   };
 };
 

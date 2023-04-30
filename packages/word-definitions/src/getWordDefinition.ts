@@ -1,4 +1,4 @@
-import { Locale, WordDefinition } from '@scrabble-solver/types';
+import { type Locale, WordDefinition } from '@scrabble-solver/types';
 
 import { crawl } from './crawl';
 import { parse } from './parse';

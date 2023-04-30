@@ -1,4 +1,4 @@
-import { Config, Game, Locale } from '@scrabble-solver/types';
+import type { Config, Game, Locale } from '@scrabble-solver/types';
 
 import * as locales from './locales';
 

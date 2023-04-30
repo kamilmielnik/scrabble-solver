@@ -1,4 +1,4 @@
-import { Point } from 'types';
+import type { Point } from 'types';
 
 export type CellFilterState = Point[];
 

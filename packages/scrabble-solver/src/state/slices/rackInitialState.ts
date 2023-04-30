@@ -1,4 +1,4 @@
-import { Rack } from 'types';
+import type { Rack } from 'types';
 
 import localStorage from '../localStorage';
 

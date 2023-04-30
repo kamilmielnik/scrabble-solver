@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ReactElement, useCallback } from 'react';
+import { type ReactElement, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { SortDown, SortUp } from 'icons';
@@ -9,7 +9,7 @@ import { SortDirection } from 'types';
 import { useTooltip } from '../Tooltip';
 
 import styles from './Results.module.scss';
-import { Column } from './types';
+import type { Column } from './types';
 
 interface Props {
   column: Column;

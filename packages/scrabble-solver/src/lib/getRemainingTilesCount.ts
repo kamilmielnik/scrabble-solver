@@ -1,4 +1,4 @@
-import { RemainingTile } from 'types';
+import type { RemainingTile } from 'types';
 
 const getRemainingTilesCount = (remainingTiles: RemainingTile[]): number => {
   return remainingTiles.reduce((sum, { count, usedCount }) => sum + count - usedCount, 0);

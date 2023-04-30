@@ -1,4 +1,4 @@
-import { Board } from '@scrabble-solver/types';
+import type { Board } from '@scrabble-solver/types';
 
 import boardInitialState from './boardInitialState';
 

@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 
-import { ParseResult } from '../types';
+import type { ParseResult } from '../types';
 
 const parseFrench = (html: string): ParseResult => {
   const $ = load(html);

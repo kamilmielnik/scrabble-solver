@@ -1,4 +1,4 @@
-import { FunctionComponent, memo } from 'react';
+import { type FunctionComponent, memo } from 'react';
 
 import { Badge, Modal } from 'components';
 import { LOCALE_FEATURES } from 'i18n';

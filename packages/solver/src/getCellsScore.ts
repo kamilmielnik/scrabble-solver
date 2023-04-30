@@ -1,5 +1,5 @@
 import { NO_BONUS } from '@scrabble-solver/constants';
-import { Cell, Config } from '@scrabble-solver/types';
+import type { Cell, Config } from '@scrabble-solver/types';
 
 const getCellsScore = (config: Config, cells: Cell[]): number => {
   const total = cells.reduce(

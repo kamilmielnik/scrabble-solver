@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FunctionComponent, HTMLProps, ReactNode, SVGAttributes } from 'react';
+import type { FunctionComponent, HTMLProps, ReactNode, SVGAttributes } from 'react';
 
 import { Check, CrossCircleFill, ExclamationTriangleFill, InfoCircleFill } from 'icons';
 

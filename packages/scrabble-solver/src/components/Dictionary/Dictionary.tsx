@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 
 import { selectDictionary, selectDictionaryError, useTranslate, useTypedSelector } from 'state';
 
@@ -34,17 +34,17 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
       {results.map(({ definitions, exists, isAllowed, word }) => (
         <div
           className={classNames(styles.result, {
-            [styles.isAllowed]: isAllowed === true,
-            [styles.isNotAllowed]: isAllowed === false,
+            [styles.isAllowed]: isAllowed,
+            [styles.isNotAllowed]: !isAllowed,
           })}
           key={word}
         >
           <div className={styles.content}>
             {word && <h2 className={styles.word}>{word}</h2>}
 
-            {isAllowed === false && <div>{translate('dictionary.empty-state.not-allowed')}</div>}
+            {!isAllowed && <div>{translate('dictionary.empty-state.not-allowed')}</div>}
 
-            {isAllowed === true && (
+            {isAllowed && (
               <>
                 {definitions.length === 0 && (
                   <>

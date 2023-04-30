@@ -4,7 +4,7 @@ import { selectLocale, useTypedSelector } from 'state';
 import { ResultColumn } from 'types';
 
 import getLocaleColumns from './getLocaleColumns';
-import { Column } from './types';
+import type { Column } from './types';
 
 const COLUMNS_XS = [ResultColumn.Word, ResultColumn.Points];
 

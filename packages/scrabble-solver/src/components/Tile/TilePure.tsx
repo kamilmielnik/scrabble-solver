@@ -1,14 +1,14 @@
 import classNames from 'classnames';
 import {
-  ChangeEventHandler,
-  CSSProperties,
-  FocusEventHandler,
-  FunctionComponent,
-  KeyboardEventHandler,
+  type ChangeEventHandler,
+  type CSSProperties,
+  type FocusEventHandler,
+  type FunctionComponent,
+  type KeyboardEventHandler,
   memo,
-  MouseEventHandler,
-  Ref,
-  TouchEventHandler,
+  type MouseEventHandler,
+  type Ref,
+  type TouchEventHandler,
 } from 'react';
 
 import { ExclamationSquareFill } from 'icons';

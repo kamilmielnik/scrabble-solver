@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FunctionComponent, ReactNode, useCallback, useEffect, useState } from 'react';
+import { type FunctionComponent, type ReactNode, useCallback, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 
 import { CrossSquareFill } from 'icons';

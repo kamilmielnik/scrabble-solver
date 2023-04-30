@@ -1,6 +1,4 @@
-interface AnyFunction {
-  (...parameters: any[]): any | Promise<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
-}
+// eslint-disable-line @typescript-eslint/no-explicit-any type AnyFunction = (...parameters: any[]) => any | Promise<any>;
 
 interface AnyCachedFunction<T extends AnyFunction> extends AnyFunction {
   hasCache: (...parameters: Parameters<T>) => boolean;

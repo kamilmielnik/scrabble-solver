@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ChangeEvent, FormEvent, FunctionComponent } from 'react';
+import type { ChangeEvent, FormEvent, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { LOCALE_FEATURES } from 'i18n';

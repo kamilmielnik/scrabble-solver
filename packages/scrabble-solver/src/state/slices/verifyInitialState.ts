@@ -1,4 +1,4 @@
-import boardInitialState, { BoardState } from './boardInitialState';
+import boardInitialState, { type BoardState } from './boardInitialState';
 
 export interface VerifyState {
   isLoading: boolean;

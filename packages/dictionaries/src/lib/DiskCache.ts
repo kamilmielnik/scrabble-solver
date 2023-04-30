@@ -1,9 +1,9 @@
 import { Trie } from '@kamilmielnik/trie';
-import { Locale } from '@scrabble-solver/types';
+import type { Locale } from '@scrabble-solver/types';
 import fs from 'fs';
 
 import { CACHE_STALE_THRESHOLD } from '../constants';
-import { Cache } from '../types';
+import type { Cache } from '../types';
 
 import getDictionaryFilepath from './getDictionaryFilepath';
 

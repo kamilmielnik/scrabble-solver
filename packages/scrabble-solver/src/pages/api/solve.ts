@@ -3,8 +3,8 @@ import { BLANK } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import logger from '@scrabble-solver/logger';
 import { solve as solveScrabble } from '@scrabble-solver/solver';
-import { Board, Config, Locale, Tile, isBoardJson, isGame, isLocale } from '@scrabble-solver/types';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { Board, type Config, type Locale, Tile, isBoardJson, isGame, isLocale } from '@scrabble-solver/types';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { getServerLoggingData, isBoardValid, isCharacterValid } from 'api';
 import { isStringArray } from 'lib';

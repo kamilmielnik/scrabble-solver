@@ -1,8 +1,8 @@
 /* eslint-disable max-params, max-statements, no-param-reassign */
 
-import { Trie } from '@kamilmielnik/trie';
+import type { Trie } from '@kamilmielnik/trie';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import { Config, FinalPattern, Pattern, Tile } from '@scrabble-solver/types';
+import { type Config, FinalPattern, type Pattern, type Tile } from '@scrabble-solver/types';
 
 const fillPattern = (trie: Trie, config: Config, pattern: Pattern, tiles: Tile[]): Pattern[] => {
   if (pattern.getEmptyCellsCount() > tiles.length) {

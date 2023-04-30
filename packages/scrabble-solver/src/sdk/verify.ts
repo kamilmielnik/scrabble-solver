@@ -1,4 +1,4 @@
-import { BoardJson, Locale } from '@scrabble-solver/types';
+import type { BoardJson, Locale } from '@scrabble-solver/types';
 
 import fetchJson from './fetchJson';
 

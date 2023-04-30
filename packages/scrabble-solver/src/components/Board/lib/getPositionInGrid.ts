@@ -1,4 +1,4 @@
-import { Point } from 'types';
+import type { Point } from 'types';
 
 const getPositionInGrid = <T>(grid: T[][], constraint: (value: T) => boolean): Point | undefined => {
   for (let y = 0; y < grid.length; ++y) {

@@ -1,7 +1,7 @@
-import BonusJson from './BonusJson';
-import Game from './Game';
-import Locale from './Locale';
-import TileConfig from './TileConfig';
+import type BonusJson from './BonusJson';
+import type Game from './Game';
+import type Locale from './Locale';
+import type TileConfig from './TileConfig';
 
 interface ConfigJson {
   allTilesBonusScore: number;

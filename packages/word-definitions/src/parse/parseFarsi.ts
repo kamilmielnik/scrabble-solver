@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 
-import { ParseResult } from '../types';
+import type { ParseResult } from '../types';
 
 const DOES_NOT_EXIST_MESSAGE = '404 Page Not Found';
 

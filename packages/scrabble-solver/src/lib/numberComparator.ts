@@ -1,4 +1,4 @@
-import { Comparator } from 'types';
+import type { Comparator } from 'types';
 
 const numberComparator: Comparator<number> = (a, b) => a - b;
 

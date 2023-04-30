@@ -1,8 +1,8 @@
 /* eslint-disable max-lines */
 
-import { PayloadAction } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 import { hasConfig, localesMap } from '@scrabble-solver/configs';
-import { Board, Locale, Result } from '@scrabble-solver/types';
+import { Board, type Locale, type Result } from '@scrabble-solver/types';
 import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { LOCALE_FEATURES } from 'i18n';

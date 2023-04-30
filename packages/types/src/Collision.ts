@@ -1,4 +1,4 @@
-import Cell from './Cell';
+import type Cell from './Cell';
 
 type Collision = Cell[];
 

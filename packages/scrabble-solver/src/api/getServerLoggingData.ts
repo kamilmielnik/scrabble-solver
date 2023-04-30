@@ -1,11 +1,11 @@
-import { NextApiRequest } from 'next';
+import type { NextApiRequest } from 'next';
 
 interface ServerLoggingData {
   origin?: string;
   referer?: string;
   userAgent?: string;
-  xForwardedFor?: string | string[];
-  xRealIp?: string | string[];
+  xForwardedFor?: string[] | string;
+  xRealIp?: string[] | string;
 }
 
 const getServerLoggingData = (request: NextApiRequest): ServerLoggingData => ({

@@ -1,11 +1,11 @@
 import { arrow, autoUpdate, flip, FloatingArrow, offset, shift, useFloating } from '@floating-ui/react';
 import classNames from 'classnames';
 import {
-  FocusEvent,
-  FocusEventHandler,
-  MouseEvent,
-  MouseEventHandler,
-  ReactNode,
+  type FocusEvent,
+  type FocusEventHandler,
+  type MouseEvent,
+  type MouseEventHandler,
+  type ReactNode,
   useCallback,
   useId,
   useMemo,
@@ -20,7 +20,7 @@ import styles from './Tooltip.module.scss';
 
 interface Props {
   className?: string;
-  placement?: 'top' | 'right' | 'bottom' | 'left';
+  placement?: 'bottom' | 'left' | 'right' | 'top';
   onBlur?: FocusEventHandler;
   onFocus?: FocusEventHandler;
   onMouseOut?: MouseEventHandler;

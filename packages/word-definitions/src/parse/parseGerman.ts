@@ -1,6 +1,6 @@
-import { Cheerio, CheerioAPI, Element, load } from 'cheerio';
+import { load, type Cheerio, type CheerioAPI, type Element } from 'cheerio';
 
-import { ParseResult } from '../types';
+import type { ParseResult } from '../types';
 
 const parseGerman = (html: string): ParseResult => {
   const $ = load(html);

@@ -10,7 +10,7 @@ import { FlagFill, Star } from 'icons';
 import { dataUrlToBlob, getTileSizes } from 'lib';
 import { BORDER_COLOR_LIGHT, BORDER_RADIUS, BORDER_WIDTH, COLOR_BONUS_START, COLOR_FILTERED } from 'parameters';
 import { selectConfig, store, useTypedSelector } from 'state';
-import { Point } from 'types';
+import type { Point } from 'types';
 
 import { getBonusColor } from '../lib';
 

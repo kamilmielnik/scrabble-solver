@@ -3,7 +3,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
-import { Cell, Config, isError, Tile } from '@scrabble-solver/types';
+import { type Cell, type Config, isError, type Tile } from '@scrabble-solver/types';
 
 import i18n, { LOCALE_FEATURES } from 'i18n';
 import {
@@ -15,9 +15,9 @@ import {
   sortResults,
   unorderedArraysEqual,
 } from 'lib';
-import { Point, Translations } from 'types';
+import type { Point, Translations } from 'types';
 
-import { RootState } from './types';
+import type { RootState } from './types';
 
 const selectCell = (_: unknown, cell: Cell): Cell => cell;
 

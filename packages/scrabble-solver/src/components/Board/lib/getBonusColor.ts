@@ -1,5 +1,5 @@
 import { BONUS_WORD } from '@scrabble-solver/constants';
-import { Bonus } from '@scrabble-solver/types';
+import type { Bonus } from '@scrabble-solver/types';
 
 import { COLOR_BONUS_CHARACTER, COLOR_BONUS_CHARACTER_MULTIPLIER, COLOR_BONUS_WORD } from 'parameters';
 

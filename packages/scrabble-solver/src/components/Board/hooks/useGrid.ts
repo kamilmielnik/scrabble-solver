@@ -1,15 +1,15 @@
 /* eslint-disable max-lines, max-lines-per-function, max-statements */
 
-import { PayloadAction } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 import { BLANK, EMPTY_CELL } from '@scrabble-solver/constants';
-import { Board, Cell } from '@scrabble-solver/types';
+import { Board, type Cell } from '@scrabble-solver/types';
 import {
-  ChangeEvent,
-  ChangeEventHandler,
-  ClipboardEventHandler,
+  type ChangeEvent,
+  type ChangeEventHandler,
+  type ClipboardEventHandler,
   createRef,
-  KeyboardEventHandler,
-  RefObject,
+  type KeyboardEventHandler,
+  type RefObject,
   useCallback,
   useMemo,
   useState,
@@ -20,7 +20,7 @@ import { useLatest } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { createGridOf, createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
 import { boardSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
-import { Direction, Point } from 'types';
+import type { Direction, Point } from 'types';
 
 import { getPositionInGrid } from '../lib';
 
@@ -215,7 +215,9 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
     [dispatch, insertValue, moveFocus, rows],
   );
 
-  const onDirectionToggle = useCallback(() => setLastDirection(toggleDirection), []);
+  const onDirectionToggle = useCallback(() => {
+    setLastDirection(toggleDirection);
+  }, []);
 
   const onFocus = useCallback((x: number, y: number) => {
     setActiveIndex({ x, y });
