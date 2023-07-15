@@ -7,7 +7,7 @@ const downloadHtml = (url: string): Promise<string> => {
       let data = '';
       response.setEncoding('utf8');
       response.on('data', (chunk) => {
-        data += chunk;
+        data += String(chunk);
       });
       response.on('end', () => {
         resolve(data);

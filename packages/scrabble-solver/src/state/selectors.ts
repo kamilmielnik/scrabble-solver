@@ -3,7 +3,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
-import { type Cell, type Config, isError, type Tile } from '@scrabble-solver/types';
+import { isError, type Cell, type Config, type Tile } from '@scrabble-solver/types';
 
 import i18n, { LOCALE_FEATURES } from 'i18n';
 import {
@@ -117,11 +117,7 @@ export const selectIsResultMatching = createSelector(
       return false;
     }
 
-    if (filteredCells) {
-      return filteredCells.every(({ x, y }) => result.cells.some((cell) => cell.x === x && cell.y === y));
-    }
-
-    return true;
+    return filteredCells.every(({ x, y }) => result.cells.some((cell) => cell.x === x && cell.y === y));
   },
 );
 

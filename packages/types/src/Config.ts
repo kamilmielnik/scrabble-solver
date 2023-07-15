@@ -12,10 +12,6 @@ import type TileConfig from './TileConfig';
 import WordBonus from './WordBonus';
 
 class Config {
-  public static fromJson(json: ConfigJson): Config {
-    return new Config(json);
-  }
-
   public readonly bonuses: Bonus[];
 
   public readonly config: ConfigJson;
@@ -60,8 +56,20 @@ class Config {
     return this.config.locale;
   }
 
+  public get maximumCharactersCount(): number {
+    return this.config.maximumCharactersCount;
+  }
+
+  public get tiles(): TileConfig[] {
+    return this.config.tiles;
+  }
+
   public get twoCharacterTiles(): string[] {
     return this.config.tiles.filter((tile) => tile.character.length === 2).map((tile) => tile.character);
+  }
+
+  public static fromJson(json: ConfigJson): Config {
+    return new Config(json);
   }
 
   public getCellBonus(cell: Cell): Bonus | undefined {
@@ -106,14 +114,6 @@ class Config {
 
   public isTwoCharacterTilePrefix(character: string): boolean {
     return typeof this.getTwoCharacterTileByPrefix(character) !== 'undefined';
-  }
-
-  public get maximumCharactersCount(): number {
-    return this.config.maximumCharactersCount;
-  }
-
-  public get tiles(): TileConfig[] {
-    return this.config.tiles;
   }
 
   public toJson(): ConfigJson {

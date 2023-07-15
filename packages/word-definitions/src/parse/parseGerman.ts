@@ -31,7 +31,7 @@ const parseBedeutungsubersicht = ($: CheerioAPI): string[] => {
     const $html = $(`<div>${html}</div>`);
     const $prev = $list.prev('a');
 
-    if ($prev) {
+    if ($prev.length > 0) {
       $prev.append($html);
       $(list).remove();
     } else {

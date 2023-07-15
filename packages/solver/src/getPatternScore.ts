@@ -2,7 +2,7 @@ import type { Config, Pattern } from '@scrabble-solver/types';
 
 import getCellsScore from './getCellsScore';
 
-const getPatternScore = (config: Config, pattern: Pattern) => {
+const getPatternScore = (config: Config, pattern: Pattern): number => {
   const areAllTilesUsed = pattern.getEmptyCellsCount() === config.maximumCharactersCount;
   const bonusScore = areAllTilesUsed ? config.allTilesBonusScore : 0;
   const score = pattern

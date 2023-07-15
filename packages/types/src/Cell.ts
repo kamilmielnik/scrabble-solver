@@ -2,15 +2,6 @@ import type CellJson from './CellJson';
 import Tile from './Tile';
 
 class Cell {
-  public static fromJson(json: CellJson): Cell {
-    return new Cell({
-      isEmpty: json.isEmpty,
-      tile: Tile.fromJson(json.tile),
-      x: json.x,
-      y: json.y,
-    });
-  }
-
   public readonly isEmpty: boolean;
 
   public tile: Tile;
@@ -19,12 +10,20 @@ class Cell {
 
   public readonly y: number;
 
-  // eslint-disable-next-line no-undef
   constructor({ isEmpty = true, tile = Tile.Null, x, y }: { isEmpty?: boolean; tile?: Tile; x: number; y: number }) {
     this.isEmpty = isEmpty;
     this.tile = tile;
     this.x = x;
     this.y = y;
+  }
+
+  public static fromJson(json: CellJson): Cell {
+    return new Cell({
+      isEmpty: json.isEmpty,
+      tile: Tile.fromJson(json.tile),
+      x: json.x,
+      y: json.y,
+    });
   }
 
   public clone(): Cell {

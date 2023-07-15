@@ -7,15 +7,6 @@ import type Tile from './Tile';
 type Collision = Cell[];
 
 class Result {
-  public static fromJson(json: ResultJson): Result {
-    return new Result({
-      id: json.id,
-      cells: json.cells.map(Cell.fromJson),
-      collisions: json.collisions.map((collision) => collision.map(Cell.fromJson)),
-      points: json.points,
-    });
-  }
-
   public readonly blanksCount: number;
 
   public readonly cells: Cell[];
@@ -70,6 +61,15 @@ class Result {
     this.word = getWord(cells);
     this.words = getWords(cells, collisions);
     this.wordsCount = 1 + this.collisions.length;
+  }
+
+  public static fromJson(json: ResultJson): Result {
+    return new Result({
+      id: json.id,
+      cells: json.cells.map(Cell.fromJson),
+      collisions: json.collisions.map((collision) => collision.map(Cell.fromJson)),
+      points: json.points,
+    });
   }
 
   public toJson(): ResultJson {

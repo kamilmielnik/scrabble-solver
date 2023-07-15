@@ -5,7 +5,7 @@ const getCellsScore = (config: Config, cells: Cell[]): number => {
   const total = cells.reduce(
     ({ multiplier, score }, cell: Cell): { multiplier: number; score: number } => {
       const bonus = config.getCellBonus(cell);
-      const { characterMultiplier, wordMultiplier } = bonus && bonus.canApply(config, cell) ? bonus.value : NO_BONUS;
+      const { characterMultiplier, wordMultiplier } = bonus?.canApply(config, cell) ? bonus.value : NO_BONUS;
       const characterScore = config.pointsMap[cell.tile.character] || 0;
       const tileScore = cell.tile.isBlank ? config.blankScore : characterScore;
 

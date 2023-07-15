@@ -15,7 +15,7 @@ const parseSpanish = (html: string): ParseResult => {
   Array.from($('.gris13')).forEach((element) => {
     const children = $(element).find('.gris13');
 
-    if (children && children.length > 0) {
+    if (children.length > 0) {
       children.remove();
     }
   });

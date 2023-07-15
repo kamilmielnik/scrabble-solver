@@ -1,19 +1,6 @@
 import type WordDefinitionJson from './WordDefinitionJson';
 
 class WordDefinition {
-  public static fromJson(json: WordDefinitionJson | null): WordDefinition {
-    if (!json) {
-      return WordDefinition.Null;
-    }
-
-    return new WordDefinition({
-      definitions: json.definitions,
-      exists: json.exists,
-      isAllowed: json.isAllowed,
-      word: json.word,
-    });
-  }
-
   public static readonly Null: WordDefinition = Object.freeze({
     definitions: [],
     exists: false,
@@ -41,6 +28,19 @@ class WordDefinition {
     this.exists = exists;
     this.isAllowed = isAllowed;
     this.word = word;
+  }
+
+  public static fromJson(json: WordDefinitionJson | null): WordDefinition {
+    if (!json) {
+      return WordDefinition.Null;
+    }
+
+    return new WordDefinition({
+      definitions: json.definitions,
+      exists: json.exists,
+      isAllowed: json.isAllowed,
+      word: json.word,
+    });
   }
 
   public toJson(): WordDefinitionJson | null {

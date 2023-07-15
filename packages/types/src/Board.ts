@@ -5,8 +5,28 @@ import Cell from './Cell';
 import Tile from './Tile';
 
 class Board {
+  public readonly columnsCount: number;
+
+  public readonly rows: Cell[][];
+
+  public readonly rowsCount: number;
+
+  constructor({ rows }: { rows: Cell[][] }) {
+    this.rows = rows;
+    this.columnsCount = rows[0].length;
+    this.rowsCount = rows.length;
+  }
+
+  public get center(): Cell {
+    const x = Math.floor(this.columnsCount / 2);
+    const y = Math.floor(this.rowsCount / 2);
+    return this.rows[y][x];
+  }
+
   public static create(width: number, height: number): Board {
-    return Board.fromStringArray(Array(height).fill(Array(width).fill(' ').join('')));
+    return Board.fromStringArray(
+      Array.from({ length: height }, () => Array.from({ length: width }).fill(' ').join('')),
+    );
   }
 
   public static fromJson(json: BoardJson): Board {
@@ -29,24 +49,6 @@ class Board {
         ),
       ),
     });
-  }
-
-  public readonly columnsCount: number;
-
-  public readonly rows: Cell[][];
-
-  public readonly rowsCount: number;
-
-  constructor({ rows }: { rows: Cell[][] }) {
-    this.rows = rows;
-    this.columnsCount = rows[0].length;
-    this.rowsCount = rows.length;
-  }
-
-  public get center(): Cell {
-    const x = Math.floor(this.columnsCount / 2);
-    const y = Math.floor(this.rowsCount / 2);
-    return this.rows[y][x];
   }
 
   public clone(): Board {

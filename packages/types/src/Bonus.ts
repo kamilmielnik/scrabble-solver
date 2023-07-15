@@ -10,17 +10,24 @@ abstract class Bonus {
 
   public readonly score: number | undefined;
 
-  public abstract readonly type: typeof BONUS_CHARACTER | typeof BONUS_WORD;
-
   public readonly x: number;
 
   public readonly y: number;
+
+  public abstract readonly type: typeof BONUS_CHARACTER | typeof BONUS_WORD;
 
   constructor({ multiplier, score, x, y }: { multiplier: number; score?: number; x: number; y: number }) {
     this.multiplier = multiplier;
     this.score = score;
     this.x = x;
     this.y = y;
+  }
+
+  public get value(): BonusValue {
+    return {
+      characterMultiplier: 1,
+      wordMultiplier: 1,
+    };
   }
 
   public canApply(_config: Config, cell: Cell): boolean {
@@ -38,13 +45,6 @@ abstract class Bonus {
       type: this.type,
       x: this.x,
       y: this.y,
-    };
-  }
-
-  public get value(): BonusValue {
-    return {
-      characterMultiplier: 1,
-      wordMultiplier: 1,
     };
   }
 }

@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 import fs from 'fs';
-import unzipper from 'unzipper';
+import unzipper, { type Entry } from 'unzipper';
 import { URL } from 'url';
 
 import { downloadFile, downloadHtml, extractWords, getTempFilepath } from './lib';
@@ -22,7 +22,7 @@ const getPlPlWordList = async (): Promise<string[]> => {
 
 const fetchZipUrl = async (url: string): Promise<string> => {
   const html = await downloadHtml(url);
-  const filename = await parseZipContainingPage(html);
+  const filename = parseZipContainingPage(html);
   const { href } = new URL(filename, url);
   return href;
 };
@@ -46,7 +46,7 @@ const unzip = (zipFilename: string, outputFilename: string): Promise<void> => {
   return fs
     .createReadStream(zipFilename)
     .pipe(unzipper.Parse()) // eslint-disable-line new-cap
-    .on('entry', (entry) => {
+    .on('entry', (entry: Entry) => {
       const fileName = entry.path;
 
       if (fileName === FILE_TO_EXTRACT_FROM_ZIP) {
