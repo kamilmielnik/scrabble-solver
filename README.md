@@ -14,7 +14,7 @@
   </p>
 
   <p>
-    Available at <a href="https://scrabble-solver.org">https://scrabble-solver.org</a> in 7 languages.
+    Available at <a href="https://scrabble-solver.org">https://scrabble-solver.org</a> in 8 languages.
   </p>
 
   <p>
