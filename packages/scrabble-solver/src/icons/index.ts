@@ -27,6 +27,7 @@ export { default as FlagFill } from './FlagFill.svg';
 export { default as FlagFr } from './FlagFr.svg';
 export { default as FlagGb } from './FlagGb.svg';
 export { default as FlagPl } from './FlagPl.svg';
+export { default as FlagRo } from './FlagRo.svg';
 export { default as FlagUs } from './FlagUs.svg';
 export { default as Github } from './Github.svg';
 export { default as InfoCircleFill } from './InfoCircleFill.svg';
