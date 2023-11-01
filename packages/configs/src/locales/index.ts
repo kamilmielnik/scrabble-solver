@@ -5,3 +5,4 @@ export { default as esEs } from './esEs';
 export { default as faIr } from './faIr';
 export { default as frFr } from './frFr';
 export { default as plPl } from './plPl';
+export { default as roRo } from './roRo';

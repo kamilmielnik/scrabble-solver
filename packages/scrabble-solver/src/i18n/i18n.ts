@@ -8,6 +8,7 @@ import es from './es.json';
 import fa from './fa.json';
 import fr from './fr.json';
 import pl from './pl.json';
+import ro from './ro.json';
 
 const i18n: Record<Locale, Translations> = {
   [Locale.DE_DE]: de,
@@ -17,6 +18,7 @@ const i18n: Record<Locale, Translations> = {
   [Locale.FA_IR]: fa,
   [Locale.FR_FR]: fr,
   [Locale.PL_PL]: pl,
+  [Locale.RO_RO]: ro,
 };
 
 export default i18n;

@@ -1,9 +1,8 @@
 import { load } from 'cheerio';
 import fs from 'fs';
-import unzipper from 'unzipper';
 import { URL } from 'url';
 
-import { downloadFile, downloadHtml, extractWords, getTempFilepath } from './lib';
+import { downloadFile, downloadHtml, extractWords, getTempFilepath, unzip } from './lib';
 
 const PAGE_URL = 'https://sjp.pl/sl/growy/';
 const FILE_TO_EXTRACT_FROM_ZIP = 'slowa.txt';
@@ -12,7 +11,7 @@ const getPlPlWordList = async (): Promise<string[]> => {
   const tempFilepath = getTempFilepath();
   const zipUrl = await fetchZipUrl(PAGE_URL);
   const zipTempFilename = await downloadFile(zipUrl);
-  await unzip(zipTempFilename, tempFilepath);
+  await unzip(zipTempFilename, FILE_TO_EXTRACT_FROM_ZIP, tempFilepath);
   fs.unlinkSync(zipTempFilename);
   const file = fs.readFileSync(tempFilepath, 'utf-8');
   fs.unlinkSync(tempFilepath);
@@ -40,22 +39,6 @@ const parseZipContainingPage = (html: string): string => {
   }
 
   return zipFilename;
-};
-
-const unzip = (zipFilename: string, outputFilename: string): Promise<void> => {
-  return fs
-    .createReadStream(zipFilename)
-    .pipe(unzipper.Parse())
-    .on('entry', (entry) => {
-      const fileName = entry.path;
-
-      if (fileName === FILE_TO_EXTRACT_FROM_ZIP) {
-        entry.pipe(fs.createWriteStream(outputFilename));
-      } else {
-        entry.autodrain();
-      }
-    })
-    .promise();
 };
 
 export default getPlPlWordList;

@@ -1,20 +1,26 @@
 import { Locale } from '@scrabble-solver/types';
 
 const detectLocale = (): Locale => {
-  if (window.navigator.languages.includes('pl') || window.navigator.languages.includes('pl-PL')) {
+  const languages = window.navigator.languages;
+
+  if (languages.includes('pl') || languages.includes('pl-PL')) {
     return Locale.PL_PL;
   }
 
-  if (window.navigator.languages.includes('en-GB')) {
+  if (languages.includes('en-GB')) {
     return Locale.EN_GB;
   }
 
-  if (window.navigator.languages.includes('fa') || window.navigator.languages.includes('fa-IR')) {
+  if (languages.includes('fa') || languages.includes('fa-IR')) {
     return Locale.FA_IR;
   }
 
-  if (window.navigator.languages.includes('fr-FR')) {
+  if (languages.includes('fr-FR')) {
     return Locale.FR_FR;
+  }
+
+  if (languages.includes('ro') || languages.includes('ro-RO')) {
+    return Locale.RO_RO;
   }
 
   return Locale.EN_US;

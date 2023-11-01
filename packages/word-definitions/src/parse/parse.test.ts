@@ -22,6 +22,7 @@ const tests = [
   { locale: Locale.EN_US, word: 'wiz' },
   { locale: Locale.ES_ES, word: 'corma' },
   { locale: Locale.ES_ES, word: 'portero' },
+  { locale: Locale.RO_RO, word: 'aciua' },
 ];
 
 describe('parse', () => {
