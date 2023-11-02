@@ -27,10 +27,12 @@
     "@scrabble-solver/types": "^2.13.0",
     "cheerio": "^1.0.0-rc.12",
     "follow-redirects": "^1.15.2",
+    "latinize": "^1.0.0",
     "unzipper": "^0.10.11"
   },
   "devDependencies": {
     "@types/follow-redirects": "^1.14.1",
+    "@types/latinize": "^0.2.17",
     "@types/unzipper": "^0.10.5"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
