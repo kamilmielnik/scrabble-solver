@@ -45,6 +45,7 @@ export enum ResultColumn {
   VowelsCount = 'vowels-count',
   Word = 'word',
   WordsCount = 'words-count',
+  Coordinates = 'coordinates',
 }
 export type TranslationKey =
   | 'cell.enter-word'
@@ -55,6 +56,7 @@ export type TranslationKey =
   | 'cell.tile.location'
   | 'common.clear'
   | 'common.close'
+  | 'common.coordinates'
   | 'common.loading'
   | 'common.blanks'
   | 'common.consonants'

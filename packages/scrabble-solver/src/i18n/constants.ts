@@ -96,13 +96,13 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
   },
   [Locale.RO_RO]: {
     comma: COMMA_LATIN,
-    consonants: true,
+    consonants: false,
     direction: 'ltr',
     Icon: FlagRo,
     label: 'Română',
     locale: Locale.RO_RO,
     name: 'Romanian',
     separator: `${COMMA_LATIN} `,
-    vowels: true,
+    vowels: false,
   },
 };

@@ -6,6 +6,7 @@
   "cell.tile.location": "Board: tile ({{x}}, {{y}})",
   "cell.toggle-direction": "Typing direction",
   "common.blanks": "Blanks",
+  "common.coordinates": "Coordinates",
   "common.clear": "Clear",
   "common.close": "Close",
   "common.consonants": "Consonants",

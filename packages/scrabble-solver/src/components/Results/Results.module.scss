@@ -175,30 +175,18 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
       padding-left: $row-padding-horizontal;
     }
   }
-
-  &:last-child {
-    flex: 1;
-  }
 }
 
 .word {
-  flex: 1 0;
+  margin-left: 25px;
   text-transform: uppercase;
 }
 
 .stat {
-  $width: 55px;
-
-  flex: 0 0 $width;
-  max-width: $width;
-  justify-content: center;
+  align-items: center;
 }
 
 .points {
-  $width: 80px;
-
-  flex: 1 0 $width;
-  max-width: $width;
   font-weight: bold;
 }
 

@@ -7,6 +7,8 @@
   box-shadow: var(--box-shadow);
   border: var(--border);
   border-radius: var(--border--radius);
+  grid-row: 2;
+  grid-column: 2; 
 }
 
 .floating {
@@ -65,4 +67,39 @@
   --size: 40%;
 
   color: var(--color--white);
+}
+
+.letters {
+  display: flex;
+
+}
+
+.container {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: auto 1fr; 
+  gap: 10px; 
+
+}
+
+.horizontalCoordinates {
+  grid-row: 1; 
+  grid-column: 2; 
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: space-around;
+}
+
+.verticalCoordinates {
+  grid-row: 2; 
+  grid-column: 1; 
+  display: grid;
+  align-items: center;
+  grid-template-rows: repeat(15, 1fr);
+}
+
+.scrabble-table {
+  grid-row: 2;
+  grid-column: 2; 
 }

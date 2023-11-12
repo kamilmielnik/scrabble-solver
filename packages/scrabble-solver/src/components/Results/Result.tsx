@@ -11,11 +11,34 @@ import Cell from './Cell';
 import styles from './Results.module.scss';
 import { ResultData } from './types';
 import useColumns from './useColumns';
+import { Result as ResultType } from '@scrabble-solver/types';
 
 interface Props {
   data: ResultData;
   index: number;
   style?: CSSProperties;
+}
+
+function determineOrientation(result: ResultType): string {
+  const xCoordinates = result.cells.map((cell) => cell.x);
+  const yCoordinates = result.cells.map((cell) => cell.y);
+
+  const xRange = Math.max(...xCoordinates) - Math.min(...xCoordinates);
+  const yRange = Math.max(...yCoordinates) - Math.min(...yCoordinates);
+
+  if (yRange > xRange) {
+    return 'Vertical';
+  } else {
+    return 'Horizontal';
+  }
+}
+
+function getCoordinates(result: ResultType): string {
+  const orientation = determineOrientation(result);
+  if (orientation === 'Horizontal') {
+    return `${String.fromCharCode(64 + result.cells[0].y + 1)}${result.cells[0].x + 1}`;
+  }
+  return `${result.cells[0].x + 1}${String.fromCharCode(64 + result.cells[0].y + 1)}`;
 }
 
 const Result = ({ data, index, style }: Props): ReactElement => {
@@ -61,6 +84,9 @@ const Result = ({ data, index, style }: Props): ReactElement => {
       onMouseLeave={handleMouseLeave}
     >
       <span className={styles.resultContent}>
+        {enabledColumns[ResultColumn.Coordinates] && (
+          <Cell className={styles.stat} translationKey="common.coordinates" value={getCoordinates(result)}></Cell>
+        )}
         {enabledColumns[ResultColumn.Word] && (
           <Cell className={styles.word} translationKey="common.word" value={result.word}>
             <Highlighter highlightClassName={styles.highlight} searchWords={[query]} textToHighlight={result.word} />
