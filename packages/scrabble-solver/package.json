@@ -21,7 +21,7 @@
   "homepage": "https://scrabble-solver.org",
   "scripts": {
     "build": "env-cmd next build",
-    "clean": "rimraf .next/ node_modules/",
+    "clean": "rimraf .next/",
     "debug": "NODE_OPTIONS='--inspect' next dev",
     "dev": "env-cmd next dev",
     "start": "env-cmd next start -p 3333"

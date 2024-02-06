@@ -24,7 +24,7 @@
   "homepage": "https://scrabble-solver.org",
   "scripts": {
     "build": "tsc --project .",
-    "clean": "rimraf build/ node_modules/",
+    "clean": "rimraf build/",
     "clean:dictionaries": "node ./bin/remove-dictionaries.js",
     "postbuild": "node ./bin/update-dictionaries.js"
   },
