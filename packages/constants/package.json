@@ -20,8 +20,7 @@
   "homepage": "https://scrabble-solver.org",
   "scripts": {
     "build": "tsc --project .",
-    "clean": "rimraf build/ node_modules/",
-    "clean:force": "npm run clean && rimraf package-lock.json"
+    "clean": "rimraf build/ node_modules/"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }

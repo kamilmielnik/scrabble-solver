@@ -34,7 +34,6 @@
   "scripts": {
     "build": "npm run build -w packages",
     "clean": "npm run clean -w packages && rimraf node_modules/",
-    "clean:force": "npm run clean:force -w packages && rimraf node_modules/ package-lock.json",
     "lint": "eslint packages/* --ext '.js,.jsx,.ts,.tsx'",
     "lint:fix": "eslint packages/* --ext '.js,.jsx,.ts,.tsx' --fix",
     "prettier:js": "prettier --check './**/*.{js,ts,tsx}'",
