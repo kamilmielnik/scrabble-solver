@@ -106,13 +106,13 @@ rm -rf $HOME/.scrabble-solver
 
 ```Shell
 npm install
-npm run install:dev
+npm run build
 ```
 
 ### Run app dev server
 
 ```Shell
-npx lerna run dev --scope=@scrabble-solver/scrabble-solver
+npm run dev -w @scrabble-solver/scrabble-solver
 ```
 
 Note: hot code reload works only for the [`scrabble-solver`](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver) package.
@@ -120,7 +120,7 @@ Note: hot code reload works only for the [`scrabble-solver`](https://github.com/
 ### Rebuild a single package
 
 ```Shell
-npx lerna run build --scope=@scrabble-solver/PACKAGE_NAME_HERE
+npm run build -w @scrabble-solver/PACKAGE_NAME
 ```
 
 ### Add a new language
@@ -132,7 +132,7 @@ npx lerna run build --scope=@scrabble-solver/PACKAGE_NAME_HERE
 4. Add IETF language tag for the new locale in [packages/types/src/Locale.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/types/src/Locale.ts)
 5. Rebuild the types package
    ```Shell
-   npx lerna run build --scope=@scrabble-solver/types
+   npm run build -w @scrabble-solver/types
    ```
 6. Add locale configuration in [packages/scrabble-solver/src/i18n/constants.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/i18n/constants.ts)
 7. Update locale-detecting code in [packages/scrabble-solver/src/lib/detectLocale.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/lib/detectLocale.ts)
