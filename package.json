@@ -71,13 +71,13 @@
   },
   "homepage": "https://scrabble-solver.org",
   "workspaces": [
+    "packages/logger",
     "packages/constants",
     "packages/types",
     "packages/configs",
     "packages/word-lists",
     "packages/word-definitions",
     "packages/dictionaries",
-    "packages/logger",
     "packages/solver",
     "packages/scrabble-solver"
   ],
