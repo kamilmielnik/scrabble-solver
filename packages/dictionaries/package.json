@@ -24,7 +24,7 @@
   "homepage": "https://scrabble-solver.org",
   "scripts": {
     "build": "tsc --project .",
-    "clean": "npm run clean:dictionaries && rimraf build/ node_modules/",
+    "clean": "rimraf build/ node_modules/",
     "clean:dictionaries": "node ./bin/remove-dictionaries.js",
     "clean:force": "npm run clean && rimraf package-lock.json",
     "postbuild": "node ./bin/update-dictionaries.js"
