@@ -26,14 +26,14 @@
   "dependencies": {
     "@scrabble-solver/types": "^2.13.2",
     "cheerio": "^1.0.0-rc.12",
-    "follow-redirects": "^1.15.2",
+    "follow-redirects": "^1.15.5",
     "latinize": "^1.0.0",
-    "unzipper": "^0.10.11"
+    "unzipper": "^0.10.14"
   },
   "devDependencies": {
-    "@types/follow-redirects": "^1.14.1",
-    "@types/latinize": "^0.2.17",
-    "@types/unzipper": "^0.10.5"
+    "@types/follow-redirects": "^1.14.4",
+    "@types/latinize": "^0.2.18",
+    "@types/unzipper": "^0.10.9"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }

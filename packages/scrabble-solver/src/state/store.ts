@@ -26,7 +26,7 @@ const store = configureStore({
     solve: solveSlice.reducer,
     verify: verifySlice.reducer,
   },
-  middleware: [sagaMiddleware],
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([sagaMiddleware]),
 });
 
 sagaMiddleware.run(rootSaga);

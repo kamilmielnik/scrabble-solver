@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { games } from '@scrabble-solver/configs';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import { Board, Cell, Game, Result, Tile } from '@scrabble-solver/types';
+import { Board, Cell, Result, Tile } from '@scrabble-solver/types';
 
 import boardInitialState from './boardInitialState';
 import settingsSlice from './settingsSlice';
@@ -56,8 +56,8 @@ const boardSlice = createSlice({
       return newBoard;
     },
   },
-  extraReducers: {
-    [settingsSlice.actions.changeGame.type]: (state, action: PayloadAction<Game>) => {
+  extraReducers: (builder) => {
+    builder.addCase(settingsSlice.actions.changeGame, (state, action) => {
       const game = action.payload;
       const config = Object.values(games).find((gameConfig) => gameConfig.game === game);
 
@@ -70,7 +70,7 @@ const boardSlice = createSlice({
       }
 
       return state;
-    },
+    });
   },
 });
 
