@@ -26,11 +26,9 @@ const tests = [
 ];
 
 describe('parse', () => {
-  tests.forEach(({ locale, word }) => {
-    it(`${locale} - "${word}"`, () => {
-      const input = readTestFile(`input/${locale}.${word}.html`);
-      const expected = readTestFile(`expected/${locale}.${word}.json`);
-      expect(parse(locale, input)).toEqual(JSON.parse(expected));
-    });
+  it.each(tests)(`[$locale] "$word"`, ({ locale, word }) => {
+    const input = readTestFile(`input/${locale}.${word}.html`);
+    const expected = readTestFile(`expected/${locale}.${word}.json`);
+    expect(parse(locale, input)).toEqual(JSON.parse(expected));
   });
 });
