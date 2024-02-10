@@ -18,9 +18,7 @@ describe('extractCharacters', () => {
   const locale = Locale.ES_ES;
   const config = getConfig(Game.Scrabble, locale);
 
-  for (const { input, expected } of tests) {
-    it(`[${locale}] "${input}"`, () => {
-      expect(extractCharacters(config, input)).toEqual(expected);
-    });
-  }
+  it.each(tests)(`[${locale}] "$input"`, ({ input, expected }) => {
+    expect(extractCharacters(config, input)).toEqual(expected);
+  });
 });

@@ -136,15 +136,15 @@ npm run build -w @scrabble-solver/PACKAGE_NAME
    ```
 6. Add locale configuration in [packages/scrabble-solver/src/i18n/constants.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/i18n/constants.ts)
 7. Update locale-detecting code in [packages/scrabble-solver/src/lib/detectLocale.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/lib/detectLocale.ts)
-8. Add game configs for the new locale in [packages/configs/src/locales](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/configs/src/locales)
-9. Add an export for these locale configs in [packages/configs/src/locales/index.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/configs/src/locales/index.ts)
+8. Add game configs for the new locale in [packages/configs/src/languages](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/configs/src/languages)
+9. Add an export for these locale configs in [packages/configs/src/languages/index.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/configs/src/languages/index.ts)
 10. Add a translation file in [packages/scrabble-solver/src/i18n](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver/src/i18n) and fill it with translations
-    - Copy any existing file, e.g. `en.json` and modify it
+    - Copy any existing file, e.g. `english.json` and modify it
 11. Add an entry for the translations in [packages/scrabble-solver/src/i18n/i18n.ts](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver/src/i18n/i18n.ts)
 12. Add a function to fetch the list of words in the new locale in [packages/word-lists/src/getWordList.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-lists/src/getWordList.ts)
-13. Add a function to fetch the word definition in the new locale in [packages/word-definitions/src/crawl/crawl.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/crawl/crawl.ts)
-14. Add a function to parse the word definition crawled in the previous step in [packages/word-definitions/src/parse/parse.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/parse/parse.ts)
-    - Bonus points for adding tests in [packages/word-definitions/src/parse/parse.test.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/parse/parse.test.ts)
+13. Add a function to fetch the word definition in the new locale in [packages/word-definitions/src/crawl.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/crawl.ts)
+14. Add a function to parse the word definition crawled in the previous step in [packages/word-definitions/src/parse.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/parse.ts)
+    - Bonus points for adding tests in [packages/word-definitions/src/parse.test.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/parse.test.ts)
 
 ## Tech stack
 

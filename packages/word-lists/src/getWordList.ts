@@ -1,25 +1,16 @@
 import { Locale } from '@scrabble-solver/types';
 
-import getDeDeWordList from './getDeDeWordList';
-import getEnGbWordList from './getEnGbWordList';
-import getEnUsWordList from './getEnUsWordList';
-import getEsEsWordList from './getEsEsWordList';
-import getFaIrWordList from './getFaIrWordList';
-import getFrFrWordList from './getFrFrWordList';
-import getPlPlWordList from './getPlPlWordList';
-import getRoRoWordList from './getRoRoWordList';
+import { english, french, german, persian, polish, romanian, spanish } from './languages';
 
 const localeMap: Record<Locale, () => Promise<string[]>> = {
-  [Locale.DE_DE]: getDeDeWordList,
-  [Locale.EN_GB]: getEnGbWordList,
-  [Locale.EN_US]: getEnUsWordList,
-  [Locale.ES_ES]: getEsEsWordList,
-  [Locale.FA_IR]: getFaIrWordList,
-  [Locale.FR_FR]: getFrFrWordList,
-  [Locale.PL_PL]: getPlPlWordList,
-  [Locale.RO_RO]: getRoRoWordList,
+  [Locale.DE_DE]: german.getWordList,
+  [Locale.EN_GB]: english.getWordListGb,
+  [Locale.EN_US]: english.getWordListUs,
+  [Locale.ES_ES]: spanish.getWordList,
+  [Locale.FA_IR]: persian.getWordList,
+  [Locale.FR_FR]: french.getWordList,
+  [Locale.PL_PL]: polish.getWordList,
+  [Locale.RO_RO]: romanian.getWordList,
 };
 
-const getWordList = (locale: Locale): Promise<string[]> => localeMap[locale]();
-
-export default getWordList;
+export const getWordList = (locale: Locale): Promise<string[]> => localeMap[locale]();
