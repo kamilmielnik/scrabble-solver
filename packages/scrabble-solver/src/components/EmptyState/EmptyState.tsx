@@ -36,7 +36,7 @@ const EmptyState: FunctionComponent<Props> = ({ children, className, variant }) 
   const { direction } = LOCALE_FEATURES[locale];
   const title = useMemo(() => translate(TITLE_KEY_PER_TYPE[variant]), [translate]);
   const message = direction === 'ltr' ? title : title.split('').reverse().join('');
-  const content = useMemo(() => [[message.toUpperCase()]], [title]);
+  const content = useMemo(() => [message.toUpperCase().split(' ')], [title]);
 
   return (
     <div className={classNames(styles.emptyState, className)}>
