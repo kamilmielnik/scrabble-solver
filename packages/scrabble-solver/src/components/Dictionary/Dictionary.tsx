@@ -16,7 +16,7 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
   const translate = useTranslate();
   const { results, isLoading } = useTypedSelector(selectDictionary);
   const error = useTypedSelector(selectDictionaryError);
-  const isLastAllowed = results.length > 0 ? results[results.length - 1].isAllowed : undefined;
+  const isLastAllowed = results.at(-1)?.isAllowed;
 
   return (
     <div
@@ -44,25 +44,24 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
 
             {isAllowed === false && <div>{translate('dictionary.empty-state.not-allowed')}</div>}
 
-            {isAllowed === true && (
+            {isAllowed === true && definitions.length === 0 && (
               <>
-                {definitions.length === 0 && (
-                  <>
-                    {exists && <div>{translate('dictionary.empty-state.no-definitions')}</div>}
-                    {!exists && <div>{translate('dictionary.empty-state.no-results')}</div>}
-                  </>
-                )}
-
-                {definitions.length > 0 && (
-                  <ul className={styles.definitions}>
-                    {definitions.map((result, index) => (
-                      <li key={index} className={styles.definition}>
-                        {result}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                <div>
+                  {exists
+                    ? translate('dictionary.empty-state.no-definitions')
+                    : translate('dictionary.empty-state.no-results')}
+                </div>
               </>
+            )}
+
+            {isAllowed === true && definitions.length > 0 && (
+              <ul className={styles.definitions}>
+                {definitions.map((result, index) => (
+                  <li key={index} className={styles.definition}>
+                    {result}
+                  </li>
+                ))}
+              </ul>
             )}
 
             {!isLoading && isAllowed === null && <div>{translate('dictionary.empty-state.no-results')}</div>}
