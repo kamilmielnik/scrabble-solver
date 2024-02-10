@@ -2,13 +2,13 @@ import { Locale } from '@scrabble-solver/types';
 
 import { Translations } from 'types';
 
-import english from './english.json';
-import french from './french.json';
-import german from './german.json';
-import persian from './persian.json';
-import polish from './polish.json';
-import romanian from './romanian.json';
-import spanish from './spanish.json';
+import english from './languages/english.json';
+import french from './languages/french.json';
+import german from './languages/german.json';
+import persian from './languages/persian.json';
+import polish from './languages/polish.json';
+import romanian from './languages/romanian.json';
+import spanish from './languages/spanish.json';
 
 const i18n: Record<Locale, Translations> = {
   [Locale.DE_DE]: german,
