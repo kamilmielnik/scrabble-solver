@@ -1,8 +1,17 @@
 import { load } from 'cheerio';
 
-import { ParseResult } from '../types';
+import { request } from '../lib';
+import { ParsingResult } from '../types';
 
-const parseSpanish = (html: string): ParseResult => {
+export const crawl = (word: string): Promise<string> => {
+  return request({
+    protocol: 'https',
+    hostname: 'www.diccionarios.com',
+    path: `/diccionario/espanol/${encodeURIComponent(word)}`,
+  });
+};
+
+export const parse = (html: string): ParsingResult => {
   const $ = load(html);
   $('.verdBold14 + .gris11 + .gris13').remove();
   $('br + .gris13').remove();
@@ -31,5 +40,3 @@ const parseSpanish = (html: string): ParseResult => {
     exists: $('.wrapper > p > strong').text() !== 'No se ha encontrado la palabra exacta',
   };
 };
-
-export default parseSpanish;

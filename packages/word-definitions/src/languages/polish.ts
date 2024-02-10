@@ -1,8 +1,17 @@
 import { load } from 'cheerio';
 
-import { ParseResult } from '../types';
+import { request } from '../lib';
+import { ParsingResult } from '../types';
 
-const parsePolish = (html: string): ParseResult => {
+export const crawl = (word: string): Promise<string> => {
+  return request({
+    protocol: 'https',
+    hostname: 'sjp.pl',
+    path: `/${encodeURIComponent(word)}`,
+  });
+};
+
+export const parse = (html: string): ParsingResult => {
   const $ = load(html);
   const $header = $($('h1')[0]);
   const $isAllowed = $header.next();
@@ -13,5 +22,3 @@ const parsePolish = (html: string): ParseResult => {
     exists: $isAllowed.text().trim().indexOf('dopuszczalne w grach') >= 0,
   };
 };
-
-export default parsePolish;

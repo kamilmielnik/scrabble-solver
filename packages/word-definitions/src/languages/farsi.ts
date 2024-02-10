@@ -1,10 +1,19 @@
 import { load } from 'cheerio';
 
-import { ParseResult } from '../types';
+import { request } from '../lib';
+import { ParsingResult } from '../types';
 
 const DOES_NOT_EXIST_MESSAGE = '404 Page Not Found';
 
-const parseFarsi = (html: string): ParseResult => {
+export const crawl = (word: string): Promise<string> => {
+  return request({
+    protocol: 'https',
+    hostname: 'www.vajehyab.com',
+    path: `/moein/${encodeURIComponent(word)}`,
+  });
+};
+
+export const parse = (html: string): ParsingResult => {
   const $ = load(html);
   const $definitions = $('[itemprop=articleBody]');
 
@@ -13,5 +22,3 @@ const parseFarsi = (html: string): ParseResult => {
     exists: $('#container h1').text() !== DOES_NOT_EXIST_MESSAGE,
   };
 };
-
-export default parseFarsi;

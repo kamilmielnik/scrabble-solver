@@ -1,8 +1,17 @@
 import { load } from 'cheerio';
 
-import { ParseResult } from '../types';
+import { request } from '../lib';
+import { ParsingResult } from '../types';
 
-const parseRomanian = (html: string): ParseResult => {
+export const crawl = (word: string): Promise<string> => {
+  return request({
+    protocol: 'https',
+    hostname: 'dexonline.ro',
+    path: `/definitie/${encodeURIComponent(word)}`,
+  });
+};
+
+export const parse = (html: string): ParsingResult => {
   const $ = load(html);
 
   const $activeTab = $('.tab-pane.show.active');
@@ -16,5 +25,3 @@ const parseRomanian = (html: string): ParseResult => {
     exists: definitions.length > 0,
   };
 };
-
-export default parseRomanian;

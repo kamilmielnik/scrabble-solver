@@ -1,12 +1,21 @@
 import { Cheerio, CheerioAPI, Element, load } from 'cheerio';
 
-import { ParseResult } from '../types';
+import { request } from '../lib';
+import { ParsingResult } from '../types';
 
-const parseGerman = (html: string): ParseResult => {
+export const crawl = (word: string): Promise<string> => {
+  return request({
+    protocol: 'https',
+    hostname: 'www.dwds.de',
+    path: `/wb/${encodeURIComponent(word)}`,
+  });
+};
+
+export const parse = (html: string): ParsingResult => {
   const $ = load(html);
 
   const definitions = [parseBedeutungsubersicht, parseBedeutungen, parseBedeutung].reduce<string[]>(
-    (results, parse) => (results.length === 0 ? parse($) : results),
+    (results, parseDefinition) => (results.length === 0 ? parseDefinition($) : results),
     [],
   );
   const exists = Array.from($('.label-danger')).every((label) => $(label).text() !== 'Hinweis');
@@ -76,5 +85,3 @@ const parseDefinitions = ($: CheerioAPI, $definitions: Cheerio<Element>) => {
       .replace(/^[0-9]+\.\s/g, ''),
   );
 };
-
-export default parseGerman;
