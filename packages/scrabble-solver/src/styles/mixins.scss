@@ -107,6 +107,13 @@ $media-expressions: (
 }
 
 @mixin text-stroke($color, $size: 1px) {
-  text-shadow: $size 0 $color, (-$size) 0 $color, 0 $size $color, 0 (-$size) $color, (-$size) (-$size) $color,
-    (-$size) $size $color, $size (-$size) $color, $size $size $color;
+  text-shadow:
+    $size 0 $color,
+    (-$size) 0 $color,
+    0 $size $color,
+    0 (-$size) $color,
+    (-$size) (-$size) $color,
+    (-$size) $size $color,
+    $size (-$size) $color,
+    $size $size $color;
 }
