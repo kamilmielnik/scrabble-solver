@@ -1,12 +1,12 @@
 import { Locale } from '@scrabble-solver/types';
 import latinize from 'latinize';
 
-import { getTxtWordList } from './lib';
+import { getTxtWordList } from '../lib';
 
 const FILE_URL = 'https://raw.githubusercontent.com/kamilmielnik/scrabble-dictionaries/master/spanish/fise-2.txt';
 const N_PLACEHOLDER = '---n---';
 
-const getEsEsWordList = async (): Promise<string[]> => {
+export const getWordList = async (): Promise<string[]> => {
   const words = await getTxtWordList(FILE_URL, Locale.ES_ES);
 
   return words
@@ -14,5 +14,3 @@ const getEsEsWordList = async (): Promise<string[]> => {
     .map(latinize)
     .map((word) => word.replaceAll(N_PLACEHOLDER, 'ñ'));
 };
-
-export default getEsEsWordList;

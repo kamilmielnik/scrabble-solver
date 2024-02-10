@@ -5,7 +5,7 @@ interface Options extends RequestOptions {
   protocol?: 'http' | 'https';
 }
 
-const request = ({ protocol, ...options }: Options): Promise<string> => {
+export const request = ({ protocol, ...options }: Options): Promise<string> => {
   const agent = protocol === 'https' ? https : http;
 
   return new Promise((resolve, reject) => {
@@ -27,5 +27,3 @@ const request = ({ protocol, ...options }: Options): Promise<string> => {
       .on('error', reject);
   });
 };
-
-export default request;

@@ -13,8 +13,6 @@ const crawlPerLocale: Record<Locale, (word: string) => Promise<string>> = {
   [Locale.RO_RO]: romanian.crawl,
 };
 
-const crawl = (locale: Locale, word: string): Promise<string> => {
+export const crawl = (locale: Locale, word: string): Promise<string> => {
   return crawlPerLocale[locale](word);
 };
-
-export default crawl;

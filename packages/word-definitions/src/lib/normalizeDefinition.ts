@@ -46,10 +46,8 @@ const normalizers: Normalize[] = [
   (definition) => definition.trim(),
 ];
 
-const normalizeDefinition = (definition: string): string => {
+export const normalizeDefinition = (definition: string): string => {
   const normalized = normalizers.reduce((result, normalize) => normalize(result), definition);
   const hasChanged = normalized !== definition;
   return hasChanged ? normalizeDefinition(normalized) : normalized;
 };
-
-export default normalizeDefinition;

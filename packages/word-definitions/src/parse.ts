@@ -15,7 +15,7 @@ const parsePerLocale: Record<Locale, (html: string) => ParsingResult> = {
   [Locale.RO_RO]: romanian.parse,
 };
 
-const parse = (locale: Locale, html: string): ParsingResult => {
+export const parse = (locale: Locale, html: string): ParsingResult => {
   const { definitions, exists } = parsePerLocale[locale](html);
 
   return {
@@ -23,5 +23,3 @@ const parse = (locale: Locale, html: string): ParsingResult => {
     exists,
   };
 };
-
-export default parse;

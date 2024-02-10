@@ -2,12 +2,12 @@ import { load } from 'cheerio';
 import fs from 'fs';
 import { URL } from 'url';
 
-import { downloadFile, downloadHtml, extractWords, getTempFilepath, unzip } from './lib';
+import { downloadFile, downloadHtml, extractWords, getTempFilepath, unzip } from '../lib';
 
 const PAGE_URL = 'https://sjp.pl/sl/growy/';
 const FILE_TO_EXTRACT_FROM_ZIP = 'slowa.txt';
 
-const getPlPlWordList = async (): Promise<string[]> => {
+export const getWordList = async (): Promise<string[]> => {
   const tempFilepath = getTempFilepath();
   const zipUrl = await fetchZipUrl(PAGE_URL);
   const zipTempFilename = await downloadFile(zipUrl);
@@ -40,5 +40,3 @@ const parseZipContainingPage = (html: string): string => {
 
   return zipFilename;
 };
-
-export default getPlPlWordList;
