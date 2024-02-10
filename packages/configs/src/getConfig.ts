@@ -1,9 +1,9 @@
 import { Config, Game, Locale } from '@scrabble-solver/types';
 
-import * as locales from './locales';
+import * as languages from './languages';
 
-const getConfig = (game: Game, locale: Locale): Config => {
-  const configs = Object.values(locales).flat();
+export const getConfig = (game: Game, locale: Locale): Config => {
+  const configs = Object.values(languages);
   const localeConfig = configs.find((config) => config.game === game && config.locale === locale);
 
   if (typeof localeConfig === 'undefined') {
@@ -12,5 +12,3 @@ const getConfig = (game: Game, locale: Locale): Config => {
 
   return localeConfig;
 };
-
-export default getConfig;

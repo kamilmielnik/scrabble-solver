@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 
 import { PayloadAction } from '@reduxjs/toolkit';
-import { hasConfig, localesMap } from '@scrabble-solver/configs';
+import { hasConfig, languages } from '@scrabble-solver/configs';
 import { Board, Locale, Result } from '@scrabble-solver/types';
 import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
@@ -136,8 +136,11 @@ function* onLocaleChange({ payload: locale }: PayloadAction<Locale>): AnyGenerat
   const game = yield select(selectGame);
 
   if (!hasConfig(game, locale)) {
-    const defaultConfig = localesMap[locale][0];
-    yield put(settingsSlice.actions.changeGame(defaultConfig.game));
+    const defaultConfig = Object.values(languages).find((config) => config.locale === locale);
+
+    if (defaultConfig) {
+      yield put(settingsSlice.actions.changeGame(defaultConfig.game));
+    }
   }
 
   const characters = yield select(selectCharacters);

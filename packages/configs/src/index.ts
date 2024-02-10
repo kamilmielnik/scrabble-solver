@@ -1,8 +1,6 @@
 import * as games from './games';
-import * as locales from './locales';
+import * as languages from './languages';
 
-const localesMap = Object.fromEntries(Object.values(locales).map((configs) => [configs[0].locale, configs]));
-
-export { default as getConfig } from './getConfig';
-export { default as hasConfig } from './hasConfig';
-export { games, locales, localesMap };
+export { getConfig } from './getConfig';
+export { hasConfig } from './hasConfig';
+export { games, languages };
