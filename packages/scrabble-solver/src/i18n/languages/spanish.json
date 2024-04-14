@@ -64,6 +64,10 @@
   "settings.inputMode.keyboard": "Teclado",
   "settings.inputMode.touchscreen": "Pantalla táctil",
   "settings.language": "Idioma",
+  "settings.showCoordinates": "Coordenadas",
+  "settings.showCoordinates.alternative": "Alternativa",
+  "settings.showCoordinates.hidden": "Oculto",
+  "settings.showCoordinates.original": "Original",
   "words": "Palabras creadas",
   "words.invalid": "Incorrecto",
   "words.valid": "Correcto"

@@ -112,6 +112,10 @@ export type TranslationKey =
   | 'settings.inputMode.keyboard'
   | 'settings.inputMode.touchscreen'
   | 'settings.language'
+  | 'settings.showCoordinates'
+  | 'settings.showCoordinates.alternative'
+  | 'settings.showCoordinates.hidden'
+  | 'settings.showCoordinates.original'
   | 'words'
   | 'words.invalid'
   | 'words.valid';

@@ -64,6 +64,10 @@
   "settings.inputMode.keyboard": "Klawiatura",
   "settings.inputMode.touchscreen": "Ekran dotykowy",
   "settings.language": "Język",
+  "settings.showCoordinates": "Współrzędne",
+  "settings.showCoordinates.alternative": "Alternatywne",
+  "settings.showCoordinates.hidden": "Ukryte",
+  "settings.showCoordinates.original": "Oryginalne",
   "words": "Utworzone słowa",
   "words.invalid": "Niepoprawne",
   "words.valid": "Poprawne"

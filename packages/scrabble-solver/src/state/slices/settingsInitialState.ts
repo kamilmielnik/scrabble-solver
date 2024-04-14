@@ -1,4 +1,4 @@
-import { Game, Locale } from '@scrabble-solver/types';
+import { Game, Locale, ShowCoordinates } from '@scrabble-solver/types';
 
 import { guessLocale } from 'lib';
 import { AutoGroupTiles, InputMode } from 'types';
@@ -10,6 +10,7 @@ export interface SettingsState {
   game: Game;
   inputMode: InputMode;
   locale: Locale;
+  showCoordinates: ShowCoordinates;
 }
 
 const localStorageAutoGroupTiles = localStorage.getAutoGroupTiles();
@@ -17,9 +18,10 @@ const isTouchScreen = typeof globalThis.matchMedia !== 'undefined' && globalThis
 
 const settingsInitialState: SettingsState = {
   autoGroupTiles: typeof localStorageAutoGroupTiles === 'undefined' ? 'left' : localStorageAutoGroupTiles,
-  game: localStorage.getGame() || Game.Scrabble,
-  inputMode: localStorage.getInputMode() || (isTouchScreen ? 'touchscreen' : 'keyboard'),
-  locale: localStorage.getLocale() || guessLocale(),
+  game: localStorage.getGame() ?? Game.Scrabble,
+  inputMode: localStorage.getInputMode() ?? (isTouchScreen ? 'touchscreen' : 'keyboard'),
+  locale: localStorage.getLocale() ?? guessLocale(),
+  showCoordinates: localStorage.getShowCoordinates() ?? 'original',
 };
 
 export default settingsInitialState;
