@@ -66,3 +66,17 @@
 
   color: var(--color--white);
 }
+
+.coordinateColumn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font--size--h2);
+}
+
+.coordinateRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font--size--h2);
+}

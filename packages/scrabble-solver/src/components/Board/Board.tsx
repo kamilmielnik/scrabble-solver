@@ -16,6 +16,7 @@ import {
   selectInputMode,
   selectLocale,
   selectRowsWithCandidate,
+  selectShowCoordinates,
   solveSlice,
   useTypedSelector,
 } from 'state';
@@ -35,6 +36,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
   const rows = useTypedSelector(selectRowsWithCandidate);
   const inputMode = useTypedSelector(selectInputMode);
   const filteredCells = useTypedSelector(selectFilteredCells);
+  const showCoordinates = useTypedSelector(selectShowCoordinates);
   const { cellSize } = useAppLayout();
   const [
     { activeIndex, direction, inputRefs },
@@ -154,6 +156,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
         ref={ref}
         rows={rows}
         style={boardStyle}
+        showCoordinates={showCoordinates}
         onBlur={handleBlur}
         onChange={onChange}
         onFocus={handleFocus}

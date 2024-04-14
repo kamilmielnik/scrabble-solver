@@ -1,15 +1,15 @@
-import { Cell as CellModel } from '@scrabble-solver/types';
+import { Cell as CellModel, ShowCoordinates } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import {
+  CSSProperties,
   ChangeEventHandler,
   ClipboardEventHandler,
-  CSSProperties,
   FocusEventHandler,
-  forwardRef,
   Fragment,
   KeyboardEventHandler,
-  memo,
   RefObject,
+  forwardRef,
+  memo,
 } from 'react';
 
 import { FlagFill } from 'icons';
@@ -25,6 +25,7 @@ interface Props {
   filteredCells: Point[];
   inputRefs: RefObject<HTMLInputElement>[][];
   rows: CellModel[][];
+  showCoordinates: ShowCoordinates;
   style?: CSSProperties;
   onBlur: FocusEventHandler;
   onChange: ChangeEventHandler<HTMLInputElement>;
@@ -33,9 +34,30 @@ interface Props {
   onPaste: ClipboardEventHandler<HTMLInputElement>;
 }
 
+const getCoordinate = (index: number, type: 'letter' | 'number'): string => {
+  if (type === 'number') {
+    return String(index + 1);
+  }
+
+  return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[index];
+};
+
 const BoardPure = forwardRef<HTMLDivElement, Props>(
   (
-    { className, cellSize, filteredCells, inputRefs, rows, style, onBlur, onChange, onFocus, onKeyDown, onPaste },
+    {
+      className,
+      cellSize,
+      filteredCells,
+      inputRefs,
+      rows,
+      showCoordinates,
+      style,
+      onBlur,
+      onChange,
+      onFocus,
+      onKeyDown,
+      onPaste,
+    },
     ref,
   ) => (
     <div
@@ -46,8 +68,26 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
       onKeyDown={onKeyDown}
       onPaste={onPaste}
     >
+      {showCoordinates !== 'hidden' && (
+        <>
+          <div style={{ width: cellSize }} />
+
+          {rows[0].map((_column, index) => (
+            <div className={styles.coordinateColumn} key={index}>
+              {getCoordinate(index, showCoordinates === 'original' ? 'letter' : 'number')}
+            </div>
+          ))}
+        </>
+      )}
+
       {rows.map((cells, y) => (
         <Fragment key={y}>
+          {showCoordinates !== 'hidden' && (
+            <div className={styles.coordinateRow} style={{ height: cellSize }}>
+              {getCoordinate(y, showCoordinates === 'original' ? 'number' : 'letter')}
+            </div>
+          )}
+
           {cells.map((cell, x) => (
             <Cell
               className={styles.cell}
