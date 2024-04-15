@@ -1,7 +1,7 @@
 import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 import { Game } from '@scrabble-solver/types';
 
-const scrabble = {
+const superScrabble = {
   allTilesBonusScore: 50,
   blankScore: 0,
   blanksCount: 4,
@@ -138,4 +138,4 @@ const scrabble = {
   ],
 };
 
-export default scrabble;
+export default superScrabble;
