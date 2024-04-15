@@ -115,12 +115,27 @@ npm run build
 npm run dev -w @scrabble-solver/scrabble-solver
 ```
 
+or
+
+```Shell
+cd packages/scrabble-solver
+npm run dev
+```
+
 Note: hot code reload works only for the [`scrabble-solver`](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver) package.
 
 ### Rebuild a single package
 
 ```Shell
-npm run build -w @scrabble-solver/PACKAGE_NAME
+npm run build -w @scrabble-solver/configs
+npm run build -w @scrabble-solver/constants
+npm run build -w @scrabble-solver/dictionaries
+npm run build -w @scrabble-solver/logger
+npm run build -w @scrabble-solver/scrabble-solver
+npm run build -w @scrabble-solver/solver
+npm run build -w @scrabble-solver/types
+npm run build -w @scrabble-solver/word-definitions
+npm run build -w @scrabble-solver/word-lists
 ```
 
 ### Add a new language
