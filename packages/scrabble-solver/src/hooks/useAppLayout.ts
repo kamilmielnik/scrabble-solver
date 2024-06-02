@@ -47,13 +47,19 @@ const useAppLayout = () => {
     : Math.max(solverHeight - bottomContainerHeight, 0);
 
   const coordinatesSizeRatio = showCoordinates === 'hidden' ? 0 : 0.5;
+  const coordinatesBorderWidth = showCoordinates === 'hidden' ? 0 : 1;
   const cellWidth =
-    (maxBoardWidth - (config.boardWidth + 1) * BORDER_WIDTH) / (config.boardWidth + coordinatesSizeRatio);
+    (maxBoardWidth - (config.boardWidth + 1 + coordinatesBorderWidth) * BORDER_WIDTH) /
+    (config.boardWidth + coordinatesSizeRatio);
   const cellHeight =
-    (maxBoardHeight - (config.boardHeight + 1) * BORDER_WIDTH) / (config.boardHeight + coordinatesSizeRatio);
+    (maxBoardHeight - (config.boardHeight + 1 + coordinatesBorderWidth) * BORDER_WIDTH) /
+    (config.boardHeight + coordinatesSizeRatio);
   const cellSize = Math.min(Math.min(cellWidth, cellHeight), BOARD_TILE_SIZE_MAX);
   const coordinatesSize = coordinatesSizeRatio * cellSize;
-  const boardSize = (cellSize + BORDER_WIDTH) * config.boardWidth + BORDER_WIDTH;
+  const boardSize =
+    (cellSize + BORDER_WIDTH) * config.boardWidth +
+    BORDER_WIDTH +
+    (showCoordinates === 'hidden' ? 0 : coordinatesSize + BORDER_WIDTH);
   const maxControlsWidth = tileSize * config.maximumCharactersCount + 2 * BORDER_WIDTH;
   const showResultsInModal = isLessThanL;
   const dictionaryHeight = showResultsInModal ? DICTIONARY_HEIGHT_MOBILE : DICTIONARY_HEIGHT;
