@@ -74,7 +74,7 @@ const useAppLayout = () => {
     animateTile: !isLessThanXs,
     boardSize,
     cellSize,
-    coordinatesFontSize: coordinatesSize * 0.7,
+    coordinatesFontSize: coordinatesSize * 0.6,
     coordinatesSize,
     dictionaryHeight,
     isModalFullWidth: isLessThanS,
