@@ -38,6 +38,7 @@
     "@scrabble-solver/types": "^2.13.5-alpha.0",
     "@scrabble-solver/word-definitions": "^2.13.5-alpha.0",
     "classnames": "^2.5.1",
+    "env-cmd": "^10.1.0",
     "include-media": "^2.0.0",
     "include-media-query-builder": "^1.1.0",
     "next": "^14.1.0",
@@ -70,7 +71,6 @@
     "@types/react-window": "^1.8.8",
     "@types/redux": "^3.6.31",
     "@types/redux-saga": "^0.10.5",
-    "env-cmd": "^10.1.0",
     "sass": "^1.70.0"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
