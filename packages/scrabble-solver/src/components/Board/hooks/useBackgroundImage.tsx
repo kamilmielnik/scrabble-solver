@@ -144,7 +144,7 @@ const useBackgroundImage = () => {
 
         <rect fill="white" height={viewBoxHeight} rx={borderRadius} width={viewBoxWidth} x="0" y="0" />
 
-        {showCoordinates && (
+        {showCoordinates !== 'hidden' && (
           <>
             <rect
               fill={COLOR_COORDINATES}

@@ -72,7 +72,7 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
     >
       {showCoordinates !== 'hidden' && (
         <>
-          <div style={{ width: coordinatesSize }} />
+          <div style={{ width: coordinatesSize, height: coordinatesSize }} />
 
           {rows[0].map((_column, index) => (
             <div className={styles.coordinateColumn} key={index} style={{ width: cellSize, height: coordinatesSize }}>
