@@ -31,6 +31,7 @@ export const COLOR_BONUS_WORD_MULTIPLIER_2 = '#fbc997';
 export const COLOR_BONUS_WORD_MULTIPLIER_3 = '#f19393';
 export const COLOR_BONUS_WORD_MULTIPLIER_4 = '#ed5e5e';
 export const COLOR_FILTERED = '#444';
+export const COLOR_COORDINATES = '#ffffee';
 
 export const COLOR_BONUS_CHARACTER: Record<number, string> = {
   1: COLOR_BONUS_CHARACTER_1,

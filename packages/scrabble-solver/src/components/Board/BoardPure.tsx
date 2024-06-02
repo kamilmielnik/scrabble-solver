@@ -22,6 +22,7 @@ import { Cell } from './components';
 interface Props {
   className?: string;
   cellSize: number;
+  coordinatesSize: number;
   filteredCells: Point[];
   inputRefs: RefObject<HTMLInputElement>[][];
   rows: CellModel[][];
@@ -47,6 +48,7 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
     {
       className,
       cellSize,
+      coordinatesSize,
       filteredCells,
       inputRefs,
       rows,
@@ -70,10 +72,10 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
     >
       {showCoordinates !== 'hidden' && (
         <>
-          <div style={{ width: cellSize }} />
+          <div style={{ width: coordinatesSize }} />
 
           {rows[0].map((_column, index) => (
-            <div className={styles.coordinateColumn} key={index}>
+            <div className={styles.coordinateColumn} key={index} style={{ width: cellSize, height: coordinatesSize }}>
               {getCoordinate(index, showCoordinates === 'original' ? 'letter' : 'number')}
             </div>
           ))}
@@ -83,7 +85,7 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
       {rows.map((cells, y) => (
         <Fragment key={y}>
           {showCoordinates !== 'hidden' && (
-            <div className={styles.coordinateRow} style={{ height: cellSize }}>
+            <div className={styles.coordinateRow} style={{ width: coordinatesSize, height: cellSize }}>
               {getCoordinate(y, showCoordinates === 'original' ? 'number' : 'letter')}
             </div>
           )}
@@ -113,8 +115,8 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
           style={{
             height: cellSize,
             width: cellSize,
-            left: x * (cellSize + BORDER_WIDTH),
-            top: y * (cellSize + BORDER_WIDTH),
+            left: coordinatesSize + x * (cellSize + BORDER_WIDTH),
+            top: coordinatesSize + y * (cellSize + BORDER_WIDTH),
           }}
         >
           <div className={styles.iconBackground} />

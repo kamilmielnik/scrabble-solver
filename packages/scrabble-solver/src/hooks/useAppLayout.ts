@@ -17,7 +17,7 @@ import {
   RACK_TILE_SIZE_MAX,
   SOLVER_COLUMN_WIDTH,
 } from 'parameters';
-import { selectConfig, useTypedSelector } from 'state';
+import { selectConfig, selectShowCoordinates, useTypedSelector } from 'state';
 
 import useIsTouchDevice from './useIsTouchDevice';
 import useMediaQueries from './useMediaQueries';
@@ -26,6 +26,7 @@ import useViewportSize from './useViewportSize';
 const useAppLayout = () => {
   const { viewportHeight, viewportWidth } = useViewportSize();
   const config = useTypedSelector(selectConfig);
+  const showCoordinates = useTypedSelector(selectShowCoordinates);
   const isTouchDevice = useIsTouchDevice();
   const { isLessThanXs, isLessThanS, isLessThanM, isLessThanL, isLessThanXl } = useMediaQueries();
   const isBoardFullWidth = isLessThanM;
@@ -44,9 +45,14 @@ const useAppLayout = () => {
   const maxBoardHeight = isBoardFullWidth
     ? Number.POSITIVE_INFINITY
     : Math.max(solverHeight - bottomContainerHeight, 0);
-  const cellWidth = (maxBoardWidth - (config.boardWidth + 1) * BORDER_WIDTH) / config.boardWidth;
-  const cellHeight = (maxBoardHeight - (config.boardHeight + 1) * BORDER_WIDTH) / config.boardHeight;
+
+  const coordinatesSizeRatio = showCoordinates ? 0.5 : 0;
+  const cellWidth =
+    (maxBoardWidth - (config.boardWidth + 1) * BORDER_WIDTH) / (config.boardWidth + coordinatesSizeRatio);
+  const cellHeight =
+    (maxBoardHeight - (config.boardHeight + 1) * BORDER_WIDTH) / (config.boardHeight + coordinatesSizeRatio);
   const cellSize = Math.min(Math.min(cellWidth, cellHeight), BOARD_TILE_SIZE_MAX);
+  const coordinatesSize = coordinatesSizeRatio * cellSize;
   const boardSize = (cellSize + BORDER_WIDTH) * config.boardWidth + BORDER_WIDTH;
   const maxControlsWidth = tileSize * config.maximumCharactersCount + 2 * BORDER_WIDTH;
   const showResultsInModal = isLessThanL;
@@ -62,6 +68,7 @@ const useAppLayout = () => {
     animateTile: !isLessThanXs,
     boardSize,
     cellSize,
+    coordinatesSize,
     dictionaryHeight,
     isModalFullWidth: isLessThanS,
     logoHeight,

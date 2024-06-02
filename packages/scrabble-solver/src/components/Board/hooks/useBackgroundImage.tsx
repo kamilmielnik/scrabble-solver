@@ -8,8 +8,15 @@ import { Provider } from 'react-redux';
 import { useAppLayout, useMediaQueries } from 'hooks';
 import { FlagFill, Star } from 'icons';
 import { dataUrlToBlob, getTileSizes } from 'lib';
-import { BORDER_COLOR_LIGHT, BORDER_RADIUS, BORDER_WIDTH, COLOR_BONUS_START, COLOR_FILTERED } from 'parameters';
-import { selectConfig, store, useTypedSelector } from 'state';
+import {
+  BORDER_COLOR_LIGHT,
+  BORDER_RADIUS,
+  BORDER_WIDTH,
+  COLOR_BONUS_START,
+  COLOR_COORDINATES,
+  COLOR_FILTERED,
+} from 'parameters';
+import { selectConfig, selectShowCoordinates, store, useTypedSelector } from 'state';
 import { Point } from 'types';
 
 import { getBonusColor } from '../lib';
@@ -25,13 +32,14 @@ const BONUS_WORD_4 = 'b4';
 const CELL_FILTER = 'c';
 
 const useBackgroundImage = () => {
-  const { boardSize, cellSize } = useAppLayout();
+  const { boardSize, cellSize, coordinatesSize } = useAppLayout();
+  const showCoordinates = useTypedSelector(selectShowCoordinates);
   const { isLessThanXs } = useMediaQueries();
   const borderRadius = isLessThanXs ? BORDER_RADIUS_XS : BORDER_RADIUS;
   const config = useTypedSelector(selectConfig);
   const center = { x: Math.floor(config.boardWidth / 2), y: Math.floor(config.boardHeight / 2) };
-  const viewBoxHeight = boardSize;
-  const viewBoxWidth = boardSize;
+  const viewBoxHeight = boardSize + coordinatesSize;
+  const viewBoxWidth = boardSize + coordinatesSize;
   const bonusSize = cellSize * 0.8;
   const bonusOffset = cellSize * 0.1;
   const iconSize = cellSize * 0.4;
@@ -44,9 +52,9 @@ const useBackgroundImage = () => {
   const word3Bonuses = config.bonuses.filter((bonus) => bonus.type === BONUS_WORD && bonus.multiplier === 3);
   const word4Bonuses = config.bonuses.filter((bonus) => bonus.type === BONUS_WORD && bonus.multiplier === 4);
 
-  const getX = (point: Point): number => point.x * (cellSize + BORDER_WIDTH);
+  const getX = (point: Point): number => coordinatesSize + point.x * (cellSize + BORDER_WIDTH);
 
-  const getY = (point: Point): number => point.y * (cellSize + BORDER_WIDTH);
+  const getY = (point: Point): number => coordinatesSize + point.y * (cellSize + BORDER_WIDTH);
 
   const backgroundSvg = renderToString(
     <Provider store={store}>
@@ -136,12 +144,43 @@ const useBackgroundImage = () => {
 
         <rect fill="white" height={viewBoxHeight} rx={borderRadius} width={viewBoxWidth} x="0" y="0" />
 
+        {showCoordinates && (
+          <>
+            <rect
+              fill={COLOR_COORDINATES}
+              height={coordinatesSize}
+              rx={borderRadius}
+              width={viewBoxWidth}
+              x="0"
+              y="0"
+            />
+            <rect
+              fill={COLOR_COORDINATES}
+              height={viewBoxHeight}
+              rx={borderRadius}
+              width={coordinatesSize}
+              x="0"
+              y="0"
+            />
+            <use href={`#${HORIZONTAL_LINE}`} y={coordinatesSize} />
+            <use href={`#${VERTICAL_LINE}`} x={coordinatesSize} />
+          </>
+        )}
+
         {Array.from({ length: config.boardHeight - 1 }).map((_value, index) => (
-          <use key={index} href={`#${HORIZONTAL_LINE}`} y={(index + 1) * (cellSize + BORDER_WIDTH) - BORDER_WIDTH} />
+          <use
+            key={index}
+            href={`#${HORIZONTAL_LINE}`}
+            y={coordinatesSize + (index + 1) * (cellSize + BORDER_WIDTH) - BORDER_WIDTH}
+          />
         ))}
 
         {Array.from({ length: config.boardWidth - 1 }).map((_value, index) => (
-          <use key={index} href={`#${VERTICAL_LINE}`} x={(index + 1) * (cellSize + BORDER_WIDTH) - BORDER_WIDTH} />
+          <use
+            key={index}
+            href={`#${VERTICAL_LINE}`}
+            x={coordinatesSize + (index + 1) * (cellSize + BORDER_WIDTH) - BORDER_WIDTH}
+          />
         ))}
 
         {characterBonuses.map((bonus, index) => (
