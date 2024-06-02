@@ -19,16 +19,16 @@ const ShowCoordinatesSetting: FunctionComponent<Props> = ({ className, disabled 
 
   const options = [
     {
+      label: translate('settings.showCoordinates.hidden'),
+      value: 'hidden',
+    },
+    {
       label: translate('settings.showCoordinates.original'),
       value: 'original',
     },
     {
       label: translate('settings.showCoordinates.alternative'),
       value: 'alternative',
-    },
-    {
-      label: translate('settings.showCoordinates.hidden'),
-      value: 'hidden',
     },
   ];
 

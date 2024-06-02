@@ -21,7 +21,7 @@ const settingsInitialState: SettingsState = {
   game: localStorage.getGame() ?? Game.Scrabble,
   inputMode: localStorage.getInputMode() ?? (isTouchScreen ? 'touchscreen' : 'keyboard'),
   locale: localStorage.getLocale() ?? guessLocale(),
-  showCoordinates: localStorage.getShowCoordinates() ?? 'original',
+  showCoordinates: localStorage.getShowCoordinates() ?? 'hidden',
 };
 
 export default settingsInitialState;
