@@ -2,7 +2,7 @@ import { CSSProperties, useMemo } from 'react';
 
 import { useAppLayout } from 'hooks';
 import { getTileSizes } from 'lib';
-import { selectConfig, useTypedSelector } from 'state';
+import { selectConfig, selectShowCoordinates, useTypedSelector } from 'state';
 
 import useBackgroundImage from './useBackgroundImage';
 
@@ -11,12 +11,17 @@ const useBoardStyle = () => {
   const { cellSize } = useAppLayout();
   const { tileFontSize } = getTileSizes(cellSize);
   const backgroundImage = useBackgroundImage();
+  const showCoordinates = useTypedSelector(selectShowCoordinates);
   const boardStyle = useMemo<CSSProperties>(
     () => ({
       backgroundImage,
       fontSize: tileFontSize,
-      gridTemplateColumns: `repeat(${config.boardWidth}, 1fr)`,
-      gridTemplateRows: `repeat(${config.boardHeight}, 1fr)`,
+      gridTemplateColumns:
+        showCoordinates === 'hidden' ? `repeat(${config.boardWidth}, 1fr)` : `0.5fr repeat(${config.boardWidth}, 1fr)`,
+      gridTemplateRows:
+        showCoordinates === 'hidden'
+          ? `repeat(${config.boardHeight}, 1fr)`
+          : `0.5fr repeat(${config.boardHeight}, 1fr)`,
     }),
     [backgroundImage, config.boardHeight, config.boardWidth, tileFontSize],
   );

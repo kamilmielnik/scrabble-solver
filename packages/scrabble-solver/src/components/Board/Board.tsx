@@ -8,6 +8,7 @@ import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from 'hooks';
+import { LOCALE_FEATURES } from 'i18n';
 import { TRANSITION } from 'parameters';
 import {
   boardSlice,
@@ -16,6 +17,7 @@ import {
   selectInputMode,
   selectLocale,
   selectRowsWithCandidate,
+  selectShowCoordinates,
   solveSlice,
   useTypedSelector,
 } from 'state';
@@ -35,7 +37,8 @@ const Board: FunctionComponent<Props> = ({ className }) => {
   const rows = useTypedSelector(selectRowsWithCandidate);
   const inputMode = useTypedSelector(selectInputMode);
   const filteredCells = useTypedSelector(selectFilteredCells);
-  const { cellSize } = useAppLayout();
+  const showCoordinates = useTypedSelector(selectShowCoordinates);
+  const { cellSize, coordinatesFontSize, coordinatesSize } = useAppLayout();
   const [
     { activeIndex, direction, inputRefs },
     { insertValue, onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
@@ -149,10 +152,14 @@ const Board: FunctionComponent<Props> = ({ className }) => {
       <BoardPure
         className={className}
         cellSize={cellSize}
+        coordinatesFontSize={coordinatesFontSize}
+        coordinatesSize={coordinatesSize}
+        direction={LOCALE_FEATURES[locale].direction}
         filteredCells={filteredCells}
         inputRefs={inputRefs}
         ref={ref}
         rows={rows}
+        showCoordinates={showCoordinates}
         style={boardStyle}
         onBlur={handleBlur}
         onChange={onChange}

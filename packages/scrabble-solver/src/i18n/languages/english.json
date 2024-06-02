@@ -64,6 +64,10 @@
   "settings.inputMode.keyboard": "Keyboard",
   "settings.inputMode.touchscreen": "Touchscreen",
   "settings.language": "Language",
+  "settings.showCoordinates": "Coordinates",
+  "settings.showCoordinates.alternative": "Alternative",
+  "settings.showCoordinates.hidden": "Hidden",
+  "settings.showCoordinates.original": "Original",
   "words": "Created words",
   "words.invalid": "Invalid",
   "words.valid": "Valid"

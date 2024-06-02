@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Game, Locale } from '@scrabble-solver/types';
+import { Game, Locale, ShowCoordinates } from '@scrabble-solver/types';
 
 import { AutoGroupTiles, InputMode } from 'types';
 
@@ -27,6 +27,11 @@ const settingsSlice = createSlice({
     changeLocale: (state, action: PayloadAction<Locale>) => {
       const locale = action.payload;
       return { ...state, locale };
+    },
+
+    changeShowCoordinates: (state, action: PayloadAction<ShowCoordinates>) => {
+      const showCoordinates = action.payload;
+      return { ...state, showCoordinates };
     },
 
     init: (state, action: PayloadAction<Partial<Pick<typeof settingsInitialState, 'game' | 'locale'>>>) => {

@@ -67,6 +67,8 @@ export const selectBoard = selectBoardRoot;
 
 export const selectInputMode = createSelector([selectSettingsRoot], (settings) => settings.inputMode);
 
+export const selectShowCoordinates = createSelector([selectSettingsRoot], (settings) => settings.showCoordinates);
+
 export const selectGame = createSelector([selectSettingsRoot], (settings) => settings.game);
 
 export const selectConfig = createSelector([selectGame, selectLocale], getConfig);

@@ -64,6 +64,10 @@
   "settings.inputMode.keyboard": "Tastatura",
   "settings.inputMode.touchscreen": "Ecran",
   "settings.language": "Limba",
+  "settings.showCoordinates": "Coordonate",
+  "settings.showCoordinates.alternative": "Alternativă",
+  "settings.showCoordinates.hidden": "Ascuns",
+  "settings.showCoordinates.original": "Original",
   "words": "Cuvinte create",
   "words.invalid": "Invalid",
   "words.valid": "Valid"

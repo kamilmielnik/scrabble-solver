@@ -1,0 +1,12 @@
+.option {
+  margin-bottom: var(--spacing--m);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.label {
+  display: flex;
+  align-items: center;
+}

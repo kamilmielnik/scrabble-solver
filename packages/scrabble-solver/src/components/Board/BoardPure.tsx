@@ -1,15 +1,15 @@
-import { Cell as CellModel } from '@scrabble-solver/types';
+import { Cell as CellModel, ShowCoordinates } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import {
+  CSSProperties,
   ChangeEventHandler,
   ClipboardEventHandler,
-  CSSProperties,
   FocusEventHandler,
-  forwardRef,
   Fragment,
   KeyboardEventHandler,
-  memo,
   RefObject,
+  forwardRef,
+  memo,
 } from 'react';
 
 import { FlagFill } from 'icons';
@@ -18,13 +18,18 @@ import { Point } from 'types';
 
 import styles from './Board.module.scss';
 import { Cell } from './components';
+import { getCoordinate } from './lib';
 
 interface Props {
   className?: string;
   cellSize: number;
+  coordinatesFontSize: number;
+  coordinatesSize: number;
+  direction: 'ltr' | 'rtl';
   filteredCells: Point[];
   inputRefs: RefObject<HTMLInputElement>[][];
   rows: CellModel[][];
+  showCoordinates: ShowCoordinates;
   style?: CSSProperties;
   onBlur: FocusEventHandler;
   onChange: ChangeEventHandler<HTMLInputElement>;
@@ -35,7 +40,23 @@ interface Props {
 
 const BoardPure = forwardRef<HTMLDivElement, Props>(
   (
-    { className, cellSize, filteredCells, inputRefs, rows, style, onBlur, onChange, onFocus, onKeyDown, onPaste },
+    {
+      className,
+      cellSize,
+      coordinatesFontSize,
+      coordinatesSize,
+      direction,
+      filteredCells,
+      inputRefs,
+      rows,
+      showCoordinates,
+      style,
+      onBlur,
+      onChange,
+      onFocus,
+      onKeyDown,
+      onPaste,
+    },
     ref,
   ) => (
     <div
@@ -46,8 +67,58 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
       onKeyDown={onKeyDown}
       onPaste={onPaste}
     >
+      {showCoordinates !== 'hidden' && (
+        <>
+          <div style={{ width: coordinatesSize, height: coordinatesSize }} />
+
+          {rows[0].map((_column, index) => (
+            <div
+              className={styles.coordinateColumn}
+              key={index}
+              style={{
+                width: cellSize,
+                height: coordinatesSize,
+                fontSize: coordinatesFontSize,
+              }}
+            >
+              {getCoordinate(index, showCoordinates === 'original' ? 'letter' : 'number')}
+            </div>
+          ))}
+        </>
+      )}
+
+      {filteredCells.map(({ x, y }) => (
+        <div
+          className={styles.iconContainer}
+          key={[x, y].join('-')}
+          style={{
+            height: cellSize,
+            width: cellSize,
+            left: direction === 'ltr' ? coordinatesSize + x * (cellSize + BORDER_WIDTH) : undefined,
+            right: direction === 'rtl' ? coordinatesSize + x * (cellSize + BORDER_WIDTH) : undefined,
+            top: coordinatesSize + y * (cellSize + BORDER_WIDTH),
+          }}
+        >
+          <div className={styles.iconBackground} />
+          <FlagFill className={styles.icon} />
+        </div>
+      ))}
+
       {rows.map((cells, y) => (
         <Fragment key={y}>
+          {showCoordinates !== 'hidden' && (
+            <div
+              className={styles.coordinateRow}
+              style={{
+                width: coordinatesSize,
+                height: cellSize,
+                fontSize: coordinatesFontSize,
+              }}
+            >
+              {getCoordinate(y, showCoordinates === 'original' ? 'number' : 'letter')}
+            </div>
+          )}
+
           {cells.map((cell, x) => (
             <Cell
               className={styles.cell}
@@ -64,22 +135,6 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
             />
           ))}
         </Fragment>
-      ))}
-
-      {filteredCells.map(({ x, y }) => (
-        <div
-          className={styles.iconContainer}
-          key={[x, y].join('-')}
-          style={{
-            height: cellSize,
-            width: cellSize,
-            left: x * (cellSize + BORDER_WIDTH),
-            top: y * (cellSize + BORDER_WIDTH),
-          }}
-        >
-          <div className={styles.iconBackground} />
-          <FlagFill className={styles.icon} />
-        </div>
       ))}
     </div>
   ),

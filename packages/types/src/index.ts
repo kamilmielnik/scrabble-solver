@@ -19,6 +19,7 @@ export { default as Pattern } from './Pattern';
 export { default as PatternJson } from './PatternJson';
 export { default as Result } from './Result';
 export { default as ResultJson } from './ResultJson';
+export { default as ShowCoordinates } from './ShowCoordinates';
 export { default as Tile } from './Tile';
 export { default as TileConfig } from './TileConfig';
 export { default as TileJson, isTileJson } from './TileJson';

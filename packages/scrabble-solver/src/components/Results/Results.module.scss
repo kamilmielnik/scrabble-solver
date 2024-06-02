@@ -60,6 +60,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   cursor: pointer;
   text-transform: uppercase;
   transition: var(--transition);
+  background-color: var(--color--background);
 
   &:focus,
   &:hover {

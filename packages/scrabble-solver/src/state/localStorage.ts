@@ -1,4 +1,4 @@
-import { Board, Game, Locale } from '@scrabble-solver/types';
+import { Board, Game, Locale, ShowCoordinates } from '@scrabble-solver/types';
 import store2 from 'store2';
 
 import { AutoGroupTiles, InputMode, Rack } from 'types';
@@ -9,6 +9,7 @@ const GAME_ID = 'config-id';
 const INPUT_MODE = 'input-mode';
 const LOCALE = 'locale';
 const RACK = 'rack';
+const SHOW_COORDINATES = 'show-coordinates';
 
 const store = store2.namespace('scrabble-solver');
 
@@ -61,6 +62,14 @@ const localStorage = {
 
   setRack(rack: Rack | undefined): void {
     store.set(RACK, rack, true);
+  },
+
+  getShowCoordinates(): ShowCoordinates | undefined {
+    return store.get(SHOW_COORDINATES);
+  },
+
+  setShowCoordinates(showCoordinates: ShowCoordinates | undefined): void {
+    store.set(SHOW_COORDINATES, showCoordinates, true);
   },
 };
 
