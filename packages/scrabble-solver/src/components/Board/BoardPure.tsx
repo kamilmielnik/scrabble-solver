@@ -25,6 +25,7 @@ interface Props {
   cellSize: number;
   coordinatesFontSize: number;
   coordinatesSize: number;
+  direction: 'ltr' | 'rtl';
   filteredCells: Point[];
   inputRefs: RefObject<HTMLInputElement>[][];
   rows: CellModel[][];
@@ -44,6 +45,7 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
       cellSize,
       coordinatesFontSize,
       coordinatesSize,
+      direction,
       filteredCells,
       inputRefs,
       rows,
@@ -85,6 +87,23 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
         </>
       )}
 
+      {filteredCells.map(({ x, y }) => (
+        <div
+          className={styles.iconContainer}
+          key={[x, y].join('-')}
+          style={{
+            height: cellSize,
+            width: cellSize,
+            left: direction === 'ltr' ? coordinatesSize + x * (cellSize + BORDER_WIDTH) : undefined,
+            right: direction === 'rtl' ? coordinatesSize + x * (cellSize + BORDER_WIDTH) : undefined,
+            top: coordinatesSize + y * (cellSize + BORDER_WIDTH),
+          }}
+        >
+          <div className={styles.iconBackground} />
+          <FlagFill className={styles.icon} />
+        </div>
+      ))}
+
       {rows.map((cells, y) => (
         <Fragment key={y}>
           {showCoordinates !== 'hidden' && (
@@ -116,22 +135,6 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
             />
           ))}
         </Fragment>
-      ))}
-
-      {filteredCells.map(({ x, y }) => (
-        <div
-          className={styles.iconContainer}
-          key={[x, y].join('-')}
-          style={{
-            height: cellSize,
-            width: cellSize,
-            left: coordinatesSize + x * (cellSize + BORDER_WIDTH),
-            top: coordinatesSize + y * (cellSize + BORDER_WIDTH),
-          }}
-        >
-          <div className={styles.iconBackground} />
-          <FlagFill className={styles.icon} />
-        </div>
       ))}
     </div>
   ),

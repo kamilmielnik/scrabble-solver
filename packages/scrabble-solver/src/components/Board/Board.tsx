@@ -8,6 +8,7 @@ import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from 'hooks';
+import { LOCALE_FEATURES } from 'i18n';
 import { TRANSITION } from 'parameters';
 import {
   boardSlice,
@@ -153,6 +154,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
         cellSize={cellSize}
         coordinatesFontSize={coordinatesFontSize}
         coordinatesSize={coordinatesSize}
+        direction={LOCALE_FEATURES[locale].direction}
         filteredCells={filteredCells}
         inputRefs={inputRefs}
         ref={ref}
