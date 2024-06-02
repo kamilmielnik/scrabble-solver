@@ -23,7 +23,7 @@
     "clean": "rimraf build/"
   },
   "dependencies": {
-    "@kamilmielnik/trie": "^2.0.1",
+    "@kamilmielnik/trie": "^3.0.0",
     "@scrabble-solver/types": "^2.13.5-alpha.3"
   },
   "devDependencies": {
