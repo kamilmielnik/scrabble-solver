@@ -18,6 +18,7 @@ import { Point } from 'types';
 
 import styles from './Board.module.scss';
 import { Cell } from './components';
+import { getCoordinate } from './lib';
 
 interface Props {
   className?: string;
@@ -35,14 +36,6 @@ interface Props {
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
   onPaste: ClipboardEventHandler<HTMLInputElement>;
 }
-
-const getCoordinate = (index: number, type: 'letter' | 'number'): string => {
-  if (type === 'number') {
-    return String(index + 1);
-  }
-
-  return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[index];
-};
 
 const BoardPure = forwardRef<HTMLDivElement, Props>(
   (
