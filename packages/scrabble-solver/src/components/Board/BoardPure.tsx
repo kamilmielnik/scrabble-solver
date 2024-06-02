@@ -22,6 +22,7 @@ import { Cell } from './components';
 interface Props {
   className?: string;
   cellSize: number;
+  coordinatesFontSize: number;
   coordinatesSize: number;
   filteredCells: Point[];
   inputRefs: RefObject<HTMLInputElement>[][];
@@ -48,6 +49,7 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
     {
       className,
       cellSize,
+      coordinatesFontSize,
       coordinatesSize,
       filteredCells,
       inputRefs,
@@ -75,7 +77,15 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
           <div style={{ width: coordinatesSize, height: coordinatesSize }} />
 
           {rows[0].map((_column, index) => (
-            <div className={styles.coordinateColumn} key={index} style={{ width: cellSize, height: coordinatesSize }}>
+            <div
+              className={styles.coordinateColumn}
+              key={index}
+              style={{
+                width: cellSize,
+                height: coordinatesSize,
+                fontSize: coordinatesFontSize,
+              }}
+            >
               {getCoordinate(index, showCoordinates === 'original' ? 'letter' : 'number')}
             </div>
           ))}
@@ -85,7 +95,14 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
       {rows.map((cells, y) => (
         <Fragment key={y}>
           {showCoordinates !== 'hidden' && (
-            <div className={styles.coordinateRow} style={{ width: coordinatesSize, height: cellSize }}>
+            <div
+              className={styles.coordinateRow}
+              style={{
+                width: coordinatesSize,
+                height: cellSize,
+                fontSize: coordinatesFontSize,
+              }}
+            >
               {getCoordinate(y, showCoordinates === 'original' ? 'number' : 'letter')}
             </div>
           )}

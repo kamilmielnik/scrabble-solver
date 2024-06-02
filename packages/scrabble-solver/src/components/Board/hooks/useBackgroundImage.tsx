@@ -12,8 +12,8 @@ import {
   BORDER_COLOR_LIGHT,
   BORDER_RADIUS,
   BORDER_WIDTH,
+  COLOR_BACKGROUND,
   COLOR_BONUS_START,
-  COLOR_COORDINATES,
   COLOR_FILTERED,
 } from 'parameters';
 import { selectConfig, selectShowCoordinates, store, useTypedSelector } from 'state';
@@ -146,16 +146,9 @@ const useBackgroundImage = () => {
 
         {showCoordinates !== 'hidden' && (
           <>
+            <rect fill={COLOR_BACKGROUND} height={coordinatesSize} rx={borderRadius} width={viewBoxWidth} x="0" y="0" />
             <rect
-              fill={COLOR_COORDINATES}
-              height={coordinatesSize}
-              rx={borderRadius}
-              width={viewBoxWidth}
-              x="0"
-              y="0"
-            />
-            <rect
-              fill={COLOR_COORDINATES}
+              fill={COLOR_BACKGROUND}
               height={viewBoxHeight}
               rx={borderRadius}
               width={coordinatesSize}

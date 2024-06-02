@@ -46,7 +46,7 @@ const useAppLayout = () => {
     ? Number.POSITIVE_INFINITY
     : Math.max(solverHeight - bottomContainerHeight, 0);
 
-  const coordinatesSizeRatio = showCoordinates ? 0.5 : 0;
+  const coordinatesSizeRatio = showCoordinates === 'hidden' ? 0 : 0.5;
   const cellWidth =
     (maxBoardWidth - (config.boardWidth + 1) * BORDER_WIDTH) / (config.boardWidth + coordinatesSizeRatio);
   const cellHeight =
@@ -68,6 +68,7 @@ const useAppLayout = () => {
     animateTile: !isLessThanXs,
     boardSize,
     cellSize,
+    coordinatesFontSize: coordinatesSize * 0.7,
     coordinatesSize,
     dictionaryHeight,
     isModalFullWidth: isLessThanS,
