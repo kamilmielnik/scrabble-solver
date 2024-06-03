@@ -8,6 +8,7 @@ import {
   selectInputMode,
   selectLocale,
   selectRack,
+  selectShowCoordinates,
   useTypedSelector,
 } from 'state';
 
@@ -18,6 +19,7 @@ const useLocalStorage = () => {
   const inputMode = useTypedSelector(selectInputMode);
   const locale = useTypedSelector(selectLocale);
   const rack = useTypedSelector(selectRack);
+  const showCoordinates = useTypedSelector(selectShowCoordinates);
 
   useEffect(() => {
     if (autoGroupTiles) {
@@ -54,6 +56,12 @@ const useLocalStorage = () => {
       localStorage.setRack(rack);
     }
   }, [rack]);
+
+  useEffect(() => {
+    if (showCoordinates) {
+      localStorage.setShowCoordinates(showCoordinates);
+    }
+  }, [showCoordinates]);
 };
 
 export default useLocalStorage;
