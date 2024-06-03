@@ -5,6 +5,7 @@
 **/node_modules/**/*
 *.d.ts
 .eslintrc.js
+bump-version.js
 next.config.js
 packages/logger/scripts/stats.js
 packages/scrabble-solver/public/service-worker.js

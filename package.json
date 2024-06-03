@@ -52,7 +52,7 @@
     "test:watch": "jest --no-cache --watch",
     "version:bump": "npm run version:bump-lerna && npm run version:commit",
     "version:bump-lerna": "lerna version --force-publish --no-git-tag-version --no-push",
-    "version:commit": "git add . && git commit -m \"Bump version in lerna\""
+    "version:commit": "node bump-version.js && git add . && git commit -m \"Bump version\""
   },
   "repository": {
     "type": "git",
