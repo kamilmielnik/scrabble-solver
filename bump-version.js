@@ -9,13 +9,18 @@
 
 const fs = require('fs');
 
-const packageJsonString = fs.readFileSync('package.json', 'utf-8');
-const packageJson = JSON.parse(packageJsonString);
-const currentVersion = packageJson.dependencies['@scrabble-solver/scrabble-solver'];
-const newVersion = packageJson.version;
-const replaced = packageJsonString.replace(
-  `"@scrabble-solver/scrabble-solver": "${currentVersion}"`,
-  `"@scrabble-solver/scrabble-solver": "^${newVersion}"`,
-);
+const updateFile = (filename) => {
+  const packageJsonString = fs.readFileSync(filename, 'utf-8');
+  const packageJson = JSON.parse(packageJsonString);
+  const currentVersion = packageJson.dependencies['@scrabble-solver/scrabble-solver'];
+  const newVersion = packageJson.version;
+  const replaced = packageJsonString.replace(
+    `"@scrabble-solver/scrabble-solver": "${currentVersion}"`,
+    `"@scrabble-solver/scrabble-solver": "^${newVersion}"`,
+  );
 
-fs.writeFileSync('package.json', replaced);
+  fs.writeFileSync(filename, replaced);
+};
+
+updateFile('package.json');
+updateFile('package-lock.json');
