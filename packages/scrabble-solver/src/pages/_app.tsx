@@ -5,7 +5,6 @@ import { FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
 
 import { SeoMessage } from 'components';
-import { TOOLTIP_DURATION } from 'parameters';
 import { store } from 'state';
 
 import 'styles/global.scss';
@@ -67,7 +66,7 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
     <Provider store={store}>
       <SeoMessage />
 
-      <FloatingDelayGroup delay={TOOLTIP_DURATION}>
+      <FloatingDelayGroup delay={0}>
         <Component {...pageProps} />
       </FloatingDelayGroup>
     </Provider>

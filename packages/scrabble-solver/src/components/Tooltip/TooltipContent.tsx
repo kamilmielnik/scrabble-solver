@@ -21,7 +21,7 @@ export const TooltipContent = forwardRef<HTMLDivElement, Props>((props, ref) => 
     close: currentId === context.floatingId ? TOOLTIP_DURATION : INSTANT_DURATION,
   };
 
-  const { isMounted, styles: style } = useTransitionStyles(context, {
+  const { isMounted, styles: transitionStyles } = useTransitionStyles(context, {
     duration: isInstantPhase ? instantPhaseDuration : TOOLTIP_DURATION,
     initial: {
       opacity: 0,
@@ -40,7 +40,7 @@ export const TooltipContent = forwardRef<HTMLDivElement, Props>((props, ref) => 
         style={{
           ...state.floatingStyles,
           ...props.style,
-          ...style,
+          ...transitionStyles,
         }}
         {...state.getFloatingProps(props)}
       >
