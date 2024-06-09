@@ -16,11 +16,8 @@ const getCurrentAppVersion = () => {
 
 const updateDependencyVersion = (filename, dependency, version) => {
   const packageJsonString = fs.readFileSync(filename, 'utf-8');
-  const packageJson = JSON.parse(packageJsonString);
-  const currentVersion = packageJson.dependencies[dependency];
-  const current = `"${dependency}": "${currentVersion}"`;
-  const replacement = `"${dependency}": "^${version}"`;
-  const replaced = packageJsonString.replace(current, replacement);
+  const replacement = `"${dependency}": "^${version}",`;
+  const replaced = packageJsonString.replace(new RegExp(`"${dependency}": ".*",`), replacement);
 
   fs.writeFileSync(filename, replaced);
 };
