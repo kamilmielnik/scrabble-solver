@@ -1,13 +1,15 @@
-import { FloatingPortal, useDelayGroup, useMergeRefs, useTransitionStyles } from '@floating-ui/react';
-import { HTMLProps, forwardRef } from 'react';
+import { FloatingArrow, FloatingPortal, useDelayGroup, useMergeRefs, useTransitionStyles } from '@floating-ui/react';
+import { forwardRef, HTMLProps } from 'react';
 
 import { useTooltipContext } from './context';
+import styles from './Tooltip.module.scss';
 
 type Props = HTMLProps<HTMLDivElement>;
 
 export const TooltipContent = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const state = useTooltipContext();
-  const { isInstantPhase, currentId } = useDelayGroup(state.context, { id: state.context.floatingId });
+  const { context } = state;
+  const { isInstantPhase, currentId } = useDelayGroup(context, { id: context.floatingId });
   const finalRef = useMergeRefs([state.refs.setFloating, ref]);
 
   const instantDuration = 0;
@@ -15,10 +17,10 @@ export const TooltipContent = forwardRef<HTMLDivElement, Props>((props, ref) => 
 
   const instantPhaseDuration = {
     open: instantDuration,
-    close: currentId === state.context.floatingId ? duration : instantDuration,
+    close: currentId === context.floatingId ? duration : instantDuration,
   };
 
-  const { isMounted, styles } = useTransitionStyles(state.context, {
+  const { isMounted, styles: style } = useTransitionStyles(context, {
     duration: isInstantPhase ? instantPhaseDuration : duration,
     initial: {
       opacity: 0,
@@ -32,15 +34,18 @@ export const TooltipContent = forwardRef<HTMLDivElement, Props>((props, ref) => 
   return (
     <FloatingPortal>
       <div
+        className={styles.tooltip}
         ref={finalRef}
         style={{
           ...state.floatingStyles,
           ...props.style,
-          ...styles,
+          ...style,
         }}
         {...state.getFloatingProps(props)}
       >
-        {props.children}
+        <div>{props.children}</div>
+
+        <FloatingArrow className={styles.arrow} context={context} ref={state.arrowRef} />
       </div>
     </FloatingPortal>
   );

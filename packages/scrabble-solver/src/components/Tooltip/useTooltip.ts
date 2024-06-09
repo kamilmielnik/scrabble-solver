@@ -1,5 +1,6 @@
 import {
   Placement,
+  arrow,
   autoUpdate,
   flip,
   offset,
@@ -12,7 +13,11 @@ import {
   useInteractions,
   useRole,
 } from '@floating-ui/react';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
+
+const ARROW_SIZE = 7;
+const ARROW_GAP = 3;
+const PADDING = 10;
 
 export interface TooltipOptions {
   placement?: Placement;
@@ -20,12 +25,13 @@ export interface TooltipOptions {
 
 export const useTooltip = ({ placement = 'top' }: TooltipOptions = {}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const arrowRef = useRef(null);
   const data = useFloating({
     placement,
     open: isOpen,
     onOpenChange: setIsOpen,
     whileElementsMounted: autoUpdate,
-    middleware: [offset(5), flip(), shift()],
+    middleware: [flip(), shift({ padding: PADDING }), offset(ARROW_SIZE + ARROW_GAP), arrow({ element: arrowRef })],
   });
   const { context } = data;
   const { delay } = useDelayGroup(context);
@@ -37,11 +43,12 @@ export const useTooltip = ({ placement = 'top' }: TooltipOptions = {}) => {
 
   return useMemo(
     () => ({
+      arrowRef,
       open: isOpen,
       setOpen: setIsOpen,
       ...interactions,
       ...data,
     }),
-    [isOpen, setIsOpen, interactions, data],
+    [arrowRef, isOpen, setIsOpen, interactions, data],
   );
 };
