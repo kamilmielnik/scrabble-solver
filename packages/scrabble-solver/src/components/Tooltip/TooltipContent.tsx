@@ -1,10 +1,14 @@
 import { FloatingArrow, FloatingPortal, useDelayGroup, useMergeRefs, useTransitionStyles } from '@floating-ui/react';
 import { forwardRef, HTMLProps } from 'react';
 
+import { TOOLTIP_DURATION } from 'parameters';
+
 import { useTooltipContext } from './context';
 import styles from './Tooltip.module.scss';
 
 type Props = HTMLProps<HTMLDivElement>;
+
+const INSTANT_DURATION = 0;
 
 export const TooltipContent = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const state = useTooltipContext();
@@ -12,16 +16,13 @@ export const TooltipContent = forwardRef<HTMLDivElement, Props>((props, ref) => 
   const { isInstantPhase, currentId } = useDelayGroup(context, { id: context.floatingId });
   const finalRef = useMergeRefs([state.refs.setFloating, ref]);
 
-  const instantDuration = 0;
-  const duration = 250;
-
   const instantPhaseDuration = {
-    open: instantDuration,
-    close: currentId === context.floatingId ? duration : instantDuration,
+    open: INSTANT_DURATION,
+    close: currentId === context.floatingId ? TOOLTIP_DURATION : INSTANT_DURATION,
   };
 
   const { isMounted, styles: style } = useTransitionStyles(context, {
-    duration: isInstantPhase ? instantPhaseDuration : duration,
+    duration: isInstantPhase ? instantPhaseDuration : TOOLTIP_DURATION,
     initial: {
       opacity: 0,
     },

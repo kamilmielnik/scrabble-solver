@@ -1,9 +1,11 @@
+import { FloatingDelayGroup } from '@floating-ui/react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
 
 import { SeoMessage } from 'components';
+import { TOOLTIP_DURATION } from 'parameters';
 import { store } from 'state';
 
 import 'styles/global.scss';
@@ -64,7 +66,10 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
 
     <Provider store={store}>
       <SeoMessage />
-      <Component {...pageProps} />
+
+      <FloatingDelayGroup delay={TOOLTIP_DURATION}>
+        <Component {...pageProps} />
+      </FloatingDelayGroup>
     </Provider>
   </>
 );
