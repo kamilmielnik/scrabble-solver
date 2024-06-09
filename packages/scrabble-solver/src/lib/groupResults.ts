@@ -18,18 +18,23 @@ const groupResults = (
     return results;
   }
 
-  return results.reduce<GroupedResults>(
-    ({ matching, other }, result) => {
-      const matchesQuery = createRegExp(query).test(result.word);
-      const matchesCellFilter = cellFilter.every(({ x, y }) => {
-        return result.cells.some((cell) => cell.x === x && cell.y === y);
-      });
-      const isMatching = matchesQuery && matchesCellFilter;
+  const regExp = createRegExp(query);
 
-      return {
-        matching: isMatching ? [...matching, result] : matching,
-        other: isMatching ? other : [...other, result],
-      };
+  return results.reduce<GroupedResults>(
+    (groupedResults, result) => {
+      const matchesQuery = () => regExp.test(result.word);
+      const matchesCellFilter = () =>
+        cellFilter.every(({ x, y }) => {
+          return result.cells.some((cell) => cell.x === x && cell.y === y);
+        });
+
+      if (matchesCellFilter() && matchesQuery()) {
+        groupedResults.matching.push(result);
+      } else {
+        groupedResults.other.push(result);
+      }
+
+      return groupedResults;
     },
     { matching: [], other: [] },
   );
