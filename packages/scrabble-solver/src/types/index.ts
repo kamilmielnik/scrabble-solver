@@ -40,6 +40,7 @@ export interface RemainingTilesGroup {
 export enum ResultColumn {
   BlanksCount = 'blanks-count',
   ConsonantsCount = 'consonants-count',
+  Coordinates = 'coordinates',
   Points = 'points',
   TilesCount = 'tiles-count',
   VowelsCount = 'vowels-count',

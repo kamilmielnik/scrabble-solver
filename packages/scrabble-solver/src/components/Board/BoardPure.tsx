@@ -13,12 +13,12 @@ import {
 } from 'react';
 
 import { FlagFill } from 'icons';
+import { getCoordinate } from 'lib';
 import { BORDER_WIDTH } from 'parameters';
 import { Point } from 'types';
 
 import styles from './Board.module.scss';
 import { Cell } from './components';
-import { getCoordinate } from './lib';
 
 interface Props {
   className?: string;

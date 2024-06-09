@@ -1,8 +1,9 @@
 import { useMediaQueries } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
-import { selectLocale, useTypedSelector } from 'state';
+import { selectLocale, selectShowCoordinates, useTypedSelector } from 'state';
 import { ResultColumn } from 'types';
 
+import getCoordinatesColumn from './getCoordinatesColumn';
 import getLocaleColumns from './getLocaleColumns';
 import { Column } from './types';
 
@@ -17,25 +18,27 @@ const COLUMNS_L = [...COLUMNS_XS];
 const useColumns = (): Column[] => {
   const locale = useTypedSelector(selectLocale);
   const localeColumns = getLocaleColumns(LOCALE_FEATURES[locale]);
+  const showCoordinates = useTypedSelector(selectShowCoordinates);
+  const columns = showCoordinates === 'hidden' ? localeColumns : [getCoordinatesColumn(), ...localeColumns];
   const { isLessThanXs, isLessThanS, isLessThanM, isLessThanL } = useMediaQueries();
 
   if (isLessThanXs) {
-    return localeColumns.filter((column) => COLUMNS_XS.includes(column.id));
+    return columns.filter((column) => COLUMNS_XS.includes(column.id));
   }
 
   if (isLessThanS) {
-    return localeColumns.filter((column) => COLUMNS_S.includes(column.id));
+    return columns.filter((column) => COLUMNS_S.includes(column.id));
   }
 
   if (isLessThanM) {
-    return localeColumns.filter((column) => COLUMNS_M.includes(column.id));
+    return columns.filter((column) => COLUMNS_M.includes(column.id));
   }
 
   if (isLessThanL) {
-    return localeColumns.filter((column) => COLUMNS_L.includes(column.id));
+    return columns.filter((column) => COLUMNS_L.includes(column.id));
   }
 
-  return localeColumns;
+  return columns;
 };
 
 export default useColumns;

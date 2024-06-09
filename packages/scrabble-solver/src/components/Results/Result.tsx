@@ -1,10 +1,16 @@
 import classNames from 'classnames';
-import { CSSProperties, FocusEventHandler, MouseEventHandler, ReactElement, useRef } from 'react';
+import { CSSProperties, FocusEventHandler, MouseEventHandler, ReactElement, useMemo, useRef } from 'react';
 import Highlighter from 'react-highlight-words';
 
 import { LOCALE_FEATURES } from 'i18n';
-import { noop } from 'lib';
-import { selectIsResultMatching, selectLocale, selectResultsQuery, useTypedSelector } from 'state';
+import { getCoordinates, noop } from 'lib';
+import {
+  selectIsResultMatching,
+  selectLocale,
+  selectResultsQuery,
+  selectShowCoordinates,
+  useTypedSelector,
+} from 'state';
 import { ResultColumn } from 'types';
 
 import Cell from './Cell';
@@ -31,12 +37,14 @@ const Result = ({ data, index, style }: Props): ReactElement => {
   const ref = useRef<HTMLButtonElement>(null);
   const columns = useColumns();
   const locale = useTypedSelector(selectLocale);
+  const showCoordinates = useTypedSelector(selectShowCoordinates);
   const query = useTypedSelector(selectResultsQuery);
   const { consonants, direction, separator, vowels } = LOCALE_FEATURES[locale];
   const result = results[index];
   const isMatching = useTypedSelector((state) => selectIsResultMatching(state, index));
   const words = direction === 'rtl' ? [...result.words].reverse() : result.words;
   const enabledColumns = Object.fromEntries(columns.map((column) => [column.id, true]));
+  const coordinates = useMemo(() => getCoordinates(result, showCoordinates), [result, showCoordinates]);
 
   const handleClick: MouseEventHandler = (event) => onClick(result, event);
   const handleMouseEnter: MouseEventHandler = (event) => onMouseEnter(result, event);
@@ -61,6 +69,10 @@ const Result = ({ data, index, style }: Props): ReactElement => {
       onMouseLeave={handleMouseLeave}
     >
       <span className={styles.resultContent}>
+        {enabledColumns[ResultColumn.Coordinates] && (
+          <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />
+        )}
+
         {enabledColumns[ResultColumn.Word] && (
           <Cell className={styles.word} translationKey="common.word" value={result.word}>
             <Highlighter highlightClassName={styles.highlight} searchWords={[query]} textToHighlight={result.word} />

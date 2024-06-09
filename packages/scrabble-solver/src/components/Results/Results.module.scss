@@ -139,6 +139,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
   .word {
     @include ellipsis;
+    display: flex;
   }
 }
 
@@ -151,10 +152,13 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   gap: var(--spacing--s);
   line-height: var(--results--item--height);
 
+  &.word,
+  .headerButton.word & {
+    justify-content: flex-start;
+  }
+
   .result &:first-child,
   .headerButton:first-child & {
-    justify-content: flex-start;
-
     [dir='ltr'] & {
       padding-left: $row-padding-horizontal;
       text-align: left;
@@ -201,6 +205,13 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   flex: 1 0 $width;
   max-width: $width;
   font-weight: bold;
+}
+
+.coordinates {
+  $width: 50px;
+
+  flex: 0 0 $width;
+  max-width: $width;
 }
 
 .solveButton {

@@ -14,6 +14,8 @@ export { default as extractCharactersByCase } from './extractCharactersByCase';
 export { default as extractInputValue } from './extractInputValue';
 export { default as findCell } from './findCell';
 export { default as getCellSize } from './getCellSize';
+export { default as getCoordinate } from './getCoordinate';
+export { default as getCoordinates } from './getCoordinates';
 export { default as getRemainingTiles } from './getRemainingTiles';
 export { default as getRemainingTilesCount } from './getRemainingTilesCount';
 export { default as getRemainingTilesGroups } from './getRemainingTilesGroups';
