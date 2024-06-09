@@ -4,7 +4,7 @@ import { FunctionComponent, ReactNode } from 'react';
 import { selectLocale, useTranslate, useTypedSelector } from 'state';
 import { TranslationKey } from 'types';
 
-import { useTooltip } from '../Tooltip';
+import { Tooltip } from '../Tooltip';
 
 import styles from './Results.module.scss';
 
@@ -20,12 +20,11 @@ const Cell: FunctionComponent<Props> = ({ children, className, translationKey, t
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const formattedValue = value.toLocaleString(locale);
-  const triggerProps = useTooltip(`${translate(translationKey)}: ${tooltip || formattedValue}`);
 
   return (
-    <div className={classNames(styles.cell, className)} {...triggerProps}>
-      {children || formattedValue}
-    </div>
+    <Tooltip tooltip={`${translate(translationKey)}: ${tooltip || formattedValue}`}>
+      <div className={classNames(styles.cell, className)}>{children || formattedValue}</div>
+    </Tooltip>
   );
 };
 
