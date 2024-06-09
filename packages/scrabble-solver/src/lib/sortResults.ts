@@ -8,6 +8,7 @@ import reverseComparator from './reverseComparator';
 const comparators: Record<ResultColumn, (locale: string) => Comparator<Result>> = {
   [ResultColumn.BlanksCount]: (locale: string) => createKeyComparator('blanksCount', locale),
   [ResultColumn.ConsonantsCount]: (locale: string) => createKeyComparator('consonantsCount', locale),
+  [ResultColumn.Coordinates]: (locale: string) => createKeyComparator('coordinates', locale),
   [ResultColumn.Points]: (locale: string) => createKeyComparator('points', locale),
   [ResultColumn.TilesCount]: (locale: string) => createKeyComparator('tilesCount', locale),
   [ResultColumn.VowelsCount]: (locale: string) => createKeyComparator('vowelsCount', locale),
