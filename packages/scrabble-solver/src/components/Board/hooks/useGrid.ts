@@ -6,9 +6,9 @@ import {
   ChangeEvent,
   ChangeEventHandler,
   ClipboardEventHandler,
-  createRef,
   KeyboardEventHandler,
   RefObject,
+  createRef,
   useCallback,
   useMemo,
   useState,
@@ -54,14 +54,22 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   const [direction, setLastDirection] = useState<Direction>('horizontal');
   const directionRef = useLatest(direction);
 
+  const safeActiveIndex = useMemo(
+    () => ({
+      x: Math.min(activeIndex.x, width - 1),
+      y: Math.min(activeIndex.y, height - 1),
+    }),
+    [activeIndex, width, height],
+  );
+
   const changeActiveIndex = useCallback(
     (offsetX: number, offsetY: number) => {
-      const x = Math.min(Math.max(activeIndex.x + offsetX, 0), width - 1);
-      const y = Math.min(Math.max(activeIndex.y + offsetY, 0), height - 1);
+      const x = Math.min(Math.max(safeActiveIndex.x + offsetX, 0), width - 1);
+      const y = Math.min(Math.max(safeActiveIndex.y + offsetY, 0), height - 1);
       setActiveIndex({ x, y });
       inputRefs[y][x].current?.focus();
     },
-    [activeIndex, inputRefs],
+    [safeActiveIndex, inputRefs],
   );
 
   const getInputRefPosition = useCallback(
@@ -358,7 +366,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   );
 
   return [
-    { activeIndex, direction, inputRefs },
+    { activeIndex: safeActiveIndex, direction, inputRefs },
     { insertValue, onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
   ];
 };
