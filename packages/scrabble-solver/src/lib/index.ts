@@ -1,5 +1,4 @@
 export { default as arrayEquals } from './arrayEquals';
-export { default as canUseDom } from './canUseDom';
 export { default as createArray } from './createArray';
 export { default as createComparator } from './createComparator';
 export { default as createGridOf } from './createGridOf';
