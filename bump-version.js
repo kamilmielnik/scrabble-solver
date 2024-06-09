@@ -9,18 +9,22 @@
 
 const fs = require('fs');
 
-const updateFile = (filename) => {
+const getCurrentAppVersion = () => {
+  const packageJson = require('./packages/scrabble-solver/package.json');
+  return packageJson.version;
+};
+
+const updateDependencyVersion = (filename, dependency, version) => {
   const packageJsonString = fs.readFileSync(filename, 'utf-8');
   const packageJson = JSON.parse(packageJsonString);
-  const currentVersion = packageJson.dependencies['@scrabble-solver/scrabble-solver'];
-  const newVersion = packageJson.version;
-  const replaced = packageJsonString.replace(
-    `"@scrabble-solver/scrabble-solver": "${currentVersion}"`,
-    `"@scrabble-solver/scrabble-solver": "^${newVersion}"`,
-  );
+  const currentVersion = packageJson.dependencies[dependency];
+  const current = `"${dependency}": "${currentVersion}"`;
+  const replacement = `"${dependency}": "^${version}"`;
+  const replaced = packageJsonString.replace(current, replacement);
 
   fs.writeFileSync(filename, replaced);
 };
 
-updateFile('package.json');
-updateFile('package-lock.json');
+const currentAppVersion = getCurrentAppVersion();
+updateDependencyVersion('package.json', '@scrabble-solver/scrabble-solver', currentAppVersion);
+updateDependencyVersion('package-lock.json', '@scrabble-solver/scrabble-solver', currentAppVersion);
