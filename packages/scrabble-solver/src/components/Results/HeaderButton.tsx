@@ -13,9 +13,10 @@ import { Column } from './types';
 
 interface Props {
   column: Column;
+  sortable?: boolean;
 }
 
-const HeaderButton = ({ column }: Props): ReactElement => {
+const HeaderButton = ({ column, sortable }: Props): ReactElement => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const sort = useTypedSelector(selectResultsSort);
@@ -28,10 +29,12 @@ const HeaderButton = ({ column }: Props): ReactElement => {
     <Tooltip tooltip={translate(column.translationKey)}>
       <button
         aria-label={translate(column.translationKey)}
-        className={classNames(styles.headerButton, column.className)}
+        className={classNames(styles.headerButton, column.className, {
+          [styles.sortable]: sortable,
+        })}
         key={column.id}
         type="button"
-        onClick={handleClick}
+        onClick={sortable ? handleClick : undefined}
       >
         <span className={styles.cell}>
           <span className={styles.headerButtonLabel}>{translate(column.translationKey)}</span>

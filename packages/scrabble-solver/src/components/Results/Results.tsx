@@ -69,7 +69,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
     <div className={classNames(styles.results, className)}>
       <div className={styles.header}>
         {columns.map((column) => (
-          <HeaderButton column={column} key={column.id} />
+          <HeaderButton column={column} key={column.id} sortable={column.sortable} />
         ))}
       </div>
 

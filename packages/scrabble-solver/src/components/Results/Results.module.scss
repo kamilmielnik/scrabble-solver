@@ -55,18 +55,10 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
 .headerButton {
   @include button-reset;
-  @include focus-effect;
 
-  cursor: pointer;
   text-transform: uppercase;
   transition: var(--transition);
   background-color: var(--color--background);
-
-  &:focus,
-  &:hover {
-    background-color: var(--color--primary);
-    color: var(--color--primary--opposite);
-  }
 
   &:first-child {
     [dir='ltr'] & {
@@ -86,6 +78,18 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
     [dir='rtl'] & {
       border-top-left-radius: inherit;
     }
+  }
+}
+
+.sortable {
+  @include focus-effect;
+
+  cursor: pointer;
+
+  &:focus,
+  &:hover {
+    background-color: var(--color--primary);
+    color: var(--color--primary--opposite);
   }
 }
 

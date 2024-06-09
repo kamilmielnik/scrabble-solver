@@ -8,6 +8,7 @@ const getCoordinatesColumn = (): Column => {
     className: styles.coordinates,
     id: ResultColumn.Coordinates,
     translationKey: 'settings.showCoordinates',
+    sortable: false,
   };
 };
 
