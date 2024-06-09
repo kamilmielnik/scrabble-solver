@@ -1,17 +1,19 @@
+import type { Placement } from '@floating-ui/react';
 import { FunctionComponent, ReactNode } from 'react';
 
 import { TooltipContext } from './context';
 import { TooltipContent } from './TooltipContent';
 import { TooltipTrigger } from './TooltipTrigger';
-import { TooltipOptions, useTooltip } from './useTooltip';
+import { useTooltip } from './useTooltip';
 
-interface Props extends TooltipOptions {
+interface Props {
   children: ReactNode;
+  placement?: Placement;
   tooltip?: ReactNode;
 }
 
-export const Tooltip: FunctionComponent<Props> = ({ children, tooltip, ...options }) => {
-  const state = useTooltip(options);
+export const Tooltip: FunctionComponent<Props> = ({ children, placement, tooltip }) => {
+  const state = useTooltip({ placement });
 
   if (!tooltip) {
     return children;

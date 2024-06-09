@@ -19,7 +19,7 @@ const ARROW_SIZE = 7;
 const ARROW_GAP = 3;
 const PADDING = 10;
 
-export interface TooltipOptions {
+interface TooltipOptions {
   placement?: Placement;
 }
 
