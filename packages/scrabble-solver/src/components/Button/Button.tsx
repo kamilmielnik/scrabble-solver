@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { ButtonHTMLAttributes, FunctionComponent, ReactNode, SVGAttributes } from 'react';
 
-import { useTooltip } from '../Tooltip';
+import { Tooltip } from '../Tooltip';
 
 import styles from './Button.module.scss';
 import Link from './Link';
@@ -23,23 +23,22 @@ const Button: FunctionComponent<Props> = ({
   variant = 'default',
   ...props
 }) => {
-  const triggerProps = useTooltip(tooltip, props);
-
   return (
-    <button
-      className={classNames(styles.button, className, {
-        [styles.default]: variant === 'default',
-        [styles.primary]: variant === 'primary',
-      })}
-      type="button"
-      {...props}
-      {...triggerProps}
-    >
-      <span className={styles.content}>
-        {Icon && <Icon className={classNames(styles.icon, iconClassName)} />}
-        {children && <span className={styles.label}>{children}</span>}
-      </span>
-    </button>
+    <Tooltip tooltip={tooltip}>
+      <button
+        className={classNames(styles.button, className, {
+          [styles.default]: variant === 'default',
+          [styles.primary]: variant === 'primary',
+        })}
+        type="button"
+        {...props}
+      >
+        <span className={styles.content}>
+          {Icon && <Icon className={classNames(styles.icon, iconClassName)} />}
+          {children && <span className={styles.label}>{children}</span>}
+        </span>
+      </button>
+    </Tooltip>
   );
 };
 

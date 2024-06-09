@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { ButtonHTMLAttributes, FunctionComponent, MouseEventHandler, SVGAttributes } from 'react';
 
-import { useTooltip } from '../Tooltip';
+import { Tooltip } from '../Tooltip';
 
 import styles from './IconButton.module.scss';
 import Link from './Link';
@@ -15,14 +15,14 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const IconButton: FunctionComponent<Props> = ({ className, Icon, tooltip, ...props }) => {
-  const triggerProps = useTooltip(tooltip, props);
-
   return (
-    <button className={classNames(styles.iconButton, className)} type="button" {...props} {...triggerProps}>
-      <span className={styles.content}>
-        <Icon className={styles.icon} />
-      </span>
-    </button>
+    <Tooltip tooltip={tooltip}>
+      <button className={classNames(styles.iconButton, className)} type="button" {...props}>
+        <span className={styles.content}>
+          <Icon className={styles.icon} />
+        </span>
+      </button>
+    </Tooltip>
   );
 };
 

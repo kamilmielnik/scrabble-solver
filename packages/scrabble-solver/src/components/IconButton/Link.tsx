@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { AnchorHTMLAttributes, FunctionComponent, SVGAttributes } from 'react';
 
-import { useTooltip } from '../Tooltip';
+import { Tooltip } from '../Tooltip';
 
 import styles from './IconButton.module.scss';
 
@@ -14,14 +14,14 @@ interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 const Link: FunctionComponent<Props> = ({ className, Icon, tooltip, ...props }) => {
-  const triggerProps = useTooltip(tooltip, props);
-
   return (
-    <a className={classNames(styles.iconButton, className)} {...props} {...triggerProps}>
-      <span className={styles.content}>
-        <Icon className={styles.icon} />
-      </span>
-    </a>
+    <Tooltip tooltip={tooltip}>
+      <a className={classNames(styles.iconButton, className)} {...props}>
+        <span className={styles.content}>
+          <Icon className={styles.icon} />
+        </span>
+      </a>
+    </Tooltip>
   );
 };
 
