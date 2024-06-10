@@ -22,7 +22,7 @@
   "dictionary.empty-state.no-definitions": "Wort existiert im Wörterbuch aber hat keine Definition.",
   "dictionary.empty-state.no-results": "Wort kann nicht im Wörterbuch gefunden werden.",
   "dictionary.empty-state.not-allowed": "Dieses Wort ist nicht erlaubt.",
-  "dictionary.empty-state.uninitialized": "Die Wörterbuchdéfinition wird hier angezeigt.",
+  "dictionary.empty-state.uninitialized": "Die Wörterbuchdefinition wird hier angezeigt.",
   "dictionary.input.placeholder": "Durchsuche Wörterbuch…",
   "dictionary.input.title": "Durch Kommas getrennte Wörter",
   "empty-state.error": "Fehler",
