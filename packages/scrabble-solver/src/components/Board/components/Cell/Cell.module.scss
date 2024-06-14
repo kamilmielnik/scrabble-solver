@@ -7,10 +7,7 @@
 
   input {
     position: absolute;
-    top: -100%;
-    right: -100%;
-    left: -100%;
-    bottom: -100%;
+    inset: -100%;
     width: 300%;
     height: 300%;
     clip-path: inset((100% / 3));
@@ -55,43 +52,19 @@
   @include lighthouse-input-size-hack;
 
   &.sharpTopLeft {
-    [dir='ltr'] & {
-      border-top-left-radius: 0;
-    }
-
-    [dir='rtl'] & {
-      border-top-right-radius: 0;
-    }
+    border-start-start-radius: 0;
   }
 
   &.sharpTopRight {
-    [dir='ltr'] & {
-      border-top-right-radius: 0;
-    }
-
-    [dir='rtl'] & {
-      border-top-left-radius: 0;
-    }
+    border-start-end-radius: 0;
   }
 
   &.sharpBottomLeft {
-    [dir='ltr'] & {
-      border-bottom-left-radius: 0;
-    }
-
-    [dir='rtl'] & {
-      border-bottom-right-radius: 0;
-    }
+    border-end-start-radius: 0;
   }
 
   &.sharpBottomRight {
-    [dir='ltr'] & {
-      border-bottom-right-radius: 0;
-    }
-
-    [dir='rtl'] & {
-      border-bottom-left-radius: 0;
-    }
+    border-end-end-radius: 0;
   }
 
   &:focus-within {

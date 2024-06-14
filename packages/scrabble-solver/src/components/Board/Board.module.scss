@@ -46,10 +46,7 @@
 .iconBackground,
 .icon {
   position: absolute;
-  top: calc((100% - var(--size)) / 2);
-  right: calc((100% - var(--size)) / 2);
-  bottom: calc((100% - var(--size)) / 2);
-  left: calc((100% - var(--size)) / 2);
+  inset: calc((100% - var(--size)) / 2);
   width: var(--size);
   height: var(--size);
 }

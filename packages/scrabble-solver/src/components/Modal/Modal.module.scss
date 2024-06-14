@@ -3,14 +3,7 @@
 .modal,
 .closeButton {
   top: 0;
-
-  [dir='ltr'] & {
-    right: 0;
-  }
-
-  [dir='rtl'] & {
-    left: 0;
-  }
+  inset-inline-end: 0;
 }
 
 .modal {
@@ -92,14 +85,7 @@
 .title {
   font-size: var(--font--size--h1);
   font-weight: 300;
-
-  [dir='ltr'] & {
-    padding-right: calc(var(--square-button--size) + var(--spacing--s));
-  }
-
-  [dir='rtl'] & {
-    padding-left: calc(var(--square-button--size) + var(--spacing--s));
-  }
+  padding-inline-end: calc(var(--square-button--size) + var(--spacing--s));
 }
 
 .closeButton {

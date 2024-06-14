@@ -18,36 +18,16 @@
   }
 
   & + & {
-    [dir='ltr'] & {
-      border-left: none;
-    }
-
-    [dir='rtl'] & {
-      border-right: none;
-    }
+    border-inline-start: none;
   }
 
-  [dir='ltr'] & {
-    &:first-child {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-
-    &:last-child {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
+  &:first-child {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
   }
 
-  [dir='rtl'] & {
-    &:first-child {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-
-    &:last-child {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
+  &:last-child {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
   }
 }

@@ -24,10 +24,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
 .listContainer {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
 }
 
 .list {
@@ -61,23 +58,11 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   background-color: var(--color--background);
 
   &:first-child {
-    [dir='ltr'] & {
-      border-top-left-radius: inherit;
-    }
-
-    [dir='rtl'] & {
-      border-top-right-radius: inherit;
-    }
+    border-start-start-radius: inherit;
   }
 
   &:last-child {
-    [dir='ltr'] & {
-      border-top-right-radius: inherit;
-    }
-
-    [dir='rtl'] & {
-      border-top-left-radius: inherit;
-    }
+    border-start-end-radius: inherit;
   }
 }
 
@@ -97,11 +82,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   @include ellipsis;
 
   flex: 0 1 auto;
-  text-align: left;
-
-  [dir='rtl'] & {
-    text-align: right;
-  }
+  text-align: start;
 }
 
 .result {
@@ -163,26 +144,13 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
   .result &:first-child,
   .headerButton:first-child & {
-    [dir='ltr'] & {
-      padding-left: $row-padding-horizontal;
-      text-align: left;
-    }
-
-    [dir='rtl'] & {
-      padding-right: $row-padding-horizontal;
-      text-align: right;
-    }
+    text-align: start;
+    padding-inline-start: $row-padding-horizontal;
   }
 
   .result &:last-child,
   .headerButton:last-child & {
-    [dir='ltr'] & {
-      padding-right: $row-padding-horizontal;
-    }
-
-    [dir='rtl'] & {
-      padding-left: $row-padding-horizontal;
-    }
+    padding-inline-end: $row-padding-horizontal;
   }
 
   &:last-child {

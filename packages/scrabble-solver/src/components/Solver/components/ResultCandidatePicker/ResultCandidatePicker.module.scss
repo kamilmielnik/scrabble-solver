@@ -82,23 +82,11 @@
 .points {
   flex: 0 0 auto;
   font-weight: bold;
+  border-inline-end: var(--border);
 
-  [dir='ltr'] & {
-    border-right: var(--border);
-
-    @include media('<xs') {
-      border-right: none;
-      padding-right: var(--spacing--xs);
-    }
-  }
-
-  [dir='rtl'] & {
-    border-left: var(--border);
-
-    @include media('<xs') {
-      border-left: none;
-      padding-left: var(--spacing--xs);
-    }
+  @include media('<xs') {
+    border-inline-end: none;
+    padding-inline-end: var(--spacing--xs);
   }
 }
 
@@ -110,40 +98,21 @@
   text-align: center;
   white-space: pre-wrap;
 
-  [dir='ltr'] & {
-    @include media('<xs') {
-      padding: var(--spacing--m);
-      text-align: left;
-    }
-  }
-
-  [dir='rtl'] & {
-    @include media('<xs') {
-      padding: var(--spacing--m);
-      text-align: right;
-    }
+  @include media('<xs') {
+    padding: var(--spacing--m);
+    text-align: start;
   }
 }
 
 .iconContainer {
   flex: 0 0 auto;
   display: flex;
-
-  [dir='ltr'] & {
-    padding-right: var(--spacing--l);
-  }
-
-  [dir='rtl'] & {
-    padding-left: var(--spacing--l);
-  }
+  padding-inline-end: var(--spacing--l);
 }
 
 .spinnerContainer {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;

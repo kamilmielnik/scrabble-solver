@@ -12,13 +12,7 @@
 }
 
 .badge {
-  [dir='ltr'] & {
-    margin-left: var(--spacing--m);
-  }
-
-  [dir='rtl'] & {
-    margin-right: var(--spacing--m);
-  }
+  margin-inline-start: var(--spacing--m);
 }
 
 .character {

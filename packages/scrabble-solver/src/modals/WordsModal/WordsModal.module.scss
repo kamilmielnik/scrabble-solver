@@ -6,13 +6,7 @@
 }
 
 .badge {
-  [dir='ltr'] & {
-    margin-left: var(--spacing--m);
-  }
-
-  [dir='rtl'] & {
-    margin-right: var(--spacing--m);
-  }
+  margin-inline-start: var(--spacing--m);
 }
 
 .word {
@@ -37,12 +31,5 @@
 
   width: $size;
   height: $size;
-
-  [dir='ltr'] & {
-    margin-right: var(--spacing--s);
-  }
-
-  [dir='rtl'] & {
-    margin-left: var(--spacing--s);
-  }
+  margin-inline-end: var(--spacing--s);
 }

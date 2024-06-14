@@ -14,18 +14,9 @@
   justify-content: center;
   padding: var(--spacing--m);
   color: var(--color--foreground--secondary);
-
-  [dir='ltr'] & {
-    border-top-left-radius: var(--border--radius);
-    border-bottom-left-radius: var(--border--radius);
-    border-right: var(--border);
-  }
-
-  [dir='rtl'] & {
-    border-top-right-radius: var(--border--radius);
-    border-bottom-right-radius: var(--border--radius);
-    border-left: var(--border);
-  }
+  border-start-start-radius: var(--border--radius);
+  border-end-start-radius: var(--border--radius);
+  border-inline-end: var(--border);
 
   .error & {
     background-color: var(--color--red--light);

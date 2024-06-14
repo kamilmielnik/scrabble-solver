@@ -77,12 +77,5 @@
   flex: 1;
   font-size: var(--font--size--h3);
   transition: var(--transition);
-
-  [dir='ltr'] & {
-    text-align: left;
-  }
-
-  [dir='rtl'] & {
-    text-align: right;
-  }
+  text-align: start;
 }
