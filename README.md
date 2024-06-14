@@ -81,22 +81,12 @@ You can run Scrabble Solver on your machine - all you need is [Node.js](https://
 npx scrabble-solver@latest
 ```
 
-## Install
-
-```Shell
-npm install -g scrabble-solver
-
-# and then run anytime with:
-scrabble-solver
-```
-
 ## Uninstall
 
-```Shell
-npm uninstall -g scrabble-solver
+Dictionaries and logs are stored in `$HOME/.scrabble-solver`.
+`$HOME` location is acquired using [`os.homedir()`](https://nodejs.org/api/os.html#oshomedir).
 
-# Logs and dictionaries are stored in $HOME/.scrabble-solver
-# $HOME location is acquired using os.homedir()
+```Shell
 rm -rf $HOME/.scrabble-solver
 ```
 
@@ -105,6 +95,8 @@ rm -rf $HOME/.scrabble-solver
 ### Setup
 
 ```Shell
+git clone https://github.com/kamilmielnik/scrabble-solver.git
+cd scrabble-solver
 npm install
 npm run build
 ```
