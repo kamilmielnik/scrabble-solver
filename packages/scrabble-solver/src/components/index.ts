@@ -2,7 +2,6 @@ export { default as Alert } from './Alert';
 export { default as Badge } from './Badge';
 export { default as Board } from './Board';
 export { default as Button } from './Button';
-export { default as Checkbox } from './Checkbox';
 export { default as Dictionary } from './Dictionary';
 export { default as DictionaryInput } from './DictionaryInput';
 export { default as EmptyState } from './EmptyState';
