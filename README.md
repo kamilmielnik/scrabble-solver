@@ -49,16 +49,15 @@
 
 1. [Dictionaries](#dictionaries)
 2. [Run](#run)
-3. [Install](#install)
-4. [Uninstall](#uninstall)
-5. [Develop](#develop)
+3. [Uninstall](#uninstall)
+4. [Develop](#develop)
     1. [Setup](#setup)
     2. [Run app dev server](#run-app-dev-server)
     3. [Rebuild a single package](#rebuild-a-single-package)
     4. [Add a new language](#add-a-new-language)
-6. [Tech stack](#tech-stack)
-7. [Related projects](#related-projects)
-8. [Media](#media)
+5. [Tech stack](#tech-stack)
+6. [Related projects](#related-projects)
+7. [Media](#media)
 
 ## Dictionaries
 
