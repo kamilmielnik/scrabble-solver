@@ -2,6 +2,14 @@ export type Comparator<T> = (a: T, B: T) => number;
 
 export type AutoGroupTiles = 'left' | 'right' | null;
 
+export type CellFilterType = 'include' | 'exclude' | null;
+
+export type CellFilterEntry = {
+  x: Point['x'];
+  y: Point['y'];
+  type: CellFilterType;
+};
+
 export type Direction = 'horizontal' | 'vertical';
 
 export type InputMode = 'keyboard' | 'touchscreen';

@@ -12,7 +12,7 @@ import { findWordDefinitions, solve, verify, visit } from 'sdk';
 import { initialize, reset } from './actions';
 import {
   selectBoard,
-  selectCellIsFiltered,
+  selectCellFilter,
   selectCharacters,
   selectConfig,
   selectDictionary,
@@ -56,10 +56,10 @@ export function* rootSaga(): AnyGenerator {
 }
 
 function* onCellValueChange({ payload }: PayloadAction<{ value: string; x: number; y: number }>): AnyGenerator {
-  const isFiltered = yield select((state) => selectCellIsFiltered(state, payload));
+  const filter = yield select((state) => selectCellFilter(state, payload));
 
-  if (isFiltered) {
-    yield put(cellFilterSlice.actions.toggle(payload));
+  if (filter) {
+    yield put(cellFilterSlice.actions.cancel(payload));
   }
 
   yield put(resultsSlice.actions.changeResultCandidate(null));

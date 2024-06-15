@@ -1,8 +1,9 @@
 import { Result } from '@scrabble-solver/types';
 
-import { Point } from 'types';
+import { CellFilterEntry } from 'types';
 
 import createRegExp from './createRegExp';
+import resultMatchesCellFilter from './resultMatchesCellFilter';
 
 interface GroupedResults {
   matching: Result[];
@@ -12,7 +13,7 @@ interface GroupedResults {
 const groupResults = (
   results: Result[] | undefined,
   query: string,
-  cellFilter: Point[],
+  cellFilter: CellFilterEntry[],
 ): GroupedResults | undefined => {
   if (typeof results === 'undefined') {
     return results;
@@ -23,12 +24,8 @@ const groupResults = (
   return results.reduce<GroupedResults>(
     (groupedResults, result) => {
       const matchesQuery = () => regExp.test(result.word);
-      const matchesCellFilter = () =>
-        cellFilter.every(({ x, y }) => {
-          return result.cells.some((cell) => cell.x === x && cell.y === y);
-        });
 
-      if (matchesCellFilter() && matchesQuery()) {
+      if (resultMatchesCellFilter(result, cellFilter) && matchesQuery()) {
         groupedResults.matching.push(result);
       } else {
         groupedResults.other.push(result);
