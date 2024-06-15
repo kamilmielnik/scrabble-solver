@@ -2,7 +2,7 @@ export type Comparator<T> = (a: T, B: T) => number;
 
 export type AutoGroupTiles = 'left' | 'right' | null;
 
-export type CellFilterType = 'include' | 'exclude' | null;
+export type CellFilterType = 'include' | 'exclude';
 
 export type CellFilterEntry = {
   x: Point['x'];
