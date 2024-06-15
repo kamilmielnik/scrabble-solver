@@ -1,4 +1,4 @@
-/* eslint-disable max-statements */
+/* eslint-disable max-lines, max-statements */
 
 import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 import { useMemo } from 'react';
