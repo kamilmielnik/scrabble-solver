@@ -146,10 +146,21 @@ const useBackgroundImage = () => {
           </symbol>
         </defs>
 
-        <rect fill="white" height={viewBoxHeight} rx={borderRadius} width={viewBoxWidth} x="0" y="0" />
+        {showCoordinates === 'hidden' && (
+          <rect fill="white" height={viewBoxHeight} rx={borderRadius} width={viewBoxWidth} x="0" y="0" />
+        )}
 
         {showCoordinates !== 'hidden' && (
           <>
+            <rect fill={COLOR_BACKGROUND} height={viewBoxHeight} rx={borderRadius} width={viewBoxWidth} x="0" y="0" />
+            <rect
+              fill="white"
+              height={viewBoxHeight - coordinatesSize}
+              width={viewBoxWidth - coordinatesSize}
+              x={direction === 'ltr' ? coordinatesSize : 0}
+              y={coordinatesSize}
+            />
+
             <rect fill={COLOR_BACKGROUND} height={coordinatesSize} rx={borderRadius} width={viewBoxWidth} x="0" y="0" />
             <rect
               fill={COLOR_BACKGROUND}
@@ -159,10 +170,10 @@ const useBackgroundImage = () => {
               y="0"
               width={coordinatesSize}
             />
-            <use href={`#${HORIZONTAL_LINE}`} y={coordinatesSize} />
+            <use href={`#${HORIZONTAL_LINE}`} y={coordinatesSize - BORDER_WIDTH} />
             <use
               href={`#${VERTICAL_LINE}`}
-              x={direction === 'ltr' ? coordinatesSize : viewBoxWidth - coordinatesSize - BORDER_WIDTH}
+              x={direction === 'ltr' ? coordinatesSize - BORDER_WIDTH : viewBoxWidth - coordinatesSize - BORDER_WIDTH}
             />
           </>
         )}
