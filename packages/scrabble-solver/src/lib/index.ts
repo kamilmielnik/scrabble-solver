@@ -32,6 +32,7 @@ export { default as isUpperCase } from './isUpperCase';
 export { default as memoize } from './memoize';
 export { default as noop } from './noop';
 export { default as numberComparator } from './numberComparator';
+export { default as resultMatchesCellFilter } from './resultMatchesCellFilter';
 export { default as reverseComparator } from './reverseComparator';
 export { default as sortResults } from './sortResults';
 export { default as unorderedArraysEqual } from './unorderedArraysEqual';

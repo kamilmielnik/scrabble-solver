@@ -7,16 +7,9 @@ import { Provider } from 'react-redux';
 
 import { useAppLayout, useMediaQueries } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
-import { FlagFill, Star } from 'icons';
+import { Star } from 'icons';
 import { dataUrlToBlob, getTileSizes } from 'lib';
-import {
-  BORDER_COLOR_LIGHT,
-  BORDER_RADIUS,
-  BORDER_WIDTH,
-  COLOR_BACKGROUND,
-  COLOR_BONUS_START,
-  COLOR_FILTERED,
-} from 'parameters';
+import { BORDER_COLOR_LIGHT, BORDER_RADIUS, BORDER_WIDTH, COLOR_BACKGROUND, COLOR_BONUS_START } from 'parameters';
 import { selectConfig, selectLocale, selectShowCoordinates, store, useTypedSelector } from 'state';
 import { Point } from 'types';
 
@@ -30,7 +23,6 @@ const BONUS = 'b';
 const BONUS_WORD_2 = 'b2';
 const BONUS_WORD_3 = 'b3';
 const BONUS_WORD_4 = 'b4';
-const CELL_FILTER = 'c';
 
 const useBackgroundImage = () => {
   const { boardSize, cellSize, coordinatesSize } = useAppLayout();
@@ -131,19 +123,6 @@ const useBackgroundImage = () => {
               x4
             </text>
           </symbol>
-
-          <symbol id={CELL_FILTER}>
-            <rect
-              fill={COLOR_FILTERED}
-              height={bonusSize}
-              rx={borderRadius}
-              width={bonusSize}
-              x={bonusOffset}
-              y={bonusOffset}
-            />
-
-            <FlagFill color="white" height={iconSize} width={iconSize} x={iconOffset} y={iconOffset} />
-          </symbol>
         </defs>
 
         {showCoordinates === 'hidden' && (
@@ -230,7 +209,7 @@ const useBackgroundImage = () => {
     </Provider>,
   );
 
-  const encodedSvg = globalThis.btoa(backgroundSvg);
+  const encodedSvg = useMemo(() => globalThis.btoa(backgroundSvg), [backgroundSvg]);
   const dataUrl = `data:image/svg+xml;base64,${encodedSvg}`;
   const blob = useMemo(() => dataUrlToBlob(dataUrl), [dataUrl]);
   const blobUrl = useMemo(() => URL.createObjectURL(blob), [blob]);

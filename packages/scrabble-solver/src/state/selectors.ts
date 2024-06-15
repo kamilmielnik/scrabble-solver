@@ -12,6 +12,7 @@ import {
   getRemainingTiles,
   getRemainingTilesGroups,
   groupResults,
+  resultMatchesCellFilter,
   sortResults,
   unorderedArraysEqual,
 } from 'lib';
@@ -75,8 +76,8 @@ export const selectConfig = createSelector([selectGame, selectLocale], getConfig
 
 export const selectFilteredCells = selectCellFilterRoot;
 
-export const selectCellIsFiltered = createSelector([selectFilteredCells, selectPoint], (cellFilter, { x, y }) => {
-  return cellFilter.some((cell) => cell.x === x && cell.y === y);
+export const selectCellFilter = createSelector([selectFilteredCells, selectPoint], (cellFilter, { x, y }) => {
+  return cellFilter.find((cell) => cell.x === x && cell.y === y);
 });
 
 export const selectCellIsValid = createSelector([selectConfig, selectCell], (config, cell) => {
@@ -106,7 +107,7 @@ export const selectResults = createSelector([selectGroupedResults], (groupedResu
 
 export const selectIsResultMatching = createSelector(
   [selectResults, selectResultsQuery, selectFilteredCells, selectResultIndex],
-  (results, query, filteredCells, index) => {
+  (results, query, cellFilter, index) => {
     if (!results) {
       return false;
     }
@@ -118,11 +119,7 @@ export const selectIsResultMatching = createSelector(
       return false;
     }
 
-    if (filteredCells) {
-      return filteredCells.every(({ x, y }) => result.cells.some((cell) => cell.x === x && cell.y === y));
-    }
-
-    return true;
+    return resultMatchesCellFilter(result, cellFilter);
   },
 );
 

@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 import { Config, Locale } from '@scrabble-solver/types';
 
 import { literaki, scrabble, superScrabble } from '../games';

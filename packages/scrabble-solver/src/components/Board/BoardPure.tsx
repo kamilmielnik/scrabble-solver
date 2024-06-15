@@ -12,10 +12,10 @@ import {
   memo,
 } from 'react';
 
-import { FlagFill } from 'icons';
+import { Ban, FlagFill } from 'icons';
 import { getCoordinate } from 'lib';
 import { BORDER_WIDTH } from 'parameters';
-import { Point } from 'types';
+import { CellFilterEntry } from 'types';
 
 import styles from './Board.module.scss';
 import { Cell } from './components';
@@ -26,7 +26,7 @@ interface Props {
   coordinatesFontSize: number;
   coordinatesSize: number;
   direction: 'ltr' | 'rtl';
-  filteredCells: Point[];
+  filteredCells: CellFilterEntry[];
   inputRefs: RefObject<HTMLInputElement>[][];
   rows: CellModel[][];
   showCoordinates: ShowCoordinates;
@@ -87,22 +87,30 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
         </>
       )}
 
-      {filteredCells.map(({ x, y }) => (
-        <div
-          className={styles.iconContainer}
-          key={[x, y].join('-')}
-          style={{
-            height: cellSize,
-            width: cellSize,
-            left: direction === 'ltr' ? coordinatesSize + x * (cellSize + BORDER_WIDTH) : undefined,
-            right: direction === 'rtl' ? coordinatesSize + x * (cellSize + BORDER_WIDTH) : undefined,
-            top: coordinatesSize + y * (cellSize + BORDER_WIDTH),
-          }}
-        >
-          <div className={styles.iconBackground} />
-          <FlagFill className={styles.icon} />
-        </div>
-      ))}
+      {/* The dynamic changes to the board presentation need to be outside of useBackgroundImage
+        to prevent flickering on blob URL change (i.e. when flagging a field,
+        but not when changing game type since user's attention is not on the board
+        when that happens)*/}
+      {filteredCells.map(({ x, y, type }) => {
+        const Icon = type === 'exclude' ? Ban : FlagFill;
+
+        return (
+          <div
+            className={styles.iconContainer}
+            key={[x, y].join('-')}
+            style={{
+              height: cellSize,
+              width: cellSize,
+              left: direction === 'ltr' ? coordinatesSize + BORDER_WIDTH + x * (cellSize + BORDER_WIDTH) : undefined,
+              right: direction === 'rtl' ? coordinatesSize + BORDER_WIDTH + x * (cellSize + BORDER_WIDTH) : undefined,
+              top: coordinatesSize + BORDER_WIDTH + y * (cellSize + BORDER_WIDTH),
+            }}
+          >
+            <div className={styles.iconBackground} />
+            <Icon className={styles.icon} />
+          </div>
+        );
+      })}
 
       {rows.map((cells, y) => (
         <Fragment key={y}>

@@ -2,6 +2,7 @@ export { default as ArrowDown } from './ArrowDown.svg';
 export { default as ArrowLeft } from './ArrowLeft.svg';
 export { default as ArrowRight } from './ArrowRight.svg';
 export { default as ArrowUp } from './ArrowUp.svg';
+export { default as Ban } from './Ban.svg';
 export { default as BookHalf } from './BookHalf.svg';
 export { default as CardChecklist } from './CardChecklist.svg';
 export { default as Check } from './Check.svg';
