@@ -7,7 +7,7 @@ import getCoordinatesColumn from './getCoordinatesColumn';
 import getLocaleColumns from './getLocaleColumns';
 import { Column } from './types';
 
-const COLUMNS_XS = [ResultColumn.Word, ResultColumn.Points];
+const COLUMNS_XS = [ResultColumn.Coordinates, ResultColumn.Word, ResultColumn.Points];
 
 const COLUMNS_S = [...COLUMNS_XS, ResultColumn.BlanksCount, ResultColumn.WordsCount];
 
