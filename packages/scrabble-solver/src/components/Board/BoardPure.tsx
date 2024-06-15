@@ -87,6 +87,10 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
         </>
       )}
 
+      {/* The dynamic changes to the board presentation need to be outside of useBackgroundImage
+        to prevent flickering on blob URL change (i.e. when flagging a field,
+        but not when changing game type since user's attention is not on the board
+        when that happens)*/}
       {filteredCells.map(({ x, y }) => (
         <div
           className={styles.iconContainer}
@@ -94,9 +98,9 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
           style={{
             height: cellSize,
             width: cellSize,
-            left: direction === 'ltr' ? coordinatesSize + x * (cellSize + BORDER_WIDTH) : undefined,
-            right: direction === 'rtl' ? coordinatesSize + x * (cellSize + BORDER_WIDTH) : undefined,
-            top: coordinatesSize + y * (cellSize + BORDER_WIDTH),
+            left: direction === 'ltr' ? coordinatesSize + BORDER_WIDTH + x * (cellSize + BORDER_WIDTH) : undefined,
+            right: direction === 'rtl' ? coordinatesSize + BORDER_WIDTH + x * (cellSize + BORDER_WIDTH) : undefined,
+            top: coordinatesSize + BORDER_WIDTH + y * (cellSize + BORDER_WIDTH),
           }}
         >
           <div className={styles.iconBackground} />
