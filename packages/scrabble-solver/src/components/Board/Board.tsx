@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
-import { TRANSITION } from 'parameters';
+import { BORDER_WIDTH, TRANSITION } from 'parameters';
 import {
   boardSlice,
   cellFilterSlice,
@@ -176,8 +176,8 @@ const Board: FunctionComponent<Props> = ({ className }) => {
           ref={floatingFocus.refs.setFloating}
           style={{
             position: floatingFocus.strategy,
-            top: floatingFocus.y ? floatingFocus.y + cellSize : 0,
-            left: floatingFocus.x ?? 0,
+            top: (floatingFocus.y ? floatingFocus.y + cellSize : 0) - (showCoordinates === 'hidden' ? 0 : BORDER_WIDTH),
+            left: (floatingFocus.x ?? 0) - (showCoordinates === 'hidden' ? 0 : BORDER_WIDTH),
             width: cellSize,
             height: cellSize,
             opacity: hasFocus ? 1 : 0,
