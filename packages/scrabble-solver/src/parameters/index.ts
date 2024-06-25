@@ -6,7 +6,6 @@ export const BREAKPOINTS = {
   xl: 1400,
 };
 
-export const EASE_OUT_CUBIC = 'cubic-bezier(0.33, 1, 0.68, 1)'; // https://easings.net/#easeOutCubic
 export const TRANSITION = 'var(--transition)';
 
 export const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';
@@ -128,11 +127,3 @@ export const RESULTS_HEADER_HEIGHT = RESULTS_ITEM_HEIGHT;
 export const SOLVER_COLUMN_WIDTH = 580;
 
 export const TEXT_INPUT_HEIGHT = 40;
-
-export const TILE_APPEAR_DURATION = 200;
-
-export const TILE_APPEAR_KEYFRAMES = [
-  { transform: 'translateY(0)' },
-  { transform: 'translateY(10%)', offset: 0.5 },
-  { transform: 'translateY(0)' },
-];

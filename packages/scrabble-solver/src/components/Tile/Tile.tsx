@@ -9,14 +9,12 @@ import {
   Ref,
   TouchEventHandler,
   useCallback,
-  useEffect,
   useMemo,
   useRef,
 } from 'react';
 
 import { useAppLayout } from 'hooks';
 import { getTileSizes, noop } from 'lib';
-import { EASE_OUT_CUBIC, TILE_APPEAR_DURATION, TILE_APPEAR_KEYFRAMES } from 'parameters';
 import { selectLocale, useTypedSelector } from 'state';
 
 import TilePure from './TilePure';
@@ -65,7 +63,7 @@ const Tile: FunctionComponent<Props> = ({
   onTouchStart = noop,
 }) => {
   const locale = useTypedSelector(selectLocale);
-  const { animateTile, showTilePoints } = useAppLayout();
+  const { showTilePoints } = useAppLayout();
   const { pointsFontSize, tileSize } = getTileSizes(size);
   const style = useMemo(() => ({ height: tileSize, width: tileSize }), [tileSize]);
   const pointsStyle = useMemo(() => ({ fontSize: pointsFontSize }), [pointsFontSize]);
@@ -82,18 +80,6 @@ const Tile: FunctionComponent<Props> = ({
     },
     [onKeyDown],
   );
-
-  useEffect(() => {
-    if (!ref.current?.parentElement || !character || !animateTile) {
-      return;
-    }
-
-    ref.current.parentElement.animate(TILE_APPEAR_KEYFRAMES, {
-      duration: TILE_APPEAR_DURATION,
-      easing: EASE_OUT_CUBIC,
-      fill: 'forwards',
-    });
-  }, [character, animateTile]);
 
   return (
     <TilePure

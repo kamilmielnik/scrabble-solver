@@ -71,7 +71,6 @@ const useAppLayout = () => {
 
   return {
     actionsWidth: 2 * BUTTON_HEIGHT - BORDER_WIDTH,
-    animateTile: !isLessThanXs,
     boardSize,
     cellSize,
     coordinatesFontSize: coordinatesSize * 0.6,

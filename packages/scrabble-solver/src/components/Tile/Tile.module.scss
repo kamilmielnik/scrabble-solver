@@ -13,8 +13,6 @@
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
-  transition: var(--transition);
-  transition-property: background-color, color, box-shadow;
   user-select: none;
 
   @include media('<xs') {
