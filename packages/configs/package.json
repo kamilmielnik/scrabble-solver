@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/configs",
-  "version": "2.13.8",
+  "version": "2.13.9",
   "description": "Scrabble Solver 2 - Configs",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -23,8 +23,8 @@
     "clean": "rimraf build/"
   },
   "dependencies": {
-    "@scrabble-solver/constants": "^2.13.8",
-    "@scrabble-solver/types": "^2.13.8"
+    "@scrabble-solver/constants": "^2.13.9",
+    "@scrabble-solver/types": "^2.13.9"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }
