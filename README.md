@@ -80,6 +80,8 @@ You can run Scrabble Solver on your machine - all you need is [Node.js](https://
 npx scrabble-solver@latest
 ```
 
+Hit <kbd>Ctrl</kbd> + <kbd>C</kbd> in your terminal to exit the app.
+
 ## Uninstall
 
 Dictionaries and logs are stored in `$HOME/.scrabble-solver`.
@@ -91,7 +93,11 @@ rm -rf $HOME/.scrabble-solver
 
 ## Develop
 
+These steps are required only if you want to make changes to the source code.
+
 ### Setup
+
+One-time project setup.
 
 ```Shell
 git clone https://github.com/kamilmielnik/scrabble-solver.git
@@ -102,20 +108,23 @@ npm run build
 
 ### Run app dev server
 
-```Shell
-npm run dev -w @scrabble-solver/scrabble-solver
-```
-
-or
+The following command will serve the app at http://localhost:3000/.
 
 ```Shell
-cd packages/scrabble-solver
 npm run dev
 ```
 
-Note: hot code reload works only for the [`scrabble-solver`](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver) package.
+Note: hot code reload works only for the [`scrabble-solver`](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver) package. If you make changes to any other package, you will need to rebuild it ([see below](#rebuild-a-single-package)).
+
+### Rebuild the entire project
+
+```Shell
+npm run build
+```
 
 ### Rebuild a single package
+
+For convenience, here's a list of commands to rebuild every package individually.
 
 ```Shell
 npm run build -w @scrabble-solver/configs

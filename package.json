@@ -36,6 +36,7 @@
   "scripts": {
     "build": "npm run build -w packages",
     "clean": "npm run clean -w packages && rimraf node_modules/",
+    "dev": "npm run dev -w @scrabble-solver/scrabble-solver",
     "lint": "eslint packages/*",
     "lint:fix": "npm run lint -- --fix",
     "prettier": "prettier --check './**/*.{js,ts,tsx,scss}'",
