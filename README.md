@@ -6,19 +6,19 @@
   </p>
 
   <p>
-    Free, open-source, and cross-platform analysis tool for <a href="https://en.wikipedia.org/wiki/Scrabble">Scrabble</a>, <a href="https://en.wikipedia.org/wiki/Super_Scrabble">Super Scrabble</a> &amp; <a href="https://pl.wikipedia.org/wiki/Literaki">Literaki</a>.
+    Free, open-source, and cross-platform analysis tool for <a href="https://en.wikipedia.org/wiki/Scrabble">Scrabble</a>, <a href="https://en.wikipedia.org/wiki/Super_Scrabble">Super Scrabble</a> &amp; <a href="https://pl.wikipedia.org/wiki/Literaki">Literaki</a>
   </p>
 
   <p>
-    Quickly find top scoring words using given letters and board state.
+    Quickly find top scoring words using given board &amp; tiles
   </p>
 
   <p>
-    Available at <a href="https://scrabble-solver.org">https://scrabble-solver.org</a> in 8 languages.
+    Available at <a href="https://scrabble-solver.org">https://scrabble-solver.org</a> in 8 languages
   </p>
 
   <p>
-    Run it on your machine: <code>npx scrabble-solver@latest</code>
+    <a href="#run">Run</a> it on your machine: <code>npx scrabble-solver@latest</code>
   </p>
 
   <p>
@@ -87,7 +87,7 @@ npx scrabble-solver@latest
 
 Give it a while to install and download dictionaries. When it's done it will automatically open http://localhost:3333/ in your browser.
 
-Hit <kbd>Ctrl</kbd> + <kbd>C</kbd> in your terminal to exit the app.
+Hit <kbd>Ctrl</kbd> + <kbd>C</kbd> in your terminal to exit the app and shut down the server.
 
 ## Uninstall
 
