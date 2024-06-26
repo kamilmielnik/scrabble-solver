@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { FixedSizeList } from 'react-window';
+import { useDebounce } from 'use-debounce';
 
 import { useAppLayout, useLatest } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
@@ -32,6 +33,8 @@ interface Props {
   highlightedIndex?: number;
 }
 
+const IS_LOADING_DEBOUNCE = 100;
+
 const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIndex }) => {
   const translate = useTranslate();
   const { resultsHeight, resultsWidth } = useAppLayout();
@@ -39,6 +42,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
   const { direction } = LOCALE_FEATURES[locale];
   const results = useTypedSelector(selectResults);
   const isLoading = useTypedSelector(selectIsLoading);
+  const [isLoadingDebounced] = useDebounce(isLoading, IS_LOADING_DEBOUNCE);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const error = useTypedSelector(selectSolveError);
   const itemData = useMemo(() => ({ ...callbacks, highlightedIndex, results }), [callbacks, highlightedIndex, results]);
@@ -128,7 +132,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
 
       {showInput && <ResultsInput className={styles.input} />}
 
-      {isLoading && <Loading />}
+      {isLoadingDebounced && <Loading />}
     </div>
   );
 };
