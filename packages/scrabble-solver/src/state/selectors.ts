@@ -13,7 +13,6 @@ import {
   getRemainingTilesGroups,
   groupResults,
   resultMatchesCellFilter,
-  sortResults,
   unorderedArraysEqual,
 } from 'lib';
 import { Point, Translations } from 'types';
@@ -94,10 +93,8 @@ export const selectResultsQuery = createSelector([selectResultsRoot], (results) 
 
 export const selectResultsSort = createSelector([selectResultsRoot], (results) => results.sort);
 
-export const selectSortedResults = createSelector([selectResultsRaw, selectResultsSort, selectLocale], sortResults);
-
 export const selectGroupedResults = createSelector(
-  [selectSortedResults, selectResultsQuery, selectFilteredCells],
+  [selectResultsRaw, selectResultsSort, selectLocale, selectResultsQuery, selectFilteredCells],
   groupResults,
 );
 
