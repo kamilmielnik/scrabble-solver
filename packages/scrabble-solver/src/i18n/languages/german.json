@@ -1,6 +1,7 @@
 {
   "cell.enter-word": "Wort eingeben",
-  "cell.filter-cell": "Zielort",
+  "cell.filter-cell.exclude": "Ziel ausschließen",
+  "cell.filter-cell.include": "Ziel anvisieren",
   "cell.set-blank": "Als Blanko markieren",
   "cell.set-not-blank": "Nicht als Blanko markieren",
   "cell.tile.location": "Brett: Stein ({{x}}, {{y}})",

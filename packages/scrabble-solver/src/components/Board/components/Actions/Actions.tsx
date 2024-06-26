@@ -3,15 +3,16 @@ import { Cell } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import { forwardRef, HTMLProps, MouseEventHandler } from 'react';
 
-import { Ban, Cross, FlagFill, Keyboard, Square, SquareFill } from 'icons';
+import { Keyboard, Square, SquareFill } from 'icons';
 import { findCell } from 'lib';
 import { selectCellFilter, selectInputMode, selectResultCandidateCells, useTranslate, useTypedSelector } from 'state';
-import { CellFilterEntry, Direction } from 'types';
+import { Direction } from 'types';
 
 import Button from '../../../Button';
 import ToggleDirectionButton from '../ToggleDirectionButton';
 
 import styles from './Actions.module.scss';
+import { getNextCellFilter } from './lib';
 
 interface Props extends HTMLProps<HTMLDivElement> {
   cell: Cell;
@@ -33,6 +34,7 @@ const Actions = forwardRef<HTMLDivElement, Props>(
     const resultCandidateCells = useTypedSelector(selectResultCandidateCells);
     const isBlank = cell.tile.isBlank;
     const isEmpty = cell.tile.character === EMPTY_CELL || Boolean(findCell(resultCandidateCells, cell.x, cell.y));
+    const { Icon, labelTranslationKey } = getNextCellFilter(filter);
 
     // On iOS it helps with losing focus too early which makes Actions disappear
     const handleMouseDown: MouseEventHandler = (event) => event.preventDefault();
@@ -61,10 +63,10 @@ const Actions = forwardRef<HTMLDivElement, Props>(
 
         {isEmpty && (
           <Button
-            aria-label={translate('cell.filter-cell')}
+            aria-label={translate(labelTranslationKey)}
             className={classNames(styles.action)}
-            Icon={getNextFilterIcon(filter)}
-            tooltip={translate('cell.filter-cell')}
+            Icon={Icon}
+            tooltip={translate(labelTranslationKey)}
             onClick={onToggleFilterCell}
             onMouseDown={handleMouseDown}
           />
@@ -84,17 +86,5 @@ const Actions = forwardRef<HTMLDivElement, Props>(
     );
   },
 );
-
-const getNextFilterIcon = (filter: CellFilterEntry | undefined) => {
-  if (filter?.type === 'exclude') {
-    return Cross;
-  }
-
-  if (filter?.type === 'include') {
-    return Ban;
-  }
-
-  return FlagFill;
-};
 
 export default Actions;

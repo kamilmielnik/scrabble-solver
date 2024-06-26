@@ -1,6 +1,7 @@
 {
   "cell.enter-word": "کلمه را وارد کنید",
-  "cell.filter-cell": "مقصد",
+  "cell.filter-cell.exclude": "مقصد را حذف کنید",
+  "cell.filter-cell.include": "مقصد مورد نظر",
   "cell.set-blank": "علامت گذاری به عنوان خالی",
   "cell.set-not-blank": "علامت گذاری به عنوان غیر خالی",
   "cell.tile.location": "({{x}}، {{y}}) کاشی: صفحه",

@@ -1,6 +1,7 @@
 {
   "cell.enter-word": "Introducere cuvant",
-  "cell.filter-cell": "Destinatia",
+  "cell.filter-cell.exclude": "Excludeți destinația",
+  "cell.filter-cell.include": "Destinație țintă",
   "cell.set-blank": "Marcare camp liber",
   "cell.set-not-blank": "Marcare camp ocupat ",
   "cell.tile.location": "Tabla: camp ({{x}}, {{y}})",

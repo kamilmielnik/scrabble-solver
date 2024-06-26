@@ -1,6 +1,7 @@
 {
   "cell.enter-word": "Wprowadź słowo",
-  "cell.filter-cell": "Miejsce docelowe",
+  "cell.filter-cell.exclude": "Wyklucz miejsce",
+  "cell.filter-cell.include": "Miejsce docelowe",
   "cell.set-blank": "Oznacz jako blank",
   "cell.set-not-blank": "Oznacz jako nie blank",
   "cell.tile.location": "Plansza: płytka ({{x}}, {{y}})",

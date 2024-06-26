@@ -1,6 +1,7 @@
 {
   "cell.enter-word": "Enter word",
-  "cell.filter-cell": "Target destination",
+  "cell.filter-cell.exclude": "Exclude destination",
+  "cell.filter-cell.include": "Target destination",
   "cell.set-blank": "Mark it a blank",
   "cell.set-not-blank": "Mark it not a blank",
   "cell.tile.location": "Board: tile ({{x}}, {{y}})",

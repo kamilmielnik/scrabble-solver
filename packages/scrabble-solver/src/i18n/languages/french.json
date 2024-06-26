@@ -1,6 +1,7 @@
 {
   "cell.enter-word": "Entrez un mot",
-  "cell.filter-cell": "Destination cible",
+  "cell.filter-cell.exclude": "Exclure la destination",
+  "cell.filter-cell.include": "Destination cible",
   "cell.set-blank": "Marquer comme vide",
   "cell.set-not-blank": "Marquer comme non vide",
   "cell.tile.location": "Plateau: la case ({{x}}, {{y}})",

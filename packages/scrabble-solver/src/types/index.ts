@@ -57,7 +57,8 @@ export enum ResultColumn {
 }
 export type TranslationKey =
   | 'cell.enter-word'
-  | 'cell.filter-cell'
+  | 'cell.filter-cell.exclude'
+  | 'cell.filter-cell.include'
   | 'cell.set-blank'
   | 'cell.set-not-blank'
   | 'cell.toggle-direction'
