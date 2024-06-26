@@ -18,6 +18,10 @@
   </p>
 
   <p>
+    Run it on your machine: <code>npx scrabble-solver@latest</code>
+  </p>
+
+  <p>
     <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1ec-1f1e7.svg" alt="Flag of United Kingdom" title="English (GB)" />
     <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1fa-1f1f8.svg" alt="Flag of United States" title="English (US)" />
     <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1eb-1f1f7.svg" alt="Flag of France" title="French" />
@@ -53,8 +57,9 @@
 4. [Develop](#develop)
     1. [Setup](#setup)
     2. [Run app dev server](#run-app-dev-server)
-    3. [Rebuild a single package](#rebuild-a-single-package)
-    4. [Add a new language](#add-a-new-language)
+    3. [Rebuild the entire project](#rebuild-the-entire-project)
+    4. [Rebuild a single package](#rebuild-a-single-package)
+    5. [Add a new language](#add-a-new-language)
 5. [Tech stack](#tech-stack)
 6. [Related projects](#related-projects)
 7. [Media](#media)
@@ -79,6 +84,8 @@ You can run Scrabble Solver on your machine - all you need is [Node.js](https://
 ```Shell
 npx scrabble-solver@latest
 ```
+
+Give it a while to install and download dictionaries. When it's done it will automatically open http://localhost:3333/ in your browser.
 
 Hit <kbd>Ctrl</kbd> + <kbd>C</kbd> in your terminal to exit the app.
 
