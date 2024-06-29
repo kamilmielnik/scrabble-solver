@@ -11,8 +11,8 @@ interface ConfigJson {
   bonuses: BonusJson[];
   game: Game;
   locale: Locale;
-  rackSize: number;
   name: string;
+  rackSize: number;
   tiles: TileConfig[];
 }
 
