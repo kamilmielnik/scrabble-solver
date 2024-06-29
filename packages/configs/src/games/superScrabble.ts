@@ -7,8 +7,8 @@ const superScrabble = {
   blanksCount: 4,
   boardSize: 21,
   game: Game.SuperScrabble,
-  maximumCharactersCount: 7,
   name: 'Super Scrabble',
+  rackSize: 7,
   bonuses: [
     { multiplier: 4, type: BONUS_WORD, x: 0, y: 0 },
     { multiplier: 2, type: BONUS_CHARACTER, x: 3, y: 0 },

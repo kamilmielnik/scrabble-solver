@@ -7,7 +7,7 @@ const board = Board.fromStringArray([' t ', 'do ', '   ']);
 
 const config = {
   boardSize: 3,
-  maximumCharactersCount: 7,
+  rackSize: 7,
 } as Config;
 
 describe('generateHorizontalPatterns', () => {

@@ -104,8 +104,8 @@ class Config {
     return typeof this.getTwoCharacterTileByPrefix(character) !== 'undefined';
   }
 
-  public get maximumCharactersCount(): number {
-    return this.config.maximumCharactersCount;
+  public get rackSize(): number {
+    return this.config.rackSize;
   }
 
   public get tiles(): TileConfig[] {

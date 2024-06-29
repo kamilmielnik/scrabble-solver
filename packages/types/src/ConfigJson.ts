@@ -11,7 +11,7 @@ interface ConfigJson {
   bonuses: BonusJson[];
   game: Game;
   locale: Locale;
-  maximumCharactersCount: number;
+  rackSize: number;
   name: string;
   tiles: TileConfig[];
 }

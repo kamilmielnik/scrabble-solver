@@ -7,8 +7,8 @@ const scrabble = {
   blanksCount: 2,
   boardSize: 15,
   game: Game.Scrabble,
-  maximumCharactersCount: 7,
   name: 'Scrabble',
+  rackSize: 7,
   bonuses: [
     { multiplier: 3, type: BONUS_WORD, x: 0, y: 0 },
     { multiplier: 2, type: BONUS_CHARACTER, x: 3, y: 0 },

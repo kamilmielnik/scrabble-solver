@@ -39,7 +39,7 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
       (event) => {
         event.preventDefault();
         const charactersByCase = extractCharactersByCase(config, value);
-        const characters = Array.from({ length: config.maximumCharactersCount }, (_, index) => {
+        const characters = Array.from({ length: config.rackSize }, (_, index) => {
           return typeof charactersByCase[index] === 'string' ? charactersByCase[index] : null;
         });
         dispatch(rackSlice.actions.changeCharacters({ characters, index: 0 }));

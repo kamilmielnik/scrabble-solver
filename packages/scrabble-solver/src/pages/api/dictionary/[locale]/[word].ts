@@ -13,10 +13,7 @@ interface RequestData {
   words: string[];
 }
 
-const MAXIMUM_COLLISIONS_COUNT = Object.values(games).reduce(
-  (result, game) => Math.max(result, game.maximumCharactersCount),
-  0,
-);
+const MAXIMUM_COLLISIONS_COUNT = Object.values(games).reduce((result, game) => Math.max(result, game.rackSize), 0);
 const MAXIMUM_WORDS_COUNT = MAXIMUM_COLLISIONS_COUNT + 1;
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {

@@ -7,8 +7,8 @@ const literaki = {
   blanksCount: 2,
   boardSize: 15,
   game: Game.Literaki,
-  maximumCharactersCount: 7,
   name: 'Literaki',
+  rackSize: 7,
   bonuses: [
     { multiplier: 3, score: 5, type: BONUS_CHARACTER, x: 0, y: 0 },
     { multiplier: 3, type: BONUS_WORD, x: 2, y: 0 },

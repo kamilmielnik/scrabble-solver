@@ -15,7 +15,7 @@ class Pattern {
 
   public canBePlaced(config: Config): boolean {
     const emptyCellsCount = this.getEmptyCellsCount();
-    const isUsedCellsCountInRange = emptyCellsCount >= 1 && emptyCellsCount <= config.maximumCharactersCount;
+    const isUsedCellsCountInRange = emptyCellsCount >= 1 && emptyCellsCount <= config.rackSize;
     return (
       isUsedCellsCountInRange &&
       (this.hasAtLeast1NonEmptyCell() || this.collides() || (this.goesThroughBoardCenter() && this.board.isEmpty()))

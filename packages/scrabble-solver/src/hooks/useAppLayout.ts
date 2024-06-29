@@ -39,7 +39,7 @@ const useAppLayout = () => {
   const solverHeight = viewportHeight - navHeight;
   const solverWidth = viewportWidth;
   const maxBoardWidth = solverWidth - columnWidth - (showColumn ? componentsSpacing : 0) - 2 * componentsSpacing;
-  const tileSize = Math.min((maxBoardWidth - 2 * BORDER_WIDTH) / config.maximumCharactersCount, RACK_TILE_SIZE_MAX);
+  const tileSize = Math.min((maxBoardWidth - 2 * BORDER_WIDTH) / config.rackSize, RACK_TILE_SIZE_MAX);
   const candidatePickerHeight = showResultCandidatePicker ? BUTTON_HEIGHT + componentsSpacing : 0;
   const bottomContainerHeight = candidatePickerHeight + tileSize + 2 * componentsSpacing;
   const maxBoardHeight = isBoardFullWidth
@@ -60,14 +60,14 @@ const useAppLayout = () => {
     (cellSize + BORDER_WIDTH) * config.boardSize +
     BORDER_WIDTH +
     (showCoordinates === 'hidden' ? 0 : coordinatesSize + BORDER_WIDTH);
-  const maxControlsWidth = tileSize * config.maximumCharactersCount + 2 * BORDER_WIDTH;
+  const maxControlsWidth = tileSize * config.rackSize + 2 * BORDER_WIDTH;
   const showResultsInModal = isLessThanL;
   const dictionaryHeight = showResultsInModal ? DICTIONARY_HEIGHT_MOBILE : DICTIONARY_HEIGHT;
   const modalWidth = isLessThanS ? viewportWidth : MODAL_WIDTH;
   const resultsHeight = isLessThanL
     ? viewportHeight - dictionaryHeight - BUTTON_HEIGHT - MODAL_HEADER_HEIGHT - 5 * componentsSpacing
     : boardSize - componentsSpacing - dictionaryHeight;
-  const rackWidth = tileSize * config.maximumCharactersCount;
+  const rackWidth = tileSize * config.rackSize;
 
   return {
     actionsWidth: 2 * BUTTON_HEIGHT - BORDER_WIDTH,
