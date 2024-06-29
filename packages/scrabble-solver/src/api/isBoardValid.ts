@@ -3,7 +3,7 @@ import { BoardJson, CellJson, Config } from '@scrabble-solver/types';
 import isRowValid from './isRowValid';
 
 const isBoardValid = (board: BoardJson, config: Config): boolean => {
-  if (board.length !== config.boardHeight) {
+  if (board.length !== config.boardSize) {
     return false;
   }
 

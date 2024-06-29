@@ -2,14 +2,13 @@ import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 import { Game } from '@scrabble-solver/types';
 
 const scrabble = {
-  allTilesBonusScore: 50,
+  bingoScore: 50,
   blankScore: 0,
   blanksCount: 2,
-  boardHeight: 15,
-  boardWidth: 15,
+  boardSize: 15,
   game: Game.Scrabble,
-  maximumCharactersCount: 7,
   name: 'Scrabble',
+  rackSize: 7,
   bonuses: [
     { multiplier: 3, type: BONUS_WORD, x: 0, y: 0 },
     { multiplier: 2, type: BONUS_CHARACTER, x: 3, y: 0 },

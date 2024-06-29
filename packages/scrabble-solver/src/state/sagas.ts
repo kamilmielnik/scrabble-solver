@@ -123,7 +123,7 @@ function* onInitialize(): AnyGenerator {
 function* onReset(): AnyGenerator {
   const config = yield select(selectConfig);
 
-  yield put(boardSlice.actions.init(Board.create(config.boardWidth, config.boardHeight)));
+  yield put(boardSlice.actions.init(Board.create(config.boardSize)));
   yield put(cellFilterSlice.actions.reset());
   yield put(dictionarySlice.actions.reset());
   yield put(rackSlice.actions.reset());
@@ -214,12 +214,12 @@ function* ensureProperTilesCount(): AnyGenerator {
   const { config } = yield select(selectConfig);
   const rack = yield select(selectRack);
 
-  if (config.maximumCharactersCount > rack.length) {
-    const differenceCount = Math.abs(config.maximumCharactersCount - rack.length);
+  if (config.rackSize > rack.length) {
+    const differenceCount = Math.abs(config.rackSize - rack.length);
     yield put(rackSlice.actions.init([...rack, ...Array(differenceCount).fill(null)]));
-  } else if (config.maximumCharactersCount < rack.length) {
-    const nonNulls = rack.filter(Boolean).slice(0, config.maximumCharactersCount);
-    const differenceCount = Math.abs(config.maximumCharactersCount - nonNulls.length);
+  } else if (config.rackSize < rack.length) {
+    const nonNulls = rack.filter(Boolean).slice(0, config.rackSize);
+    const differenceCount = Math.abs(config.rackSize - nonNulls.length);
     const autoGroupTiles = yield select(selectLocaleAutoGroupTiles);
     yield put(rackSlice.actions.init([...nonNulls, ...Array(differenceCount).fill(null)]));
     yield put(rackSlice.actions.groupTiles(autoGroupTiles));

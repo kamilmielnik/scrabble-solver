@@ -6,9 +6,8 @@ import generateVerticalPatterns from './generateVerticalPatterns';
 const board = Board.fromStringArray([' t ', 'do ', '   ']);
 
 const config = {
-  boardHeight: 3,
-  boardWidth: 3,
-  maximumCharactersCount: 7,
+  boardSize: 3,
+  rackSize: 7,
 } as Config;
 
 describe('generateVerticalPatterns', () => {

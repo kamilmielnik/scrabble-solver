@@ -4,16 +4,15 @@ import Locale from './Locale';
 import TileConfig from './TileConfig';
 
 interface ConfigJson {
-  allTilesBonusScore: number;
+  bingoScore: number;
   blankScore: number;
   blanksCount: number;
-  boardHeight: number;
-  boardWidth: number;
+  boardSize: number;
   bonuses: BonusJson[];
   game: Game;
   locale: Locale;
-  maximumCharactersCount: number;
   name: string;
+  rackSize: number;
   tiles: TileConfig[];
 }
 

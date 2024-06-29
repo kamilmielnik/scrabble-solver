@@ -17,13 +17,11 @@ const useBoardStyle = () => {
       backgroundImage,
       fontSize: tileFontSize,
       gridTemplateColumns:
-        showCoordinates === 'hidden' ? `repeat(${config.boardWidth}, 1fr)` : `0.5fr repeat(${config.boardWidth}, 1fr)`,
+        showCoordinates === 'hidden' ? `repeat(${config.boardSize}, 1fr)` : `0.5fr repeat(${config.boardSize}, 1fr)`,
       gridTemplateRows:
-        showCoordinates === 'hidden'
-          ? `repeat(${config.boardHeight}, 1fr)`
-          : `0.5fr repeat(${config.boardHeight}, 1fr)`,
+        showCoordinates === 'hidden' ? `repeat(${config.boardSize}, 1fr)` : `0.5fr repeat(${config.boardSize}, 1fr)`,
     }),
-    [backgroundImage, config.boardHeight, config.boardWidth, tileFontSize],
+    [backgroundImage, config.boardSize, tileFontSize],
   );
 
   return boardStyle;

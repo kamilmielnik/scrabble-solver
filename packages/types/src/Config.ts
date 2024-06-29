@@ -28,12 +28,12 @@ class Config {
     this.pointsMap = getPointsMap(this.config);
   }
 
-  public get allTilesBonusScore(): number {
-    return this.config.allTilesBonusScore;
-  }
-
   public get alphabet(): string[] {
     return getAlphabet(this.config);
+  }
+
+  public get bingoScore(): number {
+    return this.config.bingoScore;
   }
 
   public get blankScore(): number {
@@ -44,12 +44,8 @@ class Config {
     return this.config.blanksCount;
   }
 
-  public get boardHeight(): number {
-    return this.config.boardHeight;
-  }
-
-  public get boardWidth(): number {
-    return this.config.boardWidth;
+  public get boardSize(): number {
+    return this.config.boardSize;
   }
 
   public get game(): Game {
@@ -108,8 +104,8 @@ class Config {
     return typeof this.getTwoCharacterTileByPrefix(character) !== 'undefined';
   }
 
-  public get maximumCharactersCount(): number {
-    return this.config.maximumCharactersCount;
+  public get rackSize(): number {
+    return this.config.rackSize;
   }
 
   public get tiles(): TileConfig[] {
