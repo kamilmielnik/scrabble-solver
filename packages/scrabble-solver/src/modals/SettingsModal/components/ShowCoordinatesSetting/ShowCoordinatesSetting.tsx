@@ -45,7 +45,7 @@ const ShowCoordinatesSetting: FunctionComponent<Props> = ({ className, disabled 
           className={styles.option}
           disabled={disabled}
           key={option.value}
-          name="inputMode"
+          name="showCoordinates"
           value={option.value}
           onChange={handleChange}
         >
