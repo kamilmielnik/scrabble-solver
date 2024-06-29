@@ -57,5 +57,5 @@ export const Arrows: FunctionComponent<Props> = ({ className, size }) => {
 export const Space: FunctionComponent<Props> = ({ className, size }) => {
   const translate = useTranslate();
 
-  return <Key className={className} size={size}>{`  ${translate('common.space')}  `}</Key>;
+  return <Key className={className} size={size}>{` ${translate('common.space')} `}</Key>;
 };
