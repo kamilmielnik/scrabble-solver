@@ -52,6 +52,8 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
 .headerButton {
   @include button-reset;
+  @include focus-effect;
+  cursor: pointer;
 
   text-transform: uppercase;
   transition: var(--transition);
@@ -64,12 +66,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   &:last-child {
     border-start-end-radius: inherit;
   }
-}
-
-.sortable {
-  @include focus-effect;
-
-  cursor: pointer;
 
   &:focus,
   &:hover {

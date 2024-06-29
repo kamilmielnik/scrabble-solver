@@ -100,7 +100,7 @@ export const selectGroupedResults = createSelector(
 );
 
 export const selectGroupedSortedResults = createSelector(
-  [selectGroupedResults, selectResultsSort, selectLocale],
+  [selectGroupedResults, selectResultsSort, selectLocale, selectShowCoordinates],
   sortGroupedResults,
 );
 

@@ -1,4 +1,4 @@
-import { Locale } from '@scrabble-solver/types';
+import { Locale, ShowCoordinates } from '@scrabble-solver/types';
 
 import { GroupedResults, Sort } from 'types';
 
@@ -8,14 +8,15 @@ const sortGroupedResults = (
   results: GroupedResults | undefined,
   sort: Sort,
   locale: Locale,
+  showCoordinates: ShowCoordinates,
 ): GroupedResults | undefined => {
   if (typeof results === 'undefined') {
     return results;
   }
 
   return {
-    matching: sortResults(results.matching, sort, locale) ?? [],
-    other: sortResults(results.other, sort, locale) ?? [],
+    matching: sortResults(results.matching, sort, locale, showCoordinates) ?? [],
+    other: sortResults(results.other, sort, locale, showCoordinates) ?? [],
   };
 };
 

@@ -7,7 +7,6 @@ export interface Column {
   className: string;
   id: ResultColumn;
   translationKey: TranslationKey;
-  sortable?: boolean;
 }
 
 export interface ResultCallbacks {
