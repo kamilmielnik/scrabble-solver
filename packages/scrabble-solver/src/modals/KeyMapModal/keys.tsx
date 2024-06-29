@@ -3,46 +3,32 @@ import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from 'icons';
 import { isMac } from 'lib';
 import { useTranslate } from 'state';
 
-export const ARROW_DOWN = (
-  <Key>
-    <ArrowLeft />
-  </Key>
-);
+export const Backspace = () => <Key>← Backspace</Key>;
 
-export const ARROW_LEFT = (
-  <Key>
-    <ArrowUp />
-  </Key>
-);
+export const Ctrl = () => <Key>{isMac() ? '⌘' : 'Ctrl'}</Key>;
 
-export const ARROW_RIGHT = (
-  <Key>
-    <ArrowRight />
-  </Key>
-);
+export const Del = () => <Key>Del</Key>;
 
-export const ARROW_UP = (
-  <Key>
-    <ArrowDown />
-  </Key>
-);
+export const Enter = () => <Key>Enter ⏎</Key>;
 
-export const BACKSPACE = <Key>← Backspace</Key>;
-
-export const CTRL = <Key>{isMac() ? '⌘' : 'Ctrl'}</Key>;
-
-export const DEL = <Key>Del</Key>;
-
-export const ENTER = <Key>Enter ⏎</Key>;
-
-export const ARROWS = (
-  <>
-    {ARROW_DOWN}
-    {ARROW_LEFT}
-    {ARROW_RIGHT}
-    {ARROW_UP}
-  </>
-);
+export const Arrows = ({ className, size = 'medium' }: { className?: string; size?: 'small' | 'medium' }) => {
+  return (
+    <div className={className}>
+      <Key size={size}>
+        <ArrowLeft />
+      </Key>
+      <Key size={size}>
+        <ArrowUp />
+      </Key>
+      <Key size={size}>
+        <ArrowRight />
+      </Key>
+      <Key size={size}>
+        <ArrowDown />
+      </Key>
+    </div>
+  );
+};
 
 export const Space = () => {
   const translate = useTranslate();

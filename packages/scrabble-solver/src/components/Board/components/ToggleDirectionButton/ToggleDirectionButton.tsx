@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { ButtonHTMLAttributes, FunctionComponent } from 'react';
+import { Arrows } from 'src/modals/KeyMapModal/keys';
 
 import { ArrowDown } from 'icons';
 import { useTranslate } from 'state';
@@ -25,7 +26,12 @@ const ToggleDirectionButton: FunctionComponent<Props> = ({ className, direction,
       iconClassName={classNames(styles.icon, {
         [styles.right]: direction === 'horizontal',
       })}
-      tooltip={translate('cell.toggle-direction')}
+      tooltip={
+        <>
+          {translate('cell.toggle-direction')}
+          <Arrows className={styles.arrows} size="small" />
+        </>
+      }
       {...props}
     />
   );

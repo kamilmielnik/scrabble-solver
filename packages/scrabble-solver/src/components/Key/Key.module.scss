@@ -5,6 +5,7 @@
   height: var(--key--height);
   padding: var(--spacing--s) var(--spacing--m);
   background-color: var(--color--white);
+  color: var(--color--foreground);
   border: var(--border);
   border-radius: var(--border--radius);
   box-shadow: var(--box-shadow);
@@ -24,5 +25,10 @@
     left: calc((var(--key--height) - var(--key--icon--size)) / 2 - var(--border--width));
     width: var(--key--icon--size);
     height: var(--key--icon--size);
+  }
+
+  &.small {
+    --key--icon-size: var(--key--icon--size--small);
+    --key--height: var(--key--height--small);
   }
 }

@@ -4,7 +4,7 @@ import { Key, Modal } from 'components';
 import { selectConfig, useTranslate, useTypedSelector } from 'state';
 
 import { Mapping } from './components';
-import { ARROWS, BACKSPACE, CTRL, DEL, ENTER, Space } from './keys';
+import { Arrows, Backspace, Ctrl, Del, Enter, Space } from './keys';
 
 interface Props {
   className?: string;
@@ -19,15 +19,18 @@ const KeyMapModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) =
   return (
     <Modal className={className} isOpen={isOpen} title={translate('keyMap')} onClose={onClose}>
       <Modal.Section title={translate('keyMap.board-and-rack')}>
-        <Mapping description={translate('keyMap.board-and-rack.navigate')} mapping={[ARROWS]} />
-        <Mapping description={translate('keyMap.board-and-rack.remove-tile')} mapping={[DEL, BACKSPACE]} />
-        <Mapping description={translate('keyMap.board-and-rack.submit')} mapping={[ENTER]} />
+        <Mapping description={translate('keyMap.board-and-rack.navigate')} mapping={[<Arrows key="arrows" />]} />
+        <Mapping
+          description={translate('keyMap.board-and-rack.remove-tile')}
+          mapping={[<Del key="del" />, <Backspace key="backspace" />]}
+        />
+        <Mapping description={translate('keyMap.board-and-rack.submit')} mapping={[<Enter key="del" />]} />
         {config.twoCharacterTiles.length > 0 && (
           <Mapping
             description={translate('keyMap.board-and-rack.insert-two-letter-tile')}
             mapping={[
               [
-                CTRL,
+                <Ctrl key="ctrl" />,
                 <>
                   {config.twoCharacterTiles.map(([firstLetter]) => (
                     <Key key={firstLetter}>{firstLetter.toUpperCase()}</Key>
@@ -41,7 +44,7 @@ const KeyMapModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) =
 
       <Modal.Section title={translate('keyMap.board')}>
         <Mapping description={translate('keyMap.board.toggle-blank')} mapping={[<Space key="space" />]} />
-        <Mapping description={translate('keyMap.board.toggle-direction')} mapping={[ARROWS]} />
+        <Mapping description={translate('keyMap.board.toggle-direction')} mapping={[<Arrows key="arrows" />]} />
       </Modal.Section>
 
       <Modal.Section title={translate('keyMap.rack')}>
