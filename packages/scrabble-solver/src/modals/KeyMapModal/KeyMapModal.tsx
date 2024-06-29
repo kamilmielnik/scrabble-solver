@@ -4,7 +4,7 @@ import { Key, Modal } from 'components';
 import { selectConfig, useTranslate, useTypedSelector } from 'state';
 
 import { Mapping } from './components';
-import { ARROWS, BACKSPACE, CTRL, DEL, ENTER, SPACE } from './keys';
+import { ARROWS, BACKSPACE, CTRL, DEL, ENTER, Space } from './keys';
 
 interface Props {
   className?: string;
@@ -40,12 +40,12 @@ const KeyMapModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) =
       </Modal.Section>
 
       <Modal.Section title={translate('keyMap.board')}>
-        <Mapping description={translate('keyMap.board.toggle-blank')} mapping={[SPACE, [CTRL, <Key key="b">B</Key>]]} />
+        <Mapping description={translate('keyMap.board.toggle-blank')} mapping={[<Space key="space" />]} />
         <Mapping description={translate('keyMap.board.toggle-direction')} mapping={[ARROWS]} />
       </Modal.Section>
 
       <Modal.Section title={translate('keyMap.rack')}>
-        <Mapping description={translate('keyMap.rack.insert-blank')} mapping={[SPACE]} />
+        <Mapping description={translate('keyMap.rack.insert-blank')} mapping={[<Space key="space" />]} />
       </Modal.Section>
     </Modal>
   );

@@ -12,7 +12,7 @@
   line-height: calc(var(--key--height) - 2 * (var(--spacing--s) + var(--border--width)));
   vertical-align: middle;
   text-align: center;
-  white-space: nowrap;
+  white-space: pre-wrap;
 
   & + & {
     margin-left: var(--spacing--xs);

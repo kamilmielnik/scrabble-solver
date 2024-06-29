@@ -1,6 +1,7 @@
 import { Key } from 'components';
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from 'icons';
 import { isMac } from 'lib';
+import { useTranslate } from 'state';
 
 export const ARROW_DOWN = (
   <Key>
@@ -43,4 +44,8 @@ export const ARROWS = (
   </>
 );
 
-export const SPACE = <Key>␣</Key>;
+export const Space = () => {
+  const translate = useTranslate();
+
+  return <Key>{`  ${translate('common.space')}  `}</Key>;
+};
