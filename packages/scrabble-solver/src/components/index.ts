@@ -22,4 +22,5 @@ export { default as SeoMessage } from './SeoMessage';
 export { default as Solver } from './Solver';
 export { default as Spinner } from './Spinner';
 export { default as Tile } from './Tile';
+export * from './keys';
 export * from './Tooltip';

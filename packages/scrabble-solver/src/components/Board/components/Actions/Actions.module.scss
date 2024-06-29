@@ -31,3 +31,8 @@
     border-end-start-radius: 0;
   }
 }
+
+.space {
+  display: inline-block;
+  margin-left: var(--spacing--m);
+}

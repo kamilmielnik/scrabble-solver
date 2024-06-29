@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import { ButtonHTMLAttributes, FunctionComponent } from 'react';
-import { Arrows } from 'src/modals/KeyMapModal/keys';
 
 import { ArrowDown } from 'icons';
 import { useTranslate } from 'state';
 import { Direction } from 'types';
 
 import Button from '../../../Button';
+import { Arrows } from '../../../keys';
 
 import styles from './ToggleDirectionButton.module.scss';
 

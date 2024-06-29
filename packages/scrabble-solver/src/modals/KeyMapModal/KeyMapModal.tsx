@@ -1,10 +1,9 @@
 import { FunctionComponent, memo } from 'react';
 
-import { Key, Modal } from 'components';
+import { Arrows, Backspace, Ctrl, Del, Enter, Key, Modal, Space } from 'components';
 import { selectConfig, useTranslate, useTypedSelector } from 'state';
 
 import { Mapping } from './components';
-import { Arrows, Backspace, Ctrl, Del, Enter, Space } from './keys';
 
 interface Props {
   className?: string;
