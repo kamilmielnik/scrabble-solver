@@ -9,6 +9,7 @@ import { selectCellFilter, selectInputMode, selectResultCandidateCells, useTrans
 import { Direction } from 'types';
 
 import Button from '../../../Button';
+import { Space } from '../../../keys';
 import ToggleDirectionButton from '../ToggleDirectionButton';
 
 import styles from './Actions.module.scss';
@@ -77,7 +78,12 @@ const Actions = forwardRef<HTMLDivElement, Props>(
             aria-label={isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
             className={styles.action}
             Icon={isBlank ? SquareFill : Square}
-            tooltip={isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
+            tooltip={
+              <>
+                {isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
+                <Space className={styles.space} size="small" />
+              </>
+            }
             onClick={onToggleBlank}
             onMouseDown={handleMouseDown}
           />

@@ -299,14 +299,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
         const { x, y } = position;
         const character = event.key.toLowerCase();
-        const isTogglingBlank = isCtrl(event) && character === 'b';
         const twoCharacterTile = config.getTwoCharacterTileByPrefix(character);
-
-        if (isTogglingBlank) {
-          event.preventDefault();
-          dispatch(boardSlice.actions.toggleCellIsBlank(position));
-          return;
-        }
 
         if (isCtrl(event) && twoCharacterTile) {
           event.preventDefault();

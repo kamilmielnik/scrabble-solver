@@ -58,7 +58,7 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --color--bonus--start: var(--color--violet--light);
   --color--bonus--word-multiplier--2: #fbc997;
   --color--bonus--word-multiplier--3: #f19393;
-  --color--tooltip--background: #222;
+  --color--tooltip--background: #444;
   --color--tooltip--foreground: var(--color--white);
 
   --font--family: system-ui, sans-serif;
@@ -101,7 +101,9 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --dictionary--height: 260px;
   --dictionary--height--mobile: 110px;
   --key--height: 36px;
+  --key--height--small: 26px;
   --key--icon--size: 16px;
+  --key--icon--size--small: 10px;
   --logo--height: 60px;
   --modal--width: 370px;
   --nav--height: calc(var(--logo--height) + var(--nav--padding));
@@ -110,7 +112,7 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --solver-column--width: 580px;
   --square-button--size: 32px;
   --text-input--height: 40px;
-  --tooltip--max-width: 360px;
+  --tooltip--max-width: 500px;
 
   @include media('<l') {
     --dictionary--height: var(--dictionary--height--mobile);

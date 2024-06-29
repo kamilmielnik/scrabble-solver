@@ -79,6 +79,7 @@ export type TranslationKey =
   | 'common.next'
   | 'common.points'
   | 'common.previous'
+  | 'common.space'
   | 'common.tiles'
   | 'common.two-letter-tiles'
   | 'common.vowels'

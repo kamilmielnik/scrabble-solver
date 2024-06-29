@@ -6,6 +6,7 @@ import { useTranslate } from 'state';
 import { Direction } from 'types';
 
 import Button from '../../../Button';
+import { Arrows } from '../../../keys';
 
 import styles from './ToggleDirectionButton.module.scss';
 
@@ -25,7 +26,12 @@ const ToggleDirectionButton: FunctionComponent<Props> = ({ className, direction,
       iconClassName={classNames(styles.icon, {
         [styles.right]: direction === 'horizontal',
       })}
-      tooltip={translate('cell.toggle-direction')}
+      tooltip={
+        <>
+          {translate('cell.toggle-direction')}
+          <Arrows className={styles.arrows} size="small" />
+        </>
+      }
       {...props}
     />
   );
