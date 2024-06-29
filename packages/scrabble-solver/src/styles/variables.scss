@@ -112,7 +112,7 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --solver-column--width: 580px;
   --square-button--size: 32px;
   --text-input--height: 40px;
-  --tooltip--max-width: 360px;
+  --tooltip--max-width: 500px;
 
   @include media('<l') {
     --dictionary--height: var(--dictionary--height--mobile);

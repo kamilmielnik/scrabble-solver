@@ -16,7 +16,7 @@
   white-space: pre-wrap;
 
   & + & {
-    margin-left: var(--spacing--xs);
+    margin-inline-start: var(--spacing--xs);
   }
 
   :global(svg) {
