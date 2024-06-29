@@ -1,3 +1,5 @@
+import { Result } from '@scrabble-solver/types';
+
 export type Comparator<T> = (a: T, B: T) => number;
 
 export type AutoGroupTiles = 'left' | 'right' | null;
@@ -55,6 +57,12 @@ export enum ResultColumn {
   Word = 'word',
   WordsCount = 'words-count',
 }
+
+export interface GroupedResults {
+  matching: Result[];
+  other: Result[];
+}
+
 export type TranslationKey =
   | 'cell.enter-word'
   | 'cell.filter-cell.exclude'

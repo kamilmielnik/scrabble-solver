@@ -34,6 +34,7 @@ export { default as noop } from './noop';
 export { default as numberComparator } from './numberComparator';
 export { default as resultMatchesCellFilter } from './resultMatchesCellFilter';
 export { default as reverseComparator } from './reverseComparator';
+export { default as sortGroupedResults } from './sortGroupedResults';
 export { default as sortResults } from './sortResults';
 export { default as unorderedArraysEqual } from './unorderedArraysEqual';
 export { default as zipCharactersAndTiles } from './zipCharactersAndTiles';

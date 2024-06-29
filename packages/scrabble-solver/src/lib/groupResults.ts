@@ -1,20 +1,12 @@
 import { Result } from '@scrabble-solver/types';
 
-import { CellFilterEntry, Sort } from 'types';
+import { CellFilterEntry, GroupedResults } from 'types';
 
 import createRegExp from './createRegExp';
 import resultMatchesCellFilter from './resultMatchesCellFilter';
-import sortResults from './sortResults';
-
-interface GroupedResults {
-  matching: Result[];
-  other: Result[];
-}
 
 const groupResults = (
   results: Result[] | undefined,
-  sort: Sort,
-  locale: string,
   query: string,
   cellFilter: CellFilterEntry[],
 ): GroupedResults | undefined => {
@@ -39,10 +31,7 @@ const groupResults = (
     { matching: [], other: [] },
   );
 
-  return {
-    matching: sortResults(matching, sort, locale) ?? [],
-    other: sortResults(other, sort, locale) ?? [],
-  };
+  return { matching, other };
 };
 
 export default groupResults;
