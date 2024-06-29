@@ -49,15 +49,15 @@ const useAppLayout = () => {
   const coordinatesSizeRatio = showCoordinates === 'hidden' ? 0 : 0.5;
   const coordinatesBorderWidth = showCoordinates === 'hidden' ? 0 : 1;
   const cellWidth =
-    (maxBoardWidth - (config.boardWidth + 1 + coordinatesBorderWidth) * BORDER_WIDTH) /
-    (config.boardWidth + coordinatesSizeRatio);
+    (maxBoardWidth - (config.boardSize + 1 + coordinatesBorderWidth) * BORDER_WIDTH) /
+    (config.boardSize + coordinatesSizeRatio);
   const cellHeight =
-    (maxBoardHeight - (config.boardHeight + 1 + coordinatesBorderWidth) * BORDER_WIDTH) /
-    (config.boardHeight + coordinatesSizeRatio);
+    (maxBoardHeight - (config.boardSize + 1 + coordinatesBorderWidth) * BORDER_WIDTH) /
+    (config.boardSize + coordinatesSizeRatio);
   const cellSize = Math.min(Math.min(cellWidth, cellHeight), BOARD_TILE_SIZE_MAX);
   const coordinatesSize = coordinatesSizeRatio * cellSize;
   const boardSize =
-    (cellSize + BORDER_WIDTH) * config.boardWidth +
+    (cellSize + BORDER_WIDTH) * config.boardSize +
     BORDER_WIDTH +
     (showCoordinates === 'hidden' ? 0 : coordinatesSize + BORDER_WIDTH);
   const maxControlsWidth = tileSize * config.maximumCharactersCount + 2 * BORDER_WIDTH;

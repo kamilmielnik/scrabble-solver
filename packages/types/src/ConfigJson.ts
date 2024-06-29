@@ -7,8 +7,7 @@ interface ConfigJson {
   allTilesBonusScore: number;
   blankScore: number;
   blanksCount: number;
-  boardHeight: number;
-  boardWidth: number;
+  boardSize: number;
   bonuses: BonusJson[];
   game: Game;
   locale: Locale;

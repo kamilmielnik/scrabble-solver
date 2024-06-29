@@ -101,7 +101,7 @@ const Cell: FunctionComponent<Props> = ({
       })}
       className={classNames(styles.tile, className, {
         [styles.first3]: x < 3,
-        [styles.last3]: config.boardWidth - x - 1 < 3,
+        [styles.last3]: config.boardSize - x - 1 < 3,
         [styles.sharpTopLeft]: cellTop?.hasTile() || cellLeft?.hasTile(),
         [styles.sharpTopRight]: cellTop?.hasTile() || cellRight?.hasTile(),
         [styles.sharpBottomLeft]: cellBottom?.hasTile() || cellLeft?.hasTile(),

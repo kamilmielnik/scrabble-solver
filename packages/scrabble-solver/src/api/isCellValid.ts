@@ -5,11 +5,11 @@ import isCharacterValid from './isCharacterValid';
 const isCellValid = (cell: CellJson, config: Config): boolean => {
   const { isEmpty, tile, x, y } = cell;
 
-  if (x < 0 || x >= config.boardWidth) {
+  if (x < 0 || x >= config.boardSize) {
     return false;
   }
 
-  if (y < 0 || y >= config.boardHeight) {
+  if (y < 0 || y >= config.boardSize) {
     return false;
   }
 

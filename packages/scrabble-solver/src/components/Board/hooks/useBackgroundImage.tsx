@@ -32,7 +32,7 @@ const useBackgroundImage = () => {
   const { isLessThanXs } = useMediaQueries();
   const borderRadius = isLessThanXs ? BORDER_RADIUS_XS : BORDER_RADIUS;
   const config = useTypedSelector(selectConfig);
-  const center = { x: Math.floor(config.boardWidth / 2), y: Math.floor(config.boardHeight / 2) };
+  const center = { x: Math.floor(config.boardSize / 2), y: Math.floor(config.boardSize / 2) };
   const viewBoxHeight = boardSize;
   const viewBoxWidth = boardSize;
   const bonusSize = cellSize * 0.8;
@@ -157,7 +157,7 @@ const useBackgroundImage = () => {
           </>
         )}
 
-        {Array.from({ length: config.boardHeight - 1 }).map((_value, index) => (
+        {Array.from({ length: config.boardSize - 1 }).map((_value, index) => (
           <use
             key={index}
             href={`#${HORIZONTAL_LINE}`}
@@ -165,7 +165,7 @@ const useBackgroundImage = () => {
           />
         ))}
 
-        {Array.from({ length: config.boardWidth - 1 }).map((_value, index) => (
+        {Array.from({ length: config.boardSize - 1 }).map((_value, index) => (
           <use
             key={index}
             href={`#${VERTICAL_LINE}`}

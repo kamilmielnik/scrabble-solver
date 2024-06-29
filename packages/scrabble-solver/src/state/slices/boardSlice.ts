@@ -65,8 +65,8 @@ const boardSlice = createSlice({
         throw new Error(`Cannot find config for game "${game}"`);
       }
 
-      if (state.rows.length !== config.boardHeight || state.rows[0].length !== config.boardWidth) {
-        return Board.create(config.boardWidth, config.boardHeight);
+      if (state.rows.length !== config.boardSize || state.rows[0].length !== config.boardSize) {
+        return Board.create(config.boardSize);
       }
 
       return state;
