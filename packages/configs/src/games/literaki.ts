@@ -2,7 +2,7 @@ import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 import { Game } from '@scrabble-solver/types';
 
 const literaki = {
-  allTilesBonusScore: 50,
+  bingoScore: 50,
   blankScore: 0,
   blanksCount: 2,
   boardSize: 15,

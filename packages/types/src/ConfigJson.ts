@@ -4,7 +4,7 @@ import Locale from './Locale';
 import TileConfig from './TileConfig';
 
 interface ConfigJson {
-  allTilesBonusScore: number;
+  bingoScore: number;
   blankScore: number;
   blanksCount: number;
   boardSize: number;

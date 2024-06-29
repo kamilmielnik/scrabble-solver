@@ -28,12 +28,12 @@ class Config {
     this.pointsMap = getPointsMap(this.config);
   }
 
-  public get allTilesBonusScore(): number {
-    return this.config.allTilesBonusScore;
-  }
-
   public get alphabet(): string[] {
     return getAlphabet(this.config);
+  }
+
+  public get bingoScore(): number {
+    return this.config.bingoScore;
   }
 
   public get blankScore(): number {
