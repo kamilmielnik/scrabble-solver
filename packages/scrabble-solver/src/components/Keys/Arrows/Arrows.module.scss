@@ -20,11 +20,19 @@
 .left {
   grid-row: 2;
   grid-column: 1;
+
+  [dir='rtl'] & {
+    grid-column: 3;
+  }
 }
 
 .right {
   grid-row: 2;
   grid-column: 3;
+
+  [dir='rtl'] & {
+    grid-column: 1;
+  }
 }
 
 .down {
