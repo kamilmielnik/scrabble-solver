@@ -3,7 +3,7 @@ import latinize from 'latinize';
 
 import { getTxtWordList } from '../lib';
 
-const FILE_URL = 'https://raw.githubusercontent.com/kamilmielnik/scrabble-dictionaries/master/spanish/fise-2.txt';
+const FILE_URL = 'https://raw.githubusercontent.com/kamilmielnik/scrabble-dictionaries/master/spanish/file-2017.txt';
 const N_PLACEHOLDER = '---n---';
 
 export const getWordList = async (): Promise<string[]> => {
