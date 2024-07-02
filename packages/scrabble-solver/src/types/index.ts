@@ -71,6 +71,7 @@ export type TranslationKey =
   | 'cell.set-not-blank'
   | 'cell.toggle-direction'
   | 'cell.tile.location'
+  | 'common.arrows'
   | 'common.clear'
   | 'common.close'
   | 'common.loading'

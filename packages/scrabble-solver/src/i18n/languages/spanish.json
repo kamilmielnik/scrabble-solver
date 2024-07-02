@@ -6,6 +6,7 @@
   "cell.set-not-blank": "Marcar como no en blanco",
   "cell.tile.location": "Tablero: espacio ({{x}}, {{y}})",
   "cell.toggle-direction": "Dirección de escritura",
+  "common.arrows": "Teclas de flecha",
   "common.blanks": "Blancos",
   "common.clear": "Borrar",
   "common.close": "Cerrar",
