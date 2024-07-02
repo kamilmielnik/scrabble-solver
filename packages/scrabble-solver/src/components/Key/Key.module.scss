@@ -26,9 +26,4 @@
     width: var(--key--icon--size);
     height: var(--key--icon--size);
   }
-
-  &.small {
-    --key--icon-size: var(--key--icon--size--small);
-    --key--height: var(--key--height--small);
-  }
 }

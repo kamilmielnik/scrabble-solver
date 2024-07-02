@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import { ButtonHTMLAttributes, FunctionComponent } from 'react';
 
+import { useIsTouchDevice } from 'hooks';
 import { ArrowDown } from 'icons';
 import { useTranslate } from 'state';
 import { Direction } from 'types';
 
 import Button from '../../../Button';
-import { Arrows } from '../../../keys';
 
 import styles from './ToggleDirectionButton.module.scss';
 
@@ -17,10 +17,11 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const ToggleDirectionButton: FunctionComponent<Props> = ({ className, direction, ...props }) => {
   const translate = useTranslate();
+  const isTouchDevice = useIsTouchDevice();
 
   return (
     <Button
-      aria-label={translate('cell.toggle-direction')}
+      aria-label={translate('keyMap.board.toggle-cell-filter')}
       className={classNames(styles.button, className)}
       Icon={ArrowDown}
       iconClassName={classNames(styles.icon, {
@@ -28,8 +29,8 @@ const ToggleDirectionButton: FunctionComponent<Props> = ({ className, direction,
       })}
       tooltip={
         <>
-          {translate('cell.toggle-direction')}
-          <Arrows className={styles.arrows} size="small" />
+          <span>{translate('keyMap.board.toggle-cell-filter')}</span>
+          {!isTouchDevice && <span> ({translate('common.arrows')})</span>}
         </>
       }
       {...props}

@@ -3,13 +3,13 @@ import { Cell } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import { forwardRef, HTMLProps, MouseEventHandler } from 'react';
 
+import { useIsTouchDevice } from 'hooks';
 import { Keyboard, Square, SquareFill } from 'icons';
-import { findCell } from 'lib';
+import { findCell, isMac } from 'lib';
 import { selectCellFilter, selectInputMode, selectResultCandidateCells, useTranslate, useTypedSelector } from 'state';
 import { Direction } from 'types';
 
 import Button from '../../../Button';
-import { Space } from '../../../keys';
 import ToggleDirectionButton from '../ToggleDirectionButton';
 
 import styles from './Actions.module.scss';
@@ -30,6 +30,7 @@ const Actions = forwardRef<HTMLDivElement, Props>(
     ref,
   ) => {
     const translate = useTranslate();
+    const isTouchDevice = useIsTouchDevice();
     const inputMode = useTypedSelector(selectInputMode);
     const filter = useTypedSelector((state) => selectCellFilter(state, cell));
     const resultCandidateCells = useTypedSelector(selectResultCandidateCells);
@@ -67,7 +68,12 @@ const Actions = forwardRef<HTMLDivElement, Props>(
             aria-label={translate(labelTranslationKey)}
             className={classNames(styles.action)}
             Icon={Icon}
-            tooltip={translate(labelTranslationKey)}
+            tooltip={
+              <>
+                <span>{translate(labelTranslationKey)}</span>
+                {!isTouchDevice && <span> ({isMac() ? '⌘' : 'Ctrl'} + G)</span>}
+              </>
+            }
             onClick={onToggleFilterCell}
             onMouseDown={handleMouseDown}
           />
@@ -80,8 +86,8 @@ const Actions = forwardRef<HTMLDivElement, Props>(
             Icon={isBlank ? SquareFill : Square}
             tooltip={
               <>
-                {isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}
-                <Space className={styles.space} size="small" />
+                <span>{isBlank ? translate('cell.set-not-blank') : translate('cell.set-blank')}</span>
+                {!isTouchDevice && <span> ({translate('common.space')})</span>}
               </>
             }
             onClick={onToggleBlank}

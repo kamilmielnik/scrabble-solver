@@ -19,11 +19,19 @@ const KeyMapModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) =
     <Modal className={className} isOpen={isOpen} title={translate('keyMap')} onClose={onClose}>
       <Modal.Section title={translate('keyMap.board-and-rack')}>
         <Mapping description={translate('keyMap.board-and-rack.navigate')} mapping={[<Arrows key="arrows" />]} />
+
         <Mapping
           description={translate('keyMap.board-and-rack.remove-tile')}
           mapping={[<Del key="del" />, <Backspace key="backspace" />]}
         />
+
         <Mapping description={translate('keyMap.board-and-rack.submit')} mapping={[<Enter key="del" />]} />
+
+        <Mapping
+          description={translate('keyMap.board.toggle-cell-filter')}
+          mapping={[[<Ctrl key="ctrl" />, <Key key="g">G</Key>]]}
+        />
+
         {config.twoCharacterTiles.length > 0 && (
           <Mapping
             description={translate('keyMap.board-and-rack.insert-two-letter-tile')}

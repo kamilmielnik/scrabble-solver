@@ -18,7 +18,7 @@ import { useDispatch } from 'react-redux';
 import { useLatest } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { createGridOf, createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
-import { boardSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
+import { boardSlice, cellFilterSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
 import { Direction, Point } from 'types';
 
 import { getPositionInGrid } from '../lib';
@@ -309,6 +309,17 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         }
 
         const cell = rows[y][x];
+
+        if (isCtrl(event) && character === 'g') {
+          event.preventDefault();
+
+          if (!cell.hasTile()) {
+            dispatch(cellFilterSlice.actions.toggle(position));
+          }
+
+          return;
+        }
+
         const twoCharacterCandidate = cell.tile.character + character;
 
         if (config.twoCharacterTiles.includes(twoCharacterCandidate)) {
