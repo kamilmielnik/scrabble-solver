@@ -5,7 +5,7 @@ import { forwardRef, HTMLProps, MouseEventHandler } from 'react';
 
 import { useIsTouchDevice } from 'hooks';
 import { Keyboard, Square, SquareFill } from 'icons';
-import { findCell } from 'lib';
+import { findCell, isMac } from 'lib';
 import { selectCellFilter, selectInputMode, selectResultCandidateCells, useTranslate, useTypedSelector } from 'state';
 import { Direction } from 'types';
 
@@ -68,7 +68,12 @@ const Actions = forwardRef<HTMLDivElement, Props>(
             aria-label={translate(labelTranslationKey)}
             className={classNames(styles.action)}
             Icon={Icon}
-            tooltip={translate(labelTranslationKey)}
+            tooltip={
+              <>
+                <span>{translate(labelTranslationKey)}</span>
+                {!isTouchDevice && <span> ({isMac() ? '⌘' : 'Ctrl'} + G)</span>}
+              </>
+            }
             onClick={onToggleFilterCell}
             onMouseDown={handleMouseDown}
           />
