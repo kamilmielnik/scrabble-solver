@@ -5,6 +5,7 @@
   "cell.set-blank": "Marquer comme vide",
   "cell.set-not-blank": "Marquer comme non vide",
   "cell.tile.location": "Plateau: la case ({{x}}, {{y}})",
+  "cell.toggle-direction": "Direction d'écriture",
   "common.arrows": "Touches fléchées",
   "common.blanks": "Cases vides",
   "common.clear": "Effacer",

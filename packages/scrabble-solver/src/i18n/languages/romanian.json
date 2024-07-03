@@ -5,6 +5,7 @@
   "cell.set-blank": "Marcare camp liber",
   "cell.set-not-blank": "Marcare camp ocupat ",
   "cell.tile.location": "Tabla: camp ({{x}}, {{y}})",
+  "cell.toggle-direction": "Directie scriere",
   "common.arrows": "Sagetile",
   "common.blanks": "Jokeri",
   "common.clear": "Stergere",

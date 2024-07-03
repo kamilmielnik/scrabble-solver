@@ -5,6 +5,7 @@
   "cell.set-blank": "Als Blanko markieren",
   "cell.set-not-blank": "Nicht als Blanko markieren",
   "cell.tile.location": "Brett: Stein ({{x}}, {{y}})",
+  "cell.toggle-direction": "Schreibrichtung",
   "common.arrows": "Pfeiltasten",
   "common.blanks": "Blankos",
   "common.clear": "Löschen",

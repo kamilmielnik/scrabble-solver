@@ -70,6 +70,7 @@ export type TranslationKey =
   | 'cell.set-blank'
   | 'cell.set-not-blank'
   | 'cell.tile.location'
+  | 'cell.toggle-direction'
   | 'common.arrows'
   | 'common.clear'
   | 'common.close'

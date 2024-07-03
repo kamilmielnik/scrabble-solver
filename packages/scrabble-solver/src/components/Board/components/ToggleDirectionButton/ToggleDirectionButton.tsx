@@ -21,7 +21,7 @@ const ToggleDirectionButton: FunctionComponent<Props> = ({ className, direction,
 
   return (
     <Button
-      aria-label={translate('keyMap.board.toggle-cell-filter')}
+      aria-label={translate('cell.toggle-direction')}
       className={classNames(styles.button, className)}
       Icon={ArrowDown}
       iconClassName={classNames(styles.icon, {
@@ -29,7 +29,7 @@ const ToggleDirectionButton: FunctionComponent<Props> = ({ className, direction,
       })}
       tooltip={
         <>
-          <span>{translate('keyMap.board.toggle-cell-filter')}</span>
+          <span>{translate('cell.toggle-direction')}</span>
           {!isTouchDevice && <span> ({translate('common.arrows')})</span>}
         </>
       }
