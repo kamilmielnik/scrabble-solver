@@ -58,6 +58,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   text-transform: uppercase;
   transition: var(--transition);
   background-color: var(--color--background);
+  height: 100%;
 
   &:first-child {
     border-start-start-radius: inherit;
@@ -79,6 +80,12 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
   flex: 0 1 auto;
   text-align: start;
+}
+
+.headerButtonIcon {
+  flex: 0 0 auto;
+  width: var(--results--icon--size);
+  height: var(--results--icon--size);
 }
 
 .result {
@@ -176,7 +183,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 }
 
 .coordinates {
-  $width: 50px;
+  $width: 55px;
 
   flex: 0 0 $width;
   max-width: $width;

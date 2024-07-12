@@ -83,12 +83,12 @@ const Result = ({ data, index, style }: Props): ReactElement => {
           <Cell className={styles.stat} translationKey="common.tiles" value={result.tilesCount} />
         )}
 
-        {enabledColumns[ResultColumn.ConsonantsCount] && consonants && (
-          <Cell className={styles.stat} translationKey="common.consonants" value={result.consonantsCount} />
-        )}
-
         {enabledColumns[ResultColumn.VowelsCount] && vowels && (
           <Cell className={styles.stat} translationKey="common.vowels" value={result.vowelsCount} />
+        )}
+
+        {enabledColumns[ResultColumn.ConsonantsCount] && consonants && (
+          <Cell className={styles.stat} translationKey="common.consonants" value={result.consonantsCount} />
         )}
 
         {enabledColumns[ResultColumn.BlanksCount] && (

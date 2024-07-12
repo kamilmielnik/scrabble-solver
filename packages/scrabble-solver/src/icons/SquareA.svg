@@ -1,0 +1,6 @@
+<!-- https://icons.getbootstrap.com/icons/square/ -->
+<!-- https://icons.getbootstrap.com/icons/alphabet-uppercase/ -->
+<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+  <path d="M 7.2949219,4.8691409 5.2382813,11.130859 H 6.4648438 L 6.9453125,9.5195319 h 2.046875 L 9.4707032,11.130859 H 10.761719 L 8.7148438,4.8691409 Z m 0.6484375,1.199219 h 0.054687 l 0.75,2.53125 h -1.554687 z" />
+</svg>

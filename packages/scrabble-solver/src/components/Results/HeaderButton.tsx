@@ -18,6 +18,7 @@ interface Props {
 const HeaderButton = ({ column }: Props): ReactElement => {
   const dispatch = useDispatch();
   const translate = useTranslate();
+  const { Icon } = column;
   const sort = useTypedSelector(selectResultsSort);
 
   const handleClick = useCallback(() => {
@@ -34,7 +35,9 @@ const HeaderButton = ({ column }: Props): ReactElement => {
         onClick={handleClick}
       >
         <span className={styles.cell}>
-          <span className={styles.headerButtonLabel}>{translate(column.translationKey)}</span>
+          {Icon && <Icon className={styles.headerButtonIcon} />}
+
+          {!Icon && <span className={styles.headerButtonLabel}>{translate(column.translationKey)}</span>}
 
           {sort.column === column.id && (
             <>
