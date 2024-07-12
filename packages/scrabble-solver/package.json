@@ -27,9 +27,9 @@
     "start": "env-cmd next start -p 3333"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.26.17",
+    "@floating-ui/react": "^0.26.19",
     "@kamilmielnik/trie": "^3.0.0",
-    "@reduxjs/toolkit": "^2.2.5",
+    "@reduxjs/toolkit": "^2.2.6",
     "@scrabble-solver/configs": "^2.13.12",
     "@scrabble-solver/constants": "^2.13.12",
     "@scrabble-solver/dictionaries": "^2.13.12",
@@ -41,7 +41,7 @@
     "env-cmd": "^10.1.0",
     "include-media": "^2.0.0",
     "include-media-query-builder": "^1.1.0",
-    "next": "^14.2.4",
+    "next": "^14.2.5",
     "normalize.css": "^8.0.1",
     "react": "^18.3.1",
     "react-cool-onclickoutside": "^1.7.0",
@@ -71,7 +71,7 @@
     "@types/react-window": "^1.8.8",
     "@types/redux": "^3.6.31",
     "@types/redux-saga": "^0.10.5",
-    "sass": "^1.77.5"
+    "sass": "^1.77.8"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }

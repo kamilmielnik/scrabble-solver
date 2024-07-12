@@ -24,7 +24,7 @@
     "stats": "node scripts/stats.js"
   },
   "dependencies": {
-    "winston": "^3.13.0"
+    "winston": "^3.13.1"
   },
   "devDependencies": {
     "@types/winston": "^2.4.4"
