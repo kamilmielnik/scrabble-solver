@@ -234,13 +234,17 @@ export const selectHasInvalidWords = createSelector([selectVerify], ({ invalidWo
 
 export const selectColumns = createSelector([selectLocale, selectShowCoordinates], (locale, showCoordinates) => {
   const { consonants, vowels } = LOCALE_FEATURES[locale];
-  const columns: ResultColumnId[] = [];
+  const columns: ResultColumnId[] = [
+    ResultColumnId.Word,
+    ResultColumnId.TilesCount,
+    ResultColumnId.BlanksCount,
+    ResultColumnId.WordsCount,
+    ResultColumnId.Points,
+  ];
 
   if (showCoordinates !== 'hidden') {
     columns.push(ResultColumnId.Coordinates);
   }
-
-  columns.push(ResultColumnId.Word, ResultColumnId.TilesCount);
 
   if (vowels) {
     columns.push(ResultColumnId.VowelsCount);
@@ -249,8 +253,6 @@ export const selectColumns = createSelector([selectLocale, selectShowCoordinates
   if (consonants) {
     columns.push(ResultColumnId.ConsonantsCount);
   }
-
-  columns.push(ResultColumnId.BlanksCount, ResultColumnId.WordsCount, ResultColumnId.Points);
 
   return columns;
 });
