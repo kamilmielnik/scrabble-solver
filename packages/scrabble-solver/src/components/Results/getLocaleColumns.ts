@@ -1,4 +1,4 @@
-import { AlphabetUppercase, OneTwoThree, Square, SquareA, SquareB, Squares } from 'icons';
+import { OneTwoThree, Square, SquareA, SquareB, Squares, Words } from 'icons';
 import { ResultColumn } from 'types';
 
 import styles from './Results.module.scss';
@@ -47,7 +47,7 @@ const getLocaleColumns = (options: { consonants: boolean; vowels: boolean }): Co
     },
     {
       className: styles.stat,
-      Icon: AlphabetUppercase,
+      Icon: Words,
       id: ResultColumn.WordsCount,
       translationKey: 'common.words',
     },
