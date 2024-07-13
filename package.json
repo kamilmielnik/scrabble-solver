@@ -48,9 +48,9 @@
     "start": "npm-run-all --parallel start:*",
     "start:app": "npm run start -w @scrabble-solver/scrabble-solver",
     "start:browser": "open-cli http://localhost:3333",
-    "test": "jest --no-cache --coverage",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache --watch",
-    "test:watch": "jest --no-cache --watch",
+    "test-unit": "jest --no-cache --coverage",
+    "test-unit:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache --watch",
+    "test-unit:watch": "jest --no-cache --watch",
     "version:bump": "npm run version:bump-lerna && npm run version:commit",
     "version:bump-lerna": "lerna version --force-publish --no-git-tag-version --no-push",
     "version:commit": "node bump-version.js && git add . && git commit -m \"Bump version\""
