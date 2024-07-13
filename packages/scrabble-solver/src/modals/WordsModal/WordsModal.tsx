@@ -21,6 +21,7 @@ const WordsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) =>
   return (
     <Modal className={className} isOpen={isOpen} title={translate('words')} onClose={onClose}>
       <Modal.Section
+        label={translate('words.invalid')}
         title={
           <span className={styles.title}>
             <span>{translate('words.invalid')}</span>
@@ -36,6 +37,7 @@ const WordsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) =>
       </Modal.Section>
 
       <Modal.Section
+        label={translate('words.valid')}
         title={
           <span className={styles.title}>
             <span>{translate('words.valid')}</span>

@@ -27,16 +27,16 @@ const RemainingTilesModal: FunctionComponent<Props> = ({ className, isOpen, onCl
       {groups.map(({ remainingCount, tiles, translationKey, totalCount }) => {
         const current = direction === 'ltr' ? remainingCount : totalCount;
         const total = direction === 'ltr' ? totalCount : remainingCount;
+        const label = `${current.toLocaleString(locale)} / ${total.toLocaleString(locale)}`;
 
         return (
           <Modal.Section
             key={translationKey}
+            label={label}
             title={
               <span className={styles.title}>
                 <span>{translate(translationKey)}</span>
-                <Badge className={styles.badge}>
-                  {current.toLocaleString(locale)} / {total.toLocaleString(locale)}
-                </Badge>
+                <Badge className={styles.badge}>{label}</Badge>
               </span>
             }
           >
