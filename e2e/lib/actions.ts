@@ -16,7 +16,8 @@ export const typeRack = async (page: Page, tiles: string) => {
 };
 
 export const typeBoard = async (page: Page, tiles: string, { row, column }: BoardLocation) => {
-  await getBoardTile(page, { row, column }).focus();
+  const boardTile = await getBoardTile(page, { row, column });
+  await boardTile.focus();
 
   for (const tile of tiles) {
     await page.keyboard.press(tile);
