@@ -3,15 +3,9 @@ import { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { FixedSizeList } from 'react-window';
 import { useDebounce } from 'use-debounce';
 
-import { useAppLayout, useColumns, useLatest } from 'hooks';
+import { useAppLayout, useLatest } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
-import {
-  BORDER_WIDTH,
-  RESULTS_COLUMN_WIDTH,
-  RESULTS_HEADER_HEIGHT,
-  RESULTS_ITEM_HEIGHT,
-  TEXT_INPUT_HEIGHT,
-} from 'parameters';
+import { BORDER_WIDTH, RESULTS_HEADER_HEIGHT, RESULTS_ITEM_HEIGHT, TEXT_INPUT_HEIGHT } from 'parameters';
 import {
   selectAreResultsOutdated,
   selectIsLoading,
@@ -26,9 +20,7 @@ import EmptyState from '../EmptyState';
 import Loading from '../Loading';
 import ResultsInput from '../ResultsInput';
 
-import { GeoAlt, OneTwoThree, Square, SquareA, SquareB, Squares, Words } from 'icons';
-import { ResultColumnId } from 'types';
-import HeaderButton from './HeaderButton';
+import Header from './Header';
 import Result from './Result';
 import styles from './Results.module.scss';
 import SolveButton from './SolveButton';
@@ -44,7 +36,7 @@ const IS_LOADING_DEBOUNCE = 100;
 
 const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIndex }) => {
   const translate = useTranslate();
-  const { resultsHeight, resultsWidth, resultWordWidth } = useAppLayout();
+  const { resultsHeight, resultsWidth } = useAppLayout();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const results = useTypedSelector(selectResults);
@@ -54,7 +46,6 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
   const error = useTypedSelector(selectSolveError);
   const itemData = useMemo(() => ({ ...callbacks, highlightedIndex, results }), [callbacks, highlightedIndex, results]);
   const [listRef, setListRef] = useState<FixedSizeList<ResultData> | null>(null);
-  const columns = useColumns();
   const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
   const scrollToIndexRef = useLatest(scrollToIndex);
   const hasResults = typeof error === 'undefined' && typeof results !== 'undefined';
@@ -78,86 +69,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
 
   return (
     <div className={classNames(styles.results, className)}>
-      <div className={styles.header}>
-        {columns.includes(ResultColumnId.Coordinates) && (
-          <HeaderButton
-            className={styles.coordinates}
-            Icon={GeoAlt}
-            id={ResultColumnId.Coordinates}
-            translationKey="settings.showCoordinates"
-            style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.Coordinates] }}
-          />
-        )}
-
-        {columns.includes(ResultColumnId.Word) && (
-          <HeaderButton
-            className={styles.word}
-            id={ResultColumnId.Word}
-            translationKey="common.word"
-            style={{ flexBasis: resultWordWidth }}
-          />
-        )}
-
-        {columns.includes(ResultColumnId.TilesCount) && (
-          <HeaderButton
-            className={styles.stat}
-            Icon={Squares}
-            id={ResultColumnId.TilesCount}
-            translationKey="common.tiles"
-            style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.TilesCount] }}
-          />
-        )}
-
-        {columns.includes(ResultColumnId.VowelsCount) && (
-          <HeaderButton
-            className={styles.stat}
-            Icon={SquareA}
-            id={ResultColumnId.VowelsCount}
-            translationKey="common.vowels"
-            style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.VowelsCount] }}
-          />
-        )}
-
-        {columns.includes(ResultColumnId.ConsonantsCount) && (
-          <HeaderButton
-            className={styles.stat}
-            Icon={SquareB}
-            id={ResultColumnId.ConsonantsCount}
-            translationKey="common.consonants"
-            style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.ConsonantsCount] }}
-          />
-        )}
-
-        {columns.includes(ResultColumnId.BlanksCount) && (
-          <HeaderButton
-            className={styles.stat}
-            Icon={Square}
-            id={ResultColumnId.BlanksCount}
-            translationKey="common.blanks"
-            style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.BlanksCount] }}
-          />
-        )}
-
-        {columns.includes(ResultColumnId.WordsCount) && (
-          <HeaderButton
-            className={styles.stat}
-            Icon={Words}
-            id={ResultColumnId.WordsCount}
-            translationKey="common.words"
-            style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.WordsCount] }}
-          />
-        )}
-
-        {columns.includes(ResultColumnId.Points) && (
-          <HeaderButton
-            className={styles.points}
-            Icon={OneTwoThree}
-            id={ResultColumnId.Points}
-            translationKey="common.points"
-            style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.Points] }}
-          />
-        )}
-      </div>
+      <Header />
 
       <div className={styles.content}>
         {typeof error !== 'undefined' && (
