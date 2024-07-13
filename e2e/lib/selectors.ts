@@ -35,5 +35,5 @@ export const getSettingsButton = (page: Page) => {
 };
 
 export const getSettingOption = (page: Page, { section, option }: { section: string; option: string }) => {
-  return page.getByLabel(section, { exact: true }).getByLabel(option, { exact: true });
+  return page.locator(`[role=dialog] [aria-label="${section}"] [aria-label="${option}"]`);
 };

@@ -5,7 +5,7 @@ import { getSettingOption, getSettingsButton, goToIndex, typeBoard, typeRack } f
 /*
  * @see https://github.com/kamilmielnik/scrabble-solver/issues/3
  */
-test('X tile is allowed in Polish language (scrabble-solver#3)', async ({ page }) => {
+test('X tile is allowed in Polish language (#3)', async ({ page }) => {
   await goToIndex(page);
   await getSettingsButton(page).click();
   await getSettingOption(page, { section: 'Language', option: 'Polski' }).check();

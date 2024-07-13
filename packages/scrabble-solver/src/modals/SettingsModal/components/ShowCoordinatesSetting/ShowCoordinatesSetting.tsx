@@ -45,6 +45,7 @@ const ShowCoordinatesSetting: FunctionComponent<Props> = ({ className, disabled 
           className={styles.option}
           disabled={disabled}
           key={option.value}
+          label={option.label}
           name="showCoordinates"
           value={option.value}
           onChange={handleChange}

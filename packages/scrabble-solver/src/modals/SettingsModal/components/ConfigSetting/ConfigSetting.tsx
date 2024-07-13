@@ -37,6 +37,7 @@ const ConfigSetting: FunctionComponent<Props> = ({ className, disabled }) => {
           className={styles.option}
           disabled={disabled || option.disabled}
           key={option.value}
+          label={option.label}
           name="game"
           value={option.value}
           onChange={handleChange}

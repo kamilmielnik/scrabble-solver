@@ -8,13 +8,15 @@ interface Props {
   children?: ReactNode;
   className?: string;
   disabled?: boolean;
+  label: string;
   name: string;
   value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-const Radio: FunctionComponent<Props> = ({ checked, children, className, disabled, name, value, onChange }) => (
+const Radio: FunctionComponent<Props> = ({ checked, children, className, disabled, label, name, value, onChange }) => (
   <label
+    aria-label={label}
     className={classNames(styles.radio, className, {
       [styles.checked]: checked,
       [styles.disabled]: disabled,
@@ -30,7 +32,7 @@ const Radio: FunctionComponent<Props> = ({ checked, children, className, disable
       onChange={onChange}
     />
 
-    <div className={styles.icon} />
+    <div className={styles.icon} role="img" />
 
     <div className={styles.content}>{children}</div>
   </label>

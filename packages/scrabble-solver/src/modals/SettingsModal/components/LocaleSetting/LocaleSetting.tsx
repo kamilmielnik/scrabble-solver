@@ -35,6 +35,7 @@ const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
           })}
           disabled={disabled}
           key={option.locale}
+          label={option.label}
           name="locale"
           value={option.locale}
           onChange={handleChange}
