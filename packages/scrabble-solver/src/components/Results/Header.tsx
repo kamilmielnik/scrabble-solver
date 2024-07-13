@@ -15,7 +15,7 @@ const Results: FunctionComponent = () => {
 
   return (
     <div className={styles.header}>
-      {columns.includes(ResultColumnId.Coordinates) && (
+      {columns[ResultColumnId.Coordinates] && (
         <HeaderButton
           className={styles.coordinates}
           Icon={GeoAlt}
@@ -25,7 +25,7 @@ const Results: FunctionComponent = () => {
         />
       )}
 
-      {columns.includes(ResultColumnId.Word) && (
+      {columns[ResultColumnId.Word] && (
         <HeaderButton
           className={styles.word}
           id={ResultColumnId.Word}
@@ -34,7 +34,7 @@ const Results: FunctionComponent = () => {
         />
       )}
 
-      {columns.includes(ResultColumnId.TilesCount) && (
+      {columns[ResultColumnId.TilesCount] && (
         <HeaderButton
           className={styles.stat}
           Icon={Squares}
@@ -44,7 +44,7 @@ const Results: FunctionComponent = () => {
         />
       )}
 
-      {columns.includes(ResultColumnId.VowelsCount) && (
+      {columns[ResultColumnId.VowelsCount] && (
         <HeaderButton
           className={styles.stat}
           Icon={SquareA}
@@ -54,7 +54,7 @@ const Results: FunctionComponent = () => {
         />
       )}
 
-      {columns.includes(ResultColumnId.ConsonantsCount) && (
+      {columns[ResultColumnId.ConsonantsCount] && (
         <HeaderButton
           className={styles.stat}
           Icon={SquareB}
@@ -64,7 +64,7 @@ const Results: FunctionComponent = () => {
         />
       )}
 
-      {columns.includes(ResultColumnId.BlanksCount) && (
+      {columns[ResultColumnId.BlanksCount] && (
         <HeaderButton
           className={styles.stat}
           Icon={Square}
@@ -74,7 +74,7 @@ const Results: FunctionComponent = () => {
         />
       )}
 
-      {columns.includes(ResultColumnId.WordsCount) && (
+      {columns[ResultColumnId.WordsCount] && (
         <HeaderButton
           className={styles.stat}
           Icon={Words}
@@ -84,7 +84,7 @@ const Results: FunctionComponent = () => {
         />
       )}
 
-      {columns.includes(ResultColumnId.Points) && (
+      {columns[ResultColumnId.Points] && (
         <HeaderButton
           className={styles.points}
           Icon={OneTwoThree}

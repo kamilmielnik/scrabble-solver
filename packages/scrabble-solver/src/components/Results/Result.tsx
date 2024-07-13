@@ -69,11 +69,11 @@ const Result = ({ data, index, style }: Props): ReactElement => {
       onMouseLeave={handleMouseLeave}
     >
       <span className={styles.resultContent}>
-        {columns.includes(ResultColumnId.Coordinates) && (
+        {columns[ResultColumnId.Coordinates] && (
           <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />
         )}
 
-        {columns.includes(ResultColumnId.Word) && (
+        {columns[ResultColumnId.Word] && (
           <Cell
             className={styles.word}
             style={{ flexBasis: resultWordWidth }}
@@ -84,23 +84,23 @@ const Result = ({ data, index, style }: Props): ReactElement => {
           </Cell>
         )}
 
-        {columns.includes(ResultColumnId.TilesCount) && (
+        {columns[ResultColumnId.TilesCount] && (
           <Cell className={styles.stat} translationKey="common.tiles" value={result.tilesCount} />
         )}
 
-        {columns.includes(ResultColumnId.VowelsCount) && (
+        {columns[ResultColumnId.VowelsCount] && (
           <Cell className={styles.stat} translationKey="common.vowels" value={result.vowelsCount} />
         )}
 
-        {columns.includes(ResultColumnId.ConsonantsCount) && (
+        {columns[ResultColumnId.ConsonantsCount] && (
           <Cell className={styles.stat} translationKey="common.consonants" value={result.consonantsCount} />
         )}
 
-        {columns.includes(ResultColumnId.BlanksCount) && (
+        {columns[ResultColumnId.BlanksCount] && (
           <Cell className={styles.stat} translationKey="common.blanks" value={result.blanksCount} />
         )}
 
-        {columns.includes(ResultColumnId.WordsCount) && (
+        {columns[ResultColumnId.WordsCount] && (
           <Cell
             className={styles.stat}
             translationKey="common.words"
@@ -109,7 +109,7 @@ const Result = ({ data, index, style }: Props): ReactElement => {
           />
         )}
 
-        {columns.includes(ResultColumnId.Points) && (
+        {columns[ResultColumnId.Points] && (
           <Cell className={styles.points} translationKey="common.points" value={result.points} />
         )}
       </span>

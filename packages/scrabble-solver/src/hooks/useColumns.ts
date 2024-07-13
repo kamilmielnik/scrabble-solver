@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { useMediaQueries } from 'hooks';
 import { selectColumns, useTypedSelector } from 'state';
 import { ResultColumnId } from 'types';
@@ -10,27 +12,35 @@ const COLUMNS_M = [...COLUMNS_XS];
 
 const COLUMNS_L = [...COLUMNS_XS];
 
-const useColumns = (): ResultColumnId[] => {
+const useColumns = (): Partial<Record<ResultColumnId, boolean>> => {
   const columns = useTypedSelector(selectColumns);
   const { isLessThanXs, isLessThanS, isLessThanM, isLessThanL } = useMediaQueries();
 
-  if (isLessThanXs) {
-    return columns.filter((columnId) => COLUMNS_XS.includes(columnId));
-  }
+  const filteredColumns = useMemo(() => {
+    if (isLessThanXs) {
+      return columns.filter((columnId) => COLUMNS_XS.includes(columnId));
+    }
 
-  if (isLessThanS) {
-    return columns.filter((columnId) => COLUMNS_S.includes(columnId));
-  }
+    if (isLessThanS) {
+      return columns.filter((columnId) => COLUMNS_S.includes(columnId));
+    }
 
-  if (isLessThanM) {
-    return columns.filter((columnId) => COLUMNS_M.includes(columnId));
-  }
+    if (isLessThanM) {
+      return columns.filter((columnId) => COLUMNS_M.includes(columnId));
+    }
 
-  if (isLessThanL) {
-    return columns.filter((columnId) => COLUMNS_L.includes(columnId));
-  }
+    if (isLessThanL) {
+      return columns.filter((columnId) => COLUMNS_L.includes(columnId));
+    }
 
-  return columns;
+    return columns;
+  }, [columns, isLessThanXs, isLessThanS, isLessThanM, isLessThanL]);
+
+  const columnsMap = useMemo(() => {
+    return Object.fromEntries(filteredColumns.map((column) => [column, true]));
+  }, [filteredColumns]);
+
+  return columnsMap;
 };
 
 export default useColumns;

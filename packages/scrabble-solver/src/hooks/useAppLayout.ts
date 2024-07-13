@@ -19,6 +19,7 @@ import {
   SOLVER_COLUMN_WIDTH,
 } from 'parameters';
 import { selectConfig, selectShowCoordinates, useTypedSelector } from 'state';
+import { ResultColumnId } from 'types';
 
 import useColumns from './useColumns';
 import useIsTouchDevice from './useIsTouchDevice';
@@ -31,6 +32,7 @@ const useAppLayout = () => {
   const showCoordinates = useTypedSelector(selectShowCoordinates);
   const isTouchDevice = useIsTouchDevice();
   const { isLessThanXs, isLessThanS, isLessThanM, isLessThanL, isLessThanXl } = useMediaQueries();
+  const columns = useColumns();
   const isBoardFullWidth = isLessThanM;
   const showResultCandidatePicker = isLessThanL;
   const componentsSpacing = isLessThanXl ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING;
@@ -71,9 +73,11 @@ const useAppLayout = () => {
     : boardSize - componentsSpacing - dictionaryHeight;
   const rackWidth = tileSize * config.rackSize;
   const resultsWidth = isLessThanL ? modalWidth - 2 * componentsSpacing : SOLVER_COLUMN_WIDTH;
-  const columns = useColumns();
-  const resultWordWidth =
-    resultsWidth - 2 * BORDER_WIDTH - columns.reduce((sum, column) => sum + (RESULTS_COLUMN_WIDTH[column] ?? 0), 0);
+  const columnsWidth = Object.keys(columns).reduce(
+    (sum, column) => sum + (RESULTS_COLUMN_WIDTH[column as ResultColumnId] ?? 0),
+    0,
+  );
+  const resultWordWidth = resultsWidth - 2 * BORDER_WIDTH - columnsWidth;
 
   return {
     actionsWidth: 2 * BUTTON_HEIGHT - BORDER_WIDTH,
