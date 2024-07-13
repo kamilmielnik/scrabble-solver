@@ -4,8 +4,8 @@ export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
-  retries: process.env.CI ? 2 : 0 /* Retry on CI only */,
-  workers: process.env.CI ? 1 : undefined /* Opt out of parallel tests on CI. */,
+  retries: process.env.CI ? 2 : 0, // retry in CI only
+  workers: process.env.CI ? 1 : undefined, // opt out of parallel tests in CI
   reporter: 'html',
   use: {
     baseURL: 'http://localhost:3000',
