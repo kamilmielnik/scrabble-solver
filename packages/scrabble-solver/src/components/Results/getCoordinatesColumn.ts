@@ -10,6 +10,7 @@ const getCoordinatesColumn = (): Column => {
     Icon: GeoAlt,
     id: ResultColumn.Coordinates,
     translationKey: 'settings.showCoordinates',
+    width: 55,
   };
 };
 

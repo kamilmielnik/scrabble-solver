@@ -22,6 +22,7 @@ import { selectConfig, selectShowCoordinates, useTypedSelector } from 'state';
 import useIsTouchDevice from './useIsTouchDevice';
 import useMediaQueries from './useMediaQueries';
 import useViewportSize from './useViewportSize';
+import useColumns from 'src/components/Results/useColumns';
 
 const useAppLayout = () => {
   const { viewportHeight, viewportWidth } = useViewportSize();
@@ -68,6 +69,10 @@ const useAppLayout = () => {
     ? viewportHeight - dictionaryHeight - BUTTON_HEIGHT - MODAL_HEADER_HEIGHT - 5 * componentsSpacing
     : boardSize - componentsSpacing - dictionaryHeight;
   const rackWidth = tileSize * config.rackSize;
+  const resultsWidth = isLessThanL ? modalWidth - 2 * componentsSpacing : SOLVER_COLUMN_WIDTH;
+  const columns = useColumns(); // TODO: move useColumns to /hooks
+  const resultWordWidth =
+    resultsWidth - 2 * BORDER_WIDTH - columns.reduce((sum, column) => sum + (column.width ?? 0), 0);
 
   return {
     actionsWidth: 2 * BUTTON_HEIGHT - BORDER_WIDTH,
@@ -83,7 +88,8 @@ const useAppLayout = () => {
     rackHeight: tileSize,
     rackWidth,
     resultsHeight,
-    resultsWidth: isLessThanL ? modalWidth - 2 * componentsSpacing : SOLVER_COLUMN_WIDTH,
+    resultsWidth,
+    resultWordWidth,
     showCompactControls: !showColumn,
     showKeyMap: !isTouchDevice,
     showResultsInModal,

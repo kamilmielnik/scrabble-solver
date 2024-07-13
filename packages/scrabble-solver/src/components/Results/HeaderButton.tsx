@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ReactElement, useCallback } from 'react';
+import { CSSProperties, ReactElement, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { SortDown, SortUp } from 'icons';
@@ -13,9 +13,10 @@ import { Column } from './types';
 
 interface Props {
   column: Column;
+  style?: CSSProperties;
 }
 
-const HeaderButton = ({ column }: Props): ReactElement => {
+const HeaderButton = ({ style, column }: Props): ReactElement => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const { Icon } = column;
@@ -31,6 +32,7 @@ const HeaderButton = ({ column }: Props): ReactElement => {
         aria-label={translate(column.translationKey)}
         className={classNames(styles.headerButton, column.className)}
         key={column.id}
+        style={style}
         type="button"
         onClick={handleClick}
       >

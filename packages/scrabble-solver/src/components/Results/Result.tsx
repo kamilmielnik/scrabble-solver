@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { CSSProperties, FocusEventHandler, MouseEventHandler, ReactElement, useMemo, useRef } from 'react';
 import Highlighter from 'react-highlight-words';
 
+import { useAppLayout } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { getCoordinates, noop } from 'lib';
 import {
@@ -34,6 +35,7 @@ const Result = ({ data, index, style }: Props): ReactElement => {
     onMouseEnter = noop,
     onMouseLeave = noop,
   } = data;
+  const { resultWordWidth } = useAppLayout();
   const ref = useRef<HTMLButtonElement>(null);
   const columns = useColumns();
   const locale = useTypedSelector(selectLocale);
@@ -74,7 +76,12 @@ const Result = ({ data, index, style }: Props): ReactElement => {
         )}
 
         {enabledColumns[ResultColumn.Word] && (
-          <Cell className={styles.word} translationKey="common.word" value={result.word}>
+          <Cell
+            className={styles.word}
+            style={{ flexBasis: resultWordWidth }}
+            translationKey="common.word"
+            value={result.word}
+          >
             <Highlighter highlightClassName={styles.highlight} searchWords={[query]} textToHighlight={result.word} />
           </Cell>
         )}

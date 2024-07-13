@@ -17,6 +17,7 @@ const getLocaleColumns = (options: { consonants: boolean; vowels: boolean }): Co
       id: ResultColumn.TilesCount,
       Icon: Squares,
       translationKey: 'common.tiles',
+      width: 55,
     },
   ];
 
@@ -26,6 +27,7 @@ const getLocaleColumns = (options: { consonants: boolean; vowels: boolean }): Co
       Icon: SquareA,
       id: ResultColumn.VowelsCount,
       translationKey: 'common.vowels',
+      width: 55,
     });
   }
 
@@ -35,6 +37,7 @@ const getLocaleColumns = (options: { consonants: boolean; vowels: boolean }): Co
       Icon: SquareB,
       id: ResultColumn.ConsonantsCount,
       translationKey: 'common.consonants',
+      width: 55,
     });
   }
 
@@ -44,18 +47,21 @@ const getLocaleColumns = (options: { consonants: boolean; vowels: boolean }): Co
       Icon: Square,
       id: ResultColumn.BlanksCount,
       translationKey: 'common.blanks',
+      width: 55,
     },
     {
       className: styles.stat,
       Icon: Words,
       id: ResultColumn.WordsCount,
       translationKey: 'common.words',
+      width: 55,
     },
     {
       className: styles.points,
       Icon: OneTwoThree,
       id: ResultColumn.Points,
       translationKey: 'common.points',
+      width: 80,
     },
   );
 

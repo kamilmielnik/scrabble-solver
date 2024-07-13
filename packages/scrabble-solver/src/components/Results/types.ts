@@ -8,6 +8,7 @@ export interface Column {
   Icon?: FunctionComponent<SVGAttributes<SVGElement>>;
   id: ResultColumn;
   translationKey: TranslationKey;
+  width?: number;
 }
 
 export interface ResultCallbacks {

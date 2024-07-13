@@ -37,7 +37,7 @@ const IS_LOADING_DEBOUNCE = 100;
 
 const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIndex }) => {
   const translate = useTranslate();
-  const { resultsHeight, resultsWidth } = useAppLayout();
+  const { resultsHeight, resultsWidth, resultWordWidth } = useAppLayout();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const results = useTypedSelector(selectResults);
@@ -73,7 +73,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
     <div className={classNames(styles.results, className)}>
       <div className={styles.header}>
         {columns.map((column) => (
-          <HeaderButton column={column} key={column.id} />
+          <HeaderButton column={column} key={column.id} style={{ flexBasis: resultWordWidth }} />
         ))}
       </div>
 

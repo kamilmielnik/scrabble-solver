@@ -42,7 +42,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-weight: 700;
   border-bottom: var(--border);
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
@@ -149,7 +148,7 @@
 }
 
 .word {
-  flex: 1 0;
+  flex: 0 0;
   text-transform: uppercase;
 }
 
