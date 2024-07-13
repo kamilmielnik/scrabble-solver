@@ -1,4 +1,5 @@
 export { default as useAppLayout } from './useAppLayout';
+export { default as useColumns } from './useColumns';
 export { default as useDirection } from './useDirection';
 export { default as useEffectOnce } from './useEffectOnce';
 export { default as useIsTouchDevice } from './useIsTouchDevice';

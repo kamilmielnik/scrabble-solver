@@ -1,36 +1,37 @@
 import classNames from 'classnames';
-import { CSSProperties, ReactElement, useCallback } from 'react';
+import { CSSProperties, FunctionComponent, ReactElement, SVGAttributes, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { SortDown, SortUp } from 'icons';
 import { resultsSlice, selectResultsSort, useTranslate, useTypedSelector } from 'state';
-import { ResultColumn, SortDirection } from 'types';
+import { ResultColumnId, SortDirection, TranslationKey } from 'types';
 
 import { Tooltip } from '../Tooltip';
 
 import styles from './Results.module.scss';
 
 interface Props {
-  column: ResultColumn;
+  className: string;
+  Icon?: FunctionComponent<SVGAttributes<SVGElement>>;
+  id: ResultColumnId;
+  translationKey: TranslationKey;
   style?: CSSProperties;
 }
 
-const HeaderButton = ({ style, column }: Props): ReactElement => {
+const HeaderButton = ({ className, Icon, id, translationKey, style }: Props): ReactElement => {
   const dispatch = useDispatch();
   const translate = useTranslate();
-  const { Icon } = column;
   const sort = useTypedSelector(selectResultsSort);
 
   const handleClick = useCallback(() => {
-    dispatch(resultsSlice.actions.sort(column.id));
-  }, [column.id, dispatch]);
+    dispatch(resultsSlice.actions.sort(id));
+  }, [dispatch, id]);
 
   return (
-    <Tooltip tooltip={translate(column.translationKey)}>
+    <Tooltip tooltip={translate(translationKey)}>
       <button
-        aria-label={translate(column.translationKey)}
-        className={classNames(styles.headerButton, column.className)}
-        key={column.id}
+        aria-label={translate(translationKey)}
+        className={classNames(styles.headerButton, className)}
         style={style}
         type="button"
         onClick={handleClick}
@@ -38,9 +39,9 @@ const HeaderButton = ({ style, column }: Props): ReactElement => {
         <span className={styles.cell}>
           {Icon && <Icon className={styles.headerButtonIcon} />}
 
-          {!Icon && <span className={styles.headerButtonLabel}>{translate(column.translationKey)}</span>}
+          {!Icon && <span className={styles.headerButtonLabel}>{translate(translationKey)}</span>}
 
-          {sort.column === column.id && (
+          {sort.column === id && (
             <>
               {sort.direction === SortDirection.Ascending && <SortUp className={styles.sortIcon} />}
               {sort.direction === SortDirection.Descending && <SortDown className={styles.sortIcon} />}

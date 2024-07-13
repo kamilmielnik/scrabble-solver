@@ -15,14 +15,15 @@ import {
   MODAL_WIDTH,
   NAV_PADDING,
   RACK_TILE_SIZE_MAX,
+  RESULTS_COLUMN_WIDTH,
   SOLVER_COLUMN_WIDTH,
 } from 'parameters';
 import { selectConfig, selectShowCoordinates, useTypedSelector } from 'state';
 
+import useColumns from './useColumns';
 import useIsTouchDevice from './useIsTouchDevice';
 import useMediaQueries from './useMediaQueries';
 import useViewportSize from './useViewportSize';
-import useColumns from 'src/components/Results/useColumns';
 
 const useAppLayout = () => {
   const { viewportHeight, viewportWidth } = useViewportSize();
@@ -70,9 +71,9 @@ const useAppLayout = () => {
     : boardSize - componentsSpacing - dictionaryHeight;
   const rackWidth = tileSize * config.rackSize;
   const resultsWidth = isLessThanL ? modalWidth - 2 * componentsSpacing : SOLVER_COLUMN_WIDTH;
-  const columns = useColumns(); // TODO: move useColumns to /hooks
+  const columns = useColumns();
   const resultWordWidth =
-    resultsWidth - 2 * BORDER_WIDTH - columns.reduce((sum, column) => sum + (column.width ?? 0), 0);
+    resultsWidth - 2 * BORDER_WIDTH - columns.reduce((sum, column) => sum + (RESULTS_COLUMN_WIDTH[column] ?? 0), 0);
 
   return {
     actionsWidth: 2 * BUTTON_HEIGHT - BORDER_WIDTH,
