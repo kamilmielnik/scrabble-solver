@@ -37,3 +37,7 @@ export const getSettingsButton = (page: Page) => {
 export const getSettingOption = (page: Page, { section, option }: { section: string; option: string }) => {
   return page.locator(`[role=dialog] [aria-label="${section}"] [aria-label="${option}"]`);
 };
+
+export const getModal = (page: Page) => {
+  return page.getByRole('dialog');
+};
