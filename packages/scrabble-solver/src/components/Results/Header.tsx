@@ -20,8 +20,8 @@ const Results: FunctionComponent = () => {
           className={styles.coordinates}
           Icon={GeoAlt}
           id={ResultColumnId.Coordinates}
-          translationKey="settings.showCoordinates"
           style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.Coordinates] }}
+          translationKey="settings.showCoordinates"
         />
       )}
 
@@ -29,8 +29,8 @@ const Results: FunctionComponent = () => {
         <HeaderButton
           className={styles.word}
           id={ResultColumnId.Word}
-          translationKey="common.word"
           style={{ flexBasis: resultWordWidth }}
+          translationKey="common.word"
         />
       )}
 
@@ -39,8 +39,8 @@ const Results: FunctionComponent = () => {
           className={styles.stat}
           Icon={Squares}
           id={ResultColumnId.TilesCount}
-          translationKey="common.tiles"
           style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.TilesCount] }}
+          translationKey="common.tiles"
         />
       )}
 
@@ -49,8 +49,8 @@ const Results: FunctionComponent = () => {
           className={styles.stat}
           Icon={SquareA}
           id={ResultColumnId.VowelsCount}
-          translationKey="common.vowels"
           style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.VowelsCount] }}
+          translationKey="common.vowels"
         />
       )}
 
@@ -59,8 +59,8 @@ const Results: FunctionComponent = () => {
           className={styles.stat}
           Icon={SquareB}
           id={ResultColumnId.ConsonantsCount}
-          translationKey="common.consonants"
           style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.ConsonantsCount] }}
+          translationKey="common.consonants"
         />
       )}
 
@@ -69,8 +69,8 @@ const Results: FunctionComponent = () => {
           className={styles.stat}
           Icon={Square}
           id={ResultColumnId.BlanksCount}
-          translationKey="common.blanks"
           style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.BlanksCount] }}
+          translationKey="common.blanks"
         />
       )}
 
@@ -79,8 +79,8 @@ const Results: FunctionComponent = () => {
           className={styles.stat}
           Icon={Words}
           id={ResultColumnId.WordsCount}
-          translationKey="common.words"
           style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.WordsCount] }}
+          translationKey="common.words"
         />
       )}
 
@@ -89,8 +89,8 @@ const Results: FunctionComponent = () => {
           className={styles.points}
           Icon={OneTwoThree}
           id={ResultColumnId.Points}
-          translationKey="common.points"
           style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.Points] }}
+          translationKey="common.points"
         />
       )}
     </div>
