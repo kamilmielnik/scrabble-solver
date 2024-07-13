@@ -7,7 +7,7 @@ export const getBoardTile = (page: Page, { row, column }: BoardLocation) => {
     throw new Error('"row" and "column" need to be positive integers');
   }
 
-  return page.getByLabel(`Board: tile (${column}, ${row})`);
+  return page.getByLabel(`Board: tile (${column}, ${row})`, { exact: true });
 };
 
 export const getRackTile = (page: Page, { column }: RackLocation) => {
@@ -15,9 +15,9 @@ export const getRackTile = (page: Page, { column }: RackLocation) => {
     throw new Error('"column" needs to be a positive integer');
   }
 
-  return page.getByLabel(`Rack: tile (${column})`);
+  return page.getByLabel(`Rack: tile (${column})`, { exact: true });
 };
 
 export const getSettingsButton = (page: Page) => {
-  return page.getByLabel('Settings');
+  return page.getByLabel('Settings', { exact: true });
 };
