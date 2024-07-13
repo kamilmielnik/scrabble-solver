@@ -4,7 +4,7 @@ import { getBoardTile, getRackTile } from './selectors';
 import { BoardLocation } from './types';
 
 export const goToIndex = async (page: Page) => {
-  await page.goto('http://localhost:3000/');
+  await page.goto('/');
 };
 
 export const typeRack = async (page: Page, tiles: string) => {

@@ -8,7 +8,7 @@ import { getModal, getSettingsButton, goToIndex, typeRack } from '../lib';
 test('Esc does not close the sidebar when letters input is focused (#129)', async ({ page }) => {
   await goToIndex(page);
   await getSettingsButton(page).click();
-  await page.keyboard.press('Escape');
   await typeRack(page, 'a');
+  await page.keyboard.press('Escape');
   await expect(getModal(page)).not.toBeAttached();
 });
