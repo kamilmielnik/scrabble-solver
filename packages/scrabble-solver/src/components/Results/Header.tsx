@@ -1,9 +1,8 @@
 import { FunctionComponent } from 'react';
 
 import { useAppLayout, useColumns } from 'hooks';
-import { RESULTS_COLUMN_WIDTH } from 'parameters';
-
 import { GeoAlt, OneTwoThree, Square, SquareA, SquareB, Squares, Words } from 'icons';
+import { RESULTS_COLUMN_WIDTH } from 'parameters';
 import { ResultColumnId } from 'types';
 
 import HeaderButton from './HeaderButton';

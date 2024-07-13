@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 
-import { useMediaQueries } from 'hooks';
 import { selectColumns, useTypedSelector } from 'state';
 import { ResultColumnId } from 'types';
+
+import useMediaQueries from './useMediaQueries';
 
 const COLUMNS_XS = [ResultColumnId.Coordinates, ResultColumnId.Word, ResultColumnId.Points];
 
