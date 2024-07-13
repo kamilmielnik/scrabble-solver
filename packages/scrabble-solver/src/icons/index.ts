@@ -28,7 +28,7 @@ export { default as FlagGb } from './FlagGb.svg';
 export { default as FlagPl } from './FlagPl.svg';
 export { default as FlagRo } from './FlagRo.svg';
 export { default as FlagUs } from './FlagUs.svg';
-export { default as GeoAltFill } from './GeoAltFill.svg';
+export { default as GeoAlt } from './GeoAlt.svg';
 export { default as Github } from './Github.svg';
 export { default as InfoCircleFill } from './InfoCircleFill.svg';
 export { default as Keyboard } from './Keyboard.svg';
