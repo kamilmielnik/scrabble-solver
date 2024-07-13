@@ -1,7 +1,5 @@
 @import 'styles/mixins';
 
-$row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
-
 .results {
   position: relative;
   display: flex;
@@ -44,7 +42,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-weight: 700;
   border-bottom: var(--border);
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
@@ -58,6 +55,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   text-transform: uppercase;
   transition: var(--transition);
   background-color: var(--color--background);
+  height: 100%;
 
   &:first-child {
     border-start-start-radius: inherit;
@@ -79,6 +77,12 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
   flex: 0 1 auto;
   text-align: start;
+}
+
+.headerButtonIcon {
+  flex: 0 0 auto;
+  width: var(--results--icon--size);
+  height: var(--results--icon--size);
 }
 
 .result {
@@ -138,24 +142,13 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
     justify-content: flex-start;
   }
 
-  .result &:first-child,
-  .headerButton:first-child & {
-    text-align: start;
-    padding-inline-start: $row-padding-horizontal;
-  }
-
-  .result &:last-child,
-  .headerButton:last-child & {
-    padding-inline-end: $row-padding-horizontal;
-  }
-
   &:last-child {
     flex: 1;
   }
 }
 
 .word {
-  flex: 1 0;
+  flex: 0 0;
   text-transform: uppercase;
 }
 
@@ -176,7 +169,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 }
 
 .coordinates {
-  $width: 50px;
+  $width: 55px;
 
   flex: 0 0 $width;
   max-width: $width;

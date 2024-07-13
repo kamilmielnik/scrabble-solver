@@ -20,12 +20,11 @@ import EmptyState from '../EmptyState';
 import Loading from '../Loading';
 import ResultsInput from '../ResultsInput';
 
-import HeaderButton from './HeaderButton';
+import Header from './Header';
 import Result from './Result';
 import styles from './Results.module.scss';
 import SolveButton from './SolveButton';
 import { ResultCallbacks, ResultData } from './types';
-import useColumns from './useColumns';
 
 interface Props {
   callbacks: ResultCallbacks;
@@ -47,7 +46,6 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
   const error = useTypedSelector(selectSolveError);
   const itemData = useMemo(() => ({ ...callbacks, highlightedIndex, results }), [callbacks, highlightedIndex, results]);
   const [listRef, setListRef] = useState<FixedSizeList<ResultData> | null>(null);
-  const columns = useColumns();
   const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
   const scrollToIndexRef = useLatest(scrollToIndex);
   const hasResults = typeof error === 'undefined' && typeof results !== 'undefined';
@@ -71,11 +69,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
 
   return (
     <div className={classNames(styles.results, className)}>
-      <div className={styles.header}>
-        {columns.map((column) => (
-          <HeaderButton column={column} key={column.id} />
-        ))}
-      </div>
+      <Header />
 
       <div className={styles.content}>
         {typeof error !== 'undefined' && (

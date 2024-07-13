@@ -25,49 +25,51 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
         [styles.isNotAllowed]: isLastAllowed === false,
       })}
     >
-      {typeof error !== 'undefined' && !isLoading && <EmptyState variant="error">{error.message}</EmptyState>}
+      <div className={styles.content}>
+        {typeof error !== 'undefined' && !isLoading && <EmptyState variant="error">{error.message}</EmptyState>}
 
-      {typeof error === 'undefined' && !isLoading && results.length === 0 && (
-        <EmptyState variant="info">{translate('dictionary.empty-state.uninitialized')}</EmptyState>
-      )}
+        {typeof error === 'undefined' && !isLoading && results.length === 0 && (
+          <EmptyState variant="info">{translate('dictionary.empty-state.uninitialized')}</EmptyState>
+        )}
 
-      {results.map(({ definitions, exists, isAllowed, word }) => (
-        <div
-          className={classNames(styles.result, {
-            [styles.isAllowed]: isAllowed === true,
-            [styles.isNotAllowed]: isAllowed === false,
-          })}
-          key={word}
-        >
-          <div className={styles.content}>
-            {word && <h2 className={styles.word}>{word}</h2>}
+        {results.map(({ definitions, exists, isAllowed, word }) => (
+          <div
+            className={classNames(styles.result, {
+              [styles.isAllowed]: isAllowed === true,
+              [styles.isNotAllowed]: isAllowed === false,
+            })}
+            key={word}
+          >
+            <div className={styles.resultContent}>
+              {word && <h2 className={styles.word}>{word}</h2>}
 
-            {isAllowed === false && <div>{translate('dictionary.empty-state.not-allowed')}</div>}
+              {isAllowed === false && <div>{translate('dictionary.empty-state.not-allowed')}</div>}
 
-            {isAllowed === true && definitions.length === 0 && (
-              <>
-                <div>
-                  {exists
-                    ? translate('dictionary.empty-state.no-definitions')
-                    : translate('dictionary.empty-state.no-results')}
-                </div>
-              </>
-            )}
+              {isAllowed === true && definitions.length === 0 && (
+                <>
+                  <div>
+                    {exists
+                      ? translate('dictionary.empty-state.no-definitions')
+                      : translate('dictionary.empty-state.no-results')}
+                  </div>
+                </>
+              )}
 
-            {isAllowed === true && definitions.length > 0 && (
-              <ul className={styles.definitions}>
-                {definitions.map((result, index) => (
-                  <li key={index} className={styles.definition}>
-                    {result}
-                  </li>
-                ))}
-              </ul>
-            )}
+              {isAllowed === true && definitions.length > 0 && (
+                <ul className={styles.definitions}>
+                  {definitions.map((result, index) => (
+                    <li key={index} className={styles.definition}>
+                      {result}
+                    </li>
+                  ))}
+                </ul>
+              )}
 
-            {!isLoading && isAllowed === null && <div>{translate('dictionary.empty-state.no-results')}</div>}
+              {!isLoading && isAllowed === null && <div>{translate('dictionary.empty-state.no-results')}</div>}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       {isLoading && <Loading />}
     </div>

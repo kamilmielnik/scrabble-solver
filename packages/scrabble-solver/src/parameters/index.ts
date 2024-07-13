@@ -1,3 +1,5 @@
+import { ResultColumnId } from 'types';
+
 export const BREAKPOINTS = {
   xs: 480,
   s: 768,
@@ -120,6 +122,16 @@ export const RACK_TILE_SIZE_MAX = 80;
 
 export const REMAINING_TILES_TILE_SIZE = 50;
 
+export const RESULTS_COLUMN_WIDTH: Record<ResultColumnId, number | undefined> = {
+  [ResultColumnId.BlanksCount]: 55,
+  [ResultColumnId.ConsonantsCount]: 55,
+  [ResultColumnId.Coordinates]: 55,
+  [ResultColumnId.Points]: 80,
+  [ResultColumnId.TilesCount]: 55,
+  [ResultColumnId.VowelsCount]: 55,
+  [ResultColumnId.Word]: undefined,
+  [ResultColumnId.WordsCount]: 55,
+};
 export const RESULTS_ITEM_HEIGHT = 40;
 
 export const RESULTS_HEADER_HEIGHT = RESULTS_ITEM_HEIGHT;

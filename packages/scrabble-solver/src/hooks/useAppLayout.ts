@@ -15,10 +15,13 @@ import {
   MODAL_WIDTH,
   NAV_PADDING,
   RACK_TILE_SIZE_MAX,
+  RESULTS_COLUMN_WIDTH,
   SOLVER_COLUMN_WIDTH,
 } from 'parameters';
 import { selectConfig, selectShowCoordinates, useTypedSelector } from 'state';
+import { ResultColumnId } from 'types';
 
+import useColumns from './useColumns';
 import useIsTouchDevice from './useIsTouchDevice';
 import useMediaQueries from './useMediaQueries';
 import useViewportSize from './useViewportSize';
@@ -29,6 +32,7 @@ const useAppLayout = () => {
   const showCoordinates = useTypedSelector(selectShowCoordinates);
   const isTouchDevice = useIsTouchDevice();
   const { isLessThanXs, isLessThanS, isLessThanM, isLessThanL, isLessThanXl } = useMediaQueries();
+  const columns = useColumns();
   const isBoardFullWidth = isLessThanM;
   const showResultCandidatePicker = isLessThanL;
   const componentsSpacing = isLessThanXl ? COMPONENTS_SPACING_SMALL : COMPONENTS_SPACING;
@@ -68,6 +72,12 @@ const useAppLayout = () => {
     ? viewportHeight - dictionaryHeight - BUTTON_HEIGHT - MODAL_HEADER_HEIGHT - 5 * componentsSpacing
     : boardSize - componentsSpacing - dictionaryHeight;
   const rackWidth = tileSize * config.rackSize;
+  const resultsWidth = isLessThanL ? modalWidth - 2 * componentsSpacing : SOLVER_COLUMN_WIDTH;
+  const columnsWidth = Object.keys(columns).reduce(
+    (sum, column) => sum + (RESULTS_COLUMN_WIDTH[column as ResultColumnId] ?? 0),
+    0,
+  );
+  const resultWordWidth = resultsWidth - 2 * BORDER_WIDTH - columnsWidth;
 
   return {
     actionsWidth: 2 * BUTTON_HEIGHT - BORDER_WIDTH,
@@ -83,7 +93,8 @@ const useAppLayout = () => {
     rackHeight: tileSize,
     rackWidth,
     resultsHeight,
-    resultsWidth: isLessThanL ? modalWidth - 2 * componentsSpacing : SOLVER_COLUMN_WIDTH,
+    resultsWidth,
+    resultWordWidth,
     showCompactControls: !showColumn,
     showKeyMap: !isTouchDevice,
     showResultsInModal,

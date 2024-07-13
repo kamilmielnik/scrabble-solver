@@ -1,14 +1,6 @@
 import { Result } from '@scrabble-solver/types';
 import { FocusEvent, MouseEvent } from 'react';
 
-import { ResultColumn, TranslationKey } from 'types';
-
-export interface Column {
-  className: string;
-  id: ResultColumn;
-  translationKey: TranslationKey;
-}
-
 export interface ResultCallbacks {
   onBlur?: (result: Result, event: FocusEvent) => void;
   onClick?: (result: Result, event: MouseEvent) => void;

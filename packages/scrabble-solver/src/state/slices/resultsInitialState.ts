@@ -1,6 +1,6 @@
 import { Result } from '@scrabble-solver/types';
 
-import { ResultColumn, Sort, SortDirection } from 'types';
+import { ResultColumnId, Sort, SortDirection } from 'types';
 
 export interface ResultsState {
   candidate: Result | null;
@@ -14,7 +14,7 @@ const resultsInitialState: ResultsState = {
   query: '',
   results: undefined,
   sort: {
-    column: ResultColumn.Points,
+    column: ResultColumnId.Points,
     direction: SortDirection.Descending,
   },
 };

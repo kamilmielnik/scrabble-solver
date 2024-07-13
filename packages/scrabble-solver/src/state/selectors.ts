@@ -16,7 +16,7 @@ import {
   sortGroupedResults,
   unorderedArraysEqual,
 } from 'lib';
-import { Point, Translations } from 'types';
+import { Point, ResultColumnId, Translations } from 'types';
 
 import { RootState } from './types';
 
@@ -230,4 +230,29 @@ export const selectVerify = selectVerifyRoot;
 
 export const selectHasInvalidWords = createSelector([selectVerify], ({ invalidWords }) => {
   return invalidWords.length > 0;
+});
+
+export const selectColumns = createSelector([selectLocale, selectShowCoordinates], (locale, showCoordinates) => {
+  const { consonants, vowels } = LOCALE_FEATURES[locale];
+  const columns: ResultColumnId[] = [
+    ResultColumnId.Word,
+    ResultColumnId.TilesCount,
+    ResultColumnId.BlanksCount,
+    ResultColumnId.WordsCount,
+    ResultColumnId.Points,
+  ];
+
+  if (showCoordinates !== 'hidden') {
+    columns.push(ResultColumnId.Coordinates);
+  }
+
+  if (vowels) {
+    columns.push(ResultColumnId.VowelsCount);
+  }
+
+  if (consonants) {
+    columns.push(ResultColumnId.ConsonantsCount);
+  }
+
+  return columns;
 });
