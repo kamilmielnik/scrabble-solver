@@ -1,20 +1,19 @@
 import { OneTwoThree, Square, SquareA, SquareB, Squares, Words } from 'icons';
-import { ResultColumn } from 'types';
+import { ResultColumn, ResultColumnId } from 'types';
 
 import styles from './Results.module.scss';
-import { Column } from './types';
 
-const getLocaleColumns = (options: { consonants: boolean; vowels: boolean }): Column[] => {
+const getLocaleColumns = (options: { consonants: boolean; vowels: boolean }): ResultColumn[] => {
   const { consonants, vowels } = options;
-  const columns: Column[] = [
+  const columns: ResultColumn[] = [
     {
       className: styles.word,
-      id: ResultColumn.Word,
+      id: ResultColumnId.Word,
       translationKey: 'common.word',
     },
     {
       className: styles.stat,
-      id: ResultColumn.TilesCount,
+      id: ResultColumnId.TilesCount,
       Icon: Squares,
       translationKey: 'common.tiles',
       width: 55,
@@ -25,7 +24,7 @@ const getLocaleColumns = (options: { consonants: boolean; vowels: boolean }): Co
     columns.push({
       className: styles.stat,
       Icon: SquareA,
-      id: ResultColumn.VowelsCount,
+      id: ResultColumnId.VowelsCount,
       translationKey: 'common.vowels',
       width: 55,
     });
@@ -35,7 +34,7 @@ const getLocaleColumns = (options: { consonants: boolean; vowels: boolean }): Co
     columns.push({
       className: styles.stat,
       Icon: SquareB,
-      id: ResultColumn.ConsonantsCount,
+      id: ResultColumnId.ConsonantsCount,
       translationKey: 'common.consonants',
       width: 55,
     });
@@ -45,21 +44,21 @@ const getLocaleColumns = (options: { consonants: boolean; vowels: boolean }): Co
     {
       className: styles.stat,
       Icon: Square,
-      id: ResultColumn.BlanksCount,
+      id: ResultColumnId.BlanksCount,
       translationKey: 'common.blanks',
       width: 55,
     },
     {
       className: styles.stat,
       Icon: Words,
-      id: ResultColumn.WordsCount,
+      id: ResultColumnId.WordsCount,
       translationKey: 'common.words',
       width: 55,
     },
     {
       className: styles.points,
       Icon: OneTwoThree,
-      id: ResultColumn.Points,
+      id: ResultColumnId.Points,
       translationKey: 'common.points',
       width: 80,
     },

@@ -12,7 +12,7 @@ import {
   selectShowCoordinates,
   useTypedSelector,
 } from 'state';
-import { ResultColumn } from 'types';
+import { ResultColumnId } from 'types';
 
 import Cell from './Cell';
 import styles from './Results.module.scss';
@@ -71,11 +71,11 @@ const Result = ({ data, index, style }: Props): ReactElement => {
       onMouseLeave={handleMouseLeave}
     >
       <span className={styles.resultContent}>
-        {enabledColumns[ResultColumn.Coordinates] && (
+        {enabledColumns[ResultColumnId.Coordinates] && (
           <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />
         )}
 
-        {enabledColumns[ResultColumn.Word] && (
+        {enabledColumns[ResultColumnId.Word] && (
           <Cell
             className={styles.word}
             style={{ flexBasis: resultWordWidth }}
@@ -86,23 +86,23 @@ const Result = ({ data, index, style }: Props): ReactElement => {
           </Cell>
         )}
 
-        {enabledColumns[ResultColumn.TilesCount] && (
+        {enabledColumns[ResultColumnId.TilesCount] && (
           <Cell className={styles.stat} translationKey="common.tiles" value={result.tilesCount} />
         )}
 
-        {enabledColumns[ResultColumn.VowelsCount] && vowels && (
+        {enabledColumns[ResultColumnId.VowelsCount] && vowels && (
           <Cell className={styles.stat} translationKey="common.vowels" value={result.vowelsCount} />
         )}
 
-        {enabledColumns[ResultColumn.ConsonantsCount] && consonants && (
+        {enabledColumns[ResultColumnId.ConsonantsCount] && consonants && (
           <Cell className={styles.stat} translationKey="common.consonants" value={result.consonantsCount} />
         )}
 
-        {enabledColumns[ResultColumn.BlanksCount] && (
+        {enabledColumns[ResultColumnId.BlanksCount] && (
           <Cell className={styles.stat} translationKey="common.blanks" value={result.blanksCount} />
         )}
 
-        {enabledColumns[ResultColumn.WordsCount] && (
+        {enabledColumns[ResultColumnId.WordsCount] && (
           <Cell
             className={styles.stat}
             translationKey="common.words"
@@ -111,7 +111,7 @@ const Result = ({ data, index, style }: Props): ReactElement => {
           />
         )}
 
-        {enabledColumns[ResultColumn.Points] && (
+        {enabledColumns[ResultColumnId.Points] && (
           <Cell className={styles.points} translationKey="common.points" value={result.points} />
         )}
       </span>

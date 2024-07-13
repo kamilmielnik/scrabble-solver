@@ -1,14 +1,13 @@
 import { GeoAlt } from 'icons';
-import { ResultColumn } from 'types';
+import { ResultColumn, ResultColumnId } from 'types';
 
 import styles from './Results.module.scss';
-import { Column } from './types';
 
-const getCoordinatesColumn = (): Column => {
+const getCoordinatesColumn = (): ResultColumn => {
   return {
     className: styles.coordinates,
     Icon: GeoAlt,
-    id: ResultColumn.Coordinates,
+    id: ResultColumnId.Coordinates,
     translationKey: 'settings.showCoordinates',
     width: 55,
   };

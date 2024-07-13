@@ -4,15 +4,14 @@ import { useDispatch } from 'react-redux';
 
 import { SortDown, SortUp } from 'icons';
 import { resultsSlice, selectResultsSort, useTranslate, useTypedSelector } from 'state';
-import { SortDirection } from 'types';
+import { ResultColumn, SortDirection } from 'types';
 
 import { Tooltip } from '../Tooltip';
 
 import styles from './Results.module.scss';
-import { Column } from './types';
 
 interface Props {
-  column: Column;
+  column: ResultColumn;
   style?: CSSProperties;
 }
 

@@ -1,21 +1,20 @@
 import { useMediaQueries } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { selectLocale, selectShowCoordinates, useTypedSelector } from 'state';
-import { ResultColumn } from 'types';
+import { ResultColumn, ResultColumnId } from 'types';
 
 import getCoordinatesColumn from './getCoordinatesColumn';
 import getLocaleColumns from './getLocaleColumns';
-import { Column } from './types';
 
-const COLUMNS_XS = [ResultColumn.Coordinates, ResultColumn.Word, ResultColumn.Points];
+const COLUMNS_XS = [ResultColumnId.Coordinates, ResultColumnId.Word, ResultColumnId.Points];
 
-const COLUMNS_S = [...COLUMNS_XS, ResultColumn.BlanksCount, ResultColumn.WordsCount];
+const COLUMNS_S = [...COLUMNS_XS, ResultColumnId.BlanksCount, ResultColumnId.WordsCount];
 
 const COLUMNS_M = [...COLUMNS_XS];
 
 const COLUMNS_L = [...COLUMNS_XS];
 
-const useColumns = (): Column[] => {
+const useColumns = (): ResultColumn[] => {
   const locale = useTypedSelector(selectLocale);
   const localeColumns = getLocaleColumns(LOCALE_FEATURES[locale]);
   const showCoordinates = useTypedSelector(selectShowCoordinates);

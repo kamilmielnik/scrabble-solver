@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Result } from '@scrabble-solver/types';
 
-import { ResultColumn, SortDirection } from 'types';
+import { ResultColumnId, SortDirection } from 'types';
 
 import resultsInitialState from './resultsInitialState';
 
@@ -37,7 +37,7 @@ const resultsSlice = createSlice({
       };
     },
 
-    sort: (state, action: PayloadAction<ResultColumn>) => {
+    sort: (state, action: PayloadAction<ResultColumnId>) => {
       const columndId = action.payload;
       const { column, direction } = state.sort;
 
