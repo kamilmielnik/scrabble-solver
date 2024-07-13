@@ -21,6 +21,7 @@ import styles from './Board.module.scss';
 import { Cell } from './components';
 
 interface Props {
+  backgroundImage: string;
   className?: string;
   cellSize: number;
   coordinatesFontSize: number;
@@ -41,6 +42,7 @@ interface Props {
 const BoardPure = forwardRef<HTMLDivElement, Props>(
   (
     {
+      backgroundImage,
       className,
       cellSize,
       coordinatesFontSize,
@@ -67,6 +69,8 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
       onKeyDown={onKeyDown}
       onPaste={onPaste}
     >
+      <img className={styles.image} src={backgroundImage} />
+
       {showCoordinates !== 'hidden' && (
         <>
           <div style={{ width: coordinatesSize, height: coordinatesSize }} />

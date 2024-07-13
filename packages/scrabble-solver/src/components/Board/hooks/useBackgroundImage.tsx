@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { useAppLayout, useMediaQueries } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { Star } from 'icons';
-import { dataUrlToBlob, getTileSizes } from 'lib';
+import { getTileSizes } from 'lib';
 import { BORDER_COLOR_LIGHT, BORDER_RADIUS, BORDER_WIDTH, COLOR_BACKGROUND, COLOR_BONUS_START } from 'parameters';
 import { selectConfig, selectLocale, selectShowCoordinates, store, useTypedSelector } from 'state';
 import { Point } from 'types';
@@ -211,11 +211,7 @@ const useBackgroundImage = () => {
 
   const encodedSvg = useMemo(() => globalThis.btoa(backgroundSvg), [backgroundSvg]);
   const dataUrl = `data:image/svg+xml;base64,${encodedSvg}`;
-  const blob = useMemo(() => dataUrlToBlob(dataUrl), [dataUrl]);
-  const blobUrl = useMemo(() => URL.createObjectURL(blob), [blob]);
-  const url = `url(${blobUrl})`;
-
-  return url;
+  return dataUrl;
 };
 
 export default useBackgroundImage;
