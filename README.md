@@ -39,8 +39,8 @@
   </p>
 
   <p>
-    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/Build/badge.svg" alt="Build" />
-    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/Test/badge.svg" alt="Test" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/build/badge.svg" alt="Build" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/Unit%20tests/badge.svg" alt="Unit Tests" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/ESLint/badge.svg" alt="ESLint" />
   </p>
 
