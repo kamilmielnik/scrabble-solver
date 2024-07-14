@@ -48,6 +48,7 @@
     "start": "npm-run-all --parallel start:*",
     "start:app": "npm run start -w @scrabble-solver/scrabble-solver",
     "start:browser": "open-cli http://localhost:3333",
+    "test": "npm run test-unit && cypress run",
     "test-e2e": "cypress open",
     "test-unit": "jest --no-cache --coverage",
     "test-unit:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache --watch",
