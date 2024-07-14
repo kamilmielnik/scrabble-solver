@@ -16,6 +16,10 @@ export const getBoardTile = (x = 0, y = 0) => {
     });
 };
 
+export const getLoading = () => {
+  return cy.findByTestId('loading');
+};
+
 export const getRackContainer = () => {
   return cy.findByTestId('rack');
 };
@@ -26,6 +30,10 @@ export const getRackTile = (index = 0) => {
 
 export const getResultsContainer = () => {
   return cy.findByTestId('results');
+};
+
+export const getResult = (index = 0) => {
+  return getResultsContainer().findAllByTestId('result').eq(index);
 };
 
 export const getSettingsButton = () => {

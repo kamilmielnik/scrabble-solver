@@ -1,4 +1,4 @@
-import { getBoardTile, getRackTile } from './selectors';
+import { getBoardTile, getLoading, getRackTile, getResult } from './selectors';
 
 export const visitIndex = () => {
   cy.visit('http://localhost:3000');
@@ -14,4 +14,10 @@ export const typeBoard = (tiles: string, x = 0, y = 0) => {
 
 export const solve = () => {
   getRackTile().focus().parents('form').submit();
+  getLoading().should('not.exist');
+};
+
+export const assertResult = (index: number, word: string, points: number) => {
+  getResult(index).should('have.attr', 'aria-label', word).and('include.text', word);
+  getResult(index).findByTestId('points').should('have.text', String(points));
 };
