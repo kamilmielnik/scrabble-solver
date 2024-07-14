@@ -77,6 +77,7 @@ const TilePure: FunctionComponent<Props> = ({
       [styles.points5]: typeof points === 'number' && points >= 5,
       [styles.raised]: raised,
     })}
+    role={highlighted ? 'mark' : undefined}
     style={style}
   >
     {character || placeholder}

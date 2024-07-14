@@ -39,9 +39,10 @@
   </p>
 
   <p>
-    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/Build/badge.svg" alt="Build" />
-    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/Test/badge.svg" alt="Test" />
-    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/ESLint/badge.svg" alt="ESLint" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/build.yml/badge.svg" alt="Build" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/jest.yml/badge.svg" alt="Jest Tests" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/cypress.yml/badge.svg" alt="Cypress Tests" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/eslint.yml/badge.svg" alt="ESLint" />
   </p>
 
   <img alt="Screencast GIF showing user interface when solving for oxyphenbutazone, which is a top-scoring word in English version of Scrabble" src="https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/screencast.gif" />
@@ -183,6 +184,7 @@ npm run build -w @scrabble-solver/word-lists
 - [CSS Modules](https://github.com/css-modules/css-modules)
 - [include-media](https://eduardoboucas.github.io/include-media/)
 - [Lerna](https://lerna.js.org/)
+- [Cypress](https://www.cypress.io/)
 - [Jest](https://jestjs.io/)
 - [ESLint](https://eslint.org/)
 - [Prettier](https://prettier.io/)

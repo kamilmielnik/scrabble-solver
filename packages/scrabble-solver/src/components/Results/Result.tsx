@@ -59,6 +59,7 @@ const Result = ({ data, index, style }: Props): ReactElement => {
         [styles.highlighted]: index === highlightedIndex,
         [styles.notMatching]: !isMatching,
       })}
+      data-testid="result"
       ref={ref}
       style={style}
       type="button"
@@ -110,7 +111,7 @@ const Result = ({ data, index, style }: Props): ReactElement => {
         )}
 
         {columns[ResultColumnId.Points] && (
-          <Cell className={styles.points} translationKey="common.points" value={result.points} />
+          <Cell className={styles.points} dataTestId="points" translationKey="common.points" value={result.points} />
         )}
       </span>
     </button>

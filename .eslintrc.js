@@ -1,7 +1,5 @@
 module.exports = {
-  parser: 'babel-eslint',
-
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier', 'plugin:cypress/recommended'],
 
   parserOptions: {
     ecmaVersion: 6,
@@ -20,13 +18,14 @@ module.exports = {
     jquery: true,
   },
 
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import', 'cypress', 'mocha'],
 
   globals: {
     RequestInfo: true,
     RequestInit: true,
     ServiceWorkerGlobalScope: true,
     beforeAll: true,
+    cy: true,
     define: true,
     describe: true,
     expect: true,
@@ -57,6 +56,13 @@ module.exports = {
       files: ['*.test.ts', '*.test.tsx'],
       rules: {
         '@typescript-eslint/no-non-null-assertion': 'off',
+      },
+    },
+
+    {
+      files: ['*.spec.cy.ts'],
+      rules: {
+        'max-statements': 'off',
       },
     },
   ],
@@ -543,5 +549,8 @@ module.exports = {
     ],
     'react/jsx-uses-react': 'error',
     'react/jsx-uses-vars': 'error',
+
+    'mocha/no-exclusive-tests': 'error',
+    'mocha/no-skipped-tests': 'error',
   },
 };

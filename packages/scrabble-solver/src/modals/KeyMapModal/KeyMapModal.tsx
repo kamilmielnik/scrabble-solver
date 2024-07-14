@@ -17,7 +17,7 @@ const KeyMapModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) =
 
   return (
     <Modal className={className} isOpen={isOpen} title={translate('keyMap')} onClose={onClose}>
-      <Modal.Section title={translate('keyMap.board-and-rack')}>
+      <Modal.Section label={translate('keyMap.board-and-rack')} title={translate('keyMap.board-and-rack')}>
         <Mapping description={translate('keyMap.board-and-rack.navigate')} mapping={[<Arrows key="arrows" />]} />
 
         <Mapping
@@ -44,7 +44,7 @@ const KeyMapModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) =
         )}
       </Modal.Section>
 
-      <Modal.Section title={translate('keyMap.board')}>
+      <Modal.Section label={translate('keyMap.board')} title={translate('keyMap.board')}>
         <Mapping description={translate('keyMap.board.toggle-direction')} mapping={[<Arrows key="arrows" />]} />
         <Mapping description={translate('keyMap.board.toggle-blank')} mapping={[<Space key="space" />]} />
         <Mapping
@@ -53,7 +53,7 @@ const KeyMapModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) =
         />
       </Modal.Section>
 
-      <Modal.Section title={translate('keyMap.rack')}>
+      <Modal.Section label={translate('keyMap.rack')} title={translate('keyMap.rack')}>
         <Mapping description={translate('keyMap.rack.insert-blank')} mapping={[<Space key="space" />]} />
       </Modal.Section>
     </Modal>

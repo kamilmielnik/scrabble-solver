@@ -24,25 +24,25 @@ const SettingsModal: FunctionComponent<Props> = ({ className, isOpen, onClose })
 
   return (
     <Modal className={className} isOpen={isOpen} title={translate('settings')} onClose={onClose}>
-      <Modal.Section title={translate('settings.game')}>
+      <Modal.Section label={translate('settings.game')} title={translate('settings.game')}>
         <ConfigSetting disabled={!isOpen} />
       </Modal.Section>
 
-      <Modal.Section title={translate('settings.language')}>
+      <Modal.Section label={translate('settings.language')} title={translate('settings.language')}>
         <LocaleSetting disabled={!isOpen} />
       </Modal.Section>
 
-      <Modal.Section title={translate('settings.showCoordinates')}>
+      <Modal.Section label={translate('settings.showCoordinates')} title={translate('settings.showCoordinates')}>
         <ShowCoordinatesSetting disabled={!isOpen} />
       </Modal.Section>
 
       {!isTouchDevice && (
-        <Modal.Section title={translate('settings.inputMode')}>
+        <Modal.Section label={translate('settings.inputMode')} title={translate('settings.inputMode')}>
           <InputModeSetting disabled={!isOpen} />
         </Modal.Section>
       )}
 
-      <Modal.Section title={translate('settings.autoGroupTiles')}>
+      <Modal.Section label={translate('settings.autoGroupTiles')} title={translate('settings.autoGroupTiles')}>
         <AutoGroupTilesSetting disabled={!isOpen} />
       </Modal.Section>
     </Modal>

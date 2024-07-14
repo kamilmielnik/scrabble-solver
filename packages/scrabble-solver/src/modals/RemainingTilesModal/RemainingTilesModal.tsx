@@ -31,6 +31,7 @@ const RemainingTilesModal: FunctionComponent<Props> = ({ className, isOpen, onCl
         return (
           <Modal.Section
             key={translationKey}
+            label={translate(translationKey)}
             title={
               <span className={styles.title}>
                 <span>{translate(translationKey)}</span>
