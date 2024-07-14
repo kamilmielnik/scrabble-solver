@@ -63,6 +63,7 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
   ) => (
     <div
       className={classNames(styles.board, className)}
+      data-testid="board"
       ref={ref}
       style={style}
       onBlur={onBlur}

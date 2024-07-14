@@ -168,6 +168,7 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
         className={classNames(styles.rack, className, {
           [styles.hidden]: showInputPrompt,
         })}
+        data-testid="rack"
         ref={ref}
         style={{ fontSize: tileFontSize }}
         onPaste={handlePaste}

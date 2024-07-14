@@ -68,7 +68,7 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
   }, [results, listRef, scrollToIndexRef]);
 
   return (
-    <div className={classNames(styles.results, className)}>
+    <div className={classNames(styles.results, className)} data-testid="results">
       <Header />
 
       <div className={styles.content}>
