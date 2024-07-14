@@ -25,7 +25,8 @@ export const getRackContainer = () => {
 };
 
 export const getRackTile = (index = 0) => {
-  return getRackContainer().findAllByRole('textbox').eq(index);
+  // use hidden: true so that rack can be interacted with while modal is opened
+  return getRackContainer().findAllByRole('textbox', { hidden: true }).eq(index);
 };
 
 export const getResultsContainer = () => {
