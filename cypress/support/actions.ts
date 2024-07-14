@@ -1,5 +1,9 @@
 import { getBoardTile, getLoading, getRackTile, getResult } from './selectors';
 
+const getRandomId = () => {
+  return String(10 * Math.random());
+};
+
 export const visitIndex = () => {
   cy.visit('http://localhost:3000');
 };
@@ -13,7 +17,10 @@ export const typeBoard = (tiles: string, x = 0, y = 0) => {
 };
 
 export const solve = () => {
+  const id = `solve-${getRandomId()}`;
+  cy.intercept('/api/solve').as(id);
   getRackTile().focus().parents('form').submit();
+  cy.wait(`@${id}`);
   getLoading().should('not.exist');
 };
 

@@ -33,6 +33,11 @@ it('has default setting values', () => {
 });
 
 describe('full app test', () => {
+  beforeEach(() => {
+    cy.intercept('/api/solve').as('solve');
+    cy.intercept('/api/dictionary/**/*').as('dictionary');
+  });
+
   it('Scrabble - Polish', () => {
     visitIndex();
     getSettingsButton().realClick();
@@ -44,6 +49,8 @@ describe('full app test', () => {
 
     assertResult(0, 'bał', 14);
     getResult(0).realHover();
+    getLoading().should('be.visible');
+    cy.wait('@dictionary');
     getRackTile(0).parent().should('have.attr', 'role', 'mark');
     getRackTile(1).parent().should('have.attr', 'role', 'mark');
     getRackTile(2).parent().should('have.attr', 'role', 'mark');
@@ -76,6 +83,8 @@ describe('full app test', () => {
     getBoardTile(6, 7).parent().should('have.attr', 'role', 'mark');
     getBoardTile(7, 7).parent().should('have.attr', 'role', 'mark');
     getDictionaryInput().should('have.value', 'ba');
+    getLoading().should('be.visible');
+    cy.wait('@dictionary');
     getLoading().should('not.exist');
     getDictionaryTitles().should('have.length', 1).and('have.text', 'ba');
     getDictionary()
