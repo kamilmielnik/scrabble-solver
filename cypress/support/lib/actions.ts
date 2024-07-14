@@ -5,7 +5,13 @@ const getRandomId = () => {
 };
 
 export const visitIndex = () => {
-  cy.visit('http://localhost:3000');
+  if (process.env.NODE_ENV === 'development') {
+    cy.visit('http://localhost:3000');
+  }
+
+  if (process.env.NODE_ENV === 'production') {
+    cy.visit('http://localhost:3333');
+  }
 };
 
 export const typeRack = (tiles: string) => {
