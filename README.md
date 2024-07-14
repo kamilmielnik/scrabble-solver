@@ -184,6 +184,7 @@ npm run build -w @scrabble-solver/word-lists
 - [CSS Modules](https://github.com/css-modules/css-modules)
 - [include-media](https://eduardoboucas.github.io/include-media/)
 - [Lerna](https://lerna.js.org/)
+- [Cypress](https://www.cypress.io/)
 - [Jest](https://jestjs.io/)
 - [ESLint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
