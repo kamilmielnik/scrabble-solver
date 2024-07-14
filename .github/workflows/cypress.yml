@@ -21,4 +21,4 @@ jobs:
           build: npm run build
           start: npm start
         env:
-          CYPRESS_CI: true
+          CYPRESS_BASE_URL: http://localhost:3333
