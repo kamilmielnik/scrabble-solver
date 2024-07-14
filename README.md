@@ -39,9 +39,10 @@
   </p>
 
   <p>
-    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/build/badge.svg" alt="Build" />
-    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/Unit%20tests/badge.svg" alt="Unit Tests" />
-    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/ESLint/badge.svg" alt="ESLint" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/build.yml/badge.svg" alt="Build" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/jest.yml/badge.svg" alt="Jest Tests" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/cypress.yml/badge.svg" alt="Cypress Tests" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/workflows/eslint.yml/badge.svg" alt="ESLint" />
   </p>
 
   <img alt="Screencast GIF showing user interface when solving for oxyphenbutazone, which is a top-scoring word in English version of Scrabble" src="https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/screencast.gif" />
