@@ -5,11 +5,7 @@ const getRandomId = () => {
 };
 
 export const visitIndex = () => {
-  if (process.env.NODE_ENV === 'production' || process.env.CI === 'true') {
-    cy.visit('http://localhost:3333');
-  } else if (process.env.NODE_ENV === 'development') {
-    cy.visit('http://localhost:3000');
-  }
+  cy.visit('/');
 };
 
 export const typeRack = (tiles: string) => {
