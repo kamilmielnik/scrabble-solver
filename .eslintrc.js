@@ -18,7 +18,7 @@ module.exports = {
     jquery: true,
   },
 
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import', 'cypress'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import', 'cypress', 'mocha'],
 
   globals: {
     RequestInfo: true,
@@ -542,5 +542,8 @@ module.exports = {
     ],
     'react/jsx-uses-react': 'error',
     'react/jsx-uses-vars': 'error',
+
+    'mocha/no-exclusive-tests': 'error',
+    'mocha/no-skipped-tests': 'error',
   },
 };
