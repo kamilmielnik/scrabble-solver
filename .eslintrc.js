@@ -27,6 +27,7 @@ module.exports = {
     RequestInit: true,
     ServiceWorkerGlobalScope: true,
     beforeAll: true,
+    cy: true,
     define: true,
     describe: true,
     expect: true,
