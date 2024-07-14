@@ -9,7 +9,7 @@ export const visitIndex = () => {
     cy.visit('http://localhost:3000');
   }
 
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production' || process.env.CI === 'true') {
     cy.visit('http://localhost:3333');
   }
 };
