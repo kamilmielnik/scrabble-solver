@@ -58,6 +58,13 @@ module.exports = {
         '@typescript-eslint/no-non-null-assertion': 'off',
       },
     },
+
+    {
+      files: ['*.spec.cy.ts'],
+      rules: {
+        'max-statements': 'off',
+      },
+    },
   ],
 
   settings: {

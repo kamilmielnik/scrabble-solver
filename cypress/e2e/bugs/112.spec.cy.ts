@@ -6,7 +6,7 @@ import { assertResult, getSettingOption, getSettingsButton, solve, typeRack, vis
 it('Scrabble - Character bonus not applied (#112)', () => {
   visitIndex();
 
-  getSettingsButton().click();
+  getSettingsButton().realClick();
   getSettingOption('Language', 'Français').check();
   cy.realPress('Escape');
   typeRack('jours');

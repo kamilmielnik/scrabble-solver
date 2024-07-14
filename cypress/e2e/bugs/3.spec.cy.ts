@@ -5,7 +5,7 @@ import { getSettingOption, getSettingsButton, typeBoard, typeRack, visitIndex } 
  */
 it('X tile is allowed in Polish language (#3)', () => {
   visitIndex();
-  getSettingsButton().click();
+  getSettingsButton().realClick();
   getSettingOption('Language', 'Polski').check();
   cy.realPress('Escape');
   typeBoard('x', 7, 7);

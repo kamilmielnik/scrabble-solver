@@ -100,7 +100,7 @@ const Solver: FunctionComponent<Props> = ({ className, onShowResults }) => {
           <div className={styles.column}>
             <Results callbacks={callbacks} className={styles.results} />
 
-            <div className={styles.dictionaryContainer}>
+            <div data-testid="dictionary" className={styles.dictionaryContainer}>
               <Dictionary className={styles.dictionary} />
               <DictionaryInput className={styles.dictionaryInput} />
             </div>

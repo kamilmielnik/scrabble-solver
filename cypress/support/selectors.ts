@@ -16,6 +16,18 @@ export const getBoardTile = (x = 0, y = 0) => {
     });
 };
 
+export const getDictionary = () => {
+  return cy.findByTestId('dictionary');
+};
+
+export const getDictionaryInput = () => {
+  return getDictionary().findByRole('textbox');
+};
+
+export const getDictionaryTitles = () => {
+  return getDictionary().get('h2');
+};
+
 export const getLoading = () => {
   return cy.findByTestId('loading');
 };
@@ -33,8 +45,12 @@ export const getResultsContainer = () => {
   return cy.findByTestId('results');
 };
 
+export const getResults = () => {
+  return getResultsContainer().findAllByTestId('result');
+};
+
 export const getResult = (index = 0) => {
-  return getResultsContainer().findAllByTestId('result').eq(index);
+  return getResults().eq(index);
 };
 
 export const getSettingsButton = () => {
@@ -43,4 +59,8 @@ export const getSettingsButton = () => {
 
 export const getSettingOption = (section: string, option: string) => {
   return getModal().findByLabelText(section).findByLabelText(option);
+};
+
+export const getTooltip = () => {
+  return cy.findByRole('tooltip');
 };
