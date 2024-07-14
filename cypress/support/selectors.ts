@@ -32,6 +32,6 @@ export const getSettingsButton = () => {
   return cy.findByLabelText('Settings');
 };
 
-export const getSettingOption = ({ section, option }: { section: string; option: string }) => {
-  return cy.get(`[role=dialog] [aria-label="${section}"] [aria-label="${option}"]`);
+export const getSettingOption = (section: string, option: string) => {
+  return getModal().findByLabelText(section).findByLabelText(option);
 };

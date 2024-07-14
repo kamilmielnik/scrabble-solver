@@ -6,11 +6,12 @@ import styles from './Section.module.scss';
 interface Props {
   children: ReactNode;
   className?: string;
+  label: string;
   title: ReactNode;
 }
 
-const Section: FunctionComponent<Props> = ({ children, className, title }) => (
-  <section className={classNames(styles.section, className)}>
+const Section: FunctionComponent<Props> = ({ children, className, label, title }) => (
+  <section aria-label={label} className={classNames(styles.section, className)}>
     <h2 className={styles.heading}>{title}</h2>
     <div>{children}</div>
   </section>
