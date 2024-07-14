@@ -1,7 +1,5 @@
 module.exports = {
-  parser: 'babel-eslint',
-
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier', 'plugin:cypress/recommended'],
 
   parserOptions: {
     ecmaVersion: 6,
@@ -20,7 +18,7 @@ module.exports = {
     jquery: true,
   },
 
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import', 'cypress'],
 
   globals: {
     RequestInfo: true,
