@@ -1,4 +1,12 @@
-import { assertResult, getSettingOption, getSettingsButton, solve, typeRack, visitIndex } from '../../support';
+import {
+  assertResult,
+  closeModal,
+  getSettingOption,
+  getSettingsButton,
+  solve,
+  typeRack,
+  visitIndex,
+} from '../../support';
 
 /*
  * @see https://github.com/kamilmielnik/scrabble-solver/issues/112
@@ -8,7 +16,7 @@ it('Scrabble - Character bonus not applied (#112)', () => {
 
   getSettingsButton().realClick();
   getSettingOption('Language', 'Français').check();
-  cy.realPress('Escape');
+  closeModal();
   typeRack('jours');
   solve();
 

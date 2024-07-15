@@ -5,7 +5,6 @@ import { getModal, getSettingsButton, typeRack, visitIndex } from '../../support
  */
 it('Esc does not close the sidebar when letters input is focused (#129)', () => {
   visitIndex();
-
   getSettingsButton().realClick();
   typeRack('a');
   cy.realPress('Escape');

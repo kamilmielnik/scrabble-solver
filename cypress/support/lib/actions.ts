@@ -1,6 +1,4 @@
-import { getBoardTile, getLoading, getRackTile, getResult } from './selectors';
-
-type KeyOrShortcut = Parameters<typeof cy.realPress>[0];
+import { getBoardTile, getLoading, getModal, getRackTile, getResult } from './selectors';
 
 const getRandomId = () => {
   return String(Math.random()).replace(/^\d\./, '');
@@ -10,19 +8,32 @@ export const visitIndex = () => {
   cy.visit('/');
 };
 
-export const typeRack = (tiles: KeyOrShortcut[], index = 0) => {
-  getRackTile(index).focus();
-
-  for (const tile of tiles) {
-    cy.realPress(tile);
-  }
+export const closeModal = () => {
+  getModal().should('be.visible');
+  cy.realPress('Escape');
+  getModal().should('not.exist');
 };
 
-export const typeBoard = (tiles: KeyOrShortcut[], x = 0, y = 0) => {
+export const typeRack = (tiles: string, index = 0) => {
+  getRackTile(index).focus().type(tiles);
+};
+
+export const typeBoard = (tiles: string, direction: 'horizontal' | 'vertical', x = 0, y = 0) => {
   getBoardTile(x, y).focus();
 
-  for (const tile of tiles) {
-    cy.realPress(tile);
+  cy.findByTestId('toggle-direction-button').then(([$button]) => {
+    if ($button.ariaDescription !== direction) {
+      cy.wrap($button).click();
+    }
+  });
+
+  for (let index = 0; index < tiles.length; ++index) {
+    const xOffset = direction === 'horizontal' ? index : 0;
+    const yOffset = direction === 'vertical' ? index : 0;
+
+    getBoardTile(x + xOffset, y + yOffset)
+      .focus()
+      .type(tiles[index]);
   }
 };
 

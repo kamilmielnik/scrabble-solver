@@ -5,7 +5,7 @@ import { assertResult, getResults, solve, typeBoard, typeRack, visitIndex } from
  */
 it('"Q" tile does not work (#2)', () => {
   visitIndex();
-  typeBoard('i', 7, 7);
+  typeBoard('i', 'horizontal', 7, 7);
   typeRack('q');
   solve();
 

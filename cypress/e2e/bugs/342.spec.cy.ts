@@ -1,5 +1,6 @@
 import {
   assertResult,
+  closeModal,
   getResult,
   getResultsFilterInput,
   getSettingOption,
@@ -17,11 +18,10 @@ it('Incorrect sorting when filtering (#342)', () => {
   visitIndex();
   getSettingsButton().realClick();
   getSettingOption('Language', 'Polski').check();
-  cy.realPress('Escape');
-  typeBoard('bopie', 6, 3);
-  cy.findByLabelText('Kierunek wpisywania').click();
-  typeBoard('apu', 8, 4);
-  typeBoard('o', 10, 4);
+  closeModal();
+  typeBoard('bopie', 'horizontal', 6, 3);
+  typeBoard('apu', 'vertical', 8, 4);
+  typeBoard('o', 'vertical', 10, 4);
   typeRack('oe');
   solve();
   getResultsFilterInput().type('p');

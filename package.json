@@ -48,7 +48,7 @@
     "start": "concurrently -n w: npm:start:*",
     "start:app": "npm run start -w @scrabble-solver/scrabble-solver",
     "start:browser": "open-cli http://localhost:3333",
-    "test": "npm run test-jest && concurrently \"npm run start:app\" \"npm run test-cypress:run\" -k -s first",
+    "test": "npm run build && npm run test-jest && concurrently \"npm run start:app\" \"npm run test-cypress:run\" -k -s first",
     "test-cypress": "cypress open",
     "test-cypress:run": "CYPRESS_BASE_URL=http://localhost:3333 cypress run",
     "test-jest": "jest --no-cache --coverage",

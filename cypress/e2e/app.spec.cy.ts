@@ -1,5 +1,6 @@
 import {
   assertResult,
+  closeModal,
   getBoardTile,
   getDictionary,
   getDictionaryInput,
@@ -43,7 +44,7 @@ describe('full app test', () => {
     getSettingsButton().realClick();
     getSettingOption('Language', 'Polski').check();
     getSettingOption('Współrzędne', 'Oryginalne').check();
-    cy.realPress('Escape');
+    closeModal();
     typeRack('abł');
     solve();
 
