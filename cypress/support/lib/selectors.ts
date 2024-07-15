@@ -49,6 +49,10 @@ export const getResults = () => {
   return getResultsContainer().findAllByTestId('result');
 };
 
+export const getResultsFilterInput = () => {
+  return getResultsContainer().findByRole('textbox');
+};
+
 export const getResult = (index = 0) => {
   return getResults().eq(index);
 };

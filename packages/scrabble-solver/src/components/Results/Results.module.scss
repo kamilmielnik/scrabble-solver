@@ -104,7 +104,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
     }
   }
 
-  &.notMatching {
+  &[aria-hidden='true'] {
     color: var(--color--inactive);
 
     &:focus,

@@ -18,7 +18,7 @@ const groupResults = (
 
   const { matching, other } = results.reduce<GroupedResults>(
     (groupedResults, result) => {
-      const matchesQuery = () => regExp.test(result.word);
+      const matchesQuery = () => Boolean(result.word.match(regExp));
 
       if (resultMatchesCellFilter(result, cellFilter) && matchesQuery()) {
         groupedResults.matching.push(result);

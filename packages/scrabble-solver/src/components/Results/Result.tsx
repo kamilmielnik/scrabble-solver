@@ -54,6 +54,7 @@ const Result = ({ data, index, style }: Props): ReactElement => {
 
   return (
     <button
+      aria-hidden={isMatching ? undefined : 'true'}
       aria-label={result.word}
       className={classNames(styles.result, {
         [styles.highlighted]: index === highlightedIndex,
