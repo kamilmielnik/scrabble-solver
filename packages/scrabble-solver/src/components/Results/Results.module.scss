@@ -144,15 +144,9 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
     justify-content: flex-start;
   }
 
-  .result &:first-child,
-  .headerButton:first-child & {
-    text-align: start;
+  .result &.word:first-child,
+  .headerButton.word:first-child & {
     padding-inline-start: $row-padding-horizontal;
-  }
-
-  .result &:last-child,
-  .headerButton:last-child & {
-    padding-inline-end: $row-padding-horizontal;
   }
 
   &:last-child {

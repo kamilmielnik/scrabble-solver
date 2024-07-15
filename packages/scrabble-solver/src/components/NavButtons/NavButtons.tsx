@@ -125,6 +125,7 @@ const NavButtons: FunctionComponent<Props> = ({
 
         <IconButton
           aria-label={translate('settings')}
+          data-testid="settings-button"
           className={styles.button}
           Icon={Cog}
           tooltip={translate('settings')}

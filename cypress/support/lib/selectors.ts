@@ -54,7 +54,7 @@ export const getResult = (index = 0) => {
 };
 
 export const getSettingsButton = () => {
-  return cy.findByLabelText('Settings');
+  return cy.findByTestId('settings-button');
 };
 
 export const getSettingOption = (section: string, option: string) => {
