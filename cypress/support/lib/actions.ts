@@ -1,5 +1,7 @@
 import { getBoardTile, getLoading, getRackTile, getResult } from './selectors';
 
+type KeyOrShortcut = Parameters<typeof cy.realPress>[0];
+
 const getRandomId = () => {
   return String(Math.random()).replace(/^\d\./, '');
 };
@@ -8,12 +10,20 @@ export const visitIndex = () => {
   cy.visit('/');
 };
 
-export const typeRack = (tiles: string) => {
-  getRackTile().focus().type(tiles);
+export const typeRack = (tiles: KeyOrShortcut[], index = 0) => {
+  getRackTile(index).focus();
+
+  for (const tile of tiles) {
+    cy.realPress(tile);
+  }
 };
 
-export const typeBoard = (tiles: string, x = 0, y = 0) => {
-  getBoardTile(x, y).focus().type(tiles);
+export const typeBoard = (tiles: KeyOrShortcut[], x = 0, y = 0) => {
+  getBoardTile(x, y).focus();
+
+  for (const tile of tiles) {
+    cy.realPress(tile);
+  }
 };
 
 export const solve = () => {
