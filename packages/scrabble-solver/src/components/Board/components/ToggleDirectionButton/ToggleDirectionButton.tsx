@@ -21,9 +21,9 @@ const ToggleDirectionButton: FunctionComponent<Props> = ({ className, direction,
 
   return (
     <Button
-      aria-description={direction}
       aria-label={translate('cell.toggle-direction')}
       className={classNames(styles.button, className)}
+      data-direction={direction}
       data-testid="toggle-direction-button"
       Icon={ArrowDown}
       iconClassName={classNames(styles.icon, {

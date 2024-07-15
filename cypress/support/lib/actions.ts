@@ -22,7 +22,7 @@ export const typeBoard = (tiles: string, direction: 'horizontal' | 'vertical', x
   getBoardTile(x, y).focus();
 
   cy.findByTestId('toggle-direction-button').then(([$button]) => {
-    if ($button.ariaDescription !== direction) {
+    if ($button.dataset.direction !== direction) {
       cy.wrap($button).click();
     }
   });
