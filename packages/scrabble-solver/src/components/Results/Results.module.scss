@@ -1,5 +1,7 @@
 @import 'styles/mixins';
 
+$row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
+
 .results {
   position: relative;
   display: flex;
@@ -140,6 +142,17 @@
   &.word,
   .headerButton.word & {
     justify-content: flex-start;
+  }
+
+  .result &:first-child,
+  .headerButton:first-child & {
+    text-align: start;
+    padding-inline-start: $row-padding-horizontal;
+  }
+
+  .result &:last-child,
+  .headerButton:last-child & {
+    padding-inline-end: $row-padding-horizontal;
   }
 
   &:last-child {
