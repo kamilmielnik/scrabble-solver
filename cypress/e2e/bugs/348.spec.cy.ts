@@ -11,7 +11,7 @@ import {
 /*
  * @see https://github.com/kamilmielnik/scrabble-solver/issues/348
  */
-describe('asd', () => {
+describe('#348', () => {
   beforeEach(async () => {
     await unregisterServiceWorkers();
   });

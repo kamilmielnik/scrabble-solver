@@ -3,5 +3,6 @@
 
   "compilerOptions": {
     "jsx": "react"
-  }
+  },
+  "exclude": ["cypress", "./cypress", "./cypress.config.ts"]
 }

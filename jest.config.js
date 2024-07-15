@@ -1,5 +1,3 @@
-const tsConfig = require('./tsconfig.jest.json');
-
 module.exports = {
   coveragePathIgnorePatterns: ['/node_modules/', '/build/'],
   preset: 'ts-jest',
@@ -7,6 +5,6 @@ module.exports = {
   testEnvironment: 'node',
   testPathIgnorePatterns: ['/node_modules/', '/cypress/'],
   transform: {
-    '^.+.tsx?$': ['ts-jest', tsConfig],
+    '^.+.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.jest.json' }],
   },
 };
