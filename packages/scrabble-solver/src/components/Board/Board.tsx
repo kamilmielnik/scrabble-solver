@@ -25,14 +25,7 @@ import {
 import styles from './Board.module.scss';
 import BoardPure from './BoardPure';
 import { Actions, InputPrompt } from './components';
-import {
-  useBackgroundImage,
-  useBoardStyle,
-  useFloatingActions,
-  useFloatingFocus,
-  useFloatingInputPrompt,
-  useGrid,
-} from './hooks';
+import { useBoardStyle, useFloatingActions, useFloatingFocus, useFloatingInputPrompt, useGrid } from './hooks';
 
 interface Props {
   className?: string;
@@ -51,7 +44,6 @@ const Board: FunctionComponent<Props> = ({ className }) => {
     { insertValue, onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
   ] = useGrid(rows);
   const boardStyle = useBoardStyle();
-  const backgroundImage = useBackgroundImage();
   const [hasFocus, setHasFocus] = useState(false);
   const [showInputPrompt, setShowInputPrompt] = useState(false);
   const [transition, setTransition] = useState<CSSProperties['transition']>(TRANSITION);
@@ -158,7 +150,6 @@ const Board: FunctionComponent<Props> = ({ className }) => {
   return (
     <>
       <BoardPure
-        backgroundImage={backgroundImage}
         className={className}
         cellSize={cellSize}
         coordinatesFontSize={coordinatesFontSize}

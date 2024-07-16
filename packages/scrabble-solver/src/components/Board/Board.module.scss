@@ -10,12 +10,6 @@
   border-radius: var(--border--radius);
 }
 
-.image {
-  position: absolute;
-  inset: var(--border--width);
-  border-radius: inherit;
-}
-
 .floating {
   position: absolute;
   z-index: var(--z-index--actions);
