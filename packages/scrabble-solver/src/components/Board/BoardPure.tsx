@@ -74,7 +74,7 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
 
           {rows[0].map((_column, index) => (
             <div
-              className={styles.coordinateColumn}
+              className={styles.coordinate}
               key={index}
               style={{
                 width: cellSize,
@@ -117,7 +117,7 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
         <Fragment key={y}>
           {showCoordinates !== 'hidden' && (
             <div
-              className={styles.coordinateRow}
+              className={styles.coordinate}
               style={{
                 width: coordinatesSize,
                 height: cellSize,

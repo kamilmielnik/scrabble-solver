@@ -176,8 +176,8 @@ const Board: FunctionComponent<Props> = ({ className }) => {
           ref={floatingFocus.refs.setFloating}
           style={{
             position: floatingFocus.strategy,
-            top: (floatingFocus.y ? floatingFocus.y + cellSize : 0) - (showCoordinates === 'hidden' ? 0 : BORDER_WIDTH),
-            left: (floatingFocus.x ?? 0) - (showCoordinates === 'hidden' ? 0 : BORDER_WIDTH),
+            top: floatingFocus.y + cellSize - (showCoordinates === 'hidden' ? 0 : BORDER_WIDTH),
+            left: floatingFocus.x - (showCoordinates === 'hidden' ? 0 : BORDER_WIDTH),
             width: cellSize,
             height: cellSize,
             opacity: hasFocus ? 1 : 0,

@@ -65,18 +65,9 @@
   color: var(--color--white);
 }
 
-.coordinateColumn {
+.coordinate {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--font--size--h2);
-}
-
-.coordinateRow {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--font--size--h2);
 }
