@@ -52,6 +52,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 .headerButton {
   @include button-reset;
   @include focus-effect;
+
   cursor: pointer;
 
   text-transform: uppercase;
@@ -71,6 +72,17 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   &:hover {
     background-color: var(--color--primary);
     color: var(--color--primary--opposite);
+  }
+
+  &.points {
+    @include scrollbars;
+
+    overflow-y: scroll;
+
+    &,
+    &:hover {
+      scrollbar-color: transparent transparent;
+    }
   }
 }
 
