@@ -56,7 +56,9 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   cursor: pointer;
 
   text-transform: uppercase;
-  transition: var(--transition);
+  transition:
+    background-color var(--transition--duration) var(--transition--easing),
+    color var(--transition--duration) var(--transition--easing);
   background-color: var(--color--background);
   height: 100%;
 
@@ -138,6 +140,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
   .word {
     @include ellipsis;
+
     display: flex;
   }
 }
@@ -151,13 +154,9 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   gap: var(--spacing--s);
   line-height: var(--results--item--height);
 
-  &.word,
+  .result &.word,
   .headerButton.word & {
     justify-content: flex-start;
-  }
-
-  .result &.word:first-child,
-  .headerButton.word:first-child & {
     padding-inline-start: $row-padding-horizontal;
   }
 
