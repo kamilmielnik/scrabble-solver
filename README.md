@@ -40,7 +40,7 @@
 
   <p>
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/build.yml/badge.svg" alt="Build" />
-    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/npx.yml/badge.svg" alt="npx" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/npm.yml/badge.svg" alt="npm" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/jest.yml/badge.svg" alt="Jest Tests" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/cypress.yml/badge.svg" alt="Cypress Tests" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/eslint.yml/badge.svg" alt="ESLint" />

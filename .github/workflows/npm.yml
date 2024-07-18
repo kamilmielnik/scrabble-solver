@@ -1,4 +1,4 @@
-name: npx
+name: npm
 
 on:
   push:
@@ -16,6 +16,7 @@ jobs:
           node-version: 20.x
       - uses: cypress-io/github-action@v6
         with:
-          build: npx scrabble-solver@latest
+          build: npm install -g scrabble-solver@latest
+          start: scrabble-solver
         env:
           CYPRESS_BASE_URL: http://localhost:3333
