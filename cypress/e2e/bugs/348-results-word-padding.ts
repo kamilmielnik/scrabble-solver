@@ -11,12 +11,12 @@ import {
 /*
  * @see https://github.com/kamilmielnik/scrabble-solver/issues/348
  */
-describe('#348', () => {
+describe('#348 - Missing result word padding when coordinates are not shown', () => {
   beforeEach(async () => {
     await unregisterServiceWorkers();
   });
 
-  it('Missing result word padding when coordinates are not shown (LTR) (#348)', () => {
+  it('sets proper padding on result cells depending on coordinates setting (LTR language)', () => {
     visitIndex();
     typeRack('ab');
     solve();
@@ -45,7 +45,7 @@ describe('#348', () => {
     });
   });
 
-  it('Missing result word padding when coordinates are not shown (RTL) (#348)', () => {
+  it('sets proper padding on result cells depending on coordinates setting (RTL language)', () => {
     visitIndex();
     getSettingsButton().realClick();
     getSettingOption('Language', 'فارسی').check();
