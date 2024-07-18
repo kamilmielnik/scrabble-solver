@@ -16,6 +16,6 @@ jobs:
           node-version: 20.x
       - uses: cypress-io/github-action@v6
         with:
-          start: npx scrabble-solver@latest
+          build: npx scrabble-solver@latest
         env:
           CYPRESS_BASE_URL: http://localhost:3333
