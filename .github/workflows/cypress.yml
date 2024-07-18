@@ -7,7 +7,7 @@ on:
     branches: [master]
 
 jobs:
-  cypress-run:
+  cypress:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

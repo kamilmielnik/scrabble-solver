@@ -7,7 +7,7 @@ on:
     branches: [master]
 
 jobs:
-  build:
+  npx:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v4
