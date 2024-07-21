@@ -34,7 +34,7 @@ const Button: FunctionComponent<Props> = ({
         {...props}
       >
         <span className={styles.content}>
-          {Icon && <Icon className={classNames(styles.icon, iconClassName)} />}
+          {Icon && <Icon aria-hidden="true" className={classNames(styles.icon, iconClassName)} role="img" />}
           {children && <span className={styles.label}>{children}</span>}
         </span>
       </button>

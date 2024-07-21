@@ -32,7 +32,7 @@ const Alert: FunctionComponent<Props> = ({ children, className, variant, ...prop
       {...props}
     >
       <div className={styles.iconContainer}>
-        <Icon className={styles.icon} />
+        <Icon aria-hidden="true" className={styles.icon} role="img" />
       </div>
 
       <div className={styles.content}>{children}</div>

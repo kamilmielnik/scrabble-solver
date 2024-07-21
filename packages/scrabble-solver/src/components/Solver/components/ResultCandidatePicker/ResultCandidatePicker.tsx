@@ -90,7 +90,7 @@ const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onResultCl
 
         <div className={styles.iconContainer}>
           {isLoading && <Spinner className={styles.loading} />}
-          {!isLoading && <ChevronDown className={styles.icon} />}
+          {!isLoading && <ChevronDown aria-hidden="true" className={styles.icon} role="img" />}
         </div>
       </button>
 

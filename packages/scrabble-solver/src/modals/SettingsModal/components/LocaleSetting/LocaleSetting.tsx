@@ -40,7 +40,7 @@ const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
           onChange={handleChange}
         >
           <span className={styles.label}>
-            <Icon className={styles.flag} />
+            <Icon aria-hidden="true" className={styles.flag} role="img" />
 
             <span>{option.label}</span>
           </span>

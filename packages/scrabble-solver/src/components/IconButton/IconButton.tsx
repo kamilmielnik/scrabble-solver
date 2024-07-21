@@ -19,7 +19,7 @@ const IconButton: FunctionComponent<Props> = ({ className, Icon, tooltip, ...pro
     <Tooltip tooltip={tooltip}>
       <button className={classNames(styles.iconButton, className)} type="button" {...props}>
         <span className={styles.content}>
-          <Icon className={styles.icon} />
+          <Icon aria-hidden="true" className={styles.icon} role="img" />
         </span>
       </button>
     </Tooltip>

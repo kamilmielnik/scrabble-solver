@@ -30,7 +30,7 @@ const Radio: FunctionComponent<Props> = ({ checked, children, className, disable
       onChange={onChange}
     />
 
-    <div className={styles.icon} />
+    <div aria-hidden="true" className={styles.icon} role="img" />
 
     <div className={styles.content}>{children}</div>
   </label>

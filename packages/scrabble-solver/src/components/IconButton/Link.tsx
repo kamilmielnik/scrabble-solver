@@ -18,7 +18,7 @@ const Link: FunctionComponent<Props> = ({ className, Icon, tooltip, ...props }) 
     <Tooltip tooltip={tooltip}>
       <a className={classNames(styles.iconButton, className)} {...props}>
         <span className={styles.content}>
-          <Icon className={styles.icon} />
+          <Icon aria-hidden="true" className={styles.icon} role="img" />
         </span>
       </a>
     </Tooltip>

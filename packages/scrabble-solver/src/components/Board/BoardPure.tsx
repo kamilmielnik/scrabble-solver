@@ -108,7 +108,7 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
             }}
           >
             <div className={styles.iconBackground} />
-            <Icon className={styles.icon} />
+            <Icon aria-hidden="true" className={styles.icon} role="img" />
           </div>
         );
       })}

@@ -11,7 +11,7 @@ const CONTENT = [['HTTP', '404']];
 const NotFound: FunctionComponent = () => (
   <div className={styles.notFound}>
     <a className={styles.link} href="/">
-      <DashCircleFill className={styles.icon} />
+      <DashCircleFill aria-hidden="true" className={styles.icon} role="img" />
       <PlainTiles className={styles.tiles} content={CONTENT} />
     </a>
   </div>

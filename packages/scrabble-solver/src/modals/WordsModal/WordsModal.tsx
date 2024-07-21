@@ -31,7 +31,7 @@ const WordsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) =>
       >
         {invalidWords.map((word, index) => (
           <div className={styles.word} key={index}>
-            <Cross className={classNames(styles.icon, styles.invalid)} /> {word}
+            <Cross aria-hidden="true" className={classNames(styles.icon, styles.invalid)} role="img" /> {word}
           </div>
         ))}
       </Modal.Section>
@@ -47,7 +47,7 @@ const WordsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) =>
       >
         {validWords.map((word, index) => (
           <div className={styles.word} key={index}>
-            <Check className={classNames(styles.icon, styles.valid)} /> {word}
+            <Check aria-hidden="true" className={classNames(styles.icon, styles.valid)} role="img" /> {word}
           </div>
         ))}
       </Modal.Section>

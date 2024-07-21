@@ -37,7 +37,7 @@ const HeaderButton = ({ className, Icon, id, translationKey, style }: Props): Re
         onClick={handleClick}
       >
         <span className={styles.cell}>
-          {Icon && <Icon className={styles.headerButtonIcon} />}
+          {Icon && <Icon aria-hidden="true" className={styles.headerButtonIcon} role="img" />}
 
           {!Icon && <span className={styles.headerButtonLabel}>{translate(translationKey)}</span>}
 

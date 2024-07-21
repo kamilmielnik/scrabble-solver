@@ -107,7 +107,7 @@ const TilePure: FunctionComponent<Props> = ({
       </span>
     )}
 
-    {!isValid && <ExclamationSquareFill className={styles.alert} />}
+    {!isValid && <ExclamationSquareFill aria-hidden="true" className={styles.alert} role="img" />}
   </div>
 );
 

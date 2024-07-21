@@ -64,7 +64,7 @@ const MenuModal: FunctionComponent<Props> = ({
       <Button aria-label={translate('settings')} className={styles.button} Icon={Cog} onClick={onShowSettings}>
         <div className={styles.settings}>
           <div className={styles.settingsLabel}>{translate('settings')}</div>
-          <Icon className={styles.flag} />
+          <Icon aria-hidden="true" className={styles.flag} role="img" />
         </div>
       </Button>
     </Modal>

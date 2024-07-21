@@ -14,16 +14,16 @@ interface Props {
 const Arrows: FunctionComponent<Props> = ({ className }) => (
   <div className={classNames(styles.arrows, className)}>
     <Key className={classNames(styles.arrow, styles.left)}>
-      <ArrowLeft />
+      <ArrowLeft aria-hidden="true" role="img" />
     </Key>
     <Key className={classNames(styles.arrow, styles.up)}>
-      <ArrowUp />
+      <ArrowUp aria-hidden="true" role="img" />
     </Key>
     <Key className={classNames(styles.arrow, styles.right)}>
-      <ArrowRight />
+      <ArrowRight aria-hidden="true" role="img" />
     </Key>
     <Key className={classNames(styles.arrow, styles.down)}>
-      <ArrowDown />
+      <ArrowDown aria-hidden="true" role="img" />
     </Key>
   </div>
 );
