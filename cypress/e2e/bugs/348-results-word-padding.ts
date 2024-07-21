@@ -1,4 +1,5 @@
 import {
+  closeModal,
   getResult,
   getSettingOption,
   getSettingsButton,
@@ -32,6 +33,7 @@ describe('#348 - Missing result word padding when coordinates are not shown', ()
 
     getSettingsButton().realClick();
     getSettingOption('Coordinates', 'Original').check();
+    closeModal();
 
     getResult(0).then(([$result]) => {
       const $span = $result.children[0];
@@ -49,6 +51,7 @@ describe('#348 - Missing result word padding when coordinates are not shown', ()
     visitIndex();
     getSettingsButton().realClick();
     getSettingOption('Language', 'فارسی').check();
+    closeModal();
     typeRack('فا');
     solve();
 
