@@ -64,7 +64,9 @@ describe('#348 - Missing result word padding when coordinates are not shown', ()
       expect(window.getComputedStyle(lastCell).paddingLeft).to.equal('5px');
     });
 
+    getSettingsButton().realClick();
     getSettingOption('مختصات', 'إبداعي').check();
+    closeModal();
 
     getResult(0).then(([$result]) => {
       const $span = $result.children[0];
