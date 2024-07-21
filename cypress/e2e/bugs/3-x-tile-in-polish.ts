@@ -1,9 +1,21 @@
-import { closeModal, getSettingOption, getSettingsButton, typeBoard, typeRack, visitIndex } from '../../support';
+import {
+  closeModal,
+  getSettingOption,
+  getSettingsButton,
+  typeBoard,
+  typeRack,
+  unregisterServiceWorkers,
+  visitIndex,
+} from '../../support';
 
 /*
  * @see https://github.com/kamilmielnik/scrabble-solver/issues/3
  */
 describe('#3 - "X" tile is allowed in Polish', () => {
+  beforeEach(async () => {
+    await unregisterServiceWorkers();
+  });
+
   it('does not accept "X" tile in Polish', () => {
     visitIndex();
     getSettingsButton().realClick();

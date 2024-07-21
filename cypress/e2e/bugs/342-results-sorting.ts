@@ -8,6 +8,7 @@ import {
   solve,
   typeBoard,
   typeRack,
+  unregisterServiceWorkers,
   visitIndex,
 } from '../../support';
 
@@ -15,6 +16,10 @@ import {
  * @see https://github.com/kamilmielnik/scrabble-solver/issues/342
  */
 describe('#342 - Incorrect sorting when filtering', () => {
+  beforeEach(async () => {
+    await unregisterServiceWorkers();
+  });
+
   it('correctly sorts valid results first when text filter is active', () => {
     visitIndex();
     getSettingsButton().realClick();

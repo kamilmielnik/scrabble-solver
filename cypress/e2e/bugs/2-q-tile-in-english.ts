@@ -1,9 +1,21 @@
-import { assertResult, getResults, solve, typeBoard, typeRack, visitIndex } from '../../support';
+import {
+  assertResult,
+  getResults,
+  solve,
+  typeBoard,
+  typeRack,
+  unregisterServiceWorkers,
+  visitIndex,
+} from '../../support';
 
 /*
  * @see https://github.com/kamilmielnik/scrabble-solver/issues/2
  */
 describe('#2 - "Q" tile does not work', () => {
+  beforeEach(async () => {
+    await unregisterServiceWorkers();
+  });
+
   it('accepts "Q" tile in English', () => {
     visitIndex();
     typeBoard('i', 'horizontal', 7, 7);

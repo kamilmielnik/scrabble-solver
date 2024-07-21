@@ -5,6 +5,7 @@ import {
   getSettingsButton,
   solve,
   typeRack,
+  unregisterServiceWorkers,
   visitIndex,
 } from '../../support';
 
@@ -12,6 +13,10 @@ import {
  * @see https://github.com/kamilmielnik/scrabble-solver/issues/112
  */
 describe('#112 - Scrabble - Character bonus not applied', () => {
+  beforeEach(async () => {
+    await unregisterServiceWorkers();
+  });
+
   it('correctly shows points for a result which gets a character bonus', () => {
     visitIndex();
 
