@@ -8,6 +8,10 @@ describe('#129 - Esc does not close the sidebar when letters input is focused', 
     await unregisterServiceWorkers();
   });
 
+  afterEach(() => {
+    cy.clearLocalStorage();
+  });
+
   it('Esc key closes the sidebar when rack is focused', () => {
     visitIndex();
     getSettingsButton().realClick();

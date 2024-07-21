@@ -17,6 +17,10 @@ describe('#348 - Missing result word padding when coordinates are not shown', ()
     await unregisterServiceWorkers();
   });
 
+  afterEach(() => {
+    cy.clearLocalStorage();
+  });
+
   it('sets proper padding on result cells depending on coordinates setting (LTR language)', () => {
     visitIndex();
     typeRack('ab');

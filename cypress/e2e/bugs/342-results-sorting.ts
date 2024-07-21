@@ -20,6 +20,10 @@ describe('#342 - Incorrect sorting when filtering', () => {
     await unregisterServiceWorkers();
   });
 
+  afterEach(() => {
+    cy.clearLocalStorage();
+  });
+
   it('correctly sorts valid results first when text filter is active', () => {
     visitIndex();
     getSettingsButton().realClick();

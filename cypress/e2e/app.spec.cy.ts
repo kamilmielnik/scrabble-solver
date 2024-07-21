@@ -22,6 +22,10 @@ describe('app', () => {
     await unregisterServiceWorkers();
   });
 
+  afterEach(() => {
+    cy.clearLocalStorage();
+  });
+
   it('has title', () => {
     visitIndex();
 

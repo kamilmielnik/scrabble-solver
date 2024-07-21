@@ -16,6 +16,10 @@ describe('#3 - "X" tile is allowed in Polish', () => {
     await unregisterServiceWorkers();
   });
 
+  afterEach(() => {
+    cy.clearLocalStorage();
+  });
+
   it('does not accept "X" tile in Polish', () => {
     visitIndex();
     getSettingsButton().realClick();

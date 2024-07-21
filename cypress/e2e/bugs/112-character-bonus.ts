@@ -17,6 +17,10 @@ describe('#112 - Scrabble - Character bonus not applied', () => {
     await unregisterServiceWorkers();
   });
 
+  afterEach(() => {
+    cy.clearLocalStorage();
+  });
+
   it('correctly shows points for a result which gets a character bonus', () => {
     visitIndex();
 

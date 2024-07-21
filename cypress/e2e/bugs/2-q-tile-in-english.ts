@@ -16,6 +16,10 @@ describe('#2 - "Q" tile does not work', () => {
     await unregisterServiceWorkers();
   });
 
+  afterEach(() => {
+    cy.clearLocalStorage();
+  });
+
   it('accepts "Q" tile in English', () => {
     visitIndex();
     typeBoard('i', 'horizontal', 7, 7);
