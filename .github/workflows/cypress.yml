@@ -20,3 +20,4 @@ jobs:
           start: npm start
         env:
           CYPRESS_BASE_URL: http://localhost:3333
+      - uses: actions/upload-artifact@v4
