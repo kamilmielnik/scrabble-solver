@@ -16,7 +16,7 @@ jobs:
           node-version: 20.x
       - uses: cypress-io/github-action@v6
         with:
-          build: npm install -g git://github.com/kamilmielnik/scrabble-solver.git#${{ github.sha }}
+          build: npm install -g kamilmielnik/scrabble-solver#${{ github.sha }}
           start: scrabble-solver
         env:
           CYPRESS_BASE_URL: http://localhost:3333
