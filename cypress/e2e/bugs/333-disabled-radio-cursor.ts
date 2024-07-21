@@ -17,6 +17,7 @@ describe('#333 - Disabled radio button has cursor: pointer', () => {
     getSettingsButton().realClick();
     getSettingOption('Language', 'Polski').check();
     getSettingOption('Gra', 'Scrabble').scrollIntoView();
+
     getSettingOption('Gra', 'Super Scrabble').should('be.disabled');
     getSettingOption('Gra', 'Super Scrabble').should('have.css', 'cursor', 'not-allowed');
   });
