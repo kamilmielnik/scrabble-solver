@@ -27,9 +27,9 @@
     "start": "env-cmd next start -p 3333"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.26.19",
+    "@floating-ui/react": "^0.26.20",
     "@kamilmielnik/trie": "^3.0.0",
-    "@reduxjs/toolkit": "^2.2.6",
+    "@reduxjs/toolkit": "^2.2.7",
     "@scrabble-solver/configs": "^2.13.13",
     "@scrabble-solver/constants": "^2.13.13",
     "@scrabble-solver/dictionaries": "^2.13.13",
@@ -52,7 +52,7 @@
     "react-window": "^1.8.10",
     "redux-saga": "^1.3.0",
     "store2": "^2.14.3",
-    "use-debounce": "^10.0.1",
+    "use-debounce": "^10.0.2",
     "workbox-expiration": "^7.1.0",
     "workbox-precaching": "^7.1.0",
     "workbox-routing": "^7.1.0",

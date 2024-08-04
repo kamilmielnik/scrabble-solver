@@ -27,7 +27,7 @@
     "cheerio": "^1.0.0-rc.12",
     "follow-redirects": "^1.15.6",
     "latinize": "^1.0.0",
-    "unzipper": "^0.12.1"
+    "unzipper": "^0.12.3"
   },
   "devDependencies": {
     "@types/follow-redirects": "^1.14.4",
