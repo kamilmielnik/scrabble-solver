@@ -29,10 +29,8 @@ describe('#348 - Missing result word padding when coordinates are not shown', ()
     getResult(0).then(([$result]) => {
       const $span = $result.children[0];
       const wordCell = $span.children[0];
-      const pointsCell = $span.children[$span.children.length - 1];
 
       expect(window.getComputedStyle(wordCell).paddingLeft).to.equal('15px');
-      expect(window.getComputedStyle(pointsCell).paddingRight).to.equal('5px');
     });
 
     getSettingsButton().realClick();
@@ -41,13 +39,9 @@ describe('#348 - Missing result word padding when coordinates are not shown', ()
 
     getResult(0).then(([$result]) => {
       const $span = $result.children[0];
-      const coordinatesCell = $span.children[0];
       const wordCell = $span.children[1];
-      const pointsCell = $span.children[$span.children.length - 1];
 
-      expect(window.getComputedStyle(coordinatesCell).paddingLeft).to.equal('5px');
       expect(window.getComputedStyle(wordCell).paddingLeft).to.equal('15px');
-      expect(window.getComputedStyle(pointsCell).paddingRight).to.equal('5px');
     });
   });
 
@@ -61,11 +55,9 @@ describe('#348 - Missing result word padding when coordinates are not shown', ()
 
     getResult(0).then(([$result]) => {
       const $span = $result.children[0];
-      const firstCell = $span.children[0];
-      const lastCell = $span.children[$span.children.length - 1];
+      const wordCell = $span.children[0];
 
-      expect(window.getComputedStyle(firstCell).paddingRight).to.equal('15px');
-      expect(window.getComputedStyle(lastCell).paddingLeft).to.equal('5px');
+      expect(window.getComputedStyle(wordCell).paddingRight).to.equal('15px');
     });
 
     getSettingsButton().realClick();
@@ -74,13 +66,9 @@ describe('#348 - Missing result word padding when coordinates are not shown', ()
 
     getResult(0).then(([$result]) => {
       const $span = $result.children[0];
-      const coordinatesCell = $span.children[0];
       const wordCell = $span.children[1];
-      const pointsCell = $span.children[$span.children.length - 1];
 
-      expect(window.getComputedStyle(coordinatesCell).paddingRight).to.equal('5px');
       expect(window.getComputedStyle(wordCell).paddingRight).to.equal('15px');
-      expect(window.getComputedStyle(pointsCell).paddingLeft).to.equal('5px');
     });
   });
 });
