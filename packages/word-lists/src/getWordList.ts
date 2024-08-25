@@ -1,6 +1,6 @@
 import { Locale } from '@scrabble-solver/types';
 
-import { english, french, german, persian, polish, romanian, spanish } from './languages';
+import { english, french, german, persian, polish, romanian, spanish, turkish } from './languages';
 
 const localeMap: Record<Locale, () => Promise<string[]>> = {
   [Locale.DE_DE]: german.getWordList,
@@ -11,6 +11,7 @@ const localeMap: Record<Locale, () => Promise<string[]>> = {
   [Locale.FR_FR]: french.getWordList,
   [Locale.PL_PL]: polish.getWordList,
   [Locale.RO_RO]: romanian.getWordList,
+  [Locale.TR_TR]: turkish.getWordList,
 };
 
 export const getWordList = (locale: Locale): Promise<string[]> => localeMap[locale]();

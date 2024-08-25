@@ -1,6 +1,6 @@
 import { Locale } from '@scrabble-solver/types';
 
-import { english, french, german, persian, polish, romanian, spanish } from './languages';
+import { english, french, german, persian, polish, romanian, spanish, turkish } from './languages';
 
 const crawlPerLocale: Record<Locale, (word: string) => Promise<string>> = {
   [Locale.DE_DE]: german.crawl,
@@ -11,6 +11,7 @@ const crawlPerLocale: Record<Locale, (word: string) => Promise<string>> = {
   [Locale.FR_FR]: french.crawl,
   [Locale.PL_PL]: polish.crawl,
   [Locale.RO_RO]: romanian.crawl,
+  [Locale.TR_TR]: turkish.crawl,
 };
 
 export const crawl = (locale: Locale, word: string): Promise<string> => {

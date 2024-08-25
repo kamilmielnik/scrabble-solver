@@ -9,6 +9,7 @@ import persian from './languages/persian.json';
 import polish from './languages/polish.json';
 import romanian from './languages/romanian.json';
 import spanish from './languages/spanish.json';
+import turkish from './languages/turkish.json';
 
 const i18n: Record<Locale, Translations> = {
   [Locale.DE_DE]: german,
@@ -19,6 +20,7 @@ const i18n: Record<Locale, Translations> = {
   [Locale.FR_FR]: french,
   [Locale.PL_PL]: polish,
   [Locale.RO_RO]: romanian,
+  [Locale.TR_TR]: turkish,
 };
 
 export default i18n;

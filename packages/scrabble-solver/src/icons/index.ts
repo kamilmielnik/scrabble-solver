@@ -27,6 +27,7 @@ export { default as FlagFr } from './FlagFr.svg';
 export { default as FlagGb } from './FlagGb.svg';
 export { default as FlagPl } from './FlagPl.svg';
 export { default as FlagRo } from './FlagRo.svg';
+export { default as FlagTr } from './FlagTr.svg';
 export { default as FlagUs } from './FlagUs.svg';
 export { default as GeoAlt } from './GeoAlt.svg';
 export { default as Github } from './Github.svg';

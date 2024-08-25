@@ -2,7 +2,7 @@ import { COMMA_ARABIC, COMMA_LATIN } from '@scrabble-solver/constants';
 import { Locale } from '@scrabble-solver/types';
 import { FunctionComponent, SVGAttributes } from 'react';
 
-import { FlagDe, FlagEs, FlagFa, FlagFr, FlagGb, FlagPl, FlagRo, FlagUs } from 'icons';
+import { FlagDe, FlagEs, FlagFa, FlagFr, FlagGb, FlagPl, FlagRo, FlagTr, FlagUs } from 'icons';
 
 interface LocaleFeatures {
   comma: string;
@@ -102,6 +102,17 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     label: 'Română',
     locale: Locale.RO_RO,
     name: 'Romanian',
+    separator: `${COMMA_LATIN} `,
+    vowels: true,
+  },
+  [Locale.TR_TR]: {
+    comma: COMMA_LATIN,
+    consonants: true,
+    direction: 'ltr',
+    Icon: FlagTr,
+    label: 'Türkçe',
+    locale: Locale.TR_TR,
+    name: 'Turkish',
     separator: `${COMMA_LATIN} `,
     vowels: true,
   },

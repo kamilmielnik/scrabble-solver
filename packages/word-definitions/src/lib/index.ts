@@ -1,3 +1,3 @@
-export { normalizeDefinition } from './normalizeDefinition';
-export { request } from './request';
-export { unique } from './unique';
+export * from './normalizeDefinition';
+export * from './request';
+export * from './unique';
