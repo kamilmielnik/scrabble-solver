@@ -1,28 +1,32 @@
-import { load } from 'cheerio';
-
 import { request } from '../lib';
 import { ParsingResult } from '../types';
-
-const DOES_NOT_EXIST_MESSAGE = 'Aradığınız kelime sözlükte bulunamadı.';
 
 export const crawl = (word: string): Promise<string> => {
   return request({
     protocol: 'https',
     hostname: 'sozluk.gov.tr',
     path: `/gts?ara=${encodeURIComponent(word)}`,
+    headers: {
+      'content-type': 'text/json',
+    },
   });
 };
 
-export const parse = (html: string): ParsingResult => {
-  const $ = load(html);
-  $('strong.mw_t_bc').replaceWith(', ');
-  $('.text-lowercase').remove();
-  $('.sub-content-thread').remove();
+export const parse = (json: string): ParsingResult => {
+  const response = JSON.parse(json);
 
-  const $definitions = $('[id^=dictionary-entry]').find('.dtText, .cxl-ref');
+  if (response.error) {
+    return {
+      definitions: [],
+      exists: false,
+    };
+  }
+
+  const [wordInfo] = response;
+  const definitions = wordInfo.anlamlarListe.map((entry: { anlam: string }) => entry.anlam.replace('►', '').trim());
 
   return {
-    definitions: Array.from($definitions).map((definition) => $(definition).text().replace(/\n/g, '')),
-    exists: $('.spelling-suggestion-text').text().trim() !== DOES_NOT_EXIST_MESSAGE,
+    definitions,
+    exists: definitions.length > 0,
   };
 };
