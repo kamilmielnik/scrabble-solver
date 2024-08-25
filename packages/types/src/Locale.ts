@@ -12,6 +12,7 @@ enum Locale {
   FR_FR = 'fr-FR',
   PL_PL = 'pl-PL',
   RO_RO = 'ro-RO',
+  TR_TR = 'tr-TR',
 }
 
 const locales = Object.values(Locale);

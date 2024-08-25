@@ -1,4 +1,5 @@
 enum Game {
+  Kelimelik = 'kelimelik',
   Literaki = 'literaki',
   Scrabble = 'scrabble',
   SuperScrabble = 'super-scrabble',

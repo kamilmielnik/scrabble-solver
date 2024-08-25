@@ -51,8 +51,9 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
   &::after {
     content: ' ';
     position: absolute;
-    top: $radio-inner-border;
-    left: $radio-inner-border;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: $radio-inner-size;
     height: $radio-inner-size;
     background-color: transparent;

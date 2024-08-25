@@ -1,6 +1,6 @@
 import { Locale } from '@scrabble-solver/types';
 
-import { english, french, german, persian, polish, romanian, spanish } from './languages';
+import { english, french, german, persian, polish, romanian, spanish, turkish } from './languages';
 import { normalizeDefinition, unique } from './lib';
 import { ParsingResult } from './types';
 
@@ -13,6 +13,7 @@ const parsePerLocale: Record<Locale, (html: string) => ParsingResult> = {
   [Locale.FR_FR]: french.parse,
   [Locale.PL_PL]: polish.parse,
   [Locale.RO_RO]: romanian.parse,
+  [Locale.TR_TR]: turkish.parse,
 };
 
 export const parse = (locale: Locale, html: string): ParsingResult => {
