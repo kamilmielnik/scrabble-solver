@@ -1,3 +1,4 @@
-export { default as literaki } from './literaki';
-export { default as scrabble } from './scrabble';
-export { default as superScrabble } from './superScrabble';
+export * from './kelimelik';
+export * from './literaki';
+export * from './scrabble';
+export * from './superScrabble';

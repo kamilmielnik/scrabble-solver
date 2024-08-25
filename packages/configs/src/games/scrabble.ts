@@ -1,7 +1,7 @@
 import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 import { Game } from '@scrabble-solver/types';
 
-const scrabble = {
+export const scrabble = {
   bingoScore: 50,
   blankScore: 0,
   blanksCount: 2,
@@ -73,5 +73,3 @@ const scrabble = {
     { multiplier: 3, type: BONUS_WORD, x: 14, y: 14 },
   ],
 };
-
-export default scrabble;
