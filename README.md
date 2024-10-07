@@ -6,7 +6,7 @@
   </p>
 
   <p>
-    Free, open-source, cross-platform, and multi-language analysis tool for <a href="https://en.wikipedia.org/wiki/Scrabble">Scrabble</a>, <a href="https://en.wikipedia.org/wiki/Super_Scrabble">Super Scrabble</a> &amp; <a href="https://pl.wikipedia.org/wiki/Literaki">Literaki</a>
+    Free, open-source, cross-platform, multi-language analysis tool for <a href="https://en.wikipedia.org/wiki/Scrabble">Scrabble</a>, <a href="https://en.wikipedia.org/wiki/Super_Scrabble">Super Scrabble</a>, <a href="https://pl.wikipedia.org/wiki/Literaki">Literaki</a> &amp; <a href="https://play.google.com/store/apps/details?id=com.he2apps.kelimelik">Kelimelik</a>
   </p>
 
   <p>
@@ -78,7 +78,7 @@
 | 🇵🇱 Polish   | [💾](https://sjp.pl/slownik/growy/) [SJP.PL](https://sjp.pl/slownik/dp.phtml)                                                                                                                           | [SJP.PL](https://sjp.pl)                             | współposiądźmyż (1512)                                                                                       |
 | 🇷🇴 Romanian | [💾](https://dexonline.ro/static/download/scrabble/loc-flexiuni-5.0.zip) [LOC 5](https://dexonline.ro/scrabble)                                                                                         | [dexonline](https://dexonline.ro/)                   | luxemburghezele (1944)                                                                                       |
 | 🇪🇸 Spanish  | [💾](https://github.com/kamilmielnik/scrabble-dictionaries/blob/master/spanish/file-2017.txt) [FILE 2017](https://www.facebook.com/Escrablistica)                                                       | [Diccionarios.com](https://www.diccionarios.com/)    | flexibilizabais (1323)                                                                                       |
-| 🇹🇷 Turkish  | [💾](https://github.com/kamilmielnik/scrabble-dictionaries/blob/master/turkish/turkish.txt) Turkish                                                                                                     | [Türk Dil Kurumu Sözlükleri](https://sozluk.gov.tr/) |                                                                                                              |
+| 🇹🇷 Turkish  | [💾](https://github.com/kamilmielnik/scrabble-dictionaries/blob/master/turkish/turkish.txt) Turkish                                                                                                     | [Türk Dil Kurumu Sözlükleri](https://sozluk.gov.tr/) | dövüşmeyeceğime (1593)                                                                                       |
 
 ## Run
 
