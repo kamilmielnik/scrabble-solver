@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/scrabble-solver",
-  "version": "2.15.1",
+  "version": "2.15.2",
   "description": "Scrabble Solver 2 - App",
   "engines": {
     "node": ">=16"
@@ -30,13 +30,13 @@
     "@floating-ui/react": "^0.26.24",
     "@kamilmielnik/trie": "^3.0.0",
     "@reduxjs/toolkit": "^2.2.7",
-    "@scrabble-solver/configs": "^2.15.1",
-    "@scrabble-solver/constants": "^2.15.1",
-    "@scrabble-solver/dictionaries": "^2.15.1",
-    "@scrabble-solver/logger": "^2.15.1",
-    "@scrabble-solver/solver": "^2.15.1",
-    "@scrabble-solver/types": "^2.15.1",
-    "@scrabble-solver/word-definitions": "^2.15.1",
+    "@scrabble-solver/configs": "^2.15.2",
+    "@scrabble-solver/constants": "^2.15.2",
+    "@scrabble-solver/dictionaries": "^2.15.2",
+    "@scrabble-solver/logger": "^2.15.2",
+    "@scrabble-solver/solver": "^2.15.2",
+    "@scrabble-solver/types": "^2.15.2",
+    "@scrabble-solver/word-definitions": "^2.15.2",
     "classnames": "^2.5.1",
     "env-cmd": "^10.1.0",
     "include-media": "^2.0.0",
