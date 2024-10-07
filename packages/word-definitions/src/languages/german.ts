@@ -1,4 +1,5 @@
-import { Cheerio, CheerioAPI, Element, load } from 'cheerio';
+import { Cheerio, CheerioAPI, load } from 'cheerio';
+import type { Element } from 'domhandler';
 
 import { request } from '../lib';
 import { ParsingResult } from '../types';
