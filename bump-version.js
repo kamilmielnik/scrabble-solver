@@ -24,4 +24,3 @@ const updateDependencyVersion = (filename, dependency, version) => {
 
 const currentAppVersion = getCurrentAppVersion();
 updateDependencyVersion('package.json', '@scrabble-solver/scrabble-solver', currentAppVersion);
-updateDependencyVersion('package-lock.json', '@scrabble-solver/scrabble-solver', currentAppVersion);
