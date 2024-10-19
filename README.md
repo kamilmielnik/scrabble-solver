@@ -10,7 +10,7 @@
   </p>
 
   <p>
-    Quickly find the top-scoring words using the given board and tiles.
+    Quickly find the top-scoring words using the given board and tiles
   </p>
 
   <p>
