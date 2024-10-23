@@ -18,7 +18,7 @@
   </p>
 
   <p>
-    <a href="#run">Run</a> it on your machine: <code>npx scrabble-solver@latest</code>
+    You can <a href="#run">run</a> it on your machine: <code>npx scrabble-solver@latest</code>
   </p>
 
   <p>
