@@ -12,7 +12,7 @@ interface Props {
 }
 
 const Tile: FunctionComponent<Props> = ({ character, className, color, points, size, transform, x, y }) => (
-  <g className={className} transform={transform}>
+  <g className={className} fill="#222" transform={transform}>
     <rect fill={color} height={size} rx={size * 0.15} width={size} x={x} y={y} />
 
     <text
