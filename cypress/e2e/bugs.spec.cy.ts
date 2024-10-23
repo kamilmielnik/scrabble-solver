@@ -6,3 +6,4 @@ import './bugs/30-click-inside-radio-icon';
 import './bugs/333-disabled-radio-cursor';
 import './bugs/342-results-sorting';
 import './bugs/348-results-word-padding';
+import './bugs/352-dictionary-race-condition';
