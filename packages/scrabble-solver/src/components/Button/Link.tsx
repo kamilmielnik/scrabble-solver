@@ -12,6 +12,7 @@ interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
   iconClassName?: string;
   tooltip?: ReactNode;
   variant?: 'default' | 'primary';
+  wide?: boolean;
 }
 
 const Link: FunctionComponent<Props> = ({
@@ -21,6 +22,7 @@ const Link: FunctionComponent<Props> = ({
   iconClassName,
   tooltip,
   variant = 'default',
+  wide,
   ...props
 }) => {
   return (
@@ -29,6 +31,7 @@ const Link: FunctionComponent<Props> = ({
         className={classNames(styles.button, className, {
           [styles.default]: variant === 'default',
           [styles.primary]: variant === 'primary',
+          [styles.wide]: wide,
         })}
         {...props}
       >

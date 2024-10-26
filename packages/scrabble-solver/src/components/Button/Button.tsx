@@ -12,6 +12,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   iconClassName?: string;
   tooltip?: ReactNode;
   variant?: 'default' | 'primary';
+  wide?: boolean;
 }
 
 const Button: FunctionComponent<Props> = ({
@@ -21,6 +22,7 @@ const Button: FunctionComponent<Props> = ({
   iconClassName,
   tooltip,
   variant = 'default',
+  wide,
   ...props
 }) => {
   return (
@@ -29,6 +31,7 @@ const Button: FunctionComponent<Props> = ({
         className={classNames(styles.button, className, {
           [styles.default]: variant === 'default',
           [styles.primary]: variant === 'primary',
+          [styles.wide]: wide,
         })}
         type="button"
         {...props}

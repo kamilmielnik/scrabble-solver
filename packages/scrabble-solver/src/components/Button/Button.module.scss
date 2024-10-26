@@ -60,8 +60,13 @@
 .content {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--spacing--l);
   line-height: var(--button--icon--size);
+
+  @include media('<l') {
+    gap: var(--spacing--m);
+  }
 }
 
 .icon {
@@ -74,8 +79,18 @@
 .label {
   @include ellipsis;
 
-  flex: 1;
   font-size: var(--font--size--h3);
   transition: var(--transition);
   text-align: start;
+}
+
+.wide {
+  .content {
+    justify-content: normal;
+    gap: var(--spacing--l);
+  }
+
+  .label {
+    flex: 1;
+  }
 }
