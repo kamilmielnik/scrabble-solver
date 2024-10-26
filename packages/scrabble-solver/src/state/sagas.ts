@@ -167,7 +167,9 @@ function* onLocaleChange({ payload: locale }: PayloadAction<Locale>): AnyGenerat
 function* onResultCandidateChange({ payload: result }: PayloadAction<Result | null>): AnyGenerator {
   if (result) {
     const locale: Locale = yield select(selectLocale);
-    yield put(dictionarySlice.actions.changeInput(result.words.join(LOCALE_FEATURES[locale].separator)));
+    const uniqueWords = Array.from(new Set(result.words));
+    const input = uniqueWords.join(LOCALE_FEATURES[locale].separator);
+    yield put(dictionarySlice.actions.changeInput(input));
     yield put(dictionarySlice.actions.submit());
   }
 }
