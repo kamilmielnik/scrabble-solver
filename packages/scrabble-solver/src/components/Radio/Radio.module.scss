@@ -16,10 +16,8 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
   cursor: pointer;
 
   &.checked {
-    .icon {
-      &::after {
-        background-color: var(--color--primary);
-      }
+    .iconContent {
+      background-color: var(--color--primary);
     }
   }
 
@@ -40,28 +38,24 @@ $radio-box-size: $radio-size + 2 * $radio-inner-border;
 }
 
 .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex: 0 0 auto;
-  position: relative;
   width: $radio-box-size;
   height: $radio-box-size;
-  border-radius: 50%;
   border: $radio-inner-border solid var(--color--primary);
-  pointer-events: none;
-
-  &::after {
-    content: ' ';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: $radio-inner-size;
-    height: $radio-inner-size;
-    background-color: transparent;
-    border-radius: 50%;
-    transition: var(--transition);
-  }
+  border-radius: 50%;
 }
 
 .content {
   flex: 1;
+}
+
+.iconContent {
+  width: $radio-inner-size;
+  height: $radio-inner-size;
+  background-color: transparent;
+  border-radius: 50%;
+  transition: var(--transition);
 }
