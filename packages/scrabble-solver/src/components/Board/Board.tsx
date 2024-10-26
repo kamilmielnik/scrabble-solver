@@ -178,6 +178,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
             position: floatingFocus.strategy,
             top: floatingFocus.y + cellSize,
             left: floatingFocus.x,
+            display: floatingFocus.isPositioned ? 'block' : 'none',
             width: cellSize,
             height: cellSize,
             opacity: hasFocus ? 1 : 0,
