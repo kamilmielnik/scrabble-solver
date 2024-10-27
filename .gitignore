@@ -2,7 +2,8 @@
 .nx/
 build/
 coverage/
-cypress/
+cypress/downloads
+cypress/screenshots
 node_modules/
 *.eslintcache
 *.db
