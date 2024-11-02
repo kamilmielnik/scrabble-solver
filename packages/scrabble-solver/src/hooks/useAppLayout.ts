@@ -17,6 +17,7 @@ import {
   RACK_TILE_SIZE_MAX,
   RESULTS_COLUMN_WIDTH,
   SOLVER_COLUMN_WIDTH,
+  TEXT_INPUT_HEIGHT,
 } from 'parameters';
 import { selectConfig, selectShowCoordinates, useTypedSelector } from 'state';
 import { ResultColumnId } from 'types';
@@ -67,6 +68,7 @@ const useAppLayout = () => {
   const maxControlsWidth = tileSize * config.rackSize + 2 * BORDER_WIDTH;
   const showResultsInModal = isLessThanL;
   const dictionaryHeight = showResultsInModal ? DICTIONARY_HEIGHT_MOBILE : DICTIONARY_HEIGHT;
+  const dictionaryResultsHeight = dictionaryHeight - TEXT_INPUT_HEIGHT - 2 * BORDER_WIDTH;
   const modalWidth = isLessThanS ? viewportWidth : MODAL_WIDTH;
   const resultsHeight = isLessThanL
     ? viewportHeight - dictionaryHeight - BUTTON_HEIGHT - MODAL_HEADER_HEIGHT - 5 * componentsSpacing
@@ -86,6 +88,7 @@ const useAppLayout = () => {
     coordinatesFontSize: coordinatesSize * 0.6,
     coordinatesSize,
     dictionaryHeight,
+    dictionaryResultsHeight,
     isModalFullWidth: isLessThanS,
     logoHeight,
     logoWidth: logoHeight * LOGO_ASPECT_RATIO,

@@ -4,7 +4,6 @@
   position: relative;
   transition: var(--transition);
   word-break: break-word;
-  overflow: hidden;
 
   &.isAllowed {
     background-color: var(--color--green--light);
@@ -13,6 +12,10 @@
   &.isNotAllowed {
     background-color: var(--color--red--light);
   }
+
+  &:focus-within {
+    @include focus-effect;
+  }
 }
 
 .content {
@@ -20,6 +23,11 @@
 
   height: 100%;
   overflow-y: auto;
+  border-radius: inherit;
+
+  &:focus-visible {
+    outline: none;
+  }
 }
 
 .result {

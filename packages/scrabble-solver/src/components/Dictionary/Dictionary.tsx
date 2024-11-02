@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 
+import { useAppLayout } from 'hooks';
 import { selectDictionary, selectDictionaryError, useTranslate, useTypedSelector } from 'state';
 
 import EmptyState from '../EmptyState';
@@ -14,6 +15,7 @@ interface Props {
 
 const Dictionary: FunctionComponent<Props> = ({ className }) => {
   const translate = useTranslate();
+  const { dictionaryResultsHeight } = useAppLayout();
   const { results, isLoading } = useTypedSelector(selectDictionary);
   const error = useTypedSelector(selectDictionaryError);
   const isLastAllowed = results.at(-1)?.isAllowed;
@@ -24,6 +26,7 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
         [styles.isAllowed]: isLastAllowed === true,
         [styles.isNotAllowed]: isLastAllowed === false,
       })}
+      style={{ height: dictionaryResultsHeight }}
     >
       <div className={styles.content}>
         {typeof error !== 'undefined' && !isLoading && <EmptyState variant="error">{error.message}</EmptyState>}
