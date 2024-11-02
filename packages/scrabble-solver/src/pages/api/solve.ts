@@ -26,6 +26,7 @@ const solve = async (request: NextApiRequest, response: NextApiResponse): Promis
       meta,
       payload: {
         board: board.toString(),
+        configId: config.game,
         boardBlanksCount: board.getBlanksCount(),
         boardTilesCount: board.getTilesCount(),
         characters: characters.join(''),
