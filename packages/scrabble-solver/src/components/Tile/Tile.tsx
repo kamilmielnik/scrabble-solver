@@ -26,7 +26,7 @@ interface Props {
   className?: string;
   disabled?: boolean;
   highlighted?: boolean;
-  inputRef?: Ref<HTMLInputElement>;
+  inputRef?: Ref<HTMLInputElement | null>;
   isBlank?: boolean;
   isValid?: boolean;
   placeholder?: string;

@@ -28,7 +28,7 @@ const toggleDirection = (direction: Direction) => (direction === 'vertical' ? 'h
 interface State {
   activeIndex: Point;
   direction: Direction;
-  inputRefs: RefObject<HTMLInputElement>[][];
+  inputRefs: RefObject<HTMLInputElement | null>[][];
 }
 
 interface Actions {
@@ -47,7 +47,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
   const inputRefs = useMemo(
-    () => createGridOf<RefObject<HTMLInputElement>>(width, height, () => createRef()),
+    () => createGridOf<RefObject<HTMLInputElement | null>>(width, height, () => createRef()),
     [width, height],
   );
   const [activeIndex, setActiveIndex] = useState<Point>({ x: 0, y: 0 });

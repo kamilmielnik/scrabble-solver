@@ -27,7 +27,7 @@ interface Props {
   coordinatesSize: number;
   direction: 'ltr' | 'rtl';
   filteredCells: CellFilterEntry[];
-  inputRefs: RefObject<HTMLInputElement>[][];
+  inputRefs: RefObject<HTMLInputElement | null>[][];
   rows: CellModel[][];
   showCoordinates: ShowCoordinates;
   style?: CSSProperties;

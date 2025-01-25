@@ -37,7 +37,7 @@ interface Props {
   character: string | null;
   className?: string;
   index: number;
-  inputRef: RefObject<HTMLInputElement>;
+  inputRef: RefObject<HTMLInputElement | null>;
   size: number;
   tile: TileModel | null;
   onChange: ChangeEventHandler<HTMLInputElement>;

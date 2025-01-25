@@ -32,7 +32,7 @@ interface Props {
   cellRight?: CellModel;
   cellTop?: CellModel;
   className?: string;
-  inputRef: RefObject<HTMLInputElement>;
+  inputRef: RefObject<HTMLInputElement | null>;
   size: number;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onFocus: (x: number, y: number) => void;

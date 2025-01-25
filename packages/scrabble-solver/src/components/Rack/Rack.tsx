@@ -54,8 +54,11 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const resultCandidateTiles = useTypedSelector(selectResultCandidateTiles);
   const tiles = useMemo(() => zipCharactersAndTiles(rack, resultCandidateTiles), [rack, resultCandidateTiles]);
   const tilesCount = tiles.length;
-  const tilesRefs = useMemo(() => createArray(tilesCount).map(() => createRef<HTMLInputElement>()), [tilesCount]);
-  const activeIndexRef = useRef<number>();
+  const tilesRefs = useMemo(
+    () => createArray(tilesCount).map(() => createRef<HTMLInputElement | null>()),
+    [tilesCount],
+  );
+  const activeIndexRef = useRef<number | undefined>(undefined);
   const [hasFocus, setHasFocus] = useState(false);
   const [input, setInput] = useState('');
   const { direction } = LOCALE_FEATURES[locale];
