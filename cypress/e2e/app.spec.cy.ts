@@ -11,6 +11,7 @@ import {
   getSettingOption,
   getSettingsButton,
   getTooltip,
+  moveMouseAway,
   solve,
   typeRack,
   unregisterServiceWorkers,
@@ -73,6 +74,10 @@ describe('app', () => {
       getBoardTile(7, 7).parent().should('have.attr', 'role', 'mark');
       getDictionaryInput().should('have.value', 'bał');
       getLoading().should('not.exist');
+      getTooltip().should('be.visible');
+      moveMouseAway();
+      getTooltip().should('not.exist');
+      getRackTile(0).parent().should('not.have.attr', 'role', 'mark');
       getDictionaryTitles().should('have.length', 1).and('have.text', 'bał');
       getDictionary()
         .should('include.text', 'bać się')

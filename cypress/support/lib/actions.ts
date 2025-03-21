@@ -55,3 +55,9 @@ export const unregisterServiceWorkers = async () => {
   const registrations = await navigator.serviceWorker.getRegistrations();
   return Promise.all(registrations.map((registration) => registration.unregister()));
 };
+
+export const moveMouseAway = () => {
+  cy.window().then((window) => {
+    cy.get('body').realMouseMove(window.innerWidth / 2, 0);
+  });
+};
