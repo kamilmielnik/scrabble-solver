@@ -45,6 +45,9 @@ module.exports = {
           'error',
           {
             argsIgnorePattern: '^_',
+            caughtErrorsIgnorePattern: '^_',
+            destructuredArrayIgnorePattern: '^_',
+            varsIgnorePattern: '^_',
           },
         ],
         'no-shadow': 'off',
