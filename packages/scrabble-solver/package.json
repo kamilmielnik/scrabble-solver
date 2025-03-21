@@ -2,9 +2,6 @@
   "name": "@scrabble-solver/scrabble-solver",
   "version": "2.15.7",
   "description": "Scrabble Solver 2 - App",
-  "engines": {
-    "node": ">=16"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kamilmielnik/scrabble-solver.git"
