@@ -1,4 +1,5 @@
 import { useMergeRefs } from '@floating-ui/react';
+import { isObject } from '@scrabble-solver/types';
 import { HTMLProps, cloneElement, forwardRef, isValidElement } from 'react';
 
 import { useTooltipContext } from './context';
@@ -19,7 +20,8 @@ export const TooltipTrigger = forwardRef<HTMLElement, Props>(({ children, ...pro
     state.getReferenceProps({
       ref: finalRef,
       ...props,
-      ...children.props,
+      ...(isObject(children.props) ? children.props : {}),
+      // @ts-expect-error incorrect @floating-ui typings
       'data-state': state.open ? 'open' : 'closed',
     }),
   );

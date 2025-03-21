@@ -6,6 +6,7 @@ import {
   ChangeEvent,
   ClipboardEvent,
   FunctionComponent,
+  RefObject,
   createRef,
   useCallback,
   useMemo,
@@ -68,7 +69,7 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
 
   useOnclickOutside(() => setHasFocus(false), {
     ignoreClass: [InputPrompt.styles.form, InputPrompt.styles.input],
-    refs: [ref],
+    refs: ref.current ? [ref as RefObject<HTMLDivElement>] : [],
   });
 
   const changeActiveIndex = useCallback(
