@@ -19,7 +19,6 @@ class Cell {
 
   public readonly y: number;
 
-  // eslint-disable-next-line no-undef
   constructor({ isEmpty = true, tile = Tile.Null, x, y }: { isEmpty?: boolean; tile?: Tile; x: number; y: number }) {
     this.isEmpty = isEmpty;
     this.tile = tile;

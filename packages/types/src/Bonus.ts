@@ -3,7 +3,7 @@ import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 import BonusJson from './BonusJson';
 import BonusValue from './BonusValue';
 import Cell from './Cell';
-import Config from './Config';
+import type Config from './Config';
 
 abstract class Bonus {
   public readonly multiplier: number;

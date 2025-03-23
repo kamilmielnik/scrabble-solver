@@ -116,7 +116,7 @@ const Board: FunctionComponent<Props> = ({ className }) => {
       dispatch(solveSlice.actions.submit());
       setHasFocus(false);
     },
-    [activeIndex, dispatch, locale],
+    [activeIndex, dispatch, insertValue, locale],
   );
 
   const handleToggleBlank = useCallback(() => {

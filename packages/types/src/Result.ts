@@ -92,7 +92,6 @@ const getPointsRatio = (tiles: Tile[], points: number): number => points / tiles
 
 const getTiles = (cells: Cell[]): Tile[] => cells.filter(({ isEmpty }) => isEmpty).map(({ tile }) => tile);
 
-// eslint-disable-next-line prefer-template
 const getWord = (cells: Cell[]): string => cells.reduce((word, cell) => word + cell.toString(), '');
 
 const getWords = (cells: Cell[], collisions: Collision[]): string[] => [cells, ...collisions].map(getWord);

@@ -12,7 +12,6 @@ const generatePattern = <P extends Pattern>({
   board: Board;
   cells: Cell[];
   config: Config;
-  // eslint-disable-next-line @typescript-eslint/no-shadow
   PatternModel: new (board: Board, cells: Cell[]) => P;
 }): P[] => {
   const startIndices = generateStartIndices(cells);

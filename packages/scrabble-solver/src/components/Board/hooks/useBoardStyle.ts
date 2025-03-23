@@ -27,7 +27,7 @@ const useBoardStyle = () => {
           ? `repeat(${config.boardSize}, 1fr)`
           : `${coordinatesSize}px repeat(${config.boardSize}, 1fr)`,
     }),
-    [backgroundImage, config.boardSize, tileFontSize],
+    [backgroundImage, config.boardSize, coordinatesSize, showCoordinates, tileFontSize],
   );
 
   return boardStyle;

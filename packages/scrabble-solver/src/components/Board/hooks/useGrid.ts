@@ -69,7 +69,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       setActiveIndex({ x, y });
       inputRefs[y][x].current?.focus();
     },
-    [safeActiveIndex, inputRefs],
+    [safeActiveIndex, height, inputRefs, width],
   );
 
   const getInputRefPosition = useCallback(
@@ -188,7 +188,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       moveFocus(Math.abs(position.x - x) + Math.abs(position.y - y));
       actions.forEach(dispatch);
     },
-    [config, directionRef, dispatch, moveFocus, rows],
+    [config, directionRef, dispatch, height, moveFocus, rows, width],
   );
 
   const onChange = useCallback(
@@ -219,7 +219,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
 
       insertValue(position, value);
     },
-    [dispatch, insertValue, moveFocus, rows],
+    [dispatch, insertValue, moveFocus, rows, getInputRefPosition],
   );
 
   const onDirectionToggle = useCallback(() => setLastDirection(toggleDirection), []);
@@ -347,7 +347,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
         dispatch(boardSlice.actions.toggleCellIsBlank(position));
       },
     });
-  }, [changeActiveIndex, config, direction, dispatch, locale, moveFocus, onDirectionToggle, rows]);
+  }, [changeActiveIndex, config, direction, dispatch, getInputRefPosition, locale, moveFocus, onDirectionToggle, rows]);
 
   const onPaste = useCallback<ClipboardEventHandler>(
     (event) => {
@@ -366,7 +366,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       const value = event.clipboardData.getData('text/plain').toLocaleLowerCase();
       insertValue(position, value);
     },
-    [insertValue],
+    [getInputRefPosition, insertValue],
   );
 
   return [

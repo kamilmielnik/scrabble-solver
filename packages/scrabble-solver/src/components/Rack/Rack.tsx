@@ -67,6 +67,11 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const showInputPrompt = inputMode === 'touchscreen' && hasFocus;
   const ref = useRef<HTMLDivElement>(null);
 
+  const floatingInputPrompt = useFloating({
+    placement: 'bottom-start',
+    whileElementsMounted: autoUpdate,
+  });
+
   useOnclickOutside(() => setHasFocus(false), {
     ignoreClass: [InputPrompt.styles.form, InputPrompt.styles.input],
     refs: ref.current ? [ref as RefObject<HTMLDivElement>] : [],
@@ -120,7 +125,7 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
       return character.length > 1 ? character.toLocaleUpperCase(locale) : character;
     });
     setInput(uppercasedDigraphs.join(''));
-  }, [rack, ref]);
+  }, [floatingInputPrompt.refs, locale, rack, ref]);
 
   const handleKeyDown = useMemo(() => {
     return createKeyboardNavigation({
@@ -159,12 +164,7 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
         }
       },
     });
-  }, [changeActiveIndex, config, direction]);
-
-  const floatingInputPrompt = useFloating({
-    placement: 'bottom-start',
-    whileElementsMounted: autoUpdate,
-  });
+  }, [changeActiveIndex, config, direction, dispatch]);
 
   return (
     <>

@@ -3,7 +3,7 @@ import { BONUS_CHARACTER } from '@scrabble-solver/constants';
 import Bonus from './Bonus';
 import BonusValue from './BonusValue';
 import Cell from './Cell';
-import Config from './Config';
+import type Config from './Config';
 
 class CharacterBonus extends Bonus {
   public readonly type = BONUS_CHARACTER;

@@ -87,7 +87,7 @@ const RackTile: FunctionComponent<Props> = ({
       dispatch(rackSlice.actions.changeCharacters({ characters, index }));
       onChange(event);
     },
-    [config, index, onChange],
+    [config, dispatch, index, onChange],
   );
 
   const handleKeyDown = useMemo(() => {
@@ -101,14 +101,16 @@ const RackTile: FunctionComponent<Props> = ({
           event.preventDefault();
           event.stopPropagation();
           const twoTilesCharacter = config.getTwoCharacterTileByPrefix(event.key);
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          dispatch(rackSlice.actions.changeCharacter({ character: twoTilesCharacter!, index }));
+
+          if (twoTilesCharacter) {
+            dispatch(rackSlice.actions.changeCharacter({ character: twoTilesCharacter!, index }));
+          }
         }
 
         onKeyDown(event);
       },
     });
-  }, [index, onKeyDown]);
+  }, [config, dispatch, index, onKeyDown]);
 
   const handleMouseDown: MouseEventHandler<HTMLInputElement> = useCallback(
     (event) => {

@@ -1,5 +1,3 @@
-/* eslint-disable max-lines, max-statements */
-
 import classNames from 'classnames';
 import {
   CSSProperties,
@@ -45,7 +43,7 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
         dispatch(rackSlice.actions.changeCharacters({ characters, index: 0 }));
         onSubmit(event);
       },
-      [config, value, onSubmit],
+      [config, dispatch, value, onSubmit],
     );
 
     useEffect(() => {
