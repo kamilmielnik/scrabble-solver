@@ -82,7 +82,7 @@
 
 ## Run
 
-You can run Scrabble Solver on your machine - all you need is [Node.js](https://nodejs.org/) 20 or later.
+You can run Scrabble Solver on your machine - all you need is [Node.js](https://nodejs.org/) 22 or later.
 
 ```Shell
 npx scrabble-solver@latest

@@ -37,7 +37,7 @@
     "App"
   ],
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "bin": {
     "scrabble-solver": "./bin/scrabble-solver.js"
