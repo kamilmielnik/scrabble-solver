@@ -56,7 +56,7 @@
     "release:publish": "npm run version:bump && np && lerna publish from-package --yes",
     "start": "concurrently -n w: npm:start:*",
     "start:app": "npm run start -w @scrabble-solver/scrabble-solver",
-    "start:browser": "open-cli http://localhost:3333",
+    "start:browser": "wait-on http://localhost:3333 && open-cli http://localhost:3333",
     "test": "npm run build && npm run test-jest && concurrently \"npm run start:app\" \"npm run test-cypress:run\" -k -s first",
     "test-cypress": "cypress open",
     "test-cypress:run": "CYPRESS_BASE_URL=http://localhost:3333 cypress run",
@@ -95,7 +95,8 @@
   "dependencies": {
     "@scrabble-solver/scrabble-solver": "^2.15.9",
     "concurrently": "^9.1.2",
-    "open-cli": "^8.0.0"
+    "open-cli": "^8.0.0",
+    "wait-on": "^8.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",
