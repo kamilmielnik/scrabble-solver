@@ -44,8 +44,12 @@ class Config {
     return this.config.blanksCount;
   }
 
-  public get boardSize(): number {
-    return this.config.boardSize;
+  public get boardHeight(): number {
+    return this.config.boardHeight;
+  }
+
+  public get boardWidth(): number {
+    return this.config.boardWidth;
   }
 
   public get game(): Game {

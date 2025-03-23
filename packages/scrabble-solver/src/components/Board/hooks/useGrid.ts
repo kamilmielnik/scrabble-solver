@@ -106,7 +106,7 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
       };
 
       characters.forEach((character) => {
-        if (x >= config.boardSize || y >= config.boardSize) {
+        if (x >= config.boardWidth || y >= config.boardHeight) {
           return;
         }
 

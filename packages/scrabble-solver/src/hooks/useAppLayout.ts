@@ -54,17 +54,22 @@ const useAppLayout = () => {
   const coordinatesSizeRatio = showCoordinates === 'hidden' ? 0 : 0.5;
   const coordinatesBorderWidth = showCoordinates === 'hidden' ? 0 : 1;
   const cellWidth =
-    (maxBoardWidth - (config.boardSize + 1 + coordinatesBorderWidth) * BORDER_WIDTH) /
-    (config.boardSize + coordinatesSizeRatio);
+    (maxBoardWidth - (config.boardWidth + 1 + coordinatesBorderWidth) * BORDER_WIDTH) /
+    (config.boardWidth + coordinatesSizeRatio);
   const cellHeight =
-    (maxBoardHeight - (config.boardSize + 1 + coordinatesBorderWidth) * BORDER_WIDTH) /
-    (config.boardSize + coordinatesSizeRatio);
+    (maxBoardHeight - (config.boardHeight + 1 + coordinatesBorderWidth) * BORDER_WIDTH) /
+    (config.boardHeight + coordinatesSizeRatio);
   const cellSize = Math.min(Math.min(cellWidth, cellHeight), BOARD_TILE_SIZE_MAX);
   const coordinatesSize = coordinatesSizeRatio * cellSize;
-  const boardSize =
-    (cellSize + BORDER_WIDTH) * config.boardSize +
+  const boardWidth =
+    (cellSize + BORDER_WIDTH) * config.boardWidth +
     BORDER_WIDTH +
     (showCoordinates === 'hidden' ? 0 : coordinatesSize + BORDER_WIDTH);
+  const boardHeight =
+    (cellSize + BORDER_WIDTH) * config.boardHeight +
+    BORDER_WIDTH +
+    (showCoordinates === 'hidden' ? 0 : coordinatesSize + BORDER_WIDTH);
+
   const maxControlsWidth = tileSize * config.rackSize + 2 * BORDER_WIDTH;
   const showResultsInModal = isLessThanL;
   const dictionaryHeight = showResultsInModal ? DICTIONARY_HEIGHT_MOBILE : DICTIONARY_HEIGHT;
@@ -72,7 +77,7 @@ const useAppLayout = () => {
   const modalWidth = isLessThanS ? viewportWidth : MODAL_WIDTH;
   const resultsHeight = isLessThanL
     ? viewportHeight - dictionaryHeight - BUTTON_HEIGHT - MODAL_HEADER_HEIGHT - 5 * componentsSpacing
-    : boardSize - componentsSpacing - dictionaryHeight;
+    : boardHeight - componentsSpacing - dictionaryHeight;
   const rackWidth = tileSize * config.rackSize;
   const resultsWidth = isLessThanL ? modalWidth - 2 * componentsSpacing : SOLVER_COLUMN_WIDTH;
   const columnsWidth = Object.keys(columns).reduce(
@@ -83,7 +88,8 @@ const useAppLayout = () => {
 
   return {
     actionsWidth: 2 * BUTTON_HEIGHT - BORDER_WIDTH,
-    boardSize,
+    boardHeight,
+    boardWidth,
     cellSize,
     coordinatesFontSize: coordinatesSize * 0.6,
     coordinatesSize,

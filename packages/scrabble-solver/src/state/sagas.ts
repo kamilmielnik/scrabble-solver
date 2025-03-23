@@ -131,7 +131,7 @@ function* onInitialize(): AnyGenerator {
 function* onReset(): AnyGenerator {
   const config = yield select(selectConfig);
 
-  yield put(boardSlice.actions.init(Board.create(config.boardSize)));
+  yield put(boardSlice.actions.init(Board.create(config.boardWidth, config.boardHeight)));
   yield put(cellFilterSlice.actions.reset());
   yield put(dictionarySlice.actions.reset());
   yield put(rackSlice.actions.reset());

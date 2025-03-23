@@ -6,14 +6,9 @@ export const getBoardContainer = () => {
   return cy.findByTestId('board');
 };
 
-export const getBoardTile = (x = 0, y = 0) => {
-  return getBoardContainer()
-    .findAllByRole('textbox')
-    .then((tiles) => {
-      const boardSize = Math.sqrt(tiles.length);
-      const index = y * boardSize + x;
-      return cy.findByTestId('board').findAllByRole('textbox').eq(index);
-    });
+export const getBoardTile = (x = 0, y = 0, boardWidth = 15) => {
+  const index = y * boardWidth + x;
+  return cy.findByTestId('board').findAllByRole('textbox').eq(index);
 };
 
 export const getDictionary = () => {

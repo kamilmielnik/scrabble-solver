@@ -20,14 +20,14 @@ const useBoardStyle = () => {
       fontSize: tileFontSize,
       gridTemplateColumns:
         showCoordinates === 'hidden'
-          ? `repeat(${config.boardSize}, 1fr)`
-          : `${coordinatesSize}px repeat(${config.boardSize}, 1fr)`,
+          ? `repeat(${config.boardWidth}, 1fr)`
+          : `${coordinatesSize}px repeat(${config.boardWidth}, 1fr)`,
       gridTemplateRows:
         showCoordinates === 'hidden'
-          ? `repeat(${config.boardSize}, 1fr)`
-          : `${coordinatesSize}px repeat(${config.boardSize}, 1fr)`,
+          ? `repeat(${config.boardHeight}, 1fr)`
+          : `${coordinatesSize}px repeat(${config.boardHeight}, 1fr)`,
     }),
-    [backgroundImage, config.boardSize, coordinatesSize, showCoordinates, tileFontSize],
+    [backgroundImage, config.boardHeight, config.boardWidth, coordinatesSize, showCoordinates, tileFontSize],
   );
 
   return boardStyle;

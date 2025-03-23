@@ -5,7 +5,8 @@ import generateVectors from './generateVectors';
 
 const generateHorizontalPatterns = (config: Config, board: Board): Pattern[] => {
   const getNthVector = (index: number) => board.getRow(index);
-  const horizontalVectors = generateVectors({ getNthVector, vectorsCount: config.boardSize });
+  const vectorsCount = config.boardHeight;
+  const horizontalVectors = generateVectors({ getNthVector, vectorsCount });
   const horizontalPatterns = horizontalVectors.flatMap((cells) => {
     return generatePattern({ board, config, PatternModel: HorizontalPattern, cells });
   });

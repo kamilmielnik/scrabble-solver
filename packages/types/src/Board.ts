@@ -5,8 +5,8 @@ import Cell from './Cell';
 import Tile from './Tile';
 
 class Board {
-  public static create(size: number): Board {
-    return Board.fromStringArray(Array(size).fill(Array(size).fill(' ').join('')));
+  public static create(width: number, height: number): Board {
+    return Board.fromStringArray(Array(height).fill(Array(width).fill(' ').join('')));
   }
 
   public static fromJson(json: BoardJson): Board {

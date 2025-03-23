@@ -25,16 +25,16 @@ const BONUS_WORD_3 = 'b3';
 const BONUS_WORD_4 = 'b4';
 
 const useBackgroundImage = () => {
-  const { boardSize, cellSize, coordinatesSize } = useAppLayout();
+  const { boardHeight, boardWidth, cellSize, coordinatesSize } = useAppLayout();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const showCoordinates = useTypedSelector(selectShowCoordinates);
   const { isLessThanXs } = useMediaQueries();
   const borderRadius = isLessThanXs ? BORDER_RADIUS_XS : BORDER_RADIUS;
   const config = useTypedSelector(selectConfig);
-  const center = { x: Math.floor(config.boardSize / 2), y: Math.floor(config.boardSize / 2) };
-  const viewBoxHeight = boardSize;
-  const viewBoxWidth = boardSize;
+  const center = { x: Math.floor(config.boardWidth / 2), y: Math.floor(config.boardHeight / 2) };
+  const viewBoxHeight = boardHeight;
+  const viewBoxWidth = boardWidth;
   const bonusSize = cellSize * 0.8;
   const bonusOffset = cellSize * 0.1;
   const iconSize = cellSize * 0.4;
@@ -157,7 +157,7 @@ const useBackgroundImage = () => {
           </>
         )}
 
-        {Array.from({ length: config.boardSize - 1 }).map((_value, index) => (
+        {Array.from({ length: config.boardHeight - 1 }).map((_value, index) => (
           <use
             key={index}
             href={`#${HORIZONTAL_LINE}`}
@@ -165,7 +165,7 @@ const useBackgroundImage = () => {
           />
         ))}
 
-        {Array.from({ length: config.boardSize - 1 }).map((_value, index) => (
+        {Array.from({ length: config.boardWidth - 1 }).map((_value, index) => (
           <use
             key={index}
             href={`#${VERTICAL_LINE}`}

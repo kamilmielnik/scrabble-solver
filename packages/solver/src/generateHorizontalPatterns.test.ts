@@ -6,7 +6,8 @@ import generateHorizontalPatterns from './generateHorizontalPatterns';
 const board = Board.fromStringArray([' t ', 'do ', '   ']);
 
 const config = {
-  boardSize: 3,
+  boardHeight: 3,
+  boardWidth: 3,
   rackSize: 7,
 } as Config;
 

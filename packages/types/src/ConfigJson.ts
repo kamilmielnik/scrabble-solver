@@ -7,7 +7,8 @@ interface ConfigJson {
   bingoScore: number;
   blankScore: number;
   blanksCount: number;
-  boardSize: number;
+  boardHeight: number;
+  boardWidth: number;
   bonuses: BonusJson[];
   game: Game;
   locale: Locale;
