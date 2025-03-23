@@ -1,4 +1,5 @@
 export const getModal = () => {
+  cy.findByRole('dialog').parent().should('have.class', 'ReactModal__Overlay--after-open');
   return cy.findByRole('dialog');
 };
 
