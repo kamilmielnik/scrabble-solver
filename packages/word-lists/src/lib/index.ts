@@ -5,6 +5,6 @@ export { default as findFirstWordIndex } from './findFirstWordIndex';
 export { default as getHash } from './getHash';
 export { default as getTempFilepath } from './getTempFilepath';
 export { default as getTxtWordList } from './getTxtWordList';
-export { default as latinizeDiacritics } from './latinizeDiacritics';
+export { default as transliterateDiacritics } from './transliterateDiacritics';
 export { default as unique } from './unique';
 export { default as unzip } from './unzip';
