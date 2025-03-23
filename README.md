@@ -57,28 +57,28 @@
 2. [Run](#run)
 3. [Uninstall](#uninstall)
 4. [Develop](#develop)
-    1. [Setup](#setup)
-    2. [Run app dev server](#run-app-dev-server)
-    3. [Rebuild the entire project](#rebuild-the-entire-project)
-    4. [Rebuild a single package](#rebuild-a-single-package)
-    5. [Add a new language](#add-a-new-language)
+   1. [Setup](#setup)
+   2. [Run app dev server](#run-app-dev-server)
+   3. [Rebuild the entire project](#rebuild-the-entire-project)
+   4. [Rebuild a single package](#rebuild-a-single-package)
+   5. [Add a new language](#add-a-new-language)
 5. [Tech stack](#tech-stack)
 6. [Related projects](#related-projects)
 7. [Media](#media)
 
 ## Dictionaries
 
-| Language    | Word list                                                                                                                                                                                              | Word definitions                                     | [Highest-scoring word](https://codesandbox.io/s/highest-scoring-words-in-scrabble-vbj1ns?file=/src/index.js) |
-|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| Language    | Word list                                                                                                                                                                                               | Word definitions                                     | [Highest-scoring word](https://codesandbox.io/s/highest-scoring-words-in-scrabble-vbj1ns?file=/src/index.js) |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | 🇬🇧 English  | [💾](https://www.wordgamedictionary.com/sowpods/download/sowpods.txt) [SOWPODS](https://en.wikipedia.org/wiki/Collins_Scrabble_Words)                                                                   | [Merriam-Webster](https://www.merriam-webster.com/)  | oxyphenbutazone (1458)                                                                                       |
 | 🇺🇸 English  | [💾](https://www.wordgamedictionary.com/twl06/download/twl06.txt) [TWL06](https://en.wikipedia.org/wiki/NASPA_Word_List)                                                                                | [Merriam-Webster](https://www.merriam-webster.com/)  | oxyphenbutazone (1458)                                                                                       |
 | 🇫🇷 French   | [💾](https://raw.githubusercontent.com/Thecoolsim/French-Scrabble-ODS8/main/French%20ODS%20dictionary.txt) [ODS8](https://github.com/Thecoolsim/French-Scrabble-ODS8)                                   | [CNRTL](https://www.cnrtl.fr/)                       | schizothymiques (1566)                                                                                       |
 | 🇩🇪 German   | [💾](https://raw.githubusercontent.com/hippler/german-wordlist/master/words.txt) [hippler/german-wordlist](https://github.com/hippler/german-wordlist)                                                  | [DWDS](https://www.dwds.de)                          | polytoxikomanem (1512)                                                                                       |
-| 🇮🇷 Persian  | [💾](https://raw.githubusercontent.com/MansourM/persian-to-persian-dictionary/main/moein/words.txt) [MansourM/persian-to-persian-dictionary](https://github.com/MansourM/persian-to-persian-dictionary) | [واژه یاب](https://vajehyab.com)                     | ‏(756) اگزیستانسیالیست                                                                                        |
+| 🇮🇷 Persian  | [💾](https://raw.githubusercontent.com/MansourM/persian-to-persian-dictionary/main/moein/words.txt) [MansourM/persian-to-persian-dictionary](https://github.com/MansourM/persian-to-persian-dictionary) | [واژه یاب](https://vajehyab.com)                     | ‏(756) اگزیستانسیالیست                                                                                       |
 | 🇵🇱 Polish   | [💾](https://sjp.pl/slownik/growy/) [SJP.PL](https://sjp.pl/slownik/dp.phtml)                                                                                                                           | [SJP.PL](https://sjp.pl)                             | współposiądźmyż (1512)                                                                                       |
 | 🇷🇴 Romanian | [💾](https://dexonline.ro/static/download/scrabble/loc-flexiuni-5.0.zip) [LOC 5](https://dexonline.ro/scrabble)                                                                                         | [dexonline](https://dexonline.ro/)                   | luxemburghezele (1944)                                                                                       |
 | 🇪🇸 Spanish  | [💾](https://github.com/kamilmielnik/scrabble-dictionaries/blob/master/spanish/file-2017.txt) [FILE 2017](https://www.facebook.com/Escrablistica)                                                       | [Diccionarios.com](https://www.diccionarios.com/)    | flexibilizabais (1323)                                                                                       |
-| 🇹🇷 Turkish  | [💾](https://github.com/kamilmielnik/scrabble-dictionaries/blob/master/turkish/kelimelik.txt) Turkish                                                                                                     | [Türk Dil Kurumu Sözlükleri](https://sozluk.gov.tr/) | dövüşmeyeceğime (1593)                                                                                       |
+| 🇹🇷 Turkish  | [💾](https://github.com/kamilmielnik/scrabble-dictionaries/blob/master/turkish/kelimelik.txt) Turkish                                                                                                   | [Türk Dil Kurumu Sözlükleri](https://sozluk.gov.tr/) | dövüşmeyeceğime (1593)                                                                                       |
 
 ## Run
 
@@ -151,7 +151,7 @@ npm run build -w @scrabble-solver/word-lists
 ### Add a new language
 
 1. Find and download a flag representing the locale in an SVG format
-    - I usually find them at https://commons.wikimedia.org/
+   - I usually find them at https://commons.wikimedia.org/
 2. Rename the file to `FlagXX.svg` and put it in [packages/scrabble-solver/src/icons](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver/src/icons)
 3. Export the SVG file in [packages/scrabble-solver/src/icons/index.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/icons/index.ts)
 4. Add IETF language tag for the new locale in [packages/types/src/Locale.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/types/src/Locale.ts)
@@ -170,6 +170,7 @@ npm run build -w @scrabble-solver/word-lists
 13. Add a function to fetch the word definition in the new locale in [packages/word-definitions/src/crawl.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/crawl.ts)
 14. Add a function to parse the word definition crawled in the previous step in [packages/word-definitions/src/parse.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/parse.ts)
     - Bonus points for adding tests in [packages/word-definitions/src/parse.test.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/parse.test.ts)
+15. Add a transliteration function in [packages/scrabble-solver/src/lib/extractCharacters.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/lib/extractCharacters.ts)
 
 ## Tech stack
 
