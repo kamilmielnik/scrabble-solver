@@ -6,7 +6,8 @@ import extractCharacters from './extractCharacters';
 
 const tests = [
   { input: 'ab ', expected: ['a', 'b', BLANK] },
-  { input: 'śćźa', expected: ['a'] },
+  { input: 'śćźa', expected: ['s', 'c', 'z', 'a'] },
+  { input: 'bañó', expected: ['b', 'a', 'ñ', 'o'] },
   { input: 'bueno', expected: ['b', 'u', 'e', 'n', 'o'] },
   { input: 'bellas', expected: ['b', 'e', 'll', 'a', 's'] },
   { input: 'BELLAS', expected: ['b', 'e', 'll', 'a', 's'] },
