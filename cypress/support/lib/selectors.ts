@@ -1,6 +1,10 @@
 export const getModal = () => {
-  cy.findByRole('dialog').parent().should('have.class', 'ReactModal__Overlay--after-open');
   return cy.findByRole('dialog');
+};
+
+export const getOpenModal = () => {
+  getModal().parent().should('have.class', 'ReactModal__Overlay--after-open');
+  return getModal();
 };
 
 export const getBoardContainer = () => {
@@ -58,7 +62,7 @@ export const getSettingsButton = () => {
 };
 
 export const getSettingOption = (section: string, option: string) => {
-  return getModal().findByLabelText(section).findByLabelText(option);
+  return getOpenModal().findByLabelText(section).findByLabelText(option);
 };
 
 export const getTooltip = () => {

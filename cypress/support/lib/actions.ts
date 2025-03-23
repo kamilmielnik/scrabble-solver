@@ -1,4 +1,4 @@
-import { getBoardTile, getLoading, getModal, getRackTile, getResult } from './selectors';
+import { getBoardTile, getLoading, getModal, getOpenModal, getRackTile, getResult } from './selectors';
 
 const getRandomId = () => {
   return String(Math.random()).replace(/^\d\./, '');
@@ -9,7 +9,7 @@ export const visitIndex = () => {
 };
 
 export const closeModal = () => {
-  getModal().should('be.visible');
+  getOpenModal().should('be.visible');
   cy.realPress('Escape');
   getModal().should('not.exist');
 };
