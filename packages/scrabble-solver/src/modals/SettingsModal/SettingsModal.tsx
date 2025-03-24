@@ -18,7 +18,7 @@ interface Props {
   onClose: () => void;
 }
 
-const SettingsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
+const SettingsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
 
@@ -49,4 +49,4 @@ const SettingsModal: FunctionComponent<Props> = ({ className, isOpen, onClose })
   );
 };
 
-export default memo(SettingsModal);
+export const SettingsModal = memo(SettingsModalBase);

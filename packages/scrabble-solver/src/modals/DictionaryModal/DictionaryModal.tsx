@@ -11,7 +11,7 @@ interface Props {
   onClose: () => void;
 }
 
-const DictionaryModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
+const DictionaryModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
 
   return (
@@ -24,4 +24,4 @@ const DictionaryModal: FunctionComponent<Props> = ({ className, isOpen, onClose 
   );
 };
 
-export default memo(DictionaryModal);
+export const DictionaryModal = memo(DictionaryModalBase);

@@ -18,7 +18,7 @@ interface Props {
   onShowWords: () => void;
 }
 
-const MenuModal: FunctionComponent<Props> = ({
+const MenuModalBase: FunctionComponent<Props> = ({
   className,
   isOpen,
   onClose,
@@ -79,4 +79,4 @@ const MenuModal: FunctionComponent<Props> = ({
   );
 };
 
-export default memo(MenuModal);
+export const MenuModal = memo(MenuModalBase);

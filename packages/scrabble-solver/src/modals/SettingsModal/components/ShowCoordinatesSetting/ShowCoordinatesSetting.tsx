@@ -12,7 +12,7 @@ interface Props {
   disabled?: boolean;
 }
 
-const ShowCoordinatesSetting: FunctionComponent<Props> = ({ className, disabled }) => {
+export const ShowCoordinatesSetting: FunctionComponent<Props> = ({ className, disabled }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const value = useTypedSelector(selectShowCoordinates);
@@ -55,5 +55,3 @@ const ShowCoordinatesSetting: FunctionComponent<Props> = ({ className, disabled 
     </div>
   );
 };
-
-export default ShowCoordinatesSetting;

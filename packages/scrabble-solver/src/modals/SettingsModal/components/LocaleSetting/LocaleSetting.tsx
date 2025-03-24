@@ -16,7 +16,7 @@ interface Props {
 
 const OPTIONS = Object.values(LOCALE_FEATURES).sort((a, b) => a.name.localeCompare(b.name));
 
-const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
+export const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
 
@@ -49,5 +49,3 @@ const LocaleSetting: FunctionComponent<Props> = ({ className, disabled }) => {
     </div>
   );
 };
-
-export default LocaleSetting;

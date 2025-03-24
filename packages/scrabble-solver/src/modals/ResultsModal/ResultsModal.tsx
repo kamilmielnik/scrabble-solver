@@ -15,7 +15,7 @@ interface Props {
   onClose: () => void;
 }
 
-const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
+const ResultsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const { showResultsInModal } = useAppLayout();
@@ -96,4 +96,4 @@ const ResultsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) 
   );
 };
 
-export default memo(ResultsModal);
+export const ResultsModal = memo(ResultsModalBase);

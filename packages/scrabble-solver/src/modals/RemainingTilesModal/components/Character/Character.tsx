@@ -14,7 +14,7 @@ interface Props {
   tile: RemainingTile;
 }
 
-const Character: FunctionComponent<Props> = ({ tile }) => {
+export const Character: FunctionComponent<Props> = ({ tile }) => {
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const { character, count, usedCount } = tile;
@@ -57,5 +57,3 @@ const Character: FunctionComponent<Props> = ({ tile }) => {
     </div>
   );
 };
-
-export default Character;

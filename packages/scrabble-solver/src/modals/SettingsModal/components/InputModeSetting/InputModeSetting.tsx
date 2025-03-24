@@ -12,7 +12,7 @@ interface Props {
   disabled?: boolean;
 }
 
-const InputModeSetting: FunctionComponent<Props> = ({ className, disabled }) => {
+export const InputModeSetting: FunctionComponent<Props> = ({ className, disabled }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const value = useTypedSelector(selectInputMode);
@@ -51,5 +51,3 @@ const InputModeSetting: FunctionComponent<Props> = ({ className, disabled }) => 
     </div>
   );
 };
-
-export default InputModeSetting;

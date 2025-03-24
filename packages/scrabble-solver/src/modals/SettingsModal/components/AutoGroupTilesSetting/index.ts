@@ -1,1 +1,1 @@
-export { default } from './AutoGroupTilesSetting';
+export { AutoGroupTilesSetting } from './AutoGroupTilesSetting';

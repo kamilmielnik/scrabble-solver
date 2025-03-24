@@ -1,1 +1,1 @@
-export { default } from './ConfigSetting';
+export { ConfigSetting } from './ConfigSetting';

@@ -1,5 +1,5 @@
-export { default as AutoGroupTilesSetting } from './AutoGroupTilesSetting';
-export { default as ConfigSetting } from './ConfigSetting';
-export { default as InputModeSetting } from './InputModeSetting';
-export { default as LocaleSetting } from './LocaleSetting';
-export { default as ShowCoordinatesSetting } from './ShowCoordinatesSetting';
+export { AutoGroupTilesSetting } from './AutoGroupTilesSetting';
+export { ConfigSetting } from './ConfigSetting';
+export { InputModeSetting } from './InputModeSetting';
+export { LocaleSetting } from './LocaleSetting';
+export { ShowCoordinatesSetting } from './ShowCoordinatesSetting';
