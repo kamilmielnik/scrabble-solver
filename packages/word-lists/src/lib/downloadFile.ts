@@ -1,9 +1,9 @@
 import { http, https } from 'follow-redirects';
 import fs from 'fs';
 
-import getTempFilepath from './getTempFilepath';
+import { getTempFilepath } from './getTempFilepath';
 
-const downloadFile = (url: string): Promise<string> => {
+export const downloadFile = (url: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     const tempFilepath = getTempFilepath();
     const protocol = url.startsWith('https') ? https : http;
@@ -35,5 +35,3 @@ const downloadFile = (url: string): Promise<string> => {
     });
   });
 };
-
-export default downloadFile;

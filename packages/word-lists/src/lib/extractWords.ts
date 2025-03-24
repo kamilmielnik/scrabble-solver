@@ -1,6 +1,6 @@
-import findFirstWordIndex from './findFirstWordIndex';
+import { findFirstWordIndex } from './findFirstWordIndex';
 
-const extractWords = (file: string, locale: string): string[] => {
+export const extractWords = (file: string, locale: string): string[] => {
   const lines = file.split(/\r?\n/g);
   const firstWordIndex = findFirstWordIndex(lines, locale);
   const words: string[] = [];
@@ -15,5 +15,3 @@ const extractWords = (file: string, locale: string): string[] => {
 
   return words;
 };
-
-export default extractWords;

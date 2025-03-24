@@ -4,7 +4,7 @@ import path from 'path';
 
 import { parse } from './parse';
 
-export const readTestFile = (filepath: string): string => {
+const readTestFile = (filepath: string): string => {
   const absoluteFilepath = path.resolve(__dirname, '__tests__', filepath);
   return fs.readFileSync(absoluteFilepath, 'utf-8');
 };
