@@ -12,5 +12,6 @@
     "noUnusedParameters": true,
     "strict": true,
     "target": "es2021"
-  }
+  },
+  "exclude": ["cypress", "cypress.config.ts", "node_modules"]
 }
