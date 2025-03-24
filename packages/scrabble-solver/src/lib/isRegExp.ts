@@ -1,4 +1,4 @@
-const isRegExp = (value: string): boolean => {
+export const isRegExp = (value: string): boolean => {
   try {
     // eslint-disable-next-line no-new
     new RegExp(value);
@@ -7,5 +7,3 @@ const isRegExp = (value: string): boolean => {
     return false;
   }
 };
-
-export default isRegExp;

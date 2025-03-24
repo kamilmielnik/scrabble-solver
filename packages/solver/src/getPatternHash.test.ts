@@ -1,6 +1,6 @@
 import { Board, Cell, Pattern, Tile } from '@scrabble-solver/types';
 
-import getPatternHash from './getPatternHash';
+import { getPatternHash } from './getPatternHash';
 
 describe('getPatternHash', () => {
   const board = Board.fromStringArray([' t ', 'do ', '   ']);

@@ -1,11 +1,11 @@
 import { BONUS_CHARACTER } from '@scrabble-solver/constants';
 
-import Bonus from './Bonus';
-import BonusValue from './BonusValue';
-import Cell from './Cell';
-import type Config from './Config';
+import { Bonus } from './Bonus';
+import { BonusValue } from './BonusValue';
+import { Cell } from './Cell';
+import { type Config } from './Config';
 
-class CharacterBonus extends Bonus {
+export class CharacterBonus extends Bonus {
   public readonly type = BONUS_CHARACTER;
 
   public canApply(config: Config, cell: Cell): boolean {
@@ -27,5 +27,3 @@ class CharacterBonus extends Bonus {
     };
   }
 }
-
-export default CharacterBonus;

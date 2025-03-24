@@ -1,6 +1,6 @@
-import createComparator from './createComparator';
+import { createComparator } from './createComparator';
 
-const unorderedArraysEqual = <T>(a: T[], b: T[], locale: string): boolean => {
+export const unorderedArraysEqual = <T>(a: T[], b: T[], locale: string): boolean => {
   if (a.length !== b.length) {
     return false;
   }
@@ -10,5 +10,3 @@ const unorderedArraysEqual = <T>(a: T[], b: T[], locale: string): boolean => {
   const bSorted = [...b].sort(comparator);
   return aSorted.every((character, index) => character === bSorted[index]);
 };
-
-export default unorderedArraysEqual;

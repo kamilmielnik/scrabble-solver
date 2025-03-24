@@ -1,3 +1,1 @@
-const noop = (): void => undefined;
-
-export default noop;
+export const noop = (): void => undefined;

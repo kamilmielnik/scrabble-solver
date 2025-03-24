@@ -1,9 +1,12 @@
 import { Comparator } from 'types';
 
-import createStringComparator from './createStringComparator';
-import numberComparator from './numberComparator';
+import { createStringComparator } from './createStringComparator';
+import { numberComparator } from './numberComparator';
 
-const createKeyComparator = <T extends Record<keyof T, unknown>>(key: keyof T, locale: string): Comparator<T> => {
+export const createKeyComparator = <T extends Record<keyof T, unknown>>(
+  key: keyof T,
+  locale: string,
+): Comparator<T> => {
   const stringComparator = createStringComparator(locale);
 
   return (a: T, b: T): number => {
@@ -21,5 +24,3 @@ const createKeyComparator = <T extends Record<keyof T, unknown>>(key: keyof T, l
     return 0;
   };
 };
-
-export default createKeyComparator;

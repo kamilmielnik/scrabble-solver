@@ -1,9 +1,9 @@
-import BonusJson from './BonusJson';
-import Game from './Game';
-import Locale from './Locale';
-import TileConfig from './TileConfig';
+import { BonusJson } from './BonusJson';
+import { Game } from './Game';
+import { Locale } from './Locale';
+import { TileConfig } from './TileConfig';
 
-interface ConfigJson {
+export interface ConfigJson {
   bingoScore: number;
   blankScore: number;
   blanksCount: number;
@@ -16,5 +16,3 @@ interface ConfigJson {
   rackSize: number;
   tiles: TileConfig[];
 }
-
-export default ConfigJson;

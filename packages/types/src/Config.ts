@@ -1,17 +1,17 @@
 import { BLANK, BONUS_CHARACTER, BONUS_WORD, NO_BONUS } from '@scrabble-solver/constants';
 
-import Bonus from './Bonus';
-import BonusValue from './BonusValue';
-import Cell from './Cell';
-import CharacterBonus from './CharacterBonus';
-import ConfigJson from './ConfigJson';
-import Game from './Game';
-import Locale from './Locale';
-import Tile from './Tile';
-import TileConfig from './TileConfig';
-import WordBonus from './WordBonus';
+import { Bonus } from './Bonus';
+import { BonusValue } from './BonusValue';
+import { Cell } from './Cell';
+import { CharacterBonus } from './CharacterBonus';
+import { ConfigJson } from './ConfigJson';
+import { Game } from './Game';
+import { Locale } from './Locale';
+import { Tile } from './Tile';
+import { TileConfig } from './TileConfig';
+import { WordBonus } from './WordBonus';
 
-class Config {
+export class Config {
   public static fromJson(json: ConfigJson): Config {
     return new Config(json);
   }
@@ -145,5 +145,3 @@ const getPointsMap = (config: ConfigJson): Record<string, number> =>
     }),
     {},
   );
-
-export default Config;

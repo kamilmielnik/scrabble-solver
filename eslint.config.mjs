@@ -23,6 +23,7 @@ const compat = new FlatCompat({
   allConfig: js.configs.all,
 });
 
+// eslint-disable-next-line no-restricted-exports
 export default defineConfig([
   globalIgnores([
     '**/bin/*.js',
@@ -384,6 +385,18 @@ export default defineConfig([
       'no-new-object': 'error',
       'no-plusplus': 'off',
       'no-restricted-syntax': ['error', 'WithStatement'],
+      'no-restricted-exports': [
+        'error',
+        {
+          restrictDefaultExports: {
+            direct: true,
+            named: true,
+            defaultFrom: true,
+            namedFrom: true,
+            namespaceFrom: true,
+          },
+        },
+      ],
       'no-spaced-func': 'off',
       'func-call-spacing': ['error', 'never'],
       'no-ternary': 'off',
@@ -678,6 +691,13 @@ export default defineConfig([
 
     rules: {
       'max-statements': 'off',
+    },
+  },
+  {
+    files: ['packages/scrabble-solver/src/pages/**'],
+
+    rules: {
+      'no-restricted-exports': 'off',
     },
   },
 ]);

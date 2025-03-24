@@ -14,7 +14,7 @@ import {
 } from 'state';
 import { ResultColumnId } from 'types';
 
-import Cell from './Cell';
+import { Cell } from './Cell';
 import styles from './Results.module.scss';
 import { ResultData } from './types';
 
@@ -24,7 +24,7 @@ interface Props {
   style?: CSSProperties;
 }
 
-const Result = ({ data, index, style }: Props): ReactElement => {
+export const Result = ({ data, index, style }: Props): ReactElement => {
   const {
     highlightedIndex,
     results = [],
@@ -118,5 +118,3 @@ const Result = ({ data, index, style }: Props): ReactElement => {
     </button>
   );
 };
-
-export default Result;

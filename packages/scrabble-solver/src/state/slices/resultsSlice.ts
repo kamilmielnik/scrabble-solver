@@ -3,13 +3,13 @@ import { Result } from '@scrabble-solver/types';
 
 import { ResultColumnId, SortDirection } from 'types';
 
-import resultsInitialState from './resultsInitialState';
+import { resultsInitialState } from './resultsInitialState';
 
 const toggleDirection = (direction: SortDirection): SortDirection => {
   return direction === SortDirection.Ascending ? SortDirection.Descending : SortDirection.Ascending;
 };
 
-const resultsSlice = createSlice({
+export const resultsSlice = createSlice({
   initialState: resultsInitialState,
   name: 'results',
   reducers: {
@@ -53,5 +53,3 @@ const resultsSlice = createSlice({
     reset: () => resultsInitialState,
   },
 });
-
-export default resultsSlice;

@@ -3,7 +3,7 @@ import { FunctionComponent } from 'react';
 import { isMac } from 'lib';
 import { useTranslate } from 'state';
 
-import Key from './Key';
+import { Key } from '../Key';
 
 interface Props {
   className?: string;
@@ -24,3 +24,5 @@ export const Space: FunctionComponent<Props> = ({ className }) => {
 
   return <Key className={className}>{` ${translate('common.space')} `}</Key>;
 };
+
+export { Arrows } from './Arrows';

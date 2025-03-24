@@ -1,6 +1,6 @@
 import { isError } from '@scrabble-solver/types';
 
-const fetch = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
+export const fetch = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
   let response: Response;
 
   try {
@@ -26,5 +26,3 @@ const fetch = async (input: RequestInfo | URL, init?: RequestInit): Promise<Resp
 
   throw new Error(`HTTP ${response.status}: ${response.statusText}`);
 };
-
-export default fetch;

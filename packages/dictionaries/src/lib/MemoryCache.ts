@@ -4,8 +4,9 @@ import { Locale } from '@scrabble-solver/types';
 import { CACHE_STALE_THRESHOLD } from '../constants';
 import { Cache } from '../types';
 
-class MemoryCache implements Cache<Locale, Trie> {
+export class MemoryCache implements Cache<Locale, Trie> {
   private readonly cache: Partial<Record<Locale, Trie>> = {};
+
   private readonly cacheTimestamps: Partial<Record<Locale, number>> = {};
 
   public get(locale: Locale): Promise<Trie | undefined> {
@@ -37,5 +38,3 @@ class MemoryCache implements Cache<Locale, Trie> {
     return Promise.resolve();
   }
 }
-
-export default MemoryCache;

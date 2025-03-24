@@ -11,7 +11,7 @@ interface Props {
   y: number;
 }
 
-const Tile: FunctionComponent<Props> = ({ character, className, color, points, size, transform, x, y }) => (
+export const Tile: FunctionComponent<Props> = ({ character, className, color, points, size, transform, x, y }) => (
   <g className={className} fill="#222" transform={transform}>
     <rect fill={color} height={size} rx={size * 0.15} width={size} x={x} y={y} />
 
@@ -40,5 +40,3 @@ const Tile: FunctionComponent<Props> = ({ character, className, color, points, s
     )}
   </g>
 );
-
-export default Tile;

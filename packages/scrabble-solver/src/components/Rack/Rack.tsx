@@ -45,7 +45,7 @@ interface Props {
   tileSize: number;
 }
 
-const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
+export const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
@@ -216,5 +216,3 @@ const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
     </>
   );
 };
-
-export default Rack;

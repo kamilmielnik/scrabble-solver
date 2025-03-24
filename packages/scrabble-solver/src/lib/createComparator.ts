@@ -1,9 +1,9 @@
 import { Comparator } from 'types';
 
-import createStringComparator from './createStringComparator';
-import numberComparator from './numberComparator';
+import { createStringComparator } from './createStringComparator';
+import { numberComparator } from './numberComparator';
 
-const createComparator = <T>(locale: string): Comparator<T> => {
+export const createComparator = <T>(locale: string): Comparator<T> => {
   const stringComparator = createStringComparator(locale);
 
   return (a: T, b: T): number => {
@@ -18,5 +18,3 @@ const createComparator = <T>(locale: string): Comparator<T> => {
     return 0;
   };
 };
-
-export default createComparator;

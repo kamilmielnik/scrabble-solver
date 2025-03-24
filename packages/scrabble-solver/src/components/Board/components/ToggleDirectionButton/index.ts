@@ -1,1 +1,1 @@
-export { default } from './ToggleDirectionButton';
+export { ToggleDirectionButton } from './ToggleDirectionButton';

@@ -1,6 +1,6 @@
 import { http, https } from 'follow-redirects';
 
-const downloadHtml = (url: string): Promise<string> => {
+export const downloadHtml = (url: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     const protocol = url.startsWith('https') ? https : http;
     protocol.get(url, (response) => {
@@ -16,5 +16,3 @@ const downloadHtml = (url: string): Promise<string> => {
     });
   });
 };
-
-export default downloadHtml;

@@ -1,1 +1,1 @@
-export { default } from './LocaleSetting';
+export { LocaleSetting } from './LocaleSetting';

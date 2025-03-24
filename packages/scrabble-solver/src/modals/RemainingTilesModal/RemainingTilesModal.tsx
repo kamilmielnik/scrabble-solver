@@ -15,7 +15,7 @@ interface Props {
   onClose: () => void;
 }
 
-const RemainingTilesModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
+const RemainingTilesModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const groups = useTypedSelector(selectRemainingTilesGroups);
@@ -57,4 +57,4 @@ const RemainingTilesModal: FunctionComponent<Props> = ({ className, isOpen, onCl
   );
 };
 
-export default memo(RemainingTilesModal);
+export const RemainingTilesModal = memo(RemainingTilesModalBase);

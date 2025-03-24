@@ -6,10 +6,8 @@ interface TileSizes {
   tileSize: number;
 }
 
-const getTileSizes = (tileSize: number): TileSizes => ({
+export const getTileSizes = (tileSize: number): TileSizes => ({
   pointsFontSize: Math.max(Math.round(tileSize * 0.25), BOARD_TILE_FONT_SIZE_POINTS_MIN),
   tileFontSize: Math.max(Math.round(tileSize * 0.6), BOARD_TILE_FONT_SIZE_MIN),
   tileSize,
 });
-
-export default getTileSizes;

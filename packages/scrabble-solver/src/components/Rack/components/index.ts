@@ -1,2 +1,2 @@
-export { default as InputPrompt } from './InputPrompt';
-export { default as RackTile } from './RackTile';
+export { InputPrompt } from './InputPrompt';
+export { RackTile } from './RackTile';

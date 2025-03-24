@@ -1,12 +1,12 @@
 import { CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 
-import Cell from './Cell';
-import ResultJson from './ResultJson';
-import Tile from './Tile';
+import { Cell } from './Cell';
+import { ResultJson } from './ResultJson';
+import { Tile } from './Tile';
 
 type Collision = Cell[];
 
-class Result {
+export class Result {
   public static fromJson(json: ResultJson): Result {
     return new Result({
       id: json.id,
@@ -99,5 +99,3 @@ const getWords = (cells: Cell[], collisions: Collision[]): string[] => [cells, .
 const isConsonant = ({ character, isBlank }: Tile): boolean => CONSONANTS.includes(character) && !isBlank;
 
 const isVowel = ({ character, isBlank }: Tile): boolean => VOWELS.includes(character) && !isBlank;
-
-export default Result;

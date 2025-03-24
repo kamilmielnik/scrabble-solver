@@ -1,6 +1,6 @@
 import { Cell } from '@scrabble-solver/types';
 
-const generateEndIndices = (cells: Cell[], startIndex: number): number[] => {
+export const generateEndIndices = (cells: Cell[], startIndex: number): number[] => {
   if (cells.length === 0) {
     return [];
   }
@@ -17,5 +17,3 @@ const generateEndIndices = (cells: Cell[], startIndex: number): number[] => {
 
   return endIndices;
 };
-
-export default generateEndIndices;

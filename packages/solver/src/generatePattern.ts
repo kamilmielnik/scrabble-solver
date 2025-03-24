@@ -1,9 +1,9 @@
 import { Board, Cell, Config, Pattern } from '@scrabble-solver/types';
 
-import generateEndIndices from './generateEndIndices';
-import generateStartIndices from './generateStartIndices';
+import { generateEndIndices } from './generateEndIndices';
+import { generateStartIndices } from './generateStartIndices';
 
-const generatePattern = <P extends Pattern>({
+export const generatePattern = <P extends Pattern>({
   board,
   cells,
   config,
@@ -31,5 +31,3 @@ const generatePattern = <P extends Pattern>({
     return patterns;
   });
 };
-
-export default generatePattern;

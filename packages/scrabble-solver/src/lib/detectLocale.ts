@@ -1,6 +1,6 @@
 import { Locale } from '@scrabble-solver/types';
 
-const detectLocale = (): Locale => {
+export const detectLocale = (): Locale => {
   const languages = window.navigator.languages;
 
   if (languages.includes('pl') || languages.includes('pl-PL')) {
@@ -25,5 +25,3 @@ const detectLocale = (): Locale => {
 
   return Locale.EN_US;
 };
-
-export default detectLocale;

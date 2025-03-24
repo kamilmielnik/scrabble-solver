@@ -16,14 +16,14 @@ import {
   useTypedSelector,
 } from 'state';
 
-import EmptyState from '../EmptyState';
-import Loading from '../Loading';
-import ResultsInput from '../ResultsInput';
+import { EmptyState } from '../EmptyState';
+import { Loading } from '../Loading';
+import { ResultsInput } from '../ResultsInput';
 
-import Header from './Header';
-import Result from './Result';
+import { Header } from './Header';
+import { Result } from './Result';
 import styles from './Results.module.scss';
-import SolveButton from './SolveButton';
+import { SolveButton } from './SolveButton';
 import { ResultCallbacks, ResultData } from './types';
 
 interface Props {
@@ -34,7 +34,7 @@ interface Props {
 
 const IS_LOADING_DEBOUNCE = 100;
 
-const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIndex }) => {
+export const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIndex }) => {
   const translate = useTranslate();
   const { resultsHeight, resultsWidth } = useAppLayout();
   const locale = useTypedSelector(selectLocale);
@@ -130,5 +130,3 @@ const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIn
     </div>
   );
 };
-
-export default Results;

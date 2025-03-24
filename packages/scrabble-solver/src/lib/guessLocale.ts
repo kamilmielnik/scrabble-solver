@@ -1,6 +1,6 @@
 import { Locale } from '@scrabble-solver/types';
 
-const guessLocale = (): Locale => {
+export const guessLocale = (): Locale => {
   if (!globalThis.navigator) {
     return Locale.EN_US;
   }
@@ -18,5 +18,3 @@ const guessLocale = (): Locale => {
 
   return partialMatch || Locale.EN_US;
 };
-
-export default guessLocale;

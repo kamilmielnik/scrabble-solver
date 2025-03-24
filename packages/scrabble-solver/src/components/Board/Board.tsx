@@ -23,7 +23,7 @@ import {
 } from 'state';
 
 import styles from './Board.module.scss';
-import BoardPure from './BoardPure';
+import { BoardPure } from './BoardPure';
 import { Actions, InputPrompt } from './components';
 import { useBoardStyle, useFloatingActions, useFloatingFocus, useFloatingInputPrompt, useGrid } from './hooks';
 
@@ -31,7 +31,7 @@ interface Props {
   className?: string;
 }
 
-const Board: FunctionComponent<Props> = ({ className }) => {
+export const Board: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
   const rows = useTypedSelector(selectRowsWithCandidate);
@@ -227,5 +227,3 @@ const Board: FunctionComponent<Props> = ({ className }) => {
     </>
   );
 };
-
-export default Board;

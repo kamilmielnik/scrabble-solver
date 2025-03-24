@@ -8,7 +8,7 @@ interface CharacterTilePair {
   tile: Tile | null;
 }
 
-const zipCharactersAndTiles = (characters: Rack, tiles: Tile[]): CharacterTilePair[] => {
+export const zipCharactersAndTiles = (characters: Rack, tiles: Tile[]): CharacterTilePair[] => {
   let remainingTiles = [...tiles];
 
   return characters.map((character) => {
@@ -26,5 +26,3 @@ const zipCharactersAndTiles = (characters: Rack, tiles: Tile[]): CharacterTilePa
     return { character, tile: null };
   });
 };
-
-export default zipCharactersAndTiles;

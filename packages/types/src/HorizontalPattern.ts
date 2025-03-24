@@ -1,6 +1,6 @@
-import Pattern from './Pattern';
+import { Pattern } from './Pattern';
 
-class HorizontalPattern extends Pattern {
+export class HorizontalPattern extends Pattern {
   public clone(): Pattern {
     return new HorizontalPattern(
       this.board,
@@ -35,5 +35,3 @@ class HorizontalPattern extends Pattern {
     return collisions;
   }
 }
-
-export default HorizontalPattern;

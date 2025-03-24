@@ -1,6 +1,6 @@
-import isObject from './isObject';
+import { isObject } from './isObject';
 
-interface TileJson {
+export interface TileJson {
   character: string;
   isBlank: boolean;
 }
@@ -8,5 +8,3 @@ interface TileJson {
 export const isTileJson = (value: unknown): value is TileJson => {
   return isObject(value) && typeof value.character === 'string' && typeof value.isBlank === 'boolean';
 };
-
-export default TileJson;

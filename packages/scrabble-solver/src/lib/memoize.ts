@@ -11,7 +11,7 @@ interface Entry<T extends AnyFunction> {
   result: ReturnType<T>;
 }
 
-const memoize = <T extends AnyFunction>(fn: T): AnyCachedFunction<T> => {
+export const memoize = <T extends AnyFunction>(fn: T): AnyCachedFunction<T> => {
   const cache: Entry<T>[] = [];
 
   const hasCache = (...parameters: Parameters<T>): boolean => Boolean(readCache(parameters));
@@ -62,5 +62,3 @@ const parametersEqual = <T extends AnyFunction>(a: Parameters<T>, b: Parameters<
 
   return a.every((parameter: Parameters<T>[typeof index], index: number) => parameter === b[index]);
 };
-
-export default memoize;

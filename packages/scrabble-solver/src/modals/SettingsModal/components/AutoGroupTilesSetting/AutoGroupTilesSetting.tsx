@@ -13,7 +13,7 @@ interface Props {
   disabled?: boolean;
 }
 
-const AutoGroupTilesSetting: FunctionComponent<Props> = ({ className, disabled }) => {
+export const AutoGroupTilesSetting: FunctionComponent<Props> = ({ className, disabled }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const value = useTypedSelector(selectAutoGroupTiles);
@@ -56,5 +56,3 @@ const AutoGroupTilesSetting: FunctionComponent<Props> = ({ className, disabled }
     </div>
   );
 };
-
-export default AutoGroupTilesSetting;

@@ -18,7 +18,7 @@ interface Props {
   style?: CSSProperties;
 }
 
-const HeaderButton = ({ className, Icon, id, translationKey, style }: Props): ReactElement => {
+export const HeaderButton = ({ className, Icon, id, translationKey, style }: Props): ReactElement => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const sort = useTypedSelector(selectResultsSort);
@@ -52,5 +52,3 @@ const HeaderButton = ({ className, Icon, id, translationKey, style }: Props): Re
     </Tooltip>
   );
 };
-
-export default HeaderButton;

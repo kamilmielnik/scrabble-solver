@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { WordDefinition } from '@scrabble-solver/types';
 
-import dictionaryInitialState from './dictionaryInitialState';
+import { dictionaryInitialState } from './dictionaryInitialState';
 
-const dictionarySlice = createSlice({
+export const dictionarySlice = createSlice({
   initialState: dictionaryInitialState,
   name: 'dictionary',
   reducers: {
@@ -32,5 +32,3 @@ const dictionarySlice = createSlice({
     },
   },
 });
-
-export default dictionarySlice;

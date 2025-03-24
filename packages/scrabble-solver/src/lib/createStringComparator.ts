@@ -1,5 +1,7 @@
 import { Comparator } from 'types';
 
-const createStringComparator: (locale: string) => Comparator<string> = (locale) => (a, b) => a.localeCompare(b, locale);
-
-export default createStringComparator;
+export const createStringComparator: (locale: string) => Comparator<string> = (locale) => {
+  return (a, b) => {
+    return a.localeCompare(b, locale);
+  };
+};

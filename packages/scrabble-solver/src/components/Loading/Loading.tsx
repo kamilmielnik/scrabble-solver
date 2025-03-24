@@ -4,7 +4,7 @@ import { FunctionComponent, useMemo } from 'react';
 import { LOCALE_FEATURES } from 'i18n';
 import { selectLocale, useTranslate, useTypedSelector } from 'state';
 
-import PlainTiles from '../PlainTiles';
+import { PlainTiles } from '../PlainTiles';
 
 import styles from './Loading.module.scss';
 
@@ -20,7 +20,7 @@ const prepareContent = (message: string): string[][] => {
   return [parts];
 };
 
-const Loading: FunctionComponent<Props> = ({ className, wave = true }) => {
+export const Loading: FunctionComponent<Props> = ({ className, wave = true }) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
@@ -37,5 +37,3 @@ const Loading: FunctionComponent<Props> = ({ className, wave = true }) => {
     </div>
   );
 };
-
-export default Loading;

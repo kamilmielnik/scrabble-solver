@@ -9,7 +9,7 @@ interface Props {
   mapping: (ReactNode | ReactNode[])[];
 }
 
-const Mapping: FunctionComponent<Props> = ({ className, description, mapping }) => (
+export const Mapping: FunctionComponent<Props> = ({ className, description, mapping }) => (
   <div className={classNames(styles.mapping, className)}>
     <h3 className={styles.description}>{description}</h3>
 
@@ -34,5 +34,3 @@ const Mapping: FunctionComponent<Props> = ({ className, description, mapping }) 
     </div>
   </div>
 );
-
-export default Mapping;

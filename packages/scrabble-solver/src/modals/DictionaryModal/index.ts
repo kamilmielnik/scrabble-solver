@@ -1,1 +1,1 @@
-export { default } from './DictionaryModal';
+export { DictionaryModal } from './DictionaryModal';

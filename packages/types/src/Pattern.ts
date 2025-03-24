@@ -1,9 +1,9 @@
-import Board from './Board';
-import Cell from './Cell';
-import Config from './Config';
-import PatternJson from './PatternJson';
+import { Board } from './Board';
+import { Cell } from './Cell';
+import { Config } from './Config';
+import { PatternJson } from './PatternJson';
 
-class Pattern {
+export class Pattern {
   public readonly board: Board;
 
   public readonly cells: Cell[];
@@ -69,5 +69,3 @@ class Pattern {
     return this.cells.reduce((result, cell) => result + cell.toString(), '');
   }
 }
-
-export default Pattern;

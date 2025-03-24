@@ -6,7 +6,7 @@ import { COLOR_BLUE, COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from 'parameters';
 import { selectLocale, useTranslate, useTypedSelector } from 'state';
 import { Translations } from 'types';
 
-import PlainTiles from '../PlainTiles';
+import { PlainTiles } from '../PlainTiles';
 
 import styles from './EmptyState.module.scss';
 
@@ -30,7 +30,7 @@ const COLORS_PER_TYPE: Record<Props['variant'], string> = {
   warning: COLOR_YELLOW,
 };
 
-const EmptyState: FunctionComponent<Props> = ({ children, className, variant }) => {
+export const EmptyState: FunctionComponent<Props> = ({ children, className, variant }) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
@@ -45,5 +45,3 @@ const EmptyState: FunctionComponent<Props> = ({ children, className, variant }) 
     </div>
   );
 };
-
-export default EmptyState;

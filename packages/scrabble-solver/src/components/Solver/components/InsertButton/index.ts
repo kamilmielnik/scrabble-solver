@@ -1,1 +1,1 @@
-export { default } from './InsertButton';
+export { InsertButton } from './InsertButton';

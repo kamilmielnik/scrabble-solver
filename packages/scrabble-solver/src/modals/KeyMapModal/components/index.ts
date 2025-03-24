@@ -1,1 +1,1 @@
-export { default as Mapping } from './Mapping';
+export { Mapping } from './Mapping';

@@ -1,1 +1,1 @@
-export { default } from './DictionaryInput';
+export { DictionaryInput } from './DictionaryInput';

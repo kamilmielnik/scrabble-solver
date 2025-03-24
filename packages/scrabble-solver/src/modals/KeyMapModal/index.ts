@@ -1,1 +1,1 @@
-export { default } from './KeyMapModal';
+export { KeyMapModal } from './KeyMapModal';

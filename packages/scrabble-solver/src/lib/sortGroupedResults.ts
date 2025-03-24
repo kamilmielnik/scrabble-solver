@@ -2,9 +2,9 @@ import { Locale, ShowCoordinates } from '@scrabble-solver/types';
 
 import { GroupedResults, Sort } from 'types';
 
-import sortResults from './sortResults';
+import { sortResults } from './sortResults';
 
-const sortGroupedResults = (
+export const sortGroupedResults = (
   results: GroupedResults | undefined,
   sort: Sort,
   locale: Locale,
@@ -19,5 +19,3 @@ const sortGroupedResults = (
     other: sortResults(results.other, sort, locale, showCoordinates) ?? [],
   };
 };
-
-export default sortGroupedResults;

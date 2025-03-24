@@ -1,1 +1,1 @@
-export { default } from './Rack';
+export { Rack } from './Rack';

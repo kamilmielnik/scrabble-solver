@@ -12,7 +12,7 @@ import {
   useTypedSelector,
 } from 'state';
 
-const useLocalStorage = () => {
+export const useLocalStorage = () => {
   const autoGroupTiles = useTypedSelector(selectAutoGroupTiles);
   const board = useTypedSelector(selectBoard);
   const game = useTypedSelector(selectGame);
@@ -63,5 +63,3 @@ const useLocalStorage = () => {
     }
   }, [showCoordinates]);
 };
-
-export default useLocalStorage;

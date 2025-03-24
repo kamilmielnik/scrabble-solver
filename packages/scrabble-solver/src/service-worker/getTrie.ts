@@ -5,7 +5,7 @@ import { getDictionary } from './dictionaries';
 
 const cache: Partial<Record<Locale, { trie: Trie; dictionary: string } | undefined>> = {};
 
-const getTrie = async (locale: Locale): Promise<Trie | undefined> => {
+export const getTrie = async (locale: Locale): Promise<Trie | undefined> => {
   const dictionary = await getDictionary(locale);
 
   if (typeof dictionary === 'undefined') {
@@ -22,5 +22,3 @@ const getTrie = async (locale: Locale): Promise<Trie | undefined> => {
 
   return cached.trie;
 };
-
-export default getTrie;

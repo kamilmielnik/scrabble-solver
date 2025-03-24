@@ -16,6 +16,9 @@ const tsConfigAliases = Object.keys(tsConfigJson.compilerOptions.paths).reduce(
 
 module.exports = {
   compress: false,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   reactStrictMode: true,
   webpack: (config) => ({
     ...config,

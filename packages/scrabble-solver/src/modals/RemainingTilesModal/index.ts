@@ -1,1 +1,1 @@
-export { default } from './RemainingTilesModal';
+export { RemainingTilesModal } from './RemainingTilesModal';

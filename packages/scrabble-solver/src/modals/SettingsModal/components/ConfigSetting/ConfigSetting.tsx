@@ -13,7 +13,7 @@ interface Props {
   disabled?: boolean;
 }
 
-const ConfigSetting: FunctionComponent<Props> = ({ className, disabled }) => {
+export const ConfigSetting: FunctionComponent<Props> = ({ className, disabled }) => {
   const dispatch = useDispatch();
   const game = useTypedSelector(selectGame);
   const locale = useTypedSelector(selectLocale);
@@ -43,5 +43,3 @@ const ConfigSetting: FunctionComponent<Props> = ({ className, disabled }) => {
     </div>
   );
 };
-
-export default ConfigSetting;

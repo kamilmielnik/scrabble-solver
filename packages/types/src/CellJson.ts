@@ -1,7 +1,7 @@
-import isObject from './isObject';
-import TileJson, { isTileJson } from './TileJson';
+import { isObject } from './isObject';
+import { isTileJson, TileJson } from './TileJson';
 
-interface CellJson {
+export interface CellJson {
   isEmpty: boolean;
   tile: TileJson | null;
   x: number;
@@ -17,5 +17,3 @@ export const isCellJson = (value: unknown): value is CellJson => {
     typeof value.y === 'number'
   );
 };
-
-export default CellJson;

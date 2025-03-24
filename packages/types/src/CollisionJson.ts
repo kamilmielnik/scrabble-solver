@@ -1,5 +1,3 @@
-import CellJson from './CellJson';
+import { CellJson } from './CellJson';
 
-type CollisionJson = CellJson[];
-
-export default CollisionJson;
+export type CollisionJson = CellJson[];

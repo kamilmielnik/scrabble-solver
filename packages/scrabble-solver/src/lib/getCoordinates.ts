@@ -1,8 +1,8 @@
 import { Result, ShowCoordinates } from '@scrabble-solver/types';
 
-import getCoordinate from './getCoordinate';
+import { getCoordinate } from './getCoordinate';
 
-const getCoordinates = (result: Result, showCoordinates: ShowCoordinates): string => {
+export const getCoordinates = (result: Result, showCoordinates: ShowCoordinates): string => {
   if (showCoordinates === 'hidden') {
     return '';
   }
@@ -14,5 +14,3 @@ const getCoordinates = (result: Result, showCoordinates: ShowCoordinates): strin
 
   return isHorizontal ? `${y}${x}` : `${x}${y}`;
 };
-
-export default getCoordinates;

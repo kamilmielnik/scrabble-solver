@@ -40,7 +40,7 @@ interface Actions {
   onPaste: ClipboardEventHandler<HTMLInputElement>;
 }
 
-const useGrid = (rows: Cell[][]): [State, Actions] => {
+export const useGrid = (rows: Cell[][]): [State, Actions] => {
   const height = rows.length;
   const width = rows[0].length;
   const dispatch = useDispatch();
@@ -374,5 +374,3 @@ const useGrid = (rows: Cell[][]): [State, Actions] => {
     { insertValue, onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
   ];
 };
-
-export default useGrid;

@@ -22,12 +22,12 @@ import {
 import { selectConfig, selectShowCoordinates, useTypedSelector } from 'state';
 import { ResultColumnId } from 'types';
 
-import useColumns from './useColumns';
-import useIsTouchDevice from './useIsTouchDevice';
-import useMediaQueries from './useMediaQueries';
-import useViewportSize from './useViewportSize';
+import { useColumns } from './useColumns';
+import { useIsTouchDevice } from './useIsTouchDevice';
+import { useMediaQueries } from './useMediaQueries';
+import { useViewportSize } from './useViewportSize';
 
-const useAppLayout = () => {
+export const useAppLayout = () => {
   const { viewportHeight, viewportWidth } = useViewportSize();
   const config = useTypedSelector(selectConfig);
   const showCoordinates = useTypedSelector(selectShowCoordinates);
@@ -112,5 +112,3 @@ const useAppLayout = () => {
     tileSize,
   };
 };
-
-export default useAppLayout;

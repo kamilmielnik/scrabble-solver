@@ -1,7 +1,7 @@
 import { NO_BONUS } from '@scrabble-solver/constants';
 import { Cell, Config } from '@scrabble-solver/types';
 
-const getCellsScore = (config: Config, cells: Cell[]): number => {
+export const getCellsScore = (config: Config, cells: Cell[]): number => {
   const total = cells.reduce(
     ({ multiplier, score }, cell: Cell): { multiplier: number; score: number } => {
       const bonus = config.getCellBonus(cell);
@@ -19,5 +19,3 @@ const getCellsScore = (config: Config, cells: Cell[]): number => {
 
   return total.score * total.multiplier;
 };
-
-export default getCellsScore;

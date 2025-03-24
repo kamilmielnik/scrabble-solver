@@ -15,7 +15,7 @@ interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
   wide?: boolean;
 }
 
-const Link: FunctionComponent<Props> = ({
+export const Link: FunctionComponent<Props> = ({
   children,
   className,
   Icon,
@@ -43,5 +43,3 @@ const Link: FunctionComponent<Props> = ({
     </Tooltip>
   );
 };
-
-export default Link;

@@ -1,6 +1,6 @@
-import useMediaQuery from './useMediaQuery';
+import { useMediaQuery } from './useMediaQuery';
 
-const useMediaQueries = () => {
+export const useMediaQueries = () => {
   const isLessThanXs = useMediaQuery('<xs');
   const isLessThanS = useMediaQuery('<s');
   const isLessThanM = useMediaQuery('<m');
@@ -9,5 +9,3 @@ const useMediaQueries = () => {
 
   return { isLessThanXs, isLessThanS, isLessThanM, isLessThanL, isLessThanXl };
 };
-
-export default useMediaQueries;

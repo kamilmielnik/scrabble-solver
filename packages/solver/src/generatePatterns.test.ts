@@ -1,7 +1,7 @@
 import { getConfig } from '@scrabble-solver/configs';
 import { Board, Game, Locale } from '@scrabble-solver/types';
 
-import generatePatterns from './generatePatterns';
+import { generatePatterns } from './generatePatterns';
 
 describe('generatePatterns', () => {
   it('Generates all patterns for an empty board', () => {

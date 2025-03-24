@@ -1,1 +1,1 @@
-export { default } from './SeoMessage';
+export { SeoMessage } from './SeoMessage';

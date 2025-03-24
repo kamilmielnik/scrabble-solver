@@ -1,5 +1,3 @@
-import Cell from './Cell';
+import { Cell } from './Cell';
 
-type Collision = Cell[];
-
-export default Collision;
+export type Collision = Cell[];

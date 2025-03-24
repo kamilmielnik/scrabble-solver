@@ -1,11 +1,11 @@
 import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 
-import BonusJson from './BonusJson';
-import BonusValue from './BonusValue';
-import Cell from './Cell';
-import type Config from './Config';
+import { BonusJson } from './BonusJson';
+import { BonusValue } from './BonusValue';
+import { Cell } from './Cell';
+import { type Config } from './Config';
 
-abstract class Bonus {
+export abstract class Bonus {
   public readonly multiplier: number;
 
   public readonly score: number | undefined;
@@ -48,5 +48,3 @@ abstract class Bonus {
     };
   }
 }
-
-export default Bonus;

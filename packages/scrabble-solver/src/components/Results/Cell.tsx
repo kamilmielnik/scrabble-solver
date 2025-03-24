@@ -18,7 +18,15 @@ interface Props {
   value: string | number;
 }
 
-const Cell: FunctionComponent<Props> = ({ children, className, dataTestId, style, translationKey, tooltip, value }) => {
+export const Cell: FunctionComponent<Props> = ({
+  children,
+  className,
+  dataTestId,
+  style,
+  translationKey,
+  tooltip,
+  value,
+}) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const formattedValue = value.toLocaleString(locale);
@@ -31,5 +39,3 @@ const Cell: FunctionComponent<Props> = ({ children, className, dataTestId, style
     </Tooltip>
   );
 };
-
-export default Cell;

@@ -7,11 +7,9 @@ export interface DictionaryState {
   results: WordDefinition[];
 }
 
-const dictionaryInitialState: DictionaryState = {
+export const dictionaryInitialState: DictionaryState = {
   error: undefined,
   input: '',
   isLoading: false,
   results: [],
 };
-
-export default dictionaryInitialState;

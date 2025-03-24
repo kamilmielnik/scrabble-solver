@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const useOnWindowResize = (onResize: (event: Event) => void) => {
+export const useOnWindowResize = (onResize: (event: Event) => void) => {
   useEffect(() => {
     window.addEventListener('resize', onResize);
 
@@ -9,5 +9,3 @@ const useOnWindowResize = (onResize: (event: Event) => void) => {
     };
   }, [onResize]);
 };
-
-export default useOnWindowResize;

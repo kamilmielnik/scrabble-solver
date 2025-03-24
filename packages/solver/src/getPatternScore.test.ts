@@ -1,7 +1,7 @@
 import { getConfig } from '@scrabble-solver/configs';
 import { Board, Cell, Game, HorizontalPattern, Locale, Pattern, Tile, VerticalPattern } from '@scrabble-solver/types';
 
-import getPatternScore from './getPatternScore';
+import { getPatternScore } from './getPatternScore';
 
 const locale = Locale.PL_PL;
 const config = getConfig(Game.Literaki, locale);

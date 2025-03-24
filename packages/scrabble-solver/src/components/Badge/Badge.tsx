@@ -8,8 +8,6 @@ interface Props {
   className?: string;
 }
 
-const Badge: FunctionComponent<Props> = ({ children, className }) => (
+export const Badge: FunctionComponent<Props> = ({ children, className }) => (
   <div className={classNames(styles.badge, className)}>{children}</div>
 );
-
-export default Badge;

@@ -13,7 +13,7 @@ const SHOW_COORDINATES = 'show-coordinates';
 
 const store = store2.namespace('scrabble-solver');
 
-const localStorage = {
+export const localStorage = {
   getAutoGroupTiles(): AutoGroupTiles | undefined {
     return store.get(AUTO_GROUP_TILES);
   },
@@ -72,5 +72,3 @@ const localStorage = {
     store.set(SHOW_COORDINATES, showCoordinates, true);
   },
 };
-
-export default localStorage;

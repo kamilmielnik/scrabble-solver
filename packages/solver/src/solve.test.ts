@@ -5,7 +5,7 @@ import { getConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import { Board, Game, Locale, Result, Tile } from '@scrabble-solver/types';
 
-import solve from './solve';
+import { solve } from './solve';
 
 const generateTiles = (characters: string[]): Tile[] => {
   return characters.map((character) => new Tile({ character, isBlank: false }));

@@ -4,7 +4,7 @@ import { ButtonHTMLAttributes, FunctionComponent, ReactNode, SVGAttributes } fro
 import { Tooltip } from '../Tooltip';
 
 import styles from './Button.module.scss';
-import Link from './Link';
+import { Link } from './Link';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   'aria-label': string;
@@ -15,7 +15,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   wide?: boolean;
 }
 
-const Button: FunctionComponent<Props> = ({
+const ButtonBase: FunctionComponent<Props> = ({
   children,
   className,
   Icon,
@@ -45,6 +45,6 @@ const Button: FunctionComponent<Props> = ({
   );
 };
 
-export default Object.assign(Button, {
+export const Button = Object.assign(ButtonBase, {
   Link,
 });

@@ -25,7 +25,7 @@ interface Props {
   onSubmit: FormEventHandler<HTMLFormElement>;
 }
 
-const InputPrompt = forwardRef<HTMLFormElement, Props>(
+const InputPromptBase = forwardRef<HTMLFormElement, Props>(
   ({ className, style, value, onBlur, onChange, onSubmit, ...props }, ref) => {
     const dispatch = useDispatch();
     const translate = useTranslate();
@@ -83,6 +83,6 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
   },
 );
 
-export default Object.assign(InputPrompt, {
+export const InputPrompt = Object.assign(InputPromptBase, {
   styles,
 });

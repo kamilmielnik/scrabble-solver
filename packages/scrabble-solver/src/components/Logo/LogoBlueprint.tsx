@@ -7,7 +7,7 @@
  */
 import { CSSProperties, FunctionComponent } from 'react';
 
-import PlainTiles from '../PlainTiles';
+import { PlainTiles } from '../PlainTiles';
 
 interface Props {
   className?: string;
@@ -16,8 +16,6 @@ interface Props {
 
 const CONTENT = [['SCRABBLE'], ['SOLVER', '2']];
 
-const LogoBlueprint: FunctionComponent<Props> = ({ className, style }) => (
+export const LogoBlueprint: FunctionComponent<Props> = ({ className, style }) => (
   <PlainTiles className={className} content={CONTENT} style={style} />
 );
-
-export default LogoBlueprint;

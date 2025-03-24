@@ -28,7 +28,7 @@ import {
   useTypedSelector,
 } from 'state';
 
-import Tile from '../../../Tile';
+import { Tile } from '../../../Tile';
 
 import styles from './RackTile.module.scss';
 
@@ -45,7 +45,7 @@ interface Props {
   onFocus: () => void;
 }
 
-const RackTile: FunctionComponent<Props> = ({
+export const RackTile: FunctionComponent<Props> = ({
   activeIndexRef,
   character,
   className,
@@ -160,5 +160,3 @@ const RackTile: FunctionComponent<Props> = ({
     />
   );
 };
-
-export default RackTile;

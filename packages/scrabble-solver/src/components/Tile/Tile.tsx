@@ -17,7 +17,7 @@ import { useAppLayout } from 'hooks';
 import { getTileSizes, noop } from 'lib';
 import { selectLocale, useTypedSelector } from 'state';
 
-import TilePure from './TilePure';
+import { TilePure } from './TilePure';
 
 interface Props {
   'aria-label': string;
@@ -41,7 +41,7 @@ interface Props {
   onTouchStart?: TouchEventHandler<HTMLInputElement>;
 }
 
-const Tile: FunctionComponent<Props> = ({
+export const Tile: FunctionComponent<Props> = ({
   'aria-label': ariaLabel,
   autoFocus,
   className,
@@ -108,5 +108,3 @@ const Tile: FunctionComponent<Props> = ({
     />
   );
 };
-
-export default Tile;

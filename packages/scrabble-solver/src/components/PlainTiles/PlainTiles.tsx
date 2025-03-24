@@ -3,7 +3,7 @@ import { CSSProperties, FunctionComponent, useMemo } from 'react';
 
 import { createPlainTiles, getViewbox } from './lib';
 import styles from './PlainTiles.module.scss';
-import Tile from './Tile';
+import { Tile } from './Tile';
 
 interface Props {
   className?: string;
@@ -15,7 +15,15 @@ interface Props {
   wave?: boolean;
 }
 
-const PlainTiles: FunctionComponent<Props> = ({ className, color, content, dropShadow, showPoints, style, wave }) => {
+export const PlainTiles: FunctionComponent<Props> = ({
+  className,
+  color,
+  content,
+  dropShadow,
+  showPoints,
+  style,
+  wave,
+}) => {
   const tiles = useMemo(() => createPlainTiles({ color, content, showPoints }), [color, content, showPoints]);
 
   return (
@@ -44,5 +52,3 @@ const PlainTiles: FunctionComponent<Props> = ({ className, color, content, dropS
     </svg>
   );
 };
-
-export default PlainTiles;

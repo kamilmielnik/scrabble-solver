@@ -13,7 +13,7 @@ interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
   tooltip: string;
 }
 
-const Link: FunctionComponent<Props> = ({ className, Icon, tooltip, ...props }) => {
+export const Link: FunctionComponent<Props> = ({ className, Icon, tooltip, ...props }) => {
   return (
     <Tooltip tooltip={tooltip}>
       <a className={classNames(styles.iconButton, className)} {...props}>
@@ -24,5 +24,3 @@ const Link: FunctionComponent<Props> = ({ className, Icon, tooltip, ...props }) 
     </Tooltip>
   );
 };
-
-export default Link;

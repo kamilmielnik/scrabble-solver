@@ -1,8 +1,8 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 
-import TileJson from './TileJson';
+import { TileJson } from './TileJson';
 
-class Tile {
+export class Tile {
   public static fromJson(json: TileJson | null): Tile {
     if (!json) {
       return Tile.Null;
@@ -54,5 +54,3 @@ class Tile {
     return this.character;
   }
 }
-
-export default Tile;

@@ -1,1 +1,1 @@
-export { default } from './ShowCoordinatesSetting';
+export { ShowCoordinatesSetting } from './ShowCoordinatesSetting';

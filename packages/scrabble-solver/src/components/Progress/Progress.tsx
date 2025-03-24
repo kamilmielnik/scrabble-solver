@@ -17,7 +17,7 @@ const getGradient = (progress: number, color: string, background: string) => {
   return `linear-gradient(90deg, ${color} 0%, ${color} ${percent}%, ${background} ${percent}%, ${background} 100%)`;
 };
 
-const Progress: FunctionComponent<Props> = ({ className, max, min = 0, style, value, ...props }) => {
+export const Progress: FunctionComponent<Props> = ({ className, max, min = 0, style, value, ...props }) => {
   const locale = useTypedSelector(selectLocale);
   const progress = value / (max - min);
   const percent = Math.round(100 * progress);
@@ -34,5 +34,3 @@ const Progress: FunctionComponent<Props> = ({ className, max, min = 0, style, va
     />
   );
 };
-
-export default Progress;

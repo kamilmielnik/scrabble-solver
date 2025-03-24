@@ -1,1 +1,1 @@
-export { default } from './PlainTiles';
+export { PlainTiles } from './PlainTiles';

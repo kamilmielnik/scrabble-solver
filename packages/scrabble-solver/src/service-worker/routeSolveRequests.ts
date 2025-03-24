@@ -5,9 +5,9 @@ import { solve } from '@scrabble-solver/solver';
 import { Board, Tile } from '@scrabble-solver/types';
 import { registerRoute } from 'workbox-routing';
 
-import average from './average';
+import { average } from './average';
 import { revalidateDictionary } from './dictionaries';
-import getTrie from './getTrie';
+import { getTrie } from './getTrie';
 
 const headers = {
   'Content-Type': 'application/json; charset=utf-8',
@@ -29,7 +29,7 @@ const isSlowDevice = (): boolean | undefined => {
   return average(local) > average(server);
 };
 
-const routeSolveRequests = () => {
+export const routeSolveRequests = () => {
   registerRoute(
     ({ url }) => url.origin === location.origin && url.pathname === '/api/solve',
     async ({ request }) => {
@@ -75,5 +75,3 @@ const routeSolveRequests = () => {
     'POST',
   );
 };
-
-export default routeSolveRequests;

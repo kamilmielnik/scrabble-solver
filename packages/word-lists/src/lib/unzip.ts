@@ -1,7 +1,7 @@
 import fs from 'fs';
 import unzipper from 'unzipper';
 
-const unzip = (zipFilename: string, extractFilename: string, outputFilename: string): Promise<void> => {
+export const unzip = (zipFilename: string, extractFilename: string, outputFilename: string): Promise<void> => {
   return fs
     .createReadStream(zipFilename)
     .pipe(unzipper.Parse())
@@ -16,5 +16,3 @@ const unzip = (zipFilename: string, extractFilename: string, outputFilename: str
     })
     .promise();
 };
-
-export default unzip;

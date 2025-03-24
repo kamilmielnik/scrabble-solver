@@ -40,7 +40,7 @@ interface Props {
   onTouchStart?: TouchEventHandler<HTMLInputElement>;
 }
 
-const TilePure: FunctionComponent<Props> = ({
+const TilePureBase: FunctionComponent<Props> = ({
   'aria-label': ariaLabel,
   autoFocus,
   canShowPoints,
@@ -111,4 +111,4 @@ const TilePure: FunctionComponent<Props> = ({
   </div>
 );
 
-export default memo(TilePure);
+export const TilePure = memo(TilePureBase);

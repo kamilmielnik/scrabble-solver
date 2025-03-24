@@ -1,8 +1,8 @@
 import { Config, Pattern } from '@scrabble-solver/types';
 
-import getCellsScore from './getCellsScore';
+import { getCellsScore } from './getCellsScore';
 
-const getPatternScore = (config: Config, pattern: Pattern) => {
+export const getPatternScore = (config: Config, pattern: Pattern) => {
   const areAllTilesUsed = pattern.getEmptyCellsCount() === config.rackSize;
   const bonusScore = areAllTilesUsed ? config.bingoScore : 0;
   const score = pattern
@@ -11,5 +11,3 @@ const getPatternScore = (config: Config, pattern: Pattern) => {
 
   return score + bonusScore;
 };
-
-export default getPatternScore;

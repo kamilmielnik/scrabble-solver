@@ -1,10 +1,10 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 
-import BoardJson from './BoardJson';
-import Cell from './Cell';
-import Tile from './Tile';
+import { BoardJson } from './BoardJson';
+import { Cell } from './Cell';
+import { Tile } from './Tile';
 
-class Board {
+export class Board {
   public static create(width: number, height: number): Board {
     return Board.fromStringArray(Array(height).fill(Array(width).fill(' ').join('')));
   }
@@ -148,5 +148,3 @@ class Board {
     this.rows[y] = updateRow(this.rows[y]);
   }
 }
-
-export default Board;

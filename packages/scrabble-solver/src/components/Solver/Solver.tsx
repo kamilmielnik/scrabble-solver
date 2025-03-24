@@ -15,12 +15,12 @@ import {
   useTypedSelector,
 } from 'state';
 
-import Alert from '../Alert';
-import Board from '../Board';
-import Dictionary from '../Dictionary';
-import DictionaryInput from '../DictionaryInput';
-import Rack from '../Rack';
-import Results from '../Results';
+import { Alert } from '../Alert';
+import { Board } from '../Board';
+import { Dictionary } from '../Dictionary';
+import { DictionaryInput } from '../DictionaryInput';
+import { Rack } from '../Rack';
+import { Results } from '../Results';
 
 import { ResultCandidatePicker } from './components';
 import styles from './Solver.module.scss';
@@ -30,7 +30,7 @@ interface Props {
   onShowResults: () => void;
 }
 
-const Solver: FunctionComponent<Props> = ({ className, onShowResults }) => {
+const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
@@ -138,4 +138,4 @@ const Solver: FunctionComponent<Props> = ({ className, onShowResults }) => {
   );
 };
 
-export default memo(Solver);
+export const Solver = memo(SolverBase);

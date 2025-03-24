@@ -3,9 +3,9 @@ import { Game, Locale, ShowCoordinates } from '@scrabble-solver/types';
 
 import { AutoGroupTiles, InputMode } from 'types';
 
-import settingsInitialState from './settingsInitialState';
+import { settingsInitialState } from './settingsInitialState';
 
-const settingsSlice = createSlice({
+export const settingsSlice = createSlice({
   initialState: settingsInitialState,
   name: 'settings',
   reducers: {
@@ -39,5 +39,3 @@ const settingsSlice = createSlice({
     },
   },
 });
-
-export default settingsSlice;

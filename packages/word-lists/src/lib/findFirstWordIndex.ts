@@ -1,4 +1,4 @@
-const findFirstWordIndex = (lines: string[], locale: string): number => {
+export const findFirstWordIndex = (lines: string[], locale: string): number => {
   const firstWordIndex = lines.findIndex((line, index) => {
     const nextLine = line[index + 1] || '';
     const isNextLineInOrder = line.localeCompare(nextLine, locale) > 0;
@@ -14,5 +14,3 @@ const findFirstWordIndex = (lines: string[], locale: string): number => {
 
   return firstWordIndex;
 };
-
-export default findFirstWordIndex;

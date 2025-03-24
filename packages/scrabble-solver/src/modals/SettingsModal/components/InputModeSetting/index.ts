@@ -1,1 +1,1 @@
-export { default } from './InputModeSetting';
+export { InputModeSetting } from './InputModeSetting';

@@ -1,6 +1,6 @@
-import Pattern from './Pattern';
+import { Pattern } from './Pattern';
 
-class FinalPattern extends Pattern {
+export class FinalPattern extends Pattern {
   private readonly collisions: Pattern[];
 
   constructor(pattern: Pattern) {
@@ -12,5 +12,3 @@ class FinalPattern extends Pattern {
     return this.collisions;
   }
 }
-
-export default FinalPattern;

@@ -1,8 +1,8 @@
 import { CreatePlainTilesOptions, PlainTile } from '../types';
 
-import createPlainTile from './createPlainTile';
+import { createPlainTile } from './createPlainTile';
 
-const createPlainTiles = ({ color, content, showPoints }: CreatePlainTilesOptions): PlainTile[] => {
+export const createPlainTiles = ({ color, content, showPoints }: CreatePlainTilesOptions): PlainTile[] => {
   const rows = content.map((words, rowIndex) => {
     return words.map((word, wordIndex) => {
       const cellOffset = words.slice(0, wordIndex).reduce((result, { length }) => result + length + ' '.length, 0);
@@ -23,5 +23,3 @@ const createPlainTiles = ({ color, content, showPoints }: CreatePlainTilesOption
   const tiles = rows.flat(2);
   return tiles;
 };
-
-export default createPlainTiles;

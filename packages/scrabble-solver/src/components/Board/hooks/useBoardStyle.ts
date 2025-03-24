@@ -5,9 +5,9 @@ import { getTileSizes } from 'lib';
 import { BORDER_WIDTH } from 'parameters';
 import { selectConfig, selectShowCoordinates, useTypedSelector } from 'state';
 
-import useBackgroundImage from './useBackgroundImage';
+import { useBackgroundImage } from './useBackgroundImage';
 
-const useBoardStyle = () => {
+export const useBoardStyle = () => {
   const config = useTypedSelector(selectConfig);
   const { cellSize } = useAppLayout();
   const { tileFontSize } = getTileSizes(cellSize);
@@ -32,5 +32,3 @@ const useBoardStyle = () => {
 
   return boardStyle;
 };
-
-export default useBoardStyle;

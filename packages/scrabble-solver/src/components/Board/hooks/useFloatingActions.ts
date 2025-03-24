@@ -3,7 +3,7 @@ import { autoUpdate, offset, shift, useFloating } from '@floating-ui/react';
 import { useAppLayout } from 'hooks';
 import { BOARD_CELL_ACTIONS_OFFSET } from 'parameters';
 
-const useFloatingActions = () => {
+export const useFloatingActions = () => {
   const { actionsWidth } = useAppLayout();
 
   return useFloating({
@@ -18,5 +18,3 @@ const useFloatingActions = () => {
     whileElementsMounted: autoUpdate,
   });
 };
-
-export default useFloatingActions;

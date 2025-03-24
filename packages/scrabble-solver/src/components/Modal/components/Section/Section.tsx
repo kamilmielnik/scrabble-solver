@@ -10,11 +10,9 @@ interface Props {
   title: ReactNode;
 }
 
-const Section: FunctionComponent<Props> = ({ children, className, label, title }) => (
+export const Section: FunctionComponent<Props> = ({ children, className, label, title }) => (
   <section aria-label={label} className={classNames(styles.section, className)}>
     <h2 className={styles.heading}>{title}</h2>
     <div>{children}</div>
   </section>
 );
-
-export default Section;

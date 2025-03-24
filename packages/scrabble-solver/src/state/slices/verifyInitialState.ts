@@ -1,4 +1,4 @@
-import boardInitialState, { BoardState } from './boardInitialState';
+import { boardInitialState, BoardState } from './boardInitialState';
 
 export interface VerifyState {
   isLoading: boolean;
@@ -9,7 +9,7 @@ export interface VerifyState {
   validWords: string[];
 }
 
-const verifyInitialState: VerifyState = {
+export const verifyInitialState: VerifyState = {
   isLoading: false,
   lastSolvedParameters: {
     board: boardInitialState,
@@ -17,5 +17,3 @@ const verifyInitialState: VerifyState = {
   invalidWords: [],
   validWords: [],
 };
-
-export default verifyInitialState;

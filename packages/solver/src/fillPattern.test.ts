@@ -3,7 +3,7 @@ import { getConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import { Board, Cell, FinalPattern, Game, Locale, Pattern, Tile, VerticalPattern } from '@scrabble-solver/types';
 
-import fillPattern, { fillPatternRecursive } from './fillPattern';
+import { fillPattern, fillPatternRecursive } from './fillPattern';
 
 const board = Board.fromStringArray([' t ', 'do ', '   ']);
 const locale = Locale.PL_PL;

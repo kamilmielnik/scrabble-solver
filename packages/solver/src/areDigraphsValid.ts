@@ -1,6 +1,6 @@
 import { Config, Pattern } from '@scrabble-solver/types';
 
-const areDigraphsValid = (config: Config, pattern: Pattern): boolean => {
+export const areDigraphsValid = (config: Config, pattern: Pattern): boolean => {
   const { twoCharacterTiles } = config;
   const { cells } = pattern;
 
@@ -16,5 +16,3 @@ const areDigraphsValid = (config: Config, pattern: Pattern): boolean => {
 
   return true;
 };
-
-export default areDigraphsValid;
