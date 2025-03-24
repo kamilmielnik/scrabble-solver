@@ -1,12 +1,12 @@
-import { games, hasConfig } from '@scrabble-solver/configs';
 import { isGame } from '@scrabble-solver/types';
-import { ChangeEvent, FunctionComponent } from 'react';
+import { ChangeEvent, FunctionComponent, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Radio } from 'components';
 import { selectGame, selectLocale, settingsSlice, useTypedSelector } from 'state';
 
 import styles from './ConfigSetting.module.scss';
+import { getOptions } from './lib';
 
 interface Props {
   className?: string;
@@ -17,11 +17,7 @@ const ConfigSetting: FunctionComponent<Props> = ({ className, disabled }) => {
   const dispatch = useDispatch();
   const game = useTypedSelector(selectGame);
   const locale = useTypedSelector(selectLocale);
-  const options = Object.values(games).map((gameConfig) => ({
-    disabled: !hasConfig(gameConfig.game, locale),
-    label: gameConfig.name,
-    value: gameConfig.game,
-  }));
+  const options = useMemo(() => getOptions(locale), [locale]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (isGame(event.target.value)) {
