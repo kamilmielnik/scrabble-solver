@@ -2,8 +2,8 @@
 
 import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching';
 
-import routeSolveRequests from './routeSolveRequests';
-import routeVerifyRequests from './routeVerifyRequests';
+import { routeSolveRequests } from './routeSolveRequests';
+import { routeVerifyRequests } from './routeVerifyRequests';
 
 declare const self: ServiceWorkerGlobalScope;
 

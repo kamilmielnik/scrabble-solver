@@ -1,6 +1,6 @@
 import { getConfig, hasConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
-import logger from '@scrabble-solver/logger';
+import { logger } from '@scrabble-solver/logger';
 import { Board, Config, Locale, isBoardJson, isGame, isLocale } from '@scrabble-solver/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Board } from '@scrabble-solver/types';
 
-import verifyInitialState from './verifyInitialState';
+import { verifyInitialState } from './verifyInitialState';
 
 interface VerifyParameters {
   board: Board;
@@ -9,7 +9,7 @@ interface VerifyParameters {
   validWords: string[];
 }
 
-const verifySlice = createSlice({
+export const verifySlice = createSlice({
   initialState: verifyInitialState,
   name: 'verify',
   reducers: {
@@ -27,5 +27,3 @@ const verifySlice = createSlice({
     },
   },
 });
-
-export default verifySlice;

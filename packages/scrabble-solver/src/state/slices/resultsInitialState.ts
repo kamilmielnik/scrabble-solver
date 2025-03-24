@@ -9,7 +9,7 @@ export interface ResultsState {
   sort: Sort;
 }
 
-const resultsInitialState: ResultsState = {
+export const resultsInitialState: ResultsState = {
   candidate: null,
   query: '',
   results: undefined,
@@ -18,5 +18,3 @@ const resultsInitialState: ResultsState = {
     direction: SortDirection.Descending,
   },
 };
-
-export default resultsInitialState;

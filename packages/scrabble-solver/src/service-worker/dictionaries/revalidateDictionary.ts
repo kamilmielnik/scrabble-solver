@@ -1,12 +1,12 @@
 import { Locale } from '@scrabble-solver/types';
 
 import { DICTIONARY_CACHE } from './constants';
-import expirationManager from './expirationManager';
-import getDictionaryUrl from './getDictionaryUrl';
+import { expirationManager } from './expirationManager';
+import { getDictionaryUrl } from './getDictionaryUrl';
 
 const requests: Partial<Record<Locale, Promise<Response> | undefined>> = {};
 
-const revalidateDictionary = async (locale: Locale): Promise<void> => {
+export const revalidateDictionary = async (locale: Locale): Promise<void> => {
   if (requests[locale] instanceof Promise) {
     return;
   }
@@ -31,5 +31,3 @@ const revalidateDictionary = async (locale: Locale): Promise<void> => {
     requests[locale] = undefined;
   }
 };
-
-export default revalidateDictionary;

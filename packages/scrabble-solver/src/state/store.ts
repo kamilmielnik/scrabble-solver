@@ -15,7 +15,7 @@ import {
 
 const sagaMiddleware = reduxSaga();
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     board: boardSlice.reducer,
     cellFilter: cellFilterSlice.reducer,
@@ -30,5 +30,3 @@ const store = configureStore({
 });
 
 sagaMiddleware.run(rootSaga);
-
-export default store;

@@ -693,4 +693,11 @@ export default defineConfig([
       'max-statements': 'off',
     },
   },
+  {
+    files: ['packages/scrabble-solver/src/pages/**'],
+
+    rules: {
+      'no-restricted-exports': 'off',
+    },
+  },
 ]);

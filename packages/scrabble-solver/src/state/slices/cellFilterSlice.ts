@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { CellFilterType, Point } from 'types';
 
-import cellFilterInitialState from './cellFilterInitialState';
+import { cellFilterInitialState } from './cellFilterInitialState';
 
-const cellFilterSlice = createSlice({
+export const cellFilterSlice = createSlice({
   initialState: cellFilterInitialState,
   name: 'cellFilter',
   reducers: {
@@ -47,5 +47,3 @@ const toggleCellFilterState = (type: CellFilterType): CellFilterType | null => {
   const nextIndex = (index + 1) % chain.length;
   return chain[nextIndex];
 };
-
-export default cellFilterSlice;

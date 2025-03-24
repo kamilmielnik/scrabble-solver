@@ -4,9 +4,9 @@ import { Tile } from '@scrabble-solver/types';
 import { arrayEquals, createNullMovingComparator, inverseDirection, zipCharactersAndTiles } from 'lib';
 import { AutoGroupTiles, Rack } from 'types';
 
-import rackInitialState, { rackDefaultState } from './rackInitialState';
+import { rackInitialState, rackDefaultState } from './rackInitialState';
 
-const rackSlice = createSlice({
+export const rackSlice = createSlice({
   initialState: rackInitialState,
   name: 'rack',
   reducers: {
@@ -51,5 +51,3 @@ const rackSlice = createSlice({
     reset: () => rackDefaultState,
   },
 });
-
-export default rackSlice;

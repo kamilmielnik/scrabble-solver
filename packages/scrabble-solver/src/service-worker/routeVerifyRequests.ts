@@ -2,13 +2,13 @@ import { Board } from '@scrabble-solver/types';
 import { registerRoute } from 'workbox-routing';
 
 import { revalidateDictionary } from './dictionaries';
-import getTrie from './getTrie';
+import { getTrie } from './getTrie';
 
 const headers = {
   'Content-Type': 'application/json; charset=utf-8',
 };
 
-const routeVerifyRequests = () => {
+export const routeVerifyRequests = () => {
   registerRoute(
     ({ url }) => url.origin === location.origin && url.pathname === '/api/verify',
     async ({ request }) => {
@@ -31,5 +31,3 @@ const routeVerifyRequests = () => {
     'POST',
   );
 };
-
-export default routeVerifyRequests;

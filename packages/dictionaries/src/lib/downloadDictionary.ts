@@ -1,5 +1,5 @@
 import { Trie } from '@kamilmielnik/trie';
-import logger from '@scrabble-solver/logger';
+import { logger } from '@scrabble-solver/logger';
 import { Locale } from '@scrabble-solver/types';
 import { getWordList } from '@scrabble-solver/word-lists';
 

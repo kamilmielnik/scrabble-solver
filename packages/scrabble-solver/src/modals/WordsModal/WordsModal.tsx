@@ -13,7 +13,7 @@ interface Props {
   onClose: () => void;
 }
 
-const WordsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
+const WordsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const { invalidWords, validWords } = useTypedSelector(selectVerify);
@@ -55,4 +55,4 @@ const WordsModal: FunctionComponent<Props> = ({ className, isOpen, onClose }) =>
   );
 };
 
-export default memo(WordsModal);
+export const WordsModal = memo(WordsModalBase);

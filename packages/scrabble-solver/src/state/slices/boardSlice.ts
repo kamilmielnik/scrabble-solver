@@ -3,10 +3,10 @@ import { games } from '@scrabble-solver/configs';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Board, Cell, Result, Tile } from '@scrabble-solver/types';
 
-import boardInitialState from './boardInitialState';
-import settingsSlice from './settingsSlice';
+import { boardInitialState } from './boardInitialState';
+import { settingsSlice } from './settingsSlice';
 
-const boardSlice = createSlice({
+export const boardSlice = createSlice({
   initialState: boardInitialState,
   name: 'board',
   reducers: {
@@ -73,5 +73,3 @@ const boardSlice = createSlice({
     });
   },
 });
-
-export default boardSlice;

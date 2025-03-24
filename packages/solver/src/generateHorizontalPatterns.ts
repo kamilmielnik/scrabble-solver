@@ -1,7 +1,7 @@
 import { Board, Config, HorizontalPattern, Pattern } from '@scrabble-solver/types';
 
-import generatePattern from './generatePattern';
-import generateVectors from './generateVectors';
+import { generatePattern } from './generatePattern';
+import { generateVectors } from './generateVectors';
 
 export const generateHorizontalPatterns = (config: Config, board: Board): Pattern[] => {
   const getNthVector = (index: number) => board.getRow(index);

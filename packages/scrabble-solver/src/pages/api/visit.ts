@@ -1,4 +1,4 @@
-import logger from '@scrabble-solver/logger';
+import { logger } from '@scrabble-solver/logger';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { getServerLoggingData } from 'api';

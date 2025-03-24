@@ -1,17 +1,18 @@
 import { getConfig } from '@scrabble-solver/configs';
 import { Board } from '@scrabble-solver/types';
 
-import localStorage from '../localStorage';
+import { localStorage } from '../localStorage';
 
-import settingsInitialState from './settingsInitialState';
+import { settingsInitialState } from './settingsInitialState';
 
 export type BoardState = Board;
 
 const { game, locale } = settingsInitialState;
 const { boardHeight, boardWidth } = getConfig(game, locale);
+
 export const boardDefaultState = Board.create(boardWidth, boardHeight);
 
-const boardInitialState: BoardState = localStorage.getBoard() || boardDefaultState;
+export const boardInitialState: BoardState = localStorage.getBoard() || boardDefaultState;
 
 // const createOxyphenbutazone = () => {
 //   // Tiles: oypbaze
@@ -39,5 +40,3 @@ const boardInitialState: BoardState = localStorage.getBoard() || boardDefaultSta
 
 //   return board;
 // };
-
-export default boardInitialState;

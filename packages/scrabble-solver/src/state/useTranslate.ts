@@ -3,9 +3,9 @@ import { useCallback } from 'react';
 import { Translate } from 'types';
 
 import { selectLocale, selectTranslations } from './selectors';
-import useTypedSelector from './useTypedSelector';
+import { useTypedSelector } from './useTypedSelector';
 
-const useTranslate = (): Translate => {
+export const useTranslate = (): Translate => {
   const translations = useTypedSelector(selectTranslations);
   const locale = useTypedSelector(selectLocale);
   const translate: Translate = useCallback(
@@ -30,5 +30,3 @@ const useTranslate = (): Translate => {
 
   return translate;
 };
-
-export default useTranslate;

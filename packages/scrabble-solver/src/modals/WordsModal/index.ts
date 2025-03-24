@@ -1,1 +1,1 @@
-export { default } from './WordsModal';
+export { WordsModal } from './WordsModal';

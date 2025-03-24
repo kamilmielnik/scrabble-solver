@@ -1,6 +1,6 @@
-import fetch from './fetch';
+import { fetch } from './fetch';
 
-const fetchJson = async <T>(input: RequestInfo | URL, init?: RequestInit): Promise<T> => {
+export const fetchJson = async <T>(input: RequestInfo | URL, init?: RequestInit): Promise<T> => {
   const response = await fetch(input, {
     ...init,
     headers: {
@@ -11,5 +11,3 @@ const fetchJson = async <T>(input: RequestInfo | URL, init?: RequestInit): Promi
 
   return response.json();
 };
-
-export default fetchJson;
