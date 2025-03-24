@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { noop } from 'lib';
 
-const useDirection = (direction: 'ltr' | 'rtl') => {
+export const useDirection = (direction: 'ltr' | 'rtl') => {
   useEffect(() => {
     const html = document.body.parentElement;
 
@@ -18,5 +18,3 @@ const useDirection = (direction: 'ltr' | 'rtl') => {
     };
   }, [direction]);
 };
-
-export default useDirection;

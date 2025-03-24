@@ -2,7 +2,7 @@ import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { Game, Locale } from '@scrabble-solver/types';
 
-import extractCharactersByCase from './extractCharactersByCase';
+import { extractCharactersByCase } from './extractCharactersByCase';
 
 const tests = [
   { input: 'ab ', expected: ['a', 'b', BLANK] },

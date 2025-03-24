@@ -1,4 +1,4 @@
-import createNullMovingComparator from './createNullMovingComparator';
+import { createNullMovingComparator } from './createNullMovingComparator';
 
 describe('createNullMovingComparator', () => {
   it('Moves nulls left', () => {

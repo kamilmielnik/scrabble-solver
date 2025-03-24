@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { noop } from 'lib';
 
-const useLanguage = (language: string) => {
+export const useLanguage = (language: string) => {
   useEffect(() => {
     const html = document.body.parentElement;
 
@@ -18,5 +18,3 @@ const useLanguage = (language: string) => {
     };
   }, [language]);
 };
-
-export default useLanguage;

@@ -14,7 +14,7 @@ const transliteratePerLocale: Record<Locale, (word: string) => string> = {
   [Locale.TR_TR]: (word) => word,
 };
 
-const extractCharacters = (config: Config, value: string): string[] => {
+export const extractCharacters = (config: Config, value: string): string[] => {
   let index = 0;
   const characters: string[] = [];
   const localeTransliterate = transliteratePerLocale[config.locale];
@@ -38,5 +38,3 @@ const extractCharacters = (config: Config, value: string): string[] => {
 
   return characters;
 };
-
-export default extractCharacters;

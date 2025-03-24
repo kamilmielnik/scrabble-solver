@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { selectColumns, useTypedSelector } from 'state';
 import { ResultColumnId } from 'types';
 
-import useMediaQueries from './useMediaQueries';
+import { useMediaQueries } from './useMediaQueries';
 
 const COLUMNS_XS = [ResultColumnId.Coordinates, ResultColumnId.Word, ResultColumnId.Points];
 
@@ -13,7 +13,7 @@ const COLUMNS_M = [...COLUMNS_XS];
 
 const COLUMNS_L = [...COLUMNS_XS];
 
-const useColumns = (): Partial<Record<ResultColumnId, boolean>> => {
+export const useColumns = (): Partial<Record<ResultColumnId, boolean>> => {
   const columns = useTypedSelector(selectColumns);
   const { isLessThanXs, isLessThanS, isLessThanM, isLessThanL } = useMediaQueries();
 
@@ -43,5 +43,3 @@ const useColumns = (): Partial<Record<ResultColumnId, boolean>> => {
 
   return columnsMap;
 };
-
-export default useColumns;

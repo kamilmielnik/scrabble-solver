@@ -1,9 +1,9 @@
 import { BLANK } from '@scrabble-solver/constants';
 import { Config } from '@scrabble-solver/types';
 
-import isUpperCase from './isUpperCase';
+import { isUpperCase } from './isUpperCase';
 
-const extractCharactersByCase = (config: Config, value: string): string[] => {
+export const extractCharactersByCase = (config: Config, value: string): string[] => {
   let index = 0;
   const characters: string[] = [];
 
@@ -27,5 +27,3 @@ const extractCharactersByCase = (config: Config, value: string): string[] => {
 
   return characters;
 };
-
-export default extractCharactersByCase;

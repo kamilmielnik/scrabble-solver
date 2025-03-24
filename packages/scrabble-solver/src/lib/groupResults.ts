@@ -2,10 +2,10 @@ import { Result } from '@scrabble-solver/types';
 
 import { CellFilterEntry, GroupedResults } from 'types';
 
-import createRegExp from './createRegExp';
-import resultMatchesCellFilter from './resultMatchesCellFilter';
+import { createRegExp } from './createRegExp';
+import { resultMatchesCellFilter } from './resultMatchesCellFilter';
 
-const groupResults = (
+export const groupResults = (
   results: Result[] | undefined,
   query: string,
   cellFilter: CellFilterEntry[],
@@ -33,5 +33,3 @@ const groupResults = (
 
   return { matching, other };
 };
-
-export default groupResults;

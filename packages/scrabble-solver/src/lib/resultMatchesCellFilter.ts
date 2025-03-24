@@ -2,7 +2,7 @@ import { Result } from '@scrabble-solver/types';
 
 import { CellFilterEntry } from 'types';
 
-const resultMatchesCellFilter = (result: Result, cellFilter: CellFilterEntry[]) => {
+export const resultMatchesCellFilter = (result: Result, cellFilter: CellFilterEntry[]) => {
   const excludeFilters = cellFilter.filter((filter) => filter.type === 'exclude');
   const matchesExcludeFilters = excludeFilters.every(({ x, y }) => {
     return result.cells.every((cell) => cell.x !== x || cell.y !== y);
@@ -19,5 +19,3 @@ const resultMatchesCellFilter = (result: Result, cellFilter: CellFilterEntry[]) 
 
   return matchesExcludeFilters && matchesIncludeFilters;
 };
-
-export default resultMatchesCellFilter;

@@ -1,7 +1,5 @@
-import useMedia from './useMedia';
+import { useMedia } from './useMedia';
 
-const useIsTouchDevice = () => {
+export const useIsTouchDevice = () => {
   return useMedia('(hover: none)', false);
 };
-
-export default useIsTouchDevice;

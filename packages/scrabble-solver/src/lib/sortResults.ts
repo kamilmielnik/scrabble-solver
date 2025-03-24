@@ -2,10 +2,10 @@ import { Result, ShowCoordinates } from '@scrabble-solver/types';
 
 import { Comparator, ResultColumnId, Sort, SortDirection } from 'types';
 
-import createKeyComparator from './createKeyComparator';
-import createStringComparator from './createStringComparator';
-import getCoordinates from './getCoordinates';
-import reverseComparator from './reverseComparator';
+import { createKeyComparator } from './createKeyComparator';
+import { createStringComparator } from './createStringComparator';
+import { getCoordinates } from './getCoordinates';
+import { reverseComparator } from './reverseComparator';
 
 const comparators: Record<ResultColumnId, (locale: string, showCoordinates: ShowCoordinates) => Comparator<Result>> = {
   [ResultColumnId.BlanksCount]: (locale: string) => createKeyComparator('blanksCount', locale),
@@ -23,7 +23,7 @@ const comparators: Record<ResultColumnId, (locale: string, showCoordinates: Show
   [ResultColumnId.WordsCount]: (locale: string) => createKeyComparator('wordsCount', locale),
 };
 
-const sortResults = (
+export const sortResults = (
   results: Result[] | undefined,
   sort: Sort,
   locale: string,
@@ -39,5 +39,3 @@ const sortResults = (
   const sortedResults = [...results].sort(finalComparator);
   return sortedResults;
 };
-
-export default sortResults;

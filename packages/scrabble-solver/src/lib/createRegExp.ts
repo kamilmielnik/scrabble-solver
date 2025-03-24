@@ -1,4 +1,4 @@
-const createRegExp = (input: string): RegExp => {
+export const createRegExp = (input: string): RegExp => {
   if (input.trim().length === 0) {
     return /.*/;
   }
@@ -9,5 +9,3 @@ const createRegExp = (input: string): RegExp => {
     return /.*/;
   }
 };
-
-export default createRegExp;

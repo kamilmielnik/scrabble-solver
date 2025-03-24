@@ -2,10 +2,10 @@ import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 
 import { RemainingTile, RemainingTilesGroup } from 'types';
 
-import getRemainingTilesCount from './getRemainingTilesCount';
-import getTotalRemainingTilesCount from './getTotalRemainingTilesCount';
+import { getRemainingTilesCount } from './getRemainingTilesCount';
+import { getTotalRemainingTilesCount } from './getTotalRemainingTilesCount';
 
-const getRemainingTilesGroups = (remainingTiles: RemainingTile[]): RemainingTilesGroup[] => {
+export const getRemainingTilesGroups = (remainingTiles: RemainingTile[]): RemainingTilesGroup[] => {
   const consonants = remainingTiles.filter(isConsonant);
   const vowels = remainingTiles.filter(isVowel);
   const other = remainingTiles.filter(isOther);
@@ -62,5 +62,3 @@ const isBlank = (tile: RemainingTile): boolean => tile.character === BLANK;
 
 const isOther = (tile: RemainingTile) =>
   !isConsonant(tile) && !isVowel(tile) && !isBlank(tile) && !isTwoCharacter(tile);
-
-export default getRemainingTilesGroups;

@@ -11,7 +11,7 @@ import romanian from './languages/romanian.json';
 import spanish from './languages/spanish.json';
 import turkish from './languages/turkish.json';
 
-const i18n: Record<Locale, Translations> = {
+export const i18n: Record<Locale, Translations> = {
   [Locale.DE_DE]: german,
   [Locale.EN_GB]: english,
   [Locale.EN_US]: english,
@@ -22,5 +22,3 @@ const i18n: Record<Locale, Translations> = {
   [Locale.RO_RO]: romanian,
   [Locale.TR_TR]: turkish,
 };
-
-export default i18n;

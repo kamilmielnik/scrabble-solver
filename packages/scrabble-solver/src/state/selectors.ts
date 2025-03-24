@@ -5,7 +5,7 @@ import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { Cell, Config, isError, Tile } from '@scrabble-solver/types';
 
-import i18n, { LOCALE_FEATURES } from 'i18n';
+import { i18n, LOCALE_FEATURES } from 'i18n';
 import {
   createRegExp,
   findCell,
