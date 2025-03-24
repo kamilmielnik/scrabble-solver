@@ -1,6 +1,6 @@
 type AsyncCallback<T> = () => Promise<T>;
 
-const createAsyncProxy = <T>(asyncCallback: AsyncCallback<T>): AsyncCallback<T> => {
+export const createAsyncProxy = <T>(asyncCallback: AsyncCallback<T>): AsyncCallback<T> => {
   let promise: Promise<T> | null = null;
 
   return async (): Promise<T> => {
@@ -16,5 +16,3 @@ const createAsyncProxy = <T>(asyncCallback: AsyncCallback<T>): AsyncCallback<T> 
     }
   };
 };
-
-export default createAsyncProxy;

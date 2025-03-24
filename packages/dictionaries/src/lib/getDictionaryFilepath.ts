@@ -3,8 +3,6 @@ import path from 'path';
 
 import { OUTPUT_DIRECTORY } from '../constants';
 
-const getDictionaryFilepath = (locale: Locale): string => {
+export const getDictionaryFilepath = (locale: Locale): string => {
   return path.resolve(OUTPUT_DIRECTORY, `${locale}.txt`);
 };
-
-export default getDictionaryFilepath;

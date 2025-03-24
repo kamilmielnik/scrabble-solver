@@ -5,9 +5,9 @@ import fs from 'fs';
 import { CACHE_STALE_THRESHOLD } from '../constants';
 import { Cache } from '../types';
 
-import getDictionaryFilepath from './getDictionaryFilepath';
+import { getDictionaryFilepath } from './getDictionaryFilepath';
 
-class DiskCache implements Cache<Locale, Trie> {
+export class DiskCache implements Cache<Locale, Trie> {
   public async get(locale: Locale): Promise<Trie | undefined> {
     if (!this.has(locale)) {
       return undefined;
@@ -55,5 +55,3 @@ class DiskCache implements Cache<Locale, Trie> {
     await fs.promises.writeFile(filepath, trie.serialize());
   }
 }
-
-export default DiskCache;

@@ -3,11 +3,11 @@ import { Locale } from '@scrabble-solver/types';
 
 import { Cache } from '../types';
 
-import createCacheTimestampComparator from './createCacheTimestampComparator';
-import DiskCache from './DiskCache';
-import MemoryCache from './MemoryCache';
+import { createCacheTimestampComparator } from './createCacheTimestampComparator';
+import { DiskCache } from './DiskCache';
+import { MemoryCache } from './MemoryCache';
 
-class LayeredCache implements Cache<Locale, Trie> {
+export class LayeredCache implements Cache<Locale, Trie> {
   private readonly layers = [new MemoryCache(), new DiskCache()];
 
   public async get(locale: Locale): Promise<Trie | undefined> {
@@ -65,5 +65,3 @@ class LayeredCache implements Cache<Locale, Trie> {
     return cached;
   }
 }
-
-export default LayeredCache;

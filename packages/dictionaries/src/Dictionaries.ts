@@ -7,8 +7,9 @@ import { OUTPUT_DIRECTORY } from './constants';
 import { createAsyncProxy, downloadDictionary, LayeredCache } from './lib';
 import { Cache } from './types';
 
-class Dictionaries {
+export class Dictionaries {
   private readonly cache: Cache<Locale, Trie>;
+
   private readonly downloadDictionaryProxies: Record<Locale, () => Promise<Trie>>;
 
   constructor() {
@@ -54,5 +55,3 @@ class Dictionaries {
     return trie;
   }
 }
-
-export default Dictionaries;
