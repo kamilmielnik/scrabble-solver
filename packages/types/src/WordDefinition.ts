@@ -1,6 +1,6 @@
-import WordDefinitionJson from './WordDefinitionJson';
+import { WordDefinitionJson } from './WordDefinitionJson';
 
-class WordDefinition {
+export class WordDefinition {
   public static fromJson(json: WordDefinitionJson | null): WordDefinition {
     if (!json) {
       return WordDefinition.Null;
@@ -52,5 +52,3 @@ class WordDefinition {
     };
   }
 }
-
-export default WordDefinition;

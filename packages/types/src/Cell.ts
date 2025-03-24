@@ -1,7 +1,7 @@
-import CellJson from './CellJson';
-import Tile from './Tile';
+import { CellJson } from './CellJson';
+import { Tile } from './Tile';
 
-class Cell {
+export class Cell {
   public static fromJson(json: CellJson): Cell {
     return new Cell({
       isEmpty: json.isEmpty,
@@ -60,5 +60,3 @@ class Cell {
     return this.tile.toString();
   }
 }
-
-export default Cell;

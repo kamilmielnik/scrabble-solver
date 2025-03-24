@@ -1,9 +1,7 @@
-import Locale from './Locale';
+import { Locale } from './Locale';
 
-interface Dictionary {
+export interface Dictionary {
   description: string;
   locale: Locale;
   name: string;
 }
-
-export default Dictionary;

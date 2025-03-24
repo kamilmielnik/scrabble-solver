@@ -1,9 +1,7 @@
-import CellJson from './CellJson';
+import { CellJson } from './CellJson';
 
-interface PatternJson {
+export interface PatternJson {
   cells: CellJson[];
   collisions: PatternJson[];
   word: string;
 }
-
-export default PatternJson;

@@ -1,4 +1,4 @@
-interface WordDefinitionJson {
+export interface WordDefinitionJson {
   definitions: string[];
   /**
    * Does the word have an entry in a corresponding online dictionary?
@@ -10,5 +10,3 @@ interface WordDefinitionJson {
   isAllowed: boolean;
   word: string;
 }
-
-export default WordDefinitionJson;
