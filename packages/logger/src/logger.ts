@@ -3,7 +3,7 @@ import { createLogger, format, transports } from 'winston';
 
 import { OUTPUT_DIRECTORY } from './constants';
 
-const logger = createLogger({
+export const logger = createLogger({
   level: 'info',
   format: format.combine(
     format.timestamp({
@@ -28,5 +28,3 @@ const logger = createLogger({
     }),
   ],
 });
-
-export default logger;

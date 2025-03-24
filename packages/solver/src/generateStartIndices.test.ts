@@ -1,6 +1,6 @@
 import { Cell } from '@scrabble-solver/types';
 
-import generateStartIndices from './generateStartIndices';
+import { generateStartIndices } from './generateStartIndices';
 
 describe('generateStartIndices', () => {
   const emptyCell: Cell = { hasTile: () => false } as Cell;

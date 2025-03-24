@@ -3,7 +3,7 @@ import { Trie } from '@kamilmielnik/trie';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Config, FinalPattern, Pattern, Tile } from '@scrabble-solver/types';
 
-const fillPattern = (trie: Trie, config: Config, pattern: Pattern, tiles: Tile[]): Pattern[] => {
+export const fillPattern = (trie: Trie, config: Config, pattern: Pattern, tiles: Tile[]): Pattern[] => {
   if (pattern.getEmptyCellsCount() > tiles.length) {
     return [];
   }
@@ -66,5 +66,3 @@ export const fillPatternRecursive = (
     pattern.cells[indexOfFirstCellWithoutTile].tile = previousTile;
   }
 };
-
-export default fillPattern;

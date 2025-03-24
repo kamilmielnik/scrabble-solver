@@ -1,4 +1,4 @@
-import generateVectors from './generateVectors';
+import { generateVectors } from './generateVectors';
 
 describe('generateVectors', () => {
   it('generates given number of vectors', () => {

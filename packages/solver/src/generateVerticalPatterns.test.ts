@@ -1,7 +1,7 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { Board, Config } from '@scrabble-solver/types';
 
-import generateVerticalPatterns from './generateVerticalPatterns';
+import { generateVerticalPatterns } from './generateVerticalPatterns';
 
 const board = Board.fromStringArray([' t ', 'do ', '   ']);
 

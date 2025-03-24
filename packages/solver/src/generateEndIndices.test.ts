@@ -1,6 +1,6 @@
 import { Cell } from '@scrabble-solver/types';
 
-import generateEndIndices from './generateEndIndices';
+import { generateEndIndices } from './generateEndIndices';
 
 describe('generateEndIndices', () => {
   const emptyCell: Cell = { hasTile: () => false } as Cell;

@@ -1,9 +1,9 @@
 import { Board, Config, Pattern, VerticalPattern } from '@scrabble-solver/types';
 
-import generatePattern from './generatePattern';
-import generateVectors from './generateVectors';
+import { generatePattern } from './generatePattern';
+import { generateVectors } from './generateVectors';
 
-const generateVerticalPatterns = (config: Config, board: Board): Pattern[] => {
+export const generateVerticalPatterns = (config: Config, board: Board): Pattern[] => {
   const getNthVector = (index: number) => board.getColumn(index);
   const vectorsCount = config.boardWidth;
   const verticalVectors = generateVectors({ getNthVector, vectorsCount });
@@ -13,5 +13,3 @@ const generateVerticalPatterns = (config: Config, board: Board): Pattern[] => {
 
   return verticalPatterns;
 };
-
-export default generateVerticalPatterns;

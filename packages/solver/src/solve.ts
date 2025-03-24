@@ -1,13 +1,13 @@
 import { Trie } from '@kamilmielnik/trie';
 import { Board, Config, ResultJson, Tile } from '@scrabble-solver/types';
 
-import areDigraphsValid from './areDigraphsValid';
-import fillPattern from './fillPattern';
-import generatePatterns from './generatePatterns';
-import getPatternScore from './getPatternScore';
-import getUniquePatterns from './getUniquePatterns';
+import { areDigraphsValid } from './areDigraphsValid';
+import { fillPattern } from './fillPattern';
+import { generatePatterns } from './generatePatterns';
+import { getPatternScore } from './getPatternScore';
+import { getUniquePatterns } from './getUniquePatterns';
 
-const solve = (trie: Trie, config: Config, board: Board, tiles: Tile[]): ResultJson[] => {
+export const solve = (trie: Trie, config: Config, board: Board, tiles: Tile[]): ResultJson[] => {
   const patterns = generatePatterns(config, board);
   const filledPatterns = patterns.flatMap((pattern) => fillPattern(trie, config, pattern, tiles));
   const validPatterns =
@@ -24,5 +24,3 @@ const solve = (trie: Trie, config: Config, board: Board, tiles: Tile[]): ResultJ
 
   return results;
 };
-
-export default solve;

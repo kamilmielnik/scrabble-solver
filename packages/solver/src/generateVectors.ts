@@ -5,8 +5,6 @@ interface Parameters {
   vectorsCount: number;
 }
 
-const generateVectors = ({ getNthVector, vectorsCount }: Parameters): Cell[][] => {
+export const generateVectors = ({ getNthVector, vectorsCount }: Parameters): Cell[][] => {
   return Array.from({ length: vectorsCount }, (_, index) => getNthVector(index));
 };
-
-export default generateVectors;

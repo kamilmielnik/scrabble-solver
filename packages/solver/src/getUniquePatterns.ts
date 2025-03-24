@@ -1,8 +1,8 @@
 import { Pattern } from '@scrabble-solver/types';
 
-import getPatternHash from './getPatternHash';
+import { getPatternHash } from './getPatternHash';
 
-const getUniquePatterns = (patterns: Pattern[]): Pattern[] => {
+export const getUniquePatterns = (patterns: Pattern[]): Pattern[] => {
   const hashes = new Set<string>();
   const uniquePatterns: Pattern[] = [];
 
@@ -17,5 +17,3 @@ const getUniquePatterns = (patterns: Pattern[]): Pattern[] => {
 
   return uniquePatterns;
 };
-
-export default getUniquePatterns;
