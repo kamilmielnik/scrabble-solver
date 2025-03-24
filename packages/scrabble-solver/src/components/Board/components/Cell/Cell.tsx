@@ -21,7 +21,7 @@ import {
   useTypedSelector,
 } from 'state';
 
-import Tile from '../../../Tile';
+import { Tile } from '../../../Tile';
 
 import styles from './Cell.module.scss';
 
@@ -38,7 +38,7 @@ interface Props {
   onFocus: (x: number, y: number) => void;
 }
 
-const Cell: FunctionComponent<Props> = ({
+export const Cell: FunctionComponent<Props> = ({
   cell,
   cellBottom,
   cellLeft,
@@ -123,5 +123,3 @@ const Cell: FunctionComponent<Props> = ({
     />
   );
 };
-
-export default Cell;

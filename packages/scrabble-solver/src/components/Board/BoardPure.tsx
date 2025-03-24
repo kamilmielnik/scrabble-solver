@@ -38,7 +38,7 @@ interface Props {
   onPaste: ClipboardEventHandler<HTMLInputElement>;
 }
 
-const BoardPure = forwardRef<HTMLDivElement, Props>(
+const BoardPureBase = forwardRef<HTMLDivElement, Props>(
   (
     {
       className,
@@ -149,4 +149,4 @@ const BoardPure = forwardRef<HTMLDivElement, Props>(
   ),
 );
 
-export default memo(BoardPure);
+export const BoardPure = memo(BoardPureBase);

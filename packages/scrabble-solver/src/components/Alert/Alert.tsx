@@ -18,7 +18,7 @@ const ICON_PER_TYPE: Record<Props['variant'], FunctionComponent<SVGAttributes<SV
   warning: ExclamationTriangleFill,
 };
 
-const Alert: FunctionComponent<Props> = ({ children, className, variant, ...props }) => {
+export const Alert: FunctionComponent<Props> = ({ children, className, variant, ...props }) => {
   const Icon = ICON_PER_TYPE[variant];
 
   return (
@@ -39,5 +39,3 @@ const Alert: FunctionComponent<Props> = ({ children, className, variant, ...prop
     </div>
   );
 };
-
-export default Alert;

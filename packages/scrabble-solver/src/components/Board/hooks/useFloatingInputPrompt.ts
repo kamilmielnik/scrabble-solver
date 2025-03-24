@@ -2,7 +2,7 @@ import { autoUpdate, offset, shift, useFloating } from '@floating-ui/react';
 
 import { BOARD_CELL_ACTIONS_OFFSET } from 'parameters';
 
-const useFloatingInputPrompt = () => {
+export const useFloatingInputPrompt = () => {
   return useFloating({
     middleware: [
       offset({
@@ -15,5 +15,3 @@ const useFloatingInputPrompt = () => {
     whileElementsMounted: autoUpdate,
   });
 };
-
-export default useFloatingInputPrompt;

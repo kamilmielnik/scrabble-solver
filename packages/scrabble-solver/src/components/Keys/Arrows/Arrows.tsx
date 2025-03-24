@@ -3,7 +3,7 @@ import { FunctionComponent } from 'react';
 
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from 'icons';
 
-import Key from '../../Key';
+import { Key } from '../../Key';
 
 import styles from './Arrows.module.scss';
 
@@ -11,7 +11,7 @@ interface Props {
   className?: string;
 }
 
-const Arrows: FunctionComponent<Props> = ({ className }) => (
+export const Arrows: FunctionComponent<Props> = ({ className }) => (
   <div className={classNames(styles.arrows, className)}>
     <Key className={classNames(styles.arrow, styles.left)}>
       <ArrowLeft aria-hidden="true" role="img" />
@@ -27,5 +27,3 @@ const Arrows: FunctionComponent<Props> = ({ className }) => (
     </Key>
   </div>
 );
-
-export default Arrows;

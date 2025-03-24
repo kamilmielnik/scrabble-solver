@@ -11,7 +11,7 @@ interface Props {
   className?: string;
 }
 
-const DictionaryInput: FunctionComponent<Props> = ({ className }) => {
+export const DictionaryInput: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
@@ -42,5 +42,3 @@ const DictionaryInput: FunctionComponent<Props> = ({ className }) => {
     </form>
   );
 };
-
-export default DictionaryInput;

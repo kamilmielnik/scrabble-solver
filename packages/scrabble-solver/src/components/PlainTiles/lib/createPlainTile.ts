@@ -11,11 +11,17 @@ import {
 
 import { CreatePlainTileOptions, PlainTile } from '../types';
 
-import getX from './getX';
-import getY from './getY';
-import randomize from './randomize';
+import { getX } from './getX';
+import { getY } from './getY';
+import { randomize } from './randomize';
 
-const createPlainTile = ({ cellIndex, character, color, rowIndex, showPoints }: CreatePlainTileOptions): PlainTile => {
+export const createPlainTile = ({
+  cellIndex,
+  character,
+  color,
+  rowIndex,
+  showPoints,
+}: CreatePlainTileOptions): PlainTile => {
   const configPoints = getConfig(Game.Literaki, Locale.EN_US).getCharacterPoints(character.toLowerCase());
   const points = showPoints ? configPoints : undefined;
   const defaultColor =
@@ -33,5 +39,3 @@ const createPlainTile = ({ cellIndex, character, color, rowIndex, showPoints }: 
     y: randomize(getY(rowIndex), PLAIN_TILES_TILE_MAX_SCATTER),
   };
 };
-
-export default createPlainTile;

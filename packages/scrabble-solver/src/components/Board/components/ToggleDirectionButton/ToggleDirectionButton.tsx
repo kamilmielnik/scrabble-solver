@@ -6,7 +6,7 @@ import { ArrowDown } from 'icons';
 import { useTranslate } from 'state';
 import { Direction } from 'types';
 
-import Button from '../../../Button';
+import { Button } from '../../../Button';
 
 import styles from './ToggleDirectionButton.module.scss';
 
@@ -15,7 +15,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   direction: Direction;
 }
 
-const ToggleDirectionButton: FunctionComponent<Props> = ({ className, direction, ...props }) => {
+export const ToggleDirectionButton: FunctionComponent<Props> = ({ className, direction, ...props }) => {
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
 
@@ -39,5 +39,3 @@ const ToggleDirectionButton: FunctionComponent<Props> = ({ className, direction,
     />
   );
 };
-
-export default ToggleDirectionButton;

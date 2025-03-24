@@ -8,8 +8,6 @@ interface Props {
   className?: string;
 }
 
-const Key: FunctionComponent<Props> = ({ children, className }) => (
+export const Key: FunctionComponent<Props> = ({ children, className }) => (
   <kbd className={classNames(styles.key, className)}>{children}</kbd>
 );
-
-export default Key;

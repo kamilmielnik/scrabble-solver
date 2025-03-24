@@ -1,4 +1,4 @@
-export { default as Actions } from './Actions';
-export { default as Cell } from './Cell';
-export { default as InputPrompt } from './InputPrompt';
-export { default as ToggleDirectionButton } from './ToggleDirectionButton';
+export { Actions } from './Actions';
+export { Cell } from './Cell';
+export { InputPrompt } from './InputPrompt';
+export { ToggleDirectionButton } from './ToggleDirectionButton';

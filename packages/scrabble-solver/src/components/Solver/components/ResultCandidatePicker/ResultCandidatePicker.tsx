@@ -14,9 +14,9 @@ import {
   useTypedSelector,
 } from 'state';
 
-import Button from '../../../Button';
-import Spinner from '../../../Spinner';
-import InsertButton from '../InsertButton';
+import { Button } from '../../../Button';
+import { Spinner } from '../../../Spinner';
+import { InsertButton } from '../InsertButton';
 
 import styles from './ResultCandidatePicker.module.scss';
 
@@ -24,7 +24,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
   onResultClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onResultClick, ...props }) => {
+export const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onResultClick, ...props }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
@@ -98,5 +98,3 @@ const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onResultCl
     </div>
   );
 };
-
-export default ResultCandidatePicker;

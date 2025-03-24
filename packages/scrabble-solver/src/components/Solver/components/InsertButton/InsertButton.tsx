@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Check } from 'icons';
 import { resultsSlice, selectAreResultsOutdated, selectResultCandidate, useTranslate, useTypedSelector } from 'state';
 
-import Button from '../../../Button';
+import { Button } from '../../../Button';
 
 import styles from './InsertButton.module.scss';
 
@@ -13,7 +13,7 @@ interface Props {
   className?: string;
 }
 
-const InsertButton: FunctionComponent<Props> = ({ className }) => {
+export const InsertButton: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const resultCandidate = useTypedSelector(selectResultCandidate);
@@ -38,5 +38,3 @@ const InsertButton: FunctionComponent<Props> = ({ className }) => {
     />
   );
 };
-
-export default InsertButton;

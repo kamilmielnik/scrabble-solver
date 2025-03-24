@@ -1,1 +1,1 @@
-export { default } from './ResultCandidatePicker';
+export { ResultCandidatePicker } from './ResultCandidatePicker';

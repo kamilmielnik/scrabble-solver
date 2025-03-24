@@ -24,7 +24,7 @@ const BONUS_WORD_2 = 'b2';
 const BONUS_WORD_3 = 'b3';
 const BONUS_WORD_4 = 'b4';
 
-const useBackgroundImage = () => {
+export const useBackgroundImage = () => {
   const { boardHeight, boardWidth, cellSize, coordinatesSize } = useAppLayout();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
@@ -213,5 +213,3 @@ const useBackgroundImage = () => {
   const dataUrl = `data:image/svg+xml;base64,${encodedSvg}`;
   return dataUrl;
 };
-
-export default useBackgroundImage;

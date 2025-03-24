@@ -4,8 +4,8 @@ import { FunctionComponent } from 'react';
 import { useAppLayout } from 'hooks';
 import { selectDictionary, selectDictionaryError, useTranslate, useTypedSelector } from 'state';
 
-import EmptyState from '../EmptyState';
-import Loading from '../Loading';
+import { EmptyState } from '../EmptyState';
+import { Loading } from '../Loading';
 
 import styles from './Dictionary.module.scss';
 
@@ -13,7 +13,7 @@ interface Props {
   className?: string;
 }
 
-const Dictionary: FunctionComponent<Props> = ({ className }) => {
+export const Dictionary: FunctionComponent<Props> = ({ className }) => {
   const translate = useTranslate();
   const { dictionaryResultsHeight } = useAppLayout();
   const { results, isLoading } = useTypedSelector(selectDictionary);
@@ -78,5 +78,3 @@ const Dictionary: FunctionComponent<Props> = ({ className }) => {
     </div>
   );
 };
-
-export default Dictionary;

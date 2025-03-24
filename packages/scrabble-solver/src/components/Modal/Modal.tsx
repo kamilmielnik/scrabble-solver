@@ -6,7 +6,7 @@ import { CrossSquareFill } from 'icons';
 import { TRANSITION_DURATION_LONG } from 'parameters';
 import { useTranslate } from 'state';
 
-import IconButton from '../IconButton';
+import { IconButton } from '../IconButton';
 
 import { Section } from './components';
 import styles from './Modal.module.scss';
@@ -20,7 +20,7 @@ export interface Props {
   onClose: () => void;
 }
 
-const Modal: FunctionComponent<Props> = ({ children, className, footer, isOpen, title, onClose }) => {
+const ModalBase: FunctionComponent<Props> = ({ children, className, footer, isOpen, title, onClose }) => {
   const translate = useTranslate();
   const [shouldReturnFocusAfterClose, setShouldReturnFocusAfterClose] = useState(true);
 
@@ -83,6 +83,6 @@ const Modal: FunctionComponent<Props> = ({ children, className, footer, isOpen, 
   );
 };
 
-export default Object.assign(Modal, {
+export const Modal = Object.assign(ModalBase, {
   Section,
 });

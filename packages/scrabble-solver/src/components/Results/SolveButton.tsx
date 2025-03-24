@@ -11,13 +11,13 @@ import {
   useTypedSelector,
 } from 'state';
 
-import Button from '../Button';
+import { Button } from '../Button';
 
 interface Props {
   className?: string;
 }
 
-const SolveButton: FunctionComponent<Props> = ({ className }) => {
+export const SolveButton: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isLoading = useTypedSelector(selectIsLoading);
@@ -43,5 +43,3 @@ const SolveButton: FunctionComponent<Props> = ({ className }) => {
     </Button>
   );
 };
-
-export default SolveButton;

@@ -9,11 +9,9 @@ interface Props {
   className?: string;
 }
 
-const Spinner: FunctionComponent<Props> = ({ className }) => {
+export const Spinner: FunctionComponent<Props> = ({ className }) => {
   const translate = useTranslate();
   const translation = translate('common.loading');
 
   return <div aria-label={translation} className={classNames(styles.spinner, className)} role="status" />;
 };
-
-export default Spinner;

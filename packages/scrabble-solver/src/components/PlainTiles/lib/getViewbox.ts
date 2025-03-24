@@ -1,6 +1,6 @@
 import { PLAIN_TILES_TILE_MARGIN, PLAIN_TILES_TILE_SIZE } from 'parameters';
 
-const getViewbox = (content: string[][]): string => {
+export const getViewbox = (content: string[][]): string => {
   const longestRowLength = content.reduce((result, words) => {
     const wordsLength = words.reduce((sum, word) => sum + word.length, 0);
     const rowLength = wordsLength + Math.max(words.length - 1, 0);
@@ -15,5 +15,3 @@ const getViewbox = (content: string[][]): string => {
 
   return `0 0 ${width} ${height}`;
 };
-
-export default getViewbox;

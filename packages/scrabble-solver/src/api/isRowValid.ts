@@ -1,8 +1,8 @@
 import { CellJson, Config } from '@scrabble-solver/types';
 
-import isCellValid from './isCellValid';
+import { isCellValid } from './isCellValid';
 
-const isRowValid = (row: CellJson[], config: Config): boolean => {
+export const isRowValid = (row: CellJson[], config: Config): boolean => {
   if (row.length !== config.boardWidth) {
     return false;
   }
@@ -15,5 +15,3 @@ const isRowValid = (row: CellJson[], config: Config): boolean => {
 
   return true;
 };
-
-export default isRowValid;

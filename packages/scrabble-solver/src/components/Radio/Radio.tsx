@@ -13,7 +13,7 @@ interface Props {
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-const Radio: FunctionComponent<Props> = ({ checked, children, className, disabled, name, value, onChange }) => (
+export const Radio: FunctionComponent<Props> = ({ checked, children, className, disabled, name, value, onChange }) => (
   <label
     className={classNames(styles.radio, className, {
       [styles.checked]: checked,
@@ -37,5 +37,3 @@ const Radio: FunctionComponent<Props> = ({ checked, children, className, disable
     <div className={styles.content}>{children}</div>
   </label>
 );
-
-export default Radio;

@@ -1,2 +1,2 @@
-export { default as getBonusColor } from './getBonusColor';
-export { default as getPositionInGrid } from './getPositionInGrid';
+export { getBonusColor } from './getBonusColor';
+export { getPositionInGrid } from './getPositionInGrid';

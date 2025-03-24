@@ -5,10 +5,10 @@ import { GeoAlt, OneTwoThree, Square, SquareA, SquareB, Squares, Words } from 'i
 import { RESULTS_COLUMN_WIDTH } from 'parameters';
 import { ResultColumnId } from 'types';
 
-import HeaderButton from './HeaderButton';
+import { HeaderButton } from './HeaderButton';
 import styles from './Results.module.scss';
 
-const Results: FunctionComponent = () => {
+export const Header: FunctionComponent = () => {
   const { resultWordWidth } = useAppLayout();
   const columns = useColumns();
 
@@ -95,5 +95,3 @@ const Results: FunctionComponent = () => {
     </div>
   );
 };
-
-export default Results;

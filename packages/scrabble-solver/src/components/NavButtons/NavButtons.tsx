@@ -6,7 +6,7 @@ import { CardChecklist, Cog, Eraser, Github, KeyboardFill, List, Sack } from 'ic
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { selectHasInvalidWords, selectHasOverusedTiles, useTranslate, useTypedSelector } from 'state';
 
-import IconButton from '../IconButton';
+import { IconButton } from '../IconButton';
 
 import styles from './NavButtons.module.scss';
 
@@ -19,7 +19,7 @@ interface Props {
   onShowWords: () => void;
 }
 
-const NavButtons: FunctionComponent<Props> = ({
+const NavButtonsBase: FunctionComponent<Props> = ({
   onClear,
   onShowKeyMap,
   onShowMenu,
@@ -136,4 +136,4 @@ const NavButtons: FunctionComponent<Props> = ({
   );
 };
 
-export default memo(NavButtons);
+export const NavButtons = memo(NavButtonsBase);

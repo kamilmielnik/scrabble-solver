@@ -9,8 +9,8 @@ import { findCell, isMac } from 'lib';
 import { selectCellFilter, selectInputMode, selectResultCandidateCells, useTranslate, useTypedSelector } from 'state';
 import { Direction } from 'types';
 
-import Button from '../../../Button';
-import ToggleDirectionButton from '../ToggleDirectionButton';
+import { Button } from '../../../Button';
+import { ToggleDirectionButton } from '../ToggleDirectionButton';
 
 import styles from './Actions.module.scss';
 import { getNextCellFilter } from './lib';
@@ -24,7 +24,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
   onToggleFilterCell: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Actions = forwardRef<HTMLDivElement, Props>(
+export const Actions = forwardRef<HTMLDivElement, Props>(
   (
     { cell, className, direction, onDirectionToggle, onEnterWord, onToggleBlank, onToggleFilterCell, ...props },
     ref,
@@ -98,5 +98,3 @@ const Actions = forwardRef<HTMLDivElement, Props>(
     );
   },
 );
-
-export default Actions;

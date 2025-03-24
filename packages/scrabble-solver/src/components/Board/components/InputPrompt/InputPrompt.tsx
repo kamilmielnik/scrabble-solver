@@ -5,8 +5,8 @@ import { Check } from 'icons';
 import { useTranslate } from 'state';
 import { Direction } from 'types';
 
-import Button from '../../../Button';
-import ToggleDirectionButton from '../ToggleDirectionButton';
+import { Button } from '../../../Button';
+import { ToggleDirectionButton } from '../ToggleDirectionButton';
 
 import styles from './InputPrompt.module.scss';
 
@@ -18,7 +18,7 @@ interface Props extends Omit<HTMLProps<HTMLFormElement>, 'onSubmit'> {
   onSubmit: (input: string) => void;
 }
 
-const InputPrompt = forwardRef<HTMLFormElement, Props>(
+export const InputPrompt = forwardRef<HTMLFormElement, Props>(
   ({ className, direction, initialValue, onDirectionToggle, onSubmit, ...props }, ref) => {
     const translate = useTranslate();
     const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
@@ -78,5 +78,3 @@ const InputPrompt = forwardRef<HTMLFormElement, Props>(
     );
   },
 );
-
-export default InputPrompt;

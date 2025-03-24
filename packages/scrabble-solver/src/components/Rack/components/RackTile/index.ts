@@ -1,1 +1,1 @@
-export { default } from './RackTile';
+export { RackTile } from './RackTile';

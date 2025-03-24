@@ -4,7 +4,7 @@ import { ButtonHTMLAttributes, FunctionComponent, MouseEventHandler, SVGAttribut
 import { Tooltip } from '../Tooltip';
 
 import styles from './IconButton.module.scss';
-import Link from './Link';
+import { Link } from './Link';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   'aria-label': string;
@@ -14,7 +14,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-const IconButton: FunctionComponent<Props> = ({ className, Icon, tooltip, ...props }) => {
+const IconButtonBase: FunctionComponent<Props> = ({ className, Icon, tooltip, ...props }) => {
   return (
     <Tooltip tooltip={tooltip}>
       <button className={classNames(styles.iconButton, className)} type="button" {...props}>
@@ -26,6 +26,6 @@ const IconButton: FunctionComponent<Props> = ({ className, Icon, tooltip, ...pro
   );
 };
 
-export default Object.assign(IconButton, {
+export const IconButton = Object.assign(IconButtonBase, {
   Link,
 });

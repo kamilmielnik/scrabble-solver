@@ -1,8 +1,8 @@
 import { BoardJson, CellJson, Config } from '@scrabble-solver/types';
 
-import isRowValid from './isRowValid';
+import { isRowValid } from './isRowValid';
 
-const isBoardValid = (board: BoardJson, config: Config): boolean => {
+export const isBoardValid = (board: BoardJson, config: Config): boolean => {
   if (board.length !== config.boardHeight) {
     return false;
   }
@@ -39,5 +39,3 @@ const areTwoCharacterTilesValid = (board: CellJson[][], config: Config): boolean
 
   return true;
 };
-
-export default isBoardValid;

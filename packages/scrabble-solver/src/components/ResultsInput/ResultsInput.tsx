@@ -11,7 +11,7 @@ interface Props {
   className?: string;
 }
 
-const ResultsInput: FunctionComponent<Props> = ({ className }) => {
+export const ResultsInput: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const value = useTypedSelector(selectResultsQuery);
@@ -43,5 +43,3 @@ const ResultsInput: FunctionComponent<Props> = ({ className }) => {
     </form>
   );
 };
-
-export default ResultsInput;
