@@ -1,6 +1,8 @@
 import { Board } from '@scrabble-solver/types';
 import { registerRoute } from 'workbox-routing';
 
+import { VerifyRequestPayload } from 'types';
+
 import { revalidateDictionary } from './dictionaries';
 import { getTrie } from './getTrie';
 
@@ -12,11 +14,13 @@ export const routeVerifyRequests = () => {
   registerRoute(
     ({ url }) => url.origin === location.origin && url.pathname === '/api/verify',
     async ({ request }) => {
-      const { board: boardJson, locale } = await request.clone().json();
+      const requestJson: VerifyRequestPayload = await request.clone().json();
+      const { board: boardJson, locale } = requestJson;
       const trie = await getTrie(locale);
 
       if (!trie) {
         const response = await fetch(request);
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         revalidateDictionary(locale);
         return response;
       }

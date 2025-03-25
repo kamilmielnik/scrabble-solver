@@ -4,7 +4,7 @@ import { BREAKPOINTS } from 'parameters';
 
 import { useMedia } from './useMedia';
 
-export const useMediaQuery = (query: string | string[], defaultState?: boolean | undefined): boolean => {
+export const useMediaQuery = (query: string | string[], defaultState?: boolean): boolean => {
   const mediaQuery = buildMediaQuery(BREAKPOINTS, query);
   return useMedia(mediaQuery, defaultState);
 };

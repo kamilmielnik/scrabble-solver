@@ -5,6 +5,8 @@ import { solve } from '@scrabble-solver/solver';
 import { Board, Tile } from '@scrabble-solver/types';
 import { registerRoute } from 'workbox-routing';
 
+import { SolveRequestPayload } from 'types';
+
 import { average } from './average';
 import { revalidateDictionary } from './dictionaries';
 import { getTrie } from './getTrie';
@@ -33,14 +35,18 @@ export const routeSolveRequests = () => {
   registerRoute(
     ({ url }) => url.origin === location.origin && url.pathname === '/api/solve',
     async ({ request }) => {
-      const { board, characters, game, locale } = await request.clone().json();
+      const requestJson: SolveRequestPayload = await request.clone().json();
+      const { board, characters, game, locale } = requestJson;
 
-      const solveLocal = async (trie: Trie) => {
+      const solveLocal = async (trie: Trie): Promise<Response> => {
         const config = getConfig(game, locale);
         const tiles = characters.map((character: string) => new Tile({ character, isBlank: character === BLANK }));
-        const resultsJson = solve(trie, config, Board.fromJson(board), tiles);
-        const json = JSON.stringify(resultsJson);
-        return new Response(json, { headers });
+
+        return new Promise((resolve) => {
+          const resultsJson = solve(trie, config, Board.fromJson(board), tiles);
+          const responseJson = JSON.stringify(resultsJson);
+          resolve(new Response(responseJson, { headers }));
+        });
       };
 
       const solveServer = () => fetch(request);
@@ -51,7 +57,7 @@ export const routeSolveRequests = () => {
         const response = await Promise.race([
           (async () => {
             const start = Date.now();
-            const result = await solveLocal(trie);
+            const result = solveLocal(trie);
             localDurations.push(Date.now() - start);
             return result;
           })(),
@@ -63,12 +69,14 @@ export const routeSolveRequests = () => {
           })(),
         ]);
 
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         revalidateDictionary(locale);
         return response;
       }
 
       const handleSolve = trie && !isSlowDevice() ? () => solveLocal(trie) : () => solveServer();
       const response = await handleSolve();
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       revalidateDictionary(locale);
       return response;
     },

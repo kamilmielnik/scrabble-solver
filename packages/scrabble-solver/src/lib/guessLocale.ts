@@ -6,7 +6,7 @@ export const guessLocale = (): Locale => {
   }
 
   const locales = Object.values(Locale);
-  const exactMatch = locales.find((locale) => globalThis.navigator.language === locale);
+  const exactMatch = locales.find((locale) => globalThis.navigator.language === String(locale));
 
   if (exactMatch) {
     return exactMatch;

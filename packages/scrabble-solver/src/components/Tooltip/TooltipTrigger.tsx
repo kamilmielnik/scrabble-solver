@@ -1,6 +1,6 @@
 import { useMergeRefs } from '@floating-ui/react';
 import { isObject } from '@scrabble-solver/types';
-import { HTMLProps, cloneElement, forwardRef, isValidElement } from 'react';
+import { HTMLProps, ReactElement, RefObject, cloneElement, forwardRef, isValidElement } from 'react';
 
 import { useTooltipContext } from './context';
 
@@ -8,8 +8,10 @@ type Props = HTMLProps<HTMLElement>;
 
 export const TooltipTrigger = forwardRef<HTMLElement, Props>(({ children, ...props }, ref) => {
   const state = useTooltipContext();
-  const childrenElement = children as any; // eslint-disable-line @typescript-eslint/no-explicit-any
-  const finalRef = useMergeRefs([state.refs.setReference, ref, childrenElement.ref]);
+  const childrenElement = children as ReactElement<{
+    ref: RefObject<HTMLElement>;
+  }>;
+  const finalRef = useMergeRefs([state.refs.setReference, ref, childrenElement.props.ref]);
 
   if (!isValidElement(children)) {
     throw new Error("TooltipTrigger's children are not a valid element");

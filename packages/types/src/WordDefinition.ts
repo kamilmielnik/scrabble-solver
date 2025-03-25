@@ -1,7 +1,7 @@
 import { WordDefinitionJson } from './WordDefinitionJson';
 
 export class WordDefinition {
-  public static fromJson(json: WordDefinitionJson | null): WordDefinition {
+  public static fromJson = (json: WordDefinitionJson | null): WordDefinition => {
     if (!json) {
       return WordDefinition.Null;
     }
@@ -12,7 +12,7 @@ export class WordDefinition {
       isAllowed: json.isAllowed,
       word: json.word,
     });
-  }
+  };
 
   public static readonly Null: WordDefinition = Object.freeze({
     definitions: [],

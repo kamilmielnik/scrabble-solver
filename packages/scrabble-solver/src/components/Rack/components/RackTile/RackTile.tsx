@@ -102,7 +102,7 @@ export const RackTile: FunctionComponent<Props> = ({
           const twoTilesCharacter = config.getTwoCharacterTileByPrefix(event.key);
 
           if (twoTilesCharacter) {
-            dispatch(rackSlice.actions.changeCharacter({ character: twoTilesCharacter!, index }));
+            dispatch(rackSlice.actions.changeCharacter({ character: twoTilesCharacter, index }));
           }
         }
 

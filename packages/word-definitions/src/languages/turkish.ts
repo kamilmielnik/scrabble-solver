@@ -13,9 +13,9 @@ export const crawl = (word: string): Promise<string> => {
 };
 
 export const parse = (json: string): ParsingResult => {
-  const response = JSON.parse(json);
+  const response = JSON.parse(json) as [{ anlamlarListe: [{ anlam: string }] }] | { error?: unknown };
 
-  if (response.error) {
+  if (!Array.isArray(response) || ('error' in response && response.error)) {
     return {
       definitions: [],
       exists: false,
@@ -23,7 +23,7 @@ export const parse = (json: string): ParsingResult => {
   }
 
   const [wordInfo] = response;
-  const definitions = wordInfo.anlamlarListe.map((entry: { anlam: string }) => entry.anlam.replace('►', '').trim());
+  const definitions = wordInfo.anlamlarListe.map((entry) => entry.anlam.replace('►', '').trim());
 
   return {
     definitions,

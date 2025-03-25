@@ -1,26 +1,26 @@
-interface AnyFunction {
-  (...parameters: any[]): any | Promise<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
+interface AnyFunction<Args extends unknown[], Result> {
+  (...parameters: Args): Result;
 }
 
-interface AnyCachedFunction<T extends AnyFunction> extends AnyFunction {
-  hasCache: (...parameters: Parameters<T>) => boolean;
+interface Entry<Args extends unknown[], Result> {
+  parameters: Args;
+  result: Result;
 }
 
-interface Entry<T extends AnyFunction> {
-  parameters: Parameters<T>;
-  result: ReturnType<T>;
-}
+export const memoize = <Args extends unknown[], Result>(
+  fn: AnyFunction<Args, Result>,
+): AnyFunction<Args, Result> & {
+  hasCache: (...parameters: Args) => boolean;
+} => {
+  const cache: Entry<Args, Result>[] = [];
 
-export const memoize = <T extends AnyFunction>(fn: T): AnyCachedFunction<T> => {
-  const cache: Entry<T>[] = [];
+  const hasCache = (...parameters: Args): boolean => Boolean(readCache(parameters));
 
-  const hasCache = (...parameters: Parameters<T>): boolean => Boolean(readCache(parameters));
-
-  const readCache = (parameters: Parameters<T>): ReturnType<T> | undefined => {
+  const readCache = (parameters: Args): Result | undefined => {
     return cache.find((entry) => parametersEqual(entry.parameters, parameters))?.result;
   };
 
-  const removeCache = (parameters: Parameters<T>): void => {
+  const removeCache = (parameters: Args): void => {
     const index = cache.findIndex((entry) => parametersEqual(entry.parameters, parameters));
 
     if (index >= 0) {
@@ -28,11 +28,11 @@ export const memoize = <T extends AnyFunction>(fn: T): AnyCachedFunction<T> => {
     }
   };
 
-  const writeCache = (parameters: Parameters<T>, result: ReturnType<T>): void => {
+  const writeCache = (parameters: Args, result: Result): void => {
     cache.push({ parameters, result });
   };
 
-  const memoized = (...parameters: Parameters<T>): ReturnType<T> => {
+  const memoized = (...parameters: Args): Result => {
     const cached = readCache(parameters);
 
     if (cached) {
@@ -55,10 +55,10 @@ export const memoize = <T extends AnyFunction>(fn: T): AnyCachedFunction<T> => {
   return Object.assign(memoized, { hasCache });
 };
 
-const parametersEqual = <T extends AnyFunction>(a: Parameters<T>, b: Parameters<T>): boolean => {
+const parametersEqual = <Args extends unknown[]>(a: Args, b: Args): boolean => {
   if (a.length !== b.length) {
     return false;
   }
 
-  return a.every((parameter: Parameters<T>[typeof index], index: number) => parameter === b[index]);
+  return a.every((parameter: Args[typeof index], index: number) => parameter === b[index]);
 };

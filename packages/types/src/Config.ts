@@ -12,9 +12,9 @@ import { TileConfig } from './TileConfig';
 import { WordBonus } from './WordBonus';
 
 export class Config {
-  public static fromJson(json: ConfigJson): Config {
+  public static fromJson = (json: ConfigJson): Config => {
     return new Config(json);
-  }
+  };
 
   public readonly bonuses: Bonus[];
 

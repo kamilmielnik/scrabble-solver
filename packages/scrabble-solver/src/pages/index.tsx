@@ -1,3 +1,4 @@
+import { isObject } from '@scrabble-solver/types';
 import fs from 'fs';
 import path from 'path';
 import { FunctionComponent, useCallback, useState } from 'react';
@@ -62,6 +63,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
   useEffectOnce(() => {
     if (process.env.NODE_ENV === 'production') {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       registerServiceWorker();
     }
 
@@ -129,6 +131,11 @@ const readVersion = async (): Promise<string> => {
   const packageJsonFilepath = path.resolve(process.cwd(), 'package.json');
   const data = await fs.promises.readFile(packageJsonFilepath, 'utf-8');
   const packageJson = JSON.parse(data);
+
+  if (!isObject(packageJson) || !('version' in packageJson) || typeof packageJson.version !== 'string') {
+    throw new Error('Invalid package.json');
+  }
+
   return `v${packageJson.version}`;
 };
 

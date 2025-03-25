@@ -1,7 +1,7 @@
 import { WordDefinition } from '@scrabble-solver/types';
 
 export interface DictionaryState {
-  error: unknown | undefined;
+  error: unknown;
   input: string;
   isLoading: boolean;
   results: WordDefinition[];

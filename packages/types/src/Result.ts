@@ -7,14 +7,14 @@ import { Tile } from './Tile';
 type Collision = Cell[];
 
 export class Result {
-  public static fromJson(json: ResultJson): Result {
+  public static fromJson = (json: ResultJson): Result => {
     return new Result({
       id: json.id,
       cells: json.cells.map(Cell.fromJson),
       collisions: json.collisions.map((collision) => collision.map(Cell.fromJson)),
       points: json.points,
     });
-  }
+  };
 
   public readonly blanksCount: number;
 

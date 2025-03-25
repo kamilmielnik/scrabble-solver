@@ -8,10 +8,12 @@ import { routeVerifyRequests } from './routeVerifyRequests';
 declare const self: ServiceWorkerGlobalScope;
 
 self.addEventListener('install', () => {
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
   self.skipWaiting();
 });
 
 self.addEventListener('activate', () => {
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
   self.clients.claim();
 });
 

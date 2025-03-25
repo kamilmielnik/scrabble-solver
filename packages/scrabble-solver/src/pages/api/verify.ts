@@ -1,7 +1,7 @@
 import { getConfig, hasConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import { logger } from '@scrabble-solver/logger';
-import { Board, Config, Locale, isBoardJson, isGame, isLocale } from '@scrabble-solver/types';
+import { Board, Config, Game, Locale, isBoardJson, isGame, isLocale } from '@scrabble-solver/types';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { getServerLoggingData, isBoardValid } from 'api';
@@ -9,6 +9,7 @@ import { getServerLoggingData, isBoardValid } from 'api';
 interface RequestData {
   board: Board;
   config: Config;
+  game: Game;
   locale: Locale;
 }
 
@@ -16,7 +17,7 @@ const verify = async (request: NextApiRequest, response: NextApiResponse): Promi
   const meta = getServerLoggingData(request);
 
   try {
-    const { board, locale } = parseRequest(request);
+    const { board, game, locale } = parseRequest(request);
 
     logger.info('verify - request', {
       meta,
@@ -24,7 +25,7 @@ const verify = async (request: NextApiRequest, response: NextApiResponse): Promi
         board: board.toString(),
         boardBlanksCount: board.getBlanksCount(),
         boardTilesCount: board.getTilesCount(),
-        game: request.body.game,
+        game,
         locale,
       },
     });
@@ -67,6 +68,7 @@ const parseRequest = (request: NextApiRequest): RequestData => {
   return {
     board,
     config,
+    game,
     locale,
   };
 };

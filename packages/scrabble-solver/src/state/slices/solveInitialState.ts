@@ -3,7 +3,7 @@ import { Board } from '@scrabble-solver/types';
 import { boardInitialState } from './boardInitialState';
 
 export interface SolveState {
-  error: unknown | undefined;
+  error: unknown;
   isLoading: boolean;
   lastSolvedParameters: {
     board: Board;

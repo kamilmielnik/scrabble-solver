@@ -2,14 +2,14 @@ import { CellJson } from './CellJson';
 import { Tile } from './Tile';
 
 export class Cell {
-  public static fromJson(json: CellJson): Cell {
+  public static fromJson = (json: CellJson): Cell => {
     return new Cell({
       isEmpty: json.isEmpty,
       tile: Tile.fromJson(json.tile),
       x: json.x,
       y: json.y,
     });
-  }
+  };
 
   public readonly isEmpty: boolean;
 

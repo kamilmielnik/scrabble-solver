@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import { getServerLoggingData } from 'api';
 
-const visit = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
+const visit = (request: NextApiRequest, response: NextApiResponse): void => {
   const meta = getServerLoggingData(request);
 
   try {

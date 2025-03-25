@@ -120,7 +120,7 @@ export const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const handleFocus = useCallback(() => {
     setHasFocus(true);
     floatingInputPrompt.refs.setPositionReference(ref.current);
-    const characters: string[] = rack.filter((character) => character !== null) as string[];
+    const characters = rack.filter((character) => character !== null);
     const uppercasedDigraphs = characters.map((character) => {
       return character.length > 1 ? character.toLocaleUpperCase(locale) : character;
     });

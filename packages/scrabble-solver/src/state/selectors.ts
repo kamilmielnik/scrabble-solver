@@ -185,10 +185,7 @@ export const selectTranslation = createSelector(
 
 export const selectRack = selectRackRoot;
 
-export const selectCharacters = createSelector(
-  selectRackRoot,
-  (rack): string[] => rack.filter((tile) => tile !== null) as string[],
-);
+export const selectCharacters = createSelector(selectRackRoot, (rack) => rack.filter((tile) => tile !== null));
 
 export const selectLastSolvedParameters = createSelector([selectSolveRoot], (solve) => solve.lastSolvedParameters);
 

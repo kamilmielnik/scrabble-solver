@@ -1,3 +1,4 @@
+import { isError } from '@scrabble-solver/types';
 import { http, https } from 'follow-redirects';
 import { RequestOptions } from 'http';
 
@@ -20,7 +21,7 @@ export const request = ({ protocol, ...options }: Options): Promise<string> => {
           try {
             resolve(data);
           } catch (error) {
-            reject(error);
+            reject(isError(error) ? error : new Error(String(error)));
           }
         });
       })

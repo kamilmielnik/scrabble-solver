@@ -10,7 +10,7 @@ import cypress from 'eslint-plugin-cypress';
 import _import from 'eslint-plugin-import';
 import mocha from 'eslint-plugin-mocha';
 import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
+import { configs as reactHooksConfigs } from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -41,11 +41,11 @@ export default defineConfig([
     'packages/logger/scripts/stats.js',
     'packages/scrabble-solver/public/service-worker.js',
   ]),
-  reactHooks.configs['recommended-latest'],
+  reactHooksConfigs['recommended-latest'],
   {
     extends: compat.extends(
       'eslint:recommended',
-      'plugin:@typescript-eslint/recommended',
+      'plugin:@typescript-eslint/recommended-type-checked',
       'prettier',
       'plugin:cypress/recommended',
     ),
@@ -81,6 +81,8 @@ export default defineConfig([
       sourceType: 'commonjs',
 
       parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
         ecmaFeatures: {
           impliedStrict: true,
           jsx: true,
@@ -662,9 +664,13 @@ export default defineConfig([
     },
 
     rules: {
-      'react/prop-types': 'off',
       'no-unused-vars': 'off',
-
+      'no-shadow': 'off',
+      'react/prop-types': 'off',
+      '@typescript-eslint/no-deprecated': 'error',
+      '@typescript-eslint/no-shadow': 'error',
+      '@typescript-eslint/no-unsafe-assignment': 'off', // incompatible with next-image typing for *.svg files
+      '@typescript-eslint/no-unsafe-return': 'off', // gives false positives
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
@@ -674,9 +680,6 @@ export default defineConfig([
           varsIgnorePattern: '^_',
         },
       ],
-
-      'no-shadow': 'off',
-      '@typescript-eslint/no-shadow': ['error'],
     },
   },
   {

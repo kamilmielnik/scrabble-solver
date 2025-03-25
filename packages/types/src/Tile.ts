@@ -3,7 +3,7 @@ import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { TileJson } from './TileJson';
 
 export class Tile {
-  public static fromJson(json: TileJson | null): Tile {
+  public static fromJson = (json: TileJson | null): Tile => {
     if (!json) {
       return Tile.Null;
     }
@@ -12,7 +12,7 @@ export class Tile {
       character: json.character,
       isBlank: json.isBlank,
     });
-  }
+  };
 
   public static readonly Null: Tile = Object.freeze({
     character: EMPTY_CELL,

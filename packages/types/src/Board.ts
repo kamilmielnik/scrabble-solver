@@ -5,15 +5,18 @@ import { Cell } from './Cell';
 import { Tile } from './Tile';
 
 export class Board {
-  public static create(width: number, height: number): Board {
-    return Board.fromStringArray(Array(height).fill(Array(width).fill(' ').join('')));
-  }
+  public static create = (width: number, height: number): Board => {
+    const rows = Array(height);
+    const emptyRow = Array(width).fill(' ').join('');
+    const emptyRows: string[] = rows.fill(emptyRow);
+    return Board.fromStringArray(emptyRows);
+  };
 
-  public static fromJson(json: BoardJson): Board {
+  public static fromJson = (json: BoardJson): Board => {
     return new Board({
       rows: json.map((row) => row.map(Cell.fromJson)),
     });
-  }
+  };
 
   public static fromStringArray(stringArray: string[]): Board {
     return new Board({

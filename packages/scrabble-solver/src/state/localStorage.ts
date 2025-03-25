@@ -1,4 +1,4 @@
-import { Board, Game, Locale, ShowCoordinates } from '@scrabble-solver/types';
+import { Board, BoardJson, Game, Locale, ShowCoordinates } from '@scrabble-solver/types';
 import store2 from 'store2';
 
 import { AutoGroupTiles, InputMode, Rack } from 'types';
@@ -15,7 +15,7 @@ const store = store2.namespace('scrabble-solver');
 
 export const localStorage = {
   getAutoGroupTiles(): AutoGroupTiles | undefined {
-    return store.get(AUTO_GROUP_TILES);
+    return store.get(AUTO_GROUP_TILES) as AutoGroupTiles | undefined;
   },
 
   setAutoGroupTiles(autoGroupTiles: AutoGroupTiles | undefined): void {
@@ -23,8 +23,8 @@ export const localStorage = {
   },
 
   getBoard(): Board | undefined {
-    const serialized = store.get(BOARD);
-    return serialized ? Board.fromJson(JSON.parse(serialized)) : serialized;
+    const serialized = store.get(BOARD) as string | undefined;
+    return serialized ? Board.fromJson(JSON.parse(serialized) as BoardJson) : undefined;
   },
 
   setBoard(board: Board | undefined): void {
@@ -33,7 +33,7 @@ export const localStorage = {
   },
 
   getGame(): Game | undefined {
-    return store.get(GAME_ID);
+    return store.get(GAME_ID) as Game | undefined;
   },
 
   setGame(game: Game | undefined): void {
@@ -41,7 +41,7 @@ export const localStorage = {
   },
 
   getInputMode(): InputMode | undefined {
-    return store.get(INPUT_MODE);
+    return store.get(INPUT_MODE) as InputMode | undefined;
   },
 
   setInputMode(inputMode: InputMode | undefined): void {
@@ -49,7 +49,7 @@ export const localStorage = {
   },
 
   getLocale(): Locale | undefined {
-    return store.get(LOCALE);
+    return store.get(LOCALE) as Locale | undefined;
   },
 
   setLocale(locale: Locale | undefined): void {
@@ -57,7 +57,7 @@ export const localStorage = {
   },
 
   getRack(): Rack | undefined {
-    return store.get(RACK);
+    return store.get(RACK) as Rack | undefined;
   },
 
   setRack(rack: Rack | undefined): void {
@@ -65,7 +65,7 @@ export const localStorage = {
   },
 
   getShowCoordinates(): ShowCoordinates | undefined {
-    return store.get(SHOW_COORDINATES);
+    return store.get(SHOW_COORDINATES) as ShowCoordinates | undefined;
   },
 
   setShowCoordinates(showCoordinates: ShowCoordinates | undefined): void {

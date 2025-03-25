@@ -21,7 +21,7 @@ export const getWordList = async (): Promise<string[]> => {
 
 const fetchZipUrl = async (url: string): Promise<string> => {
   const html = await downloadHtml(url);
-  const filename = await parseZipContainingPage(html);
+  const filename = parseZipContainingPage(html);
   const { href } = new URL(filename, url);
   return href;
 };
