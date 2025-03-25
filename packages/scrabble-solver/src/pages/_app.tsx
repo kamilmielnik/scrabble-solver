@@ -16,6 +16,7 @@ const DESCRIPTION =
 const KEYWORDS = [
   'Scrabble Solver',
   'Scrabble',
+  'Scrabble Duel',
   'Solver',
   'Super Scrabble',
   'Kelimelik',
