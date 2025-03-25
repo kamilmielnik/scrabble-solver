@@ -8,7 +8,6 @@ import {
   FunctionComponent,
   KeyboardEventHandler,
   MouseEventHandler,
-  MutableRefObject,
   RefObject,
   TouchEventHandler,
   useCallback,
@@ -33,7 +32,7 @@ import { Tile } from '../../../Tile';
 import styles from './RackTile.module.scss';
 
 interface Props {
-  activeIndexRef: MutableRefObject<number | undefined>;
+  activeIndexRef: RefObject<number | undefined>;
   character: string | null;
   className?: string;
   index: number;
