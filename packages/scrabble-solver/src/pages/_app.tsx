@@ -11,7 +11,7 @@ import 'styles/global.scss';
 
 const DESCRIPTION =
   // eslint-disable-next-line max-len
-  'Scrabble Solver 2 - Free and open-source analysis tool for Scrabble, Super Scrabble & Literaki. Quickly find top scoring words using given letters and board state. Available in English, French, German, Polish & Spanish.';
+  'Scrabble Solver 2 - Free and open-source analysis tool for Scrabble, Scrabble Duel, Super Scrabble & Literaki. Quickly find top scoring words using given letters and board state. Available in English, French, German, Persian, Polish, Romanian, Spanish, and Turkish.';
 
 const KEYWORDS = [
   'Scrabble Solver',
