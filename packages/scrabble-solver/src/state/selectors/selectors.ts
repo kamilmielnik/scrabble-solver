@@ -1,79 +1,34 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { BLANK } from '@scrabble-solver/constants';
-import { Cell, Config, isError, Tile } from '@scrabble-solver/types';
+import { Cell, isError } from '@scrabble-solver/types';
 
 import { i18n, LOCALE_FEATURES } from 'i18n';
 import { findCell, getRemainingTiles, getRemainingTilesGroups, unorderedArraysEqual } from 'lib';
-import { Point, ResultColumnId, Translations } from 'types';
+import { ResultColumnId, TranslationKey } from 'types';
 
 import { RootState } from '../types';
 
 import { selectCharacters } from './rack';
 import { selectResultCandidateCells } from './results';
-import { selectBoard, selectCellFilters } from './root';
+import { selectBoard } from './root';
 import { selectConfig, selectLocale, selectShowCoordinates } from './settings';
 
-const selectCell = (_: unknown, cell: Cell): Cell => cell;
-
-const selectPoint = (_: unknown, point: Point): Point => point;
-
-const selectCharacter = (_: unknown, character: string | null): string | null => character;
-
-const selectTile = (_: unknown, tile: Tile | null): Tile | null => tile;
-
 const selectSolveRoot = (state: RootState): RootState['solve'] => state.solve;
-
-export const selectCellFilter = createSelector([selectCellFilters, selectPoint], (cellFilters, { x, y }) => {
-  return cellFilters.find((cell) => cell.x === x && cell.y === y);
-});
-
-export const selectCellIsValid = createSelector([selectConfig, selectCell], (config, cell) => {
-  if (!cell.hasTile()) {
-    return true;
-  }
-
-  return config.tiles.some((tile) => tile.character === cell.tile.character);
-});
 
 export const selectRowsWithCandidate = createSelector([selectBoard, selectResultCandidateCells], (board, cells) => {
   return board.rows.map((row: Cell[], y: number) => row.map((cell: Cell, x: number) => findCell(cells, x, y) || cell));
 });
 
-export const selectCellBonus = createSelector([selectConfig, selectCell], (config: Config, cell: Cell) => {
-  return config.getCellBonus(cell);
-});
-
-export const selectCharacterPoints = createSelector(
-  [selectConfig, selectCharacter],
-  (config: Config, character: string | null) => {
-    return config.getCharacterPoints(character);
-  },
-);
-
-export const selectCharacterIsValid = createSelector(
-  [selectConfig, selectCharacter],
-  (config: Config, character: string | null) => {
-    if (character === null || character === BLANK) {
-      return true;
-    }
-
-    return config.tiles.some((tile) => tile.character === character);
-  },
-);
-
-export const selectTilePoints = createSelector([selectConfig, selectTile], (config: Config, tile: Tile | null) => {
-  return config.getTilePoints(tile);
-});
-
 export const selectTranslations = createSelector([selectLocale], (locale) => i18n[locale]);
 
+const selectTranslationKey = (_: unknown, key: TranslationKey): TranslationKey => key;
+
 export const selectTranslation = createSelector(
-  [selectTranslations, selectLocale, (_: unknown, id: keyof Translations) => id],
-  (translations, locale, id): string => {
-    const translation = translations[id];
+  [selectTranslations, selectLocale, selectTranslationKey],
+  (translations, locale, key): string => {
+    const translation = translations[key];
 
     if (typeof translation === 'undefined') {
-      throw new Error(`Untranslated key "${id}" in locale "${locale}"`);
+      throw new Error(`Untranslated key "${key}" in locale "${locale}"`);
     }
 
     return translation;

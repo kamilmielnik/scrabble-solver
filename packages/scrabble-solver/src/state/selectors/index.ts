@@ -1,3 +1,4 @@
+export * from './cellFilters';
 export * from './dictionary';
 export * from './rack';
 export * from './results';
