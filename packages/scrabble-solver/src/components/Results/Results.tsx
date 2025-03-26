@@ -10,7 +10,7 @@ import {
   selectAreResultsOutdated,
   selectIsLoading,
   selectLocale,
-  selectResults,
+  selectProcessedResults,
   selectSolveError,
   useTranslate,
   useTypedSelector,
@@ -39,7 +39,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
   const { resultsHeight, resultsWidth } = useAppLayout();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
-  const results = useTypedSelector(selectResults);
+  const results = useTypedSelector(selectProcessedResults);
   const isLoading = useTypedSelector(selectIsLoading);
   const [isLoadingDebounced] = useDebounce(isLoading, IS_LOADING_DEBOUNCE);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);

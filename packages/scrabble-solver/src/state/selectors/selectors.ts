@@ -1,74 +1,27 @@
-/* eslint-disable max-lines */
-
 import { createSelector } from '@reduxjs/toolkit';
-import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { Cell, Config, isError, Tile } from '@scrabble-solver/types';
 
 import { i18n, LOCALE_FEATURES } from 'i18n';
-import {
-  createRegExp,
-  findCell,
-  getRemainingTiles,
-  getRemainingTilesGroups,
-  groupResults,
-  resultMatchesCellFilter,
-  sortGroupedResults,
-  unorderedArraysEqual,
-} from 'lib';
+import { findCell, getRemainingTiles, getRemainingTilesGroups, unorderedArraysEqual } from 'lib';
 import { Point, ResultColumnId, Translations } from 'types';
 
 import { RootState } from '../types';
 
+import { selectCharacters } from './rack';
+import { selectResultCandidateCells } from './results';
 import { selectBoard, selectCellFilters } from './root';
+import { selectConfig, selectLocale, selectShowCoordinates } from './settings';
 
 const selectCell = (_: unknown, cell: Cell): Cell => cell;
 
 const selectPoint = (_: unknown, point: Point): Point => point;
 
-const selectResultIndex = (_: unknown, index: number): number => index;
-
 const selectCharacter = (_: unknown, character: string | null): string | null => character;
 
 const selectTile = (_: unknown, tile: Tile | null): Tile | null => tile;
 
-const selectDictionaryRoot = (state: RootState): RootState['dictionary'] => state.dictionary;
-
-const selectRackRoot = (state: RootState): RootState['rack'] => state.rack;
-
-const selectResultsRoot = (state: RootState): RootState['results'] => state.results;
-
-const selectSettingsRoot = (state: RootState): RootState['settings'] => state.settings;
-
 const selectSolveRoot = (state: RootState): RootState['solve'] => state.solve;
-
-const selectVerifyRoot = (state: RootState): RootState['verify'] => state.verify;
-
-export const selectDictionary = selectDictionaryRoot;
-
-export const selectDictionaryError = createSelector([selectDictionaryRoot], (dictionary) => {
-  return isError(dictionary.error) ? dictionary.error : undefined;
-});
-
-export const selectLocale = createSelector([selectSettingsRoot], (settings) => settings.locale);
-
-export const selectAutoGroupTiles = createSelector([selectSettingsRoot], (settings) => settings.autoGroupTiles);
-
-export const selectLocaleAutoGroupTiles = createSelector([selectLocale, selectSettingsRoot], (locale, settings) => {
-  if (LOCALE_FEATURES[locale].direction === 'ltr' || settings.autoGroupTiles === null) {
-    return settings.autoGroupTiles;
-  }
-
-  return settings.autoGroupTiles === 'left' ? 'right' : 'left';
-});
-
-export const selectInputMode = createSelector([selectSettingsRoot], (settings) => settings.inputMode);
-
-export const selectShowCoordinates = createSelector([selectSettingsRoot], (settings) => settings.showCoordinates);
-
-export const selectGame = createSelector([selectSettingsRoot], (settings) => settings.game);
-
-export const selectConfig = createSelector([selectGame, selectLocale], getConfig);
 
 export const selectCellFilter = createSelector([selectCellFilters, selectPoint], (cellFilters, { x, y }) => {
   return cellFilters.find((cell) => cell.x === x && cell.y === y);
@@ -81,56 +34,6 @@ export const selectCellIsValid = createSelector([selectConfig, selectCell], (con
 
   return config.tiles.some((tile) => tile.character === cell.tile.character);
 });
-
-export const selectResultsRaw = createSelector([selectResultsRoot], (results) => results.results);
-
-export const selectResultsQuery = createSelector([selectResultsRoot], (results) => results.query);
-
-export const selectResultsSort = createSelector([selectResultsRoot], (results) => results.sort);
-
-export const selectGroupedResults = createSelector(
-  [selectResultsRaw, selectResultsQuery, selectCellFilters],
-  groupResults,
-);
-
-export const selectGroupedSortedResults = createSelector(
-  [selectGroupedResults, selectResultsSort, selectLocale, selectShowCoordinates],
-  sortGroupedResults,
-);
-
-export const selectResults = createSelector([selectGroupedSortedResults], (groupedResults) => {
-  return groupedResults ? [...groupedResults.matching, ...groupedResults.other] : groupedResults;
-});
-
-export const selectIsResultMatching = createSelector(
-  [selectResults, selectResultsQuery, selectCellFilters, selectResultIndex],
-  (results, query, cellFilters, index) => {
-    if (!results) {
-      return false;
-    }
-
-    const result = results[index];
-    const regExp = createRegExp(query);
-
-    if (!regExp.test(result.word)) {
-      return false;
-    }
-
-    return resultMatchesCellFilter(result, cellFilters);
-  },
-);
-
-export const selectResultCandidate = createSelector([selectResultsRoot], (results) => results.candidate);
-
-export const selectResultCandidateCells = createSelector(
-  [selectResultCandidate],
-  (resultCandidate): Cell[] => resultCandidate?.cells || [],
-);
-
-export const selectResultCandidateTiles = createSelector(
-  [selectResultCandidate],
-  (resultCandidate): Tile[] => resultCandidate?.tiles || [],
-);
 
 export const selectRowsWithCandidate = createSelector([selectBoard, selectResultCandidateCells], (board, cells) => {
   return board.rows.map((row: Cell[], y: number) => row.map((cell: Cell, x: number) => findCell(cells, x, y) || cell));
@@ -177,10 +80,6 @@ export const selectTranslation = createSelector(
   },
 );
 
-export const selectRack = selectRackRoot;
-
-export const selectCharacters = createSelector(selectRackRoot, (rack) => rack.filter((tile) => tile !== null));
-
 export const selectLastSolvedParameters = createSelector([selectSolveRoot], (solve) => solve.lastSolvedParameters);
 
 export const selectIsLoading = createSelector([selectSolveRoot], (solve) => solve.isLoading);
@@ -216,12 +115,6 @@ export const selectHasOverusedTiles = createSelector([selectRemainingTiles], (re
 });
 
 export const selectRemainingTilesGroups = createSelector([selectRemainingTiles], getRemainingTilesGroups);
-
-export const selectVerify = selectVerifyRoot;
-
-export const selectHasInvalidWords = createSelector([selectVerify], ({ invalidWords }) => {
-  return invalidWords.length > 0;
-});
 
 export const selectColumns = createSelector([selectLocale, selectShowCoordinates], (locale, showCoordinates) => {
   const { consonants, vowels } = LOCALE_FEATURES[locale];

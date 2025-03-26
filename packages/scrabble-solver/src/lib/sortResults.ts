@@ -30,7 +30,7 @@ export const sortResults = (
   showCoordinates: ShowCoordinates,
 ): Result[] | undefined => {
   if (typeof results === 'undefined') {
-    return results;
+    return undefined;
   }
 
   const createComparator = comparators[sort.column];

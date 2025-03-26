@@ -8,8 +8,8 @@ import {
   selectAreResultsOutdated,
   selectIsLoading,
   selectLocale,
+  selectProcessedResults,
   selectResultCandidate,
-  selectResults,
   useTranslate,
   useTypedSelector,
 } from 'state';
@@ -30,7 +30,7 @@ export const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onR
   const locale = useTypedSelector(selectLocale);
   const isLoading = useTypedSelector(selectIsLoading);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
-  const results = useTypedSelector(selectResults);
+  const results = useTypedSelector(selectProcessedResults);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const index = resultCandidate && results ? results.findIndex((result) => result.id === resultCandidate.id) : -1;
   const disabled = isOutdated || !resultCandidate;

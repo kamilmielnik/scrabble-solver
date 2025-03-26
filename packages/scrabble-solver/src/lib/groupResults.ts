@@ -11,7 +11,7 @@ export const groupResults = (
   cellFilters: CellFilter[],
 ): GroupedResults | undefined => {
   if (typeof results === 'undefined') {
-    return results;
+    return undefined;
   }
 
   const regExp = createRegExp(query);
