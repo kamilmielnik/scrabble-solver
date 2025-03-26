@@ -4,7 +4,7 @@ import reduxSaga from 'redux-saga';
 import { rootSaga } from './sagas';
 import {
   boardSlice,
-  cellFilterSlice,
+  cellFiltersSlice,
   dictionarySlice,
   rackSlice,
   resultsSlice,
@@ -18,7 +18,7 @@ const sagaMiddleware = reduxSaga();
 export const store = configureStore({
   reducer: {
     board: boardSlice.reducer,
-    cellFilter: cellFilterSlice.reducer,
+    cellFilters: cellFiltersSlice.reducer,
     dictionary: dictionarySlice.reducer,
     rack: rackSlice.reducer,
     results: resultsSlice.reducer,

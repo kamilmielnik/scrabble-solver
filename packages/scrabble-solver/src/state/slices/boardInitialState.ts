@@ -10,7 +10,7 @@ export type BoardState = Board;
 const { game, locale } = settingsInitialState;
 const { boardHeight, boardWidth } = getConfig(game, locale);
 
-export const boardDefaultState = Board.create(boardWidth, boardHeight);
+const boardDefaultState = Board.create(boardWidth, boardHeight);
 
 export const boardInitialState: BoardState = localStorage.getBoard() || boardDefaultState;
 

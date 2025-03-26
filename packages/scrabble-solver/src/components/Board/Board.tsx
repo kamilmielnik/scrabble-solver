@@ -12,8 +12,8 @@ import { LOCALE_FEATURES } from 'i18n';
 import { TRANSITION } from 'parameters';
 import {
   boardSlice,
-  cellFilterSlice,
-  selectFilteredCells,
+  cellFiltersSlice,
+  selectCellFilters,
   selectInputMode,
   selectLocale,
   selectRowsWithCandidate,
@@ -36,7 +36,7 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
   const locale = useTypedSelector(selectLocale);
   const rows = useTypedSelector(selectRowsWithCandidate);
   const inputMode = useTypedSelector(selectInputMode);
-  const filteredCells = useTypedSelector(selectFilteredCells);
+  const cellFilters = useTypedSelector(selectCellFilters);
   const showCoordinates = useTypedSelector(selectShowCoordinates);
   const { cellSize, coordinatesFontSize, coordinatesSize } = useAppLayout();
   const [
@@ -140,7 +140,7 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
       inputRef.current?.focus();
     }
 
-    dispatch(cellFilterSlice.actions.toggle(cell));
+    dispatch(cellFiltersSlice.actions.toggle(cell));
   }, [cell, dispatch, inputMode, inputRef]);
 
   const ref = useOnclickOutside(() => setHasFocus(false), {
@@ -151,11 +151,11 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
     <>
       <BoardPure
         className={className}
+        cellFilters={cellFilters}
         cellSize={cellSize}
         coordinatesFontSize={coordinatesFontSize}
         coordinatesSize={coordinatesSize}
         direction={LOCALE_FEATURES[locale].direction}
-        filteredCells={filteredCells}
         inputRefs={inputRefs}
         ref={ref}
         rows={rows}

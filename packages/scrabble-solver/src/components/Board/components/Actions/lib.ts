@@ -1,10 +1,10 @@
 import { FunctionComponent, SVGAttributes } from 'react';
 
 import { Ban, Eraser, FlagFill } from 'icons';
-import { CellFilterEntry, TranslationKey } from 'types';
+import { CellFilter, TranslationKey } from 'types';
 
 export const getNextCellFilter = (
-  filter: CellFilterEntry | undefined,
+  filter: CellFilter | undefined,
 ): {
   Icon: FunctionComponent<SVGAttributes<SVGElement>>;
   labelTranslationKey: TranslationKey;

@@ -1,7 +1,7 @@
 export { boardInitialState } from './boardInitialState';
 export { boardSlice } from './boardSlice';
-export { cellFilterInitialState } from './cellFilterInitialState';
-export { cellFilterSlice } from './cellFilterSlice';
+export { cellFiltersInitialState } from './cellFiltersInitialState';
+export { cellFiltersSlice } from './cellFiltersSlice';
 export { dictionaryInitialState } from './dictionaryInitialState';
 export { dictionarySlice } from './dictionarySlice';
 export { rackInitialState } from './rackInitialState';

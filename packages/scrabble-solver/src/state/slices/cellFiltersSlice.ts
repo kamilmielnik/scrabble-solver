@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { CellFilterType, Point } from 'types';
 
-import { cellFilterInitialState } from './cellFilterInitialState';
+import { cellFiltersInitialState } from './cellFiltersInitialState';
 
-export const cellFilterSlice = createSlice({
-  initialState: cellFilterInitialState,
-  name: 'cellFilter',
+export const cellFiltersSlice = createSlice({
+  initialState: cellFiltersInitialState,
+  name: 'cellFilters',
   reducers: {
     toggle: (state, action: PayloadAction<Point>) => {
       const { x, y } = action.payload;
@@ -37,7 +37,7 @@ export const cellFilterSlice = createSlice({
       return state.filter((point) => point.x !== x || point.y !== y);
     },
 
-    reset: () => cellFilterInitialState,
+    reset: () => cellFiltersInitialState,
   },
 });
 

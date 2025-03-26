@@ -18,7 +18,9 @@ import {
 } from 'lib';
 import { Point, ResultColumnId, Translations } from 'types';
 
-import { RootState } from './types';
+import { RootState } from '../types';
+
+import { selectBoard, selectCellFilters } from './root';
 
 const selectCell = (_: unknown, cell: Cell): Cell => cell;
 
@@ -30,11 +32,7 @@ const selectCharacter = (_: unknown, character: string | null): string | null =>
 
 const selectTile = (_: unknown, tile: Tile | null): Tile | null => tile;
 
-const selectBoardRoot = (state: RootState): RootState['board'] => state.board;
-
 const selectDictionaryRoot = (state: RootState): RootState['dictionary'] => state.dictionary;
-
-const selectCellFilterRoot = (state: RootState): RootState['cellFilter'] => state.cellFilter;
 
 const selectRackRoot = (state: RootState): RootState['rack'] => state.rack;
 
@@ -64,8 +62,6 @@ export const selectLocaleAutoGroupTiles = createSelector([selectLocale, selectSe
   return settings.autoGroupTiles === 'left' ? 'right' : 'left';
 });
 
-export const selectBoard = selectBoardRoot;
-
 export const selectInputMode = createSelector([selectSettingsRoot], (settings) => settings.inputMode);
 
 export const selectShowCoordinates = createSelector([selectSettingsRoot], (settings) => settings.showCoordinates);
@@ -74,10 +70,8 @@ export const selectGame = createSelector([selectSettingsRoot], (settings) => set
 
 export const selectConfig = createSelector([selectGame, selectLocale], getConfig);
 
-export const selectFilteredCells = selectCellFilterRoot;
-
-export const selectCellFilter = createSelector([selectFilteredCells, selectPoint], (cellFilter, { x, y }) => {
-  return cellFilter.find((cell) => cell.x === x && cell.y === y);
+export const selectCellFilter = createSelector([selectCellFilters, selectPoint], (cellFilters, { x, y }) => {
+  return cellFilters.find((cell) => cell.x === x && cell.y === y);
 });
 
 export const selectCellIsValid = createSelector([selectConfig, selectCell], (config, cell) => {
@@ -95,7 +89,7 @@ export const selectResultsQuery = createSelector([selectResultsRoot], (results) 
 export const selectResultsSort = createSelector([selectResultsRoot], (results) => results.sort);
 
 export const selectGroupedResults = createSelector(
-  [selectResultsRaw, selectResultsQuery, selectFilteredCells],
+  [selectResultsRaw, selectResultsQuery, selectCellFilters],
   groupResults,
 );
 
@@ -109,8 +103,8 @@ export const selectResults = createSelector([selectGroupedSortedResults], (group
 });
 
 export const selectIsResultMatching = createSelector(
-  [selectResults, selectResultsQuery, selectFilteredCells, selectResultIndex],
-  (results, query, cellFilter, index) => {
+  [selectResults, selectResultsQuery, selectCellFilters, selectResultIndex],
+  (results, query, cellFilters, index) => {
     if (!results) {
       return false;
     }
@@ -122,7 +116,7 @@ export const selectIsResultMatching = createSelector(
       return false;
     }
 
-    return resultMatchesCellFilter(result, cellFilter);
+    return resultMatchesCellFilter(result, cellFilters);
   },
 );
 
@@ -138,7 +132,7 @@ export const selectResultCandidateTiles = createSelector(
   (resultCandidate): Tile[] => resultCandidate?.tiles || [],
 );
 
-export const selectRowsWithCandidate = createSelector([selectBoardRoot, selectResultCandidateCells], (board, cells) => {
+export const selectRowsWithCandidate = createSelector([selectBoard, selectResultCandidateCells], (board, cells) => {
   return board.rows.map((row: Cell[], y: number) => row.map((cell: Cell, x: number) => findCell(cells, x, y) || cell));
 });
 
@@ -203,7 +197,7 @@ export const selectHaveCharactersChanged = createSelector(
 );
 
 export const selectHasBoardChanged = createSelector(
-  [selectLastSolvedParameters, selectBoardRoot],
+  [selectLastSolvedParameters, selectBoard],
   (lastSolvedParameters, board) => !lastSolvedParameters.board.equals(board),
 );
 
@@ -213,7 +207,7 @@ export const selectAreResultsOutdated = createSelector(
 );
 
 export const selectRemainingTiles = createSelector(
-  [selectConfig, selectBoardRoot, selectCharacters, selectLocale],
+  [selectConfig, selectBoard, selectCharacters, selectLocale],
   getRemainingTiles,
 );
 

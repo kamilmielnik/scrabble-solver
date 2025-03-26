@@ -1,6 +1,6 @@
 import {
   boardSlice,
-  cellFilterSlice,
+  cellFiltersSlice,
   dictionarySlice,
   rackSlice,
   resultsSlice,
@@ -11,7 +11,7 @@ import {
 
 export type RootState = {
   board: ReturnType<typeof boardSlice.reducer>;
-  cellFilter: ReturnType<typeof cellFilterSlice.reducer>;
+  cellFilters: ReturnType<typeof cellFiltersSlice.reducer>;
   dictionary: ReturnType<typeof dictionarySlice.reducer>;
   rack: ReturnType<typeof rackSlice.reducer>;
   results: ReturnType<typeof resultsSlice.reducer>;

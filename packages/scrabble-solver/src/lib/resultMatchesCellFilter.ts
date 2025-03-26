@@ -1,9 +1,9 @@
 import { Result } from '@scrabble-solver/types';
 
-import { CellFilterEntry } from 'types';
+import { CellFilter } from 'types';
 
-export const resultMatchesCellFilter = (result: Result, cellFilter: CellFilterEntry[]) => {
-  const excludeFilters = cellFilter.filter((filter) => filter.type === 'exclude');
+export const resultMatchesCellFilter = (result: Result, cellFilters: CellFilter[]) => {
+  const excludeFilters = cellFilters.filter((filter) => filter.type === 'exclude');
   const matchesExcludeFilters = excludeFilters.every(({ x, y }) => {
     return result.cells.every((cell) => cell.x !== x || cell.y !== y);
   });
@@ -12,7 +12,7 @@ export const resultMatchesCellFilter = (result: Result, cellFilter: CellFilterEn
     return false;
   }
 
-  const includeFilter = cellFilter.filter((filter) => filter.type === 'include');
+  const includeFilter = cellFilters.filter((filter) => filter.type === 'include');
   const matchesIncludeFilters = includeFilter.every(({ x, y }) => {
     return result.cells.some((cell) => cell.x === x && cell.y === y);
   });
