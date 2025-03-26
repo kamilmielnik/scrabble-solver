@@ -15,14 +15,14 @@ export const selectRowsWithCandidate = createSelector([selectBoard, selectResult
   return board.rows.map((row: Cell[], y: number) => row.map((cell: Cell, x: number) => findCell(cells, x, y) || cell));
 });
 
-export const selectHaveCharactersChanged = createSelector(
+const selectHaveCharactersChanged = createSelector(
   [selectLastSolvedParameters, selectCharacters, selectLocale],
   (lastSolvedParameters, characters, locale) => {
     return !unorderedArraysEqual(lastSolvedParameters.characters, characters, locale);
   },
 );
 
-export const selectHasBoardChanged = createSelector(
+const selectHasBoardChanged = createSelector(
   [selectLastSolvedParameters, selectBoard],
   (lastSolvedParameters, board) => !lastSolvedParameters.board.equals(board),
 );
@@ -36,10 +36,6 @@ export const selectRemainingTiles = createSelector(
   [selectConfig, selectBoard, selectCharacters, selectLocale],
   getRemainingTiles,
 );
-
-export const selectHasOverusedTiles = createSelector([selectRemainingTiles], (remainingTiles) => {
-  return remainingTiles.some(({ count, usedCount }) => usedCount > count);
-});
 
 export const selectRemainingTilesGroups = createSelector([selectRemainingTiles], getRemainingTilesGroups);
 

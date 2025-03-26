@@ -1,14 +1,23 @@
+import { createSelector } from '@reduxjs/toolkit';
 import classNames from 'classnames';
 import { FunctionComponent, memo } from 'react';
 
 import { useAppLayout } from 'hooks';
 import { CardChecklist, Cog, Eraser, Github, KeyboardFill, List, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
-import { selectHasInvalidWords, selectHasOverusedTiles, useTranslate, useTypedSelector } from 'state';
+import { selectInvalidWords, selectRemainingTiles, useTranslate, useTypedSelector } from 'state';
 
 import { IconButton } from '../IconButton';
 
 import styles from './NavButtons.module.scss';
+
+const selectHasInvalidWords = createSelector([selectInvalidWords], (invalidWords) => {
+  return invalidWords.length > 0;
+});
+
+const selectHasOverusedTiles = createSelector([selectRemainingTiles], (remainingTiles) => {
+  return remainingTiles.some(({ count, usedCount }) => usedCount > count);
+});
 
 interface Props {
   onClear: () => void;
@@ -28,8 +37,8 @@ const NavButtonsBase: FunctionComponent<Props> = ({
   onShowWords,
 }) => {
   const translate = useTranslate();
-  const hasOverusedTiles = useTypedSelector(selectHasOverusedTiles);
   const hasInvalidWords = useTypedSelector(selectHasInvalidWords);
+  const hasOverusedTiles = useTypedSelector(selectHasOverusedTiles);
   const { showKeyMap, showShortNav } = useAppLayout();
 
   if (showShortNav) {
