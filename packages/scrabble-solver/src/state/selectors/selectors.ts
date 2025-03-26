@@ -1,18 +1,15 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { Cell, isError } from '@scrabble-solver/types';
+import { Cell } from '@scrabble-solver/types';
 
 import { i18n, LOCALE_FEATURES } from 'i18n';
 import { findCell, getRemainingTiles, getRemainingTilesGroups, unorderedArraysEqual } from 'lib';
 import { ResultColumnId, TranslationKey } from 'types';
 
-import { RootState } from '../types';
-
 import { selectCharacters } from './rack';
 import { selectResultCandidateCells } from './results';
 import { selectBoard } from './root';
 import { selectConfig, selectLocale, selectShowCoordinates } from './settings';
-
-const selectSolveRoot = (state: RootState): RootState['solve'] => state.solve;
+import { selectLastSolvedParameters } from './solve';
 
 export const selectRowsWithCandidate = createSelector([selectBoard, selectResultCandidateCells], (board, cells) => {
   return board.rows.map((row: Cell[], y: number) => row.map((cell: Cell, x: number) => findCell(cells, x, y) || cell));
@@ -34,14 +31,6 @@ export const selectTranslation = createSelector(
     return translation;
   },
 );
-
-export const selectLastSolvedParameters = createSelector([selectSolveRoot], (solve) => solve.lastSolvedParameters);
-
-export const selectIsLoading = createSelector([selectSolveRoot], (solve) => solve.isLoading);
-
-export const selectSolveError = createSelector([selectSolveRoot], (solve) => {
-  return isError(solve.error) ? solve.error : undefined;
-});
 
 export const selectHaveCharactersChanged = createSelector(
   [selectLastSolvedParameters, selectCharacters, selectLocale],

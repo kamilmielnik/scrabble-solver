@@ -8,7 +8,7 @@ import { LOCALE_FEATURES } from 'i18n';
 import { BORDER_WIDTH, RESULTS_HEADER_HEIGHT, RESULTS_ITEM_HEIGHT, TEXT_INPUT_HEIGHT } from 'parameters';
 import {
   selectAreResultsOutdated,
-  selectIsLoading,
+  selectSolveIsLoading,
   selectLocale,
   selectProcessedResults,
   selectSolveError,
@@ -40,7 +40,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const results = useTypedSelector(selectProcessedResults);
-  const isLoading = useTypedSelector(selectIsLoading);
+  const isLoading = useTypedSelector(selectSolveIsLoading);
   const [isLoadingDebounced] = useDebounce(isLoading, IS_LOADING_DEBOUNCE);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const error = useTypedSelector(selectSolveError);

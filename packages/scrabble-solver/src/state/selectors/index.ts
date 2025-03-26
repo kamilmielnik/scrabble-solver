@@ -5,4 +5,5 @@ export * from './results';
 export * from './root';
 export * from './selectors';
 export * from './settings';
+export * from './solve';
 export * from './verify';

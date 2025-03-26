@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Search } from 'icons';
 import {
   selectAreResultsOutdated,
-  selectIsLoading,
+  selectSolveIsLoading,
   selectRack,
   solveSlice,
   useTranslate,
@@ -20,7 +20,7 @@ interface Props {
 export const SolveButton: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
-  const isLoading = useTypedSelector(selectIsLoading);
+  const isLoading = useTypedSelector(selectSolveIsLoading);
   const rack = useTypedSelector(selectRack);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const hasTiles = rack.some((tile) => tile !== null);

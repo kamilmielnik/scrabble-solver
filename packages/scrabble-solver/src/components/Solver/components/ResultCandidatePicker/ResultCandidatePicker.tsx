@@ -6,7 +6,7 @@ import { ChevronDown, ChevronLeft, ChevronRight } from 'icons';
 import {
   resultsSlice,
   selectAreResultsOutdated,
-  selectIsLoading,
+  selectSolveIsLoading,
   selectLocale,
   selectProcessedResults,
   selectResultCandidate,
@@ -28,7 +28,7 @@ export const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onR
   const dispatch = useDispatch();
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
-  const isLoading = useTypedSelector(selectIsLoading);
+  const isLoading = useTypedSelector(selectSolveIsLoading);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const results = useTypedSelector(selectProcessedResults);
   const resultCandidate = useTypedSelector(selectResultCandidate);
