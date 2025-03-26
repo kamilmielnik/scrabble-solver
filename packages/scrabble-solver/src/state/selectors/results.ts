@@ -5,6 +5,8 @@ import { createRegExp, groupResults, resultMatchesCellFilter, sortResults } from
 import { selectCellFilters, selectResults } from './root';
 import { selectLocale, selectShowCoordinates } from './settings';
 
+const selectResultIndex = (_: unknown, index: number): number => index;
+
 export const selectResultCandidate = createSelector([selectResults], (results) => results.candidate);
 
 export const selectResultsQuery = createSelector([selectResults], (results) => results.query);
@@ -30,8 +32,6 @@ export const selectProcessedResults = createSelector([selectGroupedSortedResults
 
   return [...groupedResults.matching, ...groupedResults.other];
 });
-
-const selectResultIndex = (_: unknown, index: number): number => index;
 
 export const selectIsResultMatching = createSelector(
   [selectProcessedResults, selectResultsQuery, selectCellFilters, selectResultIndex],

@@ -1,9 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { Cell } from '@scrabble-solver/types';
 
-import { i18n, LOCALE_FEATURES } from 'i18n';
+import { LOCALE_FEATURES } from 'i18n';
 import { findCell, getRemainingTiles, getRemainingTilesGroups, unorderedArraysEqual } from 'lib';
-import { ResultColumnId, TranslationKey } from 'types';
+import { ResultColumnId } from 'types';
 
 import { selectCharacters } from './rack';
 import { selectResultCandidateCells } from './results';
@@ -14,23 +14,6 @@ import { selectLastSolvedParameters } from './solve';
 export const selectRowsWithCandidate = createSelector([selectBoard, selectResultCandidateCells], (board, cells) => {
   return board.rows.map((row: Cell[], y: number) => row.map((cell: Cell, x: number) => findCell(cells, x, y) || cell));
 });
-
-export const selectTranslations = createSelector([selectLocale], (locale) => i18n[locale]);
-
-const selectTranslationKey = (_: unknown, key: TranslationKey): TranslationKey => key;
-
-export const selectTranslation = createSelector(
-  [selectTranslations, selectLocale, selectTranslationKey],
-  (translations, locale, key): string => {
-    const translation = translations[key];
-
-    if (typeof translation === 'undefined') {
-      throw new Error(`Untranslated key "${key}" in locale "${locale}"`);
-    }
-
-    return translation;
-  },
-);
 
 export const selectHaveCharactersChanged = createSelector(
   [selectLastSolvedParameters, selectCharacters, selectLocale],

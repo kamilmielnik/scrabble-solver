@@ -3,7 +3,8 @@ import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { Cell, Tile } from '@scrabble-solver/types';
 
-import { LOCALE_FEATURES } from 'i18n';
+import { i18n, LOCALE_FEATURES } from 'i18n';
+import { TranslationKey } from 'types';
 
 import { selectSettings } from './root';
 
@@ -12,6 +13,8 @@ const selectCell = (_: unknown, cell: Cell): Cell => cell;
 const selectCharacter = (_: unknown, character: string | null): string | null => character;
 
 const selectTile = (_: unknown, tile: Tile | null): Tile | null => tile;
+
+const selectTranslationKey = (_: unknown, key: TranslationKey): TranslationKey => key;
 
 export const selectAutoGroupTiles = createSelector([selectSettings], (settings) => settings.autoGroupTiles);
 
@@ -60,3 +63,18 @@ export const selectCellIsValid = createSelector([selectConfig, selectCell], (con
 
   return config.tiles.some((tile) => tile.character === cell.tile.character);
 });
+
+export const selectTranslations = createSelector([selectLocale], (locale) => i18n[locale]);
+
+export const selectTranslation = createSelector(
+  [selectTranslations, selectLocale, selectTranslationKey],
+  (translations, locale, key) => {
+    const translation = translations[key];
+
+    if (typeof translation === 'undefined') {
+      throw new Error(`Untranslated key "${key}" in locale "${locale}"`);
+    }
+
+    return translation;
+  },
+);
