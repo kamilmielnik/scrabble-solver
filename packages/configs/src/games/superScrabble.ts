@@ -2,7 +2,7 @@ import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 import { Game } from '@scrabble-solver/types';
 
 export const superScrabble = {
-  bingoScore: 50,
+  bingo: { score: 50 },
   blankScore: 0,
   blanksCount: 4,
   boardHeight: 21,

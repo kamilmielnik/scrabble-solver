@@ -5,10 +5,11 @@ coverage/
 cypress/downloads
 cypress/screenshots
 node_modules/
-*.eslintcache
 *.db
+*.eslintcache
 *.log
-*.zip
+*.tsbuildinfo
 *.txt
+*.zip
 .DS_Store
 .vscode

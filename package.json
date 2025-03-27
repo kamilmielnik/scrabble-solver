@@ -1,12 +1,13 @@
 {
   "name": "scrabble-solver",
-  "version": "2.15.10",
-  "description": "Scrabble Solver 2 - Free, open-source, cross-platform, multi-language analysis tool for Scrabble, Scrabble Duel, Super Scrabble, Literaki, and Kelimelik. Quickly find the top-scoring words using the given board and tiles.",
+  "version": "2.15.11",
+  "description": "Scrabble Solver 2 - Free, open-source, cross-platform, multi-language analysis tool for Scrabble, Scrabble Duel, Super Scrabble, Letter League, Literaki, and Kelimelik. Quickly find the top-scoring words using the given board and tiles.",
   "keywords": [
     "Scrabble",
     "Scrabble Duel",
     "Super Scrabble",
     "Kelimelik",
+    "Letter League",
     "Literaki",
     "Solver",
     "Finder",
@@ -94,7 +95,7 @@
     "packages/scrabble-solver"
   ],
   "dependencies": {
-    "@scrabble-solver/scrabble-solver": "^2.15.10",
+    "@scrabble-solver/scrabble-solver": "^2.15.11",
     "concurrently": "^9.1.2",
     "open-cli": "^8.0.0",
     "wait-on": "^8.0.3"
@@ -108,15 +109,15 @@
     "@eslint/js": "^9.23.0",
     "@testing-library/cypress": "^10.0.3",
     "@types/jest": "^29.5.14",
-    "@types/node": "^22.13.13",
+    "@types/node": "^22.13.14",
     "@typescript-eslint/eslint-plugin": "^8.28.0",
     "@typescript-eslint/parser": "^8.28.0",
-    "cypress": "^14.2.0",
+    "cypress": "^14.2.1",
     "cypress-real-events": "^1.14.0",
     "eslint": "^9.23.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-import-resolver-node": "^0.3.9",
-    "eslint-import-resolver-typescript": "^4.2.3",
+    "eslint-import-resolver-typescript": "^4.2.5",
     "eslint-plugin-cypress": "^4.2.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-mocha": "^10.5.0",

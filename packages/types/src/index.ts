@@ -1,3 +1,4 @@
+export { Bingo, isBingo, isMultiplierBingo, isScoreBingo } from './Bingo';
 export { Board } from './Board';
 export { BoardJson, isBoardJson } from './BoardJson';
 export { Bonus } from './Bonus';

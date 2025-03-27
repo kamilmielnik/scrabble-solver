@@ -1,5 +1,5 @@
 export interface TileConfig {
   character: string;
-  count: number;
+  count?: number;
   score: number;
 }

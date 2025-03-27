@@ -2,7 +2,7 @@ import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 import { Game } from '@scrabble-solver/types';
 
 export const kelimelik = {
-  bingoScore: 30,
+  bingo: { score: 30 },
   blankScore: 0,
   blanksCount: 2,
   boardHeight: 15,

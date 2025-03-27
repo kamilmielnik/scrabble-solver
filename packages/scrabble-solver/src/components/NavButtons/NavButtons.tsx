@@ -5,7 +5,7 @@ import { FunctionComponent, memo } from 'react';
 import { useAppLayout } from 'hooks';
 import { CardChecklist, Cog, Eraser, Github, KeyboardFill, List, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
-import { selectInvalidWords, selectRemainingTiles, useTranslate, useTypedSelector } from 'state';
+import { selectConfig, selectInvalidWords, selectRemainingTiles, useTranslate, useTypedSelector } from 'state';
 
 import { IconButton } from '../IconButton';
 
@@ -16,7 +16,7 @@ const selectHasInvalidWords = createSelector([selectInvalidWords], (invalidWords
 });
 
 const selectHasOverusedTiles = createSelector([selectRemainingTiles], (remainingTiles) => {
-  return remainingTiles.some(({ count, usedCount }) => usedCount > count);
+  return remainingTiles.some(({ count = 0, usedCount }) => usedCount > count);
 });
 
 interface Props {
@@ -37,6 +37,7 @@ const NavButtonsBase: FunctionComponent<Props> = ({
   onShowWords,
 }) => {
   const translate = useTranslate();
+  const config = useTypedSelector(selectConfig);
   const hasInvalidWords = useTypedSelector(selectHasInvalidWords);
   const hasOverusedTiles = useTypedSelector(selectHasOverusedTiles);
   const { showKeyMap, showShortNav } = useAppLayout();
@@ -84,15 +85,17 @@ const NavButtonsBase: FunctionComponent<Props> = ({
       <div className={styles.separator} />
 
       <div className={styles.group}>
-        <IconButton
-          aria-label={translate('remaining-tiles')}
-          className={classNames(styles.button, {
-            [styles.error]: hasOverusedTiles,
-          })}
-          Icon={Sack}
-          tooltip={translate('remaining-tiles')}
-          onClick={onShowRemainingTiles}
-        />
+        {config.supportsRemainingTiles && (
+          <IconButton
+            aria-label={translate('remaining-tiles')}
+            className={classNames(styles.button, {
+              [styles.error]: hasOverusedTiles,
+            })}
+            Icon={Sack}
+            tooltip={translate('remaining-tiles')}
+            onClick={onShowRemainingTiles}
+          />
+        )}
 
         <IconButton
           aria-label={translate('words')}

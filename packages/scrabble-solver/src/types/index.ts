@@ -36,7 +36,7 @@ export enum SortDirection {
 
 export interface RemainingTile {
   character: string;
-  count: number;
+  count?: number;
   score: number;
   usedCount: number;
 }
