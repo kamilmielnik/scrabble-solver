@@ -101,9 +101,9 @@ describe('getPatternScore', () => {
 
   describe('Letter League - EN_US', () => {
     const config = getConfig(Game.LetterLeague, Locale.EN_US);
-    const board = Board.create(config.boardWidth, config.boardHeight);
 
-    it('gives double multiplier bonus for bingo', () => {
+    it('gives double multiplier bonus for bingo without collisions', () => {
+      const board = Board.create(config.boardWidth, config.boardHeight);
       const pattern = new HorizontalPattern(board, [
         new Cell({ x: 13, y: 6, tile: new Tile({ character: 'r' }), isEmpty: true }),
         new Cell({ x: 13, y: 7, tile: new Tile({ character: 'o' }), isEmpty: true }),
@@ -115,6 +115,42 @@ describe('getPatternScore', () => {
       ]);
 
       expect(getPatternScore(config, pattern)).toBe(18);
+    });
+
+    it('gives double multiplier bonus for bingo with collisions', () => {
+      const board = Board.fromStringArray([
+        '                           ',
+        '                           ',
+        '                           ',
+        '                           ',
+        '                           ',
+        '                           ',
+        '                           ',
+        '                           ',
+        '                           ',
+        '                           ',
+        '                           ',
+        '                           ',
+        '           on              ',
+        '                           ',
+        '                           ',
+        '                           ',
+        '                           ',
+        '                           ',
+        '                           ',
+      ]);
+
+      const pattern = new VerticalPattern(board, [
+        new Cell({ x: 13, y: 6, tile: new Tile({ character: 'r' }), isEmpty: true }),
+        new Cell({ x: 13, y: 7, tile: new Tile({ character: 'o' }), isEmpty: true }),
+        new Cell({ x: 13, y: 8, tile: new Tile({ character: 'm' }), isEmpty: true }),
+        new Cell({ x: 13, y: 9, tile: new Tile({ character: 'a' }), isEmpty: true }),
+        new Cell({ x: 13, y: 10, tile: new Tile({ character: 'i' }), isEmpty: true }),
+        new Cell({ x: 13, y: 11, tile: new Tile({ character: 'n' }), isEmpty: true }),
+        new Cell({ x: 13, y: 12, tile: new Tile({ character: 'e' }), isEmpty: true }),
+      ]);
+
+      expect(getPatternScore(config, pattern)).toBe(21);
     });
   });
 });
