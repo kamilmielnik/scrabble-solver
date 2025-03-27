@@ -25,12 +25,8 @@ const selectGroupedSortedResults = createSelector(
   groupResults,
 );
 
-export const selectProcessedResults = createSelector([selectGroupedSortedResults], (groupedResults) => {
-  if (!groupedResults) {
-    return undefined;
-  }
-
-  return [...groupedResults.matching, ...groupedResults.other];
+export const selectProcessedResults = createSelector([selectGroupedSortedResults], (results) => {
+  return results ? [...results.matching, ...results.other] : undefined;
 });
 
 export const selectIsResultMatching = createSelector(
