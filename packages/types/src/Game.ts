@@ -1,5 +1,6 @@
 export enum Game {
   Kelimelik = 'kelimelik',
+  LetterLeague = 'letter-league',
   Literaki = 'literaki',
   Scrabble = 'scrabble',
   ScrabbleDuel = 'scrabble-duel',
