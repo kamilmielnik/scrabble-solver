@@ -1,6 +1,6 @@
 {
   "name": "scrabble-solver",
-  "version": "2.15.11",
+  "version": "2.15.10",
   "description": "Scrabble Solver 2 - Free, open-source, cross-platform, multi-language analysis tool for Scrabble, Scrabble Duel, Super Scrabble, Letter League, Literaki, and Kelimelik. Quickly find the top-scoring words using the given board and tiles.",
   "keywords": [
     "Scrabble",
@@ -95,7 +95,7 @@
     "packages/scrabble-solver"
   ],
   "dependencies": {
-    "@scrabble-solver/scrabble-solver": "^2.15.11",
+    "@scrabble-solver/scrabble-solver": "^2.15.10",
     "concurrently": "^9.1.2",
     "open-cli": "^8.0.0",
     "wait-on": "^8.0.3"

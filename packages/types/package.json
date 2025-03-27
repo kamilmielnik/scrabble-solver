@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/types",
-  "version": "2.15.11",
+  "version": "2.15.10",
   "description": "Scrabble Solver 2 - Types",
   "main": "build/index.js",
   "types": "build/index.d.ts",
