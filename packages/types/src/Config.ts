@@ -112,6 +112,10 @@ export class Config {
     return this.config.rackSize;
   }
 
+  public get supportsRemainingTiles(): boolean {
+    return this.tiles.every((tile) => typeof tile.count === 'number');
+  }
+
   public get tiles(): TileConfig[] {
     return this.config.tiles;
   }

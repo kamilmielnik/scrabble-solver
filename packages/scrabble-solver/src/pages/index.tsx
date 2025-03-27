@@ -18,7 +18,7 @@ import {
   WordsModal,
 } from 'modals';
 import { registerServiceWorker } from 'serviceWorkerManager';
-import { initialize, reset, selectLocale, useTypedSelector } from 'state';
+import { initialize, reset, selectConfig, selectLocale, useTypedSelector } from 'state';
 
 import styles from './index.module.scss';
 
@@ -31,6 +31,7 @@ interface Props {
 // eslint-disable-next-line max-statements
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
+  const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
   const [showDictionary, setShowDictionary] = useState(false);
   const [showKeyMap, setShowKeyMap] = useState(false);
@@ -113,7 +114,9 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
       <WordsModal isOpen={showWords} onClose={handleHideWords} />
 
-      <RemainingTilesModal isOpen={showRemainingTiles} onClose={handleHideRemainingTiles} />
+      {config.supportsRemainingTiles && (
+        <RemainingTilesModal isOpen={showRemainingTiles} onClose={handleHideRemainingTiles} />
+      )}
 
       <ResultsModal isOpen={showResults} onClose={handleHideResults} />
 

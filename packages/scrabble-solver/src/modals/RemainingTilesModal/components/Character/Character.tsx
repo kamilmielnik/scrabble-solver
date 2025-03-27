@@ -18,6 +18,11 @@ export const Character: FunctionComponent<Props> = ({ tile }) => {
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const { character, count, usedCount } = tile;
+
+  if (typeof count === 'undefined') {
+    throw new Error('Remaining tiles not supported for this config');
+  }
+
   const remainingCount = count - usedCount;
   const points = useTypedSelector((state) => selectCharacterPoints(state, character));
   const current = direction === 'ltr' ? remainingCount : count;

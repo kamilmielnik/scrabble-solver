@@ -4,7 +4,7 @@ import { FunctionComponent, memo } from 'react';
 import { useAppLayout } from 'hooks';
 import { CardChecklist, Cog, Eraser, Github, KeyboardFill, List, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
-import { selectHasInvalidWords, selectHasOverusedTiles, useTranslate, useTypedSelector } from 'state';
+import { selectConfig, selectHasInvalidWords, selectHasOverusedTiles, useTranslate, useTypedSelector } from 'state';
 
 import { IconButton } from '../IconButton';
 
@@ -28,6 +28,7 @@ const NavButtonsBase: FunctionComponent<Props> = ({
   onShowWords,
 }) => {
   const translate = useTranslate();
+  const config = useTypedSelector(selectConfig);
   const hasOverusedTiles = useTypedSelector(selectHasOverusedTiles);
   const hasInvalidWords = useTypedSelector(selectHasInvalidWords);
   const { showKeyMap, showShortNav } = useAppLayout();
@@ -75,15 +76,17 @@ const NavButtonsBase: FunctionComponent<Props> = ({
       <div className={styles.separator} />
 
       <div className={styles.group}>
-        <IconButton
-          aria-label={translate('remaining-tiles')}
-          className={classNames(styles.button, {
-            [styles.error]: hasOverusedTiles,
-          })}
-          Icon={Sack}
-          tooltip={translate('remaining-tiles')}
-          onClick={onShowRemainingTiles}
-        />
+        {config.supportsRemainingTiles && (
+          <IconButton
+            aria-label={translate('remaining-tiles')}
+            className={classNames(styles.button, {
+              [styles.error]: hasOverusedTiles,
+            })}
+            Icon={Sack}
+            tooltip={translate('remaining-tiles')}
+            onClick={onShowRemainingTiles}
+          />
+        )}
 
         <IconButton
           aria-label={translate('words')}

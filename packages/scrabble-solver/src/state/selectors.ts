@@ -218,7 +218,7 @@ export const selectRemainingTiles = createSelector(
 );
 
 export const selectHasOverusedTiles = createSelector([selectRemainingTiles], (remainingTiles) => {
-  return remainingTiles.some(({ count, usedCount }) => usedCount > count);
+  return remainingTiles.some(({ count = 0, usedCount }) => usedCount > count);
 });
 
 export const selectRemainingTilesGroups = createSelector([selectRemainingTiles], getRemainingTilesGroups);
