@@ -2,7 +2,7 @@ import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 import { Game } from '@scrabble-solver/types';
 
 export const letterLeague = {
-  bingoScore: 50,
+  bingo: { multiplier: 2 },
   blankScore: 0,
   blanksCount: 2,
   boardHeight: 19,

@@ -1,5 +1,6 @@
 import { BLANK, BONUS_CHARACTER, BONUS_WORD, NO_BONUS } from '@scrabble-solver/constants';
 
+import { Bingo } from './Bingo';
 import { Bonus } from './Bonus';
 import { BonusValue } from './BonusValue';
 import { Cell } from './Cell';
@@ -32,8 +33,8 @@ export class Config {
     return getAlphabet(this.config);
   }
 
-  public get bingoScore(): number {
-    return this.config.bingoScore;
+  public get bingo(): Bingo {
+    return this.config.bingo;
   }
 
   public get blankScore(): number {
