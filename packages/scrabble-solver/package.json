@@ -21,7 +21,8 @@
     "clean": "rimraf .next/",
     "debug": "NODE_OPTIONS='--inspect' next dev",
     "dev": "env-cmd next dev",
-    "start": "env-cmd next start -p 3333"
+    "start": "env-cmd next start -p 3333",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.5",
