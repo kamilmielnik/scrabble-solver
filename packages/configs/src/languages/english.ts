@@ -4,6 +4,74 @@ import { Config, Locale } from '@scrabble-solver/types';
 
 import { letterLeague, literaki, scrabble, scrabbleDuel, superScrabble } from '../games';
 
+
+export const englishGbLetterLeague = new Config({
+  ...letterLeague,
+  locale: Locale.EN_GB,
+  tiles: [
+    { character: 'a', score: 1 },
+    { character: 'b', score: 3 },
+    { character: 'c', score: 3 },
+    { character: 'd', score: 2 },
+    { character: 'e', score: 1 },
+    { character: 'f', score: 4 },
+    { character: 'g', score: 2 },
+    { character: 'h', score: 4 },
+    { character: 'i', score: 1 },
+    { character: 'j', score: 8 },
+    { character: 'k', score: 5 },
+    { character: 'l', score: 2 },
+    { character: 'm', score: 3 },
+    { character: 'n', score: 1 },
+    { character: 'o', score: 1 },
+    { character: 'p', score: 3 },
+    { character: 'q', score: 10 },
+    { character: 'r', score: 1 },
+    { character: 's', score: 1 },
+    { character: 't', score: 1 },
+    { character: 'u', score: 1 },
+    { character: 'v', score: 4 },
+    { character: 'w', score: 4 },
+    { character: 'x', score: 8 },
+    { character: 'y', score: 4 },
+    { character: 'z', score: 10 },
+  ],
+});
+
+export const englishGbLiteraki = new Config({
+  ...literaki,
+  locale: Locale.EN_GB,
+  name: 'Literaxx',
+  tiles: [
+    { character: 'a', count: 9, score: 1 },
+    { character: 'b', count: 2, score: 3 },
+    { character: 'c', count: 2, score: 3 },
+    { character: 'd', count: 4, score: 2 },
+    { character: 'e', count: 12, score: 1 },
+    { character: 'f', count: 2, score: 4 },
+    { character: 'g', count: 3, score: 2 },
+    { character: 'h', count: 2, score: 4 },
+    { character: 'i', count: 9, score: 1 },
+    { character: 'j', count: 1, score: 8 },
+    { character: 'k', count: 1, score: 5 },
+    { character: 'l', count: 4, score: 1 },
+    { character: 'm', count: 2, score: 3 },
+    { character: 'n', count: 6, score: 1 },
+    { character: 'o', count: 8, score: 1 },
+    { character: 'p', count: 2, score: 3 },
+    { character: 'q', count: 1, score: 10 },
+    { character: 'r', count: 6, score: 1 },
+    { character: 's', count: 4, score: 1 },
+    { character: 't', count: 6, score: 1 },
+    { character: 'u', count: 4, score: 1 },
+    { character: 'v', count: 2, score: 4 },
+    { character: 'w', count: 2, score: 4 },
+    { character: 'x', count: 1, score: 8 },
+    { character: 'y', count: 2, score: 4 },
+    { character: 'z', count: 1, score: 10 },
+  ],
+});
+
 export const englishGbScrabble = new Config({
   ...scrabble,
   locale: Locale.EN_GB,
@@ -103,9 +171,9 @@ export const englishGbSuperScrabble = new Config({
   ],
 });
 
-export const englishGbLetterLeague = new Config({
+export const englishUsLetterLeague = new Config({
   ...letterLeague,
-  locale: Locale.EN_GB,
+  locale: Locale.EN_US,
   tiles: [
     { character: 'a', score: 1 },
     { character: 'b', score: 3 },
@@ -136,9 +204,9 @@ export const englishGbLetterLeague = new Config({
   ],
 });
 
-export const englishGbLiteraki = new Config({
+export const englishUsLiteraki = new Config({
   ...literaki,
-  locale: Locale.EN_GB,
+  locale: Locale.EN_US,
   name: 'Literaxx',
   tiles: [
     { character: 'a', count: 9, score: 1 },
@@ -169,6 +237,7 @@ export const englishGbLiteraki = new Config({
     { character: 'z', count: 1, score: 10 },
   ],
 });
+
 
 export const englishUsScrabble = new Config({
   ...scrabble,
@@ -266,72 +335,5 @@ export const englishUsSuperScrabble = new Config({
     { character: 'x', count: 2, score: 8 },
     { character: 'y', count: 4, score: 4 },
     { character: 'z', count: 2, score: 10 },
-  ],
-});
-
-export const englishUsLetterLeague = new Config({
-  ...letterLeague,
-  locale: Locale.EN_US,
-  tiles: [
-    { character: 'a', score: 1 },
-    { character: 'b', score: 3 },
-    { character: 'c', score: 3 },
-    { character: 'd', score: 2 },
-    { character: 'e', score: 1 },
-    { character: 'f', score: 4 },
-    { character: 'g', score: 2 },
-    { character: 'h', score: 4 },
-    { character: 'i', score: 1 },
-    { character: 'j', score: 8 },
-    { character: 'k', score: 5 },
-    { character: 'l', score: 2 },
-    { character: 'm', score: 3 },
-    { character: 'n', score: 1 },
-    { character: 'o', score: 1 },
-    { character: 'p', score: 3 },
-    { character: 'q', score: 10 },
-    { character: 'r', score: 1 },
-    { character: 's', score: 1 },
-    { character: 't', score: 1 },
-    { character: 'u', score: 1 },
-    { character: 'v', score: 4 },
-    { character: 'w', score: 4 },
-    { character: 'x', score: 8 },
-    { character: 'y', score: 4 },
-    { character: 'z', score: 10 },
-  ],
-});
-
-export const englishUsLiteraki = new Config({
-  ...literaki,
-  locale: Locale.EN_US,
-  name: 'Literaxx',
-  tiles: [
-    { character: 'a', count: 9, score: 1 },
-    { character: 'b', count: 2, score: 3 },
-    { character: 'c', count: 2, score: 3 },
-    { character: 'd', count: 4, score: 2 },
-    { character: 'e', count: 12, score: 1 },
-    { character: 'f', count: 2, score: 4 },
-    { character: 'g', count: 3, score: 2 },
-    { character: 'h', count: 2, score: 4 },
-    { character: 'i', count: 9, score: 1 },
-    { character: 'j', count: 1, score: 8 },
-    { character: 'k', count: 1, score: 5 },
-    { character: 'l', count: 4, score: 1 },
-    { character: 'm', count: 2, score: 3 },
-    { character: 'n', count: 6, score: 1 },
-    { character: 'o', count: 8, score: 1 },
-    { character: 'p', count: 2, score: 3 },
-    { character: 'q', count: 1, score: 10 },
-    { character: 'r', count: 6, score: 1 },
-    { character: 's', count: 4, score: 1 },
-    { character: 't', count: 6, score: 1 },
-    { character: 'u', count: 4, score: 1 },
-    { character: 'v', count: 2, score: 4 },
-    { character: 'w', count: 2, score: 4 },
-    { character: 'x', count: 1, score: 8 },
-    { character: 'y', count: 2, score: 4 },
-    { character: 'z', count: 1, score: 10 },
   ],
 });
