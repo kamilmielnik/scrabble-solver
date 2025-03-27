@@ -4,7 +4,7 @@ import { Game } from '@scrabble-solver/types';
 export const letterLeague = {
   bingoScore: 50,
   blankScore: 0,
-  blanksCount: 4,
+  blanksCount: 2,
   boardHeight: 19,
   boardWidth: 27,
   game: Game.LetterLeague,

@@ -4,7 +4,6 @@ import { Config, Locale } from '@scrabble-solver/types';
 
 import { letterLeague, literaki, scrabble, scrabbleDuel, superScrabble } from '../games';
 
-
 export const englishGbLetterLeague = new Config({
   ...letterLeague,
   locale: Locale.EN_GB,
@@ -237,7 +236,6 @@ export const englishUsLiteraki = new Config({
     { character: 'z', count: 1, score: 10 },
   ],
 });
-
 
 export const englishUsScrabble = new Config({
   ...scrabble,
