@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { Translate } from 'types';
+import type { Translate } from 'types';
 
 import { selectLocale, selectTranslations } from './settings';
 import { useTypedSelector } from './useTypedSelector';
