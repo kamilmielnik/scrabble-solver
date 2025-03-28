@@ -13,27 +13,14 @@ import { memoize } from 'lib';
 import { findWordDefinitions, solve, verify, visit } from 'sdk';
 
 import { initialize, reset } from './actions';
-import {
-  selectBoard,
-  selectCellFilter,
-  selectCharacters,
-  selectConfig,
-  selectDictionary,
-  selectGame,
-  selectLocale,
-  selectLocaleAutoGroupTiles,
-  selectRack,
-} from './selectors';
-import {
-  boardSlice,
-  cellFiltersSlice,
-  dictionarySlice,
-  rackSlice,
-  resultsSlice,
-  settingsSlice,
-  solveSlice,
-  verifySlice,
-} from './slices';
+import { boardSlice, selectBoard } from './board';
+import { cellFiltersSlice, selectCellFilter } from './cellFilters';
+import { dictionarySlice, selectDictionary } from './dictionary';
+import { rackSlice, selectCharacters, selectRack } from './rack';
+import { resultsSlice } from './results';
+import { selectConfig, selectGame, selectLocale, selectLocaleAutoGroupTiles, settingsSlice } from './settings';
+import { solveSlice } from './solve';
+import { verifySlice } from './verify';
 
 const SUBMIT_DELAY = 150;
 

@@ -1,7 +1,7 @@
 import { load } from 'cheerio';
 
 import { request } from '../lib';
-import { ParsingResult } from '../types';
+import type { ParsingResult } from '../types';
 
 const DOES_NOT_EXIST_MESSAGE =
   // eslint-disable-next-line max-len

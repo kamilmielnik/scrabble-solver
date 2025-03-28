@@ -1,7 +1,7 @@
 import { Trie } from '@kamilmielnik/trie';
 import { Locale } from '@scrabble-solver/types';
 
-import { Cache } from '../types';
+import type { Cache } from '../types';
 
 import { createCacheTimestampComparator } from './createCacheTimestampComparator';
 import { DiskCache } from './DiskCache';

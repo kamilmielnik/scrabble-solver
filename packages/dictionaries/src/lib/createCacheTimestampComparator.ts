@@ -1,7 +1,7 @@
 import { Trie } from '@kamilmielnik/trie';
 import { Locale } from '@scrabble-solver/types';
 
-import { Cache } from '../types';
+import type { Cache } from '../types';
 
 export const createCacheTimestampComparator = (locale: Locale) => {
   return (a: Cache<Locale, Trie>, b: Cache<Locale, Trie>): number => {

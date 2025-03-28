@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { Translate } from 'types';
 
-import { selectLocale, selectTranslations } from './selectors';
+import { selectLocale, selectTranslations } from './settings';
 import { useTypedSelector } from './useTypedSelector';
 
 export const useTranslate = (): Translate => {

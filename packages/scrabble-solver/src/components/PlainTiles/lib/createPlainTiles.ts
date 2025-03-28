@@ -1,4 +1,4 @@
-import { CreatePlainTilesOptions, PlainTile } from '../types';
+import type { CreatePlainTilesOptions, PlainTile } from '../types';
 
 import { createPlainTile } from './createPlainTile';
 

@@ -21,7 +21,6 @@ export { getRemainingTilesGroups } from './getRemainingTilesGroups';
 export { getTileSizes } from './getTileSizes';
 export { getTotalRemainingTilesCount } from './getTotalRemainingTilesCount';
 export { groupResults } from './groupResults';
-export { guessLocale } from './guessLocale';
 export { inverseDirection } from './inverseDirection';
 export { isCtrl } from './isCtrl';
 export { isMac } from './isMac';

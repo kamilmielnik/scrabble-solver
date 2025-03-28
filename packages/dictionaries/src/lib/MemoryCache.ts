@@ -2,7 +2,7 @@ import { Trie } from '@kamilmielnik/trie';
 import { Locale } from '@scrabble-solver/types';
 
 import { CACHE_STALE_THRESHOLD } from '../constants';
-import { Cache } from '../types';
+import type { Cache } from '../types';
 
 export class MemoryCache implements Cache<Locale, Trie> {
   private readonly cache: Partial<Record<Locale, Trie>> = {};

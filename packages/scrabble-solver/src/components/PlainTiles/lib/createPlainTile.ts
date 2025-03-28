@@ -9,7 +9,7 @@ import {
   PLAIN_TILES_TILE_SIZE,
 } from 'parameters';
 
-import { CreatePlainTileOptions, PlainTile } from '../types';
+import type { CreatePlainTileOptions, PlainTile } from '../types';
 
 import { getX } from './getX';
 import { getY } from './getY';

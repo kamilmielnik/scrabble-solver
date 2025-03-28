@@ -1,17 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import reduxSaga from 'redux-saga';
 
+import { boardSlice } from './board';
+import { cellFiltersSlice } from './cellFilters';
+import { dictionarySlice } from './dictionary';
+import { rackSlice } from './rack';
+import { resultsSlice } from './results';
 import { rootSaga } from './sagas';
-import {
-  boardSlice,
-  cellFiltersSlice,
-  dictionarySlice,
-  rackSlice,
-  resultsSlice,
-  settingsSlice,
-  solveSlice,
-  verifySlice,
-} from './slices';
+import { settingsSlice } from './settings';
+import { solveSlice } from './solve';
+import { verifySlice } from './verify';
 
 const sagaMiddleware = reduxSaga();
 
