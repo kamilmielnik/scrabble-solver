@@ -1,15 +1,14 @@
 export * from './actions';
-export { localStorage } from './localStorage';
-export * from './selectors';
-export { store } from './store';
-export { useTranslate } from './useTranslate';
-export { useTypedSelector } from './useTypedSelector';
-
 export * from './board';
 export * from './cellFilters';
 export * from './dictionary';
+export * from './localStorage';
 export * from './rack';
 export * from './results';
+export * from './selectors';
 export * from './settings';
 export * from './solve';
+export * from './store';
+export * from './useTranslate';
+export * from './useTypedSelector';
 export * from './verify';
