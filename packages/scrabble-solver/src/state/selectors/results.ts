@@ -11,12 +11,22 @@ export const selectResultCandidate = createSelector([selectResults], (results) =
 
 export const selectResultsQuery = createSelector([selectResults], (results) => results.query);
 
-export const selectResultsRaw = createSelector([selectResults], (results) => results.results);
+const selectResultsResults = createSelector([selectResults], (results) => results.results);
 
 export const selectResultsSort = createSelector([selectResults], (results) => results.sort);
 
+export const selectResultCandidateCells = createSelector(
+  [selectResultCandidate],
+  (resultCandidate) => resultCandidate?.cells ?? [],
+);
+
+export const selectResultCandidateTiles = createSelector(
+  [selectResultCandidate],
+  (resultCandidate) => resultCandidate?.tiles ?? [],
+);
+
 const selectSortedResults = createSelector(
-  [selectResultsRaw, selectResultsSort, selectLocale, selectShowCoordinates],
+  [selectResultsResults, selectResultsSort, selectLocale, selectShowCoordinates],
   sortResults,
 );
 
@@ -45,14 +55,4 @@ export const selectIsResultMatching = createSelector(
 
     return resultMatchesCellFilter(result, cellFilters);
   },
-);
-
-export const selectResultCandidateCells = createSelector(
-  [selectResultCandidate],
-  (resultCandidate) => resultCandidate?.cells ?? [],
-);
-
-export const selectResultCandidateTiles = createSelector(
-  [selectResultCandidate],
-  (resultCandidate) => resultCandidate?.tiles ?? [],
 );
