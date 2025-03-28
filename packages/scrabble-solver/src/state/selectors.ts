@@ -1,8 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import { getRemainingTiles, unorderedArraysEqual } from 'lib';
+import { unorderedArraysEqual } from 'lib';
 
 import { selectBoard } from './board';
+import { getRemainingTiles } from './lib';
 import { selectCharacters } from './rack';
 import { selectConfig, selectLocale } from './settings';
 import { selectLastSolvedParameters } from './solve';
