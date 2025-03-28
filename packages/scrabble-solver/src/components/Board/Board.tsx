@@ -1,7 +1,6 @@
 /* eslint-disable max-lines, max-statements */
 
 import { FloatingPortal, ReferenceType } from '@floating-ui/react';
-import { createSelector } from '@reduxjs/toolkit';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import classNames from 'classnames';
 import { CSSProperties, FocusEventHandler, FunctionComponent, useCallback, useState } from 'react';
@@ -10,16 +9,13 @@ import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
-import { findCell } from 'lib';
 import { TRANSITION } from 'parameters';
 import {
   boardSlice,
   cellFiltersSlice,
-  selectBoard,
   selectCellFilters,
   selectInputMode,
   selectLocale,
-  selectResultCandidateCells,
   selectShowCoordinates,
   solveSlice,
   useTypedSelector,
@@ -29,14 +25,11 @@ import styles from './Board.module.scss';
 import { BoardPure } from './BoardPure';
 import { Actions, InputPrompt } from './components';
 import { useBoardStyle, useFloatingActions, useFloatingFocus, useFloatingInputPrompt, useGrid } from './hooks';
+import { selectRowsWithCandidate } from './selectors';
 
 interface Props {
   className?: string;
 }
-
-const selectRowsWithCandidate = createSelector([selectBoard, selectResultCandidateCells], (board, cells) => {
-  return board.rows.map((row, y) => row.map((cell, x) => findCell(cells, x, y) || cell));
-});
 
 export const Board: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();

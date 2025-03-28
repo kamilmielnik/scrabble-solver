@@ -1,23 +1,15 @@
-import { createSelector } from '@reduxjs/toolkit';
 import classNames from 'classnames';
 import { FunctionComponent, memo } from 'react';
 
 import { useAppLayout } from 'hooks';
 import { CardChecklist, Cog, Eraser, Github, KeyboardFill, List, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
-import { selectConfig, selectInvalidWords, selectRemainingTiles, useTranslate, useTypedSelector } from 'state';
+import { selectConfig, useTranslate, useTypedSelector } from 'state';
 
 import { IconButton } from '../IconButton';
 
 import styles from './NavButtons.module.scss';
-
-const selectHasInvalidWords = createSelector([selectInvalidWords], (invalidWords) => {
-  return invalidWords.length > 0;
-});
-
-const selectHasOverusedTiles = createSelector([selectRemainingTiles], (remainingTiles) => {
-  return remainingTiles.some(({ count = 0, usedCount }) => usedCount > count);
-});
+import { selectHasInvalidWords, selectHasOverusedTiles } from './selectors';
 
 interface Props {
   onClear: () => void;

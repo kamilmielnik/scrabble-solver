@@ -1,22 +1,20 @@
-import { createSelector } from '@reduxjs/toolkit';
 import { FunctionComponent, memo } from 'react';
 
 import { Badge, Modal } from 'components';
 import { LOCALE_FEATURES } from 'i18n';
-import { getRemainingTilesGroups, getTileSizes } from 'lib';
+import { getTileSizes } from 'lib';
 import { REMAINING_TILES_TILE_SIZE } from 'parameters';
-import { selectLocale, selectRemainingTiles, useTranslate, useTypedSelector } from 'state';
+import { selectLocale, useTranslate, useTypedSelector } from 'state';
 
 import { Character } from './components';
 import styles from './RemainingTilesModal.module.scss';
+import { selectRemainingTilesGroups } from './selectors';
 
 interface Props {
   className?: string;
   isOpen: boolean;
   onClose: () => void;
 }
-
-const selectRemainingTilesGroups = createSelector([selectRemainingTiles], getRemainingTilesGroups);
 
 const RemainingTilesModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
