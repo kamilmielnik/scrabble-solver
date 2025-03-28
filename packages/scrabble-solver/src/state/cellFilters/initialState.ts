@@ -1,3 +1,3 @@
-import type { CellFilters } from './types';
+import type { CellFiltersState } from './types';
 
-export const cellFiltersInitialState: CellFilters = [];
+export const cellFiltersInitialState: CellFiltersState = [];
