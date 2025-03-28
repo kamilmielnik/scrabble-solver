@@ -160,7 +160,7 @@ npm run build -w @scrabble-solver/word-lists
    npm run build -w @scrabble-solver/types
    ```
 6. Add locale configuration in [packages/scrabble-solver/src/i18n/constants.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/i18n/constants.ts)
-7. Update locale-detecting code in [packages/scrabble-solver/src/lib/detectLocale.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/lib/detectLocale.ts)
+7. Update locale-detecting code in [packages/scrabble-solver/src/state/settings/lib.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/state/settings/lib.ts)
 8. Add game configs for the new locale in [packages/configs/src/languages](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/configs/src/languages)
 9. Add an export for these locale configs in [packages/configs/src/languages/index.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/configs/src/languages/index.ts)
 10. Add a translation file in [packages/scrabble-solver/src/i18n/languages](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver/src/i18n/languages) and fill it with translations

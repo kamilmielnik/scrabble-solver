@@ -7,7 +7,6 @@ export { createKeyboardNavigation } from './createKeyboardNavigation';
 export { createNullMovingComparator } from './createNullMovingComparator';
 export { createRegExp } from './createRegExp';
 export { createStringComparator } from './createStringComparator';
-export { detectLocale } from './detectLocale';
 export { extractCharacters } from './extractCharacters';
 export { extractCharactersByCase } from './extractCharactersByCase';
 export { extractInputValue } from './extractInputValue';
