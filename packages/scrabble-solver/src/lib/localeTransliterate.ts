@@ -5,7 +5,7 @@ const transliteratePerLocale: Record<Locale, (word: string) => string> = {
   [Locale.DE_DE]: (word) => word,
   [Locale.EN_GB]: (word) => word,
   [Locale.EN_US]: (word) => word,
-  [Locale.ES_ES]: (word) => transliterate(word, { ignore: ['ñ'] }),
+  [Locale.ES_ES]: (word) => transliterate(word, { ignore: ['ñ', 'Ñ'] }),
   [Locale.FA_IR]: (word) => word,
   [Locale.FR_FR]: (word) => transliterate(word),
   [Locale.PL_PL]: (word) => word,
