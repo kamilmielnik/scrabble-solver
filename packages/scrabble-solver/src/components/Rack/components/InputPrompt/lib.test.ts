@@ -10,7 +10,7 @@ describe('extractRack', () => {
 
   it.each([
     { input: 'ab ', expected: ['a', 'b', BLANK, null, null, null, null] },
-    { input: 'śćźa', expected: ['a', null, null, null, null, null, null] },
+    { input: 'śćźa', expected: ['s', 'c', 'z', 'a', null, null, null] },
     { input: 'bueno', expected: ['b', 'u', 'e', 'n', 'o', null, null] },
     { input: 'bellas', expected: ['b', 'e', 'l', 'l', 'a', 's', null] },
     { input: 'churro', expected: ['c', 'h', 'u', 'r', 'r', 'o', null] },
