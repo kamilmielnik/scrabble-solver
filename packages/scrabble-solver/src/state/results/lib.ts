@@ -1,9 +1,7 @@
 import { Result } from '@scrabble-solver/types';
 
+import { createRegExp } from 'lib';
 import { CellFilter, GroupedResults } from 'types';
-
-import { createRegExp } from './createRegExp';
-import { resultMatchesCellFilter } from './resultMatchesCellFilter';
 
 export const groupResults = (
   results: Result[] | undefined,
@@ -32,4 +30,22 @@ export const groupResults = (
   );
 
   return { matching, other };
+};
+
+export const resultMatchesCellFilter = (result: Result, cellFilters: CellFilter[]): boolean => {
+  const excludeFilters = cellFilters.filter((filter) => filter.type === 'exclude');
+  const matchesExcludeFilters = excludeFilters.every(({ x, y }) => {
+    return result.cells.every((cell) => cell.x !== x || cell.y !== y);
+  });
+
+  if (!matchesExcludeFilters) {
+    return false;
+  }
+
+  const includeFilter = cellFilters.filter((filter) => filter.type === 'include');
+  const matchesIncludeFilters = includeFilter.every(({ x, y }) => {
+    return result.cells.some((cell) => cell.x === x && cell.y === y);
+  });
+
+  return matchesExcludeFilters && matchesIncludeFilters;
 };
