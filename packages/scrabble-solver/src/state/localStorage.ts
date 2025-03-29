@@ -1,7 +1,7 @@
 import { Board, BoardJson, Game, Locale, ShowCoordinates } from '@scrabble-solver/types';
 import store2 from 'store2';
 
-import { AutoGroupTiles, InputMode, Rack } from 'types';
+import type { AutoGroupTiles, InputMode, Rack } from 'types';
 
 const AUTO_GROUP_TILES = 'auto-group-tiles';
 const BOARD = 'board';

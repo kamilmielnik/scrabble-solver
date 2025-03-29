@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Button, Dictionary, Modal, Results } from 'components';
 import { useAppLayout } from 'hooks';
 import { Check, EyeFill } from 'icons';
-import { resultsSlice, selectResultCandidate, selectResults, useTranslate, useTypedSelector } from 'state';
+import { resultsSlice, selectProcessedResults, selectResultCandidate, useTranslate, useTypedSelector } from 'state';
 
 import styles from './ResultsModal.module.scss';
 
@@ -19,7 +19,7 @@ const ResultsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose
   const dispatch = useDispatch();
   const translate = useTranslate();
   const { showResultsInModal } = useAppLayout();
-  const results = useTypedSelector(selectResults);
+  const results = useTypedSelector(selectProcessedResults);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const index = results ? results.findIndex((result) => result.id === resultCandidate?.id) : -1;
   const highlightedIndex = index === -1 ? undefined : index;

@@ -80,6 +80,14 @@ export class Result {
       points: this.points,
     };
   }
+
+  public isHorizontal(): boolean {
+    return this.cells[0].y === this.cells[1].y;
+  }
+
+  public isVertical(): boolean {
+    return this.cells[0].x === this.cells[1].x;
+  }
 }
 
 const getBlanks = (tiles: Tile[]): Tile[] => tiles.filter(({ isBlank }) => isBlank);

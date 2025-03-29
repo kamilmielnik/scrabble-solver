@@ -6,10 +6,10 @@ import { ChevronDown, ChevronLeft, ChevronRight } from 'icons';
 import {
   resultsSlice,
   selectAreResultsOutdated,
-  selectIsLoading,
+  selectSolveIsLoading,
   selectLocale,
+  selectProcessedResults,
   selectResultCandidate,
-  selectResults,
   useTranslate,
   useTypedSelector,
 } from 'state';
@@ -28,9 +28,9 @@ export const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onR
   const dispatch = useDispatch();
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
-  const isLoading = useTypedSelector(selectIsLoading);
+  const isLoading = useTypedSelector(selectSolveIsLoading);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
-  const results = useTypedSelector(selectResults);
+  const results = useTypedSelector(selectProcessedResults);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const index = resultCandidate && results ? results.findIndex((result) => result.id === resultCandidate.id) : -1;
   const disabled = isOutdated || !resultCandidate;

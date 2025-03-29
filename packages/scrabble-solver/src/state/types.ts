@@ -1,21 +1,19 @@
-import {
-  boardSlice,
-  cellFilterSlice,
-  dictionarySlice,
-  rackSlice,
-  resultsSlice,
-  settingsSlice,
-  solveSlice,
-  verifySlice,
-} from './slices';
+import type { BoardState } from './board';
+import type { CellFiltersState } from './cellFilters';
+import type { DictionaryState } from './dictionary';
+import type { RackState } from './rack';
+import type { ResultsState } from './results';
+import type { SettingsState } from './settings';
+import type { SolveState } from './solve';
+import type { VerifyState } from './verify';
 
 export type RootState = {
-  board: ReturnType<typeof boardSlice.reducer>;
-  cellFilter: ReturnType<typeof cellFilterSlice.reducer>;
-  dictionary: ReturnType<typeof dictionarySlice.reducer>;
-  rack: ReturnType<typeof rackSlice.reducer>;
-  results: ReturnType<typeof resultsSlice.reducer>;
-  settings: ReturnType<typeof settingsSlice.reducer>;
-  solve: ReturnType<typeof solveSlice.reducer>;
-  verify: ReturnType<typeof verifySlice.reducer>;
+  board: BoardState;
+  cellFilters: CellFiltersState;
+  dictionary: DictionaryState;
+  rack: RackState;
+  results: ResultsState;
+  settings: SettingsState;
+  solve: SolveState;
+  verify: VerifyState;
 };

@@ -7,8 +7,8 @@ import { useAppLayout, useIsTouchDevice } from 'hooks';
 import {
   resultsSlice,
   selectAreResultsOutdated,
+  selectProcessedResults,
   selectResultCandidate,
-  selectResults,
   selectSolveError,
   solveSlice,
   useTranslate,
@@ -38,7 +38,7 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
   const error = useTypedSelector(selectSolveError);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const resultCandidate = useTypedSelector(selectResultCandidate);
-  const results = useTypedSelector(selectResults);
+  const results = useTypedSelector(selectProcessedResults);
   const [bestResult] = results || [];
   const touchCallbacks = useMemo(
     () => ({

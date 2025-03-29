@@ -4,11 +4,12 @@ import { FunctionComponent, memo } from 'react';
 import { useAppLayout } from 'hooks';
 import { CardChecklist, Cog, Eraser, Github, KeyboardFill, List, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
-import { selectConfig, selectHasInvalidWords, selectHasOverusedTiles, useTranslate, useTypedSelector } from 'state';
+import { selectConfig, useTranslate, useTypedSelector } from 'state';
 
 import { IconButton } from '../IconButton';
 
 import styles from './NavButtons.module.scss';
+import { selectHasInvalidWords, selectHasOverusedTiles } from './selectors';
 
 interface Props {
   onClear: () => void;
@@ -29,8 +30,8 @@ const NavButtonsBase: FunctionComponent<Props> = ({
 }) => {
   const translate = useTranslate();
   const config = useTypedSelector(selectConfig);
-  const hasOverusedTiles = useTypedSelector(selectHasOverusedTiles);
   const hasInvalidWords = useTypedSelector(selectHasInvalidWords);
+  const hasOverusedTiles = useTypedSelector(selectHasOverusedTiles);
   const { showKeyMap, showShortNav } = useAppLayout();
 
   if (showShortNav) {

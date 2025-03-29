@@ -15,18 +15,18 @@ import {
 import { Ban, FlagFill } from 'icons';
 import { getCoordinate } from 'lib';
 import { BORDER_WIDTH } from 'parameters';
-import { CellFilterEntry } from 'types';
+import { CellFilter } from 'types';
 
 import styles from './Board.module.scss';
 import { Cell } from './components';
 
 interface Props {
   className?: string;
+  cellFilters: CellFilter[];
   cellSize: number;
   coordinatesFontSize: number;
   coordinatesSize: number;
   direction: 'ltr' | 'rtl';
-  filteredCells: CellFilterEntry[];
   inputRefs: RefObject<HTMLInputElement | null>[][];
   rows: CellModel[][];
   showCoordinates: ShowCoordinates;
@@ -46,7 +46,7 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
       coordinatesFontSize,
       coordinatesSize,
       direction,
-      filteredCells,
+      cellFilters,
       inputRefs,
       rows,
       showCoordinates,
@@ -92,7 +92,7 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
         to prevent flickering on blob URL change (i.e. when flagging a field,
         but not when changing game type since user's attention is not on the board
         when that happens)*/}
-      {filteredCells.map(({ x, y, type }) => {
+      {cellFilters.map(({ x, y, type }) => {
         const Icon = type === 'exclude' ? Ban : FlagFill;
 
         return (

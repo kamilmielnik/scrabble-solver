@@ -13,27 +13,14 @@ import { memoize } from 'lib';
 import { findWordDefinitions, solve, verify, visit } from 'sdk';
 
 import { initialize, reset } from './actions';
-import {
-  selectBoard,
-  selectCellFilter,
-  selectCharacters,
-  selectConfig,
-  selectDictionary,
-  selectGame,
-  selectLocale,
-  selectLocaleAutoGroupTiles,
-  selectRack,
-} from './selectors';
-import {
-  boardSlice,
-  cellFilterSlice,
-  dictionarySlice,
-  rackSlice,
-  resultsSlice,
-  settingsSlice,
-  solveSlice,
-  verifySlice,
-} from './slices';
+import { boardSlice, selectBoard } from './board';
+import { cellFiltersSlice, selectCellFilter } from './cellFilters';
+import { dictionarySlice, selectDictionary } from './dictionary';
+import { rackSlice, selectCharacters, selectRack } from './rack';
+import { resultsSlice } from './results';
+import { selectConfig, selectGame, selectLocale, selectLocaleAutoGroupTiles, settingsSlice } from './settings';
+import { solveSlice } from './solve';
+import { verifySlice } from './verify';
 
 const SUBMIT_DELAY = 150;
 
@@ -62,7 +49,7 @@ function* onCellValueChange({ payload }: PayloadAction<{ value: string; x: numbe
   const filter = yield select((state) => selectCellFilter(state, payload));
 
   if (filter) {
-    yield put(cellFilterSlice.actions.cancel(payload));
+    yield put(cellFiltersSlice.actions.cancel(payload));
   }
 
   yield put(resultsSlice.actions.changeResultCandidate(null));
@@ -76,7 +63,7 @@ function* onRackValueChange(): AnyGenerator {
 function* onApplyResult({ payload: result }: PayloadAction<Result>): AnyGenerator {
   const autoGroupTiles = yield select(selectLocaleAutoGroupTiles);
   yield put(boardSlice.actions.applyResult(result));
-  yield put(cellFilterSlice.actions.reset());
+  yield put(cellFiltersSlice.actions.reset());
   yield put(rackSlice.actions.removeTiles(result.tiles));
   yield put(rackSlice.actions.groupTiles(autoGroupTiles));
   yield put(verifySlice.actions.submit());
@@ -92,8 +79,8 @@ function* onGameChange(): AnyGenerator {
   }
 
   yield put(resultsSlice.actions.reset());
+  yield* resetRack();
   yield put(verifySlice.actions.submit());
-  yield* ensureProperTilesCount();
 }
 
 function* onDictionarySubmit(): AnyGenerator {
@@ -126,7 +113,7 @@ function* onInitialize(): AnyGenerator {
   yield call(visit);
 
   if (!board.isEmpty()) {
-    yield* ensureProperTilesCount();
+    yield* resetRack();
     yield put(verifySlice.actions.submit());
   }
 }
@@ -135,7 +122,7 @@ function* onReset(): AnyGenerator {
   const config = yield select(selectConfig);
 
   yield put(boardSlice.actions.init(Board.create(config.boardWidth, config.boardHeight)));
-  yield put(cellFilterSlice.actions.reset());
+  yield put(cellFiltersSlice.actions.reset());
   yield put(dictionarySlice.actions.reset());
   yield put(rackSlice.actions.reset());
   yield put(resultsSlice.actions.reset());
@@ -223,7 +210,7 @@ function* onVerify(): AnyGenerator {
   }
 }
 
-function* ensureProperTilesCount(): AnyGenerator {
+function* resetRack(): AnyGenerator {
   const { config } = yield select(selectConfig);
   const rack = yield select(selectRack);
 

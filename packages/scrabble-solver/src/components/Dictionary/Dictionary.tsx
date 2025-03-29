@@ -2,7 +2,13 @@ import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 
 import { useAppLayout } from 'hooks';
-import { selectDictionary, selectDictionaryError, useTranslate, useTypedSelector } from 'state';
+import {
+  selectDictionaryError,
+  selectDictionaryIsLoading,
+  selectDictionaryResults,
+  useTranslate,
+  useTypedSelector,
+} from 'state';
 
 import { EmptyState } from '../EmptyState';
 import { Loading } from '../Loading';
@@ -16,7 +22,8 @@ interface Props {
 export const Dictionary: FunctionComponent<Props> = ({ className }) => {
   const translate = useTranslate();
   const { dictionaryResultsHeight } = useAppLayout();
-  const { results, isLoading } = useTypedSelector(selectDictionary);
+  const results = useTypedSelector(selectDictionaryResults);
+  const isLoading = useTypedSelector(selectDictionaryIsLoading);
   const error = useTypedSelector(selectDictionaryError);
   const isLastAllowed = results.at(-1)?.isAllowed;
 

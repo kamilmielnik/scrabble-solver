@@ -1,15 +1,15 @@
 import classNames from 'classnames';
-import { CSSProperties, FocusEventHandler, MouseEventHandler, ReactElement, useMemo, useRef } from 'react';
+import { CSSProperties, FocusEventHandler, MouseEventHandler, ReactElement, useRef } from 'react';
 import Highlighter from 'react-highlight-words';
 
 import { useAppLayout, useColumns } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
-import { getCoordinates, noop } from 'lib';
+import { noop } from 'lib';
 import {
   selectIsResultMatching,
   selectLocale,
+  selectResultCoordinates,
   selectResultsQuery,
-  selectShowCoordinates,
   useTypedSelector,
 } from 'state';
 import { ResultColumnId } from 'types';
@@ -38,13 +38,12 @@ export const Result = ({ data, index, style }: Props): ReactElement => {
   const ref = useRef<HTMLButtonElement>(null);
   const columns = useColumns();
   const locale = useTypedSelector(selectLocale);
-  const showCoordinates = useTypedSelector(selectShowCoordinates);
   const query = useTypedSelector(selectResultsQuery);
   const { direction, separator } = LOCALE_FEATURES[locale];
   const result = results[index];
   const isMatching = useTypedSelector((state) => selectIsResultMatching(state, index));
   const words = direction === 'rtl' ? [...result.words].reverse() : result.words;
-  const coordinates = useMemo(() => getCoordinates(result, showCoordinates), [result, showCoordinates]);
+  const coordinates = useTypedSelector((state) => selectResultCoordinates(state, index));
 
   const handleClick: MouseEventHandler = (event) => onClick(result, event);
   const handleMouseEnter: MouseEventHandler = (event) => onMouseEnter(result, event);

@@ -7,7 +7,7 @@ export type AutoGroupTiles = 'left' | 'right' | null;
 
 export type CellFilterType = 'include' | 'exclude';
 
-export type CellFilterEntry = {
+export type CellFilter = {
   x: Point['x'];
   y: Point['y'];
   type: CellFilterType;

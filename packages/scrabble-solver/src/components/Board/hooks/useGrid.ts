@@ -17,11 +17,11 @@ import { useDispatch } from 'react-redux';
 
 import { useLatest } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
-import { createGridOf, createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
-import { boardSlice, cellFilterSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
+import { createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
+import { boardSlice, cellFiltersSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
 import { Direction, Point } from 'types';
 
-import { getPositionInGrid } from '../lib';
+import { createGrid, getPositionInGrid } from '../lib';
 
 const toggleDirection = (direction: Direction) => (direction === 'vertical' ? 'horizontal' : 'vertical');
 
@@ -47,7 +47,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
   const inputRefs = useMemo(
-    () => createGridOf<RefObject<HTMLInputElement | null>>(width, height, () => createRef()),
+    () => createGrid<RefObject<HTMLInputElement | null>>(width, height, () => createRef()),
     [width, height],
   );
   const [activeIndex, setActiveIndex] = useState<Point>({ x: 0, y: 0 });
@@ -314,7 +314,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
           event.preventDefault();
 
           if (!cell.hasTile()) {
-            dispatch(cellFilterSlice.actions.toggle(position));
+            dispatch(cellFiltersSlice.actions.toggle(position));
           }
 
           return;

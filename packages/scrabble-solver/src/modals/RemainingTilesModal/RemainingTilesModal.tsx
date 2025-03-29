@@ -4,10 +4,11 @@ import { Badge, Modal } from 'components';
 import { LOCALE_FEATURES } from 'i18n';
 import { getTileSizes } from 'lib';
 import { REMAINING_TILES_TILE_SIZE } from 'parameters';
-import { selectLocale, selectRemainingTilesGroups, useTranslate, useTypedSelector } from 'state';
+import { selectLocale, useTranslate, useTypedSelector } from 'state';
 
 import { Character } from './components';
 import styles from './RemainingTilesModal.module.scss';
+import { selectRemainingTilesGroups } from './selectors';
 
 interface Props {
   className?: string;

@@ -34,7 +34,7 @@ export const EmptyState: FunctionComponent<Props> = ({ children, className, vari
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
-  const title = useMemo(() => translate(TITLE_KEY_PER_TYPE[variant]), [translate, variant]);
+  const title = translate(TITLE_KEY_PER_TYPE[variant]);
   const message = direction === 'ltr' ? title : title.split('').reverse().join('');
   const content = useMemo(() => [message.toUpperCase().split(' ')], [message]);
 

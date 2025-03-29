@@ -3,7 +3,7 @@ import { FunctionComponent, memo } from 'react';
 
 import { Badge, Modal } from 'components';
 import { Check, Cross } from 'icons';
-import { selectLocale, selectVerify, useTranslate, useTypedSelector } from 'state';
+import { selectInvalidWords, selectLocale, selectValidWords, useTranslate, useTypedSelector } from 'state';
 
 import styles from './WordsModal.module.scss';
 
@@ -16,7 +16,8 @@ interface Props {
 const WordsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
-  const { invalidWords, validWords } = useTypedSelector(selectVerify);
+  const invalidWords = useTypedSelector(selectInvalidWords);
+  const validWords = useTypedSelector(selectValidWords);
 
   return (
     <Modal className={className} isOpen={isOpen} title={translate('words')} onClose={onClose}>
