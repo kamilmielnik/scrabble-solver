@@ -18,26 +18,12 @@ import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
-import {
-  createKeyboardNavigation,
-  extractCharacters,
-  extractInputValue,
-  getTileSizes,
-  isCtrl,
-  zipCharactersAndTiles,
-} from 'lib';
-import {
-  rackSlice,
-  selectConfig,
-  selectInputMode,
-  selectLocale,
-  selectRack,
-  selectResultCandidateTiles,
-  useTypedSelector,
-} from 'state';
+import { createKeyboardNavigation, extractCharacters, extractInputValue, getTileSizes, isCtrl } from 'lib';
+import { rackSlice, selectConfig, selectInputMode, selectLocale, selectRack, useTypedSelector } from 'state';
 
 import { InputPrompt, RackTile } from './components';
 import styles from './Rack.module.scss';
+import { selectRemainingTilesGroups } from './selectors';
 
 interface Props {
   className?: string;
@@ -46,13 +32,12 @@ interface Props {
 
 export const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const dispatch = useDispatch();
+  const { rackHeight } = useAppLayout();
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
   const rack = useTypedSelector(selectRack);
   const inputMode = useTypedSelector(selectInputMode);
-  const { rackHeight } = useAppLayout();
-  const resultCandidateTiles = useTypedSelector(selectResultCandidateTiles);
-  const tiles = useMemo(() => zipCharactersAndTiles(rack, resultCandidateTiles), [rack, resultCandidateTiles]);
+  const tiles = useTypedSelector(selectRemainingTilesGroups);
   const tilesCount = tiles.length;
   const tilesRefs = useMemo(
     () => Array.from({ length: tilesCount }).map(() => createRef<HTMLInputElement | null>()),

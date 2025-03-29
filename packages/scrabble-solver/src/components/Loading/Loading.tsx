@@ -14,19 +14,17 @@ interface Props {
   wave?: boolean;
 }
 
-const prepareContent = (message: string): string[][] => {
-  const uppercased = message.toLocaleUpperCase();
-  const parts = uppercased.split(' ');
-  return [parts];
-};
-
 export const Loading: FunctionComponent<Props> = ({ className, wave = true }) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const translation = translate('common.loading');
   const message = direction === 'ltr' ? translation : translation.split('').reverse().join('');
-  const content = useMemo(() => prepareContent(message), [message]);
+  const content = useMemo(() => {
+    const uppercased = message.toLocaleUpperCase();
+    const parts = uppercased.split(' ');
+    return [parts];
+  }, [message]);
 
   return (
     <div aria-label={translation} className={classNames(styles.loading, className)} data-testid="loading" role="status">
