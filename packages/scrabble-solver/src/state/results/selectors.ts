@@ -66,7 +66,7 @@ export const selectResultCoordinates = createSelector(
   [selectProcessedResults, selectShowCoordinates, selectResultIndex],
   (results, showCoordinates, index) => {
     if (!results) {
-      return false;
+      return '';
     }
 
     const result = results[index];
