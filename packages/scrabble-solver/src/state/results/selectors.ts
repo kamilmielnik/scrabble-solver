@@ -1,12 +1,12 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import { createRegExp, sortResults } from 'lib';
+import { createRegExp } from 'lib';
 
 import { selectCellFilters } from '../cellFilters';
 import { selectLocale, selectShowCoordinates } from '../settings';
 import type { RootState } from '../types';
 
-import { groupResults, resultMatchesCellFilter } from './lib';
+import { groupResults, resultMatchesCellFilter, sortResults } from './lib';
 
 const selectResultIndex = (_: unknown, index: number): number => index;
 

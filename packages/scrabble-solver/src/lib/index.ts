@@ -21,7 +21,5 @@ export { memoize } from './memoize';
 export { noop } from './noop';
 export { numberComparator } from './numberComparator';
 export { reverseComparator } from './reverseComparator';
-export { sortGroupedResults } from './sortGroupedResults';
-export { sortResults } from './sortResults';
 export { unorderedArraysEqual } from './unorderedArraysEqual';
 export { zipCharactersAndTiles } from './zipCharactersAndTiles';
