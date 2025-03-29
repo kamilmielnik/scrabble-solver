@@ -1,6 +1,8 @@
 import { Config } from '@scrabble-solver/types';
 
-import { extractCharacters } from 'lib';
+// eslint-disable-next-line no-warning-comments
+// TODO: https://github.com/kamilmielnik/scrabble-solver/issues/393
+import { extractCharacters } from '../../../../lib/extractCharacters';
 
 export const extractRack = (config: Config, value: string): (string | null)[] => {
   const charactersByCase = extractCharacters(config, value, {
