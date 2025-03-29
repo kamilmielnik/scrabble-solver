@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import { CSSProperties, FunctionComponent, ReactNode } from 'react';
+import { type CSSProperties, type FunctionComponent, type ReactNode } from 'react';
 
 import { selectLocale, useTranslate, useTypedSelector } from 'state';
-import { TranslationKey } from 'types';
+import { type TranslationKey } from 'types';
 
 import { Tooltip } from '../Tooltip';
 

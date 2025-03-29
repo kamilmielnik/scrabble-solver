@@ -1,7 +1,7 @@
-import { Board } from './Board';
-import { Cell } from './Cell';
-import { Config } from './Config';
-import { PatternJson } from './PatternJson';
+import { type Board } from './Board';
+import { type Cell } from './Cell';
+import { type Config } from './Config';
+import { type PatternJson } from './PatternJson';
 
 export class Pattern {
   public readonly board: Board;

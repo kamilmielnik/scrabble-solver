@@ -2,7 +2,7 @@ import { Locale } from '@scrabble-solver/types';
 
 import { english, french, german, persian, polish, romanian, spanish, turkish } from './languages';
 import { normalizeDefinition, unique } from './lib';
-import { ParsingResult } from './types';
+import { type ParsingResult } from './types';
 
 const parsePerLocale: Record<Locale, (html: string) => ParsingResult> = {
   [Locale.DE_DE]: german.parse,

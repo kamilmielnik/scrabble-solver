@@ -1,4 +1,4 @@
-import { Config, isMultiplierBingo, isScoreBingo, Pattern } from '@scrabble-solver/types';
+import { type Config, isMultiplierBingo, isScoreBingo, type Pattern } from '@scrabble-solver/types';
 
 import { getCellsScore } from './getCellsScore';
 

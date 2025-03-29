@@ -1,7 +1,7 @@
-import { Result, ShowCoordinates } from '@scrabble-solver/types';
+import { type Result, type ShowCoordinates } from '@scrabble-solver/types';
 
 import { createKeyComparator, createRegExp, createStringComparator, getCoordinate, reverseComparator } from 'lib';
-import { CellFilter, Comparator, GroupedResults, ResultColumnId, Sort, SortDirection } from 'types';
+import { type CellFilter, type Comparator, type GroupedResults, ResultColumnId, type Sort, SortDirection } from 'types';
 
 export const getCoordinates = (result: Result, showCoordinates: ShowCoordinates): string => {
   if (showCoordinates === 'hidden') {

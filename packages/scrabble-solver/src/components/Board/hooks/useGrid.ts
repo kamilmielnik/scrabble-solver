@@ -1,13 +1,13 @@
 /* eslint-disable max-lines, max-statements */
-import { PayloadAction } from '@reduxjs/toolkit';
+import { type PayloadAction } from '@reduxjs/toolkit';
 import { BLANK, EMPTY_CELL } from '@scrabble-solver/constants';
-import { Board, Cell } from '@scrabble-solver/types';
+import { Board, type Cell } from '@scrabble-solver/types';
 import {
-  ChangeEvent,
-  ChangeEventHandler,
-  ClipboardEventHandler,
-  KeyboardEventHandler,
-  RefObject,
+  type ChangeEvent,
+  type ChangeEventHandler,
+  type ClipboardEventHandler,
+  type KeyboardEventHandler,
+  type RefObject,
   createRef,
   useCallback,
   useMemo,
@@ -19,7 +19,7 @@ import { useLatest } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
 import { boardSlice, cellFiltersSlice, selectConfig, selectLocale, useTypedSelector } from 'state';
-import { Direction, Point } from 'types';
+import { type Direction, type Point } from 'types';
 
 import { createGrid, getPositionInGrid } from '../lib';
 

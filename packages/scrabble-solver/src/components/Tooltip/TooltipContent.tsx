@@ -1,5 +1,5 @@
 import { FloatingArrow, FloatingPortal, useDelayGroup, useMergeRefs, useTransitionStyles } from '@floating-ui/react';
-import { forwardRef, HTMLProps } from 'react';
+import { forwardRef, type HTMLProps } from 'react';
 
 import { TOOLTIP_DURATION } from 'parameters';
 

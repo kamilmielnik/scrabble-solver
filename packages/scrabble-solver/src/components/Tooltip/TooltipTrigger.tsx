@@ -1,6 +1,6 @@
 import { useMergeRefs } from '@floating-ui/react';
 import { isObject } from '@scrabble-solver/types';
-import { HTMLProps, ReactElement, RefObject, cloneElement, forwardRef, isValidElement } from 'react';
+import { type HTMLProps, type ReactElement, type RefObject, cloneElement, forwardRef, isValidElement } from 'react';
 
 import { useTooltipContext } from './context';
 

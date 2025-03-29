@@ -2,9 +2,9 @@ import { games } from '@scrabble-solver/configs';
 import { COMMA_ARABIC, COMMA_LATIN } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import { logger } from '@scrabble-solver/logger';
-import { Locale, isLocale } from '@scrabble-solver/types';
+import { type Locale, isLocale } from '@scrabble-solver/types';
 import { getWordDefinition } from '@scrabble-solver/word-definitions';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { type NextApiRequest, type NextApiResponse } from 'next';
 
 import { getServerLoggingData } from 'api';
 

@@ -1,4 +1,4 @@
-import { Game, Locale, ShowCoordinates } from '@scrabble-solver/types';
+import { type Game, type Locale, type ShowCoordinates } from '@scrabble-solver/types';
 
 import type { AutoGroupTiles, InputMode } from 'types';
 

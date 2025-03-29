@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FunctionComponent, HTMLProps } from 'react';
+import { type FunctionComponent, type HTMLProps } from 'react';
 
 import { PROGRESS_COLOR_BACKGROUND, PROGRESS_COLOR_VALUE } from 'parameters';
 import { selectLocale, useTypedSelector } from 'state';

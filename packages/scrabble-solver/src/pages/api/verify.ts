@@ -1,8 +1,8 @@
 import { getConfig, hasConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import { logger } from '@scrabble-solver/logger';
-import { Board, Config, Game, Locale, isBoardJson, isGame, isLocale } from '@scrabble-solver/types';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { Board, type Config, type Game, type Locale, isBoardJson, isGame, isLocale } from '@scrabble-solver/types';
+import { type NextApiRequest, type NextApiResponse } from 'next';
 
 import { getServerLoggingData, isBoardValid } from 'api';
 

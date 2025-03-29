@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FunctionComponent, memo } from 'react';
+import { type FunctionComponent, memo } from 'react';
 
 import { useAppLayout } from 'hooks';
 import { CardChecklist, Cog, Eraser, Github, KeyboardFill, List, Sack } from 'icons';

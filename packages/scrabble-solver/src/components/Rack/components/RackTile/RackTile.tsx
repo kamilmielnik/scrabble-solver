@@ -1,15 +1,15 @@
 import { BLANK } from '@scrabble-solver/constants';
-import { Tile as TileModel } from '@scrabble-solver/types';
+import { type Tile as TileModel } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import {
-  ChangeEvent,
-  ChangeEventHandler,
-  FocusEventHandler,
-  FunctionComponent,
-  KeyboardEventHandler,
-  MouseEventHandler,
-  RefObject,
-  TouchEventHandler,
+  type ChangeEvent,
+  type ChangeEventHandler,
+  type FocusEventHandler,
+  type FunctionComponent,
+  type KeyboardEventHandler,
+  type MouseEventHandler,
+  type RefObject,
+  type TouchEventHandler,
   useCallback,
   useMemo,
 } from 'react';

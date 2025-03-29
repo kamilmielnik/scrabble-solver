@@ -1,4 +1,4 @@
-import { FunctionComponent, memo } from 'react';
+import { type FunctionComponent, memo } from 'react';
 
 import { Arrows, Backspace, Ctrl, Del, Enter, Key, Modal, Space } from 'components';
 import { selectConfig, useTranslate, useTypedSelector } from 'state';

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FunctionComponent, memo } from 'react';
+import { type FunctionComponent, memo } from 'react';
 
 import { Badge, Modal } from 'components';
 import { Check, Cross } from 'icons';

@@ -1,4 +1,4 @@
-import { InputMode } from 'types';
+import { type InputMode } from 'types';
 
 export const parseValue = (value: string): InputMode => {
   if (value === 'keyboard') {

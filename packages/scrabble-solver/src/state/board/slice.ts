@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { games } from '@scrabble-solver/configs';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import { Board, Cell, Result, Tile } from '@scrabble-solver/types';
+import { Board, Cell, type Result, Tile } from '@scrabble-solver/types';
 
 import { settingsSlice } from '../settings';
 

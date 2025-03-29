@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FunctionComponent, HTMLProps, MouseEventHandler } from 'react';
+import { type FunctionComponent, type HTMLProps, type MouseEventHandler } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { ChevronDown, ChevronLeft, ChevronRight } from 'icons';

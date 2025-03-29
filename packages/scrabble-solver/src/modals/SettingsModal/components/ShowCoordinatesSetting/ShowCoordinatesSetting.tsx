@@ -1,5 +1,5 @@
-import { ShowCoordinates } from '@scrabble-solver/types';
-import { ChangeEvent, FunctionComponent } from 'react';
+import { type ShowCoordinates } from '@scrabble-solver/types';
+import { type ChangeEvent, type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Radio } from 'components';

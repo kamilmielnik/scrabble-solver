@@ -1,10 +1,10 @@
 import classNames from 'classnames';
-import { FunctionComponent, ReactNode, useMemo } from 'react';
+import { type FunctionComponent, type ReactNode, useMemo } from 'react';
 
 import { LOCALE_FEATURES } from 'i18n';
 import { COLOR_BLUE, COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from 'parameters';
 import { selectLocale, useTranslate, useTypedSelector } from 'state';
-import { Translations } from 'types';
+import { type Translations } from 'types';
 
 import { PlainTiles } from '../PlainTiles';
 

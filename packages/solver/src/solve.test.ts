@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 
-import { Trie } from '@kamilmielnik/trie';
+import { type Trie } from '@kamilmielnik/trie';
 import { getConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import { Board, Game, Locale, Result, Tile } from '@scrabble-solver/types';

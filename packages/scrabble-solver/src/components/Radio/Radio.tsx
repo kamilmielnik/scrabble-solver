@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ChangeEventHandler, FunctionComponent, ReactNode } from 'react';
+import { type ChangeEventHandler, type FunctionComponent, type ReactNode } from 'react';
 
 import styles from './Radio.module.scss';
 

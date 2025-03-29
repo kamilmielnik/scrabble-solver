@@ -1,5 +1,5 @@
 import { isGame } from '@scrabble-solver/types';
-import { ChangeEvent, FunctionComponent, useMemo } from 'react';
+import { type ChangeEvent, type FunctionComponent, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Radio } from 'components';

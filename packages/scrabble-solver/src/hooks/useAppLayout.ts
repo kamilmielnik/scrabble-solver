@@ -20,7 +20,7 @@ import {
   TEXT_INPUT_HEIGHT,
 } from 'parameters';
 import { selectConfig, selectShowCoordinates, useTypedSelector } from 'state';
-import { ResultColumnId } from 'types';
+import { type ResultColumnId } from 'types';
 
 import { useColumns } from './useColumns';
 import { useIsTouchDevice } from './useIsTouchDevice';

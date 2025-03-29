@@ -1,4 +1,4 @@
-import { AutoGroupTiles } from 'types';
+import { type AutoGroupTiles } from 'types';
 
 import { NULL_VALUE } from './constants';
 

@@ -1,4 +1,4 @@
-import { FunctionComponent, memo } from 'react';
+import { type FunctionComponent, memo } from 'react';
 
 import { Modal } from 'components';
 import { useIsTouchDevice } from 'hooks';

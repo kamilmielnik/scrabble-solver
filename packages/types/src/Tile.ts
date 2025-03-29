@@ -1,6 +1,6 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 
-import { TileJson } from './TileJson';
+import { type TileJson } from './TileJson';
 
 export class Tile {
   public static fromJson = (json: TileJson | null): Tile => {

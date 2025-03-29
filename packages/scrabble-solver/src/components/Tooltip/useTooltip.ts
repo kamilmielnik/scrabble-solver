@@ -1,5 +1,5 @@
 import {
-  Placement,
+  type Placement,
   arrow,
   autoUpdate,
   flip,

@@ -1,4 +1,4 @@
-import { OptionsTransliterate, transliterate } from 'transliteration';
+import { type OptionsTransliterate, transliterate } from 'transliteration';
 
 import { unique } from './unique';
 

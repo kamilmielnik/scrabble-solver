@@ -1,6 +1,6 @@
 import { isError } from '@scrabble-solver/types';
 import { http, https } from 'follow-redirects';
-import { RequestOptions } from 'http';
+import { type RequestOptions } from 'http';
 
 interface Options extends RequestOptions {
   protocol?: 'http' | 'https';

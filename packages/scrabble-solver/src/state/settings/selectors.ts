@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
-import { Cell, Tile } from '@scrabble-solver/types';
+import { type Cell, type Tile } from '@scrabble-solver/types';
 
 import { i18n, LOCALE_FEATURES } from 'i18n';
 

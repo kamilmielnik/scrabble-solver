@@ -1,4 +1,4 @@
-import { BoardJson, CellJson, Config } from '@scrabble-solver/types';
+import { type BoardJson, type CellJson, type Config } from '@scrabble-solver/types';
 
 import { isRowValid } from './isRowValid';
 

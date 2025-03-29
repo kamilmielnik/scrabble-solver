@@ -667,6 +667,12 @@ export default defineConfig([
       'no-unused-vars': 'off',
       'no-shadow': 'off',
       'react/prop-types': 'off',
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          fixStyle: 'inline-type-imports',
+        },
+      ],
       '@typescript-eslint/no-deprecated': 'error',
       '@typescript-eslint/no-shadow': 'error',
       '@typescript-eslint/no-unsafe-assignment': 'off', // incompatible with next-image typing for *.svg files

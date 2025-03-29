@@ -1,6 +1,6 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 
-import { BoardJson } from './BoardJson';
+import { type BoardJson } from './BoardJson';
 import { Cell } from './Cell';
 import { Tile } from './Tile';
 

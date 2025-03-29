@@ -1,8 +1,8 @@
-import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
+import { type BONUS_CHARACTER, type BONUS_WORD } from '@scrabble-solver/constants';
 
-import { BonusJson } from './BonusJson';
-import { BonusValue } from './BonusValue';
-import { Cell } from './Cell';
+import { type BonusJson } from './BonusJson';
+import { type BonusValue } from './BonusValue';
+import { type Cell } from './Cell';
 import { type Config } from './Config';
 
 export abstract class Bonus {

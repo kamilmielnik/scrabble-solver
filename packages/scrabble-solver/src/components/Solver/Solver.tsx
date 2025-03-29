@@ -1,6 +1,6 @@
-import { Result } from '@scrabble-solver/types';
+import { type Result } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import { FunctionComponent, memo, SyntheticEvent, useEffect, useMemo } from 'react';
+import { type FunctionComponent, memo, type SyntheticEvent, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useAppLayout, useIsTouchDevice } from 'hooks';

@@ -1,4 +1,4 @@
-import { Result } from '@scrabble-solver/types';
+import { type Result } from '@scrabble-solver/types';
 
 import type { Sort } from 'types';
 

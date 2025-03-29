@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { WordDefinition } from '@scrabble-solver/types';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type WordDefinition } from '@scrabble-solver/types';
 
 import { dictionaryInitialState } from './initialState';
 

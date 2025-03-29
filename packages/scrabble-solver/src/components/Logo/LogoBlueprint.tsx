@@ -5,7 +5,7 @@
  * - transformed into paths (manually with Inkscape)
  * - arranged (centered vertically against respective rows)
  */
-import { CSSProperties, FunctionComponent } from 'react';
+import { type CSSProperties, type FunctionComponent } from 'react';
 
 import { PlainTiles } from '../PlainTiles';
 

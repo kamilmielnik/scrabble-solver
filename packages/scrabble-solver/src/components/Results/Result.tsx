@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { CSSProperties, FocusEventHandler, MouseEventHandler, ReactElement, useRef } from 'react';
+import { type CSSProperties, type FocusEventHandler, type MouseEventHandler, type ReactElement, useRef } from 'react';
 import Highlighter from 'react-highlight-words';
 
 import { useAppLayout, useColumns } from 'hooks';
@@ -16,7 +16,7 @@ import { ResultColumnId } from 'types';
 
 import { Cell } from './Cell';
 import styles from './Results.module.scss';
-import { ResultData } from './types';
+import { type ResultData } from './types';
 
 interface Props {
   data: ResultData;

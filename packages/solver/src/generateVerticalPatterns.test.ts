@@ -1,5 +1,5 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import { Board, Config } from '@scrabble-solver/types';
+import { Board, type Config } from '@scrabble-solver/types';
 
 import { generateVerticalPatterns } from './generateVerticalPatterns';
 

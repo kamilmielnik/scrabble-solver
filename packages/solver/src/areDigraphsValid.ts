@@ -1,4 +1,4 @@
-import { Config, Pattern } from '@scrabble-solver/types';
+import { type Config, type Pattern } from '@scrabble-solver/types';
 
 export const areDigraphsValid = (config: Config, pattern: Pattern): boolean => {
   const { twoCharacterTiles } = config;

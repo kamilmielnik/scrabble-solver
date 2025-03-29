@@ -1,7 +1,7 @@
 import { Board } from '@scrabble-solver/types';
 import { registerRoute } from 'workbox-routing';
 
-import { VerifyRequestPayload } from 'types';
+import { type VerifyRequestPayload } from 'types';
 
 import { revalidateDictionary } from './dictionaries';
 import { getTrie } from './getTrie';

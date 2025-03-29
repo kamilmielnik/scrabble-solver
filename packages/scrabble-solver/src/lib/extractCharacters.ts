@@ -1,5 +1,5 @@
 import { BLANK } from '@scrabble-solver/constants';
-import { Config, Locale } from '@scrabble-solver/types';
+import { type Config, type Locale } from '@scrabble-solver/types';
 
 import { localeTransliterate } from './localeTransliterate';
 

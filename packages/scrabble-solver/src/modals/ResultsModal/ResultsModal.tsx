@@ -1,5 +1,5 @@
-import { Result } from '@scrabble-solver/types';
-import { FunctionComponent, memo, useEffect, useMemo } from 'react';
+import { type Result } from '@scrabble-solver/types';
+import { type FunctionComponent, memo, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Button, Dictionary, Modal, Results } from 'components';

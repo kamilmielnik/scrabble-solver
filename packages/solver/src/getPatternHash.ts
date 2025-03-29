@@ -1,4 +1,4 @@
-import { Pattern } from '@scrabble-solver/types';
+import { type Pattern } from '@scrabble-solver/types';
 
 export const getPatternHash = (pattern: Pattern): string => {
   return pattern.cells

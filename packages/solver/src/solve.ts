@@ -1,5 +1,5 @@
-import { Trie } from '@kamilmielnik/trie';
-import { Board, Config, ResultJson, Tile } from '@scrabble-solver/types';
+import { type Trie } from '@kamilmielnik/trie';
+import { type Board, type Config, type ResultJson, type Tile } from '@scrabble-solver/types';
 
 import { areDigraphsValid } from './areDigraphsValid';
 import { fillPattern } from './fillPattern';

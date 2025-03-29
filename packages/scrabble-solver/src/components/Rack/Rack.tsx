@@ -3,10 +3,10 @@
 import { FloatingPortal, autoUpdate, useFloating } from '@floating-ui/react';
 import classNames from 'classnames';
 import {
-  ChangeEvent,
-  ClipboardEvent,
-  FunctionComponent,
-  RefObject,
+  type ChangeEvent,
+  type ClipboardEvent,
+  type FunctionComponent,
+  type RefObject,
   createRef,
   useCallback,
   useMemo,

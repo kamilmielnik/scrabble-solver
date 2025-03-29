@@ -1,7 +1,7 @@
 import { isObject } from '@scrabble-solver/types';
 import fs from 'fs';
 import path from 'path';
-import { FunctionComponent, useCallback, useState } from 'react';
+import { type FunctionComponent, useCallback, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 

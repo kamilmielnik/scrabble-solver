@@ -1,7 +1,7 @@
 import { BONUS_WORD } from '@scrabble-solver/constants';
 
 import { Bonus } from './Bonus';
-import { BonusValue } from './BonusValue';
+import { type BonusValue } from './BonusValue';
 
 export class WordBonus extends Bonus {
   public readonly type = BONUS_WORD;

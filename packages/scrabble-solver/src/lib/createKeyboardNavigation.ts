@@ -1,4 +1,4 @@
-import { KeyboardEventHandler } from 'react';
+import { type KeyboardEventHandler } from 'react';
 
 import { noop } from './noop';
 

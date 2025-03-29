@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { AnchorHTMLAttributes, FunctionComponent, SVGAttributes } from 'react';
+import { type AnchorHTMLAttributes, type FunctionComponent, type SVGAttributes } from 'react';
 
 import { Tooltip } from '../Tooltip';
 

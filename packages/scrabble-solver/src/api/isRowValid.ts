@@ -1,4 +1,4 @@
-import { CellJson, Config } from '@scrabble-solver/types';
+import { type CellJson, type Config } from '@scrabble-solver/types';
 
 import { isCellValid } from './isCellValid';
 

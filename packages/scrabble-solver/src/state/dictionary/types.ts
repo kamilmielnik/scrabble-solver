@@ -1,4 +1,4 @@
-import { WordDefinition } from '@scrabble-solver/types';
+import { type WordDefinition } from '@scrabble-solver/types';
 
 export interface DictionaryState {
   error: unknown;

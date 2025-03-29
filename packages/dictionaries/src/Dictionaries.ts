@@ -1,11 +1,11 @@
-import { Trie } from '@kamilmielnik/trie';
+import { type Trie } from '@kamilmielnik/trie';
 import { logger } from '@scrabble-solver/logger';
 import { Locale } from '@scrabble-solver/types';
 import fs from 'fs';
 
 import { OUTPUT_DIRECTORY } from './constants';
 import { createAsyncProxy, downloadDictionary, LayeredCache } from './lib';
-import { Cache } from './types';
+import { type Cache } from './types';
 
 export class Dictionaries {
   private readonly cache: Cache<Locale, Trie>;

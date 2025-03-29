@@ -1,8 +1,8 @@
 import { CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 
 import { Cell } from './Cell';
-import { ResultJson } from './ResultJson';
-import { Tile } from './Tile';
+import { type ResultJson } from './ResultJson';
+import { type Tile } from './Tile';
 
 type Collision = Cell[];
 

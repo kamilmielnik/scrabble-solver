@@ -1,13 +1,13 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import { Cell } from '@scrabble-solver/types';
+import { type Cell } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import { forwardRef, HTMLProps, MouseEventHandler } from 'react';
+import { forwardRef, type HTMLProps, type MouseEventHandler } from 'react';
 
 import { useIsTouchDevice } from 'hooks';
 import { Keyboard, Square, SquareFill } from 'icons';
 import { findCell, isMac } from 'lib';
 import { selectCellFilter, selectInputMode, selectResultCandidateCells, useTranslate, useTypedSelector } from 'state';
-import { Direction } from 'types';
+import { type Direction } from 'types';
 
 import { Button } from '../../../Button';
 import { ToggleDirectionButton } from '../ToggleDirectionButton';

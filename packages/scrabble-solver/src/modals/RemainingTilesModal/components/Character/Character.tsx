@@ -1,12 +1,12 @@
 import { BLANK } from '@scrabble-solver/constants';
 import classNames from 'classnames';
-import { FunctionComponent } from 'react';
+import { type FunctionComponent } from 'react';
 
 import { Progress, Tile } from 'components';
 import { LOCALE_FEATURES } from 'i18n';
 import { REMAINING_TILES_TILE_SIZE } from 'parameters';
 import { selectCharacterPoints, selectLocale, useTypedSelector } from 'state';
-import { RemainingTile } from 'types';
+import { type RemainingTile } from 'types';
 
 import styles from './Character.module.scss';
 

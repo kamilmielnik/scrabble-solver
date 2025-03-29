@@ -1,10 +1,10 @@
 import classNames from 'classnames';
-import { ButtonHTMLAttributes, FunctionComponent } from 'react';
+import { type ButtonHTMLAttributes, type FunctionComponent } from 'react';
 
 import { useIsTouchDevice } from 'hooks';
 import { ArrowDown } from 'icons';
 import { useTranslate } from 'state';
-import { Direction } from 'types';
+import { type Direction } from 'types';
 
 import { Button } from '../../../Button';
 

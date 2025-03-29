@@ -1,4 +1,4 @@
-import { Locale } from '@scrabble-solver/types';
+import { type Locale } from '@scrabble-solver/types';
 
 import { DICTIONARY_CACHE } from './constants';
 import { expirationManager } from './expirationManager';

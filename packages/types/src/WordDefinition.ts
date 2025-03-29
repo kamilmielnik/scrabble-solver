@@ -1,4 +1,4 @@
-import { WordDefinitionJson } from './WordDefinitionJson';
+import { type WordDefinitionJson } from './WordDefinitionJson';
 
 export class WordDefinition {
   public static fromJson = (json: WordDefinitionJson | null): WordDefinition => {

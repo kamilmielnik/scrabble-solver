@@ -1,4 +1,4 @@
-import { BoardJson, ConfigJson, Game, Locale } from '@scrabble-solver/types';
+import { type BoardJson, type ConfigJson, type Game, type Locale } from '@scrabble-solver/types';
 
 export interface SolveRequestPayload {
   board: BoardJson;

@@ -1,4 +1,4 @@
-import { Pattern } from '@scrabble-solver/types';
+import { type Pattern } from '@scrabble-solver/types';
 
 import { getPatternHash } from './getPatternHash';
 

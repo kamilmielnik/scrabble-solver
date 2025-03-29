@@ -1,4 +1,4 @@
-import { Comparator } from 'types';
+import { type Comparator } from 'types';
 
 import { createStringComparator } from './createStringComparator';
 import { numberComparator } from './numberComparator';

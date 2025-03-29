@@ -1,4 +1,4 @@
-import { Board, BoardJson, Game, Locale, ShowCoordinates } from '@scrabble-solver/types';
+import { Board, type BoardJson, type Game, type Locale, type ShowCoordinates } from '@scrabble-solver/types';
 import store2 from 'store2';
 
 import type { AutoGroupTiles, InputMode, Rack } from 'types';

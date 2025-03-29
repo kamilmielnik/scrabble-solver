@@ -1,7 +1,7 @@
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import { logger } from '@scrabble-solver/logger';
-import { isLocale, Locale } from '@scrabble-solver/types';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { isLocale, type Locale } from '@scrabble-solver/types';
+import { type NextApiRequest, type NextApiResponse } from 'next';
 
 import { getServerLoggingData } from 'api';
 

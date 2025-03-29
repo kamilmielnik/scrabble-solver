@@ -1,5 +1,5 @@
-import { Result } from '@scrabble-solver/types';
-import { FunctionComponent, SVGAttributes } from 'react';
+import { type Result } from '@scrabble-solver/types';
+import { type FunctionComponent, type SVGAttributes } from 'react';
 
 export type Comparator<T> = (a: T, B: T) => number;
 

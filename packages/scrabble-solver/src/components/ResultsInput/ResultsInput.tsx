@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ChangeEvent, FormEventHandler, FunctionComponent, useState } from 'react';
+import { type ChangeEvent, type FormEventHandler, type FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { isRegExp } from 'lib';

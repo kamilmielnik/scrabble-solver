@@ -1,9 +1,9 @@
 /* eslint-disable max-lines, max-statements */
 
-import { FloatingPortal, ReferenceType } from '@floating-ui/react';
+import { FloatingPortal, type ReferenceType } from '@floating-ui/react';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import classNames from 'classnames';
-import { CSSProperties, FocusEventHandler, FunctionComponent, useCallback, useState } from 'react';
+import { type CSSProperties, type FocusEventHandler, type FunctionComponent, useCallback, useState } from 'react';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 

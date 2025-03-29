@@ -1,4 +1,4 @@
-import { CellJson, isCellJson } from './CellJson';
+import { type CellJson, isCellJson } from './CellJson';
 
 export type BoardJson = CellJson[][];
 

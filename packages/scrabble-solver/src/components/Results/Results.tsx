@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FunctionComponent, useEffect, useMemo, useState } from 'react';
+import { type FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { FixedSizeList } from 'react-window';
 import { useDebounce } from 'use-debounce';
 
@@ -24,7 +24,7 @@ import { Header } from './Header';
 import { Result } from './Result';
 import styles from './Results.module.scss';
 import { SolveButton } from './SolveButton';
-import { ResultCallbacks, ResultData } from './types';
+import { type ResultCallbacks, type ResultData } from './types';
 
 interface Props {
   callbacks: ResultCallbacks;

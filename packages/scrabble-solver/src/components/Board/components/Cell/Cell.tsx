@@ -1,13 +1,13 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
-import { Cell as CellModel } from '@scrabble-solver/types';
+import { type Cell as CellModel } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import {
-  ChangeEventHandler,
-  FocusEventHandler,
-  FunctionComponent,
-  MouseEventHandler,
-  RefObject,
-  TouchEventHandler,
+  type ChangeEventHandler,
+  type FocusEventHandler,
+  type FunctionComponent,
+  type MouseEventHandler,
+  type RefObject,
+  type TouchEventHandler,
   useCallback,
 } from 'react';
 

@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Board } from '@scrabble-solver/types';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type Board } from '@scrabble-solver/types';
 
 import { solveInitialState } from './initialState';
 

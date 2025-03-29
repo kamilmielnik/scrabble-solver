@@ -1,7 +1,7 @@
-import { FunctionComponent, SVGAttributes } from 'react';
+import { type FunctionComponent, type SVGAttributes } from 'react';
 
 import { Ban, Eraser, FlagFill } from 'icons';
-import { CellFilter, TranslationKey } from 'types';
+import { type CellFilter, type TranslationKey } from 'types';
 
 export const getNextCellFilter = (
   filter: CellFilter | undefined,

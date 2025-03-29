@@ -1,5 +1,5 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
-import { ReactElement } from 'react';
+import { type ReactElement } from 'react';
 
 class MyDocument extends Document {
   render(): ReactElement {

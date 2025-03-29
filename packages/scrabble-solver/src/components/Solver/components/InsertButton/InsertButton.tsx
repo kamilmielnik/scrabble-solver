@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FunctionComponent } from 'react';
+import { type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Check } from 'icons';

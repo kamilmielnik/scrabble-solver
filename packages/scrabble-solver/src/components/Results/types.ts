@@ -1,5 +1,5 @@
-import { Result } from '@scrabble-solver/types';
-import { FocusEvent, MouseEvent } from 'react';
+import { type Result } from '@scrabble-solver/types';
+import { type FocusEvent, type MouseEvent } from 'react';
 
 export interface ResultCallbacks {
   onBlur?: (result: Result, event: FocusEvent) => void;

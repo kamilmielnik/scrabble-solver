@@ -1,4 +1,4 @@
-import { Cell } from '@scrabble-solver/types';
+import { type Cell } from '@scrabble-solver/types';
 
 import { generateEndIndices } from './generateEndIndices';
 

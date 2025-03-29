@@ -1,5 +1,5 @@
 import { games, hasConfig, languages } from '@scrabble-solver/configs';
-import { Locale } from '@scrabble-solver/types';
+import { type Locale } from '@scrabble-solver/types';
 
 export const getOptions = (locale: Locale) => {
   const gameConfigs = Object.values(games);

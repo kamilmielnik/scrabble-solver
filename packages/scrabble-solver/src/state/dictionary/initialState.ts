@@ -1,4 +1,4 @@
-import { DictionaryState } from './types';
+import { type DictionaryState } from './types';
 
 export const dictionaryInitialState: DictionaryState = {
   error: undefined,

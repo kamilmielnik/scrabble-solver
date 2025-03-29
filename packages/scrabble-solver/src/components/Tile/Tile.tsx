@@ -1,13 +1,13 @@
 import { useMergeRefs } from '@floating-ui/react';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import {
-  ChangeEventHandler,
-  FocusEventHandler,
-  FunctionComponent,
-  KeyboardEventHandler,
-  MouseEventHandler,
-  Ref,
-  TouchEventHandler,
+  type ChangeEventHandler,
+  type FocusEventHandler,
+  type FunctionComponent,
+  type KeyboardEventHandler,
+  type MouseEventHandler,
+  type Ref,
+  type TouchEventHandler,
   useCallback,
   useMemo,
   useRef,

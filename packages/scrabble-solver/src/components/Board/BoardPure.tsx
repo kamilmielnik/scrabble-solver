@@ -1,13 +1,13 @@
-import { Cell as CellModel, ShowCoordinates } from '@scrabble-solver/types';
+import { type Cell as CellModel, type ShowCoordinates } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import {
-  CSSProperties,
-  ChangeEventHandler,
-  ClipboardEventHandler,
-  FocusEventHandler,
+  type CSSProperties,
+  type ChangeEventHandler,
+  type ClipboardEventHandler,
+  type FocusEventHandler,
   Fragment,
-  KeyboardEventHandler,
-  RefObject,
+  type KeyboardEventHandler,
+  type RefObject,
   forwardRef,
   memo,
 } from 'react';
@@ -15,7 +15,7 @@ import {
 import { Ban, FlagFill } from 'icons';
 import { getCoordinate } from 'lib';
 import { BORDER_WIDTH } from 'parameters';
-import { CellFilter } from 'types';
+import { type CellFilter } from 'types';
 
 import styles from './Board.module.scss';
 import { Cell } from './components';

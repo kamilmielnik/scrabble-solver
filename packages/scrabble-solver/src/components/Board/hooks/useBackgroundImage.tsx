@@ -11,7 +11,7 @@ import { Star } from 'icons';
 import { getTileSizes } from 'lib';
 import { BORDER_COLOR_LIGHT, BORDER_RADIUS, BORDER_WIDTH, COLOR_BACKGROUND, COLOR_BONUS_START } from 'parameters';
 import { selectConfig, selectLocale, selectShowCoordinates, store, useTypedSelector } from 'state';
-import { Point } from 'types';
+import { type Point } from 'types';
 
 import { getBonusColor } from '../lib';
 

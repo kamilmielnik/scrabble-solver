@@ -1,4 +1,4 @@
-import { Board, Cell, Config, Pattern } from '@scrabble-solver/types';
+import { type Board, type Cell, type Config, type Pattern } from '@scrabble-solver/types';
 
 import { generateEndIndices } from './generateEndIndices';
 import { generateStartIndices } from './generateStartIndices';

@@ -1,4 +1,4 @@
-import { Config } from '@scrabble-solver/types';
+import { type Config } from '@scrabble-solver/types';
 
 // eslint-disable-next-line no-warning-comments
 // TODO: https://github.com/kamilmielnik/scrabble-solver/issues/393

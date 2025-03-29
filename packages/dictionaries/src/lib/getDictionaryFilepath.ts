@@ -1,4 +1,4 @@
-import { Locale } from '@scrabble-solver/types';
+import { type Locale } from '@scrabble-solver/types';
 import path from 'path';
 
 import { OUTPUT_DIRECTORY } from '../constants';

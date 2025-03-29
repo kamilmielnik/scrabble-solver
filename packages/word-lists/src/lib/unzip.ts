@@ -1,5 +1,5 @@
 import fs from 'fs';
-import unzipper, { Entry } from 'unzipper';
+import unzipper, { type Entry } from 'unzipper';
 
 export const unzip = (zipFilename: string, extractFilename: string, outputFilename: string): Promise<void> => {
   return fs

@@ -1,6 +1,6 @@
-import { Locale } from '@scrabble-solver/types';
+import { type Locale } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import { ChangeEvent, FunctionComponent } from 'react';
+import { type ChangeEvent, type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Radio } from 'components';

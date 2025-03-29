@@ -1,8 +1,8 @@
 import { BONUS_WORD } from '@scrabble-solver/constants';
-import { Bonus } from '@scrabble-solver/types';
+import { type Bonus } from '@scrabble-solver/types';
 
 import { COLOR_BONUS_CHARACTER, COLOR_BONUS_CHARACTER_MULTIPLIER, COLOR_BONUS_WORD } from 'parameters';
-import { Point } from 'types';
+import { type Point } from 'types';
 
 export const createGrid = <T>(width: number, height: number, getInitialValue: (x: number, y: number) => T): T[][] => {
   return Array.from({ length: height }).map((_row, y) => {

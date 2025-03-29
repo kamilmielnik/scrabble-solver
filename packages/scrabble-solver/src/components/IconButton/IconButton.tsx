@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ButtonHTMLAttributes, FunctionComponent, MouseEventHandler, SVGAttributes } from 'react';
+import { type ButtonHTMLAttributes, type FunctionComponent, type MouseEventHandler, type SVGAttributes } from 'react';
 
 import { Tooltip } from '../Tooltip';
 

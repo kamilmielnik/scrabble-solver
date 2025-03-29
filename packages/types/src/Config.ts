@@ -1,15 +1,15 @@
 import { BLANK, BONUS_CHARACTER, BONUS_WORD, NO_BONUS } from '@scrabble-solver/constants';
 
-import { Bingo } from './Bingo';
-import { Bonus } from './Bonus';
-import { BonusValue } from './BonusValue';
-import { Cell } from './Cell';
+import { type Bingo } from './Bingo';
+import { type Bonus } from './Bonus';
+import { type BonusValue } from './BonusValue';
+import { type Cell } from './Cell';
 import { CharacterBonus } from './CharacterBonus';
-import { ConfigJson } from './ConfigJson';
-import { Game } from './Game';
-import { Locale } from './Locale';
-import { Tile } from './Tile';
-import { TileConfig } from './TileConfig';
+import { type ConfigJson } from './ConfigJson';
+import { type Game } from './Game';
+import { type Locale } from './Locale';
+import { type Tile } from './Tile';
+import { type TileConfig } from './TileConfig';
 import { WordBonus } from './WordBonus';
 
 export class Config {

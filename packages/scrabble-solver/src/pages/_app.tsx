@@ -1,7 +1,7 @@
 import { FloatingDelayGroup } from '@floating-ui/react';
-import { AppProps } from 'next/app';
+import { type AppProps } from 'next/app';
 import Head from 'next/head';
-import { FunctionComponent } from 'react';
+import { type FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
 
 import { SeoMessage } from 'components';

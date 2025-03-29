@@ -1,5 +1,5 @@
 import { Trie } from '@kamilmielnik/trie';
-import { Locale } from '@scrabble-solver/types';
+import { type Locale } from '@scrabble-solver/types';
 
 import { getDictionary } from './dictionaries';
 

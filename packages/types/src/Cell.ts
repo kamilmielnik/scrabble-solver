@@ -1,4 +1,4 @@
-import { CellJson } from './CellJson';
+import { type CellJson } from './CellJson';
 import { Tile } from './Tile';
 
 export class Cell {

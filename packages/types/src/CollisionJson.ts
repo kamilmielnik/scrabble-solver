@@ -1,3 +1,3 @@
-import { CellJson } from './CellJson';
+import { type CellJson } from './CellJson';
 
 export type CollisionJson = CellJson[];

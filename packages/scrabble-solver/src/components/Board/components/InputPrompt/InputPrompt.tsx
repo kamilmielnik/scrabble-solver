@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import { FormEventHandler, forwardRef, HTMLProps, MouseEventHandler, useEffect, useState } from 'react';
+import { type FormEventHandler, forwardRef, type HTMLProps, type MouseEventHandler, useEffect, useState } from 'react';
 
 import { Check } from 'icons';
 import { useTranslate } from 'state';
-import { Direction } from 'types';
+import { type Direction } from 'types';
 
 import { Button } from '../../../Button';
 import { ToggleDirectionButton } from '../ToggleDirectionButton';

@@ -1,6 +1,6 @@
 import { COMMA_ARABIC, COMMA_LATIN } from '@scrabble-solver/constants';
 import { Locale } from '@scrabble-solver/types';
-import { FunctionComponent, SVGAttributes } from 'react';
+import { type FunctionComponent, type SVGAttributes } from 'react';
 
 import { FlagDe, FlagEs, FlagFa, FlagFr, FlagGb, FlagPl, FlagRo, FlagTr, FlagUs } from 'icons';
 

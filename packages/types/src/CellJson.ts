@@ -1,5 +1,5 @@
 import { isObject } from './isObject';
-import { isTileJson, TileJson } from './TileJson';
+import { isTileJson, type TileJson } from './TileJson';
 
 export interface CellJson {
   isEmpty: boolean;

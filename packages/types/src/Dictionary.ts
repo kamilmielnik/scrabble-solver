@@ -1,4 +1,4 @@
-import { Locale } from './Locale';
+import { type Locale } from './Locale';
 
 export interface Dictionary {
   description: string;

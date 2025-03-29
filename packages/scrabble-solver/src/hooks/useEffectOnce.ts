@@ -1,4 +1,4 @@
-import { EffectCallback, useEffect } from 'react';
+import { type EffectCallback, useEffect } from 'react';
 
 import { useLatest } from './useLatest';
 

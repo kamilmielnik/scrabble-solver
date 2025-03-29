@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { type FunctionComponent } from 'react';
 
 import { useAppLayout, useColumns } from 'hooks';
 import { GeoAlt, OneTwoThree, Square, SquareA, SquareB, Squares, Words } from 'icons';

@@ -1,7 +1,7 @@
-import { Trie } from '@kamilmielnik/trie';
+import { type Trie } from '@kamilmielnik/trie';
 import { getConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
-import { Board, Cell, FinalPattern, Game, Locale, Pattern, Tile, VerticalPattern } from '@scrabble-solver/types';
+import { Board, Cell, FinalPattern, Game, Locale, type Pattern, Tile, VerticalPattern } from '@scrabble-solver/types';
 
 import { fillPattern, fillPatternRecursive } from './fillPattern';
 

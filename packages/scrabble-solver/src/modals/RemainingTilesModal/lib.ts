@@ -1,6 +1,6 @@
 import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 
-import { RemainingTile, RemainingTilesGroup } from 'types';
+import { type RemainingTile, type RemainingTilesGroup } from 'types';
 
 export const getRemainingTilesGroups = (remainingTiles: RemainingTile[]): RemainingTilesGroup[] => {
   const consonants = remainingTiles.filter(isConsonant);

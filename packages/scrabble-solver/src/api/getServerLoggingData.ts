@@ -1,4 +1,4 @@
-import { NextApiRequest } from 'next';
+import { type NextApiRequest } from 'next';
 
 interface ServerLoggingData {
   origin?: string;

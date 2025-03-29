@@ -1,4 +1,4 @@
-import { Board, Config, Pattern } from '@scrabble-solver/types';
+import { type Board, type Config, type Pattern } from '@scrabble-solver/types';
 
 import { generateHorizontalPatterns } from './generateHorizontalPatterns';
 import { generateVerticalPatterns } from './generateVerticalPatterns';

@@ -1,5 +1,5 @@
 import type { Placement } from '@floating-ui/react';
-import { FunctionComponent, ReactNode } from 'react';
+import { type FunctionComponent, type ReactNode } from 'react';
 
 import { TooltipContext } from './context';
 import { TooltipContent } from './TooltipContent';
