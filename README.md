@@ -44,6 +44,7 @@
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/jest.yml/badge.svg" alt="Jest Tests" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/cypress.yml/badge.svg" alt="Cypress Tests" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/eslint.yml/badge.svg" alt="ESLint" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/npx.yml/badge.svg" alt="npx" />
   </p>
 
   <img alt="Screencast GIF showing user interface when solving for oxyphenbutazone, which is a top-scoring word in English version of Scrabble" src="https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/screencast.gif" />
