@@ -1,7 +1,5 @@
 export { arrayEquals } from './arrayEquals';
-export { createArray } from './createArray';
 export { createComparator } from './createComparator';
-export { createGridOf } from './createGridOf';
 export { createKeyComparator } from './createKeyComparator';
 export { createKeyboardNavigation } from './createKeyboardNavigation';
 export { createNullMovingComparator } from './createNullMovingComparator';

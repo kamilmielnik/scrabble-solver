@@ -19,7 +19,6 @@ import { useDispatch } from 'react-redux';
 import { useAppLayout } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import {
-  createArray,
   createKeyboardNavigation,
   extractCharacters,
   extractInputValue,
@@ -56,7 +55,7 @@ export const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const tiles = useMemo(() => zipCharactersAndTiles(rack, resultCandidateTiles), [rack, resultCandidateTiles]);
   const tilesCount = tiles.length;
   const tilesRefs = useMemo(
-    () => createArray(tilesCount).map(() => createRef<HTMLInputElement | null>()),
+    () => Array.from({ length: tilesCount }).map(() => createRef<HTMLInputElement | null>()),
     [tilesCount],
   );
   const activeIndexRef = useRef<number | undefined>(undefined);
