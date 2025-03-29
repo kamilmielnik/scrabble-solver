@@ -2,7 +2,7 @@ import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { Game, Locale } from '@scrabble-solver/types';
 
-import { extractCharacters, extractRack } from './lib';
+import { extractCharactersByCase, extractRack } from './lib';
 
 describe('extractRack', () => {
   const locale = Locale.ES_ES;
@@ -26,7 +26,7 @@ describe('extractRack', () => {
   });
 });
 
-describe('extractCharacters', () => {
+describe('extractCharactersByCase', () => {
   const locale = Locale.ES_ES;
   const config = getConfig(Game.Scrabble, locale);
 
@@ -44,6 +44,6 @@ describe('extractCharacters', () => {
     { input: 'CHuRRo', expected: ['ch', 'u', 'rr', 'o'] },
     { input: 'CHaLLuLLa', expected: ['ch', 'a', 'll', 'u', 'll', 'a'] },
   ])(`[${locale}] "$input"`, ({ input, expected }) => {
-    expect(extractCharacters(config, input)).toEqual(expected);
+    expect(extractCharactersByCase(config, input)).toEqual(expected);
   });
 });

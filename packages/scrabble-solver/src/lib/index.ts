@@ -20,6 +20,7 @@ export { isCtrl } from './isCtrl';
 export { isMac } from './isMac';
 export { isRegExp } from './isRegExp';
 export { isStringArray } from './isStringArray';
+export { localeTransliterate } from './localeTransliterate';
 export { memoize } from './memoize';
 export { noop } from './noop';
 export { numberComparator } from './numberComparator';

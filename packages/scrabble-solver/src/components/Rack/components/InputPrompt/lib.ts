@@ -2,14 +2,14 @@ import { BLANK } from '@scrabble-solver/constants';
 import { Config, Locale } from '@scrabble-solver/types';
 
 export const extractRack = (config: Config, value: string): (string | null)[] => {
-  const charactersByCase = extractCharacters(config, value);
+  const charactersByCase = extractCharactersByCase(config, value);
   const characters = Array.from({ length: config.rackSize }, (_, index) => {
     return typeof charactersByCase[index] === 'string' ? charactersByCase[index] : null;
   });
   return characters;
 };
 
-export const extractCharacters = (config: Config, value: string): string[] => {
+export const extractCharactersByCase = (config: Config, value: string): string[] => {
   let index = 0;
   const characters: string[] = [];
 
