@@ -11,10 +11,10 @@ import {
 import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from 'hooks';
-import { extractCharactersByCase } from 'lib';
 import { rackSlice, selectConfig, useTranslate, useTypedSelector } from 'state';
 
 import styles from './InputPrompt.module.scss';
+import { extractRack } from './lib';
 
 interface Props {
   className?: string;
@@ -36,10 +36,7 @@ const InputPromptBase = forwardRef<HTMLFormElement, Props>(
     const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
       (event) => {
         event.preventDefault();
-        const charactersByCase = extractCharactersByCase(config, value);
-        const characters = Array.from({ length: config.rackSize }, (_, index) => {
-          return typeof charactersByCase[index] === 'string' ? charactersByCase[index] : null;
-        });
+        const characters = extractRack(config, value);
         dispatch(rackSlice.actions.changeCharacters({ characters, index: 0 }));
         onSubmit(event);
       },

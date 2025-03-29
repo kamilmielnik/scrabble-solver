@@ -1,9 +1,15 @@
 import { BLANK } from '@scrabble-solver/constants';
-import { Config } from '@scrabble-solver/types';
+import { Config, Locale } from '@scrabble-solver/types';
 
-import { isUpperCase } from './isUpperCase';
+export const extractRack = (config: Config, value: string): (string | null)[] => {
+  const charactersByCase = extractCharacters(config, value);
+  const characters = Array.from({ length: config.rackSize }, (_, index) => {
+    return typeof charactersByCase[index] === 'string' ? charactersByCase[index] : null;
+  });
+  return characters;
+};
 
-export const extractCharactersByCase = (config: Config, value: string): string[] => {
+export const extractCharacters = (config: Config, value: string): string[] => {
   let index = 0;
   const characters: string[] = [];
 
@@ -26,4 +32,8 @@ export const extractCharactersByCase = (config: Config, value: string): string[]
   }
 
   return characters;
+};
+
+const isUpperCase = (locale: Locale, value: string): boolean => {
+  return value === value.toLocaleUpperCase(locale);
 };
