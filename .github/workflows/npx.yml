@@ -14,10 +14,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22.x
+      - run: npm ci
+      - run: npm run build
       - uses: cypress-io/github-action@v6
         with:
           build: npm install --global scrabble-solver@latest
           start: scrabble-solver
+          wait-on: 'http://localhost:3333'
         env:
           CYPRESS_BASE_URL: http://localhost:3333
       - uses: actions/upload-artifact@v4
