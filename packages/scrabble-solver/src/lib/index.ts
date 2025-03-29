@@ -9,7 +9,6 @@ export { extractCharacters } from './extractCharacters';
 export { extractInputValue } from './extractInputValue';
 export { findCell } from './findCell';
 export { getCoordinate } from './getCoordinate';
-export { getCoordinates } from './getCoordinates';
 export { getTileSizes } from './getTileSizes';
 export { inverseDirection } from './inverseDirection';
 export { isCtrl } from './isCtrl';

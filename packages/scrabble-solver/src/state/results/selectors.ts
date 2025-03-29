@@ -6,7 +6,7 @@ import { selectCellFilters } from '../cellFilters';
 import { selectLocale, selectShowCoordinates } from '../settings';
 import type { RootState } from '../types';
 
-import { groupResults, resultMatchesCellFilter, sortResults } from './lib';
+import { getCoordinates, groupResults, resultMatchesCellFilter, sortResults } from './lib';
 
 const selectResultIndex = (_: unknown, index: number): number => index;
 
@@ -59,5 +59,17 @@ export const selectIsResultMatching = createSelector(
     }
 
     return resultMatchesCellFilter(result, cellFilters);
+  },
+);
+
+export const selectResultCoordinates = createSelector(
+  [selectProcessedResults, selectShowCoordinates, selectResultIndex],
+  (results, showCoordinates, index) => {
+    if (!results) {
+      return false;
+    }
+
+    const result = results[index];
+    return getCoordinates(result, showCoordinates);
   },
 );

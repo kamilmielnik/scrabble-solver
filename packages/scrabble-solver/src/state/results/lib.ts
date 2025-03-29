@@ -1,7 +1,19 @@
 import { Result, ShowCoordinates } from '@scrabble-solver/types';
 
-import { createKeyComparator, createRegExp, createStringComparator, getCoordinates, reverseComparator } from 'lib';
+import { createKeyComparator, createRegExp, createStringComparator, getCoordinate, reverseComparator } from 'lib';
 import { CellFilter, Comparator, GroupedResults, ResultColumnId, Sort, SortDirection } from 'types';
+
+export const getCoordinates = (result: Result, showCoordinates: ShowCoordinates): string => {
+  if (showCoordinates === 'hidden') {
+    return '';
+  }
+
+  const firstCell = result.cells[0];
+  const x = getCoordinate(firstCell.x, showCoordinates === 'original' ? 'letter' : 'number');
+  const y = getCoordinate(firstCell.y, showCoordinates === 'original' ? 'number' : 'letter');
+
+  return result.isHorizontal() ? `${y}${x}` : `${x}${y}`;
+};
 
 export const groupResults = (
   results: Result[] | undefined,
