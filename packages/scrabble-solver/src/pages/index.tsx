@@ -1,7 +1,7 @@
 import { isObject } from '@scrabble-solver/types';
 import fs from 'fs';
 import path from 'path';
-import { type FunctionComponent, useCallback, useState } from 'react';
+import { type FunctionComponent, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 
@@ -28,35 +28,42 @@ interface Props {
   version: string;
 }
 
+type Modal = 'dictionary' | 'keyMap' | 'menu' | 'remainingTiles' | 'results' | 'settings' | 'words';
+
 // eslint-disable-next-line max-statements
 const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
-  const [showDictionary, setShowDictionary] = useState(false);
-  const [showKeyMap, setShowKeyMap] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
-  const [showRemainingTiles, setShowRemainingTiles] = useState(false);
-  const [showResults, setShowResults] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
-  const [showWords, setShowWords] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [modals, setModals] = useState<Record<Modal, boolean>>({
+    dictionary: false,
+    keyMap: false,
+    menu: false,
+    remainingTiles: false,
+    results: false,
+    settings: false,
+    words: false,
+  });
+  const setModal = (modal: Modal, isOpen: boolean) => {
+    return setModals((current) => ({ ...current, [modal]: isOpen }));
+  };
 
-  const handleShowResults = useCallback(() => setShowResults(true), []);
-  const handleClear = useCallback(() => dispatch(reset()), [dispatch]);
-  const handleHideDictionary = useCallback(() => setShowDictionary(false), []);
-  const handleHideKeyMap = useCallback(() => setShowKeyMap(false), []);
-  const handleHideMenu = useCallback(() => setShowMenu(false), []);
-  const handleHideRemainingTiles = useCallback(() => setShowRemainingTiles(false), []);
-  const handleHideResults = useCallback(() => setShowResults(false), []);
-  const handleHideSettings = useCallback(() => setShowSettings(false), []);
-  const handleHideWords = useCallback(() => setShowWords(false), []);
-  const handleShowDictionary = useCallback(() => setShowDictionary(true), []);
-  const handleShowKeyMap = useCallback(() => setShowKeyMap(true), []);
-  const handleShowMenu = useCallback(() => setShowMenu(true), []);
-  const handleShowRemainingTiles = useCallback(() => setShowRemainingTiles(true), []);
-  const handleShowSettings = useCallback(() => setShowSettings(true), []);
-  const handleShowWords = useCallback(() => setShowWords(true), []);
+  const handleClear = () => dispatch(reset());
+  const handleHideDictionary = () => setModal('dictionary', false);
+  const handleHideKeyMap = () => setModal('keyMap', false);
+  const handleHideMenu = () => setModal('menu', false);
+  const handleHideRemainingTiles = () => setModal('remainingTiles', false);
+  const handleHideResults = () => setModal('results', false);
+  const handleHideSettings = () => setModal('settings', false);
+  const handleHideWords = () => setModal('words', false);
+  const handleShowDictionary = () => setModal('dictionary', true);
+  const handleShowKeyMap = () => setModal('keyMap', true);
+  const handleShowMenu = () => setModal('menu', true);
+  const handleShowRemainingTiles = () => setModal('remainingTiles', true);
+  const handleShowResults = () => setModal('results', true);
+  const handleShowSettings = () => setModal('settings', true);
+  const handleShowWords = () => setModal('words', true);
 
   useDirection(LOCALE_FEATURES[locale].direction);
   useLanguage(locale);
@@ -100,7 +107,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       <Solver className={styles.solver} onShowResults={handleShowResults} />
 
       <MenuModal
-        isOpen={showMenu}
+        isOpen={modals.menu}
         onClose={handleHideMenu}
         onShowDictionary={handleShowDictionary}
         onShowRemainingTiles={handleShowRemainingTiles}
@@ -108,19 +115,19 @@ const Index: FunctionComponent<Props> = ({ version }) => {
         onShowWords={handleShowWords}
       />
 
-      <SettingsModal isOpen={showSettings} onClose={handleHideSettings} />
+      <SettingsModal isOpen={modals.settings} onClose={handleHideSettings} />
 
-      <KeyMapModal isOpen={showKeyMap} onClose={handleHideKeyMap} />
+      <KeyMapModal isOpen={modals.keyMap} onClose={handleHideKeyMap} />
 
-      <WordsModal isOpen={showWords} onClose={handleHideWords} />
+      <WordsModal isOpen={modals.words} onClose={handleHideWords} />
 
       {config.supportsRemainingTiles && (
-        <RemainingTilesModal isOpen={showRemainingTiles} onClose={handleHideRemainingTiles} />
+        <RemainingTilesModal isOpen={modals.remainingTiles} onClose={handleHideRemainingTiles} />
       )}
 
-      <ResultsModal isOpen={showResults} onClose={handleHideResults} />
+      <ResultsModal isOpen={modals.results} onClose={handleHideResults} />
 
-      <DictionaryModal isOpen={showDictionary} onClose={handleHideDictionary} />
+      <DictionaryModal isOpen={modals.dictionary} onClose={handleHideDictionary} />
     </>
   );
 };
