@@ -45,3 +45,8 @@ h4 {
   -webkit-margin-after: 0;
   margin: 0;
 }
+
+/* https://github.com/vercel/next.js/discussions/13387#discussioncomment-5694715 */
+nextjs-portal {
+  display: none;
+}
