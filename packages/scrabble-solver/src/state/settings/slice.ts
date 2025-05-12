@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { type Game, type Locale, type ShowCoordinates } from '@scrabble-solver/types';
 
-import type { AutoGroupTiles, InputMode } from 'types';
+import type { AutoGroupTiles, InputMode, RemoveCellFilters } from 'types';
 
 import { settingsInitialState } from './initialState';
 
@@ -32,6 +32,11 @@ export const settingsSlice = createSlice({
     changeShowCoordinates: (state, action: PayloadAction<ShowCoordinates>) => {
       const showCoordinates = action.payload;
       return { ...state, showCoordinates };
+    },
+
+    changeRemoveCellFilters: (state, action: PayloadAction<RemoveCellFilters>) => {
+      const removeCellFilters = action.payload;
+      return { ...state, removeCellFilters };
     },
 
     init: (state, action: PayloadAction<Partial<Pick<typeof settingsInitialState, 'game' | 'locale'>>>) => {

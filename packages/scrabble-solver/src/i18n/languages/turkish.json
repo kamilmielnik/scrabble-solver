@@ -72,6 +72,9 @@
   "settings.showCoordinates.alternative": "Alternatif",
   "settings.showCoordinates.hidden": "Gizlenmiş",
   "settings.showCoordinates.original": "Orijinal",
+  "settings.removeCellFilters": "Harf filtrelerini kaldır",
+  "settings.removeCellFilters.always": "Her zaman",
+  "settings.removeCellFilters.never": "Asla",
   "words": "Oluşturulan kelimeler",
   "words.invalid": "Geçersiz",
   "words.valid": "Geçerli"

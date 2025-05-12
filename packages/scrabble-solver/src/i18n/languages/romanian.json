@@ -72,6 +72,9 @@
   "settings.showCoordinates.alternative": "Alternativă",
   "settings.showCoordinates.hidden": "Ascuns",
   "settings.showCoordinates.original": "Original",
+  "settings.removeCellFilters": "Eliminați filtrele de câmp",
+  "settings.removeCellFilters.always": "Întotdeauna",
+  "settings.removeCellFilters.never": "Nu",
   "words": "Cuvinte create",
   "words.invalid": "Invalid",
   "words.valid": "Valid"

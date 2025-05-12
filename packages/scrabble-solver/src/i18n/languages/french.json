@@ -72,6 +72,9 @@
   "settings.showCoordinates.alternative": "Alternative",
   "settings.showCoordinates.hidden": "Caché",
   "settings.showCoordinates.original": "Original",
+  "settings.removeCellFilters": "Supprimer le filtre de la case",
+  "settings.removeCellFilters.always": "Toujours",
+  "settings.removeCellFilters.never": "Jamais",
   "words": "Mots créés",
   "words.invalid": "Incorrect",
   "words.valid": "Corriger"
