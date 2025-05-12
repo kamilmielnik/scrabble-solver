@@ -72,6 +72,9 @@
   "settings.showCoordinates.alternative": "Alternative",
   "settings.showCoordinates.hidden": "Versteckt",
   "settings.showCoordinates.original": "Original",
+  "settings.removeCellFilters": "Steinfilter entfernen",
+  "settings.removeCellFilters.always": "Stets",
+  "settings.removeCellFilters.never": "Niemals",
   "words": "Gebildete Wörter",
   "words.invalid": "Falsch",
   "words.valid": "Korrekt"

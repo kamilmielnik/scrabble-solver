@@ -72,6 +72,9 @@
   "settings.showCoordinates.alternative": "بديل",
   "settings.showCoordinates.hidden": "مختفي",
   "settings.showCoordinates.original": "إبداعي",
+  "settings.removeCellFilters": "فیلترهای کاشی را حذف کنید",
+  "settings.removeCellFilters.always": "همیشه",
+  "settings.removeCellFilters.never": "هرگز",
   "words": "کلمات ساخته شده",
   "words.invalid": "نا معتبر",
   "words.valid": "معتبر"

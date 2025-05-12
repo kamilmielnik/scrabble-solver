@@ -18,7 +18,14 @@ import { cellFiltersSlice, selectCellFilter } from './cellFilters';
 import { dictionarySlice, selectDictionary } from './dictionary';
 import { rackSlice, selectCharacters, selectRack } from './rack';
 import { resultsSlice } from './results';
-import { selectConfig, selectGame, selectLocale, selectLocaleAutoGroupTiles, settingsSlice } from './settings';
+import {
+  selectConfig,
+  selectGame,
+  selectLocale,
+  selectLocaleAutoGroupTiles,
+  selectRemoveCellFilters,
+  settingsSlice,
+} from './settings';
 import { solveSlice } from './solve';
 import { verifySlice } from './verify';
 
@@ -62,8 +69,13 @@ function* onRackValueChange(): AnyGenerator {
 
 function* onApplyResult({ payload: result }: PayloadAction<Result>): AnyGenerator {
   const autoGroupTiles = yield select(selectLocaleAutoGroupTiles);
+  const removeCellFilters = yield select(selectRemoveCellFilters);
   yield put(boardSlice.actions.applyResult(result));
-  yield put(cellFiltersSlice.actions.reset());
+  if (removeCellFilters === 'never') {
+    yield put(cellFiltersSlice.actions.removeCells(result.cells));
+  } else {
+    yield put(cellFiltersSlice.actions.reset());
+  }
   yield put(rackSlice.actions.removeTiles(result.tiles));
   yield put(rackSlice.actions.groupTiles(autoGroupTiles));
   yield put(verifySlice.actions.submit());
