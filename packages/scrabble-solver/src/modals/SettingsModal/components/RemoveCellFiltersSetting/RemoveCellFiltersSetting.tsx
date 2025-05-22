@@ -41,7 +41,7 @@ export const RemoveCellFiltersSetting: FunctionComponent<Props> = ({ className, 
           className={styles.option}
           disabled={disabled}
           key={option.value}
-          name="inputMode"
+          name="removeCellFilters"
           value={option.value}
           onChange={handleChange}
         >
