@@ -72,7 +72,7 @@
   "settings.showCoordinates.alternative": "Alternatywne",
   "settings.showCoordinates.hidden": "Ukryte",
   "settings.showCoordinates.original": "Oryginalne",
-  "settings.removeCellFilters": "wyjąć filtry płytowe",
+  "settings.removeCellFilters": "Automatycznie usuwaj filtry z planszy",
   "settings.removeCellFilters.always": "Zawsze",
   "settings.removeCellFilters.never": "Nigdy",
   "words": "Utworzone słowa",
