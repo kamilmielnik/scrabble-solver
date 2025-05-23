@@ -14,4 +14,5 @@ export const settingsInitialState: SettingsState = {
   inputMode: localStorage.getInputMode() ?? (isTouchScreen ? 'touchscreen' : 'keyboard'),
   locale: localStorage.getLocale() ?? guessLocale(),
   showCoordinates: localStorage.getShowCoordinates() ?? 'hidden',
+  removeCellFilters: localStorage.getRemoveCellFilters() ?? 'always',
 };

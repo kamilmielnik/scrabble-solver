@@ -10,6 +10,7 @@ import {
   InputModeSetting,
   LocaleSetting,
   ShowCoordinatesSetting,
+  RemoveCellFiltersSetting,
 } from './components';
 
 interface Props {
@@ -44,6 +45,10 @@ const SettingsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClos
 
       <Modal.Section label={translate('settings.autoGroupTiles')} title={translate('settings.autoGroupTiles')}>
         <AutoGroupTilesSetting disabled={!isOpen} />
+      </Modal.Section>
+
+      <Modal.Section label={translate('settings.removeCellFilters')} title={translate('settings.removeCellFilters')}>
+        <RemoveCellFiltersSetting disabled={!isOpen} />
       </Modal.Section>
     </Modal>
   );
