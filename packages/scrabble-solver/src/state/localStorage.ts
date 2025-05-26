@@ -1,12 +1,13 @@
 import { Board, type BoardJson, type Game, type Locale, type ShowCoordinates } from '@scrabble-solver/types';
 import store2 from 'store2';
 
-import type { AutoGroupTiles, InputMode, Rack } from 'types';
+import type { AutoGroupTiles, InputMode, Rack, RemoveCellFilters } from 'types';
 
 const AUTO_GROUP_TILES = 'auto-group-tiles';
 const BOARD = 'board';
 const GAME_ID = 'config-id';
 const INPUT_MODE = 'input-mode';
+const REMOVE_CELL_FILTERS = 'remove-cell-filters';
 const LOCALE = 'locale';
 const RACK = 'rack';
 const SHOW_COORDINATES = 'show-coordinates';
@@ -70,5 +71,13 @@ export const localStorage = {
 
   setShowCoordinates(showCoordinates: ShowCoordinates | undefined): void {
     store.set(SHOW_COORDINATES, showCoordinates, true);
+  },
+
+  getRemoveCellFilters(): RemoveCellFilters | undefined {
+    return store.get(REMOVE_CELL_FILTERS) as RemoveCellFilters | undefined;
+  },
+
+  setRemoveCellFilters(removeCellFilters: RemoveCellFilters | undefined): void {
+    store.set(REMOVE_CELL_FILTERS, removeCellFilters, true);
   },
 };

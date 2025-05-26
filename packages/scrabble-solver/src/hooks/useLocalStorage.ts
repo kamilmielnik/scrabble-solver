@@ -9,6 +9,7 @@ import {
   selectLocale,
   selectRack,
   selectShowCoordinates,
+  selectRemoveCellFilters,
   useTypedSelector,
 } from 'state';
 
@@ -20,6 +21,7 @@ export const useLocalStorage = () => {
   const locale = useTypedSelector(selectLocale);
   const rack = useTypedSelector(selectRack);
   const showCoordinates = useTypedSelector(selectShowCoordinates);
+  const removeCellFilters = useTypedSelector(selectRemoveCellFilters);
 
   useEffect(() => {
     if (autoGroupTiles) {
@@ -62,4 +64,10 @@ export const useLocalStorage = () => {
       localStorage.setShowCoordinates(showCoordinates);
     }
   }, [showCoordinates]);
+
+  useEffect(() => {
+    if (removeCellFilters) {
+      localStorage.setRemoveCellFilters(removeCellFilters);
+    }
+  }, [removeCellFilters]);
 };

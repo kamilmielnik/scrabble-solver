@@ -13,6 +13,8 @@ export type CellFilter = {
   type: CellFilterType;
 };
 
+export type RemoveCellFilters = 'always' | 'never' | null;
+
 export type Direction = 'horizontal' | 'vertical';
 
 export type InputMode = 'keyboard' | 'touchscreen';
@@ -141,6 +143,9 @@ export type TranslationKey =
   | 'settings.inputMode'
   | 'settings.inputMode.keyboard'
   | 'settings.inputMode.touchscreen'
+  | 'settings.removeCellFilters'
+  | 'settings.removeCellFilters.always'
+  | 'settings.removeCellFilters.never'
   | 'settings.language'
   | 'settings.showCoordinates'
   | 'settings.showCoordinates.alternative'
