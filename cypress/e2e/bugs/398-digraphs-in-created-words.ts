@@ -1,9 +1,9 @@
 import {
   closeModal,
-  getBoardTile,
   getOpenModal,
   getSettingOption,
   getSettingsButton,
+  pasteBoard,
   unregisterServiceWorkers,
   visitIndex,
 } from '../../support';
@@ -25,7 +25,7 @@ describe('#398 - Solitary digraph tiles are recognised as created words', () => 
     getSettingsButton().realClick();
     getSettingOption('Language', 'Español').check();
     closeModal();
-    getBoardTile(3, 7).focus().type('chiclean');
+    pasteBoard('chiclean', 'horizontal', 3, 7);
     cy.findByLabelText('Palabras creadas').click();
 
     getOpenModal().within(() => {

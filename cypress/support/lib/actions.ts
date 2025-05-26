@@ -37,6 +37,28 @@ export const typeBoard = (tiles: string, direction: 'horizontal' | 'vertical', x
   }
 };
 
+export const pasteBoard = (word: string, direction: 'horizontal' | 'vertical', x = 0, y = 0) => {
+  getBoardTile(x, y).focus();
+
+  cy.findByTestId('toggle-direction-button').then(([$button]) => {
+    if ($button.dataset.direction !== direction) {
+      cy.wrap($button).click();
+    }
+  });
+
+  getBoardTile(x, y)
+    .focus()
+    .then(($input) => {
+      const pasteEvent = new ClipboardEvent('paste', {
+        clipboardData: new DataTransfer(),
+        bubbles: true,
+      });
+
+      pasteEvent.clipboardData?.setData('text/plain', word);
+      $input[0].dispatchEvent(pasteEvent);
+    });
+};
+
 export const solve = () => {
   const id = `solve-${getRandomId()}`;
 
