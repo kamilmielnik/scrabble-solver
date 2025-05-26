@@ -28,7 +28,9 @@ const ModalBase: FunctionComponent<Props> = ({ children, className, footer, isOp
     (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setShouldReturnFocusAfterClose(false);
-        onClose();
+        setTimeout(() => {
+          onClose();
+        }, 0);
       }
     },
     [onClose],

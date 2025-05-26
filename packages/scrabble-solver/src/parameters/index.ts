@@ -91,6 +91,7 @@ export const MODAL_HEADER_HEIGHT = 45;
 export const NAV_PADDING = SPACING_L;
 
 export const TILE_SIZE = 80;
+
 export const TOOLTIP_DURATION = TRANSITION_DURATION;
 
 export const PLAIN_TILES_COLOR_DEFAULT = COLOR_GREEN;

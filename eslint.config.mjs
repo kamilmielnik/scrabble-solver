@@ -312,7 +312,6 @@ export default defineConfig([
       'computed-property-spacing': ['error', 'never'],
       'consistent-this': ['error', 'this'],
       'eol-last': 'error',
-      'func-names': ['error', 'never'],
       'func-style': 'off',
       'id-blacklist': 'off',
 
@@ -521,7 +520,12 @@ export default defineConfig([
         },
       ],
 
-      'prefer-arrow-callback': 'error',
+      'prefer-arrow-callback': [
+        'error',
+        {
+          allowNamedFunctions: true,
+        },
+      ],
       'prefer-const': 'error',
       'prefer-reflect': 'error',
       'prefer-rest-params': 'error',
