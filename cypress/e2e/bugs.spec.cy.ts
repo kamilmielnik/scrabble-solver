@@ -9,3 +9,4 @@ import './bugs/348-results-word-padding';
 import './bugs/352-dictionary-race-condition';
 import './bugs/363-dictionary-input-unique-words';
 import './bugs/380-transliteration-when-pasting';
+import './bugs/398-digraphs-in-created-words';

@@ -110,25 +110,9 @@ export class Board {
   }
 
   public getWords(): string[] {
-    const columns: Cell[][] = [];
-
-    for (let x = 0; x < this.columnsCount; ++x) {
-      const column: Cell[] = [];
-
-      for (let y = 0; y < this.rowsCount; ++y) {
-        column.push(this.rows[y][x]);
-      }
-
-      columns.push(column);
-    }
-
-    const columnsBoard = new Board({ rows: columns });
-    const lines = this.toString().split('\n').concat(columnsBoard.toString().split('\n'));
-    const words = lines
-      .flatMap((line) => line.replaceAll(/\s+/g, EMPTY_CELL).split(' '))
-      .filter((word) => word.length > 1);
-
-    return words;
+    const horizontalWords = getHorizontalWords(this.rows);
+    const verticalWords = getHorizontalWords(transpose(this.rows));
+    return [...horizontalWords, ...verticalWords];
   }
 
   public isEmpty(): boolean {
@@ -151,3 +135,48 @@ export class Board {
     this.rows[y] = updateRow(this.rows[y]);
   }
 }
+
+const transpose = <T>(array: T[][]): T[][] => {
+  const rows = array.length;
+  const cols = array[0].length;
+  const transposed: T[][] = Array(cols)
+    .fill(null)
+    .map(() => Array(rows));
+
+  for (let y = 0; y < rows; ++y) {
+    for (let x = 0; x < cols; ++x) {
+      transposed[x][y] = array[y][x];
+    }
+  }
+
+  return transposed;
+};
+
+const getHorizontalWords = (cells: Cell[][]): string[] => {
+  const words: string[] = [];
+
+  for (const row of cells) {
+    let currentWord: Cell[] = [];
+
+    for (const cell of row) {
+      if (!cell.isEmpty) {
+        currentWord.push(cell);
+      } else if (currentWord.length > 0) {
+        if (currentWord.length > 1) {
+          words.push(wordToString(currentWord));
+        }
+        currentWord = [];
+      }
+    }
+
+    if (currentWord.length > 1) {
+      words.push(wordToString(currentWord));
+    }
+  }
+
+  return words;
+};
+
+const wordToString = (currentWord: Cell[]): string => {
+  return currentWord.map((cell) => cell.tile.character).join('');
+};
