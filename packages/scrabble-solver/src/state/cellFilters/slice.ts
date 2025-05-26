@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { Cell } from '@scrabble-solver/types';
 
 import type { Point } from 'types';
 
@@ -36,6 +37,12 @@ export const cellFiltersSlice = createSlice({
       const { x, y } = action.payload;
 
       return state.filter((point) => point.x !== x || point.y !== y);
+    },
+
+    removeCells: (state, action: PayloadAction<Cell[]>) => {
+      const cellsToRemove = action.payload;
+      return state.filter((entry) =>
+        cellsToRemove.every((cell) => cell.x !== entry.x || cell.y !== entry.y));
     },
 
     reset: () => cellFiltersInitialState,
