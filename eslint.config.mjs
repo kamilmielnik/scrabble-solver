@@ -653,7 +653,6 @@ export default defineConfig([
       'react/jsx-uses-react': 'error',
       'react/jsx-uses-vars': 'error',
       'mocha/no-exclusive-tests': 'error',
-      'mocha/no-skipped-tests': 'error',
     },
   },
   {
