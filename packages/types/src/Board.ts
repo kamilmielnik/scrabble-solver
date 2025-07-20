@@ -177,6 +177,6 @@ const getHorizontalWords = (cells: Cell[][]): string[] => {
   return words;
 };
 
-const wordToString = (currentWord: Cell[]): string => {
-  return currentWord.map((cell) => cell.tile.character).join('');
+const wordToString = (word: Cell[]): string => {
+  return word.map((cell) => cell.tile.character).join('');
 };
