@@ -9,7 +9,7 @@ import cypress from 'eslint-plugin-cypress';
 import _import from 'eslint-plugin-import';
 import mocha from 'eslint-plugin-mocha';
 import react from 'eslint-plugin-react';
-import { configs as reactHooksConfigs } from 'eslint-plugin-react-hooks';
+import reactHooks from 'eslint-plugin-react-hooks';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import path from 'node:path';
@@ -41,14 +41,10 @@ export default defineConfig([
     'packages/logger/scripts/stats.js',
     'packages/scrabble-solver/public/service-worker.js',
   ]),
-  reactHooksConfigs['recommended-latest'],
+  reactHooks.configs['recommended-latest'],
+  cypress.configs.recommended,
   {
-    extends: compat.extends(
-      'eslint:recommended',
-      'plugin:@typescript-eslint/recommended-type-checked',
-      'prettier',
-      'plugin:cypress/recommended',
-    ),
+    extends: compat.extends('eslint:recommended', 'plugin:@typescript-eslint/recommended-type-checked', 'prettier'),
 
     plugins: {
       '@typescript-eslint': typescriptEslint,
