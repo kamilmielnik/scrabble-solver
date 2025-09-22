@@ -40,6 +40,7 @@ export default defineConfig([
     'packages/scrabble-solver/next.config.js',
     'packages/logger/scripts/stats.js',
     'packages/scrabble-solver/public/service-worker.js',
+    '**/.next/**/*',
   ]),
   reactHooks.configs['recommended-latest'],
   cypress.configs.recommended,
@@ -320,7 +321,6 @@ export default defineConfig([
       ],
 
       'id-match': 'off',
-      indent: ['error', 2],
       'jsx-quotes': ['error', 'prefer-double'],
 
       'key-spacing': [
@@ -658,8 +658,16 @@ export default defineConfig([
   {
     files: ['**/*.ts', '**/*.tsx'],
 
+    plugins: {
+      '@typescript-eslint': typescriptEslint,
+    },
+
     languageOptions: {
       parser: tsParser,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
 
     rules: {
