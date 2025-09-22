@@ -24,8 +24,8 @@
   },
   "dependencies": {
     "@scrabble-solver/types": "^2.15.13",
-    "cheerio": "^1.1.0",
-    "follow-redirects": "^1.15.9",
+    "cheerio": "^1.1.2",
+    "follow-redirects": "^1.15.11",
     "striptags": "^3.2.0"
   },
   "devDependencies": {

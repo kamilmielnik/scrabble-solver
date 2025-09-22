@@ -1,17 +1,17 @@
 import classNames from 'classnames';
-import { type FunctionComponent, useEffect, useMemo, useState } from 'react';
-import { FixedSizeList } from 'react-window';
+import { useEffect, useMemo, type FunctionComponent } from 'react';
+import { List, useListRef } from 'react-window';
 import { useDebounce } from 'use-debounce';
 
-import { useAppLayout, useLatest } from 'hooks';
+import { useLatest } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
-import { BORDER_WIDTH, RESULTS_HEADER_HEIGHT, RESULTS_ITEM_HEIGHT, TEXT_INPUT_HEIGHT } from 'parameters';
+import { RESULTS_ITEM_HEIGHT } from 'parameters';
 import {
   selectAreResultsOutdated,
-  selectSolveIsLoading,
   selectLocale,
   selectProcessedResults,
   selectSolveError,
+  selectSolveIsLoading,
   useTranslate,
   useTypedSelector,
 } from 'state';
@@ -36,7 +36,6 @@ const IS_LOADING_DEBOUNCE = 100;
 
 export const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIndex }) => {
   const translate = useTranslate();
-  const { resultsHeight, resultsWidth } = useAppLayout();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const results = useTypedSelector(selectProcessedResults);
@@ -44,22 +43,25 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
   const [isLoadingDebounced] = useDebounce(isLoading, IS_LOADING_DEBOUNCE);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const error = useTypedSelector(selectSolveError);
-  const itemData = useMemo(() => ({ ...callbacks, highlightedIndex, results }), [callbacks, highlightedIndex, results]);
-  const [listRef, setListRef] = useState<FixedSizeList<ResultData> | null>(null);
+  const itemData = useMemo<ResultData>(
+    () => ({ ...callbacks, highlightedIndex, results }),
+    [callbacks, highlightedIndex, results],
+  );
+  const listRef = useListRef(null);
   const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
   const scrollToIndexRef = useLatest(scrollToIndex);
   const hasResults = typeof error === 'undefined' && typeof results !== 'undefined';
   const showInput = hasResults && results.length > 0 && !isOutdated;
-  const height = resultsHeight - RESULTS_HEADER_HEIGHT - (showInput ? TEXT_INPUT_HEIGHT : 0) - 2 * BORDER_WIDTH;
-  const width = resultsWidth - 2 * BORDER_WIDTH;
 
   useEffect(() => {
     // without setTimeout, the initial scrolling offset is calculated
     // incorrectly, as the list is not fully rendered by the browser yet
     const timeout = globalThis.setTimeout(() => {
-      if (listRef) {
-        listRef.scrollToItem(scrollToIndexRef.current, 'center');
-      }
+      listRef.current?.scrollToRow({
+        align: 'center',
+        behavior: 'instant',
+        index: scrollToIndexRef.current,
+      });
     }, 0);
 
     return () => {
@@ -104,20 +106,17 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
 
             {!isOutdated && results.length > 0 && (
               <div className={styles.listContainer}>
-                <FixedSizeList
+                <List
                   className={classNames(styles.list, {
                     [styles.outdated]: isOutdated,
                   })}
-                  direction={direction}
-                  height={height}
-                  itemCount={results.length}
-                  itemData={itemData}
-                  itemSize={RESULTS_ITEM_HEIGHT}
-                  ref={setListRef}
-                  width={width}
-                >
-                  {Result}
-                </FixedSizeList>
+                  dir={direction}
+                  listRef={listRef}
+                  rowComponent={Result}
+                  rowCount={results.length}
+                  rowHeight={RESULTS_ITEM_HEIGHT}
+                  rowProps={itemData}
+                />
               </div>
             )}
           </>

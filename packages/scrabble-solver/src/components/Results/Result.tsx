@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import { type CSSProperties, type FocusEventHandler, type MouseEventHandler, type ReactElement, useRef } from 'react';
+import { type FocusEventHandler, type MouseEventHandler, type ReactElement, useRef } from 'react';
 import Highlighter from 'react-highlight-words';
+import { type RowComponentProps } from 'react-window';
 
 import { useAppLayout, useColumns } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
@@ -18,22 +19,17 @@ import { Cell } from './Cell';
 import styles from './Results.module.scss';
 import { type ResultData } from './types';
 
-interface Props {
-  data: ResultData;
-  index: number;
-  style?: CSSProperties;
-}
-
-export const Result = ({ data, index, style }: Props): ReactElement => {
-  const {
-    highlightedIndex,
-    results = [],
-    onBlur = noop,
-    onClick = noop,
-    onFocus = noop,
-    onMouseEnter = noop,
-    onMouseLeave = noop,
-  } = data;
+export const Result = ({
+  index,
+  highlightedIndex,
+  results = [],
+  onBlur = noop,
+  onClick = noop,
+  onFocus = noop,
+  onMouseEnter = noop,
+  onMouseLeave = noop,
+  style,
+}: RowComponentProps<ResultData>): ReactElement => {
   const { resultWordWidth } = useAppLayout();
   const ref = useRef<HTMLButtonElement>(null);
   const columns = useColumns();
