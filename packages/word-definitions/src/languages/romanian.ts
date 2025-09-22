@@ -16,7 +16,7 @@ export const parse = (html: string): ParsingResult => {
 
   const $activeTab = $('.tab-pane.show.active');
   $('.type-example').remove();
-  const $definitions = $activeTab.find('li.type-meaning.depth-0 > .meaningContainer .def.html');
+  const $definitions = $activeTab.find('li.type-meaning.depth-0 > .meaningContainer .tree-def.html');
   $definitions.find('.meaningTree').remove();
   const definitions = Array.from($definitions).map((definition) => $(definition).text().replace(/\n/g, ''));
 
