@@ -51,6 +51,7 @@ export const Cell: FunctionComponent<Props> = ({
   onFocus,
 }) => {
   const { tile, x, y } = cell;
+  const hintRank = (cell as CellModel & { hintRank?: number }).hintRank;
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const config = useTypedSelector(selectConfig);
@@ -108,7 +109,8 @@ export const Cell: FunctionComponent<Props> = ({
         [styles.sharpBottomRight]: cellBottom?.hasTile() || cellRight?.hasTile(),
       })}
       character={isEmpty ? undefined : tile.character}
-      highlighted={cell.isCandidate()}
+      hintRank={hintRank}
+      highlighted={cell.isCandidate() || typeof hintRank === 'number'}
       inputRef={inputRef}
       isBlank={tile.isBlank}
       isValid={isValid}

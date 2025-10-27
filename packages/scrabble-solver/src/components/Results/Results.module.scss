@@ -48,6 +48,22 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   border-top-right-radius: inherit;
 }
 
+.modeButtons {
+  display: flex;
+  gap: var(--spacing--s);
+  padding: var(--spacing--s) var(--spacing--m);
+  border-bottom: var(--border);
+  background: var(--color--background--element);
+}
+
+.modeButton {
+  flex: 1;
+}
+
+.modeButtonActive {
+  filter: brightness(1.05);
+}
+
 .headerButton {
   @include button-reset;
   @include focus-effect;

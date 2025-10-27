@@ -14,6 +14,8 @@ export const selectResults = (state: RootState) => state.results;
 
 export const selectResultCandidate = createSelector([selectResults], (results) => results.candidate);
 
+export const selectResultsDisplayMode = createSelector([selectResults], (results) => results.displayMode);
+
 export const selectResultsQuery = createSelector([selectResults], (results) => results.query);
 
 const selectResultsResults = createSelector([selectResults], (results) => results.results);

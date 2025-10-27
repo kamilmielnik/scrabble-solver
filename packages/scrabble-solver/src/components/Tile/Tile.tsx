@@ -25,6 +25,7 @@ interface Props {
   character?: string;
   className?: string;
   disabled?: boolean;
+  hintRank?: number;
   highlighted?: boolean;
   inputRef?: Ref<HTMLInputElement | null>;
   isBlank?: boolean;
@@ -47,6 +48,7 @@ export const Tile: FunctionComponent<Props> = ({
   className,
   character = '',
   disabled,
+  hintRank,
   highlighted,
   inputRef,
   isBlank,
@@ -72,6 +74,7 @@ export const Tile: FunctionComponent<Props> = ({
   const isEmpty = !character || character === EMPTY_CELL;
   const canShowPoints = showTilePoints && (!isEmpty || isBlank) && typeof points !== 'undefined';
   const pointsFormatted = typeof points === 'number' ? points.toLocaleString(locale) : '';
+  const isHighlighted = highlighted;
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
     (event) => {
@@ -89,7 +92,8 @@ export const Tile: FunctionComponent<Props> = ({
       character={character}
       className={className}
       disabled={disabled}
-      highlighted={highlighted}
+      hintRank={hintRank}
+      highlighted={isHighlighted}
       inputRef={mergedRef}
       isBlank={isBlank}
       isValid={isValid}

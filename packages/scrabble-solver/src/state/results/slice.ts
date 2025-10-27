@@ -37,6 +37,11 @@ export const resultsSlice = createSlice({
       };
     },
 
+    setDisplayMode: (state, action: PayloadAction<'normal' | 'shortHint' | 'longHint'>) => {
+      const displayMode = action.payload;
+      return { ...state, displayMode };
+    },
+
     sort: (state, action: PayloadAction<ResultColumnId>) => {
       const columndId = action.payload;
       const { column, direction } = state.sort;

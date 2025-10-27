@@ -10,6 +10,7 @@ import {
   selectAreResultsOutdated,
   selectLocale,
   selectProcessedResults,
+  selectResultsDisplayMode,
   selectSolveError,
   selectSolveIsLoading,
   useTranslate,
@@ -21,9 +22,9 @@ import { Loading } from '../Loading';
 import { ResultsInput } from '../ResultsInput';
 
 import { Header } from './Header';
+import { ModeButtons } from './ModeButtons';
 import { Result } from './Result';
 import styles from './Results.module.scss';
-import { SolveButton } from './SolveButton';
 import { type ResultCallbacks, type ResultData } from './types';
 
 interface Props {
@@ -39,6 +40,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const results = useTypedSelector(selectProcessedResults);
+  const displayMode = useTypedSelector(selectResultsDisplayMode);
   const isLoading = useTypedSelector(selectSolveIsLoading);
   const [isLoadingDebounced] = useDebounce(isLoading, IS_LOADING_DEBOUNCE);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
@@ -51,7 +53,9 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
   const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
   const scrollToIndexRef = useLatest(scrollToIndex);
   const hasResults = typeof error === 'undefined' && typeof results !== 'undefined';
-  const showInput = hasResults && results.length > 0 && !isOutdated;
+  const isHintMode = displayMode !== 'normal';
+  const showInput = hasResults && results.length > 0 && !isOutdated && !isHintMode;
+  const hintMessageKey = displayMode === 'shortHint' ? 'results.hint.short' : 'results.hint.long';
 
   useEffect(() => {
     // without setTimeout, the initial scrolling offset is calculated
@@ -73,6 +77,8 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
     <div className={classNames(styles.results, className)} data-testid="results">
       <Header />
 
+      <ModeButtons className={styles.modeButtons} />
+
       <div className={styles.content}>
         {typeof error !== 'undefined' && (
           <EmptyState className={styles.emptyState} variant="error">
@@ -83,8 +89,6 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
         {typeof error === 'undefined' && typeof results === 'undefined' && (
           <EmptyState className={styles.emptyState} variant="info">
             {translate('results.empty-state.uninitialized')}
-
-            <SolveButton className={styles.solveButton} />
           </EmptyState>
         )}
 
@@ -93,8 +97,6 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
             {isOutdated && (
               <EmptyState className={styles.emptyState} variant="info">
                 {translate('results.empty-state.outdated')}
-
-                <SolveButton className={styles.solveButton} />
               </EmptyState>
             )}
 
@@ -105,19 +107,25 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
             )}
 
             {!isOutdated && results.length > 0 && (
-              <div className={styles.listContainer}>
-                <List
-                  className={classNames(styles.list, {
-                    [styles.outdated]: isOutdated,
-                  })}
-                  dir={direction}
-                  listRef={listRef}
-                  rowComponent={Result}
-                  rowCount={results.length}
-                  rowHeight={RESULTS_ITEM_HEIGHT}
-                  rowProps={itemData}
-                />
-              </div>
+              isHintMode ? (
+                <EmptyState className={styles.emptyState} variant="info">
+                  {translate(hintMessageKey)}
+                </EmptyState>
+              ) : (
+                <div className={styles.listContainer}>
+                  <List
+                    className={classNames(styles.list, {
+                      [styles.outdated]: isOutdated,
+                    })}
+                    dir={direction}
+                    listRef={listRef}
+                    rowComponent={Result}
+                    rowCount={results.length}
+                    rowHeight={RESULTS_ITEM_HEIGHT}
+                    rowProps={itemData}
+                  />
+                </div>
+              )
             )}
           </>
         )}

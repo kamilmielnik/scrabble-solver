@@ -22,6 +22,7 @@ interface Props {
   character?: string;
   className?: string;
   disabled?: boolean;
+  hintRank?: number;
   highlighted?: boolean;
   inputRef: Ref<HTMLInputElement>;
   isBlank?: boolean;
@@ -47,6 +48,7 @@ const TilePureBase: FunctionComponent<Props> = ({
   character,
   className,
   disabled,
+  hintRank,
   highlighted,
   inputRef,
   isBlank,
@@ -77,6 +79,7 @@ const TilePureBase: FunctionComponent<Props> = ({
       [styles.points5]: typeof points === 'number' && points >= 5,
       [styles.raised]: raised,
     })}
+    data-hint-rank={hintRank}
     role={highlighted ? 'mark' : undefined}
     style={style}
   >
