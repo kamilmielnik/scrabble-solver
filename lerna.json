@@ -1,10 +1,9 @@
 {
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "publishConfig": {
     "access": "public"
   },
   "tagVersionPrefix": "",
-  "version": "2.15.14"
+  "version": "2.15.14",
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }

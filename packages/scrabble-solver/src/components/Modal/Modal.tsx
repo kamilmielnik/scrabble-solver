@@ -46,6 +46,7 @@ const ModalBase: FunctionComponent<Props> = ({ children, className, footer, isOp
 
   useEffect(() => {
     if (isOpen) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShouldReturnFocusAfterClose(true);
     }
   }, [isOpen]);

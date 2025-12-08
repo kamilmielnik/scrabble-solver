@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { SeoMessage } from 'components';
 import { store } from 'state';
 
-import 'styles/global.scss';
+import '../styles/global.scss';
 
 const DESCRIPTION =
   // eslint-disable-next-line max-len

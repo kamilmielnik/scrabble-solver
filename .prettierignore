@@ -3,3 +3,6 @@ build/
 coverage/
 node_modules/
 packages/scrabble-solver/public/service-worker.js
+
+/.nx/cache
+/.nx/workspace-data

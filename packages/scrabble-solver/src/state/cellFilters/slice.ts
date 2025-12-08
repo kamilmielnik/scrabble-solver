@@ -41,8 +41,7 @@ export const cellFiltersSlice = createSlice({
 
     removeCells: (state, action: PayloadAction<Cell[]>) => {
       const cellsToRemove = action.payload;
-      return state.filter((entry) =>
-        cellsToRemove.every((cell) => cell.x !== entry.x || cell.y !== entry.y));
+      return state.filter((entry) => cellsToRemove.every((cell) => cell.x !== entry.x || cell.y !== entry.y));
     },
 
     reset: () => cellFiltersInitialState,

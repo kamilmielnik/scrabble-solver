@@ -42,7 +42,7 @@ export default defineConfig([
     'packages/scrabble-solver/public/service-worker.js',
     '**/.next/**/*',
   ]),
-  reactHooks.configs['recommended-latest'],
+  reactHooks.configs.flat.recommended,
   cypress.configs.recommended,
   {
     extends: compat.extends('eslint:recommended', 'plugin:@typescript-eslint/recommended-type-checked', 'prettier'),
@@ -653,6 +653,9 @@ export default defineConfig([
       'react/jsx-uses-react': 'error',
       'react/jsx-uses-vars': 'error',
       'mocha/no-exclusive-tests': 'error',
+
+      'react-hooks/refs': 'off', // false positives from floating ui usages
+
     },
   },
   {

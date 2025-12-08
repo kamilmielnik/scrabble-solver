@@ -1,9 +1,14 @@
+.cursor/rules/nx-rules.mdc
+.DS_Store
+.github/instructions/nx.instructions.md
 .next/
 .nx/
+.vscode
 build/
 coverage/
 cypress/downloads
 cypress/screenshots
+next-env.d.ts
 node_modules/
 *.db
 *.eslintcache
@@ -11,5 +16,3 @@ node_modules/
 *.tsbuildinfo
 *.txt
 *.zip
-.DS_Store
-.vscode

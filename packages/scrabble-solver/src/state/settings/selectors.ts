@@ -66,4 +66,3 @@ export const selectCellIsValid = createSelector([selectConfig, selectCell], (con
 export const selectTranslations = createSelector([selectLocale], (locale) => i18n[locale]);
 
 export const selectRemoveCellFilters = createSelector([selectSettings], (settings) => settings.removeCellFilters);
-
