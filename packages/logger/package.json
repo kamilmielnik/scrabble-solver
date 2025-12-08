@@ -26,8 +26,5 @@
   "dependencies": {
     "winston": "^3.19.0"
   },
-  "devDependencies": {
-    "@types/winston": "^2.4.4"
-  },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }
