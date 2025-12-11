@@ -17,10 +17,10 @@
   },
   "homepage": "https://scrabble-solver.org",
   "scripts": {
-    "build": "env-cmd next build",
+    "build": "env-cmd next build --webpack",
     "clean": "rimraf .next/",
-    "debug": "NODE_OPTIONS='--inspect' next dev",
-    "dev": "env-cmd next dev",
+    "debug": "NODE_OPTIONS='--inspect' next dev --webpack",
+    "dev": "env-cmd next dev --webpack",
     "start": "env-cmd next start -p 3333",
     "type-check": "tsc --noEmit"
   },
