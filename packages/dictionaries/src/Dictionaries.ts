@@ -33,6 +33,7 @@ export class Dictionaries {
   }
 
   public remove(): void {
+    // @ts-expect-error incorrect @types/node? https://nodejs.org/docs/latest-v25.x/api/fs.html#fsrmdirsyncpath-options
     fs.rmdirSync(OUTPUT_DIRECTORY, { recursive: true });
   }
 

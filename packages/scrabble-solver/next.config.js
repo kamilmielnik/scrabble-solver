@@ -7,7 +7,7 @@ module.exports = {
   compress: false,
   reactStrictMode: true,
   sassOptions: {
-    loadPaths: ['./src',  path.join(__dirname, '../../node_modules/include-media/dist')],
+    loadPaths: ['./src', path.join(__dirname, '../../node_modules/include-media/dist')],
   },
   turbopack: {
     rules: {
