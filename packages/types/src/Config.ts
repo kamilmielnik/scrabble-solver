@@ -90,7 +90,7 @@ export class Config {
       return undefined;
     }
 
-    return this.twoCharacterTiles.find((characters) => characters.startsWith(character));
+    return this.twoCharacterTiles.find((characters) => characters.startsWith(character.toLocaleLowerCase()));
   }
 
   public getTilePoints(tile: Tile | null): number | undefined {

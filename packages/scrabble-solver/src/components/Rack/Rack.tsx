@@ -137,9 +137,9 @@ export const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
         changeActiveIndex(1);
       },
       onKeyDown: (event) => {
-        if (isCtrl(event) && config.isTwoCharacterTilePrefix(event.key)) {
+        if (isCtrl(event) && config.isTwoCharacterTilePrefix(event.key.toLocaleLowerCase())) {
           changeActiveIndex(1);
-        } else if (event.currentTarget.value === event.key) {
+        } else if (event.currentTarget.value.toLocaleLowerCase() === event.key.toLocaleLowerCase()) {
           // change event did not fire because the same character was typed over the current one
           // but we still want to move the caret
           event.preventDefault();

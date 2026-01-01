@@ -298,7 +298,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
         }
 
         const { x, y } = position;
-        const character = event.key.toLowerCase();
+        const character = event.key.toLocaleLowerCase();
         const twoCharacterTile = config.getTwoCharacterTileByPrefix(character);
 
         if (isCtrl(event) && twoCharacterTile) {
@@ -329,7 +329,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
           return;
         }
 
-        if (event.target instanceof HTMLInputElement && event.target.value === event.key) {
+        if (event.target instanceof HTMLInputElement && event.target.value.toLocaleLowerCase() === character) {
           // change event did not fire because the same character was typed over the current one
           // but we still want to move the caret
           event.preventDefault();
