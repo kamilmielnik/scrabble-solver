@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/dictionaries",
-  "version": "2.15.17",
+  "version": "2.15.18",
   "description": "Scrabble Solver 2 - Dictionaries",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -30,9 +30,9 @@
   },
   "dependencies": {
     "@kamilmielnik/trie": "^4.0.0",
-    "@scrabble-solver/logger": "^2.15.17",
-    "@scrabble-solver/types": "^2.15.17",
-    "@scrabble-solver/word-lists": "^2.15.17"
+    "@scrabble-solver/logger": "^2.15.18",
+    "@scrabble-solver/types": "^2.15.18",
+    "@scrabble-solver/word-lists": "^2.15.18"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }
