@@ -6,7 +6,7 @@
   </p>
 
   <p>
-    Free, open-source, cross-platform, multi-language analysis tool for <a href="https://en.wikipedia.org/wiki/Scrabble">Scrabble</a>, <a href="https://www.scopely.com/en/games/scrabble-go">Scrabble Duel</a>, <a href="https://en.wikipedia.org/wiki/Super_Scrabble">Super Scrabble</a>, <a href="https://support-apps.discord.com/hc/en-us/articles/26502196674583-Letter-League-FAQ">Letter League</a>, <a href="https://pl.wikipedia.org/wiki/Literaki">Literaki</a> &amp; <a href="https://play.google.com/store/apps/details?id=com.he2apps.kelimelik">Kelimelik</a>
+    Free, open-source, cross-platform, multi-language analysis tool for <a href="https://www.nytimes.com/games/crossplay">Crossplay</a>, <a href="https://en.wikipedia.org/wiki/Scrabble">Scrabble</a>, <a href="https://www.scopely.com/en/games/scrabble-go">Scrabble Duel</a>, <a href="https://en.wikipedia.org/wiki/Super_Scrabble">Super Scrabble</a>, <a href="https://support-apps.discord.com/hc/en-us/articles/26502196674583-Letter-League-FAQ">Letter League</a>, <a href="https://pl.wikipedia.org/wiki/Literaki">Literaki</a> &amp; <a href="https://play.google.com/store/apps/details?id=com.he2apps.kelimelik">Kelimelik</a>
   </p>
 
   <p>

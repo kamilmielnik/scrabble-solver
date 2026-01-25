@@ -2,7 +2,40 @@
 
 import { Config, Locale } from '@scrabble-solver/types';
 
-import { letterLeague, literaki, scrabble, scrabbleDuel, superScrabble } from '../games';
+import { crossplay, letterLeague, literaki, scrabble, scrabbleDuel, superScrabble } from '../games';
+
+export const englishGbCrossplay = new Config({
+  ...crossplay,
+  locale: Locale.EN_GB,
+  tiles: [
+    { character: 'a', count: 9, score: 1 },
+    { character: 'b', count: 2, score: 4 },
+    { character: 'c', count: 2, score: 3 },
+    { character: 'd', count: 4, score: 2 },
+    { character: 'e', count: 11, score: 1 },
+    { character: 'f', count: 1, score: 4 },
+    { character: 'g', count: 3, score: 4 },
+    { character: 'h', count: 3, score: 3 },
+    { character: 'i', count: 8, score: 1 },
+    { character: 'j', count: 1, score: 10 },
+    { character: 'k', count: 1, score: 6 },
+    { character: 'l', count: 3, score: 2 },
+    { character: 'm', count: 2, score: 3 },
+    { character: 'n', count: 4, score: 1 },
+    { character: 'o', count: 6, score: 1 },
+    { character: 'p', count: 2, score: 3 },
+    { character: 'q', count: 1, score: 0 },
+    { character: 'r', count: 6, score: 1 },
+    { character: 's', count: 5, score: 1 },
+    { character: 't', count: 6, score: 1 },
+    { character: 'u', count: 2, score: 2 },
+    { character: 'v', count: 2, score: 6 },
+    { character: 'w', count: 2, score: 5 },
+    { character: 'x', count: 1, score: 8 },
+    { character: 'y', count: 2, score: 4 },
+    { character: 'z', count: 1, score: 10 },
+  ],
+});
 
 export const englishGbLetterLeague = new Config({
   ...letterLeague,
@@ -167,6 +200,39 @@ export const englishGbSuperScrabble = new Config({
     { character: 'x', count: 2, score: 8 },
     { character: 'y', count: 4, score: 4 },
     { character: 'z', count: 2, score: 10 },
+  ],
+});
+
+export const englishUsCrossplay = new Config({
+  ...crossplay,
+  locale: Locale.EN_US,
+  tiles: [
+    { character: 'a', count: 9, score: 1 },
+    { character: 'b', count: 2, score: 4 },
+    { character: 'c', count: 2, score: 3 },
+    { character: 'd', count: 4, score: 2 },
+    { character: 'e', count: 11, score: 1 },
+    { character: 'f', count: 1, score: 4 },
+    { character: 'g', count: 3, score: 4 },
+    { character: 'h', count: 3, score: 3 },
+    { character: 'i', count: 8, score: 1 },
+    { character: 'j', count: 1, score: 10 },
+    { character: 'k', count: 1, score: 6 },
+    { character: 'l', count: 3, score: 2 },
+    { character: 'm', count: 2, score: 3 },
+    { character: 'n', count: 4, score: 1 },
+    { character: 'o', count: 6, score: 1 },
+    { character: 'p', count: 2, score: 3 },
+    { character: 'q', count: 1, score: 0 },
+    { character: 'r', count: 6, score: 1 },
+    { character: 's', count: 5, score: 1 },
+    { character: 't', count: 6, score: 1 },
+    { character: 'u', count: 2, score: 2 },
+    { character: 'v', count: 2, score: 6 },
+    { character: 'w', count: 2, score: 5 },
+    { character: 'x', count: 1, score: 8 },
+    { character: 'y', count: 2, score: 4 },
+    { character: 'z', count: 1, score: 10 },
   ],
 });
 
