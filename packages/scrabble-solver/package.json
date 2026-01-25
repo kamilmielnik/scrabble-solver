@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/scrabble-solver",
-  "version": "2.15.18",
+  "version": "2.15.19",
   "description": "Scrabble Solver 2 - App",
   "repository": {
     "type": "git",
@@ -28,12 +28,12 @@
     "@floating-ui/react": "^0.27.16",
     "@kamilmielnik/trie": "^4.0.0",
     "@reduxjs/toolkit": "^2.11.1",
-    "@scrabble-solver/configs": "^2.15.18",
+    "@scrabble-solver/configs": "^2.15.19",
     "@scrabble-solver/constants": "^2.15.18",
     "@scrabble-solver/dictionaries": "^2.15.18",
     "@scrabble-solver/logger": "^2.15.18",
     "@scrabble-solver/solver": "^2.15.18",
-    "@scrabble-solver/types": "^2.15.18",
+    "@scrabble-solver/types": "^2.15.19",
     "@scrabble-solver/word-definitions": "^2.15.18",
     "classnames": "^2.5.1",
     "env-cmd": "^11.0.0",
