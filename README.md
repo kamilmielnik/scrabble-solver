@@ -171,7 +171,7 @@ npm run build -w @scrabble-solver/word-lists
 13. Add a function to fetch the word definition in the new locale in [packages/word-definitions/src/crawl.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/crawl.ts)
 14. Add a function to parse the word definition crawled in the previous step in [packages/word-definitions/src/parse.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/parse.ts)
     - Bonus points for adding tests in [packages/word-definitions/src/parse.test.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/parse.test.ts)
-15. Add a transliteration function in [packages/scrabble-solver/src/lib/extractCharacters.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/lib/extractCharacters.ts)
+15. Add a transliteration function in [packages/scrabble-solver/src/lib/localeTransliterate.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/lib/localeTransliterate.ts)
 
 ## Tech stack
 
