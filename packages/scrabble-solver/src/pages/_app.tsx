@@ -59,7 +59,7 @@ const KEYWORDS = [
 const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
   <>
     <Head>
-      <title>Scrabble Solver 2 by Kamil Mielnik</title>
+      <title>Scrabble Solver 2</title>
       <meta charSet="utf-8" />
       <meta name="author" content="Kamil Mielnik" />
       <meta name="description" content={DESCRIPTION} />
