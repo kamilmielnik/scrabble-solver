@@ -11,11 +11,9 @@ import '../styles/global.scss';
 
 const DESCRIPTION =
   // eslint-disable-next-line max-len
-  'Scrabble Solver 2 - Free and open-source analysis tool for Crossplay, Scrabble, Scrabble Duel, Super Scrabble, Letter League & Literaki. Quickly find top scoring words using given letters and board state. Available in English, French, German, Persian, Polish, Romanian, Spanish, and Turkish.';
+  'Scrabble Solver 2 - Free and open-source analysis tool for Scrabble, Scrabble Duel, Super Scrabble, Letter League, Crossplay, Literaki and Kelimelik. Quickly find top scoring words using given letters and board state. Available in English, French, German, Persian, Polish, Romanian, Spanish, and Turkish.';
 
 const KEYWORDS = [
-  'Crossplay',
-  'NYT Crossplay',
   'Scrabble Solver',
   'Scrabble',
   'Scrabble Duel',
@@ -23,6 +21,8 @@ const KEYWORDS = [
   'Super Scrabble',
   'Kelimelik',
   'Letter League',
+  'Crossplay',
+  'NYT Crossplay',
   'Literaki',
   'Board',
   'Open-source',
