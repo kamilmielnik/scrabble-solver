@@ -30,7 +30,7 @@ describe('app', () => {
   it('has title', () => {
     visitIndex();
 
-    cy.title().should('equal', 'Scrabble Solver 2 by Kamil Mielnik');
+    cy.title().should('equal', 'Scrabble Solver 2');
   });
 
   it('has default setting values', () => {
