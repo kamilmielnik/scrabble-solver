@@ -17,10 +17,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22.x
+          node-version: 24.x
       - run: npm ci
       - run: npm run build
-      - uses: cypress-io/github-action@v6
+      - uses: cypress-io/github-action@v7
         with:
           build: npm install --global scrabble-solver@latest
           start: scrabble-solver

@@ -40,7 +40,7 @@
     "App"
   ],
   "engines": {
-    "node": ">=22"
+    "node": ">=24"
   },
   "bin": {
     "scrabble-solver": "./bin/scrabble-solver.js"
