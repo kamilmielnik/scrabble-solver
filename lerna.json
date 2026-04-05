@@ -6,6 +6,6 @@
     "access": "public"
   },
   "tagVersionPrefix": "",
-  "version": "2.15.21",
+  "version": "2.15.22",
   "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }
