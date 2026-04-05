@@ -24,12 +24,12 @@
   },
   "dependencies": {
     "@scrabble-solver/types": "^2.15.21",
-    "cheerio": "^1.1.2",
+    "cheerio": "^1.2.0",
     "follow-redirects": "^1.15.11",
     "striptags": "^3.2.0"
   },
   "devDependencies": {
     "@types/follow-redirects": "^1.14.4",
-    "domhandler": "^5.0.3"
+    "domhandler": "^6.0.1"
   }
 }

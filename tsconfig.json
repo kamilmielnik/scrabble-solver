@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "downlevelIteration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["esnext", "dom"],
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
