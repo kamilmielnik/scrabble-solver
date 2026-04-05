@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import {
   type CSSProperties,
   type ChangeEventHandler,
-  type FormEventHandler,
+  type SubmitEventHandler,
   forwardRef,
   useCallback,
   useEffect,
@@ -22,7 +22,7 @@ interface Props {
   value: string;
   onBlur: () => void;
   onChange: ChangeEventHandler<HTMLInputElement>;
-  onSubmit: FormEventHandler<HTMLFormElement>;
+  onSubmit: SubmitEventHandler<HTMLFormElement>;
 }
 
 const InputPromptBase = forwardRef<HTMLFormElement, Props>(
@@ -33,7 +33,7 @@ const InputPromptBase = forwardRef<HTMLFormElement, Props>(
     const config = useTypedSelector(selectConfig);
     const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
 
-    const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback(
+    const handleSubmit: SubmitEventHandler<HTMLFormElement> = useCallback(
       (event) => {
         event.preventDefault();
         const characters = extractRack(config, value);

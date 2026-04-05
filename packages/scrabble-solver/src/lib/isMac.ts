@@ -3,6 +3,5 @@ export const isMac = (): boolean => {
     return false;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return globalThis.navigator.platform.startsWith('Mac') || globalThis.navigator.platform === 'iPhone';
 };

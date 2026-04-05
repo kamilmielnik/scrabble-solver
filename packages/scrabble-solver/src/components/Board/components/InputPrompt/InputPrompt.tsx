@@ -1,5 +1,12 @@
 import classNames from 'classnames';
-import { type FormEventHandler, forwardRef, type HTMLProps, type MouseEventHandler, useEffect, useState } from 'react';
+import {
+  forwardRef,
+  type HTMLProps,
+  type MouseEventHandler,
+  type SubmitEventHandler,
+  useEffect,
+  useState,
+} from 'react';
 
 import { Check } from 'icons';
 import { useTranslate } from 'state';
@@ -27,7 +34,7 @@ export const InputPrompt = forwardRef<HTMLFormElement, Props>(
     // On iOS it helps with losing focus too early which makes Actions disappear
     const handleMouseDown: MouseEventHandler = (event) => event.preventDefault();
 
-    const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    const handleSubmit: SubmitEventHandler<HTMLFormElement> = (event) => {
       event.preventDefault();
       event.stopPropagation();
       onSubmit(input);

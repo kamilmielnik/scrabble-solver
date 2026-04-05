@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { type ChangeEvent, type FormEvent, type FunctionComponent } from 'react';
+import { type ChangeEvent, type FunctionComponent, type SubmitEvent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { LOCALE_FEATURES } from 'i18n';
@@ -22,7 +22,7 @@ export const DictionaryInput: FunctionComponent<Props> = ({ className }) => {
     dispatch(dictionarySlice.actions.changeInput(event.target.value));
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(dictionarySlice.actions.submit());
   };

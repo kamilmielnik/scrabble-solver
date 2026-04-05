@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { type ChangeEvent, type FormEventHandler, type FunctionComponent, useState } from 'react';
+import { type ChangeEvent, type FunctionComponent, type SubmitEventHandler, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { isRegExp } from 'lib';
@@ -27,7 +27,7 @@ export const ResultsInput: FunctionComponent<Props> = ({ className }) => {
     }
   };
 
-  const handleSubmit: FormEventHandler = (event) => {
+  const handleSubmit: SubmitEventHandler = (event) => {
     event.preventDefault();
   };
 
