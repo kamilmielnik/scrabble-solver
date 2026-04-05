@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { forwardRef } from 'react';
 
-import { useAppLayout } from 'hooks';
+import { useAppLayout } from 'app-layout';
 import { LOGO_SRC } from 'parameters';
 
 interface Props {

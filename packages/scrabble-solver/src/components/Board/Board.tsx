@@ -7,7 +7,7 @@ import { type CSSProperties, type FocusEventHandler, type FunctionComponent, use
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
-import { useAppLayout } from 'hooks';
+import { useAppLayout } from 'app-layout';
 import { LOCALE_FEATURES } from 'i18n';
 import { TRANSITION } from 'parameters';
 import {

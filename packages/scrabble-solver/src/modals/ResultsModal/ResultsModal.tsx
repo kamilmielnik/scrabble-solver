@@ -2,8 +2,8 @@ import { type Result } from '@scrabble-solver/types';
 import { type FunctionComponent, memo, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { useAppLayout } from 'app-layout';
 import { Button, Dictionary, Modal, Results } from 'components';
-import { useAppLayout } from 'hooks';
 import { Check, EyeFill } from 'icons';
 import { resultsSlice, selectProcessedResults, selectResultCandidate, useTranslate, useTypedSelector } from 'state';
 

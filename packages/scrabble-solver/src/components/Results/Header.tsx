@@ -1,6 +1,7 @@
 import { type FunctionComponent } from 'react';
 
-import { useAppLayout, useColumns } from 'hooks';
+import { useAppLayout } from 'app-layout';
+import { useColumns } from 'hooks';
 import { GeoAlt, OneTwoThree, Square, SquareA, SquareB, Squares, Words } from 'icons';
 import { RESULTS_COLUMN_WIDTH } from 'parameters';
 import { ResultColumnId } from 'types';

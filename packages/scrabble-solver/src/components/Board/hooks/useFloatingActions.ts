@@ -1,6 +1,6 @@
 import { autoUpdate, offset, shift, useFloating } from '@floating-ui/react';
 
-import { useAppLayout } from 'hooks';
+import { useAppLayout } from 'app-layout';
 import { BOARD_CELL_ACTIONS_OFFSET } from 'parameters';
 
 export const useFloatingActions = () => {

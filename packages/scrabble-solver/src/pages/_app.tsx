@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { type FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
 
+import { AppLayoutProvider } from 'app-layout';
 import { SeoMessage } from 'components';
 import { store } from 'state';
 
@@ -77,11 +78,13 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
     </Head>
 
     <Provider store={store}>
-      <SeoMessage />
+      <AppLayoutProvider>
+        <SeoMessage />
 
-      <FloatingDelayGroup delay={0}>
-        <Component {...pageProps} />
-      </FloatingDelayGroup>
+        <FloatingDelayGroup delay={0}>
+          <Component {...pageProps} />
+        </FloatingDelayGroup>
+      </AppLayoutProvider>
     </Provider>
   </>
 );

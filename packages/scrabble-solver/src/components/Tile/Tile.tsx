@@ -13,7 +13,7 @@ import {
   useRef,
 } from 'react';
 
-import { useAppLayout } from 'hooks';
+import { useAppLayout } from 'app-layout';
 import { getTileSizes, noop } from 'lib';
 import { selectLocale, useTypedSelector } from 'state';
 

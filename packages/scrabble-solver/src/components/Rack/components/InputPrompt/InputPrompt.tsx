@@ -10,7 +10,7 @@ import {
 } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useAppLayout } from 'hooks';
+import { useAppLayout } from 'app-layout';
 import { rackSlice, selectConfig, useTranslate, useTypedSelector } from 'state';
 
 import styles from './InputPrompt.module.scss';

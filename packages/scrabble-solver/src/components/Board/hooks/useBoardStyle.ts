@@ -1,6 +1,6 @@
 import { type CSSProperties, useMemo } from 'react';
 
-import { useAppLayout } from 'hooks';
+import { useAppLayout } from 'app-layout';
 import { getTileSizes } from 'lib';
 import { BORDER_WIDTH } from 'parameters';
 import { selectConfig, selectShowCoordinates, useTypedSelector } from 'state';

@@ -1,5 +1,6 @@
 /* eslint-disable max-statements */
 
+import { useColumns, useIsTouchDevice, useMediaQueries, useViewportSize } from 'hooks';
 import {
   BOARD_TILE_SIZE_MAX,
   BORDER_WIDTH,
@@ -22,12 +23,7 @@ import {
 import { selectConfig, selectShowCoordinates, useTypedSelector } from 'state';
 import { type ResultColumnId } from 'types';
 
-import { useColumns } from './useColumns';
-import { useIsTouchDevice } from './useIsTouchDevice';
-import { useMediaQueries } from './useMediaQueries';
-import { useViewportSize } from './useViewportSize';
-
-export const useAppLayout = () => {
+export const useAppLayoutValue = () => {
   const { viewportHeight, viewportWidth } = useViewportSize();
   const config = useTypedSelector(selectConfig);
   const showCoordinates = useTypedSelector(selectShowCoordinates);
@@ -112,3 +108,5 @@ export const useAppLayout = () => {
     tileSize,
   };
 };
+
+export type AppLayout = ReturnType<typeof useAppLayoutValue>;

@@ -3,7 +3,8 @@ import { type FocusEventHandler, type MouseEventHandler, type ReactElement, useR
 import Highlighter from 'react-highlight-words';
 import { type RowComponentProps } from 'react-window';
 
-import { useAppLayout, useColumns } from 'hooks';
+import { useAppLayout } from 'app-layout';
+import { useColumns } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { noop } from 'lib';
 import {

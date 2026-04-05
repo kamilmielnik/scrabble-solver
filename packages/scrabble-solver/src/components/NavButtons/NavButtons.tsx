@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { type FunctionComponent, memo } from 'react';
 
-import { useAppLayout } from 'hooks';
+import { useAppLayout } from 'app-layout';
 import { CardChecklist, Cog, Eraser, Github, KeyboardFill, List, Sack } from 'icons';
 import { GITHUB_PROJECT_URL } from 'parameters';
 import { selectConfig, useTranslate, useTypedSelector } from 'state';

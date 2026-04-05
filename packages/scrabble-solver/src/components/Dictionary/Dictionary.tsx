@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { type FunctionComponent } from 'react';
 
-import { useAppLayout } from 'hooks';
+import { useAppLayout } from 'app-layout';
 import {
   selectDictionaryError,
   selectDictionaryIsLoading,

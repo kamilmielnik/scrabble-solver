@@ -5,7 +5,8 @@ import { useMemo } from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 
-import { useAppLayout, useMediaQueries } from 'hooks';
+import { useAppLayout } from 'app-layout';
+import { useMediaQueries } from 'hooks';
 import { LOCALE_FEATURES } from 'i18n';
 import { Star } from 'icons';
 import { getTileSizes } from 'lib';
