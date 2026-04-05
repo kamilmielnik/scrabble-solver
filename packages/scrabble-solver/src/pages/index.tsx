@@ -1,7 +1,9 @@
+/* eslint-disable max-statements */
+
 import { isObject } from '@scrabble-solver/types';
 import fs from 'fs';
 import path from 'path';
-import { type FunctionComponent, useState } from 'react';
+import { type FunctionComponent, useCallback, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 
@@ -45,9 +47,26 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     words: false,
   });
 
-  const patchModals = (patch: Partial<Record<Modal, boolean>>) => {
+  const patchModals = useCallback((patch: Partial<Record<Modal, boolean>>) => {
     setModals((current) => ({ ...current, ...patch }));
-  };
+  }, []);
+
+  const handleClear = useCallback(() => dispatch(reset()), [dispatch]);
+
+  const handleShowDictionary = useCallback(() => patchModals({ dictionary: true }), [patchModals]);
+  const handleShowKeyMap = useCallback(() => patchModals({ keyMap: true }), [patchModals]);
+  const handleShowMenu = useCallback(() => patchModals({ menu: true }), [patchModals]);
+  const handleShowRemainingTiles = useCallback(() => patchModals({ remainingTiles: true }), [patchModals]);
+  const handleShowResults = useCallback(() => patchModals({ results: true }), [patchModals]);
+  const handleShowSettings = useCallback(() => patchModals({ settings: true }), [patchModals]);
+  const handleShowWords = useCallback(() => patchModals({ words: true }), [patchModals]);
+  const handleCloseDictionary = useCallback(() => patchModals({ dictionary: false }), [patchModals]);
+  const handleCloseKeyMap = useCallback(() => patchModals({ keyMap: false }), [patchModals]);
+  const handleCloseMenu = useCallback(() => patchModals({ menu: false }), [patchModals]);
+  const handleCloseRemainingTiles = useCallback(() => patchModals({ remainingTiles: false }), [patchModals]);
+  const handleCloseResults = useCallback(() => patchModals({ results: false }), [patchModals]);
+  const handleCloseSettings = useCallback(() => patchModals({ settings: false }), [patchModals]);
+  const handleCloseWords = useCallback(() => patchModals({ words: false }), [patchModals]);
 
   useDirection(LOCALE_FEATURES[locale].direction);
   useLanguage(locale);
@@ -78,42 +97,42 @@ const Index: FunctionComponent<Props> = ({ version }) => {
           </div>
 
           <NavButtons
-            onClear={() => dispatch(reset())}
-            onShowKeyMap={() => patchModals({ keyMap: true })}
-            onShowMenu={() => patchModals({ menu: true })}
-            onShowRemainingTiles={() => patchModals({ remainingTiles: true })}
-            onShowSettings={() => patchModals({ settings: true })}
-            onShowWords={() => patchModals({ words: true })}
+            onClear={handleClear}
+            onShowKeyMap={handleShowKeyMap}
+            onShowMenu={handleShowMenu}
+            onShowRemainingTiles={handleShowRemainingTiles}
+            onShowSettings={handleShowSettings}
+            onShowWords={handleShowWords}
           />
         </div>
       </nav>
 
       <main>
-        <Solver className={styles.solver} onShowResults={() => patchModals({ results: true })} />
+        <Solver className={styles.solver} onShowResults={handleShowResults} />
       </main>
 
       <MenuModal
         isOpen={modals.menu}
-        onClose={() => patchModals({ menu: false })}
-        onShowDictionary={() => patchModals({ dictionary: true })}
-        onShowRemainingTiles={() => patchModals({ remainingTiles: true })}
-        onShowSettings={() => patchModals({ settings: true })}
-        onShowWords={() => patchModals({ words: true })}
+        onClose={handleCloseMenu}
+        onShowDictionary={handleShowDictionary}
+        onShowRemainingTiles={handleShowRemainingTiles}
+        onShowSettings={handleShowSettings}
+        onShowWords={handleShowWords}
       />
 
-      <SettingsModal isOpen={modals.settings} onClose={() => patchModals({ settings: false })} />
+      <SettingsModal isOpen={modals.settings} onClose={handleCloseSettings} />
 
-      <KeyMapModal isOpen={modals.keyMap} onClose={() => patchModals({ keyMap: false })} />
+      <KeyMapModal isOpen={modals.keyMap} onClose={handleCloseKeyMap} />
 
-      <WordsModal isOpen={modals.words} onClose={() => patchModals({ words: false })} />
+      <WordsModal isOpen={modals.words} onClose={handleCloseWords} />
 
       {config.supportsRemainingTiles && (
-        <RemainingTilesModal isOpen={modals.remainingTiles} onClose={() => patchModals({ remainingTiles: false })} />
+        <RemainingTilesModal isOpen={modals.remainingTiles} onClose={handleCloseRemainingTiles} />
       )}
 
-      <ResultsModal isOpen={modals.results} onClose={() => patchModals({ results: false })} />
+      <ResultsModal isOpen={modals.results} onClose={handleCloseResults} />
 
-      <DictionaryModal isOpen={modals.dictionary} onClose={() => patchModals({ dictionary: false })} />
+      <DictionaryModal isOpen={modals.dictionary} onClose={handleCloseDictionary} />
     </>
   );
 };
