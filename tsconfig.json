@@ -11,7 +11,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strict": true,
-    "target": "es2021"
+    "target": "es2021",
+    "types": ["jest"]
   },
   "exclude": ["cypress", "cypress.config.ts", "node_modules"]
 }
