@@ -88,7 +88,9 @@ const Index: FunctionComponent<Props> = ({ version }) => {
         </div>
       </nav>
 
-      <Solver className={styles.solver} onShowResults={() => patchModals({ results: true })} />
+      <main>
+        <Solver className={styles.solver} onShowResults={() => patchModals({ results: true })} />
+      </main>
 
       <MenuModal
         isOpen={modals.menu}
