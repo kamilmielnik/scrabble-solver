@@ -3,6 +3,7 @@
     "declaration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "ignoreDeprecations": "6.0",
     "lib": ["esnext", "dom"],
     "module": "nodenext",
     "moduleResolution": "nodenext",
