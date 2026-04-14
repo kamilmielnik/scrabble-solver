@@ -5,7 +5,7 @@ import { solve } from '@scrabble-solver/solver';
 import { Board, Tile } from '@scrabble-solver/types';
 import { registerRoute } from 'workbox-routing';
 
-import { type SolveRequestPayload } from 'types';
+import { type SolveRequestPayload } from '@/types';
 
 import { average } from './average';
 import { revalidateDictionary } from './dictionaries';

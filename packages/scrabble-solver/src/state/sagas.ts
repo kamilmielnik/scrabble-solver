@@ -8,9 +8,9 @@ import { hasConfig, languages } from '@scrabble-solver/configs';
 import { Board, type Locale, type Result } from '@scrabble-solver/types';
 import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 
-import { LOCALE_FEATURES } from 'i18n';
-import { memoize } from 'lib';
-import { findWordDefinitions, solve, verify, visit } from 'sdk';
+import { LOCALE_FEATURES } from '@/i18n';
+import { memoize } from '@/lib';
+import { findWordDefinitions, solve, verify, visit } from '@/sdk';
 
 import { initialize, reset } from './actions';
 import { boardSlice, selectBoard } from './board';

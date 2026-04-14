@@ -11,7 +11,7 @@ import {
   selectShowCoordinates,
   selectRemoveCellFilters,
   useTypedSelector,
-} from 'state';
+} from '@/state';
 
 export const useLocalStorage = () => {
   const autoGroupTiles = useTypedSelector(selectAutoGroupTiles);

@@ -7,9 +7,9 @@ import { type CSSProperties, type FocusEventHandler, type FunctionComponent, use
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
-import { useAppLayout } from 'app-layout';
-import { LOCALE_FEATURES } from 'i18n';
-import { TRANSITION } from 'parameters';
+import { useAppLayout } from '@/app-layout';
+import { LOCALE_FEATURES } from '@/i18n';
+import { TRANSITION } from '@/parameters';
 import {
   boardSlice,
   cellFiltersSlice,
@@ -19,7 +19,7 @@ import {
   selectShowCoordinates,
   solveSlice,
   useTypedSelector,
-} from 'state';
+} from '@/state';
 
 import styles from './Board.module.scss';
 import { BoardPure } from './BoardPure';

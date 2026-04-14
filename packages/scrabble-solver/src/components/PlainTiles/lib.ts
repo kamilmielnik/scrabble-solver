@@ -10,7 +10,7 @@ import {
   PLAIN_TILES_TILE_MAX_ROTATE,
   PLAIN_TILES_TILE_MAX_SCATTER,
   PLAIN_TILES_TILE_SIZE,
-} from 'parameters';
+} from '@/parameters';
 
 import type { CreatePlainTileOptions, CreatePlainTilesOptions, PlainTile } from './types';
 

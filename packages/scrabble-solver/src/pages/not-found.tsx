@@ -1,5 +1,5 @@
 'use-client';
 
-import { NotFound } from 'components';
+import { NotFound } from '@/components';
 
 export default NotFound;

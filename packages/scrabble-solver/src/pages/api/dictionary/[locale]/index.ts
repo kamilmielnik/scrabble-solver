@@ -3,7 +3,7 @@ import { logger } from '@scrabble-solver/logger';
 import { isLocale, type Locale } from '@scrabble-solver/types';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
-import { getServerLoggingData } from 'api';
+import { getServerLoggingData } from '@/api';
 
 interface RequestData {
   locale: Locale;

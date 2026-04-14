@@ -15,8 +15,8 @@ import {
 } from '@scrabble-solver/types';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
-import { getServerLoggingData, isBoardValid, isCharacterValid } from 'api';
-import { isStringArray } from 'lib';
+import { getServerLoggingData, isBoardValid, isCharacterValid } from '@/api';
+import { isStringArray } from '@/lib';
 
 interface RequestData {
   board: Board;

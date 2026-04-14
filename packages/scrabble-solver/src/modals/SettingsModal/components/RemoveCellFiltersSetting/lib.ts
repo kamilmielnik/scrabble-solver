@@ -1,4 +1,4 @@
-import { type RemoveCellFilters } from 'types';
+import { type RemoveCellFilters } from '@/types';
 
 export const parseValue = (value: string): RemoveCellFilters => {
   if (value === 'always') {

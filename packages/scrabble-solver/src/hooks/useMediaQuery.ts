@@ -1,6 +1,6 @@
 import { buildMediaQuery } from 'include-media-query-builder';
 
-import { BREAKPOINTS } from 'parameters';
+import { BREAKPOINTS } from '@/parameters';
 
 import { useMedia } from './useMedia';
 

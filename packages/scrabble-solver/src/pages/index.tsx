@@ -7,9 +7,9 @@ import { type FunctionComponent, useCallback, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 
-import { Logo, NavButtons, Solver } from 'components';
-import { useDirection, useEffectOnce, useLanguage, useLocalStorage } from 'hooks';
-import { LOCALE_FEATURES } from 'i18n';
+import { Logo, NavButtons, Solver } from '@/components';
+import { useDirection, useEffectOnce, useLanguage, useLocalStorage } from '@/hooks';
+import { LOCALE_FEATURES } from '@/i18n';
 import {
   DictionaryModal,
   KeyMapModal,
@@ -18,9 +18,9 @@ import {
   ResultsModal,
   SettingsModal,
   WordsModal,
-} from 'modals';
-import { registerServiceWorker } from 'serviceWorkerManager';
-import { initialize, reset, selectConfig, selectLocale, useTypedSelector } from 'state';
+} from '@/modals';
+import { registerServiceWorker } from '@/serviceWorkerManager';
+import { initialize, reset, selectConfig, selectLocale, useTypedSelector } from '@/state';
 
 import styles from './index.module.scss';
 

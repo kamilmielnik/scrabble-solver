@@ -11,7 +11,7 @@ import {
   type TouchEventHandler,
 } from 'react';
 
-import { ExclamationSquareFill } from 'icons';
+import { ExclamationSquareFill } from '@/icons';
 
 import styles from './Tile.module.scss';
 

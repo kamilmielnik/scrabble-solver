@@ -1,8 +1,8 @@
 import { type FunctionComponent, memo } from 'react';
 
-import { Modal } from 'components';
-import { useIsTouchDevice } from 'hooks';
-import { useTranslate } from 'state';
+import { Modal } from '@/components';
+import { useIsTouchDevice } from '@/hooks';
+import { useTranslate } from '@/state';
 
 import {
   AutoGroupTilesSetting,

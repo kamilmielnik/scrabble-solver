@@ -3,9 +3,9 @@ import { useEffect, useMemo, type FunctionComponent } from 'react';
 import { List, useListRef } from 'react-window';
 import { useDebounce } from 'use-debounce';
 
-import { useLatest } from 'hooks';
-import { LOCALE_FEATURES } from 'i18n';
-import { RESULTS_ITEM_HEIGHT } from 'parameters';
+import { useLatest } from '@/hooks';
+import { LOCALE_FEATURES } from '@/i18n';
+import { RESULTS_ITEM_HEIGHT } from '@/parameters';
 import {
   selectAreResultsOutdated,
   selectLocale,
@@ -14,7 +14,7 @@ import {
   selectSolveIsLoading,
   useTranslate,
   useTypedSelector,
-} from 'state';
+} from '@/state';
 
 import { EmptyState } from '../EmptyState';
 import { Loading } from '../Loading';

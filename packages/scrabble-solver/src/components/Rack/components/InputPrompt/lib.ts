@@ -1,6 +1,6 @@
 import { type Config } from '@scrabble-solver/types';
 
-import { extractCharacters } from 'lib';
+import { extractCharacters } from '@/lib';
 
 export const extractRack = (config: Config, value: string): (string | null)[] => {
   const charactersByCase = extractCharacters(config, value, {

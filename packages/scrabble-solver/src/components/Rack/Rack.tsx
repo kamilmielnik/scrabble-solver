@@ -16,10 +16,10 @@ import {
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
-import { useAppLayout } from 'app-layout';
-import { LOCALE_FEATURES } from 'i18n';
-import { createKeyboardNavigation, extractCharacters, extractInputValue, getTileSizes, isCtrl } from 'lib';
-import { rackSlice, selectConfig, selectInputMode, selectLocale, selectRack, useTypedSelector } from 'state';
+import { useAppLayout } from '@/app-layout';
+import { LOCALE_FEATURES } from '@/i18n';
+import { createKeyboardNavigation, extractCharacters, extractInputValue, getTileSizes, isCtrl } from '@/lib';
+import { rackSlice, selectConfig, selectInputMode, selectLocale, selectRack, useTypedSelector } from '@/state';
 
 import { InputPrompt, RackTile } from './components';
 import styles from './Rack.module.scss';

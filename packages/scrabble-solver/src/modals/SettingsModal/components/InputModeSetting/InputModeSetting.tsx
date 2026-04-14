@@ -1,8 +1,8 @@
 import { type ChangeEvent, type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Radio } from 'components';
-import { selectInputMode, settingsSlice, useTranslate, useTypedSelector } from 'state';
+import { Radio } from '@/components';
+import { selectInputMode, settingsSlice, useTranslate, useTypedSelector } from '@/state';
 
 import styles from './InputModeSetting.module.scss';
 import { parseValue } from './lib';

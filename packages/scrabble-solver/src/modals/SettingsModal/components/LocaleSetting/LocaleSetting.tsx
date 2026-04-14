@@ -3,9 +3,9 @@ import classNames from 'classnames';
 import { type ChangeEvent, type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Radio } from 'components';
-import { LOCALE_FEATURES } from 'i18n';
-import { selectLocale, settingsSlice, useTypedSelector } from 'state';
+import { Radio } from '@/components';
+import { LOCALE_FEATURES } from '@/i18n';
+import { selectLocale, settingsSlice, useTypedSelector } from '@/state';
 
 import styles from './LocaleSetting.module.scss';
 

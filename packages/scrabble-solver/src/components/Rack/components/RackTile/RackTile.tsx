@@ -15,7 +15,7 @@ import {
 } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from 'lib';
+import { createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from '@/lib';
 import {
   rackSlice,
   selectCharacterIsValid,
@@ -25,7 +25,7 @@ import {
   selectLocale,
   useTranslate,
   useTypedSelector,
-} from 'state';
+} from '@/state';
 
 import { Tile } from '../../../Tile';
 

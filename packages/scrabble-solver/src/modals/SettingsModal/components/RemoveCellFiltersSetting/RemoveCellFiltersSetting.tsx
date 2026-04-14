@@ -1,8 +1,8 @@
 import { type ChangeEvent, type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Radio } from 'components';
-import { selectRemoveCellFilters, settingsSlice, useTranslate, useTypedSelector } from 'state';
+import { Radio } from '@/components';
+import { selectRemoveCellFilters, settingsSlice, useTranslate, useTypedSelector } from '@/state';
 
 import { parseValue } from './lib';
 import styles from './RemoveCellFiltersSetting.module.scss';

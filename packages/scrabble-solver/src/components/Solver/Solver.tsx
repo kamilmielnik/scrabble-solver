@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import { type FunctionComponent, memo, type SyntheticEvent, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useAppLayout } from 'app-layout';
-import { useIsTouchDevice } from 'hooks';
+import { useAppLayout } from '@/app-layout';
+import { useIsTouchDevice } from '@/hooks';
 import {
   resultsSlice,
   selectAreResultsOutdated,
@@ -14,7 +14,7 @@ import {
   solveSlice,
   useTranslate,
   useTypedSelector,
-} from 'state';
+} from '@/state';
 
 import { Alert } from '../Alert';
 import { Board } from '../Board';

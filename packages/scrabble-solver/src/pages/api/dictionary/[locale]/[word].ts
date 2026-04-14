@@ -6,7 +6,7 @@ import { type Locale, isLocale } from '@scrabble-solver/types';
 import { getWordDefinition } from '@scrabble-solver/word-definitions';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
-import { getServerLoggingData } from 'api';
+import { getServerLoggingData } from '@/api';
 
 interface RequestData {
   locale: Locale;

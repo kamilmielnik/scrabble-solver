@@ -5,21 +5,7 @@
     "baseUrl": ".",
     "jsx": "react",
     "paths": {
-      "api": ["./packages/scrabble-solver/src/api"],
-      "app-layout": ["./packages/scrabble-solver/src/app-layout"],
-      "components": ["./packages/scrabble-solver/src/components"],
-      "hooks": ["./packages/scrabble-solver/src/hooks"],
-      "icons": ["./packages/scrabble-solver/src/icons"],
-      "i18n": ["./packages/scrabble-solver/src/i18n"],
-      "lib": ["./packages/scrabble-solver/src/lib"],
-      "modals": ["./packages/scrabble-solver/src/modals"],
-      "pages": ["./packages/scrabble-solver/src/pages"],
-      "parameters": ["./packages/scrabble-solver/src/parameters"],
-      "sdk": ["./packages/scrabble-solver/src/sdk"],
-      "serviceWorkerManager": ["./packages/scrabble-solver/src/serviceWorkerManager"],
-      "state": ["./packages/scrabble-solver/src/state"],
-      "styles": ["./packages/scrabble-solver/src/styles"],
-      "types": ["./packages/scrabble-solver/src/types"]
+      "@/*": ["./packages/scrabble-solver/src/*"]
     }
   }
 }

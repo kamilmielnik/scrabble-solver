@@ -8,9 +8,9 @@ import {
   useState,
 } from 'react';
 
-import { Check } from 'icons';
-import { useTranslate } from 'state';
-import { type Direction } from 'types';
+import { Check } from '@/icons';
+import { useTranslate } from '@/state';
+import { type Direction } from '@/types';
 
 import { Button } from '../../../Button';
 import { ToggleDirectionButton } from '../ToggleDirectionButton';

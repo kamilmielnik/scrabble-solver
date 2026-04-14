@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { type FunctionComponent, type HTMLProps, type ReactNode, type SVGAttributes } from 'react';
 
-import { Check, CrossCircleFill, ExclamationTriangleFill, InfoCircleFill } from 'icons';
+import { Check, CrossCircleFill, ExclamationTriangleFill, InfoCircleFill } from '@/icons';
 
 import styles from './Alert.module.scss';
 

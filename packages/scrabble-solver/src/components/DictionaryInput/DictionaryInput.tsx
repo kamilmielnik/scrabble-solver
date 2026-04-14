@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import { type ChangeEvent, type FunctionComponent, type SubmitEvent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { LOCALE_FEATURES } from 'i18n';
-import { dictionarySlice, selectDictionary, selectLocale, useTranslate, useTypedSelector } from 'state';
+import { LOCALE_FEATURES } from '@/i18n';
+import { dictionarySlice, selectDictionary, selectLocale, useTranslate, useTypedSelector } from '@/state';
 
 import styles from './DictionaryInput.module.scss';
 

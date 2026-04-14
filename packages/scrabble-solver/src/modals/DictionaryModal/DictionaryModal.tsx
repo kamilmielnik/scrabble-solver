@@ -1,7 +1,7 @@
 import { type FunctionComponent, memo } from 'react';
 
-import { Dictionary, DictionaryInput, Modal } from 'components';
-import { useTranslate } from 'state';
+import { Dictionary, DictionaryInput, Modal } from '@/components';
+import { useTranslate } from '@/state';
 
 import styles from './DictionaryModal.module.scss';
 

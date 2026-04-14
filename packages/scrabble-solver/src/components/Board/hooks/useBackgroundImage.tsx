@@ -5,14 +5,14 @@ import { useCallback, useMemo } from 'react';
 import { renderToString } from 'react-dom/server';
 import { Provider } from 'react-redux';
 
-import { useAppLayout } from 'app-layout';
-import { useMediaQueries } from 'hooks';
-import { LOCALE_FEATURES } from 'i18n';
-import { Star } from 'icons';
-import { getTileSizes } from 'lib';
-import { BORDER_COLOR_LIGHT, BORDER_RADIUS, BORDER_WIDTH, COLOR_BACKGROUND, COLOR_BONUS_START } from 'parameters';
-import { selectConfig, selectLocale, selectShowCoordinates, store, useTypedSelector } from 'state';
-import { type Point } from 'types';
+import { useAppLayout } from '@/app-layout';
+import { useMediaQueries } from '@/hooks';
+import { LOCALE_FEATURES } from '@/i18n';
+import { Star } from '@/icons';
+import { getTileSizes } from '@/lib';
+import { BORDER_COLOR_LIGHT, BORDER_RADIUS, BORDER_WIDTH, COLOR_BACKGROUND, COLOR_BONUS_START } from '@/parameters';
+import { selectConfig, selectLocale, selectShowCoordinates, store, useTypedSelector } from '@/state';
+import { type Point } from '@/types';
 
 import { getBonusColor } from '../lib';
 

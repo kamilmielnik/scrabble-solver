@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import { type CSSProperties, type FunctionComponent, type ReactElement, type SVGAttributes, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { SortDown, SortUp } from 'icons';
-import { resultsSlice, selectResultsSort, useTranslate, useTypedSelector } from 'state';
-import { type ResultColumnId, SortDirection, type TranslationKey } from 'types';
+import { SortDown, SortUp } from '@/icons';
+import { resultsSlice, selectResultsSort, useTranslate, useTypedSelector } from '@/state';
+import { type ResultColumnId, SortDirection, type TranslationKey } from '@/types';
 
 import { Tooltip } from '../Tooltip';
 

@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { Cell } from '@scrabble-solver/types';
 
-import type { Point } from 'types';
+import type { Point } from '@/types';
 
 import { cellFiltersInitialState } from './initialState';
 import { toggleCellFilterState } from './lib';

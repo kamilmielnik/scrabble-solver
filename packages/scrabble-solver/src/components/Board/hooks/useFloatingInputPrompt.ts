@@ -1,6 +1,6 @@
 import { autoUpdate, offset, shift, useFloating } from '@floating-ui/react';
 
-import { BOARD_CELL_ACTIONS_OFFSET } from 'parameters';
+import { BOARD_CELL_ACTIONS_OFFSET } from '@/parameters';
 
 export const useFloatingInputPrompt = () => {
   return useFloating({

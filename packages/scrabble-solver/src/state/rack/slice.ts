@@ -1,8 +1,8 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { type Tile } from '@scrabble-solver/types';
 
-import { arrayEquals, createNullMovingComparator, inverseDirection, zipCharactersAndTiles } from 'lib';
-import { type AutoGroupTiles, type Rack } from 'types';
+import { arrayEquals, createNullMovingComparator, inverseDirection, zipCharactersAndTiles } from '@/lib';
+import { type AutoGroupTiles, type Rack } from '@/types';
 
 import { rackDefaultState, rackInitialState } from './initialState';
 

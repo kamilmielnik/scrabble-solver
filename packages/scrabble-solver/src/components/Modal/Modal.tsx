@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import { type FunctionComponent, type ReactNode, useCallback, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 
-import { CrossSquareFill } from 'icons';
-import { TRANSITION_DURATION_LONG } from 'parameters';
-import { useTranslate } from 'state';
+import { CrossSquareFill } from '@/icons';
+import { TRANSITION_DURATION_LONG } from '@/parameters';
+import { useTranslate } from '@/state';
 
 import { IconButton } from '../IconButton';
 

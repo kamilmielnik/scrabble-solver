@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import { selectInvalidWords, selectRemainingTiles } from 'state';
+import { selectInvalidWords, selectRemainingTiles } from '@/state';
 
 export const selectHasInvalidWords = createSelector([selectInvalidWords], (invalidWords) => {
   return invalidWords.length > 0;

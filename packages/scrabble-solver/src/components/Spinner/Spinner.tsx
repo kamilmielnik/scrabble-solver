@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { type FunctionComponent } from 'react';
 
-import { useTranslate } from 'state';
+import { useTranslate } from '@/state';
 
 import styles from './Spinner.module.scss';
 

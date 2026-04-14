@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import { type ChangeEvent, type FunctionComponent, type SubmitEventHandler, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { isRegExp } from 'lib';
-import { resultsSlice, selectResultsQuery, useTranslate, useTypedSelector } from 'state';
+import { isRegExp } from '@/lib';
+import { resultsSlice, selectResultsQuery, useTranslate, useTypedSelector } from '@/state';
 
 import styles from './ResultsInput.module.scss';
 

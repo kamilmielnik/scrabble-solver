@@ -19,7 +19,7 @@ import {
   selectTilePoints,
   useTranslate,
   useTypedSelector,
-} from 'state';
+} from '@/state';
 
 import { Tile } from '../../../Tile';
 

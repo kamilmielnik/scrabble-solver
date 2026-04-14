@@ -1,8 +1,8 @@
 import { BLANK } from '@scrabble-solver/constants';
 import { type Board, type Config } from '@scrabble-solver/types';
 
-import { createKeyComparator } from 'lib';
-import { type RemainingTile } from 'types';
+import { createKeyComparator } from '@/lib';
+import { type RemainingTile } from '@/types';
 
 export const getRemainingTiles = (
   config: Config,
