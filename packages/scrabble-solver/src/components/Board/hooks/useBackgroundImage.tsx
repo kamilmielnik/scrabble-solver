@@ -109,7 +109,7 @@ export const useBackgroundImage = () => {
                   x={fontOffset}
                   y={fontOffset}
                 >
-                  x2
+                  ×2
                 </text>
               </symbol>
 
@@ -126,7 +126,7 @@ export const useBackgroundImage = () => {
                   x={fontOffset}
                   y={fontOffset}
                 >
-                  x3
+                  ×3
                 </text>
               </symbol>
 
@@ -143,7 +143,7 @@ export const useBackgroundImage = () => {
                   x={fontOffset}
                   y={fontOffset}
                 >
-                  x4
+                  ×4
                 </text>
               </symbol>
             </defs>
@@ -273,6 +273,7 @@ export const useBackgroundImage = () => {
     ],
   );
 
-  const dataUrl = useMemo(() => `data:image/svg+xml;base64,${globalThis.btoa(backgroundSvg)}`, [backgroundSvg]);
+  const dataUrl = useMemo(() => `data:image/svg+xml,${encodeURIComponent(backgroundSvg)}`, [backgroundSvg]);
+
   return dataUrl;
 };
