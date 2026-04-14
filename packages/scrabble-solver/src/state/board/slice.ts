@@ -67,7 +67,30 @@ export const boardSlice = createSlice({
       }
 
       if (state.rows.length !== config.boardHeight || state.rows[0].length !== config.boardWidth) {
-        return Board.create(config.boardWidth, config.boardHeight);
+        const newBoard = Board.create(config.boardWidth, config.boardHeight);
+        const offsetX = Math.floor(config.boardWidth / 2) - Math.floor(state.rows[0].length / 2);
+        const offsetY = Math.floor(config.boardHeight / 2) - Math.floor(state.rows.length / 2);
+
+        for (let y = 0; y < state.rows.length; ++y) {
+          for (let x = 0; x < state.rows[y].length; ++x) {
+            const cell = state.rows[y][x];
+
+            if (cell.isEmpty) {
+              continue;
+            }
+
+            const newX = x + offsetX;
+            const newY = y + offsetY;
+
+            if (newX < 0 || newX >= config.boardWidth || newY < 0 || newY >= config.boardHeight) {
+              continue;
+            }
+
+            newBoard.updateCell(newX, newY, () => new Cell({ ...cell, x: newX, y: newY }));
+          }
+        }
+
+        return newBoard;
       }
 
       return state;
