@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { type FunctionComponent, memo } from 'react';
 
-import { Badge, Modal } from 'components';
-import { Check, Cross } from 'icons';
-import { selectInvalidWords, selectLocale, selectValidWords, useTranslate, useTypedSelector } from 'state';
+import { Badge, Modal } from '@/components';
+import { Check, Cross } from '@/icons';
+import { selectInvalidWords, selectLocale, selectValidWords, useTranslate, useTypedSelector } from '@/state';
 
 import styles from './WordsModal.module.scss';
 

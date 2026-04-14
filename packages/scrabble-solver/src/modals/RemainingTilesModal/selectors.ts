@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import { selectRemainingTiles } from 'state';
+import { selectRemainingTiles } from '@/state';
 
 import { getRemainingTilesGroups } from './lib';
 

@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { forwardRef } from 'react';
 
-import { useAppLayout } from 'app-layout';
-import { LOGO_SRC } from 'parameters';
+import { useAppLayout } from '@/app-layout';
+import { LOGO_SRC } from '@/parameters';
 
 interface Props {
   className?: string;

@@ -1,4 +1,4 @@
-import { ResultColumnId, SortDirection } from 'types';
+import { ResultColumnId, SortDirection } from '@/types';
 
 import type { ResultsState } from './types';
 

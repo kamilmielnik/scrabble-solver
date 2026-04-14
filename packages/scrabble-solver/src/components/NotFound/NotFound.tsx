@@ -1,6 +1,6 @@
 import { type FunctionComponent } from 'react';
 
-import { DashCircleFill } from 'icons';
+import { DashCircleFill } from '@/icons';
 
 import { PlainTiles } from '../PlainTiles';
 

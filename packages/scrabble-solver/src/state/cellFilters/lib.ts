@@ -1,4 +1,4 @@
-import type { CellFilterType } from 'types';
+import type { CellFilterType } from '@/types';
 
 export const toggleCellFilterState = (type: CellFilterType): CellFilterType | null => {
   const chain: (CellFilterType | null)[] = ['include', 'exclude', null];

@@ -1,10 +1,10 @@
 import { type FunctionComponent, memo } from 'react';
 
-import { Badge, Modal } from 'components';
-import { LOCALE_FEATURES } from 'i18n';
-import { getTileSizes } from 'lib';
-import { REMAINING_TILES_TILE_SIZE } from 'parameters';
-import { selectLocale, useTranslate, useTypedSelector } from 'state';
+import { Badge, Modal } from '@/components';
+import { LOCALE_FEATURES } from '@/i18n';
+import { getTileSizes } from '@/lib';
+import { REMAINING_TILES_TILE_SIZE } from '@/parameters';
+import { selectLocale, useTranslate, useTypedSelector } from '@/state';
 
 import { Character } from './components';
 import styles from './RemainingTilesModal.module.scss';

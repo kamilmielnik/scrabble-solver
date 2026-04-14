@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { type FunctionComponent, type HTMLProps, type MouseEventHandler } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { ChevronDown, ChevronLeft, ChevronRight } from 'icons';
+import { ChevronDown, ChevronLeft, ChevronRight } from '@/icons';
 import {
   resultsSlice,
   selectAreResultsOutdated,
@@ -12,7 +12,7 @@ import {
   selectResultCandidate,
   useTranslate,
   useTypedSelector,
-} from 'state';
+} from '@/state';
 
 import { Button } from '../../../Button';
 import { Spinner } from '../../../Spinner';

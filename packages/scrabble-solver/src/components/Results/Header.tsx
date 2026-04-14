@@ -1,10 +1,10 @@
 import { type FunctionComponent } from 'react';
 
-import { useAppLayout } from 'app-layout';
-import { useColumns } from 'hooks';
-import { GeoAlt, OneTwoThree, Square, SquareA, SquareB, Squares, Words } from 'icons';
-import { RESULTS_COLUMN_WIDTH } from 'parameters';
-import { ResultColumnId } from 'types';
+import { useAppLayout } from '@/app-layout';
+import { useColumns } from '@/hooks';
+import { GeoAlt, OneTwoThree, Square, SquareA, SquareB, Squares, Words } from '@/icons';
+import { RESULTS_COLUMN_WIDTH } from '@/parameters';
+import { ResultColumnId } from '@/types';
 
 import { HeaderButton } from './HeaderButton';
 import styles from './Results.module.scss';

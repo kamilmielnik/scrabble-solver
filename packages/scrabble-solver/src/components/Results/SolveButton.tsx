@@ -1,7 +1,7 @@
 import { type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Search } from 'icons';
+import { Search } from '@/icons';
 import {
   selectAreResultsOutdated,
   selectSolveIsLoading,
@@ -9,7 +9,7 @@ import {
   solveSlice,
   useTranslate,
   useTypedSelector,
-} from 'state';
+} from '@/state';
 
 import { Button } from '../Button';
 

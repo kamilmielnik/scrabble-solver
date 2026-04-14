@@ -1,7 +1,7 @@
 import { logger } from '@scrabble-solver/logger';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
-import { getServerLoggingData } from 'api';
+import { getServerLoggingData } from '@/api';
 
 const visit = (request: NextApiRequest, response: NextApiResponse): void => {
   const meta = getServerLoggingData(request);

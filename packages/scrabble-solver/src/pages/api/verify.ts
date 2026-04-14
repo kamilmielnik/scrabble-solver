@@ -4,7 +4,7 @@ import { logger } from '@scrabble-solver/logger';
 import { Board, type Config, type Game, type Locale, isBoardJson, isGame, isLocale } from '@scrabble-solver/types';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
-import { getServerLoggingData, isBoardValid } from 'api';
+import { getServerLoggingData, isBoardValid } from '@/api';
 
 interface RequestData {
   board: Board;

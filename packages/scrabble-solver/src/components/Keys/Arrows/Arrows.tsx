@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { type FunctionComponent } from 'react';
 
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from 'icons';
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from '@/icons';
 
 import { Key } from '../../Key';
 

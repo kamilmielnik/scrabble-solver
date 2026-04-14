@@ -1,14 +1,14 @@
 import classNames from 'classnames';
 import { type FunctionComponent } from 'react';
 
-import { useAppLayout } from 'app-layout';
+import { useAppLayout } from '@/app-layout';
 import {
   selectDictionaryError,
   selectDictionaryIsLoading,
   selectDictionaryResults,
   useTranslate,
   useTypedSelector,
-} from 'state';
+} from '@/state';
 
 import { EmptyState } from '../EmptyState';
 import { Loading } from '../Loading';

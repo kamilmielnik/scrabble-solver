@@ -1,10 +1,10 @@
 import { type FunctionComponent, memo } from 'react';
 
-import { Button, Modal } from 'components';
-import { LOCALE_FEATURES } from 'i18n';
-import { BookHalf, CardChecklist, Cog, Github, Sack } from 'icons';
-import { GITHUB_PROJECT_URL } from 'parameters';
-import { selectLocale, useTranslate, useTypedSelector } from 'state';
+import { Button, Modal } from '@/components';
+import { LOCALE_FEATURES } from '@/i18n';
+import { BookHalf, CardChecklist, Cog, Github, Sack } from '@/icons';
+import { GITHUB_PROJECT_URL } from '@/parameters';
+import { selectLocale, useTranslate, useTypedSelector } from '@/state';
 
 import styles from './MenuModal.module.scss';
 

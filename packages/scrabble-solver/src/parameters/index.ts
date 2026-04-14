@@ -1,4 +1,4 @@
-import { ResultColumnId } from 'types';
+import { ResultColumnId } from '@/types';
 
 export const BREAKPOINTS = {
   xs: 480,

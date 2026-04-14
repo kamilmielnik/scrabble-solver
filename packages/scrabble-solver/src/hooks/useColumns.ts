@@ -1,9 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { useMemo } from 'react';
 
-import { LOCALE_FEATURES } from 'i18n';
-import { selectLocale, selectShowCoordinates, useTypedSelector } from 'state';
-import { ResultColumnId } from 'types';
+import { LOCALE_FEATURES } from '@/i18n';
+import { selectLocale, selectShowCoordinates, useTypedSelector } from '@/state';
+import { ResultColumnId } from '@/types';
 
 import { useMediaQueries } from './useMediaQueries';
 

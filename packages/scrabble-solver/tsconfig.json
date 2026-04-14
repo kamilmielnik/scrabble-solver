@@ -10,21 +10,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "noEmit": true,
     "paths": {
-      "api": ["./src/api"],
-      "app-layout": ["./src/app-layout"],
-      "components": ["./src/components"],
-      "hooks": ["./src/hooks"],
-      "icons": ["./src/icons"],
-      "i18n": ["./src/i18n"],
-      "lib": ["./src/lib"],
-      "modals": ["./src/modals"],
-      "pages": ["./src/pages"],
-      "parameters": ["./src/parameters"],
-      "sdk": ["./src/sdk"],
-      "serviceWorkerManager": ["./src/serviceWorkerManager"],
-      "state": ["./src/state"],
-      "styles": ["./src/styles"],
-      "types": ["./src/types"]
+      "@/*": ["./src/*"]
     },
     "resolveJsonModule": true,
     "rootDir": "./src",

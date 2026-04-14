@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { type FunctionComponent, type HTMLProps } from 'react';
 
-import { PROGRESS_COLOR_BACKGROUND, PROGRESS_COLOR_VALUE } from 'parameters';
-import { selectLocale, useTypedSelector } from 'state';
+import { PROGRESS_COLOR_BACKGROUND, PROGRESS_COLOR_VALUE } from '@/parameters';
+import { selectLocale, useTypedSelector } from '@/state';
 
 import styles from './Progress.module.scss';
 

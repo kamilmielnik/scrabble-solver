@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import type { Point } from 'types';
+import type { Point } from '@/types';
 
 import type { RootState } from '../types';
 

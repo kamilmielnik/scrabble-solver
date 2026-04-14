@@ -1,7 +1,7 @@
 import { BLANK } from '@scrabble-solver/constants';
 import { type Tile } from '@scrabble-solver/types';
 
-import { type Rack } from 'types';
+import { type Rack } from '@/types';
 
 interface CharacterTilePair {
   character: string | null;

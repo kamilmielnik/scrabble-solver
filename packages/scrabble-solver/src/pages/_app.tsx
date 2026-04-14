@@ -4,9 +4,9 @@ import Head from 'next/head';
 import { type FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
 
-import { AppLayoutProvider } from 'app-layout';
-import { SeoMessage } from 'components';
-import { store } from 'state';
+import { AppLayoutProvider } from '@/app-layout';
+import { SeoMessage } from '@/components';
+import { store } from '@/state';
 
 import '../styles/global.scss';
 

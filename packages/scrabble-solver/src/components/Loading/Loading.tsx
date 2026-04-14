@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { type FunctionComponent, useMemo } from 'react';
 
-import { LOCALE_FEATURES } from 'i18n';
-import { selectLocale, useTranslate, useTypedSelector } from 'state';
+import { LOCALE_FEATURES } from '@/i18n';
+import { selectLocale, useTranslate, useTypedSelector } from '@/state';
 
 import { PlainTiles } from '../PlainTiles';
 

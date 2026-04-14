@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import { type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Check } from 'icons';
-import { resultsSlice, selectAreResultsOutdated, selectResultCandidate, useTranslate, useTypedSelector } from 'state';
+import { Check } from '@/icons';
+import { resultsSlice, selectAreResultsOutdated, selectResultCandidate, useTranslate, useTypedSelector } from '@/state';
 
 import { Button } from '../../../Button';
 

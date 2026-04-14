@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { noop } from 'lib';
+import { noop } from '@/lib';
 
 export const useDirection = (direction: 'ltr' | 'rtl') => {
   useEffect(() => {

@@ -3,18 +3,18 @@ import { type FocusEventHandler, type MouseEventHandler, type ReactElement, useR
 import Highlighter from 'react-highlight-words';
 import { type RowComponentProps } from 'react-window';
 
-import { useAppLayout } from 'app-layout';
-import { useColumns } from 'hooks';
-import { LOCALE_FEATURES } from 'i18n';
-import { noop } from 'lib';
+import { useAppLayout } from '@/app-layout';
+import { useColumns } from '@/hooks';
+import { LOCALE_FEATURES } from '@/i18n';
+import { noop } from '@/lib';
 import {
   selectIsResultMatching,
   selectLocale,
   selectResultCoordinates,
   selectResultsQuery,
   useTypedSelector,
-} from 'state';
-import { ResultColumnId } from 'types';
+} from '@/state';
+import { ResultColumnId } from '@/types';
 
 import { Cell } from './Cell';
 import styles from './Results.module.scss';

@@ -12,10 +12,10 @@ import {
   memo,
 } from 'react';
 
-import { Ban, FlagFill } from 'icons';
-import { getCoordinate } from 'lib';
-import { BORDER_WIDTH } from 'parameters';
-import { type CellFilter } from 'types';
+import { Ban, FlagFill } from '@/icons';
+import { getCoordinate } from '@/lib';
+import { BORDER_WIDTH } from '@/parameters';
+import { type CellFilter } from '@/types';
 
 import styles from './Board.module.scss';
 import { Cell } from './components';

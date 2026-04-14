@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import { unorderedArraysEqual } from 'lib';
+import { unorderedArraysEqual } from '@/lib';
 
 import { selectBoard } from './board';
 import { getRemainingTiles } from './lib';

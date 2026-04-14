@@ -1,3 +1,3 @@
-import type { CellFilter } from 'types';
+import type { CellFilter } from '@/types';
 
 export type CellFiltersState = CellFilter[];

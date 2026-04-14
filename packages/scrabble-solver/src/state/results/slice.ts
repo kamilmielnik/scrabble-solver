@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { type Result } from '@scrabble-solver/types';
 
-import { type ResultColumnId, SortDirection } from 'types';
+import { type ResultColumnId, SortDirection } from '@/types';
 
 import { resultsInitialState } from './initialState';
 
