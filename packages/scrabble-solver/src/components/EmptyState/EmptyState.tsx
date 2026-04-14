@@ -30,12 +30,20 @@ const COLORS_PER_TYPE: Record<Props['variant'], string> = {
   warning: COLOR_YELLOW,
 };
 
+const graphemeSegmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+
+const reverseGraphemes = (value: string): string => {
+  return Array.from(graphemeSegmenter.segment(value), (segment) => segment.segment)
+    .reverse()
+    .join('');
+};
+
 export const EmptyState: FunctionComponent<Props> = ({ children, className, variant }) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const title = translate(TITLE_KEY_PER_TYPE[variant]);
-  const message = direction === 'ltr' ? title : title.split('').reverse().join('');
+  const message = direction === 'ltr' ? title : reverseGraphemes(title);
   const content = useMemo(() => [message.toUpperCase().split(' ')], [message]);
 
   return (
