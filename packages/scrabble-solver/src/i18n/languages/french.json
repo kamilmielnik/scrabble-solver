@@ -42,7 +42,7 @@
   "keyMap.board-and-rack.insert-two-letter-tile": "Insérer une tuile de deux lettres",
   "keyMap.board-and-rack.navigate": "Naviguer",
   "keyMap.board-and-rack.remove-tile": "Supprimer une case",
-  "keyMap.board-and-rack.submit": "Commencer la résolution",
+  "keyMap.board-and-rack.submit": "Résoudre",
   "keyMap.rack": "Chevalet",
   "keyMap.rack.insert-blank": "Inserer une case vide",
   "menu": "Menu",

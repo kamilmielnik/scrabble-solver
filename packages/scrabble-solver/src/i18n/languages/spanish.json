@@ -42,7 +42,7 @@
   "keyMap.board-and-rack.insert-two-letter-tile": "Insertar mosaico de dos letras",
   "keyMap.board-and-rack.navigate": "Navegar",
   "keyMap.board-and-rack.remove-tile": "Quitar Letra",
-  "keyMap.board-and-rack.submit": "Empezar a resolver",
+  "keyMap.board-and-rack.submit": "Resolver",
   "keyMap.rack": "Estante",
   "keyMap.rack.insert-blank": "Insertar espacio en blanco",
   "menu": "Menú",

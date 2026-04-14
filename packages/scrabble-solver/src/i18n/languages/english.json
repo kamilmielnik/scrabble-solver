@@ -42,7 +42,7 @@
   "keyMap.board-and-rack.insert-two-letter-tile": "Insert two-letter tile",
   "keyMap.board-and-rack.navigate": "Navigate",
   "keyMap.board-and-rack.remove-tile": "Remove tile",
-  "keyMap.board-and-rack.submit": "Start solving",
+  "keyMap.board-and-rack.submit": "Solve",
   "keyMap.rack": "Rack",
   "keyMap.rack.insert-blank": "Insert blank",
   "menu": "Menu",

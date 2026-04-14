@@ -42,7 +42,7 @@
   "keyMap.board-and-rack.insert-two-letter-tile": "Zwei-Buchstaben Stein hinzufügen",
   "keyMap.board-and-rack.navigate": "Navigieren",
   "keyMap.board-and-rack.remove-tile": "Stein entfernen",
-  "keyMap.board-and-rack.submit": "Lösen starten",
+  "keyMap.board-and-rack.submit": "Lösen",
   "keyMap.rack": "Ablage",
   "keyMap.rack.insert-blank": "Blanko hinzufügen",
   "menu": "Menü",
