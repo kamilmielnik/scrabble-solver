@@ -62,11 +62,13 @@ export const SPACING_XL = 40;
 export const COMPONENTS_SPACING = SPACING_XL;
 export const COMPONENTS_SPACING_SMALL = SPACING_L;
 
+export const RACK_TILE_SIZE_MAX = 80;
+
 export const BOARD_CELL_ACTIONS_OFFSET = 3;
 export const BOARD_CELL_BORDER_WIDTH = 1;
 export const BOARD_TILE_FONT_SIZE_MIN = 14;
 export const BOARD_TILE_FONT_SIZE_POINTS_MIN = 10;
-export const BOARD_TILE_SIZE_MAX = 64;
+export const BOARD_TILE_SIZE_MAX = RACK_TILE_SIZE_MAX;
 
 export const BORDER_COLOR = '#cdcdcd';
 export const BORDER_COLOR_LIGHT = '#d9d9d9';
@@ -118,8 +120,6 @@ export const PLAIN_TILES_VERSION_TILE_SIZE = TILE_SIZE;
 
 export const PROGRESS_COLOR_VALUE = 'var(--color--violet--light)';
 export const PROGRESS_COLOR_BACKGROUND = 'var(--color--inactive)';
-
-export const RACK_TILE_SIZE_MAX = 80;
 
 export const REMAINING_TILES_TILE_SIZE = 50;
 
