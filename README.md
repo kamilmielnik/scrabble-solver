@@ -194,7 +194,7 @@ npm run build -w @scrabble-solver/word-lists
 - [Cypress](https://www.cypress.io/)
 - [Jest](https://jestjs.io/)
 - [Oxlint](https://oxc.rs/docs/guide/usage/linter)
-- [oxfmt](https://oxc.rs/docs/guide/usage/formatter)
+- [Oxfmt](https://oxc.rs/docs/guide/usage/formatter)
 
 ## Related projects
 
