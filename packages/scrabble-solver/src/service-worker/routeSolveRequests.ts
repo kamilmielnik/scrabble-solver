@@ -19,18 +19,6 @@ const MIN_MEASUREMENTS = 5;
 const localDurations: number[] = [];
 const serverDurations: number[] = [];
 
-const isSlowDevice = (): boolean | undefined => {
-  if (localDurations.length < MIN_MEASUREMENTS || serverDurations.length < MIN_MEASUREMENTS) {
-    return undefined;
-  }
-
-  const count = Math.min(localDurations.length, serverDurations.length);
-  const local = localDurations.slice(0, count).sort().slice(1, -1);
-  const server = serverDurations.slice(0, count).sort().slice(1, -1);
-
-  return average(local) > average(server);
-};
-
 export const routeSolveRequests = () => {
   registerRoute(
     ({ url }) => url.origin === location.origin && url.pathname === '/api/solve',
@@ -82,4 +70,22 @@ export const routeSolveRequests = () => {
     },
     'POST',
   );
+};
+
+const isSlowDevice = (): boolean | undefined => {
+  if (localDurations.length < MIN_MEASUREMENTS || serverDurations.length < MIN_MEASUREMENTS) {
+    return undefined;
+  }
+
+  const count = Math.min(localDurations.length, serverDurations.length);
+  const local = localDurations
+    .slice(0, count)
+    .sort((a, b) => a - b)
+    .slice(1, -1);
+  const server = localDurations
+    .slice(0, count)
+    .sort((a, b) => a - b)
+    .slice(1, -1);
+
+  return average(local) > average(server);
 };
