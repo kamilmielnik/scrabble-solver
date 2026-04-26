@@ -18,7 +18,6 @@ self.addEventListener('activate', () => {
 });
 
 cleanupOutdatedCaches();
-// oxlint-disable-next-line local/no-underscore-dangle
 precacheAndRoute(self.__WB_MANIFEST);
 routeSolveRequests();
 routeVerifyRequests();
