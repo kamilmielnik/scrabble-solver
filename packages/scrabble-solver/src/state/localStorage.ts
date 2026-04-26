@@ -1,28 +1,49 @@
-import { Board, type BoardJson, type Game, type Locale, type ShowCoordinates } from '@scrabble-solver/types';
+import { Board, type BoardJson } from '@scrabble-solver/types';
 import store2 from 'store2';
 
-import type { AutoGroupTiles, InputMode, Rack, RemoveCellFilters } from '@/types';
+import type { Rack } from '@/types';
 
-const AUTO_GROUP_TILES = 'auto-group-tiles';
+import type { SettingsState } from './settings/types';
+
 const BOARD = 'board';
-const GAME_ID = 'config-id';
-const INPUT_MODE = 'input-mode';
-const REMOVE_CELL_FILTERS = 'remove-cell-filters';
-const LOCALE = 'locale';
 const RACK = 'rack';
-const SHOW_COORDINATES = 'show-coordinates';
+const SETTINGS = 'settings';
+
+const LEGACY_KEYS: Record<keyof SettingsState, string> = {
+  autoGroupTiles: 'auto-group-tiles',
+  game: 'config-id',
+  inputMode: 'input-mode',
+  locale: 'locale',
+  removeCellFilters: 'remove-cell-filters',
+  showCoordinates: 'show-coordinates',
+};
 
 const store = store2.namespace('scrabble-solver');
 
+/**
+ * Introduced in 2.15.26 on 2026/04/27.
+ * Life expectancy: 1y.
+ */
+const migrateLegacySettings = (): Partial<SettingsState> => {
+  const settings: Partial<SettingsState> = {};
+  let hasLegacy = false;
+
+  for (const [setting, legacyKey] of Object.entries(LEGACY_KEYS) as [keyof SettingsState, string][]) {
+    if (store.has(legacyKey)) {
+      settings[setting] = store.get(legacyKey);
+      store.remove(legacyKey);
+      hasLegacy = true;
+    }
+  }
+
+  if (hasLegacy) {
+    store.set(SETTINGS, settings, true);
+  }
+
+  return settings;
+};
+
 export const localStorage = {
-  getAutoGroupTiles(): AutoGroupTiles | undefined {
-    return store.get(AUTO_GROUP_TILES) as AutoGroupTiles | undefined;
-  },
-
-  setAutoGroupTiles(autoGroupTiles: AutoGroupTiles | undefined): void {
-    store.set(AUTO_GROUP_TILES, autoGroupTiles, true);
-  },
-
   getBoard(): Board | undefined {
     const serialized = store.get(BOARD) as string | undefined;
     return serialized ? Board.fromJson(JSON.parse(serialized) as BoardJson) : undefined;
@@ -33,30 +54,6 @@ export const localStorage = {
     store.set(BOARD, serialized, true);
   },
 
-  getGame(): Game | undefined {
-    return store.get(GAME_ID) as Game | undefined;
-  },
-
-  setGame(game: Game | undefined): void {
-    store.set(GAME_ID, game, true);
-  },
-
-  getInputMode(): InputMode | undefined {
-    return store.get(INPUT_MODE) as InputMode | undefined;
-  },
-
-  setInputMode(inputMode: InputMode | undefined): void {
-    store.set(INPUT_MODE, inputMode, true);
-  },
-
-  getLocale(): Locale | undefined {
-    return store.get(LOCALE) as Locale | undefined;
-  },
-
-  setLocale(locale: Locale | undefined): void {
-    store.set(LOCALE, locale, true);
-  },
-
   getRack(): Rack | undefined {
     return store.get(RACK) as Rack | undefined;
   },
@@ -65,19 +62,12 @@ export const localStorage = {
     store.set(RACK, rack, true);
   },
 
-  getShowCoordinates(): ShowCoordinates | undefined {
-    return store.get(SHOW_COORDINATES) as ShowCoordinates | undefined;
+  getSettings(): Partial<SettingsState> {
+    const stored = store.get(SETTINGS) as Partial<SettingsState> | undefined;
+    return stored ?? migrateLegacySettings();
   },
 
-  setShowCoordinates(showCoordinates: ShowCoordinates | undefined): void {
-    store.set(SHOW_COORDINATES, showCoordinates, true);
-  },
-
-  getRemoveCellFilters(): RemoveCellFilters | undefined {
-    return store.get(REMOVE_CELL_FILTERS) as RemoveCellFilters | undefined;
-  },
-
-  setRemoveCellFilters(removeCellFilters: RemoveCellFilters | undefined): void {
-    store.set(REMOVE_CELL_FILTERS, removeCellFilters, true);
+  setSettings(settings: SettingsState): void {
+    store.set(SETTINGS, settings, true);
   },
 };
