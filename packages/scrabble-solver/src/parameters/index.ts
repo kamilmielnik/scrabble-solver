@@ -1,38 +1,39 @@
+import variables from '@/styles/variables.module.scss';
 import { ResultColumnId } from '@/types';
 
 export const BREAKPOINTS = {
-  xs: 480,
-  s: 768,
-  m: 992,
-  l: 1200,
-  xl: 1400,
+  xs: Number(variables.breakpointXs),
+  s: Number(variables.breakpointS),
+  m: Number(variables.breakpointM),
+  l: Number(variables.breakpointL),
+  xl: Number(variables.breakpointXl),
 };
 
 export const TRANSITION = 'var(--transition)';
 
 export const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';
 
-export const TRANSITION_DURATION = 100;
-export const TRANSITION_DURATION_LONG = 250;
+export const TRANSITION_DURATION = Number(variables.transitionDuration);
+export const TRANSITION_DURATION_LONG = Number(variables.transitionDurationLong);
 
-export const COLOR_BLUE = '#c7d8f9';
-export const COLOR_GREEN = '#bae3ba';
-export const COLOR_RED = '#f7c2aa';
-export const COLOR_YELLOW = '#efe3ae';
+export const COLOR_BLUE = variables.colorBlue;
+export const COLOR_GREEN = variables.colorGreen;
+export const COLOR_RED = variables.colorRed;
+export const COLOR_YELLOW = variables.colorYellow;
 
-export const COLOR_BONUS_CHARACTER_1 = '#f7f1d6';
-export const COLOR_BONUS_CHARACTER_2 = '#d6ebd6';
-export const COLOR_BONUS_CHARACTER_3 = '#dde4f6';
-export const COLOR_BONUS_CHARACTER_5 = '#fbe0d4';
-export const COLOR_BONUS_CHARACTER_MULTIPLIER_2 = '#b8d5ed';
-export const COLOR_BONUS_CHARACTER_MULTIPLIER_3 = '#86aed1';
-export const COLOR_BONUS_CHARACTER_MULTIPLIER_4 = '#3477b2';
-export const COLOR_BONUS_START = '#b284b8';
-export const COLOR_BONUS_WORD_MULTIPLIER_2 = '#fbc997';
-export const COLOR_BONUS_WORD_MULTIPLIER_3 = '#f19393';
-export const COLOR_BONUS_WORD_MULTIPLIER_4 = '#ed5e5e';
-export const COLOR_FILTERED = '#444';
-export const COLOR_BACKGROUND = '#f4f4f4';
+export const COLOR_BONUS_CHARACTER_1 = variables.colorYellowLight;
+export const COLOR_BONUS_CHARACTER_2 = variables.colorGreenLight;
+export const COLOR_BONUS_CHARACTER_3 = variables.colorBlueLight;
+export const COLOR_BONUS_CHARACTER_5 = variables.colorRedLight;
+export const COLOR_BONUS_CHARACTER_MULTIPLIER_2 = variables.colorBonusCharacterMultiplier2;
+export const COLOR_BONUS_CHARACTER_MULTIPLIER_3 = variables.colorBonusCharacterMultiplier3;
+export const COLOR_BONUS_CHARACTER_MULTIPLIER_4 = variables.colorBonusCharacterMultiplier4;
+export const COLOR_BONUS_START = variables.colorVioletLight;
+export const COLOR_BONUS_WORD_MULTIPLIER_2 = variables.colorBonusWordMultiplier2;
+export const COLOR_BONUS_WORD_MULTIPLIER_3 = variables.colorBonusWordMultiplier3;
+export const COLOR_BONUS_WORD_MULTIPLIER_4 = variables.colorBonusWordMultiplier4;
+export const COLOR_FILTERED = variables.colorForegroundSecondary;
+export const COLOR_BACKGROUND = variables.colorBackground;
 
 export const COLOR_BONUS_CHARACTER: Record<number, string> = {
   1: COLOR_BONUS_CHARACTER_1,
@@ -53,11 +54,11 @@ export const COLOR_BONUS_WORD: Record<number, string> = {
   4: COLOR_BONUS_WORD_MULTIPLIER_4,
 };
 
-export const SPACING_XS = 2;
-export const SPACING_S = 5;
-export const SPACING_M = 10;
-export const SPACING_L = 20;
-export const SPACING_XL = 40;
+export const SPACING_XS = Number(variables.spacingXs);
+export const SPACING_S = Number(variables.spacingS);
+export const SPACING_M = Number(variables.spacingM);
+export const SPACING_L = Number(variables.spacingL);
+export const SPACING_XL = Number(variables.spacingXl);
 
 export const COMPONENTS_SPACING = SPACING_XL;
 export const COMPONENTS_SPACING_SMALL = SPACING_L;
@@ -70,24 +71,24 @@ export const BOARD_TILE_FONT_SIZE_MIN = 14;
 export const BOARD_TILE_FONT_SIZE_POINTS_MIN = 10;
 export const BOARD_TILE_SIZE_MAX = RACK_TILE_SIZE_MAX;
 
-export const BORDER_COLOR = '#cdcdcd';
-export const BORDER_COLOR_LIGHT = '#d9d9d9';
-export const BORDER_RADIUS = 5;
-export const BORDER_WIDTH = 1;
+export const BORDER_COLOR = variables.borderColor;
+export const BORDER_COLOR_LIGHT = variables.borderColorLight;
+export const BORDER_RADIUS = Number(variables.borderRadius);
+export const BORDER_WIDTH = Number(variables.borderWidth);
 
-export const BUTTON_ICON_SIZE = 24;
+export const BUTTON_ICON_SIZE = Number(variables.buttonIconSize);
 export const BUTTON_PADDING_VERTICAL = SPACING_M;
 export const BUTTON_HEIGHT = BUTTON_ICON_SIZE + 2 * BUTTON_PADDING_VERTICAL + 2 * BORDER_WIDTH;
 
-export const DICTIONARY_HEIGHT = 260;
-export const DICTIONARY_HEIGHT_MOBILE = 110;
+export const DICTIONARY_HEIGHT = Number(variables.dictionaryHeight);
+export const DICTIONARY_HEIGHT_MOBILE = Number(variables.dictionaryHeightMobile);
 
 export const LOGO_ASPECT_RATIO = 682 / 166;
-export const LOGO_HEIGHT = 60;
-export const LOGO_HEIGHT_SMALL = 48;
+export const LOGO_HEIGHT = Number(variables.logoHeight);
+export const LOGO_HEIGHT_SMALL = Number(variables.logoHeightSmall);
 export const LOGO_SRC = '/logo.svg';
 
-export const MODAL_WIDTH = 370;
+export const MODAL_WIDTH = Number(variables.modalWidth);
 export const MODAL_HEADER_HEIGHT = 45;
 
 export const NAV_PADDING = SPACING_L;
@@ -133,10 +134,10 @@ export const RESULTS_COLUMN_WIDTH: Record<ResultColumnId, number | undefined> = 
   [ResultColumnId.Word]: undefined,
   [ResultColumnId.WordsCount]: 55,
 };
-export const RESULTS_ITEM_HEIGHT = 40;
+export const RESULTS_ITEM_HEIGHT = Number(variables.resultsItemHeight);
 
 export const RESULTS_HEADER_HEIGHT = RESULTS_ITEM_HEIGHT;
 
-export const SOLVER_COLUMN_WIDTH = 580;
+export const SOLVER_COLUMN_WIDTH = Number(variables.solverColumnWidth);
 
-export const TEXT_INPUT_HEIGHT = 40;
+export const TEXT_INPUT_HEIGHT = Number(variables.textInputHeight);

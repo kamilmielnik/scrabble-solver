@@ -1,10 +1,12 @@
+@use 'styles/tokens' as *;
+
 @forward 'include-media' with (
   $breakpoints: (
-    xs: 480px,
-    s: 768px,
-    m: 992px,
-    l: 1200px,
-    xl: 1400px,
+    xs: $breakpoint-xs,
+    s: $breakpoint-s,
+    m: $breakpoint-m,
+    l: $breakpoint-l,
+    xl: $breakpoint-xl,
   ),
   $media-expressions: (
     touch: '(hover: none)',

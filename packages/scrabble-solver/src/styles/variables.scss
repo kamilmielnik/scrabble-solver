@@ -1,13 +1,14 @@
 @use 'styles/mixins' as *;
+@use 'styles/tokens' as *;
 
 $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
 
 :root {
   --border: var(--border--width) solid var(--border--color);
-  --border--color: #cdcdcd;
-  --border--color--light: #d9d9d9;
-  --border--radius: 5px;
-  --border--width: 1px;
+  --border--color: #{$border-color};
+  --border--color--light: #{$border-color-light};
+  --border--radius: #{$border-radius};
+  --border--width: #{$border-width};
 
   --box-shadow: 0 0 var(--box-shadow--blur) var(--box-shadow--spread) var(--box-shadow--color);
   --box-shadow--blur: 8px;
@@ -21,24 +22,24 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --box-shadow--raised--subtle: inset -1px -1px 1px 0 var(--box-shadow--color--raised);
 
   --color--white: #ffffff;
-  --color--blue: #c7d8f9;
-  --color--blue--light: #dde4f6;
-  --color--green: #bae3ba;
-  --color--green--light: #d6ebd6;
-  --color--red: #f7c2aa;
-  --color--red--light: #fbe0d4;
-  --color--violet: #78387f;
-  --color--violet--light: #b284b8;
-  --color--yellow: #efe3ae;
-  --color--yellow--light: #f7f1d6;
+  --color--blue: #{$color-blue};
+  --color--blue--light: #{$color-blue-light};
+  --color--green: #{$color-green};
+  --color--green--light: #{$color-green-light};
+  --color--red: #{$color-red};
+  --color--red--light: #{$color-red-light};
+  --color--violet: #{$color-violet};
+  --color--violet--light: #{$color-violet-light};
+  --color--yellow: #{$color-yellow};
+  --color--yellow--light: #{$color-yellow-light};
 
   --color--focus: #{rgba(#268fff, 0.5)};
-  --color--inactive: #cdcdcd;
-  --color--background: #f4f4f4;
+  --color--inactive: #{$color-inactive};
+  --color--background: #{$color-background};
   --color--background--element: var(--color--white);
   --color--background--overlay: rgba(255, 255, 255, 0.65);
-  --color--foreground: #222;
-  --color--foreground--secondary: #444;
+  --color--foreground: #{$color-foreground};
+  --color--foreground--secondary: #{$color-foreground-secondary};
   --color--mark: #ffff00;
   --color--error: hsl(0, 92%, 62%);
   --color--error--opposite: var(--color--white);
@@ -53,12 +54,14 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --color--bonus--character--2: var(--color--green--light);
   --color--bonus--character--3: var(--color--blue--light);
   --color--bonus--character--5: var(--color--red--light);
-  --color--bonus--character-multiplier--2: #b8d5ed;
-  --color--bonus--character-multiplier--3: #86aed1;
+  --color--bonus--character-multiplier--2: #{$color-bonus-character-multiplier-2};
+  --color--bonus--character-multiplier--3: #{$color-bonus-character-multiplier-3};
+  --color--bonus--character-multiplier--4: #{$color-bonus-character-multiplier-4};
   --color--bonus--start: var(--color--violet--light);
-  --color--bonus--word-multiplier--2: #fbc997;
-  --color--bonus--word-multiplier--3: #f19393;
-  --color--tooltip--background: #444;
+  --color--bonus--word-multiplier--2: #{$color-bonus-word-multiplier-2};
+  --color--bonus--word-multiplier--3: #{$color-bonus-word-multiplier-3};
+  --color--bonus--word-multiplier--4: #{$color-bonus-word-multiplier-4};
+  --color--tooltip--background: #{$color-foreground-secondary};
   --color--tooltip--foreground: var(--color--white);
 
   --font--family: system-ui, sans-serif;
@@ -73,12 +76,12 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
 
   --opacity--disabled: 0.3;
 
-  --spacing--xs: 2px;
-  --spacing--s: 5px;
-  --spacing--m: 10px;
-  --spacing--l: 20px;
-  --spacing--xl: 40px;
-  --spacing--xxl: 80px;
+  --spacing--xs: #{$spacing-xs};
+  --spacing--s: #{$spacing-s};
+  --spacing--m: #{$spacing-m};
+  --spacing--l: #{$spacing-l};
+  --spacing--xl: #{$spacing-xl};
+  --spacing--xxl: #{$spacing-xxl};
 
   --scrollbar--size: 5px;
   --scrollbar--thumb--color: var(--border--color);
@@ -87,8 +90,8 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
 
   --transition: all var(--transition--duration) var(--transition--easing);
   --transition--long: all var(--transition--duration--long) var(--transition--easing);
-  --transition--duration: 100ms;
-  --transition--duration--long: 250ms;
+  --transition--duration: #{$transition-duration};
+  --transition--duration--long: #{$transition-duration-long};
   --transition--easing: #{$easeOutSine};
 
   --z-index--focus-effect: 1;
@@ -97,25 +100,25 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --z-index--close-button: 101;
   --z-index--tooltip: 102;
 
-  --button--icon--size: 24px;
-  --dictionary--height: 260px;
-  --dictionary--height--mobile: 110px;
+  --button--icon--size: #{$button-icon-size};
+  --dictionary--height: #{$dictionary-height};
+  --dictionary--height--mobile: #{$dictionary-height-mobile};
   --key--height: 36px;
   --key--icon--size: 16px;
-  --logo--height: 60px;
-  --modal--width: 370px;
+  --logo--height: #{$logo-height};
+  --modal--width: #{$modal-width};
   --nav--height: calc(var(--logo--height) + var(--nav--padding));
   --nav--padding: var(--spacing--l);
   --results--icon--size: 18px;
-  --results--item--height: 40px;
-  --solver-column--width: 580px;
+  --results--item--height: #{$results-item-height};
+  --solver-column--width: #{$solver-column-width};
   --square-button--size: 32px;
-  --text-input--height: 40px;
+  --text-input--height: #{$text-input-height};
   --tooltip--max-width: 500px;
 
   @include media('<l') {
     --dictionary--height: var(--dictionary--height--mobile);
-    --logo--height: 48px;
+    --logo--height: #{$logo-height-small};
   }
 
   @include media('<s') {

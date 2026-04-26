@@ -1,0 +1,53 @@
+@use 'styles/tokens' as *;
+
+:export {
+  breakpointXs: strip-unit($breakpoint-xs);
+  breakpointS: strip-unit($breakpoint-s);
+  breakpointM: strip-unit($breakpoint-m);
+  breakpointL: strip-unit($breakpoint-l);
+  breakpointXl: strip-unit($breakpoint-xl);
+
+  borderColor: $border-color;
+  borderColorLight: $border-color-light;
+  borderRadius: strip-unit($border-radius);
+  borderWidth: strip-unit($border-width);
+
+  colorBlue: $color-blue;
+  colorBlueLight: $color-blue-light;
+  colorGreen: $color-green;
+  colorGreenLight: $color-green-light;
+  colorRed: $color-red;
+  colorRedLight: $color-red-light;
+  colorVioletLight: $color-violet-light;
+  colorYellow: $color-yellow;
+  colorYellowLight: $color-yellow-light;
+
+  colorBackground: $color-background;
+  colorForegroundSecondary: $color-foreground-secondary;
+
+  colorBonusCharacterMultiplier2: $color-bonus-character-multiplier-2;
+  colorBonusCharacterMultiplier3: $color-bonus-character-multiplier-3;
+  colorBonusCharacterMultiplier4: $color-bonus-character-multiplier-4;
+  colorBonusWordMultiplier2: $color-bonus-word-multiplier-2;
+  colorBonusWordMultiplier3: $color-bonus-word-multiplier-3;
+  colorBonusWordMultiplier4: $color-bonus-word-multiplier-4;
+
+  spacingXs: strip-unit($spacing-xs);
+  spacingS: strip-unit($spacing-s);
+  spacingM: strip-unit($spacing-m);
+  spacingL: strip-unit($spacing-l);
+  spacingXl: strip-unit($spacing-xl);
+
+  transitionDuration: strip-unit($transition-duration);
+  transitionDurationLong: strip-unit($transition-duration-long);
+
+  buttonIconSize: strip-unit($button-icon-size);
+  dictionaryHeight: strip-unit($dictionary-height);
+  dictionaryHeightMobile: strip-unit($dictionary-height-mobile);
+  logoHeight: strip-unit($logo-height);
+  logoHeightSmall: strip-unit($logo-height-small);
+  modalWidth: strip-unit($modal-width);
+  resultsItemHeight: strip-unit($results-item-height);
+  solverColumnWidth: strip-unit($solver-column-width);
+  textInputHeight: strip-unit($text-input-height);
+}

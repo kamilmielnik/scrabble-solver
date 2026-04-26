@@ -1,0 +1,59 @@
+@use 'sass:math';
+
+@function strip-unit($value) {
+  @return math.div($value, $value * 0 + 1);
+}
+
+$breakpoint-xs: 480px;
+$breakpoint-s: 768px;
+$breakpoint-m: 992px;
+$breakpoint-l: 1200px;
+$breakpoint-xl: 1400px;
+
+$border-color: #cdcdcd;
+$border-color-light: #d9d9d9;
+$border-radius: 5px;
+$border-width: 1px;
+
+$color-blue: #c7d8f9;
+$color-blue-light: #dde4f6;
+$color-green: #bae3ba;
+$color-green-light: #d6ebd6;
+$color-red: #f7c2aa;
+$color-red-light: #fbe0d4;
+$color-violet: #78387f;
+$color-violet-light: #b284b8;
+$color-yellow: #efe3ae;
+$color-yellow-light: #f7f1d6;
+
+$color-background: #f4f4f4;
+$color-foreground: #222;
+$color-foreground-secondary: #444;
+$color-inactive: #cdcdcd;
+
+$color-bonus-character-multiplier-2: #b8d5ed;
+$color-bonus-character-multiplier-3: #86aed1;
+$color-bonus-character-multiplier-4: #3477b2;
+$color-bonus-word-multiplier-2: #fbc997;
+$color-bonus-word-multiplier-3: #f19393;
+$color-bonus-word-multiplier-4: #ed5e5e;
+
+$spacing-xs: 2px;
+$spacing-s: 5px;
+$spacing-m: 10px;
+$spacing-l: 20px;
+$spacing-xl: 40px;
+$spacing-xxl: 80px;
+
+$transition-duration: 100ms;
+$transition-duration-long: 250ms;
+
+$button-icon-size: 24px;
+$dictionary-height: 260px;
+$dictionary-height-mobile: 110px;
+$logo-height: 60px;
+$logo-height-small: 48px;
+$modal-width: 370px;
+$results-item-height: 40px;
+$solver-column-width: 580px;
+$text-input-height: 40px;
