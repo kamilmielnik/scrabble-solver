@@ -70,6 +70,8 @@
 
 ## Dictionaries
 
+Some of the word lists below are sourced from the companion repository [kamilmielnik/scrabble-dictionaries](https://github.com/kamilmielnik/scrabble-dictionaries).
+
 | Language    | Word list                                                                                                                                                                                               | Word definitions                                     | [Highest-scoring word](https://codesandbox.io/s/highest-scoring-words-in-scrabble-vbj1ns?file=/src/index.js) |
 | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | 🇬🇧 English  | [💾](https://raw.githubusercontent.com/kamilmielnik/scrabble-dictionaries/refs/heads/master/english/sowpods.txt) [SOWPODS](https://en.wikipedia.org/wiki/Collins_Scrabble_Words)                        | [Merriam-Webster](https://www.merriam-webster.com/)  | oxyphenbutazone (1458)                                                                                       |
