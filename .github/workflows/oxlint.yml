@@ -1,4 +1,4 @@
-name: Oxlint
+name: Lint
 
 on:
   push:

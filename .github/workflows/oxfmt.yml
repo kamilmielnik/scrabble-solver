@@ -1,4 +1,4 @@
-name: Oxfmt
+name: Format
 
 on:
   push:
@@ -15,6 +15,6 @@ jobs:
         with:
           node-version: 24.x
       - run: npm ci
-      - run: npm run oxfmt
+      - run: npm run format
         env:
           CI: true
