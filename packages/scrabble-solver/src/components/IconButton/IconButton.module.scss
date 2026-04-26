@@ -1,4 +1,4 @@
-@import 'styles/mixins';
+@use 'styles/mixins' as *;
 
 .iconButton {
   @include button-reset;

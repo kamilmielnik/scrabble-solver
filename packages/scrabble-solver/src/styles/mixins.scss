@@ -1,15 +1,14 @@
-@import 'include-media';
-
-$breakpoints: (
-  xs: 480px,
-  s: 768px,
-  m: 992px,
-  l: 1200px,
-  xl: 1400px,
-);
-
-$media-expressions: (
-  touch: '(hover: none)',
+@forward 'include-media' with (
+  $breakpoints: (
+    xs: 480px,
+    s: 768px,
+    m: 992px,
+    l: 1200px,
+    xl: 1400px,
+  ),
+  $media-expressions: (
+    touch: '(hover: none)',
+  )
 );
 
 @mixin scrollbars {

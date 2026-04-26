@@ -8,6 +8,7 @@ module.exports = {
   reactStrictMode: true,
   sassOptions: {
     loadPaths: ['./src', path.join(__dirname, '../../node_modules/include-media/dist')],
+    quietDeps: true,
   },
   webpack(config, { isServer, dev }) {
     config.module.rules.push({

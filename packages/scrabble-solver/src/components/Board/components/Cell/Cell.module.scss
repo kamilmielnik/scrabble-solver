@@ -1,4 +1,4 @@
-@import 'styles/mixins';
+@use 'styles/mixins' as *;
 
 @mixin lighthouse-input-size-hack {
   // Hack for this Lighthouse warning:
@@ -10,21 +10,31 @@
     inset: -100%;
     width: 300%;
     height: 300%;
-    clip-path: inset((100% / 3));
+    clip-path: inset(calc(100% / 3));
   }
 
   [dir='ltr'] & {
     &.first3 {
       input {
         left: 0;
-        clip-path: polygon(0 (100% / 3), (100% / 3) (100% / 3), (100% / 3) (200% / 3), 0 (200% / 3));
+        clip-path: polygon(
+          0 calc(100% / 3),
+          calc(100% / 3) calc(100% / 3),
+          calc(100% / 3) calc(200% / 3),
+          0 calc(200% / 3)
+        );
       }
     }
 
     &.last3 {
       input {
         left: -200%;
-        clip-path: polygon((200% / 3) (100% / 3), 100% (100% / 3), 100% (200% / 3), (200% / 3) (200% / 3));
+        clip-path: polygon(
+          calc(200% / 3) calc(100% / 3),
+          100% calc(100% / 3),
+          100% calc(200% / 3),
+          calc(200% / 3) calc(200% / 3)
+        );
       }
     }
   }
@@ -34,7 +44,12 @@
       input {
         left: -200%;
         right: 0;
-        clip-path: polygon((200% / 3) (100% / 3), 100% (100% / 3), 100% (200% / 3), (200% / 3) (200% / 3));
+        clip-path: polygon(
+          calc(200% / 3) calc(100% / 3),
+          100% calc(100% / 3),
+          100% calc(200% / 3),
+          calc(200% / 3) calc(200% / 3)
+        );
       }
     }
 
@@ -42,7 +57,12 @@
       input {
         left: 0;
         right: -200%;
-        clip-path: polygon(0 (100% / 3), (100% / 3) (100% / 3), (100% / 3) (200% / 3), 0 (200% / 3));
+        clip-path: polygon(
+          0 calc(100% / 3),
+          calc(100% / 3) calc(100% / 3),
+          calc(100% / 3) calc(200% / 3),
+          0 calc(200% / 3)
+        );
       }
     }
   }

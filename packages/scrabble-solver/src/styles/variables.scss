@@ -1,4 +1,4 @@
-@import 'styles/mixins';
+@use 'styles/mixins' as *;
 
 $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
 

@@ -1,5 +1,5 @@
-@import 'styles/animations';
-@import 'styles/mixins';
+@use 'styles/animations';
+@use 'styles/mixins' as *;
 
 .board {
   display: grid;

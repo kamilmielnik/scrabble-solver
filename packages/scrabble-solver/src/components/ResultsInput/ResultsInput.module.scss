@@ -1,4 +1,4 @@
-@import 'styles/mixins';
+@use 'styles/mixins' as *;
 
 .resultsInput {
   @include focus-effect;

@@ -1,7 +1,7 @@
-@import 'normalize.css';
+@use 'normalize.css';
 
-@import './mixins';
-@import './variables';
+@use './mixins' as *;
+@use './variables';
 
 *,
 *:after,

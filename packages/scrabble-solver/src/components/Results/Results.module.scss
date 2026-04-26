@@ -1,4 +1,4 @@
-@import 'styles/mixins';
+@use 'styles/mixins' as *;
 
 $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 

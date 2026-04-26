@@ -28,6 +28,6 @@
 }
 
 .tiles {
-  width: 100% * 2 / 3;
+  width: calc(100% * 2 / 3);
   height: 100%;
 }
