@@ -22,7 +22,7 @@
     "debug": "NODE_OPTIONS='--inspect' next dev --webpack",
     "dev": "env-cmd next dev --webpack",
     "start": "env-cmd next start -p 3333",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsgo --noEmit"
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.19",

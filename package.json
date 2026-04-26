@@ -108,6 +108,7 @@
     "@testing-library/cypress": "^10.1.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.6.0",
+    "@typescript/native-preview": "^7.0.0-dev.20260426.1",
     "cypress": "^15.14.1",
     "cypress-real-events": "^1.15.0",
     "eslint-import-resolver-typescript": "^4.4.4",

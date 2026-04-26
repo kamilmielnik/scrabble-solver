@@ -2,7 +2,6 @@
   "extends": "./tsconfig.json",
 
   "compilerOptions": {
-    "baseUrl": ".",
     "jsx": "react",
     "paths": {
       "@/*": ["./packages/scrabble-solver/src/*"]
