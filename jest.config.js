@@ -4,7 +4,10 @@ const { compilerOptions } = require('./tsconfig.jest.json');
 
 module.exports = {
   coveragePathIgnorePatterns: ['/node_modules/', '/build/'],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
+  moduleNameMapper: {
+    '\\.scss$': '<rootDir>/jest.scssMock.js',
+    ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
+  },
   preset: 'ts-jest',
   setupFilesAfterEnv: ['./jest.setup.js'],
   testEnvironment: 'node',
