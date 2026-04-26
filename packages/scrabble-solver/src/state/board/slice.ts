@@ -16,7 +16,11 @@ export const boardSlice = createSlice({
       const result = action.payload;
 
       result.cells.forEach((cell) => {
-        newBoard.updateCell(cell.x, cell.y, () => new Cell({ ...cell, isEmpty: false }));
+        newBoard.updateCell(
+          cell.x,
+          cell.y,
+          () => new Cell({ isEmpty: false, tile: cell.tile, x: cell.x, y: cell.y }),
+        );
       });
 
       return newBoard;
@@ -34,7 +38,7 @@ export const boardSlice = createSlice({
       const tile = isEmpty ? Tile.Null : new Tile({ character: value });
 
       newBoard.updateCell(x, y, (cell) => {
-        return new Cell({ ...cell, isEmpty, tile });
+        return new Cell({ isEmpty, tile, x: cell.x, y: cell.y });
       });
 
       return newBoard;
@@ -50,8 +54,10 @@ export const boardSlice = createSlice({
       const { x, y } = action.payload;
 
       newBoard.updateCell(x, y, (cell) => {
-        const tile = cell.isEmpty ? cell.tile : new Tile({ ...cell.tile, isBlank: !cell.tile.isBlank });
-        return new Cell({ ...cell, tile });
+        const tile = cell.isEmpty
+          ? cell.tile
+          : new Tile({ isBlank: !cell.tile.isBlank, character: cell.tile.character });
+        return new Cell({ isEmpty: cell.isEmpty, tile, x: cell.x, y: cell.y });
       });
 
       return newBoard;

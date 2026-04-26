@@ -3,7 +3,6 @@
 
   "compilerOptions": {
     "allowJs": true,
-    "baseUrl": ".",
     "declaration": false,
     "isolatedModules": true,
     "jsx": "preserve",

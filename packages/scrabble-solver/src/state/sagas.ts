@@ -1,4 +1,4 @@
-/* eslint-disable max-lines, no-implicit-globals */
+/* eslint-disable max-lines */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -35,7 +35,6 @@ const memoizedFindWordDefinitions = memoize(findWordDefinitions);
 
 // Can't conveniently type generators for sagas yet,
 // see: https://github.com/microsoft/TypeScript/issues/43632
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyGenerator = Generator<any, any, any>;
 
 export function* rootSaga(): AnyGenerator {
