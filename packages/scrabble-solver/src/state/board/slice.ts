@@ -16,11 +16,7 @@ export const boardSlice = createSlice({
       const result = action.payload;
 
       result.cells.forEach((cell) => {
-        newBoard.updateCell(
-          cell.x,
-          cell.y,
-          () => new Cell({ isEmpty: false, tile: cell.tile, x: cell.x, y: cell.y }),
-        );
+        newBoard.updateCell(cell.x, cell.y, () => new Cell({ isEmpty: false, tile: cell.tile, x: cell.x, y: cell.y }));
       });
 
       return newBoard;

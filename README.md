@@ -43,7 +43,7 @@
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/build.yml/badge.svg" alt="Build" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/jest.yml/badge.svg" alt="Jest Tests" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/cypress.yml/badge.svg" alt="Cypress Tests" />
-    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/eslint.yml/badge.svg" alt="ESLint" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/oxlint.yml/badge.svg" alt="Oxlint" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/oxfmt.yml/badge.svg" alt="oxfmt" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/npx.yml/badge.svg" alt="npx" />
   </p>
@@ -191,7 +191,7 @@ npm run build -w @scrabble-solver/word-lists
 - [Lerna](https://lerna.js.org/)
 - [Cypress](https://www.cypress.io/)
 - [Jest](https://jestjs.io/)
-- [ESLint](https://eslint.org/)
+- [Oxlint](https://oxc.rs/docs/guide/usage/linter)
 - [oxfmt](https://oxc.rs/docs/guide/usage/formatter)
 
 ## Related projects

@@ -28,9 +28,7 @@ export const routeSolveRequests = () => {
 
       const solveLocal = async (trie: Trie): Promise<Response> => {
         const config = getConfig(game, locale);
-        const tiles = characters.map(
-          (character: string) => new Tile({ character, isBlank: character === BLANK }),
-        );
+        const tiles = characters.map((character: string) => new Tile({ character, isBlank: character === BLANK }));
 
         return new Promise((resolve) => {
           const resultsJson = solve(trie, config, Board.fromJson(board), tiles);
