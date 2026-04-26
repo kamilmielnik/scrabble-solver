@@ -44,7 +44,7 @@
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/jest.yml/badge.svg" alt="Jest Tests" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/cypress.yml/badge.svg" alt="Cypress Tests" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/oxlint.yml/badge.svg" alt="Oxlint" />
-    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/oxfmt.yml/badge.svg" alt="oxfmt" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/oxfmt.yml/badge.svg" alt="Oxfmt" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/npx.yml/badge.svg" alt="npx" />
   </p>
 
