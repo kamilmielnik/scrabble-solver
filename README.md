@@ -18,7 +18,7 @@
   </p>
 
   <p>
-    You can <a href="#run">run</a> it on your machine: <code>npx scrabble-solver@latest</code>
+    You can <a href="#run">run</a> it on your machine: <code>bunx scrabble-solver@latest</code>
   </p>
 
   <p>
@@ -45,7 +45,7 @@
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/oxfmt.yml/badge.svg" alt="Oxfmt" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/e2e-tests.yml/badge.svg" alt="E2E tests" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/unit-tests.yml/badge.svg" alt="Unit tests" />
-    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/npx.yml/badge.svg" alt="npx" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/bunx.yml/badge.svg" alt="bunx" />
   </p>
 
   <img alt="Screencast GIF showing user interface when solving for oxyphenbutazone, which is a top-scoring word in English version of Scrabble" src="https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/screencast.gif" />
@@ -86,10 +86,10 @@ Some of the word lists below are sourced from the companion repository [kamilmie
 
 ## Run
 
-You can run Scrabble Solver on your machine - all you need is [Node.js](https://nodejs.org/) 24 or later.
+You can run Scrabble Solver on your machine - all you need is [Bun](https://bun.sh/) 1.3 or later.
 
 ```Shell
-npx scrabble-solver@latest
+bunx scrabble-solver@latest
 ```
 
 Give it a while to install and download dictionaries. When it's done it will automatically open http://localhost:3333/ in your browser.
@@ -116,8 +116,8 @@ One-time project setup.
 ```Shell
 git clone https://github.com/kamilmielnik/scrabble-solver.git
 cd scrabble-solver
-npm install
-npm run build
+bun install
+bun run build
 ```
 
 ### Run app dev server
@@ -125,7 +125,7 @@ npm run build
 The following command will serve the app at http://localhost:3000/.
 
 ```Shell
-npm run dev
+bun run dev
 ```
 
 Note: hot code reload works only for the [`scrabble-solver`](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages/scrabble-solver) package. If you make changes to any other package, you will need to rebuild it ([see below](#rebuild-a-single-package)).
@@ -133,7 +133,7 @@ Note: hot code reload works only for the [`scrabble-solver`](https://github.com/
 ### Rebuild the entire project
 
 ```Shell
-npm run build
+bun run build
 ```
 
 ### Rebuild a single package
@@ -141,15 +141,15 @@ npm run build
 For convenience, here's a list of commands to rebuild every package individually.
 
 ```Shell
-npm run build -w @scrabble-solver/configs
-npm run build -w @scrabble-solver/constants
-npm run build -w @scrabble-solver/dictionaries
-npm run build -w @scrabble-solver/logger
-npm run build -w @scrabble-solver/scrabble-solver
-npm run build -w @scrabble-solver/solver
-npm run build -w @scrabble-solver/types
-npm run build -w @scrabble-solver/word-definitions
-npm run build -w @scrabble-solver/word-lists
+bun run --filter @scrabble-solver/configs build
+bun run --filter @scrabble-solver/constants build
+bun run --filter @scrabble-solver/dictionaries build
+bun run --filter @scrabble-solver/logger build
+bun run --filter @scrabble-solver/scrabble-solver build
+bun run --filter @scrabble-solver/solver build
+bun run --filter @scrabble-solver/types build
+bun run --filter @scrabble-solver/word-definitions build
+bun run --filter @scrabble-solver/word-lists build
 ```
 
 ### Add a new language
@@ -161,7 +161,7 @@ npm run build -w @scrabble-solver/word-lists
 4. Add IETF language tag for the new locale in [packages/types/src/Locale.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/types/src/Locale.ts)
 5. Rebuild the types package
    ```Shell
-   npm run build -w @scrabble-solver/types
+   bun run --filter @scrabble-solver/types build
    ```
 6. Add locale configuration in [packages/scrabble-solver/src/i18n/constants.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/i18n/constants.ts)
 7. Update locale-detecting code in [packages/scrabble-solver/src/state/settings/lib.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/state/settings/lib.ts)
