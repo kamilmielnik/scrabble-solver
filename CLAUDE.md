@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository layout
 
-This is a Bun-workspaces monorepo (managed with Lerna for versioning/publishing and Nx purely for build caching/ordering). Bun >=1.3 (and Node.js >=24 for runtime compatibility) is required.
+This is a Bun-workspaces monorepo (managed with Lerna for versioning/publishing and Nx purely for build caching/ordering). `engines` requires **Bun >=1.3** and **Node.js >=24**. The lockfile is `bun.lock` (text JSON, lockfileVersion 1) — `package-lock.json` was removed when the project migrated off npm/Jest in `#421` (Apr 2026). Workspace scripts use `bun run --filter <pattern> <script>` — the `'./packages/*'` glob runs in dependency order (built-in Nx cache), and `'*'` skips workspaces without that script (relevant for `test`).
 
 The nine packages live under `packages/` and have a strict dependency order. When something breaks "downstream" of where you edited, rebuild the upstream package first:
 
@@ -30,11 +30,13 @@ logger (independent, used by app + dictionaries)
 - **Routing**: Next.js Pages Router (`src/pages/`). API routes: `solve`, `verify`, `visit`, `dictionary/[locale]/[word]`. The path alias `@/*` resolves to `src/*` (set in `tsconfig.json`).
 - **State**: Redux Toolkit + Redux-Saga. Slices in `src/state/{board,cellFilters,dictionary,rack,results,settings,solve,verify}`, each exporting `<name>Slice` (reducer + actions) and selectors. The root saga in `state/sagas.ts` reacts to slice actions: `submit` → call SDK → write results back. `solve`, `verify`, and `dictionary` use `takeLatest` (only the latest in-flight request resolves); cell/rack edits use `takeEvery`. State is intentionally **not** serializable-checked (`serializableCheck: false`) because slices hold class instances (`Board`, `Tile`).
 - **SDK layer (`src/sdk/`)**: thin browser/server clients for the four API routes. `findWordDefinitions` is memoized at the saga level via `lib/memoize`. Always go through SDK — never `fetch` directly from a saga or component.
-- **Persistence**: settings, board, and rack persist to `localStorage` via `store2` under the `scrabble-solver` namespace (`state/localStorage.ts`). When changing settings shape, add a migration block (look at `migrateLegacySettings` for the pattern) — note the dated comment with introduction date and life expectancy.
+- **Persistence**: settings, board, and rack auto-persist to `localStorage` via `store2` under the `scrabble-solver` namespace. The `useLocalStorage` hook (mounted in `pages/index.tsx`) subscribes to the three slices and writes them out on every change — **adding a new field to `SettingsState` is enough; you don't need to touch any save code** (PR #321, Apr 2026). On boot, `settingsInitialState` spreads `localStorage.getSettings()` last so persisted values win over the defaults computed at module-load time. When changing settings shape, add a migration block (see `migrateLegacySettings` for the pattern — dated comment with introduction date and life expectancy).
 - **Service worker**: built by `WorkboxPlugin.InjectManifest` from `src/service-worker/index.ts` to `public/service-worker.js`. It precaches the app shell and intercepts `/api/solve` and `/api/verify` requests so the app can still solve offline once a dictionary is cached. Only generated in production builds (`!isServer && !dev`).
-- **i18n**: `src/i18n/languages/<lang>.json` (8 languages). The `LOCALE_FEATURES` map gates per-locale capabilities. `useTranslate()` is the hook for translations.
-- **Styling**: SCSS modules with a shared design-token system. SCSS tokens live in `src/styles/_tokens.scss`; the same values are re-exported to TS via `:export` in `variables.module.scss` (imported in JS as a module). Update `_tokens.scss` first; the `.module.scss` file then exposes the value to JS. Responsive helpers come from `include-media`.
-- **SVGs**: imported as React components via `@svgr/webpack` (configured in `next.config.js`).
+- **i18n**: `src/i18n/languages/<lang>.json` (8 languages, mapped to `Locale` in `i18n.ts`). The `LOCALE_FEATURES` registry in `src/i18n/constants.ts` carries per-locale UI metadata: `direction` ('ltr' | 'rtl'), `comma`/`separator` glyphs (Latin vs Arabic), flag `Icon`, language `label`/`name`, and `consonants`/`vowels` flags that drive the auto-group-tiles UI. The `useDirection` hook applies `direction` to `<html dir>`. Add a new locale by extending this map plus the i18n JSON dictionary plus a `Flag<XX>.svg` icon. `useTranslate()` is the lookup hook.
+- **Layout**: `AppLayoutProvider` (`src/app-layout/`) is a React context exposing `useAppLayoutValue`. It was extracted from a custom hook for memoization reasons — consume layout via `useAppLayout()`, not by re-deriving it. The active modal in `pages/index.tsx` is tracked as a `Record<Modal, boolean>` patched through a single `patchModals` callback.
+- **Styling**: SCSS modules with a shared design-token system. SCSS tokens live in `src/styles/_tokens.scss`; the same values are re-exported to TS via `:export` in `variables.module.scss` (imported in JS as a module, typed by `src/@types/scss.d.ts`). Concrete JS constants live in `src/parameters/index.ts` (e.g. `BREAKPOINTS`, `COLOR_BLUE`, `TRANSITION_DURATION`) — that file is the only place that should read from `variables.module.scss`. Update `_tokens.scss` first → expose via `variables.module.scss` `:export` block → consume via `parameters/`. This was added in PR #228 (Apr 2026); before it, JS-side colors and breakpoints were hard-coded duplicates. Responsive helpers come from `include-media`.
+- **SVGs**: imported as React components via `@svgr/webpack` (configured in `next.config.js`), typed by `src/@types/svg.d.ts`.
+- **Service worker registration**: production-only. Registered by `serviceWorkerManager.ts` from the index page; Cypress tests must call `unregisterServiceWorkers()` (in `cypress/support/lib`) in `beforeEach` and `cy.clearLocalStorage()` in `afterEach` to avoid bleed-through between tests.
 
 ## Common commands
 
@@ -56,7 +58,7 @@ All commands run from the repo root unless noted.
 | One unit test by name | `cd packages/solver && bun test -t "pattern"` |
 | Cypress (interactive) | `bun run test-cypress` (expects dev server on :3000) |
 | Cypress (headless) | `bun run test-cypress:run` (expects server on :3333) |
-| Full test pipeline | `bun run test` (build → unit → start app → cypress) — note: `bun test` invokes Bun's built-in test runner, not this script |
+| Full test pipeline | `bun run test` (build → unit → `start-server-and-test` boots the app on :3333 → cypress run) — note: `bun test` invokes Bun's built-in test runner, not this script |
 
 Hot reload only works for the `scrabble-solver` package. Edits to any other package require rebuilding that package before the app picks them up.
 
@@ -72,7 +74,7 @@ Hot reload only works for the `scrabble-solver` package. Edits to any other pack
 
 - **Linting**: `oxlint` (Rust-based ESLint replacement) configured in `.oxlintrc.json`. Type-aware rules require `oxlint-tsgolint`. Adding a new top-level JS config file usually means adding it to `ignorePatterns`. The oxlint config still loads the `jest` plugin and `jest` global because Bun's test runner mirrors the Jest API; do not remove them.
 - **Formatting**: `oxfmt` covers `*.{js,ts,tsx,scss}`.
-- **TypeScript**: the app uses `tsgo` (`@typescript/native-preview`) for `type-check` and `next build`. Plain `tsc` is not used in app builds. Root `tsconfig.json` sets `types: ["bun"]` for global test-runner types; library packages extend it and exclude `cypress` and `**/*.test.ts` from emitted output.
+- **TypeScript**: the project upgraded to TypeScript 7 via the native-preview compiler (PR #422). The runtime devDep is `typescript@^6.0.3` (kept for tooling that expects classic `tsc`), but the actual compiler used by the app's `type-check` and by `next build` is `tsgo` from `@typescript/native-preview` (a 7.x dev build). Plain `tsc` is not in the build path. Root `tsconfig.json` sets `types: ["bun"]` for global test-runner types and excludes `cypress` and `cypress.config.ts`; library packages extend it and additionally exclude `**/*.test.ts` from emitted output.
 - **Next.js**: built with `--webpack` flag explicitly (the default Turbopack is intentionally not used). `next.config.js` registers `@svgr/webpack` for SVG-as-component imports and the Workbox `InjectManifest` plugin for the service worker. SCSS load paths are extended to `./src` and `node_modules/include-media/dist`.
 - **Nx**: `nx.json` only defines a `build` target with `dependsOn: ["^build"]` and `cache: true`. It is used purely for dependency-aware build ordering and caching — there are no Nx generators or executors.
 
@@ -84,7 +86,7 @@ Hot reload only works for the `scrabble-solver` package. Edits to any other pack
 - `unit-tests.yml` — `bun run build && bun run test-unit`.
 - `e2e-tests.yml` — Cypress against `bun start` on :3333. Uploads screenshots on failure.
 - `oxlint.yml` / `oxfmt.yml` — lint and format-check.
-- `npx.yml` — runs daily and on PR. Installs the latest published `scrabble-solver` from npm via `npm install --global`, runs Cypress against it. Catches packaging regressions in the `bin/scrabble-solver.js` launcher.
+- `bunx.yml` — runs daily and on PR. Installs the latest published `scrabble-solver` via `bun add --global scrabble-solver@latest`, runs Cypress against it. Catches packaging regressions in the `bin/scrabble-solver.js` launcher.
 - `deploy.yml` — `workflow_dispatch` only. SSHs into prod, pulls, builds, restarts `scrabble-solver.service`.
 
 When adding a workflow, match the existing pattern: trigger on `push`/`pull_request` to `master`, use `actions/checkout@v6` and `oven-sh/setup-bun@v2`, install with `bun install --frozen-lockfile`.
@@ -104,4 +106,15 @@ The app reads/writes user data outside the project directory:
 - `$HOME/.scrabble-solver/dictionaries/` — cached `Trie`s, one per locale, refreshed when older than 1 day.
 - `$HOME/.scrabble-solver/logs/{all,error}.log` — Winston JSON logs.
 
-The `npx scrabble-solver@latest` entry point (`bin/scrabble-solver.js`) just `cd`s to the package root and runs `npm start`. The app then serves on http://localhost:3333.
+The `bunx scrabble-solver@latest` entry point (`bin/scrabble-solver.js`) just `cd`s to the package root and runs `bun start`. The app then serves on http://localhost:3333.
+
+## Recent migrations to keep in mind
+
+Look here when something seems set up oddly — the reason is usually one of these recent changes. Reference issue numbers, not dates, when grepping git log.
+
+- **#421 — Bun migration** (Apr 2026). npm/Jest → Bun. Top-level scripts now use `bun run --filter`, lockfile is `bun.lock`, unit tests run on `bun test`, the published binary's launcher (`bin/scrabble-solver.js`) shells out to `bun start`, and the old `npx.yml` workflow was renamed to `bunx.yml` (now installs the published package via `bun add --global`). All workflows use `oven-sh/setup-bun@v2`; `e2e-tests.yml` is the only one that also uses `setup-node` (Cypress action).
+- **#422 — TypeScript 7** (Apr 2026). Build/type-check use `tsgo` (native preview). Don't reintroduce `tsc` calls.
+- **#420 — ESLint → Oxlint**. The `eslint-plugin-*` packages still appear in devDeps because oxlint loads them as JS plugins (`jsPlugins` in `.oxlintrc.json`). Don't strip them.
+- **#321 — Auto-persisted settings** (Apr 2026). Settings, board, and rack are written through a single `useLocalStorage` effect. Don't dispatch save actions manually.
+- **#228 — CSS variables in JS** (Apr 2026). JS constants for colors/sizes flow from `_tokens.scss` → `variables.module.scss` `:export` → `parameters/index.ts`. Don't hard-code the same values in TS.
+- **#360 — Dart Sass deprecations**. SCSS files migrated to modern syntax (`@use`, `math.div`, etc.). New SCSS should follow that style; `next.config.js` sets `sassOptions.quietDeps: true` to keep upstream warnings out of build output.
