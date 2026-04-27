@@ -3,10 +3,15 @@ import fs from 'fs';
 import path from 'path';
 
 import { parse } from './parse';
+import { type ParsingResult } from './types';
 
 const readTestFile = (filepath: string): string => {
   const absoluteFilepath = path.resolve(__dirname, '__tests__', filepath);
   return fs.readFileSync(absoluteFilepath, 'utf-8');
+};
+
+const readExpected = (filepath: string): ParsingResult => {
+  return JSON.parse(readTestFile(filepath));
 };
 
 const tests = [
@@ -29,7 +34,7 @@ const tests = [
 describe('parse', () => {
   it.each(tests)(`[$locale] "$word"`, ({ locale, word }) => {
     const input = readTestFile(`input/${locale}.${word}.html`);
-    const expected = readTestFile(`expected/${locale}.${word}.json`);
-    expect(parse(locale, input)).toEqual(JSON.parse(expected));
+    const expected = readExpected(`expected/${locale}.${word}.json`);
+    expect(parse(locale, input)).toEqual(expected);
   });
 });
