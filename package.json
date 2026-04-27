@@ -57,7 +57,7 @@
     "reinstall": "bun run clean && bun install && bun run build",
     "release": "bun run release:prepare && bun run release:publish",
     "release:prepare": "bun run reinstall",
-    "release:publish": "bun run version:bump && np && lerna publish from-package --yes",
+    "release:publish": "bun run version:bump && np --no-cleanup --package-manager bun && lerna publish from-package --yes",
     "start": "concurrently -n w: bun:start:*",
     "start:app": "bun run --filter @scrabble-solver/scrabble-solver start",
     "start:browser": "wait-on http://localhost:3333 && open-cli http://localhost:3333",

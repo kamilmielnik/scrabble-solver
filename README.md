@@ -179,6 +179,7 @@ bun run --filter @scrabble-solver/word-lists build
 ## Tech stack
 
 - [TypeScript](https://www.typescriptlang.org/)
+- [Bun](https://bun.sh/docs)
 - [Node.js](https://nodejs.org/)
 - [Next.js](https://nextjs.org/)
 - [Express](https://expressjs.com/)
@@ -192,7 +193,6 @@ bun run --filter @scrabble-solver/word-lists build
 - [include-media](https://eduardoboucas.github.io/include-media/)
 - [Lerna](https://lerna.js.org/)
 - [Cypress](https://www.cypress.io/)
-- [Bun](https://bun.sh/docs/cli/test)
 - [Oxlint](https://oxc.rs/docs/guide/usage/linter)
 - [Oxfmt](https://oxc.rs/docs/guide/usage/formatter)
 
