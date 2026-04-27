@@ -13,7 +13,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2021",
-    "types": ["jest"]
+    "types": ["bun"]
   },
   "exclude": ["cypress", "cypress.config.ts", "node_modules"]
 }

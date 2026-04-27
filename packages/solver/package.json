@@ -20,7 +20,8 @@
   "homepage": "https://scrabble-solver.org",
   "scripts": {
     "build": "tsgo --project .",
-    "clean": "rimraf build/"
+    "clean": "rimraf build/",
+    "test": "bun test --timeout 180000 src"
   },
   "dependencies": {
     "@kamilmielnik/trie": "^4.0.0",

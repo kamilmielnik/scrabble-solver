@@ -41,10 +41,10 @@
 
   <p>
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/build.yml/badge.svg" alt="Build" />
-    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/jest.yml/badge.svg" alt="Jest Tests" />
-    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/cypress.yml/badge.svg" alt="Cypress Tests" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/oxlint.yml/badge.svg" alt="Oxlint" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/oxfmt.yml/badge.svg" alt="Oxfmt" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/e2e-tests.yml/badge.svg" alt="E2E tests" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/unit-tests.yml/badge.svg" alt="Unit tests" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/npx.yml/badge.svg" alt="npx" />
   </p>
 
@@ -192,7 +192,7 @@ npm run build -w @scrabble-solver/word-lists
 - [include-media](https://eduardoboucas.github.io/include-media/)
 - [Lerna](https://lerna.js.org/)
 - [Cypress](https://www.cypress.io/)
-- [Jest](https://jestjs.io/)
+- [Bun](https://bun.sh/docs/cli/test)
 - [Oxlint](https://oxc.rs/docs/guide/usage/linter)
 - [Oxfmt](https://oxc.rs/docs/guide/usage/formatter)
 

@@ -22,6 +22,7 @@
     "debug": "NODE_OPTIONS='--inspect' next dev --webpack",
     "dev": "env-cmd next dev --webpack",
     "start": "env-cmd next start -p 3333",
+    "test": "bun test --timeout 180000 src",
     "type-check": "tsgo --noEmit"
   },
   "dependencies": {

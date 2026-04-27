@@ -1,4 +1,4 @@
-name: Jest
+name: Unit tests
 
 on:
   push:
@@ -7,15 +7,16 @@ on:
     branches: [master]
 
 jobs:
-  jest:
+  unit-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
           node-version: 24.x
+      - uses: oven-sh/setup-bun@v2
       - run: npm ci
       - run: npm run build
-      - run: npm run test-jest
+      - run: npm run test-unit
         env:
           CI: true

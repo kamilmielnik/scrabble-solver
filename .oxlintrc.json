@@ -58,8 +58,6 @@
     "**/.eslintrc.js",
     "**/babel.config.js",
     "**/bump-version.js",
-    "**/jest.config.js",
-    "**/jest.setup.js",
     "packages/scrabble-solver/next.config.js",
     "packages/logger/scripts/stats.js",
     "packages/scrabble-solver/public/service-worker.js",
