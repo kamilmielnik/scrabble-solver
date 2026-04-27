@@ -23,6 +23,6 @@ jobs:
             cd /projects/scrabble-solver
             git checkout ${{ inputs.branch }}
             git pull origin ${{ inputs.branch }}
-            npm install
-            npm run build
+            bun install
+            bun run build
             sudo systemctl restart scrabble-solver.service

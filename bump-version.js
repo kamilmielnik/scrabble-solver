@@ -1,8 +1,8 @@
 /**
- * Due to the use of npm workspaces we need to explicitly specify "@scrabble-solver/scrabble-solver"
+ * Due to the use of Bun workspaces we need to explicitly specify "@scrabble-solver/scrabble-solver"
  * package in the dependencies of this very "scrabble-solver" package. Otherwise none of
- * the "dependencies" from underlying packages/ would have been installed and any npm scripts
- * that work on subpackages would not work - specifically: npm start.
+ * the "dependencies" from underlying packages/ would have been installed and any package scripts
+ * that work on subpackages would not work - specifically: bun start.
  *
  * This script exists to ensure that the dependency version is bumped during the release.
  */
@@ -24,4 +24,3 @@ const updateDependencyVersion = (filename, dependency, version) => {
 
 const currentAppVersion = getCurrentAppVersion();
 updateDependencyVersion('package.json', '@scrabble-solver/scrabble-solver', currentAppVersion);
-updateDependencyVersion('package-lock.json', '@scrabble-solver/scrabble-solver', currentAppVersion);

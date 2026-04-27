@@ -5,4 +5,4 @@ const path = require('path');
 
 const rootDirectory = path.join(__dirname, '..');
 process.chdir(rootDirectory);
-execSync('npm start');
+execSync('bun start');
