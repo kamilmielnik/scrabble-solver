@@ -8,7 +8,7 @@ import type { SettingsState } from './types';
 const isTouchScreen = typeof globalThis.matchMedia !== 'undefined' && globalThis.matchMedia('(hover: none)').matches;
 
 export const settingsInitialState: SettingsState = {
-  autoGroupTiles: 'left',
+  autoGroupTiles: null,
   game: Game.Scrabble,
   inputMode: isTouchScreen ? 'touchscreen' : 'keyboard',
   locale: guessLocale(),
