@@ -86,7 +86,7 @@ Some of the word lists below are sourced from the companion repository [kamilmie
 
 ## Run
 
-You can run Scrabble Solver on your machine - all you need is [Bun](https://bun.sh/) 1.2 or later.
+You can run Scrabble Solver on your machine - all you need is [Bun](https://bun.sh/) 1.3 or later.
 
 ```Shell
 bunx scrabble-solver@latest

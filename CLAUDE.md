@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository layout
 
-This is a Bun-workspaces monorepo (managed with Lerna for versioning/publishing and Nx purely for build caching/ordering). Bun >=1.2 (and Node.js >=24 for runtime compatibility) is required.
+This is a Bun-workspaces monorepo (managed with Lerna for versioning/publishing and Nx purely for build caching/ordering). Bun >=1.3 (and Node.js >=24 for runtime compatibility) is required.
 
 The nine packages live under `packages/` and have a strict dependency order. When something breaks "downstream" of where you edited, rebuild the upstream package first:
 
@@ -56,7 +56,7 @@ All commands run from the repo root unless noted.
 | One unit test by name | `cd packages/solver && bun test -t "pattern"` |
 | Cypress (interactive) | `bun run test-cypress` (expects dev server on :3000) |
 | Cypress (headless) | `bun run test-cypress:run` (expects server on :3333) |
-| Full test pipeline | `bun test` (build → unit → start app → cypress) |
+| Full test pipeline | `bun run test` (build → unit → start app → cypress) — note: `bun test` invokes Bun's built-in test runner, not this script |
 
 Hot reload only works for the `scrabble-solver` package. Edits to any other package require rebuilding that package before the app picks them up.
 
