@@ -44,8 +44,8 @@
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/build.yml/badge.svg" alt="Build" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/oxlint.yml/badge.svg" alt="Oxlint" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/oxfmt.yml/badge.svg" alt="Oxfmt" />
-    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/e2e-tests.yml/badge.svg" alt="E2E" />
-    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/unit-tests.yml/badge.svg" alt="Unit" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/e2e.yml/badge.svg" alt="E2E" />
+    <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/unit.yml/badge.svg" alt="Unit" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/bunx.yml/badge.svg" alt="bunx" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/npx.yml/badge.svg" alt="npx" />
   </p>
