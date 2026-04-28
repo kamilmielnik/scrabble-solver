@@ -1,23 +1,29 @@
-name: E2E tests
+name: npx
 
 on:
   push:
     branches: [master]
-  pull_request:
-    branches: [master]
+  schedule:
+    - cron: '0 0 * * *' # every day at 00:00 UTC
+  workflow_dispatch: # allow manual triggering
 
 jobs:
-  e2e-tests:
+  npx:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: oven-sh/setup-bun@v2
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
       - run: bun install --frozen-lockfile
-      - uses: cypress-io/github-action@v6
+      - run: bun run build
+      - uses: cypress-io/github-action@v7
         with:
           install: false
-          build: bun run build
-          start: bun start
+          build: npm install --global scrabble-solver@latest
+          start: scrabble-solver
+          wait-on: 'http://localhost:3333'
         env:
           CYPRESS_BASE_URL: http://localhost:3333
       - uses: actions/upload-artifact@v7
