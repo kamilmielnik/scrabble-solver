@@ -36,6 +36,7 @@
   <p>
     <img src="https://img.shields.io/github/package-json/v/kamilmielnik/scrabble-solver" alt="Version" />
     <img src="https://img.shields.io/npm/l/scrabble-solver" alt="License" />
+    <img src="https://img.shields.io/badge/bun-%3E=1.3-brightgreen.svg" />
     <img src="https://img.shields.io/node/v/scrabble-solver" alt="Node version" />
   </p>
 
@@ -90,6 +91,11 @@ You can run Scrabble Solver on your machine - all you need is [Bun](https://bun.
 
 ```Shell
 bunx scrabble-solver@latest
+```
+
+Alternatively you can also use [Node.js](https://nodejs.org/) 24 or later.
+```Shell
+npx scrabble-solver@latest
 ```
 
 Give it a while to install and download dictionaries. When it's done it will automatically open http://localhost:3333/ in your browser.
