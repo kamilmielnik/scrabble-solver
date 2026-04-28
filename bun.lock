@@ -5,7 +5,7 @@
     "": {
       "name": "scrabble-solver",
       "dependencies": {
-        "@scrabble-solver/scrabble-solver": "^2.16.0-alpha.2",
+        "@scrabble-solver/scrabble-solver": "^2.16.0",
         "concurrently": "^9.2.1",
         "open-cli": "^9.0.0",
         "wait-on": "^9.0.5",
