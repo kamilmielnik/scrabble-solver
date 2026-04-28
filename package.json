@@ -67,7 +67,7 @@
     "test-unit": "bun run --filter '*' test",
     "version:bump": "bun run version:bump-lerna && bun run version:commit",
     "version:bump-lerna": "lerna version --force-publish --no-git-tag-version --no-push",
-    "version:commit": "node bump-version.js && git add . && git commit -m \"Bump version\""
+    "version:commit": "bun bump-version.js && git add . && git commit -m \"Bump version\""
   },
   "repository": {
     "type": "git",
