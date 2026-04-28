@@ -1,6 +1,7 @@
 /* eslint-disable max-statements */
 
 import { isObject } from '@scrabble-solver/types';
+import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import { type FunctionComponent, useCallback, useState } from 'react';
@@ -137,9 +138,13 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   );
 };
 
-export const getStaticProps = async (): Promise<{ props: Props }> => {
+export const getStaticProps = async () => {
   const version = await readVersion();
-  return { props: { version } };
+  // Inlined into __NEXT_DATA__ so the page-data hash (which feeds Next.js's SSG ETag)
+  // changes per build, letting browsers cache HTML and 304 within a build but pull
+  // fresh markup after a deploy. Not consumed by the component.
+  const buildSha = execSync('git rev-parse HEAD').toString().trim();
+  return { props: { version, buildSha } };
 };
 
 const readVersion = async (): Promise<string> => {
