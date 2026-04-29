@@ -23,10 +23,10 @@ const areTwoCharacterTilesValid = (board: CellJson[][], config: Config): boolean
 
   for (const cell of cells) {
     for (const characters of config.twoCharacterTiles) {
-      const canCheckDown = cell.y + 1 < board.length;
-      const canCheckRight = cell.x + 1 < board[0].length;
-      const cellDown = board[cell.y + 1][cell.x];
-      const cellRight = board[cell.y][cell.x + 1];
+      const cellDown = board[cell.y + 1]?.[cell.x];
+      const cellRight = board[cell.y]?.[cell.x + 1];
+      const canCheckDown = cell.y + 1 < board.length && Boolean(cellDown);
+      const canCheckRight = cell.x + 1 < board[0].length && Boolean(cellRight);
       const collidesDown = canCheckDown && cellDown.tile && cellDown.tile.character === characters[1];
       const collidesRight = canCheckRight && cellRight.tile && cellRight.tile.character === characters[1];
       const collides = collidesDown || collidesRight;
