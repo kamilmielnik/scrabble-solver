@@ -1,11 +1,18 @@
 import { BLANK } from '@scrabble-solver/constants';
 import classNames from 'classnames';
-import { type FunctionComponent } from 'react';
+import { type FunctionComponent, useCallback, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { Progress, Tile } from '@/components';
 import { LOCALE_FEATURES } from '@/i18n';
 import { REMAINING_TILES_TILE_SIZE } from '@/parameters';
-import { selectCharacterPoints, selectLocale, useTypedSelector } from '@/state';
+import {
+  hoveredTileSlice,
+  selectCharacterPoints,
+  selectHoveredCharacter,
+  selectLocale,
+  useTypedSelector,
+} from '@/state';
 import { type RemainingTile } from '@/types';
 
 import styles from './Character.module.scss';
@@ -15,7 +22,9 @@ interface Props {
 }
 
 export const Character: FunctionComponent<Props> = ({ tile }) => {
+  const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
+  const hoveredCharacter = useTypedSelector(selectHoveredCharacter);
   const { direction } = LOCALE_FEATURES[locale];
   const { character, count, usedCount } = tile;
 
@@ -27,6 +36,21 @@ export const Character: FunctionComponent<Props> = ({ tile }) => {
   const points = useTypedSelector((state) => selectCharacterPoints(state, character));
   const current = direction === 'ltr' ? remainingCount : count;
   const total = direction === 'ltr' ? count : remainingCount;
+  const isHovered = hoveredCharacter === character;
+
+  const handleMouseEnter = useCallback(() => {
+    dispatch(hoveredTileSlice.actions.set(character));
+  }, [character, dispatch]);
+
+  const handleMouseLeave = useCallback(() => {
+    dispatch(hoveredTileSlice.actions.clear());
+  }, [dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(hoveredTileSlice.actions.clear());
+    };
+  }, [dispatch]);
 
   return (
     <div
@@ -34,12 +58,16 @@ export const Character: FunctionComponent<Props> = ({ tile }) => {
         [styles.finished]: remainingCount <= 0,
         [styles.overused]: remainingCount < 0,
       })}
+      data-testid={character === BLANK ? 'remaining-tile-blank' : `remaining-tile-${character}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <Tile
         aria-label={character}
         character={character}
         className={styles.tile}
         disabled
+        highlighted={isHovered}
         isBlank={character === BLANK}
         isValid={remainingCount >= 0}
         points={points}

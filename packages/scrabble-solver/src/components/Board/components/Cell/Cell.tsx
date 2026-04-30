@@ -1,4 +1,4 @@
-import { EMPTY_CELL } from '@scrabble-solver/constants';
+import { BLANK, EMPTY_CELL } from '@scrabble-solver/constants';
 import { type Cell as CellModel } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import {
@@ -14,6 +14,7 @@ import {
 import {
   selectCellIsValid,
   selectConfig,
+  selectHoveredCharacter,
   selectInputMode,
   selectLocale,
   selectTilePoints,
@@ -57,7 +58,12 @@ export const Cell: FunctionComponent<Props> = ({
   const inputMode = useTypedSelector(selectInputMode);
   const points = useTypedSelector((state) => selectTilePoints(state, cell.tile));
   const isValid = useTypedSelector((state) => selectCellIsValid(state, cell));
+  const hoveredCharacter = useTypedSelector(selectHoveredCharacter);
   const isEmpty = tile.character === EMPTY_CELL;
+  const isHoverMatch =
+    !isEmpty &&
+    hoveredCharacter !== null &&
+    (hoveredCharacter === BLANK ? tile.isBlank : !tile.isBlank && tile.character === hoveredCharacter);
 
   const handleFocus: FocusEventHandler<HTMLInputElement> = useCallback(
     (event) => {
@@ -108,7 +114,7 @@ export const Cell: FunctionComponent<Props> = ({
         [styles.sharpBottomRight]: cellBottom?.hasTile() || cellRight?.hasTile(),
       })}
       character={isEmpty ? undefined : tile.character}
-      highlighted={cell.isCandidate()}
+      highlighted={cell.isCandidate() || isHoverMatch}
       inputRef={inputRef}
       isBlank={tile.isBlank}
       isValid={isValid}

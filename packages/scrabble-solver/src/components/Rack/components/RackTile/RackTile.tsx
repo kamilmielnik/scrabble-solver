@@ -21,6 +21,7 @@ import {
   selectCharacterIsValid,
   selectCharacterPoints,
   selectConfig,
+  selectHoveredCharacter,
   selectInputMode,
   selectLocale,
   useTranslate,
@@ -63,6 +64,8 @@ export const RackTile: FunctionComponent<Props> = ({
   const inputMode = useTypedSelector(selectInputMode);
   const points = useTypedSelector((state) => selectCharacterPoints(state, character));
   const isValid = useTypedSelector((state) => selectCharacterIsValid(state, character));
+  const hoveredCharacter = useTypedSelector(selectHoveredCharacter);
+  const isHoverMatch = character !== null && hoveredCharacter !== null && hoveredCharacter === character;
 
   const handleFocus: FocusEventHandler<HTMLInputElement> = useCallback(
     (event) => {
@@ -141,7 +144,7 @@ export const RackTile: FunctionComponent<Props> = ({
       autoFocus={inputMode === 'keyboard' && index === 0}
       className={classNames(styles.rackTile, className)}
       character={character === null ? undefined : character}
-      highlighted={tile !== null}
+      highlighted={tile !== null || isHoverMatch}
       inputRef={inputRef}
       isBlank={character === BLANK}
       isValid={isValid}

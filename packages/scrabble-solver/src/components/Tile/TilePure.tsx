@@ -82,24 +82,26 @@ const TilePureBase: FunctionComponent<Props> = ({
   >
     {character || placeholder}
 
-    <input
-      aria-label={ariaLabel}
-      autoCapitalize="none"
-      autoComplete="off"
-      autoCorrect="off"
-      autoFocus={autoFocus}
-      className={styles.input}
-      disabled={disabled}
-      ref={inputRef}
-      spellCheck={false}
-      tabIndex={tabIndex}
-      value={character || ''}
-      onChange={onChange}
-      onFocus={onFocus}
-      onKeyDown={onKeyDown}
-      onMouseDown={onMouseDown}
-      onTouchStart={onTouchStart}
-    />
+    {!disabled && (
+      <input
+        aria-label={ariaLabel}
+        autoCapitalize="none"
+        autoComplete="off"
+        autoCorrect="off"
+        autoFocus={autoFocus}
+        className={styles.input}
+        disabled={disabled}
+        ref={inputRef}
+        spellCheck={false}
+        tabIndex={tabIndex}
+        value={character || ''}
+        onChange={onChange}
+        onFocus={onFocus}
+        onKeyDown={onKeyDown}
+        onMouseDown={onMouseDown}
+        onTouchStart={onTouchStart}
+      />
+    )}
 
     {canShowPoints && (
       <span className={styles.points} style={pointsStyle}>
