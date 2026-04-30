@@ -36,11 +36,15 @@ export const Character: FunctionComponent<Props> = ({ tile }) => {
   const points = useTypedSelector((state) => selectCharacterPoints(state, character));
   const current = direction === 'ltr' ? remainingCount : count;
   const total = direction === 'ltr' ? count : remainingCount;
-  const isHovered = hoveredCharacter === character;
+  const isUsed = usedCount > 0;
+  const isHovered = isUsed && hoveredCharacter === character;
 
   const handleMouseEnter = useCallback(() => {
+    if (!isUsed) {
+      return;
+    }
     dispatch(hoveredTileSlice.actions.set(character));
-  }, [character, dispatch]);
+  }, [character, dispatch, isUsed]);
 
   const handleMouseLeave = useCallback(() => {
     dispatch(hoveredTileSlice.actions.clear());

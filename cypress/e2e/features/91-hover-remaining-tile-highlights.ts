@@ -1,8 +1,8 @@
-import { getBoardTile, getRackTile, typeBoard, typeRack, unregisterServiceWorkers, visitIndex } from '../../support';
+import { getBoardTile, getOpenModal, getRackTile, typeBoard, typeRack, unregisterServiceWorkers, visitIndex } from '../../support';
 
 const openRemainingTilesModal = () => {
   cy.findByLabelText('Remaining tiles').realClick();
-  cy.findByRole('dialog').parent().should('have.class', 'ReactModal__Overlay--after-open');
+  getOpenModal().should('be.visible');
 };
 
 const hoverRemainingTile = (character: string) => {
@@ -64,5 +64,19 @@ describe('#91 - Hovering remaining tile highlights all same tiles on the board a
     getRackTile(0).parent().should('not.have.attr', 'role', 'mark');
     getRackTile(1).parent().should('have.attr', 'role', 'mark');
     getBoardTile(7, 7).parent().should('not.have.attr', 'role', 'mark');
+  });
+
+  it('does not highlight a remaining tile in the sidebar if it has not been used', () => {
+    visitIndex();
+    typeRack('a');
+    openRemainingTilesModal();
+
+    hoverRemainingTile('z');
+    cy.findByTestId('remaining-tile-z').find('[role="mark"]').should('not.exist');
+    getRackTile(0).parent().should('not.have.attr', 'role', 'mark');
+
+    hoverRemainingTile('a');
+    cy.findByTestId('remaining-tile-a').find('[role="mark"]').should('exist');
+    getRackTile(0).parent().should('have.attr', 'role', 'mark');
   });
 });
