@@ -24,7 +24,7 @@
     "test": "bun test --timeout 180000 src"
   },
   "dependencies": {
-    "@kamilmielnik/trie": "^4.0.0",
+    "@kamilmielnik/trie": "^5.0.0",
     "@scrabble-solver/types": "^2.16.0"
   },
   "devDependencies": {
