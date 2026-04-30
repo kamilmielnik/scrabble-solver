@@ -189,7 +189,6 @@ bun run --filter @scrabble-solver/word-lists build
 - [Bun](https://bun.sh/docs)
 - [Node.js](https://nodejs.org/)
 - [Next.js](https://nextjs.org/)
-- [Express](https://expressjs.com/)
 - [Workbox](https://developer.chrome.com/docs/workbox/)
 - [React](https://reactjs.org/)
 - [Redux](https://redux.js.org/)
