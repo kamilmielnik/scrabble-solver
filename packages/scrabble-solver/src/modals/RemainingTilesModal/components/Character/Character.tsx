@@ -61,6 +61,7 @@ export const Character: FunctionComponent<Props> = ({ tile }) => {
       className={classNames(styles.character, {
         [styles.finished]: remainingCount <= 0,
         [styles.overused]: remainingCount < 0,
+        [styles.unused]: !isUsed,
       })}
       data-testid={character === BLANK ? 'remaining-tile-blank' : `remaining-tile-${character}`}
       onMouseEnter={handleMouseEnter}
