@@ -22,6 +22,9 @@ jobs:
           tar -xzf scrabble-solver-*.tgz -C work-dir --strip-components=1
       - run: bun install --frozen-lockfile
         working-directory: work-dir
+      - name: Pre-warm dictionaries cache
+        run: node packages/dictionaries/bin/update-dictionaries.js
+        working-directory: work-dir
       - uses: cypress-io/github-action@v7
         with:
           install: false
