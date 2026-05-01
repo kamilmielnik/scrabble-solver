@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/word-definitions",
-  "version": "2.16.1",
+  "version": "2.16.2",
   "description": "Scrabble Solver 2 - Word definitions",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -24,7 +24,7 @@
     "test": "bun test --timeout 180000 src"
   },
   "dependencies": {
-    "@scrabble-solver/types": "^2.16.1",
+    "@scrabble-solver/types": "^2.16.2",
     "cheerio": "^1.2.0",
     "follow-redirects": "^1.16.0",
     "striptags": "^3.2.0"
