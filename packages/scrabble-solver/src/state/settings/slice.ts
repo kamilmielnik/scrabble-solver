@@ -19,6 +19,11 @@ export const settingsSlice = createSlice({
       return { ...state, game };
     },
 
+    changeHighlightUnreachableCells: (state, action: PayloadAction<boolean>) => {
+      const highlightUnreachableCells = action.payload;
+      return { ...state, highlightUnreachableCells };
+    },
+
     changeInputMode: (state, action: PayloadAction<InputMode>) => {
       const inputMode = action.payload;
       return { ...state, inputMode };

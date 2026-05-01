@@ -19,6 +19,11 @@ export const selectAutoGroupTiles = createSelector([selectSettings], (settings) 
 
 export const selectGame = createSelector([selectSettings], (settings) => settings.game);
 
+export const selectHighlightUnreachableCells = createSelector(
+  [selectSettings],
+  (settings) => settings.highlightUnreachableCells,
+);
+
 export const selectInputMode = createSelector([selectSettings], (settings) => settings.inputMode);
 
 export const selectLocale = createSelector([selectSettings], (settings) => settings.locale);

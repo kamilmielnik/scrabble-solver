@@ -7,6 +7,7 @@ import { useTranslate } from '@/state';
 import {
   AutoGroupTilesSetting,
   ConfigSetting,
+  HighlightUnreachableCellsSetting,
   InputModeSetting,
   LocaleSetting,
   ShowCoordinatesSetting,
@@ -49,6 +50,13 @@ const SettingsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClos
 
       <Modal.Section label={translate('settings.removeCellFilters')} title={translate('settings.removeCellFilters')}>
         <RemoveCellFiltersSetting disabled={!isOpen} />
+      </Modal.Section>
+
+      <Modal.Section
+        label={translate('settings.highlightUnreachableCells')}
+        title={translate('settings.highlightUnreachableCells')}
+      >
+        <HighlightUnreachableCellsSetting disabled={!isOpen} />
       </Modal.Section>
     </Modal>
   );

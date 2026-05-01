@@ -8,16 +8,6 @@ import {
   visitIndex,
 } from '../../support';
 
-const openRemainingTilesModal = () => {
-  cy.findByLabelText('Remaining tiles').realClick();
-  getOpenModal().should('be.visible');
-};
-
-const hoverRemainingTile = (character: string) => {
-  const testId = character === ' ' ? 'remaining-tile-blank' : `remaining-tile-${character}`;
-  cy.findByTestId(testId).trigger('mouseover');
-};
-
 /*
  * @see https://github.com/kamilmielnik/scrabble-solver/issues/91
  */
@@ -88,3 +78,13 @@ describe('#91 - Hovering remaining tile highlights all same tiles on the board a
     getRackTile(0).parent().should('have.attr', 'role', 'mark');
   });
 });
+
+const openRemainingTilesModal = () => {
+  cy.findByLabelText('Remaining tiles').realClick();
+  getOpenModal().should('be.visible');
+};
+
+const hoverRemainingTile = (character: string) => {
+  const testId = character === ' ' ? 'remaining-tile-blank' : `remaining-tile-${character}`;
+  cy.findByTestId(testId).trigger('mouseover');
+};

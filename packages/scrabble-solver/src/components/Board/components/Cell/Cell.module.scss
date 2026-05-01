@@ -87,6 +87,12 @@
     border-end-end-radius: 0;
   }
 
+  &.unreachable {
+    background-color: var(--border--color);
+    opacity: 0.5;
+    border-radius: 0;
+  }
+
   &:focus-within {
     z-index: 2;
   }

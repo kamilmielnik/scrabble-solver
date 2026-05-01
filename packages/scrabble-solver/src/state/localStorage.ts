@@ -12,6 +12,7 @@ const SETTINGS = 'settings';
 const LEGACY_KEYS: Record<keyof SettingsState, string> = {
   autoGroupTiles: 'auto-group-tiles',
   game: 'config-id',
+  highlightUnreachableCells: 'highlight-unreachable-cells',
   inputMode: 'input-mode',
   locale: 'locale',
   removeCellFilters: 'remove-cell-filters',

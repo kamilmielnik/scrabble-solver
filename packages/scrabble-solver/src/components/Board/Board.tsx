@@ -25,7 +25,7 @@ import styles from './Board.module.scss';
 import { BoardPure } from './BoardPure';
 import { Actions, InputPrompt } from './components';
 import { useBoardStyle, useFloatingActions, useFloatingFocus, useFloatingInputPrompt, useGrid } from './hooks';
-import { selectRowsWithCandidate } from './selectors';
+import { selectReachableCells, selectRowsWithCandidate } from './selectors';
 
 interface Props {
   className?: string;
@@ -35,6 +35,7 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
   const rows = useTypedSelector(selectRowsWithCandidate);
+  const reachableCells = useTypedSelector(selectReachableCells);
   const inputMode = useTypedSelector(selectInputMode);
   const cellFilters = useTypedSelector(selectCellFilters);
   const showCoordinates = useTypedSelector(selectShowCoordinates);
@@ -157,6 +158,7 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
         coordinatesSize={coordinatesSize}
         direction={LOCALE_FEATURES[locale].direction}
         inputRefs={inputRefs}
+        reachableCells={reachableCells}
         ref={ref}
         rows={rows}
         showCoordinates={showCoordinates}

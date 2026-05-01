@@ -20,16 +20,16 @@ export const AutoGroupTilesSetting: FunctionComponent<Props> = ({ className, dis
 
   const options = [
     {
+      label: translate('settings.autoGroupTiles.null'),
+      value: NULL_VALUE,
+    },
+    {
       label: translate('settings.autoGroupTiles.left'),
       value: 'left',
     },
     {
       label: translate('settings.autoGroupTiles.right'),
       value: 'right',
-    },
-    {
-      label: translate('settings.autoGroupTiles.null'),
-      value: NULL_VALUE,
     },
   ];
 

@@ -34,6 +34,7 @@ interface Props {
   cellTop?: CellModel;
   className?: string;
   inputRef: RefObject<HTMLInputElement | null>;
+  isReachable?: boolean;
   size: number;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onFocus: (x: number, y: number) => void;
@@ -47,6 +48,7 @@ export const Cell: FunctionComponent<Props> = ({
   cellTop,
   className,
   inputRef,
+  isReachable = true,
   size,
   onChange,
   onFocus,
@@ -112,6 +114,7 @@ export const Cell: FunctionComponent<Props> = ({
         [styles.sharpTopRight]: cellTop?.hasTile() || cellRight?.hasTile(),
         [styles.sharpBottomLeft]: cellBottom?.hasTile() || cellLeft?.hasTile(),
         [styles.sharpBottomRight]: cellBottom?.hasTile() || cellRight?.hasTile(),
+        [styles.unreachable]: !isReachable,
       })}
       character={isEmpty ? undefined : tile.character}
       highlighted={cell.isCandidate() || isHoverMatch}

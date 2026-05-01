@@ -28,6 +28,7 @@ interface Props {
   coordinatesSize: number;
   direction: 'ltr' | 'rtl';
   inputRefs: RefObject<HTMLInputElement | null>[][];
+  reachableCells: boolean[][] | null;
   rows: CellModel[][];
   showCoordinates: ShowCoordinates;
   style?: CSSProperties;
@@ -48,6 +49,7 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
       direction,
       cellFilters,
       inputRefs,
+      reachableCells,
       rows,
       showCoordinates,
       style,
@@ -137,6 +139,7 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
               cellRight={x < rows[y].length - 1 ? rows[y][x + 1] : undefined}
               cellTop={y > 0 ? rows[y - 1][x] : undefined}
               inputRef={inputRefs[y][x]}
+              isReachable={reachableCells ? reachableCells[y][x] : true}
               key={x}
               size={cellSize}
               onChange={onChange}

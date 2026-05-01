@@ -10,6 +10,7 @@ const isTouchScreen = typeof globalThis.matchMedia !== 'undefined' && globalThis
 export const settingsInitialState: SettingsState = {
   autoGroupTiles: null,
   game: Game.Scrabble,
+  highlightUnreachableCells: false,
   inputMode: isTouchScreen ? 'touchscreen' : 'keyboard',
   locale: guessLocale(),
   removeCellFilters: 'always',
