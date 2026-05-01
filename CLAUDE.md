@@ -86,7 +86,7 @@ Hot reload only works for the `scrabble-solver` package. Edits to any other pack
 - `unit-tests.yml` — `bun run build && bun run test-unit`.
 - `e2e-tests.yml` — Cypress against `bun start` on :3333. Uploads screenshots on failure.
 - `oxlint.yml` / `oxfmt.yml` — lint and format-check.
-- `bunx.yml` — runs daily and on PR. Installs the latest published `scrabble-solver` via `bun add --global scrabble-solver@latest`, runs Cypress against it. Catches packaging regressions in the `bin/scrabble-solver.js` launcher.
+- `bunx.yml` / `npx.yml` — run daily and on push to master. Download the latest published `scrabble-solver` tarball with `npm pack`, install the global binary (`bun add --global` / `npm install --global`), then run Cypress from the extracted tarball against that binary. The Cypress specs come from the published package, **not** from `master` — if they came from master, any spec added for a feature that's merged but not yet released would run against the older published binary that lacks the feature, and fail (#428). Catches packaging regressions in the `bin/scrabble-solver.js` launcher.
 - `deploy.yml` — `workflow_dispatch` only. SSHs into prod, pulls, builds, restarts `scrabble-solver.service`.
 
 When adding a workflow, match the existing pattern: trigger on `push`/`pull_request` to `master`, use `actions/checkout@v6` and `oven-sh/setup-bun@v2`, install with `bun install --frozen-lockfile`.
