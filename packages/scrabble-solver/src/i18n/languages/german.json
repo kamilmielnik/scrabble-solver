@@ -4,7 +4,7 @@
   "cell.filter-cell.include": "Ziel anvisieren",
   "cell.set-blank": "Als Blanko markieren",
   "cell.set-not-blank": "Nicht als Blanko markieren",
-  "cell.tile.location": "Brett: Stein ({{x}}, {{y}})",
+  "cell.tile.location": "Brett: Stein {{coordinates}}",
   "cell.toggle-direction": "Schreibrichtung",
   "common.arrows": "Pfeiltasten",
   "common.blanks": "Blankos",

@@ -4,7 +4,7 @@
   "cell.filter-cell.include": "Hedef varış noktası",
   "cell.set-blank": "Boş olarak işaretle",
   "cell.set-not-blank": "Boş değil olarak işaretle",
-  "cell.tile.location": "Tahta: harfler ({{x}}, {{y}})",
+  "cell.tile.location": "Tahta: harfler {{coordinates}}",
   "cell.toggle-direction": "Yazma yönü - geçiş yapmak için tıklayın",
   "common.arrows": "Ok tuşları",
   "common.blanks": "Jokerler",

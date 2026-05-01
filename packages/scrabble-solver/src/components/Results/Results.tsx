@@ -70,10 +70,16 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
   }, [results, listRef, scrollToIndexRef]);
 
   return (
-    <div className={classNames(styles.results, className)} data-testid="results">
+    <div
+      aria-busy={isLoadingDebounced}
+      aria-label={translate('results')}
+      className={classNames(styles.results, className)}
+      data-testid="results"
+      role="region"
+    >
       <Header />
 
-      <div className={styles.content}>
+      <div aria-live="polite" className={styles.content}>
         {typeof error !== 'undefined' && (
           <EmptyState className={styles.emptyState} variant="error">
             {error.message}

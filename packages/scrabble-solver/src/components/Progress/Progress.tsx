@@ -25,7 +25,12 @@ export const Progress: FunctionComponent<Props> = ({ className, max, min = 0, st
   return (
     <div
       {...props}
+      aria-valuemax={max}
+      aria-valuemin={min}
+      aria-valuenow={value}
+      aria-valuetext={`${percent.toLocaleString(locale)}%`}
       className={classNames(styles.progress, className)}
+      role="progressbar"
       style={{
         ...style,
         backgroundImage: getGradient(progress, PROGRESS_COLOR_VALUE, PROGRESS_COLOR_BACKGROUND),

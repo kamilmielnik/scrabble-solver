@@ -11,12 +11,13 @@ import {
   useCallback,
 } from 'react';
 
+import { getCoordinate } from '@/lib';
 import {
   selectCellIsValid,
   selectConfig,
   selectHoveredCharacter,
   selectInputMode,
-  selectLocale,
+  selectShowCoordinates,
   selectTilePoints,
   useTranslate,
   useTypedSelector,
@@ -55,9 +56,9 @@ export const Cell: FunctionComponent<Props> = ({
 }) => {
   const { tile, x, y } = cell;
   const translate = useTranslate();
-  const locale = useTypedSelector(selectLocale);
   const config = useTypedSelector(selectConfig);
   const inputMode = useTypedSelector(selectInputMode);
+  const showCoordinates = useTypedSelector(selectShowCoordinates);
   const points = useTypedSelector((state) => selectTilePoints(state, cell.tile));
   const isValid = useTypedSelector((state) => selectCellIsValid(state, cell));
   const hoveredCharacter = useTypedSelector(selectHoveredCharacter);
@@ -104,8 +105,10 @@ export const Cell: FunctionComponent<Props> = ({
   return (
     <Tile
       aria-label={translate('cell.tile.location', {
-        x: (x + 1).toLocaleString(locale),
-        y: (y + 1).toLocaleString(locale),
+        coordinates:
+          showCoordinates === 'alternative'
+            ? `${getCoordinate(x, 'number')}${getCoordinate(y, 'letter')}`
+            : `${getCoordinate(x, 'letter')}${getCoordinate(y, 'number')}`,
       })}
       className={classNames(styles.tile, className, {
         [styles.first3]: x < 3,

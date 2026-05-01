@@ -4,7 +4,7 @@
   "cell.filter-cell.include": "Destino objetivo",
   "cell.set-blank": "Marcar como en blanco",
   "cell.set-not-blank": "Marcar como no en blanco",
-  "cell.tile.location": "Tablero: espacio ({{x}}, {{y}})",
+  "cell.tile.location": "Tablero: espacio {{coordinates}}",
   "cell.toggle-direction": "Dirección de escritura",
   "common.arrows": "Teclas de flecha",
   "common.blanks": "Blancos",

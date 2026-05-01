@@ -30,6 +30,7 @@ export const DictionaryInput: FunctionComponent<Props> = ({ className }) => {
   return (
     <form className={classNames(styles.dictionaryInput, className)} onSubmit={handleSubmit}>
       <input
+        aria-label={translate('dictionary.input.title')}
         className={styles.input}
         pattern={`.*[^\\s${comma}].*`}
         placeholder={translate('dictionary.input.placeholder')}

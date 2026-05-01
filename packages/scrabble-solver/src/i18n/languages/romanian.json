@@ -4,7 +4,7 @@
   "cell.filter-cell.include": "Destinație țintă",
   "cell.set-blank": "Marcare camp liber",
   "cell.set-not-blank": "Marcare camp ocupat ",
-  "cell.tile.location": "Tabla: camp ({{x}}, {{y}})",
+  "cell.tile.location": "Tabla: camp {{coordinates}}",
   "cell.toggle-direction": "Directie scriere",
   "common.arrows": "Sagetile",
   "common.blanks": "Jokeri",

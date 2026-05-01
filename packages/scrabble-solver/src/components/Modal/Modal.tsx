@@ -52,6 +52,7 @@ const ModalBase: FunctionComponent<Props> = ({ children, className, footer, isOp
 
   return (
     <ReactModal
+      aria={{ modal: true }}
       className={{
         afterOpen: styles.afterOpen,
         base: styles.modal,
@@ -61,6 +62,7 @@ const ModalBase: FunctionComponent<Props> = ({ children, className, footer, isOp
       contentLabel={title}
       isOpen={isOpen}
       overlayClassName={styles.overlay}
+      role="dialog"
       shouldReturnFocusAfterClose={shouldReturnFocusAfterClose}
       onRequestClose={onClose}
     >
