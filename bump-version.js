@@ -19,10 +19,7 @@ const getCurrentAppVersion = () => {
 
 const updateRootPackageJson = (filename, version) => {
   const content = fs.readFileSync(filename, 'utf-8');
-  const replaced = content.replace(
-    /("@scrabble-solver\/scrabble-solver":\s*)"[^"]+"/,
-    `$1"^${version}"`,
-  );
+  const replaced = content.replace(/("@scrabble-solver\/scrabble-solver":\s*)"[^"]+"/, `$1"^${version}"`);
 
   fs.writeFileSync(filename, replaced);
 };
@@ -30,15 +27,9 @@ const updateRootPackageJson = (filename, version) => {
 const updateBunLock = (filename, version) => {
   let content = fs.readFileSync(filename, 'utf-8');
 
-  content = content.replace(
-    /("@scrabble-solver\/[^"]+":\s*)"\^[^"]+"/g,
-    `$1"^${version}"`,
-  );
+  content = content.replace(/("@scrabble-solver\/[^"]+":\s*)"\^[^"]+"/g, `$1"^${version}"`);
 
-  content = content.replace(
-    /("version":\s*)"[^"]+"/g,
-    `$1"${version}"`,
-  );
+  content = content.replace(/("version":\s*)"[^"]+"/g, `$1"${version}"`);
 
   fs.writeFileSync(filename, content);
 };
