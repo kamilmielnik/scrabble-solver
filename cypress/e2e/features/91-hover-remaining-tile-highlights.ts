@@ -1,4 +1,12 @@
-import { getBoardTile, getOpenModal, getRackTile, typeBoard, typeRack, unregisterServiceWorkers, visitIndex } from '../../support';
+import {
+  getBoardTile,
+  getOpenModal,
+  getRackTile,
+  typeBoard,
+  typeRack,
+  unregisterServiceWorkers,
+  visitIndex,
+} from '../../support';
 
 const openRemainingTilesModal = () => {
   cy.findByLabelText('Remaining tiles').realClick();
