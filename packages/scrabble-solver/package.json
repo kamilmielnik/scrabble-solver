@@ -28,7 +28,7 @@
   "dependencies": {
     "@floating-ui/react": "^0.27.19",
     "@kamilmielnik/trie": "^5.0.0",
-    "@reduxjs/toolkit": "^2.11.2",
+    "@reduxjs/toolkit": "^2.12.0",
     "@scrabble-solver/configs": "^2.16.4",
     "@scrabble-solver/constants": "^2.16.4",
     "@scrabble-solver/dictionaries": "^2.16.4",
@@ -40,16 +40,16 @@
     "env-cmd": "^11.0.0",
     "include-media": "^2.0.0",
     "include-media-query-builder": "^1.1.0",
-    "next": "^16.2.5",
+    "next": "^16.2.7",
     "normalize.css": "^8.0.1",
-    "react": "^19.2.6",
+    "react": "^19.2.7",
     "react-cool-onclickoutside": "^1.7.0",
-    "react-dom": "^19.2.6",
+    "react-dom": "^19.2.7",
     "react-highlight-words": "^0.21.0",
     "react-modal": "^3.16.3",
-    "react-redux": "^9.2.0",
+    "react-redux": "^9.3.0",
     "react-window": "^2.2.7",
-    "redux-saga": "^1.4.2",
+    "redux-saga": "^1.5.0",
     "store2": "^2.14.4",
     "transliteration": "^2.6.1",
     "use-debounce": "^10.1.1",
@@ -61,14 +61,14 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.16",
     "@types/react-dom": "^19.2.3",
     "@types/react-highlight-words": "^0.20.1",
     "@types/react-modal": "^3.16.3",
     "@types/react-portal": "^4.0.7",
     "@types/react-redux": "^7.1.34",
     "@types/redux": "^3.6.31",
-    "sass": "^1.99.0"
+    "sass": "^1.100.0"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }
