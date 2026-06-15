@@ -1,6 +1,8 @@
 import type { Placement } from '@floating-ui/react';
 import { type FunctionComponent, type ReactNode } from 'react';
 
+import { useIsTouchDevice } from '@/hooks';
+
 import { TooltipContext } from './context';
 import { TooltipContent } from './TooltipContent';
 import { TooltipTrigger } from './TooltipTrigger';
@@ -14,8 +16,9 @@ interface Props {
 
 export const Tooltip: FunctionComponent<Props> = ({ children, placement, tooltip }) => {
   const state = useTooltip({ placement });
+  const isTouchDevice = useIsTouchDevice();
 
-  if (!tooltip) {
+  if (!tooltip || isTouchDevice) {
     return children;
   }
 
