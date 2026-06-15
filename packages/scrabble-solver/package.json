@@ -40,7 +40,7 @@
     "env-cmd": "^11.0.0",
     "include-media": "^2.0.0",
     "include-media-query-builder": "^1.1.0",
-    "next": "^16.2.7",
+    "next": "^16.2.9",
     "normalize.css": "^8.0.1",
     "react": "^19.2.7",
     "react-cool-onclickoutside": "^1.7.0",
@@ -61,12 +61,12 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
-    "@types/react": "^19.2.16",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@types/react-highlight-words": "^0.20.1",
     "@types/react-modal": "^3.16.3",
     "@types/react-portal": "^4.0.7",
-    "sass": "^1.100.0"
+    "sass": "^1.101.0"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }
