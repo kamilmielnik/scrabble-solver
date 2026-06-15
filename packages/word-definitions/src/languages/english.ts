@@ -3,27 +3,51 @@ import { load } from 'cheerio';
 import { request } from '../lib';
 import type { ParsingResult } from '../types';
 
-const DOES_NOT_EXIST_MESSAGE =
-  "The word you've entered isn't in the dictionary. Click on a spelling suggestion below or try again using the search bar above.";
+interface ResponsePayload {
+  en?: Usage[];
+}
+
+interface Usage {
+  definitions?: Definition[];
+}
+
+interface Definition {
+  definition: string;
+}
 
 export const crawl = (word: string): Promise<string> => {
   return request({
     protocol: 'https',
-    hostname: 'www.merriam-webster.com',
-    path: `/dictionary/${encodeURIComponent(word)}`,
+    hostname: 'en.wiktionary.org',
+    path: `/api/rest_v1/page/definition/${encodeURIComponent(word)}`,
+    headers: {
+      'User-Agent': 'scrabble-solver (https://github.com/kamilmielnik/scrabble-solver)',
+    },
   });
 };
 
-export const parse = (html: string): ParsingResult => {
-  const $ = load(html);
-  $('strong.mw_t_bc').replaceWith(', ');
-  $('.text-lowercase').remove();
-  $('.sub-content-thread').remove();
+export const parse = (json: string): ParsingResult => {
+  let data: ResponsePayload;
 
-  const $definitions = $('[id^=dictionary-entry]').find('.dtText, .cxl-ref');
+  try {
+    data = JSON.parse(json);
+  } catch {
+    return { definitions: [], exists: false };
+  }
+
+  const usages: Usage[] = data?.en ?? [];
+
+  if (!Array.isArray(usages)) {
+    return { definitions: [], exists: false };
+  }
+
+  const definitions = usages
+    .flatMap((usage) => (usage.definitions ?? []).map(({ definition }) => definition))
+    .map((definition) => load(definition).text().trim())
+    .filter(Boolean);
 
   return {
-    definitions: Array.from($definitions).map((definition) => $(definition).text().replace(/\n/g, '')),
-    exists: $('.spelling-suggestion-text').text().trim() !== DOES_NOT_EXIST_MESSAGE,
+    definitions,
+    exists: definitions.length > 0,
   };
 };

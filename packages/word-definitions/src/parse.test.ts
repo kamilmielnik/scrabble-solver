@@ -19,12 +19,13 @@ const tests = [
   { locale: Locale.DE_DE, word: 'ho' },
   { locale: Locale.DE_DE, word: 'kolla' },
   { locale: Locale.DE_DE, word: 'vom' },
-  { locale: Locale.EN_US, word: 'awe' },
-  { locale: Locale.EN_US, word: 'oe' },
-  { locale: Locale.EN_US, word: 'pawn' },
-  { locale: Locale.EN_US, word: 'pawnee' },
-  { locale: Locale.EN_US, word: 'pean' },
-  { locale: Locale.EN_US, word: 'wiz' },
+  { extension: 'json', locale: Locale.EN_US, word: 'awe' },
+  { extension: 'json', locale: Locale.EN_US, word: 'oe' },
+  { extension: 'json', locale: Locale.EN_US, word: 'pawn' },
+  { extension: 'json', locale: Locale.EN_US, word: 'pawnee' },
+  { extension: 'json', locale: Locale.EN_US, word: 'pean' },
+  { extension: 'json', locale: Locale.EN_US, word: 'wiz' },
+  { extension: 'json', locale: Locale.EN_US, word: 'zzzzqq' },
   { locale: Locale.ES_ES, word: 'corma' },
   { locale: Locale.ES_ES, word: 'portero' },
   { locale: Locale.RO_RO, word: 'aciua' },
@@ -32,8 +33,8 @@ const tests = [
 ];
 
 describe('parse', () => {
-  it.each(tests)(`[$locale] "$word"`, ({ locale, word }) => {
-    const input = readTestFile(`input/${locale}.${word}.html`);
+  it.each(tests)(`[$locale] "$word"`, ({ extension = 'html', locale, word }) => {
+    const input = readTestFile(`input/${locale}.${word}.${extension}`);
     const expected = readExpected(`expected/${locale}.${word}.json`);
     expect(parse(locale, input)).toEqual(expected);
   });
