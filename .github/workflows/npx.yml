@@ -15,9 +15,33 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 24
+      - uses: actions/checkout@v6
+      - name: Wait for the released version to be published on npm
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "Target version: $VERSION"
+          # Unscoped CLI package (published by `np`) + every non-private workspace
+          # package (published by `lerna publish`). All version in lockstep.
+          PACKAGES=$(node -p "['scrabble-solver', ...require('fs').readdirSync('packages').map(d=>require('./packages/'+d+'/package.json')).filter(p=>!p.private).map(p=>p.name)].join(' ')")
+          echo "Waiting for: $PACKAGES"
+          for pkg in $PACKAGES; do
+            for i in $(seq 1 60); do
+              if [ "$(npm view "$pkg@$VERSION" version 2>/dev/null)" = "$VERSION" ]; then
+                echo "✓ $pkg@$VERSION is available"
+                break
+              fi
+              if [ "$i" -eq 60 ]; then
+                echo "::error::Timed out waiting for $pkg@$VERSION on npm" >&2
+                exit 1
+              fi
+              echo "… $pkg@$VERSION not available yet (attempt $i/60); sleeping 15s"
+              sleep 15
+            done
+          done
       - name: Download published package
         run: |
-          npm pack scrabble-solver@latest
+          npm pack scrabble-solver@"$VERSION"
           mkdir work-dir
           tar -xzf scrabble-solver-*.tgz -C work-dir --strip-components=1
       - run: bun install --frozen-lockfile
@@ -28,7 +52,7 @@ jobs:
       - uses: cypress-io/github-action@v7
         with:
           install: false
-          build: npm install --global scrabble-solver@latest
+          build: npm install --global scrabble-solver@${{ env.VERSION }}
           start: scrabble-solver
           wait-on: 'http://localhost:3333'
           working-directory: work-dir
