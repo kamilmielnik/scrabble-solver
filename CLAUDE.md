@@ -51,7 +51,7 @@ All commands run from the repo root unless noted.
 | Production server (port 3333) | `bun start` |
 | Lint | `bun run lint` (oxlint) / `bun run lint:fix` |
 | Format check / fix | `bun run format` / `bun run format:fix` (oxfmt) |
-| Type-check the app | `bun run --filter @scrabble-solver/scrabble-solver type-check` (uses `tsgo`, the TypeScript native preview) |
+| Type-check the app | `bun run --filter @scrabble-solver/scrabble-solver type-check` (uses `tsc` from stable TypeScript 7, the native Go compiler) |
 | Unit tests (all workspaces) | `bun run test-unit` |
 | Unit tests (one package) | `bun run --filter @scrabble-solver/solver test` |
 | One unit test file | `cd packages/solver && bun test src/solve.test.ts` |
@@ -68,13 +68,13 @@ Hot reload only works for the `scrabble-solver` package. Edits to any other pack
 - Only `solver`, `word-definitions`, and `scrabble-solver` have a `test` script. Tests are auto-discovered under `src/` matching `*.test.ts(x)`. The 180s timeout is needed because some solver tests build a real `Trie` from a downloaded dictionary.
 - `bunfig.toml` + `bun.test.preload.ts` register a SCSS loader stub (returns a `Proxy` whose keys are their own names) so component tests can import `*.scss` modules without a real compiler. If you add other non-JS imports to test-touched code (images, etc.), extend the preload.
 - Each package's `tsconfig.json` excludes `**/*.test.ts` from the build output. Tests are not part of published packages.
-- Cypress: tests in `cypress/e2e/`. Custom command setup in `cypress/support/commands.ts` (registers `@testing-library/cypress` and `cypress-real-events`). Two base URLs are in play: `cypress.config.ts` defaults to `http://localhost:3000` (matches `bun run dev`); `test-cypress:run` and CI override to `:3333` (matches `bun start`). Pick the script that matches the server you're actually running.
+- Cypress: tests in `cypress/e2e/`. Custom command setup in `cypress/support/commands.ts` (registers `@testing-library/cypress` and `cypress-real-events`). Two base URLs are in play: `cypress.config.ts` defaults to `http://localhost:3000` (matches `bun run dev`); `test-cypress:run` and CI override to `:3333` (matches `bun start`). Pick the script that matches the server you're actually running. `cypress.config.ts` registers `@cypress/webpack-batteries-included-preprocessor` from npm as the `file:preprocessor` — the copy bundled inside Cypress 15.19.0 crashes on TypeScript 7 projects (its `@babel/preset-typescript` ships without a `package.json`); drop the override once a fixed Cypress release lands.
 
 ## Tooling specifics
 
 - **Linting**: `oxlint` (Rust-based ESLint replacement) configured in `.oxlintrc.json`. Type-aware rules require `oxlint-tsgolint`. Adding a new top-level JS config file usually means adding it to `ignorePatterns`. The oxlint config still loads the `jest` plugin and `jest` global because Bun's test runner mirrors the Jest API; do not remove them.
 - **Formatting**: `oxfmt` covers `*.{js,ts,tsx,scss}`.
-- **TypeScript**: the project upgraded to TypeScript 7 via the native-preview compiler (PR #422). The runtime devDep is `typescript@^6.0.3` (kept for tooling that expects classic `tsc`), but the actual compiler used by the app's `type-check` and by `next build` is `tsgo` from `@typescript/native-preview` (a 7.x dev build). Plain `tsc` is not in the build path. Root `tsconfig.json` sets `types: ["bun"]` for global test-runner types and excludes `cypress` and `cypress.config.ts`; library packages extend it and additionally exclude `**/*.test.ts` from emitted output.
+- **TypeScript**: stable TypeScript 7 (`typescript@^7.0.2`), whose `tsc` is the native Go compiler. It runs every package `build`, the app's `type-check`, and `next build` — the latter via `experimental.useTypeScriptCli` in `next.config.js`, required because TS7 has no JS compiler API (which also forces Next onto the 16.3 preview line until 16.3 is stable). The interim `@typescript/native-preview` (`tsgo`) setup from PR #422 was removed (Aug 2026). Root `tsconfig.json` sets `types: ["bun"]` for global test-runner types and excludes `cypress` and `cypress.config.ts`; library packages extend it and additionally exclude `**/*.test.ts` from emitted output.
 - **Next.js**: built with `--webpack` flag explicitly (the default Turbopack is intentionally not used). `next.config.js` registers `@svgr/webpack` for SVG-as-component imports and the Workbox `InjectManifest` plugin for the service worker. SCSS load paths are extended to `./src` and `node_modules/include-media/dist`.
 - **Nx**: `nx.json` only defines a `build` target with `dependsOn: ["^build"]` and `cache: true`. It is used purely for dependency-aware build ordering and caching — there are no Nx generators or executors.
 
@@ -113,7 +113,7 @@ The `bunx scrabble-solver@latest` entry point (`bin/scrabble-solver.js`) just `c
 Look here when something seems set up oddly — the reason is usually one of these recent changes. Reference issue numbers, not dates, when grepping git log.
 
 - **#421 — Bun migration** (Apr 2026). npm/Jest → Bun. Top-level scripts now use `bun run --filter`, lockfile is `bun.lock`, unit tests run on `bun test`, the published binary's launcher (`bin/scrabble-solver.js`) shells out to `bun start`, and the old `npx.yml` workflow was renamed to `bunx.yml` (now installs the published package via `bun add --global`). All workflows use `oven-sh/setup-bun@v2`; `e2e-tests.yml` is the only one that also uses `setup-node` (Cypress action).
-- **#422 — TypeScript 7** (Apr 2026). Build/type-check use `tsgo` (native preview). Don't reintroduce `tsc` calls.
+- **#422 — TypeScript 7** (Apr 2026). Moved build/type-check to `tsgo` (native preview). Superseded in Aug 2026 by stable `typescript@7`, where the native compiler ships as plain `tsc` — scripts call `tsc` again and `@typescript/native-preview` is gone.
 - **#420 — ESLint → Oxlint**. The `eslint-plugin-*` packages still appear in devDeps because oxlint loads them as JS plugins (`jsPlugins` in `.oxlintrc.json`). Don't strip them.
 - **#321 — Auto-persisted settings** (Apr 2026). Settings, board, and rack are written through a single `useLocalStorage` effect. Don't dispatch save actions manually.
 - **#228 — CSS variables in JS** (Apr 2026). JS constants for colors/sizes flow from `_tokens.scss` → `variables.module.scss` `:export` → `parameters/index.ts`. Don't hard-code the same values in TS.

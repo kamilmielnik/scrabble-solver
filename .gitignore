@@ -16,3 +16,6 @@ node_modules/
 *.tsbuildinfo
 *.txt
 *.zip
+
+.claude/worktrees
+.claude/settings.local.json

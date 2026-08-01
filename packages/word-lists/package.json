@@ -19,7 +19,7 @@
   },
   "homepage": "https://scrabble-solver.org",
   "scripts": {
-    "build": "tsgo --project .",
+    "build": "tsc --project .",
     "clean": "rimraf build/"
   },
   "dependencies": {

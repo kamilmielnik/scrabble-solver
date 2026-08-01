@@ -1,2 +1,8 @@
+# Keep the classic flat node_modules layout. With Bun's newer "isolated" layout,
+# `next build` fails: webpack starts bundling unzipper (used by word-lists) and
+# errors on @aws-sdk/client-s3 - an optional package we don't install.
+[install]
+linker = "hoisted"
+
 [test]
 preload = ["./bun.test.preload.ts"]

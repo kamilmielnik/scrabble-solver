@@ -23,11 +23,11 @@
     "dev": "env-cmd next dev --webpack",
     "start": "env-cmd next start -p 3333",
     "test": "bun test --timeout 180000 src",
-    "type-check": "tsgo --noEmit"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.27.19",
-    "@kamilmielnik/trie": "^5.0.0",
+    "@floating-ui/react": "^0.27.20",
+    "@kamilmielnik/trie": "^5.1.0",
     "@reduxjs/toolkit": "^2.12.0",
     "@scrabble-solver/configs": "^2.16.6",
     "@scrabble-solver/constants": "^2.16.6",
@@ -40,16 +40,16 @@
     "env-cmd": "^11.0.0",
     "include-media": "^2.0.0",
     "include-media-query-builder": "^1.1.0",
-    "next": "^16.2.9",
+    "next": "^16.3.0-preview.10",
     "normalize.css": "^8.0.1",
-    "react": "^19.2.7",
+    "react": "^19.2.8",
     "react-cool-onclickoutside": "^1.7.0",
-    "react-dom": "^19.2.7",
+    "react-dom": "^19.2.8",
     "react-highlight-words": "^0.21.0",
     "react-modal": "^3.16.3",
     "react-redux": "^9.3.0",
-    "react-window": "^2.2.7",
-    "redux-saga": "^1.5.0",
+    "react-window": "^2.3.0",
+    "redux-saga": "^1.5.1",
     "store2": "^2.14.4",
     "transliteration": "^2.6.1",
     "use-debounce": "^10.1.1",
@@ -61,12 +61,12 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
     "@types/react-highlight-words": "^0.20.1",
     "@types/react-modal": "^3.16.3",
     "@types/react-portal": "^4.0.7",
-    "sass": "^1.101.0"
+    "sass": "^1.102.0"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }
