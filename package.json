@@ -95,7 +95,7 @@
     "packages/scrabble-solver"
   ],
   "dependencies": {
-    "@scrabble-solver/scrabble-solver": "^2.16.6",
+    "@scrabble-solver/scrabble-solver": "^2.16.7",
     "concurrently": "^10.0.4",
     "open-cli": "^9.0.0",
     "wait-on": "^9.1.0"
