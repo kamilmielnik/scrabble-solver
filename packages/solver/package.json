@@ -19,6 +19,7 @@
   },
   "homepage": "https://scrabble-solver.org",
   "scripts": {
+    "benchmark": "bun benchmarks/index.ts",
     "build": "tsc --project .",
     "clean": "rimraf build/",
     "test": "bun test --timeout 180000 src"
