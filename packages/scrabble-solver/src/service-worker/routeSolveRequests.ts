@@ -1,6 +1,6 @@
-import { type Trie } from '@kamilmielnik/trie';
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
+import { type Gaddag } from '@scrabble-solver/gaddag';
 import { solve } from '@scrabble-solver/solver';
 import { Board, Tile } from '@scrabble-solver/types';
 import { registerRoute } from 'workbox-routing';
@@ -9,7 +9,7 @@ import { type SolveRequestPayload } from '@/types';
 
 import { average } from './average';
 import { revalidateDictionary } from './dictionaries';
-import { getTrie } from './getTrie';
+import { getGaddag } from './getGaddag';
 
 const headers = {
   'Content-Type': 'application/json; charset=utf-8',
@@ -26,12 +26,12 @@ export const routeSolveRequests = () => {
       const requestJson: SolveRequestPayload = await request.clone().json();
       const { board, characters, game, locale } = requestJson;
 
-      const solveLocal = async (trie: Trie): Promise<Response> => {
+      const solveLocal = async (gaddag: Gaddag): Promise<Response> => {
         const config = getConfig(game, locale);
         const tiles = characters.map((character: string) => new Tile({ character, isBlank: character === BLANK }));
 
         return new Promise((resolve) => {
-          const resultsJson = solve(trie, config, Board.fromJson(board), tiles);
+          const resultsJson = solve(gaddag, config, Board.fromJson(board), tiles);
           const responseJson = JSON.stringify(resultsJson);
           resolve(new Response(responseJson, { headers }));
         });
@@ -39,13 +39,13 @@ export const routeSolveRequests = () => {
 
       const solveServer = () => fetch(request);
 
-      const trie = await getTrie(locale);
+      const gaddag = await getGaddag(locale);
 
-      if (trie && typeof isSlowDevice() === 'undefined') {
+      if (gaddag && typeof isSlowDevice() === 'undefined') {
         const response = await Promise.race([
           (async () => {
             const start = Date.now();
-            const result = solveLocal(trie);
+            const result = solveLocal(gaddag);
             localDurations.push(Date.now() - start);
             return result;
           })(),
@@ -62,7 +62,7 @@ export const routeSolveRequests = () => {
         return response;
       }
 
-      const handleSolve = trie && !isSlowDevice() ? () => solveLocal(trie) : () => solveServer();
+      const handleSolve = gaddag && !isSlowDevice() ? () => solveLocal(gaddag) : () => solveServer();
       const response = await handleSolve();
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       revalidateDictionary(locale);

@@ -1,4 +1,4 @@
-import { Trie } from '@kamilmielnik/trie';
+import { Gaddag } from '@scrabble-solver/gaddag';
 import { type Locale } from '@scrabble-solver/types';
 import fs from 'fs';
 
@@ -7,16 +7,16 @@ import type { Cache } from '../types';
 
 import { getDictionaryFilepath } from './getDictionaryFilepath';
 
-export class DiskCache implements Cache<Locale, Trie> {
-  public async get(locale: Locale): Promise<Trie | undefined> {
+export class DiskCache implements Cache<Locale, Gaddag> {
+  public async get(locale: Locale): Promise<Gaddag | undefined> {
     if (!this.has(locale)) {
       return undefined;
     }
 
     const filepath = getDictionaryFilepath(locale);
-    const serialized = await fs.promises.readFile(filepath, 'utf-8');
-    const trie = Trie.deserialize(serialized);
-    return trie;
+    const serialized = await fs.promises.readFile(filepath);
+    const gaddag = Gaddag.deserialize(new Uint8Array(serialized.buffer, serialized.byteOffset, serialized.byteLength));
+    return gaddag;
   }
 
   public getLastModifiedTimestamp(locale: Locale): number | undefined {
@@ -50,8 +50,8 @@ export class DiskCache implements Cache<Locale, Trie> {
     return timeSinceModification > CACHE_STALE_THRESHOLD;
   }
 
-  public async set(locale: Locale, trie: Trie): Promise<void> {
+  public async set(locale: Locale, gaddag: Gaddag): Promise<void> {
     const filepath = getDictionaryFilepath(locale);
-    await fs.promises.writeFile(filepath, trie.serialize());
+    await fs.promises.writeFile(filepath, gaddag.serialize());
   }
 }

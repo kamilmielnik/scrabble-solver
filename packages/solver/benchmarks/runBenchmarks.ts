@@ -1,7 +1,7 @@
-import { type Trie } from '@kamilmielnik/trie';
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
+import { type Gaddag } from '@scrabble-solver/gaddag';
 import { Board, type Config, Game, Tile } from '@scrabble-solver/types';
 
 import { solve } from '../src';
@@ -19,11 +19,11 @@ export const runBenchmarks = async (): Promise<Measurement[]> => {
 
   for (const scenario of LANGUAGE_SCENARIOS) {
     const config = getConfig(GAME, scenario.locale);
-    const trie = await dictionaries.get(scenario.locale);
-    assertBoardWordsAreValid(trie, scenario);
+    const gaddag = await dictionaries.get(scenario.locale);
+    assertBoardWordsAreValid(gaddag, scenario);
 
     for (let blanksCount = 0; blanksCount <= config.blanksCount; blanksCount++) {
-      const measurement = measureScenario(trie, config, scenario, blanksCount);
+      const measurement = measureScenario(gaddag, config, scenario, blanksCount);
       console.log(
         `${scenario.label} - ${formatBlanksCount(blanksCount)} - median ${formatDuration(median(measurement.durations))} - ${measurement.resultsCount} results`,
       );
@@ -34,7 +34,12 @@ export const runBenchmarks = async (): Promise<Measurement[]> => {
   return measurements;
 };
 
-const measureScenario = (trie: Trie, config: Config, scenario: LanguageScenario, blanksCount: number): Measurement => {
+const measureScenario = (
+  gaddag: Gaddag,
+  config: Config,
+  scenario: LanguageScenario,
+  blanksCount: number,
+): Measurement => {
   const durations: number[] = [];
   let resultsCount = 0;
 
@@ -42,7 +47,7 @@ const measureScenario = (trie: Trie, config: Config, scenario: LanguageScenario,
     const board = Board.fromStringArray(scenario.boardRows);
     const tiles = generateRack(scenario.baseRack, blanksCount);
     const start = performance.now();
-    const results = solve(trie, config, board, tiles);
+    const results = solve(gaddag, config, board, tiles);
     const duration = performance.now() - start;
 
     if (results.length === 0) {
@@ -65,8 +70,8 @@ const generateRack = (baseRack: string[], blanksCount: number): Tile[] => {
     .map((character) => new Tile({ character, isBlank: character === BLANK }));
 };
 
-const assertBoardWordsAreValid = (trie: Trie, scenario: LanguageScenario): void => {
-  const invalidWords = scenario.boardWords.filter((word) => !trie.has(word));
+const assertBoardWordsAreValid = (gaddag: Gaddag, scenario: LanguageScenario): void => {
+  const invalidWords = scenario.boardWords.filter((word) => !gaddag.has(word));
 
   if (invalidWords.length > 0) {
     throw new Error(`Words not present in ${scenario.locale} dictionary: ${invalidWords.join(', ')}`);

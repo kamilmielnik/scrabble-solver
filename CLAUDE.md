@@ -6,18 +6,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a Bun-workspaces monorepo (managed with Lerna for versioning/publishing and Nx purely for build caching/ordering). `engines` requires **Bun >=1.3** and **Node.js >=24**. The lockfile is `bun.lock` (text JSON, lockfileVersion 1) — `package-lock.json` was removed when the project migrated off npm/Jest in `#421` (Apr 2026). Workspace scripts use `bun run --filter <pattern> <script>` — the `'./packages/*'` glob runs in dependency order (built-in Nx cache), and `'*'` skips workspaces without that script (relevant for `test`).
 
-The nine packages live under `packages/` and have a strict dependency order. When something breaks "downstream" of where you edited, rebuild the upstream package first:
+The ten packages live under `packages/` and have a strict dependency order. When something breaks "downstream" of where you edited, rebuild the upstream package first:
 
 ```
 constants → types → configs ──┐
                               ├──→ dictionaries → solver → scrabble-solver (Next.js app)
 word-lists ───────────────────┤
 word-definitions ─────────────┘
+gaddag (zero dependencies, used by dictionaries + solver + app)
 logger (independent, used by app + dictionaries)
 ```
 
-- `solver` — pure word-finding engine. Given a `Trie`, `Config`, `Board`, and `Tile[]`, returns scored `Result`s. Has no I/O. Pipeline is `generatePatterns → fillPattern (per pattern) → areDigraphsValid (only when `config.twoCharacterTiles` is non-empty) → getUniquePatterns → getPatternScore`. New solving rules belong in this pipeline; `solve.ts` itself is just orchestration.
-- `dictionaries` — downloads/caches per-locale word lists to `$HOME/.scrabble-solver/dictionaries` and exposes them as `Trie`s. The `Dictionaries` class layers a `MemoryCache` over a `DiskCache` (`LayeredCache`) and uses a per-locale `createAsyncProxy` to coalesce concurrent downloads. Cache entries older than `CACHE_STALE_THRESHOLD` (1 day) are refreshed on access. Only this package and `logger` perform filesystem I/O — keep other packages pure so they can run in Edge / browser contexts.
+- `gaddag` — zero-dependency GADDAG (Gordon, 1994) implementation: flat typed-array automaton with `has`/`hasPrefix`/`getArc`, binary `serialize`/`deserialize`, and `buildGaddag(words)` (radix-sorted sequences + incremental minimal-automaton construction). Replaced `@kamilmielnik/trie` (#164).
+- `solver` — pure word-finding engine. Given a `Gaddag`, `Config`, `Board`, and `Tile[]`, returns scored `Result`s. Has no I/O. `solve.ts` delegates to `MoveGenerator` — anchor-based GADDAG move generation with per-cell cross-check masks, run once per direction; results are scored inline (mirroring `getPatternScore`) and sorted to match the old pattern-enumeration order so UI ties resolve identically. The previous pattern-based solver lives on in `src/reference/` (`referenceSolve`) purely as a test oracle — `parity.test.ts` asserts both produce identical result sets.
+- `dictionaries` — downloads/caches per-locale word lists to `$HOME/.scrabble-solver/dictionaries` and exposes them as `Gaddag`s (binary `<locale>.gaddag` files on disk; building the Polish GADDAG from its 3.2M-word list takes ~25 s, so it happens in `postbuild`/background updates, not per request). The `Dictionaries` class layers a `MemoryCache` over a `DiskCache` (`LayeredCache`) and uses a per-locale `createAsyncProxy` to coalesce concurrent downloads. Cache entries older than `CACHE_STALE_THRESHOLD` (1 day) are refreshed on access. Only this package and `logger` perform filesystem I/O — keep other packages pure so they can run in Edge / browser contexts.
 - `word-lists` — pulls raw word lists from upstream sources (one fetcher per locale in `src/languages/`). Used by `dictionaries` during downloads.
 - `word-definitions` — per-locale `crawl(word) → string` and a parser for each source (Wiktionary, CNRTL, DWDS, SJP, dexonline, vajehyab, etc.). Add a new locale by adding a `crawl` and a `parse` function in `src/languages/` and wiring them into `crawl.ts` / `parse.ts`. `parse.test.ts` is where you add fixture-based parser tests.
 - `types` — domain model classes (`Board`, `Cell`, `Tile`, `Pattern`, `Result`, `Config`, `Locale`, …) plus `*Json` shapes. Most of these have a `fromJson` / `toJson` round-trip — use them at the wire boundary instead of hand-rolled serialization.
@@ -65,7 +67,7 @@ Hot reload only works for the `scrabble-solver` package. Edits to any other pack
 ## Testing notes
 
 - Unit tests run on **Bun's test runner**, not Jest. The API is Jest-compatible (`describe`/`it`/`expect`), which is why the oxlint config still loads the `jest` plugin for rules like `no-focused-tests`.
-- Only `solver`, `word-definitions`, and `scrabble-solver` have a `test` script. Tests are auto-discovered under `src/` matching `*.test.ts(x)`. The 180s timeout is needed because some solver tests build a real `Trie` from a downloaded dictionary.
+- Only `solver`, `word-definitions`, and `scrabble-solver` have a `test` script. Tests are auto-discovered under `src/` matching `*.test.ts(x)`. The 180s timeout is needed because some solver tests build a real `Gaddag` from a downloaded dictionary.
 - `bunfig.toml` + `bun.test.preload.ts` register a SCSS loader stub (returns a `Proxy` whose keys are their own names) so component tests can import `*.scss` modules without a real compiler. If you add other non-JS imports to test-touched code (images, etc.), extend the preload.
 - Each package's `tsconfig.json` excludes `**/*.test.ts` from the build output. Tests are not part of published packages.
 - Cypress: tests in `cypress/e2e/`. Custom command setup in `cypress/support/commands.ts` (registers `@testing-library/cypress` and `cypress-real-events`). Two base URLs are in play: `cypress.config.ts` defaults to `http://localhost:3000` (matches `bun run dev`); `test-cypress:run` and CI override to `:3333` (matches `bun start`). Pick the script that matches the server you're actually running. `cypress.config.ts` registers `@cypress/webpack-batteries-included-preprocessor` from npm as the `file:preprocessor` — the copy bundled inside Cypress 15.19.0 crashes on TypeScript 7 projects (its `@babel/preset-typescript` ships without a `package.json`); drop the override once a fixed Cypress release lands.
@@ -103,7 +105,7 @@ The `Deploy` GitHub workflow (`workflow_dispatch` only) SSHs into the production
 
 The app reads/writes user data outside the project directory:
 
-- `$HOME/.scrabble-solver/dictionaries/` — cached `Trie`s, one per locale, refreshed when older than 1 day.
+- `$HOME/.scrabble-solver/dictionaries/` — cached serialized `Gaddag`s (binary), one per locale, refreshed when older than 1 day.
 - `$HOME/.scrabble-solver/logs/{all,error}.log` — Winston JSON logs.
 
 The `bunx scrabble-solver@latest` entry point (`bin/scrabble-solver.js`) just `cd`s to the package root and runs `bun start`. The app then serves on http://localhost:3333.
@@ -112,6 +114,7 @@ The `bunx scrabble-solver@latest` entry point (`bin/scrabble-solver.js`) just `c
 
 Look here when something seems set up oddly — the reason is usually one of these recent changes. Reference issue numbers, not dates, when grepping git log.
 
+- **#164 — GADDAG solver** (Aug 2026). `@kamilmielnik/trie` was dropped everywhere in favor of the in-repo `@scrabble-solver/gaddag` package; `solve()` was rewritten as anchor-based GADDAG move generation (~40-60× faster). Disk-cached dictionaries changed from serialized-trie `.txt` to binary `.gaddag` files, and `/api/dictionary/[locale]` now serves `application/octet-stream` (the service worker deserializes with `Gaddag.deserialize`). The old solver survives only as `src/reference/referenceSolve` in the solver package, used by `parity.test.ts` as a correctness oracle. The nine packages became ten.
 - **#421 — Bun migration** (Apr 2026). npm/Jest → Bun. Top-level scripts now use `bun run --filter`, lockfile is `bun.lock`, unit tests run on `bun test`, the published binary's launcher (`bin/scrabble-solver.js`) shells out to `bun start`, and the old `npx.yml` workflow was renamed to `bunx.yml` (now installs the published package via `bun add --global`). All workflows use `oven-sh/setup-bun@v2`; `e2e-tests.yml` is the only one that also uses `setup-node` (Cypress action).
 - **#422 — TypeScript 7** (Apr 2026). Moved build/type-check to `tsgo` (native preview). Superseded in Aug 2026 by stable `typescript@7`, where the native compiler ships as plain `tsc` — scripts call `tsc` again and `@typescript/native-preview` is gone.
 - **#420 — ESLint → Oxlint**. The `eslint-plugin-*` packages still appear in devDeps because oxlint loads them as JS plugins (`jsPlugins` in `.oxlintrc.json`). Don't strip them.

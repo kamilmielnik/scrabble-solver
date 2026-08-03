@@ -1,4 +1,4 @@
-import { type Trie } from '@kamilmielnik/trie';
+import { type Gaddag } from '@scrabble-solver/gaddag';
 import { type Locale } from '@scrabble-solver/types';
 
 import type { Cache } from '../types';
@@ -7,10 +7,10 @@ import { createCacheTimestampComparator } from './createCacheTimestampComparator
 import { DiskCache } from './DiskCache';
 import { MemoryCache } from './MemoryCache';
 
-export class LayeredCache implements Cache<Locale, Trie> {
+export class LayeredCache implements Cache<Locale, Gaddag> {
   private readonly layers = [new MemoryCache(), new DiskCache()];
 
-  public async get(locale: Locale): Promise<Trie | undefined> {
+  public async get(locale: Locale): Promise<Gaddag | undefined> {
     const cache = this.getLastModifiedLayer(locale);
 
     if (!cache) {
@@ -53,13 +53,13 @@ export class LayeredCache implements Cache<Locale, Trie> {
     return false;
   }
 
-  public async set(locale: Locale, trie: Trie): Promise<void> {
+  public async set(locale: Locale, gaddag: Gaddag): Promise<void> {
     const [memoryCache, diskCache] = this.layers;
-    await diskCache.set(locale, trie);
-    await memoryCache.set(locale, trie);
+    await diskCache.set(locale, gaddag);
+    await memoryCache.set(locale, gaddag);
   }
 
-  private getLastModifiedLayer(locale: Locale): Cache<Locale, Trie> | undefined {
+  private getLastModifiedLayer(locale: Locale): Cache<Locale, Gaddag> | undefined {
     const layers = this.layers.filter((cache) => cache.has(locale));
     const [cached] = [...layers].sort(createCacheTimestampComparator(locale));
     return cached;

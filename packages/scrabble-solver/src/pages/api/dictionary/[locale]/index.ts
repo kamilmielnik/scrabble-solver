@@ -22,8 +22,9 @@ const dictionary = async (request: NextApiRequest, response: NextApiResponse): P
       },
     });
 
-    const trie = await dictionaries.get(locale);
-    response.status(200).send(trie.serialize());
+    const gaddag = await dictionaries.get(locale);
+    response.setHeader('Content-Type', 'application/octet-stream');
+    response.status(200).send(Buffer.from(gaddag.serialize()));
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     logger.error('dictionary - error', { error, meta });
@@ -45,7 +46,7 @@ const parseRequest = (request: NextApiRequest): RequestData => {
 
 export const config = {
   api: {
-    responseLimit: '25mb',
+    responseLimit: '50mb',
   },
 };
 

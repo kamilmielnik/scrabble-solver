@@ -1,15 +1,15 @@
-import { type Trie } from '@kamilmielnik/trie';
+import { type Gaddag } from '@scrabble-solver/gaddag';
 import { type Locale } from '@scrabble-solver/types';
 
 import { CACHE_STALE_THRESHOLD } from '../constants';
 import type { Cache } from '../types';
 
-export class MemoryCache implements Cache<Locale, Trie> {
-  private readonly cache: Partial<Record<Locale, Trie>> = {};
+export class MemoryCache implements Cache<Locale, Gaddag> {
+  private readonly cache: Partial<Record<Locale, Gaddag>> = {};
 
   private readonly cacheTimestamps: Partial<Record<Locale, number>> = {};
 
-  public get(locale: Locale): Promise<Trie | undefined> {
+  public get(locale: Locale): Promise<Gaddag | undefined> {
     return Promise.resolve(this.cache[locale]);
   }
 
@@ -32,9 +32,9 @@ export class MemoryCache implements Cache<Locale, Trie> {
     return timeSinceModification > CACHE_STALE_THRESHOLD;
   }
 
-  public set(locale: Locale, trie: Trie): Promise<void> {
+  public set(locale: Locale, gaddag: Gaddag): Promise<void> {
     this.cacheTimestamps[locale] = Date.now();
-    this.cache[locale] = trie;
+    this.cache[locale] = gaddag;
     return Promise.resolve();
   }
 }

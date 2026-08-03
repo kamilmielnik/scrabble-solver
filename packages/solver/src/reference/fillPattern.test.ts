@@ -1,6 +1,6 @@
-import { type Trie } from '@kamilmielnik/trie';
 import { getConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
+import { type Gaddag } from '@scrabble-solver/gaddag';
 import { Board, Cell, FinalPattern, Game, Locale, type Pattern, Tile, VerticalPattern } from '@scrabble-solver/types';
 
 import { fillPattern, fillPatternRecursive } from './fillPattern';
@@ -10,7 +10,7 @@ const locale = Locale.PL_PL;
 const config = getConfig(Game.Literaki, locale);
 
 describe('fillPattern', () => {
-  let trie: Trie | undefined;
+  let trie: Gaddag | undefined;
 
   beforeAll(() => {
     return dictionaries.get(locale).then((loadedTrie) => {
@@ -84,7 +84,7 @@ describe('fillPattern', () => {
 });
 
 describe('fillPatternRecursive', () => {
-  let trie: Trie | undefined;
+  let trie: Gaddag | undefined;
 
   beforeAll(() => {
     return dictionaries.get(locale).then((loadedTrie) => {

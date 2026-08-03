@@ -20,9 +20,9 @@ bun run benchmark
 
 | Blanks | English (US) | English (GB) | Polish |
 | --- | --- | --- | --- |
-| 0 | 95 ms (1,559 results) | 113 ms (2,398 results) | 86 ms (1,826 results) |
-| 1 | 1.1 s (7,546 results) | 1.2 s (11,680 results) | 1.1 s (15,289 results) |
-| 2 | 7.9 s (25,659 results) | 10.1 s (39,286 results) | 13.3 s (70,691 results) |
+| 0 | 6 ms (1,559 results) | 5 ms (2,398 results) | 4 ms (1,826 results) |
+| 1 | 31 ms (7,546 results) | 36 ms (11,680 results) | 31 ms (15,289 results) |
+| 2 | 110 ms (25,659 results) | 124 ms (39,286 results) | 161 ms (70,691 results) |
 
 Median of 5 runs (after 5 warmup runs)
 

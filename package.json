@@ -87,6 +87,7 @@
   "workspaces": [
     "packages/logger",
     "packages/constants",
+    "packages/gaddag",
     "packages/types",
     "packages/configs",
     "packages/word-lists",

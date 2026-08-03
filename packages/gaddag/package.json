@@ -1,13 +1,9 @@
 {
-  "name": "@scrabble-solver/dictionaries",
+  "name": "@scrabble-solver/gaddag",
   "version": "2.16.7",
-  "description": "Scrabble Solver 2 - Dictionaries",
+  "description": "Scrabble Solver 2 - GADDAG",
   "main": "build/index.js",
   "types": "build/index.d.ts",
-  "bin": {
-    "remove-dictionaries": "./bin/remove-dictionaries.js",
-    "update-dictionaries": "./bin/update-dictionaries.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kamilmielnik/scrabble-solver.git"
@@ -25,14 +21,7 @@
   "scripts": {
     "build": "tsc --project .",
     "clean": "rimraf build/",
-    "clean:dictionaries": "node ./bin/remove-dictionaries.js",
-    "postbuild": "node ./bin/update-dictionaries.js"
-  },
-  "dependencies": {
-    "@scrabble-solver/gaddag": "^2.16.7",
-    "@scrabble-solver/logger": "^2.16.7",
-    "@scrabble-solver/types": "^2.16.7",
-    "@scrabble-solver/word-lists": "^2.16.7"
+    "test": "bun test --timeout 180000 src"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }

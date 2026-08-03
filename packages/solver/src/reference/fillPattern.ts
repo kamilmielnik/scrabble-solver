@@ -1,9 +1,10 @@
 /* eslint-disable max-params, max-statements */
-import { type Trie } from '@kamilmielnik/trie';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { type Config, FinalPattern, type Pattern, type Tile } from '@scrabble-solver/types';
 
-export const fillPattern = (trie: Trie, config: Config, pattern: Pattern, tiles: Tile[]): Pattern[] => {
+import { type WordFinder } from './WordFinder';
+
+export const fillPattern = (trie: WordFinder, config: Config, pattern: Pattern, tiles: Tile[]): Pattern[] => {
   if (pattern.getEmptyCellsCount() > tiles.length) {
     return [];
   }
@@ -18,7 +19,7 @@ export const fillPattern = (trie: Trie, config: Config, pattern: Pattern, tiles:
 export const fillPatternRecursive = (
   /** gets mutated when this function is called */
   results: Pattern[],
-  trie: Trie,
+  trie: WordFinder,
   config: Config,
   pattern: Pattern,
   word: string,

@@ -4,7 +4,7 @@ import { DICTIONARY_CACHE } from './constants';
 import { expirationManager } from './expirationManager';
 import { getDictionaryUrl } from './getDictionaryUrl';
 
-export const getDictionary = async (locale: Locale): Promise<string | undefined> => {
+export const getDictionary = async (locale: Locale): Promise<Uint8Array | undefined> => {
   await expirationManager.expireEntries();
 
   const url = getDictionaryUrl(locale);
@@ -15,6 +15,6 @@ export const getDictionary = async (locale: Locale): Promise<string | undefined>
     return undefined;
   }
 
-  const serialized = await cached.clone().text();
-  return serialized;
+  const serialized = await cached.clone().arrayBuffer();
+  return new Uint8Array(serialized);
 };

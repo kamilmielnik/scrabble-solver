@@ -1,8 +1,8 @@
 /* eslint-disable max-lines */
 
-import { type Trie } from '@kamilmielnik/trie';
 import { getConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
+import { type Gaddag } from '@scrabble-solver/gaddag';
 import { Board, Game, Locale, Result, Tile } from '@scrabble-solver/types';
 
 import { solve } from './solve';
@@ -21,7 +21,7 @@ const getBestResult = ([firstResult, ...results]: Result[]): Result => {
 describe('solve - pl-PL', () => {
   const locale = Locale.PL_PL;
   const config = getConfig(Game.Literaki, locale);
-  let trie: Trie | undefined;
+  let trie: Gaddag | undefined;
 
   beforeAll(() => {
     return dictionaries.get(locale).then((loadedTrie) => {
@@ -129,7 +129,7 @@ describe('solve - pl-PL', () => {
 describe('solve - es-ES', () => {
   const locale = Locale.ES_ES;
   const config = getConfig(Game.Scrabble, locale);
-  let trie: Trie | undefined;
+  let trie: Gaddag | undefined;
 
   beforeAll(() => {
     return dictionaries.get(locale).then((loadedTrie) => {
@@ -190,7 +190,7 @@ describe('solve - es-ES', () => {
 describe('solve - en-GB', () => {
   const locale = Locale.EN_GB;
   const config = getConfig(Game.Scrabble, locale);
-  let trie: Trie | undefined;
+  let trie: Gaddag | undefined;
 
   beforeAll(() => {
     return dictionaries.get(locale).then((loadedTrie) => {

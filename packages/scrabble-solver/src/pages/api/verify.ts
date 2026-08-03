@@ -30,10 +30,10 @@ const verify = async (request: NextApiRequest, response: NextApiResponse): Promi
       },
     });
 
-    const trie = await dictionaries.get(locale);
+    const gaddag = await dictionaries.get(locale);
     const words = board.getWords().sort((a, b) => a.localeCompare(b, locale));
-    const invalidWords = words.filter((word) => !trie.has(word));
-    const validWords = words.filter((word) => trie.has(word));
+    const invalidWords = words.filter((word) => !gaddag.has(word));
+    const validWords = words.filter((word) => gaddag.has(word));
     response.status(200).send({ invalidWords, validWords });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';

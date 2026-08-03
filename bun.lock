@@ -53,11 +53,15 @@
         "update-dictionaries": "./bin/update-dictionaries.js",
       },
       "dependencies": {
-        "@kamilmielnik/trie": "^5.1.0",
+        "@scrabble-solver/gaddag": "^2.16.7",
         "@scrabble-solver/logger": "^2.16.7",
         "@scrabble-solver/types": "^2.16.7",
         "@scrabble-solver/word-lists": "^2.16.7",
       },
+    },
+    "packages/gaddag": {
+      "name": "@scrabble-solver/gaddag",
+      "version": "2.16.7",
     },
     "packages/logger": {
       "name": "@scrabble-solver/logger",
@@ -71,11 +75,11 @@
       "version": "2.16.7",
       "dependencies": {
         "@floating-ui/react": "^0.27.20",
-        "@kamilmielnik/trie": "^5.1.0",
         "@reduxjs/toolkit": "^2.12.0",
         "@scrabble-solver/configs": "^2.16.7",
         "@scrabble-solver/constants": "^2.16.7",
         "@scrabble-solver/dictionaries": "^2.16.7",
+        "@scrabble-solver/gaddag": "^2.16.7",
         "@scrabble-solver/logger": "^2.16.7",
         "@scrabble-solver/solver": "^2.16.7",
         "@scrabble-solver/types": "^2.16.7",
@@ -117,7 +121,7 @@
       "name": "@scrabble-solver/solver",
       "version": "2.16.7",
       "dependencies": {
-        "@kamilmielnik/trie": "^5.1.0",
+        "@scrabble-solver/gaddag": "^2.16.7",
         "@scrabble-solver/types": "^2.16.7",
       },
       "devDependencies": {
@@ -562,8 +566,6 @@
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
 
-    "@kamilmielnik/trie": ["@kamilmielnik/trie@5.1.0", "", {}, "sha512-QkOMdPLZtbJ3kPaB2fm3+PMRInTj/M8eCiUo4xtiOHHlB9Qe9/qKNAf848UkLKcWjpa6mXvXiyKNCG2LSxKxiQ=="],
-
     "@napi-rs/lzma-linux-x64-gnu": ["@napi-rs/lzma-linux-x64-gnu@1.5.1", "", { "os": "linux", "cpu": "x64" }, "sha512-oTXEIha4SsuXdTA4Iyskj0kpdx2yVXdhd75c2v3xGrHFfVMsbhTPZU/nMPL4sWKo4pBHm3aucLaqGlF696dTyQ=="],
 
     "@napi-rs/wasm-runtime": ["@napi-rs/wasm-runtime@0.2.4", "", { "dependencies": { "@emnapi/core": "^1.1.0", "@emnapi/runtime": "^1.1.0", "@tybys/wasm-util": "^0.9.0" } }, "sha512-9zESzOO5aDByvhIAsOy9TbpZ0Ur2AJbUI7UT73kcUTS2mxAMHOBaa1st/jAymNoCtvrit99kkzT1FZuXVcgfIQ=="],
@@ -873,6 +875,8 @@
     "@scrabble-solver/constants": ["@scrabble-solver/constants@workspace:packages/constants"],
 
     "@scrabble-solver/dictionaries": ["@scrabble-solver/dictionaries@workspace:packages/dictionaries"],
+
+    "@scrabble-solver/gaddag": ["@scrabble-solver/gaddag@workspace:packages/gaddag"],
 
     "@scrabble-solver/logger": ["@scrabble-solver/logger@workspace:packages/logger"],
 
