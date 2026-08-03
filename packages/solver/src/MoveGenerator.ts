@@ -1,5 +1,5 @@
 /* eslint-disable max-depth, max-lines, max-statements, no-bitwise */
-import { type Gaddag, SEPARATOR } from '@kamilmielnik/gaddag';
+import { type Gaddag, LAST_ARC_FLAG, LETTER_MASK, SEPARATOR } from '@kamilmielnik/gaddag';
 import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 import {
   type Board,
@@ -12,6 +12,9 @@ import {
 } from '@scrabble-solver/types';
 
 const MAX_ALPHABET_SIZE = 64;
+
+// The result sort key packs (direction, line, start, end) into one integer.
+const MAX_BOARD_DIMENSION = 32;
 
 /**
  * Anchor-based move generation over a {@link Gaddag} (Gordon, 1994).
@@ -138,6 +141,10 @@ export class MoveGenerator {
 
     if (alphabet.length > MAX_ALPHABET_SIZE) {
       throw new Error(`Alphabets larger than ${MAX_ALPHABET_SIZE} tiles are not supported`);
+    }
+
+    if (this.width > MAX_BOARD_DIMENSION || this.height > MAX_BOARD_DIMENSION) {
+      throw new Error(`Boards larger than ${MAX_BOARD_DIMENSION}x${MAX_BOARD_DIMENSION} are not supported`);
     }
 
     this.alphaSize = alphabet.length;
@@ -666,7 +673,7 @@ export class MoveGenerator {
 
     for (;;) {
       const label = labels[arcIndex];
-      const letter = label & 63;
+      const letter = label & LETTER_MASK;
 
       if (letter !== SEPARATOR) {
         const target = targets[arcIndex];
@@ -711,7 +718,7 @@ export class MoveGenerator {
         }
       }
 
-      if (label >= 128) {
+      if (label >= LAST_ARC_FLAG) {
         return;
       }
 

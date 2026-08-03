@@ -24,6 +24,7 @@ const getCompressedDictionary = (gaddag: Gaddag): Promise<Buffer> => {
   if (!compressed) {
     compressed = gzipAsync(gaddag.serialize());
     compressedCache.set(gaddag, compressed);
+    compressed.catch(() => compressedCache.delete(gaddag));
   }
 
   return compressed;
@@ -32,7 +33,16 @@ const getCompressedDictionary = (gaddag: Gaddag): Promise<Buffer> => {
 const acceptsGzip = (request: NextApiRequest): boolean => {
   const acceptEncoding = request.headers['accept-encoding'];
   const header = Array.isArray(acceptEncoding) ? acceptEncoding.join(',') : acceptEncoding;
-  return typeof header === 'string' && /\bgzip\b/.test(header);
+
+  if (typeof header !== 'string') {
+    return false;
+  }
+
+  return header.split(',').some((entry) => {
+    const [encoding, ...parameters] = entry.split(';').map((token) => token.trim().toLowerCase());
+    const isRefused = parameters.some((parameter) => /^q=0(\.0{1,3})?$/.test(parameter.replaceAll(' ', '')));
+    return (encoding === 'gzip' || encoding === 'x-gzip') && !isRefused;
+  });
 };
 
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
