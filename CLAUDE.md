@@ -36,7 +36,7 @@ logger (independent, used by app + dictionaries)
 - **Layout**: `AppLayoutProvider` (`src/app-layout/`) is a React context exposing `useAppLayoutValue`. It was extracted from a custom hook for memoization reasons — consume layout via `useAppLayout()`, not by re-deriving it. The active modal in `pages/index.tsx` is tracked as a `Record<Modal, boolean>` patched through a single `patchModals` callback.
 - **Styling**: SCSS modules with a shared design-token system. SCSS tokens live in `src/styles/_tokens.scss`; the same values are re-exported to TS via `:export` in `variables.module.scss` (imported in JS as a module, typed by `src/@types/scss.d.ts`). Concrete JS constants live in `src/parameters/index.ts` (e.g. `BREAKPOINTS`, `COLOR_BLUE`, `TRANSITION_DURATION`) — that file is the only place that should read from `variables.module.scss`. Update `_tokens.scss` first → expose via `variables.module.scss` `:export` block → consume via `parameters/`. This was added in PR #228 (Apr 2026); before it, JS-side colors and breakpoints were hard-coded duplicates. Responsive helpers come from `include-media`.
 - **SVGs**: imported as React components via `@svgr/webpack` (configured in `next.config.js`), typed by `src/@types/svg.d.ts`.
-- **Service worker registration**: production-only. Registered by `serviceWorkerManager.ts` from the index page; Cypress tests must call `unregisterServiceWorkers()` (in `cypress/support/lib`) in `beforeEach` and `cy.clearLocalStorage()` in `afterEach` to avoid bleed-through between tests.
+- **Service worker registration**: production-only. Registered by `serviceWorkerManager.ts` from the index page; Playwright blocks registration entirely via `serviceWorkers: 'block'` in `playwright.config.ts`, and each test gets a fresh browser context, so e2e tests need no service-worker or localStorage cleanup.
 
 ## Common commands
 
@@ -56,9 +56,9 @@ All commands run from the repo root unless noted.
 | Unit tests (one package) | `bun run --filter @scrabble-solver/solver test` |
 | One unit test file | `cd packages/solver && bun test src/solve.test.ts` |
 | One unit test by name | `cd packages/solver && bun test -t "pattern"` |
-| Cypress (interactive) | `bun run test-cypress` (expects dev server on :3000) |
-| Cypress (headless) | `bun run test-cypress:run` (expects server on :3333) |
-| Full test pipeline | `bun run test` (build → unit → `start-server-and-test` boots the app on :3333 → cypress run) — note: `bun test` invokes Bun's built-in test runner, not this script |
+| Playwright (UI mode) | `bun run test-playwright` (expects dev server on :3000) |
+| Playwright (headless) | `bun run test-playwright:run` (expects server on :3333) |
+| Full test pipeline | `bun run test` (build → unit → `start-server-and-test` boots the app on :3333 → playwright test) — note: `bun test` invokes Bun's built-in test runner, not this script |
 
 Hot reload only works for the `scrabble-solver` package. Edits to any other package require rebuilding that package before the app picks them up.
 
@@ -68,13 +68,13 @@ Hot reload only works for the `scrabble-solver` package. Edits to any other pack
 - Only `solver`, `word-definitions`, and `scrabble-solver` have a `test` script. Tests are auto-discovered under `src/` matching `*.test.ts(x)`. The 180s timeout is needed because some solver tests build a real `Trie` from a downloaded dictionary.
 - `bunfig.toml` + `bun.test.preload.ts` register a SCSS loader stub (returns a `Proxy` whose keys are their own names) so component tests can import `*.scss` modules without a real compiler. If you add other non-JS imports to test-touched code (images, etc.), extend the preload.
 - Each package's `tsconfig.json` excludes `**/*.test.ts` from the build output. Tests are not part of published packages.
-- Cypress: tests in `cypress/e2e/`. Custom command setup in `cypress/support/commands.ts` (registers `@testing-library/cypress` and `cypress-real-events`). Two base URLs are in play: `cypress.config.ts` defaults to `http://localhost:3000` (matches `bun run dev`); `test-cypress:run` and CI override to `:3333` (matches `bun start`). Pick the script that matches the server you're actually running. `cypress.config.ts` registers `@cypress/webpack-batteries-included-preprocessor` from npm as the `file:preprocessor` — the copy bundled inside Cypress 15.19.0 crashes on TypeScript 7 projects (its `@babel/preset-typescript` ships without a `package.json`); drop the override once a fixed Cypress release lands.
+- Playwright: specs in `e2e/` (`app.spec.ts`, `bugs/`, `features/`), shared page helpers in `e2e/lib/` (selectors return `Locator`s, actions take `page` first). Two base URLs are in play: `playwright.config.ts` defaults to `http://localhost:3000` (matches `bun run dev`); `test-playwright:run` and CI set `PLAYWRIGHT_BASE_URL=http://localhost:3333` (matches `bun start`). Pick the script that matches the server you're actually running. The config blocks service workers and runs Chromium only; browser binaries come from `bunx playwright install chromium`.
 
 ## Tooling specifics
 
 - **Linting**: `oxlint` (Rust-based ESLint replacement) configured in `.oxlintrc.json`. Type-aware rules require `oxlint-tsgolint`. Adding a new top-level JS config file usually means adding it to `ignorePatterns`. The oxlint config still loads the `jest` plugin and `jest` global because Bun's test runner mirrors the Jest API; do not remove them.
 - **Formatting**: `oxfmt` covers `*.{js,ts,tsx,scss}`.
-- **TypeScript**: stable TypeScript 7 (`typescript@^7.0.2`), whose `tsc` is the native Go compiler. It runs every package `build`, the app's `type-check`, and `next build` — the latter via `experimental.useTypeScriptCli` in `next.config.js`, required because TS7 has no JS compiler API (which also forces Next onto the 16.3 preview line until 16.3 is stable). The interim `@typescript/native-preview` (`tsgo`) setup from PR #422 was removed (Aug 2026). Root `tsconfig.json` sets `types: ["bun"]` for global test-runner types and excludes `cypress` and `cypress.config.ts`; library packages extend it and additionally exclude `**/*.test.ts` from emitted output.
+- **TypeScript**: stable TypeScript 7 (`typescript@^7.0.2`), whose `tsc` is the native Go compiler. It runs every package `build`, the app's `type-check`, and `next build` — the latter via `experimental.useTypeScriptCli` in `next.config.js`, required because TS7 has no JS compiler API (which also forces Next onto the 16.3 preview line until 16.3 is stable). The interim `@typescript/native-preview` (`tsgo`) setup from PR #422 was removed (Aug 2026). Root `tsconfig.json` sets `types: ["bun"]` for global test-runner types and excludes `e2e` and `playwright.config.ts` (covered by `e2e/tsconfig.json` instead); library packages extend it and additionally exclude `**/*.test.ts` from emitted output.
 - **Next.js**: built with `--webpack` flag explicitly (the default Turbopack is intentionally not used). `next.config.js` registers `@svgr/webpack` for SVG-as-component imports and the Workbox `InjectManifest` plugin for the service worker. SCSS load paths are extended to `./src` and `node_modules/include-media/dist`.
 - **Nx**: `nx.json` only defines a `build` target with `dependsOn: ["^build"]` and `cache: true`. It is used purely for dependency-aware build ordering and caching — there are no Nx generators or executors.
 
@@ -84,9 +84,9 @@ Hot reload only works for the `scrabble-solver` package. Edits to any other pack
 
 - `build.yml` — `bun install --frozen-lockfile && bun run build`.
 - `unit-tests.yml` — `bun run build && bun run test-unit`.
-- `e2e-tests.yml` — Cypress against `bun start` on :3333. Uploads screenshots on failure.
+- `e2e.yml` — Playwright against the app on :3333 (via `start-server-and-test`). Uploads the HTML report and traces on failure.
 - `oxlint.yml` / `oxfmt.yml` — lint and format-check.
-- `bunx.yml` / `npx.yml` — run daily and on push to master. Download the latest published `scrabble-solver` tarball with `npm pack`, install the global binary (`bun add --global` / `npm install --global`), then run Cypress from the extracted tarball against that binary. The Cypress specs come from the published package, **not** from `master` — if they came from master, any spec added for a feature that's merged but not yet released would run against the older published binary that lacks the feature, and fail (#428). Catches packaging regressions in the `bin/scrabble-solver.js` launcher.
+- `bunx.yml` / `npx.yml` — run daily and on push to master. Download the latest published `scrabble-solver` tarball with `npm pack`, install the global binary (`bun add --global` / `npm install --global`), then run Playwright from the extracted tarball against that binary. The Playwright specs come from the published package, **not** from `master` — if they came from master, any spec added for a feature that's merged but not yet released would run against the older published binary that lacks the feature, and fail (#428). Catches packaging regressions in the `bin/scrabble-solver.js` launcher.
 - `deploy.yml` — `workflow_dispatch` only. SSHs into prod, pulls, builds, restarts `scrabble-solver.service`.
 
 When adding a workflow, match the existing pattern: trigger on `push`/`pull_request` to `master`, use `actions/checkout@v6` and `oven-sh/setup-bun@v2`, install with `bun install --frozen-lockfile`.
@@ -112,7 +112,7 @@ The `bunx scrabble-solver@latest` entry point (`bin/scrabble-solver.js`) just `c
 
 Look here when something seems set up oddly — the reason is usually one of these recent changes. Reference issue numbers, not dates, when grepping git log.
 
-- **#421 — Bun migration** (Apr 2026). npm/Jest → Bun. Top-level scripts now use `bun run --filter`, lockfile is `bun.lock`, unit tests run on `bun test`, the published binary's launcher (`bin/scrabble-solver.js`) shells out to `bun start`, and the old `npx.yml` workflow was renamed to `bunx.yml` (now installs the published package via `bun add --global`). All workflows use `oven-sh/setup-bun@v2`; `e2e-tests.yml` is the only one that also uses `setup-node` (Cypress action).
+- **#421 — Bun migration** (Apr 2026). npm/Jest → Bun. Top-level scripts now use `bun run --filter`, lockfile is `bun.lock`, unit tests run on `bun test`, the published binary's launcher (`bin/scrabble-solver.js`) shells out to `bun start`, and the old `npx.yml` workflow was renamed to `bunx.yml` (now installs the published package via `bun add --global`). All workflows use `oven-sh/setup-bun@v2`; `npx.yml` is the only one that also uses `setup-node`.
 - **#422 — TypeScript 7** (Apr 2026). Moved build/type-check to `tsgo` (native preview). Superseded in Aug 2026 by stable `typescript@7`, where the native compiler ships as plain `tsc` — scripts call `tsc` again and `@typescript/native-preview` is gone.
 - **#420 — ESLint → Oxlint**. The `eslint-plugin-*` packages still appear in devDeps because oxlint loads them as JS plugins (`jsPlugins` in `.oxlintrc.json`). Don't strip them.
 - **#321 — Auto-persisted settings** (Apr 2026). Settings, board, and rack are written through a single `useLocalStorage` effect. Don't dispatch save actions manually.

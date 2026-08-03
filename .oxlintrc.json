@@ -3,15 +3,13 @@
   "plugins": ["eslint", "typescript", "react", "import", "unicorn", "oxc", "jest"],
   "jsPlugins": [
     { "name": "import-js", "specifier": "eslint-plugin-import" },
-    { "name": "mocha", "specifier": "eslint-plugin-mocha" },
+    { "name": "playwright", "specifier": "eslint-plugin-playwright" },
     { "name": "react-js", "specifier": "eslint-plugin-react" }
   ],
   "env": {
     "browser": true,
     "node": true,
     "jest": true,
-    "mocha": true,
-    "jquery": true,
     "serviceworker": true
   },
   "globals": {
@@ -19,8 +17,6 @@
     "RequestInit": "readonly",
     "ServiceWorkerGlobalScope": "readonly",
     "beforeAll": "readonly",
-    "cy": "readonly",
-    "Cypress": "readonly",
     "define": "readonly",
     "describe": "readonly",
     "expect": "readonly",
@@ -43,7 +39,7 @@
     "import-js/resolver": {
       "typescript": {
         "alwaysTryTypes": true,
-        "project": ["tsconfig.json", "packages/*/tsconfig.json", "cypress/tsconfig.json"]
+        "project": ["tsconfig.json", "packages/*/tsconfig.json", "e2e/tsconfig.json"]
       },
       "node": true
     }
@@ -56,7 +52,6 @@
     "**/node_modules/**/*",
     "**/*.d.ts",
     "**/.eslintrc.js",
-    "**/babel.config.js",
     "**/bump-version.js",
     "packages/scrabble-solver/next.config.js",
     "packages/logger/scripts/stats.js",
@@ -81,7 +76,6 @@
       }
     ],
 
-    "mocha/no-exclusive-tests": "error",
     "jest/no-focused-tests": "error",
 
     "react-js/no-deprecated": "error",
@@ -297,11 +291,13 @@
       }
     },
     {
-      "files": ["**/*.spec.cy.ts", "cypress/**"],
+      "files": ["e2e/**"],
       "rules": {
         "max-statements": "off",
+        "max-lines": "off",
         "jest/valid-expect": "off",
-        "jest/no-focused-tests": "off"
+        "jest/no-focused-tests": "off",
+        "playwright/no-focused-test": "error"
       }
     },
     {

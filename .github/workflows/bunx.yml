@@ -46,18 +46,21 @@ jobs:
       - name: Pre-warm dictionaries cache
         run: node packages/dictionaries/bin/update-dictionaries.js
         working-directory: work-dir
-      - uses: cypress-io/github-action@v7
-        with:
-          install: false
-          build: bun add --global scrabble-solver@${{ env.VERSION }}
-          start: scrabble-solver
-          wait-on: 'http://localhost:3333'
-          working-directory: work-dir
+      - name: Install Playwright browsers
+        run: bunx playwright install --with-deps chromium
+        working-directory: work-dir
+      - name: Install the published package globally
+        run: bun add --global scrabble-solver@${{ env.VERSION }}
+      - name: Run e2e tests against the global binary
+        run: bunx start-server-and-test scrabble-solver http://localhost:3333 'bunx playwright test'
+        working-directory: work-dir
         env:
-          CYPRESS_BASE_URL: http://localhost:3333
+          PLAYWRIGHT_BASE_URL: http://localhost:3333
       - uses: actions/upload-artifact@v7
         if: failure()
         with:
-          name: cypress-screenshots
-          path: work-dir/cypress/screenshots
+          name: playwright-artifacts
+          path: |
+            work-dir/playwright-report
+            work-dir/test-results
           if-no-files-found: ignore

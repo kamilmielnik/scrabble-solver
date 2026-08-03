@@ -198,7 +198,7 @@ bun run --filter @scrabble-solver/word-lists build
 - [CSS Modules](https://github.com/css-modules/css-modules)
 - [include-media](https://eduardoboucas.github.io/include-media/)
 - [Lerna](https://lerna.js.org/)
-- [Cypress](https://www.cypress.io/)
+- [Playwright](https://playwright.dev/)
 - [Oxlint](https://oxc.rs/docs/guide/usage/linter)
 - [Oxfmt](https://oxc.rs/docs/guide/usage/formatter)
 
