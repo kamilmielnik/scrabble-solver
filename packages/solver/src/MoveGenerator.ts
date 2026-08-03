@@ -780,8 +780,7 @@ export class MoveGenerator {
       this.seenSingleTiles.add(key);
     }
 
-    // Score (mirroring getPatternScore/getCellsScore exactly) and emit JSON
-    // identical in shape to the previous solver's output, in a single pass.
+    // Score and emit ResultJson in a single pass.
     let mainScore = 0;
     let wordMultiplier = 1;
     let collisionsScore = 0;
