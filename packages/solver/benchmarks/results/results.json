@@ -2,127 +2,127 @@
   {
     "blanksCount": 0,
     "durations": [
-      6.15,
-      6.58,
-      6.39,
-      5.66,
-      5.94
+      2.26,
+      2.18,
+      2.02,
+      2.02,
+      2.2
     ],
     "label": "English (US)",
     "locale": "en-US",
     "resultsCount": 1559,
-    "medianDuration": 6.15
+    "medianDuration": 2.18
   },
   {
     "blanksCount": 1,
     "durations": [
-      30.66,
-      28.54,
-      34.54,
-      36.07,
-      26.31
+      12.11,
+      12.87,
+      13.26,
+      13.66,
+      11.98
     ],
     "label": "English (US)",
     "locale": "en-US",
     "resultsCount": 7546,
-    "medianDuration": 30.66
+    "medianDuration": 12.87
   },
   {
     "blanksCount": 2,
     "durations": [
-      117.48,
-      110,
-      114.96,
-      93.65,
-      92.44
+      40.82,
+      40.85,
+      42.06,
+      40.97,
+      40.02
     ],
     "label": "English (US)",
     "locale": "en-US",
     "resultsCount": 25659,
-    "medianDuration": 110
+    "medianDuration": 40.85
   },
   {
     "blanksCount": 0,
     "durations": [
-      5.73,
-      6.09,
-      5.12,
-      4.93,
-      4.7
+      2.25,
+      2.22,
+      2.24,
+      2.22,
+      2.22
     ],
     "label": "English (GB)",
     "locale": "en-GB",
     "resultsCount": 2398,
-    "medianDuration": 5.12
+    "medianDuration": 2.22
   },
   {
     "blanksCount": 1,
     "durations": [
-      38.84,
-      36.08,
-      40.98,
-      35.9,
-      32.53
+      15.3,
+      15.17,
+      14.73,
+      16.01,
+      17.68
     ],
     "label": "English (GB)",
     "locale": "en-GB",
     "resultsCount": 11680,
-    "medianDuration": 36.08
+    "medianDuration": 15.3
   },
   {
     "blanksCount": 2,
     "durations": [
-      124.15,
-      157.97,
-      124.02,
-      119.03,
-      153.37
+      53.11,
+      51.62,
+      53.1,
+      51.05,
+      58.85
     ],
     "label": "English (GB)",
     "locale": "en-GB",
     "resultsCount": 39286,
-    "medianDuration": 124.15
+    "medianDuration": 53.1
   },
   {
     "blanksCount": 0,
     "durations": [
-      4.51,
-      4.24,
-      4.26,
-      4.07,
-      4.04
+      1.46,
+      1.46,
+      1.49,
+      1.45,
+      1.45
     ],
     "label": "Polish",
     "locale": "pl-PL",
     "resultsCount": 1826,
-    "medianDuration": 4.24
+    "medianDuration": 1.46
   },
   {
     "blanksCount": 1,
     "durations": [
-      31.43,
-      30.31,
-      35.88,
-      30.82,
-      30.09
+      16.11,
+      14.7,
+      14.75,
+      14.85,
+      14.82
     ],
     "label": "Polish",
     "locale": "pl-PL",
-    "resultsCount": 15289,
-    "medianDuration": 30.82
+    "resultsCount": 15291,
+    "medianDuration": 14.82
   },
   {
     "blanksCount": 2,
     "durations": [
-      223.91,
-      161,
-      156.32,
-      177.49,
-      151.06
+      74.83,
+      65.53,
+      64.41,
+      77.85,
+      67.28
     ],
     "label": "Polish",
     "locale": "pl-PL",
-    "resultsCount": 70691,
-    "medianDuration": 161
+    "resultsCount": 70693,
+    "medianDuration": 67.28
   }
 ]

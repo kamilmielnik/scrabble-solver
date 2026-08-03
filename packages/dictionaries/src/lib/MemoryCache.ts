@@ -1,4 +1,4 @@
-import { type Gaddag } from '@scrabble-solver/gaddag';
+import { type Gaddag } from '@kamilmielnik/gaddag';
 import { type Locale } from '@scrabble-solver/types';
 
 import { CACHE_STALE_THRESHOLD } from '../constants';

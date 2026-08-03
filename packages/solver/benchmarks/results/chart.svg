@@ -34,31 +34,31 @@
   <line class="axis" x1="56" y1="372" x2="696" y2="372" />
   <text class="tick-label" text-anchor="end" x="48" y="376">0</text>
   <line class="grid" x1="56" y1="303" x2="696" y2="303" />
-  <text class="tick-label" text-anchor="end" x="48" y="307">0.05s</text>
+  <text class="tick-label" text-anchor="end" x="48" y="307">0.02s</text>
   <line class="grid" x1="56" y1="234" x2="696" y2="234" />
-  <text class="tick-label" text-anchor="end" x="48" y="238">0.1s</text>
+  <text class="tick-label" text-anchor="end" x="48" y="238">0.04s</text>
   <line class="grid" x1="56" y1="165" x2="696" y2="165" />
-  <text class="tick-label" text-anchor="end" x="48" y="169">0.15s</text>
+  <text class="tick-label" text-anchor="end" x="48" y="169">0.06s</text>
   <line class="grid" x1="56" y1="96" x2="696" y2="96" />
-  <text class="tick-label" text-anchor="end" x="48" y="100">0.2s</text>
-  <path class="series-0" d="M 106.67 372 L 106.67 367.51 Q 106.67 363.51 110.67 363.51 L 126.67 363.51 Q 130.67 363.51 130.67 367.51 L 130.67 372 Z" />
-  <text class="value-label" text-anchor="middle" x="118.67" y="357.51">6 ms</text>
-  <path class="series-1" d="M 150.67 372 L 150.67 368.47 Q 150.67 364.93 154.2 364.93 L 171.14 364.93 Q 174.67 364.93 174.67 368.47 L 174.67 372 Z" />
-  <text class="value-label" text-anchor="middle" x="162.67" y="358.93">5 ms</text>
-  <path class="series-2" d="M 194.67 372 L 194.67 369.08 Q 194.67 366.15 197.6 366.15 L 215.74 366.15 Q 218.67 366.15 218.67 369.08 L 218.67 372 Z" />
-  <text class="value-label" text-anchor="middle" x="206.67" y="360.15">4 ms</text>
-  <path class="series-0" d="M 320 372 L 320 333.69 Q 320 329.69 324 329.69 L 340 329.69 Q 344 329.69 344 333.69 L 344 372 Z" />
-  <text class="value-label" text-anchor="middle" x="332" y="323.69">31 ms</text>
-  <path class="series-1" d="M 364 372 L 364 326.21 Q 364 322.21 368 322.21 L 384 322.21 Q 388 322.21 388 326.21 L 388 372 Z" />
-  <text class="value-label" text-anchor="middle" x="376" y="316.21">36 ms</text>
-  <path class="series-2" d="M 408 372 L 408 333.47 Q 408 329.47 412 329.47 L 428 329.47 Q 432 329.47 432 333.47 L 432 372 Z" />
-  <text class="value-label" text-anchor="middle" x="420" y="323.47">31 ms</text>
-  <path class="series-0" d="M 533.33 372 L 533.33 224.2 Q 533.33 220.2 537.33 220.2 L 553.33 220.2 Q 557.33 220.2 557.33 224.2 L 557.33 372 Z" />
-  <text class="value-label" text-anchor="middle" x="545.33" y="214.2">110 ms</text>
-  <path class="series-1" d="M 577.33 372 L 577.33 204.67 Q 577.33 200.67 581.33 200.67 L 597.33 200.67 Q 601.33 200.67 601.33 204.67 L 601.33 372 Z" />
-  <text class="value-label" text-anchor="middle" x="589.33" y="194.67">124 ms</text>
-  <path class="series-2" d="M 621.33 372 L 621.33 153.82 Q 621.33 149.82 625.33 149.82 L 641.33 149.82 Q 645.33 149.82 645.33 153.82 L 645.33 372 Z" />
-  <text class="value-label" text-anchor="middle" x="633.33" y="143.82">161 ms</text>
+  <text class="tick-label" text-anchor="end" x="48" y="100">0.08s</text>
+  <path class="series-0" d="M 106.67 372 L 106.67 368.24 Q 106.67 364.48 110.43 364.48 L 126.91 364.48 Q 130.67 364.48 130.67 368.24 L 130.67 372 Z" />
+  <text class="value-label" text-anchor="middle" x="118.67" y="358.48">2 ms</text>
+  <path class="series-1" d="M 150.67 372 L 150.67 368.17 Q 150.67 364.34 154.5 364.34 L 170.84 364.34 Q 174.67 364.34 174.67 368.17 L 174.67 372 Z" />
+  <text class="value-label" text-anchor="middle" x="162.67" y="358.34">2 ms</text>
+  <path class="series-2" d="M 194.67 372 L 194.67 369.48 Q 194.67 366.96 197.19 366.96 L 216.15 366.96 Q 218.67 366.96 218.67 369.48 L 218.67 372 Z" />
+  <text class="value-label" text-anchor="middle" x="206.67" y="360.96">1 ms</text>
+  <path class="series-0" d="M 320 372 L 320 331.6 Q 320 327.6 324 327.6 L 340 327.6 Q 344 327.6 344 331.6 L 344 372 Z" />
+  <text class="value-label" text-anchor="middle" x="332" y="321.6">13 ms</text>
+  <path class="series-1" d="M 364 372 L 364 323.21 Q 364 319.21 368 319.21 L 384 319.21 Q 388 319.21 388 323.21 L 388 372 Z" />
+  <text class="value-label" text-anchor="middle" x="376" y="313.21">15 ms</text>
+  <path class="series-2" d="M 408 372 L 408 324.87 Q 408 320.87 412 320.87 L 428 320.87 Q 432 320.87 432 324.87 L 432 372 Z" />
+  <text class="value-label" text-anchor="middle" x="420" y="314.87">15 ms</text>
+  <path class="series-0" d="M 533.33 372 L 533.33 235.07 Q 533.33 231.07 537.33 231.07 L 553.33 231.07 Q 557.33 231.07 557.33 235.07 L 557.33 372 Z" />
+  <text class="value-label" text-anchor="middle" x="545.33" y="225.07">41 ms</text>
+  <path class="series-1" d="M 577.33 372 L 577.33 192.8 Q 577.33 188.8 581.33 188.8 L 597.33 188.8 Q 601.33 188.8 601.33 192.8 L 601.33 372 Z" />
+  <text class="value-label" text-anchor="middle" x="589.33" y="182.8">53 ms</text>
+  <path class="series-2" d="M 621.33 372 L 621.33 143.88 Q 621.33 139.88 625.33 139.88 L 641.33 139.88 Q 645.33 139.88 645.33 143.88 L 645.33 372 Z" />
+  <text class="value-label" text-anchor="middle" x="633.33" y="133.88">67 ms</text>
   <text class="group-label" text-anchor="middle" x="162.67" y="394">0 blanks</text>
   <text class="group-label" text-anchor="middle" x="376" y="394">1 blank</text>
   <text class="group-label" text-anchor="middle" x="589.33" y="394">2 blanks</text>

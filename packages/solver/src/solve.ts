@@ -1,4 +1,4 @@
-import { type Gaddag } from '@scrabble-solver/gaddag';
+import { type Gaddag } from '@kamilmielnik/gaddag';
 import { type Board, type Config, type ResultJson, type Tile } from '@scrabble-solver/types';
 
 import { MoveGenerator } from './MoveGenerator';

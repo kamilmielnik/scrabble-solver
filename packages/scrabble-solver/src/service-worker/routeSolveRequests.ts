@@ -1,6 +1,6 @@
+import { type Gaddag } from '@kamilmielnik/gaddag';
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
-import { type Gaddag } from '@scrabble-solver/gaddag';
 import { solve } from '@scrabble-solver/solver';
 import { Board, Tile } from '@scrabble-solver/types';
 import { registerRoute } from 'workbox-routing';

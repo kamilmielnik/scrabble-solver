@@ -1,7 +1,7 @@
+import { type Gaddag } from '@kamilmielnik/gaddag';
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
-import { type Gaddag } from '@scrabble-solver/gaddag';
 import { Board, type Config, Game, Tile } from '@scrabble-solver/types';
 
 import { solve } from '../src';

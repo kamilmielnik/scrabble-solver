@@ -1,6 +1,6 @@
+import { type Gaddag } from '@kamilmielnik/gaddag';
 import { getConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
-import { type Gaddag } from '@scrabble-solver/gaddag';
 import { Board, Cell, FinalPattern, Game, Locale, type Pattern, Tile, VerticalPattern } from '@scrabble-solver/types';
 
 import { fillPattern, fillPatternRecursive } from './fillPattern';

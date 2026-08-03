@@ -1,8 +1,8 @@
 /* eslint-disable max-lines */
 
+import { type Gaddag } from '@kamilmielnik/gaddag';
 import { getConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
-import { type Gaddag } from '@scrabble-solver/gaddag';
 import { Board, Game, Locale, Result, Tile } from '@scrabble-solver/types';
 
 import { solve } from './solve';

@@ -1,4 +1,4 @@
-import { type Gaddag } from '@scrabble-solver/gaddag';
+import { type Gaddag } from '@kamilmielnik/gaddag';
 import { logger } from '@scrabble-solver/logger';
 import { Locale } from '@scrabble-solver/types';
 import fs from 'fs';

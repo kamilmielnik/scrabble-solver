@@ -1,6 +1,6 @@
 /* eslint-disable max-depth, max-lines, max-statements, no-bitwise */
+import { type Gaddag, SEPARATOR } from '@kamilmielnik/gaddag';
 import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
-import { type Gaddag, SEPARATOR } from '@scrabble-solver/gaddag';
 import {
   type Board,
   type CellJson,

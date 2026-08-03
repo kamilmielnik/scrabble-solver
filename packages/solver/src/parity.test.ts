@@ -1,7 +1,7 @@
+import { Gaddag } from '@kamilmielnik/gaddag';
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
-import { buildGaddag } from '@scrabble-solver/gaddag';
 import { Board, type Config, Game, Locale, type ResultJson, Tile } from '@scrabble-solver/types';
 
 import { referenceSolve } from './reference/referenceSolve';
@@ -252,7 +252,7 @@ describe('solve matches the reference implementation', () => {
     const config = getConfig(Game.Scrabble, Locale.EN_US);
 
     it('crowded board forces cross-checks', () => {
-      const gaddag = buildGaddag(['ab', 'ba', 'aa', 'bb', 'aba', 'bab', 'abba', 'baab']);
+      const gaddag = Gaddag.fromArray(['ab', 'ba', 'aa', 'bb', 'aba', 'bab', 'abba', 'baab']);
       const board = [
         '               ',
         '               ',
@@ -274,7 +274,7 @@ describe('solve matches the reference implementation', () => {
     });
 
     it('one-letter words', () => {
-      const gaddag = buildGaddag(['a', 'ab', 'ba']);
+      const gaddag = Gaddag.fromArray(['a', 'ab', 'ba']);
       const board = [
         '               ',
         '               ',
