@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="420" viewBox="0 0 720 420" role="img" aria-label="Median solve() duration by number of blanks on the rack, for English (US), English (GB), Polish">
+  <style>
+    text { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    .axis { stroke: #c3c2b7; }
+    .grid { stroke: #e1e0d9; }
+    .group-label, .legend-label { fill: #52514e; font-size: 12px; }
+    .series-0 { fill: #2a78d6; }
+    .series-1 { fill: #eb6834; }
+    .series-2 { fill: #1baf7a; }
+    .subtitle { fill: #898781; font-size: 12px; }
+    .surface { fill: #fcfcfb; }
+    .tick-label { fill: #898781; font-size: 11px; font-variant-numeric: tabular-nums; }
+    .title { fill: #0b0b0b; font-size: 15px; font-weight: 600; }
+    .value-label { fill: #52514e; font-size: 11px; }
+    @media (prefers-color-scheme: dark) {
+      .axis { stroke: #383835; }
+      .grid { stroke: #2c2c2a; }
+      .group-label, .legend-label, .value-label { fill: #c3c2b7; }
+      .series-0 { fill: #3987e5; }
+      .series-1 { fill: #d95926; }
+      .series-2 { fill: #199e70; }
+      .surface { fill: #1a1a19; }
+      .title { fill: #ffffff; }
+    }</style>
+  <rect class="surface" width="720" height="420" rx="8" />
+  <text class="title" x="24" y="32">solve() median duration</text>
+  <text class="subtitle" x="24" y="50">Scrabble, mid-game board, 7 tiles on the rack, letters replaced by blanks</text>
+  <rect class="series-0" x="24" y="63" width="10" height="10" rx="2" />
+  <text class="legend-label" x="40" y="73">English (US)</text>
+  <rect class="series-1" x="145" y="63" width="10" height="10" rx="2" />
+  <text class="legend-label" x="161" y="73">English (GB)</text>
+  <rect class="series-2" x="266" y="63" width="10" height="10" rx="2" />
+  <text class="legend-label" x="282" y="73">Polish</text>
+  <line class="axis" x1="56" y1="372" x2="696" y2="372" />
+  <text class="tick-label" text-anchor="end" x="48" y="376">0</text>
+  <line class="grid" x1="56" y1="326" x2="696" y2="326" />
+  <text class="tick-label" text-anchor="end" x="48" y="330">2.5s</text>
+  <line class="grid" x1="56" y1="280" x2="696" y2="280" />
+  <text class="tick-label" text-anchor="end" x="48" y="284">5s</text>
+  <line class="grid" x1="56" y1="234" x2="696" y2="234" />
+  <text class="tick-label" text-anchor="end" x="48" y="238">7.5s</text>
+  <line class="grid" x1="56" y1="188" x2="696" y2="188" />
+  <text class="tick-label" text-anchor="end" x="48" y="192">10s</text>
+  <line class="grid" x1="56" y1="142" x2="696" y2="142" />
+  <text class="tick-label" text-anchor="end" x="48" y="146">12.5s</text>
+  <line class="grid" x1="56" y1="96" x2="696" y2="96" />
+  <text class="tick-label" text-anchor="end" x="48" y="100">15s</text>
+  <path class="series-0" d="M 106.67 372 L 106.67 371.13 Q 106.67 370.25 107.55 370.25 L 129.8 370.25 Q 130.67 370.25 130.67 371.13 L 130.67 372 Z" />
+  <text class="value-label" text-anchor="middle" x="118.67" y="364.25">95 ms</text>
+  <path class="series-1" d="M 150.67 372 L 150.67 370.96 Q 150.67 369.92 151.71 369.92 L 173.63 369.92 Q 174.67 369.92 174.67 370.96 L 174.67 372 Z" />
+  <text class="value-label" text-anchor="middle" x="162.67" y="363.92">113 ms</text>
+  <path class="series-2" d="M 194.67 372 L 194.67 371.21 Q 194.67 370.42 195.46 370.42 L 217.88 370.42 Q 218.67 370.42 218.67 371.21 L 218.67 372 Z" />
+  <text class="value-label" text-anchor="middle" x="206.67" y="364.42">86 ms</text>
+  <path class="series-0" d="M 320 372 L 320 356.62 Q 320 352.62 324 352.62 L 340 352.62 Q 344 352.62 344 356.62 L 344 372 Z" />
+  <text class="value-label" text-anchor="middle" x="332" y="346.62">1.1 s</text>
+  <path class="series-1" d="M 364 372 L 364 354.78 Q 364 350.78 368 350.78 L 384 350.78 Q 388 350.78 388 354.78 L 388 372 Z" />
+  <text class="value-label" text-anchor="middle" x="376" y="344.78">1.2 s</text>
+  <path class="series-2" d="M 408 372 L 408 354.9 Q 408 350.9 412 350.9 L 428 350.9 Q 432 350.9 432 354.9 L 432 372 Z" />
+  <text class="value-label" text-anchor="middle" x="420" y="344.9">1.1 s</text>
+  <path class="series-0" d="M 533.33 372 L 533.33 231.1 Q 533.33 227.1 537.33 227.1 L 553.33 227.1 Q 557.33 227.1 557.33 231.1 L 557.33 372 Z" />
+  <text class="value-label" text-anchor="middle" x="545.33" y="221.1">7.9 s</text>
+  <path class="series-1" d="M 577.33 372 L 577.33 189.78 Q 577.33 185.78 581.33 185.78 L 597.33 185.78 Q 601.33 185.78 601.33 189.78 L 601.33 372 Z" />
+  <text class="value-label" text-anchor="middle" x="589.33" y="179.78">10.1 s</text>
+  <path class="series-2" d="M 621.33 372 L 621.33 131.74 Q 621.33 127.74 625.33 127.74 L 641.33 127.74 Q 645.33 127.74 645.33 131.74 L 645.33 372 Z" />
+  <text class="value-label" text-anchor="middle" x="633.33" y="121.74">13.3 s</text>
+  <text class="group-label" text-anchor="middle" x="162.67" y="394">0 blanks</text>
+  <text class="group-label" text-anchor="middle" x="376" y="394">1 blank</text>
+  <text class="group-label" text-anchor="middle" x="589.33" y="394">2 blanks</text>
+</svg>

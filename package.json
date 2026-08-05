@@ -47,6 +47,7 @@
     "scrabble-solver": "./bin/scrabble-solver.js"
   },
   "scripts": {
+    "benchmark": "bun run --filter @scrabble-solver/solver benchmark",
     "build": "bun run --filter './packages/*' build",
     "clean": "bun run --filter './packages/*' clean && rimraf node_modules/",
     "dev": "bun run --filter @scrabble-solver/scrabble-solver dev",

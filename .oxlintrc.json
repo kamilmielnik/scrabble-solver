@@ -262,6 +262,12 @@
   },
   "overrides": [
     {
+      "files": ["packages/*/benchmarks/**"],
+      "rules": {
+        "no-console": "off"
+      }
+    },
+    {
       "files": ["**/*.ts", "**/*.tsx"],
       "rules": {
         "no-unused-vars": "off",
