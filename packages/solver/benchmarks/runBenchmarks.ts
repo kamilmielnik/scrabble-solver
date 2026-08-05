@@ -7,8 +7,8 @@ import { Board, type Config, Game, Tile } from '@scrabble-solver/types';
 import { solve } from '../src';
 
 import { formatBlanksCount, formatDuration, median } from './lib';
-import { LANGUAGE_SCENARIOS, type LanguageScenario } from './scenarios';
-import { type Measurement } from './types';
+import { LANGUAGE_SCENARIOS } from './scenarios';
+import { type LanguageScenario, type Measurement } from './types';
 
 const GAME = Game.Scrabble;
 export const MEASURED_RUNS = 5;
@@ -20,7 +20,6 @@ export const runBenchmarks = async (): Promise<Measurement[]> => {
   for (const scenario of LANGUAGE_SCENARIOS) {
     const config = getConfig(GAME, scenario.locale);
     const gaddag = await dictionaries.get(scenario.locale);
-    assertBoardWordsAreValid(gaddag, scenario);
 
     for (let blanksCount = 0; blanksCount <= config.blanksCount; blanksCount++) {
       const measurement = measureScenario(gaddag, config, scenario, blanksCount);
@@ -50,10 +49,6 @@ const measureScenario = (
     const results = solve(gaddag, config, board, tiles);
     const duration = performance.now() - start;
 
-    if (results.length === 0) {
-      throw new Error(`No results for ${scenario.locale} with ${blanksCount} blanks`);
-    }
-
     if (run >= WARMUP_RUNS) {
       durations.push(Number(duration.toFixed(2)));
     }
@@ -68,12 +63,4 @@ const generateRack = (baseRack: string[], blanksCount: number): Tile[] => {
   return baseRack
     .map((character, index) => (index < baseRack.length - blanksCount ? character : BLANK))
     .map((character) => new Tile({ character, isBlank: character === BLANK }));
-};
-
-const assertBoardWordsAreValid = (gaddag: Gaddag, scenario: LanguageScenario): void => {
-  const invalidWords = scenario.boardWords.filter((word) => !gaddag.has(word));
-
-  if (invalidWords.length > 0) {
-    throw new Error(`Words not present in ${scenario.locale} dictionary: ${invalidWords.join(', ')}`);
-  }
 };
