@@ -25,7 +25,7 @@
     "test": "bun test --timeout 180000 src"
   },
   "dependencies": {
-    "@kamilmielnik/gaddag": "^1.0.0",
+    "@kamilmielnik/gaddag": "^2.0.0",
     "@scrabble-solver/types": "^2.16.7"
   },
   "devDependencies": {
