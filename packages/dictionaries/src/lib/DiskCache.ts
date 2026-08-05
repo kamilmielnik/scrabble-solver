@@ -71,7 +71,7 @@ export class DiskCache implements Cache<Locale, Gaddag> {
   public async set(locale: Locale, gaddag: Gaddag): Promise<void> {
     const filepath = getDictionaryFilepath(locale, this.directory);
     await fs.promises.writeFile(filepath, gaddag.serialize());
-    // Serialized-trie cache from before the GADDAG migration (#164, Aug 2026) - remove this cleanup circa 2027.
+    // Serialized-trie cache from before the GADDAG migration - remove this in #437
     await fs.promises.rm(getLegacyDictionaryFilepath(locale, this.directory), { force: true });
   }
 }

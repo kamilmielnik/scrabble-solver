@@ -7,7 +7,7 @@ export const getDictionaryFilepath = (locale: Locale, directory: string = OUTPUT
   return path.resolve(directory, `${locale}.gaddag`);
 };
 
-/** Filepath of the serialized-trie cache used before the GADDAG migration (#164). */
+/** Filepath of the serialized-trie cache used before the GADDAG migration. Remove in #437. */
 export const getLegacyDictionaryFilepath = (locale: Locale, directory: string = OUTPUT_DIRECTORY): string => {
   return path.resolve(directory, `${locale}.txt`);
 };
