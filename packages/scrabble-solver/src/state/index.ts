@@ -12,4 +12,5 @@ export * from './solve';
 export * from './store';
 export * from './useTranslate';
 export * from './useTypedSelector';
+export * from './useTypedStore';
 export * from './verify';

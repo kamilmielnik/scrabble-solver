@@ -5,6 +5,7 @@ import {
   type ChangeEventHandler,
   type FocusEventHandler,
   type FunctionComponent,
+  memo,
   type MouseEventHandler,
   type RefObject,
   type TouchEventHandler,
@@ -41,7 +42,7 @@ interface Props {
   onFocus: (x: number, y: number) => void;
 }
 
-export const Cell: FunctionComponent<Props> = ({
+const CellBase: FunctionComponent<Props> = ({
   cell,
   cellBottom,
   cellLeft,
@@ -135,3 +136,5 @@ export const Cell: FunctionComponent<Props> = ({
     />
   );
 };
+
+export const Cell = memo(CellBase);

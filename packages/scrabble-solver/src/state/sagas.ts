@@ -41,7 +41,7 @@ export function* rootSaga(): AnyGenerator {
   yield takeEvery(boardSlice.actions.changeCellValue.type, onCellValueChange);
   yield takeEvery([rackSlice.actions.changeCharacter.type, rackSlice.actions.changeCharacters.type], onRackValueChange);
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
-  yield takeEvery(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
+  yield takeLatest(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
   yield takeEvery(settingsSlice.actions.changeGame.type, onGameChange);
   yield takeEvery(settingsSlice.actions.changeLocale.type, onLocaleChange);
   yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
@@ -166,13 +166,17 @@ function* onLocaleChange({ payload: locale }: PayloadAction<Locale>): AnyGenerat
 }
 
 function* onResultCandidateChange({ payload: result }: PayloadAction<Result | null>): AnyGenerator {
-  if (result) {
-    const locale: Locale = yield select(selectLocale);
-    const uniqueWords = Array.from(new Set(result.words));
-    const input = uniqueWords.join(LOCALE_FEATURES[locale].separator);
-    yield put(dictionarySlice.actions.changeInput(input));
-    yield put(dictionarySlice.actions.submit());
+  if (!result) {
+    return;
   }
+
+  yield delay(SUBMIT_DELAY);
+
+  const locale: Locale = yield select(selectLocale);
+  const uniqueWords = Array.from(new Set(result.words));
+  const input = uniqueWords.join(LOCALE_FEATURES[locale].separator);
+  yield put(dictionarySlice.actions.changeInput(input));
+  yield put(dictionarySlice.actions.submit());
 }
 
 function* onSolve(): AnyGenerator {

@@ -53,6 +53,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
   const [activeIndex, setActiveIndex] = useState<Point>({ x: 0, y: 0 });
   const [direction, setLastDirection] = useState<Direction>('horizontal');
   const directionRef = useLatest(direction);
+  const rowsRef = useLatest(rows);
 
   const safeActiveIndex = useMemo(
     () => ({
@@ -94,7 +95,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
     (position: Point, value: string) => {
       const characters = value ? extractCharacters(config, value).filter((character) => character !== BLANK) : [BLANK];
       const actions: PayloadAction<unknown>[] = [];
-      let board = new Board({ rows: rows.map((row) => row.map((cell) => cell.clone())) });
+      let board = new Board({ rows: rowsRef.current.map((row) => row.map((cell) => cell.clone())) });
       let { x, y } = position;
 
       const scheduleMoveFocus = () => {
@@ -188,7 +189,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
       moveFocus(Math.abs(position.x - x) + Math.abs(position.y - y));
       actions.forEach(dispatch);
     },
-    [config, directionRef, dispatch, height, moveFocus, rows, width],
+    [config, directionRef, dispatch, height, moveFocus, rowsRef, width],
   );
 
   const onChange = useCallback(
@@ -209,7 +210,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
 
       if (value === EMPTY_CELL) {
         const { x, y } = position;
-        const cell = rows[y][x];
+        const cell = rowsRef.current[y][x];
 
         if (cell.hasTile()) {
           dispatch(boardSlice.actions.toggleCellIsBlank(position));
@@ -219,7 +220,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
 
       insertValue(position, value);
     },
-    [dispatch, insertValue, moveFocus, rows, getInputRefPosition],
+    [dispatch, insertValue, moveFocus, rowsRef, getInputRefPosition],
   );
 
   const onDirectionToggle = useCallback(() => setLastDirection(toggleDirection), []);
@@ -308,7 +309,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
           return;
         }
 
-        const cell = rows[y][x];
+        const cell = rowsRef.current[y][x];
 
         if (isCtrl(event) && character === 'g') {
           event.preventDefault();
@@ -347,7 +348,17 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
         dispatch(boardSlice.actions.toggleCellIsBlank(position));
       },
     });
-  }, [changeActiveIndex, config, direction, dispatch, getInputRefPosition, locale, moveFocus, onDirectionToggle, rows]);
+  }, [
+    changeActiveIndex,
+    config,
+    direction,
+    dispatch,
+    getInputRefPosition,
+    locale,
+    moveFocus,
+    onDirectionToggle,
+    rowsRef,
+  ]);
 
   const onPaste = useCallback<ClipboardEventHandler>(
     (event) => {
