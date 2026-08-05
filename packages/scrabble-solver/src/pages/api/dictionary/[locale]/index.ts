@@ -12,39 +12,6 @@ interface RequestData {
   locale: Locale;
 }
 
-const gzipAsync = promisify(gzip);
-
-// Dictionaries rebuild at most daily, so each one is compressed once and the
-// result lives exactly as long as the in-memory dictionary it was made from.
-const compressedCache = new WeakMap<Gaddag, Promise<Buffer>>();
-
-const getCompressedDictionary = (gaddag: Gaddag): Promise<Buffer> => {
-  let compressed = compressedCache.get(gaddag);
-
-  if (!compressed) {
-    compressed = gzipAsync(gaddag.serialize());
-    compressedCache.set(gaddag, compressed);
-    compressed.catch(() => compressedCache.delete(gaddag));
-  }
-
-  return compressed;
-};
-
-const acceptsGzip = (request: NextApiRequest): boolean => {
-  const acceptEncoding = request.headers['accept-encoding'];
-  const header = Array.isArray(acceptEncoding) ? acceptEncoding.join(',') : acceptEncoding;
-
-  if (typeof header !== 'string') {
-    return false;
-  }
-
-  return header.split(',').some((entry) => {
-    const [encoding, ...parameters] = entry.split(';').map((token) => token.trim().toLowerCase());
-    const isRefused = parameters.some((parameter) => /^q=0(\.0{1,3})?$/.test(parameter.replaceAll(' ', '')));
-    return (encoding === 'gzip' || encoding === 'x-gzip') && !isRefused;
-  });
-};
-
 const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
   const meta = getServerLoggingData(request);
 
@@ -85,6 +52,42 @@ const parseRequest = (request: NextApiRequest): RequestData => {
   return {
     locale,
   };
+};
+
+const acceptsGzip = (request: NextApiRequest): boolean => {
+  const acceptEncoding = request.headers['accept-encoding'];
+  const header = Array.isArray(acceptEncoding) ? acceptEncoding.join(',') : acceptEncoding;
+
+  if (typeof header !== 'string') {
+    return false;
+  }
+
+  return header.split(',').some((entry) => {
+    const [encoding, ...parameters] = entry.split(';').map((token) => token.trim().toLowerCase());
+    const isRefused = parameters.some((parameter) => {
+      const [name, quality] = parameter.split('=').map((token) => token.trim());
+      return name === 'q' && parseFloat(quality) === 0;
+    });
+    return (encoding === 'gzip' || encoding === 'x-gzip') && !isRefused;
+  });
+};
+
+const gzipAsync = promisify(gzip);
+
+// Dictionaries rebuild at most daily, so each one is compressed once and the
+// result lives exactly as long as the in-memory dictionary it was made from.
+const compressedCache = new WeakMap<Gaddag, Promise<Buffer>>();
+
+const getCompressedDictionary = (gaddag: Gaddag): Promise<Buffer> => {
+  let compressed = compressedCache.get(gaddag);
+
+  if (!compressed) {
+    compressed = gzipAsync(gaddag.serialize());
+    compressedCache.set(gaddag, compressed);
+    compressed.catch(() => compressedCache.delete(gaddag));
+  }
+
+  return compressed;
 };
 
 export const config = {
