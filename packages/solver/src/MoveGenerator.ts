@@ -468,10 +468,18 @@ export class MoveGenerator {
           ++spanHi;
         }
 
+        const hasDigraphs = this.digraphs.length > 0;
+        const previousCharacter =
+          hasDigraphs && spanLo < line ? this.boardChar[this.passGlobal[passIndex - lineLength]] : '';
+        const nextCharacter =
+          hasDigraphs && spanHi > line ? this.boardChar[this.passGlobal[passIndex + lineLength]] : '';
+
         preLetters.length = 0;
         postLetters.length = 0;
         let base = 0;
         let lettersValid = true;
+        let crossSpellingValid = true;
+        let previousCrossCharacter = '';
 
         for (let crossLine = spanLo; crossLine <= spanHi; ++crossLine) {
           if (crossLine === line) {
@@ -480,6 +488,17 @@ export class MoveGenerator {
 
           const crossIndex = crossLine * lineLength + position;
           base += this.passScore[crossIndex];
+
+          if (hasDigraphs) {
+            const character = this.boardChar[this.passGlobal[crossIndex]];
+
+            if (previousCrossCharacter !== '' && this.digraphs.includes(previousCrossCharacter + character)) {
+              crossSpellingValid = false;
+            }
+
+            previousCrossCharacter = crossLine === line - 1 ? '' : character;
+          }
+
           const letters = crossLine < line ? preLetters : postLetters;
           const letter1 = this.passLetter1[crossIndex];
           const letter2 = this.passLetter2[crossIndex];
@@ -503,7 +522,7 @@ export class MoveGenerator {
         let maskLo = 0;
         let maskHi = 0;
 
-        if (lettersValid) {
+        if (lettersValid && crossSpellingValid) {
           // The perpendicular word is pre + tile + post; its pure-reverse GADDAG
           // path is rev(post), rev(tile characters), rev(pre). rev(post) is shared
           // across all candidate tiles.
@@ -519,6 +538,10 @@ export class MoveGenerator {
               const letter2 = this.alphaLetter2[alpha];
 
               if (letter1 <= 0 || letter2 < 0) {
+                continue;
+              }
+
+              if (hasDigraphs && this.spellsDigraphWithNeighbor(alpha, previousCharacter, nextCharacter)) {
                 continue;
               }
 
@@ -553,6 +576,20 @@ export class MoveGenerator {
         this.maskHi[passIndex] = maskHi;
       }
     }
+  }
+
+  /**
+   * A digraph must be played as its single tile, so a candidate that would
+   * spell a digraph with the adjacent perpendicular tile is not placeable.
+   * {@link record} enforces the same rule along the main word.
+   */
+  private spellsDigraphWithNeighbor(alpha: number, previousCharacter: string, nextCharacter: string): boolean {
+    const character = this.alphaChars[alpha];
+
+    return (
+      (previousCharacter !== '' && this.digraphs.includes(previousCharacter + character)) ||
+      (nextCharacter !== '' && this.digraphs.includes(character + nextCharacter))
+    );
   }
 
   private isOpen(position: number): boolean {
