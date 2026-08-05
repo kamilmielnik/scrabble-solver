@@ -100,6 +100,8 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   &:focus,
   &:hover,
   &.highlighted {
+    transition: none;
+
     &:not(:disabled) {
       background-color: var(--color--primary);
       color: var(--color--primary--opposite);
