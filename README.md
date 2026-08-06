@@ -188,6 +188,7 @@ bun run --filter @scrabble-solver/word-lists build
 - [TypeScript](https://www.typescriptlang.org/)
 - [Bun](https://bun.sh/docs)
 - [Node.js](https://nodejs.org/)
+- [@kamilmielnik/gaddag](https://github.com/kamilmielnik/gaddag)
 - [Next.js](https://nextjs.org/)
 - [Workbox](https://developer.chrome.com/docs/workbox/)
 - [React](https://reactjs.org/)
@@ -198,11 +199,19 @@ bun run --filter @scrabble-solver/word-lists build
 - [CSS Modules](https://github.com/css-modules/css-modules)
 - [include-media](https://eduardoboucas.github.io/include-media/)
 - [Lerna](https://lerna.js.org/)
+- [Nx](https://nx.dev/)
 - [Cypress](https://www.cypress.io/)
 - [Oxlint](https://oxc.rs/docs/guide/usage/linter)
 - [Oxfmt](https://oxc.rs/docs/guide/usage/formatter)
 
 ## Related projects
+
+### @kamilmielnik/gaddag
+
+The [GADDAG](https://en.wikipedia.org/wiki/GADDAG) data structure powering the solver. Dictionaries are stored as a GADDAG, which is what makes it possible to generate moves anchored on tiles already placed on the board.
+
+- GitHub: https://github.com/kamilmielnik/gaddag
+- npm: https://www.npmjs.com/package/@kamilmielnik/gaddag
 
 ### Lexatious
 
