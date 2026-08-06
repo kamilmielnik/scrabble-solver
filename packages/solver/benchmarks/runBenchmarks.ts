@@ -1,4 +1,4 @@
-import { type Trie } from '@kamilmielnik/trie';
+import { type Gaddag } from '@kamilmielnik/gaddag';
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
@@ -19,10 +19,10 @@ export const runBenchmarks = async (): Promise<Measurement[]> => {
 
   for (const scenario of LANGUAGE_SCENARIOS) {
     const config = getConfig(GAME, scenario.locale);
-    const trie = await dictionaries.get(scenario.locale);
+    const gaddag = await dictionaries.get(scenario.locale);
 
     for (let blanksCount = 0; blanksCount <= config.blanksCount; blanksCount++) {
-      const measurement = measureScenario(trie, config, scenario, blanksCount);
+      const measurement = measureScenario(gaddag, config, scenario, blanksCount);
       console.log(
         `${scenario.label} - ${formatBlanksCount(blanksCount)} - median ${formatDuration(median(measurement.durations))} - ${measurement.resultsCount} results`,
       );
@@ -33,7 +33,12 @@ export const runBenchmarks = async (): Promise<Measurement[]> => {
   return measurements;
 };
 
-const measureScenario = (trie: Trie, config: Config, scenario: LanguageScenario, blanksCount: number): Measurement => {
+const measureScenario = (
+  gaddag: Gaddag,
+  config: Config,
+  scenario: LanguageScenario,
+  blanksCount: number,
+): Measurement => {
   const durations: number[] = [];
   let resultsCount = 0;
 
@@ -41,7 +46,7 @@ const measureScenario = (trie: Trie, config: Config, scenario: LanguageScenario,
     const board = Board.fromStringArray(scenario.boardRows);
     const tiles = generateRack(scenario.baseRack, blanksCount);
     const start = performance.now();
-    const results = solve(trie, config, board, tiles);
+    const results = solve(gaddag, config, board, tiles);
     const duration = performance.now() - start;
 
     if (run >= WARMUP_RUNS) {

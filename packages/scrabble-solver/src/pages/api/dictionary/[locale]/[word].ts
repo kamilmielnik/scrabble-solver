@@ -30,8 +30,8 @@ const dictionary = async (request: NextApiRequest, response: NextApiResponse): P
       },
     });
 
-    const trie = await dictionaries.get(locale);
-    const results = await Promise.all(words.map((word) => getWordDefinition(locale, word, trie.has(word))));
+    const gaddag = await dictionaries.get(locale);
+    const results = await Promise.all(words.map((word) => getWordDefinition(locale, word, gaddag.has(word))));
     response.status(200).send(results.map((result) => result.toJson()));
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';

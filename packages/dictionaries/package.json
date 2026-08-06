@@ -26,10 +26,11 @@
     "build": "tsc --project .",
     "clean": "rimraf build/",
     "clean:dictionaries": "node ./bin/remove-dictionaries.js",
-    "postbuild": "node ./bin/update-dictionaries.js"
+    "postbuild": "node ./bin/update-dictionaries.js",
+    "test": "bun test src"
   },
   "dependencies": {
-    "@kamilmielnik/trie": "^5.1.0",
+    "@kamilmielnik/gaddag": "^2.0.0",
     "@scrabble-solver/logger": "^2.16.7",
     "@scrabble-solver/types": "^2.16.7",
     "@scrabble-solver/word-lists": "^2.16.7"

@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.20",
-    "@kamilmielnik/trie": "^5.1.0",
+    "@kamilmielnik/gaddag": "^2.0.0",
     "@reduxjs/toolkit": "^2.12.0",
     "@scrabble-solver/configs": "^2.16.7",
     "@scrabble-solver/constants": "^2.16.7",

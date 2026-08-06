@@ -4,7 +4,7 @@ import { registerRoute } from 'workbox-routing';
 import { type VerifyRequestPayload } from '@/types';
 
 import { revalidateDictionary } from './dictionaries';
-import { getTrie } from './getTrie';
+import { getGaddag } from './getGaddag';
 
 const headers = {
   'Content-Type': 'application/json; charset=utf-8',
@@ -16,9 +16,9 @@ export const routeVerifyRequests = () => {
     async ({ request }) => {
       const requestJson: VerifyRequestPayload = await request.clone().json();
       const { board: boardJson, locale } = requestJson;
-      const trie = await getTrie(locale);
+      const gaddag = await getGaddag(locale);
 
-      if (!trie) {
+      if (!gaddag) {
         const response = await fetch(request);
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         revalidateDictionary(locale);
@@ -27,9 +27,20 @@ export const routeVerifyRequests = () => {
 
       const board = Board.fromJson(boardJson);
       const words = board.getWords().sort((a, b) => a.localeCompare(b, locale));
-      const invalidWords = words.filter((word) => !trie.has(word));
-      const validWords = words.filter((word) => trie.has(word));
+      const invalidWords: string[] = [];
+      const validWords: string[] = [];
+
+      for (const word of words) {
+        if (gaddag.has(word)) {
+          validWords.push(word);
+        } else {
+          invalidWords.push(word);
+        }
+      }
+
       const json = JSON.stringify({ invalidWords, validWords });
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      revalidateDictionary(locale);
       return new Response(json, { headers });
     },
     'POST',

@@ -53,7 +53,7 @@
         "update-dictionaries": "./bin/update-dictionaries.js",
       },
       "dependencies": {
-        "@kamilmielnik/trie": "^5.1.0",
+        "@kamilmielnik/gaddag": "^2.0.0",
         "@scrabble-solver/logger": "^2.16.7",
         "@scrabble-solver/types": "^2.16.7",
         "@scrabble-solver/word-lists": "^2.16.7",
@@ -71,7 +71,7 @@
       "version": "2.16.7",
       "dependencies": {
         "@floating-ui/react": "^0.27.20",
-        "@kamilmielnik/trie": "^5.1.0",
+        "@kamilmielnik/gaddag": "^2.0.0",
         "@reduxjs/toolkit": "^2.12.0",
         "@scrabble-solver/configs": "^2.16.7",
         "@scrabble-solver/constants": "^2.16.7",
@@ -117,7 +117,7 @@
       "name": "@scrabble-solver/solver",
       "version": "2.16.7",
       "dependencies": {
-        "@kamilmielnik/trie": "^5.1.0",
+        "@kamilmielnik/gaddag": "^2.0.0",
         "@scrabble-solver/types": "^2.16.7",
       },
       "devDependencies": {
@@ -562,7 +562,7 @@
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
 
-    "@kamilmielnik/trie": ["@kamilmielnik/trie@5.1.0", "", {}, "sha512-QkOMdPLZtbJ3kPaB2fm3+PMRInTj/M8eCiUo4xtiOHHlB9Qe9/qKNAf848UkLKcWjpa6mXvXiyKNCG2LSxKxiQ=="],
+    "@kamilmielnik/gaddag": ["@kamilmielnik/gaddag@2.0.0", "", {}, "sha512-rGu0KCaIjT1gdxGKW8WZNcrtgIUUm4HZFwsPSaC3DH0YASuNgtV3XeOEAT0MuycKifNJddjLCe9/DlM45r4Fag=="],
 
     "@napi-rs/lzma-linux-x64-gnu": ["@napi-rs/lzma-linux-x64-gnu@1.5.1", "", { "os": "linux", "cpu": "x64" }, "sha512-oTXEIha4SsuXdTA4Iyskj0kpdx2yVXdhd75c2v3xGrHFfVMsbhTPZU/nMPL4sWKo4pBHm3aucLaqGlF696dTyQ=="],
 

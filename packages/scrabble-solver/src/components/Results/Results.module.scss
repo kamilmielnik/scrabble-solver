@@ -93,15 +93,12 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   @include button-reset;
 
   user-select: none;
-  transition: var(--transition);
   cursor: pointer;
   font-weight: 400;
 
   &:focus,
   &:hover,
   &.highlighted {
-    transition: none;
-
     &:not(:disabled) {
       background-color: var(--color--primary);
       color: var(--color--primary--opposite);

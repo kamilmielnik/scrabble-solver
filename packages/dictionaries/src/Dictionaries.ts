@@ -1,4 +1,4 @@
-import { type Trie } from '@kamilmielnik/trie';
+import { type Gaddag } from '@kamilmielnik/gaddag';
 import { logger } from '@scrabble-solver/logger';
 import { Locale } from '@scrabble-solver/types';
 import fs from 'fs';
@@ -8,23 +8,23 @@ import { createAsyncProxy, downloadDictionary, LayeredCache } from './lib';
 import { type Cache } from './types';
 
 export class Dictionaries {
-  private readonly cache: Cache<Locale, Trie>;
+  private readonly cache: Cache<Locale, Gaddag>;
 
-  private readonly downloadDictionaryProxies: Record<Locale, () => Promise<Trie>>;
+  private readonly downloadDictionaryProxies: Record<Locale, () => Promise<Gaddag>>;
 
   constructor() {
     this.cache = new LayeredCache();
     this.downloadDictionaryProxies = Object.fromEntries(
       Object.values(Locale).map((locale) => [locale, createAsyncProxy(() => downloadDictionary(locale))]),
-    ) as Record<Locale, () => Promise<Trie>>;
+    ) as Record<Locale, () => Promise<Gaddag>>;
   }
 
-  public async get(locale: Locale): Promise<Trie> {
+  public async get(locale: Locale): Promise<Gaddag> {
     if (this.cache.has(locale)) {
-      const trie = await this.cache.get(locale);
+      const gaddag = await this.cache.get(locale);
 
-      if (trie) {
-        return trie;
+      if (gaddag) {
+        return gaddag;
       }
     }
 
@@ -47,12 +47,12 @@ export class Dictionaries {
     return Object.values(Locale).filter((locale) => this.cache.isStale(locale) !== false);
   }
 
-  private async updateDictionary(locale: Locale): Promise<Trie> {
+  private async updateDictionary(locale: Locale): Promise<Gaddag> {
     logger.info('Dictionaries - updateDictionary', { locale });
     fs.mkdirSync(OUTPUT_DIRECTORY, { recursive: true });
     const downloadDictionaryProxy = this.downloadDictionaryProxies[locale];
-    const trie = await downloadDictionaryProxy();
-    await this.cache.set(locale, trie);
-    return trie;
+    const gaddag = await downloadDictionaryProxy();
+    await this.cache.set(locale, gaddag);
+    return gaddag;
   }
 }
