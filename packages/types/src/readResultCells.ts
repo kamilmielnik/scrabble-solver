@@ -3,7 +3,7 @@ import { Cell } from './Cell';
 import { type ResultJson } from './ResultJson';
 import { Tile } from './Tile';
 
-export const readCells = (json: ResultJson, board: Board): Cell[] => {
+export function readCells(json: ResultJson, board: Board): Cell[] {
   const stepX = json.isHorizontal ? 1 : 0;
   const stepY = json.isHorizontal ? 0 : 1;
   const cells: Cell[] = [];
@@ -13,11 +13,10 @@ export const readCells = (json: ResultJson, board: Board): Cell[] => {
   while (y < board.rowsCount && x < board.columnsCount) {
     const boardCell = board.rows[y][x];
 
-    if (!boardCell.isEmpty) {
-      cells.push(new Cell({ isEmpty: false, tile: boardCell.tile.clone(), x, y }));
+    if (boardCell.isFilled()) {
+      cells.push(boardCell.clone());
     } else if (placedIndex < json.tiles.length) {
-      const isBlank = json.blankIndices.includes(placedIndex);
-      cells.push(new Cell({ isEmpty: true, tile: new Tile({ character: json.tiles[placedIndex], isBlank }), x, y }));
+      cells.push(readPlacedCell(json, placedIndex, x, y));
       placedIndex += 1;
     } else {
       break;
@@ -28,13 +27,13 @@ export const readCells = (json: ResultJson, board: Board): Cell[] => {
   }
 
   return cells;
-};
+}
 
-export const readCollisions = (cells: Cell[], board: Board, isHorizontal: boolean): Cell[][] => {
+export function readCollisions(cells: Cell[], board: Board, isHorizontal: boolean): Cell[][] {
   const collisions: Cell[][] = [];
 
   for (const cell of cells) {
-    if (!cell.isEmpty) {
+    if (cell.isFilled()) {
       continue;
     }
 
@@ -46,15 +45,21 @@ export const readCollisions = (cells: Cell[], board: Board, isHorizontal: boolea
   }
 
   return collisions;
-};
+}
 
-const readCollision = (placed: Cell, board: Board, isHorizontal: boolean): Cell[] => {
+function readPlacedCell(json: ResultJson, placedIndex: number, x: number, y: number): Cell {
+  const character = json.tiles[placedIndex];
+  const isBlank = json.blankIndices.includes(placedIndex);
+  return new Cell({ isEmpty: true, tile: new Tile({ character, isBlank }), x, y });
+}
+
+function readCollision(placed: Cell, board: Board, isHorizontal: boolean): Cell[] {
   const stepX = isHorizontal ? 0 : 1;
   const stepY = isHorizontal ? 1 : 0;
   let x = placed.x - stepX;
   let y = placed.y - stepY;
 
-  while (x >= 0 && y >= 0 && !board.rows[y][x].isEmpty) {
+  while (x >= 0 && y >= 0 && board.rows[y][x].isFilled()) {
     x -= stepX;
     y -= stepY;
   }
@@ -70,11 +75,11 @@ const readCollision = (placed: Cell, board: Board, isHorizontal: boolean): Cell[
     } else {
       const boardCell = board.rows[y][x];
 
-      if (boardCell.isEmpty) {
+      if (!boardCell.isFilled()) {
         break;
       }
 
-      collision.push(new Cell({ isEmpty: false, tile: boardCell.tile.clone(), x, y }));
+      collision.push(boardCell.clone());
     }
 
     x += stepX;
@@ -82,4 +87,4 @@ const readCollision = (placed: Cell, board: Board, isHorizontal: boolean): Cell[
   }
 
   return collision;
-};
+}

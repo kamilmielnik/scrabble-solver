@@ -1,4 +1,12 @@
-import { getBoardTile, getLoading, getModal, getOpenModal, getRackTile, getResult } from './selectors';
+import {
+  getBoardTile,
+  getLoading,
+  getModal,
+  getOpenModal,
+  getRackTile,
+  getResult,
+  getResultsContainer,
+} from './selectors';
 
 export const visitIndex = () => {
   cy.visit('/');
@@ -55,11 +63,9 @@ export const pasteBoard = (word: string, direction: 'horizontal' | 'vertical', x
     });
 };
 
-// Solving happens in a dedicated worker when a dictionary is cached, so
-// completion cannot be observed on the network - callers assert on results,
-// which Cypress retries until they render.
 export const solve = () => {
   getRackTile().focus().parents('form').submit();
+  getResultsContainer().should('have.attr', 'data-outdated', 'false');
   getLoading().should('not.exist');
 };
 

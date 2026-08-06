@@ -10,8 +10,8 @@ import {
   getResult,
   getSettingOption,
   getSettingsButton,
-  hoverResult,
   getTooltip,
+  hoverResult,
   moveMouseAway,
   solve,
   typeRack,
@@ -47,8 +47,7 @@ describe('app', () => {
 
   describe('full app test', () => {
     beforeEach(() => {
-      cy.intercept('/api/solve').as('solve');
-      cy.intercept('/api/dictionary/**/*').as('dictionary');
+      cy.intercept('/api/dictionary/*/*').as('dictionary');
     });
 
     it('Scrabble - Polish', () => {

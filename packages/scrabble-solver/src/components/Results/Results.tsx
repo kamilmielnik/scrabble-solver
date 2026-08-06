@@ -81,6 +81,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
       aria-busy={isLoadingDebounced}
       aria-label={translate('results')}
       className={classNames(styles.results, className)}
+      data-outdated={isOutdated}
       data-testid="results"
       role="region"
     >

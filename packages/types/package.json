@@ -20,7 +20,8 @@
   "homepage": "https://scrabble-solver.org",
   "scripts": {
     "build": "tsc --project .",
-    "clean": "rimraf build/"
+    "clean": "rimraf build/",
+    "test": "bun test src"
   },
   "dependencies": {
     "@scrabble-solver/constants": "^2.16.7"

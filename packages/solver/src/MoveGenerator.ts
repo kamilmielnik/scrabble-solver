@@ -273,7 +273,7 @@ export class MoveGenerator {
       for (let x = 0; x < this.width; ++x) {
         const cell = row[x];
 
-        if (cell.isEmpty || !cell.hasTile()) {
+        if (!cell.isFilled()) {
           continue;
         }
 

@@ -12,12 +12,9 @@ export type SolverWorkerRequest =
   | { id: number; type: 'solve'; payload: SolveRequestPayload }
   | { id: number; type: 'verify'; payload: VerifyRequestPayload };
 
-/**
- * `data` is undefined when the worker cannot answer locally (no cached
- * dictionary, or an internal error) - the caller falls back to the server
- * while the worker downloads the dictionary in the background.
- */
-export interface SolverWorkerResponse {
-  data: ResultJson[] | VerifyResult | undefined;
-  id: number;
-}
+export type SolverWorkerResponse =
+  | { id: number; outcome: 'answered'; data: ResultJson[] | VerifyResult }
+  /** No cached dictionary, or an internal error - the caller falls back to the server. */
+  | { id: number; outcome: 'unavailable' }
+  /** A newer solve replaced this one - the newer answer is the one worth waiting for. */
+  | { id: number; outcome: 'superseded' };

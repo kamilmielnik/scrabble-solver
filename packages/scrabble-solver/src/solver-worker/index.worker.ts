@@ -3,22 +3,19 @@
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { solve } from '@scrabble-solver/solver';
-import { Board, type Locale, type ResultJson, Tile } from '@scrabble-solver/types';
+import { Board, type Locale, Tile } from '@scrabble-solver/types';
 
 import { type SolveRequestPayload, type VerifyRequestPayload } from '@/types';
 
 import { revalidateDictionary } from './dictionaries';
 import { getGaddag } from './getGaddag';
-import { type SolverWorkerRequest, type VerifyResult } from './messages';
+import { type SolverWorkerRequest, type SolverWorkerResponse } from './messages';
 
 declare const self: DedicatedWorkerGlobalScope;
 
 /**
- * Solves run synchronously on the single worker thread, so a burst of
- * requests would queue stale solves ahead of the latest one. Handlers note the
- * newest solve id at dispatch; a solve that is no longer the newest after
- * yielding to the event loop answers with an empty result instead, which the
- * page's takeLatest has already abandoned.
+ * Solves run synchronously on the single worker thread, so a burst of requests
+ * would queue stale solves ahead of the latest one.
  */
 let latestSolveId = 0;
 
@@ -29,43 +26,44 @@ self.addEventListener('message', ({ data }: MessageEvent<SolverWorkerRequest>) =
     respond(data.id, () => handleSolve(data.id, data.payload));
   } else if (data.type === 'verify') {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    respond(data.id, () => handleVerify(data.payload));
+    respond(data.id, () => handleVerify(data.id, data.payload));
   } else if (data.type === 'prefetch') {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     prefetchDictionary(data.locale);
   }
 });
 
-const handleSolve = async (
-  id: number,
-  { board, characters, game, locale }: SolveRequestPayload,
-): Promise<ResultJson[] | undefined> => {
+async function handleSolve(id: number, payload: SolveRequestPayload): Promise<SolverWorkerResponse> {
+  const { board, characters, game, locale } = payload;
   const gaddag = await getGaddag(locale);
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
   revalidateDictionary(locale);
 
   if (!gaddag) {
-    return undefined;
+    return { id, outcome: 'unavailable' };
   }
 
   await yieldToQueuedMessages();
 
   if (latestSolveId !== id) {
-    return [];
+    return { id, outcome: 'superseded' };
   }
 
   const config = getConfig(game, locale);
   const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
-  return solve(gaddag, config, Board.fromJson(board), tiles);
-};
+  return { data: solve(gaddag, config, Board.fromJson(board), tiles), id, outcome: 'answered' };
+}
 
-const handleVerify = async ({ board: boardJson, locale }: VerifyRequestPayload): Promise<VerifyResult | undefined> => {
+async function handleVerify(
+  id: number,
+  { board: boardJson, locale }: VerifyRequestPayload,
+): Promise<SolverWorkerResponse> {
   const gaddag = await getGaddag(locale);
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
   revalidateDictionary(locale);
 
   if (!gaddag) {
-    return undefined;
+    return { id, outcome: 'unavailable' };
   }
 
   const board = Board.fromJson(boardJson);
@@ -81,15 +79,15 @@ const handleVerify = async ({ board: boardJson, locale }: VerifyRequestPayload):
     }
   }
 
-  return { invalidWords, validWords };
-};
+  return { data: { invalidWords, validWords }, id, outcome: 'answered' };
+}
 
 /**
  * Deserializes the dictionary ahead of the first solve, so it does not pay the
  * cold-start cost. Warms even when revalidation fails (e.g. offline) - a
  * previously cached dictionary can still be deserialized.
  */
-const prefetchDictionary = async (locale: Locale): Promise<void> => {
+async function prefetchDictionary(locale: Locale): Promise<void> {
   try {
     await revalidateDictionary(locale);
   } catch {
@@ -97,24 +95,24 @@ const prefetchDictionary = async (locale: Locale): Promise<void> => {
   } finally {
     await getGaddag(locale);
   }
-};
+}
 
-const respond = async (id: number, handle: () => Promise<ResultJson[] | VerifyResult | undefined>): Promise<void> => {
+async function respond(id: number, handle: () => Promise<SolverWorkerResponse>): Promise<void> {
   try {
-    self.postMessage({ data: await handle(), id });
+    self.postMessage(await handle());
   } catch {
-    self.postMessage({ data: undefined, id });
+    self.postMessage({ id, outcome: 'unavailable' } satisfies SolverWorkerResponse);
   }
-};
+}
 
 /**
  * Messages queued behind this handler dispatch only between macrotasks - a
  * MessageChannel round-trip lets them register before an expensive solve.
  */
-const yieldToQueuedMessages = (): Promise<void> => {
+function yieldToQueuedMessages(): Promise<void> {
   return new Promise((resolve) => {
     const { port1, port2 } = new MessageChannel();
     port1.onmessage = () => resolve();
     port2.postMessage(null);
   });
-};
+}

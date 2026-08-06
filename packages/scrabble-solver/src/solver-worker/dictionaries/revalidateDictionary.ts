@@ -2,23 +2,15 @@ import { type Locale } from '@scrabble-solver/types';
 
 import { DICTIONARY_CACHE } from './constants';
 import { expirationManager } from './expirationManager';
-import { bumpDictionaryGeneration } from './generations';
 import { getDictionaryUrl } from './getDictionaryUrl';
 
 const REVALIDATION_INTERVAL = 60 * 60 * 1000;
 
 const requests: Partial<Record<Locale, Promise<void> | undefined>> = {};
 const revalidatedAt: Partial<Record<Locale, number>> = {};
+const resetWhileRevalidating = new Set<Locale>();
 
-/**
- * Lets the next access revalidate immediately - used when the cached
- * dictionary is deleted, so its replacement is not stuck behind the throttle.
- */
-export const resetRevalidationThrottle = (locale: Locale): void => {
-  revalidatedAt[locale] = undefined;
-};
-
-export const revalidateDictionary = async (locale: Locale): Promise<void> => {
+export async function revalidateDictionary(locale: Locale): Promise<void> {
   if (requests[locale] instanceof Promise) {
     return;
   }
@@ -27,24 +19,38 @@ export const revalidateDictionary = async (locale: Locale): Promise<void> => {
     return;
   }
 
+  resetWhileRevalidating.delete(locale);
   const request = revalidate(locale);
   requests[locale] = request;
 
   try {
     await request;
-    revalidatedAt[locale] = Date.now();
+
+    if (!resetWhileRevalidating.has(locale)) {
+      revalidatedAt[locale] = Date.now();
+    }
   } finally {
     requests[locale] = undefined;
   }
-};
+}
+
+/**
+ * Lets the next access revalidate immediately - used when the cached dictionary
+ * is deleted, so its replacement is not stuck behind the throttle.
+ * A revalidation already in flight when this runs saw the deleted entry, so it
+ * must not arm the throttle when it finishes.
+ */
+export function resetRevalidationThrottle(locale: Locale): void {
+  revalidatedAt[locale] = undefined;
+  resetWhileRevalidating.add(locale);
+}
 
 /**
  * Bypasses the HTTP cache (`no-store`) so the conditional request reaches the
  * server and the Cache API stays the single source of truth. A 304 keeps the
- * multi-megabyte cached body untouched; only a real 200 rewrites it and
- * invalidates memoized deserializations via the generation bump.
+ * multi-megabyte cached body untouched; only a real 200 rewrites it.
  */
-const revalidate = async (locale: Locale): Promise<void> => {
+async function revalidate(locale: Locale): Promise<void> {
   await expirationManager.expireEntries();
 
   const url = getDictionaryUrl(locale);
@@ -67,5 +73,4 @@ const revalidate = async (locale: Locale): Promise<void> => {
 
   await cache.put(url, response);
   await expirationManager.updateTimestamp(url);
-  bumpDictionaryGeneration(locale);
-};
+}

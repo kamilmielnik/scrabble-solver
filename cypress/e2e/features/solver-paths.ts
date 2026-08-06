@@ -12,6 +12,7 @@ import {
 describe('Solver paths', () => {
   beforeEach(async () => {
     await unregisterServiceWorkers();
+    await deleteCachedDictionaries();
   });
 
   afterEach(() => {
@@ -19,7 +20,6 @@ describe('Solver paths', () => {
   });
 
   it('solves through the server when no dictionary is available locally', () => {
-    cy.wrap(deleteCachedDictionaries());
     cy.intercept('GET', '/api/dictionary/*', { statusCode: 503 });
     cy.intercept('POST', '/api/solve').as('solve');
     visitIndex();

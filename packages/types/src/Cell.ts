@@ -47,6 +47,10 @@ export class Cell {
     return this.isEmpty && this.hasTile();
   }
 
+  public isFilled(): boolean {
+    return !this.isEmpty && this.hasTile();
+  }
+
   public toJson(): CellJson {
     return {
       isEmpty: this.isEmpty,

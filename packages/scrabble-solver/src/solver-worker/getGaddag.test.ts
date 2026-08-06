@@ -5,7 +5,6 @@ import { describe, expect, it, mock } from 'bun:test';
 import type * as getGaddagModule from './getGaddag';
 
 let dictionary: Response | undefined;
-const generations: Partial<Record<Locale, number>> = {};
 const deletedLocales: Locale[] = [];
 
 await mock.module('./dictionaries', () => ({
@@ -14,7 +13,6 @@ await mock.module('./dictionaries', () => ({
     return Promise.resolve();
   },
   getDictionary: () => Promise.resolve(dictionary),
-  getDictionaryGeneration: (locale: Locale) => generations[locale] ?? 0,
 }));
 
 const { getGaddag }: typeof getGaddagModule = await import('./getGaddag');
@@ -26,7 +24,7 @@ describe('getGaddag', () => {
   });
 
   it('deserializes a cached dictionary', async () => {
-    dictionary = new Response(Gaddag.fromArray(['scrabble', 'solver']).serialize());
+    dictionary = createDictionary(['scrabble', 'solver']);
     const gaddag = await getGaddag(Locale.EN_US);
 
     expect(gaddag?.has('scrabble')).toBe(true);
@@ -47,17 +45,65 @@ describe('getGaddag', () => {
     expect(deletedLocales).toContain(Locale.FA_IR);
   });
 
-  it('reuses the deserialized dictionary until the generation changes', async () => {
-    dictionary = new Response(Gaddag.fromArray(['scrabble']).serialize());
+  it('reuses the deserialized dictionary while the cached response is unchanged', async () => {
+    dictionary = createDictionary(['scrabble'], { etag: '"v1"' });
     const first = await getGaddag(Locale.EN_GB);
-    dictionary = new Response(Gaddag.fromArray(['solver']).serialize());
+    dictionary = createDictionary(['scrabble'], { etag: '"v1"' });
     const second = await getGaddag(Locale.EN_GB);
-    generations[Locale.EN_GB] = 1;
-    const third = await getGaddag(Locale.EN_GB);
 
     expect(first?.has('scrabble')).toBe(true);
     expect(second).toBe(first);
-    expect(third?.has('solver')).toBe(true);
+  });
+
+  it('reuses the deserialized dictionary when a revalidation only refreshes the Date header', async () => {
+    dictionary = createDictionary(['scrabble'], { date: 'Thu, 06 Aug 2026 00:00:00 GMT', etag: '"v1"' });
+    const first = await getGaddag(Locale.FR_FR);
+    dictionary = createDictionary(['scrabble'], { date: 'Fri, 07 Aug 2026 00:00:00 GMT', etag: '"v1"' });
+    const second = await getGaddag(Locale.FR_FR);
+
+    expect(first?.has('scrabble')).toBe(true);
+    expect(second).toBe(first);
+  });
+
+  it('picks up a dictionary another tab wrote into the shared cache', async () => {
+    dictionary = createDictionary(['scrabble'], { etag: '"v1"' });
+    const first = await getGaddag(Locale.TR_TR);
+    dictionary = createDictionary(['solver'], { etag: '"v2"' });
+    const second = await getGaddag(Locale.TR_TR);
+
+    expect(first?.has('scrabble')).toBe(true);
+    expect(second).not.toBe(first);
+    expect(second?.has('solver')).toBe(true);
+  });
+
+  it('falls back to the Date header for responses without an ETag', async () => {
+    dictionary = createDictionary(['scrabble'], { date: 'Thu, 06 Aug 2026 00:00:00 GMT' });
+    const first = await getGaddag(Locale.DE_DE);
+    dictionary = createDictionary(['scrabble'], { date: 'Thu, 06 Aug 2026 00:00:00 GMT' });
+    const second = await getGaddag(Locale.DE_DE);
+    dictionary = createDictionary(['scrabble'], { date: 'Fri, 07 Aug 2026 00:00:00 GMT' });
+    const third = await getGaddag(Locale.DE_DE);
+
+    expect(first?.has('scrabble')).toBe(true);
+    expect(second).toBe(first);
     expect(third).not.toBe(first);
+    expect(third?.has('scrabble')).toBe(true);
+  });
+
+  it('memoizes each locale independently', async () => {
+    dictionary = createDictionary(['scrabble'], { etag: '"es"' });
+    const spanish = await getGaddag(Locale.ES_ES);
+    dictionary = createDictionary(['solver'], { etag: '"ro"' });
+    const romanian = await getGaddag(Locale.RO_RO);
+    dictionary = createDictionary(['scrabble'], { etag: '"es"' });
+    const spanishAgain = await getGaddag(Locale.ES_ES);
+
+    expect(spanish?.has('scrabble')).toBe(true);
+    expect(romanian?.has('solver')).toBe(true);
+    expect(spanishAgain).toBe(spanish);
   });
 });
+
+function createDictionary(words: string[], headers: Record<string, string> = {}): Response {
+  return new Response(Gaddag.fromArray(words).serialize(), { headers });
+}
