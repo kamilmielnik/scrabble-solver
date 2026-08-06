@@ -10,8 +10,12 @@ export async function getDictionary(locale: Locale): Promise<Response | undefine
 }
 
 export async function deleteDictionary(locale: Locale): Promise<void> {
-  // Reset first, so a revalidation racing this delete cannot arm the throttle.
-  await resetRevalidationThrottle(locale);
   const cache = await caches.open(DICTIONARY_CACHE);
   await cache.delete(getDictionaryUrl(locale));
+  /**
+   * Reset last: resetting first leaves a window in which a revalidation starts,
+   * reads the doomed entry's ETag, takes the 304 it answers with, and arms the
+   * throttle against a dictionary this call is about to delete.
+   */
+  await resetRevalidationThrottle(locale);
 }

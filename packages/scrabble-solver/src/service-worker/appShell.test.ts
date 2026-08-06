@@ -66,7 +66,7 @@ describe('respondToNavigation', () => {
 });
 
 function navigation(url: string): Request {
-  return new Request(new URL(url, 'https://scrabble-solver.com'));
+  return new Request(new URL(url, 'https://scrabble-solver.org'));
 }
 
 function html(body: string): Response {

@@ -2,6 +2,7 @@ import { Locale } from '@scrabble-solver/types';
 import { afterAll, beforeEach, describe, expect, it, mock } from 'bun:test';
 
 import { DICTIONARY_CACHE, REVALIDATED_AT_CACHE } from './constants';
+import type * as getDictionaryModule from './getDictionary';
 import { getDictionaryUrl } from './getDictionaryUrl';
 import type * as revalidateDictionaryModule from './revalidateDictionary';
 
@@ -37,6 +38,7 @@ afterAll(() => {
 
 const { resetRevalidationThrottle, revalidateDictionary }: typeof revalidateDictionaryModule =
   await import('./revalidateDictionary');
+const { deleteDictionary }: typeof getDictionaryModule = await import('./getDictionary');
 
 describe('revalidateDictionary', () => {
   beforeEach(() => {
@@ -126,11 +128,11 @@ describe('revalidateDictionary', () => {
     expect(fetchCalls).toHaveLength(1);
   });
 
-  it('lets the next access revalidate after a reset', async () => {
+  it('lets the next access revalidate after the dictionary is deleted', async () => {
     const locale = await unthrottled(Locale.DE_DE);
     await revalidateDictionary(locale);
     await revalidateDictionary(locale);
-    await resetRevalidationThrottle(locale);
+    await deleteDictionary(locale);
     await revalidateDictionary(locale);
     expect(fetchCalls).toHaveLength(2);
   });

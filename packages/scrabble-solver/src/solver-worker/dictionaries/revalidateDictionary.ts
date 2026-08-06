@@ -31,6 +31,9 @@ export function revalidateDictionary(locale: Locale): Promise<void> {
  * is deleted, so its replacement is not stuck behind the throttle.
  * A revalidation already in flight when this runs saw the deleted entry, so it
  * must not arm the throttle when it finishes.
+ * Both in-memory guards are raised before the first await, so a caller that
+ * runs this straight after deleting the entry leaves no gap for a revalidation
+ * to slip into.
  */
 export async function resetRevalidationThrottle(locale: Locale): Promise<void> {
   resetWhileRevalidating.add(locale);
