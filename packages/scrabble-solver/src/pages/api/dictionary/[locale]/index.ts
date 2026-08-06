@@ -26,15 +26,20 @@ const dictionary = async (request: NextApiRequest, response: NextApiResponse): P
     });
 
     const gaddag = await dictionaries.get(locale);
+    const isGzip = acceptsGzip(request);
+    const body = isGzip ? await getCompressedDictionary(gaddag) : Buffer.from(gaddag.serialize());
+
+    // no-cache makes clients store the payload but revalidate it, so unchanged
+    // re-downloads become 304s, answered by Next's built-in ETag handling.
+    response.setHeader('Cache-Control', 'no-cache');
     response.setHeader('Content-Type', 'application/octet-stream');
     response.setHeader('Vary', 'Accept-Encoding');
 
-    if (acceptsGzip(request)) {
+    if (isGzip) {
       response.setHeader('Content-Encoding', 'gzip');
-      response.status(200).send(await getCompressedDictionary(gaddag));
-    } else {
-      response.status(200).send(Buffer.from(gaddag.serialize()));
     }
+
+    response.status(200).send(body);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     logger.error('dictionary - error', { error, meta });
@@ -62,14 +67,25 @@ const acceptsGzip = (request: NextApiRequest): boolean => {
     return false;
   }
 
-  return header.split(',').some((entry) => {
+  let wildcardAccepts = false;
+
+  for (const entry of header.split(',')) {
     const [encoding, ...parameters] = entry.split(';').map((token) => token.trim().toLowerCase());
     const isRefused = parameters.some((parameter) => {
       const [name, quality] = parameter.split('=').map((token) => token.trim());
       return name === 'q' && parseFloat(quality) === 0;
     });
-    return (encoding === 'gzip' || encoding === 'x-gzip') && !isRefused;
-  });
+
+    if (encoding === 'gzip' || encoding === 'x-gzip') {
+      return !isRefused;
+    }
+
+    if (encoding === '*') {
+      wildcardAccepts = !isRefused;
+    }
+  }
+
+  return wildcardAccepts;
 };
 
 const gzipAsync = promisify(gzip);

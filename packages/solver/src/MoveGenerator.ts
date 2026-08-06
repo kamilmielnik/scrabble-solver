@@ -263,7 +263,7 @@ export class MoveGenerator {
     }
 
     this.boardFilled = new Uint8Array(this.cellsCount);
-    this.boardChar = new Array(this.cellsCount);
+    this.boardChar = Array.from<string>({ length: this.cellsCount });
     this.boardIsBlank = new Uint8Array(this.cellsCount);
     this.boardScore = new Int32Array(this.cellsCount);
     this.boardLetter1 = new Int32Array(this.cellsCount);
@@ -324,7 +324,7 @@ export class MoveGenerator {
     const maxLineLength = Math.max(this.width, this.height);
     this.placedAt = new Int32Array(maxLineLength).fill(-1);
     this.placedBlankAt = new Uint8Array(maxLineLength);
-    this.boardCellJsonCache = new Array<CellJson | undefined>(this.cellsCount);
+    this.boardCellJsonCache = Array.from<CellJson | undefined>({ length: this.cellsCount });
   }
 
   public run(): ResultJson[] {
