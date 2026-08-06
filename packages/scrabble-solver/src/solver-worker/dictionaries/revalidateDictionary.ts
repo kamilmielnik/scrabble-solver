@@ -3,35 +3,27 @@ import { type Locale } from '@scrabble-solver/types';
 import { DICTIONARY_CACHE } from './constants';
 import { expirationManager } from './expirationManager';
 import { getDictionaryUrl } from './getDictionaryUrl';
+import { clearRevalidatedAt, readRevalidatedAt, writeRevalidatedAt } from './revalidatedAt';
 
 const REVALIDATION_INTERVAL = 60 * 60 * 1000;
 
 const requests: Partial<Record<Locale, Promise<void> | undefined>> = {};
-const revalidatedAt: Partial<Record<Locale, number>> = {};
 const resetWhileRevalidating = new Set<Locale>();
 
-export async function revalidateDictionary(locale: Locale): Promise<void> {
-  if (requests[locale] instanceof Promise) {
-    return;
+export function revalidateDictionary(locale: Locale): Promise<void> {
+  const inFlight = requests[locale];
+
+  if (inFlight) {
+    return inFlight;
   }
 
-  if (Date.now() - (revalidatedAt[locale] ?? 0) < REVALIDATION_INTERVAL) {
-    return;
-  }
-
-  resetWhileRevalidating.delete(locale);
-  const request = revalidate(locale);
-  requests[locale] = request;
-
-  try {
-    await request;
-
-    if (!resetWhileRevalidating.has(locale)) {
-      revalidatedAt[locale] = Date.now();
-    }
-  } finally {
+  // Registered before the first await, so concurrent callers share this request.
+  const request = revalidateWhenStale(locale).finally(() => {
     requests[locale] = undefined;
-  }
+  });
+
+  requests[locale] = request;
+  return request;
 }
 
 /**
@@ -40,15 +32,30 @@ export async function revalidateDictionary(locale: Locale): Promise<void> {
  * A revalidation already in flight when this runs saw the deleted entry, so it
  * must not arm the throttle when it finishes.
  */
-export function resetRevalidationThrottle(locale: Locale): void {
-  revalidatedAt[locale] = undefined;
+export async function resetRevalidationThrottle(locale: Locale): Promise<void> {
   resetWhileRevalidating.add(locale);
+  await clearRevalidatedAt(locale);
+}
+
+async function revalidateWhenStale(locale: Locale): Promise<void> {
+  if (Date.now() - (await readRevalidatedAt(locale)) < REVALIDATION_INTERVAL) {
+    return;
+  }
+
+  resetWhileRevalidating.delete(locale);
+  await revalidate(locale);
+
+  if (!resetWhileRevalidating.has(locale)) {
+    await writeRevalidatedAt(locale, Date.now());
+  }
 }
 
 /**
- * Bypasses the HTTP cache (`no-store`) so the conditional request reaches the
- * server and the Cache API stays the single source of truth. A 304 keeps the
- * multi-megabyte cached body untouched; only a real 200 rewrites it.
+ * `no-cache` revalidates against the server without letting the HTTP cache
+ * answer, while still allowing a 304 that keeps the multi-megabyte cached body
+ * untouched; only a real 200 rewrites it. `no-store` would look equivalent but
+ * makes the browser send `Cache-Control: no-cache`, which Next.js reads as an
+ * unconditional request and answers with the whole body every time.
  */
 async function revalidate(locale: Locale): Promise<void> {
   await expirationManager.expireEntries();
@@ -58,7 +65,7 @@ async function revalidate(locale: Locale): Promise<void> {
   const cached = await cache.match(url);
   const etag = cached?.headers.get('etag');
   const response = await fetch(url, {
-    cache: 'no-store',
+    cache: 'no-cache',
     headers: etag ? { 'If-None-Match': etag } : {},
   });
 

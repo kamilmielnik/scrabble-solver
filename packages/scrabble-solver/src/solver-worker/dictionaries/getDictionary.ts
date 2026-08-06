@@ -10,7 +10,8 @@ export async function getDictionary(locale: Locale): Promise<Response | undefine
 }
 
 export async function deleteDictionary(locale: Locale): Promise<void> {
+  // Reset first, so a revalidation racing this delete cannot arm the throttle.
+  await resetRevalidationThrottle(locale);
   const cache = await caches.open(DICTIONARY_CACHE);
   await cache.delete(getDictionaryUrl(locale));
-  resetRevalidationThrottle(locale);
 }

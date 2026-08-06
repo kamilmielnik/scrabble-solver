@@ -1,5 +1,7 @@
 export const DICTIONARY_CACHE = 'dictionary-api-cache';
 
+export const REVALIDATED_AT_CACHE = 'dictionary-revalidated-at';
+
 export const DAY = 24 * 60 * 60 * 1000;
 
 // Staleness is handled by conditional revalidation; expiration only cleans up

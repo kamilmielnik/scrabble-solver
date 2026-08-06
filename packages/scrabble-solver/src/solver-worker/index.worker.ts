@@ -28,16 +28,14 @@ self.addEventListener('message', ({ data }: MessageEvent<SolverWorkerRequest>) =
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     respond(data.id, () => handleVerify(data.id, data.payload));
   } else if (data.type === 'prefetch') {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    prefetchDictionary(data.locale);
+    prefetchDictionary(data.locale).catch(() => undefined);
   }
 });
 
 async function handleSolve(id: number, payload: SolveRequestPayload): Promise<SolverWorkerResponse> {
   const { board, characters, game, locale } = payload;
   const gaddag = await getGaddag(locale);
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  revalidateDictionary(locale);
+  revalidateInBackground(locale);
 
   if (!gaddag) {
     return { id, outcome: 'unavailable' };
@@ -59,8 +57,7 @@ async function handleVerify(
   { board: boardJson, locale }: VerifyRequestPayload,
 ): Promise<SolverWorkerResponse> {
   const gaddag = await getGaddag(locale);
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  revalidateDictionary(locale);
+  revalidateInBackground(locale);
 
   if (!gaddag) {
     return { id, outcome: 'unavailable' };
@@ -92,9 +89,18 @@ async function prefetchDictionary(locale: Locale): Promise<void> {
     await revalidateDictionary(locale);
   } catch {
     // Solving falls back to the server until a later revalidation succeeds.
-  } finally {
-    await getGaddag(locale);
   }
+
+  await getGaddag(locale);
+}
+
+/**
+ * Revalidation failures are expected (offline, server down) and must not
+ * surface as unhandled rejections - solving keeps using the cached dictionary
+ * until a later revalidation succeeds.
+ */
+function revalidateInBackground(locale: Locale): void {
+  revalidateDictionary(locale).catch(() => undefined);
 }
 
 async function respond(id: number, handle: () => Promise<SolverWorkerResponse>): Promise<void> {
