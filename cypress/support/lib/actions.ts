@@ -79,8 +79,12 @@ export const hoverResult = (index = 0) => {
   getResult(index).realHover();
 };
 
+/**
+ * Dropping the dictionary without its revalidation timestamp leaves the app
+ * throttled against re-downloading a dictionary it no longer has.
+ */
 export const deleteCachedDictionaries = async () => {
-  await caches.delete('dictionary-api-cache');
+  await Promise.all([caches.delete('dictionary-api-cache'), caches.delete('dictionary-revalidated-at')]);
 };
 
 export const assertResult = (index: number, word: string, points: number) => {
