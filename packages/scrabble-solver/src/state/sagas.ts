@@ -124,7 +124,8 @@ function* onInitialize(): AnyGenerator {
   const locale = yield select(selectLocale);
 
   yield spawn(prefetchDictionary, locale);
-  yield call(visit);
+  // Detached: offline, a failed visit would otherwise tear down the whole root saga.
+  yield spawn(visit);
 
   if (!board.isEmpty()) {
     yield* resetRack();
