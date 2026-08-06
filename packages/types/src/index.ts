@@ -8,7 +8,6 @@ export { Cell } from './Cell';
 export { CellJson, isCellJson } from './CellJson';
 export { CharacterBonus } from './CharacterBonus';
 export { Collision } from './Collision';
-export { CollisionJson } from './CollisionJson';
 export { Config } from './Config';
 export { ConfigJson } from './ConfigJson';
 export { Dictionary } from './Dictionary';

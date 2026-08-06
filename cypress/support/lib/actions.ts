@@ -1,8 +1,12 @@
-import { getBoardTile, getLoading, getModal, getOpenModal, getRackTile, getResult } from './selectors';
-
-const getRandomId = () => {
-  return String(Math.random()).replace(/^\d\./, '');
-};
+import {
+  getBoardTile,
+  getLoading,
+  getModal,
+  getOpenModal,
+  getRackTile,
+  getResult,
+  getResultsContainer,
+} from './selectors';
 
 export const visitIndex = () => {
   cy.visit('/');
@@ -60,12 +64,23 @@ export const pasteBoard = (word: string, direction: 'horizontal' | 'vertical', x
 };
 
 export const solve = () => {
-  const id = `solve-${getRandomId()}`;
-
-  cy.intercept('/api/solve').as(id);
   getRackTile().focus().parents('form').submit();
-  cy.wait(`@${id}`);
+  getResultsContainer().should('have.attr', 'data-outdated', 'false');
   getLoading().should('not.exist');
+};
+
+/**
+ * react-window remounts rows during its initial measure pass, and a row
+ * replaced under an already-hovered cursor never receives a new mouseenter -
+ * let the list settle before hovering.
+ */
+export const hoverResult = (index = 0) => {
+  cy.wait(100);
+  getResult(index).realHover();
+};
+
+export const deleteCachedDictionaries = async () => {
+  await caches.delete('dictionary-api-cache');
 };
 
 export const assertResult = (index: number, word: string, points: number) => {

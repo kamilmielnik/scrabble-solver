@@ -2,12 +2,12 @@
 
 import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching';
 
-import { routeSolveRequests } from './routeSolveRequests';
-import { routeVerifyRequests } from './routeVerifyRequests';
+import { cacheAppShell, routeNavigations } from './appShell';
 
 declare const self: ServiceWorkerGlobalScope;
 
-self.addEventListener('install', () => {
+self.addEventListener('install', (event) => {
+  event.waitUntil(cacheAppShell());
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
   self.skipWaiting();
 });
@@ -19,5 +19,4 @@ self.addEventListener('activate', () => {
 
 cleanupOutdatedCaches();
 precacheAndRoute(self.__WB_MANIFEST);
-routeSolveRequests();
-routeVerifyRequests();
+routeNavigations();

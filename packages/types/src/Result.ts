@@ -1,17 +1,21 @@
 import { CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 
-import { Cell } from './Cell';
+import { type Board } from './Board';
+import { type Cell } from './Cell';
+import { readCells, readCollisions } from './readResultCells';
 import { type ResultJson } from './ResultJson';
 import { type Tile } from './Tile';
 
 type Collision = Cell[];
 
 export class Result {
-  public static fromJson = (json: ResultJson): Result => {
+  public static fromJson = (json: ResultJson, board: Board): Result => {
+    const cells = readCells(json, board);
+
     return new Result({
+      cells,
+      collisions: readCollisions(cells, board, json.isHorizontal),
       id: json.id,
-      cells: json.cells.map(Cell.fromJson),
-      collisions: json.collisions.map((collision) => collision.map(Cell.fromJson)),
       points: json.points,
     });
   };
@@ -73,11 +77,16 @@ export class Result {
   }
 
   public toJson(): ResultJson {
+    const placed = this.cells.filter((cell) => cell.isEmpty);
+
     return {
-      cells: this.cells.map((cell) => cell.toJson()),
+      blankIndices: placed.flatMap((cell, index) => (cell.tile.isBlank ? [index] : [])),
       id: this.id,
-      collisions: this.collisions.map((collision) => collision.map((cell) => cell.toJson())),
+      isHorizontal: this.isHorizontal(),
       points: this.points,
+      tiles: placed.map((cell) => cell.tile.character),
+      x: this.cells[0].x,
+      y: this.cells[0].y,
     };
   }
 

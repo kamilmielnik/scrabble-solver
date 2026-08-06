@@ -6,11 +6,12 @@
 import { type PayloadAction } from '@reduxjs/toolkit';
 import { hasConfig, languages } from '@scrabble-solver/configs';
 import { Board, type Locale, type Result } from '@scrabble-solver/types';
-import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, delay, put, select, spawn, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { LOCALE_FEATURES } from '@/i18n';
 import { memoize } from '@/lib';
 import { findWordDefinitions, solve, verify, visit } from '@/sdk';
+import { prefetchDictionary } from '@/solver-worker';
 
 import { initialize, reset } from './actions';
 import { boardSlice, selectBoard } from './board';
@@ -120,8 +121,11 @@ function* onDictionarySubmit(): AnyGenerator {
 
 function* onInitialize(): AnyGenerator {
   const board = yield select(selectBoard);
+  const locale = yield select(selectLocale);
 
-  yield call(visit);
+  yield spawn(prefetchDictionary, locale);
+  // Detached: offline, a failed visit would otherwise tear down the whole root saga.
+  yield spawn(visit);
 
   if (!board.isEmpty()) {
     yield* resetRack();
@@ -142,6 +146,8 @@ function* onReset(): AnyGenerator {
 }
 
 function* onLocaleChange({ payload: locale }: PayloadAction<Locale>): AnyGenerator {
+  yield spawn(prefetchDictionary, locale);
+
   const game = yield select(selectGame);
 
   if (!hasConfig(game, locale)) {

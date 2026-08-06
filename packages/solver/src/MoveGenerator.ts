@@ -3,7 +3,6 @@ import { type Gaddag, LAST_ARC_FLAG, LETTER_MASK, SEPARATOR } from '@kamilmielni
 import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 import {
   type Board,
-  type CellJson,
   type Config,
   type ResultJson,
   type Tile,
@@ -25,8 +24,9 @@ const MAX_BOARD_DIMENSION = 32;
  * rightwards — validating perpendicular words with precomputed cross-check
  * masks. Both directions run the same code path: the vertical pass remaps
  * (line, position) to transposed coordinates. Each placement is scored and
- * emitted as a {@link ResultJson} identical in shape and points to the output
- * of the previous pattern-based solver.
+ * emitted as a compact {@link ResultJson} — placed tiles plus placement — from
+ * which {@link Result.fromJson} rebuilds the full cells and collisions against
+ * the board.
  */
 export class MoveGenerator {
   private readonly gaddag: Gaddag;
@@ -88,8 +88,6 @@ export class MoveGenerator {
   private readonly maskHi: Int32Array;
   private readonly crossBase: Int32Array;
   private readonly hasCross: Uint8Array;
-  private readonly crossLo: Int32Array;
-  private readonly crossHi: Int32Array;
 
   // Current line/anchor state.
   private line = 0;
@@ -114,7 +112,6 @@ export class MoveGenerator {
   private readonly results: ResultJson[] = [];
 
   // Board cells are immutable during a solve, so their JSON is shared between results.
-  private readonly boardCellJsonCache: (CellJson | undefined)[];
 
   // Sort keys reproducing the previous solver's result order:
   // horizontal before vertical, then by line, start, and end position.
@@ -276,7 +273,7 @@ export class MoveGenerator {
       for (let x = 0; x < this.width; ++x) {
         const cell = row[x];
 
-        if (cell.isEmpty || !cell.hasTile()) {
+        if (!cell.isFilled()) {
           continue;
         }
 
@@ -318,13 +315,9 @@ export class MoveGenerator {
     this.maskHi = new Int32Array(this.cellsCount);
     this.crossBase = new Int32Array(this.cellsCount);
     this.hasCross = new Uint8Array(this.cellsCount);
-    this.crossLo = new Int32Array(this.cellsCount);
-    this.crossHi = new Int32Array(this.cellsCount);
-
     const maxLineLength = Math.max(this.width, this.height);
     this.placedAt = new Int32Array(maxLineLength).fill(-1);
     this.placedBlankAt = new Uint8Array(maxLineLength);
-    this.boardCellJsonCache = Array.from<CellJson | undefined>({ length: this.cellsCount });
   }
 
   public run(): ResultJson[] {
@@ -516,8 +509,6 @@ export class MoveGenerator {
 
         this.hasCross[passIndex] = 1;
         this.crossBase[passIndex] = base;
-        this.crossLo[passIndex] = spanLo;
-        this.crossHi[passIndex] = spanHi;
 
         let maskLo = 0;
         let maskHi = 0;
@@ -799,7 +790,7 @@ export class MoveGenerator {
   }
 
   private record(startPosition: number, endPosition: number): void {
-    const { lineBase, lineLength } = this;
+    const { lineBase } = this;
 
     if (this.digraphs.length > 0 && this.hasInvalidDigraph(startPosition, endPosition)) {
       return;
@@ -828,15 +819,14 @@ export class MoveGenerator {
     let mainScore = 0;
     let wordMultiplier = 1;
     let collisionsScore = 0;
-    const cells: CellJson[] = [];
-    const collisions: CellJson[][] = [];
+    const tiles: string[] = [];
+    const blankIndices: number[] = [];
 
     for (let position = startPosition; position <= endPosition; ++position) {
       const passIndex = lineBase + position;
 
       if (this.passFilled[passIndex] === 1) {
         mainScore += this.passScore[passIndex];
-        cells.push(this.boardCellJson(this.passGlobal[passIndex]));
         continue;
       }
 
@@ -861,30 +851,14 @@ export class MoveGenerator {
       mainScore += tileScore * characterMultiplier;
       wordMultiplier *= cellWordMultiplier;
 
-      const cellJson: CellJson = {
-        isEmpty: true,
-        tile: {
-          character: this.alphaChars[alpha],
-          isBlank,
-        },
-        x: this.isHorizontal ? position : this.line,
-        y: this.isHorizontal ? this.line : position,
-      };
-      cells.push(cellJson);
+      if (isBlank) {
+        blankIndices.push(tiles.length);
+      }
+
+      tiles.push(this.alphaChars[alpha]);
 
       if (this.hasCross[passIndex] === 1) {
         collisionsScore += (this.crossBase[passIndex] + tileScore * characterMultiplier) * cellWordMultiplier;
-        const crossCells: CellJson[] = [];
-
-        for (let crossLine = this.crossLo[passIndex]; crossLine <= this.crossHi[passIndex]; ++crossLine) {
-          if (crossLine === this.line) {
-            crossCells.push(cellJson);
-          } else {
-            crossCells.push(this.boardCellJson(this.passGlobal[crossLine * lineLength + position]));
-          }
-        }
-
-        collisions.push(crossCells);
       }
     }
 
@@ -913,7 +887,15 @@ export class MoveGenerator {
 
     this.sortKeys.push((this.isHorizontal ? 0 : 1 << 20) | (this.line << 15) | (startPosition << 8) | endPosition);
     this.rankKeys.push(rankKey);
-    this.results.push({ cells, collisions, id: this.results.length, points });
+    this.results.push({
+      blankIndices,
+      id: this.results.length,
+      isHorizontal: this.isHorizontal,
+      points,
+      tiles,
+      x: this.isHorizontal ? startPosition : this.line,
+      y: this.isHorizontal ? this.line : startPosition,
+    });
   }
 
   private hasInvalidDigraph(startPosition: number, endPosition: number): boolean {
@@ -940,24 +922,5 @@ export class MoveGenerator {
     }
 
     return this.alphaChars[this.placedAt[position]];
-  }
-
-  private boardCellJson(globalIndex: number): CellJson {
-    let cellJson = this.boardCellJsonCache[globalIndex];
-
-    if (typeof cellJson === 'undefined') {
-      cellJson = {
-        isEmpty: false,
-        tile: {
-          character: this.boardChar[globalIndex],
-          isBlank: this.boardIsBlank[globalIndex] === 1,
-        },
-        x: globalIndex % this.width,
-        y: Math.floor(globalIndex / this.width),
-      };
-      this.boardCellJsonCache[globalIndex] = cellJson;
-    }
-
-    return cellJson;
   }
 }
