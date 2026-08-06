@@ -14,6 +14,7 @@ import {
   solveSlice,
   useTranslate,
   useTypedSelector,
+  useTypedStore,
 } from '@/state';
 
 import { Alert } from '../Alert';
@@ -38,13 +39,13 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
   const { maxControlsWidth, showCompactControls, tileSize } = useAppLayout();
   const error = useTypedSelector(selectSolveError);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
-  const resultCandidate = useTypedSelector(selectResultCandidate);
   const results = useTypedSelector(selectProcessedResults);
+  const store = useTypedStore();
   const [bestResult] = results || [];
   const touchCallbacks = useMemo(
     () => ({
       onClick: (result: Result) => {
-        const isSelected = result === resultCandidate;
+        const isSelected = result === selectResultCandidate(store.getState());
 
         if (isSelected) {
           dispatch(resultsSlice.actions.applyResult(result));
@@ -53,7 +54,7 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
         }
       },
     }),
-    [dispatch, resultCandidate],
+    [dispatch, store],
   );
   const mouseCallbacks = useMemo(
     () => ({

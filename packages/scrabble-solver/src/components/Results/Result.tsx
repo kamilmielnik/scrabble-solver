@@ -28,7 +28,6 @@ export const Result = ({
   onClick = noop,
   onFocus = noop,
   onMouseEnter = noop,
-  onMouseLeave = noop,
   style,
 }: RowComponentProps<ResultData>): ReactElement => {
   const { resultWordWidth } = useAppLayout();
@@ -44,7 +43,6 @@ export const Result = ({
 
   const handleClick: MouseEventHandler = (event) => onClick(result, event);
   const handleMouseEnter: MouseEventHandler = (event) => onMouseEnter(result, event);
-  const handleMouseLeave: MouseEventHandler = (event) => onMouseLeave(result, event);
   const handleBlur: FocusEventHandler = (event) => onBlur(result, event);
   const handleFocus: FocusEventHandler = (event) => onFocus(result, event);
 
@@ -65,7 +63,6 @@ export const Result = ({
       onClick={handleClick}
       onFocus={handleFocus}
       onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       <span className={styles.resultContent}>
         {columns[ResultColumnId.Coordinates] && (

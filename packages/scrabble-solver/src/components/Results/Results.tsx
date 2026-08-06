@@ -44,7 +44,14 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const error = useTypedSelector(selectSolveError);
   const itemData = useMemo<ResultData>(
-    () => ({ ...callbacks, highlightedIndex, results }),
+    () => ({
+      highlightedIndex,
+      results,
+      onBlur: callbacks.onBlur,
+      onClick: callbacks.onClick,
+      onFocus: callbacks.onFocus,
+      onMouseEnter: callbacks.onMouseEnter,
+    }),
     [callbacks, highlightedIndex, results],
   );
   const listRef = useListRef(null);
@@ -111,7 +118,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
             )}
 
             {!isOutdated && results.length > 0 && (
-              <div className={styles.listContainer}>
+              <div className={styles.listContainer} onMouseLeave={callbacks.onMouseLeave}>
                 <List
                   className={classNames(styles.list, {
                     [styles.outdated]: isOutdated,
