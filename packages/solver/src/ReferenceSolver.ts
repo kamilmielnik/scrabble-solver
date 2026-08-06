@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 import { type Gaddag } from '@kamilmielnik/gaddag';
 import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 import {
@@ -17,8 +19,7 @@ interface ReferencePlacement {
 
 /**
  * Brute-force oracle: enumerates every span and rack assignment, validating and
- * scoring moves with the same semantics as MoveGenerator, but without a shred
- * of its cleverness (no GADDAG traversal, no cross-check masks, no anchors).
+ * scoring moves with the same semantics as MoveGenerator.
  */
 export class ReferenceSolver {
   private readonly gaddag: Gaddag;
@@ -81,14 +82,6 @@ export class ReferenceSolver {
     }
 
     return [...this.moves].sort();
-  }
-
-  private get linesCount(): number {
-    return this.horizontal ? this.height : this.width;
-  }
-
-  private get lineLength(): number {
-    return this.horizontal ? this.width : this.height;
   }
 
   private enumerateSpans(): void {
@@ -224,43 +217,16 @@ export class ReferenceSolver {
     );
   }
 
-  private crossAt(position: number): { baseScore: number; characters: string[] } | undefined {
-    const dx = this.horizontal ? 0 : 1;
-    const dy = this.horizontal ? 1 : 0;
-    const [startX, startY] = this.crossRunEnd(position, -dx, -dy);
-    const [endX, endY] = this.crossRunEnd(position, dx, dy);
-
-    if (startX === endX && startY === endY) {
-      return undefined;
-    }
-
-    const characters: string[] = [];
-    let baseScore = 0;
-
-    for (let x = startX, y = startY; x <= endX && y <= endY; x += dx, y += dy) {
-      if (x === this.xOf(position) && y === this.yOf(position)) {
-        characters.push(this.characterAt(position));
-        continue;
-      }
-
-      const cellIndex = y * this.width + x;
-      baseScore += this.boardScores[cellIndex];
-      characters.push(this.boardCharacters[cellIndex]);
-    }
-
-    return { baseScore, characters };
-  }
-
-  private crossRunEnd(position: number, dx: number, dy: number): [number, number] {
-    let x = this.xOf(position);
-    let y = this.yOf(position);
-
-    while (this.isFilledAt(x + dx, y + dy)) {
-      x += dx;
-      y += dy;
-    }
-
-    return [x, y];
+  private createSignature(mainWord: string, crossWords: string[]): string {
+    const placed = this.emptyPositions
+      .map((position, index) => {
+        const { alpha, isBlank } = this.placements[index];
+        return `${this.xOf(position)},${this.yOf(position)},${this.alphabet[alpha]},${isBlank ? 1 : 0}`;
+      })
+      .sort()
+      .join(' ');
+    const words = [mainWord, ...crossWords].sort().join(' ');
+    return `${placed} | ${words} | ${this.score()}`;
   }
 
   private score(): number {
@@ -332,16 +298,43 @@ export class ReferenceSolver {
     return this.config.bonuses.find((bonus) => bonus.x === x && bonus.y === y);
   }
 
-  private createSignature(mainWord: string, crossWords: string[]): string {
-    const placed = this.emptyPositions
-      .map((position, index) => {
-        const { alpha, isBlank } = this.placements[index];
-        return `${this.xOf(position)},${this.yOf(position)},${this.alphabet[alpha]},${isBlank ? 1 : 0}`;
-      })
-      .sort()
-      .join(' ');
-    const words = [mainWord, ...crossWords].sort().join(' ');
-    return `${placed} | ${words} | ${this.score()}`;
+  private crossAt(position: number): { baseScore: number; characters: string[] } | undefined {
+    const dx = this.horizontal ? 0 : 1;
+    const dy = this.horizontal ? 1 : 0;
+    const [startX, startY] = this.crossRunEnd(position, -dx, -dy);
+    const [endX, endY] = this.crossRunEnd(position, dx, dy);
+
+    if (startX === endX && startY === endY) {
+      return undefined;
+    }
+
+    const characters: string[] = [];
+    let baseScore = 0;
+
+    for (let x = startX, y = startY; x <= endX && y <= endY; x += dx, y += dy) {
+      if (x === this.xOf(position) && y === this.yOf(position)) {
+        characters.push(this.characterAt(position));
+        continue;
+      }
+
+      const cellIndex = y * this.width + x;
+      baseScore += this.boardScores[cellIndex];
+      characters.push(this.boardCharacters[cellIndex]);
+    }
+
+    return { baseScore, characters };
+  }
+
+  private crossRunEnd(position: number, dx: number, dy: number): [number, number] {
+    let x = this.xOf(position);
+    let y = this.yOf(position);
+
+    while (this.isFilledAt(x + dx, y + dy)) {
+      x += dx;
+      y += dy;
+    }
+
+    return [x, y];
   }
 
   private boardTileScore(cell: Cell, hasTile: boolean): number {
@@ -378,16 +371,24 @@ export class ReferenceSolver {
     return positions;
   }
 
-  private globalIndex(position: number): number {
-    return this.yOf(position) * this.width + this.xOf(position);
-  }
-
   private isFilled(position: number): boolean {
     return this.filled[this.globalIndex(position)];
   }
 
   private isFilledAt(x: number, y: number): boolean {
     return x >= 0 && x < this.width && y >= 0 && y < this.height && this.filled[y * this.width + x];
+  }
+
+  private globalIndex(position: number): number {
+    return this.yOf(position) * this.width + this.xOf(position);
+  }
+
+  private get linesCount(): number {
+    return this.horizontal ? this.height : this.width;
+  }
+
+  private get lineLength(): number {
+    return this.horizontal ? this.width : this.height;
   }
 
   private xOf(position: number): number {
