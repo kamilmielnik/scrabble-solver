@@ -60,7 +60,7 @@
     "release:prepare": "bun run reinstall",
     "release:publish": "bun run version:bump && np --no-cleanup --package-manager bun && lerna publish from-package --yes",
     "start": "concurrently -n w: bun:start:*",
-    "start:app": "bun run --filter @scrabble-solver/scrabble-solver start",
+    "start:app": "bun run --cwd packages/scrabble-solver start",
     "start:browser": "wait-on http://localhost:3333 && open-cli http://localhost:3333",
     "test": "bun run build && bun run test-unit && start-server-and-test start:app http://localhost:3333 test-cypress:run",
     "test-cypress": "cypress open",
