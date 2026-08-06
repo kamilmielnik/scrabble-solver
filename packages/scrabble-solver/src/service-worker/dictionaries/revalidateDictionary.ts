@@ -10,6 +10,14 @@ const REVALIDATION_INTERVAL = 60 * 60 * 1000;
 const requests: Partial<Record<Locale, Promise<void> | undefined>> = {};
 const revalidatedAt: Partial<Record<Locale, number>> = {};
 
+/**
+ * Lets the next access revalidate immediately - used when the cached
+ * dictionary is deleted, so its replacement is not stuck behind the throttle.
+ */
+export const resetRevalidationThrottle = (locale: Locale): void => {
+  revalidatedAt[locale] = undefined;
+};
+
 export const revalidateDictionary = async (locale: Locale): Promise<void> => {
   if (requests[locale] instanceof Promise) {
     return;
