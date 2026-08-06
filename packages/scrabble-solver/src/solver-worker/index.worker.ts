@@ -13,11 +13,13 @@ import { type SolverWorkerRequest, type VerifyResult } from './messages';
 
 declare const self: DedicatedWorkerGlobalScope;
 
-// Solves run synchronously on the single worker thread, so a burst of
-// requests would queue stale solves ahead of the latest one. Handlers note the
-// newest solve id at dispatch; a solve that is no longer the newest after
-// yielding to the event loop answers with an empty result instead, which the
-// page's takeLatest has already abandoned.
+/**
+ * Solves run synchronously on the single worker thread, so a burst of
+ * requests would queue stale solves ahead of the latest one. Handlers note the
+ * newest solve id at dispatch; a solve that is no longer the newest after
+ * yielding to the event loop answers with an empty result instead, which the
+ * page's takeLatest has already abandoned.
+ */
 let latestSolveId = 0;
 
 self.addEventListener('message', ({ data }: MessageEvent<SolverWorkerRequest>) => {

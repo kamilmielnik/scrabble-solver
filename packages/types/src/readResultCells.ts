@@ -3,12 +3,6 @@ import { Cell } from './Cell';
 import { type ResultJson } from './ResultJson';
 import { Tile } from './Tile';
 
-/**
- * The main word runs from (x, y) along the result's direction: board tiles are
- * taken as-is, each empty cell receives the next placed tile, and the word ends
- * when the tiles run out and the board no longer continues it. Candidate cells
- * (empty cells holding a preview tile) count as empty, mirroring the solver.
- */
 export const readCells = (json: ResultJson, board: Board): Cell[] => {
   const stepX = json.isHorizontal ? 1 : 0;
   const stepY = json.isHorizontal ? 0 : 1;
@@ -54,7 +48,6 @@ export const readCollisions = (cells: Cell[], board: Board, isHorizontal: boolea
   return collisions;
 };
 
-/** The perpendicular word crossing a placed tile, read top-to-bottom / left-to-right. */
 const readCollision = (placed: Cell, board: Board, isHorizontal: boolean): Cell[] => {
   const stepX = isHorizontal ? 0 : 1;
   const stepY = isHorizontal ? 1 : 0;

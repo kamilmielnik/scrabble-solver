@@ -8,9 +8,11 @@ interface DeserializedDictionary {
   generation: number;
 }
 
-// Reused between requests until revalidateDictionary stores a new response
-// and bumps the locale's generation. The memoized path touches neither the
-// Cache API nor IndexedDB, keeping repeated solves free of storage I/O.
+/**
+ * Reused between requests until revalidateDictionary stores a new response
+ * and bumps the locale's generation. The memoized path touches neither the
+ * Cache API nor IndexedDB, keeping repeated solves free of storage I/O.
+ */
 const deserializedDictionaries: Partial<Record<Locale, DeserializedDictionary>> = {};
 
 /**
