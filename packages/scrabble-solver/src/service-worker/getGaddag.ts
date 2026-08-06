@@ -8,8 +8,10 @@ interface DeserializedDictionary {
   version: string;
 }
 
-// Reused between requests until revalidateDictionary replaces the cached
-// response - the validator headers change with it.
+/**
+ * Reused between requests until revalidateDictionary replaces the cached
+ * response - the validator headers change with it.
+ **/
 const deserializedDictionaries: Partial<Record<Locale, DeserializedDictionary>> = {};
 
 /**
@@ -42,11 +44,6 @@ export const getGaddag = async (locale: Locale): Promise<Gaddag | undefined> => 
   return gaddag;
 };
 
-/**
- * The ETag alone identifies the payload, surviving revalidations that only
- * refresh the Date header. The other validator headers are a fallback for
- * responses without one.
- */
 const getVersion = (response: Response): string | undefined => {
   const etag = response.headers.get('etag');
 
