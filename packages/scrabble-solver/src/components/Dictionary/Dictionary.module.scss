@@ -2,16 +2,7 @@
 
 .dictionary {
   position: relative;
-  transition: var(--transition);
   word-break: break-word;
-
-  &.isAllowed {
-    background-color: var(--color--green--light);
-  }
-
-  &.isNotAllowed {
-    background-color: var(--color--red--light);
-  }
 
   &:focus-within {
     @include focus-effect;
@@ -21,6 +12,8 @@
 .content {
   @include scrollbars;
 
+  display: flex;
+  flex-direction: column;
   height: 100%;
   overflow-y: auto;
   border-radius: inherit;
@@ -31,26 +24,18 @@
 }
 
 .result {
-  transition: var(--transition);
+  flex-shrink: 0;
+
+  &:last-child {
+    flex-grow: 1;
+  }
 
   &.isAllowed {
     background-color: var(--color--green--light);
-
-    & + & {
-      .content {
-        padding-top: 0;
-      }
-    }
   }
 
   &.isNotAllowed {
     background-color: var(--color--red--light);
-
-    & + & {
-      .content {
-        padding-top: 0;
-      }
-    }
   }
 }
 
