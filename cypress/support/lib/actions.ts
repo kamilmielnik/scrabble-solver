@@ -69,9 +69,11 @@ export const solve = () => {
   getLoading().should('not.exist');
 };
 
-// react-window remounts rows during its initial measure pass, and a row
-// replaced under an already-hovered cursor never receives a new mouseenter -
-// let the list settle before hovering.
+/**
+ * react-window remounts rows during its initial measure pass, and a row
+ * replaced under an already-hovered cursor never receives a new mouseenter -
+ * let the list settle before hovering.
+ */
 export const hoverResult = (index = 0) => {
   cy.wait(100);
   getResult(index).realHover();
