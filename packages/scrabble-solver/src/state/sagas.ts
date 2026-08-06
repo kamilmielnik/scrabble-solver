@@ -11,7 +11,7 @@ import { call, delay, put, select, spawn, takeEvery, takeLatest } from 'redux-sa
 import { LOCALE_FEATURES } from '@/i18n';
 import { memoize } from '@/lib';
 import { findWordDefinitions, solve, verify, visit } from '@/sdk';
-import { prefetchDictionary } from '@/serviceWorkerManager';
+import { prefetchDictionary } from '@/solver-worker';
 
 import { initialize, reset } from './actions';
 import { boardSlice, selectBoard } from './board';

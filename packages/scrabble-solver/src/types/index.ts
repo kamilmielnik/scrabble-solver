@@ -163,4 +163,3 @@ export type Translate = (key: TranslationKey, replacements?: Record<string, stri
 export type Translations = Record<TranslationKey, string>;
 
 export * from './api';
-export * from './serviceWorker';

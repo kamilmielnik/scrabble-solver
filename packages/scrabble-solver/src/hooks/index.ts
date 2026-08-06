@@ -9,5 +9,4 @@ export { useMedia } from './useMedia';
 export { useMediaQueries } from './useMediaQueries';
 export { useMediaQuery } from './useMediaQuery';
 export { useOnWindowResize } from './useOnWindowResize';
-export { usePrefetchDictionaryOnReturn } from './usePrefetchDictionaryOnReturn';
 export { useViewportSize } from './useViewportSize';

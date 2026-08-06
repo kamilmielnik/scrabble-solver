@@ -10,6 +10,7 @@ import {
   getResult,
   getSettingOption,
   getSettingsButton,
+  hoverResult,
   getTooltip,
   moveMouseAway,
   solve,
@@ -60,7 +61,7 @@ describe('app', () => {
       solve();
 
       assertResult(0, 'bał', 14);
-      getResult(0).realHover();
+      hoverResult(0);
       getLoading().should('be.visible');
       cy.wait('@dictionary');
       getRackTile(0).parent().should('have.attr', 'role', 'mark');
@@ -88,7 +89,7 @@ describe('app', () => {
       cy.findByLabelText('Punkty').realClick();
       getTooltip().should('be.visible').and('have.text', 'Punkty');
       assertResult(0, 'ba', 8);
-      getResult(0).realHover();
+      hoverResult(0);
       getRackTile(0).parent().should('have.attr', 'role', 'mark');
       getRackTile(1).parent().should('have.attr', 'role', 'mark');
       getRackTile(2).parent().should('not.have.attr', 'role', 'mark');

@@ -1,10 +1,12 @@
-import { type BoardJson, type Locale } from '@scrabble-solver/types';
+import { type BoardJson, type Game, type Locale } from '@scrabble-solver/types';
+
+import { verifyLocally } from '@/solver-worker';
 
 import { fetchJson } from './fetchJson';
 
 interface Payload {
   board: BoardJson;
-  game: string;
+  game: Game;
   locale: Locale;
 }
 
@@ -14,8 +16,12 @@ interface Response {
 }
 
 export const verify = async ({ board, game, locale }: Payload): Promise<Response> => {
-  return fetchJson<Response>('/api/verify', {
-    method: 'POST',
-    body: JSON.stringify({ board, game, locale }),
-  });
+  const payload = { board, game, locale };
+  return (
+    (await verifyLocally(payload)) ??
+    fetchJson<Response>('/api/verify', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    })
+  );
 };
