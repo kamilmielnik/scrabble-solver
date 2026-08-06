@@ -1,0 +1,92 @@
+import { type Board } from './Board';
+import { Cell } from './Cell';
+import { type ResultJson } from './ResultJson';
+import { Tile } from './Tile';
+
+/**
+ * The main word runs from (x, y) along the result's direction: board tiles are
+ * taken as-is, each empty cell receives the next placed tile, and the word ends
+ * when the tiles run out and the board no longer continues it. Candidate cells
+ * (empty cells holding a preview tile) count as empty, mirroring the solver.
+ */
+export const readCells = (json: ResultJson, board: Board): Cell[] => {
+  const stepX = json.isHorizontal ? 1 : 0;
+  const stepY = json.isHorizontal ? 0 : 1;
+  const cells: Cell[] = [];
+  let placedIndex = 0;
+  let { x, y } = json;
+
+  while (y < board.rowsCount && x < board.columnsCount) {
+    const boardCell = board.rows[y][x];
+
+    if (!boardCell.isEmpty) {
+      cells.push(new Cell({ isEmpty: false, tile: boardCell.tile.clone(), x, y }));
+    } else if (placedIndex < json.tiles.length) {
+      const isBlank = json.blankIndices.includes(placedIndex);
+      cells.push(new Cell({ isEmpty: true, tile: new Tile({ character: json.tiles[placedIndex], isBlank }), x, y }));
+      placedIndex += 1;
+    } else {
+      break;
+    }
+
+    x += stepX;
+    y += stepY;
+  }
+
+  return cells;
+};
+
+export const readCollisions = (cells: Cell[], board: Board, isHorizontal: boolean): Cell[][] => {
+  const collisions: Cell[][] = [];
+
+  for (const cell of cells) {
+    if (!cell.isEmpty) {
+      continue;
+    }
+
+    const collision = readCollision(cell, board, isHorizontal);
+
+    if (collision.length > 1) {
+      collisions.push(collision);
+    }
+  }
+
+  return collisions;
+};
+
+/** The perpendicular word crossing a placed tile, read top-to-bottom / left-to-right. */
+const readCollision = (placed: Cell, board: Board, isHorizontal: boolean): Cell[] => {
+  const stepX = isHorizontal ? 0 : 1;
+  const stepY = isHorizontal ? 1 : 0;
+  let x = placed.x - stepX;
+  let y = placed.y - stepY;
+
+  while (x >= 0 && y >= 0 && !board.rows[y][x].isEmpty) {
+    x -= stepX;
+    y -= stepY;
+  }
+
+  x += stepX;
+  y += stepY;
+
+  const collision: Cell[] = [];
+
+  while (y < board.rowsCount && x < board.columnsCount) {
+    if (x === placed.x && y === placed.y) {
+      collision.push(placed);
+    } else {
+      const boardCell = board.rows[y][x];
+
+      if (boardCell.isEmpty) {
+        break;
+      }
+
+      collision.push(new Cell({ isEmpty: false, tile: boardCell.tile.clone(), x, y }));
+    }
+
+    x += stepX;
+    y += stepY;
+  }
+
+  return collision;
+};

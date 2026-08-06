@@ -14,16 +14,35 @@ const headers = {
   'Content-Type': 'application/json; charset=utf-8',
 };
 
+// Solves run synchronously on the single worker thread, so a burst of edits
+// would queue stale solves ahead of the latest one. Each request bumps its
+// client's id before any await; a handler that finds a newer id when it is
+// about to solve answers with an empty result instead, which the page's
+// takeLatest has already abandoned.
+const latestRequestIds = new Map<string, number>();
+
 export const routeSolveRequests = () => {
   registerRoute(
     ({ url }) => url.origin === location.origin && url.pathname === '/api/solve',
-    async ({ request }) => {
+    async ({ event, request }) => {
+      const { clientId } = event as FetchEvent;
+      const requestId = (latestRequestIds.get(clientId) ?? 0) + 1;
+      latestRequestIds.set(clientId, requestId);
+
       const requestJson: SolveRequestPayload = await request.clone().json();
       const gaddag = await getGaddag(requestJson.locale);
-      const response = gaddag ? solveLocal(gaddag, requestJson) : await fetch(request);
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       revalidateDictionary(requestJson.locale);
-      return response;
+
+      if (!gaddag) {
+        return fetch(request);
+      }
+
+      if (latestRequestIds.get(clientId) !== requestId) {
+        return new Response('[]', { headers });
+      }
+
+      return solveLocal(gaddag, requestJson);
     },
     'POST',
   );

@@ -6,7 +6,6 @@ import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 import {
   Board,
   Cell,
-  type CellJson,
   Config,
   type ConfigJson,
   Game,
@@ -71,7 +70,7 @@ describe('MoveGenerator - input validation', () => {
     const config = createConfig(BASIC_TILES);
     const results = generate(gaddag, config, createBoard(32, 32), ['a', 'b']);
     expect(results.length).toBe(4);
-    expect(results.every((json) => coversCell(json, 16, 16))).toBe(true);
+    expect(results.every((result) => coversCell(result, 16, 16))).toBe(true);
   });
 });
 
@@ -176,10 +175,10 @@ describe('MoveGenerator - first move on an empty board', () => {
     const config = createConfig(BASIC_TILES);
     const wideResults = generate(gaddag, config, createBoard(9, 5), ['a', 'b']);
     expect(wideResults.length).toBe(4);
-    expect(wideResults.every((json) => coversCell(json, 4, 2))).toBe(true);
+    expect(wideResults.every((result) => coversCell(result, 4, 2))).toBe(true);
     const tallResults = generate(gaddag, config, createBoard(5, 9), ['a', 'b']);
     expect(tallResults.length).toBe(4);
-    expect(tallResults.every((json) => coversCell(json, 2, 4))).toBe(true);
+    expect(tallResults.every((result) => coversCell(result, 2, 4))).toBe(true);
   });
 
   it('respects the rack multiset', () => {
@@ -194,8 +193,8 @@ describe('MoveGenerator - first move on an empty board', () => {
     const config = createConfig(BASIC_TILES);
     const results = generate(gaddag, config, createBoard(5, 5), ['a', BLANK_CHARACTER]);
     expect(results.length).toBe(8);
-    expect(results.every((json) => json.points === 1)).toBe(true);
-    expect(results.every((json) => Result.fromJson(json).blanksCount === 1)).toBe(true);
+    expect(results.every((result) => result.points === 1)).toBe(true);
+    expect(results.every((result) => result.blanksCount === 1)).toBe(true);
   });
 
   it('does not generate one-letter words', () => {
@@ -222,7 +221,7 @@ describe('MoveGenerator - anchoring and connectivity', () => {
     ]);
     const results = generate(gaddag, config, board, ['d', 'e']);
     expect(toWords(results)).toEqual(['dab', 'dabe', 'abe']);
-    expect(results.map((json) => json.points)).toEqual([6, 7, 5]);
+    expect(results.map((result) => result.points)).toEqual([6, 7, 5]);
   });
 
   it('plays through existing tiles', () => {
@@ -232,19 +231,16 @@ describe('MoveGenerator - anchoring and connectivity', () => {
       [1, 2, 'a'],
       [3, 2, 'c'],
     ]);
-    const results = generate(gaddag, config, board, ['b']);
-    expect(results).toEqual([
-      {
-        cells: [
-          { isEmpty: false, tile: { character: 'a', isBlank: false }, x: 1, y: 2 },
-          { isEmpty: true, tile: { character: 'b', isBlank: false }, x: 2, y: 2 },
-          { isEmpty: false, tile: { character: 'c', isBlank: false }, x: 3, y: 2 },
-        ],
-        collisions: [],
-        id: 0,
-        points: 7,
-      },
+    const results = generateJson(gaddag, config, board, ['b']);
+    expect(results).toEqual([{ blankIndices: [], id: 0, isHorizontal: true, points: 7, tiles: ['b'], x: 1, y: 2 }]);
+    const [result] = results.map((json) => Result.fromJson(json, board));
+    expect(result.word).toBe('abc');
+    expect(result.cells.map(({ isEmpty, x, y }) => ({ isEmpty, x, y }))).toEqual([
+      { isEmpty: false, x: 1, y: 2 },
+      { isEmpty: true, x: 2, y: 2 },
+      { isEmpty: false, x: 3, y: 2 },
     ]);
+    expect(result.collisions).toEqual([]);
   });
 
   it('returns nothing on a full board', () => {
@@ -334,23 +330,15 @@ describe('MoveGenerator - perpendicular words (cross-checks)', () => {
       [2, 3, 'c'],
       [3, 2, 'd'],
     ]);
-    const results = generate(gaddag, config, board, ['b']);
-    expect(results).toEqual([
-      {
-        cells: [
-          { isEmpty: true, tile: { character: 'b', isBlank: false }, x: 2, y: 2 },
-          { isEmpty: false, tile: { character: 'd', isBlank: false }, x: 3, y: 2 },
-        ],
-        collisions: [
-          [
-            { isEmpty: false, tile: { character: 'a', isBlank: false }, x: 2, y: 1 },
-            { isEmpty: true, tile: { character: 'b', isBlank: false }, x: 2, y: 2 },
-            { isEmpty: false, tile: { character: 'c', isBlank: false }, x: 2, y: 3 },
-          ],
-        ],
-        id: 0,
-        points: 12,
-      },
+    const results = generateJson(gaddag, config, board, ['b']);
+    expect(results).toEqual([{ blankIndices: [], id: 0, isHorizontal: true, points: 12, tiles: ['b'], x: 2, y: 2 }]);
+    const [result] = results.map((json) => Result.fromJson(json, board));
+    expect(result.words).toEqual(['bd', 'abc']);
+    expect(result.collisions).toHaveLength(1);
+    expect(result.collisions[0].map(({ x, y }) => ({ x, y }))).toEqual([
+      { x: 2, y: 1 },
+      { x: 2, y: 2 },
+      { x: 2, y: 3 },
     ]);
   });
 });
@@ -402,8 +390,10 @@ describe('MoveGenerator - blanks', () => {
     const config = createConfig(BASIC_TILES);
     const board = createBoard(5, 5, [[2, 2, 'a', true]]);
     const results = generate(gaddag, config, board, ['b']);
-    expect(results.map((json) => json.points)).toEqual([3, 3]);
-    expect(results[0].cells[0]).toEqual({ isEmpty: false, tile: { character: 'a', isBlank: true }, x: 2, y: 2 });
+    expect(results.map((result) => result.points)).toEqual([3, 3]);
+    expect(results[0].cells[0]).toEqual(
+      new Cell({ isEmpty: false, tile: new Tile({ character: 'a', isBlank: true }), x: 2, y: 2 }),
+    );
   });
 
   it('plays multiple blanks in a single move', () => {
@@ -411,8 +401,8 @@ describe('MoveGenerator - blanks', () => {
     const config = createConfig(BASIC_TILES);
     const results = generate(gaddag, config, createBoard(5, 5), [BLANK_CHARACTER, BLANK_CHARACTER]);
     expect(results.length).toBe(4);
-    expect(results.every((json) => json.points === 0)).toBe(true);
-    expect(results.every((json) => Result.fromJson(json).blanksCount === 2)).toBe(true);
+    expect(results.every((result) => result.points === 0)).toBe(true);
+    expect(results.every((result) => result.blanksCount === 2)).toBe(true);
   });
 });
 
@@ -424,8 +414,8 @@ describe('MoveGenerator - digraphs', () => {
     const results = generate(gaddag, config, createBoard(7, 7), ['ch', 'i', 'c', 'o']);
     expect(results.length).toBe(8);
     expect(toWords(results).every((word) => word === 'chico')).toBe(true);
-    expect(results.every((json) => json.points === 10)).toBe(true);
-    expect(results.every((json) => json.cells.length === 4)).toBe(true);
+    expect(results.every((result) => result.points === 10)).toBe(true);
+    expect(results.every((result) => result.cells.length === 4)).toBe(true);
   });
 
   it('does not compose a digraph from two single tiles', () => {
@@ -502,7 +492,7 @@ describe('MoveGenerator - digraphs', () => {
     const bingoConfig = createConfig(SPANISH_MINI_TILES, { rackSize: 2 });
     const results = generate(gaddag, bingoConfig, createBoard(7, 7), ['ch', 'o']);
     expect(results.length).toBe(4);
-    expect(results.every((json) => json.points === 56)).toBe(true);
+    expect(results.every((result) => result.points === 56)).toBe(true);
   });
 
   it('rejects digraphs composed from single tiles in perpendicular words', () => {
@@ -561,7 +551,7 @@ describe('MoveGenerator - digraphs with the real Spanish config', () => {
     const results = generate(gaddag, config, createBoard(15, 15), ['ch', 'i', 'c', 'o']);
     expect(results.length).toBe(8);
     expect(toWords(results).every((word) => word === 'chico')).toBe(true);
-    expect(results.every((json) => json.points === 20)).toBe(true);
+    expect(results.every((result) => result.points === 20)).toBe(true);
   });
 
   it('orders blank interpretations by tile order (ll before l)', () => {
@@ -573,7 +563,7 @@ describe('MoveGenerator - digraphs with the real Spanish config', () => {
     ]);
     const results = generate(gaddag, config, board, [BLANK_CHARACTER]);
     expect(toWords(results)).toEqual(['pillo', 'pilo']);
-    expect(results.map((json) => json.points)).toEqual([5, 5]);
+    expect(results.map((result) => result.points)).toEqual([5, 5]);
   });
 
   it('requires the rr tile to play words with a double r', () => {
@@ -611,39 +601,39 @@ describe('MoveGenerator - bonuses', () => {
 
   it('multiplies the placed tile on a character bonus', () => {
     const config = createConfig(BASIC_TILES, { bonuses: [characterBonus(3, 2, 2)] });
-    expect(generate(gaddag, config, board(), ['b']).map((json) => json.points)).toEqual([7, 4]);
+    expect(generate(gaddag, config, board(), ['b']).map((result) => result.points)).toEqual([7, 4]);
   });
 
   it('multiplies the whole word on a word bonus', () => {
     const config = createConfig(BASIC_TILES, { bonuses: [wordBonus(3, 2, 3)] });
-    expect(generate(gaddag, config, board(), ['b']).map((json) => json.points)).toEqual([12, 4]);
+    expect(generate(gaddag, config, board(), ['b']).map((result) => result.points)).toEqual([12, 4]);
   });
 
   it('applies a score-gated character bonus only to tiles with the matching score', () => {
     const matching = createConfig(BASIC_TILES, { bonuses: [characterBonus(3, 2, 2, 3)] });
-    expect(generate(gaddag, matching, board(), ['b']).map((json) => json.points)).toEqual([7, 4]);
+    expect(generate(gaddag, matching, board(), ['b']).map((result) => result.points)).toEqual([7, 4]);
     const mismatched = createConfig(BASIC_TILES, { bonuses: [characterBonus(3, 2, 2, 2)] });
-    expect(generate(gaddag, mismatched, board(), ['b']).map((json) => json.points)).toEqual([4, 4]);
+    expect(generate(gaddag, mismatched, board(), ['b']).map((result) => result.points)).toEqual([4, 4]);
   });
 
   it('gates blanks by the score of the character they represent', () => {
     const config = createConfig(BASIC_TILES, { blankScore: 2, bonuses: [characterBonus(3, 2, 2, 3)] });
-    expect(generate(gaddag, config, board(), [BLANK_CHARACTER]).map((json) => json.points)).toEqual([5, 3]);
+    expect(generate(gaddag, config, board(), [BLANK_CHARACTER]).map((result) => result.points)).toEqual([5, 3]);
   });
 
   it('applies the first bonus when several share coordinates', () => {
     const config = createConfig(BASIC_TILES, { bonuses: [characterBonus(3, 2, 2), wordBonus(3, 2, 3)] });
-    expect(generate(gaddag, config, board(), ['b']).map((json) => json.points)).toEqual([7, 4]);
+    expect(generate(gaddag, config, board(), ['b']).map((result) => result.points)).toEqual([7, 4]);
   });
 
   it('does not apply bonuses under existing tiles', () => {
     const config = createConfig(BASIC_TILES, { bonuses: [characterBonus(2, 2, 2)] });
-    expect(generate(gaddag, config, board(), ['b']).map((json) => json.points)).toEqual([4, 4]);
+    expect(generate(gaddag, config, board(), ['b']).map((result) => result.points)).toEqual([4, 4]);
   });
 
   it('ignores bonuses outside the board', () => {
     const config = createConfig(BASIC_TILES, { bonuses: [wordBonus(10, 10, 3)] });
-    expect(generate(gaddag, config, board(), ['b']).map((json) => json.points)).toEqual([4, 4]);
+    expect(generate(gaddag, config, board(), ['b']).map((result) => result.points)).toEqual([4, 4]);
   });
 
   it('applies a bonus to both the main and the perpendicular word', () => {
@@ -652,9 +642,9 @@ describe('MoveGenerator - bonuses', () => {
       [1, 2, 'a'],
     ]);
     const characterConfig = createConfig(BASIC_TILES, { bonuses: [characterBonus(2, 2, 2)] });
-    expect(generate(gaddag, characterConfig, crossBoard, ['b']).map((json) => json.points)).toEqual([4, 14, 4]);
+    expect(generate(gaddag, characterConfig, crossBoard, ['b']).map((result) => result.points)).toEqual([4, 14, 4]);
     const wordConfig = createConfig(BASIC_TILES, { bonuses: [wordBonus(2, 2, 3)] });
-    expect(generate(gaddag, wordConfig, crossBoard, ['b']).map((json) => json.points)).toEqual([4, 24, 4]);
+    expect(generate(gaddag, wordConfig, crossBoard, ['b']).map((result) => result.points)).toEqual([4, 24, 4]);
   });
 
   it('multiplies multiple word bonuses together', () => {
@@ -878,11 +868,15 @@ describe('MoveGenerator - equivalence with a brute-force reference solver', () =
   });
 });
 
-function generate(gaddag: Gaddag, config: Config, board: Board, rack: string[]): ResultJson[] {
+function generate(gaddag: Gaddag, config: Config, board: Board, rack: string[]): Result[] {
+  return generateJson(gaddag, config, board, rack).map((json) => Result.fromJson(json, board));
+}
+
+function generateJson(gaddag: Gaddag, config: Config, board: Board, rack: string[]): ResultJson[] {
   return new MoveGenerator(gaddag, config, board, createRack(rack)).run();
 }
 
-function expectMatchesReference(gaddag: Gaddag, config: Config, board: Board, rack: string[]): ResultJson[] {
+function expectMatchesReference(gaddag: Gaddag, config: Config, board: Board, rack: string[]): Result[] {
   const results = generate(gaddag, config, board, rack);
   const signatures = results.map(signatureOf);
   expect(new Set(signatures).size).toBe(signatures.length);
@@ -892,52 +886,52 @@ function expectMatchesReference(gaddag: Gaddag, config: Config, board: Board, ra
   return results;
 }
 
-function summarizeAll(results: ResultJson[]): MoveSummary[] {
+function summarizeAll(results: Result[]): MoveSummary[] {
   return results.map(summarize);
 }
 
-function summarize(json: ResultJson): MoveSummary {
+function summarize(result: Result): MoveSummary {
   return {
-    placed: json.cells.filter((cell) => cell.isEmpty).map(toPlacedTile),
-    points: json.points,
-    words: Result.fromJson(json).words,
+    placed: result.cells.filter((cell) => cell.isEmpty).map(toPlacedTile),
+    points: result.points,
+    words: result.words,
   };
 }
 
-function toPlacedTile(cell: CellJson): PlacedTile {
-  return [cell.x, cell.y, cell.tile?.character ?? '', cell.tile?.isBlank ?? false];
+function toPlacedTile(cell: Cell): PlacedTile {
+  return [cell.x, cell.y, cell.tile.character, cell.tile.isBlank];
 }
 
-function toWords(results: ResultJson[]): string[] {
-  return results.map((json) => Result.fromJson(json).word);
+function toWords(results: Result[]): string[] {
+  return results.map((result) => result.word);
 }
 
-function toSortedPoints(results: ResultJson[]): number[] {
-  return results.map((json) => json.points).sort((a, b) => a - b);
+function toSortedPoints(results: Result[]): number[] {
+  return results.map((result) => result.points).sort((a, b) => a - b);
 }
 
-function coversCell(json: ResultJson, x: number, y: number): boolean {
-  return json.cells.some((cell) => cell.x === x && cell.y === y);
+function coversCell(result: Result, x: number, y: number): boolean {
+  return result.cells.some((cell) => cell.x === x && cell.y === y);
 }
 
-function signatureOf(json: ResultJson): string {
-  const placed = json.cells
+function signatureOf(result: Result): string {
+  const placed = result.cells
     .filter((cell) => cell.isEmpty)
-    .map((cell) => `${cell.x},${cell.y},${cell.tile?.character},${cell.tile?.isBlank ? 1 : 0}`)
+    .map((cell) => `${cell.x},${cell.y},${cell.tile.character},${cell.tile.isBlank ? 1 : 0}`)
     .sort()
     .join(' ');
-  const words = [...Result.fromJson(json).words].sort().join(' ');
-  return `${placed} | ${words} | ${json.points}`;
+  const words = [...result.words].sort().join(' ');
+  return `${placed} | ${words} | ${result.points}`;
 }
 
-function expectEnumerationOrder(results: ResultJson[]): void {
+function expectEnumerationOrder(results: Result[]): void {
   const keys = results.map(enumerationKey);
   expect(keys).toEqual([...keys].sort());
 }
 
-function enumerationKey(json: ResultJson): string {
-  const [firstCell] = json.cells;
-  const lastCell = json.cells[json.cells.length - 1];
+function enumerationKey(result: Result): string {
+  const [firstCell] = result.cells;
+  const lastCell = result.cells[result.cells.length - 1];
   const isHorizontal = firstCell.y === lastCell.y;
   const key = isHorizontal ? [0, firstCell.y, firstCell.x, lastCell.x] : [1, firstCell.x, firstCell.y, lastCell.y];
   return key.map((value) => String(value).padStart(2, '0')).join('|');

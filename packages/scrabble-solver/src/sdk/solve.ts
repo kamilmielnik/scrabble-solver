@@ -1,4 +1,4 @@
-import { type BoardJson, type Locale, Result, type ResultJson } from '@scrabble-solver/types';
+import { Board, type BoardJson, type Locale, Result, type ResultJson } from '@scrabble-solver/types';
 
 import { fetchJson } from './fetchJson';
 
@@ -15,5 +15,6 @@ export const solve = async ({ board, characters, game, locale }: Payload): Promi
     body: JSON.stringify({ board, characters, game, locale }),
   });
 
-  return json.map(Result.fromJson);
+  const decodedBoard = Board.fromJson(board);
+  return json.map((result) => Result.fromJson(result, decodedBoard));
 };
