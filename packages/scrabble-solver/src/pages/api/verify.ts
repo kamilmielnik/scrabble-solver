@@ -32,8 +32,17 @@ const verify = async (request: NextApiRequest, response: NextApiResponse): Promi
 
     const gaddag = await dictionaries.get(locale);
     const words = board.getWords().sort((a, b) => a.localeCompare(b, locale));
-    const invalidWords = words.filter((word) => !gaddag.has(word));
-    const validWords = words.filter((word) => gaddag.has(word));
+    const invalidWords: string[] = [];
+    const validWords: string[] = [];
+
+    for (const word of words) {
+      if (gaddag.has(word)) {
+        validWords.push(word);
+      } else {
+        invalidWords.push(word);
+      }
+    }
+
     response.status(200).send({ invalidWords, validWords });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';

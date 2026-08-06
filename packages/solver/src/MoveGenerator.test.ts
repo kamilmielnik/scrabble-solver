@@ -824,6 +824,26 @@ describe('MoveGenerator - perpendicular words (cross-checks)', () => {
     });
   });
 
+  it('applies cross-check masks to tiles beyond the 32nd alphabet entry', () => {
+    const tileScores = createWideAlphabet(40);
+    const alphabet = Object.keys(tileScores);
+    const high = alphabet[35];
+    const other = alphabet[36];
+    const gaddag = Gaddag.fromArray([`a${high}`, `b${high}`, `a${other}`]);
+    const config = createConfig(tileScores);
+    const board = createBoard(5, 5, [
+      [1, 2, 'a'],
+      [2, 1, 'b'],
+    ]);
+    const results = generate(gaddag, config, board, [high, other]);
+    expect(summarizeAll(results)).toEqual([
+      { placed: [[3, 1, high, false]], points: 4, words: [`b${high}`] },
+      { placed: [[2, 2, high, false]], points: 6, words: [`a${high}`, `b${high}`] },
+      { placed: [[1, 3, high, false]], points: 2, words: [`a${high}`] },
+      { placed: [[1, 3, other, false]], points: 2, words: [`a${other}`] },
+    ]);
+  });
+
   it('reads perpendicular tiles on both sides of the placed tile', () => {
     const gaddag = Gaddag.fromArray(['abc', 'bd']);
     const config = createConfig(BASIC_TILES);

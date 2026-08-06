@@ -42,8 +42,19 @@ export const getGaddag = async (locale: Locale): Promise<Gaddag | undefined> => 
   return gaddag;
 };
 
+/**
+ * The ETag alone identifies the payload, surviving revalidations that only
+ * refresh the Date header. The other validator headers are a fallback for
+ * responses without one.
+ */
 const getVersion = (response: Response): string | undefined => {
-  const parts = ['etag', 'date', 'content-length'].map((name) => response.headers.get(name) ?? '');
+  const etag = response.headers.get('etag');
+
+  if (etag !== null) {
+    return etag;
+  }
+
+  const parts = ['date', 'content-length'].map((name) => response.headers.get(name) ?? '');
   return parts.every((part) => part === '') ? undefined : parts.join('|');
 };
 

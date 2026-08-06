@@ -88,17 +88,25 @@ const acceptsGzip = (request: NextApiRequest): boolean => {
   return wildcardAccepts;
 };
 
-// serialize() returns freshly allocated bytes, so the Buffer wraps them without copying.
+// Dictionaries rebuild at most daily, so each response variant is produced
+// once and lives exactly as long as the in-memory dictionary it was made from.
+const serializedCache = new WeakMap<Gaddag, Buffer>();
+const compressedCache = new WeakMap<Gaddag, Promise<Buffer>>();
+
 const getSerializedDictionary = (gaddag: Gaddag): Buffer => {
-  const bytes = gaddag.serialize();
-  return Buffer.from(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  let serialized = serializedCache.get(gaddag);
+
+  if (!serialized) {
+    // serialize() returns freshly allocated bytes, so the Buffer wraps them without copying.
+    const bytes = gaddag.serialize();
+    serialized = Buffer.from(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    serializedCache.set(gaddag, serialized);
+  }
+
+  return serialized;
 };
 
 const gzipAsync = promisify(gzip);
-
-// Dictionaries rebuild at most daily, so each one is compressed once and the
-// result lives exactly as long as the in-memory dictionary it was made from.
-const compressedCache = new WeakMap<Gaddag, Promise<Buffer>>();
 
 const getCompressedDictionary = (gaddag: Gaddag): Promise<Buffer> => {
   let compressed = compressedCache.get(gaddag);

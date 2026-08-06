@@ -27,9 +27,20 @@ export const routeVerifyRequests = () => {
 
       const board = Board.fromJson(boardJson);
       const words = board.getWords().sort((a, b) => a.localeCompare(b, locale));
-      const invalidWords = words.filter((word) => !gaddag.has(word));
-      const validWords = words.filter((word) => gaddag.has(word));
+      const invalidWords: string[] = [];
+      const validWords: string[] = [];
+
+      for (const word of words) {
+        if (gaddag.has(word)) {
+          validWords.push(word);
+        } else {
+          invalidWords.push(word);
+        }
+      }
+
       const json = JSON.stringify({ invalidWords, validWords });
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      revalidateDictionary(locale);
       return new Response(json, { headers });
     },
     'POST',

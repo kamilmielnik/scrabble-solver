@@ -46,8 +46,34 @@ describe('getGaddag', () => {
     const third = await getGaddag(Locale.EN_GB);
 
     expect(first?.has('scrabble')).toBe(true);
-    expect(second).toBe(first as Gaddag);
+    expect(second).toBe(first);
     expect(third?.has('solver')).toBe(true);
-    expect(third).not.toBe(first as Gaddag);
+    expect(third).not.toBe(first);
+  });
+
+  it('reuses the deserialized dictionary when a revalidation only refreshes the Date header', async () => {
+    const serialized = Gaddag.fromArray(['scrabble']).serialize();
+    dictionary = new Response(serialized, { headers: { date: 'Thu, 06 Aug 2026 00:00:00 GMT', etag: '"v1"' } });
+    const first = await getGaddag(Locale.FR_FR);
+    dictionary = new Response(serialized, { headers: { date: 'Fri, 07 Aug 2026 00:00:00 GMT', etag: '"v1"' } });
+    const second = await getGaddag(Locale.FR_FR);
+
+    expect(first?.has('scrabble')).toBe(true);
+    expect(second).toBe(first);
+  });
+
+  it('falls back to the Date header for responses without an ETag', async () => {
+    const serialized = Gaddag.fromArray(['scrabble']).serialize();
+    dictionary = new Response(serialized, { headers: { date: 'Thu, 06 Aug 2026 00:00:00 GMT' } });
+    const first = await getGaddag(Locale.DE_DE);
+    dictionary = new Response(serialized, { headers: { date: 'Thu, 06 Aug 2026 00:00:00 GMT' } });
+    const second = await getGaddag(Locale.DE_DE);
+    dictionary = new Response(serialized, { headers: { date: 'Fri, 07 Aug 2026 00:00:00 GMT' } });
+    const third = await getGaddag(Locale.DE_DE);
+
+    expect(first?.has('scrabble')).toBe(true);
+    expect(second).toBe(first);
+    expect(third).not.toBe(first);
+    expect(third?.has('scrabble')).toBe(true);
   });
 });
