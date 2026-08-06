@@ -27,7 +27,7 @@ const dictionary = async (request: NextApiRequest, response: NextApiResponse): P
 
     const gaddag = await dictionaries.get(locale);
     const isGzip = acceptsGzip(request);
-    const body = isGzip ? await getCompressedDictionary(gaddag) : Buffer.from(gaddag.serialize());
+    const body = isGzip ? await getCompressedDictionary(gaddag) : getSerializedDictionary(gaddag);
 
     // no-cache makes clients store the payload but revalidate it, so unchanged
     // re-downloads become 304s, answered by Next's built-in ETag handling.
@@ -86,6 +86,12 @@ const acceptsGzip = (request: NextApiRequest): boolean => {
   }
 
   return wildcardAccepts;
+};
+
+// serialize() returns freshly allocated bytes, so the Buffer wraps them without copying.
+const getSerializedDictionary = (gaddag: Gaddag): Buffer => {
+  const bytes = gaddag.serialize();
+  return Buffer.from(bytes.buffer, bytes.byteOffset, bytes.byteLength);
 };
 
 const gzipAsync = promisify(gzip);
