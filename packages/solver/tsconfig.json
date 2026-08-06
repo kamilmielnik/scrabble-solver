@@ -5,6 +5,6 @@
     "outDir": "./build",
     "rootDir": "./src"
   },
-  "exclude": ["node_modules", "**/*.test.ts"],
+  "exclude": ["node_modules", "**/*.test.ts", "src/ReferenceSolver.ts"],
   "include": ["./src", "index.ts"]
 }
