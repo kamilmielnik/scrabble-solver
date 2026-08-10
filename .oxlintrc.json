@@ -256,7 +256,7 @@
   },
   "overrides": [
     {
-      "files": ["packages/*/benchmarks/**"],
+      "files": ["packages/*/benchmarks/**", "packages/*/scripts/**"],
       "rules": {
         "no-console": "off"
       }

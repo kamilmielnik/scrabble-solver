@@ -53,7 +53,6 @@ export const Result = ({
       aria-label={result.word}
       className={classNames(styles.result, {
         [styles.highlighted]: index === highlightedIndex,
-        [styles.notMatching]: !isMatching,
       })}
       data-testid="result"
       ref={ref}

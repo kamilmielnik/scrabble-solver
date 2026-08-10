@@ -113,7 +113,7 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
       <div className={styles.bottomContainer}>
         <div className={styles.bottomContent}>
           <form onSubmit={handleSubmit}>
-            <Rack className={styles.rack} tileSize={tileSize} />
+            <Rack tileSize={tileSize} />
             <input className={styles.submitInput} tabIndex={-1} type="submit" />
           </form>
 

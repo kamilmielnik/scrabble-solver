@@ -30,9 +30,7 @@ export const LocaleSetting: FunctionComponent<Props> = ({ className, disabled })
       {OPTIONS.map(({ Icon, ...option }) => (
         <Radio
           checked={locale === option.locale}
-          className={classNames(styles.option, className, {
-            [styles.checked]: locale === option.locale,
-          })}
+          className={classNames(styles.option, className)}
           disabled={disabled}
           key={option.locale}
           name="locale"
