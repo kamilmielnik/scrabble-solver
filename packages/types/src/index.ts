@@ -11,6 +11,7 @@ export { Collision } from './Collision';
 export { Config } from './Config';
 export { ConfigJson } from './ConfigJson';
 export { Dictionary } from './Dictionary';
+export { Direction } from './Direction';
 export { Game, isGame } from './Game';
 export { isError } from './isError';
 export { isObject } from './isObject';

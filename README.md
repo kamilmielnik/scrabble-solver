@@ -200,7 +200,7 @@ bun run --filter @scrabble-solver/word-lists build
 - [include-media](https://eduardoboucas.github.io/include-media/)
 - [Lerna](https://lerna.js.org/)
 - [Nx](https://nx.dev/)
-- [Cypress](https://www.cypress.io/)
+- [Playwright](https://playwright.dev/)
 - [Oxlint](https://oxc.rs/docs/guide/usage/linter)
 - [Oxfmt](https://oxc.rs/docs/guide/usage/formatter)
 

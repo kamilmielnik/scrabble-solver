@@ -15,5 +15,5 @@
     "target": "es2021",
     "types": ["bun"]
   },
-  "exclude": ["cypress", "cypress.config.ts", "node_modules"]
+  "exclude": ["e2e", "node_modules", "playwright.config.ts"]
 }

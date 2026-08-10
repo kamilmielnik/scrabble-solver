@@ -6,10 +6,10 @@
 .vscode
 build/
 coverage/
-cypress/downloads
-cypress/screenshots
 next-env.d.ts
 node_modules/
+playwright-report/
+test-results/
 *.db
 *.eslintcache
 *.log
