@@ -28,6 +28,7 @@ export const useTooltip = ({ placement = 'top' }: TooltipOptions = {}) => {
   const arrowRef = useRef(null);
   const data = useFloating({
     placement,
+    strategy: 'fixed',
     open: isOpen,
     onOpenChange: setIsOpen,
     whileElementsMounted: autoUpdate,
