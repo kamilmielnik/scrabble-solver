@@ -15,7 +15,7 @@ export type CellFilter = {
 
 export type RemoveCellFilters = 'always' | 'never' | null;
 
-export type Direction = 'horizontal' | 'vertical';
+export { type Direction } from '@scrabble-solver/types';
 
 export type InputMode = 'keyboard' | 'touchscreen';
 

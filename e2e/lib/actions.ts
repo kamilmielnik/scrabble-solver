@@ -1,4 +1,5 @@
 import { expect, type Locator, type Page } from '@playwright/test';
+import { type Direction } from '@scrabble-solver/types';
 
 import {
   getBoardTile,
@@ -9,8 +10,6 @@ import {
   getResult,
   getResultsContainer,
 } from './selectors';
-
-type Direction = 'horizontal' | 'vertical';
 
 interface BoardPosition {
   x?: number;
