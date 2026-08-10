@@ -13,6 +13,7 @@ node_modules/
 *.db
 *.eslintcache
 *.log
+*.module.scss.d.ts
 *.tsbuildinfo
 *.txt
 *.zip

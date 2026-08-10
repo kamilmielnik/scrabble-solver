@@ -132,7 +132,6 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
 
           {cells.map((cell, x) => (
             <Cell
-              className={styles.cell}
               cell={cell}
               cellBottom={y < rows.length - 1 ? rows[y + 1][x] : undefined}
               cellLeft={x > 0 ? rows[y][x - 1] : undefined}
