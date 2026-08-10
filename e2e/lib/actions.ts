@@ -1,6 +1,14 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
-import { getBoardTile, getLoading, getModal, getOpenModal, getRackTile, getResult } from './selectors';
+import {
+  getBoardTile,
+  getLoading,
+  getModal,
+  getOpenModal,
+  getRackTile,
+  getResult,
+  getResultsContainer,
+} from './selectors';
 
 type Direction = 'horizontal' | 'vertical';
 
@@ -67,10 +75,19 @@ export const pasteBoard = async (
 };
 
 export const solve = async (page: Page): Promise<void> => {
-  const solveResponse = page.waitForResponse('**/api/solve', { timeout: 90_000 });
   await getRackTile(page).evaluate((input: HTMLInputElement) => input.form?.requestSubmit());
-  await solveResponse;
+  await expect(getResultsContainer(page)).toHaveAttribute('data-outdated', 'false', { timeout: 90_000 });
   await expect(getLoading(page)).toHaveCount(0);
+};
+
+/**
+ * react-window remounts rows during its initial measure pass, and a row
+ * replaced under an already-hovered cursor never receives a new mouseenter -
+ * let the list settle before hovering.
+ */
+export const hoverResult = async (page: Page, index = 0): Promise<void> => {
+  await page.waitForTimeout(100);
+  await getResult(page, index).hover();
 };
 
 export const assertResult = async (page: Page, index: number, word: string, points: number): Promise<void> => {

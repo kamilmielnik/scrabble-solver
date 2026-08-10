@@ -37,7 +37,7 @@ export const useTooltip = ({ placement = 'top' }: TooltipOptions = {}) => {
   const { delay } = useDelayGroup(context);
   const hover = useHover(context, { move: false, delay });
   const focus = useFocus(context);
-  const dismiss = useDismiss(context);
+  const dismiss = useDismiss(context, { ancestorScroll: true });
   const role = useRole(context, { role: 'tooltip' });
   const interactions = useInteractions([hover, focus, dismiss, role]);
 

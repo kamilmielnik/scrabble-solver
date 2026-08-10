@@ -25,16 +25,9 @@ export const Dictionary: FunctionComponent<Props> = ({ className }) => {
   const results = useTypedSelector(selectDictionaryResults);
   const isLoading = useTypedSelector(selectDictionaryIsLoading);
   const error = useTypedSelector(selectDictionaryError);
-  const isLastAllowed = results.at(-1)?.isAllowed;
 
   return (
-    <div
-      className={classNames(styles.dictionary, className, {
-        [styles.isAllowed]: isLastAllowed === true,
-        [styles.isNotAllowed]: isLastAllowed === false,
-      })}
-      style={{ height: dictionaryResultsHeight }}
-    >
+    <div className={classNames(styles.dictionary, className)} style={{ height: dictionaryResultsHeight }}>
       <div className={styles.content}>
         {typeof error !== 'undefined' && !isLoading && <EmptyState variant="error">{error.message}</EmptyState>}
 

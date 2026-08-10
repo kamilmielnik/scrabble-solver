@@ -7,6 +7,10 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],
+    // Webpack bundles this package (import.meta worker URLs need an ES module
+    // target), unlike the nodenext library packages.
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "noEmit": true,
     "paths": {
       "@/*": ["./src/*"]

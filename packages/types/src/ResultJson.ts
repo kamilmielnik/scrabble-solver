@@ -1,9 +1,9 @@
-import { type CellJson } from './CellJson';
-import { type CollisionJson } from './CollisionJson';
-
 export interface ResultJson {
-  cells: CellJson[];
-  collisions: CollisionJson[];
+  blankIndices: number[];
   id: number;
+  isHorizontal: boolean;
   points: number;
+  tiles: string[];
+  x: number;
+  y: number;
 }

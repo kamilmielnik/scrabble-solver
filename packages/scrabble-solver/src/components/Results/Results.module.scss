@@ -93,7 +93,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   @include button-reset;
 
   user-select: none;
-  transition: var(--transition);
   cursor: pointer;
   font-weight: 400;
 

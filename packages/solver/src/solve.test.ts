@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 
-import { type Trie } from '@kamilmielnik/trie';
+import { type Gaddag } from '@kamilmielnik/gaddag';
 import { getConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import { Board, Game, Locale, Result, Tile } from '@scrabble-solver/types';
@@ -21,11 +21,11 @@ const getBestResult = ([firstResult, ...results]: Result[]): Result => {
 describe('solve - pl-PL', () => {
   const locale = Locale.PL_PL;
   const config = getConfig(Game.Literaki, locale);
-  let trie: Trie | undefined;
+  let gaddag: Gaddag | undefined;
 
   beforeAll(() => {
-    return dictionaries.get(locale).then((loadedTrie) => {
-      trie = loadedTrie;
+    return dictionaries.get(locale).then((loadedGaddag) => {
+      gaddag = loadedGaddag;
     });
   });
 
@@ -48,7 +48,7 @@ describe('solve - pl-PL', () => {
       '               ',
     ]);
     const tiles = generateTiles(['l', 'i', 'n', 'o']);
-    const results = solve(trie!, config, board, tiles);
+    const results = solve(gaddag!, config, board, tiles);
     expect(results.length).toBe(60);
   });
 
@@ -71,8 +71,8 @@ describe('solve - pl-PL', () => {
       '               ',
     ]);
     const tiles = generateTiles(['a', 'a', 'ą', 'r', 't', 'w', 'z']);
-    const results = solve(trie!, config, board, tiles);
-    const bestResult = getBestResult(results.map((result) => Result.fromJson(result)));
+    const results = solve(gaddag!, config, board, tiles);
+    const bestResult = getBestResult(results.map((result) => Result.fromJson(result, board)));
     expect(bestResult.word).toBe('zmartwychwstałą');
     expect(bestResult.points).toBe(682);
   });
@@ -96,8 +96,8 @@ describe('solve - pl-PL', () => {
       'ar  ń    m     ',
     ]);
     const tiles = generateTiles(['ą', 'c', 'h', 't', 'w', 'w', 'z']);
-    const results = solve(trie!, config, board, tiles);
-    const bestResult = getBestResult(results.map((result) => Result.fromJson(result)));
+    const results = solve(gaddag!, config, board, tiles);
+    const bestResult = getBestResult(results.map((result) => Result.fromJson(result, board)));
     expect(bestResult.word).toBe('zmartwychwstałą');
     expect(bestResult.points).toBe(1157);
   });
@@ -121,7 +121,7 @@ describe('solve - pl-PL', () => {
       '               ',
     ]);
     const tiles = generateTiles(['d']);
-    const results = solve(trie!, config, board, tiles);
+    const results = solve(gaddag!, config, board, tiles);
     expect(results.length).toBe(4);
   });
 });
@@ -129,11 +129,11 @@ describe('solve - pl-PL', () => {
 describe('solve - es-ES', () => {
   const locale = Locale.ES_ES;
   const config = getConfig(Game.Scrabble, locale);
-  let trie: Trie | undefined;
+  let gaddag: Gaddag | undefined;
 
   beforeAll(() => {
-    return dictionaries.get(locale).then((loadedTrie) => {
-      trie = loadedTrie;
+    return dictionaries.get(locale).then((loadedGaddag) => {
+      gaddag = loadedGaddag;
     });
   });
 
@@ -156,8 +156,8 @@ describe('solve - es-ES', () => {
       '               ',
     ]);
     const tiles = generateTiles(['ll', 'a', 'n', 'a']);
-    const results = solve(trie!, config, board, tiles);
-    const bestResult = getBestResult(results.map((result) => Result.fromJson(result)));
+    const results = solve(gaddag!, config, board, tiles);
+    const bestResult = getBestResult(results.map((result) => Result.fromJson(result, board)));
     expect(results.length).toBe(24);
     expect(bestResult.points).toBe(22);
   });
@@ -181,8 +181,8 @@ describe('solve - es-ES', () => {
       '               ',
     ]);
     const tiles = generateTiles(['ch', 'o', 'o', 'c', 'h']);
-    const results = solve(trie!, config, board, tiles);
-    const words = results.map((result) => result.cells.map((cell) => cell.tile?.character).join(''));
+    const results = solve(gaddag!, config, board, tiles);
+    const words = results.map((result) => Result.fromJson(result, board).word);
     expect(words).not.toContain('chocho');
   });
 });
@@ -190,11 +190,11 @@ describe('solve - es-ES', () => {
 describe('solve - en-GB', () => {
   const locale = Locale.EN_GB;
   const config = getConfig(Game.Scrabble, locale);
-  let trie: Trie | undefined;
+  let gaddag: Gaddag | undefined;
 
   beforeAll(() => {
-    return dictionaries.get(locale).then((loadedTrie) => {
-      trie = loadedTrie;
+    return dictionaries.get(locale).then((loadedGaddag) => {
+      gaddag = loadedGaddag;
     });
   });
 
@@ -217,7 +217,7 @@ describe('solve - en-GB', () => {
       '               ',
     ]);
     const tiles = generateTiles(['n']);
-    const results = solve(trie!, config, board, tiles).map(Result.fromJson);
+    const results = solve(gaddag!, config, board, tiles).map((json) => Result.fromJson(json, board));
     expect(results.some((result) => result.word === 'no')).toBe(true);
     expect(results.some((result) => result.word === 'on')).toBe(true);
     expect(results.length).toBe(2);

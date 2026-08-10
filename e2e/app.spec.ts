@@ -15,6 +15,7 @@ import {
   getSettingOption,
   getSettingsButton,
   getTooltip,
+  hoverResult,
   moveMouseAway,
   solve,
   typeRack,
@@ -51,7 +52,7 @@ test.describe('app', () => {
 
       await assertResult(page, 0, 'bał', 14);
       const definitionsResponse = waitForDictionaryResponse(page);
-      await getResult(page, 0).hover();
+      await hoverResult(page, 0);
       await expect(getLoading(page)).toBeVisible();
       await definitionsResponse;
       await expectTileHighlighted(getRackTile(page, 0));
@@ -81,7 +82,7 @@ test.describe('app', () => {
       await expect(getTooltip(page)).toHaveText('Punkty');
       await assertResult(page, 0, 'ba', 8);
       const nextDefinitionsResponse = waitForDictionaryResponse(page);
-      await getResult(page, 0).hover();
+      await hoverResult(page, 0);
       await expectTileHighlighted(getRackTile(page, 0));
       await expectTileHighlighted(getRackTile(page, 1));
       await expectTileNotHighlighted(getRackTile(page, 2));
@@ -120,5 +121,5 @@ test.describe('app', () => {
 });
 
 const waitForDictionaryResponse = (page: Page) => {
-  return page.waitForResponse('**/api/dictionary/**');
+  return page.waitForResponse('**/api/dictionary/*/*');
 };

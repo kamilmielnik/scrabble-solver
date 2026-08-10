@@ -6,11 +6,12 @@
 import { type PayloadAction } from '@reduxjs/toolkit';
 import { hasConfig, languages } from '@scrabble-solver/configs';
 import { Board, type Locale, type Result } from '@scrabble-solver/types';
-import { call, delay, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, delay, put, select, spawn, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { LOCALE_FEATURES } from '@/i18n';
 import { memoize } from '@/lib';
 import { findWordDefinitions, solve, verify, visit } from '@/sdk';
+import { prefetchDictionary } from '@/solver-worker';
 
 import { initialize, reset } from './actions';
 import { boardSlice, selectBoard } from './board';
@@ -41,7 +42,7 @@ export function* rootSaga(): AnyGenerator {
   yield takeEvery(boardSlice.actions.changeCellValue.type, onCellValueChange);
   yield takeEvery([rackSlice.actions.changeCharacter.type, rackSlice.actions.changeCharacters.type], onRackValueChange);
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
-  yield takeEvery(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
+  yield takeLatest(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
   yield takeEvery(settingsSlice.actions.changeGame.type, onGameChange);
   yield takeEvery(settingsSlice.actions.changeLocale.type, onLocaleChange);
   yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
@@ -120,8 +121,11 @@ function* onDictionarySubmit(): AnyGenerator {
 
 function* onInitialize(): AnyGenerator {
   const board = yield select(selectBoard);
+  const locale = yield select(selectLocale);
 
-  yield call(visit);
+  yield spawn(prefetchDictionary, locale);
+  // Detached: offline, a failed visit would otherwise tear down the whole root saga.
+  yield spawn(visit);
 
   if (!board.isEmpty()) {
     yield* resetRack();
@@ -142,6 +146,8 @@ function* onReset(): AnyGenerator {
 }
 
 function* onLocaleChange({ payload: locale }: PayloadAction<Locale>): AnyGenerator {
+  yield spawn(prefetchDictionary, locale);
+
   const game = yield select(selectGame);
 
   if (!hasConfig(game, locale)) {
@@ -166,13 +172,17 @@ function* onLocaleChange({ payload: locale }: PayloadAction<Locale>): AnyGenerat
 }
 
 function* onResultCandidateChange({ payload: result }: PayloadAction<Result | null>): AnyGenerator {
-  if (result) {
-    const locale: Locale = yield select(selectLocale);
-    const uniqueWords = Array.from(new Set(result.words));
-    const input = uniqueWords.join(LOCALE_FEATURES[locale].separator);
-    yield put(dictionarySlice.actions.changeInput(input));
-    yield put(dictionarySlice.actions.submit());
+  if (!result) {
+    return;
   }
+
+  yield delay(SUBMIT_DELAY);
+
+  const locale: Locale = yield select(selectLocale);
+  const uniqueWords = Array.from(new Set(result.words));
+  const input = uniqueWords.join(LOCALE_FEATURES[locale].separator);
+  yield put(dictionarySlice.actions.changeInput(input));
+  yield put(dictionarySlice.actions.submit());
 }
 
 function* onSolve(): AnyGenerator {

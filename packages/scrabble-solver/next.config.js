@@ -4,12 +4,6 @@ const path = require('path');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
-  compress: false,
-  experimental: {
-    // TypeScript 7 dropped the JS compiler API that Next.js's built-in type checker uses,
-    // Remove the flag once Next.js integrates with TS7 out of the box.
-    useTypeScriptCli: true,
-  },
   reactStrictMode: true,
   sassOptions: {
     loadPaths: ['./src', path.join(__dirname, '../../node_modules/include-media/dist')],
