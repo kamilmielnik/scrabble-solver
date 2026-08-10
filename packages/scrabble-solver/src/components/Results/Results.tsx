@@ -5,7 +5,7 @@ import { useDebounce } from 'use-debounce';
 
 import { useLatest } from '@/hooks';
 import { LOCALE_FEATURES } from '@/i18n';
-import { RESULTS_ITEM_HEIGHT } from '@/parameters';
+import { RESULTS_ITEM_HEIGHT, RESULTS_OVERSCAN_COUNT } from '@/parameters';
 import {
   selectAreResultsOutdated,
   selectLocale,
@@ -126,6 +126,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
                   })}
                   dir={direction}
                   listRef={listRef}
+                  overscanCount={RESULTS_OVERSCAN_COUNT}
                   rowComponent={Result}
                   rowCount={results.length}
                   rowHeight={RESULTS_ITEM_HEIGHT}

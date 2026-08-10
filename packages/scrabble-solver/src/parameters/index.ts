@@ -138,6 +138,8 @@ export const RESULTS_ITEM_HEIGHT = Number(variables.resultsItemHeight);
 
 export const RESULTS_HEADER_HEIGHT = RESULTS_ITEM_HEIGHT;
 
+export const RESULTS_OVERSCAN_COUNT = 10;
+
 export const SOLVER_COLUMN_WIDTH = Number(variables.solverColumnWidth);
 
 export const TEXT_INPUT_HEIGHT = Number(variables.textInputHeight);
