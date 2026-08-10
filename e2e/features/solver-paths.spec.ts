@@ -5,7 +5,7 @@ import * as Lib from '../lib';
 test.describe('Solver paths', () => {
   test('solves through the server when no dictionary is available locally', async ({ page }) => {
     await page.route('**/api/dictionary/*', (route) => route.fulfill({ status: 503 }));
-    const solveResponse = page.waitForResponse('**/api/Lib.solve');
+    const solveResponse = page.waitForResponse('**/api/solve');
     await Lib.visitIndex(page);
     await Lib.typeBoard(page, 'i', 'horizontal', { x: 7, y: 7 });
     await Lib.typeRack(page, 'q');
@@ -21,7 +21,7 @@ test.describe('Solver paths', () => {
     await waitForCachedDictionary(page);
 
     let solveRequestCount = 0;
-    await page.route('**/api/Lib.solve', (route) => {
+    await page.route('**/api/solve', (route) => {
       solveRequestCount += 1;
       return route.continue();
     });
