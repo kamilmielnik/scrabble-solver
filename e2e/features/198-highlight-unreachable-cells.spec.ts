@@ -1,23 +1,14 @@
 import { expect, type Page, test } from '@playwright/test';
 
-import {
-  closeModal,
-  getBoardTile,
-  getOpenModal,
-  getSettingOption,
-  getSettingsButton,
-  typeBoard,
-  typeRack,
-  visitIndex,
-} from '../lib';
+import * as Lib from '../lib';
 
 /*
  * @see https://github.com/kamilmielnik/scrabble-solver/issues/198
  */
 test.describe('#198 - Highlight unreachable cells', () => {
   test('has no effect when the rack is empty', async ({ page }) => {
-    await visitIndex(page);
-    await typeBoard(page, 'cat', 'horizontal', { x: 7, y: 7 });
+    await Lib.visitIndex(page);
+    await Lib.typeBoard(page, 'cat', 'horizontal', { x: 7, y: 7 });
     await setHighlightUnreachableCells(page, 'On');
 
     await expectReachable(page, 0, 0);
@@ -27,8 +18,8 @@ test.describe('#198 - Highlight unreachable cells', () => {
   });
 
   test('has no effect when the setting is off', async ({ page }) => {
-    await visitIndex(page);
-    await typeRack(page, 'abcdefg');
+    await Lib.visitIndex(page);
+    await Lib.typeRack(page, 'abcdefg');
 
     await expectReachable(page, 0, 0);
     await expectReachable(page, 14, 14);
@@ -36,8 +27,8 @@ test.describe('#198 - Highlight unreachable cells', () => {
   });
 
   test('dims unreachable cells on an empty board when rack has tiles', async ({ page }) => {
-    await visitIndex(page);
-    await typeRack(page, 'abc');
+    await Lib.visitIndex(page);
+    await Lib.typeRack(page, 'abc');
     await setHighlightUnreachableCells(page, 'On');
 
     await expectReachable(page, 7, 7);
@@ -51,9 +42,9 @@ test.describe('#198 - Highlight unreachable cells', () => {
   });
 
   test('dims cells far from any placed tile or rack reach', async ({ page }) => {
-    await visitIndex(page);
-    await typeBoard(page, 'cat', 'horizontal', { x: 7, y: 7 });
-    await typeRack(page, 'ab');
+    await Lib.visitIndex(page);
+    await Lib.typeBoard(page, 'cat', 'horizontal', { x: 7, y: 7 });
+    await Lib.typeRack(page, 'ab');
     await setHighlightUnreachableCells(page, 'On');
 
     await expectReachable(page, 7, 7);
@@ -67,8 +58,8 @@ test.describe('#198 - Highlight unreachable cells', () => {
   });
 
   test('updates dimming when toggled off after being on', async ({ page }) => {
-    await visitIndex(page);
-    await typeRack(page, 'abc');
+    await Lib.visitIndex(page);
+    await Lib.typeRack(page, 'abc');
     await setHighlightUnreachableCells(page, 'On');
     await expectUnreachable(page, 0, 0);
 
@@ -79,16 +70,16 @@ test.describe('#198 - Highlight unreachable cells', () => {
 });
 
 async function setHighlightUnreachableCells(page: Page, value: 'On' | 'Off') {
-  await getSettingsButton(page).click();
-  await expect(getOpenModal(page)).toBeVisible();
-  await getSettingOption(page, 'Highlight unreachable cells', value).check();
-  await closeModal(page);
+  await Lib.getSettingsButton(page).click();
+  await expect(Lib.getOpenModal(page)).toBeVisible();
+  await Lib.getSettingOption(page, 'Highlight unreachable cells', value).check();
+  await Lib.closeModal(page);
 }
 
 async function expectUnreachable(page: Page, x: number, y: number) {
-  await expect(getBoardTile(page, x, y).locator('..')).toHaveClass(/unreachable/);
+  await expect(Lib.getBoardTile(page, x, y).locator('..')).toHaveClass(/unreachable/);
 }
 
 async function expectReachable(page: Page, x: number, y: number) {
-  await expect(getBoardTile(page, x, y).locator('..')).not.toHaveClass(/unreachable/);
+  await expect(Lib.getBoardTile(page, x, y).locator('..')).not.toHaveClass(/unreachable/);
 }

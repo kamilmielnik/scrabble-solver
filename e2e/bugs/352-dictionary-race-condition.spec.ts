@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import { getDictionary, getDictionaryInput, visitIndex } from '../lib';
+import * as Lib from '../lib';
 
 /*
  * @see https://github.com/kamilmielnik/scrabble-solver/issues/352
@@ -12,16 +12,16 @@ test.describe('#352 - Race condition: dictionary result shows up after clearing 
       await route.fulfill({ body: '' });
     });
 
-    await visitIndex(page);
+    await Lib.visitIndex(page);
 
     const dictionaryResponse = page.waitForResponse('**/api/dictionary/en-US/123');
-    await getDictionaryInput(page).pressSequentially('123');
-    await getDictionaryInput(page).press('Enter');
+    await Lib.getDictionaryInput(page).pressSequentially('123');
+    await Lib.getDictionaryInput(page).press('Enter');
     await page.getByLabel('Clear', { exact: true }).click();
     await dictionaryResponse;
 
-    await expect(getDictionary(page)).not.toContainText('This word is not allowed');
-    await expect(getDictionary(page)).not.toContainText('Unexpected end of JSON input');
-    await expect(getDictionary(page)).toContainText('Word definition will be shown here.');
+    await expect(Lib.getDictionary(page)).not.toContainText('This word is not allowed');
+    await expect(Lib.getDictionary(page)).not.toContainText('Unexpected end of JSON input');
+    await expect(Lib.getDictionary(page)).toContainText('Word definition will be shown here.');
   });
 });

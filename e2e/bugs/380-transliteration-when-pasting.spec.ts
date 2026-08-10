@@ -1,6 +1,6 @@
 import { expect, type Page, test } from '@playwright/test';
 
-import { closeModal, getBoardTile, getSettingOption, getSettingsButton, paste, visitIndex } from '../lib';
+import * as Lib from '../lib';
 
 /*
  * @see https://github.com/kamilmielnik/scrabble-solver/issues/380
@@ -43,13 +43,13 @@ async function testTransliterationOnPaste(
     transliterated: string;
   },
 ) {
-  await visitIndex(page);
-  await getSettingsButton(page).click();
-  await getSettingOption(page, 'Language', language).check();
-  await closeModal(page);
-  await paste(getBoardTile(page, 0, 0), word);
+  await Lib.visitIndex(page);
+  await Lib.getSettingsButton(page).click();
+  await Lib.getSettingOption(page, 'Language', language).check();
+  await Lib.closeModal(page);
+  await Lib.paste(Lib.getBoardTile(page, 0, 0), word);
 
   for (const [x, value] of Array.from(transliterated).entries()) {
-    await expect(getBoardTile(page, x, 0)).toHaveValue(value);
+    await expect(Lib.getBoardTile(page, x, 0)).toHaveValue(value);
   }
 }
