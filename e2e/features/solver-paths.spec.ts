@@ -35,13 +35,11 @@ test.describe('Solver paths', () => {
   });
 });
 
-function waitForCachedDictionary(page: Page) {
-  return page.waitForFunction(
-    async () => {
-      const cache = await caches.open('dictionary-api-cache');
-      return typeof (await cache.match('/api/dictionary/en-US')) !== 'undefined';
-    },
-    undefined,
-    { timeout: 30000 },
-  );
+function waitForCachedDictionary(page: Page): Promise<void> {
+  return expect.poll(() => page.evaluate(isDictionaryCached), { timeout: 30000 }).toBe(true);
+}
+
+async function isDictionaryCached(): Promise<boolean> {
+  const cache = await caches.open('dictionary-api-cache');
+  return typeof (await cache.match('/api/dictionary/en-US')) !== 'undefined';
 }
