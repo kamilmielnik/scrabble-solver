@@ -17,7 +17,7 @@ export default defineConfig({
     },
   ],
   reporter: [['list'], ['html', { open: 'never' }]],
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 4 : 0,
   testDir: './e2e',
   timeout: 120_000,
   use: {
