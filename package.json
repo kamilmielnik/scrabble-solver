@@ -59,6 +59,8 @@
     "release": "bun run release:prepare && bun run release:publish",
     "release:prepare": "bun run reinstall",
     "release:publish": "bun run version:bump && np --no-cleanup --package-manager bun && lerna publish from-package --yes",
+    "screencast": "start-server-and-test start:app http://localhost:3333 screencast:record",
+    "screencast:record": "bun scripts/record-screencast.ts",
     "start": "concurrently -n w: bun:start:*",
     "start:app": "bun run --cwd packages/scrabble-solver start",
     "start:browser": "wait-on http://localhost:3333 && open-cli http://localhost:3333",
