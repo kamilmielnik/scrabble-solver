@@ -35,13 +35,13 @@ test.describe('Solver paths', () => {
   });
 });
 
-const waitForCachedDictionary = (page: Page) => {
+function waitForCachedDictionary(page: Page) {
   return page.waitForFunction(
     async () => {
       const cache = await caches.open('dictionary-api-cache');
       return typeof (await cache.match('/api/dictionary/en-US')) !== 'undefined';
     },
     undefined,
-    { timeout: 30_000 },
+    { timeout: 30000 },
   );
-};
+}

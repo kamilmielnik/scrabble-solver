@@ -120,6 +120,6 @@ test.describe('app', () => {
   });
 });
 
-const waitForDictionaryResponse = (page: Page) => {
+function waitForDictionaryResponse(page: Page) {
   return page.waitForResponse('**/api/dictionary/*/*');
-};
+}

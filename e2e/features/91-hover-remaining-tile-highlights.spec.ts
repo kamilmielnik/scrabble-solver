@@ -74,12 +74,12 @@ test.describe('#91 - Hovering remaining tile highlights all same tiles on the bo
   });
 });
 
-const openRemainingTilesModal = async (page: Page) => {
+async function openRemainingTilesModal(page: Page) {
   await page.getByLabel('Remaining tiles', { exact: true }).click();
   await expect(getOpenModal(page)).toBeVisible();
-};
+}
 
-const hoverRemainingTile = async (page: Page, character: string) => {
+async function hoverRemainingTile(page: Page, character: string) {
   const testId = character === ' ' ? 'remaining-tile-blank' : `remaining-tile-${character}`;
   await page.getByTestId(testId).hover();
-};
+}

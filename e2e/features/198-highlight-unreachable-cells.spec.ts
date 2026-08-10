@@ -78,17 +78,17 @@ test.describe('#198 - Highlight unreachable cells', () => {
   });
 });
 
-const setHighlightUnreachableCells = async (page: Page, value: 'On' | 'Off') => {
+async function setHighlightUnreachableCells(page: Page, value: 'On' | 'Off') {
   await getSettingsButton(page).click();
   await expect(getOpenModal(page)).toBeVisible();
   await getSettingOption(page, 'Highlight unreachable cells', value).check();
   await closeModal(page);
-};
+}
 
-const expectUnreachable = async (page: Page, x: number, y: number) => {
+async function expectUnreachable(page: Page, x: number, y: number) {
   await expect(getBoardTile(page, x, y).locator('..')).toHaveClass(/unreachable/);
-};
+}
 
-const expectReachable = async (page: Page, x: number, y: number) => {
+async function expectReachable(page: Page, x: number, y: number) {
   await expect(getBoardTile(page, x, y).locator('..')).not.toHaveClass(/unreachable/);
-};
+}

@@ -31,7 +31,7 @@ test.describe('#380 - No transliteration when pasting', () => {
   });
 });
 
-const testTransliterationOnPaste = async (
+async function testTransliterationOnPaste(
   page: Page,
   {
     language,
@@ -42,7 +42,7 @@ const testTransliterationOnPaste = async (
     word: string;
     transliterated: string;
   },
-) => {
+) {
   await visitIndex(page);
   await getSettingsButton(page).click();
   await getSettingOption(page, 'Language', language).check();
@@ -52,4 +52,4 @@ const testTransliterationOnPaste = async (
   for (const [x, value] of Array.from(transliterated).entries()) {
     await expect(getBoardTile(page, x, 0)).toHaveValue(value);
   }
-};
+}

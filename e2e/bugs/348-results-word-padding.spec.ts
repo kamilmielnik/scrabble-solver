@@ -38,11 +38,11 @@ test.describe('#348 - Missing result word padding when coordinates are not shown
   });
 });
 
-const getWordCellPadding = (
+function getWordCellPadding(
   page: Page,
   { cellIndex, property }: { cellIndex: number; property: 'paddingLeft' | 'paddingRight' },
-) => {
+) {
   return getResult(page)
     .locator(`:scope > *:nth-child(1) > *:nth-child(${cellIndex + 1})`)
     .evaluate((wordCell, paddingProperty) => window.getComputedStyle(wordCell)[paddingProperty], property);
-};
+}
