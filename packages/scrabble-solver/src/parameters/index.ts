@@ -63,7 +63,7 @@ export const SPACING_XL = Number(variables.spacingXl);
 export const COMPONENTS_SPACING = SPACING_XL;
 export const COMPONENTS_SPACING_SMALL = SPACING_L;
 
-export const RACK_TILE_SIZE_MAX = 80;
+export const RACK_TILE_SIZE_MAX = Number(variables.tileSizeMax);
 
 export const BOARD_CELL_ACTIONS_OFFSET = 3;
 export const BOARD_CELL_BORDER_WIDTH = 1;

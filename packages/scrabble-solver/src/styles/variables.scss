@@ -101,13 +101,14 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --z-index--tooltip: 102;
 
   --button--icon--size: #{$button-icon-size};
+  --button--height: calc(var(--button--icon--size) + 2 * var(--spacing--m) + 2 * var(--border--width));
   --dictionary--height: #{$dictionary-height};
   --dictionary--height--mobile: #{$dictionary-height-mobile};
   --key--height: 36px;
   --key--icon--size: 16px;
   --logo--height: #{$logo-height};
   --modal--width: #{$modal-width};
-  --nav--height: calc(var(--logo--height) + var(--nav--padding));
+  --nav--height: calc(2 * var(--nav--padding) + var(--logo--height));
   --nav--padding: var(--spacing--l);
   --results--icon--size: 18px;
   --results--item--height: #{$results-item-height};
@@ -116,9 +117,55 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --text-input--height: #{$text-input-height};
   --tooltip--max-width: 500px;
 
+  /**
+   * Sizes of everything visible before hydration.
+   * Keep in sync with useAppLayoutValue.
+   * Defaults are of classic Scrabble config.
+   */
+  --board-cols: 15;
+  --board-rows: 15;
+  --rack-size: 7;
+  --coord-ratio: 0;
+  --coord-border: 0;
+
+  --components-spacing: var(--spacing--xl);
+  --solver-column-total: calc(var(--solver-column--width) + var(--components-spacing));
+  --candidate-picker-height: 0px;
+  --max-board-width: calc(100vw - var(--solver-column-total) - 2 * var(--components-spacing));
+  --rack-tile-size: min(
+    calc((var(--max-board-width) - 2 * var(--border--width)) / var(--rack-size)),
+    #{$tile-size-max}
+  );
+  --bottom-container-height: calc(
+    var(--candidate-picker-height) + var(--rack-tile-size) + 2 * var(--components-spacing)
+  );
+  --max-board-height: max(calc(100dvh - var(--nav--height) - var(--bottom-container-height)), 0px);
+  --cell-from-width: calc(
+    (var(--max-board-width) - (var(--board-cols) + 1 + var(--coord-border)) * var(--border--width)) /
+      (var(--board-cols) + var(--coord-ratio))
+  );
+  --cell-from-height: calc(
+    (var(--max-board-height) - (var(--board-rows) + 1 + var(--coord-border)) * var(--border--width)) /
+      (var(--board-rows) + var(--coord-ratio))
+  );
+  --cell-size: min(var(--cell-from-width), var(--cell-from-height), #{$tile-size-max});
+  --coord-size: calc(var(--coord-ratio) * var(--cell-size));
+  --controls-max-width: calc(var(--rack-size) * var(--rack-tile-size) + 2 * var(--border--width));
+
+  @include media('<xl') {
+    --components-spacing: var(--spacing--l);
+  }
+
   @include media('<l') {
     --dictionary--height: var(--dictionary--height--mobile);
     --logo--height: #{$logo-height-small};
+    --solver-column-total: 0px;
+    --candidate-picker-height: calc(var(--button--height) + var(--components-spacing));
+  }
+
+  @include media('<m') {
+    // Full-width board: height no longer constrains the cell size.
+    --cell-size: min(var(--cell-from-width), #{$tile-size-max});
   }
 
   @include media('<s') {
