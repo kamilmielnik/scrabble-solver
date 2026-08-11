@@ -17,6 +17,19 @@
   },
   "homepage": "https://scrabble-solver.org",
   "sideEffects": ["**/*.css", "**/*.scss", "src/pages/**"],
+  "browserslist": [
+    "chrome >= 100",
+    "and_chr >= 100",
+    "edge >= 100",
+    "firefox >= 100",
+    "safari >= 15.4",
+    "ios_saf >= 15.4",
+    "samsung >= 17",
+    "opera >= 86",
+    "op_mob >= 70",
+    "android >= 100",
+    "and_ff >= 100"
+  ],
   "scripts": {
     "build": "bun run generate-scss-types && env-cmd next build --webpack",
     "clean": "rimraf --glob .next/ 'src/**/*.module.scss.d.ts'",
