@@ -3,29 +3,44 @@
 import { isObject } from '@scrabble-solver/types';
 import { execSync } from 'child_process';
 import fs from 'fs';
+import dynamic from 'next/dynamic';
 import path from 'path';
 import { type FunctionComponent, useCallback, useEffect, useState } from 'react';
-import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 
 import { Logo, NavButtons, Solver } from '@/components';
 import { useDirection, useEffectOnce, useLanguage, useLocalStorage } from '@/hooks';
 import { LOCALE_FEATURES } from '@/i18n';
-import {
-  DictionaryModal,
-  KeyMapModal,
-  MenuModal,
-  RemainingTilesModal,
-  ResultsModal,
-  SettingsModal,
-  WordsModal,
-} from '@/modals';
+import { schedulePreloadModals } from '@/modals/preload';
 import { registerServiceWorker } from '@/serviceWorkerManager';
 import { initialize, reset, selectConfig, selectLocale, selectShowCoordinates, useTypedSelector } from '@/state';
 
 import styles from './index.module.scss';
 
-ReactModal.setAppElement('#__next');
+const DictionaryModal = dynamic(() => import('@/modals/DictionaryModal').then((module) => module.DictionaryModal), {
+  ssr: false,
+});
+const KeyMapModal = dynamic(() => import('@/modals/KeyMapModal').then((module) => module.KeyMapModal), {
+  ssr: false,
+});
+const MenuModal = dynamic(() => import('@/modals/MenuModal').then((module) => module.MenuModal), {
+  ssr: false,
+});
+const RemainingTilesModal = dynamic(
+  () => import('@/modals/RemainingTilesModal').then((module) => module.RemainingTilesModal),
+  {
+    ssr: false,
+  },
+);
+const ResultsModal = dynamic(() => import('@/modals/ResultsModal').then((module) => module.ResultsModal), {
+  ssr: false,
+});
+const SettingsModal = dynamic(() => import('@/modals/SettingsModal').then((module) => module.SettingsModal), {
+  ssr: false,
+});
+const WordsModal = dynamic(() => import('@/modals/WordsModal').then((module) => module.WordsModal), {
+  ssr: false,
+});
 
 interface Props {
   version: string;
@@ -89,6 +104,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     }
 
     dispatch(initialize());
+    schedulePreloadModals();
   });
 
   return (

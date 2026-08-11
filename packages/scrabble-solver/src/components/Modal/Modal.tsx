@@ -11,6 +11,10 @@ import { IconButton } from '../IconButton';
 import { Section } from './components';
 import styles from './Modal.module.scss';
 
+if (typeof document !== 'undefined') {
+  ReactModal.setAppElement('#__next');
+}
+
 export interface Props {
   children: ReactNode;
   className?: string;

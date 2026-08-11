@@ -21,4 +21,5 @@ export { noop } from './noop';
 export { numberComparator } from './numberComparator';
 export { reverseComparator } from './reverseComparator';
 export { unorderedArraysEqual } from './unorderedArraysEqual';
+export { waitForIdleOrFirstIntent } from './waitForIdleOrFirstIntent';
 export { zipCharactersAndTiles } from './zipCharactersAndTiles';
