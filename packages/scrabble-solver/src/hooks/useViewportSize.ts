@@ -1,17 +1,31 @@
-import { useCallback, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 
-import { useOnWindowResize } from './useOnWindowResize';
-
+/**
+ * SSR-visible elements must not derive sizes from this hook - they should be sized in CSS.
+ */
 export const useViewportSize = () => {
-  const [viewportHeight, setViewportHeight] = useState(typeof window === 'undefined' ? 0 : window.innerHeight);
-  const [viewportWidth, setViewportWidth] = useState(typeof window === 'undefined' ? 0 : window.innerWidth);
-
-  const handleWindowResize = useCallback(() => {
-    setViewportHeight(window.innerHeight);
-    setViewportWidth(window.innerWidth);
-  }, []);
-
-  useOnWindowResize(handleWindowResize);
+  const viewportHeight = useSyncExternalStore(subscribeToResize, getViewportHeight, getServerSize);
+  const viewportWidth = useSyncExternalStore(subscribeToResize, getViewportWidth, getServerSize);
 
   return { viewportHeight, viewportWidth };
 };
+
+function subscribeToResize(onChange: () => void) {
+  window.addEventListener('resize', onChange);
+
+  return () => {
+    window.removeEventListener('resize', onChange);
+  };
+}
+
+function getViewportHeight() {
+  return window.innerHeight;
+}
+
+function getViewportWidth() {
+  return window.innerWidth;
+}
+
+function getServerSize() {
+  return 0;
+}

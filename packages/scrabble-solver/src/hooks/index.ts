@@ -8,5 +8,4 @@ export { useLocalStorage } from './useLocalStorage';
 export { useMedia } from './useMedia';
 export { useMediaQueries } from './useMediaQueries';
 export { useMediaQuery } from './useMediaQuery';
-export { useOnWindowResize } from './useOnWindowResize';
 export { useViewportSize } from './useViewportSize';

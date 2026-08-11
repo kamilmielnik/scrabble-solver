@@ -1,34 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useSyncExternalStore } from 'react';
 
-const getInitialState = (query: string, defaultState?: boolean) => {
-  if (typeof defaultState !== 'undefined') {
-    return defaultState;
-  }
+export const useMedia = (query: string, defaultState = false) => {
+  const subscribe = useCallback(
+    (onChange: () => void) => {
+      const mediaQuery = window.matchMedia(query);
+      mediaQuery.addEventListener('change', onChange);
 
-  if (typeof window === 'undefined') {
-    return false;
-  }
+      return () => {
+        mediaQuery.removeEventListener('change', onChange);
+      };
+    },
+    [query],
+  );
 
-  return window.matchMedia(query).matches;
-};
+  const getSnapshot = useCallback(() => window.matchMedia(query).matches, [query]);
+  const getServerSnapshot = useCallback(() => defaultState, [defaultState]);
 
-export const useMedia = (query: string, defaultState?: boolean) => {
-  const [state, setState] = useState(getInitialState(query, defaultState));
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(query);
-
-    const handleChange = () => {
-      setState(mediaQuery.matches);
-    };
-
-    setState(mediaQuery.matches);
-    mediaQuery.addEventListener('change', handleChange);
-
-    return () => {
-      mediaQuery.removeEventListener('change', handleChange);
-    };
-  }, [query]);
-
-  return state;
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 };
