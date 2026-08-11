@@ -3,8 +3,9 @@ import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { type Cell, type Tile } from '@scrabble-solver/types';
 
-import { i18n, LOCALE_FEATURES } from '@/i18n';
+import { englishTranslations, LOCALE_FEATURES } from '@/i18n';
 
+import { selectLoadedTranslations } from '../i18n';
 import type { RootState } from '../types';
 
 const selectCell = (_: unknown, cell: Cell): Cell => cell;
@@ -68,6 +69,9 @@ export const selectCellIsValid = createSelector([selectConfig, selectCell], (con
   return config.tiles.some((tile) => tile.character === cell.tile.character);
 });
 
-export const selectTranslations = createSelector([selectLocale], (locale) => i18n[locale]);
+export const selectTranslations = createSelector(
+  [selectLocale, selectLoadedTranslations],
+  (locale, translations) => translations[locale] ?? englishTranslations,
+);
 
 export const selectRemoveCellFilters = createSelector([selectSettings], (settings) => settings.removeCellFilters);

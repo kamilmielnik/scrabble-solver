@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import { Radio } from '@/components';
 import { LOCALE_FEATURES } from '@/i18n';
+import { LOCALE_ICONS } from '@/i18n/localeIcons';
 import { selectLocale, settingsSlice, useTypedSelector } from '@/state';
 
 import styles from './LocaleSetting.module.scss';
@@ -27,23 +28,27 @@ export const LocaleSetting: FunctionComponent<Props> = ({ className, disabled })
 
   return (
     <div className={className}>
-      {OPTIONS.map(({ Icon, ...option }) => (
-        <Radio
-          checked={locale === option.locale}
-          className={classNames(styles.option, className)}
-          disabled={disabled}
-          key={option.locale}
-          name="locale"
-          value={option.locale}
-          onChange={handleChange}
-        >
-          <span className={styles.label}>
-            <Icon aria-hidden="true" className={styles.flag} role="img" />
+      {OPTIONS.map((option) => {
+        const Icon = LOCALE_ICONS[option.locale];
 
-            <span>{option.label}</span>
-          </span>
-        </Radio>
-      ))}
+        return (
+          <Radio
+            checked={locale === option.locale}
+            className={classNames(styles.option, className)}
+            disabled={disabled}
+            key={option.locale}
+            name="locale"
+            value={option.locale}
+            onChange={handleChange}
+          >
+            <span className={styles.label}>
+              <Icon aria-hidden="true" className={styles.flag} role="img" />
+
+              <span>{option.label}</span>
+            </span>
+          </Radio>
+        );
+      })}
     </div>
   );
 };

@@ -8,7 +8,7 @@ import { hasConfig, languages } from '@scrabble-solver/configs';
 import { Board, type Locale, type Result } from '@scrabble-solver/types';
 import { call, delay, put, select, spawn, takeEvery, takeLatest } from 'redux-saga/effects';
 
-import { LOCALE_FEATURES } from '@/i18n';
+import { loadTranslations, LOCALE_FEATURES } from '@/i18n';
 import { memoize } from '@/lib';
 import { findWordDefinitions, solve, verify, visit } from '@/sdk';
 import { prefetchDictionary } from '@/solver-worker';
@@ -18,6 +18,7 @@ import { appSlice } from './app';
 import { boardSlice, selectBoard } from './board';
 import { cellFiltersSlice, selectCellFilter } from './cellFilters';
 import { dictionarySlice, selectDictionary } from './dictionary';
+import { i18nSlice, selectLoadedTranslations } from './i18n';
 import { localStorage } from './localStorage';
 import { rackSlice, selectCharacters, selectRack } from './rack';
 import { resultsSlice } from './results';
@@ -131,6 +132,7 @@ function* onInitialize(): AnyGenerator {
   const locale = yield select(selectLocale);
 
   yield spawn(prefetchDictionary, locale);
+  yield spawn(loadLocaleTranslations, locale);
   // Detached: offline, a failed visit would otherwise tear down the whole root saga.
   yield spawn(visit);
 
@@ -167,6 +169,17 @@ function* hydratePersistedState(): AnyGenerator {
   yield put(appSlice.actions.hydrated());
 }
 
+function* loadLocaleTranslations(locale: Locale): AnyGenerator {
+  const loaded = yield select(selectLoadedTranslations);
+
+  if (loaded[locale]) {
+    return;
+  }
+
+  const translations = yield call(loadTranslations, locale);
+  yield put(i18nSlice.actions.loaded({ locale, translations }));
+}
+
 function* onReset(): AnyGenerator {
   const config = yield select(selectConfig);
 
@@ -181,6 +194,7 @@ function* onReset(): AnyGenerator {
 
 function* onLocaleChange({ payload: locale }: PayloadAction<Locale>): AnyGenerator {
   yield spawn(prefetchDictionary, locale);
+  yield spawn(loadLocaleTranslations, locale);
 
   const game = yield select(selectGame);
 

@@ -1,2 +1,2 @@
 export * from './constants';
-export { i18n } from './i18n';
+export { englishTranslations, loadTranslations } from './i18n';

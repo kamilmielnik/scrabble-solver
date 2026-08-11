@@ -3,22 +3,23 @@ import { Locale } from '@scrabble-solver/types';
 import { type Translations } from '@/types';
 
 import english from './languages/english.json';
-import french from './languages/french.json';
-import german from './languages/german.json';
-import persian from './languages/persian.json';
-import polish from './languages/polish.json';
-import romanian from './languages/romanian.json';
-import spanish from './languages/spanish.json';
-import turkish from './languages/turkish.json';
 
-export const i18n: Record<Locale, Translations> = {
-  [Locale.DE_DE]: german,
-  [Locale.EN_GB]: english,
-  [Locale.EN_US]: english,
-  [Locale.ES_ES]: spanish,
-  [Locale.FA_IR]: persian,
-  [Locale.FR_FR]: french,
-  [Locale.PL_PL]: polish,
-  [Locale.RO_RO]: romanian,
-  [Locale.TR_TR]: turkish,
+/**
+ * English ships in the main bundle so the SSR and the pre-hydration UI
+ * always have complete translations.
+ */
+export const englishTranslations: Translations = english;
+
+const loadTranslationsPerLocale: Record<Locale, () => Promise<Translations>> = {
+  [Locale.DE_DE]: async () => (await import('./languages/german.json')).default,
+  [Locale.EN_GB]: async () => english,
+  [Locale.EN_US]: async () => english,
+  [Locale.ES_ES]: async () => (await import('./languages/spanish.json')).default,
+  [Locale.FA_IR]: async () => (await import('./languages/persian.json')).default,
+  [Locale.FR_FR]: async () => (await import('./languages/french.json')).default,
+  [Locale.PL_PL]: async () => (await import('./languages/polish.json')).default,
+  [Locale.RO_RO]: async () => (await import('./languages/romanian.json')).default,
+  [Locale.TR_TR]: async () => (await import('./languages/turkish.json')).default,
 };
+
+export const loadTranslations = (locale: Locale): Promise<Translations> => loadTranslationsPerLocale[locale]();

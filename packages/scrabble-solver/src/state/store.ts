@@ -6,6 +6,7 @@ import { boardSlice } from './board';
 import { cellFiltersSlice } from './cellFilters';
 import { dictionarySlice } from './dictionary';
 import { hoveredTileSlice } from './hoveredTile';
+import { i18nSlice } from './i18n';
 import { rackSlice } from './rack';
 import { resultsSlice } from './results';
 import { rootSaga } from './sagas';
@@ -22,6 +23,7 @@ export const store = configureStore({
     cellFilters: cellFiltersSlice.reducer,
     dictionary: dictionarySlice.reducer,
     hoveredTile: hoveredTileSlice.reducer,
+    i18n: i18nSlice.reducer,
     rack: rackSlice.reducer,
     results: resultsSlice.reducer,
     settings: settingsSlice.reducer,
