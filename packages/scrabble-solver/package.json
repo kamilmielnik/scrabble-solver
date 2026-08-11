@@ -16,6 +16,7 @@
     "url": "https://github.com/kamilmielnik/scrabble-solver/issues"
   },
   "homepage": "https://scrabble-solver.org",
+  "sideEffects": ["**/*.css", "**/*.scss", "src/pages/**"],
   "scripts": {
     "build": "bun run generate-scss-types && env-cmd next build --webpack",
     "clean": "rimraf --glob .next/ 'src/**/*.module.scss.d.ts'",

@@ -5,7 +5,7 @@ import { type FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
 
 import { AppLayoutProvider } from '@/app-layout';
-import { SeoMessage } from '@/components';
+import { SeoMessage } from '@/components/SeoMessage';
 import { store } from '@/state';
 
 import '../styles/global.scss';
