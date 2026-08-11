@@ -37,7 +37,6 @@ interface Props {
   className?: string;
   inputRef: RefObject<HTMLInputElement | null>;
   isReachable?: boolean;
-  size: number;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onFocus: (x: number, y: number) => void;
 }
@@ -51,7 +50,6 @@ const CellBase: FunctionComponent<Props> = ({
   className,
   inputRef,
   isReachable = true,
-  size,
   onChange,
   onFocus,
 }) => {
@@ -127,7 +125,6 @@ const CellBase: FunctionComponent<Props> = ({
       isValid={isValid}
       points={points}
       raised={!isEmpty}
-      size={size}
       tabIndex={cell.x === 0 && cell.y === 0 ? undefined : -1}
       onChange={onChange}
       onFocus={handleFocus}

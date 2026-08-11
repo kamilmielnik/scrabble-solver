@@ -4,6 +4,8 @@
   --background-color: transparent;
 
   position: relative;
+  width: var(--tile-render-size, auto);
+  height: var(--tile-render-size, auto);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -92,6 +94,7 @@
 .points {
   @include text-stroke(var(--background-color), 1px);
 
+  font-size: max(10px, calc(var(--tile-render-size) * 0.25));
   position: absolute;
   inset-block-end: 1%;
   inset-inline-end: 9%;

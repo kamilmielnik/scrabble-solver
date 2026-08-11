@@ -36,7 +36,7 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
-  const { maxControlsWidth, showCompactControls, tileSize } = useAppLayout();
+  const { showCompactControls } = useAppLayout();
   const error = useTypedSelector(selectSolveError);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const results = useTypedSelector(selectProcessedResults);
@@ -113,27 +113,25 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
       <div className={styles.bottomContainer}>
         <div className={styles.bottomContent}>
           <form onSubmit={handleSubmit}>
-            <Rack tileSize={tileSize} />
+            <Rack />
             <input className={styles.submitInput} tabIndex={-1} type="submit" />
           </form>
 
-          {showCompactControls && (
-            <div className={styles.controls} style={{ maxWidth: maxControlsWidth }}>
-              <ResultCandidatePicker onResultClick={onShowResults} />
+          <div className={styles.controls}>
+            <ResultCandidatePicker onResultClick={onShowResults} />
 
-              {error && (
-                <Alert className={styles.emptyState} variant="error">
-                  {error.message}
-                </Alert>
-              )}
+            {error && (
+              <Alert className={styles.emptyState} variant="error">
+                {error.message}
+              </Alert>
+            )}
 
-              {results && results.length === 0 && !isOutdated && (
-                <Alert className={styles.emptyState} variant="warning">
-                  {translate('results.empty-state.no-results')}
-                </Alert>
-              )}
-            </div>
-          )}
+            {results && results.length === 0 && !isOutdated && (
+              <Alert className={styles.emptyState} variant="warning">
+                {translate('results.empty-state.no-results')}
+              </Alert>
+            )}
+          </div>
         </div>
       </div>
     </div>

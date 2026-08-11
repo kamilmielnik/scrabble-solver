@@ -38,7 +38,6 @@ interface Props {
   className?: string;
   index: number;
   inputRef: RefObject<HTMLInputElement | null>;
-  size: number;
   tile: TileModel | null;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onKeyDown: KeyboardEventHandler<HTMLInputElement>;
@@ -51,7 +50,6 @@ export const RackTile: FunctionComponent<Props> = ({
   className,
   index,
   inputRef,
-  size,
   tile,
   onChange,
   onKeyDown,
@@ -152,7 +150,6 @@ export const RackTile: FunctionComponent<Props> = ({
       placeholder={translate('rack.placeholder')[index]}
       points={points}
       raised
-      size={size}
       tabIndex={index === 0 ? undefined : -1}
       onChange={handleChange}
       onFocus={handleFocus}

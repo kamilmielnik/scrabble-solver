@@ -13,7 +13,6 @@ import {
   useRef,
 } from 'react';
 
-import { useAppLayout } from '@/app-layout';
 import { getTileSizes, noop } from '@/lib';
 import { selectLocale, useTypedSelector } from '@/state';
 
@@ -32,7 +31,8 @@ interface Props {
   placeholder?: string;
   points?: number;
   raised?: boolean;
-  size: number;
+  /** Sized by the --tile-render-size CSS variable when omitted. */
+  size?: number;
   tabIndex?: number;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
@@ -63,14 +63,15 @@ export const Tile: FunctionComponent<Props> = ({
   onTouchStart = noop,
 }) => {
   const locale = useTypedSelector(selectLocale);
-  const { showTilePoints } = useAppLayout();
-  const { pointsFontSize, tileSize } = getTileSizes(size);
-  const style = useMemo(() => ({ height: tileSize, width: tileSize }), [tileSize]);
-  const pointsStyle = useMemo(() => ({ fontSize: pointsFontSize }), [pointsFontSize]);
+  const style = useMemo(() => (typeof size === 'number' ? { height: size, width: size } : undefined), [size]);
+  const pointsStyle = useMemo(
+    () => (typeof size === 'number' ? { fontSize: getTileSizes(size).pointsFontSize } : undefined),
+    [size],
+  );
   const ref = useRef<HTMLInputElement>(null);
   const mergedRef = useMergeRefs(inputRef ? [ref, inputRef] : [ref]);
   const isEmpty = !character || character === EMPTY_CELL;
-  const canShowPoints = showTilePoints && (!isEmpty || isBlank) && typeof points !== 'undefined';
+  const canShowPoints = (!isEmpty || isBlank) && typeof points !== 'undefined';
   const pointsFormatted = typeof points === 'number' ? points.toLocaleString(locale) : '';
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(

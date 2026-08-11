@@ -39,7 +39,7 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
   const inputMode = useTypedSelector(selectInputMode);
   const cellFilters = useTypedSelector(selectCellFilters);
   const showCoordinates = useTypedSelector(selectShowCoordinates);
-  const { cellSize, coordinatesFontSize, coordinatesSize } = useAppLayout();
+  const { cellSize } = useAppLayout();
   const [
     { activeIndex, direction, inputRefs },
     { insertValue, onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
@@ -153,9 +153,6 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
       <BoardPure
         className={className}
         cellFilters={cellFilters}
-        cellSize={cellSize}
-        coordinatesFontSize={coordinatesFontSize}
-        coordinatesSize={coordinatesSize}
         direction={LOCALE_FEATURES[locale].direction}
         inputRefs={inputRefs}
         reachableCells={reachableCells}

@@ -14,7 +14,6 @@ import {
 
 import { Ban, FlagFill } from '@/icons';
 import { getCoordinate } from '@/lib';
-import { BORDER_WIDTH } from '@/parameters';
 import { type CellFilter } from '@/types';
 
 import styles from './Board.module.scss';
@@ -23,9 +22,6 @@ import { Cell } from './components';
 interface Props {
   className?: string;
   cellFilters: CellFilter[];
-  cellSize: number;
-  coordinatesFontSize: number;
-  coordinatesSize: number;
   direction: 'ltr' | 'rtl';
   inputRefs: RefObject<HTMLInputElement | null>[][];
   reachableCells: boolean[][] | null;
@@ -43,9 +39,6 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
   (
     {
       className,
-      cellSize,
-      coordinatesFontSize,
-      coordinatesSize,
       direction,
       cellFilters,
       inputRefs,
@@ -72,18 +65,10 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
     >
       {showCoordinates !== 'hidden' && (
         <>
-          <div style={{ width: coordinatesSize, height: coordinatesSize }} />
+          <div />
 
           {rows[0].map((_column, index) => (
-            <div
-              className={styles.coordinate}
-              key={index}
-              style={{
-                width: cellSize,
-                height: coordinatesSize,
-                fontSize: coordinatesFontSize,
-              }}
-            >
+            <div className={styles.coordinate} key={index}>
               {getCoordinate(index, showCoordinates === 'original' ? 'letter' : 'number')}
             </div>
           ))}
@@ -102,11 +87,11 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
             className={styles.iconContainer}
             key={[x, y].join('-')}
             style={{
-              height: cellSize,
-              width: cellSize,
-              left: direction === 'ltr' ? coordinatesSize + BORDER_WIDTH + x * (cellSize + BORDER_WIDTH) : undefined,
-              right: direction === 'rtl' ? coordinatesSize + BORDER_WIDTH + x * (cellSize + BORDER_WIDTH) : undefined,
-              top: coordinatesSize + BORDER_WIDTH + y * (cellSize + BORDER_WIDTH),
+              height: 'var(--cell-size)',
+              width: 'var(--cell-size)',
+              left: direction === 'ltr' ? inlineOffset(x) : undefined,
+              right: direction === 'rtl' ? inlineOffset(x) : undefined,
+              top: inlineOffset(y),
             }}
           >
             <div className={styles.iconBackground} />
@@ -118,14 +103,7 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
       {rows.map((cells, y) => (
         <Fragment key={y}>
           {showCoordinates !== 'hidden' && (
-            <div
-              className={styles.coordinate}
-              style={{
-                width: coordinatesSize,
-                height: cellSize,
-                fontSize: coordinatesFontSize,
-              }}
-            >
+            <div className={styles.coordinate}>
               {getCoordinate(y, showCoordinates === 'original' ? 'number' : 'letter')}
             </div>
           )}
@@ -140,7 +118,6 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
               inputRef={inputRefs[y][x]}
               isReachable={reachableCells ? reachableCells[y][x] : true}
               key={x}
-              size={cellSize}
               onChange={onChange}
               onFocus={onFocus}
             />
@@ -152,3 +129,7 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
 );
 
 export const BoardPure = memo(BoardPureBase);
+
+function inlineOffset(index: number) {
+  return `calc(var(--coord-size) + var(--border--width) + ${index} * (var(--cell-size) + var(--border--width)))`;
+}

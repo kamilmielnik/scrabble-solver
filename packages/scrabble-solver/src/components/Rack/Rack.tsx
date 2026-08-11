@@ -18,7 +18,7 @@ import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from '@/app-layout';
 import { LOCALE_FEATURES } from '@/i18n';
-import { createKeyboardNavigation, extractCharacters, extractInputValue, getTileSizes, isCtrl } from '@/lib';
+import { createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from '@/lib';
 import { rackSlice, selectConfig, selectInputMode, selectLocale, selectRack, useTypedSelector } from '@/state';
 
 import { InputPrompt, RackTile } from './components';
@@ -27,10 +27,9 @@ import { selectRemainingTilesGroups } from './selectors';
 
 interface Props {
   className?: string;
-  tileSize: number;
 }
 
-export const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
+export const Rack: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
   const { rackHeight } = useAppLayout();
   const config = useTypedSelector(selectConfig);
@@ -47,7 +46,6 @@ export const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const [hasFocus, setHasFocus] = useState(false);
   const [input, setInput] = useState('');
   const { direction } = LOCALE_FEATURES[locale];
-  const { tileFontSize } = getTileSizes(tileSize);
   const showInputPrompt = inputMode === 'touchscreen' && hasFocus;
   const ref = useRef<HTMLDivElement>(null);
 
@@ -158,7 +156,6 @@ export const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
         })}
         data-testid="rack"
         ref={ref}
-        style={{ fontSize: tileFontSize }}
         onPaste={handlePaste}
       >
         {tiles.map(({ character, tile }, index) => (
@@ -172,7 +169,6 @@ export const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
             index={index}
             inputRef={tilesRefs[index]}
             key={index}
-            size={tileSize}
             tile={tile}
             onChange={handleChange}
             onKeyDown={handleKeyDown}

@@ -37,7 +37,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
-  const [isClient, setIsClient] = useState(false);
+  const showCoordinates = useTypedSelector(selectShowCoordinates);
   const [modals, setModals] = useState<Record<Modal, boolean>>({
     dictionary: false,
     keyMap: false,
@@ -72,6 +72,15 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   useDirection(LOCALE_FEATURES[locale].direction);
   useLanguage(locale);
   useLocalStorage();
+
+  useEffect(() => {
+    const rootStyle = document.documentElement.style;
+    rootStyle.setProperty('--board-cols', String(config.boardWidth));
+    rootStyle.setProperty('--board-rows', String(config.boardHeight));
+    rootStyle.setProperty('--rack-size', String(config.rackSize));
+    rootStyle.setProperty('--coord-ratio', showCoordinates === 'hidden' ? '0' : '0.5');
+    rootStyle.setProperty('--coord-border', showCoordinates === 'hidden' ? '0' : '1');
+  }, [config.boardHeight, config.boardWidth, config.rackSize, showCoordinates]);
 
   useEffectOnce(() => {
     if (process.env.NODE_ENV === 'production') {

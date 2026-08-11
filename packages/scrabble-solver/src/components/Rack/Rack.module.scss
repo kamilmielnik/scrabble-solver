@@ -65,12 +65,15 @@
 }
 
 .rack {
+  --tile-render-size: var(--rack-tile-size);
+
   position: relative;
   display: flex;
   box-shadow: var(--box-shadow);
   border-radius: var(--border--radius);
   transition: var(--transition);
   opacity: 1;
+  font-size: max(14px, calc(var(--rack-tile-size) * 0.6));
 }
 
 .tile {
