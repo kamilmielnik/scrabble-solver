@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import reduxSaga from 'redux-saga';
 
+import { appSlice } from './app';
 import { boardSlice } from './board';
 import { cellFiltersSlice } from './cellFilters';
 import { dictionarySlice } from './dictionary';
@@ -16,6 +17,7 @@ const sagaMiddleware = reduxSaga();
 
 export const store = configureStore({
   reducer: {
+    app: appSlice.reducer,
     board: boardSlice.reducer,
     cellFilters: cellFiltersSlice.reducer,
     dictionary: dictionarySlice.reducer,

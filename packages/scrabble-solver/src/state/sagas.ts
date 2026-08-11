@@ -14,9 +14,11 @@ import { findWordDefinitions, solve, verify, visit } from '@/sdk';
 import { prefetchDictionary } from '@/solver-worker';
 
 import { initialize, reset } from './actions';
+import { appSlice } from './app';
 import { boardSlice, selectBoard } from './board';
 import { cellFiltersSlice, selectCellFilter } from './cellFilters';
 import { dictionarySlice, selectDictionary } from './dictionary';
+import { localStorage } from './localStorage';
 import { rackSlice, selectCharacters, selectRack } from './rack';
 import { resultsSlice } from './results';
 import {
@@ -25,8 +27,11 @@ import {
   selectLocale,
   selectLocaleAutoGroupTiles,
   selectRemoveCellFilters,
+  settingsInitialState,
   settingsSlice,
+  type SettingsState,
 } from './settings';
+import { guessLocale } from './settings/lib';
 import { solveSlice } from './solve';
 import { verifySlice } from './verify';
 
@@ -120,6 +125,8 @@ function* onDictionarySubmit(): AnyGenerator {
 }
 
 function* onInitialize(): AnyGenerator {
+  yield* hydratePersistedState();
+
   const board = yield select(selectBoard);
   const locale = yield select(selectLocale);
 
@@ -131,6 +138,33 @@ function* onInitialize(): AnyGenerator {
     yield* resetRack();
     yield put(verifySlice.actions.submit());
   }
+}
+
+function* hydratePersistedState(): AnyGenerator {
+  const isTouchScreen = globalThis.matchMedia('(hover: none)').matches;
+  const settings: Pick<SettingsState, 'game' | 'inputMode' | 'locale'> & Partial<SettingsState> = {
+    game: settingsInitialState.game,
+    inputMode: isTouchScreen ? ('touchscreen' as const) : ('keyboard' as const),
+    locale: guessLocale(),
+    ...localStorage.getSettings(),
+  };
+
+  if (!hasConfig(settings.game, settings.locale)) {
+    const localeDefault = Object.values(languages).find((config) => config.locale === settings.locale);
+    settings.game = localeDefault?.game ?? settingsInitialState.game;
+    settings.locale = localeDefault?.locale ?? settingsInitialState.locale;
+  }
+
+  yield put(settingsSlice.actions.init(settings));
+
+  const config = yield select(selectConfig);
+  const board = localStorage.getBoard() ?? Board.create(config.boardWidth, config.boardHeight);
+  yield put(boardSlice.actions.init(board));
+
+  const rack = localStorage.getRack() ?? Array(config.rackSize).fill(null);
+  yield put(rackSlice.actions.init(rack));
+
+  yield put(appSlice.actions.hydrated());
 }
 
 function* onReset(): AnyGenerator {

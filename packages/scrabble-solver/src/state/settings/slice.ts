@@ -44,7 +44,7 @@ export const settingsSlice = createSlice({
       return { ...state, removeCellFilters };
     },
 
-    init: (state, action: PayloadAction<Partial<Pick<typeof settingsInitialState, 'game' | 'locale'>>>) => {
+    init: (state, action: PayloadAction<Partial<typeof settingsInitialState>>) => {
       return { ...state, ...action.payload };
     },
   },

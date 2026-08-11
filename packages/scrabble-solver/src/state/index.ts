@@ -1,4 +1,5 @@
 export * from './actions';
+export * from './app';
 export * from './board';
 export * from './cellFilters';
 export * from './dictionary';

@@ -1,25 +1,28 @@
 import { useEffect } from 'react';
 
-import { localStorage, selectBoard, selectRack, selectSettings, useTypedSelector } from '@/state';
+import { localStorage, selectBoard, selectIsHydrated, selectRack, selectSettings, useTypedSelector } from '@/state';
 
 export const useLocalStorage = () => {
+  const isHydrated = useTypedSelector(selectIsHydrated);
   const board = useTypedSelector(selectBoard);
   const rack = useTypedSelector(selectRack);
   const settings = useTypedSelector(selectSettings);
 
   useEffect(() => {
-    if (board) {
+    if (isHydrated && board) {
       localStorage.setBoard(board);
     }
-  }, [board]);
+  }, [isHydrated, board]);
 
   useEffect(() => {
-    if (rack) {
+    if (isHydrated && rack) {
       localStorage.setRack(rack);
     }
-  }, [rack]);
+  }, [isHydrated, rack]);
 
   useEffect(() => {
-    localStorage.setSettings(settings);
-  }, [settings]);
+    if (isHydrated) {
+      localStorage.setSettings(settings);
+    }
+  }, [isHydrated, settings]);
 };

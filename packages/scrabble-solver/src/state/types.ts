@@ -1,3 +1,4 @@
+import type { AppState } from './app';
 import type { BoardState } from './board';
 import type { CellFiltersState } from './cellFilters';
 import type { DictionaryState } from './dictionary';
@@ -9,6 +10,7 @@ import type { SolveState } from './solve';
 import type { VerifyState } from './verify';
 
 export type RootState = {
+  app: AppState;
   board: BoardState;
   cellFilters: CellFiltersState;
   dictionary: DictionaryState;
