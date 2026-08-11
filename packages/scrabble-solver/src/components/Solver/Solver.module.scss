@@ -105,6 +105,10 @@
 .controls {
   width: 100%;
   max-width: var(--controls-max-width);
+
+  @include media('>=l') {
+    display: none;
+  }
 }
 
 .emptyState {
