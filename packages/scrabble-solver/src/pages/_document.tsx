@@ -4,8 +4,13 @@ import { type ReactElement } from 'react';
 class MyDocument extends Document {
   render(): ReactElement {
     return (
-      <Html lang="en">
-        <Head>
+      <Html
+        /**
+         * dir must be present pre-hydration
+         */
+        dir="ltr"
+        lang="en"
+      >
           <link rel="apple-touch-icon-precomposed" sizes="57x57" href="icons/apple-touch-icon-57x57.png" />
           <link rel="apple-touch-icon-precomposed" sizes="114x114" href="icons/apple-touch-icon-114x114.png" />
           <link rel="apple-touch-icon-precomposed" sizes="72x72" href="icons/apple-touch-icon-72x72.png" />

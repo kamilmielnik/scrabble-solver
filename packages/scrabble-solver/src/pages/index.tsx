@@ -4,7 +4,7 @@ import { isObject } from '@scrabble-solver/types';
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import { type FunctionComponent, useCallback, useState } from 'react';
+import { type FunctionComponent, useCallback, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch } from 'react-redux';
 
@@ -21,7 +21,7 @@ import {
   WordsModal,
 } from '@/modals';
 import { registerServiceWorker } from '@/serviceWorkerManager';
-import { initialize, reset, selectConfig, selectLocale, useTypedSelector } from '@/state';
+import { initialize, reset, selectConfig, selectLocale, selectShowCoordinates, useTypedSelector } from '@/state';
 
 import styles from './index.module.scss';
 
@@ -88,13 +88,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       registerServiceWorker();
     }
 
-    setIsClient(true);
     dispatch(initialize());
   });
-
-  if (!isClient) {
-    return null;
-  }
 
   return (
     <>
