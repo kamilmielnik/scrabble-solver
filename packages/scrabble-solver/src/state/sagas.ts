@@ -9,7 +9,7 @@ import { Board, type Locale, type Result } from '@scrabble-solver/types';
 import { call, delay, put, select, spawn, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { loadTranslations, LOCALE_FEATURES } from '@/i18n';
-import { memoize } from '@/lib';
+import { memoize, waitForIdleOrFirstIntent } from '@/lib';
 import { findWordDefinitions, solve, verify, visit } from '@/sdk';
 import { prefetchDictionary } from '@/solver-worker';
 
@@ -131,7 +131,7 @@ function* onInitialize(): AnyGenerator {
   const board = yield select(selectBoard);
   const locale = yield select(selectLocale);
 
-  yield spawn(prefetchDictionary, locale);
+  yield spawn(prefetchDictionaryWhenIdle);
   yield spawn(loadLocaleTranslations, locale);
   // Detached: offline, a failed visit would otherwise tear down the whole root saga.
   yield spawn(visit);
@@ -167,6 +167,12 @@ function* hydratePersistedState(): AnyGenerator {
   yield put(rackSlice.actions.init(rack));
 
   yield put(appSlice.actions.hydrated());
+}
+
+function* prefetchDictionaryWhenIdle(): AnyGenerator {
+  yield call(waitForIdleOrFirstIntent);
+  const locale = yield select(selectLocale);
+  yield call(prefetchDictionary, locale);
 }
 
 function* loadLocaleTranslations(locale: Locale): AnyGenerator {
