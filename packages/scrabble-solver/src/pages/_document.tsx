@@ -1,7 +1,9 @@
+import fs from 'fs';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
+import path from 'path';
 import { type ReactElement } from 'react';
 
-class MyDocument extends Document {
+export default class MyDocument extends Document {
   render(): ReactElement {
     return (
       <Html
@@ -11,6 +13,7 @@ class MyDocument extends Document {
         dir="ltr"
         lang="en"
       >
+        <InlineCssHead>
           <link rel="apple-touch-icon-precomposed" sizes="57x57" href="icons/apple-touch-icon-57x57.png" />
           <link rel="apple-touch-icon-precomposed" sizes="114x114" href="icons/apple-touch-icon-114x114.png" />
           <link rel="apple-touch-icon-precomposed" sizes="72x72" href="icons/apple-touch-icon-72x72.png" />
@@ -32,7 +35,7 @@ class MyDocument extends Document {
           <meta name="msapplication-square150x150logo" content="icons/mstile-150x150.png" />
           <meta name="msapplication-wide310x150logo" content="icons/mstile-310x150.png" />
           <meta name="msapplication-square310x310logo" content="icons/mstile-310x310.png" />
-        </Head>
+        </InlineCssHead>
 
         <body>
           <Main />
@@ -43,4 +46,26 @@ class MyDocument extends Document {
   }
 }
 
-export default MyDocument;
+/**
+ * Removes render-blocking CSS requests from the critical path.
+ */
+class InlineCssHead extends Head {
+  getCssLinks(files: Parameters<Head['getCssLinks']>[0]): ReactElement[] | null {
+    try {
+      const cssFiles = files.allFiles.filter((file) => file.endsWith('.css'));
+
+      return cssFiles.map((file) => (
+        <style
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: fs.readFileSync(path.join(process.cwd(), '.next', file), 'utf-8'),
+          }}
+          data-href={`/_next/${file}`}
+          key={file}
+        />
+      ));
+    } catch {
+      return super.getCssLinks(files);
+    }
+  }
+}
