@@ -52,7 +52,6 @@
     "react-window": "^2.3.0",
     "redux-saga": "^1.5.1",
     "store2": "^2.14.4",
-    "transliteration": "^2.6.1",
     "use-debounce": "^10.1.1",
     "workbox-expiration": "^7.4.1",
     "workbox-precaching": "^7.4.1",
