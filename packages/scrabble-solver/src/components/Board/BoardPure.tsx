@@ -1,4 +1,4 @@
-import { type Cell as CellModel, type ShowCoordinates } from '@scrabble-solver/types';
+import { type Cell as CellModel, type ShowCoordinates, type TextDirection } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import {
   type CSSProperties,
@@ -22,7 +22,7 @@ import { Cell } from './components';
 interface Props {
   className?: string;
   cellFilters: CellFilter[];
-  direction: 'ltr' | 'rtl';
+  direction: TextDirection;
   inputRefs: RefObject<HTMLInputElement | null>[][];
   reachableCells: boolean[][] | null;
   rows: CellModel[][];

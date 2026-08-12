@@ -19,6 +19,7 @@ export { isLocale, Locale } from './Locale';
 export { Result } from './Result';
 export { ResultJson } from './ResultJson';
 export { ShowCoordinates } from './ShowCoordinates';
+export { TextDirection } from './TextDirection';
 export { Tile } from './Tile';
 export { TileConfig } from './TileConfig';
 export { isTileJson, TileJson } from './TileJson';

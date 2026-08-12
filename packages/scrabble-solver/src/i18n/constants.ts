@@ -1,10 +1,10 @@
 import { COMMA_ARABIC, COMMA_LATIN } from '@scrabble-solver/constants';
-import { Locale } from '@scrabble-solver/types';
+import { Locale, type TextDirection } from '@scrabble-solver/types';
 
 interface LocaleFeatures {
   comma: string;
   consonants: boolean;
-  direction: 'ltr' | 'rtl';
+  direction: TextDirection;
   label: string;
   locale: Locale;
   name: string;

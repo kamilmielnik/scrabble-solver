@@ -1,12 +1,10 @@
 import { BONUS_WORD } from '@scrabble-solver/constants';
-import { type Bonus, type Config, type ShowCoordinates } from '@scrabble-solver/types';
+import { type Bonus, type Config, type ShowCoordinates, type TextDirection } from '@scrabble-solver/types';
 
 import { BORDER_COLOR_LIGHT, BORDER_WIDTH, COLOR_BACKGROUND, COLOR_BONUS_START } from '@/parameters';
 import { type Point } from '@/types';
 
 import { getBonusColor } from './lib';
-
-type TextDirection = 'ltr' | 'rtl';
 
 interface BoardBackgroundOptions {
   config: Config;
