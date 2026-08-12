@@ -232,11 +232,14 @@ function* onResultCandidateChange({ payload: result }: PayloadAction<Result | nu
     return;
   }
 
-  yield delay(SUBMIT_DELAY);
-
   const locale: Locale = yield select(selectLocale);
   const uniqueWords = Array.from(new Set(result.words));
   const input = uniqueWords.join(LOCALE_FEATURES[locale].separator);
+
+  if (!memoizedFindWordDefinitions.hasCache(locale, input)) {
+    yield delay(SUBMIT_DELAY);
+  }
+
   yield put(dictionarySlice.actions.changeInput(input));
   yield put(dictionarySlice.actions.submit());
 }
