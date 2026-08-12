@@ -8,66 +8,47 @@ export const BREAKPOINTS = {
   xl: Number(variables.breakpointXl),
 };
 
-export const TRANSITION = 'var(--transition)';
-
 export const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';
 
-export const TRANSITION_DURATION = Number(variables.transitionDuration);
 export const TRANSITION_DURATION_LONG = Number(variables.transitionDurationLong);
 
-export const COLOR_BLUE = variables.colorBlue;
-export const COLOR_GREEN = variables.colorGreen;
-export const COLOR_RED = variables.colorRed;
-export const COLOR_YELLOW = variables.colorYellow;
+export const COLOR_BLUE = 'var(--color--blue)';
+export const COLOR_GREEN = 'var(--color--green)';
+export const COLOR_RED = 'var(--color--red)';
+export const COLOR_YELLOW = 'var(--color--yellow)';
 
-export const COLOR_BONUS_CHARACTER_1 = variables.colorYellowLight;
-export const COLOR_BONUS_CHARACTER_2 = variables.colorGreenLight;
-export const COLOR_BONUS_CHARACTER_3 = variables.colorBlueLight;
-export const COLOR_BONUS_CHARACTER_5 = variables.colorRedLight;
-export const COLOR_BONUS_CHARACTER_MULTIPLIER_2 = variables.colorBonusCharacterMultiplier2;
-export const COLOR_BONUS_CHARACTER_MULTIPLIER_3 = variables.colorBonusCharacterMultiplier3;
-export const COLOR_BONUS_CHARACTER_MULTIPLIER_4 = variables.colorBonusCharacterMultiplier4;
-export const COLOR_BONUS_START = variables.colorVioletLight;
-export const COLOR_BONUS_WORD_MULTIPLIER_2 = variables.colorBonusWordMultiplier2;
-export const COLOR_BONUS_WORD_MULTIPLIER_3 = variables.colorBonusWordMultiplier3;
-export const COLOR_BONUS_WORD_MULTIPLIER_4 = variables.colorBonusWordMultiplier4;
-export const COLOR_FILTERED = variables.colorForegroundSecondary;
 export const COLOR_BACKGROUND = variables.colorBackground;
+export const COLOR_BONUS_START = variables.colorVioletLight;
 
 export const COLOR_BONUS_CHARACTER: Record<number, string> = {
-  1: COLOR_BONUS_CHARACTER_1,
-  2: COLOR_BONUS_CHARACTER_2,
-  3: COLOR_BONUS_CHARACTER_3,
-  5: COLOR_BONUS_CHARACTER_5,
+  1: variables.colorYellowLight,
+  2: variables.colorGreenLight,
+  3: variables.colorBlueLight,
+  5: variables.colorRedLight,
 };
 
 export const COLOR_BONUS_CHARACTER_MULTIPLIER: Record<number, string> = {
-  2: COLOR_BONUS_CHARACTER_MULTIPLIER_2,
-  3: COLOR_BONUS_CHARACTER_MULTIPLIER_3,
-  4: COLOR_BONUS_CHARACTER_MULTIPLIER_4,
+  2: variables.colorBonusCharacterMultiplier2,
+  3: variables.colorBonusCharacterMultiplier3,
+  4: variables.colorBonusCharacterMultiplier4,
 };
 
 export const COLOR_BONUS_WORD: Record<number, string> = {
-  2: COLOR_BONUS_WORD_MULTIPLIER_2,
-  3: COLOR_BONUS_WORD_MULTIPLIER_3,
-  4: COLOR_BONUS_WORD_MULTIPLIER_4,
+  2: variables.colorBonusWordMultiplier2,
+  3: variables.colorBonusWordMultiplier3,
+  4: variables.colorBonusWordMultiplier4,
 };
 
 export const BOARD_CELL_ACTIONS_OFFSET = 3;
-export const BOARD_CELL_BORDER_WIDTH = 1;
 
-export const BORDER_COLOR = variables.borderColor;
 export const BORDER_COLOR_LIGHT = variables.borderColorLight;
-export const BORDER_RADIUS = Number(variables.borderRadius);
 export const BORDER_WIDTH = Number(variables.borderWidth);
 
-export const LOGO_ASPECT_RATIO = 682 / 166;
-export const LOGO_HEIGHT = Number(variables.logoHeight);
+export const LOGO_HEIGHT = 166;
 export const LOGO_SRC = '/logo.svg';
+export const LOGO_WIDTH = 682;
 
-export const TILE_SIZE = 80;
-
-export const TOOLTIP_DURATION = TRANSITION_DURATION;
+export const TOOLTIP_DURATION = Number(variables.transitionDuration);
 
 export const PLAIN_TILES_COLOR_DEFAULT = COLOR_GREEN;
 export const PLAIN_TILES_PADDING_HORIZONTAL = 0;
@@ -88,11 +69,6 @@ export const PLAIN_TILES_TILE_MARGIN = 6;
 export const PLAIN_TILES_TILE_MAX_ROTATE = 0;
 export const PLAIN_TILES_TILE_MAX_SCATTER = 0;
 export const PLAIN_TILES_TILE_SIZE = 80;
-export const PLAIN_TILES_VERSION_TILE_COLOR = COLOR_GREEN;
-export const PLAIN_TILES_VERSION_TILE_SIZE = TILE_SIZE;
-
-export const PROGRESS_COLOR_VALUE = 'var(--color--violet--light)';
-export const PROGRESS_COLOR_BACKGROUND = 'var(--color--inactive)';
 
 export const RESULTS_ITEM_HEIGHT = Number(variables.resultsItemHeight);
 

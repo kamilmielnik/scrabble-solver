@@ -3,12 +3,11 @@
 import { FloatingPortal, type ReferenceType } from '@floating-ui/react';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import classNames from 'classnames';
-import { type CSSProperties, type FocusEventHandler, type FunctionComponent, useCallback, useState } from 'react';
+import { type FocusEventHandler, type FunctionComponent, useCallback, useState } from 'react';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
 import { LOCALE_FEATURES } from '@/i18n/constants';
-import { TRANSITION } from '@/parameters';
 import {
   boardSlice,
   cellFiltersSlice,
@@ -45,7 +44,6 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
   const boardStyle = useBoardStyle();
   const [hasFocus, setHasFocus] = useState(false);
   const [showInputPrompt, setShowInputPrompt] = useState(false);
-  const [transition, setTransition] = useState<CSSProperties['transition']>(TRANSITION);
   const inputRef = inputRefs[activeIndex.y][activeIndex.x];
   const cell = rows[activeIndex.y][activeIndex.x];
   const floatingActions = useFloatingActions();
@@ -78,8 +76,6 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
 
   const handleFocus: typeof onFocus = useCallback(
     (newX, newY) => {
-      const isFirstFocus = !hasFocus;
-      const originalTransition = floatingActions.refs.floating.current?.style.transition || '';
       const newInputRef = inputRefs[newY][newX].current;
       const newTileElement = newInputRef?.parentElement || null;
 
@@ -87,16 +83,8 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
       onFocus(newX, newY);
       setHasFocus(true);
       setShowInputPrompt(false);
-
-      if (isFirstFocus) {
-        setTransition('none');
-
-        globalThis.setTimeout(() => {
-          setTransition(originalTransition);
-        }, 0);
-      }
     },
-    [floatingActions.refs.floating, hasFocus, inputRefs, onFocus, updateFloatingReference],
+    [inputRefs, onFocus, updateFloatingReference],
   );
 
   const handleEnterWord = useCallback(() => {
@@ -178,7 +166,6 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
             display: floatingFocus.isPositioned ? 'block' : 'none',
             opacity: hasFocus ? 1 : 0,
             visibility: floatingFocus.x === null || floatingFocus.y === null ? 'hidden' : 'visible',
-            transition,
           }}
           tabIndex={0}
         />
@@ -193,7 +180,6 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
               position: floatingActions.strategy,
               top: floatingActions.y ?? 0,
               left: floatingActions.x ?? 0,
-              transition,
             }}
             onDirectionToggle={handleToggleDirection}
             onEnterWord={handleEnterWord}
@@ -212,7 +198,6 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
               position: floatingInputPrompt.strategy,
               top: floatingInputPrompt.y ?? 0,
               left: floatingInputPrompt.x ?? 0,
-              transition,
             }}
             onDirectionToggle={handleToggleDirection}
             onSubmit={handleInsertWord}

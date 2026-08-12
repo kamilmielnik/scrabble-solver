@@ -4,6 +4,7 @@
  * - using font-family: Open Sans
  * - transformed into paths (manually with Inkscape)
  * - arranged (centered vertically against respective rows)
+ * - tile fills substituted with concrete colors
  */
 import { type CSSProperties, type FunctionComponent } from 'react';
 

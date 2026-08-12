@@ -12,8 +12,8 @@ interface Props {
 }
 
 export const Tile: FunctionComponent<Props> = ({ character, className, color, points, size, transform, x, y }) => (
-  <g className={className} fill="#222" transform={transform}>
-    <rect fill={color} height={size} rx={size * 0.15} width={size} x={x} y={y} />
+  <g className={className} style={{ fill: 'var(--color--foreground)' }} transform={transform}>
+    <rect height={size} rx={size * 0.15} style={{ fill: color }} width={size} x={x} y={y} />
 
     <text
       dominantBaseline="central"
