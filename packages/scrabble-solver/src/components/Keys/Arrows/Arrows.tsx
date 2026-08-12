@@ -1,7 +1,10 @@
 import classNames from 'classnames';
 import { type FunctionComponent } from 'react';
 
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from '@/icons';
+import ArrowDown from '@/icons/ArrowDown.svg';
+import ArrowLeft from '@/icons/ArrowLeft.svg';
+import ArrowRight from '@/icons/ArrowRight.svg';
+import ArrowUp from '@/icons/ArrowUp.svg';
 
 import { Key } from '../../Key';
 

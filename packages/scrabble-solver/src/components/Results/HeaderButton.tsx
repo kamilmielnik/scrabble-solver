@@ -2,7 +2,8 @@ import classNames from 'classnames';
 import { type CSSProperties, type FunctionComponent, type ReactElement, type SVGAttributes, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { SortDown, SortUp } from '@/icons';
+import SortDown from '@/icons/SortDown.svg';
+import SortUp from '@/icons/SortUp.svg';
 import { resultsSlice, selectResultsSort, useTranslate, useTypedSelector } from '@/state';
 import { type ResultColumnId, SortDirection, type TranslationKey } from '@/types';
 

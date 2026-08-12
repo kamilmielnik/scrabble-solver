@@ -1,7 +1,7 @@
 import type { Placement } from '@floating-ui/react';
 import { type FunctionComponent, type ReactNode } from 'react';
 
-import { useIsTouchDevice } from '@/hooks';
+import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
 
 import { TooltipContext } from './context';
 import { TooltipContent } from './TooltipContent';

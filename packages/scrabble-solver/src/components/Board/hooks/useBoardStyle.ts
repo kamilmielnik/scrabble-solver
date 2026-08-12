@@ -1,6 +1,6 @@
 import { type CSSProperties, useMemo } from 'react';
 
-import { LOCALE_FEATURES } from '@/i18n';
+import { LOCALE_FEATURES } from '@/i18n/constants';
 import { selectConfig, selectLocale, selectShowCoordinates, useTypedSelector } from '@/state';
 
 import { getBoardBackground } from '../getBoardBackground';

@@ -3,7 +3,8 @@ import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { type Cell, type Tile } from '@scrabble-solver/types';
 
-import { englishTranslations, LOCALE_FEATURES } from '@/i18n';
+import { LOCALE_FEATURES } from '@/i18n/constants';
+import { englishTranslations } from '@/i18n/i18n';
 
 import { selectLoadedTranslations } from '../i18n';
 import type { RootState } from '../types';

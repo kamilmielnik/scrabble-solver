@@ -1,4 +1,4 @@
-import { waitForIdleOrFirstIntent } from '@/lib';
+import { waitForIdleOrFirstIntent } from '@/lib/waitForIdleOrFirstIntent';
 
 let isScheduled = false;
 

@@ -4,7 +4,7 @@ import { type ChangeEvent, type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Radio } from '@/components/Radio';
-import { LOCALE_FEATURES } from '@/i18n';
+import { LOCALE_FEATURES } from '@/i18n/constants';
 import { LOCALE_ICONS } from '@/i18n/localeIcons';
 import { selectLocale, settingsSlice, useTypedSelector } from '@/state';
 

@@ -7,7 +7,8 @@ import { Button } from '@/components/Button';
 import { Dictionary } from '@/components/Dictionary';
 import { Modal } from '@/components/Modal';
 import { Results } from '@/components/Results';
-import { Check, EyeFill } from '@/icons';
+import Check from '@/icons/Check.svg';
+import EyeFill from '@/icons/EyeFill.svg';
 import { resultsSlice, selectProcessedResults, selectResultCandidate, useTranslate, useTypedSelector } from '@/state';
 
 import styles from './ResultsModal.module.scss';

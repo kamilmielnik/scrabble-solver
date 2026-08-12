@@ -8,7 +8,7 @@ import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from '@/app-layout';
-import { LOCALE_FEATURES } from '@/i18n';
+import { LOCALE_FEATURES } from '@/i18n/constants';
 import { TRANSITION } from '@/parameters';
 import {
   boardSlice,

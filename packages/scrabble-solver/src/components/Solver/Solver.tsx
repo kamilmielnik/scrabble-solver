@@ -4,7 +4,7 @@ import { type FunctionComponent, memo, type SyntheticEvent, useEffect, useMemo }
 import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from '@/app-layout';
-import { useIsTouchDevice } from '@/hooks';
+import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
 import {
   resultsSlice,
   selectAreResultsOutdated,

@@ -1,8 +1,14 @@
 import { type FunctionComponent } from 'react';
 
 import { useAppLayout } from '@/app-layout';
-import { useColumns } from '@/hooks';
-import { GeoAlt, OneTwoThree, Square, SquareA, SquareB, Squares, Words } from '@/icons';
+import { useColumns } from '@/hooks/useColumns';
+import GeoAlt from '@/icons/GeoAlt.svg';
+import OneTwoThree from '@/icons/OneTwoThree.svg';
+import Square from '@/icons/Square.svg';
+import SquareA from '@/icons/SquareA.svg';
+import SquareB from '@/icons/SquareB.svg';
+import Squares from '@/icons/Squares.svg';
+import Words from '@/icons/Words.svg';
 import { RESULTS_COLUMN_WIDTH } from '@/parameters';
 import { ResultColumnId } from '@/types';
 

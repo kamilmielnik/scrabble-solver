@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Check } from '@/icons';
+import Check from '@/icons/Check.svg';
 import { resultsSlice, selectAreResultsOutdated, selectResultCandidate, useTranslate, useTypedSelector } from '@/state';
 
 import { Button } from '../../../Button';

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { type FunctionComponent, type ReactNode, useCallback, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 
-import { CrossSquareFill } from '@/icons';
+import CrossSquareFill from '@/icons/CrossSquareFill.svg';
 import { TRANSITION_DURATION_LONG } from '@/parameters';
 import { useTranslate } from '@/state';
 

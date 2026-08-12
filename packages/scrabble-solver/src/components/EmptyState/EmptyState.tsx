@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { type FunctionComponent, type ReactNode, useMemo } from 'react';
 
-import { LOCALE_FEATURES } from '@/i18n';
+import { LOCALE_FEATURES } from '@/i18n/constants';
 import { COLOR_BLUE, COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from '@/parameters';
 import { selectLocale, useTranslate, useTypedSelector } from '@/state';
 import { type Translations } from '@/types';

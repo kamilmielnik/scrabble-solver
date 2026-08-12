@@ -1,7 +1,13 @@
 import classNames from 'classnames';
 import { type FunctionComponent, memo } from 'react';
 
-import { CardChecklist, Cog, Eraser, Github, KeyboardFill, List, Sack } from '@/icons';
+import CardChecklist from '@/icons/CardChecklist.svg';
+import Cog from '@/icons/Cog.svg';
+import Eraser from '@/icons/Eraser.svg';
+import Github from '@/icons/Github.svg';
+import KeyboardFill from '@/icons/KeyboardFill.svg';
+import List from '@/icons/List.svg';
+import Sack from '@/icons/Sack.svg';
 import { GITHUB_PROJECT_URL } from '@/parameters';
 import { selectConfig, useTranslate, useTypedSelector } from '@/state';
 

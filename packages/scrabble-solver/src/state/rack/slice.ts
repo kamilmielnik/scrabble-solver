@@ -1,7 +1,10 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { type Tile } from '@scrabble-solver/types';
 
-import { arrayEquals, createNullMovingComparator, inverseDirection, zipCharactersAndTiles } from '@/lib';
+import { arrayEquals } from '@/lib/arrayEquals';
+import { createNullMovingComparator } from '@/lib/createNullMovingComparator';
+import { inverseDirection } from '@/lib/inverseDirection';
+import { zipCharactersAndTiles } from '@/lib/zipCharactersAndTiles';
 import { type AutoGroupTiles, type Rack } from '@/types';
 
 import { rackDefaultState, rackInitialState } from './initialState';

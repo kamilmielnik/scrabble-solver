@@ -17,8 +17,11 @@ import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from '@/app-layout';
-import { LOCALE_FEATURES } from '@/i18n';
-import { createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from '@/lib';
+import { LOCALE_FEATURES } from '@/i18n/constants';
+import { createKeyboardNavigation } from '@/lib/createKeyboardNavigation';
+import { extractCharacters } from '@/lib/extractCharacters';
+import { extractInputValue } from '@/lib/extractInputValue';
+import { isCtrl } from '@/lib/isCtrl';
 import { rackSlice, selectConfig, selectInputMode, selectLocale, selectRack, useTypedSelector } from '@/state';
 
 import { InputPrompt, RackTile } from './components';

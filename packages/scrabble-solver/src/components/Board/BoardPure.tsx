@@ -12,8 +12,9 @@ import {
   memo,
 } from 'react';
 
-import { Ban, FlagFill } from '@/icons';
-import { getCoordinate } from '@/lib';
+import Ban from '@/icons/Ban.svg';
+import FlagFill from '@/icons/FlagFill.svg';
+import { getCoordinate } from '@/lib/getCoordinate';
 import { type CellFilter } from '@/types';
 
 import styles from './Board.module.scss';

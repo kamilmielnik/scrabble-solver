@@ -1,6 +1,6 @@
 import { type FunctionComponent } from 'react';
 
-import { isMac } from '@/lib';
+import { isMac } from '@/lib/isMac';
 import { useTranslate } from '@/state';
 
 import { Key } from '../Key';

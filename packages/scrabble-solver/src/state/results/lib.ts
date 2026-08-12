@@ -1,6 +1,10 @@
 import { type Result, type ShowCoordinates } from '@scrabble-solver/types';
 
-import { createKeyComparator, createRegExp, createStringComparator, getCoordinate, reverseComparator } from '@/lib';
+import { createKeyComparator } from '@/lib/createKeyComparator';
+import { createRegExp } from '@/lib/createRegExp';
+import { createStringComparator } from '@/lib/createStringComparator';
+import { getCoordinate } from '@/lib/getCoordinate';
+import { reverseComparator } from '@/lib/reverseComparator';
 import {
   type CellFilter,
   type Comparator,

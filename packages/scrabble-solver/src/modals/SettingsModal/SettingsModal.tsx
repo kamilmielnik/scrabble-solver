@@ -1,7 +1,7 @@
 import { type FunctionComponent, memo } from 'react';
 
 import { Modal } from '@/components/Modal';
-import { useIsTouchDevice } from '@/hooks';
+import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
 import { useTranslate } from '@/state';
 
 import {

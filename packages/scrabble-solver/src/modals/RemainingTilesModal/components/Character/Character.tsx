@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import { Progress } from '@/components/Progress';
 import { Tile } from '@/components/Tile';
-import { LOCALE_FEATURES } from '@/i18n';
+import { LOCALE_FEATURES } from '@/i18n/constants';
 import { REMAINING_TILES_TILE_SIZE } from '@/parameters';
 import {
   hoveredTileSlice,

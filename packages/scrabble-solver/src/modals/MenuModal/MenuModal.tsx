@@ -3,7 +3,11 @@ import { type FunctionComponent, memo } from 'react';
 import { Button } from '@/components/Button';
 import { Modal } from '@/components/Modal';
 import { LOCALE_ICONS } from '@/i18n/localeIcons';
-import { BookHalf, CardChecklist, Cog, Github, Sack } from '@/icons';
+import BookHalf from '@/icons/BookHalf.svg';
+import CardChecklist from '@/icons/CardChecklist.svg';
+import Cog from '@/icons/Cog.svg';
+import Github from '@/icons/Github.svg';
+import Sack from '@/icons/Sack.svg';
 import { GITHUB_PROJECT_URL } from '@/parameters';
 import { selectLocale, useTranslate, useTypedSelector } from '@/state';
 

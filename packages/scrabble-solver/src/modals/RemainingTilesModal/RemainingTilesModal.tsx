@@ -2,8 +2,8 @@ import { type FunctionComponent, memo } from 'react';
 
 import { Badge } from '@/components/Badge';
 import { Modal } from '@/components/Modal';
-import { LOCALE_FEATURES } from '@/i18n';
-import { getTileSizes } from '@/lib';
+import { LOCALE_FEATURES } from '@/i18n/constants';
+import { getTileSizes } from '@/lib/getTileSizes';
 import { REMAINING_TILES_TILE_SIZE } from '@/parameters';
 import { selectLocale, useTranslate, useTypedSelector } from '@/state';
 

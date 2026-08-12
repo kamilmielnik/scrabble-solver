@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import { findCell } from '@/lib';
+import { findCell } from '@/lib/findCell';
 import {
   selectBoard,
   selectCharacters,

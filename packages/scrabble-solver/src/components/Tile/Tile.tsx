@@ -13,7 +13,8 @@ import {
   useRef,
 } from 'react';
 
-import { getTileSizes, noop } from '@/lib';
+import { getTileSizes } from '@/lib/getTileSizes';
+import { noop } from '@/lib/noop';
 import { selectLocale, useTypedSelector } from '@/state';
 
 import { TilePure } from './TilePure';

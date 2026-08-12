@@ -3,7 +3,8 @@ import { type FunctionComponent, memo } from 'react';
 
 import { Badge } from '@/components/Badge';
 import { Modal } from '@/components/Modal';
-import { Check, Cross } from '@/icons';
+import Check from '@/icons/Check.svg';
+import Cross from '@/icons/Cross.svg';
 import { selectInvalidWords, selectLocale, selectValidWords, useTranslate, useTypedSelector } from '@/state';
 
 import styles from './WordsModal.module.scss';

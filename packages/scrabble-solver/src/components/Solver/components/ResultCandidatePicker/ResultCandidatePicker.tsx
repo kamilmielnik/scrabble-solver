@@ -2,7 +2,9 @@ import classNames from 'classnames';
 import { type FunctionComponent, type HTMLProps, type MouseEventHandler } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { ChevronDown, ChevronLeft, ChevronRight } from '@/icons';
+import ChevronDown from '@/icons/ChevronDown.svg';
+import ChevronLeft from '@/icons/ChevronLeft.svg';
+import ChevronRight from '@/icons/ChevronRight.svg';
 import {
   resultsSlice,
   selectAreResultsOutdated,

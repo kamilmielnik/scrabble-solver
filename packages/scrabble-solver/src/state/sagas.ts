@@ -8,8 +8,10 @@ import { hasConfig, languages } from '@scrabble-solver/configs';
 import { Board, type Locale, type Result } from '@scrabble-solver/types';
 import { call, delay, put, select, spawn, takeEvery, takeLatest } from 'redux-saga/effects';
 
-import { loadTranslations, LOCALE_FEATURES } from '@/i18n';
-import { memoize, waitForIdleOrFirstIntent } from '@/lib';
+import { LOCALE_FEATURES } from '@/i18n/constants';
+import { loadTranslations } from '@/i18n/i18n';
+import { memoize } from '@/lib/memoize';
+import { waitForIdleOrFirstIntent } from '@/lib/waitForIdleOrFirstIntent';
 import { findWordDefinitions, solve, verify, visit } from '@/sdk';
 import { prefetchDictionary } from '@/solver-worker';
 

@@ -1,6 +1,8 @@
 /* eslint-disable max-statements */
 
-import { useColumns, useMediaQueries, useViewportSize } from '@/hooks';
+import { useColumns } from '@/hooks/useColumns';
+import { useMediaQueries } from '@/hooks/useMediaQueries';
+import { useViewportSize } from '@/hooks/useViewportSize';
 import {
   BOARD_TILE_SIZE_MAX,
   BORDER_WIDTH,

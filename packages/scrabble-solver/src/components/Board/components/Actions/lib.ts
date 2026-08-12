@@ -1,6 +1,8 @@
 import { type FunctionComponent, type SVGAttributes } from 'react';
 
-import { Ban, Eraser, FlagFill } from '@/icons';
+import Ban from '@/icons/Ban.svg';
+import Eraser from '@/icons/Eraser.svg';
+import FlagFill from '@/icons/FlagFill.svg';
 import { type CellFilter, type TranslationKey } from '@/types';
 
 export const getNextCellFilter = (

@@ -15,7 +15,10 @@ import {
 } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from '@/lib';
+import { createKeyboardNavigation } from '@/lib/createKeyboardNavigation';
+import { extractCharacters } from '@/lib/extractCharacters';
+import { extractInputValue } from '@/lib/extractInputValue';
+import { isCtrl } from '@/lib/isCtrl';
 import {
   rackSlice,
   selectCharacterIsValid,

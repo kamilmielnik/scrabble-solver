@@ -16,7 +16,7 @@ import {
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
 import { getServerLoggingData, isBoardValid, isCharacterValid } from '@/api';
-import { isStringArray } from '@/lib';
+import { isStringArray } from '@/lib/isStringArray';
 
 interface RequestData {
   board: Board;

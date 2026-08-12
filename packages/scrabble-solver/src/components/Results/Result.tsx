@@ -4,9 +4,9 @@ import Highlighter from 'react-highlight-words';
 import { type RowComponentProps } from 'react-window';
 
 import { useAppLayout } from '@/app-layout';
-import { useColumns } from '@/hooks';
-import { LOCALE_FEATURES } from '@/i18n';
-import { noop } from '@/lib';
+import { useColumns } from '@/hooks/useColumns';
+import { LOCALE_FEATURES } from '@/i18n/constants';
+import { noop } from '@/lib/noop';
 import {
   selectIsResultMatching,
   selectLocale,

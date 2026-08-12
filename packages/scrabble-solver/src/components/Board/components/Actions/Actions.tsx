@@ -3,9 +3,12 @@ import { type Cell } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import { forwardRef, type HTMLProps, type MouseEventHandler } from 'react';
 
-import { useIsTouchDevice } from '@/hooks';
-import { Keyboard, Square, SquareFill } from '@/icons';
-import { findCell, isMac } from '@/lib';
+import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
+import Keyboard from '@/icons/Keyboard.svg';
+import Square from '@/icons/Square.svg';
+import SquareFill from '@/icons/SquareFill.svg';
+import { findCell } from '@/lib/findCell';
+import { isMac } from '@/lib/isMac';
 import { selectCellFilter, selectInputMode, selectResultCandidateCells, useTranslate, useTypedSelector } from '@/state';
 import { type Direction } from '@/types';
 

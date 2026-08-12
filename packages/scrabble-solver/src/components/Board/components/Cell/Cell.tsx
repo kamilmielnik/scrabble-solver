@@ -12,7 +12,7 @@ import {
   useCallback,
 } from 'react';
 
-import { getCoordinate } from '@/lib';
+import { getCoordinate } from '@/lib/getCoordinate';
 import {
   selectCellIsValid,
   selectConfig,
