@@ -61,9 +61,8 @@ export function getBoardBackground({ config, direction }: BoardBackgroundOptions
 }
 
 function buildSvg({ config, direction }: BoardBackgroundOptions): string {
-  const coordinatesExtra = COORDINATES_SIZE + BORDER_WIDTH;
-  const width = (CELL_SIZE + BORDER_WIDTH) * config.boardWidth + BORDER_WIDTH + coordinatesExtra;
-  const height = (CELL_SIZE + BORDER_WIDTH) * config.boardHeight + BORDER_WIDTH + coordinatesExtra;
+  const width = COORDINATES_SIZE + (CELL_SIZE + BORDER_WIDTH) * config.boardWidth - BORDER_WIDTH;
+  const height = COORDINATES_SIZE + (CELL_SIZE + BORDER_WIDTH) * config.boardHeight - BORDER_WIDTH;
   const getX = (point: Point) => (direction === 'ltr' ? COORDINATES_SIZE : 0) + point.x * (CELL_SIZE + BORDER_WIDTH);
   const getY = (point: Point) => COORDINATES_SIZE + point.y * (CELL_SIZE + BORDER_WIDTH);
   const center = { x: Math.floor(config.boardWidth / 2), y: Math.floor(config.boardHeight / 2) };
@@ -100,7 +99,7 @@ function multiplierText(multiplier: number): string {
 
 function buildBackground({ direction, height, width }: Frame): string {
   const cellsX = direction === 'ltr' ? COORDINATES_SIZE : 0;
-  const coordinatesColumnX = direction === 'ltr' ? 0 : width - COORDINATES_SIZE;
+  const coordinatesColumnX = direction === 'ltr' ? 0 : width - COORDINATES_SIZE + BORDER_WIDTH;
 
   return [
     `<rect fill="${COLOR_BACKGROUND}" height="${height}" rx="${BORDER_RADIUS}" width="${width}" x="0" y="0"/>`,
@@ -116,7 +115,7 @@ function buildGridLines(config: Config, { direction, height, width }: Frame): st
   lines.push(horizontalLine(COORDINATES_SIZE - BORDER_WIDTH / 2, width));
   lines.push(
     verticalLine(
-      direction === 'ltr' ? COORDINATES_SIZE - BORDER_WIDTH / 2 : width - COORDINATES_SIZE - BORDER_WIDTH / 2,
+      direction === 'ltr' ? COORDINATES_SIZE - BORDER_WIDTH / 2 : width - COORDINATES_SIZE + BORDER_WIDTH / 2,
       height,
     ),
   );
