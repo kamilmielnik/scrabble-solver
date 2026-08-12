@@ -131,5 +131,5 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
 export const BoardPure = memo(BoardPureBase);
 
 function inlineOffset(index: number) {
-  return `calc(var(--coord-size) + var(--border--width) + ${index} * (var(--cell-size) + var(--border--width)))`;
+  return `calc(var(--coordinate-size) + var(--border--width) + ${index} * (var(--cell-size) + var(--border--width)))`;
 }

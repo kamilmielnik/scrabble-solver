@@ -3,7 +3,7 @@
 
 .board {
   --tile-render-size: var(--cell-size);
-  --coord-track-size: calc(0.5 * var(--cell-size) - var(--border--width));
+  --coordinate-track-size: calc(0.5 * var(--cell-size) - var(--border--width));
 
   display: grid;
   gap: var(--border--width);

@@ -21,11 +21,11 @@ export const useBoardStyle = () => {
       gridTemplateColumns:
         showCoordinates === 'hidden'
           ? `repeat(${config.boardWidth}, var(--cell-size))`
-          : `var(--coord-track-size) repeat(${config.boardWidth}, var(--cell-size))`,
+          : `var(--coordinate-track-size) repeat(${config.boardWidth}, var(--cell-size))`,
       gridTemplateRows:
         showCoordinates === 'hidden'
           ? `repeat(${config.boardHeight}, var(--cell-size))`
-          : `var(--coord-track-size) repeat(${config.boardHeight}, var(--cell-size))`,
+          : `var(--coordinate-track-size) repeat(${config.boardHeight}, var(--cell-size))`,
     }),
     [backgroundImage, config.boardHeight, config.boardWidth, showCoordinates],
   );

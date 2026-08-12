@@ -93,8 +93,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     rootStyle.setProperty('--board-cols', String(config.boardWidth));
     rootStyle.setProperty('--board-rows', String(config.boardHeight));
     rootStyle.setProperty('--rack-size', String(config.rackSize));
-    rootStyle.setProperty('--coord-ratio', showCoordinates === 'hidden' ? '0' : '0.5');
-    rootStyle.setProperty('--coord-border', showCoordinates === 'hidden' ? '0' : '1');
+    rootStyle.setProperty('--coordinate-ratio', showCoordinates === 'hidden' ? '0' : '0.5');
+    rootStyle.setProperty('--coordinate-border', showCoordinates === 'hidden' ? '0' : '1');
   }, [config.boardHeight, config.boardWidth, config.rackSize, showCoordinates]);
 
   useEffectOnce(() => {
