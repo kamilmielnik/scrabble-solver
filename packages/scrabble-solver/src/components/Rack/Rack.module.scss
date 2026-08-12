@@ -65,7 +65,7 @@
 }
 
 .rack {
-  --tile-render-size: var(--rack-tile-size);
+  --tile-size: var(--rack-tile-size);
 
   position: relative;
   display: flex;

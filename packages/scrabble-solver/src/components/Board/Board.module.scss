@@ -2,7 +2,7 @@
 @use 'styles/mixins' as *;
 
 .board {
-  --tile-render-size: var(--cell-size);
+  --tile-size: var(--cell-size);
   --coordinate-track-size: calc(0.5 * var(--cell-size) - var(--border--width));
 
   display: grid;
