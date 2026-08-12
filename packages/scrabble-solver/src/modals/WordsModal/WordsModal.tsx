@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import { type FunctionComponent, memo } from 'react';
 
-import { Badge, Modal } from '@/components';
+import { Badge } from '@/components/Badge';
+import { Modal } from '@/components/Modal';
 import { Check, Cross } from '@/icons';
 import { selectInvalidWords, selectLocale, selectValidWords, useTranslate, useTypedSelector } from '@/state';
 

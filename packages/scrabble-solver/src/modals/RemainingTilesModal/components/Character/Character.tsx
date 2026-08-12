@@ -3,7 +3,8 @@ import classNames from 'classnames';
 import { type FunctionComponent, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Progress, Tile } from '@/components';
+import { Progress } from '@/components/Progress';
+import { Tile } from '@/components/Tile';
 import { LOCALE_FEATURES } from '@/i18n';
 import { REMAINING_TILES_TILE_SIZE } from '@/parameters';
 import {

@@ -2,7 +2,7 @@ import { type ShowCoordinates } from '@scrabble-solver/types';
 import { type ChangeEvent, type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Radio } from '@/components';
+import { Radio } from '@/components/Radio';
 import { selectShowCoordinates, settingsSlice, useTranslate, useTypedSelector } from '@/state';
 
 import styles from './ShowCoordinatesSetting.module.scss';

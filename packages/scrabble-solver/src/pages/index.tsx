@@ -8,7 +8,9 @@ import path from 'path';
 import { type FunctionComponent, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Logo, NavButtons, Solver } from '@/components';
+import { Logo } from '@/components/Logo';
+import { NavButtons } from '@/components/NavButtons';
+import { Solver } from '@/components/Solver';
 import { useDirection, useEffectOnce, useLanguage, useLocalStorage } from '@/hooks';
 import { LOCALE_FEATURES } from '@/i18n';
 import { schedulePreloadModals } from '@/modals/preload';

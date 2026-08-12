@@ -2,7 +2,7 @@ import { isGame } from '@scrabble-solver/types';
 import { type ChangeEvent, type FunctionComponent, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Radio } from '@/components';
+import { Radio } from '@/components/Radio';
 import { selectGame, selectLocale, settingsSlice, useTypedSelector } from '@/state';
 
 import styles from './ConfigSetting.module.scss';

@@ -1,6 +1,7 @@
 import { type FunctionComponent, memo } from 'react';
 
-import { Button, Modal } from '@/components';
+import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
 import { LOCALE_ICONS } from '@/i18n/localeIcons';
 import { BookHalf, CardChecklist, Cog, Github, Sack } from '@/icons';
 import { GITHUB_PROJECT_URL } from '@/parameters';

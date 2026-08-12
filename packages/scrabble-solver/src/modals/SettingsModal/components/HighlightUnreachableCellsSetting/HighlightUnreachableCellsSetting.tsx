@@ -1,7 +1,7 @@
 import { type ChangeEvent, type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Radio } from '@/components';
+import { Radio } from '@/components/Radio';
 import { selectHighlightUnreachableCells, settingsSlice, useTranslate, useTypedSelector } from '@/state';
 
 import styles from './HighlightUnreachableCellsSetting.module.scss';

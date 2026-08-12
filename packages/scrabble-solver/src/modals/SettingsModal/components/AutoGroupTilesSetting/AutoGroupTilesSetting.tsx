@@ -1,7 +1,7 @@
 import { type ChangeEvent, type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Radio } from '@/components';
+import { Radio } from '@/components/Radio';
 import { selectAutoGroupTiles, settingsSlice, useTranslate, useTypedSelector } from '@/state';
 
 import styles from './AutoGroupTilesSetting.module.scss';

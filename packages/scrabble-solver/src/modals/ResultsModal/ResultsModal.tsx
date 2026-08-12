@@ -3,7 +3,10 @@ import { type FunctionComponent, memo, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useAppLayout } from '@/app-layout';
-import { Button, Dictionary, Modal, Results } from '@/components';
+import { Button } from '@/components/Button';
+import { Dictionary } from '@/components/Dictionary';
+import { Modal } from '@/components/Modal';
+import { Results } from '@/components/Results';
 import { Check, EyeFill } from '@/icons';
 import { resultsSlice, selectProcessedResults, selectResultCandidate, useTranslate, useTypedSelector } from '@/state';
 
