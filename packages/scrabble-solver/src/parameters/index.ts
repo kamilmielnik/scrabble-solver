@@ -51,8 +51,6 @@ export const LOGO_WIDTH = 682;
 export const TOOLTIP_DURATION = Number(variables.transitionDuration);
 
 export const PLAIN_TILES_COLOR_DEFAULT = COLOR_GREEN;
-export const PLAIN_TILES_PADDING_HORIZONTAL = 0;
-export const PLAIN_TILES_PADDING_VERTICAL = 0;
 export const PLAIN_TILES_POINTS_COLORS: Record<number, string> = {
   1: COLOR_YELLOW,
   2: COLOR_GREEN,
@@ -66,8 +64,6 @@ export const PLAIN_TILES_POINTS_COLORS: Record<number, string> = {
   10: COLOR_RED,
 };
 export const PLAIN_TILES_TILE_MARGIN = 6;
-export const PLAIN_TILES_TILE_MAX_ROTATE = 0;
-export const PLAIN_TILES_TILE_MAX_SCATTER = 0;
 export const PLAIN_TILES_TILE_SIZE = 80;
 
 export const RESULTS_ITEM_HEIGHT = Number(variables.resultsItemHeight);

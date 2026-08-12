@@ -6,13 +6,12 @@ interface Props {
   color: string;
   points?: number;
   size: number;
-  transform?: string;
   x: number;
   y: number;
 }
 
-export const Tile: FunctionComponent<Props> = ({ character, className, color, points, size, transform, x, y }) => (
-  <g className={className} style={{ fill: 'var(--color--foreground)' }} transform={transform}>
+export const Tile: FunctionComponent<Props> = ({ character, className, color, points, size, x, y }) => (
+  <g className={className} style={{ fill: 'var(--color--foreground)' }}>
     <rect height={size} rx={size * 0.15} style={{ fill: color }} width={size} x={x} y={y} />
 
     <text
