@@ -45,5 +45,4 @@ export { default as SquareA } from './SquareA.svg';
 export { default as SquareB } from './SquareB.svg';
 export { default as SquareFill } from './SquareFill.svg';
 export { default as Squares } from './Squares.svg';
-export { default as Star } from './Star.svg';
 export { default as Words } from './Words.svg';
