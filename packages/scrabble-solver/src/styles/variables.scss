@@ -126,8 +126,6 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --board-cols: 15;
   --board-rows: 15;
   --rack-size: 7;
-  --coordinate-ratio: 0;
-  --coordinate-border: 0;
 
   --components-spacing: var(--spacing--xl);
   --solver-column-total: calc(var(--solver-column--width) + var(--components-spacing));
@@ -142,15 +140,13 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   );
   --max-board-height: max(calc(100dvh - var(--nav--height) - var(--bottom-container-height)), 0px);
   --cell-from-width: calc(
-    (var(--max-board-width) - (var(--board-cols) + 1 + var(--coordinate-border)) * var(--border--width)) /
-      (var(--board-cols) + var(--coordinate-ratio))
+    (var(--max-board-width) - (var(--board-cols) + 2) * var(--border--width)) / (var(--board-cols) + 0.5)
   );
   --cell-from-height: calc(
-    (var(--max-board-height) - (var(--board-rows) + 1 + var(--coordinate-border)) * var(--border--width)) /
-      (var(--board-rows) + var(--coordinate-ratio))
+    (var(--max-board-height) - (var(--board-rows) + 2) * var(--border--width)) / (var(--board-rows) + 0.5)
   );
   --cell-size: min(var(--cell-from-width), var(--cell-from-height), #{$tile-size-max});
-  --coordinate-size: calc(var(--coordinate-ratio) * var(--cell-size));
+  --coordinate-size: calc(0.5 * var(--cell-size));
   --controls-max-width: calc(var(--rack-size) * var(--rack-tile-size) + 2 * var(--border--width));
 
   @include media('<xl') {

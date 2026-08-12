@@ -21,29 +21,6 @@ const LEGACY_KEYS: Record<keyof SettingsState, string> = {
 
 const store = store2.namespace('scrabble-solver');
 
-/**
- * Introduced in 2.15.26 on 2026/04/27.
- * Life expectancy: 1y.
- */
-const migrateLegacySettings = (): Partial<SettingsState> => {
-  const settings: Partial<SettingsState> = {};
-  let hasLegacy = false;
-
-  for (const [setting, legacyKey] of Object.entries(LEGACY_KEYS) as [keyof SettingsState, string][]) {
-    if (store.has(legacyKey)) {
-      settings[setting] = store.get(legacyKey);
-      store.remove(legacyKey);
-      hasLegacy = true;
-    }
-  }
-
-  if (hasLegacy) {
-    store.set(SETTINGS, settings, true);
-  }
-
-  return settings;
-};
-
 export const localStorage = {
   getBoard(): Board | undefined {
     const serialized = store.get(BOARD) as string | undefined;
@@ -65,10 +42,45 @@ export const localStorage = {
 
   getSettings(): Partial<SettingsState> {
     const stored = store.get(SETTINGS) as Partial<SettingsState> | undefined;
-    return stored ?? migrateLegacySettings();
+    return migrateHiddenShowCoordinates(stored ?? migrateLegacySettings());
   },
 
   setSettings(settings: SettingsState): void {
     store.set(SETTINGS, settings, true);
   },
 };
+
+/**
+ * Introduced in 2.15.26 on 2026/04/27.
+ * Life expectancy: 1y.
+ */
+function migrateLegacySettings(): Partial<SettingsState> {
+  const settings: Partial<SettingsState> = {};
+  let hasLegacy = false;
+
+  for (const [setting, legacyKey] of Object.entries(LEGACY_KEYS) as [keyof SettingsState, string][]) {
+    if (store.has(legacyKey)) {
+      settings[setting] = store.get(legacyKey);
+      store.remove(legacyKey);
+      hasLegacy = true;
+    }
+  }
+
+  if (hasLegacy) {
+    store.set(SETTINGS, settings, true);
+  }
+
+  return settings;
+}
+
+/**
+ * The 'hidden' showCoordinates option was removed on 2026/08/13.
+ * Life expectancy: 1y.
+ */
+function migrateHiddenShowCoordinates(settings: Partial<SettingsState>): Partial<SettingsState> {
+  if (String(settings.showCoordinates) !== 'hidden') {
+    return settings;
+  }
+
+  return { ...settings, showCoordinates: 'original' };
+}

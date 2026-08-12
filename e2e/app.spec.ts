@@ -35,7 +35,7 @@ test.describe('app', () => {
 
     await expect(getSettingOption(page, 'Game', 'Scrabble')).toBeChecked();
     await expect(getSettingOption(page, 'Language', 'English (US)')).toBeChecked();
-    await expect(getSettingOption(page, 'Coordinates', 'Hidden')).toBeChecked();
+    await expect(getSettingOption(page, 'Coordinates', 'Original')).toBeChecked();
     await expect(getSettingOption(page, 'Input mode', 'Keyboard')).toBeChecked();
     await expect(getSettingOption(page, 'Group remaining tiles', 'Do not group')).toBeChecked();
   });
@@ -45,7 +45,6 @@ test.describe('app', () => {
       await visitIndex(page);
       await getSettingsButton(page).click();
       await getSettingOption(page, 'Language', 'Polski').check();
-      await getSettingOption(page, 'Współrzędne', 'Oryginalne').check();
       await closeModal(page);
       await typeRack(page, 'abł');
       await solve(page);

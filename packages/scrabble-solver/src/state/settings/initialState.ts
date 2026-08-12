@@ -12,5 +12,5 @@ export const settingsInitialState: SettingsState = {
   inputMode: 'keyboard',
   locale: Locale.EN_US,
   removeCellFilters: 'always',
-  showCoordinates: 'hidden',
+  showCoordinates: 'original',
 };

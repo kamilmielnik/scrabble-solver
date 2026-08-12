@@ -64,17 +64,13 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
       onKeyDown={onKeyDown}
       onPaste={onPaste}
     >
-      {showCoordinates !== 'hidden' && (
-        <>
-          <div />
+      <div />
 
-          {rows[0].map((_column, index) => (
-            <div className={styles.coordinate} key={index}>
-              {getCoordinate(index, showCoordinates === 'original' ? 'letter' : 'number')}
-            </div>
-          ))}
-        </>
-      )}
+      {rows[0].map((_column, index) => (
+        <div className={styles.coordinate} key={index}>
+          {getCoordinate(index, showCoordinates === 'original' ? 'letter' : 'number')}
+        </div>
+      ))}
 
       {/* The dynamic changes to the board presentation need to be outside of useBackgroundImage
         to prevent flickering on blob URL change (i.e. when flagging a field,
@@ -103,11 +99,9 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
 
       {rows.map((cells, y) => (
         <Fragment key={y}>
-          {showCoordinates !== 'hidden' && (
-            <div className={styles.coordinate}>
-              {getCoordinate(y, showCoordinates === 'original' ? 'number' : 'letter')}
-            </div>
-          )}
+          <div className={styles.coordinate}>
+            {getCoordinate(y, showCoordinates === 'original' ? 'number' : 'letter')}
+          </div>
 
           {cells.map((cell, x) => (
             <Cell

@@ -15,10 +15,6 @@ import {
 } from '@/types';
 
 export const getCoordinates = (result: Result, showCoordinates: ShowCoordinates): string => {
-  if (showCoordinates === 'hidden') {
-    return '';
-  }
-
   const firstCell = result.cells[0];
   const x = getCoordinate(firstCell.x, showCoordinates === 'original' ? 'letter' : 'number');
   const y = getCoordinate(firstCell.y, showCoordinates === 'original' ? 'number' : 'letter');

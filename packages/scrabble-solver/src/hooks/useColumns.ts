@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { useMemo } from 'react';
 
 import { LOCALE_FEATURES } from '@/i18n/constants';
-import { selectLocale, selectShowCoordinates, useTypedSelector } from '@/state';
+import { selectLocale, useTypedSelector } from '@/state';
 import { ResultColumnId } from '@/types';
 
 import { useMediaQueries } from './useMediaQueries';
@@ -15,7 +15,7 @@ const COLUMNS_M = [...COLUMNS_XS];
 
 const COLUMNS_L = [...COLUMNS_XS];
 
-const selectColumns = createSelector([selectLocale, selectShowCoordinates], (locale, showCoordinates) => {
+const selectColumns = createSelector([selectLocale], (locale) => {
   const { consonants, vowels } = LOCALE_FEATURES[locale];
   const columns: ResultColumnId[] = [
     ResultColumnId.Word,
@@ -23,11 +23,8 @@ const selectColumns = createSelector([selectLocale, selectShowCoordinates], (loc
     ResultColumnId.BlanksCount,
     ResultColumnId.WordsCount,
     ResultColumnId.Points,
+    ResultColumnId.Coordinates,
   ];
-
-  if (showCoordinates !== 'hidden') {
-    columns.push(ResultColumnId.Coordinates);
-  }
 
   if (vowels) {
     columns.push(ResultColumnId.VowelsCount);

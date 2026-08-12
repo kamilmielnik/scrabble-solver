@@ -1,7 +1,7 @@
 import { type CSSProperties, useMemo } from 'react';
 
 import { LOCALE_FEATURES } from '@/i18n/constants';
-import { selectConfig, selectLocale, selectShowCoordinates, useTypedSelector } from '@/state';
+import { selectConfig, selectLocale, useTypedSelector } from '@/state';
 
 import { getBoardBackground } from '../getBoardBackground';
 
@@ -11,23 +11,16 @@ import { getBoardBackground } from '../getBoardBackground';
 export const useBoardStyle = () => {
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
-  const showCoordinates = useTypedSelector(selectShowCoordinates);
   const { direction } = LOCALE_FEATURES[locale];
-  const backgroundImage = getBoardBackground({ config, direction, showCoordinates });
+  const backgroundImage = getBoardBackground({ config, direction });
   const boardStyle = useMemo<CSSProperties>(
     () => ({
       backgroundImage: `url(${backgroundImage})`,
       backgroundSize: '100% 100%',
-      gridTemplateColumns:
-        showCoordinates === 'hidden'
-          ? `repeat(${config.boardWidth}, var(--cell-size))`
-          : `var(--coordinate-track-size) repeat(${config.boardWidth}, var(--cell-size))`,
-      gridTemplateRows:
-        showCoordinates === 'hidden'
-          ? `repeat(${config.boardHeight}, var(--cell-size))`
-          : `var(--coordinate-track-size) repeat(${config.boardHeight}, var(--cell-size))`,
+      gridTemplateColumns: `var(--coordinate-track-size) repeat(${config.boardWidth}, var(--cell-size))`,
+      gridTemplateRows: `var(--coordinate-track-size) repeat(${config.boardHeight}, var(--cell-size))`,
     }),
-    [backgroundImage, config.boardHeight, config.boardWidth, showCoordinates],
+    [backgroundImage, config.boardHeight, config.boardWidth],
   );
 
   return boardStyle;

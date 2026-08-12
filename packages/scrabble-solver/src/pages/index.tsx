@@ -18,7 +18,7 @@ import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import { schedulePreloadModals } from '@/modals/preload';
 import { registerServiceWorker } from '@/serviceWorkerManager';
-import { initialize, reset, selectConfig, selectLocale, selectShowCoordinates, useTypedSelector } from '@/state';
+import { initialize, reset, selectConfig, selectLocale, useTypedSelector } from '@/state';
 
 import styles from './index.module.scss';
 
@@ -57,7 +57,6 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
-  const showCoordinates = useTypedSelector(selectShowCoordinates);
   const [modals, setModals] = useState<Record<Modal, boolean>>({
     dictionary: false,
     keyMap: false,
@@ -98,9 +97,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     rootStyle.setProperty('--board-cols', String(config.boardWidth));
     rootStyle.setProperty('--board-rows', String(config.boardHeight));
     rootStyle.setProperty('--rack-size', String(config.rackSize));
-    rootStyle.setProperty('--coordinate-ratio', showCoordinates === 'hidden' ? '0' : '0.5');
-    rootStyle.setProperty('--coordinate-border', showCoordinates === 'hidden' ? '0' : '1');
-  }, [config.boardHeight, config.boardWidth, config.rackSize, showCoordinates]);
+  }, [config.boardHeight, config.boardWidth, config.rackSize]);
 
   useEffectOnce(() => {
     if (process.env.NODE_ENV === 'production') {
