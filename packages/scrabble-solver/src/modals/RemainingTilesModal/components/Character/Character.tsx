@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 import { Progress } from '@/components/Progress';
 import { Tile } from '@/components/Tile';
 import { LOCALE_FEATURES } from '@/i18n/constants';
-import { REMAINING_TILES_TILE_SIZE } from '@/parameters';
 import {
   hoveredTileSlice,
   selectCharacterPoints,
@@ -78,17 +77,9 @@ export const Character: FunctionComponent<Props> = ({ tile }) => {
         isValid={remainingCount >= 0}
         points={points}
         raised
-        size={REMAINING_TILES_TILE_SIZE}
       />
 
-      <Progress
-        className={styles.remaining}
-        max={count}
-        style={{
-          width: REMAINING_TILES_TILE_SIZE,
-        }}
-        value={remainingCount}
-      />
+      <Progress className={styles.remaining} max={count} value={remainingCount} />
 
       <div className={styles.count}>
         {current.toLocaleString(locale)} / {total.toLocaleString(locale)}

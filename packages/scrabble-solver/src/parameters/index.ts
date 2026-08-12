@@ -67,8 +67,6 @@ export const RACK_TILE_SIZE_MAX = Number(variables.tileSizeMax);
 
 export const BOARD_CELL_ACTIONS_OFFSET = 3;
 export const BOARD_CELL_BORDER_WIDTH = 1;
-export const BOARD_TILE_FONT_SIZE_MIN = 14;
-export const BOARD_TILE_FONT_SIZE_POINTS_MIN = 10;
 export const BOARD_TILE_SIZE_MAX = RACK_TILE_SIZE_MAX;
 
 export const BORDER_COLOR = variables.borderColor;
@@ -121,8 +119,6 @@ export const PLAIN_TILES_VERSION_TILE_SIZE = TILE_SIZE;
 
 export const PROGRESS_COLOR_VALUE = 'var(--color--violet--light)';
 export const PROGRESS_COLOR_BACKGROUND = 'var(--color--inactive)';
-
-export const REMAINING_TILES_TILE_SIZE = 50;
 
 export const RESULTS_COLUMN_WIDTH: Record<ResultColumnId, number | undefined> = {
   [ResultColumnId.BlanksCount]: 55,

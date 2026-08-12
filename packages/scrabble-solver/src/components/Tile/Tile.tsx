@@ -9,11 +9,9 @@ import {
   type Ref,
   type TouchEventHandler,
   useCallback,
-  useMemo,
   useRef,
 } from 'react';
 
-import { getTileSizes } from '@/lib/getTileSizes';
 import { noop } from '@/lib/noop';
 import { selectLocale, useTypedSelector } from '@/state';
 
@@ -32,8 +30,6 @@ interface Props {
   placeholder?: string;
   points?: number;
   raised?: boolean;
-  /** Sized by the --tile-render-size CSS variable when omitted. */
-  size?: number;
   tabIndex?: number;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
@@ -55,7 +51,6 @@ export const Tile: FunctionComponent<Props> = ({
   placeholder,
   points,
   raised,
-  size,
   tabIndex,
   onChange,
   onFocus = noop,
@@ -64,11 +59,6 @@ export const Tile: FunctionComponent<Props> = ({
   onTouchStart = noop,
 }) => {
   const locale = useTypedSelector(selectLocale);
-  const style = useMemo(() => (typeof size === 'number' ? { height: size, width: size } : undefined), [size]);
-  const pointsStyle = useMemo(
-    () => (typeof size === 'number' ? { fontSize: getTileSizes(size).pointsFontSize } : undefined),
-    [size],
-  );
   const ref = useRef<HTMLInputElement>(null);
   const mergedRef = useMergeRefs(inputRef ? [ref, inputRef] : [ref]);
   const isEmpty = !character || character === EMPTY_CELL;
@@ -98,9 +88,7 @@ export const Tile: FunctionComponent<Props> = ({
       placeholder={placeholder}
       points={points}
       pointsFormatted={pointsFormatted}
-      pointsStyle={pointsStyle}
       raised={raised}
-      style={style}
       tabIndex={tabIndex}
       onChange={onChange}
       onFocus={onFocus}
