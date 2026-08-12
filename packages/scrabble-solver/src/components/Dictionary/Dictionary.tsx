@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import { type FunctionComponent } from 'react';
 
-import { useAppLayout } from '@/app-layout';
 import {
   selectDictionaryError,
   selectDictionaryIsLoading,
@@ -21,13 +20,12 @@ interface Props {
 
 export const Dictionary: FunctionComponent<Props> = ({ className }) => {
   const translate = useTranslate();
-  const { dictionaryResultsHeight } = useAppLayout();
   const results = useTypedSelector(selectDictionaryResults);
   const isLoading = useTypedSelector(selectDictionaryIsLoading);
   const error = useTypedSelector(selectDictionaryError);
 
   return (
-    <div className={classNames(styles.dictionary, className)} style={{ height: dictionaryResultsHeight }}>
+    <div className={classNames(styles.dictionary, className)}>
       <div className={styles.content}>
         {typeof error !== 'undefined' && !isLoading && <EmptyState variant="error">{error.message}</EmptyState>}
 

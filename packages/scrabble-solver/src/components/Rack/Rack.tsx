@@ -16,7 +16,6 @@ import {
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
-import { useAppLayout } from '@/app-layout';
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import { createKeyboardNavigation } from '@/lib/createKeyboardNavigation';
 import { extractCharacters } from '@/lib/extractCharacters';
@@ -34,7 +33,6 @@ interface Props {
 
 export const Rack: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
-  const { rackHeight } = useAppLayout();
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
   const rack = useTypedSelector(selectRack);
@@ -186,7 +184,7 @@ export const Rack: FunctionComponent<Props> = ({ className }) => {
             ref={floatingInputPrompt.refs.setFloating}
             style={{
               position: floatingInputPrompt.strategy,
-              top: floatingInputPrompt.y ? floatingInputPrompt.y - rackHeight : 0,
+              top: floatingInputPrompt.y ? `calc(${floatingInputPrompt.y}px - var(--rack-tile-size))` : 0,
               left: floatingInputPrompt.x ?? 0,
             }}
             value={input}

@@ -2,11 +2,11 @@ import { type Result } from '@scrabble-solver/types';
 import { type FunctionComponent, memo, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useAppLayout } from '@/app-layout';
 import { Button } from '@/components/Button';
 import { Dictionary } from '@/components/Dictionary';
 import { Modal } from '@/components/Modal';
 import { Results } from '@/components/Results';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import Check from '@/icons/Check.svg';
 import EyeFill from '@/icons/EyeFill.svg';
 import { resultsSlice, selectProcessedResults, selectResultCandidate, useTranslate, useTypedSelector } from '@/state';
@@ -22,7 +22,7 @@ interface Props {
 const ResultsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
-  const { showResultsInModal } = useAppLayout();
+  const showResultsInModal = useMediaQuery('<l');
   const results = useTypedSelector(selectProcessedResults);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const index = results ? results.findIndex((result) => result.id === resultCandidate?.id) : -1;

@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import { type FunctionComponent, memo, type SyntheticEvent, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useAppLayout } from '@/app-layout';
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import {
   resultsSlice,
   selectAreResultsOutdated,
@@ -36,7 +36,7 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
-  const { showCompactControls } = useAppLayout();
+  const showCompactControls = useMediaQuery('<l');
   const error = useTypedSelector(selectSolveError);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const results = useTypedSelector(selectProcessedResults);

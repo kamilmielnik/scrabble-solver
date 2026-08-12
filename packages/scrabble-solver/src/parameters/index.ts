@@ -1,5 +1,4 @@
 import variables from '@/styles/variables.module.scss';
-import { ResultColumnId } from '@/types';
 
 export const BREAKPOINTS = {
   xs: Number(variables.breakpointXs),
@@ -54,42 +53,17 @@ export const COLOR_BONUS_WORD: Record<number, string> = {
   4: COLOR_BONUS_WORD_MULTIPLIER_4,
 };
 
-export const SPACING_XS = Number(variables.spacingXs);
-export const SPACING_S = Number(variables.spacingS);
-export const SPACING_M = Number(variables.spacingM);
-export const SPACING_L = Number(variables.spacingL);
-export const SPACING_XL = Number(variables.spacingXl);
-
-export const COMPONENTS_SPACING = SPACING_XL;
-export const COMPONENTS_SPACING_SMALL = SPACING_L;
-
-export const RACK_TILE_SIZE_MAX = Number(variables.tileSizeMax);
-
 export const BOARD_CELL_ACTIONS_OFFSET = 3;
 export const BOARD_CELL_BORDER_WIDTH = 1;
-export const BOARD_TILE_SIZE_MAX = RACK_TILE_SIZE_MAX;
 
 export const BORDER_COLOR = variables.borderColor;
 export const BORDER_COLOR_LIGHT = variables.borderColorLight;
 export const BORDER_RADIUS = Number(variables.borderRadius);
 export const BORDER_WIDTH = Number(variables.borderWidth);
 
-export const BUTTON_ICON_SIZE = Number(variables.buttonIconSize);
-export const BUTTON_PADDING_VERTICAL = SPACING_M;
-export const BUTTON_HEIGHT = BUTTON_ICON_SIZE + 2 * BUTTON_PADDING_VERTICAL + 2 * BORDER_WIDTH;
-
-export const DICTIONARY_HEIGHT = Number(variables.dictionaryHeight);
-export const DICTIONARY_HEIGHT_MOBILE = Number(variables.dictionaryHeightMobile);
-
 export const LOGO_ASPECT_RATIO = 682 / 166;
 export const LOGO_HEIGHT = Number(variables.logoHeight);
-export const LOGO_HEIGHT_SMALL = Number(variables.logoHeightSmall);
 export const LOGO_SRC = '/logo.svg';
-
-export const MODAL_WIDTH = Number(variables.modalWidth);
-export const MODAL_HEADER_HEIGHT = 45;
-
-export const NAV_PADDING = SPACING_L;
 
 export const TILE_SIZE = 80;
 
@@ -120,22 +94,6 @@ export const PLAIN_TILES_VERSION_TILE_SIZE = TILE_SIZE;
 export const PROGRESS_COLOR_VALUE = 'var(--color--violet--light)';
 export const PROGRESS_COLOR_BACKGROUND = 'var(--color--inactive)';
 
-export const RESULTS_COLUMN_WIDTH: Record<ResultColumnId, number | undefined> = {
-  [ResultColumnId.BlanksCount]: 55,
-  [ResultColumnId.ConsonantsCount]: 55,
-  [ResultColumnId.Coordinates]: 55,
-  [ResultColumnId.Points]: 80,
-  [ResultColumnId.TilesCount]: 55,
-  [ResultColumnId.VowelsCount]: 55,
-  [ResultColumnId.Word]: undefined,
-  [ResultColumnId.WordsCount]: 55,
-};
 export const RESULTS_ITEM_HEIGHT = Number(variables.resultsItemHeight);
 
-export const RESULTS_HEADER_HEIGHT = RESULTS_ITEM_HEIGHT;
-
 export const RESULTS_OVERSCAN_COUNT = 10;
-
-export const SOLVER_COLUMN_WIDTH = Number(variables.solverColumnWidth);
-
-export const TEXT_INPUT_HEIGHT = Number(variables.textInputHeight);

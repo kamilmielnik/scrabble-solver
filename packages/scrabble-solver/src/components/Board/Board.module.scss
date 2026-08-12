@@ -25,6 +25,8 @@
 .focus {
   @include focus-effect;
 
+  width: var(--cell-size);
+  height: var(--cell-size);
   cursor: text;
 
   &::after {

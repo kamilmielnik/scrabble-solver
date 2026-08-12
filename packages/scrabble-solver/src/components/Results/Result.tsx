@@ -3,7 +3,6 @@ import { type FocusEventHandler, type MouseEventHandler, type ReactElement, useR
 import Highlighter from 'react-highlight-words';
 import { type RowComponentProps } from 'react-window';
 
-import { useAppLayout } from '@/app-layout';
 import { useColumns } from '@/hooks/useColumns';
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import { noop } from '@/lib/noop';
@@ -30,7 +29,6 @@ export const Result = ({
   onMouseEnter = noop,
   style,
 }: RowComponentProps<ResultData>): ReactElement => {
-  const { resultWordWidth } = useAppLayout();
   const ref = useRef<HTMLButtonElement>(null);
   const columns = useColumns();
   const locale = useTypedSelector(selectLocale);
@@ -69,12 +67,7 @@ export const Result = ({
         )}
 
         {columns[ResultColumnId.Word] && (
-          <Cell
-            className={styles.word}
-            style={{ flexBasis: resultWordWidth }}
-            translationKey="common.word"
-            value={result.word}
-          >
+          <Cell className={styles.word} translationKey="common.word" value={result.word}>
             <Highlighter highlightClassName={styles.highlight} searchWords={[query]} textToHighlight={result.word} />
           </Cell>
         )}

@@ -7,7 +7,6 @@ import { type CSSProperties, type FocusEventHandler, type FunctionComponent, use
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
-import { useAppLayout } from '@/app-layout';
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import { TRANSITION } from '@/parameters';
 import {
@@ -39,7 +38,6 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
   const inputMode = useTypedSelector(selectInputMode);
   const cellFilters = useTypedSelector(selectCellFilters);
   const showCoordinates = useTypedSelector(selectShowCoordinates);
-  const { cellSize } = useAppLayout();
   const [
     { activeIndex, direction, inputRefs },
     { insertValue, onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
@@ -175,11 +173,9 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
           ref={floatingFocus.refs.setFloating}
           style={{
             position: floatingFocus.strategy,
-            top: floatingFocus.y + cellSize,
+            top: `calc(${floatingFocus.y ?? 0}px + var(--cell-size))`,
             left: floatingFocus.x,
             display: floatingFocus.isPositioned ? 'block' : 'none',
-            width: cellSize,
-            height: cellSize,
             opacity: hasFocus ? 1 : 0,
             visibility: floatingFocus.x === null || floatingFocus.y === null ? 'hidden' : 'visible',
             transition,
