@@ -22,12 +22,23 @@ module.exports = {
       { source: '/not-found', headers: [cacheControl] },
     ];
   },
-  webpack(config, { isServer, dev }) {
+  webpack(config, { isServer, dev, webpack }) {
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
       use: ['@svgr/webpack'],
     });
+
+    if (!isServer) {
+      // Next unconditionally bundles ES2019-2022 polyfills into its client runtime,
+      // but every browserslist target implements those methods natively.
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(
+          /polyfills\/polyfill-module/,
+          path.join(__dirname, 'empty-module.js'),
+        ),
+      );
+    }
 
     if (!isServer && !dev) {
       config.plugins.push(
