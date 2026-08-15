@@ -1,4 +1,4 @@
-/* eslint-disable max-statements */
+/* eslint-disable max-lines, max-statements */
 
 import { isObject } from '@scrabble-solver/types';
 import { execSync } from 'child_process';
@@ -66,9 +66,26 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     settings: false,
     words: false,
   });
+  const [mountedModals, setMountedModals] = useState<Partial<Record<Modal, boolean>>>({});
 
   const patchModals = useCallback((patch: Partial<Record<Modal, boolean>>) => {
     setModals((current) => ({ ...current, ...patch }));
+    setMountedModals((current) => {
+      const newModals = Object.keys(patch) as Modal[];
+      const newOpenedModals = newModals.filter((modal) => patch[modal] && !current[modal]);
+
+      if (newOpenedModals.length === 0) {
+        return current;
+      }
+
+      const mounted = { ...current };
+
+      for (const modal of newOpenedModals) {
+        mounted[modal] = true;
+      }
+
+      return mounted;
+    });
   }, []);
 
   const handleClear = useCallback(() => dispatch(reset()), [dispatch]);
@@ -134,28 +151,30 @@ const Index: FunctionComponent<Props> = ({ version }) => {
         <Solver className={styles.solver} onShowResults={handleShowResults} />
       </main>
 
-      <MenuModal
-        isOpen={modals.menu}
-        onClose={handleCloseMenu}
-        onShowDictionary={handleShowDictionary}
-        onShowRemainingTiles={handleShowRemainingTiles}
-        onShowSettings={handleShowSettings}
-        onShowWords={handleShowWords}
-      />
+      {mountedModals.menu && (
+        <MenuModal
+          isOpen={modals.menu}
+          onClose={handleCloseMenu}
+          onShowDictionary={handleShowDictionary}
+          onShowRemainingTiles={handleShowRemainingTiles}
+          onShowSettings={handleShowSettings}
+          onShowWords={handleShowWords}
+        />
+      )}
 
-      <SettingsModal isOpen={modals.settings} onClose={handleCloseSettings} />
+      {mountedModals.settings && <SettingsModal isOpen={modals.settings} onClose={handleCloseSettings} />}
 
-      <KeyMapModal isOpen={modals.keyMap} onClose={handleCloseKeyMap} />
+      {mountedModals.keyMap && <KeyMapModal isOpen={modals.keyMap} onClose={handleCloseKeyMap} />}
 
-      <WordsModal isOpen={modals.words} onClose={handleCloseWords} />
+      {mountedModals.words && <WordsModal isOpen={modals.words} onClose={handleCloseWords} />}
 
-      {config.supportsRemainingTiles && (
+      {config.supportsRemainingTiles && mountedModals.remainingTiles && (
         <RemainingTilesModal isOpen={modals.remainingTiles} onClose={handleCloseRemainingTiles} />
       )}
 
-      <ResultsModal isOpen={modals.results} onClose={handleCloseResults} />
+      {mountedModals.results && <ResultsModal isOpen={modals.results} onClose={handleCloseResults} />}
 
-      <DictionaryModal isOpen={modals.dictionary} onClose={handleCloseDictionary} />
+      {mountedModals.dictionary && <DictionaryModal isOpen={modals.dictionary} onClose={handleCloseDictionary} />}
     </>
   );
 };

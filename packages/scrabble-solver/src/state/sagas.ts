@@ -128,15 +128,20 @@ function* onDictionarySubmit(): AnyGenerator {
 }
 
 function* onInitialize(): AnyGenerator {
-  yield* hydratePersistedState();
+  try {
+    yield* hydratePersistedState();
+    // oxlint-disable-next-line no-empty
+  } catch {
+  } finally {
+    yield put(appSlice.actions.hydrated());
+  }
 
   const board = yield select(selectBoard);
   const locale = yield select(selectLocale);
 
   yield spawn(prefetchDictionaryWhenIdle);
   yield spawn(loadLocaleTranslations, locale);
-  // Detached: offline, a failed visit would otherwise tear down the whole root saga.
-  yield spawn(visit);
+  yield spawn(visitWhenIdle);
 
   if (!board.isEmpty()) {
     yield* resetRack();
@@ -145,7 +150,7 @@ function* onInitialize(): AnyGenerator {
 }
 
 function* hydratePersistedState(): AnyGenerator {
-  const isTouchScreen = globalThis.matchMedia('(hover: none)').matches;
+  const isTouchScreen = globalThis.matchMedia?.('(hover: none)').matches ?? false;
   const settings: Pick<SettingsState, 'game' | 'inputMode' | 'locale'> & Partial<SettingsState> = {
     game: settingsInitialState.game,
     inputMode: isTouchScreen ? ('touchscreen' as const) : ('keyboard' as const),
@@ -156,19 +161,34 @@ function* hydratePersistedState(): AnyGenerator {
   if (!hasConfig(settings.game, settings.locale)) {
     const localeDefault = Object.values(languages).find((config) => config.locale === settings.locale);
     settings.game = localeDefault?.game ?? settingsInitialState.game;
-    settings.locale = localeDefault?.locale ?? settingsInitialState.locale;
+    settings.locale = localeDefault?.locale ?? guessLocale();
   }
 
   yield put(settingsSlice.actions.init(settings));
 
   const config = yield select(selectConfig);
-  const board = localStorage.getBoard() ?? Board.create(config.boardWidth, config.boardHeight);
-  yield put(boardSlice.actions.init(board));
+  const currentBoard: Board = yield select(selectBoard);
+  const board = localStorage.getBoard();
 
-  const rack = localStorage.getRack() ?? Array(config.rackSize).fill(null);
-  yield put(rackSlice.actions.init(rack));
+  if (board) {
+    yield put(boardSlice.actions.init(board));
+  } else if (currentBoard.rows.length !== config.boardHeight || currentBoard.rows[0].length !== config.boardWidth) {
+    yield put(boardSlice.actions.init(Board.create(config.boardWidth, config.boardHeight)));
+  }
 
-  yield put(appSlice.actions.hydrated());
+  const currentRack = yield select(selectRack);
+  const rack = localStorage.getRack();
+
+  if (rack) {
+    yield put(rackSlice.actions.init(rack));
+  } else if (currentRack.length !== config.rackSize) {
+    yield put(rackSlice.actions.init(Array(config.rackSize).fill(null)));
+  }
+}
+
+function* visitWhenIdle(): AnyGenerator {
+  yield call(waitForIdleOrFirstIntent);
+  yield call(visit);
 }
 
 function* prefetchDictionaryWhenIdle(): AnyGenerator {

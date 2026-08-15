@@ -12,6 +12,10 @@ export function waitForIdleOrFirstIntent(): Promise<void> {
   });
 }
 
+export function waitForIdle(): Promise<void> {
+  return new Promise((resolve) => whenIdle(resolve));
+}
+
 function whenIdle(callback: () => void): void {
   const requestIdle = () => {
     if ('requestIdleCallback' in window) {

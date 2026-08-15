@@ -12,10 +12,13 @@ import {
   boardSlice,
   cellFiltersSlice,
   selectCellFilters,
+  selectConfig,
+  selectHoveredCharacter,
   selectInputMode,
   selectLocale,
   selectShowCoordinates,
   solveSlice,
+  useTranslate,
   useTypedSelector,
 } from '@/state';
 
@@ -31,12 +34,15 @@ interface Props {
 
 export const Board: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
+  const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
+  const config = useTypedSelector(selectConfig);
   const rows = useTypedSelector(selectRowsWithCandidate);
   const reachableCells = useTypedSelector(selectReachableCells);
   const inputMode = useTypedSelector(selectInputMode);
   const cellFilters = useTypedSelector(selectCellFilters);
   const showCoordinates = useTypedSelector(selectShowCoordinates);
+  const hoveredCharacter = useTypedSelector(selectHoveredCharacter);
   const [
     { activeIndex, direction, inputRefs },
     { insertValue, onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
@@ -139,13 +145,17 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
       <BoardPure
         className={className}
         cellFilters={cellFilters}
+        config={config}
         direction={LOCALE_FEATURES[locale].direction}
+        hoveredCharacter={hoveredCharacter}
         inputRefs={inputRefs}
+        locale={locale}
         reachableCells={reachableCells}
         ref={ref}
         rows={rows}
         showCoordinates={showCoordinates}
         style={boardStyle}
+        translate={translate}
         onBlur={handleBlur}
         onChange={onChange}
         onFocus={handleFocus}

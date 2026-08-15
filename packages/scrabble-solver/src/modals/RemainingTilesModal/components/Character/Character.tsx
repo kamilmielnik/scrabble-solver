@@ -75,6 +75,7 @@ export const Character: FunctionComponent<Props> = ({ tile }) => {
         highlighted={isHovered}
         isBlank={character === BLANK}
         isValid={remainingCount >= 0}
+        locale={locale}
         points={points}
         raised
       />

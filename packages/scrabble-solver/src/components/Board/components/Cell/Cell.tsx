@@ -1,5 +1,5 @@
-import { BLANK, EMPTY_CELL } from '@scrabble-solver/constants';
-import { type Cell as CellModel } from '@scrabble-solver/types';
+import { EMPTY_CELL } from '@scrabble-solver/constants';
+import { type Cell as CellModel, type Config, type Locale, type ShowCoordinates } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import {
   type ChangeEventHandler,
@@ -13,16 +13,8 @@ import {
 } from 'react';
 
 import { getCoordinate } from '@/lib/getCoordinate';
-import {
-  selectCellIsValid,
-  selectConfig,
-  selectHoveredCharacter,
-  selectInputMode,
-  selectShowCoordinates,
-  selectTilePoints,
-  useTranslate,
-  useTypedSelector,
-} from '@/state';
+import { selectInputMode, useTypedStore } from '@/state';
+import type { Translate } from '@/types';
 
 import { Tile } from '../../../Tile';
 
@@ -35,12 +27,20 @@ interface Props {
   cellRight?: CellModel;
   cellTop?: CellModel;
   className?: string;
+  config: Config;
   inputRef: RefObject<HTMLInputElement | null>;
+  isHoverMatch: boolean;
   isReachable?: boolean;
+  locale: Locale;
+  showCoordinates: ShowCoordinates;
+  translate: Translate;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onFocus: (x: number, y: number) => void;
 }
 
+/**
+ * Must not subscribe to the store - it can read the story only in event handlers.
+ */
 const CellBase: FunctionComponent<Props> = ({
   cell,
   cellBottom,
@@ -48,57 +48,54 @@ const CellBase: FunctionComponent<Props> = ({
   cellRight,
   cellTop,
   className,
+  config,
   inputRef,
+  isHoverMatch,
   isReachable = true,
+  locale,
+  showCoordinates,
+  translate,
   onChange,
   onFocus,
 }) => {
   const { tile, x, y } = cell;
-  const translate = useTranslate();
-  const config = useTypedSelector(selectConfig);
-  const inputMode = useTypedSelector(selectInputMode);
-  const showCoordinates = useTypedSelector(selectShowCoordinates);
-  const points = useTypedSelector((state) => selectTilePoints(state, cell.tile));
-  const isValid = useTypedSelector((state) => selectCellIsValid(state, cell));
-  const hoveredCharacter = useTypedSelector(selectHoveredCharacter);
+  const store = useTypedStore();
   const isEmpty = tile.character === EMPTY_CELL;
-  const isHoverMatch =
-    !isEmpty &&
-    hoveredCharacter !== null &&
-    (hoveredCharacter === BLANK ? tile.isBlank : !tile.isBlank && tile.character === hoveredCharacter);
+  const points = config.getTilePoints(tile);
+  const isValid = !cell.hasTile() || config.tiles.some(({ character }) => character === tile.character);
 
   const handleFocus: FocusEventHandler<HTMLInputElement> = useCallback(
     (event) => {
-      if (inputMode === 'touchscreen') {
+      if (selectInputMode(store.getState()) === 'touchscreen') {
         event.preventDefault();
         event.target.blur();
       }
 
       onFocus(x, y);
     },
-    [inputMode, onFocus, x, y],
+    [store, onFocus, x, y],
   );
 
   const handleMouseDown: MouseEventHandler<HTMLInputElement> = useCallback(
     (event) => {
-      if (inputMode === 'touchscreen') {
+      if (selectInputMode(store.getState()) === 'touchscreen') {
         event.preventDefault();
       }
 
       onFocus(x, y);
     },
-    [inputMode, onFocus, x, y],
+    [store, onFocus, x, y],
   );
 
   const handleTouchStart: TouchEventHandler<HTMLInputElement> = useCallback(
     (event) => {
-      if (inputMode === 'touchscreen') {
+      if (selectInputMode(store.getState()) === 'touchscreen') {
         event.preventDefault();
       }
 
       onFocus(x, y);
     },
-    [inputMode, onFocus, x, y],
+    [store, onFocus, x, y],
   );
 
   return (
@@ -123,6 +120,7 @@ const CellBase: FunctionComponent<Props> = ({
       inputRef={inputRef}
       isBlank={tile.isBlank}
       isValid={isValid}
+      locale={locale}
       points={points}
       raised={!isEmpty}
       tabIndex={cell.x === 0 && cell.y === 0 ? undefined : -1}

@@ -45,7 +45,10 @@ export const settingsSlice = createSlice({
     },
 
     init: (state, action: PayloadAction<Partial<typeof settingsInitialState>>) => {
-      return { ...state, ...action.payload };
+      const settings = { ...state, ...action.payload };
+      const keys = Object.keys(settings) as (keyof typeof settingsInitialState)[];
+      const hasDiff = keys.some((key) => settings[key] !== state[key]);
+      return hasDiff ? settings : state;
     },
   },
 });

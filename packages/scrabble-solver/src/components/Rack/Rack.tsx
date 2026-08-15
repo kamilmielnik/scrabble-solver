@@ -57,7 +57,7 @@ export const Rack: FunctionComponent<Props> = ({ className }) => {
 
   useOnclickOutside(() => setHasFocus(false), {
     ignoreClass: [InputPrompt.styles.form, InputPrompt.styles.input],
-    refs: ref.current ? [ref as RefObject<HTMLDivElement>] : [],
+    refs: [ref as RefObject<HTMLDivElement>],
   });
 
   const changeActiveIndex = useCallback(

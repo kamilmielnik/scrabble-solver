@@ -1,4 +1,11 @@
-import { type Cell as CellModel, type ShowCoordinates, type TextDirection } from '@scrabble-solver/types';
+import { BLANK, EMPTY_CELL } from '@scrabble-solver/constants';
+import {
+  type Cell as CellModel,
+  type Config,
+  type Locale,
+  type ShowCoordinates,
+  type TextDirection,
+} from '@scrabble-solver/types';
 import classNames from 'classnames';
 import {
   type CSSProperties,
@@ -15,7 +22,7 @@ import {
 import Ban from '@/icons/Ban.svg';
 import FlagFill from '@/icons/FlagFill.svg';
 import { getCoordinate } from '@/lib/getCoordinate';
-import { type CellFilter } from '@/types';
+import { type CellFilter, type Translate } from '@/types';
 
 import styles from './Board.module.scss';
 import { Cell } from './components';
@@ -23,12 +30,16 @@ import { Cell } from './components';
 interface Props {
   className?: string;
   cellFilters: CellFilter[];
+  config: Config;
   direction: TextDirection;
+  hoveredCharacter: string | null;
   inputRefs: RefObject<HTMLInputElement | null>[][];
+  locale: Locale;
   reachableCells: boolean[][] | null;
   rows: CellModel[][];
   showCoordinates: ShowCoordinates;
   style?: CSSProperties;
+  translate: Translate;
   onBlur: FocusEventHandler;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onFocus: (x: number, y: number) => void;
@@ -40,13 +51,17 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
   (
     {
       className,
+      config,
       direction,
       cellFilters,
+      hoveredCharacter,
       inputRefs,
+      locale,
       reachableCells,
       rows,
       showCoordinates,
       style,
+      translate,
       onBlur,
       onChange,
       onFocus,
@@ -110,9 +125,14 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
               cellLeft={x > 0 ? rows[y][x - 1] : undefined}
               cellRight={x < rows[y].length - 1 ? rows[y][x + 1] : undefined}
               cellTop={y > 0 ? rows[y - 1][x] : undefined}
+              config={config}
               inputRef={inputRefs[y][x]}
+              isHoverMatch={isHoverMatch(cell, hoveredCharacter)}
               isReachable={reachableCells ? reachableCells[y][x] : true}
               key={x}
+              locale={locale}
+              showCoordinates={showCoordinates}
+              translate={translate}
               onChange={onChange}
               onFocus={onFocus}
             />
@@ -124,6 +144,16 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
 );
 
 export const BoardPure = memo(BoardPureBase);
+
+function isHoverMatch(cell: CellModel, hoveredCharacter: string | null): boolean {
+  if (cell.tile.character === EMPTY_CELL || hoveredCharacter === null) {
+    return false;
+  }
+
+  return hoveredCharacter === BLANK
+    ? cell.tile.isBlank
+    : !cell.tile.isBlank && cell.tile.character === hoveredCharacter;
+}
 
 function inlineOffset(index: number) {
   return `calc(var(--coordinate-size) + var(--border--width) + ${index} * (var(--cell-size) + var(--border--width)))`;

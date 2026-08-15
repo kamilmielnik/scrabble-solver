@@ -1,4 +1,4 @@
-import { Board, type BoardJson } from '@scrabble-solver/types';
+import { Board, type BoardJson, isObject } from '@scrabble-solver/types';
 import store2 from 'store2';
 
 import type { Rack } from '@/types';
@@ -23,8 +23,13 @@ const store = store2.namespace('scrabble-solver');
 
 export const localStorage = {
   getBoard(): Board | undefined {
-    const serialized = store.get(BOARD) as string | undefined;
-    return serialized ? Board.fromJson(JSON.parse(serialized) as BoardJson) : undefined;
+    try {
+      const serialized = store.get(BOARD) as string | undefined;
+      return serialized ? Board.fromJson(JSON.parse(serialized) as BoardJson) : undefined;
+    } catch {
+      store.remove(BOARD);
+      return undefined;
+    }
   },
 
   setBoard(board: Board | undefined): void {
@@ -33,7 +38,14 @@ export const localStorage = {
   },
 
   getRack(): Rack | undefined {
-    return store.get(RACK) as Rack | undefined;
+    const rack = store.get(RACK) as Rack | undefined;
+
+    if (rack !== undefined && !Array.isArray(rack)) {
+      store.remove(RACK);
+      return undefined;
+    }
+
+    return rack;
   },
 
   setRack(rack: Rack | undefined): void {
@@ -42,7 +54,12 @@ export const localStorage = {
 
   getSettings(): Partial<SettingsState> {
     const stored = store.get(SETTINGS) as Partial<SettingsState> | undefined;
-    return migrateHiddenShowCoordinates(stored ?? migrateLegacySettings());
+
+    if (stored !== undefined && !isObject(stored)) {
+      store.remove(SETTINGS);
+    }
+
+    return migrateHiddenShowCoordinates(isObject(stored) ? stored : migrateLegacySettings());
   },
 
   setSettings(settings: SettingsState): void {
@@ -82,5 +99,7 @@ function migrateHiddenShowCoordinates(settings: Partial<SettingsState>): Partial
     return settings;
   }
 
-  return { ...settings, showCoordinates: 'original' };
+  const migrated: Partial<SettingsState> = { ...settings, showCoordinates: 'original' };
+  store.set(SETTINGS, migrated, true);
+  return migrated;
 }

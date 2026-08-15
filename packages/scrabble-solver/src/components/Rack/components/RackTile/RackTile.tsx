@@ -150,6 +150,7 @@ export const RackTile: FunctionComponent<Props> = ({
       isBlank={character === BLANK}
       isValid={isValid}
       key={index}
+      locale={locale}
       placeholder={translate('rack.placeholder')[index]}
       points={points}
       raised

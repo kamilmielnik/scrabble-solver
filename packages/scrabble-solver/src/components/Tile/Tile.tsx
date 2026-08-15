@@ -1,5 +1,6 @@
 import { useMergeRefs } from '@floating-ui/react';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
+import { type Locale } from '@scrabble-solver/types';
 import {
   type ChangeEventHandler,
   type FocusEventHandler,
@@ -13,7 +14,6 @@ import {
 } from 'react';
 
 import { noop } from '@/lib/noop';
-import { selectLocale, useTypedSelector } from '@/state';
 
 import { TilePure } from './TilePure';
 
@@ -27,6 +27,7 @@ interface Props {
   inputRef?: Ref<HTMLInputElement | null>;
   isBlank?: boolean;
   isValid?: boolean;
+  locale: Locale;
   placeholder?: string;
   points?: number;
   raised?: boolean;
@@ -48,6 +49,7 @@ export const Tile: FunctionComponent<Props> = ({
   inputRef,
   isBlank,
   isValid,
+  locale,
   placeholder,
   points,
   raised,
@@ -58,7 +60,6 @@ export const Tile: FunctionComponent<Props> = ({
   onMouseDown = noop,
   onTouchStart = noop,
 }) => {
-  const locale = useTypedSelector(selectLocale);
   const ref = useRef<HTMLInputElement>(null);
   const mergedRef = useMergeRefs(inputRef ? [ref, inputRef] : [ref]);
   const isEmpty = !character || character === EMPTY_CELL;
