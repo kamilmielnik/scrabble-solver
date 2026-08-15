@@ -1,5 +1,6 @@
 /* eslint-disable max-lines, max-statements */
 
+import { games } from '@scrabble-solver/configs';
 import { isObject } from '@scrabble-solver/types';
 import { execSync } from 'child_process';
 import fs from 'fs';
@@ -113,16 +114,17 @@ const Index: FunctionComponent<Props> = ({ version }) => {
 
   useEffect(() => {
     const root = document.documentElement;
-    const computedStyle = getComputedStyle(root);
-    const variables: [string, string][] = [
-      ['--board-cols', String(config.boardWidth)],
-      ['--board-rows', String(config.boardHeight)],
-      ['--rack-size', String(config.rackSize)],
+    const variables = [
+      { name: '--board-cols', value: config.boardWidth, defaultValue: games.scrabble.boardWidth },
+      { name: '--board-rows', value: config.boardHeight, defaultValue: games.scrabble.boardHeight },
+      { name: '--rack-size', value: config.rackSize, defaultValue: games.scrabble.rackSize },
     ];
 
-    for (const [name, value] of variables) {
-      if (computedStyle.getPropertyValue(name).trim() !== value) {
-        root.style.setProperty(name, value);
+    for (const { name, value, defaultValue } of variables) {
+      const current = root.style.getPropertyValue(name) || String(defaultValue);
+
+      if (current !== String(value)) {
+        root.style.setProperty(name, String(value));
       }
     }
   }, [config.boardHeight, config.boardWidth, config.rackSize]);
