@@ -38,7 +38,7 @@ export const useLocalStorage = () => {
   }, [isHydrated, settings]);
 };
 
-// Each effect's first post-hydration run would only write back what hydration just read, so it is skipped.
+// Each effect's first post-hydration run would only write back what hydration just read, so it is skipped
 function isFirstWriteAfterHydration(flags: WriteFlags, key: keyof WriteFlags): boolean {
   if (flags[key]) {
     return false;
