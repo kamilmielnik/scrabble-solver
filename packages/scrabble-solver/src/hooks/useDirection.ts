@@ -7,7 +7,7 @@ export const useDirection = (direction: TextDirection) => {
   useEffect(() => {
     const html = document.body.parentElement;
 
-    if (!html) {
+    if (!html || html.dir === direction) {
       return noop;
     }
 

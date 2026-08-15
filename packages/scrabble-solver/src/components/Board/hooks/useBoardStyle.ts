@@ -6,7 +6,7 @@ import { selectConfig, selectLocale, useTypedSelector } from '@/state';
 import { getBoardBackground } from '../getBoardBackground';
 
 /**
- * Everything here is derived from Redux state only, so the style on the server matches the client.
+ * Everything here is derived from Redux state only, so the style on the server matches the client
  */
 export const useBoardStyle = () => {
   const config = useTypedSelector(selectConfig);
@@ -16,11 +16,8 @@ export const useBoardStyle = () => {
   const boardStyle = useMemo<CSSProperties>(
     () => ({
       backgroundImage: `url(${backgroundImage})`,
-      backgroundSize: '100% 100%',
-      gridTemplateColumns: `var(--coordinate-track-size) repeat(${config.boardWidth}, var(--cell-size))`,
-      gridTemplateRows: `var(--coordinate-track-size) repeat(${config.boardHeight}, var(--cell-size))`,
     }),
-    [backgroundImage, config.boardHeight, config.boardWidth],
+    [backgroundImage],
   );
 
   return boardStyle;

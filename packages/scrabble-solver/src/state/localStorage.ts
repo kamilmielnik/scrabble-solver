@@ -1,13 +1,20 @@
-import { Board, type BoardJson, isObject } from '@scrabble-solver/types';
+import { Board, type BoardJson, isObject, type Locale } from '@scrabble-solver/types';
 import store2 from 'store2';
 
-import type { Rack } from '@/types';
+import type { Rack, Translations } from '@/types';
 
 import type { SettingsState } from './settings/types';
 
 const BOARD = 'board';
 const RACK = 'rack';
 const SETTINGS = 'settings';
+const TRANSLATIONS = 'translations';
+
+interface PersistedTranslations {
+  locale: Locale;
+  translations: Translations;
+  version: string;
+}
 
 const LEGACY_KEYS: Record<keyof SettingsState, string> = {
   autoGroupTiles: 'auto-group-tiles',
@@ -64,6 +71,25 @@ export const localStorage = {
 
   setSettings(settings: SettingsState): void {
     store.set(SETTINGS, settings, true);
+  },
+
+  getTranslations(locale: Locale, version: string): Translations | undefined {
+    const stored = store.get(TRANSLATIONS) as PersistedTranslations | undefined;
+
+    if (typeof stored === 'undefined') {
+      return undefined;
+    }
+
+    if (!isObject(stored) || stored.locale !== locale || stored.version !== version || !isObject(stored.translations)) {
+      store.remove(TRANSLATIONS);
+      return undefined;
+    }
+
+    return stored.translations;
+  },
+
+  setTranslations(locale: Locale, version: string, translations: Translations): void {
+    store.set(TRANSLATIONS, { locale, translations, version } satisfies PersistedTranslations, true);
   },
 };
 

@@ -16,7 +16,7 @@ import { findWordDefinitions, solve, verify, visit } from '@/sdk';
 import { prefetchDictionary } from '@/solver-worker';
 
 import { initialize, reset } from './actions';
-import { appSlice } from './app';
+import { appSlice, selectVersion } from './app';
 import { boardSlice, selectBoard } from './board';
 import { cellFiltersSlice, selectCellFilter } from './cellFilters';
 import { dictionarySlice, selectDictionary } from './dictionary';
@@ -127,9 +127,9 @@ function* onDictionarySubmit(): AnyGenerator {
   }
 }
 
-function* onInitialize(): AnyGenerator {
+function* onInitialize({ payload }: PayloadAction<{ version: string }>): AnyGenerator {
   try {
-    yield* hydratePersistedState();
+    yield* hydratePersistedState(payload.version);
     // oxlint-disable-next-line no-empty
   } catch {
   } finally {
@@ -150,7 +150,7 @@ function* onInitialize(): AnyGenerator {
   }
 }
 
-function* hydratePersistedState(): AnyGenerator {
+function* hydratePersistedState(version: string): AnyGenerator {
   const isTouchScreen = globalThis.matchMedia?.('(hover: none)').matches ?? false;
   const settings: Pick<SettingsState, 'game' | 'inputMode' | 'locale'> & Partial<SettingsState> = {
     game: settingsInitialState.game,
@@ -166,6 +166,7 @@ function* hydratePersistedState(): AnyGenerator {
   }
 
   yield put(settingsSlice.actions.init(settings));
+  yield* hydratePersistedTranslations(settings.locale, version);
 
   const config = yield select(selectConfig);
   const currentBoard: Board = yield select(selectBoard);
@@ -184,6 +185,15 @@ function* hydratePersistedState(): AnyGenerator {
     yield put(rackSlice.actions.init(rack));
   } else if (currentRack.length !== config.rackSize) {
     yield put(rackSlice.actions.init(Array(config.rackSize).fill(null)));
+  }
+}
+
+// Applied synchronously so the first post-hydration paint is already translated
+function* hydratePersistedTranslations(locale: Locale, version: string): AnyGenerator {
+  const translations = localStorage.getTranslations(locale, version);
+
+  if (translations) {
+    yield put(i18nSlice.actions.loaded({ locale, translations }));
   }
 }
 
@@ -207,6 +217,23 @@ function* loadLocaleTranslations(locale: Locale): AnyGenerator {
 
   const translations = yield call(loadTranslations, locale);
   yield put(i18nSlice.actions.loaded({ locale, translations }));
+
+  const activeLocale = yield select(selectLocale);
+
+  if (locale === activeLocale) {
+    const version = yield select(selectVersion);
+    localStorage.setTranslations(locale, version, translations);
+  }
+}
+
+// The cache makes the next boot's first paint translated without waiting for a chunk download
+function* persistTranslationsCache(locale: Locale): AnyGenerator {
+  const loaded = yield select(selectLoadedTranslations);
+  const version = yield select(selectVersion);
+
+  if (loaded[locale]) {
+    localStorage.setTranslations(locale, version, loaded[locale]);
+  }
 }
 
 function* preloadTranslationsWhenIdle(): AnyGenerator {
@@ -232,6 +259,7 @@ function* onReset(): AnyGenerator {
 function* onLocaleChange({ payload: locale }: PayloadAction<Locale>): AnyGenerator {
   yield spawn(loadLocaleTranslations, locale);
   yield spawn(prefetchDictionary, locale);
+  yield* persistTranslationsCache(locale);
 
   const game = yield select(selectGame);
 

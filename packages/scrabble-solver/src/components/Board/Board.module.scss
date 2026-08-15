@@ -6,9 +6,12 @@
   --coordinate-track-size: calc(var(--coordinate-size) - var(--border--width));
 
   display: grid;
+  grid-template-columns: var(--coordinate-track-size) repeat(var(--board-cols), var(--cell-size));
+  grid-template-rows: var(--coordinate-track-size) repeat(var(--board-rows), var(--cell-size));
   gap: var(--border--width);
   box-shadow: var(--box-shadow);
   background-color: white;
+  background-size: 100% 100%;
   border: var(--border);
   border-radius: var(--border--radius);
   font-size: max(14px, calc(var(--cell-size) * 0.6));

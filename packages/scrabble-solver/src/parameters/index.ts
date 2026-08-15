@@ -10,6 +10,9 @@ export const BREAKPOINTS = {
 
 export const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';
 
+// Must match the class name in global.scss
+export const CONFIG_PENDING_CLASS = 'config-pending';
+
 export const TRANSITION_DURATION_LONG = Number(variables.transitionDurationLong);
 
 export const COLOR_BLUE = 'var(--color--blue)';

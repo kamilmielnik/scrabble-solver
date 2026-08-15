@@ -17,8 +17,9 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import { schedulePreloadModals } from '@/modals/preload';
+import { CONFIG_PENDING_CLASS } from '@/parameters';
 import { registerServiceWorker } from '@/serviceWorkerManager';
-import { initialize, reset, selectConfig, selectLocale, useTypedSelector } from '@/state';
+import { initialize, reset, selectConfig, selectIsHydrated, selectLocale, useTypedSelector } from '@/state';
 
 import styles from './index.module.scss';
 
@@ -57,6 +58,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const dispatch = useDispatch();
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
+  const isHydrated = useTypedSelector(selectIsHydrated);
   const [modals, setModals] = useState<Record<Modal, boolean>>({
     dictionary: false,
     keyMap: false,
@@ -110,11 +112,26 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   useLocalStorage();
 
   useEffect(() => {
-    const rootStyle = document.documentElement.style;
-    rootStyle.setProperty('--board-cols', String(config.boardWidth));
-    rootStyle.setProperty('--board-rows', String(config.boardHeight));
-    rootStyle.setProperty('--rack-size', String(config.rackSize));
+    const root = document.documentElement;
+    const computedStyle = getComputedStyle(root);
+    const variables: [string, string][] = [
+      ['--board-cols', String(config.boardWidth)],
+      ['--board-rows', String(config.boardHeight)],
+      ['--rack-size', String(config.rackSize)],
+    ];
+
+    for (const [name, value] of variables) {
+      if (computedStyle.getPropertyValue(name).trim() !== value) {
+        root.style.setProperty(name, value);
+      }
+    }
   }, [config.boardHeight, config.boardWidth, config.rackSize]);
+
+  useEffect(() => {
+    if (isHydrated) {
+      document.documentElement.classList.remove(CONFIG_PENDING_CLASS);
+    }
+  }, [isHydrated]);
 
   useEffectOnce(() => {
     if (process.env.NODE_ENV === 'production') {
@@ -122,7 +139,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       registerServiceWorker();
     }
 
-    dispatch(initialize());
+    dispatch(initialize({ version }));
     schedulePreloadModals();
   });
 
