@@ -56,9 +56,6 @@ nextjs-portal {
  * prerendered default board; removed after hydration applies the persisted config.
  * The class name must match CONFIG_PENDING_CLASS in parameters/index.ts.
  */
-html.config-pending {
-  [data-testid='board'],
-  [data-testid='rack'] {
-    visibility: hidden;
-  }
+html.config-pending main {
+  visibility: hidden;
 }
