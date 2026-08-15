@@ -5,7 +5,7 @@
 
 import { type PayloadAction } from '@reduxjs/toolkit';
 import { hasConfig, languages } from '@scrabble-solver/configs';
-import { Board, type Locale, type Result } from '@scrabble-solver/types';
+import { Board, Locale, type Result } from '@scrabble-solver/types';
 import { call, delay, put, select, spawn, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { LOCALE_FEATURES } from '@/i18n/constants';
@@ -141,6 +141,7 @@ function* onInitialize(): AnyGenerator {
 
   yield spawn(prefetchDictionaryWhenIdle);
   yield spawn(loadLocaleTranslations, locale);
+  yield spawn(preloadTranslationsWhenIdle);
   yield spawn(visitWhenIdle);
 
   if (!board.isEmpty()) {
@@ -208,6 +209,14 @@ function* loadLocaleTranslations(locale: Locale): AnyGenerator {
   yield put(i18nSlice.actions.loaded({ locale, translations }));
 }
 
+function* preloadTranslationsWhenIdle(): AnyGenerator {
+  yield call(waitForIdleOrFirstIntent);
+
+  for (const locale of Object.values(Locale)) {
+    yield spawn(loadLocaleTranslations, locale);
+  }
+}
+
 function* onReset(): AnyGenerator {
   const config = yield select(selectConfig);
 
@@ -221,8 +230,8 @@ function* onReset(): AnyGenerator {
 }
 
 function* onLocaleChange({ payload: locale }: PayloadAction<Locale>): AnyGenerator {
-  yield spawn(prefetchDictionary, locale);
   yield spawn(loadLocaleTranslations, locale);
+  yield spawn(prefetchDictionary, locale);
 
   const game = yield select(selectGame);
 
