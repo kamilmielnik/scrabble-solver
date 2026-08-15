@@ -20,11 +20,20 @@ export interface Props {
   className?: string;
   footer?: ReactNode;
   isOpen: boolean;
+  modalClassName?: string;
   title: string;
   onClose: () => void;
 }
 
-const ModalBase: FunctionComponent<Props> = ({ children, className, footer, isOpen, title, onClose }) => {
+const ModalBase: FunctionComponent<Props> = ({
+  children,
+  className,
+  footer,
+  isOpen,
+  modalClassName,
+  title,
+  onClose,
+}) => {
   const translate = useTranslate();
   const [shouldReturnFocusAfterClose, setShouldReturnFocusAfterClose] = useState(true);
 
@@ -59,7 +68,7 @@ const ModalBase: FunctionComponent<Props> = ({ children, className, footer, isOp
       aria={{ modal: true }}
       className={{
         afterOpen: styles.afterOpen,
-        base: styles.modal,
+        base: classNames(styles.modal, modalClassName),
         beforeClose: styles.beforeClose,
       }}
       closeTimeoutMS={TRANSITION_DURATION_LONG}

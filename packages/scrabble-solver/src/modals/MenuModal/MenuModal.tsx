@@ -37,7 +37,13 @@ const MenuModalBase: FunctionComponent<Props> = ({
   const Icon = LOCALE_ICONS[locale];
 
   return (
-    <Modal className={className} isOpen={isOpen} title={translate('menu')} onClose={onClose}>
+    <Modal
+      className={className}
+      isOpen={isOpen}
+      modalClassName={styles.modal}
+      title={translate('menu')}
+      onClose={onClose}
+    >
       <Button
         aria-label={translate('remaining-tiles')}
         className={styles.button}
