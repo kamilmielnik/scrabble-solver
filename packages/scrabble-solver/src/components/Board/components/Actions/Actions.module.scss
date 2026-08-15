@@ -6,28 +6,28 @@
   border-radius: var(--border--radius);
   transition: var(--transition);
   transition-property: opacity;
-}
 
-.action {
-  padding: var(--spacing--m);
-  box-shadow: none !important;
+  .action {
+    padding: var(--spacing--m);
+    box-shadow: none !important;
 
-  &:active,
-  &:hover {
-    color: var(--color--foreground);
-  }
+    &:active,
+    &:hover {
+      color: var(--color--foreground);
+    }
 
-  & + & {
-    border-inline-start: none;
-  }
+    + .action {
+      border-inline-start: none;
+    }
 
-  &:first-child {
-    border-start-end-radius: 0;
-    border-end-end-radius: 0;
-  }
+    &:first-child {
+      border-start-end-radius: 0;
+      border-end-end-radius: 0;
+    }
 
-  &:last-child {
-    border-start-start-radius: 0;
-    border-end-start-radius: 0;
+    &:last-child {
+      border-start-start-radius: 0;
+      border-end-start-radius: 0;
+    }
   }
 }
