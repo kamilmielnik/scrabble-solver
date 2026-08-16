@@ -5,7 +5,7 @@
 
 import { type PayloadAction } from '@reduxjs/toolkit';
 import { hasConfig, languages } from '@scrabble-solver/configs';
-import { Board, Locale, type Result } from '@scrabble-solver/types';
+import { Board, type BoardWord, Locale, type Result } from '@scrabble-solver/types';
 import { call, delay, put, select, spawn, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { LOCALE_FEATURES } from '@/i18n/constants';
@@ -20,6 +20,7 @@ import { appSlice, selectVersion } from './app';
 import { boardSlice, selectBoard } from './board';
 import { cellFiltersSlice, selectCellFilter } from './cellFilters';
 import { dictionarySlice, selectDictionary } from './dictionary';
+import { hoveredWordSlice } from './hoveredWord';
 import { i18nSlice, selectLoadedTranslations } from './i18n';
 import { localStorage } from './localStorage';
 import { rackSlice, selectCharacters, selectRack } from './rack';
@@ -51,6 +52,7 @@ export function* rootSaga(): AnyGenerator {
   yield takeEvery([rackSlice.actions.changeCharacter.type, rackSlice.actions.changeCharacters.type], onRackValueChange);
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
   yield takeLatest(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
+  yield takeLatest(hoveredWordSlice.actions.set.type, onHoveredWordChange);
   yield takeEvery(settingsSlice.actions.changeGame.type, onGameChange);
   yield takeEvery(settingsSlice.actions.changeLocale.type, onLocaleChange);
   yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
@@ -289,8 +291,19 @@ function* onResultCandidateChange({ payload: result }: PayloadAction<Result | nu
     return;
   }
 
+  yield* searchDictionary(result.words);
+}
+
+function* onHoveredWordChange({ payload: word }: PayloadAction<BoardWord>): AnyGenerator {
+  const board: Board = yield select(selectBoard);
+  const collidingWords = board.getCollidingWords(word);
+
+  yield* searchDictionary([word.word, ...collidingWords.map((collidingWord) => collidingWord.word)]);
+}
+
+function* searchDictionary(words: string[]): AnyGenerator {
   const locale: Locale = yield select(selectLocale);
-  const uniqueWords = Array.from(new Set(result.words));
+  const uniqueWords = Array.from(new Set(words));
   const input = uniqueWords.join(LOCALE_FEATURES[locale].separator);
 
   if (!memoizedFindWordDefinitions.hasCache(locale, input)) {

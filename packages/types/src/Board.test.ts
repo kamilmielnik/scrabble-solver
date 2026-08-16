@@ -58,6 +58,35 @@ describe('Board.getWords', () => {
   });
 });
 
+describe('Board.getCollidingWords', () => {
+  const board = Board.fromStringArray(['     ', ' cat ', ' o  o', ' dot ', '     ']);
+
+  it('finds the words crossing each cell of a horizontal word', () => {
+    expect(board.getCollidingWords({ direction: 'horizontal', word: 'cat', x: 1, y: 1 })).toEqual([
+      { direction: 'vertical', word: 'cod', x: 1, y: 1 },
+    ]);
+  });
+
+  it('finds the words crossing each cell of a vertical word', () => {
+    expect(board.getCollidingWords({ direction: 'vertical', word: 'cod', x: 1, y: 1 })).toEqual([
+      { direction: 'horizontal', word: 'cat', x: 1, y: 1 },
+      { direction: 'horizontal', word: 'dot', x: 1, y: 3 },
+    ]);
+  });
+
+  it('finds a crossing word entered away from its start', () => {
+    expect(board.getCollidingWords({ direction: 'horizontal', word: 'dot', x: 1, y: 3 })).toEqual([
+      { direction: 'vertical', word: 'cod', x: 1, y: 1 },
+    ]);
+  });
+
+  it('returns no words for a word without crossings', () => {
+    const lonely = Board.fromStringArray(['     ', ' cat ', '     ', '     ', '     ']);
+
+    expect(lonely.getCollidingWords({ direction: 'horizontal', word: 'cat', x: 1, y: 1 })).toEqual([]);
+  });
+});
+
 const createBoardWithCharacters = (characters: string[][]): Board => {
   return new Board({
     rows: characters.map((row, y) =>

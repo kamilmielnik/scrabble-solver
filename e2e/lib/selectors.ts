@@ -22,7 +22,8 @@ export function getDictionary(page: Page): Locator {
 }
 
 export function getDictionaryInput(page: Page): Locator {
-  return getDictionary(page).getByRole('textbox');
+  // includeHidden: true so that the dictionary can be asserted on while modal is opened
+  return getDictionary(page).getByRole('textbox', { includeHidden: true });
 }
 
 export function getDictionaryTitles(page: Page): Locator {

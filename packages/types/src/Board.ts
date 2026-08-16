@@ -97,6 +97,26 @@ export class Board {
     }, 0);
   }
 
+  public getCollidingWords(word: BoardWord): BoardWord[] {
+    const isHorizontal = word.direction === 'horizontal';
+    const collidingDirection: Direction = isHorizontal ? 'vertical' : 'horizontal';
+    const collidingWords: BoardWord[] = [];
+    let { x, y } = word;
+
+    while (x < this.columnsCount && y < this.rowsCount && !this.rows[y][x].isEmpty) {
+      const collidingWord = readWordThrough(this, x, y, collidingDirection);
+
+      if (collidingWord) {
+        collidingWords.push(collidingWord);
+      }
+
+      x += isHorizontal ? 1 : 0;
+      y += isHorizontal ? 0 : 1;
+    }
+
+    return collidingWords;
+  }
+
   public getColumn(index: number): Cell[] {
     return this.rows.map((row) => row[index]);
   }
@@ -190,4 +210,28 @@ const toBoardWord = (cells: Cell[], direction: Direction): BoardWord => {
     x: cells[0].x,
     y: cells[0].y,
   };
+};
+
+const readWordThrough = (board: Board, x: number, y: number, direction: Direction): BoardWord | undefined => {
+  const stepX = direction === 'horizontal' ? 1 : 0;
+  const stepY = direction === 'horizontal' ? 0 : 1;
+  let startX = x;
+  let startY = y;
+
+  while (startX - stepX >= 0 && startY - stepY >= 0 && !board.rows[startY - stepY][startX - stepX].isEmpty) {
+    startX -= stepX;
+    startY -= stepY;
+  }
+
+  const cells: Cell[] = [];
+  let cellX = startX;
+  let cellY = startY;
+
+  while (cellX < board.columnsCount && cellY < board.rowsCount && !board.rows[cellY][cellX].isEmpty) {
+    cells.push(board.rows[cellY][cellX]);
+    cellX += stepX;
+    cellY += stepY;
+  }
+
+  return cells.length > 1 ? toBoardWord(cells, direction) : undefined;
 };
