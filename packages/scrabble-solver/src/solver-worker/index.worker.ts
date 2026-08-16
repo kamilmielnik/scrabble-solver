@@ -3,7 +3,7 @@
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { solve } from '@scrabble-solver/solver';
-import { Board, type Locale, Tile } from '@scrabble-solver/types';
+import { Board, type BoardWord, type Locale, Tile } from '@scrabble-solver/types';
 
 import { type SolveRequestPayload, type VerifyRequestPayload } from '@/types';
 
@@ -64,12 +64,12 @@ async function handleVerify(
   }
 
   const board = Board.fromJson(boardJson);
-  const words = board.getWords().sort((a, b) => a.localeCompare(b, locale));
-  const invalidWords: string[] = [];
-  const validWords: string[] = [];
+  const words = board.getWords().sort((a, b) => a.word.localeCompare(b.word, locale));
+  const invalidWords: BoardWord[] = [];
+  const validWords: BoardWord[] = [];
 
   for (const word of words) {
-    if (gaddag.has(word)) {
+    if (gaddag.has(word.word)) {
       validWords.push(word);
     } else {
       invalidWords.push(word);

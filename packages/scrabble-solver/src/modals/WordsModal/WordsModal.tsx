@@ -1,12 +1,10 @@
-import classNames from 'classnames';
 import { type FunctionComponent, memo } from 'react';
 
 import { Badge } from '@/components/Badge';
 import { Modal } from '@/components/Modal';
-import Check from '@/icons/Check.svg';
-import Cross from '@/icons/Cross.svg';
 import { selectInvalidWords, selectLocale, selectValidWords, useTranslate, useTypedSelector } from '@/state';
 
+import { Word } from './components';
 import styles from './WordsModal.module.scss';
 
 interface Props {
@@ -32,10 +30,8 @@ const WordsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose }
           </span>
         }
       >
-        {invalidWords.map((word, index) => (
-          <div className={styles.word} key={index}>
-            <Cross aria-hidden="true" className={classNames(styles.icon, styles.invalid)} role="img" /> {word}
-          </div>
+        {invalidWords.map((word) => (
+          <Word isValid={false} key={`${word.x}-${word.y}-${word.direction}`} word={word} />
         ))}
       </Modal.Section>
 
@@ -48,10 +44,8 @@ const WordsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose }
           </span>
         }
       >
-        {validWords.map((word, index) => (
-          <div className={styles.word} key={index}>
-            <Check aria-hidden="true" className={classNames(styles.icon, styles.valid)} role="img" /> {word}
-          </div>
+        {validWords.map((word) => (
+          <Word isValid key={`${word.x}-${word.y}-${word.direction}`} word={word} />
         ))}
       </Modal.Section>
     </Modal>

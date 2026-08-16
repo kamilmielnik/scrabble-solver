@@ -1,7 +1,9 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 
 import { type BoardJson } from './BoardJson';
+import { type BoardWord } from './BoardWord';
 import { Cell } from './Cell';
+import { type Direction } from './Direction';
 import { Tile } from './Tile';
 
 export class Board {
@@ -109,9 +111,9 @@ export class Board {
     }, 0);
   }
 
-  public getWords(): string[] {
-    const horizontalWords = getHorizontalWords(this.rows);
-    const verticalWords = getHorizontalWords(transpose(this.rows));
+  public getWords(): BoardWord[] {
+    const horizontalWords = getWordsInRows(this.rows, 'horizontal');
+    const verticalWords = getWordsInRows(transpose(this.rows), 'vertical');
     return [...horizontalWords, ...verticalWords];
   }
 
@@ -152,8 +154,12 @@ const transpose = <T>(array: T[][]): T[][] => {
   return transposed;
 };
 
-const getHorizontalWords = (cells: Cell[][]): string[] => {
-  const words: string[] = [];
+/**
+ * Cells in transposed rows keep their original coordinates,
+ * so the first cell of a run is the word's start in both directions.
+ */
+const getWordsInRows = (cells: Cell[][], direction: Direction): BoardWord[] => {
+  const words: BoardWord[] = [];
 
   for (const row of cells) {
     let currentWord: Cell[] = [];
@@ -163,20 +169,25 @@ const getHorizontalWords = (cells: Cell[][]): string[] => {
         currentWord.push(cell);
       } else if (currentWord.length > 0) {
         if (currentWord.length > 1) {
-          words.push(wordToString(currentWord));
+          words.push(toBoardWord(currentWord, direction));
         }
         currentWord = [];
       }
     }
 
     if (currentWord.length > 1) {
-      words.push(wordToString(currentWord));
+      words.push(toBoardWord(currentWord, direction));
     }
   }
 
   return words;
 };
 
-const wordToString = (word: Cell[]): string => {
-  return word.map((cell) => cell.tile.character).join('');
+const toBoardWord = (cells: Cell[], direction: Direction): BoardWord => {
+  return {
+    direction,
+    word: cells.map((cell) => cell.tile.character).join(''),
+    x: cells[0].x,
+    y: cells[0].y,
+  };
 };

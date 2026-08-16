@@ -30,6 +30,7 @@ interface Props {
   config: Config;
   inputRef: RefObject<HTMLInputElement | null>;
   isHoverMatch: boolean;
+  isHoveredWordPart?: boolean;
   isReachable?: boolean;
   locale: Locale;
   showCoordinates: ShowCoordinates;
@@ -51,6 +52,7 @@ const CellBase: FunctionComponent<Props> = ({
   config,
   inputRef,
   isHoverMatch,
+  isHoveredWordPart = false,
   isReachable = true,
   locale,
   showCoordinates,
@@ -116,7 +118,7 @@ const CellBase: FunctionComponent<Props> = ({
         [styles.unreachable]: !isReachable,
       })}
       character={isEmpty ? undefined : tile.character}
-      highlighted={cell.isCandidate() || isHoverMatch}
+      highlighted={cell.isCandidate() || isHoverMatch || isHoveredWordPart}
       inputRef={inputRef}
       isBlank={tile.isBlank}
       isValid={isValid}

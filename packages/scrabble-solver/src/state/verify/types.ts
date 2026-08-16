@@ -1,3 +1,5 @@
+import type { BoardWord } from '@scrabble-solver/types';
+
 import type { BoardState } from '../board';
 
 export interface VerifyState {
@@ -5,6 +7,6 @@ export interface VerifyState {
   lastSolvedParameters: {
     board: BoardState;
   };
-  invalidWords: string[];
-  validWords: string[];
+  invalidWords: BoardWord[];
+  validWords: BoardWord[];
 }

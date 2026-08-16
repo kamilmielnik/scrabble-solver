@@ -1,0 +1,1 @@
+export { Word } from './Word';

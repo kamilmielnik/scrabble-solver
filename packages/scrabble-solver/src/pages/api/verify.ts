@@ -1,7 +1,16 @@
 import { getConfig, hasConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import { logger } from '@scrabble-solver/logger';
-import { Board, type Config, type Game, type Locale, isBoardJson, isGame, isLocale } from '@scrabble-solver/types';
+import {
+  Board,
+  type BoardWord,
+  type Config,
+  type Game,
+  type Locale,
+  isBoardJson,
+  isGame,
+  isLocale,
+} from '@scrabble-solver/types';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
 import { getServerLoggingData, isBoardValid } from '@/api';
@@ -31,12 +40,12 @@ const verify = async (request: NextApiRequest, response: NextApiResponse): Promi
     });
 
     const gaddag = await dictionaries.get(locale);
-    const words = board.getWords().sort((a, b) => a.localeCompare(b, locale));
-    const invalidWords: string[] = [];
-    const validWords: string[] = [];
+    const words = board.getWords().sort((a, b) => a.word.localeCompare(b.word, locale));
+    const invalidWords: BoardWord[] = [];
+    const validWords: BoardWord[] = [];
 
     for (const word of words) {
-      if (gaddag.has(word)) {
+      if (gaddag.has(word.word)) {
         validWords.push(word);
       } else {
         invalidWords.push(word);

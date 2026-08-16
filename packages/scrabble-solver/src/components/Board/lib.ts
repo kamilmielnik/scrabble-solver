@@ -1,5 +1,5 @@
 import { BONUS_WORD } from '@scrabble-solver/constants';
-import { type Board, type Bonus, type Result } from '@scrabble-solver/types';
+import { type Board, type BoardWord, type Bonus, type Result } from '@scrabble-solver/types';
 
 import { COLOR_BONUS_CHARACTER, COLOR_BONUS_CHARACTER_MULTIPLIER, COLOR_BONUS_WORD } from '@/parameters';
 import { type Direction, type Point } from '@/types';
@@ -128,4 +128,22 @@ export const getReachableCellsFromResults = (board: Board, results: Result[]): b
   }
 
   return reachable;
+};
+
+export const getWordCells = (board: Board, word: BoardWord): boolean[][] => {
+  const wordCells = createGrid(board.columnsCount, board.rowsCount, () => false);
+  const isHorizontal = word.direction === 'horizontal';
+  let { x, y } = word;
+
+  while (x < board.columnsCount && y < board.rowsCount && board.rows[y][x].hasTile()) {
+    wordCells[y][x] = true;
+
+    if (isHorizontal) {
+      x += 1;
+    } else {
+      y += 1;
+    }
+  }
+
+  return wordCells;
 };

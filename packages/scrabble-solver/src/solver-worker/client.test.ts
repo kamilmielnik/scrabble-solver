@@ -2,7 +2,7 @@ import { type ResultJson } from '@scrabble-solver/types';
 import { afterAll, beforeEach, describe, expect, it } from 'bun:test';
 
 import type * as clientModule from './client';
-import { type SolverWorkerRequest, type SolverWorkerResponse } from './messages';
+import { type SolverWorkerRequest, type SolverWorkerResponse, type VerifyResult } from './messages';
 
 type Listener = (event: { data: SolverWorkerResponse }) => void;
 
@@ -102,9 +102,9 @@ describe('solver worker client', () => {
 
   it('resolves a verify with the worker words', async () => {
     const verify = verifyLocally(verifyPayload);
-    respond({ data: { invalidWords: ['zz'], validWords: ['ab'] }, id: lastRequestId(), outcome: 'answered' });
+    respond({ data: createVerifyResult(), id: lastRequestId(), outcome: 'answered' });
 
-    expect(await verify).toEqual({ invalidWords: ['zz'], validWords: ['ab'] });
+    expect(await verify).toEqual(createVerifyResult());
   });
 
   it('does not wait for a prefetch to answer', () => {
@@ -148,4 +148,11 @@ function lastRequestId(): number {
 
 function createResults(word: string): ResultJson[] {
   return [{ blankIndices: [], id: 0, isHorizontal: true, points: 1, tiles: word.split(''), x: 0, y: 0 }];
+}
+
+function createVerifyResult(): VerifyResult {
+  return {
+    invalidWords: [{ direction: 'horizontal', word: 'zz', x: 0, y: 0 }],
+    validWords: [{ direction: 'vertical', word: 'ab', x: 3, y: 5 }],
+  };
 }

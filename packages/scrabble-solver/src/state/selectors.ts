@@ -3,11 +3,13 @@ import { createSelector } from '@reduxjs/toolkit';
 import { unorderedArraysEqual } from '@/lib/unorderedArraysEqual';
 
 import { selectBoard } from './board';
+import { selectHoveredWord } from './hoveredWord';
 import { getRemainingTiles } from './lib';
 import { selectCharacters } from './rack';
 import { selectResultsResults } from './results';
 import { selectConfig, selectLocale } from './settings';
 import { selectLastSolvedParameters, selectSolveError } from './solve';
+import { selectVerify } from './verify';
 
 const selectHasBoardChanged = createSelector(
   [selectLastSolvedParameters, selectBoard],
@@ -34,6 +36,13 @@ export const selectUpToDateResults = createSelector(
   [selectResultsResults, selectAreResultsOutdated, selectSolveError],
   (results, areResultsOutdated, solveError) => {
     return results && !areResultsOutdated && !solveError ? results : null;
+  },
+);
+
+export const selectUpToDateHoveredWord = createSelector(
+  [selectHoveredWord, selectVerify, selectBoard],
+  (hoveredWord, verify, board) => {
+    return hoveredWord && verify.lastSolvedParameters.board.equals(board) ? hoveredWord : null;
   },
 );
 

@@ -1,10 +1,10 @@
-import { type Locale, type ResultJson } from '@scrabble-solver/types';
+import { type BoardWord, type Locale, type ResultJson } from '@scrabble-solver/types';
 
 import { type SolveRequestPayload, type VerifyRequestPayload } from '@/types';
 
 export interface VerifyResult {
-  invalidWords: string[];
-  validWords: string[];
+  invalidWords: BoardWord[];
+  validWords: BoardWord[];
 }
 
 export type SolverWorkerRequest =

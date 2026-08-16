@@ -1,12 +1,12 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { type Board } from '@scrabble-solver/types';
+import { type Board, type BoardWord } from '@scrabble-solver/types';
 
 import { verifyInitialState } from './initialState';
 
 interface VerifyParameters {
   board: Board;
-  invalidWords: string[];
-  validWords: string[];
+  invalidWords: BoardWord[];
+  validWords: BoardWord[];
 }
 
 export const verifySlice = createSlice({

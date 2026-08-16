@@ -33,6 +33,7 @@ interface Props {
   config: Config;
   direction: TextDirection;
   hoveredCharacter: string | null;
+  hoveredWordCells: boolean[][] | null;
   inputRefs: RefObject<HTMLInputElement | null>[][];
   locale: Locale;
   reachableCells: boolean[][] | null;
@@ -55,6 +56,7 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
       direction,
       cellFilters,
       hoveredCharacter,
+      hoveredWordCells,
       inputRefs,
       locale,
       reachableCells,
@@ -128,6 +130,7 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
               config={config}
               inputRef={inputRefs[y][x]}
               isHoverMatch={isHoverMatch(cell, hoveredCharacter)}
+              isHoveredWordPart={hoveredWordCells ? hoveredWordCells[y][x] : false}
               isReachable={reachableCells ? reachableCells[y][x] : true}
               key={x}
               locale={locale}
