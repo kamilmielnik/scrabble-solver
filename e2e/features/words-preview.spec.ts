@@ -25,6 +25,34 @@ test.describe('Words preview', () => {
     await Lib.expectTileNotHighlighted(Lib.getBoardTile(page, 3, 3));
   });
 
+  test('highlights either the result candidate or the selected word, never both', async ({ page }) => {
+    await Lib.visitIndex(page);
+    await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
+    await Lib.typeRack(page, 's');
+    await Lib.solve(page);
+
+    await openWordsModal(page);
+    await Lib.getOpenModal(page).getByRole('button', { name: 'Preview', exact: true }).click();
+    await Lib.expectTileHighlighted(Lib.getBoardTile(page, 3, 3));
+
+    await page.getByRole('button', { name: 'Results', exact: true }).click();
+    const result = Lib.getOpenModal(page).getByTestId('result').first();
+    await expect(result).not.toHaveAttribute('aria-current');
+    await result.click();
+    await Lib.expectTileNotHighlighted(Lib.getBoardTile(page, 3, 3));
+  });
+
+  test('clears the highlights when the layout breakpoint changes', async ({ page }) => {
+    await Lib.visitIndex(page);
+    await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
+    await openWordsModal(page);
+    await Lib.getOpenModal(page).getByRole('button', { name: 'Preview', exact: true }).click();
+    await Lib.expectTileHighlighted(Lib.getBoardTile(page, 3, 3));
+
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await Lib.expectTileNotHighlighted(Lib.getBoardTile(page, 3, 3));
+  });
+
   test.describe('phone', () => {
     test.use({ viewport: { width: 420, height: 900 } });
 

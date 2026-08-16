@@ -291,10 +291,13 @@ function* onResultCandidateChange({ payload: result }: PayloadAction<Result | nu
     return;
   }
 
+  yield put(hoveredWordSlice.actions.clear());
   yield* searchDictionary(result.words);
 }
 
 function* onHoveredWordChange({ payload: word }: PayloadAction<BoardWord>): AnyGenerator {
+  yield put(resultsSlice.actions.changeResultCandidate(null));
+
   const board: Board = yield select(selectBoard);
   const collidingWords = board.getCollidingWords(word);
 

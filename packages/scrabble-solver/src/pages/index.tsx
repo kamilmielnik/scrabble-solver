@@ -6,7 +6,7 @@ import { execSync } from 'child_process';
 import fs from 'fs';
 import dynamic from 'next/dynamic';
 import path from 'path';
-import { type FunctionComponent, useCallback, useEffect, useState } from 'react';
+import { type FunctionComponent, useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Logo } from '@/components/Logo';
@@ -16,11 +16,21 @@ import { useDirection } from '@/hooks/useDirection';
 import { useEffectOnce } from '@/hooks/useEffectOnce';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import { schedulePreloadModals } from '@/modals/preload';
 import { CONFIG_PENDING_CLASS, GITHUB_PROJECT_URL, NPM_PACKAGE_URL, SITE_DESCRIPTION, SITE_URL } from '@/parameters';
 import { registerServiceWorker } from '@/serviceWorkerManager';
-import { initialize, reset, selectConfig, selectIsHydrated, selectLocale, useTypedSelector } from '@/state';
+import {
+  hoveredWordSlice,
+  initialize,
+  reset,
+  resultsSlice,
+  selectConfig,
+  selectIsHydrated,
+  selectLocale,
+  useTypedSelector,
+} from '@/state';
 
 import styles from './index.module.scss';
 
@@ -84,6 +94,8 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
   const isHydrated = useTypedSelector(selectIsHydrated);
+  const isCompactLayout = useMediaQuery('<l');
+  const previousIsCompactLayout = useRef(isCompactLayout);
   const [modals, setModals] = useState<Record<Modal, boolean>>({
     dictionary: false,
     keyMap: false,
@@ -159,6 +171,17 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       document.documentElement.classList.remove(CONFIG_PENDING_CLASS);
     }
   }, [isHydrated]);
+
+  // Highlights hang over from the other layout's selection model when the breakpoint changes
+  useEffect(() => {
+    if (previousIsCompactLayout.current === isCompactLayout) {
+      return;
+    }
+
+    previousIsCompactLayout.current = isCompactLayout;
+    dispatch(resultsSlice.actions.changeResultCandidate(null));
+    dispatch(hoveredWordSlice.actions.clear());
+  }, [dispatch, isCompactLayout]);
 
   useEffectOnce(() => {
     if (process.env.NODE_ENV === 'production') {

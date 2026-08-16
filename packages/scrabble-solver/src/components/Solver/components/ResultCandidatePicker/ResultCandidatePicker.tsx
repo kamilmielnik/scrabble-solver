@@ -35,7 +35,7 @@ export const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onR
   const results = useTypedSelector(selectProcessedResults);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const index = resultCandidate && results ? results.findIndex((result) => result.id === resultCandidate.id) : -1;
-  const disabled = isOutdated || !resultCandidate;
+  const disabled = isOutdated || !results || results.length === 0;
   const isPreviousDisabled = !results || index <= 0 || disabled;
   const isNextDisabled = !results || index >= results.length - 1 || disabled;
   const bothEnabled = !isPreviousDisabled && !isNextDisabled;
