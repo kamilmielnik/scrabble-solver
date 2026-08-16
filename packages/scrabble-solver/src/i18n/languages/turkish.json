@@ -79,5 +79,6 @@
   "settings.showCoordinates.original": "Orijinal",
   "words": "Oluşturulan kelimeler",
   "words.invalid": "Geçersiz",
-  "words.valid": "Geçerli"
+  "words.valid": "Geçerli",
+  "words.validity": "Geçerlilik"
 }

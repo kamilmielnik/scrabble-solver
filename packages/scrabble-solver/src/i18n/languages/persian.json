@@ -79,5 +79,6 @@
   "settings.showCoordinates.original": "إبداعي",
   "words": "کلمات ساخته شده",
   "words.invalid": "نا معتبر",
-  "words.valid": "معتبر"
+  "words.valid": "معتبر",
+  "words.validity": "اعتبار"
 }

@@ -152,7 +152,7 @@ function createResults(word: string): ResultJson[] {
 
 function createVerifyResult(): VerifyResult {
   return {
-    invalidWords: [{ direction: 'horizontal', word: 'zz', x: 0, y: 0 }],
-    validWords: [{ direction: 'vertical', word: 'ab', x: 3, y: 5 }],
+    invalidWords: [{ direction: 'horizontal', isValid: false, word: 'zz', x: 0, y: 0 }],
+    validWords: [{ direction: 'vertical', isValid: true, word: 'ab', x: 3, y: 5 }],
   };
 }

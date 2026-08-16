@@ -17,7 +17,7 @@ test.describe('#398 - Solitary digraph tiles are recognised as created words', (
     const modal = Lib.getOpenModal(page);
     await expect(modal.getByText('ch', { exact: true })).toHaveCount(0);
     await expect(modal.getByText('chiclean', { exact: true })).toBeVisible();
-    await expect(modal.getByLabel('Incorrecto', { exact: true }).getByText('0', { exact: true })).toBeVisible();
-    await expect(modal.getByLabel('Correcto', { exact: true }).getByText('1', { exact: true })).toBeVisible();
+    await expect(modal.getByLabel('Incorrecto', { exact: true })).toHaveCount(0);
+    await expect(modal.getByLabel('Correcto', { exact: true })).toHaveCount(1);
   });
 });

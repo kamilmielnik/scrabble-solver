@@ -58,6 +58,18 @@ export function getResult(page: Page, index = 0): Locator {
   return getResults(page).nth(index);
 }
 
+export function getWordsContainer(page: Page): Locator {
+  return page.getByTestId('words');
+}
+
+export function getWords(page: Page): Locator {
+  return getWordsContainer(page).locator('[data-testid^="word-"]');
+}
+
+export function getWord(page: Page, index = 0): Locator {
+  return getWords(page).nth(index);
+}
+
 export function getSettingsButton(page: Page): Locator {
   return page.getByTestId('settings-button');
 }

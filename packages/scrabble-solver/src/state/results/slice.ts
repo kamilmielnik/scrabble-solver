@@ -1,13 +1,10 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { type Result } from '@scrabble-solver/types';
 
-import { type ResultColumnId, SortDirection } from '@/types';
+import { getNextSort } from '@/lib/getNextSort';
+import { type ResultColumnId } from '@/types';
 
 import { resultsInitialState } from './initialState';
-
-const toggleDirection = (direction: SortDirection): SortDirection => {
-  return direction === SortDirection.Ascending ? SortDirection.Descending : SortDirection.Ascending;
-};
 
 export const resultsSlice = createSlice({
   initialState: resultsInitialState,
@@ -38,16 +35,7 @@ export const resultsSlice = createSlice({
     },
 
     sort: (state, action: PayloadAction<ResultColumnId>) => {
-      const columndId = action.payload;
-      const { column, direction } = state.sort;
-
-      return {
-        ...state,
-        sort: {
-          column: columndId,
-          direction: column === columndId ? toggleDirection(direction) : direction,
-        },
-      };
+      return { ...state, sort: getNextSort(state.sort, action.payload) };
     },
 
     reset: () => resultsInitialState,

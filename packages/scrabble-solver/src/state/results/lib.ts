@@ -3,7 +3,7 @@ import { type Result, type ShowCoordinates } from '@scrabble-solver/types';
 import { createKeyComparator } from '@/lib/createKeyComparator';
 import { createRegExp } from '@/lib/createRegExp';
 import { createStringComparator } from '@/lib/createStringComparator';
-import { getCoordinate } from '@/lib/getCoordinate';
+import { getCoordinates as getPointCoordinates } from '@/lib/getCoordinates';
 import { reverseComparator } from '@/lib/reverseComparator';
 import {
   type CellFilter,
@@ -16,10 +16,7 @@ import {
 
 export const getCoordinates = (result: Result, showCoordinates: ShowCoordinates): string => {
   const firstCell = result.cells[0];
-  const x = getCoordinate(firstCell.x, showCoordinates === 'original' ? 'letter' : 'number');
-  const y = getCoordinate(firstCell.y, showCoordinates === 'original' ? 'number' : 'letter');
-
-  return result.isHorizontal() ? `${y}${x}` : `${x}${y}`;
+  return getPointCoordinates({ isHorizontal: result.isHorizontal(), x: firstCell.x, y: firstCell.y }, showCoordinates);
 };
 
 export const groupResults = (

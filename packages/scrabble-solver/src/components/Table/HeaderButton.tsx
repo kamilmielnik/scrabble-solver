@@ -1,31 +1,37 @@
 import classNames from 'classnames';
 import { type FunctionComponent, type ReactElement, type SVGAttributes, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 
 import SortDown from '@/icons/SortDown.svg';
 import SortUp from '@/icons/SortUp.svg';
-import { resultsSlice, selectResultsSort, useTranslate, useTypedSelector } from '@/state';
-import { type ResultColumnId, SortDirection, type TranslationKey } from '@/types';
+import { useTranslate } from '@/state';
+import { type Sort, SortDirection, type TranslationKey } from '@/types';
 
 import { Tooltip } from '../Tooltip';
 
-import styles from './Results.module.scss';
+import styles from './Table.module.scss';
 
-interface Props {
+interface Props<Id extends string> {
   className: string;
   Icon?: FunctionComponent<SVGAttributes<SVGElement>>;
-  id: ResultColumnId;
+  id: Id;
+  sort: Sort<Id>;
   translationKey: TranslationKey;
+  onSort: (id: Id) => void;
 }
 
-export const HeaderButton = ({ className, Icon, id, translationKey }: Props): ReactElement => {
-  const dispatch = useDispatch();
+export const HeaderButton = <Id extends string>({
+  className,
+  Icon,
+  id,
+  sort,
+  translationKey,
+  onSort,
+}: Props<Id>): ReactElement => {
   const translate = useTranslate();
-  const sort = useTypedSelector(selectResultsSort);
 
   const handleClick = useCallback(() => {
-    dispatch(resultsSlice.actions.sort(id));
-  }, [dispatch, id]);
+    onSort(id);
+  }, [id, onSort]);
 
   return (
     <Tooltip tooltip={translate(translationKey)}>
@@ -35,7 +41,7 @@ export const HeaderButton = ({ className, Icon, id, translationKey }: Props): Re
         type="button"
         onClick={handleClick}
       >
-        <span className={styles.cell}>
+        <span className={classNames(styles.cell, { [styles.start]: !Icon })}>
           {Icon && <Icon aria-hidden="true" className={styles.headerButtonIcon} role="img" />}
 
           {!Icon && <span className={styles.headerButtonLabel}>{translate(translationKey)}</span>}

@@ -70,9 +70,9 @@ async function handleVerify(
 
   for (const word of words) {
     if (gaddag.has(word.word)) {
-      validWords.push(word);
+      validWords.push({ ...word, isValid: true });
     } else {
-      invalidWords.push(word);
+      invalidWords.push({ ...word, isValid: false });
     }
   }
 

@@ -79,5 +79,6 @@
   "settings.showCoordinates.original": "Original",
   "words": "Cuvinte create",
   "words.invalid": "Invalid",
-  "words.valid": "Valid"
+  "words.valid": "Valid",
+  "words.validity": "Validitate"
 }

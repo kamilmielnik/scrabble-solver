@@ -3,10 +3,7 @@ import { type Comparator } from '@/types';
 import { createStringComparator } from './createStringComparator';
 import { numberComparator } from './numberComparator';
 
-export const createKeyComparator = <T extends Record<keyof T, unknown>>(
-  key: keyof T,
-  locale: string,
-): Comparator<T> => {
+export const createKeyComparator = <T extends object>(key: keyof T, locale: string): Comparator<T> => {
   const stringComparator = createStringComparator(locale);
 
   return (a: T, b: T): number => {

@@ -1,5 +1,4 @@
 import { type Result } from '@scrabble-solver/types';
-import { type FunctionComponent, type SVGAttributes } from 'react';
 
 export type Comparator<T> = (a: T, B: T) => number;
 
@@ -26,8 +25,8 @@ export interface Point {
 
 export type Rack = (string | null)[];
 
-export interface Sort {
-  column: ResultColumnId;
+export interface Sort<Id extends string = ResultColumnId> {
+  column: Id;
   direction: SortDirection;
 }
 
@@ -61,12 +60,10 @@ export enum ResultColumnId {
   WordsCount = 'words-count',
 }
 
-export interface ResultColumn {
-  className: string;
-  Icon?: FunctionComponent<SVGAttributes<SVGElement>>;
-  id: ResultColumnId;
-  translationKey: TranslationKey;
-  width?: number;
+export enum WordColumnId {
+  Coordinates = 'coordinates',
+  Validity = 'validity',
+  Word = 'word',
 }
 
 export interface GroupedResults {
@@ -155,7 +152,8 @@ export type TranslationKey =
   | 'settings.showCoordinates.original'
   | 'words'
   | 'words.invalid'
-  | 'words.valid';
+  | 'words.valid'
+  | 'words.validity';
 
 export type Translate = (key: TranslationKey, replacements?: Record<string, string>) => string;
 

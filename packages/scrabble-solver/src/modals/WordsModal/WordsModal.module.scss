@@ -1,10 +1,10 @@
-.title {
+.content {
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  flex-direction: column;
+  height: 100%;
 }
 
-.badge {
-  margin-inline-start: var(--spacing--m);
+.words {
+  flex: 1 1 auto;
 }

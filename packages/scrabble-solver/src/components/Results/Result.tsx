@@ -3,6 +3,8 @@ import { type FocusEventHandler, type MouseEventHandler, type ReactElement, useR
 import Highlighter from 'react-highlight-words';
 import { type RowComponentProps } from 'react-window';
 
+import { Cell } from '@/components/Table';
+import tableStyles from '@/components/Table/Table.module.scss';
 import { useColumns } from '@/hooks/useColumns';
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import { noop } from '@/lib/noop';
@@ -15,7 +17,6 @@ import {
 } from '@/state';
 import { ResultColumnId } from '@/types';
 
-import { Cell } from './Cell';
 import styles from './Results.module.scss';
 import { type ResultData } from './types';
 
@@ -49,8 +50,8 @@ export const Result = ({
       aria-current={index === highlightedIndex ? 'true' : undefined}
       aria-hidden={isMatching ? undefined : 'true'}
       aria-label={result.word}
-      className={classNames(styles.result, {
-        [styles.highlighted]: index === highlightedIndex,
+      className={classNames(tableStyles.row, {
+        [tableStyles.highlighted]: index === highlightedIndex,
       })}
       data-testid="result"
       ref={ref}
@@ -61,13 +62,13 @@ export const Result = ({
       onFocus={handleFocus}
       onMouseEnter={handleMouseEnter}
     >
-      <span className={styles.resultContent}>
+      <span className={tableStyles.rowContent}>
         {columns[ResultColumnId.Coordinates] && (
           <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />
         )}
 
         {columns[ResultColumnId.Word] && (
-          <Cell className={styles.word} translationKey="common.word" value={result.word}>
+          <Cell className={classNames(styles.word, tableStyles.start)} translationKey="common.word" value={result.word}>
             <Highlighter highlightClassName={styles.highlight} searchWords={[query]} textToHighlight={result.word} />
           </Cell>
         )}

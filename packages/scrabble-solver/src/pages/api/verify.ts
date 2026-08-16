@@ -46,9 +46,9 @@ const verify = async (request: NextApiRequest, response: NextApiResponse): Promi
 
     for (const word of words) {
       if (gaddag.has(word.word)) {
-        validWords.push(word);
+        validWords.push({ ...word, isValid: true });
       } else {
-        invalidWords.push(word);
+        invalidWords.push({ ...word, isValid: false });
       }
     }
 

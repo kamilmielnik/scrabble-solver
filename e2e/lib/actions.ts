@@ -9,6 +9,7 @@ import {
   getRackTile,
   getResult,
   getResultsContainer,
+  getWord,
 } from './selectors';
 
 interface BoardPosition {
@@ -87,6 +88,20 @@ export async function solve(page: Page): Promise<void> {
 export async function hoverResult(page: Page, index = 0): Promise<void> {
   await page.waitForTimeout(100);
   await getResult(page, index).hover();
+}
+
+/**
+ * react-window remounts rows during its initial measure pass, and a row
+ * replaced under an already-hovered cursor never receives a new mouseenter -
+ * let the list settle before hovering.
+ */
+export async function hoverWord(page: Page, x: number, y: number, direction: Direction): Promise<void> {
+  await page.waitForTimeout(100);
+  await page.getByTestId(`word-${x}-${y}-${direction}`).hover();
+}
+
+export async function assertWord(page: Page, index: number, word: string): Promise<void> {
+  await expect(getWord(page, index)).toHaveAttribute('aria-label', word);
 }
 
 export async function assertResult(page: Page, index: number, word: string, points: number): Promise<void> {

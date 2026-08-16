@@ -1,6 +1,6 @@
 @use 'styles/mixins' as *;
 
-.results {
+.words {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -8,10 +8,6 @@
   background: var(--color--background--element);
   border: var(--border);
   border-radius: var(--border--radius);
-}
-
-.emptyState {
-  flex: 1;
 }
 
 .content {
@@ -27,12 +23,6 @@
 
 .list {
   @include scrollbars;
-
-  transition: var(--transition);
-
-  &.outdated {
-    filter: blur(2px);
-  }
 }
 
 .word {
@@ -49,14 +39,6 @@
   justify-content: center;
 }
 
-.points {
-  $width: 80px;
-
-  flex: 0 0 $width;
-  max-width: $width;
-  font-weight: bold;
-}
-
 .coordinates {
   $width: 55px;
 
@@ -64,19 +46,18 @@
   max-width: $width;
 }
 
-.solveButton {
+.invalid {
+  color: var(--color--error);
+}
+
+.valid {
+  color: var(--color--success);
+}
+
+.icon {
+  $size: 24px;
+
   display: block;
-  margin: var(--spacing--xl) auto 0;
-}
-
-.input {
-  border-top: var(--border);
-  border-bottom-left-radius: var(--border--radius);
-  border-bottom-right-radius: var(--border--radius);
-}
-
-.highlight {
-  background-color: var(--color--mark);
-  color: var(--color--foreground);
-  border-radius: var(--border--radius);
+  width: $size;
+  height: $size;
 }

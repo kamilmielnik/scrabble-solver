@@ -79,5 +79,6 @@
   "settings.showCoordinates.original": "Original",
   "words": "Created words",
   "words.invalid": "Invalid",
-  "words.valid": "Valid"
+  "words.valid": "Valid",
+  "words.validity": "Validity"
 }

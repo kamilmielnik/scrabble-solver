@@ -12,7 +12,7 @@ test.describe('#427 - Highlight created words on board on hover', () => {
     await Lib.typeBoard(page, 'cat', 'vertical', { x: 8, y: 8 });
     await openWordsModal(page);
 
-    await page.getByTestId('word-3-3-horizontal').hover();
+    await Lib.hoverWord(page, 3, 3, 'horizontal');
     await Lib.expectTileHighlighted(Lib.getBoardTile(page, 3, 3));
     await Lib.expectTileHighlighted(Lib.getBoardTile(page, 4, 3));
     await Lib.expectTileHighlighted(Lib.getBoardTile(page, 5, 3));
@@ -20,7 +20,7 @@ test.describe('#427 - Highlight created words on board on hover', () => {
     await Lib.expectTileNotHighlighted(Lib.getBoardTile(page, 8, 9));
     await Lib.expectTileNotHighlighted(Lib.getBoardTile(page, 8, 10));
 
-    await page.getByTestId('word-8-8-vertical').hover();
+    await Lib.hoverWord(page, 8, 8, 'vertical');
     await Lib.expectTileNotHighlighted(Lib.getBoardTile(page, 3, 3));
     await Lib.expectTileNotHighlighted(Lib.getBoardTile(page, 4, 3));
     await Lib.expectTileNotHighlighted(Lib.getBoardTile(page, 5, 3));
@@ -42,7 +42,8 @@ test.describe('#427 - Highlight created words on board on hover', () => {
     await Lib.typeBoard(page, 'zvq', 'horizontal', { x: 5, y: 5 });
     await openWordsModal(page);
 
-    await Lib.getOpenModal(page).getByLabel('Invalid', { exact: true }).getByTestId('word-5-5-horizontal').hover();
+    await expect(page.getByTestId('word-5-5-horizontal').getByLabel('Invalid', { exact: true })).toBeVisible();
+    await Lib.hoverWord(page, 5, 5, 'horizontal');
     await Lib.expectTileHighlighted(Lib.getBoardTile(page, 5, 5));
     await Lib.expectTileHighlighted(Lib.getBoardTile(page, 6, 5));
     await Lib.expectTileHighlighted(Lib.getBoardTile(page, 7, 5));
@@ -54,7 +55,7 @@ test.describe('#427 - Highlight created words on board on hover', () => {
     await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
     await openWordsModal(page);
 
-    await page.getByTestId('word-3-3-horizontal').hover();
+    await Lib.hoverWord(page, 3, 3, 'horizontal');
     await Lib.expectTileHighlighted(Lib.getBoardTile(page, 3, 3));
 
     await page.keyboard.press('Escape');
