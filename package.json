@@ -99,7 +99,7 @@
   ],
   "dependencies": {
     "@scrabble-solver/scrabble-solver": "^2.17.0",
-    "concurrently": "^10.0.4",
+    "concurrently": "^10.0.5",
     "open-cli": "^9.0.0",
     "wait-on": "^9.1.0"
   },
