@@ -3,7 +3,7 @@ import { type FunctionComponent, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { List } from 'react-window';
 
-import { HeaderButton } from '@/components/Table';
+import { HeaderButton, QueryInput } from '@/components/Table';
 import tableStyles from '@/components/Table/Table.module.scss';
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
 import { LOCALE_FEATURES } from '@/i18n/constants';
@@ -13,7 +13,8 @@ import { RESULTS_ITEM_HEIGHT, RESULTS_OVERSCAN_COUNT } from '@/parameters';
 import {
   hoveredWordSlice,
   selectLocale,
-  selectSortedWords,
+  selectProcessedWords,
+  selectWordsQuery,
   selectWordsSort,
   useTranslate,
   useTypedSelector,
@@ -34,13 +35,21 @@ export const WordsTable: FunctionComponent<Props> = ({ className }) => {
   const isTouchDevice = useIsTouchDevice();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
-  const words = useTypedSelector(selectSortedWords);
+  const words = useTypedSelector(selectProcessedWords);
+  const query = useTypedSelector(selectWordsQuery);
   const sort = useTypedSelector(selectWordsSort);
   const rowProps = useMemo<WordRowData>(() => ({ isTouchDevice, words }), [isTouchDevice, words]);
 
   const handleSort = useCallback(
     (columnId: WordColumnId) => {
       dispatch(verifySlice.actions.sort(columnId));
+    },
+    [dispatch],
+  );
+
+  const handleQueryChange = useCallback(
+    (newQuery: string) => {
+      dispatch(verifySlice.actions.changeQuery(newQuery));
     },
     [dispatch],
   );
@@ -103,6 +112,15 @@ export const WordsTable: FunctionComponent<Props> = ({ className }) => {
           />
         </div>
       </div>
+
+      {words.length > 0 && (
+        <QueryInput
+          className={styles.input}
+          placeholder={translate('words.input.placeholder')}
+          query={query}
+          onQueryChange={handleQueryChange}
+        />
+      )}
     </div>
   );
 };

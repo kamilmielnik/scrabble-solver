@@ -78,6 +78,7 @@
   "settings.showCoordinates.alternative": "بديل",
   "settings.showCoordinates.original": "إبداعي",
   "words": "کلمات ساخته شده",
+  "words.input.placeholder": "جستجو در کلمات (RegExp)",
   "words.invalid": "نا معتبر",
   "words.valid": "معتبر",
   "words.validity": "اعتبار"

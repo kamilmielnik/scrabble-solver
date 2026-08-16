@@ -1,4 +1,4 @@
-import { type Result } from '@scrabble-solver/types';
+import { type BoardWord, type Result } from '@scrabble-solver/types';
 
 export type Comparator<T> = (a: T, B: T) => number;
 
@@ -69,6 +69,11 @@ export enum WordColumnId {
 export interface GroupedResults {
   matching: Result[];
   other: Result[];
+}
+
+export interface GroupedWords {
+  matching: BoardWord[];
+  other: BoardWord[];
 }
 
 export type TranslationKey =
@@ -151,6 +156,7 @@ export type TranslationKey =
   | 'settings.showCoordinates.alternative'
   | 'settings.showCoordinates.original'
   | 'words'
+  | 'words.input.placeholder'
   | 'words.invalid'
   | 'words.valid'
   | 'words.validity';

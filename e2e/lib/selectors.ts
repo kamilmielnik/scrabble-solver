@@ -71,6 +71,10 @@ export function getWord(page: Page, index = 0): Locator {
   return getWords(page).nth(index);
 }
 
+export function getWordsFilterInput(page: Page): Locator {
+  return getWordsContainer(page).getByRole('textbox');
+}
+
 export function getSettingsButton(page: Page): Locator {
   return page.getByTestId('settings-button');
 }

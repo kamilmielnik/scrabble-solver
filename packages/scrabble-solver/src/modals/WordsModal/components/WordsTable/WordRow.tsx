@@ -1,6 +1,7 @@
 import { type BoardWord } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import { type ReactElement } from 'react';
+import Highlighter from 'react-highlight-words';
 import { useDispatch } from 'react-redux';
 import { type RowComponentProps } from 'react-window';
 
@@ -11,7 +12,9 @@ import Cross from '@/icons/Cross.svg';
 import {
   hoveredWordSlice,
   selectHoveredWord,
+  selectIsWordMatching,
   selectWordCoordinates,
+  selectWordsQuery,
   useTranslate,
   useTypedSelector,
   useTypedStore,
@@ -30,6 +33,8 @@ export const WordRow = ({ index, isTouchDevice, style, words }: RowComponentProp
   const store = useTypedStore();
   const word = words[index];
   const coordinates = useTypedSelector((state) => selectWordCoordinates(state, index));
+  const isMatching = useTypedSelector((state) => selectIsWordMatching(state, index));
+  const query = useTypedSelector(selectWordsQuery);
   const validityLabel = translate(word.isValid ? 'words.valid' : 'words.invalid');
   const Icon = word.isValid ? Check : Cross;
 
@@ -51,6 +56,7 @@ export const WordRow = ({ index, isTouchDevice, style, words }: RowComponentProp
 
   return (
     <button
+      aria-hidden={isMatching ? undefined : 'true'}
       aria-label={word.word}
       className={tableStyles.row}
       data-testid={`word-${word.x}-${word.y}-${word.direction}`}
@@ -64,7 +70,9 @@ export const WordRow = ({ index, isTouchDevice, style, words }: RowComponentProp
       <span className={tableStyles.rowContent}>
         <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />
 
-        <Cell className={classNames(styles.word, tableStyles.start)} translationKey="common.word" value={word.word} />
+        <Cell className={classNames(styles.word, tableStyles.start)} translationKey="common.word" value={word.word}>
+          <Highlighter highlightClassName={styles.highlight} searchWords={[query]} textToHighlight={word.word} />
+        </Cell>
 
         <Cell className={styles.stat} value={validityLabel}>
           <Icon

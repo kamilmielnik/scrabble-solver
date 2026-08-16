@@ -61,3 +61,15 @@
   width: $size;
   height: $size;
 }
+
+.input {
+  border-top: var(--border);
+  border-bottom-left-radius: var(--border--radius);
+  border-bottom-right-radius: var(--border--radius);
+}
+
+.highlight {
+  background-color: var(--color--mark);
+  color: var(--color--foreground);
+  border-radius: var(--border--radius);
+}

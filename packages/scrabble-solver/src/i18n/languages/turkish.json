@@ -78,6 +78,7 @@
   "settings.showCoordinates.alternative": "Alternatif",
   "settings.showCoordinates.original": "Orijinal",
   "words": "Oluşturulan kelimeler",
+  "words.input.placeholder": "Kelimeleri Ara... (RegExp)",
   "words.invalid": "Geçersiz",
   "words.valid": "Geçerli",
   "words.validity": "Geçerlilik"

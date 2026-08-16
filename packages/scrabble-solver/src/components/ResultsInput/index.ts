@@ -1,1 +1,0 @@
-export { ResultsInput } from './ResultsInput';

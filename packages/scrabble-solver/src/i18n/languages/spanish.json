@@ -78,6 +78,7 @@
   "settings.showCoordinates.alternative": "Alternativa",
   "settings.showCoordinates.original": "Original",
   "words": "Palabras creadas",
+  "words.input.placeholder": "Busque una palabra... (RegExp)",
   "words.invalid": "Incorrecto",
   "words.valid": "Correcto",
   "words.validity": "Validez"

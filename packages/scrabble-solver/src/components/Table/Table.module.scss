@@ -110,6 +110,17 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   min-width: 0;
 }
 
+.queryInput {
+  @include focus-effect;
+}
+
+.queryInputField {
+  @include text-input;
+
+  border: none;
+  border-radius: inherit;
+}
+
 .sortIcon {
   $size: 19px;
 

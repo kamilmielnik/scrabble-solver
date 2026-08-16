@@ -10,6 +10,7 @@ export interface VerifyState {
     board: BoardState;
   };
   invalidWords: BoardWord[];
+  query: string;
   sort: Sort<WordColumnId>;
   validWords: BoardWord[];
 }

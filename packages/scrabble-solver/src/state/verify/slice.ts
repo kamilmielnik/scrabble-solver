@@ -20,6 +20,10 @@ export const verifySlice = createSlice({
       return { ...state, isLoading: true };
     },
 
+    changeQuery: (state, action: PayloadAction<string>) => {
+      return { ...state, query: action.payload };
+    },
+
     submitFailure: (state) => {
       return { ...state, isLoading: false };
     },

@@ -10,6 +10,7 @@ export const verifyInitialState: VerifyState = {
     board: boardInitialState,
   },
   invalidWords: [],
+  query: '',
   sort: {
     column: WordColumnId.Word,
     direction: SortDirection.Ascending,
