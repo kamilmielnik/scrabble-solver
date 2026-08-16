@@ -80,6 +80,7 @@
   "words": "Mots créés",
   "words.input.placeholder": "Rechercher les mots... (RegExp)",
   "words.invalid": "Incorrect",
+  "words.preview": "Prévisualisation",
   "words.valid": "Corriger",
   "words.validity": "Validité"
 }

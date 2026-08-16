@@ -80,6 +80,7 @@
   "words": "Oluşturulan kelimeler",
   "words.input.placeholder": "Kelimeleri Ara... (RegExp)",
   "words.invalid": "Geçersiz",
+  "words.preview": "Önizleme",
   "words.valid": "Geçerli",
   "words.validity": "Geçerlilik"
 }

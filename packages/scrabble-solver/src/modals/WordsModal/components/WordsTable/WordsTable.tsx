@@ -1,3 +1,4 @@
+import { isSameBoardWord } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import { type FunctionComponent, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
@@ -6,12 +7,14 @@ import { List } from 'react-window';
 import { HeaderButton, QueryInput } from '@/components/Table';
 import tableStyles from '@/components/Table/Table.module.scss';
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import GeoAlt from '@/icons/GeoAlt.svg';
 import QuestionSquare from '@/icons/QuestionSquare.svg';
 import { RESULTS_ITEM_HEIGHT, RESULTS_OVERSCAN_COUNT } from '@/parameters';
 import {
   hoveredWordSlice,
+  selectHoveredWord,
   selectLocale,
   selectProcessedWords,
   selectWordsQuery,
@@ -27,18 +30,26 @@ import styles from './WordsTable.module.scss';
 
 interface Props {
   className?: string;
+  onPreview: () => void;
 }
 
-export const WordsTable: FunctionComponent<Props> = ({ className }) => {
+export const WordsTable: FunctionComponent<Props> = ({ className, onPreview }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
+  const isPreviewMode = useMediaQuery('<l');
+  const usesHover = !isTouchDevice && !isPreviewMode;
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const words = useTypedSelector(selectProcessedWords);
   const query = useTypedSelector(selectWordsQuery);
   const sort = useTypedSelector(selectWordsSort);
-  const rowProps = useMemo<WordRowData>(() => ({ isTouchDevice, words }), [isTouchDevice, words]);
+  const hoveredWord = useTypedSelector(selectHoveredWord);
+  const highlightedIndex = hoveredWord ? words.findIndex((word) => isSameBoardWord(word, hoveredWord)) : -1;
+  const rowProps = useMemo<WordRowData>(
+    () => ({ highlightedIndex, isPreviewMode, isTouchDevice, words, onPreview }),
+    [highlightedIndex, isPreviewMode, isTouchDevice, words, onPreview],
+  );
 
   const handleSort = useCallback(
     (columnId: WordColumnId) => {
@@ -59,10 +70,20 @@ export const WordsTable: FunctionComponent<Props> = ({ className }) => {
   }, [dispatch]);
 
   useEffect(() => {
+    if (isPreviewMode && words.length > 0 && highlightedIndex === -1) {
+      dispatch(hoveredWordSlice.actions.set(words[0]));
+    }
+  }, [dispatch, highlightedIndex, isPreviewMode, words]);
+
+  useEffect(() => {
+    if (!usesHover) {
+      return;
+    }
+
     return () => {
       dispatch(hoveredWordSlice.actions.clear());
     };
-  }, [dispatch]);
+  }, [dispatch, usesHover]);
 
   return (
     <div
@@ -100,7 +121,7 @@ export const WordsTable: FunctionComponent<Props> = ({ className }) => {
       </div>
 
       <div className={styles.content}>
-        <div className={styles.listContainer} onMouseLeave={handleMouseLeave}>
+        <div className={styles.listContainer} onMouseLeave={usesHover ? handleMouseLeave : undefined}>
           <List
             className={styles.list}
             dir={direction}

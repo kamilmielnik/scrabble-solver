@@ -8,3 +8,7 @@ export interface BoardWord {
   x: number;
   y: number;
 }
+
+export const isSameBoardWord = (a: BoardWord, b: BoardWord): boolean => {
+  return a.direction === b.direction && a.x === b.x && a.y === b.y;
+};

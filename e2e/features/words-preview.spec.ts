@@ -1,0 +1,49 @@
+import { expect, type Page, test } from '@playwright/test';
+
+import * as Lib from '../lib';
+
+test.describe('Words preview', () => {
+  test.use({ viewport: { width: 800, height: 900 } });
+
+  test('selects the first word on open and previews the selected word on the board', async ({ page }) => {
+    await Lib.visitIndex(page);
+    await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
+    await Lib.typeBoard(page, 'dog', 'horizontal', { x: 3, y: 5 });
+    await openWordsModal(page);
+
+    await expect(Lib.getWord(page, 0)).toHaveAttribute('aria-current', 'true');
+
+    await Lib.getWord(page, 1).click();
+    await expect(Lib.getWord(page, 1)).toHaveAttribute('aria-current', 'true');
+    await expect(Lib.getWord(page, 0)).not.toHaveAttribute('aria-current');
+
+    await Lib.getOpenModal(page).getByRole('button', { name: 'Preview', exact: true }).click();
+    await expect(Lib.getOpenModal(page)).toHaveCount(0);
+    await Lib.expectTileHighlighted(Lib.getBoardTile(page, 3, 5));
+    await Lib.expectTileHighlighted(Lib.getBoardTile(page, 4, 5));
+    await Lib.expectTileHighlighted(Lib.getBoardTile(page, 5, 5));
+    await Lib.expectTileNotHighlighted(Lib.getBoardTile(page, 3, 3));
+  });
+
+  test.describe('phone', () => {
+    test.use({ viewport: { width: 420, height: 900 } });
+
+    test('previewing from the menu-opened modal returns to the board', async ({ page }) => {
+      await Lib.visitIndex(page);
+      await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
+      await page.getByRole('button', { name: 'Menu', exact: true }).click();
+      await Lib.getOpenModal(page).getByLabel('Created words', { exact: true }).click();
+
+      await expect(Lib.getWord(page, 0)).toHaveAttribute('aria-current', 'true');
+
+      await page.getByRole('button', { name: 'Preview', exact: true }).click();
+      await expect(Lib.getModal(page)).toHaveCount(0);
+      await Lib.expectTileHighlighted(Lib.getBoardTile(page, 3, 3));
+    });
+  });
+});
+
+async function openWordsModal(page: Page) {
+  await page.getByLabel('Created words', { exact: true }).click();
+  await expect(Lib.getOpenModal(page)).toBeVisible();
+}

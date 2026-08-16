@@ -80,6 +80,7 @@
   "words": "Created words",
   "words.input.placeholder": "Search words... (RegExp)",
   "words.invalid": "Invalid",
+  "words.preview": "Preview",
   "words.valid": "Valid",
   "words.validity": "Validity"
 }

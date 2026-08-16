@@ -1,4 +1,4 @@
-import { type BoardWord } from '@scrabble-solver/types';
+import { type BoardWord, isSameBoardWord } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import { type ReactElement } from 'react';
 import Highlighter from 'react-highlight-words';
@@ -23,14 +23,26 @@ import {
 import styles from './WordsTable.module.scss';
 
 export interface WordRowData {
+  highlightedIndex: number;
+  isPreviewMode: boolean;
   isTouchDevice: boolean;
   words: BoardWord[];
+  onPreview: () => void;
 }
 
-export const WordRow = ({ index, isTouchDevice, style, words }: RowComponentProps<WordRowData>): ReactElement => {
+export const WordRow = ({
+  highlightedIndex,
+  index,
+  isPreviewMode,
+  isTouchDevice,
+  style,
+  words,
+  onPreview,
+}: RowComponentProps<WordRowData>): ReactElement => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const store = useTypedStore();
+  const usesHover = !isTouchDevice && !isPreviewMode;
   const word = words[index];
   const coordinates = useTypedSelector((state) => selectWordCoordinates(state, index));
   const isMatching = useTypedSelector((state) => selectIsWordMatching(state, index));
@@ -47,25 +59,33 @@ export const WordRow = ({ index, isTouchDevice, style, words }: RowComponentProp
   };
 
   const handleClick = () => {
-    if (selectHoveredWord(store.getState()) === word) {
-      dispatch(hoveredWordSlice.actions.clear());
-    } else {
+    const hoveredWord = selectHoveredWord(store.getState());
+    const isSelected = hoveredWord !== null && isSameBoardWord(hoveredWord, word);
+
+    if (!isSelected) {
       dispatch(hoveredWordSlice.actions.set(word));
+    } else if (isPreviewMode) {
+      onPreview();
+    } else {
+      dispatch(hoveredWordSlice.actions.clear());
     }
   };
 
   return (
     <button
+      aria-current={index === highlightedIndex ? 'true' : undefined}
       aria-hidden={isMatching ? undefined : 'true'}
       aria-label={word.word}
-      className={tableStyles.row}
+      className={classNames(tableStyles.row, {
+        [tableStyles.highlighted]: index === highlightedIndex,
+      })}
       data-testid={`word-${word.x}-${word.y}-${word.direction}`}
       style={style}
       type="button"
-      onBlur={isTouchDevice ? undefined : handleClear}
-      onClick={isTouchDevice ? handleClick : undefined}
-      onFocus={isTouchDevice ? undefined : handleSet}
-      onMouseEnter={isTouchDevice ? undefined : handleSet}
+      onBlur={usesHover ? handleClear : undefined}
+      onClick={usesHover ? undefined : handleClick}
+      onFocus={usesHover ? handleSet : undefined}
+      onMouseEnter={usesHover ? handleSet : undefined}
     >
       <span className={tableStyles.rowContent}>
         <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />

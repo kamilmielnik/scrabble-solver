@@ -158,6 +158,7 @@ export type TranslationKey =
   | 'words'
   | 'words.input.placeholder'
   | 'words.invalid'
+  | 'words.preview'
   | 'words.valid'
   | 'words.validity';
 

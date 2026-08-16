@@ -80,6 +80,7 @@
   "words": "کلمات ساخته شده",
   "words.input.placeholder": "جستجو در کلمات (RegExp)",
   "words.invalid": "نا معتبر",
+  "words.preview": "پیش نمایش",
   "words.valid": "معتبر",
   "words.validity": "اعتبار"
 }

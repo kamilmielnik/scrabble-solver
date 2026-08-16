@@ -1,7 +1,7 @@
 export { Bingo, isBingo, isMultiplierBingo, isScoreBingo } from './Bingo';
 export { Board } from './Board';
 export { BoardJson, isBoardJson } from './BoardJson';
-export { BoardWord } from './BoardWord';
+export { BoardWord, isSameBoardWord } from './BoardWord';
 export { Bonus } from './Bonus';
 export { BonusJson } from './BonusJson';
 export { BonusValue } from './BonusValue';

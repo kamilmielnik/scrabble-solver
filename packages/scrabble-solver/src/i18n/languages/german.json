@@ -80,6 +80,7 @@
   "words": "Gebildete Wörter",
   "words.input.placeholder": "Wörter suchen... (RegExp)",
   "words.invalid": "Falsch",
+  "words.preview": "Vorschau",
   "words.valid": "Korrekt",
   "words.validity": "Gültigkeit"
 }

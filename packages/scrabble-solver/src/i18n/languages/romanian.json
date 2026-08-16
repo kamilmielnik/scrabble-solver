@@ -80,6 +80,7 @@
   "words": "Cuvinte create",
   "words.input.placeholder": "Cautare cuvinte... (RegExp)",
   "words.invalid": "Invalid",
+  "words.preview": "Previzualizare",
   "words.valid": "Valid",
   "words.validity": "Validitate"
 }
