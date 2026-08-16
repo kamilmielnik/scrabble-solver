@@ -1,7 +1,12 @@
 {
   "name": "@scrabble-solver/logger",
   "version": "2.18.0",
-  "description": "Scrabble Solver 2 - Logger",
+  "description": "Winston-based JSON file logger for Scrabble Solver.",
+  "keywords": [
+    "logger",
+    "winston",
+    "scrabble"
+  ],
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "repository": {

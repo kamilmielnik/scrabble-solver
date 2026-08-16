@@ -1,1 +1,0 @@
-export { SeoMessage } from './SeoMessage';

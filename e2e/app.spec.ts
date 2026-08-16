@@ -26,7 +26,7 @@ test.describe('app', () => {
   test('has title', async ({ page }) => {
     await visitIndex(page);
 
-    await expect(page).toHaveTitle('Scrabble Solver 2');
+    await expect(page).toHaveTitle('Scrabble Solver 2 - Board Solver & Word Finder');
   });
 
   test('has default setting values', async ({ page }) => {

@@ -1,7 +1,14 @@
 {
   "name": "@scrabble-solver/scrabble-solver",
   "version": "2.18.0",
-  "description": "Scrabble Solver 2 - App",
+  "description": "Scrabble Solver web app: free word finder and board solver for Scrabble, Super Scrabble, Literaki, and more.",
+  "keywords": [
+    "scrabble",
+    "word-finder",
+    "solver",
+    "nextjs",
+    "react"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kamilmielnik/scrabble-solver.git"
@@ -11,7 +18,7 @@
     "email": "kamil@kamilmielnik.com",
     "url": "https://kamilmielnik.com"
   },
-  "license": "CC BY-NC-ND 4.0",
+  "license": "CC-BY-NC-ND-4.0",
   "bugs": {
     "url": "https://github.com/kamilmielnik/scrabble-solver/issues"
   },

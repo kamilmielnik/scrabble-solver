@@ -1,7 +1,15 @@
 {
   "name": "@scrabble-solver/word-lists",
   "version": "2.18.0",
-  "description": "Scrabble Solver 2 - Word lists",
+  "description": "Per-locale word list downloaders for Scrabble Solver (SOWPODS, TWL06, SJP, and more).",
+  "keywords": [
+    "word-list",
+    "scrabble",
+    "dictionary",
+    "sowpods",
+    "twl06",
+    "sjp"
+  ],
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "repository": {

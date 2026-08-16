@@ -1,7 +1,14 @@
 {
   "name": "@scrabble-solver/dictionaries",
   "version": "2.18.0",
-  "description": "Scrabble Solver 2 - Dictionaries",
+  "description": "Dictionary manager for Scrabble Solver: downloads per-locale word lists and serves them as GADDAG automata with layered disk/memory caching.",
+  "keywords": [
+    "scrabble",
+    "dictionary",
+    "gaddag",
+    "word-list",
+    "cache"
+  ],
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "bin": {

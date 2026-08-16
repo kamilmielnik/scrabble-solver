@@ -18,7 +18,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import { schedulePreloadModals } from '@/modals/preload';
-import { CONFIG_PENDING_CLASS } from '@/parameters';
+import { CONFIG_PENDING_CLASS, GITHUB_PROJECT_URL, NPM_PACKAGE_URL, SITE_DESCRIPTION, SITE_URL } from '@/parameters';
 import { registerServiceWorker } from '@/serviceWorkerManager';
 import { initialize, reset, selectConfig, selectIsHydrated, selectLocale, useTypedSelector } from '@/state';
 
@@ -47,6 +47,30 @@ const SettingsModal = dynamic(() => import('@/modals/SettingsModal').then((modul
 });
 const WordsModal = dynamic(() => import('@/modals/WordsModal').then((module) => module.WordsModal), {
   ssr: false,
+});
+
+const WEB_APPLICATION_JSON_LD = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Scrabble Solver',
+  alternateName: 'Scrabble Solver 2',
+  url: `${SITE_URL}/`,
+  description: SITE_DESCRIPTION,
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'Any',
+  browserRequirements: 'Requires JavaScript',
+  image: `${SITE_URL}/og.png`,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  inLanguage: ['en-US', 'en-GB', 'de-DE', 'es-ES', 'fa-IR', 'fr-FR', 'pl-PL', 'ro-RO', 'tr-TR'],
+  featureList: [
+    'Finds the highest-scoring words for a given board and rack',
+    'Supports Scrabble, Super Scrabble, Scrabble Duel, Letter League, Crossplay, Literaki, and Kelimelik',
+    'Dictionaries and word definitions in 8 languages',
+    'Works offline once a dictionary is cached',
+    'Free, open source, no ads, no sign-up',
+  ],
+  sameAs: [GITHUB_PROJECT_URL, NPM_PACKAGE_URL],
+  author: { '@type': 'Person', name: 'Kamil Mielnik', url: 'https://kamilmielnik.com' },
 });
 
 interface Props {
@@ -149,11 +173,11 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     <>
       <nav className={styles.nav}>
         <div className={styles.navContent}>
-          <div className={styles.navLogo}>
+          <h1 className={styles.navLogo}>
             <a className={styles.logoContainer} href="/" title={version}>
               <Logo className={styles.logo} />
             </a>
-          </div>
+          </h1>
 
           <NavButtons
             onClear={handleClear}
@@ -169,6 +193,9 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       <main>
         <Solver className={styles.solver} onShowResults={handleShowResults} />
       </main>
+
+      {/* eslint-disable-next-line react/no-danger */}
+      <script dangerouslySetInnerHTML={{ __html: WEB_APPLICATION_JSON_LD }} type="application/ld+json" />
 
       {mountedModals.menu && (
         <MenuModal

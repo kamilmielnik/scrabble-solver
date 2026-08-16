@@ -1,7 +1,13 @@
 {
   "name": "@scrabble-solver/word-definitions",
   "version": "2.18.0",
-  "description": "Scrabble Solver 2 - Word definitions",
+  "description": "Word definition crawlers and parsers for Scrabble Solver (Wiktionary, CNRTL, DWDS, SJP, dexonline, and more).",
+  "keywords": [
+    "word-definitions",
+    "dictionary",
+    "wiktionary",
+    "scrabble"
+  ],
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "repository": {

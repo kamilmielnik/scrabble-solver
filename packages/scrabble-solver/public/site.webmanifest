@@ -1,0 +1,14 @@
+{
+  "name": "Scrabble Solver",
+  "short_name": "Scrabble Solver",
+  "description": "Free Scrabble word finder and board solver.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f4f4",
+  "theme_color": "#efe3ae",
+  "icons": [
+    { "src": "/icons/favicon-196x196.png", "sizes": "196x196", "type": "image/png" },
+    { "src": "/icons/favicon-128.png", "sizes": "128x128", "type": "image/png" },
+    { "src": "/icons/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

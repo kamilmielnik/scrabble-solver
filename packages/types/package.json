@@ -1,7 +1,14 @@
 {
   "name": "@scrabble-solver/types",
   "version": "2.18.0",
-  "description": "Scrabble Solver 2 - Types",
+  "description": "Domain model for Scrabble Solver: Board, Cell, Tile, Result, Config, Locale, and their JSON wire shapes.",
+  "keywords": [
+    "scrabble",
+    "types",
+    "domain-model",
+    "board",
+    "tiles"
+  ],
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "repository": {

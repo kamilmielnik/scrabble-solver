@@ -4,85 +4,49 @@ import Head from 'next/head';
 import { type FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
 
-import { SeoMessage } from '@/components/SeoMessage';
+import { SITE_DESCRIPTION, SITE_URL } from '@/parameters';
 import { store } from '@/state';
 
 import '../styles/global.scss';
 
-const DESCRIPTION =
-  'Scrabble Solver 2 - Free and open-source analysis tool for Scrabble, Scrabble Duel, Super Scrabble, Letter League, Crossplay, Literaki and Kelimelik. Quickly find top scoring words using given letters and board state. Available in English, French, German, Persian, Polish, Romanian, Spanish, and Turkish.';
+const TITLE = 'Scrabble Solver 2 - Board Solver & Word Finder';
 
-const KEYWORDS = [
-  'Scrabble Solver',
-  'Scrabble',
-  'Scrabble Duel',
-  'Solver',
-  'Super Scrabble',
-  'Kelimelik',
-  'Letter League',
-  'Crossplay',
-  'NYT Crossplay',
-  'Literaki',
-  'Board',
-  'Open-source',
-  'Open',
-  'Source',
-  'Word',
-  'Finder',
-  'Cheating',
-  'Word',
-  'English',
-  'Français',
-  'French',
-  'Deutsch',
-  'German',
-  'Polski',
-  'Polish',
-  'فارسی',
-  'Farsi',
-  'Español',
-  'Spanish',
-  'Română',
-  'Romanian',
-  'Türkçe',
-  'Turkish',
-  'SOWPODS',
-  'TWL06',
-  'SJP',
-  'FISE-2017',
-  'FISE-2',
-  'CNRTL',
-  'Kamil Mielnik',
-].join(',');
+const App: FunctionComponent<AppProps> = ({ Component, pageProps, router }) => {
+  const isIndexable = router.pathname === '/';
 
-const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
-  <>
-    <Head>
-      <title>Scrabble Solver 2</title>
-      <meta charSet="utf-8" />
-      <meta name="author" content="Kamil Mielnik" />
-      <meta name="description" content={DESCRIPTION} />
-      <meta name="keywords" content={KEYWORDS} />
-      <meta name="robots" content="index, follow, notranslate, noimageindex" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta property="og:title" content={DESCRIPTION} />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://scrabble-solver.org" />
-      <meta property="og:image" content="https://scrabble-solver.org/og.png" />
-      <meta property="og:image:type" content="image/png" />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content={DESCRIPTION} />
-    </Head>
+  return (
+    <>
+      <Head>
+        <title>{TITLE}</title>
+        <meta charSet="utf-8" />
+        <meta name="author" content="Kamil Mielnik" />
+        <meta name="description" content={SITE_DESCRIPTION} />
+        {isIndexable ? <link rel="canonical" href={`${SITE_URL}/`} /> : <meta name="robots" content="noindex" />}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta property="og:site_name" content="Scrabble Solver" />
+        <meta property="og:title" content={TITLE} />
+        <meta property="og:description" content={SITE_DESCRIPTION} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${SITE_URL}/`} />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:image" content={`${SITE_URL}/og.png`} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Scrabble tiles spelling out Scrabble Solver 2" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={TITLE} />
+        <meta name="twitter:description" content={SITE_DESCRIPTION} />
+        <meta name="twitter:image" content={`${SITE_URL}/og.png`} />
+      </Head>
 
-    <Provider store={store}>
-      <SeoMessage />
-
-      <FloatingDelayGroup delay={0}>
-        <Component {...pageProps} />
-      </FloatingDelayGroup>
-    </Provider>
-  </>
-);
+      <Provider store={store}>
+        <FloatingDelayGroup delay={0}>
+          <Component {...pageProps} />
+        </FloatingDelayGroup>
+      </Provider>
+    </>
+  );
+};
 
 export default App;

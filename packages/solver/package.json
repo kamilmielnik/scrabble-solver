@@ -1,7 +1,15 @@
 {
   "name": "@scrabble-solver/solver",
   "version": "2.18.0",
-  "description": "Scrabble Solver 2 - Solver",
+  "description": "Scrabble move-generation engine: anchor-based GADDAG search that finds and scores every legal move for a given board, rack, and game config.",
+  "keywords": [
+    "scrabble",
+    "solver",
+    "gaddag",
+    "move-generation",
+    "word-finder",
+    "anagram"
+  ],
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "repository": {

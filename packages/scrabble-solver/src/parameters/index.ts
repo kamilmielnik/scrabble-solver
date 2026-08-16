@@ -10,6 +10,13 @@ export const BREAKPOINTS = {
 
 export const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';
 
+export const NPM_PACKAGE_URL = 'https://www.npmjs.com/package/scrabble-solver';
+
+export const SITE_URL = 'https://scrabble-solver.org';
+
+export const SITE_DESCRIPTION =
+  'Free, open-source board solver and word finder for Scrabble, Letter League, and Literaki. Enter your letters and board to get the highest-scoring words.';
+
 // Must match the class name in global.scss
 export const CONFIG_PENDING_CLASS = 'config-pending';
 

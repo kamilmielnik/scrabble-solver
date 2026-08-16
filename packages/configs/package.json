@@ -1,7 +1,16 @@
 {
   "name": "@scrabble-solver/configs",
   "version": "2.18.0",
-  "description": "Scrabble Solver 2 - Configs",
+  "description": "Game and language configs for Scrabble Solver: board layouts, bonus squares, tile distributions, and points for 7 games and 9 locales.",
+  "keywords": [
+    "scrabble",
+    "board-game",
+    "tile-distribution",
+    "game-config",
+    "literaki",
+    "kelimelik",
+    "super-scrabble"
+  ],
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "repository": {
