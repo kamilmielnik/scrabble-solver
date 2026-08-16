@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/logger",
-  "version": "2.17.0",
+  "version": "2.18.0",
   "description": "Scrabble Solver 2 - Logger",
   "main": "build/index.js",
   "types": "build/index.d.ts",

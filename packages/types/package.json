@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/types",
-  "version": "2.17.0",
+  "version": "2.18.0",
   "description": "Scrabble Solver 2 - Types",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -24,7 +24,7 @@
     "test": "bun test src"
   },
   "dependencies": {
-    "@scrabble-solver/constants": "^2.17.0"
+    "@scrabble-solver/constants": "^2.18.0"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }
