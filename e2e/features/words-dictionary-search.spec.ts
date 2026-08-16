@@ -18,8 +18,26 @@ test.describe('Words dictionary search', () => {
 
     await Lib.hoverWord(page, 8, 8, 'horizontal');
     await expect(Lib.getDictionaryInput(page)).toHaveValue('dog');
+
+    await expect(getModalDictionary(page)).toBeHidden();
+  });
+
+  test.describe('mobile', () => {
+    test.use({ viewport: { width: 800, height: 900 } });
+
+    test('shows the dictionary below the words table', async ({ page }) => {
+      await Lib.visitIndex(page);
+      await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
+      await openWordsModal(page);
+
+      await expect(getModalDictionary(page)).toBeVisible();
+    });
   });
 });
+
+function getModalDictionary(page: Page) {
+  return Lib.getOpenModal(page).locator('[class*="dictionary"]');
+}
 
 async function openWordsModal(page: Page) {
   await page.getByLabel('Created words', { exact: true }).click();

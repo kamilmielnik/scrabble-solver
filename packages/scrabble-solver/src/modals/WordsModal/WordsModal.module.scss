@@ -1,10 +1,25 @@
+@use 'styles/mixins' as *;
+
 .content {
   position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
+  gap: var(--spacing--l);
 }
 
 .words {
   flex: 1 1 auto;
+}
+
+// The main page shows the dictionary next to the board from the `l` breakpoint up
+.dictionary {
+  flex: 0 0 var(--dictionary--height--mobile);
+  background-color: var(--color--background--element);
+  border: var(--border);
+  border-radius: var(--border--radius);
+
+  @include media('>=l') {
+    display: none;
+  }
 }
