@@ -11,7 +11,7 @@ import { call, delay, put, select, spawn, takeEvery, takeLatest } from 'redux-sa
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import { loadTranslations } from '@/i18n/i18n';
 import { memoize } from '@/lib/memoize';
-import { waitForIdleOrFirstIntent } from '@/lib/waitForIdleOrFirstIntent';
+import { waitForFirstIntent, waitForIdleOrFirstIntent } from '@/lib/waitForIdleOrFirstIntent';
 import { findWordDefinitions, solve, verify, visit } from '@/sdk';
 import { prefetchDictionary } from '@/solver-worker';
 
@@ -139,7 +139,7 @@ function* onInitialize({ payload }: PayloadAction<{ version: string }>): AnyGene
   const board = yield select(selectBoard);
   const locale = yield select(selectLocale);
 
-  yield spawn(prefetchDictionaryWhenIdle);
+  yield spawn(prefetchDictionaryOnFirstIntent);
   yield spawn(loadLocaleTranslations, locale);
   yield spawn(preloadTranslationsWhenIdle);
   yield spawn(visitWhenIdle);
@@ -202,8 +202,8 @@ function* visitWhenIdle(): AnyGenerator {
   yield call(visit);
 }
 
-function* prefetchDictionaryWhenIdle(): AnyGenerator {
-  yield call(waitForIdleOrFirstIntent);
+function* prefetchDictionaryOnFirstIntent(): AnyGenerator {
+  yield call(waitForFirstIntent);
   const locale = yield select(selectLocale);
   yield call(prefetchDictionary, locale);
 }

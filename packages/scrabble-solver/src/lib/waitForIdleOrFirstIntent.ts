@@ -1,19 +1,30 @@
 export function waitForIdleOrFirstIntent(): Promise<void> {
   return new Promise((resolve) => {
-    const settle = () => {
-      window.removeEventListener('pointerdown', settle);
-      window.removeEventListener('keydown', settle);
-      resolve();
-    };
-
-    window.addEventListener('pointerdown', settle, { once: true });
-    window.addEventListener('keydown', settle, { once: true });
+    const settle = onFirstIntent(resolve);
     whenIdle(settle);
+  });
+}
+
+export function waitForFirstIntent(): Promise<void> {
+  return new Promise((resolve) => {
+    onFirstIntent(resolve);
   });
 }
 
 export function waitForIdle(): Promise<void> {
   return new Promise((resolve) => whenIdle(resolve));
+}
+
+function onFirstIntent(callback: () => void): () => void {
+  const settle = () => {
+    window.removeEventListener('pointerdown', settle);
+    window.removeEventListener('keydown', settle);
+    callback();
+  };
+
+  window.addEventListener('pointerdown', settle, { once: true });
+  window.addEventListener('keydown', settle, { once: true });
+  return settle;
 }
 
 function whenIdle(callback: () => void): void {

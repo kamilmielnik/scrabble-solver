@@ -18,6 +18,8 @@ test.describe('Solver paths', () => {
 
   test('solves locally once the dictionary is cached', async ({ page }) => {
     await Lib.visitIndex(page);
+    await Lib.typeBoard(page, 'i', 'horizontal', { x: 7, y: 7 });
+    await Lib.typeRack(page, 'q');
     await waitForCachedDictionary(page);
 
     let solveRequestCount = 0;
@@ -25,8 +27,6 @@ test.describe('Solver paths', () => {
       solveRequestCount += 1;
       return route.continue();
     });
-    await Lib.typeBoard(page, 'i', 'horizontal', { x: 7, y: 7 });
-    await Lib.typeRack(page, 'q');
     await Lib.solve(page);
 
     await expect(Lib.getResults(page)).toHaveCount(2);
