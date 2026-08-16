@@ -3,6 +3,8 @@
 .form {
   @include focus-effect;
 
+  width: calc(var(--rack-size) * var(--rack-tile-size));
+  height: var(--rack-tile-size);
   border-radius: var(--border--radius);
 }
 

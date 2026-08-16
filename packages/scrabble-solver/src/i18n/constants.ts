@@ -1,14 +1,10 @@
 import { COMMA_ARABIC, COMMA_LATIN } from '@scrabble-solver/constants';
-import { Locale } from '@scrabble-solver/types';
-import { type FunctionComponent, type SVGAttributes } from 'react';
-
-import { FlagDe, FlagEs, FlagFa, FlagFr, FlagGb, FlagPl, FlagRo, FlagTr, FlagUs } from '@/icons';
+import { Locale, type TextDirection } from '@scrabble-solver/types';
 
 interface LocaleFeatures {
   comma: string;
   consonants: boolean;
-  direction: 'ltr' | 'rtl';
-  Icon: FunctionComponent<SVGAttributes<SVGElement>>;
+  direction: TextDirection;
   label: string;
   locale: Locale;
   name: string;
@@ -21,7 +17,6 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_LATIN,
     consonants: true,
     direction: 'ltr',
-    Icon: FlagDe,
     label: 'Deutsch',
     locale: Locale.DE_DE,
     name: 'German',
@@ -32,7 +27,6 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_LATIN,
     consonants: true,
     direction: 'ltr',
-    Icon: FlagGb,
     label: 'English (GB)',
     locale: Locale.EN_GB,
     name: 'English (GB)',
@@ -43,7 +37,6 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_LATIN,
     consonants: true,
     direction: 'ltr',
-    Icon: FlagUs,
     label: 'English (US)',
     locale: Locale.EN_US,
     name: 'English (US)',
@@ -54,7 +47,6 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_LATIN,
     consonants: true,
     direction: 'ltr',
-    Icon: FlagEs,
     label: 'Español',
     locale: Locale.ES_ES,
     name: 'Spanish',
@@ -65,7 +57,6 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_ARABIC,
     consonants: false,
     direction: 'rtl',
-    Icon: FlagFa,
     label: 'فارسی',
     locale: Locale.FA_IR,
     name: 'Persian',
@@ -76,7 +67,6 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_LATIN,
     consonants: true,
     direction: 'ltr',
-    Icon: FlagFr,
     label: 'Français',
     locale: Locale.FR_FR,
     name: 'French',
@@ -87,7 +77,6 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_LATIN,
     consonants: true,
     direction: 'ltr',
-    Icon: FlagPl,
     label: 'Polski',
     locale: Locale.PL_PL,
     name: 'Polish',
@@ -98,7 +87,6 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_LATIN,
     consonants: true,
     direction: 'ltr',
-    Icon: FlagRo,
     label: 'Română',
     locale: Locale.RO_RO,
     name: 'Romanian',
@@ -109,7 +97,6 @@ export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
     comma: COMMA_LATIN,
     consonants: true,
     direction: 'ltr',
-    Icon: FlagTr,
     label: 'Türkçe',
     locale: Locale.TR_TR,
     name: 'Turkish',

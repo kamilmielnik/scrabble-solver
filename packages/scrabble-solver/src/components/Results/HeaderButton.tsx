@@ -1,8 +1,9 @@
 import classNames from 'classnames';
-import { type CSSProperties, type FunctionComponent, type ReactElement, type SVGAttributes, useCallback } from 'react';
+import { type FunctionComponent, type ReactElement, type SVGAttributes, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { SortDown, SortUp } from '@/icons';
+import SortDown from '@/icons/SortDown.svg';
+import SortUp from '@/icons/SortUp.svg';
 import { resultsSlice, selectResultsSort, useTranslate, useTypedSelector } from '@/state';
 import { type ResultColumnId, SortDirection, type TranslationKey } from '@/types';
 
@@ -15,10 +16,9 @@ interface Props {
   Icon?: FunctionComponent<SVGAttributes<SVGElement>>;
   id: ResultColumnId;
   translationKey: TranslationKey;
-  style?: CSSProperties;
 }
 
-export const HeaderButton = ({ className, Icon, id, translationKey, style }: Props): ReactElement => {
+export const HeaderButton = ({ className, Icon, id, translationKey }: Props): ReactElement => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const sort = useTypedSelector(selectResultsSort);
@@ -32,7 +32,6 @@ export const HeaderButton = ({ className, Icon, id, translationKey, style }: Pro
       <button
         aria-label={translate(translationKey)}
         className={classNames(styles.headerButton, className)}
-        style={style}
         type="button"
         onClick={handleClick}
       >

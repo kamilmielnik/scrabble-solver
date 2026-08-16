@@ -16,9 +16,11 @@ import {
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
-import { useAppLayout } from '@/app-layout';
-import { LOCALE_FEATURES } from '@/i18n';
-import { createKeyboardNavigation, extractCharacters, extractInputValue, getTileSizes, isCtrl } from '@/lib';
+import { LOCALE_FEATURES } from '@/i18n/constants';
+import { createKeyboardNavigation } from '@/lib/createKeyboardNavigation';
+import { extractCharacters } from '@/lib/extractCharacters';
+import { extractInputValue } from '@/lib/extractInputValue';
+import { isCtrl } from '@/lib/isCtrl';
 import { rackSlice, selectConfig, selectInputMode, selectLocale, selectRack, useTypedSelector } from '@/state';
 
 import { InputPrompt, RackTile } from './components';
@@ -27,12 +29,10 @@ import { selectRemainingTilesGroups } from './selectors';
 
 interface Props {
   className?: string;
-  tileSize: number;
 }
 
-export const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
+export const Rack: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
-  const { rackHeight } = useAppLayout();
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
   const rack = useTypedSelector(selectRack);
@@ -47,7 +47,6 @@ export const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
   const [hasFocus, setHasFocus] = useState(false);
   const [input, setInput] = useState('');
   const { direction } = LOCALE_FEATURES[locale];
-  const { tileFontSize } = getTileSizes(tileSize);
   const showInputPrompt = inputMode === 'touchscreen' && hasFocus;
   const ref = useRef<HTMLDivElement>(null);
 
@@ -58,7 +57,7 @@ export const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
 
   useOnclickOutside(() => setHasFocus(false), {
     ignoreClass: [InputPrompt.styles.form, InputPrompt.styles.input],
-    refs: ref.current ? [ref as RefObject<HTMLDivElement>] : [],
+    refs: [ref as RefObject<HTMLDivElement>],
   });
 
   const changeActiveIndex = useCallback(
@@ -158,7 +157,6 @@ export const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
         })}
         data-testid="rack"
         ref={ref}
-        style={{ fontSize: tileFontSize }}
         onPaste={handlePaste}
       >
         {tiles.map(({ character, tile }, index) => (
@@ -172,7 +170,6 @@ export const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
             index={index}
             inputRef={tilesRefs[index]}
             key={index}
-            size={tileSize}
             tile={tile}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
@@ -187,7 +184,7 @@ export const Rack: FunctionComponent<Props> = ({ className, tileSize }) => {
             ref={floatingInputPrompt.refs.setFloating}
             style={{
               position: floatingInputPrompt.strategy,
-              top: floatingInputPrompt.y ? floatingInputPrompt.y - rackHeight : 0,
+              top: floatingInputPrompt.y ? `calc(${floatingInputPrompt.y}px - var(--rack-tile-size))` : 0,
               left: floatingInputPrompt.x ?? 0,
             }}
             value={input}

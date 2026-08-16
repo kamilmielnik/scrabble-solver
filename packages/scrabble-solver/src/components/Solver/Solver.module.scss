@@ -1,16 +1,12 @@
 @use 'styles/mixins' as *;
 
 .solver {
-  --spacing: var(--spacing--xl);
+  --spacing: var(--components-spacing);
 
   position: relative;
   margin: 0 var(--spacing);
   display: flex;
   flex-direction: column;
-
-  @include media('<xl') {
-    --spacing: var(--spacing--l);
-  }
 
   @include media('<l', 'touch') {
     margin-bottom: calc(3 * var(--spacing--l) + var(--button--icon--size));
@@ -108,6 +104,11 @@
 
 .controls {
   width: 100%;
+  max-width: var(--controls-max-width);
+
+  @include media('>=l') {
+    display: none;
+  }
 }
 
 .emptyState {

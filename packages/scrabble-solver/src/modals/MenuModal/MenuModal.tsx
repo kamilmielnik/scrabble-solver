@@ -1,8 +1,13 @@
 import { type FunctionComponent, memo } from 'react';
 
-import { Button, Modal } from '@/components';
-import { LOCALE_FEATURES } from '@/i18n';
-import { BookHalf, CardChecklist, Cog, Github, Sack } from '@/icons';
+import { Button } from '@/components/Button';
+import { Modal } from '@/components/Modal';
+import { LOCALE_ICONS } from '@/i18n/localeIcons';
+import BookHalf from '@/icons/BookHalf.svg';
+import CardChecklist from '@/icons/CardChecklist.svg';
+import Cog from '@/icons/Cog.svg';
+import Github from '@/icons/Github.svg';
+import Sack from '@/icons/Sack.svg';
 import { GITHUB_PROJECT_URL } from '@/parameters';
 import { selectLocale, useTranslate, useTypedSelector } from '@/state';
 
@@ -29,10 +34,16 @@ const MenuModalBase: FunctionComponent<Props> = ({
 }) => {
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
-  const { Icon } = LOCALE_FEATURES[locale];
+  const Icon = LOCALE_ICONS[locale];
 
   return (
-    <Modal className={className} isOpen={isOpen} title={translate('menu')} onClose={onClose}>
+    <Modal
+      className={className}
+      isOpen={isOpen}
+      modalClassName={styles.modal}
+      title={translate('menu')}
+      onClose={onClose}
+    >
       <Button
         aria-label={translate('remaining-tiles')}
         className={styles.button}

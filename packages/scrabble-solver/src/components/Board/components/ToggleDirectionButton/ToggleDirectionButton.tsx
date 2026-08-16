@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { type ButtonHTMLAttributes, type FunctionComponent } from 'react';
 
-import { useIsTouchDevice } from '@/hooks';
-import { ArrowDown } from '@/icons';
+import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
+import ArrowDown from '@/icons/ArrowDown.svg';
 import { useTranslate } from '@/state';
 import { type Direction } from '@/types';
 

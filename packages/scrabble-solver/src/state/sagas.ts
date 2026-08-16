@@ -5,18 +5,23 @@
 
 import { type PayloadAction } from '@reduxjs/toolkit';
 import { hasConfig, languages } from '@scrabble-solver/configs';
-import { Board, type Locale, type Result } from '@scrabble-solver/types';
+import { Board, Locale, type Result } from '@scrabble-solver/types';
 import { call, delay, put, select, spawn, takeEvery, takeLatest } from 'redux-saga/effects';
 
-import { LOCALE_FEATURES } from '@/i18n';
-import { memoize } from '@/lib';
+import { LOCALE_FEATURES } from '@/i18n/constants';
+import { loadTranslations } from '@/i18n/i18n';
+import { memoize } from '@/lib/memoize';
+import { waitForIdleOrFirstIntent } from '@/lib/waitForIdleOrFirstIntent';
 import { findWordDefinitions, solve, verify, visit } from '@/sdk';
 import { prefetchDictionary } from '@/solver-worker';
 
 import { initialize, reset } from './actions';
+import { appSlice, selectVersion } from './app';
 import { boardSlice, selectBoard } from './board';
 import { cellFiltersSlice, selectCellFilter } from './cellFilters';
 import { dictionarySlice, selectDictionary } from './dictionary';
+import { i18nSlice, selectLoadedTranslations } from './i18n';
+import { localStorage } from './localStorage';
 import { rackSlice, selectCharacters, selectRack } from './rack';
 import { resultsSlice } from './results';
 import {
@@ -25,8 +30,11 @@ import {
   selectLocale,
   selectLocaleAutoGroupTiles,
   selectRemoveCellFilters,
+  settingsInitialState,
   settingsSlice,
+  type SettingsState,
 } from './settings';
+import { guessLocale } from './settings/lib';
 import { solveSlice } from './solve';
 import { verifySlice } from './verify';
 
@@ -119,17 +127,120 @@ function* onDictionarySubmit(): AnyGenerator {
   }
 }
 
-function* onInitialize(): AnyGenerator {
+function* onInitialize({ payload }: PayloadAction<{ version: string }>): AnyGenerator {
+  try {
+    yield* hydratePersistedState(payload.version);
+    // oxlint-disable-next-line no-empty
+  } catch {
+  } finally {
+    yield put(appSlice.actions.hydrated());
+  }
+
   const board = yield select(selectBoard);
   const locale = yield select(selectLocale);
 
-  yield spawn(prefetchDictionary, locale);
-  // Detached: offline, a failed visit would otherwise tear down the whole root saga.
-  yield spawn(visit);
+  yield spawn(prefetchDictionaryWhenIdle);
+  yield spawn(loadLocaleTranslations, locale);
+  yield spawn(preloadTranslationsWhenIdle);
+  yield spawn(visitWhenIdle);
 
   if (!board.isEmpty()) {
     yield* resetRack();
     yield put(verifySlice.actions.submit());
+  }
+}
+
+function* hydratePersistedState(version: string): AnyGenerator {
+  const isTouchScreen = globalThis.matchMedia?.('(hover: none)').matches ?? false;
+  const settings: Pick<SettingsState, 'game' | 'inputMode' | 'locale'> & Partial<SettingsState> = {
+    game: settingsInitialState.game,
+    inputMode: isTouchScreen ? ('touchscreen' as const) : ('keyboard' as const),
+    locale: guessLocale(),
+    ...localStorage.getSettings(),
+  };
+
+  if (!hasConfig(settings.game, settings.locale)) {
+    const localeDefault = Object.values(languages).find((config) => config.locale === settings.locale);
+    settings.game = localeDefault?.game ?? settingsInitialState.game;
+    settings.locale = localeDefault?.locale ?? guessLocale();
+  }
+
+  yield put(settingsSlice.actions.init(settings));
+  yield* hydratePersistedTranslations(settings.locale, version);
+
+  const config = yield select(selectConfig);
+  const currentBoard: Board = yield select(selectBoard);
+  const board = localStorage.getBoard();
+
+  if (board) {
+    yield put(boardSlice.actions.init(board));
+  } else if (currentBoard.rows.length !== config.boardHeight || currentBoard.rows[0].length !== config.boardWidth) {
+    yield put(boardSlice.actions.init(Board.create(config.boardWidth, config.boardHeight)));
+  }
+
+  const currentRack = yield select(selectRack);
+  const rack = localStorage.getRack();
+
+  if (rack) {
+    yield put(rackSlice.actions.init(rack));
+  } else if (currentRack.length !== config.rackSize) {
+    yield put(rackSlice.actions.init(Array(config.rackSize).fill(null)));
+  }
+}
+
+// Applied synchronously so the first post-hydration paint is already translated
+function* hydratePersistedTranslations(locale: Locale, version: string): AnyGenerator {
+  const translations = localStorage.getTranslations(locale, version);
+
+  if (translations) {
+    yield put(i18nSlice.actions.loaded({ locale, translations }));
+  }
+}
+
+function* visitWhenIdle(): AnyGenerator {
+  yield call(waitForIdleOrFirstIntent);
+  yield call(visit);
+}
+
+function* prefetchDictionaryWhenIdle(): AnyGenerator {
+  yield call(waitForIdleOrFirstIntent);
+  const locale = yield select(selectLocale);
+  yield call(prefetchDictionary, locale);
+}
+
+function* loadLocaleTranslations(locale: Locale): AnyGenerator {
+  const loaded = yield select(selectLoadedTranslations);
+
+  if (loaded[locale]) {
+    return;
+  }
+
+  const translations = yield call(loadTranslations, locale);
+  yield put(i18nSlice.actions.loaded({ locale, translations }));
+
+  const activeLocale = yield select(selectLocale);
+
+  if (locale === activeLocale) {
+    const version = yield select(selectVersion);
+    localStorage.setTranslations(locale, version, translations);
+  }
+}
+
+// The cache makes the next boot's first paint translated without waiting for a chunk download
+function* persistTranslationsCache(locale: Locale): AnyGenerator {
+  const loaded = yield select(selectLoadedTranslations);
+  const version = yield select(selectVersion);
+
+  if (loaded[locale]) {
+    localStorage.setTranslations(locale, version, loaded[locale]);
+  }
+}
+
+function* preloadTranslationsWhenIdle(): AnyGenerator {
+  yield call(waitForIdleOrFirstIntent);
+
+  for (const locale of Object.values(Locale)) {
+    yield spawn(loadLocaleTranslations, locale);
   }
 }
 
@@ -146,7 +257,9 @@ function* onReset(): AnyGenerator {
 }
 
 function* onLocaleChange({ payload: locale }: PayloadAction<Locale>): AnyGenerator {
+  yield spawn(loadLocaleTranslations, locale);
   yield spawn(prefetchDictionary, locale);
+  yield* persistTranslationsCache(locale);
 
   const game = yield select(selectGame);
 
@@ -176,11 +289,14 @@ function* onResultCandidateChange({ payload: result }: PayloadAction<Result | nu
     return;
   }
 
-  yield delay(SUBMIT_DELAY);
-
   const locale: Locale = yield select(selectLocale);
   const uniqueWords = Array.from(new Set(result.words));
   const input = uniqueWords.join(LOCALE_FEATURES[locale].separator);
+
+  if (!memoizedFindWordDefinitions.hasCache(locale, input)) {
+    yield delay(SUBMIT_DELAY);
+  }
+
   yield put(dictionarySlice.actions.changeInput(input));
   yield put(dictionarySlice.actions.submit());
 }

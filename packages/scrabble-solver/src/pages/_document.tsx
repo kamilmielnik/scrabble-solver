@@ -1,11 +1,75 @@
+import { games } from '@scrabble-solver/configs';
+import { Game, Locale } from '@scrabble-solver/types';
+import fs from 'fs';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
+import path from 'path';
 import { type ReactElement } from 'react';
 
-class MyDocument extends Document {
+import { LOCALE_FEATURES } from '@/i18n/constants';
+import { CONFIG_PENDING_CLASS } from '@/parameters';
+
+const GAME_DIMENSIONS = Object.fromEntries(
+  Object.values(games).map(({ boardHeight, boardWidth, game, rackSize }) => [
+    game,
+    [boardWidth, boardHeight, rackSize],
+  ]),
+);
+
+const LOCALE_DIRECTIONS = Object.fromEntries(
+  Object.entries(LOCALE_FEATURES).map(([locale, { direction }]) => [locale, direction]),
+);
+
+/**
+ * The SSR HTML is always an English Scrabble board. This runs before first paint
+ * so a returning user's persisted board dimensions and text direction apply without a flash.
+ * The board itself cannot be reshaped pre-hydration, so it is hidden (CONFIG_PENDING_CLASS,
+ * see global.scss) until hydration applies the persisted config.
+ */
+const preHydrationScript = `(function () {
+  try {
+    var settings = JSON.parse(localStorage.getItem('scrabble-solver.settings'));
+
+    if (!settings) {
+      return;
+    }
+
+    var dimensions = ${JSON.stringify(GAME_DIMENSIONS)}[settings.game];
+    var direction = ${JSON.stringify(LOCALE_DIRECTIONS)}[settings.locale];
+    var root = document.documentElement;
+
+    if (dimensions) {
+      root.style.setProperty('--board-cols', dimensions[0]);
+      root.style.setProperty('--board-rows', dimensions[1]);
+      root.style.setProperty('--rack-size', dimensions[2]);
+
+      if (settings.game !== ${JSON.stringify(Game.Scrabble)}) {
+        root.classList.add(${JSON.stringify(CONFIG_PENDING_CLASS)});
+      }
+    }
+
+    if (direction) {
+      root.dir = direction;
+      root.lang = settings.locale;
+    }
+  } catch (error) {}
+})()`;
+
+export default class MyDocument extends Document {
   render(): ReactElement {
     return (
-      <Html lang="en">
-        <Head>
+      <Html
+        /**
+         * dir must be present pre-hydration
+         */
+        dir="ltr"
+        /**
+         * lang must match the default locale
+         */
+        lang={Locale.EN_US}
+      >
+        <InlineCssHead>
+          {/* eslint-disable-next-line react/no-danger */}
+          <script dangerouslySetInnerHTML={{ __html: preHydrationScript }} />
           <link rel="apple-touch-icon-precomposed" sizes="57x57" href="icons/apple-touch-icon-57x57.png" />
           <link rel="apple-touch-icon-precomposed" sizes="114x114" href="icons/apple-touch-icon-114x114.png" />
           <link rel="apple-touch-icon-precomposed" sizes="72x72" href="icons/apple-touch-icon-72x72.png" />
@@ -27,7 +91,7 @@ class MyDocument extends Document {
           <meta name="msapplication-square150x150logo" content="icons/mstile-150x150.png" />
           <meta name="msapplication-wide310x150logo" content="icons/mstile-310x150.png" />
           <meta name="msapplication-square310x310logo" content="icons/mstile-310x310.png" />
-        </Head>
+        </InlineCssHead>
 
         <body>
           <Main />
@@ -38,4 +102,26 @@ class MyDocument extends Document {
   }
 }
 
-export default MyDocument;
+/**
+ * Removes render-blocking CSS requests from the critical path.
+ */
+class InlineCssHead extends Head {
+  getCssLinks(files: Parameters<Head['getCssLinks']>[0]): ReactElement[] | null {
+    try {
+      const cssFiles = files.allFiles.filter((file) => file.endsWith('.css'));
+
+      return cssFiles.map((file) => (
+        <style
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: fs.readFileSync(path.join(process.cwd(), '.next', file), 'utf-8'),
+          }}
+          data-href={`/_next/${file}`}
+          key={file}
+        />
+      ));
+    } catch {
+      return super.getCssLinks(files);
+    }
+  }
+}

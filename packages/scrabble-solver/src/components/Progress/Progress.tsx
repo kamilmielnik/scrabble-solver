@@ -1,7 +1,6 @@
 import classNames from 'classnames';
-import { type FunctionComponent, type HTMLProps } from 'react';
+import { type CSSProperties, type FunctionComponent, type HTMLProps } from 'react';
 
-import { PROGRESS_COLOR_BACKGROUND, PROGRESS_COLOR_VALUE } from '@/parameters';
 import { selectLocale, useTypedSelector } from '@/state';
 
 import styles from './Progress.module.scss';
@@ -11,11 +10,6 @@ interface Props extends HTMLProps<HTMLDivElement> {
   min?: number;
   value: number;
 }
-
-const getGradient = (progress: number, color: string, background: string) => {
-  const percent = 100 * progress;
-  return `linear-gradient(90deg, ${color} 0%, ${color} ${percent}%, ${background} ${percent}%, ${background} 100%)`;
-};
 
 export const Progress: FunctionComponent<Props> = ({ className, max, min = 0, style, value, ...props }) => {
   const locale = useTypedSelector(selectLocale);
@@ -31,10 +25,7 @@ export const Progress: FunctionComponent<Props> = ({ className, max, min = 0, st
       aria-valuetext={`${percent.toLocaleString(locale)}%`}
       className={classNames(styles.progress, className)}
       role="progressbar"
-      style={{
-        ...style,
-        backgroundImage: getGradient(progress, PROGRESS_COLOR_VALUE, PROGRESS_COLOR_BACKGROUND),
-      }}
+      style={{ ...style, '--progress': `${100 * progress}%` } as CSSProperties}
       title={`${percent.toLocaleString(locale)}%`}
     />
   );

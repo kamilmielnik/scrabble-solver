@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import { type FunctionComponent, memo, type SyntheticEvent, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useAppLayout } from '@/app-layout';
-import { useIsTouchDevice } from '@/hooks';
+import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import {
   resultsSlice,
   selectAreResultsOutdated,
@@ -36,7 +36,7 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
-  const { maxControlsWidth, showCompactControls, tileSize } = useAppLayout();
+  const showCompactControls = useMediaQuery('<l');
   const error = useTypedSelector(selectSolveError);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const results = useTypedSelector(selectProcessedResults);
@@ -113,27 +113,25 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
       <div className={styles.bottomContainer}>
         <div className={styles.bottomContent}>
           <form onSubmit={handleSubmit}>
-            <Rack tileSize={tileSize} />
+            <Rack />
             <input className={styles.submitInput} tabIndex={-1} type="submit" />
           </form>
 
-          {showCompactControls && (
-            <div className={styles.controls} style={{ maxWidth: maxControlsWidth }}>
-              <ResultCandidatePicker onResultClick={onShowResults} />
+          <div className={styles.controls}>
+            <ResultCandidatePicker onResultClick={onShowResults} />
 
-              {error && (
-                <Alert className={styles.emptyState} variant="error">
-                  {error.message}
-                </Alert>
-              )}
+            {error && (
+              <Alert className={styles.emptyState} variant="error">
+                {error.message}
+              </Alert>
+            )}
 
-              {results && results.length === 0 && !isOutdated && (
-                <Alert className={styles.emptyState} variant="warning">
-                  {translate('results.empty-state.no-results')}
-                </Alert>
-              )}
-            </div>
-          )}
+            {results && results.length === 0 && !isOutdated && (
+              <Alert className={styles.emptyState} variant="warning">
+                {translate('results.empty-state.no-results')}
+              </Alert>
+            )}
+          </div>
         </div>
       </div>
     </div>

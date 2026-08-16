@@ -16,6 +16,8 @@ test-results/
 *.module.scss.d.ts
 *.tsbuildinfo
 *.txt
+!llms.txt
+!robots.txt
 *.zip
 
 .claude/worktrees

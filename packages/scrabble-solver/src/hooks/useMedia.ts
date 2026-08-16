@@ -1,34 +1,34 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useSyncExternalStore } from 'react';
 
-const getInitialState = (query: string, defaultState?: boolean) => {
-  if (typeof defaultState !== 'undefined') {
-    return defaultState;
-  }
+export const useMedia = (query: string, defaultState = false) => {
+  const subscribe = useCallback(
+    (onChange: () => void) => {
+      const mediaQueryList = getMediaQueryList(query);
+      mediaQueryList.addEventListener('change', onChange);
 
-  if (typeof window === 'undefined') {
-    return false;
-  }
+      return () => {
+        mediaQueryList.removeEventListener('change', onChange);
+      };
+    },
+    [query],
+  );
 
-  return window.matchMedia(query).matches;
+  const getSnapshot = useCallback(() => getMediaQueryList(query).matches, [query]);
+  const getServerSnapshot = useCallback(() => defaultState, [defaultState]);
+
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 };
 
-export const useMedia = (query: string, defaultState?: boolean) => {
-  const [state, setState] = useState(getInitialState(query, defaultState));
+// cache because matchMedia returns a new MediaQueryList on every call
+const mediaQueryLists = new Map<string, MediaQueryList>();
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(query);
+function getMediaQueryList(query: string): MediaQueryList {
+  let mediaQueryList = mediaQueryLists.get(query);
 
-    const handleChange = () => {
-      setState(mediaQuery.matches);
-    };
+  if (!mediaQueryList) {
+    mediaQueryList = window.matchMedia(query);
+    mediaQueryLists.set(query, mediaQueryList);
+  }
 
-    setState(mediaQuery.matches);
-    mediaQuery.addEventListener('change', handleChange);
-
-    return () => {
-      mediaQuery.removeEventListener('change', handleChange);
-    };
-  }, [query]);
-
-  return state;
-};
+  return mediaQueryList;
+}

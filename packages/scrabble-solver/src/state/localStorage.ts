@@ -1,13 +1,20 @@
-import { Board, type BoardJson } from '@scrabble-solver/types';
+import { Board, type BoardJson, isObject, type Locale } from '@scrabble-solver/types';
 import store2 from 'store2';
 
-import type { Rack } from '@/types';
+import type { Rack, Translations } from '@/types';
 
 import type { SettingsState } from './settings/types';
 
 const BOARD = 'board';
 const RACK = 'rack';
 const SETTINGS = 'settings';
+const TRANSLATIONS = 'translations';
+
+interface PersistedTranslations {
+  locale: Locale;
+  translations: Translations;
+  version: string;
+}
 
 const LEGACY_KEYS: Record<keyof SettingsState, string> = {
   autoGroupTiles: 'auto-group-tiles',
@@ -21,11 +28,76 @@ const LEGACY_KEYS: Record<keyof SettingsState, string> = {
 
 const store = store2.namespace('scrabble-solver');
 
+export const localStorage = {
+  getBoard(): Board | undefined {
+    try {
+      const serialized = store.get(BOARD) as string | undefined;
+      return serialized ? Board.fromJson(JSON.parse(serialized) as BoardJson) : undefined;
+    } catch {
+      store.remove(BOARD);
+      return undefined;
+    }
+  },
+
+  setBoard(board: Board | undefined): void {
+    const serialized = board ? JSON.stringify(board.toJson()) : board;
+    store.set(BOARD, serialized, true);
+  },
+
+  getRack(): Rack | undefined {
+    const rack = store.get(RACK) as Rack | undefined;
+
+    if (rack !== undefined && !Array.isArray(rack)) {
+      store.remove(RACK);
+      return undefined;
+    }
+
+    return rack;
+  },
+
+  setRack(rack: Rack | undefined): void {
+    store.set(RACK, rack, true);
+  },
+
+  getSettings(): Partial<SettingsState> {
+    const stored = store.get(SETTINGS) as Partial<SettingsState> | undefined;
+
+    if (stored !== undefined && !isObject(stored)) {
+      store.remove(SETTINGS);
+    }
+
+    return migrateHiddenShowCoordinates(isObject(stored) ? stored : migrateLegacySettings());
+  },
+
+  setSettings(settings: SettingsState): void {
+    store.set(SETTINGS, settings, true);
+  },
+
+  getTranslations(locale: Locale, version: string): Translations | undefined {
+    const stored = store.get(TRANSLATIONS) as PersistedTranslations | undefined;
+
+    if (typeof stored === 'undefined') {
+      return undefined;
+    }
+
+    if (!isObject(stored) || stored.locale !== locale || stored.version !== version || !isObject(stored.translations)) {
+      store.remove(TRANSLATIONS);
+      return undefined;
+    }
+
+    return stored.translations;
+  },
+
+  setTranslations(locale: Locale, version: string, translations: Translations): void {
+    store.set(TRANSLATIONS, { locale, translations, version } satisfies PersistedTranslations, true);
+  },
+};
+
 /**
  * Introduced in 2.15.26 on 2026/04/27.
  * Life expectancy: 1y.
  */
-const migrateLegacySettings = (): Partial<SettingsState> => {
+function migrateLegacySettings(): Partial<SettingsState> {
   const settings: Partial<SettingsState> = {};
   let hasLegacy = false;
 
@@ -42,33 +114,18 @@ const migrateLegacySettings = (): Partial<SettingsState> => {
   }
 
   return settings;
-};
+}
 
-export const localStorage = {
-  getBoard(): Board | undefined {
-    const serialized = store.get(BOARD) as string | undefined;
-    return serialized ? Board.fromJson(JSON.parse(serialized) as BoardJson) : undefined;
-  },
+/**
+ * The 'hidden' showCoordinates option was removed on 2026/08/13.
+ * Life expectancy: 1y.
+ */
+function migrateHiddenShowCoordinates(settings: Partial<SettingsState>): Partial<SettingsState> {
+  if (String(settings.showCoordinates) !== 'hidden') {
+    return settings;
+  }
 
-  setBoard(board: Board | undefined): void {
-    const serialized = board ? JSON.stringify(board.toJson()) : board;
-    store.set(BOARD, serialized, true);
-  },
-
-  getRack(): Rack | undefined {
-    return store.get(RACK) as Rack | undefined;
-  },
-
-  setRack(rack: Rack | undefined): void {
-    store.set(RACK, rack, true);
-  },
-
-  getSettings(): Partial<SettingsState> {
-    const stored = store.get(SETTINGS) as Partial<SettingsState> | undefined;
-    return stored ?? migrateLegacySettings();
-  },
-
-  setSettings(settings: SettingsState): void {
-    store.set(SETTINGS, settings, true);
-  },
-};
+  const migrated: Partial<SettingsState> = { ...settings, showCoordinates: 'original' };
+  store.set(SETTINGS, migrated, true);
+  return migrated;
+}

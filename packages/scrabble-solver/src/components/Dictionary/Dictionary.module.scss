@@ -2,6 +2,7 @@
 
 .dictionary {
   position: relative;
+  min-height: 0;
   word-break: break-word;
 
   &:focus-within {

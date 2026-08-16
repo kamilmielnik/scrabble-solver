@@ -1,33 +1,23 @@
 import { type CSSProperties, useMemo } from 'react';
 
-import { useAppLayout } from '@/app-layout';
-import { getTileSizes } from '@/lib';
-import { BORDER_WIDTH } from '@/parameters';
-import { selectConfig, selectShowCoordinates, useTypedSelector } from '@/state';
+import { LOCALE_FEATURES } from '@/i18n/constants';
+import { selectConfig, selectLocale, useTypedSelector } from '@/state';
 
-import { useBackgroundImage } from './useBackgroundImage';
+import { getBoardBackground } from '../getBoardBackground';
 
+/**
+ * Everything here is derived from Redux state only, so the style on the server matches the client
+ */
 export const useBoardStyle = () => {
   const config = useTypedSelector(selectConfig);
-  const { cellSize } = useAppLayout();
-  const { tileFontSize } = getTileSizes(cellSize);
-  const showCoordinates = useTypedSelector(selectShowCoordinates);
-  const backgroundImage = useBackgroundImage();
-  const coordinatesSize = 0.5 * cellSize - BORDER_WIDTH;
+  const locale = useTypedSelector(selectLocale);
+  const { direction } = LOCALE_FEATURES[locale];
+  const backgroundImage = getBoardBackground({ config, direction });
   const boardStyle = useMemo<CSSProperties>(
     () => ({
       backgroundImage: `url(${backgroundImage})`,
-      fontSize: tileFontSize,
-      gridTemplateColumns:
-        showCoordinates === 'hidden'
-          ? `repeat(${config.boardWidth}, 1fr)`
-          : `${coordinatesSize}px repeat(${config.boardWidth}, 1fr)`,
-      gridTemplateRows:
-        showCoordinates === 'hidden'
-          ? `repeat(${config.boardHeight}, 1fr)`
-          : `${coordinatesSize}px repeat(${config.boardHeight}, 1fr)`,
     }),
-    [backgroundImage, config.boardHeight, config.boardWidth, coordinatesSize, showCoordinates, tileFontSize],
+    [backgroundImage],
   );
 
   return boardStyle;

@@ -1,4 +1,11 @@
-import { type Cell as CellModel, type ShowCoordinates } from '@scrabble-solver/types';
+import { BLANK, EMPTY_CELL } from '@scrabble-solver/constants';
+import {
+  type Cell as CellModel,
+  type Config,
+  type Locale,
+  type ShowCoordinates,
+  type TextDirection,
+} from '@scrabble-solver/types';
 import classNames from 'classnames';
 import {
   type CSSProperties,
@@ -12,10 +19,10 @@ import {
   memo,
 } from 'react';
 
-import { Ban, FlagFill } from '@/icons';
-import { getCoordinate } from '@/lib';
-import { BORDER_WIDTH } from '@/parameters';
-import { type CellFilter } from '@/types';
+import Ban from '@/icons/Ban.svg';
+import FlagFill from '@/icons/FlagFill.svg';
+import { getCoordinate } from '@/lib/getCoordinate';
+import { type CellFilter, type Translate } from '@/types';
 
 import styles from './Board.module.scss';
 import { Cell } from './components';
@@ -23,15 +30,16 @@ import { Cell } from './components';
 interface Props {
   className?: string;
   cellFilters: CellFilter[];
-  cellSize: number;
-  coordinatesFontSize: number;
-  coordinatesSize: number;
-  direction: 'ltr' | 'rtl';
+  config: Config;
+  direction: TextDirection;
+  hoveredCharacter: string | null;
   inputRefs: RefObject<HTMLInputElement | null>[][];
+  locale: Locale;
   reachableCells: boolean[][] | null;
   rows: CellModel[][];
   showCoordinates: ShowCoordinates;
   style?: CSSProperties;
+  translate: Translate;
   onBlur: FocusEventHandler;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onFocus: (x: number, y: number) => void;
@@ -43,16 +51,17 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
   (
     {
       className,
-      cellSize,
-      coordinatesFontSize,
-      coordinatesSize,
+      config,
       direction,
       cellFilters,
+      hoveredCharacter,
       inputRefs,
+      locale,
       reachableCells,
       rows,
       showCoordinates,
       style,
+      translate,
       onBlur,
       onChange,
       onFocus,
@@ -70,25 +79,13 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
       onKeyDown={onKeyDown}
       onPaste={onPaste}
     >
-      {showCoordinates !== 'hidden' && (
-        <>
-          <div style={{ width: coordinatesSize, height: coordinatesSize }} />
+      <div />
 
-          {rows[0].map((_column, index) => (
-            <div
-              className={styles.coordinate}
-              key={index}
-              style={{
-                width: cellSize,
-                height: coordinatesSize,
-                fontSize: coordinatesFontSize,
-              }}
-            >
-              {getCoordinate(index, showCoordinates === 'original' ? 'letter' : 'number')}
-            </div>
-          ))}
-        </>
-      )}
+      {rows[0].map((_column, index) => (
+        <div className={styles.coordinate} key={index}>
+          {getCoordinate(index, showCoordinates === 'original' ? 'letter' : 'number')}
+        </div>
+      ))}
 
       {/* The dynamic changes to the board presentation need to be outside of useBackgroundImage
         to prevent flickering on blob URL change (i.e. when flagging a field,
@@ -102,11 +99,11 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
             className={styles.iconContainer}
             key={[x, y].join('-')}
             style={{
-              height: cellSize,
-              width: cellSize,
-              left: direction === 'ltr' ? coordinatesSize + BORDER_WIDTH + x * (cellSize + BORDER_WIDTH) : undefined,
-              right: direction === 'rtl' ? coordinatesSize + BORDER_WIDTH + x * (cellSize + BORDER_WIDTH) : undefined,
-              top: coordinatesSize + BORDER_WIDTH + y * (cellSize + BORDER_WIDTH),
+              height: 'var(--cell-size)',
+              width: 'var(--cell-size)',
+              left: direction === 'ltr' ? inlineOffset(x) : undefined,
+              right: direction === 'rtl' ? inlineOffset(x) : undefined,
+              top: inlineOffset(y),
             }}
           >
             <div className={styles.iconBackground} />
@@ -117,18 +114,9 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
 
       {rows.map((cells, y) => (
         <Fragment key={y}>
-          {showCoordinates !== 'hidden' && (
-            <div
-              className={styles.coordinate}
-              style={{
-                width: coordinatesSize,
-                height: cellSize,
-                fontSize: coordinatesFontSize,
-              }}
-            >
-              {getCoordinate(y, showCoordinates === 'original' ? 'number' : 'letter')}
-            </div>
-          )}
+          <div className={styles.coordinate}>
+            {getCoordinate(y, showCoordinates === 'original' ? 'number' : 'letter')}
+          </div>
 
           {cells.map((cell, x) => (
             <Cell
@@ -137,10 +125,14 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
               cellLeft={x > 0 ? rows[y][x - 1] : undefined}
               cellRight={x < rows[y].length - 1 ? rows[y][x + 1] : undefined}
               cellTop={y > 0 ? rows[y - 1][x] : undefined}
+              config={config}
               inputRef={inputRefs[y][x]}
+              isHoverMatch={isHoverMatch(cell, hoveredCharacter)}
               isReachable={reachableCells ? reachableCells[y][x] : true}
               key={x}
-              size={cellSize}
+              locale={locale}
+              showCoordinates={showCoordinates}
+              translate={translate}
               onChange={onChange}
               onFocus={onFocus}
             />
@@ -152,3 +144,17 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
 );
 
 export const BoardPure = memo(BoardPureBase);
+
+function isHoverMatch(cell: CellModel, hoveredCharacter: string | null): boolean {
+  if (cell.tile.character === EMPTY_CELL || hoveredCharacter === null) {
+    return false;
+  }
+
+  return hoveredCharacter === BLANK
+    ? cell.tile.isBlank
+    : !cell.tile.isBlank && cell.tile.character === hoveredCharacter;
+}
+
+function inlineOffset(index: number) {
+  return `calc(var(--coordinate-size) + var(--border--width) + ${index} * (var(--cell-size) + var(--border--width)))`;
+}

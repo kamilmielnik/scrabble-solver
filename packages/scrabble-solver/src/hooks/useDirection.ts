@@ -1,12 +1,13 @@
+import { type TextDirection } from '@scrabble-solver/types';
 import { useEffect } from 'react';
 
-import { noop } from '@/lib';
+import { noop } from '@/lib/noop';
 
-export const useDirection = (direction: 'ltr' | 'rtl') => {
+export const useDirection = (direction: TextDirection) => {
   useEffect(() => {
     const html = document.body.parentElement;
 
-    if (!html) {
+    if (!html || html.dir === direction) {
       return noop;
     }
 

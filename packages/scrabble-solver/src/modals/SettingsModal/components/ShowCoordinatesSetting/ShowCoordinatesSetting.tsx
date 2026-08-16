@@ -2,7 +2,7 @@ import { type ShowCoordinates } from '@scrabble-solver/types';
 import { type ChangeEvent, type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Radio } from '@/components';
+import { Radio } from '@/components/Radio';
 import { selectShowCoordinates, settingsSlice, useTranslate, useTypedSelector } from '@/state';
 
 import styles from './ShowCoordinatesSetting.module.scss';
@@ -18,10 +18,6 @@ export const ShowCoordinatesSetting: FunctionComponent<Props> = ({ className, di
   const value = useTypedSelector(selectShowCoordinates);
 
   const options = [
-    {
-      label: translate('settings.showCoordinates.hidden'),
-      value: 'hidden',
-    },
     {
       label: translate('settings.showCoordinates.original'),
       value: 'original',

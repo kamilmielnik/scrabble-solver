@@ -10,7 +10,6 @@ import {
 } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useAppLayout } from '@/app-layout';
 import { rackSlice, selectConfig, useTranslate, useTypedSelector } from '@/state';
 
 import styles from './InputPrompt.module.scss';
@@ -29,7 +28,6 @@ const InputPromptBase = forwardRef<HTMLFormElement, Props>(
   ({ className, style, value, onBlur, onChange, onSubmit, ...props }, ref) => {
     const dispatch = useDispatch();
     const translate = useTranslate();
-    const { rackHeight, rackWidth } = useAppLayout();
     const config = useTypedSelector(selectConfig);
     const [inputRef, setInputRef] = useState<HTMLInputElement | null>(null);
 
@@ -52,17 +50,7 @@ const InputPromptBase = forwardRef<HTMLFormElement, Props>(
     }, [inputRef]);
 
     return (
-      <form
-        className={classNames(styles.form, className)}
-        ref={ref}
-        style={{
-          width: rackWidth,
-          height: rackHeight,
-          ...style,
-        }}
-        onSubmit={handleSubmit}
-        {...props}
-      >
+      <form className={classNames(styles.form, className)} ref={ref} style={style} onSubmit={handleSubmit} {...props}>
         <input
           autoCapitalize="none"
           autoComplete="off"

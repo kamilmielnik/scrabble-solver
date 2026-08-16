@@ -1,7 +1,7 @@
 import { type FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Search } from '@/icons';
+import Search from '@/icons/Search.svg';
 import {
   selectAreResultsOutdated,
   selectSolveIsLoading,

@@ -3,12 +3,8 @@ import { Game, Locale } from '@scrabble-solver/types';
 
 import {
   PLAIN_TILES_COLOR_DEFAULT,
-  PLAIN_TILES_PADDING_HORIZONTAL,
-  PLAIN_TILES_PADDING_VERTICAL,
   PLAIN_TILES_POINTS_COLORS,
   PLAIN_TILES_TILE_MARGIN,
-  PLAIN_TILES_TILE_MAX_ROTATE,
-  PLAIN_TILES_TILE_MAX_SCATTER,
   PLAIN_TILES_TILE_SIZE,
 } from '@/parameters';
 
@@ -47,17 +43,14 @@ export const createPlainTile = ({
   const points = showPoints ? configPoints : undefined;
   const defaultColor =
     typeof configPoints === 'number' ? PLAIN_TILES_POINTS_COLORS[configPoints] : PLAIN_TILES_COLOR_DEFAULT;
-  const x = getX(cellIndex) + PLAIN_TILES_TILE_SIZE / 2;
-  const y = getY(0) + PLAIN_TILES_TILE_SIZE / 2;
 
   return {
     character,
     color: color || defaultColor,
     points,
     size: PLAIN_TILES_TILE_SIZE,
-    transform: `rotate(${randomize(0, PLAIN_TILES_TILE_MAX_ROTATE)}, ${x}, ${y})`,
-    x: randomize(getX(cellIndex), PLAIN_TILES_TILE_MAX_SCATTER),
-    y: randomize(getY(rowIndex), PLAIN_TILES_TILE_MAX_SCATTER),
+    x: getOffset(cellIndex),
+    y: getOffset(rowIndex),
   };
 };
 
@@ -77,14 +70,6 @@ export const getViewbox = (content: string[][]): string => {
   return `0 0 ${width} ${height}`;
 };
 
-export const getX = (index: number): number => {
-  return PLAIN_TILES_PADDING_HORIZONTAL + index * (PLAIN_TILES_TILE_SIZE + PLAIN_TILES_TILE_MARGIN);
-};
-
-export const getY = (index: number): number => {
-  return PLAIN_TILES_PADDING_VERTICAL + index * (PLAIN_TILES_TILE_SIZE + PLAIN_TILES_TILE_MARGIN);
-};
-
-export const randomize = (value: number, maxChange: number): number => {
-  return value + maxChange * 2 * (0.5 - Math.random());
+const getOffset = (index: number): number => {
+  return index * (PLAIN_TILES_TILE_SIZE + PLAIN_TILES_TILE_MARGIN);
 };

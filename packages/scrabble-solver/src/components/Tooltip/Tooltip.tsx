@@ -1,7 +1,8 @@
 import type { Placement } from '@floating-ui/react';
 import { type FunctionComponent, type ReactNode } from 'react';
 
-import { useIsTouchDevice } from '@/hooks';
+import { useDeferredRender } from '@/hooks/useDeferredRender';
+import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
 
 import { TooltipContext } from './context';
 import { TooltipContent } from './TooltipContent';
@@ -15,12 +16,22 @@ interface Props {
 }
 
 export const Tooltip: FunctionComponent<Props> = ({ children, placement, tooltip }) => {
-  const state = useTooltip({ placement });
+  const canRenderTooltip = useDeferredRender();
   const isTouchDevice = useIsTouchDevice();
 
-  if (!tooltip || isTouchDevice) {
+  if (!tooltip || !canRenderTooltip || isTouchDevice) {
     return children;
   }
+
+  return (
+    <TooltipBase placement={placement} tooltip={tooltip}>
+      {children}
+    </TooltipBase>
+  );
+};
+
+const TooltipBase: FunctionComponent<Props> = ({ children, placement, tooltip }) => {
+  const state = useTooltip({ placement });
 
   return (
     <TooltipContext.Provider value={state}>

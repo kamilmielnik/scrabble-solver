@@ -29,6 +29,7 @@
 }
 
 .remaining {
+  width: var(--tile-size);
   height: 6px;
   margin-top: var(--spacing--m);
   box-shadow: var(--box-shadow--raised);

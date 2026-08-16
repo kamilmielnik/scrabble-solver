@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import {
   type ChangeEventHandler,
-  type CSSProperties,
   type FocusEventHandler,
   type FunctionComponent,
   type KeyboardEventHandler,
@@ -11,7 +10,7 @@ import {
   type TouchEventHandler,
 } from 'react';
 
-import { ExclamationSquareFill } from '@/icons';
+import ExclamationSquareFill from '@/icons/ExclamationSquareFill.svg';
 
 import styles from './Tile.module.scss';
 
@@ -29,9 +28,7 @@ interface Props {
   placeholder?: string;
   points?: number;
   pointsFormatted?: string;
-  pointsStyle?: CSSProperties;
   raised?: boolean;
-  style?: CSSProperties;
   tabIndex?: number;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
@@ -54,9 +51,7 @@ const TilePureBase: FunctionComponent<Props> = ({
   placeholder,
   points,
   pointsFormatted,
-  pointsStyle,
   raised,
-  style,
   tabIndex,
   onChange,
   onFocus,
@@ -78,7 +73,6 @@ const TilePureBase: FunctionComponent<Props> = ({
       [styles.raised]: raised,
     })}
     role={highlighted ? 'mark' : undefined}
-    style={style}
   >
     {character || placeholder}
 
@@ -103,11 +97,7 @@ const TilePureBase: FunctionComponent<Props> = ({
       />
     )}
 
-    {canShowPoints && (
-      <span className={styles.points} style={pointsStyle}>
-        {pointsFormatted}
-      </span>
-    )}
+    {canShowPoints && <span className={styles.points}>{pointsFormatted}</span>}
 
     {!isValid && <ExclamationSquareFill aria-hidden="true" className={styles.alert} role="img" />}
   </div>

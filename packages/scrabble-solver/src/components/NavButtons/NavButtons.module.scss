@@ -1,3 +1,5 @@
+@use 'styles/mixins' as *;
+
 .navButtons {
   display: flex;
   align-items: center;
@@ -29,5 +31,23 @@
   &:focus,
   &:hover {
     color: var(--color--error);
+  }
+}
+
+.fullNav {
+  @include media('<s') {
+    display: none;
+  }
+}
+
+.shortNav {
+  @include media('>=s') {
+    display: none;
+  }
+}
+
+.keyMapButton {
+  @include media('touch') {
+    display: none;
   }
 }

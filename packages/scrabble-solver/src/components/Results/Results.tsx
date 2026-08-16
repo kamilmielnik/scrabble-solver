@@ -3,8 +3,8 @@ import { useEffect, useMemo, type FunctionComponent } from 'react';
 import { List, useListRef } from 'react-window';
 import { useDebounce } from 'use-debounce';
 
-import { useLatest } from '@/hooks';
-import { LOCALE_FEATURES } from '@/i18n';
+import { useLatest } from '@/hooks/useLatest';
+import { LOCALE_FEATURES } from '@/i18n/constants';
 import { RESULTS_ITEM_HEIGHT, RESULTS_OVERSCAN_COUNT } from '@/parameters';
 import {
   selectAreResultsOutdated,

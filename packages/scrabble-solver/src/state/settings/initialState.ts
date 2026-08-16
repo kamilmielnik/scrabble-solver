@@ -1,19 +1,16 @@
-import { Game } from '@scrabble-solver/types';
+import { Game, Locale } from '@scrabble-solver/types';
 
-import { localStorage } from '../localStorage';
-
-import { guessLocale } from './lib';
 import type { SettingsState } from './types';
 
-const isTouchScreen = typeof globalThis.matchMedia !== 'undefined' && globalThis.matchMedia('(hover: none)').matches;
-
+/**
+ * Deterministic defaults shared by the server render and the client's hydration render.
+ */
 export const settingsInitialState: SettingsState = {
   autoGroupTiles: null,
   game: Game.Scrabble,
   highlightUnreachableCells: false,
-  inputMode: isTouchScreen ? 'touchscreen' : 'keyboard',
-  locale: guessLocale(),
+  inputMode: 'keyboard',
+  locale: Locale.EN_US,
   removeCellFilters: 'always',
-  showCoordinates: 'hidden',
-  ...localStorage.getSettings(),
+  showCoordinates: 'original',
 };

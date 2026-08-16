@@ -17,7 +17,6 @@ export interface PlainTile {
   color: string;
   points?: number;
   size: number;
-  transform: string;
   x: number;
   y: number;
 }

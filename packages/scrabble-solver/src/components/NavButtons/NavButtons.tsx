@@ -1,8 +1,13 @@
 import classNames from 'classnames';
 import { type FunctionComponent, memo } from 'react';
 
-import { useAppLayout } from '@/app-layout';
-import { CardChecklist, Cog, Eraser, Github, KeyboardFill, List, Sack } from '@/icons';
+import CardChecklist from '@/icons/CardChecklist.svg';
+import Cog from '@/icons/Cog.svg';
+import Eraser from '@/icons/Eraser.svg';
+import Github from '@/icons/Github.svg';
+import KeyboardFill from '@/icons/KeyboardFill.svg';
+import List from '@/icons/List.svg';
+import Sack from '@/icons/Sack.svg';
 import { GITHUB_PROJECT_URL } from '@/parameters';
 import { selectConfig, useTranslate, useTypedSelector } from '@/state';
 
@@ -32,35 +37,6 @@ const NavButtonsBase: FunctionComponent<Props> = ({
   const config = useTypedSelector(selectConfig);
   const hasInvalidWords = useTypedSelector(selectHasInvalidWords);
   const hasOverusedTiles = useTypedSelector(selectHasOverusedTiles);
-  const { showKeyMap, showShortNav } = useAppLayout();
-
-  if (showShortNav) {
-    return (
-      <div className={styles.navButtons}>
-        <div className={styles.group}>
-          <IconButton
-            aria-label={translate('common.clear')}
-            className={styles.button}
-            Icon={Eraser}
-            tooltip={translate('common.clear')}
-            onClick={onClear}
-          />
-        </div>
-
-        <div className={styles.separator} />
-
-        <div className={styles.group}>
-          <IconButton
-            aria-label={translate('menu')}
-            className={styles.button}
-            Icon={List}
-            tooltip={translate('menu')}
-            onClick={onShowMenu}
-          />
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className={styles.navButtons}>
@@ -76,7 +52,7 @@ const NavButtonsBase: FunctionComponent<Props> = ({
 
       <div className={styles.separator} />
 
-      <div className={styles.group}>
+      <div className={classNames(styles.group, styles.fullNav)}>
         {config.supportsRemainingTiles && (
           <IconButton
             aria-label={translate('remaining-tiles')}
@@ -100,9 +76,9 @@ const NavButtonsBase: FunctionComponent<Props> = ({
         />
       </div>
 
-      <div className={styles.separator} />
+      <div className={classNames(styles.separator, styles.fullNav)} />
 
-      <div className={styles.group}>
+      <div className={classNames(styles.group, styles.fullNav)}>
         <IconButton.Link
           aria-label={translate('github')}
           className={styles.button}
@@ -114,18 +90,16 @@ const NavButtonsBase: FunctionComponent<Props> = ({
         />
       </div>
 
-      <div className={styles.separator} />
+      <div className={classNames(styles.separator, styles.fullNav)} />
 
-      <div className={styles.group}>
-        {showKeyMap && (
-          <IconButton
-            aria-label={translate('keyMap')}
-            className={styles.button}
-            Icon={KeyboardFill}
-            tooltip={translate('keyMap')}
-            onClick={onShowKeyMap}
-          />
-        )}
+      <div className={classNames(styles.group, styles.fullNav)}>
+        <IconButton
+          aria-label={translate('keyMap')}
+          className={classNames(styles.button, styles.keyMapButton)}
+          Icon={KeyboardFill}
+          tooltip={translate('keyMap')}
+          onClick={onShowKeyMap}
+        />
 
         <IconButton
           aria-label={translate('settings')}
@@ -134,6 +108,16 @@ const NavButtonsBase: FunctionComponent<Props> = ({
           Icon={Cog}
           tooltip={translate('settings')}
           onClick={onShowSettings}
+        />
+      </div>
+
+      <div className={classNames(styles.group, styles.shortNav)}>
+        <IconButton
+          aria-label={translate('menu')}
+          className={styles.button}
+          Icon={List}
+          tooltip={translate('menu')}
+          onClick={onShowMenu}
         />
       </div>
     </div>

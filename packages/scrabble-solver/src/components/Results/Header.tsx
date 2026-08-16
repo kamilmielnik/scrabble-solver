@@ -1,16 +1,19 @@
 import { type FunctionComponent } from 'react';
 
-import { useAppLayout } from '@/app-layout';
-import { useColumns } from '@/hooks';
-import { GeoAlt, OneTwoThree, Square, SquareA, SquareB, Squares, Words } from '@/icons';
-import { RESULTS_COLUMN_WIDTH } from '@/parameters';
+import { useColumns } from '@/hooks/useColumns';
+import GeoAlt from '@/icons/GeoAlt.svg';
+import OneTwoThree from '@/icons/OneTwoThree.svg';
+import Square from '@/icons/Square.svg';
+import SquareA from '@/icons/SquareA.svg';
+import SquareB from '@/icons/SquareB.svg';
+import Squares from '@/icons/Squares.svg';
+import Words from '@/icons/Words.svg';
 import { ResultColumnId } from '@/types';
 
 import { HeaderButton } from './HeaderButton';
 import styles from './Results.module.scss';
 
 export const Header: FunctionComponent = () => {
-  const { resultWordWidth } = useAppLayout();
   const columns = useColumns();
 
   return (
@@ -20,18 +23,12 @@ export const Header: FunctionComponent = () => {
           className={styles.coordinates}
           Icon={GeoAlt}
           id={ResultColumnId.Coordinates}
-          style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.Coordinates] }}
           translationKey="settings.showCoordinates"
         />
       )}
 
       {columns[ResultColumnId.Word] && (
-        <HeaderButton
-          className={styles.word}
-          id={ResultColumnId.Word}
-          style={{ flexBasis: resultWordWidth }}
-          translationKey="common.word"
-        />
+        <HeaderButton className={styles.word} id={ResultColumnId.Word} translationKey="common.word" />
       )}
 
       {columns[ResultColumnId.TilesCount] && (
@@ -39,7 +36,6 @@ export const Header: FunctionComponent = () => {
           className={styles.stat}
           Icon={Squares}
           id={ResultColumnId.TilesCount}
-          style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.TilesCount] }}
           translationKey="common.tiles"
         />
       )}
@@ -49,7 +45,6 @@ export const Header: FunctionComponent = () => {
           className={styles.stat}
           Icon={SquareA}
           id={ResultColumnId.VowelsCount}
-          style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.VowelsCount] }}
           translationKey="common.vowels"
         />
       )}
@@ -59,7 +54,6 @@ export const Header: FunctionComponent = () => {
           className={styles.stat}
           Icon={SquareB}
           id={ResultColumnId.ConsonantsCount}
-          style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.ConsonantsCount] }}
           translationKey="common.consonants"
         />
       )}
@@ -69,7 +63,6 @@ export const Header: FunctionComponent = () => {
           className={styles.stat}
           Icon={Square}
           id={ResultColumnId.BlanksCount}
-          style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.BlanksCount] }}
           translationKey="common.blanks"
         />
       )}
@@ -79,7 +72,6 @@ export const Header: FunctionComponent = () => {
           className={styles.stat}
           Icon={Words}
           id={ResultColumnId.WordsCount}
-          style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.WordsCount] }}
           translationKey="common.words"
         />
       )}
@@ -89,7 +81,6 @@ export const Header: FunctionComponent = () => {
           className={styles.points}
           Icon={OneTwoThree}
           id={ResultColumnId.Points}
-          style={{ flexBasis: RESULTS_COLUMN_WIDTH[ResultColumnId.Points] }}
           translationKey="common.points"
         />
       )}

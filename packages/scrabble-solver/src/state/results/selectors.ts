@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import { createRegExp } from '@/lib';
+import { createRegExp } from '@/lib/createRegExp';
 
 import { selectCellFilters } from '../cellFilters';
 import { selectLocale, selectShowCoordinates } from '../settings';

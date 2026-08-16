@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import reduxSaga from 'redux-saga';
 
+import { appSlice } from './app';
 import { boardSlice } from './board';
 import { cellFiltersSlice } from './cellFilters';
 import { dictionarySlice } from './dictionary';
 import { hoveredTileSlice } from './hoveredTile';
+import { i18nSlice } from './i18n';
 import { rackSlice } from './rack';
 import { resultsSlice } from './results';
 import { rootSaga } from './sagas';
@@ -16,10 +18,12 @@ const sagaMiddleware = reduxSaga();
 
 export const store = configureStore({
   reducer: {
+    app: appSlice.reducer,
     board: boardSlice.reducer,
     cellFilters: cellFiltersSlice.reducer,
     dictionary: dictionarySlice.reducer,
     hoveredTile: hoveredTileSlice.reducer,
+    i18n: i18nSlice.reducer,
     rack: rackSlice.reducer,
     results: resultsSlice.reducer,
     settings: settingsSlice.reducer,

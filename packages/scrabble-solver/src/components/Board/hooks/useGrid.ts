@@ -15,9 +15,12 @@ import {
 } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useLatest } from '@/hooks';
-import { LOCALE_FEATURES } from '@/i18n';
-import { createKeyboardNavigation, extractCharacters, extractInputValue, isCtrl } from '@/lib';
+import { useLatest } from '@/hooks/useLatest';
+import { LOCALE_FEATURES } from '@/i18n/constants';
+import { createKeyboardNavigation } from '@/lib/createKeyboardNavigation';
+import { extractCharacters } from '@/lib/extractCharacters';
+import { extractInputValue } from '@/lib/extractInputValue';
+import { isCtrl } from '@/lib/isCtrl';
 import { boardSlice, cellFiltersSlice, selectConfig, selectLocale, useTypedSelector } from '@/state';
 import { type Direction, type Point } from '@/types';
 

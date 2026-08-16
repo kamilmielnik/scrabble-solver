@@ -152,7 +152,6 @@ export type TranslationKey =
   | 'settings.language'
   | 'settings.showCoordinates'
   | 'settings.showCoordinates.alternative'
-  | 'settings.showCoordinates.hidden'
   | 'settings.showCoordinates.original'
   | 'words'
   | 'words.invalid'

@@ -1,5 +1,6 @@
 import { useMergeRefs } from '@floating-ui/react';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
+import { type Locale } from '@scrabble-solver/types';
 import {
   type ChangeEventHandler,
   type FocusEventHandler,
@@ -9,13 +10,10 @@ import {
   type Ref,
   type TouchEventHandler,
   useCallback,
-  useMemo,
   useRef,
 } from 'react';
 
-import { useAppLayout } from '@/app-layout';
-import { getTileSizes, noop } from '@/lib';
-import { selectLocale, useTypedSelector } from '@/state';
+import { noop } from '@/lib/noop';
 
 import { TilePure } from './TilePure';
 
@@ -29,10 +27,10 @@ interface Props {
   inputRef?: Ref<HTMLInputElement | null>;
   isBlank?: boolean;
   isValid?: boolean;
+  locale: Locale;
   placeholder?: string;
   points?: number;
   raised?: boolean;
-  size: number;
   tabIndex?: number;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
@@ -51,10 +49,10 @@ export const Tile: FunctionComponent<Props> = ({
   inputRef,
   isBlank,
   isValid,
+  locale,
   placeholder,
   points,
   raised,
-  size,
   tabIndex,
   onChange,
   onFocus = noop,
@@ -62,15 +60,10 @@ export const Tile: FunctionComponent<Props> = ({
   onMouseDown = noop,
   onTouchStart = noop,
 }) => {
-  const locale = useTypedSelector(selectLocale);
-  const { showTilePoints } = useAppLayout();
-  const { pointsFontSize, tileSize } = getTileSizes(size);
-  const style = useMemo(() => ({ height: tileSize, width: tileSize }), [tileSize]);
-  const pointsStyle = useMemo(() => ({ fontSize: pointsFontSize }), [pointsFontSize]);
   const ref = useRef<HTMLInputElement>(null);
   const mergedRef = useMergeRefs(inputRef ? [ref, inputRef] : [ref]);
   const isEmpty = !character || character === EMPTY_CELL;
-  const canShowPoints = showTilePoints && (!isEmpty || isBlank) && typeof points !== 'undefined';
+  const canShowPoints = (!isEmpty || isBlank) && typeof points !== 'undefined';
   const pointsFormatted = typeof points === 'number' ? points.toLocaleString(locale) : '';
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
@@ -96,9 +89,7 @@ export const Tile: FunctionComponent<Props> = ({
       placeholder={placeholder}
       points={points}
       pointsFormatted={pointsFormatted}
-      pointsStyle={pointsStyle}
       raised={raised}
-      style={style}
       tabIndex={tabIndex}
       onChange={onChange}
       onFocus={onFocus}

@@ -3,21 +3,22 @@
 import { FloatingPortal, type ReferenceType } from '@floating-ui/react';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import classNames from 'classnames';
-import { type CSSProperties, type FocusEventHandler, type FunctionComponent, useCallback, useState } from 'react';
+import { type FocusEventHandler, type FunctionComponent, useCallback, useState } from 'react';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
-import { useAppLayout } from '@/app-layout';
-import { LOCALE_FEATURES } from '@/i18n';
-import { TRANSITION } from '@/parameters';
+import { LOCALE_FEATURES } from '@/i18n/constants';
 import {
   boardSlice,
   cellFiltersSlice,
   selectCellFilters,
+  selectConfig,
+  selectHoveredCharacter,
   selectInputMode,
   selectLocale,
   selectShowCoordinates,
   solveSlice,
+  useTranslate,
   useTypedSelector,
 } from '@/state';
 
@@ -33,13 +34,15 @@ interface Props {
 
 export const Board: FunctionComponent<Props> = ({ className }) => {
   const dispatch = useDispatch();
+  const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
+  const config = useTypedSelector(selectConfig);
   const rows = useTypedSelector(selectRowsWithCandidate);
   const reachableCells = useTypedSelector(selectReachableCells);
   const inputMode = useTypedSelector(selectInputMode);
   const cellFilters = useTypedSelector(selectCellFilters);
   const showCoordinates = useTypedSelector(selectShowCoordinates);
-  const { cellSize, coordinatesFontSize, coordinatesSize } = useAppLayout();
+  const hoveredCharacter = useTypedSelector(selectHoveredCharacter);
   const [
     { activeIndex, direction, inputRefs },
     { insertValue, onChange, onDirectionToggle, onFocus, onKeyDown, onPaste },
@@ -47,7 +50,6 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
   const boardStyle = useBoardStyle();
   const [hasFocus, setHasFocus] = useState(false);
   const [showInputPrompt, setShowInputPrompt] = useState(false);
-  const [transition, setTransition] = useState<CSSProperties['transition']>(TRANSITION);
   const inputRef = inputRefs[activeIndex.y][activeIndex.x];
   const cell = rows[activeIndex.y][activeIndex.x];
   const floatingActions = useFloatingActions();
@@ -80,8 +82,6 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
 
   const handleFocus: typeof onFocus = useCallback(
     (newX, newY) => {
-      const isFirstFocus = !hasFocus;
-      const originalTransition = floatingActions.refs.floating.current?.style.transition || '';
       const newInputRef = inputRefs[newY][newX].current;
       const newTileElement = newInputRef?.parentElement || null;
 
@@ -89,16 +89,8 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
       onFocus(newX, newY);
       setHasFocus(true);
       setShowInputPrompt(false);
-
-      if (isFirstFocus) {
-        setTransition('none');
-
-        globalThis.setTimeout(() => {
-          setTransition(originalTransition);
-        }, 0);
-      }
     },
-    [floatingActions.refs.floating, hasFocus, inputRefs, onFocus, updateFloatingReference],
+    [inputRefs, onFocus, updateFloatingReference],
   );
 
   const handleEnterWord = useCallback(() => {
@@ -153,16 +145,17 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
       <BoardPure
         className={className}
         cellFilters={cellFilters}
-        cellSize={cellSize}
-        coordinatesFontSize={coordinatesFontSize}
-        coordinatesSize={coordinatesSize}
+        config={config}
         direction={LOCALE_FEATURES[locale].direction}
+        hoveredCharacter={hoveredCharacter}
         inputRefs={inputRefs}
+        locale={locale}
         reachableCells={reachableCells}
         ref={ref}
         rows={rows}
         showCoordinates={showCoordinates}
         style={boardStyle}
+        translate={translate}
         onBlur={handleBlur}
         onChange={onChange}
         onFocus={handleFocus}
@@ -178,14 +171,11 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
           ref={floatingFocus.refs.setFloating}
           style={{
             position: floatingFocus.strategy,
-            top: floatingFocus.y + cellSize,
+            top: `calc(${floatingFocus.y ?? 0}px + var(--cell-size))`,
             left: floatingFocus.x,
             display: floatingFocus.isPositioned ? 'block' : 'none',
-            width: cellSize,
-            height: cellSize,
             opacity: hasFocus ? 1 : 0,
             visibility: floatingFocus.x === null || floatingFocus.y === null ? 'hidden' : 'visible',
-            transition,
           }}
           tabIndex={0}
         />
@@ -200,7 +190,6 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
               position: floatingActions.strategy,
               top: floatingActions.y ?? 0,
               left: floatingActions.x ?? 0,
-              transition,
             }}
             onDirectionToggle={handleToggleDirection}
             onEnterWord={handleEnterWord}
@@ -219,7 +208,6 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
               position: floatingInputPrompt.strategy,
               top: floatingInputPrompt.y ?? 0,
               left: floatingInputPrompt.x ?? 0,
-              transition,
             }}
             onDirectionToggle={handleToggleDirection}
             onSubmit={handleInsertWord}

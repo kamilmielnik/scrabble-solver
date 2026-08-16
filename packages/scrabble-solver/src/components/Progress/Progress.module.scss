@@ -2,6 +2,13 @@
   width: 100%;
   min-height: 1px;
   border-radius: var(--border--radius);
+  background-image: linear-gradient(
+    90deg,
+    var(--color--progress) 0%,
+    var(--color--progress) var(--progress),
+    var(--color--progress--background) var(--progress),
+    var(--color--progress--background) 100%
+  );
 
   [dir='rtl'] & {
     transform: scaleX(-1);

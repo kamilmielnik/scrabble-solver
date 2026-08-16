@@ -50,3 +50,12 @@ h4 {
 nextjs-portal {
   display: none;
 }
+
+/**
+ * Added pre-paint by _document's inline script when the persisted game differs from the
+ * prerendered default board; removed after hydration applies the persisted config.
+ * The class name must match CONFIG_PENDING_CLASS in parameters/index.ts.
+ */
+html.config-pending main {
+  visibility: hidden;
+}

@@ -44,7 +44,6 @@ export const PlainTiles: FunctionComponent<Props> = ({
           key={index}
           points={tile.points}
           size={tile.size}
-          transform={tile.transform}
           x={tile.x}
           y={tile.y}
         />

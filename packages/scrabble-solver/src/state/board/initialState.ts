@@ -1,7 +1,6 @@
 import { getConfig } from '@scrabble-solver/configs';
 import { Board } from '@scrabble-solver/types';
 
-import { localStorage } from '../localStorage';
 import { settingsInitialState } from '../settings';
 
 import type { BoardState } from './types';
@@ -9,7 +8,7 @@ import type { BoardState } from './types';
 const { game, locale } = settingsInitialState;
 const { boardHeight, boardWidth } = getConfig(game, locale);
 
-export const boardInitialState: BoardState = localStorage.getBoard() ?? Board.create(boardWidth, boardHeight);
+export const boardInitialState: BoardState = Board.create(boardWidth, boardHeight);
 
 // const createOxyphenbutazone = () => {
 //   // Tiles: oypbaze

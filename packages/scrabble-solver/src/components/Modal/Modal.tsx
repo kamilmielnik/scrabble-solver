@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { type FunctionComponent, type ReactNode, useCallback, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 
-import { CrossSquareFill } from '@/icons';
+import CrossSquareFill from '@/icons/CrossSquareFill.svg';
 import { TRANSITION_DURATION_LONG } from '@/parameters';
 import { useTranslate } from '@/state';
 
@@ -11,16 +11,29 @@ import { IconButton } from '../IconButton';
 import { Section } from './components';
 import styles from './Modal.module.scss';
 
+if (typeof document !== 'undefined') {
+  ReactModal.setAppElement('#__next');
+}
+
 export interface Props {
   children: ReactNode;
   className?: string;
   footer?: ReactNode;
   isOpen: boolean;
+  modalClassName?: string;
   title: string;
   onClose: () => void;
 }
 
-const ModalBase: FunctionComponent<Props> = ({ children, className, footer, isOpen, title, onClose }) => {
+const ModalBase: FunctionComponent<Props> = ({
+  children,
+  className,
+  footer,
+  isOpen,
+  modalClassName,
+  title,
+  onClose,
+}) => {
   const translate = useTranslate();
   const [shouldReturnFocusAfterClose, setShouldReturnFocusAfterClose] = useState(true);
 
@@ -55,7 +68,7 @@ const ModalBase: FunctionComponent<Props> = ({ children, className, footer, isOp
       aria={{ modal: true }}
       className={{
         afterOpen: styles.afterOpen,
-        base: styles.modal,
+        base: classNames(styles.modal, modalClassName),
         beforeClose: styles.beforeClose,
       }}
       closeTimeoutMS={TRANSITION_DURATION_LONG}

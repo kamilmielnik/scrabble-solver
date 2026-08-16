@@ -1,4 +1,3 @@
-export { useBackgroundImage } from './useBackgroundImage';
 export { useBoardStyle } from './useBoardStyle';
 export { useFloatingActions } from './useFloatingActions';
 export { useFloatingFocus } from './useFloatingFocus';

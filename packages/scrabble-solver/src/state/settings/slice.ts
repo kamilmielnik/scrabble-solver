@@ -44,8 +44,11 @@ export const settingsSlice = createSlice({
       return { ...state, removeCellFilters };
     },
 
-    init: (state, action: PayloadAction<Partial<Pick<typeof settingsInitialState, 'game' | 'locale'>>>) => {
-      return { ...state, ...action.payload };
+    init: (state, action: PayloadAction<Partial<typeof settingsInitialState>>) => {
+      const settings = { ...state, ...action.payload };
+      const keys = Object.keys(settings) as (keyof typeof settingsInitialState)[];
+      const hasDiff = keys.some((key) => settings[key] !== state[key]);
+      return hasDiff ? settings : state;
     },
   },
 });

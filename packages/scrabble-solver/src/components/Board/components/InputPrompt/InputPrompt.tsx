@@ -8,7 +8,7 @@ import {
   useState,
 } from 'react';
 
-import { Check } from '@/icons';
+import Check from '@/icons/Check.svg';
 import { useTranslate } from '@/state';
 import { type Direction } from '@/types';
 
