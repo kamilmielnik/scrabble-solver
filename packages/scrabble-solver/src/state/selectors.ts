@@ -5,8 +5,9 @@ import { unorderedArraysEqual } from '@/lib/unorderedArraysEqual';
 import { selectBoard } from './board';
 import { getRemainingTiles } from './lib';
 import { selectCharacters } from './rack';
+import { selectResultsResults } from './results';
 import { selectConfig, selectLocale } from './settings';
-import { selectLastSolvedParameters } from './solve';
+import { selectLastSolvedParameters, selectSolveError } from './solve';
 
 const selectHasBoardChanged = createSelector(
   [selectLastSolvedParameters, selectBoard],
@@ -26,6 +27,13 @@ export const selectAreResultsOutdated = createSelector(
   [selectHasBoardChanged, selectHaveCharactersChanged],
   (hasBoardChanged, haveCharactersChanged) => {
     return hasBoardChanged || haveCharactersChanged;
+  },
+);
+
+export const selectUpToDateResults = createSelector(
+  [selectResultsResults, selectAreResultsOutdated, selectSolveError],
+  (results, areResultsOutdated, solveError) => {
+    return results && !areResultsOutdated && !solveError ? results : null;
   },
 );
 

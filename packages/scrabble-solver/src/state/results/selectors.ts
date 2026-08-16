@@ -16,7 +16,7 @@ export const selectResultCandidate = createSelector([selectResults], (results) =
 
 export const selectResultsQuery = createSelector([selectResults], (results) => results.query);
 
-const selectResultsResults = createSelector([selectResults], (results) => results.results);
+export const selectResultsResults = createSelector([selectResults], (results) => results.results);
 
 export const selectResultsSort = createSelector([selectResults], (results) => results.sort);
 

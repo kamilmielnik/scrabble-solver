@@ -1,5 +1,5 @@
 import { BONUS_WORD } from '@scrabble-solver/constants';
-import { type Board, type Bonus, type Config } from '@scrabble-solver/types';
+import { type Board, type Bonus, type Result } from '@scrabble-solver/types';
 
 import { COLOR_BONUS_CHARACTER, COLOR_BONUS_CHARACTER_MULTIPLIER, COLOR_BONUS_WORD } from '@/parameters';
 import { type Direction, type Point } from '@/types';
@@ -36,8 +36,9 @@ export const getPositionInGrid = <T>(grid: T[][], constraint: (value: T) => bool
   return undefined;
 };
 
-export const getReachableCells = (config: Config, board: Board, charactersCount: number): boolean[][] => {
-  const { boardHeight, boardWidth } = config;
+export const getReachableCells = (board: Board, charactersCount: number): boolean[][] => {
+  const boardHeight = board.rowsCount;
+  const boardWidth = board.columnsCount;
   const reachable = createGrid(boardWidth, boardHeight, () => false);
 
   if (charactersCount === 0) {
@@ -111,6 +112,18 @@ export const getReachableCells = (config: Config, board: Board, charactersCount:
       if (isReachableInDirection(x, y, 'horizontal') || isReachableInDirection(x, y, 'vertical')) {
         reachable[y][x] = true;
       }
+    }
+  }
+
+  return reachable;
+};
+
+export const getReachableCellsFromResults = (board: Board, results: Result[]): boolean[][] => {
+  const reachable = createGrid(board.columnsCount, board.rowsCount, (x, y) => board.rows[y][x].hasTile());
+
+  for (const result of results) {
+    for (const cell of result.cells) {
+      reachable[cell.y][cell.x] = true;
     }
   }
 
