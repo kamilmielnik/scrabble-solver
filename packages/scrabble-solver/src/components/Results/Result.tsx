@@ -50,7 +50,7 @@ export const Result = ({
       aria-current={index === highlightedIndex ? 'true' : undefined}
       aria-hidden={isMatching ? undefined : 'true'}
       aria-label={result.word}
-      className={classNames(tableStyles.row, {
+      className={classNames(tableStyles.row, styles.result, {
         [tableStyles.highlighted]: index === highlightedIndex,
       })}
       data-testid="result"
