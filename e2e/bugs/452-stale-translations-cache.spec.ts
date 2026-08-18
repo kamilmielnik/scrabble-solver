@@ -2,11 +2,10 @@ import { expect, test } from '@playwright/test';
 
 import * as Lib from '../lib';
 
-/*
- * A translations cache written by a build that knew fewer translation keys
- * crashed translate() on the keys added since.
+/**
+ * @see https://github.com/kamilmielnik/scrabble-solver/issues/452
  */
-test.describe('Stale translations cache', () => {
+test.describe('#452 - Stale translations cache', () => {
   test('recovers when the cached translations are missing a newly added key', async ({ page }) => {
     await Lib.visitIndex(page);
     await page.keyboard.press('Shift');
