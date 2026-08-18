@@ -119,13 +119,14 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
             )}
 
             {!isOutdated && results.length > 0 && (
-              <div className={styles.listContainer} onMouseLeave={callbacks.onMouseLeave}>
+              <div className={styles.listContainer}>
                 <List
                   className={classNames(styles.list, {
                     [styles.outdated]: isOutdated,
                   })}
                   dir={direction}
                   listRef={listRef}
+                  onMouseLeave={callbacks.onMouseLeave}
                   overscanCount={RESULTS_OVERSCAN_COUNT}
                   rowComponent={Result}
                   rowCount={results.length}
