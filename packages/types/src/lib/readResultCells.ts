@@ -1,7 +1,7 @@
-import { type Board } from './Board';
-import { Cell } from './Cell';
-import { type ResultJson } from './ResultJson';
-import { Tile } from './Tile';
+import { type Board } from '../Board';
+import { Cell } from '../Cell';
+import { type ResultJson } from '../ResultJson';
+import { Tile } from '../Tile';
 
 export function readCells(json: ResultJson, board: Board): Cell[] {
   const stepX = json.isHorizontal ? 1 : 0;

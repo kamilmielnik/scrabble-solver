@@ -1,0 +1,10 @@
+export { isBingo } from './isBingo';
+export { isBoardJson } from './isBoardJson';
+export { isCellJson } from './isCellJson';
+export { isError } from './isError';
+export { isGame } from './isGame';
+export { isLocale } from './isLocale';
+export { isMultiplierBingo } from './isMultiplierBingo';
+export { isObject } from './isObject';
+export { isScoreBingo } from './isScoreBingo';
+export { isTileJson } from './isTileJson';

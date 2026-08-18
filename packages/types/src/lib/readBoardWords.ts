@@ -1,7 +1,7 @@
-import { type Board } from './Board';
-import { type BoardWord } from './BoardWord';
-import { type Cell } from './Cell';
-import { type Direction } from './Direction';
+import { type Board } from '../Board';
+import { type BoardWord } from '../BoardWord';
+import { type Cell } from '../Cell';
+import { type Direction } from '../Direction';
 
 export function readBoardWords(board: Board): BoardWord[] {
   const horizontalWords = readWordsInRows(board.rows, 'horizontal');

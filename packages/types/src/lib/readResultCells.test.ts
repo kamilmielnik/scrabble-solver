@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'bun:test';
 
-import { Board } from './Board';
-import { Cell } from './Cell';
+import { Board } from '../Board';
+import { Cell } from '../Cell';
+import { type ResultJson } from '../ResultJson';
+import { Tile } from '../Tile';
+
 import { readCells, readCollisions } from './readResultCells';
-import { type ResultJson } from './ResultJson';
-import { Tile } from './Tile';
 
 describe('readCells', () => {
   it('reads a word placed on an empty board', () => {

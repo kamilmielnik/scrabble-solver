@@ -2,7 +2,7 @@ import { CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 
 import { type Board } from './Board';
 import { type Cell } from './Cell';
-import { readCells, readCollisions } from './readResultCells';
+import { readCells, readCollisions } from './lib';
 import { type ResultJson } from './ResultJson';
 import { type Tile } from './Tile';
 

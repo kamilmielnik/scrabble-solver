@@ -3,7 +3,7 @@ import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { type BoardJson } from './BoardJson';
 import { type BoardWord } from './BoardWord';
 import { Cell } from './Cell';
-import { readBoardWords, readCollidingWords } from './readBoardWords';
+import { readBoardWords, readCollidingWords } from './lib';
 import { Tile } from './Tile';
 
 export class Board {
