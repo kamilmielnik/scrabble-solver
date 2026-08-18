@@ -1,2 +1,4 @@
-export * from './readBoardWords';
-export * from './readResultCells';
+export * from './getBoardWords';
+export * from './getCells';
+export * from './getCollidingWords';
+export * from './getCollisions';

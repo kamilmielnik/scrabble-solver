@@ -3,7 +3,7 @@ import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { type BoardJson } from './BoardJson';
 import { type BoardWord } from './BoardWord';
 import { Cell } from './Cell';
-import { readBoardWords, readCollidingWords } from './lib';
+import { getBoardWords, getCollidingWords } from './lib';
 import { Tile } from './Tile';
 
 export class Board {
@@ -98,7 +98,7 @@ export class Board {
   }
 
   public getCollidingWords(word: BoardWord): BoardWord[] {
-    return readCollidingWords(this, word);
+    return getCollidingWords(this, word);
   }
 
   public getColumn(index: number): Cell[] {
@@ -116,7 +116,7 @@ export class Board {
   }
 
   public getWords(): BoardWord[] {
-    return readBoardWords(this);
+    return getBoardWords(this);
   }
 
   public isEmpty(): boolean {
