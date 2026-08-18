@@ -1,7 +1,7 @@
 export { Bingo } from './Bingo';
 export { Board } from './Board';
 export { BoardJson } from './BoardJson';
-export { BoardWord, isSameBoardWord } from './BoardWord';
+export { BoardWord } from './BoardWord';
 export { Bonus } from './Bonus';
 export { BonusJson } from './BonusJson';
 export { BonusValue } from './BonusValue';
