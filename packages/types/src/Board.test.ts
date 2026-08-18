@@ -48,11 +48,8 @@ describe('Board.getWords', () => {
   });
 
   it('locates a word with a digraph tile occupying a single cell', () => {
-    const board = createBoardWithCharacters([
-      ['', '', ''],
-      ['', 'ch', 'e'],
-      ['', '', ''],
-    ]);
+    const board = Board.fromStringArray(['   ', '  e', '   ']);
+    board.updateCell(1, 1, () => new Cell({ isEmpty: false, tile: new Tile({ character: 'ch' }), x: 1, y: 1 }));
 
     expect(board.getWords()).toEqual([{ direction: 'horizontal', word: 'che', x: 1, y: 1 }]);
   });
@@ -86,19 +83,3 @@ describe('Board.getCollidingWords', () => {
     expect(lonely.getCollidingWords({ direction: 'horizontal', word: 'cat', x: 1, y: 1 })).toEqual([]);
   });
 });
-
-const createBoardWithCharacters = (characters: string[][]): Board => {
-  return new Board({
-    rows: characters.map((row, y) =>
-      row.map(
-        (character, x) =>
-          new Cell({
-            isEmpty: !character,
-            tile: character ? new Tile({ character }) : Tile.Null,
-            x,
-            y,
-          }),
-      ),
-    ),
-  });
-};
