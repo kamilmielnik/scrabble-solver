@@ -1,4 +1,4 @@
-import { expect, type Page, test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 import * as Lib from '../lib';
 
@@ -9,7 +9,7 @@ test.describe('Words preview', () => {
     await Lib.visitIndex(page);
     await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
     await Lib.typeBoard(page, 'dog', 'horizontal', { x: 3, y: 5 });
-    await openWordsModal(page);
+    await Lib.openWordsModal(page);
 
     await expect(Lib.getWord(page, 0)).toHaveAttribute('aria-current', 'true');
 
@@ -31,7 +31,7 @@ test.describe('Words preview', () => {
     await Lib.typeRack(page, 's');
     await Lib.solve(page);
 
-    await openWordsModal(page);
+    await Lib.openWordsModal(page);
     await Lib.getOpenModal(page).getByRole('button', { name: 'Preview', exact: true }).click();
     await Lib.expectTileHighlighted(Lib.getBoardTile(page, 3, 3));
 
@@ -45,7 +45,7 @@ test.describe('Words preview', () => {
   test('clears the highlights when the layout breakpoint changes', async ({ page }) => {
     await Lib.visitIndex(page);
     await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
-    await openWordsModal(page);
+    await Lib.openWordsModal(page);
     await Lib.getOpenModal(page).getByRole('button', { name: 'Preview', exact: true }).click();
     await Lib.expectTileHighlighted(Lib.getBoardTile(page, 3, 3));
 
@@ -70,8 +70,3 @@ test.describe('Words preview', () => {
     });
   });
 });
-
-async function openWordsModal(page: Page) {
-  await page.getByLabel('Created words', { exact: true }).click();
-  await expect(Lib.getOpenModal(page)).toBeVisible();
-}

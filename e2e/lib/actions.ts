@@ -27,6 +27,11 @@ export async function closeModal(page: Page): Promise<void> {
   await expect(getModal(page)).toHaveCount(0);
 }
 
+export async function openWordsModal(page: Page): Promise<void> {
+  await page.getByLabel('Created words', { exact: true }).click();
+  await expect(getOpenModal(page)).toBeVisible();
+}
+
 export async function typeRack(page: Page, tiles: string, index = 0): Promise<void> {
   await getRackTile(page, index).focus();
   await page.keyboard.type(tiles);

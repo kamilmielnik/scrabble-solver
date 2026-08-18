@@ -1,4 +1,4 @@
-import { expect, type Page, test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 import * as Lib from '../lib';
 
@@ -10,7 +10,7 @@ test.describe('#427 - Highlight created words on board on hover', () => {
     await Lib.visitIndex(page);
     await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
     await Lib.typeBoard(page, 'cat', 'vertical', { x: 8, y: 8 });
-    await openWordsModal(page);
+    await Lib.openWordsModal(page);
 
     await Lib.hoverWord(page, 3, 3, 'horizontal');
     await Lib.expectTileHighlighted(Lib.getBoardTile(page, 3, 3));
@@ -40,7 +40,7 @@ test.describe('#427 - Highlight created words on board on hover', () => {
   test('highlights a hovered invalid word', async ({ page }) => {
     await Lib.visitIndex(page);
     await Lib.typeBoard(page, 'zvq', 'horizontal', { x: 5, y: 5 });
-    await openWordsModal(page);
+    await Lib.openWordsModal(page);
 
     await expect(page.getByTestId('word-5-5-horizontal').getByLabel('Invalid', { exact: true })).toBeVisible();
     await Lib.hoverWord(page, 5, 5, 'horizontal');
@@ -53,7 +53,7 @@ test.describe('#427 - Highlight created words on board on hover', () => {
   test('clears the highlight when the modal closes', async ({ page }) => {
     await Lib.visitIndex(page);
     await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
-    await openWordsModal(page);
+    await Lib.openWordsModal(page);
 
     await Lib.hoverWord(page, 3, 3, 'horizontal');
     await Lib.expectTileHighlighted(Lib.getBoardTile(page, 3, 3));
@@ -65,8 +65,3 @@ test.describe('#427 - Highlight created words on board on hover', () => {
     await Lib.expectTileNotHighlighted(Lib.getBoardTile(page, 5, 3));
   });
 });
-
-async function openWordsModal(page: Page) {
-  await page.getByLabel('Created words', { exact: true }).click();
-  await expect(Lib.getOpenModal(page)).toBeVisible();
-}

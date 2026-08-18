@@ -30,6 +30,10 @@ export function getDictionaryTitles(page: Page): Locator {
   return getDictionary(page).locator('h2');
 }
 
+export function getModalDictionary(page: Page): Locator {
+  return getOpenModal(page).locator('[class*="dictionary"]');
+}
+
 export function getLoading(page: Page): Locator {
   return page.getByTestId('loading');
 }

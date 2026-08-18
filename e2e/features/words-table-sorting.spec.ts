@@ -1,4 +1,4 @@
-import { expect, type Page, test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 import * as Lib from '../lib';
 
@@ -7,7 +7,7 @@ test.describe('Words table sorting', () => {
     await Lib.visitIndex(page);
     await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
     await Lib.typeBoard(page, 'zvq', 'horizontal', { x: 3, y: 5 });
-    await openWordsModal(page);
+    await Lib.openWordsModal(page);
     const modal = Lib.getOpenModal(page);
 
     await Lib.assertWord(page, 0, 'cat');
@@ -31,8 +31,3 @@ test.describe('Words table sorting', () => {
     await Lib.assertWord(page, 1, 'zvq');
   });
 });
-
-async function openWordsModal(page: Page) {
-  await page.getByLabel('Created words', { exact: true }).click();
-  await expect(Lib.getOpenModal(page)).toBeVisible();
-}

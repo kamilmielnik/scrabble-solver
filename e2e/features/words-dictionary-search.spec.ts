@@ -1,4 +1,4 @@
-import { expect, type Page, test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 import * as Lib from '../lib';
 
@@ -8,7 +8,7 @@ test.describe('Words dictionary search', () => {
     await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
     await Lib.typeBoard(page, 'od', 'vertical', { x: 3, y: 4 });
     await Lib.typeBoard(page, 'dog', 'horizontal', { x: 8, y: 8 });
-    await openWordsModal(page);
+    await Lib.openWordsModal(page);
 
     await Lib.hoverWord(page, 3, 3, 'horizontal');
     await expect(Lib.getDictionaryInput(page)).toHaveValue('cat, cod');
@@ -19,7 +19,7 @@ test.describe('Words dictionary search', () => {
     await Lib.hoverWord(page, 8, 8, 'horizontal');
     await expect(Lib.getDictionaryInput(page)).toHaveValue('dog');
 
-    await expect(getModalDictionary(page)).toBeHidden();
+    await expect(Lib.getModalDictionary(page)).toBeHidden();
   });
 
   test.describe('mobile', () => {
@@ -28,18 +28,9 @@ test.describe('Words dictionary search', () => {
     test('shows the dictionary below the words table', async ({ page }) => {
       await Lib.visitIndex(page);
       await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
-      await openWordsModal(page);
+      await Lib.openWordsModal(page);
 
-      await expect(getModalDictionary(page)).toBeVisible();
+      await expect(Lib.getModalDictionary(page)).toBeVisible();
     });
   });
 });
-
-function getModalDictionary(page: Page) {
-  return Lib.getOpenModal(page).locator('[class*="dictionary"]');
-}
-
-async function openWordsModal(page: Page) {
-  await page.getByLabel('Created words', { exact: true }).click();
-  await expect(Lib.getOpenModal(page)).toBeVisible();
-}
