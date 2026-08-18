@@ -121,7 +121,7 @@ export const WordsTable: FunctionComponent<Props> = ({ className, onPreview }) =
       </div>
 
       <div className={styles.content}>
-        <div className={styles.listContainer} onMouseLeave={usesHover ? handleMouseLeave : undefined}>
+        <div className={styles.listContainer}>
           <List
             className={styles.list}
             dir={direction}
@@ -130,6 +130,7 @@ export const WordsTable: FunctionComponent<Props> = ({ className, onPreview }) =
             rowCount={words.length}
             rowHeight={RESULTS_ITEM_HEIGHT}
             rowProps={rowProps}
+            onMouseLeave={usesHover ? handleMouseLeave : undefined}
           />
         </div>
       </div>

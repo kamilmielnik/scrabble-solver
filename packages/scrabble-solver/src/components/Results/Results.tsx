@@ -138,12 +138,12 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
                   })}
                   dir={direction}
                   listRef={listRef}
-                  onMouseLeave={callbacks.onMouseLeave}
                   overscanCount={RESULTS_OVERSCAN_COUNT}
                   rowComponent={Result}
                   rowCount={results.length}
                   rowHeight={RESULTS_ITEM_HEIGHT}
                   rowProps={itemData}
+                  onMouseLeave={callbacks.onMouseLeave}
                 />
               </div>
             )}
