@@ -22,8 +22,9 @@ export function getDictionary(page: Page): Locator {
 }
 
 export function getDictionaryInput(page: Page): Locator {
-  // includeHidden: true so that the dictionary can be asserted on while modal is opened
-  return getDictionary(page).getByRole('textbox', { includeHidden: true });
+  return getDictionary(page).getByRole('textbox', {
+    includeHidden: true, // so that the dictionary can be asserted on while modal is opened
+  });
 }
 
 export function getDictionaryTitles(page: Page): Locator {
@@ -43,8 +44,11 @@ export function getRackContainer(page: Page): Locator {
 }
 
 export function getRackTile(page: Page, index = 0): Locator {
-  // includeHidden: true so that rack can be interacted with while modal is opened
-  return getRackContainer(page).getByRole('textbox', { includeHidden: true }).nth(index);
+  return getRackContainer(page)
+    .getByRole('textbox', {
+      includeHidden: true, // so that rack can be interacted with while modal is opened
+    })
+    .nth(index);
 }
 
 export function getResultsContainer(page: Page): Locator {
