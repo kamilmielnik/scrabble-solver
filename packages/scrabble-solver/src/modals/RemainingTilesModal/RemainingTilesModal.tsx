@@ -46,7 +46,7 @@ const RemainingTilesModalBase: FunctionComponent<Props> = ({ className, isOpen, 
               {tiles.map((tile) => {
                 return (
                   <div className={styles.character} key={tile.character}>
-                    <Character highlightsTiles={!coversViewport} tile={tile} />
+                    <Character canHighlight={!coversViewport} tile={tile} />
                   </div>
                 );
               })}

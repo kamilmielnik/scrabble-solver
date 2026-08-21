@@ -18,11 +18,11 @@ import { type RemainingTile } from '@/types';
 import styles from './Character.module.scss';
 
 interface Props {
-  highlightsTiles: boolean;
+  canHighlight: boolean;
   tile: RemainingTile;
 }
 
-export const Character: FunctionComponent<Props> = ({ highlightsTiles, tile }) => {
+export const Character: FunctionComponent<Props> = ({ canHighlight, tile }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
   const hoveredCharacter = useTypedSelector(selectHoveredCharacter);
@@ -38,7 +38,7 @@ export const Character: FunctionComponent<Props> = ({ highlightsTiles, tile }) =
   const current = direction === 'ltr' ? remainingCount : count;
   const total = direction === 'ltr' ? count : remainingCount;
   const isUsed = usedCount > 0;
-  const isHighlightable = highlightsTiles && isUsed;
+  const isHighlightable = canHighlight && isUsed;
   const isHighlighted = isHighlightable && hoveredCharacter === character;
 
   const handleMouseEnter = useCallback(() => {
