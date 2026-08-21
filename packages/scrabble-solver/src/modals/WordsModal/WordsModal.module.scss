@@ -12,7 +12,6 @@
   flex: 1 1 auto;
 }
 
-// The main page shows the dictionary next to the board from the `l` breakpoint up
 .dictionary {
   flex: 0 0 var(--dictionary--height--mobile);
   background-color: var(--color--background--element);
