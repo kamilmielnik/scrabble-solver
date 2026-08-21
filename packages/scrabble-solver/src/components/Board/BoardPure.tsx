@@ -121,7 +121,7 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
           </div>
 
           {cells.map((cell, x) => {
-            const isHoveredWordPart = hoveredWordCells ? hoveredWordCells[y][x] : false;
+            const isHoveredWord = hoveredWordCells ? hoveredWordCells[y][x] : false;
 
             return (
               <Cell
@@ -131,7 +131,7 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
                 cellRight={x < rows[y].length - 1 ? rows[y][x + 1] : undefined}
                 cellTop={y > 0 ? rows[y - 1][x] : undefined}
                 config={config}
-                highlighted={cell.isCandidate() || isHoverMatch(cell, hoveredCharacter) || isHoveredWordPart}
+                highlighted={cell.isCandidate() || isHoverCharacter(cell, hoveredCharacter) || isHoveredWord}
                 inputRef={inputRefs[y][x]}
                 isReachable={reachableCells ? reachableCells[y][x] : true}
                 key={x}
@@ -151,7 +151,7 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
 
 export const BoardPure = memo(BoardPureBase);
 
-function isHoverMatch(cell: CellModel, hoveredCharacter: string | null): boolean {
+function isHoverCharacter(cell: CellModel, hoveredCharacter: string | null): boolean {
   if (cell.tile.character === EMPTY_CELL || hoveredCharacter === null) {
     return false;
   }
