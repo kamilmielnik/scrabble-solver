@@ -21,6 +21,7 @@ import styles from './WordsTable.module.scss';
 
 export interface WordRowData {
   canPreview: boolean;
+  clearsOnLeave: boolean;
   highlightedIndex: number;
   usesHover: boolean;
   words: VerifiedWord[];
@@ -29,6 +30,7 @@ export interface WordRowData {
 
 export const WordRow = ({
   canPreview,
+  clearsOnLeave,
   highlightedIndex,
   index,
   style,
@@ -69,7 +71,7 @@ export const WordRow = ({
       highlighted={isSelected}
       inactive={!isMatching}
       style={style}
-      onBlur={usesHover ? handleClear : undefined}
+      onBlur={clearsOnLeave ? handleClear : undefined}
       onClick={usesHover ? undefined : handleClick}
       onFocus={usesHover ? handleSet : undefined}
       onMouseEnter={usesHover ? handleSet : undefined}
