@@ -21,7 +21,7 @@ import {
 
 import { EmptyState } from '../EmptyState';
 import { Loading } from '../Loading';
-import { QueryInput } from '../Table';
+import { Search } from '../Table';
 
 import { Header } from './Header';
 import { Result } from './Result';
@@ -63,7 +63,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
   const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
   const scrollToIndexRef = useLatest(scrollToIndex);
   const hasResults = typeof error === 'undefined' && typeof results !== 'undefined';
-  const showInput = hasResults && results.length > 0 && !isOutdated;
+  const showSearch = hasResults && results.length > 0 && !isOutdated;
 
   const handleQueryChange = useCallback(
     (newQuery: string) => {
@@ -151,12 +151,12 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
         )}
       </div>
 
-      {showInput && (
-        <QueryInput
+      {showSearch && (
+        <Search
           className={styles.input}
           placeholder={translate('results.input.placeholder')}
-          query={query}
-          onQueryChange={handleQueryChange}
+          value={query}
+          onChange={handleQueryChange}
         />
       )}
 

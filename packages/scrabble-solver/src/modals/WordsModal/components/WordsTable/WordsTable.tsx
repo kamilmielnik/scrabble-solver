@@ -4,7 +4,7 @@ import { type FunctionComponent, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { List } from 'react-window';
 
-import { Header, HeaderButton, QueryInput } from '@/components/Table';
+import { Header, HeaderButton, Search } from '@/components/Table';
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { LOCALE_FEATURES } from '@/i18n/constants';
@@ -101,13 +101,7 @@ export const WordsTable: FunctionComponent<Props> = ({ className, onPreview }) =
           onSort={handleSort}
         />
 
-        <HeaderButton
-          id={WordColumnId.Word}
-          primary
-          sort={sort}
-          translationKey="common.word"
-          onSort={handleSort}
-        />
+        <HeaderButton id={WordColumnId.Word} primary sort={sort} translationKey="common.word" onSort={handleSort} />
 
         <HeaderButton
           className={styles.stat}
@@ -135,11 +129,11 @@ export const WordsTable: FunctionComponent<Props> = ({ className, onPreview }) =
       </div>
 
       {words.length > 0 && (
-        <QueryInput
+        <Search
           className={styles.input}
           placeholder={translate('words.input.placeholder')}
-          query={query}
-          onQueryChange={handleQueryChange}
+          value={query}
+          onChange={handleQueryChange}
         />
       )}
     </div>

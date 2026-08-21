@@ -113,11 +113,11 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   min-width: 0;
 }
 
-.queryInput {
+.search {
   @include focus-effect;
 }
 
-.queryInputField {
+.searchField {
   @include text-input;
 
   border: none;

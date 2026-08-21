@@ -8,12 +8,12 @@ import styles from './Table.module.scss';
 interface Props {
   className?: string;
   placeholder: string;
-  query: string;
-  onQueryChange: (query: string) => void;
+  value: string;
+  onChange: (value: string) => void;
 }
 
-export const QueryInput: FunctionComponent<Props> = ({ className, placeholder, query, onQueryChange }) => {
-  const [localValue, setLocalValue] = useState(query);
+export const Search: FunctionComponent<Props> = ({ className, placeholder, value, onChange }) => {
+  const [localValue, setLocalValue] = useState(value);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
@@ -21,7 +21,7 @@ export const QueryInput: FunctionComponent<Props> = ({ className, placeholder, q
     setLocalValue(newValue);
 
     if (isRegExp(newValue)) {
-      onQueryChange(newValue);
+      onChange(newValue);
     }
   };
 
@@ -30,9 +30,9 @@ export const QueryInput: FunctionComponent<Props> = ({ className, placeholder, q
   };
 
   return (
-    <form className={classNames(styles.queryInput, className)} onSubmit={handleSubmit}>
+    <form className={classNames(styles.search, className)} onSubmit={handleSubmit}>
       <input
-        className={styles.queryInputField}
+        className={styles.searchField}
         placeholder={placeholder}
         type="text"
         value={localValue}
