@@ -21,7 +21,7 @@ export const resultsSlice = createSlice({
 
     changeResultCandidate: (state, action: PayloadAction<Result | null>) => {
       const candidate = action.payload;
-      return { ...state, candidate };
+      return candidate === state.candidate ? state : { ...state, candidate };
     },
 
     changeResults: (state, action: PayloadAction<Result[]>) => {

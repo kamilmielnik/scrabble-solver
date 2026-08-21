@@ -53,7 +53,7 @@ export function* rootSaga(): AnyGenerator {
   yield takeEvery([rackSlice.actions.changeCharacter.type, rackSlice.actions.changeCharacters.type], onRackValueChange);
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
   yield takeLatest(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
-  yield takeLatest(hoveredWordSlice.actions.set.type, onHoveredWordChange);
+  yield takeLatest([hoveredWordSlice.actions.set.type, hoveredWordSlice.actions.clear.type], onHoveredWordChange);
   yield takeEvery(settingsSlice.actions.changeGame.type, onGameChange);
   yield takeEvery(settingsSlice.actions.changeLocale.type, onLocaleChange);
   yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
@@ -296,7 +296,11 @@ function* onResultCandidateChange({ payload: result }: PayloadAction<Result | nu
   yield* searchDictionary(result.words);
 }
 
-function* onHoveredWordChange({ payload: word }: PayloadAction<VerifiedWord>): AnyGenerator {
+function* onHoveredWordChange({ payload: word }: PayloadAction<VerifiedWord | undefined>): AnyGenerator {
+  if (!word) {
+    return;
+  }
+
   yield put(resultsSlice.actions.changeResultCandidate(null));
 
   const board: Board = yield select(selectBoard);
