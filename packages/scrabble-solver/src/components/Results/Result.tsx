@@ -1,10 +1,8 @@
-import classNames from 'classnames';
-import { type FocusEventHandler, type MouseEventHandler, type ReactElement, useRef } from 'react';
+import { type FocusEventHandler, type MouseEventHandler, type ReactElement } from 'react';
 import Highlighter from 'react-highlight-words';
 import { type RowComponentProps } from 'react-window';
 
-import { Cell } from '@/components/Table';
-import tableStyles from '@/components/Table/Table.module.scss';
+import { Cell, Row } from '@/components/Table';
 import { useColumns } from '@/hooks/useColumns';
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import { noop } from '@/lib/noop';
@@ -30,7 +28,6 @@ export const Result = ({
   onMouseEnter = noop,
   style,
 }: RowComponentProps<ResultData>): ReactElement => {
-  const ref = useRef<HTMLButtonElement>(null);
   const columns = useColumns();
   const locale = useTypedSelector(selectLocale);
   const query = useTypedSelector(selectResultsQuery);
@@ -46,62 +43,56 @@ export const Result = ({
   const handleFocus: FocusEventHandler = (event) => onFocus(result, event);
 
   return (
-    <button
-      aria-current={index === highlightedIndex ? 'true' : undefined}
-      aria-hidden={isMatching ? undefined : 'true'}
+    <Row
       aria-label={result.word}
-      className={classNames(tableStyles.row, styles.result, {
-        [tableStyles.highlighted]: index === highlightedIndex,
-      })}
+      className={styles.result}
       data-testid="result"
-      ref={ref}
+      highlighted={index === highlightedIndex}
+      isMatching={isMatching}
       style={style}
-      type="button"
       onBlur={handleBlur}
       onClick={handleClick}
       onFocus={handleFocus}
       onMouseEnter={handleMouseEnter}
     >
-      <span className={tableStyles.rowContent}>
-        {columns[ResultColumnId.Coordinates] && (
-          <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />
-        )}
+      {columns[ResultColumnId.Coordinates] && (
+        <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />
+      )}
 
-        {columns[ResultColumnId.Word] && (
-          <Cell className={classNames(styles.word, tableStyles.start)} translationKey="common.word" value={result.word}>
-            <Highlighter highlightClassName={styles.highlight} searchWords={[query]} textToHighlight={result.word} />
-          </Cell>
-        )}
+      {columns[ResultColumnId.Word] && (
+        <Cell className={styles.word} start translationKey="common.word" value={result.word}>
+          <Highlighter highlightClassName={styles.highlight} searchWords={[query]} textToHighlight={result.word} />
+        </Cell>
+      )}
 
-        {columns[ResultColumnId.TilesCount] && (
-          <Cell className={styles.stat} translationKey="common.tiles" value={result.tilesCount} />
-        )}
+      {columns[ResultColumnId.TilesCount] && (
+        <Cell className={styles.stat} translationKey="common.tiles" value={result.tilesCount} />
+      )}
 
-        {columns[ResultColumnId.VowelsCount] && (
-          <Cell className={styles.stat} translationKey="common.vowels" value={result.vowelsCount} />
-        )}
+      {columns[ResultColumnId.VowelsCount] && (
+        <Cell className={styles.stat} translationKey="common.vowels" value={result.vowelsCount} />
+      )}
 
-        {columns[ResultColumnId.ConsonantsCount] && (
-          <Cell className={styles.stat} translationKey="common.consonants" value={result.consonantsCount} />
-        )}
+      {columns[ResultColumnId.ConsonantsCount] && (
+        <Cell className={styles.stat} translationKey="common.consonants" value={result.consonantsCount} />
+      )}
 
-        {columns[ResultColumnId.BlanksCount] && (
-          <Cell className={styles.stat} translationKey="common.blanks" value={result.blanksCount} />
-        )}
+      {columns[ResultColumnId.BlanksCount] && (
+        <Cell className={styles.stat} translationKey="common.blanks" value={result.blanksCount} />
+      )}
 
-        {columns[ResultColumnId.WordsCount] && (
-          <Cell
-            className={styles.stat}
-            translationKey="common.words"
-            tooltip={`${result.wordsCount.toLocaleString(locale)} (${words.join(separator)})`}
-            value={result.wordsCount}
-          />
-        )}
+      {columns[ResultColumnId.WordsCount] && (
+        <Cell
+          className={styles.stat}
+          translationKey="common.words"
+          tooltip={`${result.wordsCount.toLocaleString(locale)} (${words.join(separator)})`}
+          value={result.wordsCount}
+        />
+      )}
 
-        {columns[ResultColumnId.Points] && (
-          <Cell className={styles.points} dataTestId="points" translationKey="common.points" value={result.points} />
-        )}
-      </span>
-    </button>
+      {columns[ResultColumnId.Points] && (
+        <Cell className={styles.points} data-testid="points" translationKey="common.points" value={result.points} />
+      )}
+    </Row>
   );
 };

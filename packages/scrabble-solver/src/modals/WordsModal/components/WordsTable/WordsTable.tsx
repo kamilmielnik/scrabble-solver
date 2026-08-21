@@ -4,8 +4,7 @@ import { type FunctionComponent, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { List } from 'react-window';
 
-import { HeaderButton, QueryInput } from '@/components/Table';
-import tableStyles from '@/components/Table/Table.module.scss';
+import { Header, HeaderButton, QueryInput } from '@/components/Table';
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { LOCALE_FEATURES } from '@/i18n/constants';
@@ -92,7 +91,7 @@ export const WordsTable: FunctionComponent<Props> = ({ className, onPreview }) =
       data-testid="words"
       role="region"
     >
-      <div className={tableStyles.header}>
+      <Header>
         <HeaderButton
           className={styles.coordinates}
           Icon={GeoAlt}
@@ -118,7 +117,7 @@ export const WordsTable: FunctionComponent<Props> = ({ className, onPreview }) =
           translationKey="words.validity"
           onSort={handleSort}
         />
-      </div>
+      </Header>
 
       <div className={styles.content}>
         <div className={styles.listContainer}>

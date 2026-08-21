@@ -5,8 +5,7 @@ import Highlighter from 'react-highlight-words';
 import { useDispatch } from 'react-redux';
 import { type RowComponentProps } from 'react-window';
 
-import { Cell } from '@/components/Table';
-import tableStyles from '@/components/Table/Table.module.scss';
+import { Cell, Row } from '@/components/Table';
 import Check from '@/icons/Check.svg';
 import Cross from '@/icons/Cross.svg';
 import {
@@ -72,36 +71,30 @@ export const WordRow = ({
   };
 
   return (
-    <button
-      aria-current={index === highlightedIndex ? 'true' : undefined}
-      aria-hidden={isMatching ? undefined : 'true'}
+    <Row
       aria-label={word.word}
-      className={classNames(tableStyles.row, {
-        [tableStyles.highlighted]: index === highlightedIndex,
-      })}
       data-testid={`word-${word.x}-${word.y}-${word.direction}`}
+      highlighted={index === highlightedIndex}
+      isMatching={isMatching}
       style={style}
-      type="button"
       onBlur={usesHover ? handleClear : undefined}
       onClick={usesHover ? undefined : handleClick}
       onFocus={usesHover ? handleSet : undefined}
       onMouseEnter={usesHover ? handleSet : undefined}
     >
-      <span className={tableStyles.rowContent}>
-        <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />
+      <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />
 
-        <Cell className={classNames(styles.word, tableStyles.start)} translationKey="common.word" value={word.word}>
-          <Highlighter highlightClassName={styles.highlight} searchWords={[query]} textToHighlight={word.word} />
-        </Cell>
+      <Cell className={styles.word} start translationKey="common.word" value={word.word}>
+        <Highlighter highlightClassName={styles.highlight} searchWords={[query]} textToHighlight={word.word} />
+      </Cell>
 
-        <Cell className={styles.stat} value={validityLabel}>
-          <Icon
-            aria-label={validityLabel}
-            className={classNames(styles.icon, word.isValid ? styles.valid : styles.invalid)}
-            role="img"
-          />
-        </Cell>
-      </span>
-    </button>
+      <Cell className={styles.stat} value={validityLabel}>
+        <Icon
+          aria-label={validityLabel}
+          className={classNames(styles.icon, word.isValid ? styles.valid : styles.invalid)}
+          role="img"
+        />
+      </Cell>
+    </Row>
   );
 };

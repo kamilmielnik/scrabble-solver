@@ -1,8 +1,7 @@
 import { type FunctionComponent, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { HeaderButton } from '@/components/Table';
-import tableStyles from '@/components/Table/Table.module.scss';
+import { Header as TableHeader, HeaderButton } from '@/components/Table';
 import { useColumns } from '@/hooks/useColumns';
 import GeoAlt from '@/icons/GeoAlt.svg';
 import OneTwoThree from '@/icons/OneTwoThree.svg';
@@ -29,7 +28,7 @@ export const Header: FunctionComponent = () => {
   );
 
   return (
-    <div className={tableStyles.header}>
+    <TableHeader>
       {columns[ResultColumnId.Coordinates] && (
         <HeaderButton
           className={styles.coordinates}
@@ -116,6 +115,6 @@ export const Header: FunctionComponent = () => {
           onSort={handleSort}
         />
       )}
-    </div>
+    </TableHeader>
   );
 };
