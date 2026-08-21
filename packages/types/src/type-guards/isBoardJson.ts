@@ -8,7 +8,7 @@ export const isBoardJson = (value: unknown): value is BoardJson => {
   }
 
   for (const row of value) {
-    if (!Array.isArray(value)) {
+    if (!Array.isArray(row)) {
       return false;
     }
 
