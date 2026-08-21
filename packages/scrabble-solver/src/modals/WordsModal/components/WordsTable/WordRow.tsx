@@ -59,8 +59,6 @@ export const WordRow = ({
       handleSet();
     } else if (canPreview) {
       onPreview();
-    } else {
-      handleClear();
     }
   };
 

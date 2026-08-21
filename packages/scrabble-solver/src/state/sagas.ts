@@ -71,6 +71,7 @@ function* onCellValueChange({ payload }: PayloadAction<{ value: string; x: numbe
   }
 
   yield put(resultsSlice.actions.changeResultCandidate(null));
+  yield put(hoveredWordSlice.actions.clear());
   yield put(verifySlice.actions.submit());
 }
 
@@ -102,6 +103,7 @@ function* onGameChange(): AnyGenerator {
   }
 
   yield put(resultsSlice.actions.reset());
+  yield put(hoveredWordSlice.actions.clear());
   yield* resetRack();
   yield put(verifySlice.actions.submit());
 }
@@ -253,6 +255,7 @@ function* onReset(): AnyGenerator {
   yield put(boardSlice.actions.init(Board.create(config.boardWidth, config.boardHeight)));
   yield put(cellFiltersSlice.actions.reset());
   yield put(dictionarySlice.actions.reset());
+  yield put(hoveredWordSlice.actions.clear());
   yield put(rackSlice.actions.reset());
   yield put(resultsSlice.actions.reset());
   yield put(solveSlice.actions.reset());
