@@ -88,7 +88,9 @@ export const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onR
           </>
         )}
 
-        {!resultCandidate && <div className={styles.word}> </div>}
+        {!resultCandidate && (
+          <div className={classNames(styles.word, styles.placeholder)}>{translate('results.select')}</div>
+        )}
 
         <div className={styles.iconContainer}>
           {isLoading && <Spinner className={styles.loading} />}

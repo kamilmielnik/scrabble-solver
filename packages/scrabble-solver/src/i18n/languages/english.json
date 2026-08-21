@@ -59,6 +59,7 @@
   "results.input.placeholder": "Search results... (RegExp)",
   "results.insert": "Insert",
   "results.preview": "Preview",
+  "results.select": "Select...",
   "results.solve": "Solve",
   "settings": "Settings",
   "settings.autoGroupTiles": "Group remaining tiles",

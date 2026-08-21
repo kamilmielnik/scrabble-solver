@@ -59,6 +59,7 @@
   "results.input.placeholder": "Rechercher les résultats... (RegExp)",
   "results.insert": "Inserer",
   "results.preview": "Prévisualisation",
+  "results.select": "Sélectionner...",
   "results.solve": "Résoudre",
   "settings": "Options",
   "settings.autoGroupTiles": "Grouper les cases restantes",

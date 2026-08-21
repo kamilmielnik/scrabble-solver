@@ -59,6 +59,7 @@
   "results.input.placeholder": "Busque una solución... (RegExp)",
   "results.insert": "Insertar",
   "results.preview": "Vista previa",
+  "results.select": "Seleccionar...",
   "results.solve": "Resolver",
   "settings": "Configuración",
   "settings.autoGroupTiles": "Agrupar casillas restantes",

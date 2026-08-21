@@ -143,6 +143,7 @@ export type TranslationKey =
   | 'results.input.placeholder'
   | 'results.insert'
   | 'results.preview'
+  | 'results.select'
   | 'results.solve'
   | 'settings'
   | 'settings.autoGroupTiles'
