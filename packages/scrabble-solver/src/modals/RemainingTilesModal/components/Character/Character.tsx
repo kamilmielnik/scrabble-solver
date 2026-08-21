@@ -18,10 +18,11 @@ import { type RemainingTile } from '@/types';
 import styles from './Character.module.scss';
 
 interface Props {
+  highlightsTiles: boolean;
   tile: RemainingTile;
 }
 
-export const Character: FunctionComponent<Props> = ({ tile }) => {
+export const Character: FunctionComponent<Props> = ({ highlightsTiles, tile }) => {
   const dispatch = useDispatch();
   const locale = useTypedSelector(selectLocale);
   const hoveredCharacter = useTypedSelector(selectHoveredCharacter);
@@ -37,14 +38,12 @@ export const Character: FunctionComponent<Props> = ({ tile }) => {
   const current = direction === 'ltr' ? remainingCount : count;
   const total = direction === 'ltr' ? count : remainingCount;
   const isUsed = usedCount > 0;
-  const isHovered = isUsed && hoveredCharacter === character;
+  const isHighlightable = highlightsTiles && isUsed;
+  const isHighlighted = isHighlightable && hoveredCharacter === character;
 
   const handleMouseEnter = useCallback(() => {
-    if (!isUsed) {
-      return;
-    }
     dispatch(hoveredTileSlice.actions.set(character));
-  }, [character, dispatch, isUsed]);
+  }, [character, dispatch]);
 
   const handleMouseLeave = useCallback(() => {
     dispatch(hoveredTileSlice.actions.clear());
@@ -64,15 +63,15 @@ export const Character: FunctionComponent<Props> = ({ tile }) => {
         [styles.unused]: !isUsed,
       })}
       data-testid={character === BLANK ? 'remaining-tile-blank' : `remaining-tile-${character}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={isHighlightable ? handleMouseEnter : undefined}
+      onMouseLeave={isHighlightable ? handleMouseLeave : undefined}
     >
       <Tile
         aria-label={character}
         character={character}
         className={styles.tile}
         disabled
-        highlighted={isHovered}
+        highlighted={isHighlighted}
         isBlank={character === BLANK}
         isValid={remainingCount >= 0}
         locale={locale}
