@@ -1,12 +1,12 @@
 import { type BoardWord, type ShowCoordinates } from '@scrabble-solver/types';
 
+import { createCoordinatesComparator } from '@/lib/createCoordinatesComparator';
 import { createKeyComparator } from '@/lib/createKeyComparator';
 import { createRegExp } from '@/lib/createRegExp';
-import { createStringComparator } from '@/lib/createStringComparator';
+import { createSortComparator } from '@/lib/createSortComparator';
 import { getCoordinates } from '@/lib/getCoordinates';
 import { numberComparator } from '@/lib/numberComparator';
-import { reverseComparator } from '@/lib/reverseComparator';
-import { type Comparator, type GroupedWords, type Sort, SortDirection, type VerifiedWord, WordColumnId } from '@/types';
+import { type ComparatorFactory, type GroupedWords, type Sort, type VerifiedWord, WordColumnId } from '@/types';
 
 export const getWordCoordinates = (word: BoardWord, showCoordinates: ShowCoordinates): string => {
   return getCoordinates({ isHorizontal: word.direction === 'horizontal', x: word.x, y: word.y }, showCoordinates);
@@ -29,15 +29,9 @@ export const groupWords = (words: VerifiedWord[], query: string): GroupedWords =
   );
 };
 
-const comparators: Record<
-  WordColumnId,
-  (locale: string, showCoordinates: ShowCoordinates) => Comparator<VerifiedWord>
-> = {
-  [WordColumnId.Coordinates]: (locale: string, showCoordinates: ShowCoordinates) => (a, b) => {
-    const stringComparator = createStringComparator(locale);
-    const aValue = getWordCoordinates(a, showCoordinates);
-    const bValue = getWordCoordinates(b, showCoordinates);
-    return stringComparator(aValue, bValue);
+const comparators: Record<WordColumnId, ComparatorFactory<VerifiedWord>> = {
+  [WordColumnId.Coordinates]: (locale: string, showCoordinates: ShowCoordinates) => {
+    return createCoordinatesComparator({ getItemCoordinates: getWordCoordinates, locale, showCoordinates });
   },
   [WordColumnId.Validity]: () => (a, b) => {
     return numberComparator(Number(a.isValid), Number(b.isValid));
@@ -51,8 +45,5 @@ export const sortWords = (
   locale: string,
   showCoordinates: ShowCoordinates,
 ): VerifiedWord[] => {
-  const createComparator = comparators[sort.column];
-  const comparator = createComparator(locale, showCoordinates);
-  const finalComparator = sort.direction === SortDirection.Descending ? reverseComparator(comparator) : comparator;
-  return [...words].sort(finalComparator);
+  return [...words].sort(createSortComparator({ comparators, locale, showCoordinates, sort }));
 };

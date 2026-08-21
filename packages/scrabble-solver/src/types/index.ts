@@ -1,6 +1,8 @@
-import { type BoardWord, type Result } from '@scrabble-solver/types';
+import { type BoardWord, type Result, type ShowCoordinates } from '@scrabble-solver/types';
 
 export type Comparator<T> = (a: T, B: T) => number;
+
+export type ComparatorFactory<T> = (locale: string, showCoordinates: ShowCoordinates) => Comparator<T>;
 
 export type AutoGroupTiles = 'left' | 'right' | null;
 
