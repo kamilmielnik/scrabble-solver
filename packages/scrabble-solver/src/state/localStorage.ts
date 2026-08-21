@@ -100,10 +100,6 @@ export const localStorage = {
   },
 };
 
-/**
- * A cache written by an app version that knew fewer translation keys would
- * crash translate() on the keys added since - only a complete entry is served.
- */
 function hasEveryTranslation(translations: Translations): boolean {
   return (Object.keys(englishTranslations) as TranslationKey[]).every((key) => typeof translations[key] === 'string');
 }
