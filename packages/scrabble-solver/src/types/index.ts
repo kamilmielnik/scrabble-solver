@@ -72,8 +72,12 @@ export interface GroupedResults {
 }
 
 export interface GroupedWords {
-  matching: BoardWord[];
-  other: BoardWord[];
+  matching: VerifiedWord[];
+  other: VerifiedWord[];
+}
+
+export interface VerifiedWord extends BoardWord {
+  isValid: boolean;
 }
 
 export type TranslationKey =

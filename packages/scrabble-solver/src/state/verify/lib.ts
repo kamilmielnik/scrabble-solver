@@ -6,13 +6,13 @@ import { createStringComparator } from '@/lib/createStringComparator';
 import { getCoordinates } from '@/lib/getCoordinates';
 import { numberComparator } from '@/lib/numberComparator';
 import { reverseComparator } from '@/lib/reverseComparator';
-import { type Comparator, type GroupedWords, type Sort, SortDirection, WordColumnId } from '@/types';
+import { type Comparator, type GroupedWords, type Sort, SortDirection, type VerifiedWord, WordColumnId } from '@/types';
 
 export const getWordCoordinates = (word: BoardWord, showCoordinates: ShowCoordinates): string => {
   return getCoordinates({ isHorizontal: word.direction === 'horizontal', x: word.x, y: word.y }, showCoordinates);
 };
 
-export const groupWords = (words: BoardWord[], query: string): GroupedWords => {
+export const groupWords = (words: VerifiedWord[], query: string): GroupedWords => {
   const regExp = createRegExp(query);
 
   return words.reduce<GroupedWords>(
@@ -29,7 +29,10 @@ export const groupWords = (words: BoardWord[], query: string): GroupedWords => {
   );
 };
 
-const comparators: Record<WordColumnId, (locale: string, showCoordinates: ShowCoordinates) => Comparator<BoardWord>> = {
+const comparators: Record<
+  WordColumnId,
+  (locale: string, showCoordinates: ShowCoordinates) => Comparator<VerifiedWord>
+> = {
   [WordColumnId.Coordinates]: (locale: string, showCoordinates: ShowCoordinates) => (a, b) => {
     const stringComparator = createStringComparator(locale);
     const aValue = getWordCoordinates(a, showCoordinates);
@@ -37,17 +40,17 @@ const comparators: Record<WordColumnId, (locale: string, showCoordinates: ShowCo
     return stringComparator(aValue, bValue);
   },
   [WordColumnId.Validity]: () => (a, b) => {
-    return numberComparator(Number(a.isValid ?? false), Number(b.isValid ?? false));
+    return numberComparator(Number(a.isValid), Number(b.isValid));
   },
   [WordColumnId.Word]: (locale: string) => createKeyComparator('word', locale),
 };
 
 export const sortWords = (
-  words: BoardWord[],
+  words: VerifiedWord[],
   sort: Sort<WordColumnId>,
   locale: string,
   showCoordinates: ShowCoordinates,
-): BoardWord[] => {
+): VerifiedWord[] => {
   const createComparator = comparators[sort.column];
   const comparator = createComparator(locale, showCoordinates);
   const finalComparator = sort.direction === SortDirection.Descending ? reverseComparator(comparator) : comparator;

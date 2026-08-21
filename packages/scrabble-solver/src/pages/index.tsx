@@ -143,7 +143,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const handleCloseResults = useCallback(() => patchModals({ results: false }), [patchModals]);
   const handleCloseSettings = useCallback(() => patchModals({ settings: false }), [patchModals]);
   const handleCloseWords = useCallback(() => patchModals({ words: false }), [patchModals]);
-  const handlePreviewWords = useCallback(() => patchModals({ menu: false, words: false }), [patchModals]);
+  const handlePreviewWord = useCallback(() => patchModals({ menu: false, words: false }), [patchModals]);
 
   useDirection(LOCALE_FEATURES[locale].direction);
   useLanguage(locale);
@@ -172,7 +172,6 @@ const Index: FunctionComponent<Props> = ({ version }) => {
     }
   }, [isHydrated]);
 
-  // Highlights hang over from the other layout's selection model when the breakpoint changes
   useEffect(() => {
     if (previousIsCompactLayout.current === isCompactLayout) {
       return;
@@ -237,7 +236,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
       {mountedModals.keyMap && <KeyMapModal isOpen={modals.keyMap} onClose={handleCloseKeyMap} />}
 
       {mountedModals.words && (
-        <WordsModal isOpen={modals.words} onClose={handleCloseWords} onPreview={handlePreviewWords} />
+        <WordsModal isOpen={modals.words} onClose={handleCloseWords} onPreview={handlePreviewWord} />
       )}
 
       {config.supportsRemainingTiles && mountedModals.remainingTiles && (

@@ -5,7 +5,7 @@
 
 import { type PayloadAction } from '@reduxjs/toolkit';
 import { hasConfig, languages } from '@scrabble-solver/configs';
-import { Board, type BoardWord, Locale, type Result } from '@scrabble-solver/types';
+import { Board, Locale, type Result } from '@scrabble-solver/types';
 import { call, delay, put, select, spawn, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { LOCALE_FEATURES } from '@/i18n/constants';
@@ -14,6 +14,7 @@ import { memoize } from '@/lib/memoize';
 import { waitForFirstIntent, waitForIdleOrFirstIntent } from '@/lib/waitForIdleOrFirstIntent';
 import { findWordDefinitions, solve, verify, visit } from '@/sdk';
 import { prefetchDictionary } from '@/solver-worker';
+import { type VerifiedWord } from '@/types';
 
 import { initialize, reset } from './actions';
 import { appSlice, selectVersion } from './app';
@@ -295,7 +296,7 @@ function* onResultCandidateChange({ payload: result }: PayloadAction<Result | nu
   yield* searchDictionary(result.words);
 }
 
-function* onHoveredWordChange({ payload: word }: PayloadAction<BoardWord>): AnyGenerator {
+function* onHoveredWordChange({ payload: word }: PayloadAction<VerifiedWord>): AnyGenerator {
   yield put(resultsSlice.actions.changeResultCandidate(null));
 
   const board: Board = yield select(selectBoard);

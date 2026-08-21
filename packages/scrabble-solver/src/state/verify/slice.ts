@@ -1,15 +1,15 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { type Board, type BoardWord } from '@scrabble-solver/types';
+import { type Board } from '@scrabble-solver/types';
 
 import { getNextSort } from '@/lib/getNextSort';
-import { type WordColumnId } from '@/types';
+import { type VerifiedWord, type WordColumnId } from '@/types';
 
 import { verifyInitialState } from './initialState';
 
 interface VerifyParameters {
   board: Board;
-  invalidWords: BoardWord[];
-  validWords: BoardWord[];
+  invalidWords: VerifiedWord[];
+  validWords: VerifiedWord[];
 }
 
 export const verifySlice = createSlice({

@@ -1,5 +1,5 @@
-import type { BoardWord } from '@scrabble-solver/types';
+import type { VerifiedWord } from '@/types';
 
 export interface HoveredWordState {
-  word: BoardWord | null;
+  word: VerifiedWord | null;
 }

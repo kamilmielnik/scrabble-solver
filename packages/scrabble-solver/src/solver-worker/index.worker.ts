@@ -3,9 +3,9 @@
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { solve } from '@scrabble-solver/solver';
-import { Board, type BoardWord, type Locale, Tile } from '@scrabble-solver/types';
+import { Board, type Locale, Tile } from '@scrabble-solver/types';
 
-import { type SolveRequestPayload, type VerifyRequestPayload } from '@/types';
+import { type SolveRequestPayload, type VerifiedWord, type VerifyRequestPayload } from '@/types';
 
 import { revalidateDictionary } from './dictionaries';
 import { getGaddag } from './getGaddag';
@@ -65,8 +65,8 @@ async function handleVerify(
 
   const board = Board.fromJson(boardJson);
   const words = board.getWords().sort((a, b) => a.word.localeCompare(b.word, locale));
-  const invalidWords: BoardWord[] = [];
-  const validWords: BoardWord[] = [];
+  const invalidWords: VerifiedWord[] = [];
+  const validWords: VerifiedWord[] = [];
 
   for (const word of words) {
     if (gaddag.has(word.word)) {

@@ -1,4 +1,4 @@
-import { type BoardWord, isSameBoardWord } from '@scrabble-solver/types';
+import { isSameBoardWord } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import { type ReactElement } from 'react';
 import Highlighter from 'react-highlight-words';
@@ -18,6 +18,7 @@ import {
   useTypedSelector,
   useTypedStore,
 } from '@/state';
+import { type VerifiedWord } from '@/types';
 
 import styles from './WordsTable.module.scss';
 
@@ -25,7 +26,7 @@ export interface WordRowData {
   highlightedIndex: number;
   isPreviewMode: boolean;
   isTouchDevice: boolean;
-  words: BoardWord[];
+  words: VerifiedWord[];
   onPreview: () => void;
 }
 

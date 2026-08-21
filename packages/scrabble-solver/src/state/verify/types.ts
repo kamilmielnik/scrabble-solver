@@ -1,6 +1,4 @@
-import type { BoardWord } from '@scrabble-solver/types';
-
-import type { Sort, WordColumnId } from '@/types';
+import type { Sort, VerifiedWord, WordColumnId } from '@/types';
 
 import type { BoardState } from '../board';
 
@@ -9,8 +7,8 @@ export interface VerifyState {
   lastSolvedParameters: {
     board: BoardState;
   };
-  invalidWords: BoardWord[];
+  invalidWords: VerifiedWord[];
   query: string;
   sort: Sort<WordColumnId>;
-  validWords: BoardWord[];
+  validWords: VerifiedWord[];
 }

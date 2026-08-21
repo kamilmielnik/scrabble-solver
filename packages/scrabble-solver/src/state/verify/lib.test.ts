@@ -1,6 +1,4 @@
-import { type BoardWord } from '@scrabble-solver/types';
-
-import { SortDirection, WordColumnId } from '../../types';
+import { SortDirection, type VerifiedWord, WordColumnId } from '../../types';
 
 import { getWordCoordinates, sortWords } from './lib';
 
@@ -52,6 +50,6 @@ describe('sortWords', () => {
   });
 });
 
-function createWord(overrides: Partial<BoardWord>): BoardWord {
+function createWord(overrides: Partial<VerifiedWord>): VerifiedWord {
   return { direction: 'horizontal', isValid: true, word: 'cat', x: 0, y: 0, ...overrides };
 }
