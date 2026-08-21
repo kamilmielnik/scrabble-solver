@@ -120,26 +120,29 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
             {getCoordinate(y, showCoordinates === 'original' ? 'number' : 'letter')}
           </div>
 
-          {cells.map((cell, x) => (
-            <Cell
-              cell={cell}
-              cellBottom={y < rows.length - 1 ? rows[y + 1][x] : undefined}
-              cellLeft={x > 0 ? rows[y][x - 1] : undefined}
-              cellRight={x < rows[y].length - 1 ? rows[y][x + 1] : undefined}
-              cellTop={y > 0 ? rows[y - 1][x] : undefined}
-              config={config}
-              inputRef={inputRefs[y][x]}
-              isHoverMatch={isHoverMatch(cell, hoveredCharacter)}
-              isHoveredWordPart={hoveredWordCells ? hoveredWordCells[y][x] : false}
-              isReachable={reachableCells ? reachableCells[y][x] : true}
-              key={x}
-              locale={locale}
-              showCoordinates={showCoordinates}
-              translate={translate}
-              onChange={onChange}
-              onFocus={onFocus}
-            />
-          ))}
+          {cells.map((cell, x) => {
+            const isHoveredWordPart = hoveredWordCells ? hoveredWordCells[y][x] : false;
+
+            return (
+              <Cell
+                cell={cell}
+                cellBottom={y < rows.length - 1 ? rows[y + 1][x] : undefined}
+                cellLeft={x > 0 ? rows[y][x - 1] : undefined}
+                cellRight={x < rows[y].length - 1 ? rows[y][x + 1] : undefined}
+                cellTop={y > 0 ? rows[y - 1][x] : undefined}
+                config={config}
+                highlighted={cell.isCandidate() || isHoverMatch(cell, hoveredCharacter) || isHoveredWordPart}
+                inputRef={inputRefs[y][x]}
+                isReachable={reachableCells ? reachableCells[y][x] : true}
+                key={x}
+                locale={locale}
+                showCoordinates={showCoordinates}
+                translate={translate}
+                onChange={onChange}
+                onFocus={onFocus}
+              />
+            );
+          })}
         </Fragment>
       ))}
     </div>
