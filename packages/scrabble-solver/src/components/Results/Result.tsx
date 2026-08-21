@@ -60,7 +60,7 @@ export const Result = ({
       )}
 
       {columns[ResultColumnId.Word] && (
-        <Cell className={styles.word} start translationKey="common.word" value={result.word}>
+        <Cell primary translationKey="common.word" value={result.word}>
           <Highlighter highlightClassName={styles.highlight} searchWords={[query]} textToHighlight={result.word} />
         </Cell>
       )}

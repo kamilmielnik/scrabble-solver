@@ -11,9 +11,10 @@ import { Tooltip } from '../Tooltip';
 import styles from './Table.module.scss';
 
 interface Props<Id extends string> {
-  className: string;
+  className?: string;
   Icon?: FunctionComponent<SVGAttributes<SVGElement>>;
   id: Id;
+  primary?: boolean;
   sort: Sort<Id>;
   translationKey: TranslationKey;
   onSort: (id: Id) => void;
@@ -23,6 +24,7 @@ export const HeaderButton = <Id extends string>({
   className,
   Icon,
   id,
+  primary,
   sort,
   translationKey,
   onSort,
@@ -41,7 +43,7 @@ export const HeaderButton = <Id extends string>({
         type="button"
         onClick={handleClick}
       >
-        <span className={classNames(styles.cell, { [styles.start]: !Icon })}>
+        <span className={classNames(styles.cell, { [styles.primary]: primary })}>
           {Icon && <Icon aria-hidden="true" className={styles.headerButtonIcon} role="img" />}
 
           {!Icon && <span className={styles.headerButtonLabel}>{translate(translationKey)}</span>}

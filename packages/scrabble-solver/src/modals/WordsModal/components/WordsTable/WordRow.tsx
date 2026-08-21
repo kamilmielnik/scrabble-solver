@@ -84,7 +84,7 @@ export const WordRow = ({
     >
       <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />
 
-      <Cell className={styles.word} start translationKey="common.word" value={word.word}>
+      <Cell primary translationKey="common.word" value={word.word}>
         <Highlighter highlightClassName={styles.highlight} searchWords={[query]} textToHighlight={word.word} />
       </Cell>
 

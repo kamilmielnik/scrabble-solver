@@ -102,8 +102,8 @@ export const WordsTable: FunctionComponent<Props> = ({ className, onPreview }) =
         />
 
         <HeaderButton
-          className={styles.word}
           id={WordColumnId.Word}
+          primary
           sort={sort}
           translationKey="common.word"
           onSort={handleSort}

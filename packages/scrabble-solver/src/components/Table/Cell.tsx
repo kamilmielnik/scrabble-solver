@@ -12,7 +12,7 @@ interface Props {
   children?: ReactNode;
   className?: string;
   'data-testid'?: string;
-  start?: boolean;
+  primary?: boolean;
   translationKey?: TranslationKey;
   tooltip?: string | number;
   value: string | number;
@@ -22,7 +22,7 @@ export const Cell: FunctionComponent<Props> = ({
   children,
   className,
   'data-testid': dataTestId,
-  start,
+  primary,
   translationKey,
   tooltip,
   value,
@@ -34,7 +34,7 @@ export const Cell: FunctionComponent<Props> = ({
 
   return (
     <Tooltip tooltip={`${label}${tooltip || formattedValue}`}>
-      <div className={classNames(styles.cell, className, { [styles.start]: start })} data-testid={dataTestId}>
+      <div className={classNames(styles.cell, className, { [styles.primary]: primary })} data-testid={dataTestId}>
         <span className={styles.cellValue}>{children || formattedValue}</span>
       </div>
     </Tooltip>

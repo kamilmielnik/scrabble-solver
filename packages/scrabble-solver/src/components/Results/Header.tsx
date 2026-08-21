@@ -42,8 +42,8 @@ export const Header: FunctionComponent = () => {
 
       {columns[ResultColumnId.Word] && (
         <HeaderButton
-          className={styles.word}
           id={ResultColumnId.Word}
+          primary
           sort={sort}
           translationKey="common.word"
           onSort={handleSort}

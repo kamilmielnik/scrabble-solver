@@ -98,9 +98,12 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   gap: var(--spacing--s);
   line-height: var(--results--item--height);
 
-  &.start {
+  &.primary {
+    flex: 1 1 0;
+    min-width: 0;
     justify-content: flex-start;
     padding-inline-start: $row-padding-horizontal;
+    text-transform: uppercase;
   }
 }
 
