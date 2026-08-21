@@ -6,7 +6,12 @@ describe('isBoardJson', () => {
   const cell = { isEmpty: true, tile: null, x: 0, y: 0 };
 
   it('accepts a board of cells', () => {
-    expect(isBoardJson([[cell, cell], [cell, cell]])).toBe(true);
+    expect(
+      isBoardJson([
+        [cell, cell],
+        [cell, cell],
+      ]),
+    ).toBe(true);
   });
 
   it('accepts an empty board', () => {
