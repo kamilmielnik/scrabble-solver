@@ -15,7 +15,7 @@ interface Props {
   className?: string;
   'data-testid'?: string;
   highlighted: boolean;
-  isMatching: boolean;
+  inactive: boolean;
   style?: CSSProperties;
   onBlur?: FocusEventHandler;
   onClick?: MouseEventHandler;
@@ -29,7 +29,7 @@ export const Row: FunctionComponent<Props> = ({
   className,
   'data-testid': dataTestId,
   highlighted,
-  isMatching,
+  inactive,
   style,
   onBlur,
   onClick,
@@ -39,7 +39,7 @@ export const Row: FunctionComponent<Props> = ({
   return (
     <button
       aria-current={highlighted ? 'true' : undefined}
-      aria-hidden={isMatching ? undefined : 'true'}
+      aria-hidden={inactive ? 'true' : undefined}
       aria-label={ariaLabel}
       className={classNames(styles.row, className, { [styles.highlighted]: highlighted })}
       data-testid={dataTestId}

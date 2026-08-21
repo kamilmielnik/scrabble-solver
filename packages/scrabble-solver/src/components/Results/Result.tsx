@@ -48,7 +48,7 @@ export const Result = ({
       className={styles.result}
       data-testid="result"
       highlighted={index === highlightedIndex}
-      isMatching={isMatching}
+      inactive={!isMatching}
       style={style}
       onBlur={handleBlur}
       onClick={handleClick}

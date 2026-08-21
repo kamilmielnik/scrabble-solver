@@ -1,4 +1,3 @@
-import { isSameBoardWord } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import { type ReactElement } from 'react';
 import Highlighter from 'react-highlight-words';
@@ -10,39 +9,36 @@ import Check from '@/icons/Check.svg';
 import Cross from '@/icons/Cross.svg';
 import {
   hoveredWordSlice,
-  selectHoveredWord,
   selectIsWordMatching,
   selectWordCoordinates,
   selectWordsQuery,
   useTranslate,
   useTypedSelector,
-  useTypedStore,
 } from '@/state';
 import { type VerifiedWord } from '@/types';
 
 import styles from './WordsTable.module.scss';
 
 export interface WordRowData {
+  canPreview: boolean;
   highlightedIndex: number;
-  isPreviewMode: boolean;
-  isTouchDevice: boolean;
+  usesHover: boolean;
   words: VerifiedWord[];
   onPreview: () => void;
 }
 
 export const WordRow = ({
+  canPreview,
   highlightedIndex,
   index,
-  isPreviewMode,
-  isTouchDevice,
   style,
+  usesHover,
   words,
   onPreview,
 }: RowComponentProps<WordRowData>): ReactElement => {
   const dispatch = useDispatch();
   const translate = useTranslate();
-  const store = useTypedStore();
-  const usesHover = !isTouchDevice && !isPreviewMode;
+  const isSelected = index === highlightedIndex;
   const word = words[index];
   const coordinates = useTypedSelector((state) => selectWordCoordinates(state, index));
   const isMatching = useTypedSelector((state) => selectIsWordMatching(state, index));
@@ -59,15 +55,12 @@ export const WordRow = ({
   };
 
   const handleClick = () => {
-    const hoveredWord = selectHoveredWord(store.getState());
-    const isSelected = hoveredWord !== null && isSameBoardWord(hoveredWord, word);
-
     if (!isSelected) {
-      dispatch(hoveredWordSlice.actions.set(word));
-    } else if (isPreviewMode) {
+      handleSet();
+    } else if (canPreview) {
       onPreview();
     } else {
-      dispatch(hoveredWordSlice.actions.clear());
+      handleClear();
     }
   };
 
@@ -75,8 +68,8 @@ export const WordRow = ({
     <Row
       aria-label={word.word}
       data-testid={`word-${word.x}-${word.y}-${word.direction}`}
-      highlighted={index === highlightedIndex}
-      isMatching={isMatching}
+      highlighted={isSelected}
+      inactive={!isMatching}
       style={style}
       onBlur={usesHover ? handleClear : undefined}
       onClick={usesHover ? undefined : handleClick}

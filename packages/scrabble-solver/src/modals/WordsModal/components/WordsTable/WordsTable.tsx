@@ -28,16 +28,18 @@ import { WordRow, type WordRowData } from './WordRow';
 import styles from './WordsTable.module.scss';
 
 interface Props {
+  canPreview: boolean;
   className?: string;
+  isOpen: boolean;
   onPreview: () => void;
 }
 
-export const WordsTable: FunctionComponent<Props> = ({ className, onPreview }) => {
+export const WordsTable: FunctionComponent<Props> = ({ canPreview, className, isOpen, onPreview }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
-  const isPreviewMode = useMediaQuery('<l');
-  const usesHover = !isTouchDevice && !isPreviewMode;
+  const selectsFirstWord = useMediaQuery('<l');
+  const usesHover = !isTouchDevice && !selectsFirstWord;
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const words = useTypedSelector(selectProcessedWords);
@@ -46,8 +48,8 @@ export const WordsTable: FunctionComponent<Props> = ({ className, onPreview }) =
   const hoveredWord = useTypedSelector(selectHoveredWord);
   const highlightedIndex = hoveredWord ? words.findIndex((word) => isSameBoardWord(word, hoveredWord)) : -1;
   const rowProps = useMemo<WordRowData>(
-    () => ({ highlightedIndex, isPreviewMode, isTouchDevice, words, onPreview }),
-    [highlightedIndex, isPreviewMode, isTouchDevice, words, onPreview],
+    () => ({ canPreview, highlightedIndex, usesHover, words, onPreview }),
+    [canPreview, highlightedIndex, usesHover, words, onPreview],
   );
 
   const handleSort = useCallback(
@@ -69,20 +71,10 @@ export const WordsTable: FunctionComponent<Props> = ({ className, onPreview }) =
   }, [dispatch]);
 
   useEffect(() => {
-    if (isPreviewMode && words.length > 0 && highlightedIndex === -1) {
+    if (isOpen && selectsFirstWord && words.length > 0 && highlightedIndex === -1) {
       dispatch(hoveredWordSlice.actions.set(words[0]));
     }
-  }, [dispatch, highlightedIndex, isPreviewMode, words]);
-
-  useEffect(() => {
-    if (!usesHover) {
-      return;
-    }
-
-    return () => {
-      dispatch(hoveredWordSlice.actions.clear());
-    };
-  }, [dispatch, usesHover]);
+  }, [dispatch, highlightedIndex, isOpen, selectsFirstWord, words]);
 
   return (
     <div

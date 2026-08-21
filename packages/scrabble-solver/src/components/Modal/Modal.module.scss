@@ -112,10 +112,6 @@
   padding: var(--spacing--l);
   padding-top: 0;
 
-  @include media('>l') {
-    display: none;
-  }
-
   > * {
     min-width: 0;
     flex: 1;
