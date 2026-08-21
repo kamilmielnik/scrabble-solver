@@ -9,7 +9,7 @@ import { selectCharacters } from './rack';
 import { selectResultsResults } from './results';
 import { selectConfig, selectLocale } from './settings';
 import { selectLastSolvedParameters, selectSolveError } from './solve';
-import { selectVerify } from './verify';
+import { selectLastVerifiedBoard } from './verify';
 
 const selectHasBoardChanged = createSelector(
   [selectLastSolvedParameters, selectBoard],
@@ -40,9 +40,9 @@ export const selectUpToDateResults = createSelector(
 );
 
 export const selectUpToDateHoveredWord = createSelector(
-  [selectHoveredWord, selectVerify, selectBoard],
-  (hoveredWord, verify, board) => {
-    return hoveredWord && verify.lastSolvedParameters.board.equals(board) ? hoveredWord : null;
+  [selectHoveredWord, selectLastVerifiedBoard, selectBoard],
+  (hoveredWord, lastVerifiedBoard, board) => {
+    return hoveredWord && lastVerifiedBoard.equals(board) ? hoveredWord : null;
   },
 );
 

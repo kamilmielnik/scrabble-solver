@@ -11,6 +11,8 @@ const selectWordIndex = (_: unknown, index: number): number => index;
 
 export const selectVerify = (state: RootState) => state.verify;
 
+export const selectLastVerifiedBoard = createSelector([selectVerify], (verify) => verify.lastSolvedParameters.board);
+
 export const selectInvalidWords = createSelector([selectVerify], (verify) => verify.invalidWords);
 
 export const selectValidWords = createSelector([selectVerify], (verify) => verify.validWords);
