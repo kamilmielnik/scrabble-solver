@@ -14,7 +14,7 @@ export { ConfigJson } from './ConfigJson';
 export { Dictionary } from './Dictionary';
 export { Direction } from './Direction';
 export { Game } from './Game';
-export * from './lib';
+export { isSameBoardWord } from './lib';
 export { Locale } from './Locale';
 export { Result } from './Result';
 export { ResultJson } from './ResultJson';
@@ -23,7 +23,18 @@ export { TextDirection } from './TextDirection';
 export { Tile } from './Tile';
 export { TileConfig } from './TileConfig';
 export { TileJson } from './TileJson';
-export * from './type-guards';
+export {
+  isBingo,
+  isBoardJson,
+  isCellJson,
+  isError,
+  isGame,
+  isLocale,
+  isMultiplierBingo,
+  isObject,
+  isScoreBingo,
+  isTileJson,
+} from './type-guards';
 export { WordBonus } from './WordBonus';
 export { WordDefinition } from './WordDefinition';
 export { WordDefinitionJson } from './WordDefinitionJson';
