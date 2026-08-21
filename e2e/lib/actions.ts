@@ -21,6 +21,12 @@ export async function visitIndex(page: Page): Promise<void> {
   await page.goto('/');
 }
 
+export async function preferKeyboardInput(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    localStorage.setItem('scrabble-solver.settings', JSON.stringify({ inputMode: 'keyboard' }));
+  });
+}
+
 export async function closeModal(page: Page): Promise<void> {
   await expect(getOpenModal(page)).toBeVisible();
   await page.keyboard.press('Escape');
