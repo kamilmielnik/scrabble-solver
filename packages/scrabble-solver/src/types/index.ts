@@ -162,6 +162,7 @@ export type TranslationKey =
   | 'settings.showCoordinates.alternative'
   | 'settings.showCoordinates.original'
   | 'words'
+  | 'words.empty-state.no-words'
   | 'words.input.placeholder'
   | 'words.invalid'
   | 'words.preview'

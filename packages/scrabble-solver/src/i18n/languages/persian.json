@@ -78,6 +78,7 @@
   "settings.showCoordinates.alternative": "بديل",
   "settings.showCoordinates.original": "إبداعي",
   "words": "کلمات ساخته شده",
+  "words.empty-state.no-words": "کلمه‌ای ساخته نشده - صفحه خالی است.",
   "words.input.placeholder": "جستجو در کلمات (RegExp)",
   "words.invalid": "نا معتبر",
   "words.preview": "پیش نمایش",

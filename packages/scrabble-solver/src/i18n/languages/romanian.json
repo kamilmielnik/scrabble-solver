@@ -78,6 +78,7 @@
   "settings.showCoordinates.alternative": "Alternativă",
   "settings.showCoordinates.original": "Original",
   "words": "Cuvinte create",
+  "words.empty-state.no-words": "Niciun cuvânt creat - tabla este goală.",
   "words.input.placeholder": "Cautare cuvinte... (RegExp)",
   "words.invalid": "Invalid",
   "words.preview": "Previzualizare",

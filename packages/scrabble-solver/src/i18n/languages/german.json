@@ -78,6 +78,7 @@
   "settings.showCoordinates.alternative": "Alternative",
   "settings.showCoordinates.original": "Original",
   "words": "Gebildete Wörter",
+  "words.empty-state.no-words": "Keine gebildeten Wörter - das Brett ist leer.",
   "words.input.placeholder": "Wörter suchen... (RegExp)",
   "words.invalid": "Falsch",
   "words.preview": "Vorschau",

@@ -78,6 +78,7 @@
   "settings.showCoordinates.alternative": "Alternatywne",
   "settings.showCoordinates.original": "Oryginalne",
   "words": "Utworzone słowa",
+  "words.empty-state.no-words": "Brak utworzonych słów - plansza jest pusta.",
   "words.input.placeholder": "Szukaj słów... (RegExp)",
   "words.invalid": "Niepoprawne",
   "words.preview": "Podgląd",

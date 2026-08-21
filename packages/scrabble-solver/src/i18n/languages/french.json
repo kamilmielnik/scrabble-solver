@@ -78,6 +78,7 @@
   "settings.showCoordinates.alternative": "Alternative",
   "settings.showCoordinates.original": "Original",
   "words": "Mots créés",
+  "words.empty-state.no-words": "Pas de mots créés - le plateau est vide.",
   "words.input.placeholder": "Rechercher les mots... (RegExp)",
   "words.invalid": "Incorrect",
   "words.preview": "Prévisualisation",

@@ -78,6 +78,7 @@
   "settings.showCoordinates.alternative": "Alternativa",
   "settings.showCoordinates.original": "Original",
   "words": "Palabras creadas",
+  "words.empty-state.no-words": "No hay palabras creadas; el tablero está vacío.",
   "words.input.placeholder": "Busque una palabra... (RegExp)",
   "words.invalid": "Incorrecto",
   "words.preview": "Vista previa",

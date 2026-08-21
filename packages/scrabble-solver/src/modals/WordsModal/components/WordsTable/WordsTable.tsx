@@ -4,6 +4,7 @@ import { type FunctionComponent, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { List } from 'react-window';
 
+import { EmptyState } from '@/components/EmptyState';
 import { Header, HeaderButton, Search } from '@/components/Table';
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -105,19 +106,23 @@ export const WordsTable: FunctionComponent<Props> = ({ canPreview, className, is
         />
       </Header>
 
-      <div className={styles.content}>
-        <div className={styles.listContainer}>
-          <List
-            className={styles.list}
-            dir={direction}
-            overscanCount={RESULTS_OVERSCAN_COUNT}
-            rowComponent={WordRow}
-            rowCount={words.length}
-            rowHeight={RESULTS_ITEM_HEIGHT}
-            rowProps={rowProps}
-            onMouseLeave={usesHover ? handleMouseLeave : undefined}
-          />
-        </div>
+      <div aria-live="polite" className={styles.content}>
+        {words.length === 0 && <EmptyState variant="info">{translate('words.empty-state.no-words')}</EmptyState>}
+
+        {words.length > 0 && (
+          <div className={styles.listContainer}>
+            <List
+              className={styles.list}
+              dir={direction}
+              overscanCount={RESULTS_OVERSCAN_COUNT}
+              rowComponent={WordRow}
+              rowCount={words.length}
+              rowHeight={RESULTS_ITEM_HEIGHT}
+              rowProps={rowProps}
+              onMouseLeave={usesHover ? handleMouseLeave : undefined}
+            />
+          </div>
+        )}
       </div>
 
       {words.length > 0 && (
