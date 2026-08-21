@@ -39,6 +39,12 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
     background-color: var(--color--primary);
     color: var(--color--primary--opposite);
   }
+
+  &.primary {
+    flex: 1 1 0;
+    min-width: 0;
+    text-transform: uppercase;
+  }
 }
 
 .headerButtonLabel {
@@ -101,9 +107,9 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   &.primary {
     flex: 1 1 0;
     min-width: 0;
+    text-transform: uppercase;
     justify-content: flex-start;
     padding-inline-start: $row-padding-horizontal;
-    text-transform: uppercase;
   }
 }
 

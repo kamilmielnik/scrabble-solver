@@ -39,7 +39,7 @@ export const HeaderButton = <Id extends string>({
     <Tooltip tooltip={translate(translationKey)}>
       <button
         aria-label={translate(translationKey)}
-        className={classNames(styles.headerButton, className)}
+        className={classNames(styles.headerButton, className, { [styles.primary]: primary })}
         type="button"
         onClick={handleClick}
       >
