@@ -286,6 +286,7 @@ function* onLocaleChange({ payload: locale }: PayloadAction<Locale>): AnyGenerat
   }
 
   yield put(dictionarySlice.actions.reset());
+  yield put(hoveredWordSlice.actions.clear());
   yield put(resultsSlice.actions.changeResultCandidate(null));
   yield put(verifySlice.actions.submit());
 }

@@ -70,6 +70,20 @@ test.describe('Words preview', () => {
     await Lib.expectTileNotHighlighted(Lib.getBoardTile(page, 5, 3));
   });
 
+  test('drops the highlight when the language changes', async ({ page }) => {
+    await Lib.visitIndex(page);
+    await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
+    await Lib.openWordsModal(page);
+    await Lib.getOpenModal(page).getByRole('button', { name: 'Preview', exact: true }).click();
+    await Lib.expectTileHighlighted(Lib.getBoardTile(page, 3, 3));
+
+    await Lib.getSettingsButton(page).click();
+    await Lib.getSettingOption(page, 'Language', 'Polski').check();
+    await Lib.closeModal(page);
+
+    await Lib.expectTileNotHighlighted(Lib.getBoardTile(page, 3, 3));
+  });
+
   test('drops the selection when the selected word is edited on the board', async ({ page }) => {
     await Lib.visitIndex(page);
     await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
