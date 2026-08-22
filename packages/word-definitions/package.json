@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/word-definitions",
-  "version": "2.18.1",
+  "version": "2.18.2",
   "description": "Word definition crawlers and parsers for Scrabble Solver (Wiktionary, CNRTL, DWDS, SJP, dexonline, and more).",
   "keywords": [
     "word-definitions",
@@ -30,7 +30,7 @@
     "test": "bun test --timeout 180000 src"
   },
   "dependencies": {
-    "@scrabble-solver/types": "^2.18.1",
+    "@scrabble-solver/types": "^2.18.2",
     "cheerio": "^1.2.0",
     "follow-redirects": "^1.16.0",
     "striptags": "^3.2.0"

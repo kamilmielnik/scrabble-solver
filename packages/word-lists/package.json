@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/word-lists",
-  "version": "2.18.1",
+  "version": "2.18.2",
   "description": "Per-locale word list downloaders for Scrabble Solver (SOWPODS, TWL06, SJP, and more).",
   "keywords": [
     "word-list",
@@ -31,7 +31,7 @@
     "clean": "rimraf build/"
   },
   "dependencies": {
-    "@scrabble-solver/types": "^2.18.1",
+    "@scrabble-solver/types": "^2.18.2",
     "cheerio": "^1.2.0",
     "follow-redirects": "^1.16.0",
     "transliteration": "^2.6.1",
