@@ -68,7 +68,7 @@
     "env-cmd": "^11.0.0",
     "include-media": "^2.0.0",
     "include-media-query-builder": "^1.1.0",
-    "next": "^16.3.1",
+    "next": "^16.3.2",
     "normalize.css": "^8.0.1",
     "react": "^19.2.8",
     "react-cool-onclickoutside": "^1.7.0",
@@ -94,7 +94,7 @@
     "@types/react-modal": "^3.16.3",
     "@types/react-portal": "^4.0.7",
     "postcss": "^8.5.26",
-    "sass": "^1.102.0"
+    "sass": "^1.103.1"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }
