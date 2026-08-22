@@ -64,7 +64,7 @@
   gap: var(--spacing--l);
   line-height: var(--button--icon--size);
 
-  @include media('<l') {
+  @include media('compact') {
     gap: var(--spacing--m);
   }
 }

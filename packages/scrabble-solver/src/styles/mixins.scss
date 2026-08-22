@@ -10,6 +10,11 @@
   ),
   $media-expressions: (
     touch: '(hover: none)',
+    /**
+     * Keep in sync with useIsCompactLayout
+     */
+    compact: '(max-width: #{$breakpoint-l - 1px}), (max-height: #{$breakpoint-height-l - 1px})',
+    desktop: '(min-width: #{$breakpoint-l}) and (min-height: #{$breakpoint-height-l})',
   )
 );
 

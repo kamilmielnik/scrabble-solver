@@ -14,9 +14,9 @@ import { NavButtons } from '@/components/NavButtons';
 import { Solver } from '@/components/Solver';
 import { useDirection } from '@/hooks/useDirection';
 import { useEffectOnce } from '@/hooks/useEffectOnce';
+import { useIsCompactLayout } from '@/hooks/useIsCompactLayout';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import { schedulePreloadModals } from '@/modals/preload';
 import { CONFIG_PENDING_CLASS, GITHUB_PROJECT_URL, NPM_PACKAGE_URL, SITE_DESCRIPTION, SITE_URL } from '@/parameters';
@@ -94,7 +94,7 @@ const Index: FunctionComponent<Props> = ({ version }) => {
   const config = useTypedSelector(selectConfig);
   const locale = useTypedSelector(selectLocale);
   const isHydrated = useTypedSelector(selectIsHydrated);
-  const isCompactLayout = useMediaQuery('<l');
+  const isCompactLayout = useIsCompactLayout();
   const previousIsCompactLayout = useRef(isCompactLayout);
   const [modals, setModals] = useState<Record<Modal, boolean>>({
     dictionary: false,

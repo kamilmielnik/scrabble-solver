@@ -6,6 +6,7 @@
   breakpointM: strip-unit($breakpoint-m);
   breakpointL: strip-unit($breakpoint-l);
   breakpointXl: strip-unit($breakpoint-xl);
+  breakpointHeightL: strip-unit($breakpoint-height-l);
 
   borderColorLight: $border-color-light;
   borderWidth: strip-unit($border-width);

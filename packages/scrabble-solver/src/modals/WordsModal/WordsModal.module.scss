@@ -18,7 +18,7 @@
   border: var(--border);
   border-radius: var(--border--radius);
 
-  @include media('>=l') {
+  @include media('desktop') {
     display: none;
   }
 }

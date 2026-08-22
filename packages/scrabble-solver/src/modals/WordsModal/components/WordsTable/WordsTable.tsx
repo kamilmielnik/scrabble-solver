@@ -6,8 +6,8 @@ import { List } from 'react-window';
 
 import { EmptyState } from '@/components/EmptyState';
 import { Header, HeaderButton, Search } from '@/components/Table';
+import { useIsCompactLayout } from '@/hooks/useIsCompactLayout';
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import GeoAlt from '@/icons/GeoAlt.svg';
 import QuestionSquare from '@/icons/QuestionSquare.svg';
@@ -38,7 +38,7 @@ export const WordsTable: FunctionComponent<Props> = ({ className, isOpen, onPrev
   const dispatch = useDispatch();
   const translate = useTranslate();
   const isTouchDevice = useIsTouchDevice();
-  const isCompactLayout = useMediaQuery('<l');
+  const isCompactLayout = useIsCompactLayout();
   const highlightFollowsPointer = !isTouchDevice && !isCompactLayout;
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
