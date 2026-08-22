@@ -36,7 +36,7 @@
   <p>
     <img src="https://img.shields.io/github/package-json/v/kamilmielnik/scrabble-solver" alt="Version" />
     <img src="https://img.shields.io/npm/l/scrabble-solver" alt="License" />
-    <img src="https://img.shields.io/badge/bun-%3E=1.3-brightgreen.svg" />
+    <img src="https://img.shields.io/badge/bun-%3E=1.4-brightgreen.svg" />
     <img src="https://img.shields.io/node/v/scrabble-solver" alt="Node version" />
   </p>
 
@@ -88,7 +88,7 @@ Some of the word lists below are sourced from the companion repository [kamilmie
 
 ## Run
 
-You can run Scrabble Solver on your machine - all you need is [Bun](https://bun.sh/) 1.3 or later.
+You can run Scrabble Solver on your machine - all you need is [Bun](https://bun.sh/) 1.4 or later.
 
 ```Shell
 bunx scrabble-solver@latest

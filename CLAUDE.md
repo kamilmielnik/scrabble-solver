@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository layout
 
-This is a Bun-workspaces monorepo (managed with Lerna for versioning/publishing and Nx purely for build caching/ordering). `engines` requires **Bun >=1.3** and **Node.js >=24**. The lockfile is `bun.lock` (text JSON, lockfileVersion 1) — `package-lock.json` was removed when the project migrated off npm/Jest in `#421` (Apr 2026). Workspace scripts use `bun run --filter <pattern> <script>` — the `'./packages/*'` glob runs in dependency order (built-in Nx cache), and `'*'` skips workspaces without that script (relevant for `test`). The root `workspaces` field is an explicit nine-entry list in dependency order, not a glob.
+This is a Bun-workspaces monorepo (managed with Lerna for versioning/publishing and Nx purely for build caching/ordering). `engines` requires **Bun >=1.4** and **Node.js >=24**. The lockfile is `bun.lock` (text JSON, lockfileVersion 1) — `package-lock.json` was removed when the project migrated off npm/Jest in `#421` (Apr 2026). Workspace scripts use `bun run --filter <pattern> <script>` — the `'./packages/*'` glob runs in dependency order (built-in Nx cache), and `'*'` skips workspaces without that script (relevant for `test`). The root `workspaces` field is an explicit nine-entry list in dependency order, not a glob.
 
 The nine packages live under `packages/` and have a strict dependency order. When something breaks "downstream" of where you edited, rebuild the upstream package first:
 
