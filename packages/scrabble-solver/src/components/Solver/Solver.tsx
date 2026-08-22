@@ -10,6 +10,7 @@ import {
   selectAreResultsOutdated,
   selectProcessedResults,
   selectResultCandidate,
+  selectResultCandidateIndex,
   selectSolveError,
   solveSlice,
   useTranslate,
@@ -40,6 +41,7 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
   const error = useTypedSelector(selectSolveError);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const results = useTypedSelector(selectProcessedResults);
+  const highlightedIndex = useTypedSelector(selectResultCandidateIndex);
   const store = useTypedStore();
   const [bestResult] = results || [];
   const touchCallbacks = useMemo(
@@ -100,7 +102,7 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
           </form>
 
           <div className={styles.column}>
-            <Results callbacks={callbacks} className={styles.results} />
+            <Results callbacks={callbacks} className={styles.results} highlightedIndex={highlightedIndex} />
 
             <div data-testid="dictionary" className={styles.dictionaryContainer}>
               <Dictionary className={styles.dictionary} />

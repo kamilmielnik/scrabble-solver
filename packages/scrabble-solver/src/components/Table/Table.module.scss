@@ -66,7 +66,11 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   user-select: none;
   font-weight: 400;
 
-  &:focus,
+  /**
+   * :focus-visible rather than :focus - a row left focused by click/hover on another row
+   * must not keep looking highlighted.
+   */
+  &:focus-visible,
   &:hover,
   &.highlighted {
     &:not(:disabled) {
@@ -78,7 +82,7 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   &[aria-hidden='true'] {
     color: var(--color--inactive);
 
-    &:focus,
+    &:focus-visible,
     &:hover,
     &.highlighted {
       &:not(:disabled) {
@@ -87,6 +91,10 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
       }
     }
   }
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 .rowContent {

@@ -44,6 +44,14 @@ export const selectProcessedResults = createSelector([selectGroupedSortedResults
   return results ? [...results.matching, ...results.other] : undefined;
 });
 
+export const selectResultCandidateIndex = createSelector(
+  [selectProcessedResults, selectResultCandidate],
+  (results, candidate) => {
+    const index = results && candidate ? results.findIndex((result) => result.id === candidate.id) : -1;
+    return index === -1 ? undefined : index;
+  },
+);
+
 export const selectIsResultMatching = createSelector(
   [selectProcessedResults, selectResultsQuery, selectCellFilters, selectResultIndex],
   (results, query, cellFilters, index) => {

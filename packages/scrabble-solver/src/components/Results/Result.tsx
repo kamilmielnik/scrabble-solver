@@ -5,7 +5,6 @@ import { type RowComponentProps } from 'react-window';
 import { Cell, Row } from '@/components/Table';
 import { useColumns } from '@/hooks/useColumns';
 import { LOCALE_FEATURES } from '@/i18n/constants';
-import { noop } from '@/lib/noop';
 import {
   selectIsResultMatching,
   selectLocale,
@@ -22,10 +21,10 @@ export const Result = ({
   index,
   highlightedIndex,
   results = [],
-  onBlur = noop,
-  onClick = noop,
-  onFocus = noop,
-  onMouseEnter = noop,
+  onBlur,
+  onClick,
+  onFocus,
+  onMouseEnter,
   style,
 }: RowComponentProps<ResultData>): ReactElement => {
   const columns = useColumns();
@@ -37,15 +36,14 @@ export const Result = ({
   const words = direction === 'rtl' ? [...result.words].reverse() : result.words;
   const coordinates = useTypedSelector((state) => selectResultCoordinates(state, index));
 
-  const handleClick: MouseEventHandler = (event) => onClick(result, event);
-  const handleMouseEnter: MouseEventHandler = (event) => onMouseEnter(result, event);
-  const handleBlur: FocusEventHandler = (event) => onBlur(result, event);
-  const handleFocus: FocusEventHandler = (event) => onFocus(result, event);
+  const handleClick: MouseEventHandler | undefined = onClick && ((event) => onClick(result, event));
+  const handleMouseEnter: MouseEventHandler | undefined = onMouseEnter && ((event) => onMouseEnter(result, event));
+  const handleBlur: FocusEventHandler | undefined = onBlur && ((event) => onBlur(result, event));
+  const handleFocus: FocusEventHandler | undefined = onFocus && ((event) => onFocus(result, event));
 
   return (
     <Row
       aria-label={result.word}
-      className={styles.result}
       data-testid="result"
       highlighted={index === highlightedIndex}
       inactive={!isMatching}

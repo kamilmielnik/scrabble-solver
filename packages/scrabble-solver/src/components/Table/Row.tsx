@@ -41,7 +41,10 @@ export const Row: FunctionComponent<Props> = ({
       aria-current={highlighted ? 'true' : undefined}
       aria-hidden={inactive ? 'true' : undefined}
       aria-label={ariaLabel}
-      className={classNames(styles.row, className, { [styles.highlighted]: highlighted })}
+      className={classNames(styles.row, className, {
+        [styles.clickable]: Boolean(onClick),
+        [styles.highlighted]: highlighted,
+      })}
       data-testid={dataTestId}
       style={style}
       type="button"

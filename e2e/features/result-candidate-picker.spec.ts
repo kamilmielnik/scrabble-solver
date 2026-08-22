@@ -8,7 +8,7 @@ test.describe('Result candidate picker', () => {
   test('shows a placeholder until a result candidate is picked', async ({ page }) => {
     await Lib.visitIndex(page);
 
-    const picker = page.getByRole('button', { name: 'Results', exact: true });
+    const picker = Lib.getResultCandidatePicker(page);
     await expect(picker).toHaveText('Select...');
 
     await Lib.typeBoard(page, 'i', 'horizontal', { x: 7, y: 7 });

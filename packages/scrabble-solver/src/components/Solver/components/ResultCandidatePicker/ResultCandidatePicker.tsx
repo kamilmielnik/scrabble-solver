@@ -77,6 +77,7 @@ export const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onR
       <button
         aria-label={translate('results')}
         className={styles.resultCandidate}
+        data-testid="result-candidate-picker"
         disabled={disabled}
         type="button"
         onClick={onResultClick}

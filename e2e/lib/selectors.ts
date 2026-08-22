@@ -67,6 +67,18 @@ export function getResult(page: Page, index = 0): Locator {
   return getResults(page).nth(index);
 }
 
+export function getResultCandidatePicker(page: Page): Locator {
+  return page.getByTestId('result-candidate-picker');
+}
+
+export function getModalResults(page: Page): Locator {
+  return getOpenModal(page).getByTestId('result');
+}
+
+export function getModalResult(page: Page, index = 0): Locator {
+  return getModalResults(page).nth(index);
+}
+
 export function getWordsContainer(page: Page): Locator {
   return page.getByTestId('words');
 }

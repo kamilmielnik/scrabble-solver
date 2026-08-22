@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Button } from '@/components/Button';
 import { Dictionary } from '@/components/Dictionary';
 import { Modal } from '@/components/Modal';
-import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import EyeFill from '@/icons/EyeFill.svg';
 import { hoveredWordSlice, selectHoveredWord, useTranslate, useTypedSelector } from '@/state';
 
@@ -22,7 +22,7 @@ const WordsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose, 
   const dispatch = useDispatch();
   const translate = useTranslate();
   const hoveredWord = useTypedSelector(selectHoveredWord);
-  const canPreview = useIsTouchDevice();
+  const showsPreviewButton = useMediaQuery('<l');
   const keepsHighlightOnClose = useRef(false);
 
   const handlePreview = useCallback(() => {
@@ -48,7 +48,7 @@ const WordsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose, 
     <Modal
       className={className}
       footer={
-        canPreview && (
+        showsPreviewButton && (
           <Button
             aria-label={translate('words.preview')}
             disabled={!hoveredWord}
@@ -65,7 +65,7 @@ const WordsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose, 
       onClose={onClose}
     >
       <div className={styles.content}>
-        <WordsTable canPreview={canPreview} className={styles.words} isOpen={isOpen} onPreview={handlePreview} />
+        <WordsTable className={styles.words} isOpen={isOpen} onPreview={handlePreview} />
         <Dictionary className={styles.dictionary} />
       </div>
     </Modal>

@@ -29,18 +29,17 @@ import { WordRow, type WordRowData } from './WordRow';
 import styles from './WordsTable.module.scss';
 
 interface Props {
-  canPreview: boolean;
   className?: string;
   isOpen: boolean;
   onPreview: () => void;
 }
 
-export const WordsTable: FunctionComponent<Props> = ({ canPreview, className, isOpen, onPreview }) => {
+export const WordsTable: FunctionComponent<Props> = ({ className, isOpen, onPreview }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
-  const usesHover = !useIsTouchDevice();
-  const keepsHighlight = useMediaQuery('<l');
-  const clearsOnLeave = usesHover && !keepsHighlight;
+  const isTouchDevice = useIsTouchDevice();
+  const isCompactLayout = useMediaQuery('<l');
+  const highlightFollowsPointer = !isTouchDevice && !isCompactLayout;
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const words = useTypedSelector(selectProcessedWords);
@@ -49,8 +48,8 @@ export const WordsTable: FunctionComponent<Props> = ({ canPreview, className, is
   const hoveredWord = useTypedSelector(selectHoveredWord);
   const highlightedIndex = hoveredWord ? words.findIndex((word) => isSameBoardWord(word, hoveredWord)) : -1;
   const rowProps = useMemo<WordRowData>(
-    () => ({ canPreview, clearsOnLeave, highlightedIndex, usesHover, words, onPreview }),
-    [canPreview, clearsOnLeave, highlightedIndex, usesHover, words, onPreview],
+    () => ({ highlightFollowsPointer, highlightedIndex, isTouchDevice, words, onPreview }),
+    [highlightFollowsPointer, highlightedIndex, isTouchDevice, words, onPreview],
   );
 
   const handleSort = useCallback(
@@ -72,10 +71,10 @@ export const WordsTable: FunctionComponent<Props> = ({ canPreview, className, is
   }, [dispatch]);
 
   useEffect(() => {
-    if (isOpen && keepsHighlight && words.length > 0 && highlightedIndex === -1) {
+    if (isOpen && isCompactLayout && words.length > 0 && highlightedIndex === -1) {
       dispatch(hoveredWordSlice.actions.set(words[0]));
     }
-  }, [dispatch, highlightedIndex, isOpen, keepsHighlight, words]);
+  }, [dispatch, highlightedIndex, isOpen, isCompactLayout, words]);
 
   return (
     <div
@@ -119,7 +118,7 @@ export const WordsTable: FunctionComponent<Props> = ({ canPreview, className, is
               rowCount={words.length}
               rowHeight={RESULTS_ITEM_HEIGHT}
               rowProps={rowProps}
-              onMouseLeave={clearsOnLeave ? handleMouseLeave : undefined}
+              onMouseLeave={highlightFollowsPointer ? handleMouseLeave : undefined}
             />
           </div>
         )}

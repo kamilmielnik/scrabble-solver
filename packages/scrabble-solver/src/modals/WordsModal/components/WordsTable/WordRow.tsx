@@ -20,21 +20,19 @@ import { type VerifiedWord } from '@/types';
 import styles from './WordsTable.module.scss';
 
 export interface WordRowData {
-  canPreview: boolean;
-  clearsOnLeave: boolean;
+  highlightFollowsPointer: boolean;
   highlightedIndex: number;
-  usesHover: boolean;
+  isTouchDevice: boolean;
   words: VerifiedWord[];
   onPreview: () => void;
 }
 
 export const WordRow = ({
-  canPreview,
-  clearsOnLeave,
+  highlightFollowsPointer,
   highlightedIndex,
   index,
+  isTouchDevice,
   style,
-  usesHover,
   words,
   onPreview,
 }: RowComponentProps<WordRowData>): ReactElement => {
@@ -59,7 +57,7 @@ export const WordRow = ({
   const handleClick = () => {
     if (!isSelected) {
       handleSet();
-    } else if (canPreview) {
+    } else if (isTouchDevice) {
       onPreview();
     }
   };
@@ -71,10 +69,10 @@ export const WordRow = ({
       highlighted={isSelected}
       inactive={!isMatching}
       style={style}
-      onBlur={clearsOnLeave ? handleClear : undefined}
-      onClick={usesHover ? undefined : handleClick}
-      onFocus={usesHover ? handleSet : undefined}
-      onMouseEnter={usesHover ? handleSet : undefined}
+      onBlur={highlightFollowsPointer ? handleClear : undefined}
+      onClick={highlightFollowsPointer ? undefined : handleClick}
+      onFocus={highlightFollowsPointer ? handleSet : undefined}
+      onMouseEnter={highlightFollowsPointer ? handleSet : undefined}
     >
       <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />
 
