@@ -1,6 +1,7 @@
 import { type BoardJson, type Game, type Locale } from '@scrabble-solver/types';
 
 import { verifyLocally } from '@/solver-worker';
+import { type VerifiedWord } from '@/types';
 
 import { fetchJson } from './fetchJson';
 
@@ -11,8 +12,8 @@ interface Payload {
 }
 
 interface Response {
-  invalidWords: string[];
-  validWords: string[];
+  invalidWords: VerifiedWord[];
+  validWords: VerifiedWord[];
 }
 
 export const verify = async ({ board, game, locale }: Payload): Promise<Response> => {

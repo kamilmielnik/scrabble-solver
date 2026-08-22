@@ -1,28 +1,40 @@
-export { Bingo, isBingo, isMultiplierBingo, isScoreBingo } from './Bingo';
+export { Bingo } from './Bingo';
 export { Board } from './Board';
-export { BoardJson, isBoardJson } from './BoardJson';
+export { BoardJson } from './BoardJson';
+export { BoardWord } from './BoardWord';
 export { Bonus } from './Bonus';
 export { BonusJson } from './BonusJson';
 export { BonusValue } from './BonusValue';
 export { Cell } from './Cell';
-export { CellJson, isCellJson } from './CellJson';
+export { CellJson } from './CellJson';
 export { CharacterBonus } from './CharacterBonus';
 export { Collision } from './Collision';
 export { Config } from './Config';
 export { ConfigJson } from './ConfigJson';
 export { Dictionary } from './Dictionary';
 export { Direction } from './Direction';
-export { Game, isGame } from './Game';
-export { isError } from './isError';
-export { isObject } from './isObject';
-export { isLocale, Locale } from './Locale';
+export { Game } from './Game';
+export { isSameBoardWord } from './lib';
+export { Locale } from './Locale';
 export { Result } from './Result';
 export { ResultJson } from './ResultJson';
 export { ShowCoordinates } from './ShowCoordinates';
 export { TextDirection } from './TextDirection';
 export { Tile } from './Tile';
 export { TileConfig } from './TileConfig';
-export { isTileJson, TileJson } from './TileJson';
+export { TileJson } from './TileJson';
+export {
+  isBingo,
+  isBoardJson,
+  isCellJson,
+  isError,
+  isGame,
+  isLocale,
+  isMultiplierBingo,
+  isObject,
+  isScoreBingo,
+  isTileJson,
+} from './type-guards';
 export { WordBonus } from './WordBonus';
 export { WordDefinition } from './WordDefinition';
 export { WordDefinitionJson } from './WordDefinitionJson';

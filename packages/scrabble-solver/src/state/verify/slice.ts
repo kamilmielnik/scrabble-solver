@@ -1,12 +1,15 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { type Board } from '@scrabble-solver/types';
 
+import { getNextSort } from '@/lib/getNextSort';
+import { type VerifiedWord, type WordColumnId } from '@/types';
+
 import { verifyInitialState } from './initialState';
 
 interface VerifyParameters {
   board: Board;
-  invalidWords: string[];
-  validWords: string[];
+  invalidWords: VerifiedWord[];
+  validWords: VerifiedWord[];
 }
 
 export const verifySlice = createSlice({
@@ -17,8 +20,16 @@ export const verifySlice = createSlice({
       return { ...state, isLoading: true };
     },
 
+    changeQuery: (state, action: PayloadAction<string>) => {
+      return { ...state, query: action.payload };
+    },
+
     submitFailure: (state) => {
       return { ...state, isLoading: false };
+    },
+
+    sort: (state, action: PayloadAction<WordColumnId>) => {
+      return { ...state, sort: getNextSort(state.sort, action.payload) };
     },
 
     submitSuccess: (state, action: PayloadAction<VerifyParameters>) => {

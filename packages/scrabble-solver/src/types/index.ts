@@ -1,7 +1,8 @@
-import { type Result } from '@scrabble-solver/types';
-import { type FunctionComponent, type SVGAttributes } from 'react';
+import { type BoardWord, type Result, type ShowCoordinates } from '@scrabble-solver/types';
 
 export type Comparator<T> = (a: T, B: T) => number;
+
+export type ComparatorFactory<T> = (locale: string, showCoordinates: ShowCoordinates) => Comparator<T>;
 
 export type AutoGroupTiles = 'left' | 'right' | null;
 
@@ -26,8 +27,8 @@ export interface Point {
 
 export type Rack = (string | null)[];
 
-export interface Sort {
-  column: ResultColumnId;
+export interface Sort<Id extends string = ResultColumnId> {
+  column: Id;
   direction: SortDirection;
 }
 
@@ -61,17 +62,24 @@ export enum ResultColumnId {
   WordsCount = 'words-count',
 }
 
-export interface ResultColumn {
-  className: string;
-  Icon?: FunctionComponent<SVGAttributes<SVGElement>>;
-  id: ResultColumnId;
-  translationKey: TranslationKey;
-  width?: number;
+export enum WordColumnId {
+  Coordinates = 'coordinates',
+  Validity = 'validity',
+  Word = 'word',
 }
 
 export interface GroupedResults {
   matching: Result[];
   other: Result[];
+}
+
+export interface GroupedWords {
+  matching: VerifiedWord[];
+  other: VerifiedWord[];
+}
+
+export interface VerifiedWord extends BoardWord {
+  isValid: boolean;
 }
 
 export type TranslationKey =
@@ -135,6 +143,7 @@ export type TranslationKey =
   | 'results.input.placeholder'
   | 'results.insert'
   | 'results.preview'
+  | 'results.select'
   | 'results.solve'
   | 'settings'
   | 'settings.autoGroupTiles'
@@ -154,8 +163,12 @@ export type TranslationKey =
   | 'settings.showCoordinates.alternative'
   | 'settings.showCoordinates.original'
   | 'words'
+  | 'words.empty-state.no-words'
+  | 'words.input.placeholder'
   | 'words.invalid'
-  | 'words.valid';
+  | 'words.preview'
+  | 'words.valid'
+  | 'words.validity';
 
 export type Translate = (key: TranslationKey, replacements?: Record<string, string>) => string;
 

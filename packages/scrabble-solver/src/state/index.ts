@@ -4,6 +4,7 @@ export * from './board';
 export * from './cellFilters';
 export * from './dictionary';
 export * from './hoveredTile';
+export * from './hoveredWord';
 export * from './i18n';
 export * from './localStorage';
 export * from './rack';

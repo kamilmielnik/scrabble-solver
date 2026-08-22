@@ -1,7 +1,5 @@
 @use 'styles/mixins' as *;
 
-$row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
-
 .results {
   position: relative;
   display: flex;
@@ -37,122 +35,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   }
 }
 
-.header {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: var(--border);
-  border-top-left-radius: inherit;
-  border-top-right-radius: inherit;
-}
-
-.headerButton {
-  @include button-reset;
-  @include focus-effect;
-
-  cursor: pointer;
-
-  text-transform: uppercase;
-  transition:
-    background-color var(--transition--duration) var(--transition--easing),
-    color var(--transition--duration) var(--transition--easing);
-  background-color: var(--color--background);
-  height: 100%;
-
-  &:first-child {
-    border-start-start-radius: inherit;
-  }
-
-  &:last-child {
-    border-start-end-radius: inherit;
-  }
-
-  &:focus,
-  &:hover {
-    background-color: var(--color--primary);
-    color: var(--color--primary--opposite);
-  }
-}
-
-.headerButtonLabel {
-  @include ellipsis;
-
-  flex: 0 1 auto;
-  text-align: start;
-}
-
-.headerButtonIcon {
-  flex: 0 0 auto;
-  width: var(--results--icon--size);
-  height: var(--results--icon--size);
-}
-
-.result {
-  @include button-reset;
-
-  user-select: none;
-  cursor: pointer;
-  font-weight: 400;
-
-  &:focus,
-  &:hover,
-  &.highlighted {
-    &:not(:disabled) {
-      background-color: var(--color--primary);
-      color: var(--color--primary--opposite);
-    }
-  }
-
-  &[aria-hidden='true'] {
-    color: var(--color--inactive);
-
-    &:focus,
-    &:hover,
-    &.highlighted {
-      &:not(:disabled) {
-        background-color: var(--color--primary--light);
-        color: var(--color--primary--opposite);
-      }
-    }
-  }
-}
-
-.resultContent {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-
-  .word {
-    @include ellipsis;
-
-    display: flex;
-  }
-}
-
-.cell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  gap: var(--spacing--s);
-  line-height: var(--results--item--height);
-
-  .result &.word,
-  .headerButton.word & {
-    justify-content: flex-start;
-    padding-inline-start: $row-padding-horizontal;
-  }
-}
-
-.word {
-  flex: 1 1 0;
-  min-width: 0;
-  text-transform: uppercase;
-}
-
 .stat {
   $width: 55px;
 
@@ -179,14 +61,6 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 .solveButton {
   display: block;
   margin: var(--spacing--xl) auto 0;
-}
-
-.sortIcon {
-  $size: 19px;
-
-  flex: 0 0 auto;
-  width: $size;
-  height: $size;
 }
 
 .input {

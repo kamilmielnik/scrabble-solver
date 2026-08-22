@@ -33,6 +33,7 @@ interface Props {
   config: Config;
   direction: TextDirection;
   hoveredCharacter: string | null;
+  hoveredWordCells: boolean[][] | null;
   inputRefs: RefObject<HTMLInputElement | null>[][];
   locale: Locale;
   reachableCells: boolean[][] | null;
@@ -55,6 +56,7 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
       direction,
       cellFilters,
       hoveredCharacter,
+      hoveredWordCells,
       inputRefs,
       locale,
       reachableCells,
@@ -118,25 +120,29 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
             {getCoordinate(y, showCoordinates === 'original' ? 'number' : 'letter')}
           </div>
 
-          {cells.map((cell, x) => (
-            <Cell
-              cell={cell}
-              cellBottom={y < rows.length - 1 ? rows[y + 1][x] : undefined}
-              cellLeft={x > 0 ? rows[y][x - 1] : undefined}
-              cellRight={x < rows[y].length - 1 ? rows[y][x + 1] : undefined}
-              cellTop={y > 0 ? rows[y - 1][x] : undefined}
-              config={config}
-              inputRef={inputRefs[y][x]}
-              isHoverMatch={isHoverMatch(cell, hoveredCharacter)}
-              isReachable={reachableCells ? reachableCells[y][x] : true}
-              key={x}
-              locale={locale}
-              showCoordinates={showCoordinates}
-              translate={translate}
-              onChange={onChange}
-              onFocus={onFocus}
-            />
-          ))}
+          {cells.map((cell, x) => {
+            const isHoveredWord = hoveredWordCells ? hoveredWordCells[y][x] : false;
+
+            return (
+              <Cell
+                cell={cell}
+                cellBottom={y < rows.length - 1 ? rows[y + 1][x] : undefined}
+                cellLeft={x > 0 ? rows[y][x - 1] : undefined}
+                cellRight={x < rows[y].length - 1 ? rows[y][x + 1] : undefined}
+                cellTop={y > 0 ? rows[y - 1][x] : undefined}
+                config={config}
+                highlighted={cell.isCandidate() || isHoverCharacter(cell, hoveredCharacter) || isHoveredWord}
+                inputRef={inputRefs[y][x]}
+                isReachable={reachableCells ? reachableCells[y][x] : true}
+                key={x}
+                locale={locale}
+                showCoordinates={showCoordinates}
+                translate={translate}
+                onChange={onChange}
+                onFocus={onFocus}
+              />
+            );
+          })}
         </Fragment>
       ))}
     </div>
@@ -145,7 +151,7 @@ const BoardPureBase = forwardRef<HTMLDivElement, Props>(
 
 export const BoardPure = memo(BoardPureBase);
 
-function isHoverMatch(cell: CellModel, hoveredCharacter: string | null): boolean {
+function isHoverCharacter(cell: CellModel, hoveredCharacter: string | null): boolean {
   if (cell.tile.character === EMPTY_CELL || hoveredCharacter === null) {
     return false;
   }

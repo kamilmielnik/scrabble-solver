@@ -59,6 +59,7 @@
   "results.input.placeholder": "Cautare solutii... (RegExp)",
   "results.insert": "Introducere",
   "results.preview": "Previzualizare",
+  "results.select": "Selectati...",
   "results.solve": "Gasire solutii",
   "settings": "Setari",
   "settings.autoGroupTiles": "Litere ramase",
@@ -78,6 +79,10 @@
   "settings.showCoordinates.alternative": "Alternativă",
   "settings.showCoordinates.original": "Original",
   "words": "Cuvinte create",
+  "words.empty-state.no-words": "Niciun cuvânt creat - tabla este goală.",
+  "words.input.placeholder": "Cautare cuvinte... (RegExp)",
   "words.invalid": "Invalid",
-  "words.valid": "Valid"
+  "words.preview": "Previzualizare",
+  "words.valid": "Valid",
+  "words.validity": "Validitate"
 }

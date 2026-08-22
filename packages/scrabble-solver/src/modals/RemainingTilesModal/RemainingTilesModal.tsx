@@ -2,6 +2,7 @@ import { type FunctionComponent, memo } from 'react';
 
 import { Badge } from '@/components/Badge';
 import { Modal } from '@/components/Modal';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import { selectLocale, useTranslate, useTypedSelector } from '@/state';
 
@@ -17,6 +18,7 @@ interface Props {
 
 const RemainingTilesModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
+  const coversViewport = useMediaQuery('<s');
   const locale = useTypedSelector(selectLocale);
   const groups = useTypedSelector(selectRemainingTilesGroups);
   const { direction } = LOCALE_FEATURES[locale];
@@ -44,7 +46,7 @@ const RemainingTilesModalBase: FunctionComponent<Props> = ({ className, isOpen, 
               {tiles.map((tile) => {
                 return (
                   <div className={styles.character} key={tile.character}>
-                    <Character tile={tile} />
+                    <Character canHighlight={!coversViewport} tile={tile} />
                   </div>
                 );
               })}

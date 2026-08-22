@@ -1,7 +1,9 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 
 import { type BoardJson } from './BoardJson';
+import { type BoardWord } from './BoardWord';
 import { Cell } from './Cell';
+import { getBoardWords, getCollidingWords } from './lib';
 import { Tile } from './Tile';
 
 export class Board {
@@ -95,6 +97,10 @@ export class Board {
     }, 0);
   }
 
+  public getCollidingWords(word: BoardWord): BoardWord[] {
+    return getCollidingWords(this, word);
+  }
+
   public getColumn(index: number): Cell[] {
     return this.rows.map((row) => row[index]);
   }
@@ -109,10 +115,8 @@ export class Board {
     }, 0);
   }
 
-  public getWords(): string[] {
-    const horizontalWords = getHorizontalWords(this.rows);
-    const verticalWords = getHorizontalWords(transpose(this.rows));
-    return [...horizontalWords, ...verticalWords];
+  public getWords(): BoardWord[] {
+    return getBoardWords(this);
   }
 
   public isEmpty(): boolean {
@@ -135,48 +139,3 @@ export class Board {
     this.rows[y] = updateRow(this.rows[y]);
   }
 }
-
-const transpose = <T>(array: T[][]): T[][] => {
-  const rows = array.length;
-  const cols = array[0].length;
-  const transposed: T[][] = Array(cols)
-    .fill(null)
-    .map(() => Array(rows));
-
-  for (let y = 0; y < rows; ++y) {
-    for (let x = 0; x < cols; ++x) {
-      transposed[x][y] = array[y][x];
-    }
-  }
-
-  return transposed;
-};
-
-const getHorizontalWords = (cells: Cell[][]): string[] => {
-  const words: string[] = [];
-
-  for (const row of cells) {
-    let currentWord: Cell[] = [];
-
-    for (const cell of row) {
-      if (!cell.isEmpty) {
-        currentWord.push(cell);
-      } else if (currentWord.length > 0) {
-        if (currentWord.length > 1) {
-          words.push(wordToString(currentWord));
-        }
-        currentWord = [];
-      }
-    }
-
-    if (currentWord.length > 1) {
-      words.push(wordToString(currentWord));
-    }
-  }
-
-  return words;
-};
-
-const wordToString = (word: Cell[]): string => {
-  return word.map((cell) => cell.tile.character).join('');
-};

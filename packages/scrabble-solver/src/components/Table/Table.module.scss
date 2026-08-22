@@ -1,0 +1,147 @@
+@use 'styles/mixins' as *;
+
+$row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
+
+.header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: var(--border);
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
+.headerButton {
+  @include button-reset;
+  @include focus-effect;
+
+  cursor: pointer;
+
+  text-transform: uppercase;
+  transition:
+    background-color var(--transition--duration) var(--transition--easing),
+    color var(--transition--duration) var(--transition--easing);
+  background-color: var(--color--background);
+  height: 100%;
+
+  &:first-child {
+    border-start-start-radius: inherit;
+  }
+
+  &:last-child {
+    border-start-end-radius: inherit;
+  }
+
+  &:focus,
+  &:hover {
+    background-color: var(--color--primary);
+    color: var(--color--primary--opposite);
+  }
+
+  &.primary {
+    flex: 1 1 0;
+    min-width: 0;
+    text-transform: uppercase;
+  }
+}
+
+.headerButtonLabel {
+  @include ellipsis;
+
+  flex: 0 1 auto;
+  text-align: start;
+}
+
+.headerButtonIcon {
+  flex: 0 0 auto;
+  width: var(--results--icon--size);
+  height: var(--results--icon--size);
+}
+
+.row {
+  @include button-reset;
+
+  user-select: none;
+  font-weight: 400;
+
+  /**
+   * :focus-visible rather than :focus - a row left focused by click/hover on another row
+   * must not keep looking highlighted.
+   */
+  &:focus-visible,
+  &:hover,
+  &.highlighted {
+    &:not(:disabled) {
+      background-color: var(--color--primary);
+      color: var(--color--primary--opposite);
+    }
+  }
+
+  &[aria-hidden='true'] {
+    color: var(--color--inactive);
+
+    &:focus-visible,
+    &:hover,
+    &.highlighted {
+      &:not(:disabled) {
+        background-color: var(--color--primary--light);
+        color: var(--color--primary--opposite);
+      }
+    }
+  }
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.rowContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: var(--spacing--s);
+  line-height: var(--results--item--height);
+
+  &.primary {
+    flex: 1 1 0;
+    min-width: 0;
+    text-transform: uppercase;
+    justify-content: flex-start;
+    padding-inline-start: $row-padding-horizontal;
+  }
+}
+
+.cellValue {
+  @include ellipsis;
+
+  min-width: 0;
+}
+
+.search {
+  @include focus-effect;
+}
+
+.searchField {
+  @include text-input;
+
+  border: none;
+  border-radius: inherit;
+}
+
+.sortIcon {
+  $size: 19px;
+
+  flex: 0 0 auto;
+  width: $size;
+  height: $size;
+}

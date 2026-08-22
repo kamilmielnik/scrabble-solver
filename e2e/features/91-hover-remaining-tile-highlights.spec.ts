@@ -63,11 +63,33 @@ test.describe('#91 - Hovering remaining tile highlights all same tiles on the bo
     await expect(page.getByTestId('remaining-tile-a').locator('[role="mark"]')).not.toHaveCount(0);
     await Lib.expectTileHighlighted(Lib.getRackTile(page, 0));
   });
+
+  test.describe('full-viewport modal', () => {
+    test.use({ viewport: { width: 420, height: 900 } });
+
+    test('does not highlight anything when the modal covers the viewport', async ({ page }) => {
+      await Lib.visitIndex(page);
+      await Lib.typeBoard(page, 'cat', 'horizontal', { x: 7, y: 7 });
+      await Lib.typeRack(page, 'aab ');
+      await openRemainingTilesModalFromMenu(page);
+
+      await hoverRemainingTile(page, 'a');
+      await expect(page.getByTestId('remaining-tile-a').locator('[role="mark"]')).toHaveCount(0);
+      await Lib.expectTileNotHighlighted(Lib.getRackTile(page, 0));
+      await Lib.expectTileNotHighlighted(Lib.getBoardTile(page, 8, 7));
+    });
+  });
 });
 
 async function openRemainingTilesModal(page: Page) {
   await page.getByLabel('Remaining tiles', { exact: true }).click();
   await expect(Lib.getOpenModal(page)).toBeVisible();
+}
+
+async function openRemainingTilesModalFromMenu(page: Page) {
+  await page.getByRole('button', { name: 'Menu', exact: true }).click();
+  await Lib.getOpenModal(page).getByLabel('Remaining tiles', { exact: true }).click();
+  await expect(page.getByTestId('remaining-tile-a')).toBeVisible();
 }
 
 async function hoverRemainingTile(page: Page, character: string) {

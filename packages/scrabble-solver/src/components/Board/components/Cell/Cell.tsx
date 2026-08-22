@@ -28,8 +28,8 @@ interface Props {
   cellTop?: CellModel;
   className?: string;
   config: Config;
+  highlighted?: boolean;
   inputRef: RefObject<HTMLInputElement | null>;
-  isHoverMatch: boolean;
   isReachable?: boolean;
   locale: Locale;
   showCoordinates: ShowCoordinates;
@@ -39,7 +39,7 @@ interface Props {
 }
 
 /**
- * Must not subscribe to the store - it can read the story only in event handlers.
+ * Must not subscribe to the store - it can read the store only in event handlers
  */
 const CellBase: FunctionComponent<Props> = ({
   cell,
@@ -49,8 +49,8 @@ const CellBase: FunctionComponent<Props> = ({
   cellTop,
   className,
   config,
+  highlighted,
   inputRef,
-  isHoverMatch,
   isReachable = true,
   locale,
   showCoordinates,
@@ -116,7 +116,7 @@ const CellBase: FunctionComponent<Props> = ({
         [styles.unreachable]: !isReachable,
       })}
       character={isEmpty ? undefined : tile.character}
-      highlighted={cell.isCandidate() || isHoverMatch}
+      highlighted={highlighted}
       inputRef={inputRef}
       isBlank={tile.isBlank}
       isValid={isValid}

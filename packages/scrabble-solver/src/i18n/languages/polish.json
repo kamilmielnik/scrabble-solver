@@ -59,6 +59,7 @@
   "results.input.placeholder": "Szukaj rozwiązania... (RegExp)",
   "results.insert": "Wstaw",
   "results.preview": "Podgląd",
+  "results.select": "Wybierz...",
   "results.solve": "Rozwiąż",
   "settings": "Opcje",
   "settings.autoGroupTiles": "Grupuj pozostałe płytki",
@@ -78,6 +79,10 @@
   "settings.showCoordinates.alternative": "Alternatywne",
   "settings.showCoordinates.original": "Oryginalne",
   "words": "Utworzone słowa",
+  "words.empty-state.no-words": "Brak utworzonych słów - plansza jest pusta.",
+  "words.input.placeholder": "Szukaj słów... (RegExp)",
   "words.invalid": "Niepoprawne",
-  "words.valid": "Poprawne"
+  "words.preview": "Podgląd",
+  "words.valid": "Poprawne",
+  "words.validity": "Poprawność"
 }

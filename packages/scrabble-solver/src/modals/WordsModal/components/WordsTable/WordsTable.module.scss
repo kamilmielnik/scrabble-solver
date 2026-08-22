@@ -1,0 +1,69 @@
+@use 'styles/mixins' as *;
+
+.words {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--color--background--element);
+  border: var(--border);
+  border-radius: var(--border--radius);
+}
+
+.content {
+  flex: 1;
+  position: relative;
+  height: 100%;
+}
+
+.listContainer {
+  position: absolute;
+  inset: 0;
+}
+
+.list {
+  @include scrollbars;
+}
+
+.stat {
+  $width: 55px;
+
+  flex: 0 0 $width;
+  max-width: $width;
+  justify-content: center;
+}
+
+.coordinates {
+  $width: 55px;
+
+  flex: 0 0 $width;
+  max-width: $width;
+}
+
+.invalid {
+  color: var(--color--error);
+}
+
+.valid {
+  color: var(--color--success);
+}
+
+.icon {
+  $size: 24px;
+
+  display: block;
+  width: $size;
+  height: $size;
+}
+
+.input {
+  border-top: var(--border);
+  border-bottom-left-radius: var(--border--radius);
+  border-bottom-right-radius: var(--border--radius);
+}
+
+.highlight {
+  background-color: var(--color--mark);
+  color: var(--color--foreground);
+  border-radius: var(--border--radius);
+}

@@ -1,0 +1,1 @@
+export { WordsTable } from './WordsTable';

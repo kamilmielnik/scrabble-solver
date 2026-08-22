@@ -5,6 +5,7 @@ import { Board, type Config, type Game, type Locale, isBoardJson, isGame, isLoca
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
 import { getServerLoggingData, isBoardValid } from '@/api';
+import { type VerifiedWord } from '@/types';
 
 interface RequestData {
   board: Board;
@@ -31,15 +32,15 @@ const verify = async (request: NextApiRequest, response: NextApiResponse): Promi
     });
 
     const gaddag = await dictionaries.get(locale);
-    const words = board.getWords().sort((a, b) => a.localeCompare(b, locale));
-    const invalidWords: string[] = [];
-    const validWords: string[] = [];
+    const words = board.getWords().sort((a, b) => a.word.localeCompare(b.word, locale));
+    const invalidWords: VerifiedWord[] = [];
+    const validWords: VerifiedWord[] = [];
 
     for (const word of words) {
-      if (gaddag.has(word)) {
-        validWords.push(word);
+      if (gaddag.has(word.word)) {
+        validWords.push({ ...word, isValid: true });
       } else {
-        invalidWords.push(word);
+        invalidWords.push({ ...word, isValid: false });
       }
     }
 

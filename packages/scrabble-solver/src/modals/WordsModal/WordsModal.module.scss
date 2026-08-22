@@ -1,35 +1,24 @@
-.title {
+@use 'styles/mixins' as *;
+
+.content {
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  flex-direction: column;
+  height: 100%;
+  gap: var(--spacing--l);
 }
 
-.badge {
-  margin-inline-start: var(--spacing--m);
+.words {
+  flex: 1 1 auto;
 }
 
-.word {
-  display: flex;
-  align-items: center;
+.dictionary {
+  flex: 0 0 var(--dictionary--height--mobile);
+  background-color: var(--color--background--element);
+  border: var(--border);
+  border-radius: var(--border--radius);
 
-  & + & {
-    margin-top: var(--spacing--s);
+  @include media('>=l') {
+    display: none;
   }
-}
-
-.invalid {
-  color: var(--color--error);
-}
-
-.valid {
-  color: var(--color--success);
-}
-
-.icon {
-  $size: 24px;
-
-  width: $size;
-  height: $size;
-  margin-inline-end: var(--spacing--s);
 }

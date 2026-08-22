@@ -35,7 +35,7 @@ export const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onR
   const results = useTypedSelector(selectProcessedResults);
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const index = resultCandidate && results ? results.findIndex((result) => result.id === resultCandidate.id) : -1;
-  const disabled = isOutdated || !resultCandidate;
+  const disabled = isOutdated || !results || results.length === 0;
   const isPreviousDisabled = !results || index <= 0 || disabled;
   const isNextDisabled = !results || index >= results.length - 1 || disabled;
   const bothEnabled = !isPreviousDisabled && !isNextDisabled;
@@ -77,6 +77,7 @@ export const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onR
       <button
         aria-label={translate('results')}
         className={styles.resultCandidate}
+        data-testid="result-candidate-picker"
         disabled={disabled}
         type="button"
         onClick={onResultClick}
@@ -88,7 +89,9 @@ export const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onR
           </>
         )}
 
-        {!resultCandidate && <div className={styles.word}> </div>}
+        {!resultCandidate && (
+          <div className={classNames(styles.word, styles.placeholder)}>{translate('results.select')}</div>
+        )}
 
         <div className={styles.iconContainer}>
           {isLoading && <Spinner className={styles.loading} />}

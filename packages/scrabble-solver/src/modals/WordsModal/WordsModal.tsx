@@ -1,59 +1,73 @@
-import classNames from 'classnames';
-import { type FunctionComponent, memo } from 'react';
+import { type FunctionComponent, memo, useCallback, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { Badge } from '@/components/Badge';
+import { Button } from '@/components/Button';
+import { Dictionary } from '@/components/Dictionary';
 import { Modal } from '@/components/Modal';
-import Check from '@/icons/Check.svg';
-import Cross from '@/icons/Cross.svg';
-import { selectInvalidWords, selectLocale, selectValidWords, useTranslate, useTypedSelector } from '@/state';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import EyeFill from '@/icons/EyeFill.svg';
+import { hoveredWordSlice, selectHoveredWord, useTranslate, useTypedSelector } from '@/state';
 
+import { WordsTable } from './components';
 import styles from './WordsModal.module.scss';
 
 interface Props {
   className?: string;
   isOpen: boolean;
   onClose: () => void;
+  onPreview: () => void;
 }
 
-const WordsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
+const WordsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose, onPreview }) => {
+  const dispatch = useDispatch();
   const translate = useTranslate();
-  const locale = useTypedSelector(selectLocale);
-  const invalidWords = useTypedSelector(selectInvalidWords);
-  const validWords = useTypedSelector(selectValidWords);
+  const hoveredWord = useTypedSelector(selectHoveredWord);
+  const showsPreviewButton = useMediaQuery('<l');
+  const keepsHighlightOnClose = useRef(false);
+
+  const handlePreview = useCallback(() => {
+    keepsHighlightOnClose.current = true;
+    onPreview();
+  }, [onPreview]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    return () => {
+      if (!keepsHighlightOnClose.current) {
+        dispatch(hoveredWordSlice.actions.clear());
+      }
+
+      keepsHighlightOnClose.current = false;
+    };
+  }, [dispatch, isOpen]);
 
   return (
-    <Modal className={className} isOpen={isOpen} title={translate('words')} onClose={onClose}>
-      <Modal.Section
-        label={translate('words.invalid')}
-        title={
-          <span className={styles.title}>
-            <span>{translate('words.invalid')}</span>
-            <Badge className={styles.badge}>{invalidWords.length.toLocaleString(locale)}</Badge>
-          </span>
-        }
-      >
-        {invalidWords.map((word, index) => (
-          <div className={styles.word} key={index}>
-            <Cross aria-hidden="true" className={classNames(styles.icon, styles.invalid)} role="img" /> {word}
-          </div>
-        ))}
-      </Modal.Section>
-
-      <Modal.Section
-        label={translate('words.valid')}
-        title={
-          <span className={styles.title}>
-            <span>{translate('words.valid')}</span>
-            <Badge className={styles.badge}>{validWords.length.toLocaleString(locale)}</Badge>
-          </span>
-        }
-      >
-        {validWords.map((word, index) => (
-          <div className={styles.word} key={index}>
-            <Check aria-hidden="true" className={classNames(styles.icon, styles.valid)} role="img" /> {word}
-          </div>
-        ))}
-      </Modal.Section>
+    <Modal
+      className={className}
+      footer={
+        showsPreviewButton && (
+          <Button
+            aria-label={translate('words.preview')}
+            disabled={!hoveredWord}
+            Icon={EyeFill}
+            tooltip={translate('words.preview')}
+            onClick={handlePreview}
+          >
+            {translate('words.preview')}
+          </Button>
+        )
+      }
+      isOpen={isOpen}
+      title={translate('words')}
+      onClose={onClose}
+    >
+      <div className={styles.content}>
+        <WordsTable className={styles.words} isOpen={isOpen} onPreview={handlePreview} />
+        <Dictionary className={styles.dictionary} />
+      </div>
     </Modal>
   );
 };

@@ -96,12 +96,16 @@
   flex: 1;
   text-transform: uppercase;
   text-align: center;
-  white-space: pre-wrap;
 
   @include media('<xs') {
     padding: var(--spacing--m);
     text-align: start;
   }
+}
+
+.placeholder {
+  color: var(--color--foreground--secondary);
+  text-transform: none;
 }
 
 .iconContainer {

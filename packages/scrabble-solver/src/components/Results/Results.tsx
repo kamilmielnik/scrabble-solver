@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import { useEffect, useMemo, type FunctionComponent } from 'react';
+import { useCallback, useEffect, useMemo, type FunctionComponent } from 'react';
+import { useDispatch } from 'react-redux';
 import { List, useListRef } from 'react-window';
 import { useDebounce } from 'use-debounce';
 
@@ -7,9 +8,11 @@ import { useLatest } from '@/hooks/useLatest';
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import { RESULTS_ITEM_HEIGHT, RESULTS_OVERSCAN_COUNT } from '@/parameters';
 import {
+  resultsSlice,
   selectAreResultsOutdated,
   selectLocale,
   selectProcessedResults,
+  selectResultsQuery,
   selectSolveError,
   selectSolveIsLoading,
   useTranslate,
@@ -18,7 +21,7 @@ import {
 
 import { EmptyState } from '../EmptyState';
 import { Loading } from '../Loading';
-import { ResultsInput } from '../ResultsInput';
+import { Search } from '../Table';
 
 import { Header } from './Header';
 import { Result } from './Result';
@@ -35,10 +38,12 @@ interface Props {
 const IS_LOADING_DEBOUNCE = 100;
 
 export const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIndex }) => {
+  const dispatch = useDispatch();
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const results = useTypedSelector(selectProcessedResults);
+  const query = useTypedSelector(selectResultsQuery);
   const isLoading = useTypedSelector(selectSolveIsLoading);
   const [isLoadingDebounced] = useDebounce(isLoading, IS_LOADING_DEBOUNCE);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
@@ -58,7 +63,14 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
   const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
   const scrollToIndexRef = useLatest(scrollToIndex);
   const hasResults = typeof error === 'undefined' && typeof results !== 'undefined';
-  const showInput = hasResults && results.length > 0 && !isOutdated;
+  const showSearch = hasResults && results.length > 0 && !isOutdated;
+
+  const handleQueryChange = useCallback(
+    (newQuery: string) => {
+      dispatch(resultsSlice.actions.changeQuery(newQuery));
+    },
+    [dispatch],
+  );
 
   useEffect(() => {
     // without setTimeout, the initial scrolling offset is calculated
@@ -126,12 +138,12 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
                   })}
                   dir={direction}
                   listRef={listRef}
-                  onMouseLeave={callbacks.onMouseLeave}
                   overscanCount={RESULTS_OVERSCAN_COUNT}
                   rowComponent={Result}
                   rowCount={results.length}
                   rowHeight={RESULTS_ITEM_HEIGHT}
                   rowProps={itemData}
+                  onMouseLeave={callbacks.onMouseLeave}
                 />
               </div>
             )}
@@ -139,7 +151,14 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
         )}
       </div>
 
-      {showInput && <ResultsInput className={styles.input} />}
+      {showSearch && (
+        <Search
+          className={styles.input}
+          placeholder={translate('results.input.placeholder')}
+          value={query}
+          onChange={handleQueryChange}
+        />
+      )}
 
       {isLoadingDebounced && <Loading />}
     </div>

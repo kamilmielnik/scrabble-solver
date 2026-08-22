@@ -1,25 +1,15 @@
 import { type Result, type ShowCoordinates } from '@scrabble-solver/types';
 
+import { createCoordinatesComparator } from '@/lib/createCoordinatesComparator';
 import { createKeyComparator } from '@/lib/createKeyComparator';
 import { createRegExp } from '@/lib/createRegExp';
-import { createStringComparator } from '@/lib/createStringComparator';
-import { getCoordinate } from '@/lib/getCoordinate';
-import { reverseComparator } from '@/lib/reverseComparator';
-import {
-  type CellFilter,
-  type Comparator,
-  type GroupedResults,
-  ResultColumnId,
-  type Sort,
-  SortDirection,
-} from '@/types';
+import { createSortComparator } from '@/lib/createSortComparator';
+import { getCoordinates as getPointCoordinates } from '@/lib/getCoordinates';
+import { type CellFilter, type ComparatorFactory, type GroupedResults, ResultColumnId, type Sort } from '@/types';
 
 export const getCoordinates = (result: Result, showCoordinates: ShowCoordinates): string => {
   const firstCell = result.cells[0];
-  const x = getCoordinate(firstCell.x, showCoordinates === 'original' ? 'letter' : 'number');
-  const y = getCoordinate(firstCell.y, showCoordinates === 'original' ? 'number' : 'letter');
-
-  return result.isHorizontal() ? `${y}${x}` : `${x}${y}`;
+  return getPointCoordinates({ isHorizontal: result.isHorizontal(), x: firstCell.x, y: firstCell.y }, showCoordinates);
 };
 
 export const groupResults = (
@@ -69,14 +59,11 @@ export const resultMatchesCellFilter = (result: Result, cellFilters: CellFilter[
   return matchesExcludeFilters && matchesIncludeFilters;
 };
 
-const comparators: Record<ResultColumnId, (locale: string, showCoordinates: ShowCoordinates) => Comparator<Result>> = {
+const comparators: Record<ResultColumnId, ComparatorFactory<Result>> = {
   [ResultColumnId.BlanksCount]: (locale: string) => createKeyComparator('blanksCount', locale),
   [ResultColumnId.ConsonantsCount]: (locale: string) => createKeyComparator('consonantsCount', locale),
-  [ResultColumnId.Coordinates]: (locale: string, showCoordinates: ShowCoordinates) => (a, b) => {
-    const stringComparator = createStringComparator(locale);
-    const aValue = getCoordinates(a, showCoordinates);
-    const bValue = getCoordinates(b, showCoordinates);
-    return stringComparator(aValue, bValue);
+  [ResultColumnId.Coordinates]: (locale: string, showCoordinates: ShowCoordinates) => {
+    return createCoordinatesComparator({ getItemCoordinates: getCoordinates, locale, showCoordinates });
   },
   [ResultColumnId.Points]: (locale: string) => createKeyComparator('points', locale),
   [ResultColumnId.TilesCount]: (locale: string) => createKeyComparator('tilesCount', locale),
@@ -95,9 +82,5 @@ export const sortResults = (
     return undefined;
   }
 
-  const createComparator = comparators[sort.column];
-  const comparator = createComparator(locale, showCoordinates);
-  const finalComparator = sort.direction === SortDirection.Descending ? reverseComparator(comparator) : comparator;
-  const sortedResults = [...results].sort(finalComparator);
-  return sortedResults;
+  return [...results].sort(createSortComparator({ comparators, locale, showCoordinates, sort }));
 };

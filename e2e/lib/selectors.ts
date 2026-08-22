@@ -22,11 +22,17 @@ export function getDictionary(page: Page): Locator {
 }
 
 export function getDictionaryInput(page: Page): Locator {
-  return getDictionary(page).getByRole('textbox');
+  return getDictionary(page).getByRole('textbox', {
+    includeHidden: true, // so that the dictionary can be asserted on while modal is opened
+  });
 }
 
 export function getDictionaryTitles(page: Page): Locator {
   return getDictionary(page).locator('h2');
+}
+
+export function getModalDictionary(page: Page): Locator {
+  return getOpenModal(page).locator('[class*="dictionary"]');
 }
 
 export function getLoading(page: Page): Locator {
@@ -38,8 +44,11 @@ export function getRackContainer(page: Page): Locator {
 }
 
 export function getRackTile(page: Page, index = 0): Locator {
-  // includeHidden: true so that rack can be interacted with while modal is opened
-  return getRackContainer(page).getByRole('textbox', { includeHidden: true }).nth(index);
+  return getRackContainer(page)
+    .getByRole('textbox', {
+      includeHidden: true, // so that rack can be interacted with while modal is opened
+    })
+    .nth(index);
 }
 
 export function getResultsContainer(page: Page): Locator {
@@ -56,6 +65,34 @@ export function getResultsFilterInput(page: Page): Locator {
 
 export function getResult(page: Page, index = 0): Locator {
   return getResults(page).nth(index);
+}
+
+export function getResultCandidatePicker(page: Page): Locator {
+  return page.getByTestId('result-candidate-picker');
+}
+
+export function getModalResults(page: Page): Locator {
+  return getOpenModal(page).getByTestId('result');
+}
+
+export function getModalResult(page: Page, index = 0): Locator {
+  return getModalResults(page).nth(index);
+}
+
+export function getWordsContainer(page: Page): Locator {
+  return page.getByTestId('words');
+}
+
+export function getWords(page: Page): Locator {
+  return getWordsContainer(page).locator('[data-testid^="word-"]');
+}
+
+export function getWord(page: Page, index = 0): Locator {
+  return getWords(page).nth(index);
+}
+
+export function getWordsFilterInput(page: Page): Locator {
+  return getWordsContainer(page).getByRole('textbox');
 }
 
 export function getSettingsButton(page: Page): Locator {

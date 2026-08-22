@@ -14,12 +14,14 @@ import { memoize } from '@/lib/memoize';
 import { waitForFirstIntent, waitForIdleOrFirstIntent } from '@/lib/waitForIdleOrFirstIntent';
 import { findWordDefinitions, solve, verify, visit } from '@/sdk';
 import { prefetchDictionary } from '@/solver-worker';
+import { type VerifiedWord } from '@/types';
 
 import { initialize, reset } from './actions';
 import { appSlice, selectVersion } from './app';
 import { boardSlice, selectBoard } from './board';
 import { cellFiltersSlice, selectCellFilter } from './cellFilters';
 import { dictionarySlice, selectDictionary } from './dictionary';
+import { hoveredWordSlice } from './hoveredWord';
 import { i18nSlice, selectLoadedTranslations } from './i18n';
 import { localStorage } from './localStorage';
 import { rackSlice, selectCharacters, selectRack } from './rack';
@@ -51,6 +53,7 @@ export function* rootSaga(): AnyGenerator {
   yield takeEvery([rackSlice.actions.changeCharacter.type, rackSlice.actions.changeCharacters.type], onRackValueChange);
   yield takeEvery(resultsSlice.actions.applyResult.type, onApplyResult);
   yield takeLatest(resultsSlice.actions.changeResultCandidate.type, onResultCandidateChange);
+  yield takeLatest([hoveredWordSlice.actions.set.type, hoveredWordSlice.actions.clear.type], onHoveredWordChange);
   yield takeEvery(settingsSlice.actions.changeGame.type, onGameChange);
   yield takeEvery(settingsSlice.actions.changeLocale.type, onLocaleChange);
   yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
@@ -68,6 +71,7 @@ function* onCellValueChange({ payload }: PayloadAction<{ value: string; x: numbe
   }
 
   yield put(resultsSlice.actions.changeResultCandidate(null));
+  yield put(hoveredWordSlice.actions.clear());
   yield put(verifySlice.actions.submit());
 }
 
@@ -99,6 +103,7 @@ function* onGameChange(): AnyGenerator {
   }
 
   yield put(resultsSlice.actions.reset());
+  yield put(hoveredWordSlice.actions.clear());
   yield* resetRack();
   yield put(verifySlice.actions.submit());
 }
@@ -250,6 +255,7 @@ function* onReset(): AnyGenerator {
   yield put(boardSlice.actions.init(Board.create(config.boardWidth, config.boardHeight)));
   yield put(cellFiltersSlice.actions.reset());
   yield put(dictionarySlice.actions.reset());
+  yield put(hoveredWordSlice.actions.clear());
   yield put(rackSlice.actions.reset());
   yield put(resultsSlice.actions.reset());
   yield put(solveSlice.actions.reset());
@@ -280,6 +286,7 @@ function* onLocaleChange({ payload: locale }: PayloadAction<Locale>): AnyGenerat
   }
 
   yield put(dictionarySlice.actions.reset());
+  yield put(hoveredWordSlice.actions.clear());
   yield put(resultsSlice.actions.changeResultCandidate(null));
   yield put(verifySlice.actions.submit());
 }
@@ -289,8 +296,26 @@ function* onResultCandidateChange({ payload: result }: PayloadAction<Result | nu
     return;
   }
 
+  yield put(hoveredWordSlice.actions.clear());
+  yield* searchDictionary(result.words);
+}
+
+function* onHoveredWordChange({ payload: word }: PayloadAction<VerifiedWord | undefined>): AnyGenerator {
+  if (!word) {
+    return;
+  }
+
+  yield put(resultsSlice.actions.changeResultCandidate(null));
+
+  const board: Board = yield select(selectBoard);
+  const collidingWords = board.getCollidingWords(word);
+
+  yield* searchDictionary([word.word, ...collidingWords.map((collidingWord) => collidingWord.word)]);
+}
+
+function* searchDictionary(words: string[]): AnyGenerator {
   const locale: Locale = yield select(selectLocale);
-  const uniqueWords = Array.from(new Set(result.words));
+  const uniqueWords = Array.from(new Set(words));
   const input = uniqueWords.join(LOCALE_FEATURES[locale].separator);
 
   if (!memoizedFindWordDefinitions.hasCache(locale, input)) {

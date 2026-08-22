@@ -59,6 +59,7 @@
   "results.input.placeholder": "Sonuçları Ara... (RegExp)",
   "results.insert": "Sokmak",
   "results.preview": "Önizleme",
+  "results.select": "Seç...",
   "results.solve": "Çöz",
   "settings": "Ayarlar",
   "settings.autoGroupTiles": "Kalan taşları grupla",
@@ -78,6 +79,10 @@
   "settings.showCoordinates.alternative": "Alternatif",
   "settings.showCoordinates.original": "Orijinal",
   "words": "Oluşturulan kelimeler",
+  "words.empty-state.no-words": "Oluşturulan kelime yok - tahta boş.",
+  "words.input.placeholder": "Kelimeleri Ara... (RegExp)",
   "words.invalid": "Geçersiz",
-  "words.valid": "Geçerli"
+  "words.preview": "Önizleme",
+  "words.valid": "Geçerli",
+  "words.validity": "Geçerlilik"
 }

@@ -5,7 +5,7 @@ import { BLANK } from '@scrabble-solver/constants';
 import { solve } from '@scrabble-solver/solver';
 import { Board, type Locale, Tile } from '@scrabble-solver/types';
 
-import { type SolveRequestPayload, type VerifyRequestPayload } from '@/types';
+import { type SolveRequestPayload, type VerifiedWord, type VerifyRequestPayload } from '@/types';
 
 import { revalidateDictionary } from './dictionaries';
 import { getGaddag } from './getGaddag';
@@ -64,15 +64,15 @@ async function handleVerify(
   }
 
   const board = Board.fromJson(boardJson);
-  const words = board.getWords().sort((a, b) => a.localeCompare(b, locale));
-  const invalidWords: string[] = [];
-  const validWords: string[] = [];
+  const words = board.getWords().sort((a, b) => a.word.localeCompare(b.word, locale));
+  const invalidWords: VerifiedWord[] = [];
+  const validWords: VerifiedWord[] = [];
 
   for (const word of words) {
-    if (gaddag.has(word)) {
-      validWords.push(word);
+    if (gaddag.has(word.word)) {
+      validWords.push({ ...word, isValid: true });
     } else {
-      invalidWords.push(word);
+      invalidWords.push({ ...word, isValid: false });
     }
   }
 

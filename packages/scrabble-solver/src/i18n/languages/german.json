@@ -59,6 +59,7 @@
   "results.input.placeholder": "Suchergebnisse... (RegExp)",
   "results.insert": "Hinzufügen",
   "results.preview": "Vorschau",
+  "results.select": "Auswählen...",
   "results.solve": "Lösen",
   "settings": "Einstellungen",
   "settings.autoGroupTiles": "Restliche Steine gruppieren",
@@ -78,6 +79,10 @@
   "settings.showCoordinates.alternative": "Alternative",
   "settings.showCoordinates.original": "Original",
   "words": "Gebildete Wörter",
+  "words.empty-state.no-words": "Keine gebildeten Wörter - das Brett ist leer.",
+  "words.input.placeholder": "Wörter suchen... (RegExp)",
   "words.invalid": "Falsch",
-  "words.valid": "Korrekt"
+  "words.preview": "Vorschau",
+  "words.valid": "Korrekt",
+  "words.validity": "Gültigkeit"
 }

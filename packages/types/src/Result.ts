@@ -2,7 +2,7 @@ import { CONSONANTS, VOWELS } from '@scrabble-solver/constants';
 
 import { type Board } from './Board';
 import { type Cell } from './Cell';
-import { readCells, readCollisions } from './readResultCells';
+import { getCells, getCollisions } from './lib';
 import { type ResultJson } from './ResultJson';
 import { type Tile } from './Tile';
 
@@ -10,11 +10,11 @@ type Collision = Cell[];
 
 export class Result {
   public static fromJson = (json: ResultJson, board: Board): Result => {
-    const cells = readCells(json, board);
+    const cells = getCells(board, json);
 
     return new Result({
       cells,
-      collisions: readCollisions(cells, board, json.isHorizontal),
+      collisions: getCollisions(board, cells, json.isHorizontal),
       id: json.id,
       points: json.points,
     });

@@ -1,7 +1,8 @@
 import { Board, type BoardJson, isObject, type Locale } from '@scrabble-solver/types';
 import store2 from 'store2';
 
-import type { Rack, Translations } from '@/types';
+import { englishTranslations } from '@/i18n/i18n';
+import type { Rack, TranslationKey, Translations } from '@/types';
 
 import type { SettingsState } from './settings/types';
 
@@ -80,7 +81,13 @@ export const localStorage = {
       return undefined;
     }
 
-    if (!isObject(stored) || stored.locale !== locale || stored.version !== version || !isObject(stored.translations)) {
+    if (
+      !isObject(stored) ||
+      stored.locale !== locale ||
+      stored.version !== version ||
+      !isObject(stored.translations) ||
+      !hasEveryTranslation(stored.translations)
+    ) {
       store.remove(TRANSLATIONS);
       return undefined;
     }
@@ -92,6 +99,10 @@ export const localStorage = {
     store.set(TRANSLATIONS, { locale, translations, version } satisfies PersistedTranslations, true);
   },
 };
+
+function hasEveryTranslation(translations: Translations): boolean {
+  return (Object.keys(englishTranslations) as TranslationKey[]).every((key) => typeof translations[key] === 'string');
+}
 
 /**
  * Introduced in 2.15.26 on 2026/04/27.

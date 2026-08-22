@@ -59,6 +59,7 @@
   "results.input.placeholder": "جستجو در نتایج (RegExp)",
   "results.insert": "وارد کردن",
   "results.preview": "پیش نمایش",
+  "results.select": "انتخاب کنید...",
   "results.solve": "حل کن",
   "settings": "تنظیمات",
   "settings.autoGroupTiles": "کاشی های باقی مانده ی طاقچه را کنار هم قرار بده",
@@ -78,6 +79,10 @@
   "settings.showCoordinates.alternative": "بديل",
   "settings.showCoordinates.original": "إبداعي",
   "words": "کلمات ساخته شده",
+  "words.empty-state.no-words": "کلمه‌ای ساخته نشده - صفحه خالی است.",
+  "words.input.placeholder": "جستجو در کلمات (RegExp)",
   "words.invalid": "نا معتبر",
-  "words.valid": "معتبر"
+  "words.preview": "پیش نمایش",
+  "words.valid": "معتبر",
+  "words.validity": "اعتبار"
 }

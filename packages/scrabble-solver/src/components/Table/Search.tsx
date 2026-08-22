@@ -1,20 +1,18 @@
 import classNames from 'classnames';
 import { type ChangeEvent, type FunctionComponent, type SubmitEventHandler, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { isRegExp } from '@/lib/isRegExp';
-import { resultsSlice, selectResultsQuery, useTranslate, useTypedSelector } from '@/state';
 
-import styles from './ResultsInput.module.scss';
+import styles from './Table.module.scss';
 
 interface Props {
   className?: string;
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => void;
 }
 
-export const ResultsInput: FunctionComponent<Props> = ({ className }) => {
-  const dispatch = useDispatch();
-  const translate = useTranslate();
-  const value = useTypedSelector(selectResultsQuery);
+export const Search: FunctionComponent<Props> = ({ className, placeholder, value, onChange }) => {
   const [localValue, setLocalValue] = useState(value);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +21,7 @@ export const ResultsInput: FunctionComponent<Props> = ({ className }) => {
     setLocalValue(newValue);
 
     if (isRegExp(newValue)) {
-      dispatch(resultsSlice.actions.changeQuery(newValue));
+      onChange(newValue);
     }
   };
 
@@ -32,10 +30,10 @@ export const ResultsInput: FunctionComponent<Props> = ({ className }) => {
   };
 
   return (
-    <form className={classNames(styles.resultsInput, className)} onSubmit={handleSubmit}>
+    <form className={classNames(styles.search, className)} onSubmit={handleSubmit}>
       <input
-        className={styles.input}
-        placeholder={translate('results.input.placeholder')}
+        className={styles.searchField}
+        placeholder={placeholder}
         type="text"
         value={localValue}
         onChange={handleChange}

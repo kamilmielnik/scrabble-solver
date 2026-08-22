@@ -14,7 +14,3 @@ export enum Locale {
   RO_RO = 'ro-RO',
   TR_TR = 'tr-TR',
 }
-
-const locales = Object.values(Locale);
-
-export const isLocale = (locale: unknown): locale is Locale => locales.includes(locale as Locale);

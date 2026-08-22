@@ -2,14 +2,20 @@ import { expect, type Locator, type Page } from '@playwright/test';
 import { type Direction } from '@scrabble-solver/types';
 
 import {
+  getBoardContainer,
   getBoardTile,
   getLoading,
   getModal,
+  getModalResult,
   getOpenModal,
   getRackTile,
   getResult,
+  getResultCandidatePicker,
   getResultsContainer,
+  getWord,
 } from './selectors';
+
+const MODAL_CLOSE_TRANSITION_TIMEOUT = 500;
 
 interface BoardPosition {
   x?: number;
@@ -20,10 +26,36 @@ export async function visitIndex(page: Page): Promise<void> {
   await page.goto('/');
 }
 
+export async function preferKeyboardInput(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    localStorage.setItem('scrabble-solver.settings', JSON.stringify({ inputMode: 'keyboard' }));
+  });
+}
+
 export async function closeModal(page: Page): Promise<void> {
   await expect(getOpenModal(page)).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(getModal(page)).toHaveCount(0);
+}
+
+export async function openWordsModal(page: Page): Promise<void> {
+  await page.getByLabel('Created words', { exact: true }).click();
+  await expect(getOpenModal(page)).toBeVisible();
+}
+
+export async function openResultsModal(page: Page): Promise<void> {
+  await getResultCandidatePicker(page).click();
+  await expect(getOpenModal(page)).toBeVisible();
+}
+
+export async function closeModalWithButton(page: Page): Promise<void> {
+  await getOpenModal(page).getByLabel('Close', { exact: true }).click();
+  await expect(getModal(page)).toHaveCount(0);
+}
+
+export async function expectModalToStayOpen(page: Page): Promise<void> {
+  await page.waitForTimeout(MODAL_CLOSE_TRANSITION_TIMEOUT);
+  await expect(getOpenModal(page)).toBeVisible();
 }
 
 export async function typeRack(page: Page, tiles: string, index = 0): Promise<void> {
@@ -79,14 +111,32 @@ export async function solve(page: Page): Promise<void> {
   await expect(getLoading(page)).toHaveCount(0);
 }
 
-/**
- * react-window remounts rows during its initial measure pass, and a row
- * replaced under an already-hovered cursor never receives a new mouseenter -
- * let the list settle before hovering.
- */
 export async function hoverResult(page: Page, index = 0): Promise<void> {
-  await page.waitForTimeout(100);
+  await waitForReactWindowToSettle(page);
   await getResult(page, index).hover();
+}
+
+export async function hoverModalResult(page: Page, index = 0): Promise<void> {
+  await waitForReactWindowToSettle(page);
+  await getModalResult(page, index).hover();
+}
+
+export async function hoverWord(page: Page, x: number, y: number, direction: Direction): Promise<void> {
+  await waitForReactWindowToSettle(page);
+  await page.getByTestId(`word-${x}-${y}-${direction}`).hover();
+}
+
+async function waitForReactWindowToSettle(page: Page) {
+  /**
+   * react-window remounts rows during its initial measure pass, and a row
+   * replaced under an already-hovered cursor never receives a new mouseenter -
+   * let the list settle before hovering.
+   */
+  await page.waitForTimeout(100);
+}
+
+export async function assertWord(page: Page, index: number, word: string): Promise<void> {
+  await expect(getWord(page, index)).toHaveAttribute('aria-label', word);
 }
 
 export async function assertResult(page: Page, index: number, word: string, points: number): Promise<void> {
@@ -95,6 +145,26 @@ export async function assertResult(page: Page, index: number, word: string, poin
   await expect(result).toHaveAttribute('aria-label', word);
   await expect(result).toContainText(word);
   await expect(result.getByTestId('points')).toHaveText(String(points));
+}
+
+export async function expectBoardCharacters(page: Page, characters: string[]): Promise<void> {
+  await expect
+    .poll(() =>
+      getBoardContainer(page)
+        .getByRole('textbox', { includeHidden: true })
+        .evaluateAll((inputs) => inputs.map((input) => (input as HTMLInputElement).value).filter(Boolean)),
+    )
+    .toEqual(characters);
+}
+
+export async function expectRowClickable(row: Locator, clickable: boolean): Promise<void> {
+  const cursor = await row.evaluate((element) => globalThis.getComputedStyle(element).cursor);
+
+  if (clickable) {
+    expect(cursor).toBe('pointer');
+  } else {
+    expect(cursor).not.toBe('pointer');
+  }
 }
 
 export async function expectTileHighlighted(tile: Locator): Promise<void> {

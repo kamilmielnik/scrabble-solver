@@ -6,10 +6,17 @@ import { Button } from '@/components/Button';
 import { Dictionary } from '@/components/Dictionary';
 import { Modal } from '@/components/Modal';
 import { Results } from '@/components/Results';
+import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import Check from '@/icons/Check.svg';
 import EyeFill from '@/icons/EyeFill.svg';
-import { resultsSlice, selectProcessedResults, selectResultCandidate, useTranslate, useTypedSelector } from '@/state';
+import {
+  resultsSlice,
+  selectResultCandidate,
+  selectResultCandidateIndex,
+  useTranslate,
+  useTypedSelector,
+} from '@/state';
 
 import styles from './ResultsModal.module.scss';
 
@@ -23,24 +30,21 @@ const ResultsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose
   const dispatch = useDispatch();
   const translate = useTranslate();
   const showResultsInModal = useMediaQuery('<l');
-  const results = useTypedSelector(selectProcessedResults);
+  const previewsOnRepeatedClick = useIsTouchDevice();
   const resultCandidate = useTypedSelector(selectResultCandidate);
-  const index = results ? results.findIndex((result) => result.id === resultCandidate?.id) : -1;
-  const highlightedIndex = index === -1 ? undefined : index;
+  const highlightedIndex = useTypedSelector(selectResultCandidateIndex);
 
   const callbacks = useMemo(
     () => ({
       onClick: (result: Result) => {
-        const isSelected = result === resultCandidate;
-
-        if (isSelected) {
+        if (previewsOnRepeatedClick && result === resultCandidate) {
           onClose();
         } else {
           dispatch(resultsSlice.actions.changeResultCandidate(result));
         }
       },
     }),
-    [dispatch, onClose, resultCandidate],
+    [dispatch, onClose, previewsOnRepeatedClick, resultCandidate],
   );
 
   const handleInsert = () => {
