@@ -1,13 +1,21 @@
 import { Gaddag } from '@kamilmielnik/gaddag';
-import { logger } from '@scrabble-solver/logger';
+import { logEvent } from '@scrabble-solver/logger';
 import { type Locale } from '@scrabble-solver/types';
 import { getWordList } from '@scrabble-solver/word-lists';
 
-export const downloadDictionary = async (locale: Locale): Promise<Gaddag> => {
-  logger.info('downloadDictionary', { locale });
+export async function downloadDictionary(locale: Locale): Promise<Gaddag> {
+  const downloadStartedAt = performance.now();
   const words = await getWordList(locale);
-  logger.info('downloadDictionary - success', { locale });
+  const buildStartedAt = performance.now();
   const gaddag = Gaddag.fromArray(words);
-  logger.info('downloadDictionary - gaddag built', { locale });
+
+  logEvent({
+    type: 'build',
+    locale,
+    words: words.length,
+    download_ms: Math.round(buildStartedAt - downloadStartedAt),
+    build_ms: Math.round(performance.now() - buildStartedAt),
+  });
+
   return gaddag;
-};
+}

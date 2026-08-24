@@ -1,6 +1,6 @@
 import { Gaddag } from '@kamilmielnik/gaddag';
-import { logger } from '@scrabble-solver/logger';
-import { type Locale } from '@scrabble-solver/types';
+import { logEvent } from '@scrabble-solver/logger';
+import { type Locale, isError } from '@scrabble-solver/types';
 import fs from 'fs';
 
 import { CACHE_STALE_THRESHOLD, OUTPUT_DIRECTORY } from '../constants';
@@ -31,7 +31,13 @@ export class DiskCache implements Cache<Locale, Gaddag> {
       const serialized = await fs.promises.readFile(filepath);
       return Gaddag.deserialize(new Uint8Array(serialized.buffer, serialized.byteOffset, serialized.byteLength));
     } catch (error) {
-      logger.warn('DiskCache - incompatible or corrupted dictionary file, it will be rebuilt', { error, locale });
+      logEvent({
+        type: 'error',
+        level: 'warn',
+        operation: 'cache',
+        locale,
+        message: isError(error) ? error.message : 'Unknown error',
+      });
       await fs.promises.rm(filepath, { force: true });
       return undefined;
     }

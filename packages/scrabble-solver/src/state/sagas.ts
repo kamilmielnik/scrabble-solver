@@ -204,7 +204,9 @@ function* hydratePersistedTranslations(locale: Locale, version: string): AnyGene
 
 function* visitWhenIdle(): AnyGenerator {
   yield call(waitForIdleOrFirstIntent);
-  yield call(visit);
+  const locale = yield select(selectLocale);
+  const game = yield select(selectGame);
+  yield call(visit, { referrer: document.referrer, locale, game });
 }
 
 function* prefetchDictionaryOnFirstIntent(): AnyGenerator {

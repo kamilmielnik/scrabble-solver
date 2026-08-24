@@ -1,19 +1,38 @@
-import { logger } from '@scrabble-solver/logger';
+import { logEvent } from '@scrabble-solver/logger';
+import { isGame, isLocale, isObject } from '@scrabble-solver/types';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
-import { getServerLoggingData } from '@/api';
+import { type ApiContext, withApiLog } from '@/api';
 
-const visit = (request: NextApiRequest, response: NextApiResponse): void => {
-  const meta = getServerLoggingData(request);
+interface RequestData {
+  referrer: string | undefined;
+  locale: string | undefined;
+  game: string | undefined;
+}
 
-  try {
-    logger.info('visit - request', { meta });
-    response.status(200).send(true);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown error';
-    logger.error('visit - error', { error, meta });
-    response.status(500).send({ error: 'Server error', message });
+const REFERRER_MAX_LENGTH = 256;
+
+export default withApiLog('visit', visit);
+
+function visit(request: NextApiRequest, response: NextApiResponse, { ip }: ApiContext) {
+  const { referrer, locale, game } = parseRequest(request);
+  response.status(200).send(true);
+  logEvent({ type: 'visit', ip, ua: request.headers['user-agent'], referrer, locale, game });
+}
+
+// A visit is only a ping - an unexpected body is ignored, never rejected.
+function parseRequest(request: NextApiRequest): RequestData {
+  const body: unknown = request.body;
+
+  if (!isObject(body)) {
+    return { referrer: undefined, locale: undefined, game: undefined };
   }
-};
 
-export default visit;
+  const { referrer, locale, game } = body;
+
+  return {
+    referrer: typeof referrer === 'string' && referrer.length > 0 ? referrer.slice(0, REFERRER_MAX_LENGTH) : undefined,
+    locale: isLocale(locale) ? locale : undefined,
+    game: isGame(game) ? game : undefined,
+  };
+}

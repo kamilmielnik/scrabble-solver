@@ -1,0 +1,35 @@
+import fs from 'node:fs';
+import readline from 'node:readline';
+
+import { EVENT_FIELDS, EVENTS_FILEPATH, type LoggedEvent } from '../src';
+
+// Yields undefined for a line that is not a logged event, so callers can count what they skipped.
+export async function* readEvents(): AsyncGenerator<LoggedEvent | undefined> {
+  if (!fs.existsSync(EVENTS_FILEPATH)) {
+    throw new Error(`No events file at ${EVENTS_FILEPATH}`);
+  }
+
+  const lines = readline.createInterface({ input: fs.createReadStream(EVENTS_FILEPATH), crlfDelay: Infinity });
+
+  for await (const line of lines) {
+    yield parseEvent(line);
+  }
+}
+
+function parseEvent(line: string): LoggedEvent | undefined {
+  try {
+    const value: unknown = JSON.parse(line);
+    return isLoggedEvent(value) ? value : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function isLoggedEvent(value: unknown): value is LoggedEvent {
+  if (typeof value !== 'object' || value === null) {
+    return false;
+  }
+
+  const { timestamp, type } = value as Partial<Record<'timestamp' | 'type', unknown>>;
+  return typeof timestamp === 'string' && typeof type === 'string' && type in EVENT_FIELDS;
+}
