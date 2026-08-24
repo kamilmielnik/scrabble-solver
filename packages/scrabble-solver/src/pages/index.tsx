@@ -74,7 +74,7 @@ const WEB_APPLICATION_JSON_LD = JSON.stringify({
   inLanguage: ['en-US', 'en-GB', 'de-DE', 'es-ES', 'fa-IR', 'fr-FR', 'pl-PL', 'ro-RO', 'tr-TR'],
   featureList: [
     'Finds the highest-scoring words for a given board and rack',
-    'Supports Scrabble, Super Scrabble, Scrabble Duel, Letter League, Crossplay, Literaki, and Kelimelik',
+    'Supports Scrabble, Super Scrabble, Scrabble Duel, Letter League, Crossplay, Literaki, Kelimelik, and Wyrazy',
     'Dictionaries and word definitions in 8 languages',
     'Works offline once a dictionary is cached',
     'Free, open source, no ads, no sign-up',

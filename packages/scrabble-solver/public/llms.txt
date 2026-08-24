@@ -1,6 +1,6 @@
 # Scrabble Solver
 
-> Free and open-source analysis tool for Scrabble, Super Scrabble, Scrabble Duel, Letter League, Crossplay, Literaki, and Kelimelik. Quickly finds top-scoring words for a given board and rack in English, French, German, Persian, Polish, Romanian, Spanish, and Turkish.
+> Free and open-source analysis tool for Scrabble, Super Scrabble, Scrabble Duel, Letter League, Crossplay, Literaki, Kelimelik, and Wyrazy. Quickly finds top-scoring words for a given board and rack in English, French, German, Persian, Polish, Romanian, Spanish, and Turkish.
 
 Scrabble Solver is a single-page web app. Enter the board state and your tiles to get every legal move ranked by score, check whether a word is allowed in the selected language's dictionary, and look up word definitions. Once a dictionary is cached, solving also works offline.
 

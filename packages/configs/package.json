@@ -1,7 +1,7 @@
 {
   "name": "@scrabble-solver/configs",
   "version": "2.18.2",
-  "description": "Game and language configs for Scrabble Solver: board layouts, bonus squares, tile distributions, and points for 7 games and 9 locales.",
+  "description": "Game and language configs for Scrabble Solver: board layouts, bonus squares, tile distributions, and points for 8 games and 9 locales.",
   "keywords": [
     "scrabble",
     "board-game",
@@ -9,6 +9,7 @@
     "game-config",
     "literaki",
     "kelimelik",
+    "wyrazy",
     "super-scrabble"
   ],
   "main": "build/index.js",
