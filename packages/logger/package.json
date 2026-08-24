@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/logger",
-  "version": "2.18.2",
+  "version": "2.18.3",
   "description": "Winston-based JSON file logger for Scrabble Solver.",
   "keywords": [
     "logger",

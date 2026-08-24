@@ -80,7 +80,7 @@
     "packages/scrabble-solver"
   ],
   "dependencies": {
-    "@scrabble-solver/scrabble-solver": "^2.18.2",
+    "@scrabble-solver/scrabble-solver": "^2.18.3",
     "open-cli": "^9.0.0",
     "wait-on": "^9.1.0"
   },
