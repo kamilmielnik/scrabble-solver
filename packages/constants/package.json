@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/constants",
-  "version": "2.18.2",
+  "version": "2.18.3",
   "description": "Shared constants for Scrabble Solver (blank tile, bonus markers).",
   "keywords": [
     "scrabble",
