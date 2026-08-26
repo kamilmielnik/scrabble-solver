@@ -12,3 +12,9 @@ export interface VerifyRequestPayload {
   game: Game;
   locale: Locale;
 }
+
+export interface VisitRequestPayload {
+  game: Game;
+  locale: Locale;
+  referrer: string;
+}

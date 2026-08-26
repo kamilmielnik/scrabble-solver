@@ -5,9 +5,9 @@ import { type NextApiRequest, type NextApiResponse } from 'next';
 import { type ApiContext, withApiLog } from '@/api';
 
 interface RequestData {
-  referrer: string | undefined;
-  locale: string | undefined;
   game: string | undefined;
+  locale: string | undefined;
+  referrer: string | undefined;
 }
 
 const REFERRER_MAX_LENGTH = 256;
@@ -15,7 +15,7 @@ const REFERRER_MAX_LENGTH = 256;
 export default withApiLog('visit', visit);
 
 function visit(request: NextApiRequest, response: NextApiResponse, { ip }: ApiContext) {
-  const { referrer, locale, game } = parseRequest(request);
+  const { game, locale, referrer } = parseRequest(request);
   response.status(200).send(true);
   logEvent({ type: 'visit', ip, ua: request.headers['user-agent'], referrer, locale, game });
 }
@@ -25,14 +25,14 @@ function parseRequest(request: NextApiRequest): RequestData {
   const body: unknown = request.body;
 
   if (!isObject(body)) {
-    return { referrer: undefined, locale: undefined, game: undefined };
+    return { game: undefined, locale: undefined, referrer: undefined };
   }
 
-  const { referrer, locale, game } = body;
+  const { game, locale, referrer } = body;
 
   return {
-    referrer: typeof referrer === 'string' && referrer.length > 0 ? referrer.slice(0, REFERRER_MAX_LENGTH) : undefined,
-    locale: isLocale(locale) ? locale : undefined,
     game: isGame(game) ? game : undefined,
+    locale: isLocale(locale) ? locale : undefined,
+    referrer: typeof referrer === 'string' && referrer.length > 0 ? referrer.slice(0, REFERRER_MAX_LENGTH) : undefined,
   };
 }
