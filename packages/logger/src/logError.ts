@@ -1,4 +1,5 @@
 import { IS_TEST_RUN } from './constants';
+import { describeError, type ErrorDescription } from './describeError';
 import { type Operation } from './events';
 import { logEvent } from './logEvent';
 
@@ -10,18 +11,15 @@ interface ErrorContext {
 }
 
 export function logError(operation: Operation, error: unknown, context: ErrorContext = {}): void {
-  const { message, stack } = describeError(error);
-  logEvent({ type: 'error', level: 'error', operation, message, stack, ...context });
+  const description = describeError(error);
+  logEvent({ type: 'error', level: 'error', operation, ...description, ...context });
 
   if (!IS_TEST_RUN) {
-    process.stderr.write(`${operation}: ${stack ?? message}\n`);
+    process.stderr.write(formatStderrEntry(operation, description));
   }
 }
 
-function describeError(error: unknown): { message: string; stack: string | undefined } {
-  if (error instanceof Error) {
-    return { message: `${error.name}: ${error.message}`, stack: error.stack };
-  }
-
-  return { message: String(error), stack: undefined };
+function formatStderrEntry(operation: Operation, { message, stack }: ErrorDescription): string {
+  const frames = stack?.split('\n').filter((line) => line.startsWith('    at ')) ?? [];
+  return `${[`${operation}: ${message}`, ...frames].join('\n')}\n`;
 }
