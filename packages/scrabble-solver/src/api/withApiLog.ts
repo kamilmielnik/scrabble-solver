@@ -22,13 +22,16 @@ export function withApiLog(operation: Operation, handler: ApiHandler): NextApiHa
     try {
       await handler(request, response, context);
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Unknown error';
-      response.status(500).send({ error: 'Server error', message });
       logError(operation, error, {
         ip: context.ip,
         ua: request.headers['user-agent'],
         input: getInputExcerpt(request),
       });
+
+      if (!response.headersSent) {
+        const message = error instanceof Error ? error.message : 'Unknown error';
+        response.status(500).send({ error: 'Server error', message });
+      }
     }
   };
 }
