@@ -47,7 +47,7 @@ function formatEventRow(event: LoggedEvent): string {
 }
 
 function getFile(files: Map<string, CsvFile>, type: EventType, year: string): CsvFile {
-  const filename = `${type}s-${year}.csv`;
+  const filename = `${type}-${year}.csv`;
   const openedFile = files.get(filename);
 
   if (openedFile) {

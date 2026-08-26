@@ -13,7 +13,7 @@ bun run --filter @scrabble-solver/logger export        # every year
 bun run --filter @scrabble-solver/logger export 2026   # one year
 ```
 
-writes one file per event type and year to `$HOME/.scrabble-solver/csv/`:
+writes one file per event type and year to `$HOME/.scrabble-solver/csv/<type>-YYYY.csv`, e.g. `visit-2026.csv`.
 
 ## Stats
 
