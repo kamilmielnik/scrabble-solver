@@ -15,6 +15,7 @@ type VisitEvent = {
   referrer?: string;
   locale?: string;
   game?: string;
+  url?: string;
 };
 
 type SolveEvent = {
@@ -86,7 +87,7 @@ type FieldsOf<T extends EventType> = Exclude<keyof Extract<Event, { type: T }>, 
 
 // Field order is the column order of the exported CSV files - append only, never reorder.
 export const EVENT_FIELDS = {
-  visit: ['ip', 'ua', 'referrer', 'locale', 'game'],
+  visit: ['ip', 'ua', 'referrer', 'locale', 'game', 'url'],
   solve: ['ip', 'ms', 'locale', 'game', 'tiles', 'blanks', 'rack', 'board', 'results'],
   verify: ['ip', 'ms', 'locale', 'game', 'tiles', 'blanks', 'board', 'valid', 'invalid'],
   download: ['ip', 'ms', 'locale', 'status', 'encoding', 'bytes'],

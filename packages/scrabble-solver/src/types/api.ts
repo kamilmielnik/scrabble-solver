@@ -17,4 +17,5 @@ export interface VisitRequestPayload {
   game: Game;
   locale: Locale;
   referrer: string;
+  url: string;
 }

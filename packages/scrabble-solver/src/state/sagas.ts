@@ -208,7 +208,7 @@ function* visitWhenIdle(): AnyGenerator {
   const game = yield select(selectGame);
 
   try {
-    yield call(visit, { game, locale, referrer: document.referrer });
+    yield call(visit, { game, locale, referrer: document.referrer, url: location.href });
     // oxlint-disable-next-line no-empty
   } catch {}
 }
