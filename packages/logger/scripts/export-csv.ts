@@ -7,14 +7,17 @@ import { CSV_DIRECTORY, EVENT_FIELDS, type EventType, type EventValue, formatCsv
 import { readEvents } from './readEvents';
 
 interface CsvFile {
+  error: Error | undefined;
   filename: string;
   rows: number;
   stream: fs.WriteStream;
 }
 
-await exportCsv(process.argv[2]);
+const YEAR_FORMAT = /^\d{4}$/;
 
-async function exportCsv(month: string | undefined): Promise<void> {
+await exportCsv(parseYear(process.argv[2]));
+
+async function exportCsv(year: string | undefined): Promise<void> {
   fs.mkdirSync(CSV_DIRECTORY, { recursive: true });
   const files = new Map<string, CsvFile>();
   let skippedLines = 0;
@@ -25,13 +28,13 @@ async function exportCsv(month: string | undefined): Promise<void> {
       continue;
     }
 
-    const eventMonth = event.timestamp.slice(0, 7);
+    const eventYear = event.timestamp.slice(0, 4);
 
-    if (month && eventMonth !== month) {
+    if (year && eventYear !== year) {
       continue;
     }
 
-    await writeRow(getFile(files, event.type, eventMonth), formatEventRow(event));
+    await writeRow(getFile(files, event.type, eventYear), formatEventRow(event));
   }
 
   await Promise.all([...files.values()].map(closeFile));
@@ -43,8 +46,8 @@ function formatEventRow(event: LoggedEvent): string {
   return formatCsvRow([event.timestamp, ...EVENT_FIELDS[event.type].map((field) => values[field])]);
 }
 
-function getFile(files: Map<string, CsvFile>, type: EventType, month: string): CsvFile {
-  const filename = `${type}s-${month}.csv`;
+function getFile(files: Map<string, CsvFile>, type: EventType, year: string): CsvFile {
+  const filename = `${type}s-${year}.csv`;
   const openedFile = files.get(filename);
 
   if (openedFile) {
@@ -58,11 +61,16 @@ function getFile(files: Map<string, CsvFile>, type: EventType, month: string): C
 
 function openFile(filename: string, type: EventType): CsvFile {
   const stream = fs.createWriteStream(path.join(CSV_DIRECTORY, filename));
+  const file: CsvFile = { error: undefined, filename, rows: 0, stream };
+  stream.on('error', (error) => {
+    file.error = error;
+  });
   stream.write(formatCsvRow(['timestamp', ...EVENT_FIELDS[type]]));
-  return { filename, rows: 0, stream };
+  return file;
 }
 
 async function writeRow(file: CsvFile, row: string): Promise<void> {
+  assertWritable(file);
   file.rows += 1;
 
   if (!file.stream.write(row)) {
@@ -71,8 +79,15 @@ async function writeRow(file: CsvFile, row: string): Promise<void> {
 }
 
 async function closeFile(file: CsvFile): Promise<void> {
+  assertWritable(file);
   file.stream.end();
   await once(file.stream, 'finish');
+}
+
+function assertWritable(file: CsvFile): void {
+  if (file.error) {
+    throw file.error;
+  }
 }
 
 function printSummary(files: Map<string, CsvFile>, skippedLines: number): void {
@@ -87,4 +102,12 @@ function printSummary(files: Map<string, CsvFile>, skippedLines: number): void {
   if (skippedLines > 0) {
     console.log(`Skipped ${skippedLines} unparseable lines`);
   }
+}
+
+function parseYear(argument: string | undefined): string | undefined {
+  if (argument !== undefined && !YEAR_FORMAT.test(argument)) {
+    throw new Error(`Expected a YYYY year, got "${argument}"`);
+  }
+
+  return argument;
 }

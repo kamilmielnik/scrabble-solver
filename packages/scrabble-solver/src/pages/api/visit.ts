@@ -20,7 +20,7 @@ function visit(request: NextApiRequest, response: NextApiResponse, { ip }: ApiCo
   logEvent({ type: 'visit', ip, ua: request.headers['user-agent'], referrer, locale, game });
 }
 
-// A visit is only a ping - an unexpected body is ignored, never rejected.
+// A visit is only a ping - unexpected fields are ignored, never rejected.
 function parseRequest(request: NextApiRequest): RequestData {
   const body: unknown = request.body;
 

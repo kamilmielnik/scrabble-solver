@@ -206,7 +206,11 @@ function* visitWhenIdle(): AnyGenerator {
   yield call(waitForIdleOrFirstIntent);
   const locale = yield select(selectLocale);
   const game = yield select(selectGame);
-  yield call(visit, { referrer: document.referrer, locale, game });
+
+  try {
+    yield call(visit, { referrer: document.referrer, locale, game });
+    // oxlint-disable-next-line no-empty
+  } catch {}
 }
 
 function* prefetchDictionaryOnFirstIntent(): AnyGenerator {

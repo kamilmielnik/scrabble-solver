@@ -1,4 +1,5 @@
-import { logError } from '@scrabble-solver/logger';
+import { type Operation, logError } from '@scrabble-solver/logger';
+import { isObject } from '@scrabble-solver/types';
 import { type NextApiHandler, type NextApiRequest, type NextApiResponse } from 'next';
 
 export interface ApiContext {
@@ -10,7 +11,7 @@ type ApiHandler = (request: NextApiRequest, response: NextApiResponse, context: 
 
 const INPUT_EXCERPT_LENGTH = 1024;
 
-export function withApiLog(operation: string, handler: ApiHandler): NextApiHandler {
+export function withApiLog(operation: Operation, handler: ApiHandler): NextApiHandler {
   return async (request, response) => {
     const startedAt = performance.now();
     const context: ApiContext = {
@@ -41,5 +42,17 @@ function getClientIp(request: NextApiRequest): string | undefined {
 
 function getInputExcerpt(request: NextApiRequest): string {
   const input: unknown = request.method === 'GET' ? request.query : request.body;
-  return JSON.stringify(input ?? null).slice(0, INPUT_EXCERPT_LENGTH);
+  return JSON.stringify(sortFieldsBySize(input) ?? null).slice(0, INPUT_EXCERPT_LENGTH);
+}
+
+function sortFieldsBySize(input: unknown): unknown {
+  if (!isObject(input) || Array.isArray(input)) {
+    return input;
+  }
+
+  return Object.fromEntries(Object.entries(input).sort(([, a], [, b]) => getJsonSize(a) - getJsonSize(b)));
+}
+
+function getJsonSize(value: unknown): number {
+  return JSON.stringify(value ?? null).length;
 }

@@ -1,12 +1,10 @@
 import fs from 'fs';
 
-import { EVENTS_FILEPATH, OUTPUT_DIRECTORY } from './constants';
-import { EVENT_FIELDS, type Event, type EventValue } from './events';
-
-const isTestRun = process.env.NODE_ENV === 'test';
+import { EVENTS_FILEPATH, IS_TEST_RUN, OUTPUT_DIRECTORY } from './constants';
+import { EVENT_FIELDS, type Event } from './events';
 
 export function logEvent(event: Event): void {
-  if (isTestRun) {
+  if (IS_TEST_RUN) {
     return;
   }
 
@@ -19,9 +17,8 @@ export function logEvent(event: Event): void {
 }
 
 export function formatEventLine(event: Event, now: Date): string {
-  const values: Record<string, EventValue> = event;
-  const fields = Object.fromEntries(EVENT_FIELDS[event.type].map((field) => [field, values[field]]));
-  return `${JSON.stringify({ timestamp: formatTimestamp(now), type: event.type, ...fields })}\n`;
+  const line = { timestamp: formatTimestamp(now), ...event };
+  return `${JSON.stringify(line, ['timestamp', 'type', ...EVENT_FIELDS[event.type]])}\n`;
 }
 
 function formatTimestamp(date: Date): string {

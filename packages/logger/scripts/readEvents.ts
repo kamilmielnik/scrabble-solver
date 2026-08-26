@@ -31,5 +31,5 @@ function isLoggedEvent(value: unknown): value is LoggedEvent {
   }
 
   const { timestamp, type } = value as Partial<Record<'timestamp' | 'type', unknown>>;
-  return typeof timestamp === 'string' && typeof type === 'string' && type in EVENT_FIELDS;
+  return typeof timestamp === 'string' && typeof type === 'string' && Object.hasOwn(EVENT_FIELDS, type);
 }

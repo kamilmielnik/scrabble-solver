@@ -5,8 +5,9 @@ import { readEvents } from './readEvents';
 type DailyCounts = Map<string, number>;
 
 const DAY = 24 * 60 * 60 * 1000;
+const DAY_FORMAT = /^\d{4}-\d{2}-\d{2}$/;
 
-await printStats(process.argv[2]);
+await printStats(parseSince(process.argv[2]));
 
 async function printStats(since: string | undefined): Promise<void> {
   const counts = new Map<EventType, DailyCounts>();
@@ -62,4 +63,12 @@ function printTypeStats(type: EventType, days: DailyCounts, daysCount: number): 
   console.log(`Sum: ${sum}`);
   console.log(`Avg: ${(sum / daysCount).toFixed(1)}`);
   console.table(Object.fromEntries(days));
+}
+
+function parseSince(argument: string | undefined): string | undefined {
+  if (argument !== undefined && !DAY_FORMAT.test(argument)) {
+    throw new Error(`Expected a YYYY-MM-DD day, got "${argument}"`);
+  }
+
+  return argument;
 }

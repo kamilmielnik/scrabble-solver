@@ -13,6 +13,8 @@ export type EventValue = string | number | boolean | undefined;
 
 export type LoggedEvent = Event & { timestamp: string };
 
+export type Operation = 'visit' | 'solve' | 'verify' | 'download' | 'definition' | 'build' | 'cache';
+
 type VisitEvent = {
   type: 'visit';
   ip?: string;
@@ -78,7 +80,7 @@ type BuildEvent = {
 type ErrorEvent = {
   type: 'error';
   level: 'error' | 'warn';
-  operation: string;
+  operation: Operation;
   locale?: string;
   ip?: string;
   ua?: string;
