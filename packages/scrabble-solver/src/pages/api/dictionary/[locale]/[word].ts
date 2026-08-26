@@ -24,11 +24,14 @@ async function dictionary(request: NextApiRequest, response: NextApiResponse, { 
   const results = await Promise.all(words.map((word) => getWordDefinition(locale, word, gaddag.has(word))));
   response.status(200).send(results.map((result) => result.toJson()));
 
-  const ms = getElapsedMs();
-
-  for (const result of results) {
-    logEvent({ type: 'definition', ip, ms, locale, word: result.word, found: result.definitions.length > 0 });
-  }
+  logEvent({
+    type: 'definition',
+    ip,
+    ms: getElapsedMs(),
+    locale,
+    words: words.join(','),
+    found: results.filter((result) => result.definitions.length > 0).length,
+  });
 }
 
 function parseRequest(request: NextApiRequest): RequestData {

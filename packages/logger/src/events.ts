@@ -59,8 +59,8 @@ type DefinitionEvent = {
   ip?: string;
   ms: number;
   locale: string;
-  word: string;
-  found: boolean;
+  words: string;
+  found: number;
 };
 
 type BuildEvent = {
@@ -91,7 +91,7 @@ export const EVENT_FIELDS = {
   solve: ['ip', 'ms', 'locale', 'game', 'tiles', 'blanks', 'rack', 'board', 'results'],
   verify: ['ip', 'ms', 'locale', 'game', 'tiles', 'blanks', 'board', 'valid', 'invalid'],
   download: ['ip', 'ms', 'locale', 'status', 'encoding', 'bytes'],
-  definition: ['ip', 'ms', 'locale', 'word', 'found'],
+  definition: ['ip', 'ms', 'locale', 'words', 'found'],
   build: ['locale', 'words', 'download_ms', 'build_ms'],
   error: ['level', 'operation', 'locale', 'ip', 'ua', 'message', 'stack', 'input'],
 } as const satisfies { [T in EventType]: readonly FieldsOf<T>[] };
