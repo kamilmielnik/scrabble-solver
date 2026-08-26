@@ -28,4 +28,14 @@ describe('formatCsvRow', () => {
   it('leaves inner whitespace unquoted', () => {
     expect(formatCsvRow(['pz cvmt'])).toBe('pz cvmt\n');
   });
+
+  it('prefixes text a spreadsheet would evaluate as a formula with a quote', () => {
+    expect(formatCsvRow(['=HYPERLINK("http://evil","x")', '+1', '-1', '@x', '\tx'])).toBe(
+      `"'=HYPERLINK(""http://evil"",""x"")",'+1,'-1,'@x,'\tx\n`,
+    );
+  });
+
+  it('leaves negative numbers alone', () => {
+    expect(formatCsvRow([-1])).toBe('-1\n');
+  });
 });

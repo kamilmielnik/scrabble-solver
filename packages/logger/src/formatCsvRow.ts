@@ -1,5 +1,7 @@
 import { type EventValue } from './events';
 
+const FORMULA_PREFIX = /^[=+\-@\t\r]/;
+
 export function formatCsvRow(values: EventValue[]): string {
   return `${values.map(formatCsvField).join(',')}\n`;
 }
@@ -9,8 +11,12 @@ function formatCsvField(value: EventValue): string {
     return '';
   }
 
-  const text = String(value);
+  const text = typeof value === 'string' ? escapeFormula(value) : String(value);
   return needsQuoting(text) ? `"${text.replaceAll('"', '""')}"` : text;
+}
+
+function escapeFormula(text: string): string {
+  return FORMULA_PREFIX.test(text) ? `'${text}` : text;
 }
 
 function needsQuoting(text: string): boolean {
