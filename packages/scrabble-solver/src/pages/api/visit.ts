@@ -15,10 +15,10 @@ const URL_MAX_LENGTH = 256;
 
 export default withApiLog('visit', visit);
 
-function visit(request: NextApiRequest, response: NextApiResponse, { ip }: ApiContext) {
+function visit(request: NextApiRequest, response: NextApiResponse, { ip, ua }: ApiContext) {
   const { game, locale, referrer, url } = parseRequest(request);
   response.status(200).send(true);
-  logEvent({ type: 'visit', ip, ua: request.headers['user-agent'], referrer, locale, game, url });
+  logEvent({ type: 'visit', ip, ua, referrer, locale, game, url });
 }
 
 // A visit is only a ping - unexpected fields are ignored, never rejected.

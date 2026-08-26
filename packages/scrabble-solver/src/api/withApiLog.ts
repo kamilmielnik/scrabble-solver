@@ -6,6 +6,7 @@ import { BadRequestError } from './BadRequestError';
 
 export interface ApiContext {
   ip: string | undefined;
+  ua: string | undefined;
   getElapsedMs: () => number;
 }
 
@@ -17,26 +18,28 @@ interface ErrorResponse {
 }
 
 const INPUT_EXCERPT_LENGTH = 1024;
+const UA_MAX_LENGTH = 512;
 
 export function withApiLog(operation: Operation, handler: ApiHandler): NextApiHandler {
   return async (request, response) => {
     const startedAt = performance.now();
     const context: ApiContext = {
       ip: getClientIp(request),
+      ua: request.headers['user-agent']?.slice(0, UA_MAX_LENGTH),
       getElapsedMs: () => Math.round(performance.now() - startedAt),
     };
 
     try {
       await handler(request, response, context);
     } catch (error) {
-      const ua = request.headers['user-agent'];
+      const { ip, ua } = context;
       const input = getInputExcerpt(request);
 
       if (error instanceof BadRequestError) {
-        logEvent({ type: 'error', level: 'warn', operation, ip: context.ip, ua, message: error.message, input });
+        logEvent({ type: 'error', level: 'warn', operation, ip, ua, message: error.message, input });
         respond(response, 400, { error: 'Bad request', message: error.message });
       } else {
-        logError(operation, error, { ip: context.ip, ua, input });
+        logError(operation, error, { ip, ua, input });
         respond(response, 500, {
           error: 'Server error',
           message: error instanceof Error ? error.message : 'Unknown error',
