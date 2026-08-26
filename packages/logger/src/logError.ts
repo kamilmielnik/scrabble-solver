@@ -4,17 +4,22 @@ import { type Operation } from './events';
 import { logEvent } from './logEvent';
 
 interface ErrorContext {
+  level?: 'error' | 'warn';
   input?: string;
   ip?: string;
   locale?: string;
   ua?: string;
 }
 
-export function logError(operation: Operation, error: unknown, context: ErrorContext = {}): void {
+export function logError(
+  operation: Operation,
+  error: unknown,
+  { level = 'error', ...context }: ErrorContext = {},
+): void {
   const description = describeError(error);
-  logEvent({ type: 'error', level: 'error', operation, ...description, ...context });
+  logEvent({ type: 'error', level, operation, ...description, ...context });
 
-  if (!IS_TEST_RUN) {
+  if (level === 'error' && !IS_TEST_RUN) {
     process.stderr.write(formatStderrEntry(operation, description));
   }
 }
