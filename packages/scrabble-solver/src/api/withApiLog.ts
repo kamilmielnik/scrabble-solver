@@ -42,7 +42,12 @@ function getClientIp(request: NextApiRequest): string | undefined {
 
 function getInputExcerpt(request: NextApiRequest): string {
   const input: unknown = request.method === 'GET' ? request.query : request.body;
-  return JSON.stringify(sortFieldsBySize(input) ?? null).slice(0, INPUT_EXCERPT_LENGTH);
+
+  try {
+    return JSON.stringify(sortFieldsBySize(input) ?? null).slice(0, INPUT_EXCERPT_LENGTH);
+  } catch (error) {
+    return `(unserializable: ${String(error)})`;
+  }
 }
 
 function sortFieldsBySize(input: unknown): unknown {
