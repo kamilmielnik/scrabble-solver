@@ -1,15 +1,9 @@
 import { IS_TEST_RUN } from './constants';
 import { describeError, type ErrorDescription } from './describeError';
-import { type Operation } from './events';
+import { type EventOf, type Operation } from './events';
 import { logEvent } from './logEvent';
 
-interface ErrorContext {
-  level?: 'error' | 'warn';
-  input?: string;
-  ip?: string;
-  locale?: string;
-  ua?: string;
-}
+type ErrorContext = Partial<Pick<EventOf<'error'>, 'level' | 'input' | 'ip' | 'locale' | 'ua'>>;
 
 export function logError(
   operation: Operation,

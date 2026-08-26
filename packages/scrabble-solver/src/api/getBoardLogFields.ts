@@ -1,10 +1,9 @@
+import { type EventOf } from '@scrabble-solver/logger';
 import { type Board } from '@scrabble-solver/types';
 
-interface BoardLogFields {
-  board: string;
-  tiles: number;
-  blanks: number;
-}
+type BoardField = 'board' | 'tiles' | 'blanks';
+
+type BoardLogFields = Pick<EventOf<'solve'>, BoardField> & Pick<EventOf<'verify'>, BoardField>;
 
 export function getBoardLogFields(board: Board): BoardLogFields {
   return {

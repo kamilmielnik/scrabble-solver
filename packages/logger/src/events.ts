@@ -2,6 +2,8 @@ export type Event = VisitEvent | SolveEvent | VerifyEvent | DownloadEvent | Defi
 
 export type EventType = Event['type'];
 
+export type EventOf<T extends EventType> = Extract<Event, { type: T }>;
+
 export type EventValue = string | number | boolean | undefined;
 
 export type LoggedEvent = Event & { timestamp: string };
@@ -83,7 +85,7 @@ type ErrorEvent = {
   input?: string;
 };
 
-type FieldsOf<T extends EventType> = Exclude<keyof Extract<Event, { type: T }>, 'type'>;
+type FieldsOf<T extends EventType> = Exclude<keyof EventOf<T>, 'type'>;
 
 // Field order is the column order of the exported CSV files - append only, never reorder.
 export const EVENT_FIELDS = {
