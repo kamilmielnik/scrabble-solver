@@ -1,11 +1,4 @@
-export type Event =
-  | VisitEvent
-  | SolveEvent
-  | VerificationEvent
-  | DownloadEvent
-  | DefinitionEvent
-  | BuildEvent
-  | ErrorEvent;
+export type Event = VisitEvent | SolveEvent | VerifyEvent | DownloadEvent | DefinitionEvent | BuildEvent | ErrorEvent;
 
 export type EventType = Event['type'];
 
@@ -37,8 +30,8 @@ type SolveEvent = {
   results: number;
 };
 
-type VerificationEvent = {
-  type: 'verification';
+type VerifyEvent = {
+  type: 'verify';
   ip?: string;
   ms: number;
   locale: string;
@@ -95,7 +88,7 @@ type FieldsOf<T extends EventType> = Exclude<keyof Extract<Event, { type: T }>, 
 export const EVENT_FIELDS = {
   visit: ['ip', 'ua', 'referrer', 'locale', 'game'],
   solve: ['ip', 'ms', 'locale', 'game', 'tiles', 'blanks', 'rack', 'board', 'results'],
-  verification: ['ip', 'ms', 'locale', 'game', 'tiles', 'blanks', 'board', 'valid', 'invalid'],
+  verify: ['ip', 'ms', 'locale', 'game', 'tiles', 'blanks', 'board', 'valid', 'invalid'],
   download: ['ip', 'ms', 'locale', 'status', 'encoding', 'bytes'],
   definition: ['ip', 'ms', 'locale', 'word', 'found'],
   build: ['locale', 'words', 'download_ms', 'build_ms'],

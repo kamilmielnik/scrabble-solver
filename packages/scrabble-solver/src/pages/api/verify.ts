@@ -34,7 +34,7 @@ async function verify(request: NextApiRequest, response: NextApiResponse, { ip, 
   response.status(200).send({ invalidWords, validWords });
 
   logEvent({
-    type: 'verification',
+    type: 'verify',
     ip,
     ms: getElapsedMs(),
     locale,
