@@ -1,6 +1,8 @@
-import { type Operation, logError } from '@scrabble-solver/logger';
+import { type Operation, logError, logEvent } from '@scrabble-solver/logger';
 import { isObject } from '@scrabble-solver/types';
 import { type NextApiHandler, type NextApiRequest, type NextApiResponse } from 'next';
+
+import { BadRequestError } from './BadRequestError';
 
 export interface ApiContext {
   ip: string | undefined;
@@ -8,6 +10,11 @@ export interface ApiContext {
 }
 
 type ApiHandler = (request: NextApiRequest, response: NextApiResponse, context: ApiContext) => Promise<void> | void;
+
+interface ErrorResponse {
+  error: string;
+  message: string;
+}
 
 const INPUT_EXCERPT_LENGTH = 1024;
 
@@ -22,18 +29,27 @@ export function withApiLog(operation: Operation, handler: ApiHandler): NextApiHa
     try {
       await handler(request, response, context);
     } catch (error) {
-      logError(operation, error, {
-        ip: context.ip,
-        ua: request.headers['user-agent'],
-        input: getInputExcerpt(request),
-      });
+      const ua = request.headers['user-agent'];
+      const input = getInputExcerpt(request);
 
-      if (!response.headersSent) {
-        const message = error instanceof Error ? error.message : 'Unknown error';
-        response.status(500).send({ error: 'Server error', message });
+      if (error instanceof BadRequestError) {
+        logEvent({ type: 'error', level: 'warn', operation, ip: context.ip, ua, message: error.message, input });
+        respond(response, 400, { error: 'Bad request', message: error.message });
+      } else {
+        logError(operation, error, { ip: context.ip, ua, input });
+        respond(response, 500, {
+          error: 'Server error',
+          message: error instanceof Error ? error.message : 'Unknown error',
+        });
       }
     }
   };
+}
+
+function respond(response: NextApiResponse, status: number, body: ErrorResponse): void {
+  if (!response.headersSent) {
+    response.status(status).send(body);
+  }
 }
 
 function getClientIp(request: NextApiRequest): string | undefined {

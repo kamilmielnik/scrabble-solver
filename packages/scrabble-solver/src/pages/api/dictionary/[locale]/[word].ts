@@ -6,7 +6,7 @@ import { type Locale, isLocale } from '@scrabble-solver/types';
 import { getWordDefinition } from '@scrabble-solver/word-definitions';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
-import { type ApiContext, withApiLog } from '@/api';
+import { type ApiContext, BadRequestError, withApiLog } from '@/api';
 
 interface RequestData {
   locale: Locale;
@@ -35,11 +35,11 @@ function parseRequest(request: NextApiRequest): RequestData {
   const { locale, word } = request.query;
 
   if (!isLocale(locale)) {
-    throw new Error('Invalid "locale" parameter');
+    throw new BadRequestError('Invalid "locale" parameter');
   }
 
   if (typeof word !== 'string' || word.length === 0) {
-    throw new Error('Invalid "word" parameter');
+    throw new BadRequestError('Invalid "word" parameter');
   }
 
   const words = Array.from(
@@ -53,7 +53,7 @@ function parseRequest(request: NextApiRequest): RequestData {
   );
 
   if (words.length > MAXIMUM_WORDS_COUNT) {
-    throw new Error('Invalid "word" parameter');
+    throw new BadRequestError('Invalid "word" parameter');
   }
 
   return {

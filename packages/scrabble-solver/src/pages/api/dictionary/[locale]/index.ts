@@ -6,7 +6,7 @@ import { type NextApiRequest, type NextApiResponse } from 'next';
 import { promisify } from 'util';
 import { gzip } from 'zlib';
 
-import { type ApiContext, withApiLog } from '@/api';
+import { type ApiContext, BadRequestError, withApiLog } from '@/api';
 
 interface RequestData {
   locale: Locale;
@@ -47,7 +47,7 @@ function parseRequest(request: NextApiRequest): RequestData {
   const { locale } = request.query;
 
   if (!isLocale(locale)) {
-    throw new Error('Invalid "locale" parameter');
+    throw new BadRequestError('Invalid "locale" parameter');
   }
 
   return {

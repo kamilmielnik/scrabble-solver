@@ -15,7 +15,7 @@ import {
 } from '@scrabble-solver/types';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
-import { type ApiContext, getBoardLogFields, isBoardValid, isCharacterValid, withApiLog } from '@/api';
+import { type ApiContext, BadRequestError, getBoardLogFields, isBoardValid, isCharacterValid, withApiLog } from '@/api';
 import { isStringArray } from '@/lib/isStringArray';
 
 interface RequestData {
@@ -51,37 +51,37 @@ function parseRequest(request: NextApiRequest): RequestData {
   const { board: boardJson, characters, game, locale } = request.body;
 
   if (!isLocale(locale)) {
-    throw new Error('Invalid "locale" parameter');
+    throw new BadRequestError('Invalid "locale" parameter');
   }
 
   if (!isGame(game)) {
-    throw new Error('Invalid "game" parameter');
+    throw new BadRequestError('Invalid "game" parameter');
   }
 
   if (!isStringArray(characters) || characters.length === 0) {
-    throw new Error('Invalid "characters" parameter');
+    throw new BadRequestError('Invalid "characters" parameter');
   }
 
   if (!hasConfig(game, locale)) {
-    throw new Error(`No game "${game}" in "${locale}"`);
+    throw new BadRequestError(`No game "${game}" in "${locale}"`);
   }
 
   const config = getConfig(game, locale);
 
   for (const character of characters) {
     if (!isCharacterValid(character)) {
-      throw new Error('Invalid "characters" parameter');
+      throw new BadRequestError('Invalid "characters" parameter');
     }
   }
 
   const blanksCount = characters.filter((character) => character === BLANK).length;
 
   if (blanksCount > config.blanksCount) {
-    throw new Error('Too many blank tiles passed');
+    throw new BadRequestError('Too many blank tiles passed');
   }
 
   if (!isBoardJson(boardJson) || !isBoardValid(boardJson, config)) {
-    throw new Error('Invalid "board" parameter');
+    throw new BadRequestError('Invalid "board" parameter');
   }
 
   const board = Board.fromJson(boardJson);
