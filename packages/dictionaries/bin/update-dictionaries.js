@@ -7,11 +7,8 @@ const rootDirectory = path.resolve(__dirname, '..');
 const { dictionaries } = require(rootDirectory);
 
 const updateDictionaries = async () => {
-  try {
-    await dictionaries.update();
-  } catch (error) {
-    console.error(error);
-  }
+  const failedLocales = await dictionaries.update();
+  process.exitCode = failedLocales.length > 0 ? 1 : 0;
 };
 
 updateDictionaries();

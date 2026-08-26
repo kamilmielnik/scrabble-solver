@@ -36,7 +36,7 @@ export class Dictionaries {
     fs.rmdirSync(OUTPUT_DIRECTORY, { recursive: true });
   }
 
-  public async update(force?: boolean): Promise<void> {
+  public async update(force?: boolean): Promise<Locale[]> {
     const locales = force ? Object.values(Locale) : this.getLocalesToUpdate();
     const outcomes = await Promise.allSettled(locales.map((locale) => this.updateDictionary(locale)));
     const failedLocales: Locale[] = [];
@@ -48,9 +48,7 @@ export class Dictionaries {
       }
     });
 
-    if (failedLocales.length > 0) {
-      throw new Error(`Failed to build dictionaries: ${failedLocales.join(', ')}`);
-    }
+    return failedLocales;
   }
 
   private getLocalesToUpdate(): Locale[] {
