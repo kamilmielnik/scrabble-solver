@@ -42,7 +42,7 @@ async function solve(request: NextApiRequest, response: NextApiResponse, { ip, g
     locale,
     game,
     ...getBoardLogFields(board),
-    rack: characters.join(''),
+    rack: characters.join(','),
     results: results.length,
   });
 }

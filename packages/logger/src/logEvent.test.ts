@@ -9,7 +9,7 @@ describe('formatEventLine', () => {
         type: 'solve',
         results: 312,
         board: '|||||             wriest',
-        rack: 'pz cvmt',
+        rack: 'p,z, ,c,v,m,t',
         blanks: 4,
         tiles: 61,
         game: 'scrabble',
