@@ -3,7 +3,6 @@ import readline from 'node:readline';
 
 import { EVENT_FIELDS, EVENTS_FILEPATH, type LoggedEvent } from '../src';
 
-// Yields undefined for a line that is not a logged event, so callers can count what they skipped.
 export async function* readEvents(): AsyncGenerator<LoggedEvent | undefined> {
   if (!fs.existsSync(EVENTS_FILEPATH)) {
     throw new Error(`No events file at ${EVENTS_FILEPATH}`);

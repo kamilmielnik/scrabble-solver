@@ -3,10 +3,10 @@ import { type Operation } from './events';
 import { logEvent } from './logEvent';
 
 interface ErrorContext {
-  locale?: string;
-  ip?: string;
-  ua?: string;
   input?: string;
+  ip?: string;
+  locale?: string;
+  ua?: string;
 }
 
 export function logError(operation: Operation, error: unknown, context: ErrorContext = {}): void {
