@@ -15,13 +15,6 @@ bun run --filter @scrabble-solver/logger export 2026   # one year
 
 writes one file per event type and year to `$HOME/.scrabble-solver/csv/<type>-YYYY.csv`, e.g. `visit-2026.csv`.
 
-## Stats
-
-```shell
-jq -c 'select(.type == "solve") | .results' ~/.scrabble-solver/logs/events.txt
-jq -r .type ~/.scrabble-solver/logs/events.txt | sort | uniq -c
-```
-
 ## Previous format
 
 Before August 2026 the package wrote output to `all.log` and `error.log` in the same directory.
