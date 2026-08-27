@@ -1,12 +1,12 @@
 import { games } from '@scrabble-solver/configs';
 import { COMMA_ARABIC, COMMA_LATIN } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
-import { logger } from '@scrabble-solver/logger';
+import { logEvent } from '@scrabble-solver/logger';
 import { type Locale, isLocale } from '@scrabble-solver/types';
 import { getWordDefinition } from '@scrabble-solver/word-definitions';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
-import { getServerLoggingData } from '@/api';
+import { type ApiContext, BadRequestError, withApiLog } from '@/api';
 
 interface RequestData {
   locale: Locale;
@@ -16,39 +16,33 @@ interface RequestData {
 const MAXIMUM_COLLISIONS_COUNT = Object.values(games).reduce((result, game) => Math.max(result, game.rackSize), 0);
 const MAXIMUM_WORDS_COUNT = MAXIMUM_COLLISIONS_COUNT + 1;
 
-const dictionary = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
-  const meta = getServerLoggingData(request);
+export default withApiLog('definition', dictionary);
 
-  try {
-    const { locale, words } = parseRequest(request);
+async function dictionary(request: NextApiRequest, response: NextApiResponse, { ip, getElapsedMs }: ApiContext) {
+  const { locale, words } = parseRequest(request);
+  const gaddag = await dictionaries.get(locale);
+  const results = await Promise.all(words.map((word) => getWordDefinition(locale, word, gaddag.has(word))));
+  response.status(200).send(results.map((result) => result.toJson()));
 
-    logger.info('dictionary - request', {
-      meta,
-      payload: {
-        locale,
-        words,
-      },
-    });
+  logEvent({
+    type: 'definition',
+    ip,
+    ms: getElapsedMs(),
+    locale,
+    words: words.join(','),
+    found: results.filter((result) => result.definitions.length > 0).length,
+  });
+}
 
-    const gaddag = await dictionaries.get(locale);
-    const results = await Promise.all(words.map((word) => getWordDefinition(locale, word, gaddag.has(word))));
-    response.status(200).send(results.map((result) => result.toJson()));
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown error';
-    logger.error('dictionary - error', { error, meta });
-    response.status(500).send({ error: 'Server error', message });
-  }
-};
-
-const parseRequest = (request: NextApiRequest): RequestData => {
+function parseRequest(request: NextApiRequest): RequestData {
   const { locale, word } = request.query;
 
   if (!isLocale(locale)) {
-    throw new Error('Invalid "locale" parameter');
+    throw new BadRequestError('Invalid "locale" parameter');
   }
 
   if (typeof word !== 'string' || word.length === 0) {
-    throw new Error('Invalid "word" parameter');
+    throw new BadRequestError('Invalid "word" parameter');
   }
 
   const words = Array.from(
@@ -62,13 +56,11 @@ const parseRequest = (request: NextApiRequest): RequestData => {
   );
 
   if (words.length > MAXIMUM_WORDS_COUNT) {
-    throw new Error('Invalid "word" parameter');
+    throw new BadRequestError('Invalid "word" parameter');
   }
 
   return {
     locale,
     words,
   };
-};
-
-export default dictionary;
+}

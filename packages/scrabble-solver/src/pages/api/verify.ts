@@ -1,10 +1,10 @@
 import { getConfig, hasConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
-import { logger } from '@scrabble-solver/logger';
+import { logEvent } from '@scrabble-solver/logger';
 import { Board, type Config, type Game, type Locale, isBoardJson, isGame, isLocale } from '@scrabble-solver/types';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
-import { getServerLoggingData, isBoardValid } from '@/api';
+import { type ApiContext, BadRequestError, isBoardValid, withApiLog } from '@/api';
 import { type VerifiedWord } from '@/types';
 
 interface RequestData {
@@ -14,63 +14,57 @@ interface RequestData {
   locale: Locale;
 }
 
-const verify = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
-  const meta = getServerLoggingData(request);
+export default withApiLog('verify', verify);
 
-  try {
-    const { board, game, locale } = parseRequest(request);
+async function verify(request: NextApiRequest, response: NextApiResponse, { ip, getElapsedMs }: ApiContext) {
+  const { board, game, locale } = parseRequest(request);
+  const gaddag = await dictionaries.get(locale);
+  const words = board.getWords().sort((a, b) => a.word.localeCompare(b.word, locale));
+  const invalidWords: VerifiedWord[] = [];
+  const validWords: VerifiedWord[] = [];
 
-    logger.info('verify - request', {
-      meta,
-      payload: {
-        board: board.toString(),
-        boardBlanksCount: board.getBlanksCount(),
-        boardTilesCount: board.getTilesCount(),
-        game,
-        locale,
-      },
-    });
-
-    const gaddag = await dictionaries.get(locale);
-    const words = board.getWords().sort((a, b) => a.word.localeCompare(b.word, locale));
-    const invalidWords: VerifiedWord[] = [];
-    const validWords: VerifiedWord[] = [];
-
-    for (const word of words) {
-      if (gaddag.has(word.word)) {
-        validWords.push({ ...word, isValid: true });
-      } else {
-        invalidWords.push({ ...word, isValid: false });
-      }
+  for (const word of words) {
+    if (gaddag.has(word.word)) {
+      validWords.push({ ...word, isValid: true });
+    } else {
+      invalidWords.push({ ...word, isValid: false });
     }
-
-    response.status(200).send({ invalidWords, validWords });
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown error';
-    logger.error('verify - error', { error, meta });
-    response.status(500).send({ error: 'Server error', message });
   }
-};
 
-const parseRequest = (request: NextApiRequest): RequestData => {
+  response.status(200).send({ invalidWords, validWords });
+
+  logEvent({
+    type: 'verify',
+    ip,
+    ms: getElapsedMs(),
+    locale,
+    game,
+    tiles: board.getTilesCount(),
+    blanks: board.getBlanksCount(),
+    valid: validWords.length,
+    invalid: invalidWords.length,
+  });
+}
+
+function parseRequest(request: NextApiRequest): RequestData {
   const { board: boardJson, game, locale } = request.body;
 
   if (!isLocale(locale)) {
-    throw new Error('Invalid "locale" parameter');
+    throw new BadRequestError('Invalid "locale" parameter');
   }
 
   if (!isGame(game)) {
-    throw new Error('Invalid "game" parameter');
+    throw new BadRequestError('Invalid "game" parameter');
   }
 
   if (!hasConfig(game, locale)) {
-    throw new Error(`No game "${game}" in "${locale}"`);
+    throw new BadRequestError(`No game "${game}" in "${locale}"`);
   }
 
   const config = getConfig(game, locale);
 
   if (!isBoardJson(boardJson) || !isBoardValid(boardJson, config)) {
-    throw new Error('Invalid "board" parameter');
+    throw new BadRequestError('Invalid "board" parameter');
   }
 
   const board = Board.fromJson(boardJson);
@@ -81,6 +75,4 @@ const parseRequest = (request: NextApiRequest): RequestData => {
     game,
     locale,
   };
-};
-
-export default verify;
+}

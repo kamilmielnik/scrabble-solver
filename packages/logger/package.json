@@ -1,10 +1,11 @@
 {
   "name": "@scrabble-solver/logger",
   "version": "2.18.3",
-  "description": "Winston-based JSON file logger for Scrabble Solver.",
+  "description": "JSON-lines event log for Scrabble Solver, with CSV export.",
   "keywords": [
     "logger",
-    "winston",
+    "events",
+    "csv",
     "scrabble"
   ],
   "main": "build/index.js",
@@ -24,12 +25,10 @@
   },
   "homepage": "https://scrabble-solver.org",
   "scripts": {
-    "build": "tsc --project .",
+    "build": "tsc --project . && tsc --project scripts",
     "clean": "rimraf build/",
-    "stats": "node scripts/stats.js"
-  },
-  "dependencies": {
-    "winston": "^3.19.0"
+    "export": "bun scripts/export-csv.ts",
+    "test": "bun test src"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }

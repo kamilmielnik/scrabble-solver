@@ -204,7 +204,13 @@ function* hydratePersistedTranslations(locale: Locale, version: string): AnyGene
 
 function* visitWhenIdle(): AnyGenerator {
   yield call(waitForIdleOrFirstIntent);
-  yield call(visit);
+  const locale = yield select(selectLocale);
+  const game = yield select(selectGame);
+
+  try {
+    yield call(visit, { game, locale, referrer: document.referrer, url: location.href });
+    // oxlint-disable-next-line no-empty
+  } catch {}
 }
 
 function* prefetchDictionaryOnFirstIntent(): AnyGenerator {

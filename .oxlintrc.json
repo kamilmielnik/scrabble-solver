@@ -55,7 +55,6 @@
     "**/bump-version.js",
     "packages/scrabble-solver/next.config.js",
     "scripts/record-screencast.ts",
-    "packages/logger/scripts/stats.js",
     "packages/scrabble-solver/public/service-worker.js",
     "**/.next/**/*"
   ],

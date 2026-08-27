@@ -1,5 +1,5 @@
 import { type Gaddag } from '@kamilmielnik/gaddag';
-import { logger } from '@scrabble-solver/logger';
+import { logError } from '@scrabble-solver/logger';
 import { Locale } from '@scrabble-solver/types';
 import fs from 'fs';
 
@@ -28,7 +28,6 @@ export class Dictionaries {
       }
     }
 
-    logger.info('Dictionaries - cache miss', { locale });
     return this.updateDictionary(locale);
   }
 
@@ -37,10 +36,19 @@ export class Dictionaries {
     fs.rmdirSync(OUTPUT_DIRECTORY, { recursive: true });
   }
 
-  public async update(force?: boolean): Promise<void> {
+  public async update(force?: boolean): Promise<Locale[]> {
     const locales = force ? Object.values(Locale) : this.getLocalesToUpdate();
-    logger.info('Dictionaries - update', { force, locales });
-    await Promise.all(locales.map((locale) => this.updateDictionary(locale)));
+    const outcomes = await Promise.allSettled(locales.map((locale) => this.updateDictionary(locale)));
+    const failedLocales: Locale[] = [];
+
+    outcomes.forEach((outcome, index) => {
+      if (outcome.status === 'rejected') {
+        logError('build', outcome.reason, { locale: locales[index] });
+        failedLocales.push(locales[index]);
+      }
+    });
+
+    return failedLocales;
   }
 
   private getLocalesToUpdate(): Locale[] {
@@ -48,7 +56,6 @@ export class Dictionaries {
   }
 
   private async updateDictionary(locale: Locale): Promise<Gaddag> {
-    logger.info('Dictionaries - updateDictionary', { locale });
     fs.mkdirSync(OUTPUT_DIRECTORY, { recursive: true });
     const downloadDictionaryProxy = this.downloadDictionaryProxies[locale];
     const gaddag = await downloadDictionaryProxy();

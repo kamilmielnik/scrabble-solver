@@ -1,17 +1,11 @@
-import { Board, type BoardJson, type Game, type Locale, Result, type ResultJson } from '@scrabble-solver/types';
+import { Board, Result, type ResultJson } from '@scrabble-solver/types';
 
 import { solveLocally } from '@/solver-worker';
+import { type SolveRequestPayload } from '@/types';
 
 import { fetchJson } from './fetchJson';
 
-interface Payload {
-  board: BoardJson;
-  characters: string[];
-  game: Game;
-  locale: Locale;
-}
-
-export const solve = async ({ board, characters, game, locale }: Payload): Promise<Result[]> => {
+export const solve = async ({ board, characters, game, locale }: SolveRequestPayload): Promise<Result[]> => {
   const payload = { board, characters, game, locale };
   const json =
     (await solveLocally(payload)) ??

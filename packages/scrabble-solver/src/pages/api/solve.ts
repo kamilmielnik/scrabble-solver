@@ -1,7 +1,7 @@
 import { getConfig, hasConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
-import { logger } from '@scrabble-solver/logger';
+import { logEvent } from '@scrabble-solver/logger';
 import { solve as solveScrabble } from '@scrabble-solver/solver';
 import {
   Board,
@@ -15,7 +15,7 @@ import {
 } from '@scrabble-solver/types';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
-import { getServerLoggingData, isBoardValid, isCharacterValid } from '@/api';
+import { type ApiContext, BadRequestError, isBoardValid, isCharacterValid, withApiLog } from '@/api';
 import { isStringArray } from '@/lib/isStringArray';
 
 interface RequestData {
@@ -26,71 +26,63 @@ interface RequestData {
   locale: Locale;
 }
 
-const solve = async (request: NextApiRequest, response: NextApiResponse): Promise<void> => {
-  const meta = getServerLoggingData(request);
+export default withApiLog('solve', solve);
 
-  try {
-    const { board, characters, config, game, locale } = parseRequest(request);
+async function solve(request: NextApiRequest, response: NextApiResponse, { ip, getElapsedMs }: ApiContext) {
+  const { board, characters, config, game, locale } = parseRequest(request);
+  const gaddag = await dictionaries.get(locale);
+  const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
+  const results = solveScrabble(gaddag, config, board, tiles);
+  response.status(200).send(results);
 
-    logger.info('solve - request', {
-      meta,
-      payload: {
-        board: board.toString(),
-        configId: config.game,
-        boardBlanksCount: board.getBlanksCount(),
-        boardTilesCount: board.getTilesCount(),
-        characters: characters.join(''),
-        game,
-        locale,
-      },
-    });
+  logEvent({
+    type: 'solve',
+    ip,
+    ms: getElapsedMs(),
+    locale,
+    game,
+    tiles: board.getTilesCount(),
+    blanks: board.getBlanksCount(),
+    rack: characters.join(','),
+    results: results.length,
+  });
+}
 
-    const gaddag = await dictionaries.get(locale);
-    const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
-    const results = solveScrabble(gaddag, config, board, tiles);
-    response.status(200).send(results);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown error';
-    logger.error('solve - error', { error, meta });
-    response.status(500).send({ error: 'Server error', message });
-  }
-};
-
-const parseRequest = (request: NextApiRequest): RequestData => {
+function parseRequest(request: NextApiRequest): RequestData {
   const { board: boardJson, characters, game, locale } = request.body;
 
   if (!isLocale(locale)) {
-    throw new Error('Invalid "locale" parameter');
+    throw new BadRequestError('Invalid "locale" parameter');
   }
 
   if (!isGame(game)) {
-    throw new Error('Invalid "game" parameter');
+    throw new BadRequestError('Invalid "game" parameter');
   }
 
   if (!isStringArray(characters) || characters.length === 0) {
-    throw new Error('Invalid "characters" parameter');
+    throw new BadRequestError('Invalid "characters" parameter');
   }
 
   if (!hasConfig(game, locale)) {
-    throw new Error(`No game "${game}" in "${locale}"`);
+    throw new BadRequestError(`No game "${game}" in "${locale}"`);
   }
 
   const config = getConfig(game, locale);
 
   for (const character of characters) {
     if (!isCharacterValid(character)) {
-      throw new Error('Invalid "characters" parameter');
+      throw new BadRequestError('Invalid "characters" parameter');
     }
   }
 
   const blanksCount = characters.filter((character) => character === BLANK).length;
 
   if (blanksCount > config.blanksCount) {
-    throw new Error('Too many blank tiles passed');
+    throw new BadRequestError('Too many blank tiles passed');
   }
 
   if (!isBoardJson(boardJson) || !isBoardValid(boardJson, config)) {
-    throw new Error('Invalid "board" parameter');
+    throw new BadRequestError('Invalid "board" parameter');
   }
 
   const board = Board.fromJson(boardJson);
@@ -102,12 +94,10 @@ const parseRequest = (request: NextApiRequest): RequestData => {
     game,
     locale,
   };
-};
+}
 
 export const config = {
   api: {
     responseLimit: '25mb',
   },
 };
-
-export default solve;

@@ -1,0 +1,103 @@
+export type Event = VisitEvent | SolveEvent | VerifyEvent | DownloadEvent | DefinitionEvent | BuildEvent | ErrorEvent;
+
+export type EventType = Event['type'];
+
+export type EventOf<T extends EventType> = Extract<Event, { type: T }>;
+
+export type EventValue = string | number | boolean | undefined;
+
+export type LoggedEvent = Event & { timestamp: string };
+
+export type Operation = 'visit' | 'solve' | 'verify' | 'download' | 'definition' | 'build' | 'cache';
+
+type VisitEvent = {
+  type: 'visit';
+  ip?: string;
+  ua?: string;
+  referrer?: string;
+  locale?: string;
+  game?: string;
+  url?: string;
+};
+
+type SolveEvent = {
+  type: 'solve';
+  ip?: string;
+  ms: number;
+  locale: string;
+  game: string;
+  tiles: number;
+  blanks: number;
+  rack: string;
+  results: number;
+};
+
+type VerifyEvent = {
+  type: 'verify';
+  ip?: string;
+  ms: number;
+  locale: string;
+  game: string;
+  tiles: number;
+  blanks: number;
+  valid: number;
+  invalid: number;
+};
+
+type DownloadEvent = {
+  type: 'download';
+  ip?: string;
+  ms: number;
+  locale: string;
+  status: number;
+  encoding: 'gzip' | 'identity';
+  bytes: number;
+};
+
+type DefinitionEvent = {
+  type: 'definition';
+  ip?: string;
+  ms: number;
+  locale: string;
+  words: string;
+  found: number;
+};
+
+type BuildEvent = {
+  type: 'build';
+  locale: string;
+  words: number;
+  download_ms: number;
+  build_ms: number;
+};
+
+type ErrorEvent = {
+  type: 'error';
+  level: 'error' | 'warn';
+  operation: Operation;
+  locale?: string;
+  ip?: string;
+  ua?: string;
+  message: string;
+  stack?: string;
+  input?: string;
+};
+
+type FieldsOf<T extends EventType> = Exclude<keyof EventOf<T>, 'type'>;
+
+// Field order is the column order of the exported CSV files - append only, never reorder.
+export const EVENT_FIELDS = {
+  visit: ['ip', 'ua', 'referrer', 'locale', 'game', 'url'],
+  solve: ['ip', 'ms', 'locale', 'game', 'tiles', 'blanks', 'rack', 'results'],
+  verify: ['ip', 'ms', 'locale', 'game', 'tiles', 'blanks', 'valid', 'invalid'],
+  download: ['ip', 'ms', 'locale', 'status', 'encoding', 'bytes'],
+  definition: ['ip', 'ms', 'locale', 'words', 'found'],
+  build: ['locale', 'words', 'download_ms', 'build_ms'],
+  error: ['level', 'operation', 'locale', 'ip', 'ua', 'message', 'stack', 'input'],
+} as const satisfies { [T in EventType]: readonly FieldsOf<T>[] };
+
+type UnlistedFields = { [T in EventType]: Exclude<FieldsOf<T>, (typeof EVENT_FIELDS)[T][number]> }[EventType];
+
+type Assert<T extends never> = T;
+
+export type EveryFieldIsListed = Assert<UnlistedFields>;
