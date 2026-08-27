@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/dictionaries",
-  "version": "2.18.3",
+  "version": "2.18.4",
   "description": "Dictionary manager for Scrabble Solver: downloads per-locale word lists and serves them as GADDAG automata with layered disk/memory caching.",
   "keywords": [
     "scrabble",
@@ -38,9 +38,9 @@
   },
   "dependencies": {
     "@kamilmielnik/gaddag": "^2.0.0",
-    "@scrabble-solver/logger": "^2.18.3",
-    "@scrabble-solver/types": "^2.18.3",
-    "@scrabble-solver/word-lists": "^2.18.3"
+    "@scrabble-solver/logger": "^2.18.4",
+    "@scrabble-solver/types": "^2.18.4",
+    "@scrabble-solver/word-lists": "^2.18.4"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }

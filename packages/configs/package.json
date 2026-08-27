@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/configs",
-  "version": "2.18.3",
+  "version": "2.18.4",
   "description": "Game and language configs for Scrabble Solver: board layouts, bonus squares, tile distributions, and points for 8 games and 9 locales.",
   "keywords": [
     "scrabble",
@@ -33,8 +33,8 @@
     "clean": "rimraf build/"
   },
   "dependencies": {
-    "@scrabble-solver/constants": "^2.18.3",
-    "@scrabble-solver/types": "^2.18.3"
+    "@scrabble-solver/constants": "^2.18.4",
+    "@scrabble-solver/types": "^2.18.4"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }

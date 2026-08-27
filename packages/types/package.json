@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/types",
-  "version": "2.18.3",
+  "version": "2.18.4",
   "description": "Domain model for Scrabble Solver: Board, Cell, Tile, Result, Config, Locale, and their JSON wire shapes.",
   "keywords": [
     "scrabble",
@@ -31,7 +31,7 @@
     "test": "bun test src"
   },
   "dependencies": {
-    "@scrabble-solver/constants": "^2.18.3"
+    "@scrabble-solver/constants": "^2.18.4"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }
