@@ -153,7 +153,7 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
     --components-spacing: var(--spacing--l);
   }
 
-  @include media('compact') {
+  @include media('<l') {
     --dictionary--height: var(--dictionary--height--mobile);
     --logo--height: #{$logo-height-small};
     --solver-column-total: 0px;

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Button } from '@/components/Button';
 import { Dictionary } from '@/components/Dictionary';
 import { Modal } from '@/components/Modal';
-import { useIsCompactLayout } from '@/hooks/useIsCompactLayout';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import EyeFill from '@/icons/EyeFill.svg';
 import { hoveredWordSlice, selectHoveredWord, useTranslate, useTypedSelector } from '@/state';
 
@@ -22,7 +22,7 @@ const WordsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose, 
   const dispatch = useDispatch();
   const translate = useTranslate();
   const hoveredWord = useTypedSelector(selectHoveredWord);
-  const showsPreviewButton = useIsCompactLayout();
+  const showsPreviewButton = useMediaQuery('<l');
   const keepsHighlightOnClose = useRef(false);
 
   const handlePreview = useCallback(() => {

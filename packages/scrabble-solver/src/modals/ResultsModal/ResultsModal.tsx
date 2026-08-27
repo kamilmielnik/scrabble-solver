@@ -6,8 +6,8 @@ import { Button } from '@/components/Button';
 import { Dictionary } from '@/components/Dictionary';
 import { Modal } from '@/components/Modal';
 import { Results } from '@/components/Results';
-import { useIsCompactLayout } from '@/hooks/useIsCompactLayout';
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import Check from '@/icons/Check.svg';
 import EyeFill from '@/icons/EyeFill.svg';
 import {
@@ -29,7 +29,7 @@ interface Props {
 const ResultsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
-  const showResultsInModal = useIsCompactLayout();
+  const showResultsInModal = useMediaQuery('<l');
   const previewsOnRepeatedClick = useIsTouchDevice();
   const resultCandidate = useTypedSelector(selectResultCandidate);
   const highlightedIndex = useTypedSelector(selectResultCandidateIndex);

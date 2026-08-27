@@ -8,8 +8,6 @@ export const BREAKPOINTS = {
   xl: Number(variables.breakpointXl),
 };
 
-export const BREAKPOINT_HEIGHT_L = Number(variables.breakpointHeightL);
-
 export const GITHUB_PROJECT_URL = 'https://github.com/kamilmielnik/scrabble-solver';
 
 export const NPM_PACKAGE_URL = 'https://www.npmjs.com/package/scrabble-solver';
