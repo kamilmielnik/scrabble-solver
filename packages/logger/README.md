@@ -18,13 +18,6 @@ writes one file per event type and year to `$HOME/.scrabble-solver/csv/<type>-YY
 ## Stats
 
 ```shell
-bun run --filter @scrabble-solver/logger stats            # per-day counts of every type
-bun run --filter @scrabble-solver/logger stats 2026-08-01 # since a day
-```
-
-Or straight from the file:
-
-```shell
 jq -c 'select(.type == "solve") | .results' ~/.scrabble-solver/logs/events.txt
 jq -r .type ~/.scrabble-solver/logs/events.txt | sort | uniq -c
 ```
