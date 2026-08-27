@@ -1,5 +1,4 @@
 export { BadRequestError } from './BadRequestError';
-export { getBoardLogFields } from './getBoardLogFields';
 export { isBoardValid } from './isBoardValid';
 export { isCellValid } from './isCellValid';
 export { isCharacterValid } from './isCharacterValid';

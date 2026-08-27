@@ -29,7 +29,6 @@ type SolveEvent = {
   tiles: number;
   blanks: number;
   rack: string;
-  board: string;
   results: number;
 };
 
@@ -41,7 +40,6 @@ type VerifyEvent = {
   game: string;
   tiles: number;
   blanks: number;
-  board: string;
   valid: number;
   invalid: number;
 };
@@ -90,8 +88,8 @@ type FieldsOf<T extends EventType> = Exclude<keyof EventOf<T>, 'type'>;
 // Field order is the column order of the exported CSV files - append only, never reorder.
 export const EVENT_FIELDS = {
   visit: ['ip', 'ua', 'referrer', 'locale', 'game', 'url'],
-  solve: ['ip', 'ms', 'locale', 'game', 'tiles', 'blanks', 'rack', 'board', 'results'],
-  verify: ['ip', 'ms', 'locale', 'game', 'tiles', 'blanks', 'board', 'valid', 'invalid'],
+  solve: ['ip', 'ms', 'locale', 'game', 'tiles', 'blanks', 'rack', 'results'],
+  verify: ['ip', 'ms', 'locale', 'game', 'tiles', 'blanks', 'valid', 'invalid'],
   download: ['ip', 'ms', 'locale', 'status', 'encoding', 'bytes'],
   definition: ['ip', 'ms', 'locale', 'words', 'found'],
   build: ['locale', 'words', 'download_ms', 'build_ms'],

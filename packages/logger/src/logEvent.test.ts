@@ -8,7 +8,6 @@ describe('formatEventLine', () => {
       {
         type: 'solve',
         results: 312,
-        board: '|||||             wriest',
         rack: 'p,z, ,c,v,m,t',
         blanks: 4,
         tiles: 61,
@@ -30,7 +29,6 @@ describe('formatEventLine', () => {
       'tiles',
       'blanks',
       'rack',
-      'board',
       'results',
     ]);
   });

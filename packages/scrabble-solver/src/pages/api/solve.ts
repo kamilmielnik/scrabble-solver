@@ -15,7 +15,7 @@ import {
 } from '@scrabble-solver/types';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
-import { type ApiContext, BadRequestError, getBoardLogFields, isBoardValid, isCharacterValid, withApiLog } from '@/api';
+import { type ApiContext, BadRequestError, isBoardValid, isCharacterValid, withApiLog } from '@/api';
 import { isStringArray } from '@/lib/isStringArray';
 
 interface RequestData {
@@ -41,7 +41,8 @@ async function solve(request: NextApiRequest, response: NextApiResponse, { ip, g
     ms: getElapsedMs(),
     locale,
     game,
-    ...getBoardLogFields(board),
+    tiles: board.getTilesCount(),
+    blanks: board.getBlanksCount(),
     rack: characters.join(','),
     results: results.length,
   });

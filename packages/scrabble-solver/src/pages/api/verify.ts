@@ -4,7 +4,7 @@ import { logEvent } from '@scrabble-solver/logger';
 import { Board, type Config, type Game, type Locale, isBoardJson, isGame, isLocale } from '@scrabble-solver/types';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
-import { type ApiContext, BadRequestError, getBoardLogFields, isBoardValid, withApiLog } from '@/api';
+import { type ApiContext, BadRequestError, isBoardValid, withApiLog } from '@/api';
 import { type VerifiedWord } from '@/types';
 
 interface RequestData {
@@ -39,7 +39,8 @@ async function verify(request: NextApiRequest, response: NextApiResponse, { ip, 
     ms: getElapsedMs(),
     locale,
     game,
-    ...getBoardLogFields(board),
+    tiles: board.getTilesCount(),
+    blanks: board.getBlanksCount(),
     valid: validWords.length,
     invalid: invalidWords.length,
   });
