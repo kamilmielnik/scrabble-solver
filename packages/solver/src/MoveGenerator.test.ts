@@ -17,6 +17,7 @@ import {
 
 import { MoveGenerator } from './MoveGenerator';
 import { ReferenceSolver } from './ReferenceSolver';
+import { type SolveOptions } from './solve';
 
 type TileScores = Record<string, number>;
 
@@ -201,6 +202,16 @@ describe('MoveGenerator - first move on an empty board', () => {
     const gaddag = Gaddag.fromArray(['a', 'ab']);
     const config = createConfig(BASIC_TILES);
     expect(generate(gaddag, config, createBoard(5, 5), ['a'])).toEqual([]);
+  });
+
+  it('optionally multiplies the first move score', () => {
+    const gaddag = Gaddag.fromArray(['ab']);
+    const config = createConfig(BASIC_TILES);
+    const board = createBoard(5, 5);
+    const regular = generate(gaddag, config, board, ['a', 'b']);
+    const doubled = generate(gaddag, config, board, ['a', 'b'], { firstMoveWordMultiplier: 2 });
+
+    expect(doubled.map((result) => result.points)).toEqual(regular.map((result) => result.points * 2));
   });
 });
 
@@ -868,12 +879,12 @@ describe('MoveGenerator - equivalence with a brute-force reference solver', () =
   });
 });
 
-function generate(gaddag: Gaddag, config: Config, board: Board, rack: string[]): Result[] {
-  return generateJson(gaddag, config, board, rack).map((json) => Result.fromJson(json, board));
+function generate(gaddag: Gaddag, config: Config, board: Board, rack: string[], options?: SolveOptions): Result[] {
+  return generateJson(gaddag, config, board, rack, options).map((json) => Result.fromJson(json, board));
 }
 
-function generateJson(gaddag: Gaddag, config: Config, board: Board, rack: string[]): ResultJson[] {
-  return new MoveGenerator(gaddag, config, board, createRack(rack)).run();
+function generateJson(gaddag: Gaddag, config: Config, board: Board, rack: string[], options?: SolveOptions): ResultJson[] {
+  return new MoveGenerator(gaddag, config, board, createRack(rack), options).run();
 }
 
 function expectMatchesReference(gaddag: Gaddag, config: Config, board: Board, rack: string[]): Result[] {

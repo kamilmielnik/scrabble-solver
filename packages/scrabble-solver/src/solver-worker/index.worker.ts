@@ -33,7 +33,7 @@ self.addEventListener('message', ({ data }: MessageEvent<SolverWorkerRequest>) =
 });
 
 async function handleSolve(id: number, payload: SolveRequestPayload): Promise<SolverWorkerResponse> {
-  const { board, characters, game, locale } = payload;
+  const { board, characters, firstMoveWordMultiplier, game, locale } = payload;
   const gaddag = await getGaddag(locale);
   revalidateInBackground(locale);
 
@@ -49,7 +49,11 @@ async function handleSolve(id: number, payload: SolveRequestPayload): Promise<So
 
   const config = getConfig(game, locale);
   const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
-  return { data: solve(gaddag, config, Board.fromJson(board), tiles), id, outcome: 'answered' };
+  return {
+    data: solve(gaddag, config, Board.fromJson(board), tiles, { firstMoveWordMultiplier }),
+    id,
+    outcome: 'answered',
+  };
 }
 
 async function handleVerify(

@@ -3,6 +3,16 @@ import { type Board, type Config, type ResultJson, type Tile } from '@scrabble-s
 
 import { MoveGenerator } from './MoveGenerator';
 
-export const solve = (gaddag: Gaddag, config: Config, board: Board, tiles: Tile[]): ResultJson[] => {
-  return new MoveGenerator(gaddag, config, board, tiles).run();
+export interface SolveOptions {
+  firstMoveWordMultiplier?: number;
+}
+
+export const solve = (
+  gaddag: Gaddag,
+  config: Config,
+  board: Board,
+  tiles: Tile[],
+  options?: SolveOptions,
+): ResultJson[] => {
+  return new MoveGenerator(gaddag, config, board, tiles, options).run();
 };

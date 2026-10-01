@@ -19,6 +19,7 @@ interface PersistedTranslations {
 
 const LEGACY_KEYS: Record<keyof SettingsState, string> = {
   autoGroupTiles: 'auto-group-tiles',
+  firstMoveWordMultiplier: 'first-move-word-multiplier',
   game: 'config-id',
   highlightUnreachableCells: 'highlight-unreachable-cells',
   inputMode: 'input-mode',

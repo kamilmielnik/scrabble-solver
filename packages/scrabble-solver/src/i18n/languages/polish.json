@@ -67,6 +67,7 @@
   "settings.autoGroupTiles.right": "Po prawej",
   "settings.autoGroupTiles.null": "Nie grupuj",
   "settings.game": "Gra",
+  "settings.firstMoveWordMultiplier": "Double the first move score",
   "settings.highlightUnreachableCells": "Wyróżnij nieosiągalne pola",
   "settings.inputMode": "Tryb wpisywania",
   "settings.inputMode.keyboard": "Klawiatura",

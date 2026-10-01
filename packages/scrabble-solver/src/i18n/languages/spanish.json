@@ -67,6 +67,7 @@
   "settings.autoGroupTiles.right": "A la derecha",
   "settings.autoGroupTiles.null": "No agrupar",
   "settings.game": "Juego",
+  "settings.firstMoveWordMultiplier": "Double the first move score",
   "settings.highlightUnreachableCells": "Resaltar casillas inalcanzables",
   "settings.inputMode": "Modo de entrada",
   "settings.inputMode.keyboard": "Teclado",

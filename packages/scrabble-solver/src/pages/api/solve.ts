@@ -2,7 +2,7 @@ import { getConfig, hasConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import { logEvent } from '@scrabble-solver/logger';
-import { solve as solveScrabble } from '@scrabble-solver/solver';
+import { solve as solveScrabble, type SolveOptions } from '@scrabble-solver/solver';
 import {
   Board,
   type Config,
@@ -24,15 +24,16 @@ interface RequestData {
   config: Config;
   game: Game;
   locale: Locale;
+  options: SolveOptions;
 }
 
 export default withApiLog('solve', solve);
 
 async function solve(request: NextApiRequest, response: NextApiResponse, { ip, getElapsedMs }: ApiContext) {
-  const { board, characters, config, game, locale } = parseRequest(request);
+  const { board, characters, config, game, locale, options } = parseRequest(request);
   const gaddag = await dictionaries.get(locale);
   const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
-  const results = solveScrabble(gaddag, config, board, tiles);
+  const results = solveScrabble(gaddag, config, board, tiles, options);
   response.status(200).send(results);
 
   logEvent({
@@ -49,7 +50,7 @@ async function solve(request: NextApiRequest, response: NextApiResponse, { ip, g
 }
 
 function parseRequest(request: NextApiRequest): RequestData {
-  const { board: boardJson, characters, game, locale } = request.body;
+  const { board: boardJson, characters, firstMoveWordMultiplier, game, locale } = request.body;
 
   if (!isLocale(locale)) {
     throw new BadRequestError('Invalid "locale" parameter');
@@ -86,6 +87,11 @@ function parseRequest(request: NextApiRequest): RequestData {
   }
 
   const board = Board.fromJson(boardJson);
+  const options: SolveOptions = {};
+
+  if (firstMoveWordMultiplier === 2) {
+    options.firstMoveWordMultiplier = 2;
+  }
 
   return {
     board,
@@ -93,6 +99,7 @@ function parseRequest(request: NextApiRequest): RequestData {
     config,
     game,
     locale,
+    options,
   };
 }
 

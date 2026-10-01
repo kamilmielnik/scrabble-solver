@@ -151,6 +151,7 @@ export type TranslationKey =
   | 'settings.autoGroupTiles.right'
   | 'settings.autoGroupTiles.null'
   | 'settings.game'
+  | 'settings.firstMoveWordMultiplier'
   | 'settings.highlightUnreachableCells'
   | 'settings.inputMode'
   | 'settings.inputMode.keyboard'

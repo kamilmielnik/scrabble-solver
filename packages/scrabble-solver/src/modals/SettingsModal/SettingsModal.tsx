@@ -7,6 +7,7 @@ import { useTranslate } from '@/state';
 import {
   AutoGroupTilesSetting,
   ConfigSetting,
+  FirstMoveWordMultiplierSetting,
   HighlightUnreachableCellsSetting,
   InputModeSetting,
   LocaleSetting,
@@ -57,6 +58,10 @@ const SettingsModalBase: FunctionComponent<Props> = ({ className, isOpen, onClos
         title={translate('settings.highlightUnreachableCells')}
       >
         <HighlightUnreachableCellsSetting disabled={!isOpen} />
+      </Modal.Section>
+
+      <Modal.Section label={translate('settings.firstMoveWordMultiplier')} title={translate('settings.firstMoveWordMultiplier')}>
+        <FirstMoveWordMultiplierSetting disabled={!isOpen} />
       </Modal.Section>
     </Modal>
   );

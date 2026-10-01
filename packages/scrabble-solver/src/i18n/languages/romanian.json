@@ -67,6 +67,7 @@
   "settings.autoGroupTiles.right": "In partea dreapta",
   "settings.autoGroupTiles.null": "Nu se grupeaza",
   "settings.game": "Joc",
+  "settings.firstMoveWordMultiplier": "Double the first move score",
   "settings.highlightUnreachableCells": "Evidențiază celulele inaccesibile",
   "settings.inputMode": "Mod introducere",
   "settings.inputMode.keyboard": "Tastatura",

@@ -1,1 +1,1 @@
-export { solve } from './solve';
+export { solve, type SolveOptions } from './solve';

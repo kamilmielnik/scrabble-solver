@@ -67,6 +67,7 @@
   "settings.autoGroupTiles.right": "در سمت راست",
   "settings.autoGroupTiles.null": "کنار هم قرار  نده",
   "settings.game": "بازی",
+  "settings.firstMoveWordMultiplier": "Double the first move score",
   "settings.highlightUnreachableCells": "خانه‌های غیرقابل دسترس را برجسته کن",
   "settings.inputMode": "حالت ورودی",
   "settings.inputMode.keyboard": "صفحه کلید",

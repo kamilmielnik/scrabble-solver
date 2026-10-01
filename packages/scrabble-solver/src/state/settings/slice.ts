@@ -14,6 +14,10 @@ export const settingsSlice = createSlice({
       return { ...state, autoGroupTiles };
     },
 
+    changeFirstMoveWordMultiplier: (state, action: PayloadAction<boolean>) => {
+      return { ...state, firstMoveWordMultiplier: action.payload };
+    },
+
     changeGame: (state, action: PayloadAction<Game>) => {
       const game = action.payload;
       return { ...state, game };

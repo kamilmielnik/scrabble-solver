@@ -67,6 +67,7 @@
   "settings.autoGroupTiles.right": "Sağdaki",
   "settings.autoGroupTiles.null": "Gruplamayın",
   "settings.game": "Oyun",
+  "settings.firstMoveWordMultiplier": "İlk hamle puanını iki kat say",
   "settings.highlightUnreachableCells": "Ulaşılamayan kareleri vurgula",
   "settings.inputMode": "Giriş Methodu",
   "settings.inputMode.keyboard": "Klavye",

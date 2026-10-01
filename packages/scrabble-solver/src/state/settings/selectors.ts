@@ -19,6 +19,11 @@ export const selectSettings = (state: RootState) => state.settings;
 
 export const selectAutoGroupTiles = createSelector([selectSettings], (settings) => settings.autoGroupTiles);
 
+export const selectFirstMoveWordMultiplier = createSelector(
+  [selectSettings],
+  (settings) => settings.firstMoveWordMultiplier,
+);
+
 export const selectGame = createSelector([selectSettings], (settings) => settings.game);
 
 export const selectHighlightUnreachableCells = createSelector(

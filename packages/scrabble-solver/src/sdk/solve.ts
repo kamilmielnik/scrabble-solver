@@ -5,8 +5,8 @@ import { type SolveRequestPayload } from '@/types';
 
 import { fetchJson } from './fetchJson';
 
-export const solve = async ({ board, characters, game, locale }: SolveRequestPayload): Promise<Result[]> => {
-  const payload = { board, characters, game, locale };
+export const solve = async (payload: SolveRequestPayload): Promise<Result[]> => {
+  const { board } = payload;
   const json =
     (await solveLocally(payload)) ??
     (await fetchJson<ResultJson[]>('/api/solve', {

@@ -7,6 +7,7 @@ import type { SettingsState } from './types';
  */
 export const settingsInitialState: SettingsState = {
   autoGroupTiles: null,
+  firstMoveWordMultiplier: false,
   game: Game.Scrabble,
   highlightUnreachableCells: false,
   inputMode: 'keyboard',

@@ -10,6 +10,8 @@ import {
   isScoreBingo,
 } from '@scrabble-solver/types';
 
+import { type SolveOptions } from './solve';
+
 const MAX_ALPHABET_SIZE = 64;
 
 // The result sort key packs (direction, line, start, end) into one integer.
@@ -105,6 +107,7 @@ export class MoveGenerator {
   private readonly digraphs: string[];
   private readonly blankScore: number;
   private readonly rackSize: number;
+  private readonly options?: SolveOptions;
 
   // Single-tile placements are the only ones both passes can emit; multi-tile
   // placements determine their line, span, and anchor uniquely.
@@ -124,7 +127,7 @@ export class MoveGenerator {
   private readonly alphaFirstRackIndex: Int32Array;
   private blankRackIndex = 0;
 
-  constructor(gaddag: Gaddag, config: Config, board: Board, tiles: Tile[]) {
+  constructor(gaddag: Gaddag, config: Config, board: Board, tiles: Tile[], options?: SolveOptions) {
     this.gaddag = gaddag;
     this.config = config;
     this.width = board.columnsCount;
@@ -132,6 +135,7 @@ export class MoveGenerator {
     this.cellsCount = this.width * this.height;
     this.blankScore = config.blankScore;
     this.rackSize = config.rackSize;
+    this.options = options;
     this.digraphs = config.twoCharacterTiles;
 
     const alphabet = config.alphabet;
@@ -863,6 +867,10 @@ export class MoveGenerator {
     }
 
     let points = mainScore * wordMultiplier + collisionsScore;
+
+    if (this.boardIsEmpty) {
+      points *= this.options?.firstMoveWordMultiplier ?? 1;
+    }
 
     if (this.placedCount === this.rackSize) {
       const bingo = this.config.bingo;

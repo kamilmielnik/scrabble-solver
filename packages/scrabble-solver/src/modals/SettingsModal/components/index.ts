@@ -1,5 +1,6 @@
 export { AutoGroupTilesSetting } from './AutoGroupTilesSetting';
 export { ConfigSetting } from './ConfigSetting';
+export { FirstMoveWordMultiplierSetting } from './FirstMoveWordMultiplierSetting';
 export { HighlightUnreachableCellsSetting } from './HighlightUnreachableCellsSetting';
 export { InputModeSetting } from './InputModeSetting';
 export { LocaleSetting } from './LocaleSetting';

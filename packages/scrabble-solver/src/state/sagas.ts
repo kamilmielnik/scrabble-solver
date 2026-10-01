@@ -28,6 +28,7 @@ import { rackSlice, selectCharacters, selectRack } from './rack';
 import { resultsSlice } from './results';
 import {
   selectConfig,
+  selectFirstMoveWordMultiplier,
   selectGame,
   selectLocale,
   selectLocaleAutoGroupTiles,
@@ -56,6 +57,7 @@ export function* rootSaga(): AnyGenerator {
   yield takeLatest([hoveredWordSlice.actions.set.type, hoveredWordSlice.actions.clear.type], onHoveredWordChange);
   yield takeEvery(settingsSlice.actions.changeGame.type, onGameChange);
   yield takeEvery(settingsSlice.actions.changeLocale.type, onLocaleChange);
+  yield takeLatest(settingsSlice.actions.changeFirstMoveWordMultiplier.type, onFirstMoveWordMultiplierChange);
   yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
   yield takeLatest(initialize.type, onInitialize);
   yield takeLatest(reset.type, onReset);
@@ -337,6 +339,7 @@ function* onSolve(): AnyGenerator {
   const { config } = yield select(selectConfig);
   const locale = yield select(selectLocale);
   const characters = yield select(selectCharacters);
+  const firstMoveWordMultiplier = yield select(selectFirstMoveWordMultiplier);
 
   if (characters.length === 0) {
     yield put(solveSlice.actions.submitSuccess({ board, characters }));
@@ -348,6 +351,7 @@ function* onSolve(): AnyGenerator {
     const results = yield call(solve, {
       board: board.toJson(),
       characters,
+      firstMoveWordMultiplier: firstMoveWordMultiplier ? 2 : undefined,
       game: config.game,
       locale,
     });
@@ -356,6 +360,14 @@ function* onSolve(): AnyGenerator {
   } catch (error) {
     yield put(resultsSlice.actions.changeResults([]));
     yield put(solveSlice.actions.submitFailure(error));
+  }
+}
+
+function* onFirstMoveWordMultiplierChange(): AnyGenerator {
+  const characters = yield select(selectCharacters);
+
+  if (characters.length > 0) {
+    yield put(solveSlice.actions.submit());
   }
 }
 
