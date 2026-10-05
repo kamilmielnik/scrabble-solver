@@ -33,7 +33,7 @@
   "dependencies": {
     "@scrabble-solver/types": "^2.18.4",
     "cheerio": "^1.2.0",
-    "follow-redirects": "^1.16.0",
+    "follow-redirects": "^1.16.1",
     "transliteration": "^2.6.1",
     "unzipper": "^0.12.5"
   },

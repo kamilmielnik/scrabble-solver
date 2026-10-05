@@ -37,7 +37,7 @@
     "test": "bun test src"
   },
   "dependencies": {
-    "@kamilmielnik/gaddag": "^2.0.0",
+    "@kamilmielnik/gaddag": "^3.0.0",
     "@scrabble-solver/logger": "^2.18.4",
     "@scrabble-solver/types": "^2.18.4",
     "@scrabble-solver/word-lists": "^2.18.4"
