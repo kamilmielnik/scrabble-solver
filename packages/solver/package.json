@@ -33,13 +33,13 @@
     "test": "bun test --timeout 180000 src"
   },
   "dependencies": {
-    "@kamilmielnik/gaddag": "^3.0.0",
-    "@scrabble-solver/types": "^2.18.5"
+    "@kamilmielnik/gaddag": "3.0.0",
+    "@scrabble-solver/types": "2.18.5"
   },
   "devDependencies": {
-    "@scrabble-solver/configs": "^2.18.5",
-    "@scrabble-solver/constants": "^2.18.5",
-    "@scrabble-solver/dictionaries": "^2.18.5"
+    "@scrabble-solver/configs": "2.18.5",
+    "@scrabble-solver/constants": "2.18.5",
+    "@scrabble-solver/dictionaries": "2.18.5"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }

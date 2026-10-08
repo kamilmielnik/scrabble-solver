@@ -3,6 +3,7 @@
 # errors on @aws-sdk/client-s3 - an optional package we don't install.
 [install]
 linker = "hoisted"
+exact = true
 
 [test]
 preload = ["./bun.test.preload.ts"]

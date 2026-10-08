@@ -37,10 +37,10 @@
     "test": "bun test src"
   },
   "dependencies": {
-    "@kamilmielnik/gaddag": "^3.0.0",
-    "@scrabble-solver/logger": "^2.18.5",
-    "@scrabble-solver/types": "^2.18.5",
-    "@scrabble-solver/word-lists": "^2.18.5"
+    "@kamilmielnik/gaddag": "3.0.0",
+    "@scrabble-solver/logger": "2.18.5",
+    "@scrabble-solver/types": "2.18.5",
+    "@scrabble-solver/word-lists": "2.18.5"
   },
   "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
 }

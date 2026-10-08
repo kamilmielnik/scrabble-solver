@@ -30,13 +30,13 @@
     "test": "bun test --timeout 180000 src"
   },
   "dependencies": {
-    "@scrabble-solver/types": "^2.18.5",
-    "cheerio": "^1.2.0",
-    "follow-redirects": "^1.16.1",
-    "striptags": "^3.2.0"
+    "@scrabble-solver/types": "2.18.5",
+    "cheerio": "1.2.0",
+    "follow-redirects": "1.16.1",
+    "striptags": "3.2.0"
   },
   "devDependencies": {
-    "@types/follow-redirects": "^1.14.4",
-    "domhandler": "^6.0.1"
+    "@types/follow-redirects": "1.14.4",
+    "domhandler": "6.0.1"
   }
 }
