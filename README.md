@@ -53,6 +53,9 @@
   <img alt="Screencast GIF showing user interface when solving for oxyphenbutazone, which is a top-scoring word in English version of Scrabble" src="https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/screencast.gif" />
 </div>
 
+> [!WARNING]
+> AI-generated contributions will not be accepted.
+
 # scrabble-solver
 
 ## Table of contents
