@@ -7,6 +7,7 @@ import { type RowComponentProps } from 'react-window';
 import { Cell, Row } from '@/components/Table';
 import Check from '@/icons/Check.svg';
 import Cross from '@/icons/Cross.svg';
+import { createHighlightWords } from '@/lib/createHighlightWords';
 import {
   hoveredWordSlice,
   selectIsWordMatching,
@@ -77,7 +78,11 @@ export const WordRow = ({
       <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />
 
       <Cell primary translationKey="common.word" value={word.word}>
-        <Highlighter highlightClassName={styles.highlight} searchWords={[query]} textToHighlight={word.word} />
+        <Highlighter
+          highlightClassName={styles.highlight}
+          searchWords={createHighlightWords(query)}
+          textToHighlight={word.word}
+        />
       </Cell>
 
       <Cell className={styles.stat} value={validityLabel}>

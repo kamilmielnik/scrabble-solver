@@ -5,6 +5,7 @@ import { type RowComponentProps } from 'react-window';
 import { Cell, Row } from '@/components/Table';
 import { useColumns } from '@/hooks/useColumns';
 import { LOCALE_FEATURES } from '@/i18n/constants';
+import { createHighlightWords } from '@/lib/createHighlightWords';
 import {
   selectIsResultMatching,
   selectLocale,
@@ -59,7 +60,11 @@ export const Result = ({
 
       {columns[ResultColumnId.Word] && (
         <Cell primary translationKey="common.word" value={result.word}>
-          <Highlighter highlightClassName={styles.highlight} searchWords={[query]} textToHighlight={result.word} />
+          <Highlighter
+            highlightClassName={styles.highlight}
+            searchWords={createHighlightWords(query)}
+            textToHighlight={result.word}
+          />
         </Cell>
       )}
 
