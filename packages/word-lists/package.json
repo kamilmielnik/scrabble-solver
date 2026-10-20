@@ -34,7 +34,7 @@
     "@scrabble-solver/types": "2.18.6",
     "cheerio": "1.2.0",
     "follow-redirects": "1.16.1",
-    "transliteration": "2.6.1",
+    "transliteration": "2.6.2",
     "unzipper": "0.12.5"
   },
   "devDependencies": {
