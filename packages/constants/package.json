@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/constants",
-  "version": "2.18.7",
+  "version": "2.18.8",
   "description": "Shared constants for Scrabble Solver (blank tile, bonus markers).",
   "keywords": [
     "scrabble",
@@ -26,5 +26,5 @@
     "build": "tsc --project .",
     "clean": "rimraf build/"
   },
-  "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
+  "gitHead": "f029a11f306a01937ee99fc6365cb226b972dfed"
 }

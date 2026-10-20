@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/logger",
-  "version": "2.18.7",
+  "version": "2.18.8",
   "description": "JSON-lines event log for Scrabble Solver, with CSV export.",
   "keywords": [
     "logger",
@@ -30,5 +30,5 @@
     "export": "bun scripts/export-csv.ts",
     "test": "bun test src"
   },
-  "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
+  "gitHead": "f029a11f306a01937ee99fc6365cb226b972dfed"
 }

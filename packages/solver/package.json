@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/solver",
-  "version": "2.18.7",
+  "version": "2.18.8",
   "description": "Scrabble move-generation engine: anchor-based GADDAG search that finds and scores every legal move for a given board, rack, and game config.",
   "keywords": [
     "scrabble",
@@ -34,12 +34,12 @@
   },
   "dependencies": {
     "@kamilmielnik/gaddag": "3.0.0",
-    "@scrabble-solver/types": "2.18.7"
+    "@scrabble-solver/types": "2.18.8"
   },
   "devDependencies": {
-    "@scrabble-solver/configs": "2.18.7",
-    "@scrabble-solver/constants": "2.18.7",
-    "@scrabble-solver/dictionaries": "2.18.7"
+    "@scrabble-solver/configs": "2.18.8",
+    "@scrabble-solver/constants": "2.18.8",
+    "@scrabble-solver/dictionaries": "2.18.8"
   },
-  "gitHead": "1e2d1ad49a288d4a44196d8e3336740da132c637"
+  "gitHead": "f029a11f306a01937ee99fc6365cb226b972dfed"
 }
