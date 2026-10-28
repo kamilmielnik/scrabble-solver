@@ -6,5 +6,6 @@ export enum Game {
   Scrabble = 'scrabble',
   ScrabbleDuel = 'scrabble-duel',
   SuperScrabble = 'super-scrabble',
+  Wordfeud = 'wordfeud',
   Wyrazy = 'wyrazy',
 }

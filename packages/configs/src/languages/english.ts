@@ -2,7 +2,7 @@
 
 import { Config, Locale } from '@scrabble-solver/types';
 
-import { crossplay, letterLeague, literaki, scrabble, scrabbleDuel, superScrabble } from '../games';
+import { crossplay, letterLeague, literaki, scrabble, scrabbleDuel, superScrabble, wordfeud } from '../games';
 
 export const englishGbCrossplay = new Config({
   ...crossplay,
@@ -203,6 +203,39 @@ export const englishGbSuperScrabble = new Config({
   ],
 });
 
+export const englishGbWordfeud = new Config({
+  ...wordfeud,
+  locale: Locale.EN_GB,
+  tiles: [
+    { character: 'a', count: 10, score: 1 },
+    { character: 'b', count: 2, score: 4 },
+    { character: 'c', count: 2, score: 4 },
+    { character: 'd', count: 5, score: 2 },
+    { character: 'e', count: 12, score: 1 },
+    { character: 'f', count: 2, score: 4 },
+    { character: 'g', count: 3, score: 3 },
+    { character: 'h', count: 3, score: 4 },
+    { character: 'i', count: 9, score: 1 },
+    { character: 'j', count: 1, score: 10 },
+    { character: 'k', count: 1, score: 5 },
+    { character: 'l', count: 4, score: 1 },
+    { character: 'm', count: 2, score: 3 },
+    { character: 'n', count: 6, score: 1 },
+    { character: 'o', count: 7, score: 1 },
+    { character: 'p', count: 2, score: 4 },
+    { character: 'q', count: 1, score: 10 },
+    { character: 'r', count: 6, score: 1 },
+    { character: 's', count: 5, score: 1 },
+    { character: 't', count: 7, score: 1 },
+    { character: 'u', count: 4, score: 2 },
+    { character: 'v', count: 2, score: 4 },
+    { character: 'w', count: 2, score: 4 },
+    { character: 'x', count: 1, score: 8 },
+    { character: 'y', count: 2, score: 4 },
+    { character: 'z', count: 1, score: 10 },
+  ],
+});
+
 export const englishUsCrossplay = new Config({
   ...crossplay,
   locale: Locale.EN_US,
@@ -399,5 +432,38 @@ export const englishUsSuperScrabble = new Config({
     { character: 'x', count: 2, score: 8 },
     { character: 'y', count: 4, score: 4 },
     { character: 'z', count: 2, score: 10 },
+  ],
+});
+
+export const englishUsWordfeud = new Config({
+  ...wordfeud,
+  locale: Locale.EN_US,
+  tiles: [
+    { character: 'a', count: 10, score: 1 },
+    { character: 'b', count: 2, score: 4 },
+    { character: 'c', count: 2, score: 4 },
+    { character: 'd', count: 5, score: 2 },
+    { character: 'e', count: 12, score: 1 },
+    { character: 'f', count: 2, score: 4 },
+    { character: 'g', count: 3, score: 3 },
+    { character: 'h', count: 3, score: 4 },
+    { character: 'i', count: 9, score: 1 },
+    { character: 'j', count: 1, score: 10 },
+    { character: 'k', count: 1, score: 5 },
+    { character: 'l', count: 4, score: 1 },
+    { character: 'm', count: 2, score: 3 },
+    { character: 'n', count: 6, score: 1 },
+    { character: 'o', count: 7, score: 1 },
+    { character: 'p', count: 2, score: 4 },
+    { character: 'q', count: 1, score: 10 },
+    { character: 'r', count: 6, score: 1 },
+    { character: 's', count: 5, score: 1 },
+    { character: 't', count: 7, score: 1 },
+    { character: 'u', count: 4, score: 2 },
+    { character: 'v', count: 2, score: 4 },
+    { character: 'w', count: 2, score: 4 },
+    { character: 'x', count: 1, score: 8 },
+    { character: 'y', count: 2, score: 4 },
+    { character: 'z', count: 1, score: 10 },
   ],
 });
