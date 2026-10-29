@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/logger",
-  "version": "2.18.10-alpha.0",
+  "version": "2.18.10-alpha.1",
   "description": "JSON-lines event log for Scrabble Solver, with CSV export.",
   "keywords": [
     "logger",
