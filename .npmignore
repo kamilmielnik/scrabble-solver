@@ -4,3 +4,4 @@ coverage/
 *.db
 *.log
 *.zip
+.nx/
