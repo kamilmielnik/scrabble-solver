@@ -1,3 +1,4 @@
+# Mirrored in the root .npmignore (the root pack does not read this file)
 .next/cache/
 .next/dev/
 public/service-worker.js.map
