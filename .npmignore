@@ -1,3 +1,5 @@
+# npm drops workspace dirs from the root tarball when publishing with --workspaces; bin/scrabble-solver.js runs packages/scrabble-solver
+!packages/*
 coverage/
 **/node_modules/**
 *.eslintcache
