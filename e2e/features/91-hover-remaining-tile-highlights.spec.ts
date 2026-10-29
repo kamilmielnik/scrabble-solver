@@ -82,13 +82,12 @@ test.describe('#91 - Hovering remaining tile highlights all same tiles on the bo
 });
 
 async function openRemainingTilesModal(page: Page) {
-  await page.getByLabel('Remaining tiles', { exact: true }).click();
-  await expect(Lib.getOpenModal(page)).toBeVisible();
+  await Lib.openModal(page, page.getByLabel('Remaining tiles', { exact: true }));
 }
 
 async function openRemainingTilesModalFromMenu(page: Page) {
-  await page.getByRole('button', { name: 'Menu', exact: true }).click();
-  await Lib.getOpenModal(page).getByLabel('Remaining tiles', { exact: true }).click();
+  await Lib.openMenuModal(page);
+  await Lib.openModal(page, Lib.getOpenModal(page).getByLabel('Remaining tiles', { exact: true }));
   await expect(page.getByTestId('remaining-tile-a')).toBeVisible();
 }
 

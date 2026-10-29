@@ -9,7 +9,7 @@ test.describe('#112 - Scrabble - Character bonus not applied', () => {
   test('correctly shows points for a result which gets a character bonus', async ({ page }) => {
     await Lib.visitIndex(page);
 
-    await Lib.getSettingsButton(page).click();
+    await Lib.openSettingsModal(page);
     await Lib.getSettingOption(page, 'Language', 'Français').check();
     await Lib.closeModal(page);
     await Lib.typeRack(page, 'jours');

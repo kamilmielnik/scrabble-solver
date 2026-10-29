@@ -16,7 +16,7 @@ test.describe('"hidden" coordinates migration', () => {
 
     await expect(Lib.getBoardContainer(page).getByText('A', { exact: true })).toBeVisible();
 
-    await Lib.getSettingsButton(page).click();
+    await Lib.openSettingsModal(page);
     await expect(Lib.getSettingOption(page, 'Coordinates', 'Original')).toBeChecked();
     await Lib.closeModal(page);
 

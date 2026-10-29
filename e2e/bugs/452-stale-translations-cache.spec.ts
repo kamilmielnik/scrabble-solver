@@ -26,7 +26,7 @@ test.describe('#452 - Stale translations cache', () => {
     });
     await page.reload();
 
-    await page.getByLabel('Created words', { exact: true }).click();
+    await Lib.openWordsModal(page);
     await expect(Lib.getOpenModal(page).getByRole('button', { name: 'Validity', exact: true })).toBeVisible();
   });
 });

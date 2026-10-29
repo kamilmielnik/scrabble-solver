@@ -39,7 +39,7 @@ test.describe('Words preview', () => {
     await Lib.getOpenModal(page).getByRole('button', { name: 'Preview', exact: true }).click();
     await Lib.expectTileHighlighted(Lib.getBoardTile(page, 3, 3));
 
-    await page.getByRole('button', { name: 'Results', exact: true }).click();
+    await Lib.openModal(page, page.getByRole('button', { name: 'Results', exact: true }));
     const result = Lib.getOpenModal(page).getByTestId('result').first();
     await expect(result).not.toHaveAttribute('aria-current');
     await result.click();
@@ -77,7 +77,7 @@ test.describe('Words preview', () => {
     await Lib.getOpenModal(page).getByRole('button', { name: 'Preview', exact: true }).click();
     await Lib.expectTileHighlighted(Lib.getBoardTile(page, 3, 3));
 
-    await Lib.getSettingsButton(page).click();
+    await Lib.openSettingsModal(page);
     await Lib.getSettingOption(page, 'Language', 'Polski').check();
     await Lib.closeModal(page);
 
@@ -127,8 +127,8 @@ test.describe('Words preview', () => {
     test('previewing from the menu-opened modal returns to the board', async ({ page }) => {
       await Lib.visitIndex(page);
       await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
-      await page.getByRole('button', { name: 'Menu', exact: true }).click();
-      await Lib.getOpenModal(page).getByLabel('Created words', { exact: true }).click();
+      await Lib.openMenuModal(page);
+      await Lib.openModal(page, Lib.getOpenModal(page).getByLabel('Created words', { exact: true }));
 
       await expect(Lib.getWord(page, 0)).toHaveAttribute('aria-current', 'true');
 

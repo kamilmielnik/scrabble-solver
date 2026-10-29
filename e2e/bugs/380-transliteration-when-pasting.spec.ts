@@ -44,7 +44,7 @@ async function testTransliterationOnPaste(
   },
 ) {
   await Lib.visitIndex(page);
-  await Lib.getSettingsButton(page).click();
+  await Lib.openSettingsModal(page);
   await Lib.getSettingOption(page, 'Language', language).check();
   await Lib.closeModal(page);
   await Lib.paste(Lib.getBoardTile(page, 0, 0), word);
