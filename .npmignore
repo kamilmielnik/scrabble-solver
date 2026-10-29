@@ -7,9 +7,6 @@ coverage/
 *.log
 *.zip
 .nx/
-packages/scrabble-solver/.next/cache/
-packages/scrabble-solver/.next/dev/
-packages/scrabble-solver/public/service-worker.js.map
 .claude/
 .github/
 playwright-report/
@@ -17,3 +14,7 @@ test-results/
 todo.txt
 packages/gaddag/
 /.next/
+# The root pack does not read packages/scrabble-solver/.npmignore - mirror its rules here
+packages/scrabble-solver/.next/cache/
+packages/scrabble-solver/.next/dev/
+packages/scrabble-solver/public/service-worker.js.map
