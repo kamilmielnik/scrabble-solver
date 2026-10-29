@@ -1,3 +1,4 @@
 .next/cache/
 .next/dev/
 public/service-worker.js.map
+*.tsbuildinfo

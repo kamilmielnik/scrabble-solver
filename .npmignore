@@ -6,6 +6,7 @@ coverage/
 *.db
 *.log
 *.zip
+*.tsbuildinfo
 .nx/
 .claude/
 .github/
