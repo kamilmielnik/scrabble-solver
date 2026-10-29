@@ -25,6 +25,5 @@
   "scripts": {
     "build": "tsc --project .",
     "clean": "rimraf build/"
-  },
-  "gitHead": "f029a11f306a01937ee99fc6365cb226b972dfed"
+  }
 }

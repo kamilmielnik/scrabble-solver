@@ -38,6 +38,5 @@
   "devDependencies": {
     "@types/follow-redirects": "1.14.4",
     "domhandler": "6.0.1"
-  },
-  "gitHead": "f029a11f306a01937ee99fc6365cb226b972dfed"
+  }
 }

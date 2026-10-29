@@ -32,6 +32,5 @@
   },
   "dependencies": {
     "@scrabble-solver/constants": "2.18.10-alpha.2"
-  },
-  "gitHead": "f029a11f306a01937ee99fc6365cb226b972dfed"
+  }
 }
