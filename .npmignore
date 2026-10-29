@@ -15,3 +15,4 @@ packages/scrabble-solver/public/service-worker.js.map
 playwright-report/
 test-results/
 todo.txt
+packages/gaddag/
