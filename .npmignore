@@ -11,5 +11,4 @@ packages/scrabble-solver/.next/dev/
 .github/
 playwright-report/
 test-results/
-screencast.gif
 todo.txt
