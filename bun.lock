@@ -42,8 +42,8 @@
       "name": "@scrabble-solver/dictionaries",
       "version": "2.18.9",
       "bin": {
-        "remove-dictionaries": "./bin/remove-dictionaries.js",
-        "update-dictionaries": "./bin/update-dictionaries.js",
+        "remove-dictionaries": "bin/remove-dictionaries.js",
+        "update-dictionaries": "bin/update-dictionaries.js",
       },
       "dependencies": {
         "@kamilmielnik/gaddag": "3.0.0",
