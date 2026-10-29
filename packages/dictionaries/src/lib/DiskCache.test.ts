@@ -5,7 +5,7 @@ import os from 'os';
 import path from 'path';
 
 import { DiskCache } from './DiskCache';
-import { getDictionaryFilepath, getLegacyDictionaryFilepath } from './getDictionaryFilepath';
+import { getDictionaryFilepath } from './getDictionaryFilepath';
 
 const LOCALE = Locale.EN_US;
 const WORDS = ['scrabble', 'solver', 'gaddag'];
@@ -61,16 +61,6 @@ describe('DiskCache', () => {
 
     expect(await cache.get(LOCALE)).toBeUndefined();
     expect(cache.has(LOCALE)).toBe(false);
-  });
-
-  it('removes the legacy pre-gaddag cache file when writing', async () => {
-    const legacyFilepath = getLegacyDictionaryFilepath(LOCALE, directory);
-    fs.writeFileSync(legacyFilepath, 'serialized trie');
-
-    await cache.set(LOCALE, Gaddag.fromArray(WORDS));
-
-    expect(fs.existsSync(legacyFilepath)).toBe(false);
-    expect(cache.has(LOCALE)).toBe(true);
   });
 
   it('reports files older than the stale threshold as stale', async () => {

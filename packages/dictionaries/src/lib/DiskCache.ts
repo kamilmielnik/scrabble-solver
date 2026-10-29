@@ -6,7 +6,7 @@ import fs from 'fs';
 import { CACHE_STALE_THRESHOLD, OUTPUT_DIRECTORY } from '../constants';
 import type { Cache } from '../types';
 
-import { getDictionaryFilepath, getLegacyDictionaryFilepath } from './getDictionaryFilepath';
+import { getDictionaryFilepath } from './getDictionaryFilepath';
 
 export class DiskCache implements Cache<Locale, Gaddag> {
   private readonly directory: string;
@@ -71,7 +71,5 @@ export class DiskCache implements Cache<Locale, Gaddag> {
   public async set(locale: Locale, gaddag: Gaddag): Promise<void> {
     const filepath = getDictionaryFilepath(locale, this.directory);
     await fs.promises.writeFile(filepath, gaddag.serialize());
-    // Serialized-trie cache from before the GADDAG migration - remove this in #437
-    await fs.promises.rm(getLegacyDictionaryFilepath(locale, this.directory), { force: true });
   }
 }
