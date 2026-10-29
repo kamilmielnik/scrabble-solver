@@ -25,7 +25,7 @@ import {
 } from '@/state';
 import { WordColumnId } from '@/types';
 
-import { WordRow, type WordRowData } from './WordRow';
+import { type WordRowData, WordRow } from './WordRow';
 import styles from './WordsTable.module.scss';
 
 interface Props {

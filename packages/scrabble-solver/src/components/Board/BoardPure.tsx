@@ -8,14 +8,14 @@ import {
 } from '@scrabble-solver/types';
 import classNames from 'classnames';
 import {
-  type CSSProperties,
   type ChangeEventHandler,
   type ClipboardEventHandler,
+  type CSSProperties,
   type FocusEventHandler,
-  Fragment,
   type KeyboardEventHandler,
   type RefObject,
   forwardRef,
+  Fragment,
   memo,
 } from 'react';
 

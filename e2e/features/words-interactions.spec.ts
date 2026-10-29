@@ -1,4 +1,4 @@
-import { expect, type Locator, type Page, test } from '@playwright/test';
+import { type Locator, type Page, expect, test } from '@playwright/test';
 
 import * as Lib from '../lib';
 

@@ -4,14 +4,14 @@ import { Gaddag } from '@kamilmielnik/gaddag';
 import { getConfig } from '@scrabble-solver/configs';
 import { BONUS_CHARACTER, BONUS_WORD } from '@scrabble-solver/constants';
 import {
+  type ConfigJson,
+  type ResultJson,
   Board,
   Cell,
   Config,
-  type ConfigJson,
   Game,
   Locale,
   Result,
-  type ResultJson,
   Tile,
 } from '@scrabble-solver/types';
 

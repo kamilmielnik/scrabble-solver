@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useCallback, useEffect, useMemo, type FunctionComponent } from 'react';
+import { type FunctionComponent, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { List, useListRef } from 'react-window';
 import { useDebounce } from 'use-debounce';

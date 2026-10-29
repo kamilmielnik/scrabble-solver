@@ -87,8 +87,8 @@ export const Result = ({
       {columns[ResultColumnId.WordsCount] && (
         <Cell
           className={styles.stat}
-          translationKey="common.words"
           tooltip={`${result.wordsCount.toLocaleString(locale)} (${words.join(separator)})`}
+          translationKey="common.words"
           value={result.wordsCount}
         />
       )}

@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import {
-  forwardRef,
   type HTMLProps,
   type MouseEventHandler,
   type SubmitEventHandler,
+  forwardRef,
   useEffect,
   useState,
 } from 'react';
@@ -64,8 +64,8 @@ export const InputPrompt = forwardRef<HTMLFormElement, Props>(
             autoCorrect="off"
             className={styles.input}
             placeholder={translate('rack.placeholder')}
-            spellCheck={false}
             ref={setInputRef}
+            spellCheck={false}
             value={input}
             onChange={(event) => setInput(event.target.value)}
           />

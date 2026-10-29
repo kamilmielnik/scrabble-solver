@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import type { Cell } from '@scrabble-solver/types';
 
 import type { Point } from '@/types';

@@ -15,6 +15,6 @@ export type SolverWorkerRequest =
 export type SolverWorkerResponse =
   | { id: number; outcome: 'answered'; data: ResultJson[] | VerifyResult }
   /** No cached dictionary, or an internal error - the caller falls back to the server. */
-  | { id: number; outcome: 'unavailable' }
+  | { id: number; outcome: 'superseded' }
   /** A newer solve replaced this one - the newer answer is the one worth waiting for. */
-  | { id: number; outcome: 'superseded' };
+  | { id: number; outcome: 'unavailable' };

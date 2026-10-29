@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { type Locale } from '@scrabble-solver/types';
 
 import type { Translations } from '@/types';

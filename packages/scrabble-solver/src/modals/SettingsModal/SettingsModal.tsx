@@ -10,8 +10,8 @@ import {
   HighlightUnreachableCellsSetting,
   InputModeSetting,
   LocaleSetting,
-  ShowCoordinatesSetting,
   RemoveCellFiltersSetting,
+  ShowCoordinatesSetting,
 } from './components';
 
 interface Props {

@@ -1,6 +1,6 @@
 import { type Result } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import { type FunctionComponent, memo, type SyntheticEvent, useEffect, useMemo } from 'react';
+import { type FunctionComponent, type SyntheticEvent, memo, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
@@ -104,7 +104,7 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
           <div className={styles.column}>
             <Results callbacks={callbacks} className={styles.results} highlightedIndex={highlightedIndex} />
 
-            <div data-testid="dictionary" className={styles.dictionaryContainer}>
+            <div className={styles.dictionaryContainer} data-testid="dictionary">
               <Dictionary className={styles.dictionary} />
               <DictionaryInput className={styles.dictionaryInput} />
             </div>

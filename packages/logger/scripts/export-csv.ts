@@ -2,7 +2,7 @@ import { once } from 'node:events';
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { CSV_DIRECTORY, EVENT_FIELDS, type EventType, type EventValue, formatCsvRow, type LoggedEvent } from '../src';
+import { type EventType, type EventValue, type LoggedEvent, CSV_DIRECTORY, EVENT_FIELDS, formatCsvRow } from '../src';
 
 import { readEvents } from './readEvents';
 

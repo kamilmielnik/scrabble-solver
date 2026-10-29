@@ -19,25 +19,25 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps, router }) => {
       <Head>
         <title>{TITLE}</title>
         <meta charSet="utf-8" />
-        <meta name="author" content="Kamil Mielnik" />
-        <meta name="description" content={SITE_DESCRIPTION} />
-        {isIndexable ? <link rel="canonical" href={`${SITE_URL}/`} /> : <meta name="robots" content="noindex" />}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta property="og:site_name" content="Scrabble Solver" />
-        <meta property="og:title" content={TITLE} />
-        <meta property="og:description" content={SITE_DESCRIPTION} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${SITE_URL}/`} />
-        <meta property="og:locale" content="en_US" />
-        <meta property="og:image" content={`${SITE_URL}/og.png`} />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Scrabble tiles spelling out Scrabble Solver 2" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={TITLE} />
-        <meta name="twitter:description" content={SITE_DESCRIPTION} />
-        <meta name="twitter:image" content={`${SITE_URL}/og.png`} />
+        <meta content="Kamil Mielnik" name="author" />
+        <meta content={SITE_DESCRIPTION} name="description" />
+        {isIndexable ? <link href={`${SITE_URL}/`} rel="canonical" /> : <meta content="noindex" name="robots" />}
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta content="Scrabble Solver" property="og:site_name" />
+        <meta content={TITLE} property="og:title" />
+        <meta content={SITE_DESCRIPTION} property="og:description" />
+        <meta content="website" property="og:type" />
+        <meta content={`${SITE_URL}/`} property="og:url" />
+        <meta content="en_US" property="og:locale" />
+        <meta content={`${SITE_URL}/og.png`} property="og:image" />
+        <meta content="image/png" property="og:image:type" />
+        <meta content="1200" property="og:image:width" />
+        <meta content="630" property="og:image:height" />
+        <meta content="Scrabble tiles spelling out Scrabble Solver 2" property="og:image:alt" />
+        <meta content="summary_large_image" name="twitter:card" />
+        <meta content={TITLE} name="twitter:title" />
+        <meta content={SITE_DESCRIPTION} name="twitter:description" />
+        <meta content={`${SITE_URL}/og.png`} name="twitter:image" />
       </Head>
 
       <Provider store={store}>

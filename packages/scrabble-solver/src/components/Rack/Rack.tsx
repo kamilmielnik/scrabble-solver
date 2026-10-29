@@ -1,6 +1,6 @@
 /* eslint-disable max-lines, max-statements */
 
-import { FloatingPortal, autoUpdate, useFloating } from '@floating-ui/react';
+import { autoUpdate, FloatingPortal, useFloating } from '@floating-ui/react';
 import classNames from 'classnames';
 import {
   type ChangeEvent,
@@ -172,8 +172,8 @@ export const Rack: FunctionComponent<Props> = ({ className }) => {
             key={index}
             tile={tile}
             onChange={handleChange}
-            onKeyDown={handleKeyDown}
             onFocus={handleFocus}
+            onKeyDown={handleKeyDown}
           />
         ))}
       </div>

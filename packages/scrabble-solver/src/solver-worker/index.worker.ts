@@ -3,7 +3,7 @@
 import { getConfig } from '@scrabble-solver/configs';
 import { BLANK } from '@scrabble-solver/constants';
 import { solve } from '@scrabble-solver/solver';
-import { Board, type Locale, Tile } from '@scrabble-solver/types';
+import { type Locale, Board, Tile } from '@scrabble-solver/types';
 
 import { type SolveRequestPayload, type VerifiedWord, type VerifyRequestPayload } from '@/types';
 

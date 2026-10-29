@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { type Game, type Locale, type ShowCoordinates } from '@scrabble-solver/types';
 
 import type { AutoGroupTiles, InputMode, RemoveCellFilters } from '@/types';

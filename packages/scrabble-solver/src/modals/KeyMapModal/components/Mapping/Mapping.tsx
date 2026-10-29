@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Fragment, type FunctionComponent, type ReactNode } from 'react';
+import { type FunctionComponent, type ReactNode, Fragment } from 'react';
 
 import styles from './Mapping.module.scss';
 

@@ -1,7 +1,7 @@
 /* eslint-disable max-lines, max-statements */
 import { type PayloadAction } from '@reduxjs/toolkit';
 import { BLANK, EMPTY_CELL } from '@scrabble-solver/constants';
-import { Board, type Cell } from '@scrabble-solver/types';
+import { type Cell, Board } from '@scrabble-solver/types';
 import {
   type ChangeEvent,
   type ChangeEventHandler,

@@ -1,7 +1,7 @@
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import { type Cell } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import { forwardRef, type HTMLProps, type MouseEventHandler } from 'react';
+import { type HTMLProps, type MouseEventHandler, forwardRef } from 'react';
 
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
 import Keyboard from '@/icons/Keyboard.svg';

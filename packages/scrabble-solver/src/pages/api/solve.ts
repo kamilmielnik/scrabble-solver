@@ -4,14 +4,14 @@ import { dictionaries } from '@scrabble-solver/dictionaries';
 import { logEvent } from '@scrabble-solver/logger';
 import { solve as solveScrabble } from '@scrabble-solver/solver';
 import {
-  Board,
   type Config,
   type Game,
   type Locale,
-  Tile,
+  Board,
   isBoardJson,
   isGame,
   isLocale,
+  Tile,
 } from '@scrabble-solver/types';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 

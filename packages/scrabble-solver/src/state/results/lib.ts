@@ -5,7 +5,7 @@ import { createKeyComparator } from '@/lib/createKeyComparator';
 import { createRegExp } from '@/lib/createRegExp';
 import { createSortComparator } from '@/lib/createSortComparator';
 import { getCoordinates as getPointCoordinates } from '@/lib/getCoordinates';
-import { type CellFilter, type ComparatorFactory, type GroupedResults, ResultColumnId, type Sort } from '@/types';
+import { type CellFilter, type ComparatorFactory, type GroupedResults, type Sort, ResultColumnId } from '@/types';
 
 export const getCoordinates = (result: Result, showCoordinates: ShowCoordinates): string => {
   const firstCell = result.cells[0];

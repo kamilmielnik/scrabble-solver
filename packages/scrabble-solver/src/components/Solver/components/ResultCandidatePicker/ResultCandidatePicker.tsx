@@ -10,10 +10,10 @@ import { LOADING_DELAY } from '@/parameters';
 import {
   resultsSlice,
   selectAreResultsOutdated,
-  selectSolveIsLoading,
   selectLocale,
   selectProcessedResults,
   selectResultCandidate,
+  selectSolveIsLoading,
   useTranslate,
   useTypedSelector,
 } from '@/state';

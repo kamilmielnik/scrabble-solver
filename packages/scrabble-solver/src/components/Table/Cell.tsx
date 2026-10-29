@@ -14,8 +14,8 @@ interface Props {
   'data-testid'?: string;
   primary?: boolean;
   translationKey?: TranslationKey;
-  tooltip?: string | number;
-  value: string | number;
+  tooltip?: number | string;
+  value: number | string;
 }
 
 export const Cell: FunctionComponent<Props> = ({

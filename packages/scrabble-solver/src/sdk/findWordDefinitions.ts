@@ -1,4 +1,4 @@
-import { type Locale, WordDefinition, type WordDefinitionJson } from '@scrabble-solver/types';
+import { type Locale, type WordDefinitionJson, WordDefinition } from '@scrabble-solver/types';
 
 import { fetchJson } from './fetchJson';
 

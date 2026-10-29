@@ -1,14 +1,14 @@
-export type Event = VisitEvent | SolveEvent | VerifyEvent | DownloadEvent | DefinitionEvent | BuildEvent | ErrorEvent;
+export type Event = BuildEvent | DefinitionEvent | DownloadEvent | ErrorEvent | SolveEvent | VerifyEvent | VisitEvent;
 
 export type EventType = Event['type'];
 
 export type EventOf<T extends EventType> = Extract<Event, { type: T }>;
 
-export type EventValue = string | number | boolean | undefined;
+export type EventValue = boolean | number | string | undefined;
 
 export type LoggedEvent = Event & { timestamp: string };
 
-export type Operation = 'visit' | 'solve' | 'verify' | 'download' | 'definition' | 'build' | 'cache';
+export type Operation = 'build' | 'cache' | 'definition' | 'download' | 'solve' | 'verify' | 'visit';
 
 type VisitEvent = {
   type: 'visit';

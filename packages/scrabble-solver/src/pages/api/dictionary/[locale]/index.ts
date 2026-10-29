@@ -1,7 +1,7 @@
 import { type Gaddag } from '@kamilmielnik/gaddag';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import { logEvent } from '@scrabble-solver/logger';
-import { isLocale, type Locale } from '@scrabble-solver/types';
+import { type Locale, isLocale } from '@scrabble-solver/types';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 import { promisify } from 'util';
 import { gzip } from 'zlib';

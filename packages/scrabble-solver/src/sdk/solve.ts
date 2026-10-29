@@ -1,4 +1,4 @@
-import { Board, Result, type ResultJson } from '@scrabble-solver/types';
+import { type ResultJson, Board, Result } from '@scrabble-solver/types';
 
 import { solveLocally } from '@/solver-worker';
 import { type SolveRequestPayload } from '@/types';

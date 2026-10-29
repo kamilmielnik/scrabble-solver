@@ -59,7 +59,7 @@ export const Dictionary: FunctionComponent<Props> = ({ className }) => {
               {isAllowed === true && definitions.length > 0 && (
                 <ul className={styles.definitions}>
                   {definitions.map((result, index) => (
-                    <li key={index} className={styles.definition}>
+                    <li className={styles.definition} key={index}>
                       {result}
                     </li>
                   ))}

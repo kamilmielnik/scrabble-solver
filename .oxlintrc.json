@@ -2,7 +2,7 @@
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["eslint", "typescript", "react", "import", "unicorn", "oxc", "jest"],
   "jsPlugins": [
-    { "name": "import-js", "specifier": "eslint-plugin-import" },
+    { "name": "perfectionist", "specifier": "eslint-plugin-perfectionist" },
     { "name": "playwright", "specifier": "eslint-plugin-playwright" },
     { "name": "react-js", "specifier": "eslint-plugin-react" }
   ],
@@ -30,18 +30,6 @@
   "settings": {
     "react": {
       "version": "19"
-    },
-    "import-js/extensions": [".js", ".jsx", ".ts", ".tsx"],
-    "import-js/external-module-folders": ["node_modules"],
-    "import-js/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
-    },
-    "import-js/resolver": {
-      "typescript": {
-        "alwaysTryTypes": true,
-        "project": ["tsconfig.json", "packages/*/tsconfig.json", "e2e/tsconfig.json"]
-      },
-      "node": true
     }
   },
   "ignorePatterns": [
@@ -60,23 +48,33 @@
   ],
   "rules": {
     "import/default": "error",
+    "import/newline-after-import": "error",
     "import/no-absolute-path": "error",
     "import/no-cycle": "error",
     "import/no-dynamic-require": "error",
 
-    "import-js/newline-after-import": "error",
-    "import-js/order": [
+    "jest/no-focused-tests": "error",
+
+    "perfectionist/sort-import-attributes": "error",
+    "perfectionist/sort-imports": [
       "error",
       {
-        "alphabetize": { "order": "asc", "caseInsensitive": true },
         "groups": [["builtin", "external"], "internal", "parent", "sibling", "index"],
-        "newlines-between": "always",
-        "pathGroups": [{ "pattern": "@/**", "group": "internal" }],
-        "pathGroupsExcludedImportTypes": ["builtin"]
+        "internalPattern": ["^@/"]
       }
     ],
-
-    "jest/no-focused-tests": "error",
+    "perfectionist/sort-jsx-props": [
+      "error",
+      {
+        "groups": ["unknown", "callbacks"],
+        "customGroups": [{ "groupName": "callbacks", "elementNamePattern": "^on[A-Z]" }]
+      }
+    ],
+    "perfectionist/sort-named-imports": ["error", { "groups": ["type-import", "value-import"] }],
+    "perfectionist/sort-union-types": [
+      "error",
+      { "groups": ["named", "keyword", "literal", "unknown", "nullish"] }
+    ],
 
     "react-js/no-deprecated": "error",
     "react-js/no-unused-prop-types": "error",

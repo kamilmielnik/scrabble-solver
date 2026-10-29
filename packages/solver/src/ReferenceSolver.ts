@@ -7,9 +7,9 @@ import {
   type Bonus,
   type Cell,
   type Config,
+  type Tile,
   isMultiplierBingo,
   isScoreBingo,
-  type Tile,
 } from '@scrabble-solver/types';
 
 interface ReferencePlacement {

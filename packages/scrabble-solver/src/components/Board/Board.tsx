@@ -1,6 +1,6 @@
 /* eslint-disable max-lines, max-statements */
 
-import { FloatingPortal, type ReferenceType } from '@floating-ui/react';
+import { type ReferenceType, FloatingPortal } from '@floating-ui/react';
 import { EMPTY_CELL } from '@scrabble-solver/constants';
 import classNames from 'classnames';
 import { type FocusEventHandler, type FunctionComponent, useCallback, useState } from 'react';
@@ -144,8 +144,8 @@ export const Board: FunctionComponent<Props> = ({ className }) => {
   return (
     <>
       <BoardPure
-        className={className}
         cellFilters={cellFilters}
+        className={className}
         config={config}
         direction={LOCALE_FEATURES[locale].direction}
         hoveredCharacter={hoveredCharacter}

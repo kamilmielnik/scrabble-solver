@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import readline from 'node:readline';
 
-import { EVENT_FIELDS, EVENTS_FILEPATH, type LoggedEvent } from '../src';
+import { type LoggedEvent, EVENT_FIELDS, EVENTS_FILEPATH } from '../src';
 
 export async function* readEvents(): AsyncGenerator<LoggedEvent | undefined> {
   if (!fs.existsSync(EVENTS_FILEPATH)) {

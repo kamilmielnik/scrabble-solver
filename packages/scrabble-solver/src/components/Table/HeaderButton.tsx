@@ -4,7 +4,7 @@ import { type FunctionComponent, type ReactElement, type SVGAttributes, useCallb
 import SortDown from '@/icons/SortDown.svg';
 import SortUp from '@/icons/SortUp.svg';
 import { useTranslate } from '@/state';
-import { type Sort, SortDirection, type TranslationKey } from '@/types';
+import { type Sort, type TranslationKey, SortDirection } from '@/types';
 
 import { Tooltip } from '../Tooltip';
 

@@ -1,4 +1,4 @@
-import { expect, type Page, test } from '@playwright/test';
+import { type Page, expect, test } from '@playwright/test';
 
 import * as Lib from '../lib';
 
@@ -59,7 +59,7 @@ test.describe('#430 - Highlight unreachable cells includes current results', () 
   });
 });
 
-async function setHighlightUnreachableCells(page: Page, value: 'On' | 'Off') {
+async function setHighlightUnreachableCells(page: Page, value: 'Off' | 'On') {
   await Lib.getSettingsButton(page).click();
   await expect(Lib.getOpenModal(page)).toBeVisible();
   await Lib.getSettingOption(page, 'Highlight unreachable cells', value).check();

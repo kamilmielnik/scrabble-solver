@@ -5,10 +5,10 @@ import {
   type ChangeEventHandler,
   type FocusEventHandler,
   type FunctionComponent,
-  memo,
   type MouseEventHandler,
   type RefObject,
   type TouchEventHandler,
+  memo,
   useCallback,
 } from 'react';
 
@@ -106,6 +106,7 @@ const CellBase: FunctionComponent<Props> = ({
             ? `${getCoordinate(x, 'number')}${getCoordinate(y, 'letter')}`
             : `${getCoordinate(x, 'letter')}${getCoordinate(y, 'number')}`,
       })}
+      character={isEmpty ? undefined : tile.character}
       className={classNames(styles.tile, className, {
         [styles.first3]: x < 3,
         [styles.last3]: config.boardWidth - x - 1 < 3,
@@ -115,7 +116,6 @@ const CellBase: FunctionComponent<Props> = ({
         [styles.sharpBottomRight]: cellBottom?.hasTile() || cellRight?.hasTile(),
         [styles.unreachable]: !isReachable,
       })}
-      character={isEmpty ? undefined : tile.character}
       highlighted={highlighted}
       inputRef={inputRef}
       isBlank={tile.isBlank}

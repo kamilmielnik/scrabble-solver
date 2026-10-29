@@ -5,7 +5,7 @@
 
 import { type PayloadAction } from '@reduxjs/toolkit';
 import { hasConfig, languages } from '@scrabble-solver/configs';
-import { Board, Locale, type Result } from '@scrabble-solver/types';
+import { type Result, Board, Locale } from '@scrabble-solver/types';
 import { call, delay, put, select, spawn, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import { LOCALE_FEATURES } from '@/i18n/constants';
@@ -27,6 +27,7 @@ import { localStorage } from './localStorage';
 import { rackSlice, selectCharacters, selectRack } from './rack';
 import { resultsSlice } from './results';
 import {
+  type SettingsState,
   selectConfig,
   selectGame,
   selectLocale,
@@ -34,7 +35,6 @@ import {
   selectRemoveCellFilters,
   settingsInitialState,
   settingsSlice,
-  type SettingsState,
 } from './settings';
 import { guessLocale } from './settings/lib';
 import { solveSlice } from './solve';

@@ -1,4 +1,4 @@
-import { Board, type BoardJson, isObject, type Locale } from '@scrabble-solver/types';
+import { type BoardJson, type Locale, Board, isObject } from '@scrabble-solver/types';
 import store2 from 'store2';
 
 import { englishTranslations } from '@/i18n/i18n';

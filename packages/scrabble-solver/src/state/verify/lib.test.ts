@@ -1,4 +1,4 @@
-import { SortDirection, type VerifiedWord, WordColumnId } from '../../types';
+import { type VerifiedWord, SortDirection, WordColumnId } from '../../types';
 
 import { getWordCoordinates, sortWords } from './lib';
 

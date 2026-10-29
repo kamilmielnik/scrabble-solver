@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 import Search from '@/icons/Search.svg';
 import {
   selectAreResultsOutdated,
-  selectSolveIsLoading,
   selectRack,
+  selectSolveIsLoading,
   solveSlice,
   useTranslate,
   useTypedSelector,

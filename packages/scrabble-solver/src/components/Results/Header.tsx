@@ -1,7 +1,7 @@
 import { type FunctionComponent, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Header as TableHeader, HeaderButton } from '@/components/Table';
+import { HeaderButton, Header as TableHeader } from '@/components/Table';
 import { useColumns } from '@/hooks/useColumns';
 import GeoAlt from '@/icons/GeoAlt.svg';
 import OneTwoThree from '@/icons/OneTwoThree.svg';

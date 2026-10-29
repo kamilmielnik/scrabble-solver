@@ -1,7 +1,7 @@
 import fs from 'fs';
 
 import { EVENTS_FILEPATH, IS_TEST_RUN, OUTPUT_DIRECTORY } from './constants';
-import { EVENT_FIELDS, type Event } from './events';
+import { type Event, EVENT_FIELDS } from './events';
 
 export function logEvent(event: Event): void {
   if (IS_TEST_RUN) {
