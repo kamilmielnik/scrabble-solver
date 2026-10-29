@@ -1,0 +1,4 @@
+.next/cache/
+.next/dev/
+public/service-worker.js
+public/service-worker.js.map
