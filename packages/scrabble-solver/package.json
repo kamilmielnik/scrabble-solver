@@ -93,7 +93,7 @@
     "@types/react-modal": "3.16.3",
     "@types/react-portal": "4.0.7",
     "postcss": "8.5.32",
-    "sass": "1.106.1"
+    "sass": "1.107.0"
   },
   "gitHead": "f029a11f306a01937ee99fc6365cb226b972dfed"
 }
