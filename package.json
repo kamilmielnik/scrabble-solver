@@ -41,7 +41,7 @@
     "reinstall": "bun run clean && bun install && bun run build",
     "release": "bun run release:prepare && bun run test && nx release --skip-publish && bun run release:publish",
     "release:prepare": "bun run reinstall",
-    "release:publish": "git push --follow-tags && npm publish --workspaces --include-workspace-root --access public",
+    "release:publish": "git push --follow-tags && npm publish --workspaces --include-workspace-root --access public --tag $(node -p \"/-/.test(require('./package.json').version) ? 'next' : 'latest'\")",
     "screencast": "start-server-and-test start:app http://localhost:3333 screencast:record",
     "screencast:record": "bun scripts/record-screencast.ts",
     "start": "bun run --parallel --no-orphans 'start:*'",
