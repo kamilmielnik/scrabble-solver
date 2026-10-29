@@ -8,11 +8,11 @@ import * as Lib from '../lib';
 test.describe('#398 - Solitary digraph tiles are recognised as created words', () => {
   test('should transliterate special characters when pasting in French', async ({ page }) => {
     await Lib.visitIndex(page);
-    await Lib.getSettingsButton(page).click();
+    await Lib.openSettingsModal(page);
     await Lib.getSettingOption(page, 'Language', 'Español').check();
     await Lib.closeModal(page);
     await Lib.pasteBoard(page, 'chiclean', 'horizontal', { x: 3, y: 7 });
-    await page.getByLabel('Palabras creadas', { exact: true }).click();
+    await Lib.openModal(page, page.getByLabel('Palabras creadas', { exact: true }));
 
     const modal = Lib.getOpenModal(page);
     await expect(modal.getByText('ch', { exact: true })).toHaveCount(0);

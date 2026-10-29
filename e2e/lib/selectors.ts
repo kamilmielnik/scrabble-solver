@@ -5,7 +5,7 @@ export function getModal(page: Page): Locator {
 }
 
 export function getOpenModal(page: Page): Locator {
-  return page.locator('.ReactModal__Overlay--after-open').getByRole('dialog');
+  return page.locator('.ReactModal__Overlay--after-open:not(.ReactModal__Overlay--before-close)').getByRole('dialog');
 }
 
 export function getBoardContainer(page: Page): Locator {

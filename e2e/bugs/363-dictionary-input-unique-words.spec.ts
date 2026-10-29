@@ -13,7 +13,7 @@ test.describe('#363 - Dictionary input should display unique words', () => {
     });
 
     await Lib.visitIndex(page);
-    await Lib.getSettingsButton(page).click();
+    await Lib.openSettingsModal(page);
     await Lib.getSettingOption(page, 'Language', 'Türkçe').check();
     await Lib.closeModal(page);
     await Lib.typeBoard(page, 'ponje', 'horizontal', { x: 3, y: 7 });

@@ -60,8 +60,7 @@ test.describe('#430 - Highlight unreachable cells includes current results', () 
 });
 
 async function setHighlightUnreachableCells(page: Page, value: 'Off' | 'On') {
-  await Lib.getSettingsButton(page).click();
-  await expect(Lib.getOpenModal(page)).toBeVisible();
+  await Lib.openSettingsModal(page);
   await Lib.getSettingOption(page, 'Highlight unreachable cells', value).check();
   await Lib.closeModal(page);
 }

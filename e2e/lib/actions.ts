@@ -12,6 +12,7 @@ import {
   getResult,
   getResultCandidatePicker,
   getResultsContainer,
+  getSettingsButton,
   getWord,
 } from './selectors';
 
@@ -39,13 +40,25 @@ export async function closeModal(page: Page): Promise<void> {
 }
 
 export async function openWordsModal(page: Page): Promise<void> {
-  await page.getByLabel('Created words', { exact: true }).click();
-  await expect(getOpenModal(page)).toBeVisible();
+  await openModal(page, page.getByLabel('Created words', { exact: true }));
 }
 
 export async function openResultsModal(page: Page): Promise<void> {
-  await getResultCandidatePicker(page).click();
-  await expect(getOpenModal(page)).toBeVisible();
+  await openModal(page, getResultCandidatePicker(page));
+}
+
+export async function openSettingsModal(page: Page): Promise<void> {
+  await openModal(page, getSettingsButton(page));
+}
+
+export async function openMenuModal(page: Page): Promise<void> {
+  await openModal(page, page.getByRole('button', { name: 'Menu', exact: true }));
+}
+
+export async function openModal(page: Page, trigger: Locator): Promise<void> {
+  const openModalsBeforeClick = await getOpenModal(page).count();
+  await trigger.click();
+  await expect(getOpenModal(page)).toHaveCount(openModalsBeforeClick + 1);
 }
 
 export async function closeModalWithButton(page: Page): Promise<void> {
