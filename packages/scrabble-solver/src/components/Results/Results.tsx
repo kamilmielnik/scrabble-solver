@@ -6,7 +6,7 @@ import { useDebounce } from 'use-debounce';
 
 import { useLatest } from '@/hooks/useLatest';
 import { LOCALE_FEATURES } from '@/i18n/constants';
-import { RESULTS_ITEM_HEIGHT, RESULTS_OVERSCAN_COUNT } from '@/parameters';
+import { LOADING_DELAY, RESULTS_ITEM_HEIGHT, RESULTS_OVERSCAN_COUNT } from '@/parameters';
 import {
   resultsSlice,
   selectAreResultsOutdated,
@@ -35,8 +35,6 @@ interface Props {
   highlightedIndex?: number;
 }
 
-const IS_LOADING_DEBOUNCE = 100;
-
 export const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIndex }) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
@@ -45,7 +43,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
   const results = useTypedSelector(selectProcessedResults);
   const query = useTypedSelector(selectResultsQuery);
   const isLoading = useTypedSelector(selectSolveIsLoading);
-  const [isLoadingDebounced] = useDebounce(isLoading, IS_LOADING_DEBOUNCE);
+  const [isLoadingDebounced] = useDebounce(isLoading, LOADING_DELAY);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const error = useTypedSelector(selectSolveError);
   const itemData = useMemo<ResultData>(
@@ -106,7 +104,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
           </EmptyState>
         )}
 
-        {typeof error === 'undefined' && typeof results === 'undefined' && (
+        {typeof error === 'undefined' && typeof results === 'undefined' && !isLoading && (
           <EmptyState className={styles.emptyState} variant="info">
             {translate('results.empty-state.uninitialized')}
 

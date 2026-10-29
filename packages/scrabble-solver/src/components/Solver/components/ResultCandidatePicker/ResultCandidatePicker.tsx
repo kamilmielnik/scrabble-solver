@@ -1,10 +1,12 @@
 import classNames from 'classnames';
 import { type FunctionComponent, type HTMLProps, type MouseEventHandler } from 'react';
 import { useDispatch } from 'react-redux';
+import { useDebounce } from 'use-debounce';
 
 import ChevronDown from '@/icons/ChevronDown.svg';
 import ChevronLeft from '@/icons/ChevronLeft.svg';
 import ChevronRight from '@/icons/ChevronRight.svg';
+import { LOADING_DELAY } from '@/parameters';
 import {
   resultsSlice,
   selectAreResultsOutdated,
@@ -31,6 +33,7 @@ export const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onR
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
   const isLoading = useTypedSelector(selectSolveIsLoading);
+  const [isLoadingDebounced] = useDebounce(isLoading, LOADING_DELAY);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
   const results = useTypedSelector(selectProcessedResults);
   const resultCandidate = useTypedSelector(selectResultCandidate);
@@ -94,8 +97,8 @@ export const ResultCandidatePicker: FunctionComponent<Props> = ({ className, onR
         )}
 
         <div className={styles.iconContainer}>
-          {isLoading && <Spinner className={styles.loading} />}
-          {!isLoading && <ChevronDown aria-hidden="true" className={styles.icon} role="img" />}
+          {isLoadingDebounced && <Spinner className={styles.loading} />}
+          {!isLoadingDebounced && <ChevronDown aria-hidden="true" className={styles.icon} role="img" />}
         </div>
       </button>
 

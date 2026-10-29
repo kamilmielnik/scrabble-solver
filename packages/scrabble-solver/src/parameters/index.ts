@@ -79,3 +79,5 @@ export const PLAIN_TILES_TILE_SIZE = 80;
 export const RESULTS_ITEM_HEIGHT = Number(variables.resultsItemHeight);
 
 export const RESULTS_OVERSCAN_COUNT = 10;
+
+export const LOADING_DELAY = 100;
