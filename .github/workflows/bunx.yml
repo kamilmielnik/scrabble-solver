@@ -18,8 +18,8 @@ jobs:
           VERSION=$(node -p "require('./package.json').version")
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
           echo "Target version: $VERSION"
-          # Unscoped CLI package (published by `np`) + every non-private workspace
-          # package (published by `lerna publish`). All version in lockstep.
+          # Unscoped CLI package + every non-private workspace package, published
+          # together by `bun run release`. All version in lockstep.
           PACKAGES=$(node -p "['scrabble-solver', ...require('fs').readdirSync('packages').map(d=>require('./packages/'+d+'/package.json')).filter(p=>!p.private).map(p=>p.name)].join(' ')")
           echo "Waiting for: $PACKAGES"
           for pkg in $PACKAGES; do

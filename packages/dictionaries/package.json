@@ -12,8 +12,8 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "bin": {
-    "remove-dictionaries": "./bin/remove-dictionaries.js",
-    "update-dictionaries": "./bin/update-dictionaries.js"
+    "remove-dictionaries": "bin/remove-dictionaries.js",
+    "update-dictionaries": "bin/update-dictionaries.js"
   },
   "repository": {
     "type": "git",

@@ -204,7 +204,6 @@ bun run --filter @scrabble-solver/word-lists build
 - [SCSS](https://sass-lang.com/)
 - [CSS Modules](https://github.com/css-modules/css-modules)
 - [include-media](https://eduardoboucas.github.io/include-media/)
-- [Lerna](https://lerna.js.org/)
 - [Nx](https://nx.dev/)
 - [Playwright](https://playwright.dev/)
 - [Oxlint](https://oxc.rs/docs/guide/usage/linter)

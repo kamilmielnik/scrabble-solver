@@ -6,5 +6,33 @@
       ],
       "cache": true
     }
+  },
+  "release": {
+    "projects": [
+      "scrabble-solver",
+      "@scrabble-solver/*"
+    ],
+    "projectsRelationship": "fixed",
+    "version": {
+      "currentVersionResolver": "disk"
+    },
+    "releaseTag": {
+      "pattern": "{version}"
+    },
+    "git": {
+      "commit": true,
+      "commitMessage": "{version}",
+      "tag": true,
+      "push": false
+    },
+    "changelog": {
+      "projectChangelogs": false,
+      "workspaceChangelog": false
+    }
+  },
+  "pluginsConfig": {
+    "@nx/js": {
+      "analyzeSourceFiles": false
+    }
   }
 }
