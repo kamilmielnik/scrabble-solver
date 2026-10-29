@@ -7,3 +7,9 @@ coverage/
 .nx/
 packages/scrabble-solver/.next/cache/
 packages/scrabble-solver/.next/dev/
+.claude/
+.github/
+playwright-report/
+test-results/
+screencast.gif
+todo.txt
