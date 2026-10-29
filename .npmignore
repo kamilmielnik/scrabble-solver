@@ -5,3 +5,5 @@ coverage/
 *.log
 *.zip
 .nx/
+packages/scrabble-solver/.next/cache/
+packages/scrabble-solver/.next/dev/
