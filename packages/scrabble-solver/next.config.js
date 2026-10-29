@@ -45,7 +45,12 @@ module.exports = {
         new WorkboxPlugin.InjectManifest({
           swSrc: path.join(__dirname, 'src/service-worker/index.ts'),
           swDest: path.join(__dirname, 'public/service-worker.js'),
-          exclude: [/\.css$/, /\.map$/, /service-worker\.js$/],
+          /**
+           * Next serves only `_next/static/`. Its manifests and `server/` bundles land in the
+           * same compilation, and one 404 fails the whole precache install.
+           */
+          include: [/^static\//],
+          exclude: [/\.css$/, /\.map$/],
         }),
       );
     }
