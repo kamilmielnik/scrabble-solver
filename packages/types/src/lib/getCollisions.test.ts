@@ -79,4 +79,81 @@ describe('getCollisions', () => {
 
     expect(getCollisions(board, cells, true)).toEqual([]);
   });
+
+  it('skips board tiles of the main word even when they have perpendicular neighbours', () => {
+    const board = Board.fromStringArray([' wx  ', ' a   ', '  y  ']);
+    const cells = getCells(board, { blankIndices: [], id: 0, isHorizontal: true, points: 0, tiles: ['b'], x: 1, y: 1 });
+
+    expect(cells.map(String).join('')).toBe('ab');
+    expect(getCollisions(board, cells, true).map(spell)).toEqual(['xby']);
+  });
+
+  it('skips a board tile of a vertical word', () => {
+    const board = Board.fromStringArray(['     ', ' xa  ', '     ']);
+    const cells = getCells(board, {
+      blankIndices: [],
+      id: 0,
+      isHorizontal: false,
+      points: 0,
+      tiles: ['b'],
+      x: 2,
+      y: 1,
+    });
+
+    expect(cells.map(String).join('')).toBe('ab');
+    expect(getCollisions(board, cells, false)).toEqual([]);
+  });
+
+  it('reads collisions in the order of the word', () => {
+    const board = Board.fromStringArray(['a b c', '     ']);
+    const cells = getCells(board, {
+      blankIndices: [],
+      id: 0,
+      isHorizontal: true,
+      points: 0,
+      tiles: ['x', 'y', 'z', 'q', 'r'],
+      x: 0,
+      y: 1,
+    });
+
+    expect(getCollisions(board, cells, true).map(spell)).toEqual(['ax', 'bz', 'cr']);
+  });
+
+  it('reads a collision in the last column of a wide board', () => {
+    const board = Board.fromStringArray(['    a', '     ']);
+    const cells = getCells(board, {
+      blankIndices: [],
+      id: 0,
+      isHorizontal: true,
+      points: 0,
+      tiles: ['b', 'c'],
+      x: 3,
+      y: 1,
+    });
+
+    expect(getCollisions(board, cells, true).map(spell)).toEqual(['ac']);
+  });
+
+  it('reads a collision in the last row of a tall board', () => {
+    const board = Board.fromStringArray(['  ', '  ', '  ', 'a ']);
+    const cells = getCells(board, {
+      blankIndices: [],
+      id: 0,
+      isHorizontal: false,
+      points: 0,
+      tiles: ['b', 'c'],
+      x: 1,
+      y: 2,
+    });
+
+    expect(getCollisions(board, cells, false).map(spell)).toEqual(['ac']);
+  });
+
+  it('has nothing to read without cells', () => {
+    expect(getCollisions(Board.fromStringArray(['a']), [], true)).toEqual([]);
+  });
 });
+
+function spell(cells: Cell[]): string {
+  return cells.map(String).join('');
+}
