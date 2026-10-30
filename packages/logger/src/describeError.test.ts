@@ -106,7 +106,27 @@ describe('describeError', () => {
       expect(describeError(error).message).toBe('AggregateError: failed (Error: first (Error: root))');
     });
 
-    it.todo('describes an error whose cause chain loops back on itself instead of overflowing the stack');
+    it('describes an error that is its own cause instead of overflowing the stack', () => {
+      const error = new Error('boom');
+      error.cause = error;
+
+      expect(describeError(error).message).toBe('Error: boom ([circular])');
+    });
+
+    it('describes a cause chain that loops back to an earlier error', () => {
+      const first = new Error('first');
+      first.cause = new Error('second', { cause: first });
+
+      expect(describeError(first).message).toBe('Error: first (Error: second ([circular]))');
+    });
+
+    it('describes the same error twice when it is not its own ancestor', () => {
+      const shared = new Error('shared');
+
+      expect(describeError(new AggregateError([shared, shared], 'both')).message).toBe(
+        'AggregateError: both (Error: shared; Error: shared)',
+      );
+    });
   });
 
   describe('values that are not errors', () => {
@@ -126,7 +146,9 @@ describe('describeError', () => {
       expect(describeError(value)).toEqual({ message, stack: undefined });
     });
 
-    it.todo('describes a thrown value that cannot be converted to a string instead of throwing');
+    it('describes a thrown value that cannot be converted to a string instead of throwing', () => {
+      expect(describeError(Object.create(null))).toEqual({ message: '[unprintable value]', stack: undefined });
+    });
   });
 
   describe('stack', () => {

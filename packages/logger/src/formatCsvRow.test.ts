@@ -25,8 +25,6 @@ describe('formatCsvRow', () => {
     it('keeps every column of a row made of missing values', () => {
       expect(formatCsvRow([undefined, undefined, undefined])).toBe(',,\n');
     });
-
-    it.todo('writes null as an empty field');
   });
 
   describe('quoting', () => {

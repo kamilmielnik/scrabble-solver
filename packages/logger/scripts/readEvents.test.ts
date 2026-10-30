@@ -126,7 +126,15 @@ describe('readEvents', () => {
     expect(await readAll()).toEqual([VISIT, undefined, SOLVE] as LoggedEvent[]);
   });
 
-  it.todo('marks a line whose timestamp is not a date as unparseable');
+  it.each([
+    ['holds a path separator', 'a/bc'],
+    ['is not a date', 'oops'],
+    ['lacks the time', '2026-08-23'],
+  ])('marks a line whose timestamp %s as unparseable', async (_name, timestamp) => {
+    fs.writeFileSync(EVENTS_FILEPATH, `{"timestamp":"${timestamp}","type":"visit"}\n${SOLVE_LINE}\n`);
+
+    expect(await readAll()).toEqual([undefined, SOLVE] as LoggedEvent[]);
+  });
 });
 
 async function mockConstants(): Promise<void> {
