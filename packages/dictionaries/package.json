@@ -15,6 +15,10 @@
     "remove-dictionaries": "bin/remove-dictionaries.js",
     "update-dictionaries": "bin/update-dictionaries.js"
   },
+  "files": [
+    "bin",
+    "build"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kamilmielnik/scrabble-solver.git"
