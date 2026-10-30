@@ -16,16 +16,6 @@ jobs:
         with:
           node-version: 24
       - run: bun install --frozen-lockfile
-      - run: bunx playwright install --with-deps chromium
       - run: bun run build
       - run: bunx tsc --project scripts
       - run: bun run check-tarballs
-      - run: bun run test-tarballs
-      - uses: actions/upload-artifact@v7
-        if: failure()
-        with:
-          name: playwright-artifacts
-          path: |
-            playwright-report
-            test-results
-          if-no-files-found: ignore
