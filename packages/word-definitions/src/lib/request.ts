@@ -14,6 +14,7 @@ export const request = ({ protocol, ...options }: Options): Promise<string> => {
       .get(options, (response) => {
         let data = '';
         response.setEncoding('utf8');
+        response.on('error', reject);
         response.on('data', (chunk) => {
           data += chunk;
         });

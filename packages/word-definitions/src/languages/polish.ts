@@ -18,7 +18,7 @@ export const parse = (html: string): ParsingResult => {
   const $definitions = $header.next().next().next().next();
 
   return {
-    definitions: $definitions.text().trim().split(/\d+\./),
+    definitions: $definitions.text().trim().split(/(?<!\d)\d+\.(?!\d)/),
     exists: $isAllowed.text().trim().indexOf('dopuszczalne w grach') >= 0,
   };
 };

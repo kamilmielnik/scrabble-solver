@@ -48,7 +48,11 @@ describe('german parse', () => {
       expect(parse(html).definitions).toEqual(['aus der Übersicht']);
     });
 
-    it.todo('keeps a sub-list that has no link in front of it');
+    it('keeps a sub-list that has no link in front of it', () => {
+      const html = createOverview('<li>Oberbegriff<ol><li>Unterbegriff</li></ol></li>');
+
+      expect(parse(html).definitions.join(' ')).toContain('Unterbegriff');
+    });
   });
 
   describe('detailed meanings', () => {
@@ -152,8 +156,6 @@ describe('german parse', () => {
 
       expect(parse(html)).toEqual({ definitions: [], exists: true });
     });
-
-    it.todo('reports a missing word for an empty page');
   });
 
   it('finds no definitions on an empty page', () => {

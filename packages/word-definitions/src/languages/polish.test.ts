@@ -60,7 +60,11 @@ describe('polish parse', () => {
     expect(parse(Locale.PL_PL, '')).toEqual({ definitions: [], exists: false });
   });
 
-  it.todo('keeps a decimal number inside a definition, such as "miara 2.5 litra"');
+  it('keeps a decimal number inside a definition', () => {
+    const html = createEntry(ALLOWED, '1. miara 2.5 litra;<br>2. inna miara');
+
+    expect(parse(Locale.PL_PL, html).definitions).toEqual(['miara 2.5 litra;', 'inna miara']);
+  });
 });
 
 function createEntry(allowance: string, definitions: string): string {

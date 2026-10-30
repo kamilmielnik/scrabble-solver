@@ -29,10 +29,6 @@ describe('normalizeDefinition', () => {
     it('keeps a "<" that does not open a tag', () => {
       expect(normalizeDefinition('a < b')).toBe('a < b');
     });
-
-    it.todo('keeps the text after a "<" that touches the next word, such as "2<3 is true"');
-
-    it.todo('turns <internalXref> into quotes like the other emphasis tags');
   });
 
   describe('markers', () => {
@@ -146,7 +142,9 @@ describe('normalizeDefinition', () => {
       expect(normalizeDefinition(input)).toBe(input);
     });
 
-    it.todo('keeps a definition written only in non-ASCII letters, such as "żółć", "şığ" or "گچ"');
+    it.each(['żółć', 'şığ', 'گچ'])('keeps %j, written only in letters outside a-z', (input) => {
+      expect(normalizeDefinition(input)).toBe(input);
+    });
   });
 
   describe('unicode', () => {

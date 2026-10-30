@@ -2,6 +2,7 @@ import { type Server, serve } from 'bun';
 import { afterAll, beforeAll, beforeEach, describe, expect, it, mock } from 'bun:test';
 import { EventEmitter } from 'events';
 import type { IncomingHttpHeaders } from 'http';
+import net, { type AddressInfo } from 'net';
 import { PassThrough } from 'stream';
 
 import type * as requestModule from './request';
@@ -154,7 +155,11 @@ describe('request', () => {
     });
   });
 
-  it.todo('rejects when the connection drops in the middle of the response body');
+  it('rejects when the connection drops in the middle of the response body', async () => {
+    const port = await startDroppingServer();
+
+    expect(await request({ hostname: '127.0.0.1', port }).catch(returnError)).toBeInstanceOf(Error);
+  });
 });
 
 function streamOf(...chunks: string[]): ReadableStream<Uint8Array> {
@@ -182,4 +187,23 @@ function respondWith(...chunks: (Buffer | string)[]): void {
 
 function returnError(error: unknown): unknown {
   return error;
+}
+
+async function startDroppingServer(): Promise<number> {
+  const server = net.createServer((socket) => {
+    socket.once('data', () => {
+      socket.write('HTTP/1.1 200 OK\r\nContent-Length: 1000\r\n\r\npartial', () => {
+        socket.destroy();
+      });
+    });
+  });
+
+  await new Promise<void>((resolve) => {
+    server.listen(0, '127.0.0.1', resolve);
+  });
+  afterAll(() => {
+    server.close();
+  });
+
+  return (server.address() as AddressInfo).port;
 }

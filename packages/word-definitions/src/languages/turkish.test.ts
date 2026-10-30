@@ -34,11 +34,12 @@ describe('turkish parse', () => {
     expect(parse('[{"anlamlarListe":[]}]')).toEqual({ definitions: [], exists: false });
   });
 
-  it.todo('reads the meanings of every entry when a word has many homonyms');
+  it('reads the meanings of every entry when a word has many homonyms', () => {
+    const json = JSON.stringify([
+      { anlamlarListe: [{ anlam: 'Birinci sesteş' }] },
+      { anlamlarListe: [{ anlam: 'İkinci sesteş' }, { anlam: 'Üçüncü anlam' }] },
+    ]);
 
-  it.todo('reports a missing word when the response is not JSON, such as an empty body or an html error page');
-
-  it.todo('reports a missing word for an empty array');
-
-  it.todo('reports a missing word for an entry without a list of meanings');
+    expect(parse(json).definitions).toEqual(['Birinci sesteş', 'İkinci sesteş', 'Üçüncü anlam']);
+  });
 });

@@ -40,6 +40,4 @@ describe('persian parse', () => {
   it('finds no definitions on an empty page', () => {
     expect(parse('').definitions).toEqual([]);
   });
-
-  it.todo('reports a missing word for an empty page');
 });
