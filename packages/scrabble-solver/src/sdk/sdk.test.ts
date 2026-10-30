@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 /* eslint-disable @typescript-eslint/await-thenable */
 
 import { Board, Game, Locale, WordDefinition } from '@scrabble-solver/types';

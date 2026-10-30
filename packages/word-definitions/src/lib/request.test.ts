@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 import { type Server, serve } from 'bun';
 import { afterAll, beforeAll, beforeEach, describe, expect, it, mock } from 'bun:test';
 import { EventEmitter } from 'events';
