@@ -14,7 +14,9 @@ playwright-report/
 test-results/
 todo.txt
 packages/gaddag/
-/.next/
+# Root rules also apply to each workspace pack, relative to that workspace, so never ignore all of .next here: the app ships it
+.next/trace
+.next/trace-build
 # The root pack does not read packages/scrabble-solver/.npmignore - mirror its rules here
 packages/scrabble-solver/.next/cache/
 packages/scrabble-solver/.next/dev/
