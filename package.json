@@ -16,6 +16,7 @@
     "lint": "oxlint e2e packages",
     "lint:fix": "bun run lint --fix",
     "reinstall": "bun run clean && bun install && bun run build",
+    "release": "bun scripts/release.ts",
     "screencast": "start-server-and-test start:app http://localhost:3333 screencast:record",
     "screencast:record": "bun scripts/record-screencast.ts",
     "start": "bun run --cwd packages/scrabble-solver launch",
@@ -24,7 +25,8 @@
     "test-playwright": "playwright test --ui",
     "test-playwright:run": "PLAYWRIGHT_BASE_URL=http://localhost:3333 playwright test",
     "test-tarballs": "bun scripts/test-tarballs.ts",
-    "test-unit": "bun run --filter '*' test"
+    "test-unit": "bun run --filter '*' test",
+    "version": "bun install --lockfile-only && git add bun.lock && bun run test && bun run check-tarballs && bun run test-tarballs"
   },
   "repository": {
     "type": "git",
