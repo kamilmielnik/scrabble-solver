@@ -1,5 +1,5 @@
 {
-  "name": "@scrabble-solver/scrabble-solver",
+  "name": "scrabble-solver",
   "version": "2.18.9",
   "description": "Scrabble Solver web app: free word finder and board solver for Scrabble, Super Scrabble, Literaki, and more.",
   "keywords": [
@@ -8,6 +8,27 @@
     "solver",
     "nextjs",
     "react"
+  ],
+  "engines": {
+    "bun": ">=1.4",
+    "node": ">=24"
+  },
+  "bin": {
+    "scrabble-solver": "bin/scrabble-solver.js"
+  },
+  "files": [
+    ".env",
+    ".next",
+    "!.next/cache",
+    "!.next/dev",
+    "!.next/diagnostics",
+    "!.next/trace",
+    "!.next/trace-build",
+    "!.next/types",
+    "bin",
+    "next.config.js",
+    "public",
+    "!public/service-worker.js.map"
   ],
   "repository": {
     "type": "git",
@@ -42,6 +63,7 @@
     "and_ff >= 100"
   ],
   "scripts": {
+    "browser": "wait-on http://localhost:3333 && open-cli http://localhost:3333",
     "build": "bun run generate-scss-types && env-cmd next build --webpack",
     "clean": "rimraf --glob .next/ 'src/**/*.module.scss.d.ts'",
     "debug": "NODE_OPTIONS='--inspect' next dev --webpack",
@@ -49,6 +71,8 @@
     "dev:next": "env-cmd next dev --webpack",
     "dev:scss": "bun run generate-scss-types --watch",
     "generate-scss-types": "bun scripts/generate-scss-types.ts",
+    "launch": "bun run --parallel --no-orphans start browser",
+    "prepack": "rimraf --glob '.next/**/*.nft.json'",
     "start": "env-cmd next start -p 3333",
     "test": "bun test --timeout 180000 src",
     "type-check": "bun run generate-scss-types && tsc --noEmit"
@@ -70,6 +94,7 @@
     "include-media-query-builder": "1.1.0",
     "next": "16.4.3",
     "normalize.css": "8.0.1",
+    "open-cli": "9.0.0",
     "react": "19.3.1",
     "react-cool-onclickoutside": "1.7.0",
     "react-dom": "19.3.1",
@@ -80,6 +105,7 @@
     "redux-saga": "1.5.1",
     "store2": "2.14.4",
     "use-debounce": "10.1.1",
+    "wait-on": "9.5.1",
     "workbox-expiration": "7.4.1",
     "workbox-precaching": "7.4.1",
     "workbox-routing": "7.4.1",

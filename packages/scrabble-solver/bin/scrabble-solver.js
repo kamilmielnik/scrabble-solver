@@ -5,4 +5,4 @@ const path = require('path');
 
 const rootDirectory = path.join(__dirname, '..');
 process.chdir(rootDirectory);
-execSync('bun start', { stdio: 'inherit' });
+execSync('bun run launch', { stdio: 'inherit' });
