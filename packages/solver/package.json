@@ -30,7 +30,7 @@
     "benchmark": "bun benchmarks/index.ts",
     "build": "tsc --project .",
     "clean": "rimraf build/",
-    "test": "bun test --timeout 180000 src"
+    "test": "bun test --timeout 180000 src benchmarks"
   },
   "dependencies": {
     "@kamilmielnik/gaddag": "3.0.0",

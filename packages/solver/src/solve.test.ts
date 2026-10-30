@@ -1,11 +1,13 @@
 /* eslint-disable max-lines */
 
-import { type Gaddag } from '@kamilmielnik/gaddag';
+import { Gaddag } from '@kamilmielnik/gaddag';
 import { getConfig } from '@scrabble-solver/configs';
 import { dictionaries } from '@scrabble-solver/dictionaries';
 import { Board, Game, Locale, Result, Tile } from '@scrabble-solver/types';
 
 import { solve } from './solve';
+
+import { solve as solveFromPackageEntry } from './index';
 
 const generateTiles = (characters: string[]): Tile[] => {
   return characters.map((character) => new Tile({ character, isBlank: false }));
@@ -17,6 +19,37 @@ const getBestResult = ([firstResult, ...results]: Result[]): Result => {
     firstResult,
   );
 };
+
+describe('solve', () => {
+  const config = getConfig(Game.Scrabble, Locale.EN_US);
+  const gaddag = Gaddag.fromArray(['at', 'ta']);
+
+  it('is the function the package exports', () => {
+    expect(solveFromPackageEntry).toBe(solve);
+  });
+
+  it('returns every legal move as json', () => {
+    const results = solve(gaddag, config, Board.create(15, 15), generateTiles(['a', 't']));
+    expect(results).toEqual([
+      { blankIndices: [], id: 0, isHorizontal: true, points: 4, tiles: ['a', 't'], x: 6, y: 7 },
+      { blankIndices: [], id: 1, isHorizontal: true, points: 4, tiles: ['t', 'a'], x: 6, y: 7 },
+      { blankIndices: [], id: 2, isHorizontal: true, points: 4, tiles: ['a', 't'], x: 7, y: 7 },
+      { blankIndices: [], id: 3, isHorizontal: true, points: 4, tiles: ['t', 'a'], x: 7, y: 7 },
+      { blankIndices: [], id: 4, isHorizontal: false, points: 4, tiles: ['a', 't'], x: 7, y: 6 },
+      { blankIndices: [], id: 5, isHorizontal: false, points: 4, tiles: ['t', 'a'], x: 7, y: 6 },
+      { blankIndices: [], id: 6, isHorizontal: false, points: 4, tiles: ['a', 't'], x: 7, y: 7 },
+      { blankIndices: [], id: 7, isHorizontal: false, points: 4, tiles: ['t', 'a'], x: 7, y: 7 },
+    ]);
+  });
+
+  it('returns no moves for an empty rack', () => {
+    expect(solve(gaddag, config, Board.create(15, 15), [])).toEqual([]);
+  });
+
+  it('lets unsupported boards fail loudly', () => {
+    expect(() => solve(gaddag, config, Board.create(33, 15), [])).toThrow('Boards larger than 32x32 are not supported');
+  });
+});
 
 describe('solve - pl-PL', () => {
   const locale = Locale.PL_PL;
