@@ -76,7 +76,7 @@ export const Rack: FunctionComponent<Props> = ({ className }) => {
 
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      const value = extractInputValue(event.target);
+      const value = extractInputValue(event.target, config.locale);
       const characters = value ? extractCharacters(config, value) : [];
       changeActiveIndex(value ? characters.length : -1);
     },

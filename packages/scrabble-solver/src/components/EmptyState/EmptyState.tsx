@@ -44,7 +44,7 @@ export const EmptyState: FunctionComponent<Props> = ({ children, className, vari
   const { direction } = LOCALE_FEATURES[locale];
   const title = translate(TITLE_KEY_PER_TYPE[variant]);
   const message = direction === 'ltr' ? title : reverseGraphemes(title);
-  const content = useMemo(() => [message.toUpperCase().split(' ')], [message]);
+  const content = useMemo(() => [message.toLocaleUpperCase(locale).split(' ')], [locale, message]);
 
   return (
     <div className={classNames(styles.emptyState, className)}>

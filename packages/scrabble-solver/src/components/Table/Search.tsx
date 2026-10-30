@@ -14,6 +14,12 @@ interface Props {
 
 export const Search: FunctionComponent<Props> = ({ className, placeholder, value, onChange }) => {
   const [localValue, setLocalValue] = useState(value);
+  const [syncedValue, setSyncedValue] = useState(value);
+
+  if (value !== syncedValue) {
+    setSyncedValue(value);
+    setLocalValue(value);
+  }
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;

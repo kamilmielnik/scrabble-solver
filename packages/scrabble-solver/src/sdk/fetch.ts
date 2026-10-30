@@ -14,14 +14,10 @@ export const fetch = async (input: RequestInfo | URL, init?: RequestInit): Promi
     return response;
   }
 
-  try {
-    const json = await response.json();
+  const json: unknown = await response.json().catch(() => undefined);
 
-    if (isError(json)) {
-      throw new Error(json.message);
-    }
-  } finally {
-    // do nothing
+  if (isError(json)) {
+    throw new Error(json.message);
   }
 
   throw new Error(`HTTP ${response.status}: ${response.statusText}`);

@@ -185,7 +185,22 @@ describe('Row', () => {
 });
 
 describe('Search', () => {
-  it.todo('follows the value prop, so the input empties when the store resets the query');
+  it('follows the value prop, so the input empties when the store resets the query', () => {
+    const { rerender } = renderWithStore(<Search placeholder="Find" value="ca" onChange={noop} />);
+
+    rerender(<Search placeholder="Find" value="" onChange={noop} />);
+
+    expect((screen.getByPlaceholderText('Find') as HTMLInputElement).value).toBe('');
+  });
+
+  it('keeps an invalid expression being typed while the value prop stays the same', () => {
+    renderWithStore(<Search placeholder="Find" value="ca" onChange={noop} />);
+    const input = screen.getByPlaceholderText('Find') as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: 'ca[' } });
+
+    expect(input.value).toBe('ca[');
+  });
 
   it('shows the value and placeholder', () => {
     renderWithStore(<Search placeholder="Find" value="abc" onChange={noop} />);

@@ -84,7 +84,13 @@ describe('fetch', () => {
     await expect(fetch('/url')).rejects.toThrow('HTTP 500: Server Error');
   });
 
-  it.todo('reports status for a non-JSON error body, such as an HTML 502 from a proxy');
+  it('reports status for a non-JSON error body, such as an HTML 502 from a proxy', async () => {
+    fetchMock.mockImplementation(() => {
+      return Promise.resolve(new Response('<html>Bad Gateway</html>', { status: 502, statusText: 'Bad Gateway' }));
+    });
+
+    await expect(fetch('/url')).rejects.toThrow('HTTP 502: Bad Gateway');
+  });
 });
 
 describe('fetchJson', () => {

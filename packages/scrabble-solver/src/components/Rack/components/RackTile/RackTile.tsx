@@ -85,7 +85,7 @@ export const RackTile: FunctionComponent<Props> = ({
     (event: ChangeEvent<HTMLInputElement>) => {
       event.preventDefault();
       event.stopPropagation();
-      const value = extractInputValue(event.target);
+      const value = extractInputValue(event.target, config.locale);
       const characters = value ? extractCharacters(config, value) : [null];
       dispatch(rackSlice.actions.changeCharacters({ characters, index }));
       onChange(event);

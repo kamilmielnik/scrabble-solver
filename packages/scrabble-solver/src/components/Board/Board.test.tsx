@@ -491,7 +491,14 @@ describe('two-letter tiles', () => {
     expect(readBoard(store, 0, 2)).toBe(' ');
   });
 
-  it.todo('joins with a tile in the first row when typing in the second row');
+  it('joins with a tile in the first row when typing in the second row', () => {
+    const { store } = setup({ board: createBoard({ 0: 'c' }), settings });
+
+    type('A2', 'h');
+
+    expect(readBoard(store, 0, 0)).toBe('ch');
+    expect(readBoard(store, 0, 1)).toBe(' ');
+  });
 
   it('joins with the tile below when typing', () => {
     const { store } = setup({ board: createBoard({ 15: 'h' }), settings });

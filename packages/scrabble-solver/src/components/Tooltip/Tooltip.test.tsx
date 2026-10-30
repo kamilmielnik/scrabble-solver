@@ -80,7 +80,19 @@ describe('TooltipTrigger', () => {
 });
 
 describe('TooltipTrigger with a text child', () => {
-  it.todo('reports that its children are not a valid element instead of crashing on children.props');
+  it('reports that its children are not a valid element instead of crashing on children.props', () => {
+    const value = { getReferenceProps: () => ({}), refs: { setReference: noop } };
+
+    function Trigger() {
+      return (
+        <TooltipContext.Provider value={value as never}>
+          <TooltipTrigger>text</TooltipTrigger>
+        </TooltipContext.Provider>
+      );
+    }
+
+    expect(() => render(<Trigger />)).toThrow("TooltipTrigger's children are not a valid element");
+  });
 });
 
 describe('useTooltipContext', () => {

@@ -1,3 +1,4 @@
+import { Locale } from '@scrabble-solver/types';
 import { type KeyboardEvent } from 'react';
 
 import { ResultColumnId, SortDirection } from '../types';
@@ -69,24 +70,27 @@ describe('createRegExp', () => {
 });
 
 describe('extractInputValue', () => {
-  it.todo('lowercases with the rules of the active locale, so Turkish I becomes dotless i');
+  it('lowercases with the rules of the active locale, so Turkish I becomes dotless i', () => {
+    expect(extractInputValue(createInput('I', 1, 1), Locale.TR_TR)).toBe('ı');
+    expect(extractInputValue(createInput('I', 1, 1), Locale.EN_US)).toBe('i');
+  });
 
   it('returns the character before the caret, lowercased', () => {
-    expect(extractInputValue(createInput('aB', 2, 2))).toBe('b');
+    expect(extractInputValue(createInput('aB', 2, 2), Locale.EN_US)).toBe('b');
   });
 
   it('uses the start of a selection, whichever way it was made', () => {
-    expect(extractInputValue(createInput('abc', 2, 3))).toBe('b');
-    expect(extractInputValue(createInput('abc', 3, 2))).toBe('b');
+    expect(extractInputValue(createInput('abc', 2, 3), Locale.EN_US)).toBe('b');
+    expect(extractInputValue(createInput('abc', 3, 2), Locale.EN_US)).toBe('b');
   });
 
   it('returns the whole value with the caret at the start', () => {
-    expect(extractInputValue(createInput('AB', 0, 0))).toBe('ab');
+    expect(extractInputValue(createInput('AB', 0, 0), Locale.EN_US)).toBe('ab');
   });
 
   it('returns the whole value for inputs without a selection', () => {
-    expect(extractInputValue(createInput('AB', null, null))).toBe('ab');
-    expect(extractInputValue(createInput('AB', 1, null))).toBe('ab');
+    expect(extractInputValue(createInput('AB', null, null), Locale.EN_US)).toBe('ab');
+    expect(extractInputValue(createInput('AB', 1, null), Locale.EN_US)).toBe('ab');
   });
 });
 

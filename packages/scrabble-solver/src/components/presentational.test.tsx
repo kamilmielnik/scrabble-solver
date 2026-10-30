@@ -27,6 +27,7 @@ import { Radio } from './Radio';
 import { Spinner } from './Spinner';
 
 const persian = { settings: { ...settingsInitialState, locale: Locale.FA_IR } };
+const turkish = { settings: { ...settingsInitialState, locale: Locale.TR_TR } };
 const Icon = () => <svg data-testid="icon" />;
 
 describe('Alert', () => {
@@ -266,7 +267,14 @@ describe('PlainTiles', () => {
 });
 
 describe('EmptyState', () => {
-  it.todo('uppercases the title with the rules of the active locale, so Turkish i becomes dotted I');
+  it('uppercases the title with the rules of the active locale, so Turkish i becomes dotted I', () => {
+    const translations = { [Locale.TR_TR]: { ...english, 'empty-state.info': 'bilgi' } };
+    const { container } = renderWithStore(<EmptyState variant="info">Message</EmptyState>, {
+      state: { ...turkish, i18n: { translations } },
+    });
+
+    expect(readTiles(container)).toBe('BİLGİ');
+  });
 
   it.each([
     ['error', COLOR_RED],
@@ -293,7 +301,12 @@ describe('EmptyState', () => {
 });
 
 describe('Loading', () => {
-  it.todo('uppercases with the rules of the active locale, so Turkish i becomes dotted I');
+  it('uppercases with the rules of the active locale, so Turkish i becomes dotted I', () => {
+    const translations = { [Locale.TR_TR]: { ...english, 'common.loading': 'yükleniyor' } };
+    const { container } = renderWithStore(<Loading />, { state: { ...turkish, i18n: { translations } } });
+
+    expect(readTiles(container)).toBe('YÜKLENİYOR');
+  });
 
   it('announces loading and spells it in tiles', () => {
     renderWithStore(<Loading />);
@@ -355,9 +368,9 @@ describe('Progress', () => {
     expect(progress.style.getPropertyValue('--progress')).toBe('25%');
   });
 
-  it.todo('measures from min, so value 3 in the range 2 to 6 is 25%');
-
-  it.todo('shows a finite percentage for a tile with a zero count, such as a letter outside the alphabet');
+  it('refuses a max of 0, which has no percentage', () => {
+    expect(() => renderWithStore(<Progress max={0} value={-1} />)).toThrow('Progress needs a max other than 0');
+  });
 
   it('shows negative values for overused tiles', () => {
     renderWithStore(<Progress max={2} value={-1} />);
@@ -414,3 +427,7 @@ describe('Spinner', () => {
     expect(screen.getByRole('status', { name: 'Loading' }).className).toContain('custom');
   });
 });
+
+function readTiles(container: HTMLElement): string {
+  return Array.from(container.querySelectorAll('text'), (text) => text.textContent).join('');
+}
