@@ -409,7 +409,7 @@ describe('MoveGenerator - anchoring and connectivity', () => {
     ]);
     const results = generateJson(gaddag, config, board, ['b']);
     expect(results).toEqual([{ blankIndices: [], id: 0, isHorizontal: true, points: 7, tiles: ['b'], x: 1, y: 2 }]);
-    const [result] = results.map((json) => Result.fromJson(json, board));
+    const [result] = results.map((json) => Result.fromJson(json, board, Locale.EN_US));
     expect(result.word).toBe('abc');
     expect(result.cells.map(({ isEmpty, x, y }) => ({ isEmpty, x, y }))).toEqual([
       { isEmpty: false, x: 1, y: 2 },
@@ -508,7 +508,7 @@ describe('MoveGenerator - perpendicular words (cross-checks)', () => {
     ]);
     const results = generateJson(gaddag, config, board, ['b']);
     expect(results).toEqual([{ blankIndices: [], id: 0, isHorizontal: true, points: 12, tiles: ['b'], x: 2, y: 2 }]);
-    const [result] = results.map((json) => Result.fromJson(json, board));
+    const [result] = results.map((json) => Result.fromJson(json, board, Locale.EN_US));
     expect(result.words).toEqual(['bd', 'abc']);
     expect(result.collisions).toHaveLength(1);
     expect(result.collisions[0].map(({ x, y }) => ({ x, y }))).toEqual([
@@ -1976,7 +1976,7 @@ describe('MoveGenerator - every game', () => {
       config: getConfig(Game.SuperScrabble, Locale.EN_US),
       movesCount: 14,
       name: 'Super Scrabble',
-      pointsByStartColumn: { 4: 82, 10: 80 },
+      pointsByStartColumn: { 4: 114, 10: 110 },
       word: ENGLISH_WORD,
     },
     {
@@ -2067,7 +2067,6 @@ describe('MoveGenerator - every game', () => {
     ['Crossplay', Game.Crossplay, Locale.EN_US, 5],
     ['Wordfeud', Game.Wordfeud, Locale.EN_US, 5],
     ['Letter League', Game.LetterLeague, Locale.EN_US, 4],
-    ['Super Scrabble', Game.SuperScrabble, Locale.EN_US, 4],
   ] as const)('%s has no premium on its start cell', (_, game, locale, points) => {
     const config = getConfig(game, locale);
     const results = generateJson(Gaddag.fromArray(['ab']), config, createEmptyBoard(config), ['a', 'b']);
@@ -2077,6 +2076,7 @@ describe('MoveGenerator - every game', () => {
   it.each([
     ['Scrabble', Game.Scrabble, 8],
     ['Scrabble Duel', Game.ScrabbleDuel, 8],
+    ['Super Scrabble', Game.SuperScrabble, 8],
   ] as const)('%s doubles the word on its start cell', (_, game, points) => {
     const config = getConfig(game, Locale.EN_US);
     const results = generateJson(Gaddag.fromArray(['ab']), config, createEmptyBoard(config), ['a', 'b']);
@@ -2320,7 +2320,7 @@ describe('MoveGenerator - result shape', () => {
   it('round-trips through Result', () => {
     const position = createShapeBoard();
     const results = generateJson(gaddag, config, position, rack);
-    expect(results.map((json) => Result.fromJson(json, position).toJson())).toEqual(results);
+    expect(results.map((json) => Result.fromJson(json, position, Locale.EN_US).toJson())).toEqual(results);
   });
 
   it('leaves the board and the rack untouched', () => {
@@ -2406,7 +2406,7 @@ describe('MoveGenerator - seeded differential testing against the reference solv
 });
 
 function generate(gaddag: Gaddag, config: Config, board: Board, rack: string[]): Result[] {
-  return generateJson(gaddag, config, board, rack).map((json) => Result.fromJson(json, board));
+  return generateJson(gaddag, config, board, rack).map((json) => Result.fromJson(json, board, Locale.EN_US));
 }
 
 function generateJson(gaddag: Gaddag, config: Config, board: Board, rack: string[]): ResultJson[] {

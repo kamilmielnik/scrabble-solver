@@ -30,13 +30,14 @@ const PUBLISHED_RULES: Record<GameName, Partial<GameConfig>> = {
   wyrazy: { bingo: { score: 25 }, blanksCount: 2, boardHeight: 15, boardWidth: 15, game: Game.Wyrazy },
 };
 
-const CENTRE_BONUSES: [Exclude<GameName, 'superScrabble'>, string][] = [
+const CENTRE_BONUSES: [GameName, string][] = [
   ['crossplay', NO_BONUS],
   ['kelimelik', NO_BONUS],
   ['letterLeague', NO_BONUS],
   ['literaki', RED_TILES_TRIPLED],
   ['scrabble', DOUBLE_WORD],
   ['scrabbleDuel', DOUBLE_WORD],
+  ['superScrabble', DOUBLE_WORD],
   ['wordfeud', NO_BONUS],
   ['wyrazy', NO_BONUS],
 ];
@@ -70,7 +71,7 @@ const SUPER_SCRABBLE_BOARD = [
   'T......D.....D......T',
   '.D..t...t...t...t..D.',
   '..D..l...l.l...l..D..',
-  'l..T..l.......l..T..l',
+  'l..T..l...D...l..T..l',
   '..D..l...l.l...l..D..',
   '.D..t...t...t...t..D.',
   'T......D.....D......T',
@@ -174,8 +175,6 @@ describe('centre cell', () => {
 
     expect(getBonusKind(getBonus(game, getCentreX(game), getCentreY(game)))).toBe(expected);
   });
-
-  it.todo('of superScrabble doubles the word, as the centre star does in the published rules');
 });
 
 describe('Scrabble', () => {
@@ -189,18 +188,16 @@ describe('Scrabble', () => {
 });
 
 describe('Super Scrabble', () => {
-  it('has the published board, apart from the centre star', () => {
-    const actual = maskCentre(renderBoard(games.superScrabble));
-
-    expect(actual).toEqual(maskCentre(SUPER_SCRABBLE_BOARD));
+  it('has the published board', () => {
+    expect(renderBoard(games.superScrabble)).toEqual(SUPER_SCRABBLE_BOARD);
   });
 
-  it('embeds the Scrabble board in its middle 15x15 cells, apart from the centre star', () => {
+  it('embeds the Scrabble board in its middle 15x15 cells', () => {
     const actual = renderBoard(games.superScrabble)
       .slice(3, 18)
       .map((row) => row.slice(3, 18));
 
-    expect(maskCentre(actual)).toEqual(maskCentre(SCRABBLE_BOARD));
+    expect(actual).toEqual(SCRABBLE_BOARD);
   });
 
   it('puts its quadruple word squares in the four corners', () => {
@@ -345,12 +342,6 @@ function isQuadrupleWord({ multiplier, type }: BonusJson): boolean {
 
 function isSquare(game: GameConfig): boolean {
   return game.boardWidth === game.boardHeight;
-}
-
-function maskCentre(rows: string[]): string[] {
-  const centre = Math.floor(rows.length / 2);
-
-  return rows.map((row, y) => (y === centre ? `${row.slice(0, centre)}*${row.slice(centre + 1)}` : row));
 }
 
 function mirrorHorizontally(x: number, y: number, game: GameConfig): [number, number] {
