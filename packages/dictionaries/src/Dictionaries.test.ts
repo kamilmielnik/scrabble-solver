@@ -339,7 +339,13 @@ describe('Dictionaries', () => {
       expect(getWordList).toHaveBeenCalledTimes(1);
     });
 
-    it.todo('does nothing when the output directory does not exist');
+    it('does nothing when the output directory does not exist', () => {
+      expect(fs.existsSync(OUTPUT_DIRECTORY)).toBe(false);
+
+      expect(() => {
+        dictionaries.remove();
+      }).not.toThrow();
+    });
   });
 });
 

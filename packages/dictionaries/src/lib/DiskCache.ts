@@ -70,6 +70,8 @@ export class DiskCache implements Cache<Locale, Gaddag> {
 
   public async set(locale: Locale, gaddag: Gaddag): Promise<void> {
     const filepath = getDictionaryFilepath(locale, this.directory);
-    await fs.promises.writeFile(filepath, gaddag.serialize());
+    const temporaryFilepath = `${filepath}.${crypto.randomUUID()}.tmp`;
+    await fs.promises.writeFile(temporaryFilepath, gaddag.serialize());
+    await fs.promises.rename(temporaryFilepath, filepath);
   }
 }
