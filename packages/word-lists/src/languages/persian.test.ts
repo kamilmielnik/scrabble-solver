@@ -20,12 +20,12 @@ describe('persian getWordList', () => {
     expect(harness.requestedUrls).toEqual([FILE_URL]);
   });
 
-  it('collates the file using the Persian locale', async () => {
+  it('lower-cases the file using the Persian locale', async () => {
     harness.serve(FILE_URL, 'اا\n');
 
     await getWordList();
 
-    expect(harness.getCollationLocales()).toEqual([Locale.FA_IR]);
+    expect(harness.getLowerCasingLocales()).toEqual([Locale.FA_IR]);
   });
 
   it('propagates a failed download', async () => {

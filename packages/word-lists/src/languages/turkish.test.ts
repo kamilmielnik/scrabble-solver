@@ -18,12 +18,12 @@ describe('turkish getWordList', () => {
     expect(harness.requestedUrls).toEqual([FILE_URL]);
   });
 
-  it('collates the file using the Turkish locale', async () => {
+  it('lower-cases the file using the Turkish locale', async () => {
     harness.serve(FILE_URL, 'aa\n');
 
     await getWordList();
 
-    expect(harness.getCollationLocales()).toEqual([Locale.TR_TR]);
+    expect(harness.getLowerCasingLocales()).toEqual([Locale.TR_TR]);
   });
 
   it('keeps Turkish letters, because they are separate tiles', async () => {
@@ -32,7 +32,7 @@ describe('turkish getWordList', () => {
     expect(await getWordList()).toEqual(['aa', 'çiğ', 'kız', 'şöför']);
   });
 
-  it.todo('lower-cases upper-case I to dotless ı', async () => {
+  it('lower-cases upper-case I to dotless ı', async () => {
     harness.serve(FILE_URL, 'aa\nKIZ\n');
 
     expect(await getWordList()).toEqual(['aa', 'kız']);

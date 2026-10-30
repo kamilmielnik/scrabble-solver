@@ -2,12 +2,10 @@ import { afterAll, afterEach, beforeEach, spyOn } from 'bun:test';
 import fs from 'fs';
 import os from 'os';
 import { join } from 'path';
-import { finished } from 'stream/promises';
 
 export interface TempFileSandbox {
   directory: string;
   listFiles: () => string[];
-  waitForWriteStreams: () => Promise<void>;
 }
 
 const SANDBOX_HOME = join(os.tmpdir(), `word-lists-test-${process.pid}`);
@@ -29,15 +27,10 @@ export function installTempFileSandbox(): TempFileSandbox {
   afterEach(removeFiles);
   afterAll(removeSandbox);
 
-  return { directory, listFiles, waitForWriteStreams };
+  return { directory, listFiles };
 
   function listFiles(): string[] {
     return fs.readdirSync(directory);
-  }
-
-  /** `unzip` can resolve before its output reaches the disk, so tests of what it wrote wait for this too. */
-  async function waitForWriteStreams(): Promise<void> {
-    await Promise.all(writeStreams.map((stream) => finished(stream)));
   }
 
   function trackWriteStreams(): void {

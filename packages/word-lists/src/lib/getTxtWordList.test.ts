@@ -24,12 +24,12 @@ describe('getTxtWordList', () => {
     expect(await getTxtWordList(FILE_URL, 'pl-PL')).toEqual(['aa', 'żółć']);
   });
 
-  it('collates the file using the given locale', async () => {
+  it('lower-cases the file using the given locale', async () => {
     harness.serve(FILE_URL, 'aa\n');
 
     await getTxtWordList(FILE_URL, 'pl-PL');
 
-    expect(harness.getCollationLocales()).toEqual(['pl-PL']);
+    expect(harness.getLowerCasingLocales()).toEqual(['pl-PL']);
   });
 
   it('removes the downloaded file', async () => {
@@ -48,7 +48,7 @@ describe('getTxtWordList', () => {
     );
   });
 
-  it.todo('removes the downloaded file when it holds no words', async () => {
+  it('removes the downloaded file when it holds no words', async () => {
     harness.serve(FILE_URL, '');
 
     await getTxtWordList(FILE_URL, 'en-US').catch(() => undefined);

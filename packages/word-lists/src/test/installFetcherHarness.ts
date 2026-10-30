@@ -5,12 +5,11 @@ import { http, https } from 'follow-redirects';
 import { installTempFileSandbox } from './installTempFileSandbox';
 
 export interface FetcherHarness {
-  getCollationLocales: () => string[];
+  getLowerCasingLocales: () => string[];
   listTempFiles: () => string[];
   refuseConnections: (url: string) => void;
   requestedUrls: string[];
   serve: (url: string, body: Buffer | string, status?: number) => void;
-  waitForWriteStreams: () => Promise<void>;
 }
 
 interface RemoteFile {
@@ -19,14 +18,16 @@ interface RemoteFile {
 }
 
 const NOTHING_LISTENS_HERE = 'http://127.0.0.1:1/';
+// oxlint-disable-next-line typescript/unbound-method
+const { toLocaleLowerCase } = String.prototype;
 
 /**
  * Language fetchers hard-code https URLs. This answers those URLs from a local server, so a fetcher runs for real down
  * to the socket without leaving the machine. Call it before importing the fetcher.
  */
 export function installFetcherHarness(): FetcherHarness {
-  const { listFiles, waitForWriteStreams } = installTempFileSandbox();
-  const collationLocales = new Set<string>();
+  const { listFiles } = installTempFileSandbox();
+  const lowerCasingLocales = new Set<string>();
   const refusedUrls = new Set<string>();
   const remoteFiles = new Map<string, RemoteFile>();
   const requestedUrls: string[] = [];
@@ -35,16 +36,16 @@ export function installFetcherHarness(): FetcherHarness {
   beforeEach(reset);
   afterEach(() => {
     mock.restore();
+    Object.assign(String.prototype, { toLocaleLowerCase });
   });
   afterAll(() => server.stop(true));
 
   return {
-    getCollationLocales: () => [...collationLocales],
+    getLowerCasingLocales: () => [...lowerCasingLocales],
     listTempFiles: listFiles,
     refuseConnections: (url) => refusedUrls.add(url),
     requestedUrls,
     serve: (url, body, status = 200) => remoteFiles.set(url, { body, status }),
-    waitForWriteStreams,
   };
 
   function respond(request: Request): Response {
@@ -56,12 +57,13 @@ export function installFetcherHarness(): FetcherHarness {
   }
 
   function reset(): void {
-    collationLocales.clear();
+    lowerCasingLocales.clear();
     refusedUrls.clear();
     remoteFiles.clear();
     requestedUrls.length = 0;
     spyOn(https, 'get').mockImplementation(forwardToLocalServer as unknown as typeof https.get);
-    spyOn(String.prototype, 'localeCompare').mockImplementation(recordLocaleAndCompare);
+    // A spy would keep every call, and the Polish word lists lower-case millions of lines.
+    Object.assign(String.prototype, { toLocaleLowerCase: recordLocaleAndLowerCase });
   }
 
   function forwardToLocalServer(url: string, callback: Parameters<typeof http.get>[1]) {
@@ -70,11 +72,11 @@ export function installFetcherHarness(): FetcherHarness {
     return http.get(target, callback);
   }
 
-  function recordLocaleAndCompare(this: string, that: string, locales?: Intl.LocalesArgument): number {
+  function recordLocaleAndLowerCase(this: string, locales?: Intl.LocalesArgument): string {
     if (typeof locales === 'string') {
-      collationLocales.add(locales);
+      lowerCasingLocales.add(locales);
     }
 
-    return new Intl.Collator(locales).compare(this, that);
+    return toLocaleLowerCase.call(this, locales);
   }
 }

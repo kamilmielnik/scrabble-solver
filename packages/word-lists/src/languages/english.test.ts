@@ -21,12 +21,12 @@ describe('getWordListGb', () => {
     expect(harness.requestedUrls).toEqual([SOWPODS_URL]);
   });
 
-  it('collates the file using the British locale', async () => {
+  it('lower-cases the file using the British locale', async () => {
     harness.serve(SOWPODS_URL, 'AA\n');
 
     await getWordListGb();
 
-    expect(harness.getCollationLocales()).toEqual([Locale.EN_GB]);
+    expect(harness.getLowerCasingLocales()).toEqual([Locale.EN_GB]);
   });
 });
 
@@ -38,11 +38,11 @@ describe('getWordListUs', () => {
     expect(harness.requestedUrls).toEqual([TWL06_URL]);
   });
 
-  it('collates the file using the American locale', async () => {
+  it('lower-cases the file using the American locale', async () => {
     harness.serve(TWL06_URL, 'AA\n');
 
     await getWordListUs();
 
-    expect(harness.getCollationLocales()).toEqual([Locale.EN_US]);
+    expect(harness.getLowerCasingLocales()).toEqual([Locale.EN_US]);
   });
 });

@@ -8,6 +8,7 @@ import { startAbortingServer } from '../test/startAbortingServer';
 
 import { downloadHtml } from './downloadHtml';
 
+const REFUSED_URL = 'http://127.0.0.1:1/page';
 const PAGE = '<html><body>strona główna</body></html>';
 const PAGE_BYTES = Buffer.from(PAGE);
 const BYTE_INSIDE_MULTIBYTE_CHARACTER = PAGE_BYTES.indexOf(Buffer.from('ó')) + 1;
@@ -73,7 +74,9 @@ describe('downloadHtml', () => {
     expect(httpsGet).not.toHaveBeenCalled();
   });
 
-  it.todo('rejects when the connection is refused');
+  it('rejects when the connection is refused', async () => {
+    expect((await getRejection(downloadHtml(REFUSED_URL))).message).toContain('ECONNREFUSED');
+  });
 });
 
 function respond(request: Request): Response {
@@ -92,6 +95,7 @@ function respond(request: Request): Response {
 function answerWith(response: PassThrough) {
   function get(_url: string, callback: (response: PassThrough) => void) {
     callback(response);
+    return { on: () => undefined };
   }
 
   return get as unknown as typeof http.get;

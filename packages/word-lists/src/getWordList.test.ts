@@ -35,7 +35,7 @@ describe('getWordList', () => {
 
       expect(await getWordList(locale)).toEqual(['aa', 'ab']);
       expect(harness.requestedUrls).toEqual([LOCALE_FILE_URLS[locale]]);
-      expect(harness.getCollationLocales()).toEqual([locale]);
+      expect(harness.getLowerCasingLocales()).toEqual([locale]);
     },
   );
 
@@ -45,7 +45,7 @@ describe('getWordList', () => {
 
     expect(await getWordList(Locale.PL_PL)).toEqual(['aa', 'ab']);
     expect(harness.requestedUrls).toEqual([POLISH_PAGE_URL, LOCALE_FILE_URLS[Locale.PL_PL]]);
-    expect(harness.getCollationLocales()).toEqual([Locale.PL_PL]);
+    expect(harness.getLowerCasingLocales()).toEqual([Locale.PL_PL]);
   });
 
   it('fails for an unknown locale', async () => {

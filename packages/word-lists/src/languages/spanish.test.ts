@@ -18,12 +18,12 @@ describe('spanish getWordList', () => {
     expect(harness.requestedUrls).toEqual([FILE_URL]);
   });
 
-  it('collates the file using the Spanish locale', async () => {
+  it('lower-cases the file using the Spanish locale', async () => {
     harness.serve(FILE_URL, 'AA\n');
 
     await getWordList();
 
-    expect(harness.getCollationLocales()).toEqual([Locale.ES_ES]);
+    expect(harness.getLowerCasingLocales()).toEqual([Locale.ES_ES]);
   });
 
   it('keeps ñ, because it is a separate Spanish tile', async () => {

@@ -19,12 +19,12 @@ describe('french getWordList', () => {
     expect(harness.requestedUrls).toEqual([ODS8_URL]);
   });
 
-  it('collates the file using the French locale', async () => {
+  it('lower-cases the file using the French locale', async () => {
     harness.serve(ODS8_URL, 'AA\n');
 
     await getWordList();
 
-    expect(harness.getCollationLocales()).toEqual([Locale.FR_FR]);
+    expect(harness.getLowerCasingLocales()).toEqual([Locale.FR_FR]);
   });
 
   it('strips diacritics, because French tiles have none', async () => {

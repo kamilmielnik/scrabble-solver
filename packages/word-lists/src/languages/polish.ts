@@ -13,22 +13,25 @@ const SECONDARY_FILE_URL =
 
 export const getWordList = async (): Promise<string[]> => {
   try {
-    const tempFilepath = getTempFilepath();
-    const zipUrl = await fetchZipUrl(PAGE_URL);
-    const zipTempFilename = await downloadFile(zipUrl);
-    await unzip(zipTempFilename, FILE_TO_EXTRACT_FROM_ZIP, tempFilepath);
-    fs.unlinkSync(zipTempFilename);
-    const file = fs.readFileSync(tempFilepath, 'utf-8');
-    fs.unlinkSync(tempFilepath);
-    const words = extractWords(file.toLocaleString(), 'pl-PL');
-
-    if (words.length < REASONABLE_VALID_WORD_COUNT_TRESHOLD) {
-      return getBackupWordList();
-    }
-
-    return words;
+    const words = await getPrimaryWordList();
+    return words.length < REASONABLE_VALID_WORD_COUNT_TRESHOLD ? await getBackupWordList() : words;
   } catch {
     return getBackupWordList();
+  }
+};
+
+const getPrimaryWordList = async (): Promise<string[]> => {
+  const tempFilepath = getTempFilepath();
+  const zipUrl = await fetchZipUrl(PAGE_URL);
+  const zipTempFilename = await downloadFile(zipUrl);
+
+  try {
+    await unzip(zipTempFilename, FILE_TO_EXTRACT_FROM_ZIP, tempFilepath);
+    const file = fs.readFileSync(tempFilepath, 'utf-8');
+    return extractWords(file.toLocaleString(), 'pl-PL');
+  } finally {
+    fs.rmSync(zipTempFilename, { force: true });
+    fs.rmSync(tempFilepath, { force: true });
   }
 };
 

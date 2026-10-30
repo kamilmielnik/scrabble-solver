@@ -2,9 +2,10 @@
 import { serve } from 'bun';
 import { afterAll, afterEach, describe, expect, it, mock, spyOn } from 'bun:test';
 import { http, https } from 'follow-redirects';
-import { readFileSync } from 'fs';
+import { readFileSync, rmSync } from 'fs';
 import { tmpdir } from 'os';
 import { dirname } from 'path';
+import { PassThrough } from 'stream';
 
 import { getRejection } from '../test/getRejection';
 import { installTempFileSandbox } from '../test/installTempFileSandbox';
@@ -145,19 +146,19 @@ describe('downloadFile', () => {
     expect(httpsGet).not.toHaveBeenCalled();
   });
 
-  it.todo('removes the temp file when the server answers with an error status', async () => {
+  it('removes the temp file when the server answers with an error status', async () => {
     await downloadFile(`${origin}/status/404`).catch(() => undefined);
 
     expect(tempFiles.listFiles()).toEqual([]);
   });
 
-  it.todo('removes the temp file when the connection is refused', async () => {
+  it('removes the temp file when the connection is refused', async () => {
     await downloadFile(REFUSED_URL).catch(() => undefined);
 
     expect(tempFiles.listFiles()).toEqual([]);
   });
 
-  it.todo('removes the temp file when the connection drops in the middle of the body', async () => {
+  it('removes the temp file when the connection drops in the middle of the body', async () => {
     const url = await startAbortingServer('partial');
 
     await downloadFile(url).catch(() => undefined);
@@ -165,7 +166,11 @@ describe('downloadFile', () => {
     expect(tempFiles.listFiles()).toEqual([]);
   });
 
-  it.todo('rejects when the temp file cannot be created');
+  it('rejects and leaves nothing behind when the temp file cannot be created', async () => {
+    rmSync(tempFiles.directory, { force: true, recursive: true });
+
+    expect((await getRejection(downloadFile(`${origin}/file`))).message).toContain('ENOENT');
+  });
 });
 
 function respond(request: Request): Response {
@@ -195,9 +200,9 @@ function respond(request: Request): Response {
   }
 }
 
-function answerWithoutStatusCode(_url: string, callback: (response: { statusCode?: number }) => void) {
+function answerWithoutStatusCode(_url: string, callback: (response: PassThrough) => void) {
   queueMicrotask(() => {
-    callback({});
+    callback(new PassThrough());
   });
   return { on: () => undefined };
 }

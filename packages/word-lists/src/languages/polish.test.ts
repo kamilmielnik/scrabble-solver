@@ -1,7 +1,6 @@
 /* eslint-disable max-lines */
 import { Locale } from '@scrabble-solver/types';
-import { beforeEach, describe, expect, it, spyOn } from 'bun:test';
-import unzipper from 'unzipper';
+import { describe, expect, it } from 'bun:test';
 
 import { createZip } from '../test/createZip';
 import { getRejection } from '../test/getRejection';
@@ -11,10 +10,6 @@ import type * as polishModule from './polish';
 
 const harness = installFetcherHarness();
 const { getWordList }: typeof polishModule = await import('./polish');
-
-interface ParseConstructor {
-  prototype: { promise: () => Promise<void> };
-}
 
 const PAGE_URL = 'https://sjp.pl/sl/growy/';
 const ZIP_URL = `${PAGE_URL}sjp-20261031.zip`;
@@ -29,16 +24,6 @@ const TRUSTED_ZIP = createZip([{ content: createWordListFile(MINIMUM_TRUSTED_WOR
 const TOO_SMALL_ZIP = createZip([
   { content: createWordListFile(MINIMUM_TRUSTED_WORD_COUNT - 1), name: WORD_LIST_ENTRY },
 ]);
-
-beforeEach(() => {
-  const { prototype } = unzipper.Parse as unknown as ParseConstructor;
-  const { promise } = prototype;
-
-  spyOn(prototype, 'promise').mockImplementation(async function waitForOutput(this: unknown) {
-    await promise.call(this);
-    await harness.waitForWriteStreams();
-  });
-});
 
 describe('polish getWordList', () => {
   describe('when sjp.pl offers a complete word list', () => {
@@ -69,12 +54,12 @@ describe('polish getWordList', () => {
       expect(words).toHaveLength(MINIMUM_TRUSTED_WORD_COUNT + 2);
     });
 
-    it('collates the file using the Polish locale', async () => {
+    it('lower-cases the file using the Polish locale', async () => {
       serveWorkingSources();
 
       await getWordList();
 
-      expect(harness.getCollationLocales()).toEqual([Locale.PL_PL]);
+      expect(harness.getLowerCasingLocales()).toEqual([Locale.PL_PL]);
     });
 
     it('picks the word list among the other entries of the zip', async () => {
@@ -154,7 +139,7 @@ describe('polish getWordList', () => {
 
       expect(await getWordList()).toEqual(BACKUP_WORDS);
       expect(harness.requestedUrls.at(-1)).toBe(BACKUP_URL);
-      expect(harness.getCollationLocales().at(-1)).toBe(Locale.PL_PL);
+      expect(harness.getLowerCasingLocales().at(-1)).toBe(Locale.PL_PL);
     });
 
     it('rejects when the backup list fails too', async () => {
@@ -178,14 +163,14 @@ describe('polish getWordList', () => {
       expect(harness.listTempFiles()).toEqual([]);
     });
 
-    it.todo('returns the backup list when the page connection is refused', async () => {
+    it('returns the backup list when the page connection is refused', async () => {
       serveWorkingSources();
       harness.refuseConnections(PAGE_URL);
 
       expect(await getWordList()).toEqual(BACKUP_WORDS);
     });
 
-    it.todo('leaves no temp files behind when the zip link is dead', async () => {
+    it('leaves no temp files behind when the zip link is dead', async () => {
       serveWorkingSources();
       serveDeadZipLink();
 
@@ -194,7 +179,7 @@ describe('polish getWordList', () => {
       expect(harness.listTempFiles()).toEqual([]);
     });
 
-    it.todo('leaves no temp files behind when the zip connection is refused', async () => {
+    it('leaves no temp files behind when the zip connection is refused', async () => {
       serveWorkingSources();
       refuseZipConnection();
 
@@ -203,7 +188,7 @@ describe('polish getWordList', () => {
       expect(harness.listTempFiles()).toEqual([]);
     });
 
-    it.todo('leaves no temp files behind when the zip is corrupt', async () => {
+    it('leaves no temp files behind when the zip is corrupt', async () => {
       serveWorkingSources();
       serveCorruptZip();
 
@@ -212,7 +197,7 @@ describe('polish getWordList', () => {
       expect(harness.listTempFiles()).toEqual([]);
     });
 
-    it.todo('leaves no temp files behind when the zip is cut off', async () => {
+    it('leaves no temp files behind when the zip is cut off', async () => {
       serveWorkingSources();
       serveTruncatedZip();
 

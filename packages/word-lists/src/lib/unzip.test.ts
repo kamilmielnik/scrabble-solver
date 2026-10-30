@@ -9,7 +9,7 @@ import { installTempFileSandbox } from '../test/installTempFileSandbox';
 
 import { unzip } from './unzip';
 
-const sandbox = installTempFileSandbox();
+installTempFileSandbox();
 
 const REQUESTED_ENTRY = 'slowa.txt';
 const WORDS = 'aa\nżółć\n';
@@ -146,11 +146,13 @@ describe('unzip of a file that is not a zip', () => {
     expect((await getRejection(unzip(zipFilename, REQUESTED_ENTRY, outputFilename))).message).toContain('FILE_ENDED');
   });
 
-  it.todo('rejects when the zip file does not exist');
+  it('rejects when the zip file does not exist', async () => {
+    expect((await getRejection(unzip(zipFilename, REQUESTED_ENTRY, outputFilename))).message).toContain('ENOENT');
+  });
 });
 
 describe('unzip of a stored entry', () => {
-  it.todo('resolves only after the requested entry is fully written', async () => {
+  it('resolves only after the requested entry is fully written', async () => {
     writeFileSync(zipFilename, createZip([{ content: WORDS, name: REQUESTED_ENTRY }]));
 
     await unzip(zipFilename, REQUESTED_ENTRY, outputFilename);
@@ -159,7 +161,6 @@ describe('unzip of a stored entry', () => {
   });
 });
 
-async function unzipRequestedEntry(): Promise<void> {
-  await unzip(zipFilename, REQUESTED_ENTRY, outputFilename);
-  await sandbox.waitForWriteStreams();
+function unzipRequestedEntry(): Promise<void> {
+  return unzip(zipFilename, REQUESTED_ENTRY, outputFilename);
 }

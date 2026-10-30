@@ -1,7 +1,6 @@
 export { downloadFile } from './downloadFile';
 export { downloadHtml } from './downloadHtml';
 export { extractWords } from './extractWords';
-export { findFirstWordIndex } from './findFirstWordIndex';
 export { getHash } from './getHash';
 export { getTempFilepath } from './getTempFilepath';
 export { getTxtWordList } from './getTxtWordList';

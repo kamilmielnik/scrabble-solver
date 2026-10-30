@@ -19,12 +19,12 @@ describe('german getWordList', () => {
     expect(harness.requestedUrls).toEqual([FILE_URL]);
   });
 
-  it('collates the file using the German locale', async () => {
+  it('lower-cases the file using the German locale', async () => {
     harness.serve(FILE_URL, 'AAL\n');
 
     await getWordList();
 
-    expect(harness.getCollationLocales()).toEqual([Locale.DE_DE]);
+    expect(harness.getLowerCasingLocales()).toEqual([Locale.DE_DE]);
   });
 
   it('keeps umlauts, because they are separate German tiles', async () => {

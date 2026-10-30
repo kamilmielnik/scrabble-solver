@@ -18,12 +18,12 @@ describe('romanian getWordList', () => {
     expect(harness.requestedUrls).toEqual([FILE_URL]);
   });
 
-  it('collates the file using the Romanian locale', async () => {
+  it('lower-cases the file using the Romanian locale', async () => {
     harness.serve(FILE_URL, 'AA\n');
 
     await getWordList();
 
-    expect(harness.getCollationLocales()).toEqual([Locale.RO_RO]);
+    expect(harness.getLowerCasingLocales()).toEqual([Locale.RO_RO]);
   });
 
   it('strips diacritics, because Romanian tiles have none', async () => {
