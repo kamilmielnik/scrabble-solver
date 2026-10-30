@@ -103,5 +103,17 @@ describe('Tile.Null', () => {
     }).toThrow(TypeError);
   });
 
-  it.todo('agrees in both directions on whether it equals a non-blank tile holding a space');
+  it('agrees in both directions on whether it equals a non-blank tile holding a space', () => {
+    const tile = new Tile({ character: EMPTY_CELL });
+
+    expect(tile.equals(Tile.Null)).toBe(true);
+    expect(Tile.Null.equals(tile)).toBe(true);
+  });
+
+  it('does not equal a blank tile, in either direction', () => {
+    const blank = new Tile({ character: EMPTY_CELL, isBlank: true });
+
+    expect(blank.equals(Tile.Null)).toBe(false);
+    expect(Tile.Null.equals(blank)).toBe(false);
+  });
 });

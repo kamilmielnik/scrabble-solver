@@ -18,7 +18,7 @@ export class Tile {
     character: EMPTY_CELL,
     isBlank: false,
     clone: () => Tile.Null,
-    equals: (other: Tile) => other === Tile.Null,
+    equals: (other: Tile) => other.character === EMPTY_CELL && !other.isBlank,
     toJson: () => null,
     toString: () => EMPTY_CELL,
   });

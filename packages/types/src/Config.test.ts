@@ -198,7 +198,9 @@ describe('Config', () => {
       expect(config.getCharacterPoints('A')).toBeUndefined();
     });
 
-    it.todo('has no points for the name of an Object.prototype member such as "constructor"');
+    it('has no points for the name of an Object.prototype member such as "constructor"', () => {
+      expect(config.getCharacterPoints('constructor')).toBeUndefined();
+    });
   });
 
   describe('getTilePoints', () => {
@@ -293,7 +295,9 @@ describe('Config', () => {
       expect(config.hasCharacter('c')).toBe(false);
     });
 
-    it.todo('rejects the name of an Object.prototype member such as "constructor"');
+    it('rejects the name of an Object.prototype member such as "constructor"', () => {
+      expect(config.hasCharacter('constructor')).toBe(false);
+    });
   });
 
   describe('supportsRemainingTiles', () => {
