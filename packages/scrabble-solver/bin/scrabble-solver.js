@@ -1,8 +1,38 @@
 #!/usr/bin/env node
 
-const { execSync } = require('child_process');
+const { spawn } = require('child_process');
 const path = require('path');
+const waitOn = require('wait-on');
 
-const rootDirectory = path.join(__dirname, '..');
-process.chdir(rootDirectory);
-execSync('bun run launch', { stdio: 'inherit' });
+const PORT = 3333;
+const APP_URL = `http://localhost:${PORT}`;
+
+const server = spawn(process.execPath, [require.resolve('next/dist/bin/next'), 'start', '-p', String(PORT)], {
+  cwd: path.join(__dirname, '..'),
+  stdio: 'inherit',
+});
+
+process.on('SIGINT', forwardSignal);
+process.on('SIGTERM', forwardSignal);
+server.on('exit', exitWithServer);
+
+openBrowser().catch(printAppUrl);
+
+function forwardSignal(signal) {
+  server.kill(signal);
+}
+
+function exitWithServer(code) {
+  process.exit(code ?? 1);
+}
+
+async function openBrowser() {
+  const { default: open } = await import('open');
+
+  await waitOn({ resources: [APP_URL] });
+  await open(APP_URL);
+}
+
+function printAppUrl() {
+  console.log(`Open ${APP_URL} in your browser`);
+}

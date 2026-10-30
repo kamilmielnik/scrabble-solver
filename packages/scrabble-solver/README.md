@@ -14,7 +14,7 @@ You can run Scrabble Solver on your machine - all you need is [Bun](https://bun.
 bunx scrabble-solver@latest
 ```
 
-Alternatively you can also use [Node.js](https://nodejs.org/) 24 or later.
+Alternatively you can use [Node.js](https://nodejs.org/) 24 or later instead.
 
 ```Shell
 npx scrabble-solver@latest
@@ -37,7 +37,3 @@ Run development server with hot-reload.
 ### `bun start`
 
 Run production server.
-
-### `bun run launch`
-
-Run production server and open it in the browser.

@@ -11,7 +11,6 @@ jobs:
   npx:
     runs-on: ubuntu-latest
     steps:
-      - uses: oven-sh/setup-bun@v2
       - uses: actions/setup-node@v5
         with:
           node-version: 24
@@ -42,7 +41,8 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: ${{ env.VERSION }}
-      - run: bun install --frozen-lockfile
+      # Only the test tools from the root package. Bun stays off this runner: the app must not need it.
+      - run: npm install --no-save --no-package-lock --ignore-scripts --workspaces=false
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
       - name: Install the published package globally
@@ -50,9 +50,8 @@ jobs:
       - name: Pre-warm dictionaries cache
         run: npx --yes --package @scrabble-solver/dictionaries@"$VERSION" update-dictionaries
         working-directory: ${{ runner.temp }}
-      # The absolute path, because node_modules/.bin holds an unbuilt binary of the workspace package.
       - name: Run e2e tests against the global binary
-        run: npx start-server-and-test "$(npm prefix --global)/bin/scrabble-solver" http://localhost:3333 'npx playwright test'
+        run: npx start-server-and-test scrabble-solver http://localhost:3333 'npx playwright test'
         env:
           PLAYWRIGHT_BASE_URL: http://localhost:3333
       - uses: actions/upload-artifact@v7

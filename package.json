@@ -19,7 +19,7 @@
     "release": "bun scripts/release.ts",
     "screencast": "start-server-and-test start:app http://localhost:3333 screencast:record",
     "screencast:record": "bun scripts/record-screencast.ts",
-    "start": "bun run --cwd packages/scrabble-solver launch",
+    "start": "node packages/scrabble-solver/bin/scrabble-solver.js",
     "start:app": "bun run --cwd packages/scrabble-solver start",
     "test": "bun run build && bun run test-unit && start-server-and-test start:app http://localhost:3333 test-playwright:run",
     "test-playwright": "playwright test --ui",

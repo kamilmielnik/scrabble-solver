@@ -96,7 +96,7 @@ You can run Scrabble Solver on your machine - all you need is [Bun](https://bun.
 bunx scrabble-solver@latest
 ```
 
-Alternatively you can also use [Node.js](https://nodejs.org/) 24 or later.
+Alternatively you can use [Node.js](https://nodejs.org/) 24 or later instead.
 ```Shell
 npx scrabble-solver@latest
 ```
