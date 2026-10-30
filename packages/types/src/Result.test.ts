@@ -3,10 +3,12 @@ import { describe, expect, it } from 'bun:test';
 
 import { Board } from './Board';
 import { Cell } from './Cell';
+import { Locale } from './Locale';
 import { Result } from './Result';
 import { type ResultJson } from './ResultJson';
 import { Tile } from './Tile';
 
+const LOCALE = Locale.EN_US;
 const EMPTY_ROWS = ['     ', '     ', '     ', '     ', '     '];
 
 describe('Result', () => {
@@ -57,13 +59,17 @@ describe('Result', () => {
         createJson({ isHorizontal: false, tiles: ['a', 'b', 'c', 'd', 'e', 'f'], x: 1, y: 0 }),
       ],
     ])('round-trips %s exactly', (_name, rows, json) => {
-      expect(Result.fromJson(json, Board.fromStringArray(rows)).toJson()).toStrictEqual(json);
+      expect(Result.fromJson(json, Board.fromStringArray(rows), LOCALE).toJson()).toStrictEqual(json);
     });
 
     it('rebuilds an equal result from serialized text', () => {
       const board = Board.fromStringArray(['     ', '     ', ' a c ', '     ', '     ']);
-      const result = Result.fromJson(createJson({ blankIndices: [0], points: 3, tiles: ['b'], x: 1, y: 2 }), board);
-      const decoded = Result.fromJson(JSON.parse(JSON.stringify(result.toJson())) as ResultJson, board);
+      const result = Result.fromJson(
+        createJson({ blankIndices: [0], points: 3, tiles: ['b'], x: 1, y: 2 }),
+        board,
+        LOCALE,
+      );
+      const decoded = Result.fromJson(JSON.parse(JSON.stringify(result.toJson())) as ResultJson, board, LOCALE);
 
       expect(decoded.toJson()).toStrictEqual(result.toJson());
       expect(decoded.word).toBe('abc');
@@ -90,7 +96,7 @@ describe('Result', () => {
 
     it('leaves the board untouched when the result cells change', () => {
       const board = Board.fromStringArray(['     ', '     ', ' a   ', '     ', '     ']);
-      const result = Result.fromJson(createJson({ tiles: ['b'], x: 1, y: 2 }), board);
+      const result = Result.fromJson(createJson({ tiles: ['b'], x: 1, y: 2 }), board, LOCALE);
 
       result.cells[0].tile.character = 'z';
 
@@ -120,7 +126,7 @@ describe('Result', () => {
       board.updateCell(1, 2, () => {
         return new Cell({ isEmpty: false, tile: new Tile({ character: 'a', isBlank: true }), x: 1, y: 2 });
       });
-      const result = Result.fromJson(createJson({ blankIndices: [1], tiles: ['b', 'c'], x: 1, y: 2 }), board);
+      const result = Result.fromJson(createJson({ blankIndices: [1], tiles: ['b', 'c'], x: 1, y: 2 }), board, LOCALE);
 
       expect(result.word).toBe('abc');
       expect(result.blanksCount).toBe(1);
@@ -168,6 +174,16 @@ describe('Result', () => {
 
       expect(result.consonantsCount).toBe(consonantsCount);
       expect(result.vowelsCount).toBe(vowelsCount);
+    });
+
+    it('counts y by the rules of the locale', () => {
+      const json = createJson({ tiles: ['y', 'a'] });
+      const board = Board.fromStringArray(EMPTY_ROWS);
+      const english = Result.fromJson(json, board, Locale.EN_US);
+      const turkish = Result.fromJson(json, board, Locale.TR_TR);
+
+      expect([english.consonantsCount, english.vowelsCount]).toEqual([0, 2]);
+      expect([turkish.consonantsCount, turkish.vowelsCount]).toEqual([1, 1]);
     });
   });
 
@@ -274,7 +290,7 @@ describe('Result', () => {
       new Cell({ tile: new Tile({ character: 'b' }), x: 1, y: 0 }),
       new Cell({ isEmpty: false, tile: new Tile({ character: 'c' }), x: 1, y: 1 }),
     ];
-    const result = new Result({ cells, collisions: [collision], id: 1, points: 4 });
+    const result = new Result({ cells, collisions: [collision], id: 1, locale: LOCALE, points: 4 });
 
     expect(result.cells).toBe(cells);
     expect(result.collisions).toEqual([collision]);
@@ -285,7 +301,7 @@ describe('Result', () => {
 });
 
 function createResult(rows: string[], overrides: Partial<ResultJson>): Result {
-  return Result.fromJson(createJson(overrides), Board.fromStringArray(rows));
+  return Result.fromJson(createJson(overrides), Board.fromStringArray(rows), LOCALE);
 }
 
 function createJson(overrides: Partial<ResultJson>): ResultJson {

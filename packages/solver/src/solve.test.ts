@@ -105,7 +105,7 @@ describe('solve - pl-PL', () => {
     ]);
     const tiles = generateTiles(['a', 'a', 'ą', 'r', 't', 'w', 'z']);
     const results = solve(gaddag!, config, board, tiles);
-    const bestResult = getBestResult(results.map((result) => Result.fromJson(result, board)));
+    const bestResult = getBestResult(results.map((result) => Result.fromJson(result, board, locale)));
     expect(bestResult.word).toBe('zmartwychwstałą');
     expect(bestResult.points).toBe(682);
   });
@@ -130,7 +130,7 @@ describe('solve - pl-PL', () => {
     ]);
     const tiles = generateTiles(['ą', 'c', 'h', 't', 'w', 'w', 'z']);
     const results = solve(gaddag!, config, board, tiles);
-    const bestResult = getBestResult(results.map((result) => Result.fromJson(result, board)));
+    const bestResult = getBestResult(results.map((result) => Result.fromJson(result, board, locale)));
     expect(bestResult.word).toBe('zmartwychwstałą');
     expect(bestResult.points).toBe(1157);
   });
@@ -190,7 +190,7 @@ describe('solve - es-ES', () => {
     ]);
     const tiles = generateTiles(['ll', 'a', 'n', 'a']);
     const results = solve(gaddag!, config, board, tiles);
-    const bestResult = getBestResult(results.map((result) => Result.fromJson(result, board)));
+    const bestResult = getBestResult(results.map((result) => Result.fromJson(result, board, locale)));
     expect(results.length).toBe(24);
     expect(bestResult.points).toBe(22);
   });
@@ -215,7 +215,7 @@ describe('solve - es-ES', () => {
     ]);
     const tiles = generateTiles(['ch', 'o', 'o', 'c', 'h']);
     const results = solve(gaddag!, config, board, tiles);
-    const words = results.map((result) => Result.fromJson(result, board).word);
+    const words = results.map((result) => Result.fromJson(result, board, locale).word);
     expect(words).not.toContain('chocho');
   });
 });
@@ -250,7 +250,7 @@ describe('solve - en-GB', () => {
       '               ',
     ]);
     const tiles = generateTiles(['n']);
-    const results = solve(gaddag!, config, board, tiles).map((json) => Result.fromJson(json, board));
+    const results = solve(gaddag!, config, board, tiles).map((json) => Result.fromJson(json, board, locale));
     expect(results.some((result) => result.word === 'no')).toBe(true);
     expect(results.some((result) => result.word === 'on')).toBe(true);
     expect(results.length).toBe(2);

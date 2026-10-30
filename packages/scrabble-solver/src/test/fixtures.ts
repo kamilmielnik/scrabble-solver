@@ -1,4 +1,4 @@
-import { Cell, Result, Tile } from '@scrabble-solver/types';
+import { Cell, Locale, Result, Tile } from '@scrabble-solver/types';
 
 import { type VerifiedWord } from '../types';
 
@@ -41,6 +41,7 @@ export function createResult({
     cells,
     collisions: collisions.map((collision) => createCollision(collision, x, y)),
     id,
+    locale: Locale.EN_US,
     points,
   });
 }

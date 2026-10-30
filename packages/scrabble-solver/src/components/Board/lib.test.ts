@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 
 import { languages } from '@scrabble-solver/configs';
-import { type Bonus, Board, Cell, Config, Result, Tile } from '@scrabble-solver/types';
+import { type Bonus, Board, Cell, Config, Locale, Result, Tile } from '@scrabble-solver/types';
 
 import { COLOR_BONUS_CHARACTER, COLOR_BONUS_CHARACTER_MULTIPLIER, COLOR_BONUS_WORD } from '../../parameters';
 
@@ -193,7 +193,7 @@ describe('getWordCells', () => {
 });
 
 function createResult(cells: Cell[]): Result {
-  return new Result({ cells, collisions: [], id: 0, points: 0 });
+  return new Result({ cells, collisions: [], id: 0, locale: Locale.EN_US, points: 0 });
 }
 
 function createPlacedCell(character: string, x: number, y: number): Cell {

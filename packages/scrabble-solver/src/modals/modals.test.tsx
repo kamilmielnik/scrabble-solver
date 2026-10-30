@@ -121,11 +121,14 @@ describe('MenuModal', () => {
 
 describe('getRemainingTilesGroups', () => {
   it('splits tiles into vowels, consonants and blanks, dropping empty groups', () => {
-    const groups = getRemainingTilesGroups([
-      createTile({ character: 'a', count: 9, usedCount: 2 }),
-      createTile({ character: 'b', count: 2, usedCount: 1 }),
-      createTile({ character: BLANK, count: 2, usedCount: 0 }),
-    ]);
+    const groups = getRemainingTilesGroups(
+      [
+        createTile({ character: 'a', count: 9, usedCount: 2 }),
+        createTile({ character: 'b', count: 2, usedCount: 1 }),
+        createTile({ character: BLANK, count: 2, usedCount: 0 }),
+      ],
+      Locale.EN_US,
+    );
 
     expect(groups.map(({ translationKey }) => translationKey)).toEqual([
       'common.vowels',
@@ -137,27 +140,45 @@ describe('getRemainingTilesGroups', () => {
   });
 
   it('groups digraphs and other letters', () => {
-    const groups = getRemainingTilesGroups([
-      createTile({ character: 'ch', count: 1 }),
-      createTile({ character: 'ش', count: 3 }),
-    ]);
+    const groups = getRemainingTilesGroups(
+      [createTile({ character: 'ch', count: 1 }), createTile({ character: 'ش', count: 3 })],
+      Locale.EN_US,
+    );
 
     expect(groups.map(({ translationKey }) => translationKey)).toEqual(['common.tiles', 'common.two-letter-tiles']);
   });
 
   it('ignores tiles without a count', () => {
-    const groups = getRemainingTilesGroups([
-      createTile({ character: 'a', count: undefined, usedCount: 1 }),
-      createTile({ character: 'e', count: 1 }),
-    ]);
+    const groups = getRemainingTilesGroups(
+      [createTile({ character: 'a', count: undefined, usedCount: 1 }), createTile({ character: 'e', count: 1 })],
+      Locale.EN_US,
+    );
 
     expect(groups[0]).toMatchObject({ remainingCount: 1, totalCount: 1 });
   });
 
   it('counts overuse as a negative remainder', () => {
-    const [group] = getRemainingTilesGroups([createTile({ character: 'a', count: 1, usedCount: 3 })]);
+    const [group] = getRemainingTilesGroups([createTile({ character: 'a', count: 1, usedCount: 3 })], Locale.EN_US);
 
     expect(group.remainingCount).toBe(-2);
+  });
+
+  it('leaves out a letter outside the alphabet, which has no tiles in the bag', () => {
+    const groups = getRemainingTilesGroups(
+      [createTile({ character: 'ą', count: 0, usedCount: 1 }), createTile({ character: 'a', count: 9 })],
+      Locale.EN_US,
+    );
+
+    expect(groups.map(({ remainingCount }) => remainingCount)).toEqual([9]);
+  });
+
+  it('groups y with the consonants in Turkish and with the vowels elsewhere', () => {
+    const tiles = [createTile({ character: 'y', count: 2 }), createTile({ character: 'k', count: 7 })];
+    const inTurkish = getRemainingTilesGroups(tiles, Locale.TR_TR);
+    const inEnglish = getRemainingTilesGroups(tiles, Locale.EN_US);
+
+    expect(inTurkish.map(({ totalCount }) => totalCount)).toEqual([9]);
+    expect(inEnglish.map(({ totalCount }) => totalCount)).toEqual([2, 7]);
   });
 });
 

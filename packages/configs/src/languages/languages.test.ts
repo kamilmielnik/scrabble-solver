@@ -1,7 +1,17 @@
 /* eslint-disable max-lines */
 
 import { BONUS_CHARACTER, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
-import { type Config, type ConfigJson, type TileConfig, Cell, Game, Locale, Tile } from '@scrabble-solver/types';
+import {
+  type Config,
+  type ConfigJson,
+  type TileConfig,
+  Cell,
+  Game,
+  isConsonant,
+  isVowel,
+  Locale,
+  Tile,
+} from '@scrabble-solver/types';
 import { describe, expect, it } from 'bun:test';
 
 import * as games from '../games';
@@ -468,7 +478,7 @@ describe('Persian', () => {
     expect(alphabet).not.toContain(String.fromCodePoint(ARABIC_YEH));
   });
 
-  it.todo('has a tile for alef madda, or words such as آب in the word list can never be played');
+  it.todo('makes words spelled with alef madda, such as آباد, playable (see issue #470)');
 });
 
 describe('consonant and vowel groups', () => {
@@ -486,9 +496,10 @@ describe('consonant and vowel groups', () => {
     },
   );
 
-  it.todo('classifies the Spanish digraphs ch, ll and rr as consonants in Result.consonantsCount');
-
-  it.todo('classifies y as a consonant in Turkish, where the lists treat it as a vowel for every locale');
+  it('classifies y as a consonant in Turkish and as a vowel elsewhere', () => {
+    expect(isConsonant('y', Locale.TR_TR)).toBe(true);
+    expect(isVowel('y', Locale.EN_US)).toBe(true);
+  });
 });
 
 describe('Scrabble in every language', () => {
