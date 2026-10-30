@@ -198,7 +198,7 @@ Every package in [packages](https://github.com/kamilmielnik/scrabble-solver/tree
 bun run release
 ```
 
-It works from a clean `master` that is up to date with its remote. It prompts for a version, builds that version, runs the tests against the build, checks the tarballs, and then publishes every package and creates a GitHub draft release.
+It works from a clean `master` that is up to date with its remote. It prompts for a version, builds that version, runs the tests against the build, and then publishes every package and creates a GitHub draft release.
 
 - If the tests fail, nothing is committed or published. Discard the version bump with `git checkout HEAD -- .`
 - If the release stops after its commit, for example with some packages published and some not, finish it with:
@@ -206,13 +206,6 @@ It works from a clean `master` that is up to date with its remote. It prompts fo
   bun run release resume
   ```
   It publishes only the missing packages, so you can repeat it safely.
-
-To check the packages without releasing them:
-
-```Shell
-bun run build
-bun run check-tarballs
-```
 
 ## Tech stack
 

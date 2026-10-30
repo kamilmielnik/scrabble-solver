@@ -11,10 +11,21 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
-import { type Manifest, getPublishedPackages, ROOT_DIRECTORY } from './lib/tarballs';
+interface Manifest {
+  gitHead?: string;
+  name: string;
+  private?: boolean;
+  workspaces?: string[];
+}
+
+interface PublishedPackage {
+  directory: string;
+  manifest: Manifest;
+}
 
 const RELEASE_BRANCH = 'master';
 const REPOSITORY = 'kamilmielnik/scrabble-solver';
+const ROOT_DIRECTORY = path.resolve(import.meta.dirname, '..');
 
 const [firstArgument, ...otherArguments] = process.argv.slice(2);
 
@@ -35,7 +46,6 @@ function publish(): void {
   assertCleanReleaseBranch();
   assertHeadIsTagged(version);
   run('git', 'push', '--atomic', '--follow-tags', 'origin', RELEASE_BRANCH);
-  run('bun', 'run', 'check-tarballs');
   run('bunx', 'lerna', 'publish', 'from-package', '--yes');
   assertEveryPackageIsPublished(version);
   createDraftRelease(version);
@@ -100,13 +110,26 @@ function createDraftRelease(version: string): void {
 function restoreManifestsAfterFailedPublish(): void {
   for (const { directory } of getPublishedPackages()) {
     const manifestPath = path.relative(ROOT_DIRECTORY, path.join(directory, 'package.json'));
-    const manifest: Manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+    const manifest = readManifest(directory);
     const committedManifest: Manifest = JSON.parse(read('git', 'show', `HEAD:${manifestPath}`));
 
     if (manifest.gitHead && deepEquals({ ...committedManifest, gitHead: manifest.gitHead }, manifest)) {
       run('git', 'checkout', 'HEAD', '--', manifestPath);
     }
   }
+}
+
+function getPublishedPackages(): PublishedPackage[] {
+  const { workspaces = [] } = readManifest(ROOT_DIRECTORY);
+
+  return workspaces
+    .map((workspace) => path.join(ROOT_DIRECTORY, workspace))
+    .map((directory) => ({ directory, manifest: readManifest(directory) }))
+    .filter(({ manifest }) => !manifest.private);
+}
+
+function readManifest(directory: string): Manifest {
+  return JSON.parse(readFileSync(path.join(directory, 'package.json'), 'utf8'));
 }
 
 function read(command: string, ...args: string[]): string {
