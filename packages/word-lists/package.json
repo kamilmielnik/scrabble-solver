@@ -40,6 +40,5 @@
   "devDependencies": {
     "@types/follow-redirects": "1.14.4",
     "@types/unzipper": "0.10.11"
-  },
-  "gitHead": "f029a11f306a01937ee99fc6365cb226b972dfed"
+  }
 }

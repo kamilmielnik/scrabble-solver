@@ -29,6 +29,5 @@
     "clean": "rimraf build/",
     "export": "bun scripts/export-csv.ts",
     "test": "bun test src"
-  },
-  "gitHead": "f029a11f306a01937ee99fc6365cb226b972dfed"
+  }
 }

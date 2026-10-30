@@ -36,6 +36,5 @@
   "dependencies": {
     "@scrabble-solver/constants": "2.18.9",
     "@scrabble-solver/types": "2.18.9"
-  },
-  "gitHead": "f029a11f306a01937ee99fc6365cb226b972dfed"
+  }
 }

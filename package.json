@@ -27,7 +27,7 @@
     "node": ">=24"
   },
   "bin": {
-    "scrabble-solver": "./bin/scrabble-solver.js"
+    "scrabble-solver": "bin/scrabble-solver.js"
   },
   "scripts": {
     "benchmark": "bun run --filter @scrabble-solver/solver benchmark",
