@@ -28,7 +28,7 @@
     "build": "tsc --project . && tsc --project scripts",
     "clean": "rimraf build/",
     "export": "bun scripts/export-csv.ts",
-    "test": "bun test src"
+    "test": "bun test src scripts"
   },
   "gitHead": "f029a11f306a01937ee99fc6365cb226b972dfed"
 }
