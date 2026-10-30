@@ -1,6 +1,109 @@
-import { Board, Cell, Result, Tile } from '@scrabble-solver/types';
+/* eslint-disable max-lines */
 
-import { getReachableCellsFromResults, getWordCells } from './lib';
+import { languages } from '@scrabble-solver/configs';
+import { type Bonus, Board, Cell, Config, Result, Tile } from '@scrabble-solver/types';
+
+import { COLOR_BONUS_CHARACTER, COLOR_BONUS_CHARACTER_MULTIPLIER, COLOR_BONUS_WORD } from '../../parameters';
+
+import {
+  createGrid,
+  getBonusColor,
+  getPositionInGrid,
+  getReachableCells,
+  getReachableCellsFromResults,
+  getWordCells,
+} from './lib';
+
+describe('createGrid', () => {
+  it('builds height rows of width cells from their coordinates', () => {
+    expect(createGrid(2, 3, (x, y) => `${x}${y}`)).toEqual([
+      ['00', '10'],
+      ['01', '11'],
+      ['02', '12'],
+    ]);
+  });
+});
+
+describe('getPositionInGrid', () => {
+  const grid = [
+    ['a', 'b'],
+    ['c', 'b'],
+  ];
+
+  it('finds the first match in reading order', () => {
+    expect(getPositionInGrid(grid, (value) => value === 'b')).toEqual({ x: 1, y: 0 });
+  });
+
+  it('is undefined without a match', () => {
+    expect(getPositionInGrid(grid, (value) => value === 'z')).toBeUndefined();
+  });
+});
+
+describe('getBonusColor', () => {
+  it('colours word bonuses by multiplier', () => {
+    expect(getBonusColor(createBonus({ multiplier: 3, type: 'BONUS_WORD' }))).toBe(COLOR_BONUS_WORD[3]);
+  });
+
+  it('colours scored character bonuses by score', () => {
+    expect(getBonusColor(createBonus({ score: 5, type: 'BONUS_CHARACTER' }))).toBe(COLOR_BONUS_CHARACTER[5]);
+  });
+
+  it('colours plain character bonuses by multiplier', () => {
+    expect(getBonusColor(createBonus({ multiplier: 2, type: 'BONUS_CHARACTER' }))).toBe(
+      COLOR_BONUS_CHARACTER_MULTIPLIER[2],
+    );
+  });
+
+  it('has a colour for every bonus of every shipped board', () => {
+    for (const config of Object.values(languages)) {
+      for (const bonus of new Config(config.config).bonuses) {
+        expect(getBonusColor(bonus)).toStartWith('#');
+      }
+    }
+  });
+});
+
+describe('getReachableCells', () => {
+  const emptyBoard = Board.create(5, 5);
+  const centerTile = Board.fromStringArray(['     ', '     ', '  a  ', '     ', '     ']);
+
+  it('reaches nothing with no tiles to play', () => {
+    expect(getReachableCells(centerTile, 0).flat().some(Boolean)).toBe(false);
+  });
+
+  it('reaches only the start cell with one tile on an empty board', () => {
+    expect(readReachable(getReachableCells(emptyBoard, 1))).toEqual(['.....', '.....', '..#..', '.....', '.....']);
+  });
+
+  it('reaches along both axes through the start cell on an empty board', () => {
+    expect(readReachable(getReachableCells(emptyBoard, 2))).toEqual(['.....', '..#..', '.###.', '..#..', '.....']);
+  });
+
+  it('reaches cells touching tiles with one tile', () => {
+    expect(readReachable(getReachableCells(centerTile, 1))).toEqual(['.....', '..#..', '.###.', '..#..', '.....']);
+  });
+
+  it('reaches further, including diagonals, with more tiles', () => {
+    expect(readReachable(getReachableCells(centerTile, 2))).toEqual(['..#..', '.###.', '#####', '.###.', '..#..']);
+  });
+
+  it('stops at the board edge', () => {
+    const cornerTile = Board.fromStringArray(['a  ', '   ', '   ']);
+
+    expect(readReachable(getReachableCells(cornerTile, 1))).toEqual(['##.', '#..', '...']);
+  });
+
+  it('does not count a run of tiles beyond the reach', () => {
+    const board = Board.fromStringArray(['a    ', '     ', '     ', '     ', '     ']);
+
+    expect(getReachableCells(board, 3)[0][4]).toBe(false);
+    expect(getReachableCells(board, 4)[0][4]).toBe(true);
+  });
+
+  it('always reaches filled cells', () => {
+    expect(getReachableCells(centerTile, 1)[2][2]).toBe(true);
+  });
+});
 
 describe('getReachableCellsFromResults', () => {
   const board = Board.fromStringArray(['     ', '     ', '  i  ', '     ', '     ']);
@@ -103,4 +206,12 @@ function createFilledCell(character: string, x: number, y: number): Cell {
 
 function createEmptyCell(x: number, y: number): Cell {
   return new Cell({ isEmpty: true, tile: Tile.Null, x, y });
+}
+
+function readReachable(grid: boolean[][]): string[] {
+  return grid.map((row) => row.map((isReachable) => (isReachable ? '#' : '.')).join(''));
+}
+
+function createBonus(bonus: Partial<Bonus>): Bonus {
+  return bonus as Bonus;
 }
