@@ -92,12 +92,11 @@ Hot reload only works for the `scrabble-solver` package. Edits to any other pack
 
 `.github/workflows/`:
 
-- `build.yml` — `bun install --frozen-lockfile && bun run build`.
+- `build.yml` — `bun install --frozen-lockfile && bun run build`, then type-checks `scripts/` and runs `check-tarballs`, so a packaging regression in the tarball contents fails before a release. Whether the published app actually starts is only checked after publishing, by `bunx.yml` and `npx.yml`.
 - `unit.yml` — `bun run build && bun run test-unit`.
 - `e2e.yml` — Playwright against the app on :3333 (via `start-server-and-test`). Uploads the HTML report and traces on failure.
 - `oxlint.yml` / `oxfmt.yml` — lint and format-check. `oxlint.yml` runs `bun run build` first because type-aware rules need built packages.
 - `bunx.yml` / `npx.yml` — run daily, on push to master, and via `workflow_dispatch`. They read the version from `lerna.json`, poll npm (up to 15 min) until that version of every workspace package is published, check out the git tag of that version, install the global binary (`bun add --global` / `npm install --global`), pre-warm the dictionaries cache through the published `update-dictionaries` bin, then run Playwright from the checkout against that binary. The Playwright specs come from the tag, **not** from `master` — if they came from master, any spec added for a feature that's merged but not yet released would run against the older published binary that lacks the feature, and fail (#428). `bunx.yml` starts the binary by its absolute path because `node_modules/.bin/scrabble-solver` in a full checkout install is the unbuilt workspace package, and the pre-warm runs in `runner.temp` for the same reason. `npx.yml` has no Bun on the runner at all and installs only the root package's test tools (`npm install --workspaces=false`), which proves the published app runs on Node.js alone. Catches packaging regressions in the `packages/scrabble-solver/bin/scrabble-solver.js` launcher.
-- `tarballs.yml` — on `push`/`pull_request`. Type-checks `scripts/`, builds, then runs `check-tarballs`, so a packaging regression in the tarball contents fails before a release. Whether the published app actually starts is only checked after publishing, by `bunx.yml` and `npx.yml`.
 - `deploy.yml` — `workflow_dispatch` only (branch input, default `master`). SSHs into prod, pulls, builds, restarts `scrabble-solver.service`.
 
 When adding a workflow, match the existing pattern: trigger on `push`/`pull_request` to `master`, use `actions/checkout@v6` and `oven-sh/setup-bun@v2`, install with `bun install --frozen-lockfile`.
