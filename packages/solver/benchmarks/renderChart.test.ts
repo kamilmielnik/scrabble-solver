@@ -101,7 +101,11 @@ describe('renderChart', () => {
     expect(() => renderChart([createMeasurement('Polish', 0, [0])])).toThrow('Cannot pick a tick step for 0');
   });
 
-  it.todo('labels every tick with its own value when the scale stays under 50 ms');
+  it('labels every tick with its own value when the scale is too small for seconds', () => {
+    const svg = renderChart([createMeasurement('Polish', 0, [20])]);
+
+    expect(findAll(svg, /class="tick-label"[^>]*>([^<]+)</g)).toEqual(['0', '5ms', '10ms', '15ms', '20ms', '25ms']);
+  });
 });
 
 function createMeasurement(label: string, blanksCount: number, durations: number[]): Measurement {

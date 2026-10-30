@@ -61,7 +61,10 @@ describe('formatDuration', () => {
     expect(formatDuration(1250)).toBe('1.3 s');
   });
 
-  it.todo('switches to seconds for durations that round up to one second');
+  it('switches to seconds for durations that round up to one second', () => {
+    expect(formatDuration(999.4)).toBe('999 ms');
+    expect(formatDuration(999.6)).toBe('1.0 s');
+  });
 });
 
 describe('formatBlanksCount', () => {

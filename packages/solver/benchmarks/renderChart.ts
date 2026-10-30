@@ -82,7 +82,7 @@ const renderScale = (tickStep: number, scaleMax: number): string => {
     const lineClass = tick === 0 ? 'axis' : 'grid';
     lines.push(`  <line class="${lineClass}" x1="${PLOT_LEFT}" y1="${y}" x2="${PLOT_RIGHT}" y2="${y}" />`);
     lines.push(
-      `  <text class="tick-label" text-anchor="end" x="${PLOT_LEFT - 8}" y="${y + 4}">${formatTick(tick)}</text>`,
+      `  <text class="tick-label" text-anchor="end" x="${PLOT_LEFT - 8}" y="${y + 4}">${formatTick(tick, tickStep)}</text>`,
     );
   }
 
@@ -158,8 +158,12 @@ const getTickStep = (maxValue: number): number => {
   return step;
 };
 
-const formatTick = (milliseconds: number): string => {
-  return milliseconds === 0 ? '0' : `${Number((milliseconds / 1000).toFixed(2))}s`;
+const formatTick = (milliseconds: number, tickStep: number): string => {
+  if (milliseconds === 0) {
+    return '0';
+  }
+
+  return tickStep < 100 ? `${round(milliseconds)}ms` : `${Number((milliseconds / 1000).toFixed(2))}s`;
 };
 
 const round = (value: number): number => Math.round(value * 100) / 100;
