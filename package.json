@@ -8,6 +8,7 @@
   "scripts": {
     "benchmark": "bun run --filter @scrabble-solver/solver benchmark",
     "build": "bun run --filter './packages/*' build",
+    "check-tarballs": "bun scripts/check-tarballs.ts",
     "clean": "bun run --filter './packages/*' clean && rimraf node_modules/",
     "dev": "bun run --filter scrabble-solver dev",
     "format": "oxfmt --check './**/*.{js,ts,tsx,scss}'",
@@ -22,6 +23,7 @@
     "test": "bun run build && bun run test-unit && start-server-and-test start:app http://localhost:3333 test-playwright:run",
     "test-playwright": "playwright test --ui",
     "test-playwright:run": "PLAYWRIGHT_BASE_URL=http://localhost:3333 playwright test",
+    "test-tarballs": "bun scripts/test-tarballs.ts",
     "test-unit": "bun run --filter '*' test"
   },
   "repository": {
