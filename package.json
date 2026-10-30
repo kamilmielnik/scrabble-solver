@@ -47,7 +47,7 @@
     "start": "bun run --parallel --no-orphans 'start:*'",
     "start:app": "bun run --cwd packages/scrabble-solver start",
     "start:browser": "wait-on http://localhost:3333 && open-cli http://localhost:3333",
-    "test": "bun run build && bun run test-unit && start-server-and-test 'bun run start:app 2>&1 | cat' http://localhost:3333 test-playwright:run",
+    "test": "bun run build && bun run test-unit && start-server-and-test start:app http://localhost:3333 test-playwright:run",
     "test-playwright": "playwright test --ui",
     "test-playwright:run": "PLAYWRIGHT_BASE_URL=http://localhost:3333 playwright test",
     "test-unit": "bun run --filter '*' test"
