@@ -66,7 +66,6 @@
    3. [Rebuild the entire project](#rebuild-the-entire-project)
    4. [Rebuild a single package](#rebuild-a-single-package)
    5. [Add a new language](#add-a-new-language)
-   6. [Release](#release)
 5. [Tech stack](#tech-stack)
 6. [Related projects](#related-projects)
 7. [Media](#media)
@@ -189,23 +188,6 @@ bun run --filter @scrabble-solver/word-lists build
 14. Add a function to parse the word definition crawled in the previous step in [packages/word-definitions/src/parse.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/parse.ts)
     - Bonus points for adding tests in [packages/word-definitions/src/parse.test.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/word-definitions/src/parse.test.ts)
 15. Add a transliteration function in [packages/scrabble-solver/src/lib/localeTransliterate.ts](https://github.com/kamilmielnik/scrabble-solver/blob/master/packages/scrabble-solver/src/lib/localeTransliterate.ts)
-
-### Release
-
-Every package in [packages](https://github.com/kamilmielnik/scrabble-solver/tree/master/packages) is published with the same version. The app is published as [`scrabble-solver`](https://www.npmjs.com/package/scrabble-solver), and the other packages under the `@scrabble-solver` scope.
-
-```Shell
-bun run release
-```
-
-It works from a clean `master` that is up to date with its remote. It prompts for a version, builds that version, runs the tests against the build, and then publishes every package and creates a GitHub draft release.
-
-- If the tests fail, nothing is committed or published. Discard the version bump with `git checkout HEAD -- .`
-- If the release stops after its commit, for example with some packages published and some not, finish it with:
-  ```Shell
-  bun run release resume
-  ```
-  It publishes only the missing packages, so you can repeat it safely.
 
 ## Tech stack
 
