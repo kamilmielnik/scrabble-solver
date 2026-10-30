@@ -12,7 +12,7 @@ test.describe('#401 - Board state not preserved on game type change', () => {
     await Lib.visitIndex(page);
     await Lib.typeBoard(page, 'word', 'horizontal', { x: 7, y: 7 });
 
-    await Lib.openSettingsModal(page);
+    await Lib.getSettingsButton(page).click();
     await Lib.getSettingOption(page, 'Game', 'Super Scrabble').check();
     await Lib.closeModal(page);
 

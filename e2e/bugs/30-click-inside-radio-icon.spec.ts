@@ -8,7 +8,7 @@ import * as Lib from '../lib';
 test.describe('#30 - Clicking inside an icon of non-first unchecked radio button does not select that option', () => {
   test('Clicking inside an icon of first unchecked radio button selects it', async ({ page }) => {
     await Lib.visitIndex(page);
-    await Lib.openSettingsModal(page);
+    await Lib.getSettingsButton(page).click();
     await Lib.getSettingOption(page, 'Language', 'English (GB)').click();
 
     const icon = Lib.getSettingOption(page, 'Language', 'English (US)')

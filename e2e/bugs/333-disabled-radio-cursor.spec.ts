@@ -8,7 +8,7 @@ import * as Lib from '../lib';
 test.describe('#333 - Disabled radio button has cursor: pointer', () => {
   test('Disabled radio button has cursor: not-allowed', async ({ page }) => {
     await Lib.visitIndex(page);
-    await Lib.openSettingsModal(page);
+    await Lib.getSettingsButton(page).click();
     await Lib.getSettingOption(page, 'Language', 'Polski').check();
     await Lib.getSettingOption(page, 'Gra', 'Scrabble').scrollIntoViewIfNeeded();
 

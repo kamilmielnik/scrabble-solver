@@ -8,7 +8,7 @@ import * as Lib from '../lib';
 test.describe('#342 - Incorrect sorting when filtering', () => {
   test('correctly sorts valid results first when text filter is active', async ({ page }) => {
     await Lib.visitIndex(page);
-    await Lib.openSettingsModal(page);
+    await Lib.getSettingsButton(page).click();
     await Lib.getSettingOption(page, 'Language', 'Polski').check();
     await Lib.closeModal(page);
     await Lib.typeBoard(page, 'bopie', 'horizontal', { x: 6, y: 3 });

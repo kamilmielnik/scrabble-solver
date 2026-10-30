@@ -13,10 +13,10 @@ import {
   getRackTile,
   getResult,
   getSettingOption,
+  getSettingsButton,
   getTooltip,
   hoverResult,
   moveMouseAway,
-  openSettingsModal,
   solve,
   typeRack,
   visitIndex,
@@ -31,7 +31,7 @@ test.describe('app', () => {
 
   test('has default setting values', async ({ page }) => {
     await visitIndex(page);
-    await openSettingsModal(page);
+    await getSettingsButton(page).click();
 
     await expect(getSettingOption(page, 'Game', 'Scrabble')).toBeChecked();
     await expect(getSettingOption(page, 'Language', 'English (US)')).toBeChecked();
@@ -43,7 +43,7 @@ test.describe('app', () => {
   test.describe('full app test', () => {
     test('Scrabble - Polish', async ({ page }) => {
       await visitIndex(page);
-      await openSettingsModal(page);
+      await getSettingsButton(page).click();
       await getSettingOption(page, 'Language', 'Polski').check();
       await closeModal(page);
       await typeRack(page, 'abł');

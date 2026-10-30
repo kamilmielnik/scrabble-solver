@@ -8,7 +8,7 @@ import * as Lib from '../lib';
 test.describe('#3 - "X" tile is allowed in Polish', () => {
   test('does not accept "X" tile in Polish', async ({ page }) => {
     await Lib.visitIndex(page);
-    await Lib.openSettingsModal(page);
+    await Lib.getSettingsButton(page).click();
     await Lib.getSettingOption(page, 'Language', 'Polski').check();
     await Lib.closeModal(page);
     await Lib.typeBoard(page, 'x', 'horizontal', { x: 7, y: 7 });

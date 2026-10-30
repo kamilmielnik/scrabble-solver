@@ -8,7 +8,8 @@ import * as Lib from '../lib';
 test.describe('#129 - Esc does not close the sidebar when letters input is focused', () => {
   test('Esc key closes the sidebar when rack is focused', async ({ page }) => {
     await Lib.visitIndex(page);
-    await Lib.openSettingsModal(page);
+    await Lib.getSettingsButton(page).click();
+    await expect(Lib.getOpenModal(page)).toBeVisible();
     await Lib.typeRack(page, 'a');
     await page.keyboard.press('Escape');
 
