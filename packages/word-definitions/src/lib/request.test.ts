@@ -156,9 +156,10 @@ describe('request', () => {
   });
 
   it('rejects when the connection drops in the middle of the response body', async () => {
-    const port = await startDroppingServer();
+    const droppingPort = await startDroppingServer();
+    const response = request({ hostname: '127.0.0.1', port: droppingPort });
 
-    expect(await request({ hostname: '127.0.0.1', port }).catch(returnError)).toBeInstanceOf(Error);
+    expect(await response.catch(returnError)).toBeInstanceOf(Error);
   });
 });
 
@@ -190,7 +191,7 @@ function returnError(error: unknown): unknown {
 }
 
 async function startDroppingServer(): Promise<number> {
-  const server = net.createServer((socket) => {
+  const droppingServer = net.createServer((socket) => {
     socket.once('data', () => {
       socket.write('HTTP/1.1 200 OK\r\nContent-Length: 1000\r\n\r\npartial', () => {
         socket.destroy();
@@ -199,11 +200,11 @@ async function startDroppingServer(): Promise<number> {
   });
 
   await new Promise<void>((resolve) => {
-    server.listen(0, '127.0.0.1', resolve);
+    droppingServer.listen(0, '127.0.0.1', resolve);
   });
   afterAll(() => {
-    server.close();
+    droppingServer.close();
   });
 
-  return (server.address() as AddressInfo).port;
+  return (droppingServer.address() as AddressInfo).port;
 }
