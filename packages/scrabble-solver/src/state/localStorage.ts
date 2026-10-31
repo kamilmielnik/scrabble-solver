@@ -2,6 +2,8 @@ import { type BoardJson, type Locale, Board, isObject } from '@scrabble-solver/t
 import store2 from 'store2';
 
 import { englishTranslations } from '@/i18n/i18n';
+import { arrayEquals } from '@/lib/arrayEquals';
+import { readPlaceholders } from '@/lib/readPlaceholders';
 import type { Rack, TranslationKey, Translations } from '@/types';
 
 import type { SettingsState } from './settings/types';
@@ -101,7 +103,12 @@ export const localStorage = {
 };
 
 function hasEveryTranslation(translations: Translations): boolean {
-  return (Object.keys(englishTranslations) as TranslationKey[]).every((key) => typeof translations[key] === 'string');
+  return (Object.keys(englishTranslations) as TranslationKey[]).every((key) => {
+    const translation = translations[key];
+    const placeholders = readPlaceholders(englishTranslations[key]);
+
+    return typeof translation === 'string' && arrayEquals(readPlaceholders(translation), placeholders);
+  });
 }
 
 /**

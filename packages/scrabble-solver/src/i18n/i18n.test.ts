@@ -6,6 +6,8 @@ import { Locale } from '@scrabble-solver/types';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
+import { readPlaceholders } from '@/lib/readPlaceholders';
+
 import { LOCALE_FEATURES } from './constants';
 import { englishTranslations, loadTranslations } from './i18n';
 import { LOCALE_ICONS } from './localeIcons';
@@ -112,10 +114,6 @@ describe('configs', () => {
     expect(Object.keys(games).length).toBeGreaterThan(0);
   });
 });
-
-function readPlaceholders(text: string): string[] {
-  return Array.from(text.matchAll(/\{\{(\w+)\}\}/g), ([, name]) => name).sort();
-}
 
 function compareKeys(keyA: string, keyB: string): number {
   const [sortKeyA, sortKeyB] = [keyA, keyB].map((key) => `${key}.\uffff`);

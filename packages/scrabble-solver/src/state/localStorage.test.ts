@@ -191,6 +191,15 @@ describe('translations', () => {
     expect(read('translations')).toBeNull();
   });
 
+  it('rejects and removes a cache whose placeholders differ from the bundled English object', () => {
+    const stale = { ...translations, 'keyMap.board-and-rack.insert-digraph': 'Insert digraph' };
+
+    localStorage.setTranslations(Locale.PL_PL, version, stale);
+
+    expect(localStorage.getTranslations(Locale.PL_PL, version)).toBeUndefined();
+    expect(read('translations')).toBeNull();
+  });
+
   it('rejects a cache with a non-string value', () => {
     localStorage.setTranslations(Locale.PL_PL, version, { ...translations, menu: 1 } as unknown as Translations);
 
