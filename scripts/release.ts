@@ -4,7 +4,8 @@
  * so what gets tested and packed is a build of the released version.
  *
  * `bun run release resume` - finishes a release which stopped after its commit: it publishes only
- * the packages missing from the registry, so it is safe to repeat at any time.
+ * the packages missing from the registry, so it is safe to repeat while master, locally and on
+ * origin, stays at that commit. Once master moves on, the push is rejected, and a pulled HEAD has no tag.
  */
 import { deepEquals, sleepSync } from 'bun';
 import { execFileSync, spawnSync } from 'node:child_process';
