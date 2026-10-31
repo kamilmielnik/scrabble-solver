@@ -34,6 +34,12 @@ describe('turkish parse', () => {
     expect(parse('[{"anlamlarListe":[]}]')).toEqual({ definitions: [], exists: false });
   });
 
+  it('skips an entry without a list of meanings', () => {
+    const json = JSON.stringify([{ anlamlarListe: [{ anlam: 'Birinci sesteş' }] }, { madde: 'kelime' }]);
+
+    expect(parse(json)).toEqual({ definitions: ['Birinci sesteş'], exists: true });
+  });
+
   it('reads the meanings of every entry when a word has many homonyms', () => {
     const json = JSON.stringify([
       { anlamlarListe: [{ anlam: 'Birinci sesteş' }] },
