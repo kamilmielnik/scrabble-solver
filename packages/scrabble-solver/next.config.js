@@ -49,7 +49,7 @@ module.exports = {
            * same compilation, and one 404 fails the whole precache install.
            */
           include: [/^static\//],
-          exclude: [/\.css$/, /\.map$/],
+          exclude: [/\.map$/],
         }),
       );
     }

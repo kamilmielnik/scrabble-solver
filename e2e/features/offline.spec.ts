@@ -18,6 +18,18 @@ test.describe('Offline', () => {
     expect(await page.evaluate(() => caches.keys())).toContain('app-shell');
   });
 
+  test('styles a modal offline from the precache, even after the HTTP cache is cleared', async ({ context, page }) => {
+    await page.keyboard.press('Shift');
+    await Lib.waitForCachedDictionary(page);
+    const session = await context.newCDPSession(page);
+    await session.send('Network.clearBrowserCache');
+    await context.setOffline(true);
+    await page.reload();
+    await Lib.openSettingsModal(page);
+
+    await expect(Lib.getOpenModal(page)).toHaveCSS('position', 'fixed');
+  });
+
   test.describe('after the connection drops', () => {
     test.beforeEach(async ({ context, page }) => {
       await page.keyboard.press('Shift');
@@ -47,12 +59,6 @@ test.describe('Offline', () => {
       await Lib.openSettingsModal(page);
 
       await expect(Lib.getSettingOption(page, 'Game', 'Scrabble')).toBeChecked();
-    });
-
-    test('styles a modal from what the online visit left in the HTTP cache', async ({ page }) => {
-      await Lib.openSettingsModal(page);
-
-      await expect(Lib.getOpenModal(page)).toHaveCSS('position', 'fixed');
     });
 
     test('switches the language, because translations are precached', async ({ page }) => {
