@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { Locale } from '@scrabble-solver/types';
 import { beforeEach, describe, expect, it, mock } from 'bun:test';
 
@@ -88,24 +89,26 @@ describe('crawl', () => {
 describe('crawl - Catalan', () => {
   const headers = WIKTIONARY.headers;
 
-  it('searches for the titles of the word, then reads its page', async () => {
-    serveWiktionary([], { cases: 'page' });
-
-    await crawl(Locale.CA_ES, 'cases');
-
-    expect(request).toHaveBeenCalledTimes(2);
-    expect(request.mock.calls[0][0]).toStrictEqual({
-      headers,
-      hostname: 'ca.wiktionary.org',
-      path: '/w/api.php?action=query&list=search&format=json&srnamespace=0&srprop=&srlimit=10&srsearch=intitle%3Acases',
-      protocol: 'https',
+  it('reads the page of the word while searching for its titles', async () => {
+    const search = Promise.withResolvers<string>();
+    request.mockImplementation(({ path }: { path?: string }) => {
+      return path?.startsWith('/w/api.php') ? search.promise : Promise.resolve('');
     });
-    expect(request.mock.calls[1][0]).toStrictEqual({
-      headers,
-      hostname: 'ca.wiktionary.org',
-      path: '/w/rest.php/v1/page/cases/html',
-      protocol: 'https',
-    });
+
+    const crawling = crawl(Locale.CA_ES, 'cases');
+
+    expect(request.mock.calls.map(([options]) => options)).toStrictEqual([
+      { headers, hostname: 'ca.wiktionary.org', path: '/w/rest.php/v1/page/cases/html', protocol: 'https' },
+      {
+        headers,
+        hostname: 'ca.wiktionary.org',
+        path: '/w/api.php?action=query&list=search&format=json&srnamespace=0&srprop=&srlimit=10&srsearch=intitle%3Acases',
+        protocol: 'https',
+      },
+    ]);
+
+    search.resolve('');
+    await crawling;
   });
 
   it('encodes the middle dot in the title of a page', async () => {
@@ -165,14 +168,29 @@ describe('crawl - Catalan', () => {
     expect(getRequestedPages()).toEqual(['/w/rest.php/v1/page/cases/html']);
   });
 
-  it('rejects when the search fails', async () => {
+  it('reads the page of the word when the search fails', async () => {
+    request.mockImplementation((options) => {
+      const { path } = options as { path: string };
+      return path.startsWith('/w/api.php') ? Promise.reject(new Error('offline')) : Promise.resolve('cases page');
+    });
+
+    expect(await crawl(Locale.CA_ES, 'cases')).toBe('cases page');
+  });
+
+  it('keeps the pages that load when another one fails', async () => {
+    serveWiktionary(['cafè', 'café'], { cafe: 'not found', cafè: new Error('timeout'), café: 'café page' });
+
+    expect(await crawl(Locale.CA_ES, 'cafe')).toBe('not found\ncafé page');
+  });
+
+  it('rejects when every request fails', async () => {
     request.mockRejectedValue(new Error('offline'));
 
     expect(await crawl(Locale.CA_ES, 'cases').catch(String)).toBe('Error: offline');
   });
 });
 
-function serveWiktionary(titles: string[], pages: Record<string, string>): void {
+function serveWiktionary(titles: string[], pages: Record<string, Error | string>): void {
   request.mockImplementation((options) => {
     const { path } = options as { path: string };
 
@@ -180,7 +198,8 @@ function serveWiktionary(titles: string[], pages: Record<string, string>): void 
       return Promise.resolve(JSON.stringify({ query: { search: titles.map((title) => ({ title })) } }));
     }
 
-    return Promise.resolve(pages[decodeURIComponent(path.split('/').at(-2) ?? '')] ?? '');
+    const page = pages[decodeURIComponent(path.split('/').at(-2) ?? '')] ?? '';
+    return page instanceof Error ? Promise.reject(page) : Promise.resolve(page);
   });
 }
 

@@ -19,13 +19,20 @@ const STRIPPED_COMBINING_MARKS = /[\u0300-\u0326\u0328-\u036f]/g;
 
 /**
  * Words are stored without accents, like on Scrabble tiles, but Wiktionary titles have them: "canço" is "cançó".
- * One word can stand for many titles ("catorze", "catorzè"), so search for them first and read up to MAX_PAGES_COUNT.
- * The word itself always takes one of these, and a title outside the top SEARCH_RESULTS_COUNT results is missed.
+ * One word can stand for many titles ("catorze", "catorzè"), so search for them while reading the page of the word.
+ * Up to MAX_PAGES_COUNT pages are read, the word itself takes one of these, and a title outside the top
+ * SEARCH_RESULTS_COUNT results is missed. A page that fails is left out; only a word whose every page fails rejects.
  */
 export async function crawl(word: string): Promise<string> {
-  const titles = await findTitles(word);
-  const pages = await Promise.all(titles.map(crawlPage));
-  return pages.join('\n');
+  const [wordPage, accentedPages] = await Promise.allSettled([crawlPage(word), crawlAccentedPages(word)]);
+  const pages = [wordPage, ...(accentedPages.status === 'fulfilled' ? accentedPages.value : [])];
+  const contents = pages.filter((page) => page.status === 'fulfilled').map((page) => page.value);
+
+  if (contents.length === 0 && wordPage.status === 'rejected') {
+    throw wordPage.reason;
+  }
+
+  return contents.join('\n');
 }
 
 export function parse(html: string): ParsingResult {
@@ -40,16 +47,21 @@ export function parse(html: string): ParsingResult {
   };
 }
 
-async function findTitles(word: string): Promise<string[]> {
+async function crawlAccentedPages(word: string): Promise<PromiseSettledResult<string>[]> {
+  const titles = await findAccentedTitles(word);
+  return Promise.allSettled(titles.map(crawlPage));
+}
+
+async function findAccentedTitles(word: string): Promise<string[]> {
   const search = await request({
     protocol: 'https',
     hostname: HOSTNAME,
     path: `/w/api.php?action=query&list=search&format=json&srnamespace=0&srprop=&srlimit=${SEARCH_RESULTS_COUNT}&srsearch=${encodeURIComponent(`intitle:${word}`)}`,
     headers: HEADERS,
   });
-  const titles = readTitles(search).filter((title) => stripAccents(title) === stripAccents(word));
+  const titles = readTitles(search).filter((title) => title !== word && stripAccents(title) === stripAccents(word));
 
-  return unique([word, ...titles]).slice(0, MAX_PAGES_COUNT);
+  return unique(titles).slice(0, MAX_PAGES_COUNT - 1);
 }
 
 function crawlPage(title: string): Promise<string> {
