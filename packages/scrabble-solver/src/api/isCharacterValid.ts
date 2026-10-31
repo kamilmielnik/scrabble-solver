@@ -1,6 +1,5 @@
-const TWO_TILE_CHARACTER_LENGTH = 2;
-
-const MAX_CHARACTER_LENGTH = TWO_TILE_CHARACTER_LENGTH;
+// The longest tile of any language: "l·l" in Catalan.
+const MAX_CHARACTER_LENGTH = 3;
 
 export const isCharacterValid = (character: string): boolean => {
   /*

@@ -5,16 +5,18 @@ import { isBoardValid, isCellValid, isCharacterValid, isRowValid } from '.';
 
 const config = getConfig(Game.Scrabble, Locale.EN_US);
 const spanish = getConfig(Game.Scrabble, Locale.ES_ES);
+const catalan = getConfig(Game.Scrabble, Locale.CA_ES);
 
 describe('isCharacterValid', () => {
-  it('accepts one and two character tiles', () => {
+  it('accepts tiles of up to three characters', () => {
     expect(isCharacterValid('a')).toBe(true);
     expect(isCharacterValid('ch')).toBe(true);
+    expect(isCharacterValid('l·l')).toBe(true);
   });
 
   it('rejects empty and longer strings', () => {
     expect(isCharacterValid('')).toBe(false);
-    expect(isCharacterValid('abc')).toBe(false);
+    expect(isCharacterValid('abcd')).toBe(false);
   });
 });
 
@@ -42,7 +44,9 @@ describe('isCellValid', () => {
   });
 
   it('rejects a tile with an invalid character', () => {
-    expect(isCellValid(createCell({ isEmpty: false, tile: { character: 'abc', isBlank: false } }), config)).toBe(false);
+    expect(isCellValid(createCell({ isEmpty: false, tile: { character: 'abcd', isBlank: false } }), config)).toBe(
+      false,
+    );
   });
 });
 
@@ -78,7 +82,50 @@ describe('isBoardValid', () => {
     expect(isBoardValid(board, config)).toBe(false);
   });
 
-  it('accepts adjacent letters in a language without two-letter tiles', () => {
+  it.each<[string, [string, number, number][]]>([
+    [
+      'across',
+      [
+        ['l', 3, 3],
+        ['·', 4, 3],
+        ['l', 5, 3],
+      ],
+    ],
+    [
+      'down',
+      [
+        ['l', 3, 3],
+        ['·', 3, 4],
+        ['l', 3, 5],
+      ],
+    ],
+  ])('rejects a three-character digraph spelled with tiles %s', (_name, tiles) => {
+    expect(isBoardValid(place(createBoard(), tiles), catalan)).toBe(false);
+  });
+
+  it('accepts a digraph that is still being typed', () => {
+    const tiles: [string, number, number][] = [
+      ['l', 3, 3],
+      ['·', 4, 3],
+    ];
+
+    expect(isBoardValid(place(createBoard(), tiles), catalan)).toBe(true);
+  });
+
+  it('accepts two tiles that spell no digraph, even if they look like one', () => {
+    const tiles: [string, number, number][] = [
+      ['l', 3, 3],
+      ['l', 4, 3],
+    ];
+
+    expect(isBoardValid(place(createBoard(), tiles), catalan)).toBe(true);
+  });
+
+  it('accepts a three-character digraph on a single tile', () => {
+    expect(isBoardValid(place(createBoard(), [['l·l', 3, 3]]), catalan)).toBe(true);
+  });
+
+  it('accepts adjacent letters in a language without digraphs', () => {
     expect(
       isBoardValid(
         place(createBoard(), [

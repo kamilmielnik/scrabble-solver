@@ -2,6 +2,16 @@ import { type BoardJson, type CellJson, type Config } from '@scrabble-solver/typ
 
 import { isRowValid } from './isRowValid';
 
+interface Step {
+  x: number;
+  y: number;
+}
+
+const STEPS: Step[] = [
+  { x: 1, y: 0 },
+  { x: 0, y: 1 },
+];
+
 export const isBoardValid = (board: BoardJson, config: Config): boolean => {
   if (board.length !== config.boardHeight) {
     return false;
@@ -13,29 +23,33 @@ export const isBoardValid = (board: BoardJson, config: Config): boolean => {
     }
   }
 
-  return areTwoCharacterTilesValid(board, config);
+  return !board.flat().some((cell) => spellsDigraph(board, cell, config));
 };
 
-const areTwoCharacterTilesValid = (board: CellJson[][], config: Config): boolean => {
-  const cells: CellJson[] = board
-    .flat()
-    .filter((cell) => cell && cell.tile && config.isTwoCharacterTilePrefix(cell.tile.character));
+function spellsDigraph(board: CellJson[][], cell: CellJson, config: Config): boolean {
+  return STEPS.some((step) => spellsDigraphAlong(board, cell, config, step));
+}
 
-  for (const cell of cells) {
-    for (const characters of config.twoCharacterTiles) {
-      const cellDown = board[cell.y + 1]?.[cell.x];
-      const cellRight = board[cell.y]?.[cell.x + 1];
-      const canCheckDown = cell.y + 1 < board.length && Boolean(cellDown);
-      const canCheckRight = cell.x + 1 < board[0].length && Boolean(cellRight);
-      const collidesDown = canCheckDown && cellDown.tile && cellDown.tile.character === characters[1];
-      const collidesRight = canCheckRight && cellRight.tile && cellRight.tile.character === characters[1];
-      const collides = collidesDown || collidesRight;
+function spellsDigraphAlong(board: CellJson[][], cell: CellJson, config: Config, { x, y }: Step): boolean {
+  if (!cell.tile) {
+    return false;
+  }
 
-      if (cell.tile && characters.startsWith(cell.tile.character) && collides) {
-        return false;
-      }
+  let spelled = cell.tile.character;
+
+  for (let offset = 1; spelled.length < config.longestDigraphLength; ++offset) {
+    const nextTile = board[cell.y + y * offset]?.[cell.x + x * offset]?.tile;
+
+    if (!nextTile) {
+      return false;
+    }
+
+    spelled += nextTile.character;
+
+    if (config.digraphs.includes(spelled)) {
+      return true;
     }
   }
 
-  return true;
-};
+  return false;
+}
