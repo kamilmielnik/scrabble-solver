@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/await-thenable */
 
 import { Board, Game, Locale, WordDefinition } from '@scrabble-solver/types';
-import { afterAll, beforeEach, describe, expect, it, mock, spyOn } from 'bun:test';
+import { type Mock, afterAll, beforeEach, describe, expect, it, mock, spyOn } from 'bun:test';
 
 import { createResult, createVerifiedWord } from '../test/fixtures';
 
@@ -13,6 +13,8 @@ import type * as findWordDefinitionsModule from './findWordDefinitions';
 import type * as solveModule from './solve';
 import type * as verifyModule from './verify';
 import type * as visitModule from './visit';
+
+type FetchFunction = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 
 const solveLocally = mock((_payload: unknown): Promise<unknown> => Promise.resolve(undefined));
 const verifyLocally = mock((_payload: unknown): Promise<unknown> => Promise.resolve(undefined));
@@ -26,7 +28,7 @@ const { solve }: typeof solveModule = await import('./solve');
 const { verify }: typeof verifyModule = await import('./verify');
 const { visit }: typeof visitModule = await import('./visit');
 
-const fetchMock = spyOn(window, 'fetch');
+const fetchMock = spyOn(window, 'fetch') as unknown as Mock<FetchFunction>;
 const board = Board.create(15, 15).toJson();
 
 beforeEach(() => {

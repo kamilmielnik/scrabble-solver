@@ -121,11 +121,11 @@ describe('boot', () => {
 
   it('registers the service worker in production', () => {
     const nodeEnv = process.env.NODE_ENV;
-    process.env.NODE_ENV = 'production';
+    Object.assign(process.env, { NODE_ENV: 'production' });
 
     setup();
 
-    process.env.NODE_ENV = nodeEnv;
+    Object.assign(process.env, { NODE_ENV: nodeEnv });
 
     expect(registerServiceWorker).toHaveBeenCalledTimes(1);
   });

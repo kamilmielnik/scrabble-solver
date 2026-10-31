@@ -11,7 +11,7 @@ type Transform = (x: number, y: number, game: GameConfig) => [number, number];
 
 const MOVE_GENERATOR_MAX_BOARD_DIMENSION = 32;
 
-describe.each(Object.entries(games))('%s', (name, game) => {
+describe.each(Object.entries(games))('%s', (_name, game) => {
   it('defines the seven-tile bonus as either flat points or a multiplier, never both', () => {
     const [[kind, value], ...rest] = Object.entries(game.bingo);
 

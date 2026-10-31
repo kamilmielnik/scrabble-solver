@@ -8,6 +8,7 @@ import type { Translations } from '../types';
 
 import { localStorage } from './localStorage';
 import { settingsInitialState } from './settings';
+import { type SettingsState } from './settings/types';
 
 const version = '1.0.0';
 
@@ -86,7 +87,7 @@ describe('settings', () => {
       write('remove-cell-filters', '"never"');
       write('show-coordinates', '"alternative"');
 
-      const expected = {
+      const expected: Partial<SettingsState> = {
         autoGroupTiles: 'left',
         game: Game.Literaki,
         highlightUnreachableCells: true,
