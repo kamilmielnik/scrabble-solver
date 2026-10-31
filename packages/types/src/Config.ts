@@ -147,7 +147,7 @@ export class Config {
   }
 }
 
-const getBonuses = (config: ConfigJson): Bonus[] => {
+function getBonuses(config: ConfigJson): Bonus[] {
   return config.bonuses.map((bonus) => {
     if (bonus.type === BONUS_CHARACTER) {
       return new CharacterBonus(bonus);
@@ -159,22 +159,24 @@ const getBonuses = (config: ConfigJson): Bonus[] => {
 
     throw new Error(`Unsupported Bonus type: "${bonus.type}"`);
   });
-};
+}
+
+function getDigraphs(config: ConfigJson): string[] {
+  return getAlphabet(config).filter((character) => character.length > 1);
+}
+
+function getAlphabet(config: ConfigJson): string[] {
+  return config.tiles.map(({ character }) => character);
+}
+
+function getPointsMap(config: ConfigJson): Record<string, number> {
+  const pointsMap = Object.create(null) as Record<string, number>;
+  return Object.assign(pointsMap, Object.fromEntries(config.tiles.map(({ character, score }) => [character, score])));
+}
 
 function getDigraphShortcut(digraph: string): string {
   return (
     Array.from(digraph).find((character) => /\p{L}/u.test(character) && !RESERVED_KEYS.includes(character)) ??
     digraph[0]
   );
-}
-
-const getAlphabet = (config: ConfigJson): string[] => config.tiles.map(({ character }) => character);
-
-function getDigraphs(config: ConfigJson): string[] {
-  return getAlphabet(config).filter((character) => character.length > 1);
-}
-
-function getPointsMap(config: ConfigJson): Record<string, number> {
-  const pointsMap = Object.create(null) as Record<string, number>;
-  return Object.assign(pointsMap, Object.fromEntries(config.tiles.map(({ character, score }) => [character, score])));
 }
