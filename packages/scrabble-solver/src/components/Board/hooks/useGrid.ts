@@ -102,11 +102,11 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
       let board = new Board({ rows: rowsRef.current.map((row) => row.map((cell) => cell.clone())) });
       let { x, y } = position;
 
-      const changeCellValue = (cell: Point, cellValue: string) => {
+      function changeCellValue(cell: Point, cellValue: string): void {
         const action = boardSlice.actions.changeCellValue({ ...cell, value: cellValue });
         board = boardSlice.reducer(board, action);
         actions.push(action);
-      };
+      }
 
       characters.forEach((character) => {
         if (x >= config.boardWidth || y >= config.boardHeight) {

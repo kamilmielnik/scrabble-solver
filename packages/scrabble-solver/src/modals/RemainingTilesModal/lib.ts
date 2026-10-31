@@ -54,7 +54,9 @@ function isOverused({ count, usedCount }: RemainingTile): boolean {
   return typeof count !== 'undefined' && usedCount > count;
 }
 
-const isDigraph = (tile: RemainingTile): boolean => tile.character.length > 1;
+function isDigraph(tile: RemainingTile): boolean {
+  return tile.character.length > 1;
+}
 
 const isBlank = (tile: RemainingTile): boolean => tile.character === BLANK;
 

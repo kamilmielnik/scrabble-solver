@@ -21,13 +21,13 @@ const STRIPPED_COMBINING_MARKS = /[\u0300-\u0326\u0328-\u036f]/g;
  * Words are stored without accents, like on Scrabble tiles, but Wiktionary titles have them: "canço" is "cançó".
  * One word can stand for many titles ("catorze", "catorzè"), so search for them first and read all of them.
  */
-export const crawl = async (word: string): Promise<string> => {
+export async function crawl(word: string): Promise<string> {
   const titles = await findTitles(word);
   const pages = await Promise.all(titles.map(crawlPage));
   return pages.join('\n');
-};
+}
 
-export const parse = (html: string): ParsingResult => {
+export function parse(html: string): ParsingResult {
   const $ = load(html);
   const $sections = $('[id="Català"]').parent('section');
   $sections.find('ol li :is(dl, ol, ul), link, style').remove();
@@ -37,7 +37,7 @@ export const parse = (html: string): ParsingResult => {
     definitions,
     exists: definitions.length > 0,
   };
-};
+}
 
 async function findTitles(word: string): Promise<string[]> {
   const search = await request({
