@@ -34,8 +34,8 @@ export function findDigraphJoin(options: Options): DigraphJoin | undefined {
 
   return (
     findJoinAround(options, direction) ??
-    findJoinAround(options, toggleDirection(direction)) ??
-    findJoinInLastCell(options)
+    findJoinInLastCell(options) ??
+    findJoinAround(options, toggleDirection(direction))
   );
 }
 
@@ -70,13 +70,11 @@ function findJoinAround(options: Options, axis: Direction): DigraphJoin | undefi
         continue;
       }
 
-      if (countBefore > 0) {
-        return createJoin(options, axis, value, { first: -countBefore, last: countAfter === 0 ? -1 : countAfter });
+      if (countBefore === 0) {
+        return createJoinOfFollowingTiles(options, axis, value, countAfter);
       }
 
-      if (axis === options.direction) {
-        return createJoinOfFollowingTiles(options, countAfter);
-      }
+      return createJoin(options, axis, value, { first: -countBefore, last: countAfter === 0 ? -1 : countAfter });
     }
   }
 
@@ -118,12 +116,18 @@ function createJoin({ direction, position }: Options, axis: Direction, value: st
   };
 }
 
-function createJoinOfFollowingTiles({ character, direction, position }: Options, count: number): DigraphJoin {
+/**
+ * Along the typing direction, the following tiles are typed again next, so the typed character stays alone.
+ * Across it, they are not, so the typed character takes them in.
+ */
+function createJoinOfFollowingTiles(options: Options, axis: Direction, value: string, count: number): DigraphJoin {
+  const { character, direction, position } = options;
+
   return {
-    clearedCells: Array.from({ length: count }, (_, index) => movePoint(position, direction, index + 1)),
+    clearedCells: Array.from({ length: count }, (_, index) => movePoint(position, axis, index + 1)),
     nextPosition: movePoint(position, direction, 1),
     target: position,
-    value: character,
+    value: axis === direction ? character : value,
   };
 }
 

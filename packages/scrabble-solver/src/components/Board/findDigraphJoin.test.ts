@@ -104,12 +104,38 @@ describe('findDigraphJoin', () => {
     });
   });
 
-  it('does not split the following tiles across the typing direction', () => {
-    const board = createColumn([' ', 'h']);
+  it('joins the following tiles across the typing direction when the typing direction spells no digraph', () => {
+    const board = createColumn([' ', 'u']);
+
+    expect(
+      findDigraphJoin({ board, character: 'q', config: catalan, direction: 'horizontal', position: { x: 0, y: 0 } }),
+    ).toEqual({ clearedCells: [{ x: 0, y: 1 }], nextPosition: { x: 1, y: 0 }, target: { x: 0, y: 0 }, value: 'qu' });
+  });
+
+  it('prefers splitting the following tiles along the typing direction', () => {
+    const board = new Board({
+      rows: [
+        [createCell(' ', 0, 0), createCell('h', 1, 0)],
+        [createCell('h', 0, 1), createCell(' ', 1, 1)],
+      ],
+    });
 
     expect(
       findDigraphJoin({ board, character: 'c', config: spanish, direction: 'horizontal', position: { x: 0, y: 0 } }),
-    ).toBeUndefined();
+    ).toEqual({ clearedCells: [{ x: 1, y: 0 }], nextPosition: { x: 1, y: 0 }, target: { x: 0, y: 0 }, value: 'c' });
+  });
+
+  it('prefers joining inside the last cell of the typing direction', () => {
+    const board = new Board({
+      rows: [
+        [createCell(' ', 0, 0), createCell('c', 1, 0)],
+        [createCell(' ', 0, 1), createCell('c', 1, 1)],
+      ],
+    });
+
+    expect(
+      findDigraphJoin({ board, character: 'h', config: spanish, direction: 'horizontal', position: { x: 1, y: 1 } }),
+    ).toEqual({ clearedCells: [], nextPosition: { x: 1, y: 1 }, target: { x: 1, y: 1 }, value: 'ch' });
   });
 
   it('does not join inside the last cell across the typing direction', () => {

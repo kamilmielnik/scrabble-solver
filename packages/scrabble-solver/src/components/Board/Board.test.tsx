@@ -520,13 +520,14 @@ describe('two-letter tiles', () => {
     expect(readBoard(store, 0, 1)).toBe(' ');
   });
 
-  it('keeps the tile below when typing sideways', () => {
+  it('joins with the tile below when typing', () => {
     const { store } = setup({ board: createBoard({ 15: 'h' }), settings });
 
     type('A1', 'c');
 
-    expect(readBoard(store, 0, 0)).toBe('c');
-    expect(readBoard(store, 0, 1)).toBe('h');
+    expect(readBoard(store, 0, 0)).toBe('ch');
+    expect(readBoard(store, 0, 1)).toBe(' ');
+    expect(document.activeElement).toBe(getCell('B1'));
   });
 
   it('does not join with a blank tile', () => {
@@ -613,6 +614,16 @@ describe('digraphs longer than two letters', () => {
     expect(readBoard(store, 0, 0)).toBe('l·l');
     expect(readBoard(store, 0, 1)).toBe(' ');
     expect(document.activeElement).toBe(getCell('A3'));
+  });
+
+  it('joins a letter that is no tile with the tile below when typing sideways', () => {
+    const { store } = setup({ board: createBoard({ 37: 'u' }), settings });
+
+    type('H2', 'q');
+
+    expect(readBoard(store, 7, 1)).toBe('qu');
+    expect(readBoard(store, 7, 2)).toBe(' ');
+    expect(document.activeElement).toBe(getCell('I2'));
   });
 
   it('keeps two l tiles apart, so that cella stays a word', () => {
