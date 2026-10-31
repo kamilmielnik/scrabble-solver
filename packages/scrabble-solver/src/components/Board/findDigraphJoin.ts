@@ -77,13 +77,8 @@ function findJoinAround(options: Options, axis: Direction): DigraphJoin | undefi
         continue;
       }
 
-      const candidate = { joinedTiles: [...before, ...after], value };
-
-      if (countBefore === 0) {
-        return createJoinOfFollowingTiles(options, axis, countAfter, candidate);
-      }
-
-      return createJoin(options, axis, { first: -countBefore, last: countAfter === 0 ? -1 : countAfter }, candidate);
+      const span = { first: -countBefore, last: countAfter === 0 ? -1 : countAfter };
+      return createJoin(options, axis, span, { joinedTiles: [...before, ...after], value });
     }
   }
 
@@ -116,38 +111,32 @@ function findJoinInLastCell(options: Options): DigraphJoin | undefined {
 }
 
 function createJoin(options: Options, axis: Direction, span: Span, { joinedTiles, value }: Candidate): DigraphJoin {
-  const { direction, position } = options;
+  const { position } = options;
   const offsets = Array.from({ length: span.last - span.first }, (_, index) => span.first + 1 + index);
+  const target = movePoint(position, axis, span.first);
 
   return {
     clearedCells: offsets.map((offset) => movePoint(position, axis, offset)),
     isBlank: joinedTiles.some((tile) => tile.isBlank),
-    nextPosition: axis === direction && span.first < 0 ? movePoint(position, axis, span.first + 1) : position,
-    target: movePoint(position, axis, span.first),
+    nextPosition: findNextPosition(options, axis, target),
+    target,
     value,
   };
 }
 
 /**
- * Along the typing direction, the following tiles are typed again next, so the typed character stays alone.
- * Across it, they are not, so the typed character takes them in.
+ * The typed character moves to the target, so typing continues right after it, unless the target is off the
+ * typing line: then the position is still empty.
  */
-function createJoinOfFollowingTiles(
-  options: Options,
-  axis: Direction,
-  count: number,
-  candidate: Candidate,
-): DigraphJoin {
-  const { character, direction, position } = options;
-  const { joinedTiles, value } = candidate;
+function findNextPosition(options: Options, axis: Direction, target: Point): Point {
+  const { direction, position } = options;
+  const isTargetOnPosition = target.x === position.x && target.y === position.y;
 
-  return {
-    clearedCells: Array.from({ length: count }, (_, index) => movePoint(position, axis, index + 1)),
-    isBlank: axis !== direction && joinedTiles.some((tile) => tile.isBlank),
-    nextPosition: movePoint(position, direction, 1),
-    target: position,
-    value: axis === direction ? character : value,
-  };
+  if (axis !== direction && !isTargetOnPosition) {
+    return position;
+  }
+
+  return isLastCell({ ...options, position: target }) ? target : movePoint(target, direction, 1);
 }
 
 function readTiles({ board, config, position }: Omit<Options, 'direction'>, axis: Direction, step: number): Tile[] {

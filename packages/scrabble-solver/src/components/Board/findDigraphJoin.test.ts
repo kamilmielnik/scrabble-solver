@@ -52,7 +52,7 @@ describe('findDigraphJoin', () => {
     });
   });
 
-  it('splits the following tiles, which are typed again in the next steps', () => {
+  it('joins the following tiles into the position', () => {
     expect(join(catalan, '.·l', 0, 'l')).toEqual({
       clearedCells: [
         { x: 1, y: 0 },
@@ -61,7 +61,7 @@ describe('findDigraphJoin', () => {
       isBlank: false,
       nextPosition: { x: 1, y: 0 },
       target: { x: 0, y: 0 },
-      value: 'l',
+      value: 'l·l',
     });
   });
 
@@ -112,7 +112,12 @@ describe('findDigraphJoin', () => {
   });
 
   it('joins the following tiles across the typing direction when the typing direction spells no digraph', () => {
-    const board = createColumn([' ', 'u']);
+    const board = new Board({
+      rows: [
+        [createCell(' ', 0, 0), createCell(' ', 1, 0)],
+        [createCell('u', 0, 1), createCell(' ', 1, 1)],
+      ],
+    });
 
     expect(
       findDigraphJoin({ board, character: 'q', config: catalan, direction: 'horizontal', position: { x: 0, y: 0 } }),
@@ -125,7 +130,7 @@ describe('findDigraphJoin', () => {
     });
   });
 
-  it('prefers splitting the following tiles along the typing direction', () => {
+  it('prefers joining the following tiles along the typing direction', () => {
     const board = new Board({
       rows: [
         [createCell(' ', 0, 0), createCell('h', 1, 0)],
@@ -140,7 +145,7 @@ describe('findDigraphJoin', () => {
       isBlank: false,
       nextPosition: { x: 1, y: 0 },
       target: { x: 0, y: 0 },
-      value: 'c',
+      value: 'ch',
     });
   });
 
@@ -213,6 +218,22 @@ describe('findDigraphJoin', () => {
       expect(
         findDigraphJoin({ board, character: 'h', config: spanish, direction: 'horizontal', position: { x: 1, y: 0 } }),
       ).toEqual({ clearedCells: [], isBlank: true, nextPosition: { x: 1, y: 0 }, target: { x: 0, y: 0 }, value: 'ch' });
+    });
+
+    it('joins a following blank into a blank digraph', () => {
+      const board = createRow([' ', 'h', ' ']);
+      board.rows[0][1].tile.isBlank = true;
+
+      expect(join(spanish, '.h.', 0, 'c')?.isBlank).toBe(false);
+      expect(
+        findDigraphJoin({ board, character: 'c', config: spanish, direction: 'horizontal', position: { x: 0, y: 0 } }),
+      ).toEqual({
+        clearedCells: [{ x: 1, y: 0 }],
+        isBlank: true,
+        nextPosition: { x: 1, y: 0 },
+        target: { x: 0, y: 0 },
+        value: 'ch',
+      });
     });
   });
 });

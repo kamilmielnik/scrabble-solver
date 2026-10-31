@@ -493,13 +493,24 @@ describe('two-letter tiles', () => {
     expect(readBoard(store, 1, 0)).toBe(' ');
   });
 
-  it('joins with the tile on the right when typing, leaving the digraph split for the next step', () => {
+  it('joins with the tile on the right when typing', () => {
     const { store } = setup({ board: createBoard({ 1: 'h' }), settings });
 
     type('A1', 'c');
 
-    expect(readBoard(store, 0, 0)).toBe('c');
+    expect(readBoard(store, 0, 0)).toBe('ch');
     expect(readBoard(store, 1, 0)).toBe(' ');
+    expect(document.activeElement).toBe(getCell('B1'));
+  });
+
+  it('joins with the tile on the right rather than the tile below', () => {
+    const { store } = setup({ board: createBoard({ 1: 'h', 15: 'h' }), settings });
+
+    type('A1', 'c');
+
+    expect(readBoard(store, 0, 0)).toBe('ch');
+    expect(readBoard(store, 1, 0)).toBe(' ');
+    expect(readBoard(store, 0, 1)).toBe('h');
   });
 
   it('joins with the tile above when typing', () => {
