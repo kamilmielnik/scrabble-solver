@@ -271,6 +271,101 @@ describe('two-letter tiles', () => {
   });
 });
 
+describe('digraphs longer than two letters', () => {
+  const catalan = { ...settingsInitialState, locale: Locale.CA_ES };
+
+  it.each([
+    ['l', 'l·l'],
+    ['y', 'ny'],
+    ['u', 'qu'],
+  ])('inserts with ctrl and %s the digraph %s, then moves on', (key, digraph) => {
+    const { store } = setup({ settings: catalan });
+
+    fireEvent.focus(getTile(1));
+    fireEvent.keyDown(getTile(1), { ctrlKey: true, key });
+
+    expect(store.getState().rack[0]).toBe(digraph);
+    expect(document.activeElement).toBe(getTile(2));
+  });
+
+  it('inserts a digraph with cmd too', () => {
+    const { store } = setup({ settings: catalan });
+
+    fireEvent.focus(getTile(1));
+    fireEvent.keyDown(getTile(1), { key: 'l', metaKey: true });
+
+    expect(store.getState().rack[0]).toBe('l·l');
+  });
+
+  it.each(['n', 'q'])('leaves ctrl and %s to the browser', (key) => {
+    const { store } = setup({ settings: catalan });
+
+    fireEvent.focus(getTile(1));
+
+    expect(fireEvent.keyDown(getTile(1), { ctrlKey: true, key })).toBe(true);
+    expect(store.getState().rack[0]).toBeNull();
+  });
+
+  it('does not join typed letters, unlike the board', () => {
+    const { store } = setup({ settings: catalan });
+
+    type(1, 'l');
+    type(2, 'l');
+
+    expect(store.getState().rack.slice(0, 2)).toEqual(['l', 'l']);
+  });
+
+  it('does not join n and y, unlike the board', () => {
+    const { store } = setup({ settings: catalan });
+
+    type(1, 'n');
+    type(2, 'y');
+
+    expect(store.getState().rack.slice(0, 2)).toEqual(['n', null]);
+  });
+
+  it.each(['q', 'y', '·'])('does not accept %s, which is no tile', (character) => {
+    const { store } = setup({ settings: catalan });
+
+    type(1, character);
+
+    expect(store.getState().rack[0]).toBeNull();
+    expect(document.activeElement).not.toBe(getTile(2));
+  });
+
+  it('reads digraphs when pasting', () => {
+    const { store } = setup({ settings: catalan });
+
+    fireEvent.focus(getTile(1));
+    paste('cel·la');
+
+    expect(store.getState().rack.slice(0, 5)).toEqual(['c', 'e', 'l·l', 'a', null]);
+    expect(document.activeElement).toBe(getTile(5));
+  });
+
+  it('opens a prompt prefilled with the rack, uppercasing digraphs', async () => {
+    setup({
+      rack: ['c', 'e', 'l·l', 'a', ...emptyRack.slice(4)],
+      settings: { ...touchscreen, locale: Locale.CA_ES },
+    });
+
+    openPrompt();
+    await flushEffects();
+
+    expect(getPrompt().value).toBe('ceL·La');
+  });
+
+  it('reads only uppercase digraphs from the prompt', () => {
+    const { store } = setup({ settings: { ...touchscreen, locale: Locale.CA_ES } });
+
+    openPrompt();
+    fireEvent.change(getPrompt(), { target: { value: 'll·lL·L' } });
+    fireEvent.submit(getPrompt().closest('form')!);
+
+    expect(store.getState().rack.slice(0, 4)).toEqual(['l', 'l', 'l', 'l·l']);
+  });
+});
+
 describe('pasting', () => {
   it('fills the rack from the focused tile, reading digraphs', () => {
     const { store } = setup({ settings: spanish });

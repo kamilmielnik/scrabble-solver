@@ -153,7 +153,7 @@ export const Rack: FunctionComponent<Props> = ({ className }) => {
         changeActiveIndex(1);
       },
       onKeyDown: (event) => {
-        if (isCtrl(event) && config.isTwoCharacterTilePrefix(event.key)) {
+        if (isCtrl(event) && config.isDigraphShortcut(event.key)) {
           changeActiveIndex(1);
         } else if (
           event.currentTarget.value.toLocaleLowerCase(config.locale) === event.key.toLocaleLowerCase(config.locale)
