@@ -34,7 +34,7 @@
   </p>
 
   <p>
-    <img src="https://img.shields.io/github/package-json/v/kamilmielnik/scrabble-solver" alt="Version" />
+    <img src="https://img.shields.io/npm/v/scrabble-solver" alt="Version" />
     <img src="https://img.shields.io/npm/l/scrabble-solver" alt="License" />
     <img src="https://img.shields.io/badge/bun-%3E=1.4-brightgreen.svg" />
     <img src="https://img.shields.io/node/v/scrabble-solver" alt="Node version" />
@@ -94,7 +94,7 @@ You can run Scrabble Solver on your machine - all you need is [Bun](https://bun.
 bunx scrabble-solver@latest
 ```
 
-Alternatively you can also use [Node.js](https://nodejs.org/) 24 or later.
+Alternatively you can use [Node.js](https://nodejs.org/) 24 or later instead.
 ```Shell
 npx scrabble-solver@latest
 ```
@@ -158,7 +158,7 @@ bun run --filter @scrabble-solver/configs build
 bun run --filter @scrabble-solver/constants build
 bun run --filter @scrabble-solver/dictionaries build
 bun run --filter @scrabble-solver/logger build
-bun run --filter @scrabble-solver/scrabble-solver build
+bun run --filter scrabble-solver build
 bun run --filter @scrabble-solver/solver build
 bun run --filter @scrabble-solver/types build
 bun run --filter @scrabble-solver/word-definitions build

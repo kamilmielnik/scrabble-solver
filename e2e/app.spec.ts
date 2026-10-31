@@ -1,5 +1,7 @@
 import { type Page, expect, test } from '@playwright/test';
 
+import { version } from '../packages/scrabble-solver/package.json';
+
 import {
   assertResult,
   closeModal,
@@ -27,6 +29,12 @@ test.describe('app', () => {
     await visitIndex(page);
 
     await expect(page).toHaveTitle('Scrabble Solver 2 - Board Solver & Word Finder');
+  });
+
+  test('shows the version of the build', async ({ page }) => {
+    await visitIndex(page);
+
+    await expect(page.getByTitle(`v${version}`, { exact: true })).toBeVisible();
   });
 
   test('has default setting values', async ({ page }) => {

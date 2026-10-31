@@ -1,13 +1,47 @@
 {
-  "name": "@scrabble-solver/scrabble-solver",
+  "name": "scrabble-solver",
   "version": "2.18.9",
-  "description": "Scrabble Solver web app: free word finder and board solver for Scrabble, Super Scrabble, Literaki, and more.",
+  "description": "Scrabble Solver 2 - Free, open-source, cross-platform, multi-language analysis tool for Scrabble, Scrabble Duel, Super Scrabble, Letter League, Crossplay, Literaki, Kelimelik, Wyrazy, and Wordfeud. Quickly find the top-scoring words using the given board and tiles.",
   "keywords": [
     "scrabble",
-    "word-finder",
-    "solver",
-    "nextjs",
-    "react"
+    "scrabble-solver",
+    "scrabble word finder",
+    "word finder",
+    "anagram solver",
+    "word game",
+    "scrabble cheat",
+    "scrabble dictionary",
+    "super scrabble",
+    "scrabble duel",
+    "letter league",
+    "crossplay",
+    "literaki",
+    "kelimelik",
+    "wyrazy",
+    "wordfeud",
+    "board game",
+    "gaddag"
+  ],
+  "engines": {
+    "bun": ">=1.4",
+    "node": ">=24"
+  },
+  "bin": {
+    "scrabble-solver": "bin/scrabble-solver.js"
+  },
+  "files": [
+    ".env",
+    ".next",
+    "!.next/cache",
+    "!.next/dev",
+    "!.next/diagnostics",
+    "!.next/trace",
+    "!.next/trace-build",
+    "!.next/types",
+    "bin",
+    "next.config.js",
+    "public",
+    "!public/service-worker.js.map"
   ],
   "repository": {
     "type": "git",
@@ -49,6 +83,7 @@
     "dev:next": "env-cmd next dev --webpack",
     "dev:scss": "bun run generate-scss-types --watch",
     "generate-scss-types": "bun scripts/generate-scss-types.ts",
+    "prepack": "rimraf --glob '.next/**/*.nft.json'",
     "start": "env-cmd next start -p 3333",
     "test": "bun test --timeout 180000 src",
     "type-check": "bun run generate-scss-types && tsc --noEmit"
@@ -65,11 +100,11 @@
     "@scrabble-solver/types": "2.18.9",
     "@scrabble-solver/word-definitions": "2.18.9",
     "classnames": "2.5.1",
-    "env-cmd": "11.0.0",
     "include-media": "2.0.0",
     "include-media-query-builder": "1.1.0",
     "next": "16.4.3",
     "normalize.css": "8.0.1",
+    "open": "11.0.4",
     "react": "19.3.1",
     "react-cool-onclickoutside": "1.7.0",
     "react-dom": "19.3.1",
@@ -80,10 +115,10 @@
     "redux-saga": "1.5.1",
     "store2": "2.14.4",
     "use-debounce": "10.1.1",
+    "wait-on": "9.5.1",
     "workbox-expiration": "7.4.1",
     "workbox-precaching": "7.4.1",
     "workbox-routing": "7.4.1",
-    "workbox-webpack-plugin": "7.4.1",
     "workbox-window": "7.4.1"
   },
   "devDependencies": {
@@ -92,8 +127,9 @@
     "@types/react-dom": "19.3.0",
     "@types/react-modal": "3.16.3",
     "@types/react-portal": "4.0.7",
+    "env-cmd": "11.0.0",
     "postcss": "8.5.32",
-    "sass": "1.107.0"
-  },
-  "gitHead": "f029a11f306a01937ee99fc6365cb226b972dfed"
+    "sass": "1.107.0",
+    "workbox-webpack-plugin": "7.4.1"
+  }
 }

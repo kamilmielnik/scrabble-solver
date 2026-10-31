@@ -12,6 +12,9 @@
   ],
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kamilmielnik/scrabble-solver.git"
@@ -40,6 +43,5 @@
   "devDependencies": {
     "@types/follow-redirects": "1.14.4",
     "@types/unzipper": "0.10.11"
-  },
-  "gitHead": "f029a11f306a01937ee99fc6365cb226b972dfed"
+  }
 }

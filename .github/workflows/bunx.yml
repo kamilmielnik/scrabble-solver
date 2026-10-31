@@ -15,12 +15,11 @@ jobs:
       - uses: actions/checkout@v6
       - name: Wait for the released version to be published on npm
         run: |
-          VERSION=$(node -p "require('./package.json').version")
+          VERSION=$(node -p "require('./lerna.json').version")
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
           echo "Target version: $VERSION"
-          # Unscoped CLI package (published by `np`) + every non-private workspace
-          # package (published by `lerna publish`). All version in lockstep.
-          PACKAGES=$(node -p "['scrabble-solver', ...require('fs').readdirSync('packages').map(d=>require('./packages/'+d+'/package.json')).filter(p=>!p.private).map(p=>p.name)].join(' ')")
+          # Every non-private workspace package (published by `lerna publish`). All version in lockstep.
+          PACKAGES=$(node -p "require('fs').readdirSync('packages').map(d=>require('./packages/'+d+'/package.json')).filter(p=>!p.private).map(p=>p.name).join(' ')")
           echo "Waiting for: $PACKAGES"
           for pkg in $PACKAGES; do
             for i in $(seq 1 60); do
@@ -36,24 +35,21 @@ jobs:
               sleep 15
             done
           done
-      - name: Download published package
-        run: |
-          npm pack scrabble-solver@"$VERSION"
-          mkdir work-dir
-          tar -xzf scrabble-solver-*.tgz -C work-dir --strip-components=1
+      # The specs of the released version: specs from master could cover features which are not released yet.
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ env.VERSION }}
       - run: bun install --frozen-lockfile
-        working-directory: work-dir
-      - name: Pre-warm dictionaries cache
-        run: node packages/dictionaries/bin/update-dictionaries.js
-        working-directory: work-dir
       - name: Install Playwright browsers
         run: bunx playwright install --with-deps chromium
-        working-directory: work-dir
       - name: Install the published package globally
         run: bun add --global scrabble-solver@${{ env.VERSION }}
+      - name: Pre-warm dictionaries cache
+        run: bunx --package @scrabble-solver/dictionaries@"$VERSION" update-dictionaries
+        working-directory: ${{ runner.temp }}
+      # The absolute path, because node_modules/.bin holds an unbuilt binary of the workspace package.
       - name: Run e2e tests against the global binary
-        run: bunx start-server-and-test scrabble-solver http://localhost:3333 'bunx playwright test'
-        working-directory: work-dir
+        run: bunx start-server-and-test "$(bun pm bin --global)/scrabble-solver" http://localhost:3333 'bunx playwright test'
         env:
           PLAYWRIGHT_BASE_URL: http://localhost:3333
       - uses: actions/upload-artifact@v7
@@ -61,6 +57,6 @@ jobs:
         with:
           name: playwright-artifacts
           path: |
-            work-dir/playwright-report
-            work-dir/test-results
+            playwright-report
+            test-results
           if-no-files-found: ignore

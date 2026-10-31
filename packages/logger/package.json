@@ -10,6 +10,9 @@
   ],
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kamilmielnik/scrabble-solver.git"
@@ -29,6 +32,5 @@
     "clean": "rimraf build/",
     "export": "bun scripts/export-csv.ts",
     "test": "bun test src"
-  },
-  "gitHead": "f029a11f306a01937ee99fc6365cb226b972dfed"
+  }
 }
