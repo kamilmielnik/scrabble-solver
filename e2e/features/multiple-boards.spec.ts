@@ -89,16 +89,70 @@ test.describe('Multiple boards', () => {
     await expect(getTabs(page)).toHaveText(['Board 1']);
   });
 
-  test('removes a board and shows its neighbour', async ({ page }) => {
+  test('removes a board with something on it only after confirming', async ({ page }) => {
     await Lib.visitIndex(page);
     await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
     await page.getByRole('button', { name: 'New board' }).click();
     await Lib.typeBoard(page, 'dog', 'horizontal', { x: 5, y: 5 });
 
     await page.getByRole('button', { name: 'Remove this board' }).click();
+    await expect(page.getByRole('dialog')).toContainText('Remove this board and everything on it?');
+    // Still there until the question is answered.
+    await expect(getTabs(page)).toHaveText(['Board 1', 'Board 2']);
+
+    await page.getByRole('dialog').getByRole('button', { name: 'Remove', exact: true }).click();
 
     await expect(getTabs(page)).toHaveText(['Board 1']);
     await expect.poll(() => getBoardLetters(page)).toBe('cat');
+  });
+
+  test('keeps the board when the confirmation is cancelled', async ({ page }) => {
+    await Lib.visitIndex(page);
+    await page.getByRole('button', { name: 'New board' }).click();
+    await Lib.typeBoard(page, 'dog', 'horizontal', { x: 5, y: 5 });
+
+    await page.getByRole('button', { name: 'Remove this board' }).click();
+    await page.getByRole('dialog').getByRole('button', { name: 'Cancel' }).click();
+
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(getTabs(page)).toHaveText(['Board 1', 'Board 2']);
+    await expect.poll(() => getBoardLetters(page)).toBe('dog');
+  });
+
+  test('abandons the confirmation on Escape', async ({ page }) => {
+    await Lib.visitIndex(page);
+    await page.getByRole('button', { name: 'New board' }).click();
+    await Lib.typeBoard(page, 'dog', 'horizontal', { x: 5, y: 5 });
+
+    await page.getByRole('button', { name: 'Remove this board' }).click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await page.keyboard.press('Escape');
+
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(getTabs(page)).toHaveText(['Board 1', 'Board 2']);
+  });
+
+  test('removes an empty board without asking', async ({ page }) => {
+    await Lib.visitIndex(page);
+    await Lib.typeBoard(page, 'cat', 'horizontal', { x: 3, y: 3 });
+    await page.getByRole('button', { name: 'New board' }).click();
+
+    // Nothing on the new board, so there is nothing to lose and nothing to ask.
+    await page.getByRole('button', { name: 'Remove this board' }).click();
+
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(getTabs(page)).toHaveText(['Board 1']);
+    await expect.poll(() => getBoardLetters(page)).toBe('cat');
+  });
+
+  test('asks when the board is empty but the rack is not', async ({ page }) => {
+    await Lib.visitIndex(page);
+    await page.getByRole('button', { name: 'New board' }).click();
+    await Lib.typeRack(page, 'abc');
+
+    await page.getByRole('button', { name: 'Remove this board' }).click();
+
+    await expect(page.getByRole('dialog')).toBeVisible();
   });
 
   test('offers no way to remove the only board', async ({ page }) => {

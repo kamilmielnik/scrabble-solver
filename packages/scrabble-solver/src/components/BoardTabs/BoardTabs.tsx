@@ -5,10 +5,12 @@ import { useDispatch } from 'react-redux';
 import Cross from '@/icons/Cross.svg';
 import Pencil from '@/icons/Pencil.svg';
 import Plus from '@/icons/Plus.svg';
+import { noop } from '@/lib/noop';
 import {
   boardsSlice,
   createBoard,
   removeBoard,
+  selectActiveBoardHasContent,
   selectBoardTabs,
   selectCanRemoveBoard,
   switchBoard,
@@ -16,6 +18,7 @@ import {
   useTypedSelector,
 } from '@/state';
 
+import { ConfirmPopover } from '../ConfirmPopover';
 import { IconButton } from '../IconButton';
 
 import styles from './BoardTabs.module.scss';
@@ -37,6 +40,7 @@ const BoardTabsBase: FunctionComponent<Props> = ({ className }) => {
   const translate = useTranslate();
   const tabs = useTypedSelector(selectBoardTabs);
   const canRemove = useTypedSelector(selectCanRemoveBoard);
+  const hasContent = useTypedSelector(selectActiveBoardHasContent);
   const [renamingId, setRenamingId] = useState<string>();
 
   const handleRenamed = useCallback(
@@ -93,15 +97,7 @@ const BoardTabsBase: FunctionComponent<Props> = ({ className }) => {
                 />
               )}
 
-              {tab.isActive && canRemove && (
-                <IconButton
-                  aria-label={translate('boards.remove')}
-                  className={styles.action}
-                  Icon={Cross}
-                  tooltip={translate('boards.remove')}
-                  onClick={() => dispatch(removeBoard(tab.id))}
-                />
-              )}
+              {tab.isActive && canRemove && <RemoveButton hasContent={hasContent} id={tab.id} />}
             </>
           )}
         </div>
@@ -115,6 +111,46 @@ const BoardTabsBase: FunctionComponent<Props> = ({ className }) => {
         onClick={() => dispatch(createBoard())}
       />
     </div>
+  );
+};
+
+/**
+ * Removal is confirmed only when there is something to lose. Asking about an
+ * empty board would be a prompt with no stakes, which teaches the user to
+ * dismiss the prompt that does have them.
+ */
+const RemoveButton: FunctionComponent<{ hasContent: boolean; id: string }> = ({ hasContent, id }) => {
+  const dispatch = useDispatch();
+  const translate = useTranslate();
+
+  const remove = (): void => {
+    dispatch(removeBoard(id));
+  };
+
+  const button = (
+    <IconButton
+      aria-label={translate('boards.remove')}
+      className={styles.action}
+      Icon={Cross}
+      tooltip={translate('boards.remove')}
+      // When confirming, the popover supplies the click handler that opens it.
+      onClick={hasContent ? noop : remove}
+    />
+  );
+
+  if (!hasContent) {
+    return button;
+  }
+
+  return (
+    <ConfirmPopover
+      // Short, because the question above it already says what is removed.
+      confirmLabel={translate('common.remove')}
+      message={translate('boards.remove-confirm')}
+      onConfirm={remove}
+    >
+      {button}
+    </ConfirmPopover>
   );
 };
 

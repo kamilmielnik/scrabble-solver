@@ -1,6 +1,7 @@
 {
   "boards": "Table",
   "boards.add": "Tabla noua",
+  "boards.remove-confirm": "Stergi aceasta tabla si tot ce este pe ea?",
   "boards.remove": "Sterge aceasta tabla",
   "boards.rename": "Redenumeste aceasta tabla",
   "boards.tab": "Tabla {{name}}",
@@ -12,6 +13,7 @@
   "cell.tile.location": "Tabla: camp {{coordinates}}",
   "cell.toggle-direction": "Directie scriere",
   "common.arrows": "Sagetile",
+  "common.cancel": "Anuleaza",
   "common.blanks": "Jokeri",
   "common.clear": "Stergere",
   "common.close": "Inchidere",
@@ -22,6 +24,7 @@
   "common.on": "Activat",
   "common.points": "Puncte",
   "common.previous": "Pasul anterior",
+  "common.remove": "Sterge",
   "common.space": "Bara de spațiu",
   "common.tiles": "Litere",
   "common.two-letter-tiles": "2 litere",

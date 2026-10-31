@@ -1,0 +1,29 @@
+@use 'styles/mixins' as *;
+
+.popover {
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  max-width: 18em;
+  padding: var(--spacing--m);
+  gap: var(--spacing--m);
+  background-color: var(--color--background--element);
+  border: var(--border);
+  border-radius: var(--border--radius);
+  box-shadow: 0 2px 10px rgb(0 0 0 / 15%);
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.message {
+  margin: 0;
+  color: var(--color--foreground);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing--m);
+}

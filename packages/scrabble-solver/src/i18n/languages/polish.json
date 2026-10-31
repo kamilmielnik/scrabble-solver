@@ -1,6 +1,7 @@
 {
   "boards": "Plansze",
   "boards.add": "Nowa plansza",
+  "boards.remove-confirm": "Usunąć tę planszę i wszystko na niej?",
   "boards.remove": "Usuń tę planszę",
   "boards.rename": "Zmień nazwę tej planszy",
   "boards.tab": "Plansza {{name}}",
@@ -12,6 +13,7 @@
   "cell.tile.location": "Plansza: płytka {{coordinates}}",
   "cell.toggle-direction": "Kierunek wpisywania",
   "common.arrows": "Klawisze strzałek",
+  "common.cancel": "Anuluj",
   "common.blanks": "Blanki",
   "common.clear": "Wyczyść",
   "common.close": "Zamknij",
@@ -22,6 +24,7 @@
   "common.on": "Włączone",
   "common.points": "Punkty",
   "common.previous": "Poprzednie",
+  "common.remove": "Usuń",
   "common.space": "Spacja",
   "common.tiles": "Płytki",
   "common.two-letter-tiles": "Dwuliterowe",

@@ -1,5 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 
+import { selectBoard } from '../board';
+import { selectRack } from '../rack';
 import type { RootState } from '../types';
 
 export const selectBoards = (state: RootState) => state.boards;
@@ -40,3 +42,15 @@ export const selectBoardTabs = createSelector(
 );
 
 export const selectCanRemoveBoard = createSelector([selectBoardsOrder], (order) => order.length > 1);
+
+/**
+ * Whether the board in play holds anything the user would mind losing.
+ *
+ * Cell filters deliberately do not count: they are transient markers used
+ * while hunting for a move, not the game itself, and treating them as content
+ * would put a confirmation in front of removing a board that looks empty.
+ */
+export const selectActiveBoardHasContent = createSelector(
+  [selectBoard, selectRack],
+  (board, rack) => board.getTilesCount() > 0 || rack.some((character) => character !== null),
+);

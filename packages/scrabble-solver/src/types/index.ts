@@ -84,6 +84,7 @@ export interface VerifiedWord extends BoardWord {
 
 export type TranslationKey =
   | 'boards.add'
+  | 'boards.remove-confirm'
   | 'boards.remove'
   | 'boards.rename'
   | 'boards.tab'
@@ -97,6 +98,7 @@ export type TranslationKey =
   | 'cell.toggle-direction'
   | 'common.arrows'
   | 'common.blanks'
+  | 'common.cancel'
   | 'common.clear'
   | 'common.close'
   | 'common.consonants'
@@ -106,6 +108,7 @@ export type TranslationKey =
   | 'common.on'
   | 'common.points'
   | 'common.previous'
+  | 'common.remove'
   | 'common.space'
   | 'common.tiles'
   | 'common.two-letter-tiles'

@@ -1,6 +1,7 @@
 {
   "boards": "Plateaux",
   "boards.add": "Nouveau plateau",
+  "boards.remove-confirm": "Supprimer ce plateau et tout ce qu'il contient ?",
   "boards.remove": "Supprimer ce plateau",
   "boards.rename": "Renommer ce plateau",
   "boards.tab": "Plateau {{name}}",
@@ -12,6 +13,7 @@
   "cell.tile.location": "Plateau: la case {{coordinates}}",
   "cell.toggle-direction": "Direction d'écriture",
   "common.arrows": "Touches fléchées",
+  "common.cancel": "Annuler",
   "common.blanks": "Cases vides",
   "common.clear": "Effacer",
   "common.close": "Fermer",
@@ -22,6 +24,7 @@
   "common.on": "Activé",
   "common.points": "Points",
   "common.previous": "Précédent",
+  "common.remove": "Supprimer",
   "common.space": "Barre d'espace",
   "common.tiles": "Cases",
   "common.two-letter-tiles": "Deux lettres",

@@ -1,6 +1,7 @@
 {
   "boards": "Bretter",
   "boards.add": "Neues Brett",
+  "boards.remove-confirm": "Dieses Brett und alles darauf entfernen?",
   "boards.remove": "Dieses Brett entfernen",
   "boards.rename": "Dieses Brett umbenennen",
   "boards.tab": "Brett {{name}}",
@@ -12,6 +13,7 @@
   "cell.tile.location": "Brett: Stein {{coordinates}}",
   "cell.toggle-direction": "Schreibrichtung",
   "common.arrows": "Pfeiltasten",
+  "common.cancel": "Abbrechen",
   "common.blanks": "Blankos",
   "common.clear": "Löschen",
   "common.close": "Schließen",
@@ -22,6 +24,7 @@
   "common.on": "Ein",
   "common.points": "Punkte",
   "common.previous": "Zurück",
+  "common.remove": "Entfernen",
   "common.space": "Leertaste",
   "common.tiles": "Steine",
   "common.two-letter-tiles": "Zwei-Buchstaben",

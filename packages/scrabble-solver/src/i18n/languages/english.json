@@ -1,6 +1,7 @@
 {
   "boards": "Boards",
   "boards.add": "New board",
+  "boards.remove-confirm": "Remove this board and everything on it?",
   "boards.remove": "Remove this board",
   "boards.rename": "Rename this board",
   "boards.tab": "Board {{name}}",
@@ -12,6 +13,7 @@
   "cell.tile.location": "Board: tile {{coordinates}}",
   "cell.toggle-direction": "Typing direction",
   "common.arrows": "Arrow keys",
+  "common.cancel": "Cancel",
   "common.blanks": "Blanks",
   "common.clear": "Clear",
   "common.close": "Close",
@@ -22,6 +24,7 @@
   "common.on": "On",
   "common.points": "Points",
   "common.previous": "Previous",
+  "common.remove": "Remove",
   "common.space": "Spacebar",
   "common.tiles": "Tiles",
   "common.two-letter-tiles": "Two-letter",

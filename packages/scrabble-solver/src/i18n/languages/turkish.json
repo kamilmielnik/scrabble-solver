@@ -1,6 +1,7 @@
 {
   "boards": "Tahtalar",
   "boards.add": "Yeni tahta",
+  "boards.remove-confirm": "Bu tahtayı ve üzerindeki her şeyi kaldırmak istiyor musunuz?",
   "boards.remove": "Bu tahtayı kaldır",
   "boards.rename": "Bu tahtayı yeniden adlandır",
   "boards.tab": "Tahta {{name}}",
@@ -12,6 +13,7 @@
   "cell.tile.location": "Tahta: harfler {{coordinates}}",
   "cell.toggle-direction": "Yazma yönü - geçiş yapmak için tıklayın",
   "common.arrows": "Ok tuşları",
+  "common.cancel": "İptal",
   "common.blanks": "Jokerler",
   "common.clear": "Sıfırla",
   "common.close": "Kapat",
@@ -22,6 +24,7 @@
   "common.on": "Açık",
   "common.points": "Puanlar",
   "common.previous": "Öncesi",
+  "common.remove": "Kaldır",
   "common.space": "Boşluk çubuğu",
   "common.tiles": "Taşlar",
   "common.two-letter-tiles": "İki Harfli",
