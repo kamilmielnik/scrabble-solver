@@ -232,7 +232,7 @@ describe('PlainTiles', () => {
     expect(createPlainTile({ cellIndex: 0, character: 'A', rowIndex: 0, showPoints: true }).points).toBe(1);
   });
 
-  it('colours by points unless a colour is given, with a default for unknown characters', () => {
+  it('colors by points unless a color is given, with a default for unknown characters', () => {
     expect(createPlainTile({ cellIndex: 0, character: 'A', rowIndex: 0 }).color).toBe(COLOR_YELLOW);
     expect(createPlainTile({ cellIndex: 0, character: 'A', color: 'red', rowIndex: 0 }).color).toBe('red');
     expect(createPlainTile({ cellIndex: 0, character: '1', rowIndex: 0 }).color).toBe(PLAIN_TILES_COLOR_DEFAULT);
@@ -281,7 +281,7 @@ describe('EmptyState', () => {
     ['info', COLOR_BLUE],
     ['success', COLOR_GREEN],
     ['warning', COLOR_YELLOW],
-  ] as const)('spells the %s title in its colour', (variant, color) => {
+  ] as const)('spells the %s title in its color', (variant, color) => {
     const { container } = renderWithStore(<EmptyState variant={variant}>Message</EmptyState>);
 
     expect(screen.getByText('Message')).toBeDefined();

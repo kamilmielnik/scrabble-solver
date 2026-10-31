@@ -5,7 +5,7 @@ import { renderChart } from './renderChart';
 import { type Measurement } from './types';
 
 describe('renderChart', () => {
-  it('renders a labelled svg naming every series', () => {
+  it('renders a labeled svg naming every series', () => {
     const svg = renderChart([createMeasurement('Polish', 0, [10]), createMeasurement('German', 0, [20])]);
     expect(svg).toStartWith('<svg xmlns="http://www.w3.org/2000/svg" width="720" height="420" viewBox="0 0 720 420"');
     expect(svg).toContain('aria-label="Median solve() duration by number of blanks on the rack, for Polish, German"');

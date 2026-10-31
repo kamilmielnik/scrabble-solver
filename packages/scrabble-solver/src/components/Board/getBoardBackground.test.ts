@@ -57,7 +57,7 @@ describe('getBoardBackground', () => {
     expect(rtl).toContain('width="40" x="1215" y="0"');
   });
 
-  it('marks the centre cell with the start star', () => {
+  it('marks the center cell with the start star', () => {
     const svg = decode(getBoardBackground({ config, direction: 'ltr' }));
     const centerX = 40 + 7 * 81;
 
@@ -65,7 +65,7 @@ describe('getBoardBackground', () => {
     expect(svg).toContain('<path d="M3.612');
   });
 
-  it('labels word multipliers and leaves letter bonuses unlabelled', () => {
+  it('labels word multipliers and leaves letter bonuses unlabeled', () => {
     const svg = decode(getBoardBackground({ config: createConfig([2, 3, 4]), direction: 'ltr' }));
 
     expect(svg).toContain('href="#b2"');
@@ -74,7 +74,7 @@ describe('getBoardBackground', () => {
     expect(svg).toContain('×4');
   });
 
-  it('draws an unlabelled mark for a word multiplier without a symbol', () => {
+  it('draws an unlabeled mark for a word multiplier without a symbol', () => {
     const svg = decode(getBoardBackground({ config: createConfig([5]), direction: 'ltr' }));
 
     expect(svg).toContain('href="#b"');

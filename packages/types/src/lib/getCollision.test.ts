@@ -39,7 +39,7 @@ describe('getCollision', () => {
       ['top-right', 2, 0],
       ['bottom-left', 0, 2],
       ['bottom-right', 2, 2],
-    ])('reads only the placed tile when the %s corner has no neighbour', (_name, x, y) => {
+    ])('reads only the placed tile when the %s corner has no neighbor', (_name, x, y) => {
       const board = Board.fromStringArray(['   ', '   ', '   ']);
 
       expect(spell(getCollision(placeAt(x, y), board, ACROSS))).toBe('z');

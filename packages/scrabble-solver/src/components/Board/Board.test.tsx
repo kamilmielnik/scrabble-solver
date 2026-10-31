@@ -688,14 +688,14 @@ describe('touchscreen input mode', () => {
     expect(screen.getByLabelText(englishLabel('cell.enter-word'))).toBeDefined();
   });
 
-  it('prevents the default mouse and touch behaviour', () => {
+  it('prevents the default mouse and touch behavior', () => {
     setup({ settings });
 
     expect(fireEvent.mouseDown(getCell('A1'))).toBe(false);
     expect(fireEvent.touchStart(getCell('A1'))).toBe(false);
   });
 
-  it('keeps default mouse and touch behaviour in keyboard mode', () => {
+  it('keeps default mouse and touch behavior in keyboard mode', () => {
     setup();
 
     expect(fireEvent.mouseDown(getCell('A1'))).toBe(true);

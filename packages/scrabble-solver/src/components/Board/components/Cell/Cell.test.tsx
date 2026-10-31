@@ -129,7 +129,7 @@ describe('Cell', () => {
     expect(getTile().className).not.toContain('first3');
   });
 
-  it('sharpens only the corners that touch a neighbouring tile', () => {
+  it('sharpens only the corners that touch a neighboring tile', () => {
     setup({ cellTop: letterCell });
 
     expect(getTile().className).toContain('sharpTopLeft');
@@ -137,7 +137,7 @@ describe('Cell', () => {
     expect(getTile().className).not.toContain('sharpBottomLeft');
   });
 
-  it('sharpens bottom corners for a tile below, and side corners for side neighbours', () => {
+  it('sharpens bottom corners for a tile below, and side corners for side neighbors', () => {
     setup({ cellBottom: letterCell, cellRight: letterCell });
 
     expect(getTile().className).toContain('sharpBottomLeft');

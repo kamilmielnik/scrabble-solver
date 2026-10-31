@@ -70,7 +70,7 @@ describe('list', () => {
     expect(readWords()).toEqual(['cat', 'dog']);
   });
 
-  it('virtualises long lists instead of rendering every row', () => {
+  it('virtualizes long lists instead of rendering every row', () => {
     const results = Array.from({ length: 200 }, (_, index) => createResult({ id: index + 3, points: 1, word: 'at' }));
 
     setup({ results: { ...resultsInitialState, results } });

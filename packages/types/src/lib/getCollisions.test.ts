@@ -49,7 +49,7 @@ describe('getCollisions', () => {
     expect(getCollisions(board, cells, true).map((collision) => collision.map(String).join(''))).toEqual(['ab', 'ab']);
   });
 
-  it('ignores placed tiles without a perpendicular neighbour', () => {
+  it('ignores placed tiles without a perpendicular neighbor', () => {
     const board = Board.fromStringArray(['     ', '     ', '     ', '     ', '     ']);
     const cells = getCells(board, {
       blankIndices: [],
@@ -80,7 +80,7 @@ describe('getCollisions', () => {
     expect(getCollisions(board, cells, true)).toEqual([]);
   });
 
-  it('skips board tiles of the main word even when they have perpendicular neighbours', () => {
+  it('skips board tiles of the main word even when they have perpendicular neighbors', () => {
     const board = Board.fromStringArray([' wx  ', ' a   ', '  y  ']);
     const cells = getCells(board, { blankIndices: [], id: 0, isHorizontal: true, points: 0, tiles: ['b'], x: 1, y: 1 });
 

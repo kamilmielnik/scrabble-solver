@@ -40,21 +40,21 @@ describe('getPositionInGrid', () => {
 });
 
 describe('getBonusColor', () => {
-  it('colours word bonuses by multiplier', () => {
+  it('colors word bonuses by multiplier', () => {
     expect(getBonusColor(createBonus({ multiplier: 3, type: 'BONUS_WORD' }))).toBe(COLOR_BONUS_WORD[3]);
   });
 
-  it('colours scored character bonuses by score', () => {
+  it('colors scored character bonuses by score', () => {
     expect(getBonusColor(createBonus({ score: 5, type: 'BONUS_CHARACTER' }))).toBe(COLOR_BONUS_CHARACTER[5]);
   });
 
-  it('colours plain character bonuses by multiplier', () => {
+  it('colors plain character bonuses by multiplier', () => {
     expect(getBonusColor(createBonus({ multiplier: 2, type: 'BONUS_CHARACTER' }))).toBe(
       COLOR_BONUS_CHARACTER_MULTIPLIER[2],
     );
   });
 
-  it('has a colour for every bonus of every shipped board', () => {
+  it('has a color for every bonus of every shipped board', () => {
     for (const config of Object.values(languages)) {
       for (const bonus of new Config(config.config).bonuses) {
         expect(getBonusColor(bonus)).toStartWith('#');

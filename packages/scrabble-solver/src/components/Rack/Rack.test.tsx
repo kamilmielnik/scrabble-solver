@@ -312,14 +312,14 @@ describe('touchscreen input mode', () => {
     expect(screen.getByTestId('rack').className).toContain('hidden');
   });
 
-  it('keeps default mouse and touch behaviour in keyboard mode', () => {
+  it('keeps default mouse and touch behavior in keyboard mode', () => {
     setup();
 
     expect(fireEvent.mouseDown(getTile(1))).toBe(true);
     expect(fireEvent.touchStart(getTile(1))).toBe(true);
   });
 
-  it('prevents default mouse and touch behaviour', () => {
+  it('prevents default mouse and touch behavior', () => {
     setup({ settings: touchscreen });
 
     expect(fireEvent.mouseDown(getTile(1))).toBe(false);

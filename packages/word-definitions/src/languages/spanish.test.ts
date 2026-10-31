@@ -57,9 +57,9 @@ describe('spanish parse', () => {
   it.each([
     ['green', '<font class="verd13">literario</font>'],
     ['bold green', '<font class="verdBold13">1</font>'],
-    ['small grey', '<font class="gris11">GRAMÁTICA</font>'],
-    ['bold grey', '<font class="grisBold11">EJEMPLO:</font>'],
-    ['italic grey', '<font class="grisItalic13">qurma</font>'],
+    ['small gray', '<font class="gris11">GRAMÁTICA</font>'],
+    ['bold gray', '<font class="grisBold11">EJEMPLO:</font>'],
+    ['italic gray', '<font class="grisItalic13">qurma</font>'],
   ])('removes %s labels nested in a definition', (_, label) => {
     const html = createResult(`<font class="gris13">Acepción ${label}</font>`);
 
