@@ -9,6 +9,7 @@ import {
   type RefObject,
   createRef,
   useCallback,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -21,7 +22,15 @@ import { createKeyboardNavigation } from '@/lib/createKeyboardNavigation';
 import { extractCharacters } from '@/lib/extractCharacters';
 import { extractInputValue } from '@/lib/extractInputValue';
 import { isCtrl } from '@/lib/isCtrl';
-import { rackSlice, selectConfig, selectInputMode, selectLocale, selectRack, useTypedSelector } from '@/state';
+import {
+  rackSlice,
+  selectConfig,
+  selectInputMode,
+  selectIsHydrated,
+  selectLocale,
+  selectRack,
+  useTypedSelector,
+} from '@/state';
 
 import { InputPrompt, RackTile } from './components';
 import styles from './Rack.module.scss';
@@ -37,6 +46,7 @@ export const Rack: FunctionComponent<Props> = ({ className }) => {
   const locale = useTypedSelector(selectLocale);
   const rack = useTypedSelector(selectRack);
   const inputMode = useTypedSelector(selectInputMode);
+  const isHydrated = useTypedSelector(selectIsHydrated);
   const tiles = useTypedSelector(selectRemainingTilesGroups);
   const tilesCount = tiles.length;
   const tilesRefs = useMemo(
@@ -73,6 +83,13 @@ export const Rack: FunctionComponent<Props> = ({ className }) => {
     },
     [activeIndexRef, tilesCount, tilesRefs],
   );
+
+  useEffect(() => {
+    // The server cannot know the input mode, so its HTML always autofocuses the first tile.
+    if (isHydrated && inputMode === 'touchscreen') {
+      tilesRefs[0].current?.blur();
+    }
+  }, [inputMode, isHydrated, tilesRefs]);
 
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {

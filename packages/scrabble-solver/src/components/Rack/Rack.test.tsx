@@ -7,9 +7,10 @@ import { Locale } from '@scrabble-solver/types';
 import { act, fireEvent, screen } from '@testing-library/react';
 import { describe, expect, it } from 'bun:test';
 
+import { appInitialState, appSlice } from '../../state/app';
 import { hoveredTileSlice } from '../../state/hoveredTile';
 import { resultsInitialState } from '../../state/results';
-import { settingsInitialState } from '../../state/settings';
+import { settingsInitialState, settingsSlice } from '../../state/settings';
 import type { RootState } from '../../state/types';
 import { flushEffects } from '../../test/async';
 import { createResult } from '../../test/fixtures';
@@ -304,6 +305,29 @@ describe('touchscreen input mode', () => {
     setup({ settings: touchscreen });
 
     expect(document.activeElement).toBe(document.body);
+  });
+
+  it('drops the focus of the server-rendered autofocus once hydration finds a touch device', () => {
+    const { store } = setup({ app: { ...appInitialState, hydrated: false } });
+    expect(document.activeElement).toBe(getTile(1));
+
+    act(() => {
+      store.dispatch(settingsSlice.actions.init({ inputMode: 'touchscreen' }));
+      store.dispatch(appSlice.actions.hydrated());
+    });
+
+    expect(document.activeElement).toBe(document.body);
+    expect(document.querySelector('form')).toBeNull();
+  });
+
+  it('keeps the autofocus through hydration in keyboard mode', () => {
+    const { store } = setup({ app: { ...appInitialState, hydrated: false } });
+
+    act(() => {
+      store.dispatch(appSlice.actions.hydrated());
+    });
+
+    expect(document.activeElement).toBe(getTile(1));
   });
 
   it('opens a prompt prefilled with the rack, uppercasing digraphs', async () => {

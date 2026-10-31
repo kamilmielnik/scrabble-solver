@@ -174,9 +174,8 @@ test.describe('Boot', () => {
         await expect(page.getByRole('button', { name: 'Enter word', exact: true })).toBeVisible();
       });
 
-      test.fixme('leaves the rack unfocused, although the server-rendered page autofocuses it', async ({ page }) => {
-        await Lib.visitIndex(page);
-        await expect(page.getByRole('button', { name: 'Menu', exact: true })).toBeEnabled();
+      test('leaves the rack unfocused, although the server-rendered page autofocuses it', async ({ page }) => {
+        await Lib.visitIndexUntilIdle(page);
 
         await expect(Lib.getRackTile(page)).not.toBeFocused();
       });
