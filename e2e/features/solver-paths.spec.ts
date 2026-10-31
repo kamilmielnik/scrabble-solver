@@ -3,6 +3,7 @@ import { type Page, expect, test } from '@playwright/test';
 import * as Lib from '../lib';
 
 const LOCALES = [
+  ['ca-ES', 'casa'],
   ['de-DE', 'haus'],
   ['en-GB', 'cat'],
   ['en-US', 'cat'],
@@ -157,6 +158,23 @@ test.describe('Solver paths', () => {
 
       await expect(Lib.getResult(page, 0)).toBeVisible();
       expect(solveRequests).toEqual([]);
+    });
+
+    test('plays a three-character tile with the real Catalan dictionary', async ({ page }) => {
+      await Lib.preferKeyboardInput(page);
+      await Lib.persistSettings(page, { game: 'scrabble', inputMode: 'keyboard', locale: 'ca-ES' });
+      await Lib.visitIndex(page);
+      await Lib.typeBoard(page, 'ce', 'horizontal', { x: 5, y: 7 });
+      await Lib.getRackTile(page).focus();
+      await page.keyboard.press('Control+KeyL');
+      await page.keyboard.type('a');
+      await Lib.solve(page);
+
+      await expect(
+        Lib.getResults(page)
+          .and(page.getByLabel('cel·la', { exact: true }))
+          .first(),
+      ).toBeVisible();
     });
 
     for (const [locale, rack] of LOCALES) {

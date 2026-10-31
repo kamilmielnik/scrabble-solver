@@ -132,7 +132,7 @@ test.describe('Real keyboard and focus', () => {
       await expect(Lib.getBoardTile(page, 3, 3)).toHaveValue('');
     });
 
-    test('inserts a two-letter tile with Ctrl, instead of the browser shortcut', async ({ page }) => {
+    test('inserts a digraph with Ctrl, instead of the browser shortcut', async ({ page }) => {
       await Lib.persistSettings(page, { game: 'scrabble', inputMode: 'keyboard', locale: 'es-ES' });
       await Lib.visitIndex(page);
       await Lib.getRackTile(page).focus();
@@ -143,6 +143,35 @@ test.describe('Real keyboard and focus', () => {
       await expect(Lib.getRackTile(page, 0)).toHaveValue('ll');
       await expect(Lib.getBoardTile(page, 3, 3)).toHaveValue('ch');
       await expect(page).toHaveURL('/');
+    });
+
+    test('inserts the Catalan digraphs with Ctrl', async ({ page }) => {
+      await Lib.persistSettings(page, { game: 'scrabble', inputMode: 'keyboard', locale: 'ca-ES' });
+      await Lib.visitIndex(page);
+      await Lib.getRackTile(page).focus();
+      await page.keyboard.press('Control+KeyL');
+      await page.keyboard.press('Control+KeyY');
+      await page.keyboard.press('Control+KeyU');
+      await Lib.getBoardTile(page, 3, 3).focus();
+      await page.keyboard.press('Control+KeyL');
+
+      await expect(Lib.getRackTile(page, 0)).toHaveValue('l·l');
+      await expect(Lib.getRackTile(page, 1)).toHaveValue('ny');
+      await expect(Lib.getRackTile(page, 2)).toHaveValue('qu');
+      await expect(Lib.getBoardTile(page, 3, 3)).toHaveValue('l·l');
+      await expect(page).toHaveURL('/');
+    });
+
+    test('joins the letters of a three-character tile typed on the board', async ({ page }) => {
+      await Lib.persistSettings(page, { game: 'scrabble', inputMode: 'keyboard', locale: 'ca-ES' });
+      await Lib.visitIndex(page);
+      await Lib.getBoardTile(page, 3, 3).focus();
+      await page.keyboard.type('l·la');
+
+      await expect(Lib.getBoardTile(page, 3, 3)).toHaveValue('l·l');
+      await expect(Lib.getBoardTile(page, 4, 3)).toHaveValue('a');
+      await expect(Lib.getBoardTile(page, 5, 3)).toHaveValue('');
+      await expect(Lib.getBoardTile(page, 5, 3)).toBeFocused();
     });
 
     test('toggles a cell filter with Ctrl+G, instead of the find bar', async ({ page }) => {
