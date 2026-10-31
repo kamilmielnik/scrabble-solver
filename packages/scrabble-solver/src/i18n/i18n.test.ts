@@ -19,6 +19,12 @@ describe('language files', () => {
     expect(Object.keys(readLanguage(file)).sort()).toEqual(allKeys);
   });
 
+  it.each(files)('%s has alphabetically sorted keys, each after the keys nested in it', (file) => {
+    const keys = Object.keys(readLanguage(file));
+
+    expect(keys).toEqual(keys.toSorted(compareKeys));
+  });
+
   it.each(files)('%s has only non-empty strings', (file) => {
     const blankKeys = Object.entries(readLanguage(file))
       .filter(([, value]) => typeof value !== 'string' || value.trim().length === 0)
@@ -109,6 +115,12 @@ describe('configs', () => {
 
 function readPlaceholders(text: string): string[] {
   return Array.from(text.matchAll(/\{\{(\w+)\}\}/g), ([, name]) => name).sort();
+}
+
+function compareKeys(keyA: string, keyB: string): number {
+  const [sortKeyA, sortKeyB] = [keyA, keyB].map((key) => `${key}.\uffff`);
+
+  return sortKeyA < sortKeyB ? -1 : 1;
 }
 
 function readLanguage(file: string): Record<string, string> {

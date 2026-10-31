@@ -30,14 +30,14 @@ export const getRemainingTilesGroups = (remainingTiles: RemainingTile[], locale:
     totalCount: getTotalTilesCount(other),
   });
 
-  const twoCharacterTiles = remainingTiles.filter(isTwoCharacter);
+  const digraphs = remainingTiles.filter(isDigraph);
   const blanks = remainingTiles.filter(isBlank);
 
   groups.push({
-    remainingCount: getRemainingTilesCount(twoCharacterTiles),
-    tiles: twoCharacterTiles,
-    translationKey: 'common.two-letter-tiles',
-    totalCount: getTotalTilesCount(twoCharacterTiles),
+    remainingCount: getRemainingTilesCount(digraphs),
+    tiles: digraphs,
+    translationKey: 'common.digraphs',
+    totalCount: getTotalTilesCount(digraphs),
   });
 
   groups.push({
@@ -54,14 +54,12 @@ function isOverused({ count, usedCount }: RemainingTile): boolean {
   return typeof count !== 'undefined' && usedCount > count;
 }
 
-const isTwoCharacter = (tile: RemainingTile): boolean => tile.character.length === 2 || tile.character === 'l·l';
+const isDigraph = (tile: RemainingTile): boolean => tile.character.length > 1;
 
 const isBlank = (tile: RemainingTile): boolean => tile.character === BLANK;
 
 function isOther(tile: RemainingTile, locale: Locale): boolean {
-  return (
-    !isConsonant(tile.character, locale) && !isVowel(tile.character, locale) && !isBlank(tile) && !isTwoCharacter(tile)
-  );
+  return !isConsonant(tile.character, locale) && !isVowel(tile.character, locale) && !isBlank(tile) && !isDigraph(tile);
 }
 
 const getRemainingTilesCount = (remainingTiles: RemainingTile[]): number => {

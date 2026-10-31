@@ -3,7 +3,7 @@ import { type FunctionComponent, memo } from 'react';
 import { Key } from '@/components/Key';
 import { Arrows, Backspace, Ctrl, Del, Enter, Space } from '@/components/Keys';
 import { Modal } from '@/components/Modal';
-import { selectConfig, useTranslate, useTypedSelector } from '@/state';
+import { selectConfig, selectLocale, useTranslate, useTypedSelector } from '@/state';
 
 import { Mapping } from './components';
 
@@ -16,6 +16,7 @@ interface Props {
 const KeyMapModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose }) => {
   const translate = useTranslate();
   const config = useTypedSelector(selectConfig);
+  const locale = useTypedSelector(selectLocale);
 
   return (
     <Modal className={className} isOpen={isOpen} title={translate('keyMap')} onClose={onClose}>
@@ -29,21 +30,18 @@ const KeyMapModalBase: FunctionComponent<Props> = ({ className, isOpen, onClose 
 
         <Mapping description={translate('keyMap.board-and-rack.submit')} mapping={[<Enter key="del" />]} />
 
-        {config.twoCharacterTiles.length > 0 && (
+        {config.digraphs.map((digraph) => (
           <Mapping
-            description={translate('keyMap.board-and-rack.insert-two-letter-tile')}
+            description={`${translate('keyMap.board-and-rack.insert-digraph')} ${digraph.toLocaleUpperCase(locale)}`}
+            key={digraph}
             mapping={[
               [
                 <Ctrl key="ctrl" />,
-                <>
-                  {config.twoCharacterTiles.map(([firstLetter]) => (
-                    <Key key={firstLetter}>{firstLetter.toUpperCase()}</Key>
-                  ))}
-                </>,
+                <Key key={digraph}>{config.getDigraphShortcut(digraph).toLocaleUpperCase(locale)}</Key>,
               ],
             ]}
           />
-        )}
+        ))}
       </Modal.Section>
 
       <Modal.Section label={translate('keyMap.board')} title={translate('keyMap.board')}>
