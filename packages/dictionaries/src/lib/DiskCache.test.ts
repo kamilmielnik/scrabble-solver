@@ -231,14 +231,25 @@ describe('DiskCache', () => {
     });
 
     it('removes a temporary file abandoned by a killed process', async () => {
-      const abandonedFilepath = `${getDictionaryFilepath(Locale.PL_PL, directory)}.abandoned.tmp`;
-      fs.writeFileSync(abandonedFilepath, 'partially written');
-      const twoDaysAgo = new Date(Date.now() - 2 * DAY);
-      fs.utimesSync(abandonedFilepath, twoDaysAgo, twoDaysAgo);
+      const abandonedFilepath = writeAbandonedFile(directory);
 
       await cache.set(LOCALE, Gaddag.fromArray(WORDS));
 
       expect(fs.existsSync(abandonedFilepath)).toBe(false);
+    });
+
+    it('still saves the dictionary and warns when an abandoned file cannot be removed', async () => {
+      writeAbandonedFile(directory);
+      const error = new Error('EPERM');
+      const rmSyncSpy = spyOn(fs, 'rmSync').mockImplementation(() => {
+        throw error;
+      });
+
+      await cache.set(LOCALE, Gaddag.fromArray(WORDS));
+      rmSyncSpy.mockRestore();
+
+      expect((await cache.get(LOCALE))?.has('scrabble')).toBe(true);
+      expect(logError).toHaveBeenCalledWith('cache', error, { level: 'warn' });
     });
 
     it('leaves alone a temporary file of a concurrent write', async () => {
@@ -255,6 +266,14 @@ describe('DiskCache', () => {
 async function writeFileModifiedAt(cache: InstanceType<typeof DiskCache>, directory: string): Promise<void> {
   await cache.set(LOCALE, Gaddag.fromArray(WORDS));
   fs.utimesSync(getDictionaryFilepath(LOCALE, directory), new Date(MODIFIED_AT), new Date(MODIFIED_AT));
+}
+
+function writeAbandonedFile(directory: string): string {
+  const filepath = `${getDictionaryFilepath(Locale.PL_PL, directory)}.abandoned.tmp`;
+  const twoDaysAgo = new Date(Date.now() - 2 * DAY);
+  fs.writeFileSync(filepath, 'partially written');
+  fs.utimesSync(filepath, twoDaysAgo, twoDaysAgo);
+  return filepath;
 }
 
 function serialize(): Uint8Array {

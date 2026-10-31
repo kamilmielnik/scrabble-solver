@@ -85,12 +85,16 @@ export class DiskCache implements Cache<Locale, Gaddag> {
   }
 
   private removeAbandonedTemporaryFiles(): void {
-    for (const filename of fs.readdirSync(this.directory)) {
-      const filepath = path.join(this.directory, filename);
+    try {
+      for (const filename of fs.readdirSync(this.directory)) {
+        const filepath = path.join(this.directory, filename);
 
-      if (filename.endsWith(TEMPORARY_FILE_EXTENSION) && isAbandoned(filepath)) {
-        fs.rmSync(filepath, { force: true });
+        if (filename.endsWith(TEMPORARY_FILE_EXTENSION) && isAbandoned(filepath)) {
+          fs.rmSync(filepath, { force: true });
+        }
       }
+    } catch (error) {
+      logError('cache', error, { level: 'warn' });
     }
   }
 }
