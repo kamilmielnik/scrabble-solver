@@ -2,6 +2,7 @@ import fs from 'fs';
 
 import { EVENTS_FILEPATH, IS_TEST_RUN, OUTPUT_DIRECTORY } from './constants';
 import { type Event, EVENT_FIELDS } from './events';
+import { formatTimestamp } from './timestamp';
 
 export function logEvent(event: Event): void {
   if (IS_TEST_RUN) {
@@ -19,8 +20,4 @@ export function logEvent(event: Event): void {
 export function formatEventLine(event: Event, now: Date): string {
   const line = { timestamp: formatTimestamp(now), ...event };
   return `${JSON.stringify(line, ['timestamp', 'type', ...EVENT_FIELDS[event.type]])}\n`;
-}
-
-function formatTimestamp(date: Date): string {
-  return `${date.toISOString().slice(0, 19)}Z`;
 }
