@@ -46,7 +46,6 @@
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/oxfmt.yml/badge.svg" alt="Oxfmt" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/e2e.yml/badge.svg" alt="E2E" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/unit.yml/badge.svg" alt="Unit" />
-    <img src="https://img.shields.io/badge/coverage-99.66%25-brightgreen" alt="Coverage" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/bunx.yml/badge.svg" alt="bunx" />
     <img src="https://github.com/kamilmielnik/scrabble-solver/actions/workflows/npx.yml/badge.svg" alt="npx" />
   </p>
