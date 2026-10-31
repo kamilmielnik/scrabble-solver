@@ -1,5 +1,8 @@
-// The longest tile of any language: "l·l" in Catalan.
-const MAX_CHARACTER_LENGTH = 3;
+import { languages } from '@scrabble-solver/configs';
+
+const MAX_CHARACTER_LENGTH = Object.values(languages).reduce((result, config) => {
+  return Math.max(result, config.longestDigraphLength);
+}, 1);
 
 export const isCharacterValid = (character: string): boolean => {
   /*

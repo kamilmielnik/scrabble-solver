@@ -1,4 +1,6 @@
-import { getConfig } from '@scrabble-solver/configs';
+/* eslint-disable max-lines */
+
+import { getConfig, languages } from '@scrabble-solver/configs';
 import { type BoardJson, type CellJson, Board, Game, Locale } from '@scrabble-solver/types';
 
 import { isBoardValid, isCellValid, isCharacterValid, isRowValid } from '.';
@@ -8,15 +10,17 @@ const spanish = getConfig(Game.Scrabble, Locale.ES_ES);
 const catalan = getConfig(Game.Scrabble, Locale.CA_ES);
 
 describe('isCharacterValid', () => {
-  it('accepts tiles of up to three characters', () => {
-    expect(isCharacterValid('a')).toBe(true);
-    expect(isCharacterValid('ch')).toBe(true);
-    expect(isCharacterValid('l·l')).toBe(true);
+  const tiles = Object.values(languages).flatMap((language) => language.alphabet);
+
+  it('accepts every tile of every language', () => {
+    expect(tiles.filter((tile) => !isCharacterValid(tile))).toEqual([]);
   });
 
-  it('rejects empty and longer strings', () => {
+  it('rejects empty strings and strings longer than every tile', () => {
+    const longestTile = tiles.reduce((result, tile) => (tile.length > result.length ? tile : result));
+
     expect(isCharacterValid('')).toBe(false);
-    expect(isCharacterValid('abcd')).toBe(false);
+    expect(isCharacterValid(`${longestTile}a`)).toBe(false);
   });
 });
 
