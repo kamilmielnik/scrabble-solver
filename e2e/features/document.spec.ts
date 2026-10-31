@@ -130,10 +130,11 @@ test.describe('Served document', () => {
       expect((await request.get('/api/no-such-route')).status()).toBe(404);
     });
 
-    test.fixme('shows the app-branded page for an unknown path', async ({ page }) => {
+    test('shows the app-branded page for an unknown path', async ({ page }) => {
       await page.goto('/no-such-page');
 
       await expect(page).toHaveTitle('Page not found - Scrabble Solver');
+      await expect(page.getByRole('link')).toHaveAttribute('href', '/');
     });
 
     test.fixme('answers 404, not 200, on the not-found page itself', async ({ request }) => {
