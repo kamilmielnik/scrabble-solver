@@ -102,8 +102,8 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
       let board = new Board({ rows: rowsRef.current.map((row) => row.map((cell) => cell.clone())) });
       let { x, y } = position;
 
-      function changeCellValue(cell: Point, cellValue: string): void {
-        const action = boardSlice.actions.changeCellValue({ ...cell, value: cellValue });
+      function changeCellValue(cell: Point, cellValue: string, isBlank = false): void {
+        const action = boardSlice.actions.changeCellValue({ ...cell, isBlank, value: cellValue });
         board = boardSlice.reducer(board, action);
         actions.push(action);
       }
@@ -117,7 +117,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
         const join = findDigraphJoin(options);
 
         if (join) {
-          changeCellValue(join.target, join.value);
+          changeCellValue(join.target, join.value, join.isBlank);
           join.clearedCells.forEach((cell) => changeCellValue(cell, EMPTY_CELL));
           ({ x, y } = join.nextPosition);
           return;
@@ -273,7 +273,9 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
 
         if (config.digraphs.includes(digraphCandidate)) {
           event.preventDefault();
-          dispatch(boardSlice.actions.changeCellValue({ ...position, value: digraphCandidate }));
+          dispatch(
+            boardSlice.actions.changeCellValue({ ...position, isBlank: cell.tile.isBlank, value: digraphCandidate }),
+          );
           moveFocus(1);
           return;
         }

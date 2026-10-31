@@ -530,7 +530,7 @@ describe('two-letter tiles', () => {
     expect(document.activeElement).toBe(getCell('B1'));
   });
 
-  it('does not join with a blank tile', () => {
+  it('joins with a blank tile into a blank digraph', () => {
     const board = createBoard({ 0: 'c' });
     board.rows[0][0].tile.isBlank = true;
 
@@ -538,8 +538,22 @@ describe('two-letter tiles', () => {
 
     type('B1', 'h');
 
-    expect(readBoard(store, 0, 0)).toBe('c');
-    expect(readBoard(store, 1, 0)).toBe('h');
+    expect(readBoard(store, 0, 0)).toBe('ch');
+    expect(store.getState().board.rows[0][0].tile.isBlank).toBe(true);
+    expect(readBoard(store, 1, 0)).toBe(' ');
+  });
+
+  it('joins a typed letter into a blank in the current cell, keeping the blank', () => {
+    const board = createBoard({ 0: 'c' });
+    board.rows[0][0].tile.isBlank = true;
+
+    const { store } = setup({ board, settings });
+
+    fireEvent.focus(getCell('A1'));
+    press('A1', 'h');
+
+    expect(readBoard(store, 0, 0)).toBe('ch');
+    expect(store.getState().board.rows[0][0].tile.isBlank).toBe(true);
   });
 
   it('joins inside the same cell at the last column', () => {
@@ -654,16 +668,17 @@ describe('digraphs longer than two letters', () => {
     expect(readBoard(store, 14, 0)).toBe(' ');
   });
 
-  it('does not join with a blank tile', () => {
+  it('joins with a blank tile into a blank digraph', () => {
     const board = createBoard({ 0: 'l' });
     board.rows[0][0].tile.isBlank = true;
 
     const { store } = setup({ board, settings });
 
     type('B1', '·');
-    type('B1', 'l');
+    type('C1', 'l');
 
-    expect(readRow(store, 0).slice(0, 2)).toEqual(['l', 'l']);
+    expect(readRow(store, 0).slice(0, 3)).toEqual(['l·l', ' ', ' ']);
+    expect(store.getState().board.rows[0][0].tile.isBlank).toBe(true);
   });
 
   it('accepts a look-alike of the middle dot', () => {

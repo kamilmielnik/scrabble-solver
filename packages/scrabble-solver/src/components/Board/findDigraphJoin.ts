@@ -1,4 +1,4 @@
-import { type Board, type Config } from '@scrabble-solver/types';
+import { type Board, type Config, type Tile } from '@scrabble-solver/types';
 
 import { type Direction, type Point } from '@/types';
 
@@ -19,8 +19,14 @@ interface Span {
   last: number;
 }
 
+interface Candidate {
+  joinedTiles: Tile[];
+  value: string;
+}
+
 interface DigraphJoin {
   clearedCells: Point[];
+  isBlank: boolean;
   nextPosition: Point;
   target: Point;
   value: string;
@@ -28,6 +34,7 @@ interface DigraphJoin {
 
 /**
  * Finds what typing a character next to the tiles that spell a digraph with it does to the board.
+ * A digraph joined from a blank is a blank.
  */
 export function findDigraphJoin(options: Options): DigraphJoin | undefined {
   const { direction } = options;
@@ -70,11 +77,13 @@ function findJoinAround(options: Options, axis: Direction): DigraphJoin | undefi
         continue;
       }
 
+      const candidate = { joinedTiles: [...before, ...after], value };
+
       if (countBefore === 0) {
-        return createJoinOfFollowingTiles(options, axis, value, countAfter);
+        return createJoinOfFollowingTiles(options, axis, countAfter, candidate);
       }
 
-      return createJoin(options, axis, value, { first: -countBefore, last: countAfter === 0 ? -1 : countAfter });
+      return createJoin(options, axis, { first: -countBefore, last: countAfter === 0 ? -1 : countAfter }, candidate);
     }
   }
 
@@ -95,21 +104,24 @@ function findJoinInLastCell(options: Options): DigraphJoin | undefined {
   const tiles = [lastTile, ...readTiles(options, direction, -1)];
 
   for (let count = 1; count <= tiles.length; ++count) {
-    const value = spell(tiles.slice(0, count).reverse(), character);
+    const joinedTiles = tiles.slice(0, count).reverse();
+    const value = spell(joinedTiles, character);
 
     if (config.digraphs.includes(value)) {
-      return createJoin(options, direction, value, { first: 1 - count, last: 0 });
+      return createJoin(options, direction, { first: 1 - count, last: 0 }, { joinedTiles, value });
     }
   }
 
   return undefined;
 }
 
-function createJoin({ direction, position }: Options, axis: Direction, value: string, span: Span): DigraphJoin {
+function createJoin(options: Options, axis: Direction, span: Span, { joinedTiles, value }: Candidate): DigraphJoin {
+  const { direction, position } = options;
   const offsets = Array.from({ length: span.last - span.first }, (_, index) => span.first + 1 + index);
 
   return {
     clearedCells: offsets.map((offset) => movePoint(position, axis, offset)),
+    isBlank: joinedTiles.some((tile) => tile.isBlank),
     nextPosition: axis === direction && span.first < 0 ? movePoint(position, axis, span.first + 1) : position,
     target: movePoint(position, axis, span.first),
     value,
@@ -120,19 +132,26 @@ function createJoin({ direction, position }: Options, axis: Direction, value: st
  * Along the typing direction, the following tiles are typed again next, so the typed character stays alone.
  * Across it, they are not, so the typed character takes them in.
  */
-function createJoinOfFollowingTiles(options: Options, axis: Direction, value: string, count: number): DigraphJoin {
+function createJoinOfFollowingTiles(
+  options: Options,
+  axis: Direction,
+  count: number,
+  candidate: Candidate,
+): DigraphJoin {
   const { character, direction, position } = options;
+  const { joinedTiles, value } = candidate;
 
   return {
     clearedCells: Array.from({ length: count }, (_, index) => movePoint(position, axis, index + 1)),
+    isBlank: axis !== direction && joinedTiles.some((tile) => tile.isBlank),
     nextPosition: movePoint(position, direction, 1),
     target: position,
     value: axis === direction ? character : value,
   };
 }
 
-function readTiles({ board, config, position }: Omit<Options, 'direction'>, axis: Direction, step: number): string[] {
-  const tiles: string[] = [];
+function readTiles({ board, config, position }: Omit<Options, 'direction'>, axis: Direction, step: number): Tile[] {
+  const tiles: Tile[] = [];
 
   while (tiles.length + 1 < config.longestDigraphLength) {
     const tile = readTile(board, movePoint(position, axis, step * (tiles.length + 1)));
@@ -147,9 +166,9 @@ function readTiles({ board, config, position }: Omit<Options, 'direction'>, axis
   return tiles;
 }
 
-function readTile(board: Board, { x, y }: Point): string | undefined {
+function readTile(board: Board, { x, y }: Point): Tile | undefined {
   const cell = board.rows[y]?.[x];
-  return cell?.hasTile() && !cell.tile.isBlank ? cell.tile.character : undefined;
+  return cell?.hasTile() ? cell.tile : undefined;
 }
 
 function isLastCell({ board, direction, position }: Options): boolean {
@@ -160,6 +179,6 @@ function movePoint({ x, y }: Point, axis: Direction, offset: number): Point {
   return axis === 'horizontal' ? { x: x + offset, y } : { x, y: y + offset };
 }
 
-function spell(before: string[], character: string, after: string[] = []): string {
-  return [...before, character, ...after].join('');
+function spell(before: Tile[], character: string, after: Tile[] = []): string {
+  return [...before.map((tile) => tile.character), character, ...after.map((tile) => tile.character)].join('');
 }
