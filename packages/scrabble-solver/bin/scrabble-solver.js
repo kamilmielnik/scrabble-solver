@@ -16,7 +16,7 @@ process.on('SIGINT', forwardSignal);
 process.on('SIGTERM', forwardSignal);
 server.on('exit', exitWithServer);
 
-openBrowser().catch(printAppUrl);
+openBrowser().catch(reportBrowserFailure);
 
 function forwardSignal(signal) {
   server.kill(signal);
@@ -33,6 +33,7 @@ async function openBrowser() {
   await open(APP_URL);
 }
 
-function printAppUrl() {
+function reportBrowserFailure(error) {
+  console.error(`Cannot open the browser: ${error.message}`);
   console.log(`Open ${APP_URL} in your browser`);
 }
