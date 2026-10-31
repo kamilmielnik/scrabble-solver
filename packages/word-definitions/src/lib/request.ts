@@ -6,12 +6,14 @@ interface Options extends RequestOptions {
   protocol?: 'http' | 'https';
 }
 
-export const request = ({ protocol, ...options }: Options): Promise<string> => {
+const DEFAULT_TIMEOUT_MS = 10_000;
+
+export const request = ({ protocol, timeout = DEFAULT_TIMEOUT_MS, ...options }: Options): Promise<string> => {
   const agent = protocol === 'https' ? https : http;
 
   return new Promise((resolve, reject) => {
     return agent
-      .get(options, (response) => {
+      .get({ ...options, signal: AbortSignal.timeout(timeout) }, (response) => {
         let data = '';
         response.setEncoding('utf8');
         response.on('error', reject);

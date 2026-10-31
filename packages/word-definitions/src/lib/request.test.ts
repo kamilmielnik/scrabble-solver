@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 
 import { type Server, serve } from 'bun';
-import { afterAll, beforeAll, beforeEach, describe, expect, it, mock } from 'bun:test';
+import { afterAll, beforeAll, beforeEach, describe, expect, it, mock, spyOn } from 'bun:test';
 import { EventEmitter } from 'events';
 import type { IncomingHttpHeaders } from 'http';
 import net, { type AddressInfo } from 'net';
@@ -23,6 +23,8 @@ const { request }: typeof requestModule = await import('./request');
 const encoder = new TextEncoder();
 const POLISH_TEXT = 'zażółć gęślą jaźń';
 const PERSIAN_TEXT = 'کتاب';
+const SHORT_TIMEOUT_MS = 100;
+const PARTIAL_RESPONSE = 'HTTP/1.1 200 OK\r\nContent-Length: 1000\r\n\r\n';
 
 let server: Server<undefined>;
 let port: number;
@@ -122,7 +124,12 @@ describe('request', () => {
 
       await request({ headers, hostname: 'example.invalid', path: '/word', protocol: 'https' });
 
-      expect(httpsGet.mock.calls[0][0]).toStrictEqual({ headers, hostname: 'example.invalid', path: '/word' });
+      expect(httpsGet.mock.calls[0][0]).toStrictEqual({
+        headers,
+        hostname: 'example.invalid',
+        path: '/word',
+        signal: expect.any(AbortSignal),
+      });
     });
 
     it('joins a body that arrives in many chunks', async () => {
@@ -158,10 +165,55 @@ describe('request', () => {
   });
 
   it('rejects when the connection drops in the middle of the response body', async () => {
-    const droppingPort = await startDroppingServer();
+    const droppingPort = await startRawServer((socket) => {
+      socket.write(`${PARTIAL_RESPONSE}partial`, () => {
+        socket.destroy();
+      });
+    });
     const response = request({ hostname: '127.0.0.1', port: droppingPort });
 
     expect(await response.catch(returnError)).toBeInstanceOf(Error);
+  });
+
+  describe('timeout', () => {
+    it('rejects when the server accepts the connection and never answers', async () => {
+      const stalledPort = await startRawServer(noop);
+      const response = request({ hostname: '127.0.0.1', port: stalledPort, timeout: SHORT_TIMEOUT_MS });
+
+      expect(await response.catch(returnError)).toMatchObject({ name: 'AbortError' });
+    });
+
+    it('rejects when the body stalls after the headers arrive', async () => {
+      const stalledPort = await startRawServer((socket) => {
+        socket.write(`${PARTIAL_RESPONSE}partial`);
+      });
+      const response = request({ hostname: '127.0.0.1', port: stalledPort, timeout: SHORT_TIMEOUT_MS });
+
+      expect(await response.catch(returnError)).toMatchObject({ name: 'AbortError' });
+    });
+
+    it('limits the whole request, so a body that keeps trickling cannot extend it', async () => {
+      const tricklingPort = await startRawServer(trickleBody);
+      const response = request({ hostname: '127.0.0.1', port: tricklingPort, timeout: SHORT_TIMEOUT_MS });
+
+      expect(await response.catch(returnError)).toMatchObject({ name: 'AbortError' });
+    });
+
+    it('allows 10 seconds by default', async () => {
+      const timeoutSpy = spyOn(AbortSignal, 'timeout');
+      respondWith('secure');
+
+      await request({ protocol: 'https' });
+
+      expect(timeoutSpy).toHaveBeenCalledWith(10_000);
+      timeoutSpy.mockRestore();
+    });
+
+    it('does not cut off a response that arrives in time', async () => {
+      respondWith('secure');
+
+      expect(await request({ protocol: 'https', timeout: SHORT_TIMEOUT_MS })).toBe('secure');
+    });
   });
 });
 
@@ -192,21 +244,33 @@ function returnError(error: unknown): unknown {
   return error;
 }
 
-async function startDroppingServer(): Promise<number> {
-  const droppingServer = net.createServer((socket) => {
+async function startRawServer(onRequest: (socket: net.Socket) => void): Promise<number> {
+  const rawServer = net.createServer((socket) => {
+    socket.on('error', noop);
     socket.once('data', () => {
-      socket.write('HTTP/1.1 200 OK\r\nContent-Length: 1000\r\n\r\npartial', () => {
-        socket.destroy();
-      });
+      onRequest(socket);
     });
   });
 
   await new Promise<void>((resolve) => {
-    droppingServer.listen(0, '127.0.0.1', resolve);
+    rawServer.listen(0, '127.0.0.1', resolve);
   });
   afterAll(() => {
-    droppingServer.close();
+    rawServer.close();
   });
 
-  return (droppingServer.address() as AddressInfo).port;
+  return (rawServer.address() as AddressInfo).port;
+}
+
+function trickleBody(socket: net.Socket): void {
+  const interval = setInterval(() => socket.write('x'), SHORT_TIMEOUT_MS / 5);
+
+  socket.write(PARTIAL_RESPONSE);
+  socket.on('close', () => {
+    clearInterval(interval);
+  });
+}
+
+function noop(): void {
+  // Nothing to do: the point is that the server stays silent.
 }
