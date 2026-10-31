@@ -1,8 +1,9 @@
+import { type Gaddag } from '@kamilmielnik/gaddag';
 import { games } from '@scrabble-solver/configs';
 import { COMMA_ARABIC, COMMA_LATIN } from '@scrabble-solver/constants';
 import { dictionaries } from '@scrabble-solver/dictionaries';
-import { logEvent } from '@scrabble-solver/logger';
-import { type Locale, isLocale } from '@scrabble-solver/types';
+import { logError, logEvent } from '@scrabble-solver/logger';
+import { type Locale, isLocale, WordDefinition } from '@scrabble-solver/types';
 import { getWordDefinition } from '@scrabble-solver/word-definitions';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
@@ -18,10 +19,11 @@ const MAXIMUM_WORDS_COUNT = MAXIMUM_COLLISIONS_COUNT + 1;
 
 export default withApiLog('definition', dictionary);
 
-async function dictionary(request: NextApiRequest, response: NextApiResponse, { ip, getElapsedMs }: ApiContext) {
+async function dictionary(request: NextApiRequest, response: NextApiResponse, context: ApiContext) {
+  const { ip, getElapsedMs } = context;
   const { locale, words } = parseRequest(request);
   const gaddag = await dictionaries.get(locale);
-  const results = await Promise.all(words.map((word) => getWordDefinition(locale, word, gaddag.has(word))));
+  const results = await findDefinitions(locale, words, gaddag, context);
   response.status(200).send(results.map((result) => result.toJson()));
 
   logEvent({
@@ -63,4 +65,32 @@ function parseRequest(request: NextApiRequest): RequestData {
     locale,
     words,
   };
+}
+
+async function findDefinitions(
+  locale: Locale,
+  words: string[],
+  gaddag: Gaddag,
+  { ip, ua }: ApiContext,
+): Promise<WordDefinition[]> {
+  const lookups = await Promise.allSettled(words.map((word) => getWordDefinition(locale, word, gaddag.has(word))));
+  const failures = lookups.filter(isRejected);
+
+  if (failures.length > 0 && failures.length === lookups.length) {
+    throw failures[0].reason;
+  }
+
+  return lookups.map((lookup, index) => {
+    if (lookup.status === 'fulfilled') {
+      return lookup.value;
+    }
+
+    const word = words[index];
+    logError('definition', lookup.reason, { level: 'warn', ip, ua, locale, input: word });
+    return new WordDefinition({ definitions: [], exists: false, isAllowed: gaddag.has(word), word });
+  });
+}
+
+function isRejected(lookup: PromiseSettledResult<unknown>): lookup is PromiseRejectedResult {
+  return lookup.status === 'rejected';
 }

@@ -5,10 +5,10 @@ import { games } from '@scrabble-solver/configs';
 import { Locale, WordDefinition } from '@scrabble-solver/types';
 import { beforeEach, describe, expect, it, mock } from 'bun:test';
 
-import { noop } from '../../lib/noop';
 import type * as localeWordModule from '../../pages/api/dictionary/[locale]/[word]';
 import type * as testApiModule from '../../test/api';
 
+const logError = mock();
 const logEvent = mock<(event: Record<string, unknown>) => void>();
 const get = mock((_locale: Locale): Promise<Gaddag> => Promise.resolve(Gaddag.fromArray(['cat', 'dog'])));
 const getWordDefinition = mock((_locale: Locale, word: string, isAllowed: boolean) => {
@@ -17,7 +17,7 @@ const getWordDefinition = mock((_locale: Locale, word: string, isAllowed: boolea
   );
 });
 
-await mock.module('@scrabble-solver/logger', () => ({ logError: noop, logEvent }));
+await mock.module('@scrabble-solver/logger', () => ({ logError, logEvent }));
 await mock.module('@scrabble-solver/dictionaries', () => ({ dictionaries: { get } }));
 await mock.module('@scrabble-solver/word-definitions', () => ({ getWordDefinition }));
 
@@ -25,6 +25,7 @@ const { default: handler }: typeof localeWordModule = await import('../../pages/
 const { createApiRequest, createApiResponse }: typeof testApiModule = await import('../../test/api');
 
 beforeEach(() => {
+  logError.mockClear();
   logEvent.mockClear();
   getWordDefinition.mockClear();
 });
@@ -73,6 +74,48 @@ describe('/api/dictionary/[locale]/[word]', () => {
 
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual([]);
+  });
+
+  it('keeps the other words and warns when one lookup fails', async () => {
+    const error = new Error('The operation timed out');
+    getWordDefinition.mockImplementationOnce(() => Promise.reject(error));
+
+    const response = await define('cat,dog');
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual([
+      { definitions: [], exists: false, isAllowed: true, word: 'cat' },
+      { definitions: ['dog definition'], exists: true, isAllowed: true, word: 'dog' },
+    ]);
+    expect(logError).toHaveBeenCalledTimes(1);
+    expect(logError).toHaveBeenCalledWith('definition', error, {
+      input: 'cat',
+      ip: '10.0.0.1',
+      level: 'warn',
+      locale: Locale.EN_US,
+      ua: undefined,
+    });
+    expect(logEvent.mock.calls[0][0]).toMatchObject({ found: 1, words: 'cat,dog' });
+  });
+
+  it('keeps a failed word that the game does not allow marked as not allowed', async () => {
+    getWordDefinition.mockImplementationOnce(() => Promise.reject(new Error('The operation timed out')));
+
+    const response = await define('zzz,dog');
+
+    expect(response.body).toContainEqual({ definitions: [], exists: false, isAllowed: false, word: 'zzz' });
+  });
+
+  it('answers 500 with the first error when every lookup fails', async () => {
+    const firstError = new Error('First failure');
+    getWordDefinition.mockImplementationOnce(() => Promise.reject(firstError));
+    getWordDefinition.mockImplementationOnce(() => Promise.reject(new Error('Second failure')));
+
+    const response = await define('cat,dog');
+
+    expect(response.statusCode).toBe(500);
+    expect(response.body).toEqual({ error: 'Server error', message: 'First failure' });
+    expect(logEvent).not.toHaveBeenCalled();
   });
 
   it.each([
