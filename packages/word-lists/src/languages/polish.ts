@@ -1,3 +1,4 @@
+import { logError } from '@scrabble-solver/logger';
 import { Locale } from '@scrabble-solver/types';
 import { load } from 'cheerio';
 import fs from 'fs';
@@ -12,8 +13,12 @@ const SECONDARY_FILE_URL =
   'https://raw.githubusercontent.com/kamilmielnik/scrabble-dictionaries/refs/heads/master/polish/sjp.txt';
 
 export const getWordList = async (): Promise<string[]> => {
-  const words = await getPrimaryWordList().catch(() => []);
-  return words.length < REASONABLE_VALID_WORD_COUNT_TRESHOLD ? getBackupWordList() : words;
+  try {
+    return await getPrimaryWordList();
+  } catch (error) {
+    logError('build', error, { locale: Locale.PL_PL });
+    return getBackupWordList();
+  }
 };
 
 async function getPrimaryWordList(): Promise<string[]> {
@@ -24,7 +29,13 @@ async function getPrimaryWordList(): Promise<string[]> {
   try {
     await unzip(zipTempFilename, FILE_TO_EXTRACT_FROM_ZIP, tempFilepath);
     const file = fs.readFileSync(tempFilepath, 'utf-8');
-    return extractWords(file.toLocaleString(), 'pl-PL');
+    const words = extractWords(file.toLocaleString(), 'pl-PL');
+
+    if (words.length < REASONABLE_VALID_WORD_COUNT_TRESHOLD) {
+      throw new Error(`The word list from ${zipUrl} has only ${words.length} words`);
+    }
+
+    return words;
   } finally {
     fs.rmSync(zipTempFilename, { force: true });
     fs.rmSync(tempFilepath, { force: true });

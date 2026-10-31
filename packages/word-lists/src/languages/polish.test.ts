@@ -1,12 +1,16 @@
 /* eslint-disable max-lines */
 import { Locale } from '@scrabble-solver/types';
-import { describe, expect, it } from 'bun:test';
+import { beforeEach, describe, expect, it, mock } from 'bun:test';
 
 import { createZip } from '../test/createZip';
 import { getRejection } from '../test/getRejection';
 import { installFetcherHarness } from '../test/installFetcherHarness';
 
 import type * as polishModule from './polish';
+
+const logError = mock();
+
+await mock.module('@scrabble-solver/logger', () => ({ logError, logEvent: mock() }));
 
 const harness = installFetcherHarness();
 const { getWordList }: typeof polishModule = await import('./polish');
@@ -25,8 +29,20 @@ const TOO_SMALL_ZIP = createZip([
   { content: createWordListFile(MINIMUM_TRUSTED_WORD_COUNT - 1), name: WORD_LIST_ENTRY },
 ]);
 
+beforeEach(() => {
+  logError.mockReset();
+});
+
 describe('polish getWordList', () => {
   describe('when sjp.pl offers a complete word list', () => {
+    it('logs nothing', async () => {
+      serveWorkingSources();
+
+      await getWordList();
+
+      expect(logError).not.toHaveBeenCalled();
+    });
+
     it('reads the page, downloads the zip and skips the backup', async () => {
       serveWorkingSources();
 
@@ -140,6 +156,16 @@ describe('polish getWordList', () => {
       expect(await getWordList()).toEqual(BACKUP_WORDS);
       expect(harness.requestedUrls.at(-1)).toBe(BACKUP_URL);
       expect(harness.getLowerCasingLocales().at(-1)).toBe(Locale.PL_PL);
+      expect(logError.mock.calls).toEqual([['build', expect.any(Error), { locale: Locale.PL_PL }]]);
+    });
+
+    it('logs why the word list was not trusted', async () => {
+      serveWorkingSources();
+      serveTooSmallWordList();
+
+      await getWordList();
+
+      expect((logError.mock.calls[0][1] as Error).message).toContain(`${MINIMUM_TRUSTED_WORD_COUNT - 1} words`);
     });
 
     it('rejects when the backup list fails too', async () => {
