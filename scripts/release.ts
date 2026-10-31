@@ -6,6 +6,8 @@
  * `bun run release resume` - finishes a release which stopped after its commit: it publishes only
  * the packages missing from the registry, so it is safe to repeat while master, locally and on
  * origin, stays at that commit. Once master moves on, the push is rejected, and a pulled HEAD has no tag.
+ * It packs the build output it finds and checks only that the output exists, so if anything else
+ * was built since the release commit, first run `bun run build` on that commit.
  */
 import { deepEquals, sleepSync } from 'bun';
 import { execFileSync, spawnSync } from 'node:child_process';
