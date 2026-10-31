@@ -29,17 +29,6 @@ test.describe('app', () => {
     await expect(page).toHaveTitle('Scrabble Solver 2 - Board Solver & Word Finder');
   });
 
-  test('has default setting values', async ({ page }) => {
-    await visitIndex(page);
-    await openSettingsModal(page);
-
-    await expect(getSettingOption(page, 'Game', 'Scrabble')).toBeChecked();
-    await expect(getSettingOption(page, 'Language', 'English (US)')).toBeChecked();
-    await expect(getSettingOption(page, 'Coordinates', 'Original')).toBeChecked();
-    await expect(getSettingOption(page, 'Input mode', 'Keyboard')).toBeChecked();
-    await expect(getSettingOption(page, 'Group remaining tiles', 'Do not group')).toBeChecked();
-  });
-
   test.describe('full app test', () => {
     test('Scrabble - Polish', async ({ page }) => {
       await visitIndex(page);

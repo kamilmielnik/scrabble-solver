@@ -13,7 +13,6 @@ import {
   getResultCandidatePicker,
   getResultsContainer,
   getSettingsButton,
-  getWord,
 } from './selectors';
 
 const MODAL_CLOSE_TRANSITION_TIMEOUT = 500;
@@ -107,17 +106,6 @@ export async function paste(target: Locator, text: string): Promise<void> {
   }, text);
 }
 
-export async function pasteBoard(
-  page: Page,
-  word: string,
-  direction: Direction,
-  { x = 0, y = 0 }: BoardPosition = {},
-): Promise<void> {
-  await getBoardTile(page, x, y).focus();
-  await ensureDirection(page, direction);
-  await paste(getBoardTile(page, x, y), word);
-}
-
 export async function solve(page: Page): Promise<void> {
   await getRackTile(page).evaluate((input: HTMLInputElement) => input.form?.requestSubmit());
   await expect(getResultsContainer(page)).toHaveAttribute('data-outdated', 'false', { timeout: 90_000 });
@@ -146,10 +134,6 @@ async function waitForReactWindowToSettle(page: Page) {
    * let the list settle before hovering.
    */
   await page.waitForTimeout(100);
-}
-
-export async function assertWord(page: Page, index: number, word: string): Promise<void> {
-  await expect(getWord(page, index)).toHaveAttribute('aria-label', word);
 }
 
 export async function assertResult(page: Page, index: number, word: string, points: number): Promise<void> {
