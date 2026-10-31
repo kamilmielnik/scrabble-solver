@@ -165,6 +165,28 @@ describe('isBoardValid', () => {
     ).toBe(false);
   });
 
+  it('rejects a two-letter tile spelled with a blank and a tile', () => {
+    const board = place(createBoard(), [
+      ['c', 3, 3],
+      ['h', 4, 3],
+    ]);
+    board[3][3].tile = { character: 'c', isBlank: true };
+
+    expect(isBoardValid(board, spanish)).toBe(false);
+  });
+
+  it('accepts two tiles separated by an empty cell', () => {
+    expect(
+      isBoardValid(
+        place(createBoard(), [
+          ['c', 3, 3],
+          ['h', 5, 3],
+        ]),
+        spanish,
+      ),
+    ).toBe(true);
+  });
+
   it('accepts the real two-letter tile', () => {
     expect(
       isBoardValid(

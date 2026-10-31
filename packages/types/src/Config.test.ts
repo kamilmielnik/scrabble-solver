@@ -355,6 +355,27 @@ describe('Config', () => {
     });
   });
 
+  describe('spellsDigraph', () => {
+    it('finds neighboring characters that spell a digraph', () => {
+      expect(config.spellsDigraph(['a', 'c', 'h'])).toBe(true);
+      expect(createCatalanConfig().spellsDigraph(['l', '·', 'l', 'a'])).toBe(true);
+    });
+
+    it('finds nothing in characters that spell no digraph', () => {
+      expect(config.spellsDigraph(['c', 'a', 'h'])).toBe(false);
+      expect(config.spellsDigraph(['ch', 'a'])).toBe(false);
+      expect(config.spellsDigraph([])).toBe(false);
+    });
+
+    it('finds a digraph spelled by a digraph and a character', () => {
+      const klingon = createConfig({
+        tiles: ['t', 'l', 'h', 'tl', 'tlh'].map((character) => ({ character, score: 1 })),
+      });
+
+      expect(klingon.spellsDigraph(['tl', 'h'])).toBe(true);
+    });
+  });
+
   describe('hasCharacter', () => {
     it('finds characters of the alphabet', () => {
       expect(config.hasCharacter('a')).toBe(true);

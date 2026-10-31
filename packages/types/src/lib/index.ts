@@ -5,3 +5,4 @@ export * from './getCollisions';
 export * from './isConsonant';
 export * from './isSameBoardWord';
 export * from './isVowel';
+export * from './spellsDigraph';

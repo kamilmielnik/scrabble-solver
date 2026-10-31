@@ -102,8 +102,7 @@ export class MoveGenerator {
   private readonly placedBlankAt: Uint8Array;
   private placedCount = 0;
 
-  private readonly digraphs: Set<string>;
-  private readonly longestDigraphLength: number;
+  private readonly hasDigraphs: boolean;
   private readonly spanCharacters: string[] = [];
   private readonly blankScore: number;
   private readonly rackSize: number;
@@ -134,8 +133,7 @@ export class MoveGenerator {
     this.cellsCount = this.width * this.height;
     this.blankScore = config.blankScore;
     this.rackSize = config.rackSize;
-    this.digraphs = new Set(config.digraphs);
-    this.longestDigraphLength = config.longestDigraphLength;
+    this.hasDigraphs = config.digraphs.length > 0;
 
     const alphabet = config.alphabet;
 
@@ -455,7 +453,6 @@ export class MoveGenerator {
           ++spanHi;
         }
 
-        const hasDigraphs = this.digraphs.size > 0;
         preLetters.length = 0;
         postLetters.length = 0;
         crossCharacters.length = spanHi - spanLo + 1;
@@ -512,7 +509,7 @@ export class MoveGenerator {
               if ((ref & 1) === 1) {
                 crossCharacters[line - spanLo] = this.alphaChars[alpha];
 
-                if (hasDigraphs && this.spellsDigraph(crossCharacters, crossCharacters.length)) {
+                if (this.hasDigraphs && this.config.spellsDigraph(crossCharacters)) {
                   continue;
                 }
 
@@ -530,27 +527,6 @@ export class MoveGenerator {
         this.maskHi[passIndex] = maskHi;
       }
     }
-  }
-
-  /**
-   * A digraph must be played as its single tile, so neighboring tiles must not
-   * spell one. This holds along the main word ({@link record}) and along the
-   * perpendicular words ({@link computeCrossChecks}).
-   */
-  private spellsDigraph(characters: string[], length: number): boolean {
-    for (let start = 0; start < length - 1; ++start) {
-      let spelled = characters[start];
-
-      for (let end = start + 1; end < length && spelled.length < this.longestDigraphLength; ++end) {
-        spelled += characters[end];
-
-        if (this.digraphs.has(spelled)) {
-          return true;
-        }
-      }
-    }
-
-    return false;
   }
 
   private getLetters(character: string): Int32Array {
@@ -762,7 +738,7 @@ export class MoveGenerator {
   private record(startPosition: number, endPosition: number): void {
     const { lineBase } = this;
 
-    if (this.digraphs.size > 0 && this.spansDigraph(startPosition, endPosition)) {
+    if (this.hasDigraphs && this.spansDigraph(startPosition, endPosition)) {
       return;
     }
 
@@ -868,12 +844,17 @@ export class MoveGenerator {
     });
   }
 
+  /**
+   * Covers the main word; {@link computeCrossChecks} covers the perpendicular words.
+   */
   private spansDigraph(startPosition: number, endPosition: number): boolean {
+    this.spanCharacters.length = endPosition - startPosition + 1;
+
     for (let position = startPosition; position <= endPosition; ++position) {
       this.spanCharacters[position - startPosition] = this.characterAt(position);
     }
 
-    return this.spellsDigraph(this.spanCharacters, endPosition - startPosition + 1);
+    return this.config.spellsDigraph(this.spanCharacters);
   }
 
   private characterAt(position: number): string {

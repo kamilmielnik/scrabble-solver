@@ -7,6 +7,7 @@ import { type Cell } from './Cell';
 import { CharacterBonus } from './CharacterBonus';
 import { type ConfigJson } from './ConfigJson';
 import { type Game } from './Game';
+import { spellsDigraph } from './lib';
 import { type Locale } from './Locale';
 import { type Tile } from './Tile';
 import { type TileConfig } from './TileConfig';
@@ -128,6 +129,10 @@ export class Config {
 
   public isDigraphShortcut(key: string): boolean {
     return typeof this.getDigraphByShortcut(key) !== 'undefined';
+  }
+
+  public spellsDigraph(characters: readonly string[]): boolean {
+    return spellsDigraph(characters, this);
   }
 
   public get rackSize(): number {

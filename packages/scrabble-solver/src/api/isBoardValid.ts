@@ -2,17 +2,7 @@ import { type BoardJson, type CellJson, type Config } from '@scrabble-solver/typ
 
 import { isRowValid } from './isRowValid';
 
-interface Step {
-  x: number;
-  y: number;
-}
-
-const STEPS: Step[] = [
-  { x: 1, y: 0 },
-  { x: 0, y: 1 },
-];
-
-export const isBoardValid = (board: BoardJson, config: Config): boolean => {
+export function isBoardValid(board: BoardJson, config: Config): boolean {
   if (board.length !== config.boardHeight) {
     return false;
   }
@@ -23,33 +13,20 @@ export const isBoardValid = (board: BoardJson, config: Config): boolean => {
     }
   }
 
-  return !board.flat().some((cell) => spellsDigraph(board, cell, config));
-};
-
-function spellsDigraph(board: CellJson[][], cell: CellJson, config: Config): boolean {
-  return STEPS.some((step) => spellsDigraphAlong(board, cell, config, step));
+  const columns = board[0].map((_, x) => board.map((row) => row[x]));
+  return ![...board, ...columns].some((line) => readRuns(line).some((run) => config.spellsDigraph(run)));
 }
 
-function spellsDigraphAlong(board: CellJson[][], cell: CellJson, config: Config, { x, y }: Step): boolean {
-  if (!cell.tile) {
-    return false;
-  }
+function readRuns(line: CellJson[]): string[][] {
+  const runs: string[][] = [[]];
 
-  let spelled = cell.tile.character;
-
-  for (let offset = 1; spelled.length < config.longestDigraphLength; ++offset) {
-    const nextTile = board[cell.y + y * offset]?.[cell.x + x * offset]?.tile;
-
-    if (!nextTile) {
-      return false;
-    }
-
-    spelled += nextTile.character;
-
-    if (config.digraphs.includes(spelled)) {
-      return true;
+  for (const cell of line) {
+    if (cell.tile) {
+      runs[runs.length - 1].push(cell.tile.character);
+    } else {
+      runs.push([]);
     }
   }
 
-  return false;
+  return runs;
 }
