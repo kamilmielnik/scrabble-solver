@@ -585,6 +585,24 @@ describe('pasting', () => {
     expect(readRow(store, 0).slice(0, expected.length).join('')).toBe(expected);
   });
 
+  it('lower-cases using the casing rules of the game', () => {
+    const { store } = setup({ settings: { ...settingsInitialState, locale: Locale.TR_TR } });
+
+    paste('A1', 'KIŞ');
+
+    expect(readRow(store, 0).slice(0, 3)).toEqual(['k', 'ı', 'ş']);
+  });
+
+  it('moves on when the same letter is typed over itself using the casing rules of the game', () => {
+    setup({ settings: { ...settingsInitialState, locale: Locale.TR_TR } });
+
+    type('A1', 'ı');
+    focus('A1');
+    press('A1', 'I');
+
+    expect(document.activeElement).toBe(getCell('B1'));
+  });
+
   it('writes downwards in vertical mode', () => {
     const { store } = setup();
 

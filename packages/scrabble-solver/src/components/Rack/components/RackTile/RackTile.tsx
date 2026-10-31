@@ -100,10 +100,10 @@ export const RackTile: FunctionComponent<Props> = ({
         dispatch(rackSlice.actions.changeCharacter({ character: null, index }));
       },
       onKeyDown: (event) => {
-        if (isCtrl(event) && config.isTwoCharacterTilePrefix(event.key.toLocaleLowerCase())) {
+        if (isCtrl(event) && config.isTwoCharacterTilePrefix(event.key)) {
           event.preventDefault();
           event.stopPropagation();
-          const twoTilesCharacter = config.getTwoCharacterTileByPrefix(event.key.toLocaleLowerCase());
+          const twoTilesCharacter = config.getTwoCharacterTileByPrefix(event.key);
 
           if (twoTilesCharacter) {
             dispatch(rackSlice.actions.changeCharacter({ character: twoTilesCharacter, index }));

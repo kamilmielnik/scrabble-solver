@@ -20,6 +20,7 @@ import { Rack } from './Rack';
 
 const emptyRack = Array<string | null>(7).fill(null);
 const spanish = { ...settingsInitialState, locale: Locale.ES_ES };
+const turkish = { ...settingsInitialState, locale: Locale.TR_TR };
 const touchscreen = { ...settingsInitialState, inputMode: 'touchscreen' as const };
 
 describe('rendering', () => {
@@ -168,6 +169,15 @@ describe('typing', () => {
 
     expect(document.activeElement).toBe(getTile(2));
   });
+
+  it('moves on when the same letter is typed over itself using the casing rules of the game', () => {
+    setup({ rack: ['ı', ...emptyRack.slice(1)], settings: turkish });
+
+    fireEvent.focus(getTile(1));
+    fireEvent.keyDown(getTile(1), { key: 'I' });
+
+    expect(document.activeElement).toBe(getTile(2));
+  });
 });
 
 describe('keyboard navigation', () => {
@@ -270,6 +280,15 @@ describe('pasting', () => {
 
     expect(store.getState().rack.slice(0, 4)).toEqual([null, 'ch', 'a', 't']);
     expect(document.activeElement).toBe(getTile(5));
+  });
+
+  it('lower-cases using the casing rules of the game', () => {
+    const { store } = setup({ settings: turkish });
+
+    fireEvent.focus(getTile(1));
+    paste('KIŞ');
+
+    expect(store.getState().rack.slice(0, 3)).toEqual(['k', 'ı', 'ş']);
   });
 
   it('never grows the rack', () => {

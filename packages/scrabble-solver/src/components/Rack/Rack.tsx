@@ -109,7 +109,7 @@ export const Rack: FunctionComponent<Props> = ({ className }) => {
       }
 
       event.preventDefault();
-      const value = event.clipboardData.getData('text/plain').toLocaleLowerCase();
+      const value = event.clipboardData.getData('text/plain').toLocaleLowerCase(config.locale);
       const characters = value ? extractCharacters(config, value) : [];
       changeActiveIndex(value ? characters.length : -1);
       dispatch(rackSlice.actions.changeCharacters({ characters, index }));
@@ -153,9 +153,11 @@ export const Rack: FunctionComponent<Props> = ({ className }) => {
         changeActiveIndex(1);
       },
       onKeyDown: (event) => {
-        if (isCtrl(event) && config.isTwoCharacterTilePrefix(event.key.toLocaleLowerCase())) {
+        if (isCtrl(event) && config.isTwoCharacterTilePrefix(event.key)) {
           changeActiveIndex(1);
-        } else if (event.currentTarget.value.toLocaleLowerCase() === event.key.toLocaleLowerCase()) {
+        } else if (
+          event.currentTarget.value.toLocaleLowerCase(config.locale) === event.key.toLocaleLowerCase(config.locale)
+        ) {
           // change event did not fire because the same character was typed over the current one
           // but we still want to move the caret
           event.preventDefault();

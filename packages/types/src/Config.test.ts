@@ -235,6 +235,15 @@ describe('Config', () => {
       expect(config.getTwoCharacterTileByPrefix('C')).toBe('ch');
     });
 
+    it('ignores the case of the prefix using the casing rules of the locale', () => {
+      const turkish = createConfig({
+        locale: Locale.TR_TR,
+        tiles: [{ character: 'ış', count: 1, score: 1 }],
+      });
+
+      expect(turkish.getTwoCharacterTileByPrefix('I')).toBe('ış');
+    });
+
     it('prefers the first listed tile when two share a prefix', () => {
       const shared = createConfig({
         tiles: [
