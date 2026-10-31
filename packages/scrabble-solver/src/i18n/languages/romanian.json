@@ -1,4 +1,9 @@
 {
+  "boards": "Table",
+  "boards.add": "Tabla noua",
+  "boards.remove": "Sterge aceasta tabla",
+  "boards.rename": "Redenumeste aceasta tabla",
+  "boards.tab": "Tabla {{name}}",
   "cell.enter-word": "Introducere cuvant",
   "cell.filter-cell.exclude": "Excludeți destinația",
   "cell.filter-cell.include": "Destinație țintă",

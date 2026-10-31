@@ -1,35 +1,53 @@
 import { useEffect, useRef } from 'react';
 
-import { localStorage, selectBoard, selectIsHydrated, selectRack, selectSettings, useTypedSelector } from '@/state';
+import {
+  localStorage,
+  selectActiveBoardId,
+  selectBoard,
+  selectBoards,
+  selectCellFilters,
+  selectIsHydrated,
+  selectRack,
+  selectSettings,
+  useTypedSelector,
+} from '@/state';
 
 type WriteFlags = {
-  board: boolean;
-  rack: boolean;
+  activeBoard: boolean;
+  boards: boolean;
   settings: boolean;
 };
 
 export const useLocalStorage = () => {
   const isHydrated = useTypedSelector(selectIsHydrated);
+  const activeId = useTypedSelector(selectActiveBoardId);
   const board = useTypedSelector(selectBoard);
   const rack = useTypedSelector(selectRack);
+  const cellFilters = useTypedSelector(selectCellFilters);
+  const boards = useTypedSelector(selectBoards);
   const settings = useTypedSelector(selectSettings);
   const hasSkippedFirstWrite = useRef<WriteFlags>({
-    board: false,
-    rack: false,
+    activeBoard: false,
+    boards: false,
     settings: false,
   });
 
+  /*
+   * The active board is written on its own, under its own key, because it
+   * changes on every keystroke while the rest of the collection does not.
+   */
   useEffect(() => {
-    if (isHydrated && board && !isFirstWriteAfterHydration(hasSkippedFirstWrite.current, 'board')) {
-      localStorage.setBoard(board);
+    if (isHydrated && board && !isFirstWriteAfterHydration(hasSkippedFirstWrite.current, 'activeBoard')) {
+      localStorage.setBoardSnapshot(activeId, { board: board.toJson(), cellFilters, rack });
     }
-  }, [isHydrated, board]);
+  }, [activeId, board, cellFilters, isHydrated, rack]);
 
   useEffect(() => {
-    if (isHydrated && rack && !isFirstWriteAfterHydration(hasSkippedFirstWrite.current, 'rack')) {
-      localStorage.setRack(rack);
+    if (isHydrated && !isFirstWriteAfterHydration(hasSkippedFirstWrite.current, 'boards')) {
+      const { saved, ...metadata } = boards;
+      localStorage.setBoards(metadata, saved);
     }
-  }, [isHydrated, rack]);
+  }, [boards, isHydrated]);
 
   useEffect(() => {
     if (isHydrated && !isFirstWriteAfterHydration(hasSkippedFirstWrite.current, 'settings')) {

@@ -1,4 +1,9 @@
 {
+  "boards": "Tahtalar",
+  "boards.add": "Yeni tahta",
+  "boards.remove": "Bu tahtayı kaldır",
+  "boards.rename": "Bu tahtayı yeniden adlandır",
+  "boards.tab": "Tahta {{name}}",
   "cell.enter-word": "Kelimeyi girin",
   "cell.filter-cell.exclude": "Hedefi hariç tut",
   "cell.filter-cell.include": "Hedef varış noktası",

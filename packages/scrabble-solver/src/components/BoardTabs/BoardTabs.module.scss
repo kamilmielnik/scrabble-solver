@@ -1,0 +1,92 @@
+@use 'styles/mixins' as *;
+
+.tabs {
+  display: flex;
+  align-items: stretch;
+  /* The strip has to cope with many boards on a narrow screen. */
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: var(--max-board-width);
+  padding-bottom: var(--border--width);
+  gap: var(--spacing--xs);
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.tab {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  padding-right: var(--spacing--xs);
+  background-color: var(--color--background);
+  border: var(--border);
+  border-bottom: none;
+  border-radius: var(--border--radius) var(--border--radius) 0 0;
+}
+
+.active {
+  background-color: var(--color--background--element);
+  border-color: var(--color--primary);
+}
+
+.label {
+  @include button-reset;
+
+  padding: var(--spacing--s) var(--spacing--m);
+  font-size: var(--font--size--m);
+  color: var(--color--foreground--secondary);
+  white-space: nowrap;
+  cursor: pointer;
+
+  .active & {
+    font-weight: bold;
+    color: var(--color--foreground);
+  }
+}
+
+.action {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  color: var(--color--foreground--secondary);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color--foreground);
+  }
+}
+
+/* Shaped like a tab so it reads as "one more of these", not as stray chrome. */
+.add {
+  flex: 0 0 auto;
+  align-self: stretch;
+  width: auto;
+  padding: 0 var(--spacing--m);
+  color: var(--color--foreground--secondary);
+  background-color: var(--color--background);
+  border: var(--border--width) dashed var(--border--color);
+  border-bottom: none;
+  border-radius: var(--border--radius) var(--border--radius) 0 0;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color--foreground);
+    border-color: var(--color--primary);
+  }
+}
+
+.rename {
+  width: 7em;
+  padding: var(--spacing--s) var(--spacing--m);
+  font-family: inherit;
+  font-size: var(--font--size--m);
+  font-weight: bold;
+  color: var(--color--foreground);
+  background: none;
+  border: none;
+  outline: none;
+}

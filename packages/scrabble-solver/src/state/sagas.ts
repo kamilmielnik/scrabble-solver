@@ -10,16 +10,18 @@ import { call, delay, put, select, spawn, takeEvery, takeLatest } from 'redux-sa
 
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import { loadTranslations } from '@/i18n/i18n';
+import { fitBoardToSize, fitRackToSize } from '@/lib/fitBoardToSize';
 import { memoize } from '@/lib/memoize';
 import { waitForFirstIntent, waitForIdleOrFirstIntent } from '@/lib/waitForIdleOrFirstIntent';
 import { findWordDefinitions, solve, verify, visit } from '@/sdk';
 import { prefetchDictionary } from '@/solver-worker';
 import { type VerifiedWord } from '@/types';
 
-import { initialize, reset } from './actions';
+import { createBoard, initialize, removeBoard, reset, switchBoard } from './actions';
 import { appSlice, selectVersion } from './app';
 import { boardSlice, selectBoard } from './board';
-import { cellFiltersSlice, selectCellFilter } from './cellFilters';
+import { type BoardSnapshot, boardsSlice, getNextActiveBoardId, getNextBoardId, selectBoards } from './boards';
+import { cellFiltersSlice, selectCellFilter, selectCellFilters } from './cellFilters';
 import { dictionarySlice, selectDictionary } from './dictionary';
 import { hoveredWordSlice } from './hoveredWord';
 import { i18nSlice, selectLoadedTranslations } from './i18n';
@@ -59,6 +61,9 @@ export function* rootSaga(): AnyGenerator {
   yield takeLatest(dictionarySlice.actions.submit.type, onDictionarySubmit);
   yield takeLatest(initialize.type, onInitialize);
   yield takeLatest(reset.type, onReset);
+  yield takeLatest(switchBoard.type, onSwitchBoard);
+  yield takeLatest(createBoard.type, onCreateBoard);
+  yield takeLatest(removeBoard.type, onRemoveBoard);
   yield takeLatest(solveSlice.actions.submit.type, onSolve);
   yield takeLatest(verifySlice.actions.submit.type, onVerify);
 }
@@ -173,24 +178,47 @@ function* hydratePersistedState(version: string): AnyGenerator {
   yield put(settingsSlice.actions.init(settings));
   yield* hydratePersistedTranslations(settings.locale, version);
 
+  yield* hydrateBoards();
+}
+
+/**
+ * Restores the saved boards and loads the one that was last in play.
+ *
+ * Only the active board's snapshot is read eagerly; the others are read as a
+ * group so their tabs can be shown, but each is only turned back into a
+ * `Board` when it is actually switched to.
+ */
+function* hydrateBoards(): AnyGenerator {
   const config = yield select(selectConfig);
-  const currentBoard: Board = yield select(selectBoard);
-  const board = localStorage.getBoard();
+  const metadata = localStorage.getBoards();
 
-  if (board) {
-    yield put(boardSlice.actions.init(board));
-  } else if (currentBoard.rows.length !== config.boardHeight || currentBoard.rows[0].length !== config.boardWidth) {
-    yield put(boardSlice.actions.init(Board.create(config.boardWidth, config.boardHeight)));
+  if (!metadata) {
+    const currentBoard: Board = yield select(selectBoard);
+    const currentRack = yield select(selectRack);
+
+    if (currentBoard.rowsCount !== config.boardHeight || currentBoard.columnsCount !== config.boardWidth) {
+      yield put(boardSlice.actions.init(Board.create(config.boardWidth, config.boardHeight)));
+    }
+
+    if (currentRack.length !== config.rackSize) {
+      yield put(rackSlice.actions.init(Array(config.rackSize).fill(null)));
+    }
+
+    return;
   }
 
-  const currentRack = yield select(selectRack);
-  const rack = localStorage.getRack();
+  const saved: Record<string, BoardSnapshot> = {};
 
-  if (rack) {
-    yield put(rackSlice.actions.init(rack));
-  } else if (currentRack.length !== config.rackSize) {
-    yield put(rackSlice.actions.init(Array(config.rackSize).fill(null)));
+  for (const id of metadata.order) {
+    const snapshot = localStorage.getBoardSnapshot(id);
+
+    if (snapshot) {
+      saved[id] = snapshot;
+    }
   }
+
+  yield put(boardsSlice.actions.init({ metadata, saved }));
+  yield* loadBoardSnapshot(saved[metadata.activeId]);
 }
 
 // Applied synchronously so the first post-hydration paint is already translated
@@ -392,4 +420,109 @@ function* resetRack(): AnyGenerator {
     yield put(rackSlice.actions.init([...nonNulls, ...Array(differenceCount).fill(null)]));
     yield put(rackSlice.actions.groupTiles(autoGroupTiles));
   }
+}
+
+/**
+ * Captures everything that belongs to the board currently in play.
+ *
+ * The active board lives in the `board`, `rack` and `cellFilters` slices
+ * rather than in the `boards` collection, so it has to be gathered up before
+ * any switch -- see `BoardsState` for why it is arranged that way.
+ */
+function* snapshotActiveBoard(): AnyGenerator {
+  const board: Board = yield select(selectBoard);
+  const rack = yield select(selectRack);
+  const cellFilters = yield select(selectCellFilters);
+  return { board: board.toJson(), cellFilters, rack } satisfies BoardSnapshot;
+}
+
+/**
+ * Loads a saved board into the slices, fitting it to the configuration in
+ * force.
+ *
+ * The fit matters because the game variant is a global setting: a board saved
+ * while playing Scrabble is 15x15, and loading it after switching to Super
+ * Scrabble would otherwise leave a 15x15 board in a 21x21 game.
+ */
+function* loadBoardSnapshot(snapshot: BoardSnapshot | undefined): AnyGenerator {
+  const config = yield select(selectConfig);
+
+  if (!snapshot) {
+    yield put(boardSlice.actions.init(Board.create(config.boardWidth, config.boardHeight)));
+    yield put(rackSlice.actions.init(Array(config.rackSize).fill(null)));
+    yield put(cellFiltersSlice.actions.init([]));
+    return;
+  }
+
+  const board = fitBoardToSize(Board.fromJson(snapshot.board), {
+    height: config.boardHeight,
+    width: config.boardWidth,
+  });
+
+  yield put(boardSlice.actions.init(board));
+  yield put(rackSlice.actions.init(fitRackToSize(snapshot.rack, config.rackSize)));
+  yield put(cellFiltersSlice.actions.init(snapshot.cellFilters));
+}
+
+/** Clears everything derived from whichever board was previously in play. */
+function* resetDerivedState(): AnyGenerator {
+  yield put(dictionarySlice.actions.reset());
+  yield put(hoveredWordSlice.actions.clear());
+  yield put(resultsSlice.actions.reset());
+  yield put(solveSlice.actions.reset());
+  yield put(verifySlice.actions.submit());
+}
+
+function* onSwitchBoard({ payload: id }: PayloadAction<string>): AnyGenerator {
+  const boards = yield select(selectBoards);
+
+  if (id === boards.activeId || !boards.order.includes(id)) {
+    return;
+  }
+
+  // Read before dispatching: `activated` drops the incoming board's snapshot
+  // from the collection, since it is about to become the active one.
+  const incoming = boards.saved[id];
+  const snapshot = yield* snapshotActiveBoard();
+
+  yield put(boardsSlice.actions.activated({ id, outgoing: { id: boards.activeId, snapshot } }));
+  yield* loadBoardSnapshot(incoming);
+  yield* resetDerivedState();
+}
+
+function* onCreateBoard(): AnyGenerator {
+  const boards = yield select(selectBoards);
+  const snapshot = yield* snapshotActiveBoard();
+  const id = getNextBoardId(boards);
+
+  yield put(boardsSlice.actions.created({ id, outgoing: { id: boards.activeId, snapshot } }));
+  yield* loadBoardSnapshot(undefined);
+  yield* resetDerivedState();
+}
+
+function* onRemoveBoard({ payload: id }: PayloadAction<string>): AnyGenerator {
+  const boards = yield select(selectBoards);
+
+  if (!boards.order.includes(id)) {
+    return;
+  }
+
+  // The last board is cleared rather than removed: a tab strip with nothing
+  // in it has no way back.
+  if (boards.order.length === 1) {
+    yield put(reset());
+    return;
+  }
+
+  if (id !== boards.activeId) {
+    yield put(boardsSlice.actions.removed({ id }));
+    return;
+  }
+
+  const nextActiveId = getNextActiveBoardId({ id, order: boards.order });
+  const incoming = nextActiveId ? boards.saved[nextActiveId] : undefined;
+
+  yield put(boardsSlice.actions.removed({ id, nextActiveId }));
+  yield* loadBoardSnapshot(incoming);
+  yield* resetDerivedState();
 }

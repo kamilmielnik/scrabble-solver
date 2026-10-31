@@ -1,6 +1,7 @@
 export * from './actions';
 export * from './app';
 export * from './board';
+export * from './boards';
 export * from './cellFilters';
 export * from './dictionary';
 export * from './hoveredTile';

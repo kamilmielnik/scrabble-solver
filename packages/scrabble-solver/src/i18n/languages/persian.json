@@ -1,4 +1,9 @@
 {
+  "boards": "صفحه‌ها",
+  "boards.add": "صفحه جدید",
+  "boards.remove": "حذف این صفحه",
+  "boards.rename": "تغییر نام این صفحه",
+  "boards.tab": "صفحه {{name}}",
   "cell.enter-word": "کلمه را وارد کنید",
   "cell.filter-cell.exclude": "مقصد را حذف کنید",
   "cell.filter-cell.include": "مقصد مورد نظر",

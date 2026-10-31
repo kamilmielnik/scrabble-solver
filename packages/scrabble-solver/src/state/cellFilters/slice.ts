@@ -5,6 +5,7 @@ import type { Point } from '@/types';
 
 import { cellFiltersInitialState } from './initialState';
 import { toggleCellFilterState } from './lib';
+import type { CellFiltersState } from './types';
 
 export const cellFiltersSlice = createSlice({
   initialState: cellFiltersInitialState,
@@ -43,6 +44,8 @@ export const cellFiltersSlice = createSlice({
       const cellsToRemove = action.payload;
       return state.filter((entry) => cellsToRemove.every((cell) => cell.x !== entry.x || cell.y !== entry.y));
     },
+
+    init: (_state, action: PayloadAction<CellFiltersState>) => action.payload,
 
     reset: () => cellFiltersInitialState,
   },

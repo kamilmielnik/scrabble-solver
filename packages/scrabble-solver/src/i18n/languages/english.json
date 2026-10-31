@@ -1,4 +1,9 @@
 {
+  "boards": "Boards",
+  "boards.add": "New board",
+  "boards.remove": "Remove this board",
+  "boards.rename": "Rename this board",
+  "boards.tab": "Board {{name}}",
   "cell.enter-word": "Enter word",
   "cell.filter-cell.exclude": "Exclude destination",
   "cell.filter-cell.include": "Target destination",

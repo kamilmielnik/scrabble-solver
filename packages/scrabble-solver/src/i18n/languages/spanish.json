@@ -1,4 +1,9 @@
 {
+  "boards": "Tableros",
+  "boards.add": "Nuevo tablero",
+  "boards.remove": "Eliminar este tablero",
+  "boards.rename": "Renombrar este tablero",
+  "boards.tab": "Tablero {{name}}",
   "cell.enter-word": "Ingresar palabra",
   "cell.filter-cell.exclude": "Excluir destino",
   "cell.filter-cell.include": "Destino objetivo",

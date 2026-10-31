@@ -1,4 +1,9 @@
 {
+  "boards": "Bretter",
+  "boards.add": "Neues Brett",
+  "boards.remove": "Dieses Brett entfernen",
+  "boards.rename": "Dieses Brett umbenennen",
+  "boards.tab": "Brett {{name}}",
   "cell.enter-word": "Wort eingeben",
   "cell.filter-cell.exclude": "Ziel ausschließen",
   "cell.filter-cell.include": "Ziel anvisieren",

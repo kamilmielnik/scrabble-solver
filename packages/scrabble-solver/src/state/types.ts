@@ -1,5 +1,6 @@
 import type { AppState } from './app';
 import type { BoardState } from './board';
+import type { BoardsState } from './boards';
 import type { CellFiltersState } from './cellFilters';
 import type { DictionaryState } from './dictionary';
 import type { HoveredTileState } from './hoveredTile';
@@ -14,6 +15,7 @@ import type { VerifyState } from './verify';
 export type RootState = {
   app: AppState;
   board: BoardState;
+  boards: BoardsState;
   cellFilters: CellFiltersState;
   dictionary: DictionaryState;
   hoveredTile: HoveredTileState;

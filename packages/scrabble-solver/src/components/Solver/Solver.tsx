@@ -20,6 +20,7 @@ import {
 
 import { Alert } from '../Alert';
 import { Board } from '../Board';
+import { BoardTabs } from '../BoardTabs';
 import { Dictionary } from '../Dictionary';
 import { DictionaryInput } from '../DictionaryInput';
 import { Rack } from '../Rack';
@@ -97,6 +98,7 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
       <div className={styles.container}>
         <div className={styles.content}>
           <form className={styles.boardContainer} onSubmit={handleSubmit}>
+            <BoardTabs className={styles.boardTabs} />
             <Board className={styles.board} />
             <input className={styles.submitInput} tabIndex={-1} type="submit" />
           </form>

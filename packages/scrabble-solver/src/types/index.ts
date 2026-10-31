@@ -83,6 +83,11 @@ export interface VerifiedWord extends BoardWord {
 }
 
 export type TranslationKey =
+  | 'boards.add'
+  | 'boards.remove'
+  | 'boards.rename'
+  | 'boards.tab'
+  | 'boards'
   | 'cell.enter-word'
   | 'cell.filter-cell.exclude'
   | 'cell.filter-cell.include'

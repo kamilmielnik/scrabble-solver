@@ -1,4 +1,9 @@
 {
+  "boards": "Plateaux",
+  "boards.add": "Nouveau plateau",
+  "boards.remove": "Supprimer ce plateau",
+  "boards.rename": "Renommer ce plateau",
+  "boards.tab": "Plateau {{name}}",
   "cell.enter-word": "Entrez un mot",
   "cell.filter-cell.exclude": "Exclure la destination",
   "cell.filter-cell.include": "Destination cible",

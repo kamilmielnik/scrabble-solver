@@ -3,6 +3,7 @@ import reduxSaga from 'redux-saga';
 
 import { appSlice } from './app';
 import { boardSlice } from './board';
+import { boardsSlice } from './boards';
 import { cellFiltersSlice } from './cellFilters';
 import { dictionarySlice } from './dictionary';
 import { hoveredTileSlice } from './hoveredTile';
@@ -21,6 +22,7 @@ export const store = configureStore({
   reducer: {
     app: appSlice.reducer,
     board: boardSlice.reducer,
+    boards: boardsSlice.reducer,
     cellFilters: cellFiltersSlice.reducer,
     dictionary: dictionarySlice.reducer,
     hoveredTile: hoveredTileSlice.reducer,

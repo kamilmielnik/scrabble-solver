@@ -1,4 +1,9 @@
 {
+  "boards": "Plansze",
+  "boards.add": "Nowa plansza",
+  "boards.remove": "Usuń tę planszę",
+  "boards.rename": "Zmień nazwę tej planszy",
+  "boards.tab": "Plansza {{name}}",
   "cell.enter-word": "Wprowadź słowo",
   "cell.filter-cell.exclude": "Wyklucz miejsce",
   "cell.filter-cell.include": "Miejsce docelowe",
