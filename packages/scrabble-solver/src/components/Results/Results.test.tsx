@@ -140,7 +140,11 @@ describe('list updates', () => {
 });
 
 describe('search', () => {
-  it('keeps every row, floating matches to the top and dimming the rest', () => {
+  /**
+   * #342 - Incorrect sorting when filtering
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/342
+   */
+  it('keeps every row, floating matches to the top and dimming the rest (#342)', () => {
     const { store } = setup();
 
     fireEvent.change(screen.getByPlaceholderText(/Search results/), { target: { value: 'dog' } });
@@ -158,6 +162,16 @@ describe('search', () => {
     setup({ results: { ...resultsInitialState, query: 'do', results: [cat, dog] } });
 
     expect(document.querySelector('mark')?.textContent).toBe('do');
+  });
+
+  /**
+   * #461 - Highlighting ignores regular expressions in filters
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/461
+   */
+  it('highlights the matches of a regular expression (#461)', () => {
+    setup({ results: { ...resultsInitialState, query: '^d', results: [cat, dog] } });
+
+    expect(document.querySelector('mark')?.textContent).toBe('d');
   });
 
   it('marks nothing for a blank query', () => {

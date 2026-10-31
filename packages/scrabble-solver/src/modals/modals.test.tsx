@@ -231,7 +231,11 @@ describe('RemainingTilesModal', () => {
     expect(screen.getByTestId('remaining-tile-blank')).toBeDefined();
   });
 
-  it('highlights a used tile on hover and clears when leaving', () => {
+  /**
+   * #91 - Hovering remaining tile highlights all same tiles on the board and rack
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/91
+   */
+  it('highlights a used tile on hover and clears when leaving (#91)', () => {
     const { store } = setupRemaining({ rack: ['a'] });
     const tile = screen.getByTestId('remaining-tile-a');
 
@@ -243,7 +247,11 @@ describe('RemainingTilesModal', () => {
     expect(store.getState().hoveredTile.character).toBeNull();
   });
 
-  it('does not highlight unused tiles', () => {
+  /**
+   * #91 - Hovering remaining tile highlights all same tiles on the board and rack
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/91
+   */
+  it('does not highlight unused tiles (#91)', () => {
     const { store } = setupRemaining();
 
     fireEvent.mouseEnter(screen.getByTestId('remaining-tile-a'));
@@ -251,7 +259,11 @@ describe('RemainingTilesModal', () => {
     expect(store.getState().hoveredTile.character).toBeNull();
   });
 
-  it('does not highlight when the modal covers the board anyway', () => {
+  /**
+   * #91 - Hovering remaining tile highlights all same tiles on the board and rack
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/91
+   */
+  it('does not highlight when the modal covers the board anyway (#91)', () => {
     setViewport({ width: 400 });
     const { store } = setupRemaining({ rack: ['a'] });
 

@@ -86,7 +86,11 @@ describe('highlighting', () => {
     expect(getTileElement(2).getAttribute('role')).toBeNull();
   });
 
-  it('highlights rack tiles matching the hovered character', () => {
+  /**
+   * #91 - Hovering remaining tile highlights all same tiles on the board and rack
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/91
+   */
+  it('highlights rack tiles matching the hovered character (#91)', () => {
     const { store } = setup({ rack: ['a', 'b', ...emptyRack.slice(2)] });
 
     act(() => {
@@ -122,7 +126,11 @@ describe('typing', () => {
     expect(store.getState().rack[0]).toBe(BLANK);
   });
 
-  it('ignores a character outside the alphabet and stays', () => {
+  /**
+   * #3 - "X" tile is allowed in Polish
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/3
+   */
+  it('ignores a character outside the alphabet and stays (#3)', () => {
     const { store } = setup();
 
     fireEvent.focus(getTile(3));

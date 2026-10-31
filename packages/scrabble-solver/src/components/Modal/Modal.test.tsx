@@ -59,6 +59,22 @@ describe('Modal', () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
+  /**
+   * #129 - Esc does not close the sidebar when letters input is focused
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/129
+   */
+  it('closes on Escape while focus is outside the modal (#129)', async () => {
+    const onClose = mock();
+    const outsideInput = document.body.appendChild(document.createElement('input'));
+
+    setup({ onClose });
+    fireEvent.keyDown(outsideInput, { key: 'Escape' });
+    await flushTimers();
+    outsideInput.remove();
+
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
   it('ignores other keys', async () => {
     const onClose = mock();
 

@@ -88,7 +88,11 @@ describe('highlighting', () => {
     expect(document.querySelectorAll('[role="mark"]')).toHaveLength(0);
   });
 
-  it('highlights tiles of the hovered character only', () => {
+  /**
+   * #91 - Hovering remaining tile highlights all same tiles on the board and rack
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/91
+   */
+  it('highlights tiles of the hovered character only (#91)', () => {
     const { store } = setup({ board: createBoard({ 0: 'a', 1: 'b' }) });
 
     dispatch(store, hoveredTileSlice.actions.set('a'));
@@ -108,7 +112,11 @@ describe('highlighting', () => {
     expect(document.querySelectorAll('[role="mark"]')).toHaveLength(0);
   });
 
-  it('highlights played blanks when the blank tile is hovered', () => {
+  /**
+   * #91 - Hovering remaining tile highlights all same tiles on the board and rack
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/91
+   */
+  it('highlights played blanks when the blank tile is hovered (#91)', () => {
     const board = createBoard({ 0: 'a', 1: 'b' });
     board.rows[0][0].tile.isBlank = true;
 
@@ -120,7 +128,11 @@ describe('highlighting', () => {
     expect(getCell('A1').parentElement?.getAttribute('role')).toBe('mark');
   });
 
-  it('highlights the cells of the hovered word', () => {
+  /**
+   * #427 - Highlight created words on board on hover
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/427
+   */
+  it('highlights the cells of the hovered word (#427)', () => {
     const board = createBoard({ 0: 'a', 1: 't' });
 
     setup({
@@ -148,7 +160,11 @@ describe('highlighting', () => {
     expect(document.querySelectorAll('[role="mark"]')).toHaveLength(4);
   });
 
-  it('dims unreachable cells when the setting is on', () => {
+  /**
+   * #198 - Highlight unreachable cells
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/198
+   */
+  it('dims unreachable cells when the setting is on (#198)', () => {
     setup({
       board: createBoard({ 112: 'a' }),
       rack: ['a'],
@@ -226,7 +242,11 @@ describe('typing', () => {
     expect(document.activeElement).toBe(getCell('O1'));
   });
 
-  it('ignores characters outside the alphabet', () => {
+  /**
+   * #3 - "X" tile is allowed in Polish
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/3
+   */
+  it('ignores characters outside the alphabet (#3)', () => {
     const { store } = setup();
 
     type('A1', '1');
@@ -547,6 +567,22 @@ describe('pasting', () => {
 
     expect(readRow(store, 0).slice(0, 3)).toEqual(['c', 'a', 't']);
     expect(document.activeElement).toBe(getCell('D1'));
+  });
+
+  /**
+   * #380 - No transliteration when pasting
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/380
+   */
+  it.each([
+    [Locale.RO_RO, 'abordaserăți', 'abordaserati'],
+    [Locale.ES_ES, 'bañó', 'baño'],
+    [Locale.FR_FR, 'pâtisserie', 'patisserie'],
+  ])('transliterates the letters that %s has no tiles for (#380)', (locale, word, expected) => {
+    const { store } = setup({ settings: { ...settingsInitialState, locale } });
+
+    paste('A1', word);
+
+    expect(readRow(store, 0).slice(0, expected.length).join('')).toBe(expected);
   });
 
   it('writes downwards in vertical mode', () => {

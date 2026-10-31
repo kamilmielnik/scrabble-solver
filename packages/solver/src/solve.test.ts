@@ -3,7 +3,7 @@
 import { Gaddag } from '@kamilmielnik/gaddag';
 import { getConfig } from '@scrabble-solver/configs';
 import { DiskCache } from '@scrabble-solver/dictionaries';
-import { Board, Game, Locale, Result, Tile } from '@scrabble-solver/types';
+import { Board, Cell, Game, Locale, Result, Tile } from '@scrabble-solver/types';
 
 import { solve } from './solve';
 
@@ -48,6 +48,36 @@ describe('solve', () => {
 
   it('lets unsupported boards fail loudly', () => {
     expect(() => solve(gaddag, config, Board.create(33, 15), [])).toThrow('Boards larger than 32x32 are not supported');
+  });
+});
+
+describe('solve - scoring in a real game', () => {
+  /**
+   * #2 - "Q" tile does not work
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/2
+   */
+  it('plays the q of English Scrabble onto a tile on the board (#2)', () => {
+    const config = getConfig(Game.Scrabble, Locale.EN_US);
+    const board = createEmptyBoard();
+    board.updateCell(7, 7, () => new Cell({ isEmpty: false, tile: new Tile({ character: 'i' }), x: 7, y: 7 }));
+
+    const results = solve(Gaddag.fromArray(['qi']), config, board, generateTiles(['q']));
+
+    expect(results.map(({ points }) => points)).toEqual([11, 11]);
+  });
+
+  /**
+   * #112 - Scrabble - Character bonus not applied
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/112
+   */
+  it('applies character bonuses in French Scrabble (#112)', () => {
+    const config = getConfig(Game.Scrabble, Locale.FR_FR);
+    const tiles = generateTiles(['j', 'o', 'u', 'r', 's']);
+
+    const results = solve(Gaddag.fromArray(['jours']), config, createEmptyBoard(), tiles);
+    const bestPoints = results.map(({ points }) => points).toSorted((a, b) => b - a);
+
+    expect(bestPoints.slice(0, 6)).toEqual([40, 40, 26, 26, 24, 24]);
   });
 });
 
@@ -265,4 +295,8 @@ async function readCachedDictionary(locale: Locale): Promise<Gaddag> {
   }
 
   return gaddag;
+}
+
+function createEmptyBoard(): Board {
+  return Board.create(15, 15);
 }

@@ -460,6 +460,26 @@ describe('submitting the dictionary', () => {
     expect(store.getState().dictionary.isLoading).toBe(true);
   });
 
+  /**
+   * #352 - Race condition: dictionary result shows up after clearing the board
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/352
+   */
+  it('drops a response still pending when the game is reset (#352)', async () => {
+    const word = uniqueWord();
+    const { promise, resolve } = createDeferred<WordDefinition[]>();
+    sdk.findWordDefinitions.mockImplementation(() => promise);
+    const store = setup();
+
+    submitDictionary(store, word);
+    await advanceTimers(SUBMIT_DELAY);
+    store.dispatch(reset());
+    resolve([new WordDefinition({ definitions: [], exists: true, isAllowed: true, word })]);
+    await flushMicrotasks();
+
+    expect(store.getState().dictionary.results).toEqual([]);
+    expect(store.getState().dictionary.input).toBe('');
+  });
+
   it('drops a failure for a word the user typed over', async () => {
     const { promise, reject } = createDeferred<WordDefinition[]>();
     sdk.findWordDefinitions.mockImplementation(() => promise);
@@ -764,7 +784,11 @@ describe('previewing a result', () => {
     expect(sdk.findWordDefinitions).toHaveBeenCalledWith(Locale.EN_US, `${result.word}, ax, cat`);
   });
 
-  it('removes duplicates of the same word', async () => {
+  /**
+   * #363 - Dictionary input should display unique words
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/363
+   */
+  it('removes duplicates of the same word (#363)', async () => {
     const word = uniqueWord();
     const store = setup();
 

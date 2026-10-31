@@ -49,7 +49,11 @@ describe('Board.getWords', () => {
     expect(board.getWords()).toEqual([{ direction: 'horizontal', word: 'to', x: 3, y: 3 }]);
   });
 
-  it('locates a word with a digraph tile occupying a single cell', () => {
+  /**
+   * #398 - Solitary digraph tiles are recognized as created words
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/398
+   */
+  it('locates a word with a digraph tile occupying a single cell (#398)', () => {
     const board = Board.fromStringArray(['   ', '  e', '   ']);
     board.updateCell(1, 1, () => new Cell({ isEmpty: false, tile: new Tile({ character: 'ch' }), x: 1, y: 1 }));
 

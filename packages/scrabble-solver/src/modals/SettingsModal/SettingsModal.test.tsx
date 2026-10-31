@@ -67,6 +67,20 @@ describe('SettingsModal', () => {
     }
   });
 
+  it('checks the default option of every section', () => {
+    setup();
+
+    for (const [section, option] of [
+      ['Game', Game.Scrabble],
+      ['Language', Locale.EN_US],
+      ['Coordinates', 'original'],
+      ['Input mode', 'keyboard'],
+      ['Group remaining tiles', 'null'],
+    ]) {
+      expect(getRadio(section, option).checked).toBe(true);
+    }
+  });
+
   it('hides input mode on touch devices', () => {
     setLayout({ isCompact: true, isTouch: true });
     setup();

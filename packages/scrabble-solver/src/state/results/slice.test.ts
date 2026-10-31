@@ -95,7 +95,11 @@ describe('selectors', () => {
     expect(selectProcessedResults(createState({}))).toBeUndefined();
   });
 
-  it('floats query matches to the top instead of filtering the rest out', () => {
+  /**
+   * #342 - Incorrect sorting when filtering
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/342
+   */
+  it('floats query matches to the top instead of filtering the rest out (#342)', () => {
     expect(selectProcessedResults(createState({ query: 'dog', results: [low, high] }))).toEqual([low, high]);
   });
 

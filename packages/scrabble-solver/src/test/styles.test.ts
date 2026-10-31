@@ -20,6 +20,12 @@ describe('stylesheets', () => {
     expect(wrongSide).toEqual([]);
   });
 
+  it('show a pointer only on table rows that take a click', () => {
+    const table = readFileSync(join(sourceDirectory, 'components/Table/Table.module.scss'), 'utf8');
+
+    expect(table).toMatch(/\.clickable\s*\{[^}]*cursor:\s*pointer/);
+  });
+
   it('highlight a table row on keyboard focus only, so a clicked row stops looking picked', () => {
     const table = readFileSync(join(sourceDirectory, 'components/Table/Table.module.scss'), 'utf8');
     const rowRules = table.slice(table.indexOf('.row {'), table.indexOf('.clickable')).replace(/\/\*[\s\S]*?\*\//g, '');

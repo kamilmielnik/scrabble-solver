@@ -124,6 +124,10 @@ describe('settings', () => {
     });
   });
 
+  /**
+   * The 'hidden' showCoordinates option was removed on 2026/08/13.
+   * Delete this describe together with migrateHiddenShowCoordinates.
+   */
   describe("removed 'hidden' showCoordinates option", () => {
     it('migrates it to original and persists the result', () => {
       write('settings', JSON.stringify({ game: Game.Literaki, showCoordinates: 'hidden' }));
@@ -174,6 +178,10 @@ describe('translations', () => {
     expect(read('translations')).toBeNull();
   });
 
+  /**
+   * #452 - Stale translations cache
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/452
+   */
   it('rejects and removes a cache missing a key of the bundled English object (#452)', () => {
     const { menu: _menu, ...incomplete } = translations;
 

@@ -93,7 +93,11 @@ describe('boardSlice', () => {
       expect(reducer(board, settingsSlice.actions.changeGame(Game.Literaki))).toBe(board);
     });
 
-    it('re-centers tiles on a bigger board', () => {
+    /**
+     * #401 - Board state not preserved on game type change
+     * @see https://github.com/kamilmielnik/scrabble-solver/issues/401
+     */
+    it('re-centers tiles on a bigger board (#401)', () => {
       const board = Board.create(15, 15);
       board.updateCell(7, 7, () => new Cell({ isEmpty: false, tile: new Tile({ character: 'a' }), x: 7, y: 7 }));
 

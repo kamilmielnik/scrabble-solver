@@ -120,6 +120,16 @@ describe('sorting and search', () => {
     expect(document.querySelector('mark')?.textContent).toBe('dog');
   });
 
+  /**
+   * #461 - Highlighting ignores regular expressions in filters
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/461
+   */
+  it('highlights the matches of a regular expression (#461)', () => {
+    setup({ verify: { ...verify, query: '^d|t$' } });
+
+    expect(Array.from(document.querySelectorAll('mark'), (mark) => mark.textContent).toSorted()).toEqual(['d', 't']);
+  });
+
   it('marks nothing for a blank query', () => {
     setup();
 
@@ -128,7 +138,11 @@ describe('sorting and search', () => {
 });
 
 describe('desktop with a pointer, where the pointer owns the highlight', () => {
-  it('picks on hover and clears on leaving the list', () => {
+  /**
+   * #427 - Highlight created words on board on hover
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/427
+   */
+  it('picks on hover and clears on leaving the list (#427)', () => {
     const { store } = setup();
 
     fireEvent.mouseEnter(getRow(cat));
@@ -168,6 +182,21 @@ describe('desktop with a pointer, where the pointer owns the highlight', () => {
     const { store } = setup();
 
     expect(store.getState().hoveredWord.word).toBeNull();
+  });
+});
+
+describe('losing the last word', () => {
+  it('returns to the empty state', () => {
+    const { store } = setup({ verify: { ...verify, invalidWords: [] } });
+
+    act(() => {
+      store.dispatch(
+        verifySlice.actions.submitSuccess({ board: store.getState().board, invalidWords: [], validWords: [] }),
+      );
+    });
+
+    expect(screen.getByText('No created words - the board is empty.')).toBeDefined();
+    expect(readWords()).toEqual([]);
   });
 });
 
@@ -279,7 +308,11 @@ describe('compact layout', () => {
 });
 
 describe('closing', () => {
-  it('clears the highlight on every way out', () => {
+  /**
+   * #427 - Highlight created words on board on hover
+   * @see https://github.com/kamilmielnik/scrabble-solver/issues/427
+   */
+  it('clears the highlight on every way out (#427)', () => {
     const { rerender, store } = setup();
 
     act(() => {
