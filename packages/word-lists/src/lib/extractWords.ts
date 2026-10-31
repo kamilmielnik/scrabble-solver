@@ -1,7 +1,8 @@
 export const extractWords = (file: string, locale: string): string[] => {
   const words = file
+    .toLocaleLowerCase(locale)
     .split(/\r?\n/g)
-    .map((line) => line.trim().toLocaleLowerCase(locale))
+    .map((line) => line.trim())
     .filter(Boolean);
 
   if (words.length === 0) {

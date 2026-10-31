@@ -62,7 +62,6 @@ export function installFetcherHarness(): FetcherHarness {
     remoteFiles.clear();
     requestedUrls.length = 0;
     spyOn(https, 'get').mockImplementation(forwardToLocalServer as unknown as typeof https.get);
-    // A spy would keep every call, and the Polish word lists lower-case millions of lines.
     Object.assign(String.prototype, { toLocaleLowerCase: recordLocaleAndLowerCase });
   }
 
