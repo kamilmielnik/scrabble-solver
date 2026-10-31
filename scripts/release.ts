@@ -8,10 +8,11 @@
  */
 import { deepEquals } from 'bun';
 import { execFileSync, spawnSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 
 interface Manifest {
+  files?: string[];
   gitHead?: string;
   name: string;
   private?: boolean;
@@ -45,6 +46,7 @@ function publish(): void {
 
   assertCleanReleaseBranch();
   assertHeadIsTagged(version);
+  assertEveryPackageIsBuilt();
   run('git', 'push', '--atomic', '--follow-tags', 'origin', RELEASE_BRANCH);
   run('bunx', 'lerna', 'publish', 'from-package', '--yes');
   assertEveryPackageIsPublished(version);
@@ -70,6 +72,20 @@ function assertHeadIsTagged(version: string): void {
   if (!tags.includes(version)) {
     throw new Error(`HEAD is not tagged ${version}, so its tests did not pass in "lerna version"`);
   }
+}
+
+function assertEveryPackageIsBuilt(): void {
+  const unbuilt = getPublishedPackages()
+    .filter(({ directory, manifest }) => !existsSync(path.join(directory, getBuildOutput(manifest))))
+    .map(({ manifest }) => manifest.name);
+
+  if (unbuilt.length > 0) {
+    throw new Error(`Packing these would publish no code: ${unbuilt.join(', ')}. First run: bun run build`);
+  }
+}
+
+function getBuildOutput({ files }: Manifest): string {
+  return files?.includes('.next') ? path.join('.next', 'BUILD_ID') : 'build';
 }
 
 function assertEveryPackageIsPublished(version: string): void {
