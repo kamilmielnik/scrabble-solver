@@ -39,7 +39,9 @@ describe('HeaderButton', () => {
   });
 
   it('shows the label without an icon and hides it with one', () => {
-    const Icon = () => <svg data-testid="column-icon" />;
+    function Icon() {
+      return <svg data-testid="column-icon" />;
+    }
 
     const { button } = setup({ Icon });
 

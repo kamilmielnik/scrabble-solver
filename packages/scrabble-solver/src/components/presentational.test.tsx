@@ -28,7 +28,9 @@ import { Spinner } from './Spinner';
 
 const persian = { settings: { ...settingsInitialState, locale: Locale.FA_IR } };
 const turkish = { settings: { ...settingsInitialState, locale: Locale.TR_TR } };
-const Icon = () => <svg data-testid="icon" />;
+function Icon() {
+  return <svg data-testid="icon" />;
+}
 
 describe('Alert', () => {
   it.each([

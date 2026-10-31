@@ -158,12 +158,12 @@ const getTickStep = (maxValue: number): number => {
   return step;
 };
 
-const formatTick = (milliseconds: number, tickStep: number): string => {
+function formatTick(milliseconds: number, tickStep: number): string {
   if (milliseconds === 0) {
     return '0';
   }
 
   return tickStep < 100 ? `${round(milliseconds)}ms` : `${Number((milliseconds / 1000).toFixed(2))}s`;
-};
+}
 
 const round = (value: number): number => Math.round(value * 100) / 100;

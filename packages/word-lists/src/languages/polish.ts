@@ -16,7 +16,7 @@ export const getWordList = async (): Promise<string[]> => {
   return words.length < REASONABLE_VALID_WORD_COUNT_TRESHOLD ? getBackupWordList() : words;
 };
 
-const getPrimaryWordList = async (): Promise<string[]> => {
+async function getPrimaryWordList(): Promise<string[]> {
   const tempFilepath = getTempFilepath();
   const zipUrl = await fetchZipUrl(PAGE_URL);
   const zipTempFilename = await downloadFile(zipUrl);
@@ -29,7 +29,7 @@ const getPrimaryWordList = async (): Promise<string[]> => {
     fs.rmSync(zipTempFilename, { force: true });
     fs.rmSync(tempFilepath, { force: true });
   }
-};
+}
 
 const fetchZipUrl = async (url: string): Promise<string> => {
   const html = await downloadHtml(url);

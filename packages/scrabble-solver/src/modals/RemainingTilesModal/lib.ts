@@ -51,17 +51,19 @@ export const getRemainingTilesGroups = (tiles: RemainingTile[], locale: Locale):
   return groups.filter(({ totalCount }) => totalCount > 0);
 };
 
-const isInBag = (tile: RemainingTile): boolean => tile.count !== 0;
+function isInBag(tile: RemainingTile): boolean {
+  return tile.count !== 0;
+}
 
 const isTwoCharacter = (tile: RemainingTile): boolean => tile.character.length === 2;
 
 const isBlank = (tile: RemainingTile): boolean => tile.character === BLANK;
 
-const isOther = (tile: RemainingTile, locale: Locale): boolean => {
+function isOther(tile: RemainingTile, locale: Locale): boolean {
   return (
     !isConsonant(tile.character, locale) && !isVowel(tile.character, locale) && !isBlank(tile) && !isTwoCharacter(tile)
   );
-};
+}
 
 const getRemainingTilesCount = (remainingTiles: RemainingTile[]): number => {
   return remainingTiles.reduce((sum, { count, usedCount }) => {

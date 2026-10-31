@@ -142,7 +142,7 @@ const getBonuses = (config: ConfigJson): Bonus[] => {
 
 const getAlphabet = (config: ConfigJson): string[] => config.tiles.map(({ character }) => character);
 
-const getPointsMap = (config: ConfigJson): Record<string, number> => {
+function getPointsMap(config: ConfigJson): Record<string, number> {
   const pointsMap = Object.create(null) as Record<string, number>;
   return Object.assign(pointsMap, Object.fromEntries(config.tiles.map(({ character, score }) => [character, score])));
-};
+}
