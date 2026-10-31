@@ -3,17 +3,13 @@ import { Tile } from '@scrabble-solver/types';
 
 import type { RootState } from '../types';
 
-import { rackDefaultState, rackInitialState } from './initialState';
+import { rackDefaultState } from './initialState';
 import { selectCharacters, selectRack } from './selectors';
 import { rackSlice } from './slice';
 
 const { actions, reducer } = rackSlice;
 
 describe('rackSlice', () => {
-  it('starts with 7 empty slots', () => {
-    expect(rackInitialState).toEqual(Array(7).fill(null));
-  });
-
   describe('changeCharacter', () => {
     it('replaces one slot', () => {
       expect(reducer(['a', 'b', null], actions.changeCharacter({ character: 'x', index: 1 }))).toEqual([

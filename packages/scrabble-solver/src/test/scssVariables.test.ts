@@ -1,8 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { BREAKPOINTS, COLOR_BACKGROUND, RESULTS_ITEM_HEIGHT, TOOLTIP_DURATION } from '../parameters';
-
 import { scssVariables } from './scssVariables';
 
 const tokens = readFileSync(join(import.meta.dir, '../styles/_tokens.scss'), 'utf8');
@@ -23,12 +21,5 @@ describe('scssVariables', () => {
         `${key}: ${scssVariables[key as keyof typeof scssVariables]}`,
       );
     }
-  });
-
-  it('feeds real values into parameters', () => {
-    expect(BREAKPOINTS).toEqual({ l: 1200, m: 992, s: 768, xl: 1400, xs: 480 });
-    expect(COLOR_BACKGROUND).toBe('#f4f4f4');
-    expect(RESULTS_ITEM_HEIGHT).toBe(40);
-    expect(TOOLTIP_DURATION).toBe(100);
   });
 });

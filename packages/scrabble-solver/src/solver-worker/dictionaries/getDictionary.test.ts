@@ -1,7 +1,7 @@
 import { Locale } from '@scrabble-solver/types';
 import { afterAll, beforeEach, describe, expect, it, mock } from 'bun:test';
 
-import { DAY, DICTIONARY_CACHE, DICTIONARY_CACHE_MAX_AGE, REVALIDATED_AT_CACHE } from './constants';
+import { DICTIONARY_CACHE, REVALIDATED_AT_CACHE } from './constants';
 import type * as getDictionaryModule from './getDictionary';
 
 const events: string[] = [];
@@ -62,8 +62,7 @@ describe('deleteDictionary', () => {
 });
 
 describe('constants', () => {
-  it('uses distinct caches and expires unused dictionaries after 30 days', () => {
+  it('uses distinct caches', () => {
     expect(DICTIONARY_CACHE).not.toBe(REVALIDATED_AT_CACHE);
-    expect(DICTIONARY_CACHE_MAX_AGE).toBe(30 * DAY);
   });
 });

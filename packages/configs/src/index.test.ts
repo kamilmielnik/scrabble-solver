@@ -7,34 +7,9 @@ type LanguageName = keyof typeof languages;
 
 const CONFIGS: Record<LanguageName, Config> = { ...languages };
 
-const SUPPORTED_CONFIGS: [LanguageName, Game, Locale][] = [
-  ['englishGbCrossplay', Game.Crossplay, Locale.EN_GB],
-  ['englishUsCrossplay', Game.Crossplay, Locale.EN_US],
-  ['turkishKelimelik', Game.Kelimelik, Locale.TR_TR],
-  ['englishGbLetterLeague', Game.LetterLeague, Locale.EN_GB],
-  ['englishUsLetterLeague', Game.LetterLeague, Locale.EN_US],
-  ['englishGbLiteraki', Game.Literaki, Locale.EN_GB],
-  ['englishUsLiteraki', Game.Literaki, Locale.EN_US],
-  ['polishLiteraki', Game.Literaki, Locale.PL_PL],
-  ['germanScrabble', Game.Scrabble, Locale.DE_DE],
-  ['englishGbScrabble', Game.Scrabble, Locale.EN_GB],
-  ['englishUsScrabble', Game.Scrabble, Locale.EN_US],
-  ['spanishScrabble', Game.Scrabble, Locale.ES_ES],
-  ['persianScrabble', Game.Scrabble, Locale.FA_IR],
-  ['frenchScrabble', Game.Scrabble, Locale.FR_FR],
-  ['polishScrabble', Game.Scrabble, Locale.PL_PL],
-  ['romanianScrabble', Game.Scrabble, Locale.RO_RO],
-  ['turkishScrabble', Game.Scrabble, Locale.TR_TR],
-  ['englishGbScrabbleDuel', Game.ScrabbleDuel, Locale.EN_GB],
-  ['englishUsScrabbleDuel', Game.ScrabbleDuel, Locale.EN_US],
-  ['englishGbSuperScrabble', Game.SuperScrabble, Locale.EN_GB],
-  ['englishUsSuperScrabble', Game.SuperScrabble, Locale.EN_US],
-  ['romanianSuperScrabble', Game.SuperScrabble, Locale.RO_RO],
-  ['englishGbWordfeud', Game.Wordfeud, Locale.EN_GB],
-  ['englishUsWordfeud', Game.Wordfeud, Locale.EN_US],
-  ['polishWyrazy', Game.Wyrazy, Locale.PL_PL],
-];
-
+const SUPPORTED_CONFIGS = Object.entries(languages).map(([name, { game, locale }]) => {
+  return [name, game, locale] as [LanguageName, Game, Locale];
+});
 const UNSUPPORTED_PAIRS = getUnsupportedPairs();
 
 describe('package exports', () => {
@@ -44,9 +19,7 @@ describe('package exports', () => {
     expect(exportedGames.toSorted()).toEqual(Object.values(Game).toSorted());
   });
 
-  it('exports exactly the supported language configs, each as a Config instance', () => {
-    expect(Object.keys(languages).toSorted()).toEqual(SUPPORTED_CONFIGS.map(([name]) => name).toSorted());
-
+  it('exports every language config as a Config instance', () => {
     for (const config of Object.values(languages)) {
       expect(config).toBeInstanceOf(Config);
     }

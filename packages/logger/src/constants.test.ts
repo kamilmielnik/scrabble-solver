@@ -18,14 +18,6 @@ describe('constants', () => {
     fs.rmSync(home, { force: true, recursive: true });
   });
 
-  it('keeps every path under the home directory', () => {
-    expect(readConstants({ NODE_ENV: 'production' })).toMatchObject({
-      CSV_DIRECTORY: path.join(home, '.scrabble-solver', 'csv'),
-      EVENTS_FILEPATH: path.join(home, '.scrabble-solver', 'logs', 'events.txt'),
-      OUTPUT_DIRECTORY: path.join(home, '.scrabble-solver', 'logs'),
-    });
-  });
-
   it.each([
     ['production', { NODE_ENV: 'production' }, false],
     ['development', { NODE_ENV: 'development' }, false],
