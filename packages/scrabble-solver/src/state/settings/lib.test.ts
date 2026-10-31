@@ -19,6 +19,12 @@ describe('guessLocale', () => {
     [['tr'], 'tr', Locale.TR_TR],
     [['es'], 'es', Locale.ES_ES],
     [['ja'], 'ja', Locale.EN_US],
+    [['ca-ES-valencia'], 'ca-ES-valencia', Locale.CA_ES],
+    [['ca-AD'], 'ca-AD', Locale.CA_ES],
+    [['ro-MD'], 'ro-MD', Locale.RO_RO],
+    [['de-AT'], 'de-AT', Locale.DE_DE],
+    [['es-MX'], 'es-MX', Locale.ES_ES],
+    [['caa'], 'caa', Locale.EN_US],
   ])('maps languages %j to the matching locale', (languages, language, expected) => {
     withNavigator({ language, languages }, () => {
       expect(guessLocale()).toBe(expected);
