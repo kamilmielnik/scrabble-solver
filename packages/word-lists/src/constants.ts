@@ -1,1 +1,1 @@
-export const DOWNLOAD_TIMEOUT_MS = 180_000;
+export const DOWNLOAD_TIMEOUT_MS = 600_000;
