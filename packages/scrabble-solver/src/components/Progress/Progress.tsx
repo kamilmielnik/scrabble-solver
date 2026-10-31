@@ -11,12 +11,8 @@ interface Props extends HTMLProps<HTMLDivElement> {
 }
 
 export const Progress: FunctionComponent<Props> = ({ className, max, style, value, ...props }) => {
-  if (max === 0) {
-    throw new Error('Progress needs a max other than 0');
-  }
-
   const locale = useTypedSelector(selectLocale);
-  const progress = value / max;
+  const progress = max === 0 ? 0 : value / max;
   const percent = Math.round(100 * progress);
 
   return (

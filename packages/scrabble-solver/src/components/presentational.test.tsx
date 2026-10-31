@@ -368,8 +368,13 @@ describe('Progress', () => {
     expect(progress.style.getPropertyValue('--progress')).toBe('25%');
   });
 
-  it('refuses a max of 0, which has no percentage', () => {
-    expect(() => renderWithStore(<Progress max={0} value={-1} />)).toThrow('Progress needs a max other than 0');
+  it('shows 0% for a max of 0', () => {
+    renderWithStore(<Progress max={0} value={0} />);
+
+    const progress = screen.getByRole('progressbar');
+
+    expect(progress.getAttribute('aria-valuetext')).toBe('0%');
+    expect(progress.style.getPropertyValue('--progress')).toBe('0%');
   });
 
   it('shows negative values for overused tiles', () => {
