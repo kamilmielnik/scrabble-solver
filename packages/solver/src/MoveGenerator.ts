@@ -44,10 +44,11 @@ export class MoveGenerator {
   private readonly alphaLetters: Int32Array[];
   private readonly alphaPoints: Int32Array;
 
-  // CSR mapping from a GADDAG letter to the alphabet entries whose leading
-  // letter (in traversal order) is that letter. Moving leftwards reads a
-  // tile's characters reversed, so a digraph leads with its last letter.
-  // alphaTail* hold the remaining letters to consume, in traversal order.
+  /**
+   * CSR mapping from a GADDAG letter to the alphabet entries whose leading letter (in traversal order) is that letter.
+   * Moving leftwards reads a tile's characters reversed, so a digraph leads with its last letter.
+   * alphaTail* hold the remaining letters to consume, in traversal order.
+   */
   private readonly leftAlphaStart: Int32Array;
   private readonly leftAlphaList: Int32Array;
   private readonly rightAlphaStart: Int32Array;
