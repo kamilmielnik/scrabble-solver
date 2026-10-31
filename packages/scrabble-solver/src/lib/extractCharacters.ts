@@ -12,9 +12,10 @@ export const extractCharacters = (config: Config, value: string, options?: Optio
   let index = 0;
   const characters: string[] = [];
   const finalValue = localeTransliterate(config.locale, value);
+  const longestFirstDigraphs = [...config.digraphs].sort((digraphA, digraphB) => digraphB.length - digraphA.length);
 
   while (index < finalValue.length) {
-    const digraph = findLeadingDigraph(config, finalValue.substring(index), options);
+    const digraph = findLeadingDigraph(config, longestFirstDigraphs, finalValue.substring(index), options);
 
     if (digraph) {
       characters.push(digraph);
@@ -35,9 +36,7 @@ export const extractCharacters = (config: Config, value: string, options?: Optio
   return characters;
 };
 
-function findLeadingDigraph(config: Config, value: string, options?: Options): string | undefined {
-  const digraphs = config.digraphs.sort((digraphA, digraphB) => digraphB.length - digraphA.length);
-
+function findLeadingDigraph(config: Config, digraphs: string[], value: string, options?: Options): string | undefined {
   return digraphs.find((digraph) => {
     const candidate = value.substring(0, digraph.length);
     const isSpelled = candidate.toLocaleLowerCase(config.locale) === digraph;

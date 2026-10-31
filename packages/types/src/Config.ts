@@ -27,11 +27,17 @@ export class Config {
 
   public readonly config: ConfigJson;
 
+  public readonly digraphs: readonly string[];
+
+  public readonly longestDigraphLength: number;
+
   public readonly pointsMap: Record<string, number>;
 
   constructor(config: ConfigJson) {
     this.bonuses = getBonuses(config);
     this.config = config;
+    this.digraphs = getDigraphs(config);
+    this.longestDigraphLength = Math.max(0, ...this.digraphs.map((digraph) => digraph.length));
     this.pointsMap = getPointsMap(this.config);
   }
 
@@ -87,10 +93,6 @@ export class Config {
     return this.pointsMap[character];
   }
 
-  public get digraphs(): string[] {
-    return this.config.tiles.filter((tile) => tile.character.length > 1).map((tile) => tile.character);
-  }
-
   public getDigraphByShortcut(key: string): string | undefined {
     if (key.length !== 1) {
       return undefined;
@@ -126,10 +128,6 @@ export class Config {
 
   public isDigraphShortcut(key: string): boolean {
     return typeof this.getDigraphByShortcut(key) !== 'undefined';
-  }
-
-  public get longestDigraphLength(): number {
-    return Math.max(0, ...this.digraphs.map((digraph) => digraph.length));
   }
 
   public get rackSize(): number {
@@ -171,6 +169,10 @@ function getDigraphShortcut(digraph: string): string {
 }
 
 const getAlphabet = (config: ConfigJson): string[] => config.tiles.map(({ character }) => character);
+
+function getDigraphs(config: ConfigJson): string[] {
+  return getAlphabet(config).filter((character) => character.length > 1);
+}
 
 function getPointsMap(config: ConfigJson): Record<string, number> {
   const pointsMap = Object.create(null) as Record<string, number>;
