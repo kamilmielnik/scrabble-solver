@@ -120,20 +120,6 @@ describe('downloadFile', () => {
     expect((await getRejection(downloadFile(REFUSED_URL))).message).toContain('ECONNREFUSED');
   });
 
-  it('gives up on a server that never answers', async () => {
-    shortenDownloadTimeout();
-
-    expect(await getRejection(downloadFile(await startStallingServer()))).toBeInstanceOf(Error);
-  });
-
-  it('gives up on a server that stops in the middle of the body and removes the partial file', async () => {
-    shortenDownloadTimeout();
-    const url = await startStallingServer(STALLED_BODY);
-
-    expect(await getRejection(downloadFile(url))).toBeInstanceOf(Error);
-    expect(tempFiles.listFiles()).toEqual([]);
-  });
-
   it('rejects when the connection drops in the middle of the body', async () => {
     const url = await startAbortingServer('partial');
 
@@ -187,6 +173,22 @@ describe('downloadFile', () => {
     rmSync(tempFiles.directory, { force: true, recursive: true });
 
     expect((await getRejection(downloadFile(`${origin}/file`))).message).toContain('ENOENT');
+  });
+});
+
+describe('downloadFile deadline', () => {
+  it('gives up on a server that never answers', async () => {
+    shortenDownloadTimeout();
+
+    expect(await getRejection(downloadFile(await startStallingServer()))).toBeInstanceOf(Error);
+  });
+
+  it('gives up on a server that stops in the middle of the body and removes the partial file', async () => {
+    shortenDownloadTimeout();
+    const url = await startStallingServer(STALLED_BODY);
+
+    expect(await getRejection(downloadFile(url))).toBeInstanceOf(Error);
+    expect(tempFiles.listFiles()).toEqual([]);
   });
 });
 
