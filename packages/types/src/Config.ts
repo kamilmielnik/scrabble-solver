@@ -67,10 +67,6 @@ export class Config {
     return this.config.locale;
   }
 
-  public get twoCharacterTiles(): string[] {
-    return this.config.tiles.filter((tile) => tile.character.length === 2).map((tile) => tile.character);
-  }
-
   public getCellBonus(cell: Cell): Bonus | undefined {
     return this.bonuses.find((bonus) => bonus.matchesCellCoordinates(cell));
   }
@@ -108,14 +104,6 @@ export class Config {
     return getDigraphShortcut(digraph);
   }
 
-  public getTwoCharacterTileByPrefix(character: string): string | undefined {
-    if (character.length !== 1) {
-      return undefined;
-    }
-
-    return this.twoCharacterTiles.find((characters) => characters.startsWith(character.toLocaleLowerCase(this.locale)));
-  }
-
   public getTilePoints(tile: Tile | null): number | undefined {
     if (tile === null) {
       return undefined;
@@ -138,10 +126,6 @@ export class Config {
 
   public isDigraphShortcut(key: string): boolean {
     return typeof this.getDigraphByShortcut(key) !== 'undefined';
-  }
-
-  public isTwoCharacterTilePrefix(character: string): boolean {
-    return typeof this.getTwoCharacterTileByPrefix(character) !== 'undefined';
   }
 
   public get longestDigraphLength(): number {
