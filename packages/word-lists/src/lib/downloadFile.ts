@@ -1,15 +1,12 @@
-import { http, https } from 'follow-redirects';
 import fs from 'fs';
-import { type IncomingMessage } from 'http';
 import { pipeline } from 'stream/promises';
 
-import { DOWNLOAD_TIMEOUT_MS } from '../constants';
-
+import { getResponse } from './getResponse';
 import { getTempFilepath } from './getTempFilepath';
 
 export async function downloadFile(url: string): Promise<string> {
   const tempFilepath = getTempFilepath();
-  const response = await get(url);
+  const response = await getResponse(url);
 
   if (typeof response.statusCode === 'undefined' || response.statusCode >= 400) {
     response.destroy();
@@ -23,12 +20,4 @@ export async function downloadFile(url: string): Promise<string> {
     fs.rmSync(tempFilepath, { force: true });
     throw error;
   }
-}
-
-function get(url: string): Promise<IncomingMessage> {
-  const protocol = url.startsWith('https') ? https : http;
-
-  return new Promise((resolve, reject) => {
-    protocol.get(url, { signal: AbortSignal.timeout(DOWNLOAD_TIMEOUT_MS) }, resolve).on('error', reject);
-  });
 }
