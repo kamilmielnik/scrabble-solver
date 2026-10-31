@@ -8,14 +8,20 @@ export async function unzip(zipFilename: string, extractFilename: string, output
 
   parser.on('entry', (entry: Entry) => {
     if (entry.path === extractFilename) {
-      writes.push(pipeline(entry, fs.createWriteStream(outputFilename)));
+      const write = pipeline(entry, fs.createWriteStream(outputFilename));
+      write.catch(failParser);
+      writes.push(write);
     } else {
       entry.autodrain();
     }
   });
 
   const read = fs.createReadStream(zipFilename);
-  read.on('error', (error) => parser.emit('error', error));
+  read.on('error', failParser);
   await read.pipe(parser).promise();
   await Promise.all(writes);
+
+  function failParser(error: Error): void {
+    parser.emit('error', error);
+  }
 }

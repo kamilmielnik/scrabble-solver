@@ -120,6 +120,17 @@ describe.each(['store', 'deflate'] as const)('unzip of a zip using %s', (compres
     expect((await getRejection(unzip(zipFilename, REQUESTED_ENTRY, outputFilename))).message).toContain('FILE_ENDED');
   });
 
+  it(
+    'rejects when the output file cannot be written',
+    async () => {
+      writeZip([{ content: LARGE_ENTRY, name: REQUESTED_ENTRY }]);
+      const unwritableFilename = join(directory, 'missing', 'output.txt');
+
+      expect((await getRejection(unzip(zipFilename, REQUESTED_ENTRY, unwritableFilename))).message).toContain('ENOENT');
+    },
+    HANG_GUARD_MS,
+  );
+
   function writeZip(entries: Parameters<typeof createZip>[0]): void {
     writeFileSync(zipFilename, createZip(entries, compression));
   }
