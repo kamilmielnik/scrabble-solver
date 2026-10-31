@@ -1,13 +1,26 @@
 {
   "name": "scrabble-solver",
   "version": "2.18.9",
-  "description": "Scrabble Solver web app: free word finder and board solver for Scrabble, Super Scrabble, Literaki, and more.",
+  "description": "Scrabble Solver 2 - Free, open-source, cross-platform, multi-language analysis tool for Scrabble, Scrabble Duel, Super Scrabble, Letter League, Crossplay, Literaki, Kelimelik, Wyrazy, and Wordfeud. Quickly find the top-scoring words using the given board and tiles.",
   "keywords": [
     "scrabble",
-    "word-finder",
-    "solver",
-    "nextjs",
-    "react"
+    "scrabble-solver",
+    "scrabble word finder",
+    "word finder",
+    "anagram solver",
+    "word game",
+    "scrabble cheat",
+    "scrabble dictionary",
+    "super scrabble",
+    "scrabble duel",
+    "letter league",
+    "crossplay",
+    "literaki",
+    "kelimelik",
+    "wyrazy",
+    "wordfeud",
+    "board game",
+    "gaddag"
   ],
   "engines": {
     "bun": ">=1.4",
