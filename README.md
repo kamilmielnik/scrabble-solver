@@ -14,7 +14,7 @@
   </p>
 
   <p>
-    Available at <a href="https://scrabble-solver.org">https://scrabble-solver.org</a> in 8 languages
+    Available at <a href="https://scrabble-solver.org">https://scrabble-solver.org</a> in 9 languages
   </p>
 
   <p>
@@ -22,6 +22,7 @@
   </p>
 
   <p>
+    <img height="32" src="https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/packages/scrabble-solver/src/icons/FlagCa.svg" alt="Flag of Catalonia" title="Catalan" />
     <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1ec-1f1e7.svg" alt="Flag of United Kingdom" title="English (GB)" />
     <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1fa-1f1f8.svg" alt="Flag of United States" title="English (US)" />
     <img height="32" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f1eb-1f1f7.svg" alt="Flag of France" title="French" />
@@ -76,6 +77,7 @@ Some of the word lists below are sourced from the companion repository [kamilmie
 
 | Language    | Word list                                                                                                                                                                                               | Word definitions                                     | [Highest-scoring word](https://codesandbox.io/s/highest-scoring-words-in-scrabble-vbj1ns?file=/src/index.js) |
 | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| <img height="12" src="https://raw.githubusercontent.com/kamilmielnik/scrabble-solver/master/packages/scrabble-solver/src/icons/FlagCa.svg" alt="" /> Catalan | [💾](https://raw.githubusercontent.com/kamilmielnik/scrabble-dictionaries/refs/heads/master/catalan/disc.txt) [DISC](https://diccionari.totescrable.cat/) | [Viccionari](https://ca.wiktionary.org/) | flexibilitzavem (1377) |
 | 🇬🇧 English  | [💾](https://raw.githubusercontent.com/kamilmielnik/scrabble-dictionaries/refs/heads/master/english/sowpods.txt) [SOWPODS](https://en.wikipedia.org/wiki/Collins_Scrabble_Words)                        | [Wiktionary](https://en.wiktionary.org/)              | oxyphenbutazone (1458)                                                                                       |
 | 🇺🇸 English  | [💾](https://raw.githubusercontent.com/kamilmielnik/scrabble-dictionaries/refs/heads/master/english/twl06.txt) [TWL06](https://en.wikipedia.org/wiki/NASPA_Word_List)                                   | [Wiktionary](https://en.wiktionary.org/)              | oxyphenbutazone (1458)                                                                                       |
 | 🇫🇷 French   | [💾](https://raw.githubusercontent.com/Thecoolsim/French-Scrabble-ODS8/main/French%20ODS%20dictionary.txt) [ODS8](https://github.com/Thecoolsim/French-Scrabble-ODS8)                                   | [CNRTL](https://www.cnrtl.fr/)                       | schizothymiques (1566)                                                                                       |

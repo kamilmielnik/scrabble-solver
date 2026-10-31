@@ -2,7 +2,7 @@
 
 Free, open-source, cross-platform, multi-language analysis tool for Scrabble, Scrabble Duel, Super Scrabble, Letter League, Crossplay, Literaki, Kelimelik, Wyrazy, and Wordfeud. Quickly find the top-scoring words using the given board and tiles.
 
-Available at https://scrabble-solver.org in 8 languages.
+Available at https://scrabble-solver.org in 9 languages.
 
 ## Run
 
