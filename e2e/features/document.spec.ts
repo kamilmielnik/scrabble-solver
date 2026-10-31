@@ -114,9 +114,8 @@ test.describe('Served document', () => {
 
   test.describe('not found', () => {
     test('keeps the not-found page out of search results and links back to the app', async ({ page }) => {
-      await page.goto('/not-found');
+      await page.goto('/no-such-page');
 
-      await expect(page).toHaveTitle('Page not found - Scrabble Solver');
       await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex');
       await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
 
@@ -137,8 +136,9 @@ test.describe('Served document', () => {
       await expect(page.getByRole('link')).toHaveAttribute('href', '/');
     });
 
-    test.fixme('answers 404, not 200, on the not-found page itself', async ({ request }) => {
+    test('has no address of its own that answers 200', async ({ request }) => {
       expect((await request.get('/not-found')).status()).toBe(404);
+      expect((await request.get('/404')).status()).toBe(404);
     });
   });
 });

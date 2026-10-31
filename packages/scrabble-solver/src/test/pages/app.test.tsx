@@ -5,7 +5,7 @@ import { type PropsWithChildren } from 'react';
 import { useSelector } from 'react-redux';
 
 import type * as pages_appModule from '../../pages/_app';
-import type * as notFoundModule from '../../pages/not-found';
+import type * as notFoundModule from '../../pages/404';
 import type * as parametersModule from '../../parameters';
 
 await mock.module('next/head', () => ({
@@ -13,7 +13,7 @@ await mock.module('next/head', () => ({
 }));
 
 const { default: App }: typeof pages_appModule = await import('../../pages/_app');
-const { default: NotFoundPage }: typeof notFoundModule = await import('../../pages/not-found');
+const { default: NotFoundPage }: typeof notFoundModule = await import('../../pages/404');
 const { SITE_DESCRIPTION, SITE_URL }: typeof parametersModule = await import('../../parameters');
 
 describe('_app', () => {
@@ -37,7 +37,7 @@ describe('_app', () => {
   });
 
   it('keeps other pages out of the index', () => {
-    renderApp(() => null, '/not-found');
+    renderApp(() => null, '/404');
 
     expect(document.querySelector('link[rel="canonical"]')).toBeNull();
     expect(document.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe('noindex');

@@ -19,7 +19,6 @@ module.exports = {
     return [
       { source: '/', headers: [cacheControl] },
       { source: '/404', headers: [cacheControl] },
-      { source: '/not-found', headers: [cacheControl] },
     ];
   },
   webpack(config, { isServer, dev, webpack }) {
