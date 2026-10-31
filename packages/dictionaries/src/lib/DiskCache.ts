@@ -2,11 +2,14 @@ import { Gaddag } from '@kamilmielnik/gaddag';
 import { logError } from '@scrabble-solver/logger';
 import { type Locale } from '@scrabble-solver/types';
 import fs from 'fs';
+import path from 'path';
 
 import { CACHE_STALE_THRESHOLD, OUTPUT_DIRECTORY } from '../constants';
 import type { Cache } from '../types';
 
 import { getDictionaryFilepath } from './getDictionaryFilepath';
+
+const TEMPORARY_FILE_EXTENSION = '.tmp';
 
 export class DiskCache implements Cache<Locale, Gaddag> {
   private readonly directory: string;
@@ -70,8 +73,29 @@ export class DiskCache implements Cache<Locale, Gaddag> {
 
   public async set(locale: Locale, gaddag: Gaddag): Promise<void> {
     const filepath = getDictionaryFilepath(locale, this.directory);
-    const temporaryFilepath = `${filepath}.${crypto.randomUUID()}.tmp`;
-    await fs.promises.writeFile(temporaryFilepath, gaddag.serialize());
-    await fs.promises.rename(temporaryFilepath, filepath);
+    const temporaryFilepath = `${filepath}.${crypto.randomUUID()}${TEMPORARY_FILE_EXTENSION}`;
+    this.removeAbandonedTemporaryFiles();
+
+    try {
+      await fs.promises.writeFile(temporaryFilepath, gaddag.serialize());
+      await fs.promises.rename(temporaryFilepath, filepath);
+    } finally {
+      await fs.promises.rm(temporaryFilepath, { force: true });
+    }
   }
+
+  private removeAbandonedTemporaryFiles(): void {
+    for (const filename of fs.readdirSync(this.directory)) {
+      const filepath = path.join(this.directory, filename);
+
+      if (filename.endsWith(TEMPORARY_FILE_EXTENSION) && isAbandoned(filepath)) {
+        fs.rmSync(filepath, { force: true });
+      }
+    }
+  }
+}
+
+function isAbandoned(temporaryFilepath: string): boolean {
+  const stats = fs.statSync(temporaryFilepath, { throwIfNoEntry: false });
+  return typeof stats !== 'undefined' && Date.now() - stats.mtimeMs > CACHE_STALE_THRESHOLD;
 }

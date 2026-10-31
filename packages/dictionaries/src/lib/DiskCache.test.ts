@@ -7,7 +7,8 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 
-import { CACHE_STALE_THRESHOLD } from '../constants';
+import { CACHE_STALE_THRESHOLD, DAY } from '../constants';
+import { getRejection } from '../test/getRejection';
 
 import type * as DiskCacheModule from './DiskCache';
 import { getDictionaryFilepath } from './getDictionaryFilepath';
@@ -200,6 +201,54 @@ describe('DiskCache', () => {
     writeFileSpy.mockRestore();
     expect((await cache.get(LOCALE))?.has('replacement')).toBe(true);
     expect(fs.readdirSync(directory)).toEqual([path.basename(filepath)]);
+  });
+
+  describe('temporary files', () => {
+    it('removes the temporary file and keeps the previous dictionary when writing fails', async () => {
+      await cache.set(LOCALE, Gaddag.fromArray(WORDS));
+      const filepath = getDictionaryFilepath(LOCALE, directory);
+      const error = new Error('ENOSPC');
+      const writeFileSpy = spyOn(fs.promises, 'writeFile').mockImplementation(async (file) => {
+        fs.writeFileSync(file as string, 'partially written');
+        throw error;
+      });
+
+      expect(await getRejection(cache.set(LOCALE, Gaddag.fromArray(['replacement'])))).toBe(error);
+      writeFileSpy.mockRestore();
+
+      expect(fs.readdirSync(directory)).toEqual([path.basename(filepath)]);
+      expect((await cache.get(LOCALE))?.has('scrabble')).toBe(true);
+    });
+
+    it('removes the temporary file when replacing the dictionary fails', async () => {
+      const error = new Error('EACCES');
+      const renameSpy = spyOn(fs.promises, 'rename').mockRejectedValue(error);
+
+      expect(await getRejection(cache.set(LOCALE, Gaddag.fromArray(WORDS)))).toBe(error);
+      renameSpy.mockRestore();
+
+      expect(fs.readdirSync(directory)).toEqual([]);
+    });
+
+    it('removes a temporary file abandoned by a killed process', async () => {
+      const abandonedFilepath = `${getDictionaryFilepath(Locale.PL_PL, directory)}.abandoned.tmp`;
+      fs.writeFileSync(abandonedFilepath, 'partially written');
+      const twoDaysAgo = new Date(Date.now() - 2 * DAY);
+      fs.utimesSync(abandonedFilepath, twoDaysAgo, twoDaysAgo);
+
+      await cache.set(LOCALE, Gaddag.fromArray(WORDS));
+
+      expect(fs.existsSync(abandonedFilepath)).toBe(false);
+    });
+
+    it('leaves alone a temporary file of a concurrent write', async () => {
+      const concurrentFilepath = `${getDictionaryFilepath(LOCALE, directory)}.concurrent.tmp`;
+      fs.writeFileSync(concurrentFilepath, 'still being written');
+
+      await cache.set(LOCALE, Gaddag.fromArray(WORDS));
+
+      expect(fs.existsSync(concurrentFilepath)).toBe(true);
+    });
   });
 });
 
