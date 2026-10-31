@@ -33,8 +33,9 @@
   },
   "homepage": "https://scrabble-solver.org",
   "scripts": {
-    "build": "tsc --project .",
-    "clean": "rimraf build/"
+    "build": "tsc --project tsconfig.build.json && tsc",
+    "clean": "rimraf build/",
+    "test": "bun test src"
   },
   "dependencies": {
     "@scrabble-solver/constants": "2.18.9",

@@ -28,9 +28,9 @@
   },
   "homepage": "https://scrabble-solver.org",
   "scripts": {
-    "build": "tsc --project .",
+    "build": "tsc --project tsconfig.build.json && tsc",
     "clean": "rimraf build/",
-    "test": "bun test --timeout 180000 src"
+    "test": "bun test --isolate --timeout 180000 src"
   },
   "dependencies": {
     "@scrabble-solver/types": "2.18.9",

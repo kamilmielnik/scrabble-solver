@@ -1,37 +1,23 @@
-import { http, https } from 'follow-redirects';
 import fs from 'fs';
+import { pipeline } from 'stream/promises';
 
+import { getResponse } from './getResponse';
 import { getTempFilepath } from './getTempFilepath';
 
-export const downloadFile = (url: string): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const tempFilepath = getTempFilepath();
-    const protocol = url.startsWith('https') ? https : http;
-    const writeStream = fs.createWriteStream(tempFilepath);
-    const request = protocol.get(url, (response) => {
-      if (typeof response.statusCode === 'undefined' || response.statusCode >= 400) {
-        reject(new Error(`Cannot download file: ${url}`));
-        return;
-      }
+export async function downloadFile(url: string): Promise<string> {
+  const tempFilepath = getTempFilepath();
+  const response = await getResponse(url);
 
-      response.on('error', (error) => {
-        writeStream.close();
-        reject(error);
-      });
+  if (typeof response.statusCode === 'undefined' || response.statusCode >= 400) {
+    response.destroy();
+    throw new Error(`Cannot download file: ${url}`);
+  }
 
-      response.on('end', () => {
-        writeStream.on('finish', () => {
-          writeStream.close();
-          resolve(tempFilepath);
-        });
-      });
-
-      response.pipe(writeStream);
-    });
-
-    request.on('error', (error) => {
-      writeStream.close();
-      reject(error);
-    });
-  });
-};
+  try {
+    await pipeline(response, fs.createWriteStream(tempFilepath));
+    return tempFilepath;
+  } catch (error) {
+    fs.rmSync(tempFilepath, { force: true });
+    throw error;
+  }
+}

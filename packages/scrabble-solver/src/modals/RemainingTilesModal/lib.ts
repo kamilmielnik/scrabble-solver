@@ -1,11 +1,12 @@
-import { BLANK, CONSONANTS, VOWELS } from '@scrabble-solver/constants';
+import { BLANK } from '@scrabble-solver/constants';
+import { type Locale, isConsonant, isVowel } from '@scrabble-solver/types';
 
 import { type RemainingTile, type RemainingTilesGroup } from '@/types';
 
-export const getRemainingTilesGroups = (remainingTiles: RemainingTile[]): RemainingTilesGroup[] => {
-  const consonants = remainingTiles.filter(isConsonant);
-  const vowels = remainingTiles.filter(isVowel);
-  const other = remainingTiles.filter(isOther);
+export const getRemainingTilesGroups = (remainingTiles: RemainingTile[], locale: Locale): RemainingTilesGroup[] => {
+  const consonants = remainingTiles.filter((tile) => isConsonant(tile.character, locale));
+  const vowels = remainingTiles.filter((tile) => isVowel(tile.character, locale));
+  const other = remainingTiles.filter((tile) => isOther(tile, locale));
   const groups: RemainingTilesGroup[] = [];
 
   groups.push({
@@ -46,19 +47,22 @@ export const getRemainingTilesGroups = (remainingTiles: RemainingTile[]): Remain
     totalCount: getTotalTilesCount(blanks),
   });
 
-  return groups.filter(({ totalCount }) => totalCount > 0);
+  return groups.filter(({ tiles, totalCount }) => totalCount > 0 || tiles.some(isOverused));
 };
 
-const isConsonant = (tile: RemainingTile): boolean => CONSONANTS.includes(tile.character);
-
-const isVowel = (tile: RemainingTile): boolean => VOWELS.includes(tile.character);
+function isOverused({ count, usedCount }: RemainingTile): boolean {
+  return typeof count !== 'undefined' && usedCount > count;
+}
 
 const isTwoCharacter = (tile: RemainingTile): boolean => tile.character.length === 2;
 
 const isBlank = (tile: RemainingTile): boolean => tile.character === BLANK;
 
-const isOther = (tile: RemainingTile) =>
-  !isConsonant(tile) && !isVowel(tile) && !isBlank(tile) && !isTwoCharacter(tile);
+function isOther(tile: RemainingTile, locale: Locale): boolean {
+  return (
+    !isConsonant(tile.character, locale) && !isVowel(tile.character, locale) && !isBlank(tile) && !isTwoCharacter(tile)
+  );
+}
 
 const getRemainingTilesCount = (remainingTiles: RemainingTile[]): number => {
   return remainingTiles.reduce((sum, { count, usedCount }) => {

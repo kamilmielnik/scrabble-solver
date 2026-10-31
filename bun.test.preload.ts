@@ -8,7 +8,6 @@ plugin({
         const proxy = new Proxy({}, {
           get(_, key) {
             if (typeof key === 'symbol') return undefined;
-            if (key === 'default') return proxy;
             if (key === '__esModule') return true;
             return key;
           },

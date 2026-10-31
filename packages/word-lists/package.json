@@ -30,10 +30,12 @@
   },
   "homepage": "https://scrabble-solver.org",
   "scripts": {
-    "build": "tsc --project .",
-    "clean": "rimraf build/"
+    "build": "tsc --project tsconfig.build.json && tsc",
+    "clean": "rimraf build/",
+    "test": "bun test --timeout 180000 src"
   },
   "dependencies": {
+    "@scrabble-solver/logger": "2.18.9",
     "@scrabble-solver/types": "2.18.9",
     "cheerio": "1.2.0",
     "follow-redirects": "1.16.2",

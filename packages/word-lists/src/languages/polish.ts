@@ -1,3 +1,4 @@
+import { logError } from '@scrabble-solver/logger';
 import { Locale } from '@scrabble-solver/types';
 import { load } from 'cheerio';
 import fs from 'fs';
@@ -13,24 +14,33 @@ const SECONDARY_FILE_URL =
 
 export const getWordList = async (): Promise<string[]> => {
   try {
-    const tempFilepath = getTempFilepath();
-    const zipUrl = await fetchZipUrl(PAGE_URL);
-    const zipTempFilename = await downloadFile(zipUrl);
-    await unzip(zipTempFilename, FILE_TO_EXTRACT_FROM_ZIP, tempFilepath);
-    fs.unlinkSync(zipTempFilename);
-    const file = fs.readFileSync(tempFilepath, 'utf-8');
-    fs.unlinkSync(tempFilepath);
-    const words = extractWords(file.toLocaleString(), 'pl-PL');
-
-    if (words.length < REASONABLE_VALID_WORD_COUNT_TRESHOLD) {
-      return getBackupWordList();
-    }
-
-    return words;
-  } catch {
+    return await getPrimaryWordList();
+  } catch (error) {
+    logError('build', error, { locale: Locale.PL_PL });
     return getBackupWordList();
   }
 };
+
+async function getPrimaryWordList(): Promise<string[]> {
+  const tempFilepath = getTempFilepath();
+  const zipUrl = await fetchZipUrl(PAGE_URL);
+  const zipTempFilename = await downloadFile(zipUrl);
+
+  try {
+    await unzip(zipTempFilename, FILE_TO_EXTRACT_FROM_ZIP, tempFilepath);
+    const file = fs.readFileSync(tempFilepath, 'utf-8');
+    const words = extractWords(file.toLocaleString(), 'pl-PL');
+
+    if (words.length < REASONABLE_VALID_WORD_COUNT_TRESHOLD) {
+      throw new Error(`The word list from ${zipUrl} has only ${words.length} words`);
+    }
+
+    return words;
+  } finally {
+    fs.rmSync(zipTempFilename, { force: true });
+    fs.rmSync(tempFilepath, { force: true });
+  }
+}
 
 const fetchZipUrl = async (url: string): Promise<string> => {
   const html = await downloadHtml(url);

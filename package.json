@@ -7,7 +7,7 @@
   },
   "scripts": {
     "benchmark": "bun run --filter @scrabble-solver/solver benchmark",
-    "build": "bun run --filter './packages/*' build",
+    "build": "bun run --filter './packages/*' build && tsc --project e2e",
     "clean": "bun run --filter './packages/*' clean && rimraf node_modules/",
     "dev": "bun run --filter scrabble-solver dev",
     "format": "oxfmt --check './**/*.{js,ts,tsx,scss}'",

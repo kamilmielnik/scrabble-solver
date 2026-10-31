@@ -73,6 +73,7 @@ export const superScrabble = {
     { multiplier: 2, type: BONUS_CHARACTER, x: 0, y: 10 },
     { multiplier: 3, type: BONUS_WORD, x: 3, y: 10 },
     { multiplier: 2, type: BONUS_CHARACTER, x: 6, y: 10 },
+    { multiplier: 2, type: BONUS_WORD, x: 10, y: 10 },
     { multiplier: 2, type: BONUS_CHARACTER, x: 14, y: 10 },
     { multiplier: 3, type: BONUS_WORD, x: 17, y: 10 },
     { multiplier: 2, type: BONUS_CHARACTER, x: 20, y: 10 },

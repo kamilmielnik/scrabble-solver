@@ -19,7 +19,7 @@ describe('upperCaseDigraphsOnly = false', () => {
       { input: 'churro', expected: ['ch', 'u', 'rr', 'o'] },
       { input: 'challulla', expected: ['ch', 'a', 'll', 'u', 'll', 'a'] },
     ])(`[${locale}] "$input"`, ({ input, expected }) => {
-      expect(extractCharacters(config, input)).toEqual(expected);
+      expect(extractCharacters(config, input)).toEqual([...expected]);
     });
   });
 
@@ -46,7 +46,7 @@ describe('upperCaseDigraphsOnly = false', () => {
         extractCharacters(config, input, {
           upperCaseDigraphsOnly: true,
         }),
-      ).toEqual(expected);
+      ).toEqual([...expected]);
     });
   });
 });

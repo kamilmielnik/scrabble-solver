@@ -18,7 +18,6 @@ module.exports = {
     return [
       { source: '/', headers: [cacheControl] },
       { source: '/404', headers: [cacheControl] },
-      { source: '/not-found', headers: [cacheControl] },
     ];
   },
   webpack(config, { isServer, dev, webpack }) {
@@ -51,7 +50,7 @@ module.exports = {
            * same compilation, and one 404 fails the whole precache install.
            */
           include: [/^static\//],
-          exclude: [/\.css$/, /\.map$/],
+          exclude: [/\.map$/],
         }),
       );
     }

@@ -21,10 +21,10 @@ export const Loading: FunctionComponent<Props> = ({ className, wave = true }) =>
   const translation = translate('common.loading');
   const message = direction === 'ltr' ? translation : translation.split('').reverse().join('');
   const content = useMemo(() => {
-    const uppercased = message.toLocaleUpperCase();
+    const uppercased = message.toLocaleUpperCase(locale);
     const parts = uppercased.split(' ');
     return [parts];
-  }, [message]);
+  }, [locale, message]);
 
   return (
     <div aria-label={translation} className={classNames(styles.loading, className)} data-testid="loading" role="status">

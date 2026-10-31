@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import readline from 'node:readline';
 
-import { type LoggedEvent, EVENT_FIELDS, EVENTS_FILEPATH } from '../src';
+import { type LoggedEvent, EVENT_FIELDS, EVENTS_FILEPATH, isTimestamp } from '../src';
 
 export async function* readEvents(): AsyncGenerator<LoggedEvent | undefined> {
   if (!fs.existsSync(EVENTS_FILEPATH)) {
@@ -30,5 +30,10 @@ function isLoggedEvent(value: unknown): value is LoggedEvent {
   }
 
   const { timestamp, type } = value as Partial<Record<'timestamp' | 'type', unknown>>;
-  return typeof timestamp === 'string' && typeof type === 'string' && Object.hasOwn(EVENT_FIELDS, type);
+  return (
+    typeof timestamp === 'string' &&
+    isTimestamp(timestamp) &&
+    typeof type === 'string' &&
+    Object.hasOwn(EVENT_FIELDS, type)
+  );
 }

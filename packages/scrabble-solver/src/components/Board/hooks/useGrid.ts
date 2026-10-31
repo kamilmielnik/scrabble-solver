@@ -114,7 +114,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
           return;
         }
 
-        const canCheckUp = y - 1 > 0;
+        const canCheckUp = y > 0;
         const canCheckLeft = x > 0;
         const canCheckRight = x + 1 < width;
         const canCheckDown = y + 1 < height;
@@ -203,7 +203,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
         return;
       }
 
-      const value = extractInputValue(event.target);
+      const value = extractInputValue(event.target, config.locale);
 
       if (!value) {
         dispatch(boardSlice.actions.changeCellValue({ ...position, value: EMPTY_CELL }));
@@ -223,7 +223,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
 
       insertValue(position, value);
     },
-    [dispatch, insertValue, moveFocus, rowsRef, getInputRefPosition],
+    [config.locale, dispatch, insertValue, moveFocus, rowsRef, getInputRefPosition],
   );
 
   const onDirectionToggle = useCallback(() => setLastDirection(toggleDirection), []);
@@ -302,7 +302,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
         }
 
         const { x, y } = position;
-        const character = event.key.toLocaleLowerCase();
+        const character = event.key.toLocaleLowerCase(config.locale);
         const twoCharacterTile = config.getTwoCharacterTileByPrefix(character);
 
         if (isCtrl(event) && twoCharacterTile) {
@@ -333,7 +333,10 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
           return;
         }
 
-        if (event.target instanceof HTMLInputElement && event.target.value.toLocaleLowerCase() === character) {
+        if (
+          event.target instanceof HTMLInputElement &&
+          event.target.value.toLocaleLowerCase(config.locale) === character
+        ) {
           // change event did not fire because the same character was typed over the current one
           // but we still want to move the caret
           event.preventDefault();
@@ -377,10 +380,10 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
 
       event.preventDefault();
 
-      const value = event.clipboardData.getData('text/plain').toLocaleLowerCase();
+      const value = event.clipboardData.getData('text/plain').toLocaleLowerCase(config.locale);
       insertValue(position, value);
     },
-    [getInputRefPosition, insertValue],
+    [config.locale, getInputRefPosition, insertValue],
   );
 
   return [

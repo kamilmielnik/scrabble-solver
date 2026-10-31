@@ -59,10 +59,6 @@ export function getResults(page: Page): Locator {
   return getResultsContainer(page).getByTestId('result');
 }
 
-export function getResultsFilterInput(page: Page): Locator {
-  return getResultsContainer(page).getByRole('textbox');
-}
-
 export function getResult(page: Page, index = 0): Locator {
   return getResults(page).nth(index);
 }
@@ -89,10 +85,6 @@ export function getWords(page: Page): Locator {
 
 export function getWord(page: Page, index = 0): Locator {
   return getWords(page).nth(index);
-}
-
-export function getWordsFilterInput(page: Page): Locator {
-  return getWordsContainer(page).getByRole('textbox');
 }
 
 export function getSettingsButton(page: Page): Locator {

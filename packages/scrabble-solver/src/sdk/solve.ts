@@ -15,5 +15,5 @@ export const solve = async ({ board, characters, game, locale }: SolveRequestPay
     }));
 
   const decodedBoard = Board.fromJson(board);
-  return json.map((result) => Result.fromJson(result, decodedBoard));
+  return json.map((result) => Result.fromJson(result, decodedBoard, locale));
 };

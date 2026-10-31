@@ -39,7 +39,7 @@ describe('getGaddag', () => {
   });
 
   it('deletes a corrupted dictionary', async () => {
-    dictionary = new Response(Gaddag.fromArray(['scrabble']).serialize().subarray(0, 10));
+    dictionary = new Response(new Uint8Array(Gaddag.fromArray(['scrabble']).serialize().subarray(0, 10)));
 
     expect(await getGaddag(Locale.FA_IR)).toBeUndefined();
     expect(deletedLocales).toContain(Locale.FA_IR);
@@ -105,5 +105,5 @@ describe('getGaddag', () => {
 });
 
 function createDictionary(words: string[], headers: Record<string, string> = {}): Response {
-  return new Response(Gaddag.fromArray(words).serialize(), { headers });
+  return new Response(new Uint8Array(Gaddag.fromArray(words).serialize()), { headers });
 }

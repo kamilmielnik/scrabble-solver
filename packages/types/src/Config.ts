@@ -90,7 +90,7 @@ export class Config {
       return undefined;
     }
 
-    return this.twoCharacterTiles.find((characters) => characters.startsWith(character.toLocaleLowerCase()));
+    return this.twoCharacterTiles.find((characters) => characters.startsWith(character.toLocaleLowerCase(this.locale)));
   }
 
   public getTilePoints(tile: Tile | null): number | undefined {
@@ -142,11 +142,7 @@ const getBonuses = (config: ConfigJson): Bonus[] => {
 
 const getAlphabet = (config: ConfigJson): string[] => config.tiles.map(({ character }) => character);
 
-const getPointsMap = (config: ConfigJson): Record<string, number> =>
-  config.tiles.reduce(
-    (pointsMap, { character, score }) => ({
-      ...pointsMap,
-      [character]: score,
-    }),
-    {},
-  );
+function getPointsMap(config: ConfigJson): Record<string, number> {
+  const pointsMap = Object.create(null) as Record<string, number>;
+  return Object.assign(pointsMap, Object.fromEntries(config.tiles.map(({ character, score }) => [character, score])));
+}

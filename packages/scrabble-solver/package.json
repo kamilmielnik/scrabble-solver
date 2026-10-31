@@ -85,8 +85,8 @@
     "generate-scss-types": "bun scripts/generate-scss-types.ts",
     "prepack": "rimraf --glob '.next/**/*.nft.json'",
     "start": "env-cmd next start -p 3333",
-    "test": "bun test --timeout 180000 src",
-    "type-check": "bun run generate-scss-types && tsc --noEmit"
+    "test": "bun test --isolate --timeout 180000 src",
+    "type-check": "bun run generate-scss-types && tsc --noEmit --incremental false"
   },
   "dependencies": {
     "@floating-ui/react": "0.27.20",
@@ -122,12 +122,17 @@
     "workbox-window": "7.4.1"
   },
   "devDependencies": {
+    "@happy-dom/global-registrator": "21.0.4",
     "@svgr/webpack": "8.1.0",
+    "@testing-library/dom": "10.4.2",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.8",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@types/react-modal": "3.16.3",
     "@types/react-portal": "4.0.7",
     "env-cmd": "11.0.0",
+    "happy-dom": "21.0.4",
     "postcss": "8.5.32",
     "sass": "1.107.0",
     "workbox-webpack-plugin": "7.4.1"

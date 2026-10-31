@@ -14,7 +14,7 @@ export { ConfigJson } from './ConfigJson';
 export { Dictionary } from './Dictionary';
 export { Direction } from './Direction';
 export { Game } from './Game';
-export { isSameBoardWord } from './lib';
+export { isConsonant, isSameBoardWord, isVowel } from './lib';
 export { Locale } from './Locale';
 export { Result } from './Result';
 export { ResultJson } from './ResultJson';

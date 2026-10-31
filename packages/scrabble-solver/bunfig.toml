@@ -1,0 +1,3 @@
+# Bun reads bunfig.toml from the working directory only, so the root one does not apply to `bun run --filter` or `cd packages/scrabble-solver`.
+[test]
+preload = ["../../bun.test.preload.ts", "./src/test/dom.ts"]

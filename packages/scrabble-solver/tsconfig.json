@@ -21,7 +21,7 @@
     "typeRoots": ["./node_modules/@types", "../../node_modules/@types", "./src/@types"],
     "incremental": true
   },
-  "exclude": ["node_modules", "**/*.test.ts"],
+  "exclude": ["node_modules"],
   "files": ["./src/@types/scss.d.ts", "./src/@types/svg.d.ts"],
   "include": ["next-env.d.ts", "./src"]
 }

@@ -2,6 +2,10 @@ import { Config, Locale } from '@scrabble-solver/types';
 
 import { scrabble } from '../games';
 
+/**
+ * Persian has no official tile set: Scrabble3D (listed on Wikipedia), https://chiddle.games and this distribution differ.
+ * @see https://github.com/kamilmielnik/scrabble-solver/issues/470
+ */
 export const persianScrabble = new Config({
   ...scrabble,
   locale: Locale.FA_IR,

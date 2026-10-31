@@ -1,18 +1,35 @@
 import fs from 'fs';
+import { pipeline } from 'stream/promises';
 import unzipper, { type Entry } from 'unzipper';
 
-export const unzip = (zipFilename: string, extractFilename: string, outputFilename: string): Promise<void> => {
-  return fs
-    .createReadStream(zipFilename)
-    .pipe(unzipper.Parse())
-    .on('entry', (entry: Entry) => {
-      const fileName = entry.path;
+export async function unzip(zipFilename: string, extractFilename: string, outputFilename: string): Promise<void> {
+  const writes: Promise<void>[] = [];
+  const unfinishedWrites = new AbortController();
+  const parser = unzipper.Parse();
 
-      if (fileName === extractFilename) {
-        entry.pipe(fs.createWriteStream(outputFilename));
-      } else {
-        entry.autodrain();
-      }
-    })
-    .promise();
-};
+  parser.on('entry', (entry: Entry) => {
+    if (entry.path === extractFilename) {
+      const write = pipeline(entry, fs.createWriteStream(outputFilename), { signal: unfinishedWrites.signal });
+      write.catch(failParser);
+      writes.push(write);
+    } else {
+      entry.autodrain();
+    }
+  });
+
+  const read = fs.createReadStream(zipFilename);
+  read.on('error', failParser);
+
+  try {
+    await read.pipe(parser).promise();
+    await Promise.all(writes);
+  } finally {
+    read.destroy();
+    unfinishedWrites.abort();
+    await Promise.allSettled(writes);
+  }
+
+  function failParser(error: Error): void {
+    parser.emit('error', error);
+  }
+}

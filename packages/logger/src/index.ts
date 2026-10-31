@@ -11,3 +11,4 @@ export {
 export { formatCsvRow } from './formatCsvRow';
 export { logError } from './logError';
 export { logEvent } from './logEvent';
+export { isTimestamp } from './timestamp';

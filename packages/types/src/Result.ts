@@ -1,21 +1,21 @@
-import { CONSONANTS, VOWELS } from '@scrabble-solver/constants';
-
 import { type Board } from './Board';
 import { type Cell } from './Cell';
-import { getCells, getCollisions } from './lib';
+import { getCells, getCollisions, isConsonant, isVowel } from './lib';
+import { type Locale } from './Locale';
 import { type ResultJson } from './ResultJson';
 import { type Tile } from './Tile';
 
 type Collision = Cell[];
 
 export class Result {
-  public static fromJson = (json: ResultJson, board: Board): Result => {
+  public static fromJson = (json: ResultJson, board: Board, locale: Locale): Result => {
     const cells = getCells(board, json);
 
     return new Result({
       cells,
       collisions: getCollisions(board, cells, json.isHorizontal),
       id: json.id,
+      locale,
       points: json.points,
     });
   };
@@ -52,25 +52,27 @@ export class Result {
     cells,
     id,
     collisions,
+    locale,
     points,
   }: {
     cells: Cell[];
     id: number;
     collisions: Collision[];
+    locale: Locale;
     points: number;
   }) {
     const tiles = getTiles(cells);
     this.blanksCount = getBlanks(tiles).length;
     this.cells = cells;
     this.collisions = collisions;
-    this.consonantsCount = getConsonants(tiles).length;
+    this.consonantsCount = tiles.filter((tile) => !tile.isBlank && isConsonant(tile.character, locale)).length;
     this.id = id;
     this.length = cells.length;
     this.points = points;
     this.pointsRatio = getPointsRatio(tiles, points);
     this.tiles = tiles;
     this.tilesCount = tiles.length;
-    this.vowelsCount = getVowels(tiles).length;
+    this.vowelsCount = tiles.filter((tile) => !tile.isBlank && isVowel(tile.character, locale)).length;
     this.word = getWord(cells);
     this.words = getWords(cells, collisions);
     this.wordsCount = 1 + this.collisions.length;
@@ -101,10 +103,6 @@ export class Result {
 
 const getBlanks = (tiles: Tile[]): Tile[] => tiles.filter(({ isBlank }) => isBlank);
 
-const getConsonants = (tiles: Tile[]): Tile[] => tiles.filter(isConsonant);
-
-const getVowels = (tiles: Tile[]): Tile[] => tiles.filter(isVowel);
-
 const getPointsRatio = (tiles: Tile[], points: number): number => points / tiles.length;
 
 const getTiles = (cells: Cell[]): Tile[] => cells.filter(({ isEmpty }) => isEmpty).map(({ tile }) => tile);
@@ -112,7 +110,3 @@ const getTiles = (cells: Cell[]): Tile[] => cells.filter(({ isEmpty }) => isEmpt
 const getWord = (cells: Cell[]): string => cells.reduce((word, cell) => word + cell.toString(), '');
 
 const getWords = (cells: Cell[], collisions: Collision[]): string[] => [cells, ...collisions].map(getWord);
-
-const isConsonant = ({ character, isBlank }: Tile): boolean => CONSONANTS.includes(character) && !isBlank;
-
-const isVowel = ({ character, isBlank }: Tile): boolean => VOWELS.includes(character) && !isBlank;

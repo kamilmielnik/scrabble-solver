@@ -22,6 +22,6 @@ describe('extractRack', () => {
     { input: 'CHuRRo', expected: ['ch', 'u', 'rr', 'o', null, null, null] },
     { input: 'CHaLLuLLa', expected: ['ch', 'a', 'll', 'u', 'll', 'a', null] },
   ])(`[${locale}] "$input"`, ({ input, expected }) => {
-    expect(extractRack(config, input)).toEqual(expected);
+    expect(extractRack(config, input)).toEqual([...expected]);
   });
 });

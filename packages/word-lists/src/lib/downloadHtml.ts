@@ -1,18 +1,7 @@
-import { http, https } from 'follow-redirects';
+import { text } from 'stream/consumers';
 
-export const downloadHtml = (url: string): Promise<string> => {
-  return new Promise((resolve, reject) => {
-    const protocol = url.startsWith('https') ? https : http;
-    protocol.get(url, (response) => {
-      let data = '';
-      response.setEncoding('utf8');
-      response.on('data', (chunk) => {
-        data += chunk;
-      });
-      response.on('end', () => {
-        resolve(data);
-      });
-      response.on('error', reject);
-    });
-  });
-};
+import { getResponse } from './getResponse';
+
+export async function downloadHtml(url: string): Promise<string> {
+  return text(await getResponse(url));
+}

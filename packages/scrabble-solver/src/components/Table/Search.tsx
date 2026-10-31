@@ -8,12 +8,19 @@ import styles from './Table.module.scss';
 interface Props {
   className?: string;
   placeholder: string;
+  resetKey?: unknown;
   value: string;
   onChange: (value: string) => void;
 }
 
-export const Search: FunctionComponent<Props> = ({ className, placeholder, value, onChange }) => {
+export const Search: FunctionComponent<Props> = ({ className, placeholder, resetKey, value, onChange }) => {
   const [localValue, setLocalValue] = useState(value);
+  const [synced, setSynced] = useState({ resetKey, value });
+
+  if (value !== synced.value || resetKey !== synced.resetKey) {
+    setSynced({ resetKey, value });
+    setLocalValue(value);
+  }
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;

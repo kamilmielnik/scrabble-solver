@@ -2,11 +2,14 @@ import { Gaddag } from '@kamilmielnik/gaddag';
 import { logError } from '@scrabble-solver/logger';
 import { type Locale } from '@scrabble-solver/types';
 import fs from 'fs';
+import path from 'path';
 
 import { CACHE_STALE_THRESHOLD, OUTPUT_DIRECTORY } from '../constants';
 import type { Cache } from '../types';
 
 import { getDictionaryFilepath } from './getDictionaryFilepath';
+
+const TEMPORARY_FILE_EXTENSION = '.tmp';
 
 export class DiskCache implements Cache<Locale, Gaddag> {
   private readonly directory: string;
@@ -70,6 +73,42 @@ export class DiskCache implements Cache<Locale, Gaddag> {
 
   public async set(locale: Locale, gaddag: Gaddag): Promise<void> {
     const filepath = getDictionaryFilepath(locale, this.directory);
-    await fs.promises.writeFile(filepath, gaddag.serialize());
+    const temporaryFilepath = `${filepath}.${crypto.randomUUID()}${TEMPORARY_FILE_EXTENSION}`;
+    await this.removeAbandonedTemporaryFiles();
+
+    try {
+      await fs.promises.writeFile(temporaryFilepath, gaddag.serialize());
+      await fs.promises.rename(temporaryFilepath, filepath);
+    } catch (error) {
+      await removeTemporaryFile(temporaryFilepath);
+      throw error;
+    }
   }
+
+  private async removeAbandonedTemporaryFiles(): Promise<void> {
+    try {
+      for (const filename of await fs.promises.readdir(this.directory)) {
+        const filepath = path.join(this.directory, filename);
+
+        if (filename.endsWith(TEMPORARY_FILE_EXTENSION) && (await isAbandoned(filepath))) {
+          await fs.promises.rm(filepath, { force: true });
+        }
+      }
+    } catch (error) {
+      logError('cache', error, { level: 'warn' });
+    }
+  }
+}
+
+async function removeTemporaryFile(temporaryFilepath: string): Promise<void> {
+  try {
+    await fs.promises.rm(temporaryFilepath, { force: true });
+  } catch (error) {
+    logError('cache', error, { level: 'warn' });
+  }
+}
+
+async function isAbandoned(temporaryFilepath: string): Promise<boolean> {
+  const stats = await fs.promises.stat(temporaryFilepath, { throwIfNoEntry: false });
+  return typeof stats !== 'undefined' && Date.now() - stats.mtimeMs > CACHE_STALE_THRESHOLD;
 }

@@ -7,20 +7,19 @@ import styles from './Progress.module.scss';
 
 interface Props extends HTMLProps<HTMLDivElement> {
   max: number;
-  min?: number;
   value: number;
 }
 
-export const Progress: FunctionComponent<Props> = ({ className, max, min = 0, style, value, ...props }) => {
+export const Progress: FunctionComponent<Props> = ({ className, max, style, value, ...props }) => {
   const locale = useTypedSelector(selectLocale);
-  const progress = value / (max - min);
+  const progress = max === 0 ? 0 : value / max;
   const percent = Math.round(100 * progress);
 
   return (
     <div
       {...props}
       aria-valuemax={max}
-      aria-valuemin={min}
+      aria-valuemin={0}
       aria-valuenow={value}
       aria-valuetext={`${percent.toLocaleString(locale)}%`}
       className={classNames(styles.progress, className)}

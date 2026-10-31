@@ -1,11 +1,122 @@
-import { Board, Cell, Result, Tile } from '@scrabble-solver/types';
+/* eslint-disable max-lines */
 
-import { getReachableCellsFromResults, getWordCells } from './lib';
+import { languages } from '@scrabble-solver/configs';
+import { type Bonus, Board, Cell, Config, Locale, Result, Tile } from '@scrabble-solver/types';
 
+import { COLOR_BONUS_CHARACTER, COLOR_BONUS_CHARACTER_MULTIPLIER, COLOR_BONUS_WORD } from '../../parameters';
+
+import {
+  createGrid,
+  getBonusColor,
+  getPositionInGrid,
+  getReachableCells,
+  getReachableCellsFromResults,
+  getWordCells,
+} from './lib';
+
+describe('createGrid', () => {
+  it('builds height rows of width cells from their coordinates', () => {
+    expect(createGrid(2, 3, (x, y) => `${x}${y}`)).toEqual([
+      ['00', '10'],
+      ['01', '11'],
+      ['02', '12'],
+    ]);
+  });
+});
+
+describe('getPositionInGrid', () => {
+  const grid = [
+    ['a', 'b'],
+    ['c', 'b'],
+  ];
+
+  it('finds the first match in reading order', () => {
+    expect(getPositionInGrid(grid, (value) => value === 'b')).toEqual({ x: 1, y: 0 });
+  });
+
+  it('is undefined without a match', () => {
+    expect(getPositionInGrid(grid, (value) => value === 'z')).toBeUndefined();
+  });
+});
+
+describe('getBonusColor', () => {
+  it('colors word bonuses by multiplier', () => {
+    expect(getBonusColor(createBonus({ multiplier: 3, type: 'BONUS_WORD' }))).toBe(COLOR_BONUS_WORD[3]);
+  });
+
+  it('colors scored character bonuses by score', () => {
+    expect(getBonusColor(createBonus({ score: 5, type: 'BONUS_CHARACTER' }))).toBe(COLOR_BONUS_CHARACTER[5]);
+  });
+
+  it('colors plain character bonuses by multiplier', () => {
+    expect(getBonusColor(createBonus({ multiplier: 2, type: 'BONUS_CHARACTER' }))).toBe(
+      COLOR_BONUS_CHARACTER_MULTIPLIER[2],
+    );
+  });
+
+  it('has a color for every bonus of every shipped board', () => {
+    for (const config of Object.values(languages)) {
+      for (const bonus of new Config(config.config).bonuses) {
+        expect(getBonusColor(bonus)).toStartWith('#');
+      }
+    }
+  });
+});
+
+/**
+ * #198 - Highlight unreachable cells
+ * @see https://github.com/kamilmielnik/scrabble-solver/issues/198
+ */
+describe('getReachableCells', () => {
+  const emptyBoard = Board.create(5, 5);
+  const centerTile = Board.fromStringArray(['     ', '     ', '  a  ', '     ', '     ']);
+
+  it('reaches nothing with no tiles to play (#198)', () => {
+    expect(getReachableCells(centerTile, 0).flat().some(Boolean)).toBe(false);
+  });
+
+  it('reaches only the start cell with one tile on an empty board (#198)', () => {
+    expect(readReachable(getReachableCells(emptyBoard, 1))).toEqual(['.....', '.....', '..#..', '.....', '.....']);
+  });
+
+  it('reaches along both axes through the start cell on an empty board (#198)', () => {
+    expect(readReachable(getReachableCells(emptyBoard, 2))).toEqual(['.....', '..#..', '.###.', '..#..', '.....']);
+  });
+
+  it('reaches cells touching tiles with one tile (#198)', () => {
+    expect(readReachable(getReachableCells(centerTile, 1))).toEqual(['.....', '..#..', '.###.', '..#..', '.....']);
+  });
+
+  it('reaches further, including diagonals, with more tiles (#198)', () => {
+    expect(readReachable(getReachableCells(centerTile, 2))).toEqual(['..#..', '.###.', '#####', '.###.', '..#..']);
+  });
+
+  it('stops at the board edge (#198)', () => {
+    const cornerTile = Board.fromStringArray(['a  ', '   ', '   ']);
+
+    expect(readReachable(getReachableCells(cornerTile, 1))).toEqual(['##.', '#..', '...']);
+  });
+
+  it('does not count a run of tiles beyond the reach (#198)', () => {
+    const board = Board.fromStringArray(['a    ', '     ', '     ', '     ', '     ']);
+
+    expect(getReachableCells(board, 3)[0][4]).toBe(false);
+    expect(getReachableCells(board, 4)[0][4]).toBe(true);
+  });
+
+  it('always reaches filled cells (#198)', () => {
+    expect(getReachableCells(centerTile, 1)[2][2]).toBe(true);
+  });
+});
+
+/**
+ * #430 - Highlight unreachable cells includes current results
+ * @see https://github.com/kamilmielnik/scrabble-solver/issues/430
+ */
 describe('getReachableCellsFromResults', () => {
   const board = Board.fromStringArray(['     ', '     ', '  i  ', '     ', '     ']);
 
-  it('marks only cells with tiles as reachable when there are no results', () => {
+  it('marks only cells with tiles as reachable when there are no results (#430)', () => {
     expect(getReachableCellsFromResults(board, [])).toEqual([
       [false, false, false, false, false],
       [false, false, false, false, false],
@@ -15,7 +126,7 @@ describe('getReachableCellsFromResults', () => {
     ]);
   });
 
-  it('marks cells covered by any result as reachable and all other empty cells as unreachable', () => {
+  it('marks cells covered by any result as reachable and all other empty cells as unreachable (#430)', () => {
     const results = [
       createResult([createPlacedCell('q', 1, 2), board.rows[2][2]]),
       createResult([createPlacedCell('q', 2, 1), board.rows[2][2]]),
@@ -31,10 +142,14 @@ describe('getReachableCellsFromResults', () => {
   });
 });
 
+/**
+ * #427 - Highlight created words on board on hover
+ * @see https://github.com/kamilmielnik/scrabble-solver/issues/427
+ */
 describe('getWordCells', () => {
   const board = Board.fromStringArray(['     ', ' cat ', ' o   ', ' d  x', '     ']);
 
-  it('marks the cells of a horizontal word', () => {
+  it('marks the cells of a horizontal word (#427)', () => {
     expect(getWordCells(board, { direction: 'horizontal', word: 'cat', x: 1, y: 1 })).toEqual([
       [false, false, false, false, false],
       [false, true, true, true, false],
@@ -44,7 +159,7 @@ describe('getWordCells', () => {
     ]);
   });
 
-  it('marks the cells of a vertical word', () => {
+  it('marks the cells of a vertical word (#427)', () => {
     expect(getWordCells(board, { direction: 'vertical', word: 'cod', x: 1, y: 1 })).toEqual([
       [false, false, false, false, false],
       [false, true, false, false, false],
@@ -54,7 +169,7 @@ describe('getWordCells', () => {
     ]);
   });
 
-  it('stops at the board edge', () => {
+  it('stops at the board edge (#427)', () => {
     expect(getWordCells(board, { direction: 'horizontal', word: 'x', x: 4, y: 3 })).toEqual([
       [false, false, false, false, false],
       [false, false, false, false, false],
@@ -64,7 +179,7 @@ describe('getWordCells', () => {
     ]);
   });
 
-  it('marks the run of cells regardless of the word length in characters', () => {
+  it('marks the run of cells regardless of the word length in characters (#427)', () => {
     const digraphBoard = new Board({
       rows: [
         [createFilledCell('ch', 0, 0), createFilledCell('e', 1, 0), createEmptyCell(2, 0)],
@@ -78,7 +193,7 @@ describe('getWordCells', () => {
     ]);
   });
 
-  it('marks nothing when the starting cell is empty', () => {
+  it('marks nothing when the starting cell is empty (#427)', () => {
     expect(getWordCells(board, { direction: 'horizontal', word: 'gone', x: 0, y: 4 })).toEqual([
       [false, false, false, false, false],
       [false, false, false, false, false],
@@ -90,7 +205,7 @@ describe('getWordCells', () => {
 });
 
 function createResult(cells: Cell[]): Result {
-  return new Result({ cells, collisions: [], id: 0, points: 0 });
+  return new Result({ cells, collisions: [], id: 0, locale: Locale.EN_US, points: 0 });
 }
 
 function createPlacedCell(character: string, x: number, y: number): Cell {
@@ -103,4 +218,12 @@ function createFilledCell(character: string, x: number, y: number): Cell {
 
 function createEmptyCell(x: number, y: number): Cell {
   return new Cell({ isEmpty: true, tile: Tile.Null, x, y });
+}
+
+function readReachable(grid: boolean[][]): string[] {
+  return grid.map((row) => row.map((isReachable) => (isReachable ? '#' : '.')).join(''));
+}
+
+function createBonus(bonus: Partial<Bonus>): Bonus {
+  return bonus as Bonus;
 }

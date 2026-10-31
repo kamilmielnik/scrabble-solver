@@ -19,7 +19,8 @@ export const median = (values: number[]): number => {
 };
 
 export const formatDuration = (milliseconds: number): string => {
-  return milliseconds < 1000 ? `${Math.round(milliseconds)} ms` : `${(milliseconds / 1000).toFixed(1)} s`;
+  const rounded = Math.round(milliseconds);
+  return rounded < 1000 ? `${rounded} ms` : `${(milliseconds / 1000).toFixed(1)} s`;
 };
 
 export const formatBlanksCount = (blanksCount: number): string => {
