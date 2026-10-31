@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 const path = require('path');
-const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
   reactStrictMode: true,
@@ -40,6 +39,8 @@ module.exports = {
     }
 
     if (!isServer && !dev) {
+      const WorkboxPlugin = require('workbox-webpack-plugin');
+
       config.plugins.push(
         new WorkboxPlugin.InjectManifest({
           swSrc: path.join(__dirname, 'src/service-worker/index.ts'),

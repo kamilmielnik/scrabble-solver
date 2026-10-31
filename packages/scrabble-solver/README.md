@@ -1,19 +1,25 @@
-# @scrabble-solver/scrabble-solver
+# scrabble-solver
 
-The Scrabble Solver app.
+Free, open-source, cross-platform, multi-language analysis tool for Scrabble, Scrabble Duel, Super Scrabble, Letter League, Crossplay, Literaki, Kelimelik, Wyrazy, and Wordfeud. Quickly find the top-scoring words using the given board and tiles.
 
-Available at: https://scrabble-solver.org/
+Available at https://scrabble-solver.org in 8 languages.
 
-## Scripts
+## Run
 
-### `bun run build`
+You can run Scrabble Solver on your machine - all you need is [Bun](https://bun.sh/) 1.4 or later.
 
-Run production build and place the output in `./next/`.
+```Shell
+bunx scrabble-solver@latest
+```
 
-### `bun run dev`
+Alternatively you can use [Node.js](https://nodejs.org/) 24 or later instead.
 
-Run development server with hot-reload.
+```Shell
+npx scrabble-solver@latest
+```
 
-### `bun start`
+Give it a while to install and download dictionaries. When it's done it will automatically open http://localhost:3333/ in your browser.
 
-Run production server.
+Hit <kbd>Ctrl</kbd> + <kbd>C</kbd> in your terminal to exit the app and shut down the server.
+
+See the [project README](https://github.com/kamilmielnik/scrabble-solver#readme) for more.

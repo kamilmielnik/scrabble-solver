@@ -1,59 +1,30 @@
 {
-  "name": "scrabble-solver",
-  "version": "2.18.9",
-  "description": "Scrabble Solver 2 - Free, open-source, cross-platform, multi-language analysis tool for Scrabble, Scrabble Duel, Super Scrabble, Letter League, Crossplay, Literaki, Kelimelik, Wyrazy, and Wordfeud. Quickly find the top-scoring words using the given board and tiles.",
-  "keywords": [
-    "scrabble",
-    "scrabble-solver",
-    "scrabble word finder",
-    "word finder",
-    "anagram solver",
-    "word game",
-    "scrabble cheat",
-    "scrabble dictionary",
-    "super scrabble",
-    "scrabble duel",
-    "letter league",
-    "crossplay",
-    "literaki",
-    "kelimelik",
-    "wyrazy",
-    "wordfeud",
-    "board game",
-    "gaddag"
-  ],
+  "name": "scrabble-solver-2",
+  "private": true,
   "engines": {
     "bun": ">=1.4",
     "node": ">=24"
-  },
-  "bin": {
-    "scrabble-solver": "./bin/scrabble-solver.js"
   },
   "scripts": {
     "benchmark": "bun run --filter @scrabble-solver/solver benchmark",
     "build": "bun run --filter './packages/*' build && tsc --project e2e",
     "clean": "bun run --filter './packages/*' clean && rimraf node_modules/",
-    "dev": "bun run --filter @scrabble-solver/scrabble-solver dev",
+    "dev": "bun run --filter scrabble-solver dev",
     "format": "oxfmt --check './**/*.{js,ts,tsx,scss}'",
     "format:fix": "oxfmt './**/*.{js,ts,tsx,scss}'",
     "lint": "oxlint e2e packages",
     "lint:fix": "bun run lint --fix",
     "reinstall": "bun run clean && bun install && bun run build",
-    "release": "bun run release:prepare && bun run release:publish",
-    "release:prepare": "bun run reinstall",
-    "release:publish": "bun run version:bump && np --no-cleanup --package-manager bun && lerna publish from-package --yes",
+    "release": "bun scripts/release.ts",
     "screencast": "start-server-and-test start:app http://localhost:3333 screencast:record",
     "screencast:record": "bun scripts/record-screencast.ts",
-    "start": "bun run --parallel --no-orphans 'start:*'",
+    "start": "node packages/scrabble-solver/bin/scrabble-solver.js",
     "start:app": "bun run --cwd packages/scrabble-solver start",
-    "start:browser": "wait-on http://localhost:3333 && open-cli http://localhost:3333",
     "test": "bun run build && bun run test-unit && start-server-and-test start:app http://localhost:3333 test-playwright:run",
     "test-playwright": "playwright test --ui",
     "test-playwright:run": "PLAYWRIGHT_BASE_URL=http://localhost:3333 playwright test",
     "test-unit": "bun run --filter '*' test",
-    "version:bump": "bun run version:bump-lerna && bun run version:commit",
-    "version:bump-lerna": "lerna version --force-publish --exact --no-git-tag-version --no-push",
-    "version:commit": "bun bump-version.js && git add . && git commit -m \"Bump version\""
+    "version": "bun install --lockfile-only && git add bun.lock && bun run test"
   },
   "repository": {
     "type": "git",
@@ -80,11 +51,6 @@
     "packages/solver",
     "packages/scrabble-solver"
   ],
-  "dependencies": {
-    "@scrabble-solver/scrabble-solver": "2.18.9",
-    "open-cli": "9.0.0",
-    "wait-on": "9.5.1"
-  },
   "devDependencies": {
     "@playwright/test": "1.64.1",
     "@types/bun": "1.4.4",
@@ -93,7 +59,6 @@
     "eslint-plugin-playwright": "2.12.1",
     "eslint-plugin-react": "7.37.5",
     "lerna": "10.1.1",
-    "np": "12.1.1",
     "oxfmt": "0.75.0",
     "oxlint": "1.90.0",
     "oxlint-tsgolint": "7.0.2005",

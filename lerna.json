@@ -1,4 +1,14 @@
 {
+  "command": {
+    "publish": {
+      "preDistTag": "next"
+    },
+    "version": {
+      "allowBranch": "master",
+      "exact": true,
+      "forcePublish": true
+    }
+  },
   "packages": [
     "packages/*"
   ],

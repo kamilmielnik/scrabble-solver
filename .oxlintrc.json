@@ -40,7 +40,6 @@
     "**/node_modules/**/*",
     "**/*.d.ts",
     "**/.eslintrc.js",
-    "**/bump-version.js",
     "packages/scrabble-solver/next.config.js",
     "scripts/record-screencast.ts",
     "packages/scrabble-solver/public/service-worker.js",
