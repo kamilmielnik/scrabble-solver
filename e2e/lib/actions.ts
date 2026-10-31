@@ -25,10 +25,79 @@ export async function visitIndex(page: Page): Promise<void> {
   await page.goto('/');
 }
 
+/**
+ * The visit is reported once the browser is idle, so this also waits out the deferred boot work.
+ */
+export async function visitIndexUntilIdle(page: Page): Promise<void> {
+  const visit = page.waitForRequest('**/api/visit');
+  await visitIndex(page);
+  await visit;
+}
+
 export async function preferKeyboardInput(page: Page): Promise<void> {
   await page.addInitScript(() => {
     localStorage.setItem('scrabble-solver.settings', JSON.stringify({ inputMode: 'keyboard' }));
   });
+}
+
+/**
+ * Seeds storage once per tab, so that a test can reload and see what the app itself persisted.
+ */
+export async function persistSettings(page: Page, settings: Record<string, string>): Promise<void> {
+  await page.addInitScript((value) => {
+    if (sessionStorage.getItem('e2e-seeded') === null) {
+      sessionStorage.setItem('e2e-seeded', 'true');
+      localStorage.setItem('scrabble-solver.settings', value);
+    }
+  }, JSON.stringify(settings));
+}
+
+export function trackPageProblems(page: Page): string[] {
+  const problems: string[] = [];
+
+  page.on('pageerror', (error) => problems.push(`pageerror: ${error.message}`));
+  page.on('console', (message) => {
+    if (message.type() === 'error') {
+      problems.push(`console: ${message.text()}`);
+    }
+  });
+  page.on('response', (response) => {
+    if (response.status() >= 400) {
+      problems.push(`${response.status()}: ${response.url()}`);
+    }
+  });
+
+  return problems;
+}
+
+export function trackRequests(page: Page, urlPart: string): string[] {
+  const urls: string[] = [];
+
+  page.on('request', (request) => {
+    if (request.url().includes(urlPart)) {
+      urls.push(request.url());
+    }
+  });
+
+  return urls;
+}
+
+export async function routeDefinitions(page: Page, definitions: string[]): Promise<void> {
+  await page.route('**/api/dictionary/*/*', async (route) => {
+    const word = decodeURIComponent(route.request().url().split('/').at(-1) ?? '');
+    await route.fulfill({ json: [{ definitions, exists: true, isAllowed: true, word }] });
+  });
+}
+
+export async function waitForCachedDictionary(page: Page, locale = 'en-US'): Promise<void> {
+  await expect.poll(() => isDictionaryCached(page, locale), { timeout: 60_000 }).toBe(true);
+}
+
+export function isDictionaryCached(page: Page, locale = 'en-US'): Promise<boolean> {
+  return page.evaluate(async (url) => {
+    const cache = await caches.open('dictionary-api-cache');
+    return typeof (await cache.match(url)) !== 'undefined';
+  }, `/api/dictionary/${locale}`);
 }
 
 export async function closeModal(page: Page): Promise<void> {
