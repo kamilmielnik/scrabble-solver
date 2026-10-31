@@ -39,14 +39,19 @@ assertLoggedIn();
 
 if (releaseArguments[0] === 'resume') {
   restoreManifestsAfterFailedPublish();
+  publish();
 } else {
+  const previousVersion = readVersion();
+
   assertCleanReleaseBranch();
   run('bun', 'run', 'clean');
   run('bun', 'install', '--frozen-lockfile');
   run('bunx', 'lerna', 'version', ...releaseArguments);
-}
 
-publish();
+  if (readVersion() !== previousVersion) {
+    publish();
+  }
+}
 
 function assertLoggedIn(): void {
   run('npm', 'whoami');
@@ -54,7 +59,7 @@ function assertLoggedIn(): void {
 }
 
 function publish(): void {
-  const { version }: { version: string } = JSON.parse(readFileSync(path.join(ROOT_DIRECTORY, 'lerna.json'), 'utf8'));
+  const version = readVersion();
 
   assertCleanReleaseBranch();
   assertHeadIsTagged(version);
@@ -178,6 +183,12 @@ function getPublishedPackages(): PublishedPackage[] {
 
 function readManifest(directory: string): Manifest {
   return JSON.parse(readFileSync(path.join(directory, 'package.json'), 'utf8'));
+}
+
+function readVersion(): string {
+  const { version }: { version: string } = JSON.parse(readFileSync(path.join(ROOT_DIRECTORY, 'lerna.json'), 'utf8'));
+
+  return version;
 }
 
 function read(command: string, ...args: string[]): string {
