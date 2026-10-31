@@ -12,6 +12,7 @@ const REPOSITORY = 'https://raw.githubusercontent.com/kamilmielnik/scrabble-dict
 const POLISH_PAGE_URL = 'https://sjp.pl/sl/growy/';
 
 const LOCALE_FILE_URLS: Record<Locale, string> = {
+  [Locale.CA_ES]: `${REPOSITORY}/master/catalan/disc.txt`,
   [Locale.DE_DE]: `${REPOSITORY}/refs/heads/master/german/german.txt`,
   [Locale.EN_GB]: `${REPOSITORY}/refs/heads/master/english/sowpods.txt`,
   [Locale.EN_US]: `${REPOSITORY}/refs/heads/master/english/twl06.txt`,
