@@ -195,8 +195,17 @@ export class ReferenceSolver {
   }
 
   private hasAdjacentDigraph(characters: string[]): boolean {
-    const digraphs = this.config.twoCharacterTiles;
-    return characters.some((character, index) => index > 0 && digraphs.includes(characters[index - 1] + character));
+    const { digraphs } = this.config;
+
+    for (let start = 0; start < characters.length; ++start) {
+      for (let end = start + 2; end <= characters.length; ++end) {
+        if (digraphs.includes(characters.slice(start, end).join(''))) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   private isConnected(): boolean {
