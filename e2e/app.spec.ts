@@ -34,7 +34,7 @@ test.describe('app', () => {
   test('shows the version of the build', async ({ page }) => {
     await visitIndex(page);
 
-    await expect(page.getByTitle(`v${version}`)).toBeVisible();
+    await expect(page.getByTitle(`v${version}`, { exact: true })).toBeVisible();
   });
 
   test('has default setting values', async ({ page }) => {
