@@ -9,7 +9,9 @@ import { PassThrough } from 'stream';
 
 import { getRejection } from '../test/getRejection';
 import { installTempFileSandbox } from '../test/installTempFileSandbox';
+import { shortenDownloadTimeout } from '../test/shortenDownloadTimeout';
 import { startAbortingServer } from '../test/startAbortingServer';
+import { startStallingServer } from '../test/startStallingServer';
 
 import type * as downloadFileModule from './downloadFile';
 
@@ -19,6 +21,7 @@ const { downloadFile }: typeof downloadFileModule = await import('./downloadFile
 const REFUSED_URL = 'http://127.0.0.1:1/file';
 const BINARY_BODY = Buffer.from([0x00, 0xff, 0xfe, 0x80, 0x0d, 0x0a]);
 const LARGE_BODY = Buffer.alloc(1024 * 1024, 'word\n');
+const STALLED_BODY = 'HTTP/1.1 200 OK\r\nContent-Length: 1000\r\n\r\npartial';
 const REDIRECTS: Record<string, string> = {
   '/moved-permanently': '/file',
   '/moved-temporarily': '/file',
@@ -117,6 +120,20 @@ describe('downloadFile', () => {
     expect((await getRejection(downloadFile(REFUSED_URL))).message).toContain('ECONNREFUSED');
   });
 
+  it('gives up on a server that never answers', async () => {
+    shortenDownloadTimeout();
+
+    expect(await getRejection(downloadFile(await startStallingServer()))).toBeInstanceOf(Error);
+  });
+
+  it('gives up on a server that stops in the middle of the body and removes the partial file', async () => {
+    shortenDownloadTimeout();
+    const url = await startStallingServer(STALLED_BODY);
+
+    expect(await getRejection(downloadFile(url))).toBeInstanceOf(Error);
+    expect(tempFiles.listFiles()).toEqual([]);
+  });
+
   it('rejects when the connection drops in the middle of the body', async () => {
     const url = await startAbortingServer('partial');
 
@@ -200,13 +217,13 @@ function respond(request: Request): Response {
   }
 }
 
-function answerWithoutStatusCode(_url: string, callback: (response: PassThrough) => void) {
+function answerWithoutStatusCode(_url: string, _options: unknown, callback: (response: PassThrough) => void) {
   queueMicrotask(() => {
     callback(new PassThrough());
   });
   return { on: () => undefined };
 }
 
-function forwardToLocalFile(_url: string, callback: Parameters<typeof http.get>[1]) {
+function forwardToLocalFile(_url: string, _options: unknown, callback: Parameters<typeof http.get>[1]) {
   return realHttpGet(`${origin}/file`, callback);
 }

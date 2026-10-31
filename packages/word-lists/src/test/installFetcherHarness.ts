@@ -1,6 +1,7 @@
 import { serve } from 'bun';
 import { afterAll, afterEach, beforeEach, mock, spyOn } from 'bun:test';
 import { http, https } from 'follow-redirects';
+import { type RequestOptions } from 'http';
 
 import { installTempFileSandbox } from './installTempFileSandbox';
 
@@ -65,10 +66,10 @@ export function installFetcherHarness(): FetcherHarness {
     Object.assign(String.prototype, { toLocaleLowerCase: recordLocaleAndLowerCase });
   }
 
-  function forwardToLocalServer(url: string, callback: Parameters<typeof http.get>[1]) {
+  function forwardToLocalServer(url: string, options: RequestOptions, callback: () => void) {
     requestedUrls.push(url);
     const target = refusedUrls.has(url) ? NOTHING_LISTENS_HERE : `${server.url.origin}/${encodeURIComponent(url)}`;
-    return http.get(target, callback);
+    return http.get(target, options, callback);
   }
 
   function recordLocaleAndLowerCase(this: string, locales?: Intl.LocalesArgument): string {

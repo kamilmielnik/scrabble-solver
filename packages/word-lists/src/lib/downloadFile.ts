@@ -3,6 +3,8 @@ import fs from 'fs';
 import { type IncomingMessage } from 'http';
 import { pipeline } from 'stream/promises';
 
+import { DOWNLOAD_TIMEOUT_MS } from '../constants';
+
 import { getTempFilepath } from './getTempFilepath';
 
 export async function downloadFile(url: string): Promise<string> {
@@ -27,6 +29,6 @@ function get(url: string): Promise<IncomingMessage> {
   const protocol = url.startsWith('https') ? https : http;
 
   return new Promise((resolve, reject) => {
-    protocol.get(url, resolve).on('error', reject);
+    protocol.get(url, { signal: AbortSignal.timeout(DOWNLOAD_TIMEOUT_MS) }, resolve).on('error', reject);
   });
 }

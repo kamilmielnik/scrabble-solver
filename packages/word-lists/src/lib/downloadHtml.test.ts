@@ -4,7 +4,9 @@ import { http, https } from 'follow-redirects';
 import { PassThrough } from 'stream';
 
 import { getRejection } from '../test/getRejection';
+import { shortenDownloadTimeout } from '../test/shortenDownloadTimeout';
 import { startAbortingServer } from '../test/startAbortingServer';
+import { startStallingServer } from '../test/startStallingServer';
 
 import { downloadHtml } from './downloadHtml';
 
@@ -12,6 +14,7 @@ const REFUSED_URL = 'http://127.0.0.1:1/page';
 const PAGE = '<html><body>strona główna</body></html>';
 const PAGE_BYTES = Buffer.from(PAGE);
 const BYTE_INSIDE_MULTIBYTE_CHARACTER = PAGE_BYTES.indexOf(Buffer.from('ó')) + 1;
+const STALLED_PAGE = 'HTTP/1.1 200 OK\r\nContent-Length: 1000\r\n\r\n<html>';
 
 const server = serve({ fetch: respond, port: 0 });
 const origin = server.url.origin;
@@ -77,6 +80,31 @@ describe('downloadHtml', () => {
   it('rejects when the connection is refused', async () => {
     expect((await getRejection(downloadHtml(REFUSED_URL))).message).toContain('ECONNREFUSED');
   });
+
+  it('gives up on a server that never answers', async () => {
+    shortenDownloadTimeout();
+
+    expect(await getRejection(downloadHtml(await startStallingServer()))).toBeInstanceOf(Error);
+  });
+
+  it('gives up on a server that stops in the middle of the page', async () => {
+    shortenDownloadTimeout();
+    const url = await startStallingServer(STALLED_PAGE);
+
+    expect(await getRejection(downloadHtml(url))).toBeInstanceOf(Error);
+  });
+
+  it('gives up on a redirect to a server that never answers', async () => {
+    shortenDownloadTimeout();
+    const stallingUrl = await startStallingServer();
+    const redirectingServer = serve({
+      fetch: () => new Response(null, { headers: { Location: stallingUrl }, status: 302 }),
+      port: 0,
+    });
+
+    expect(await getRejection(downloadHtml(redirectingServer.url.href))).toBeInstanceOf(Error);
+    await redirectingServer.stop(true);
+  });
 });
 
 function respond(request: Request): Response {
@@ -93,7 +121,7 @@ function respond(request: Request): Response {
 }
 
 function answerWith(response: PassThrough) {
-  function get(_url: string, callback: (response: PassThrough) => void) {
+  function get(_url: string, _options: unknown, callback: (response: PassThrough) => void) {
     callback(response);
     return { on: () => undefined };
   }
@@ -101,6 +129,6 @@ function answerWith(response: PassThrough) {
   return get as unknown as typeof http.get;
 }
 
-function forwardToLocalPage(_url: string, callback: Parameters<typeof http.get>[1]) {
+function forwardToLocalPage(_url: string, _options: unknown, callback: Parameters<typeof http.get>[1]) {
   return realHttpGet(`${origin}/page`, callback);
 }
