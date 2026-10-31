@@ -3,7 +3,7 @@ import { Locale } from '@scrabble-solver/types';
 const LOCALES = Object.values(Locale);
 
 // Canada plays the North American word list, like the US
-const REGIONAL_LOCALES: Partial<Record<string, Locale>> = { 'en-CA': Locale.EN_US };
+const REGIONAL_LOCALES: Record<string, Locale> = { 'en-CA': Locale.EN_US };
 
 export function guessLocale(): Locale {
   if (!globalThis.navigator) {
