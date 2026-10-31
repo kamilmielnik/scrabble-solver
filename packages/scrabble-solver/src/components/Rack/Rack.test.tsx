@@ -7,7 +7,7 @@ import { Locale } from '@scrabble-solver/types';
 import { act, fireEvent, screen } from '@testing-library/react';
 import { describe, expect, it } from 'bun:test';
 
-import { appInitialState, appSlice } from '../../state/app';
+import { appSlice } from '../../state/app';
 import { hoveredTileSlice } from '../../state/hoveredTile';
 import { resultsInitialState } from '../../state/results';
 import { settingsInitialState, settingsSlice } from '../../state/settings';
@@ -308,7 +308,7 @@ describe('touchscreen input mode', () => {
   });
 
   it('drops the focus of the server-rendered autofocus once hydration finds a touch device', () => {
-    const { store } = setup({ app: { ...appInitialState, hydrated: false } });
+    const { store } = setup();
     expect(document.activeElement).toBe(getTile(1));
 
     act(() => {
@@ -321,7 +321,7 @@ describe('touchscreen input mode', () => {
   });
 
   it('keeps the autofocus through hydration in keyboard mode', () => {
-    const { store } = setup({ app: { ...appInitialState, hydrated: false } });
+    const { store } = setup();
 
     act(() => {
       store.dispatch(appSlice.actions.hydrated());
