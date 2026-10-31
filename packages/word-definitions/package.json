@@ -25,7 +25,7 @@
   },
   "homepage": "https://scrabble-solver.org",
   "scripts": {
-    "build": "tsc --project .",
+    "build": "tsc --project tsconfig.build.json && tsc",
     "clean": "rimraf build/",
     "test": "bun test --isolate --timeout 180000 src"
   },

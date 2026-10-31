@@ -51,7 +51,7 @@
     "generate-scss-types": "bun scripts/generate-scss-types.ts",
     "start": "env-cmd next start -p 3333",
     "test": "bun test --isolate --timeout 180000 src",
-    "type-check": "bun run generate-scss-types && tsc --noEmit"
+    "type-check": "bun run generate-scss-types && tsc --noEmit --incremental false"
   },
   "dependencies": {
     "@floating-ui/react": "0.27.20",

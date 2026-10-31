@@ -25,7 +25,7 @@
   },
   "homepage": "https://scrabble-solver.org",
   "scripts": {
-    "build": "tsc --project . && tsc --project scripts",
+    "build": "tsc --project tsconfig.build.json && tsc && tsc --project scripts",
     "clean": "rimraf build/",
     "export": "bun scripts/export-csv.ts",
     "test": "bun test src scripts"
