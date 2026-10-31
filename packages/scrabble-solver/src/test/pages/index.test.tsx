@@ -25,9 +25,6 @@ import type * as virtualListModule from '../virtualList';
 const registerServiceWorker = mock(() => Promise.resolve());
 const schedulePreloadModals = mock();
 const execSync = mock((_command: string) => Buffer.from('abc123\n'));
-function never(): Promise<void> {
-  return new Promise<void>(noop);
-}
 const realChildProcess = await import('child_process');
 
 await mock.module('child_process', () => ({ ...realChildProcess, execSync }));
@@ -385,4 +382,8 @@ function createVerifyState() {
 
 function defaultSort() {
   return { column: 'word', direction: 'ascending' } as never;
+}
+
+function never(): Promise<void> {
+  return new Promise<void>(noop);
 }

@@ -28,9 +28,6 @@ import { Spinner } from './Spinner';
 
 const persian = { settings: { ...settingsInitialState, locale: Locale.FA_IR } };
 const turkish = { settings: { ...settingsInitialState, locale: Locale.TR_TR } };
-function Icon() {
-  return <svg data-testid="icon" />;
-}
 
 describe('Alert', () => {
   it.each([
@@ -437,4 +434,8 @@ describe('Spinner', () => {
 
 function readTiles(container: HTMLElement): string {
   return Array.from(container.querySelectorAll('text'), (text) => text.textContent).join('');
+}
+
+function Icon() {
+  return <svg data-testid="icon" />;
 }

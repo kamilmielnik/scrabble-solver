@@ -14,14 +14,6 @@ const directory = join(import.meta.dir, 'languages');
 const files = readdirSync(directory);
 const allKeys = Object.keys(englishTranslations).sort();
 
-function readPlaceholders(text: string): string[] {
-  return Array.from(text.matchAll(/\{\{(\w+)\}\}/g), ([, name]) => name).sort();
-}
-
-function readLanguage(file: string): Record<string, string> {
-  return JSON.parse(readFileSync(join(directory, file), 'utf8'));
-}
-
 describe('language files', () => {
   it.each(files)('%s has exactly the keys of English', (file) => {
     expect(Object.keys(readLanguage(file)).sort()).toEqual(allKeys);
@@ -114,3 +106,11 @@ describe('configs', () => {
     expect(Object.keys(games).length).toBeGreaterThan(0);
   });
 });
+
+function readPlaceholders(text: string): string[] {
+  return Array.from(text.matchAll(/\{\{(\w+)\}\}/g), ([, name]) => name).sort();
+}
+
+function readLanguage(file: string): Record<string, string> {
+  return JSON.parse(readFileSync(join(directory, file), 'utf8'));
+}
