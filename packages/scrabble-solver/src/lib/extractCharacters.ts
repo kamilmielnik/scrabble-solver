@@ -4,6 +4,7 @@ import { type Config, type Locale } from '@scrabble-solver/types';
 import { localeTransliterate } from './localeTransliterate';
 
 interface Options {
+  keepDigraphParts?: boolean;
   upperCaseDigraphsOnly?: boolean;
 }
 
@@ -13,29 +14,37 @@ export const extractCharacters = (config: Config, value: string, options?: Optio
   const finalValue = localeTransliterate(config.locale, value);
 
   while (index < finalValue.length) {
-    const character = finalValue[index];
-    const characterLowercase = character.toLocaleLowerCase(config.locale);
-    const nextCharacter = finalValue[index + 1];
-    const digraph = `${character}${nextCharacter}`;
-    const digraphLowercase = digraph.toLocaleLowerCase(config.locale);
+    const digraph = findLeadingDigraph(config, finalValue.substring(index), options);
 
-    const isValidDigraph = options?.upperCaseDigraphsOnly
-      ? config.twoCharacterTiles.includes(digraphLowercase) && isUpperCase(config.locale, digraph)
-      : config.twoCharacterTiles.includes(digraphLowercase);
-
-    if (isValidDigraph) {
-      characters.push(digraphLowercase);
-      index += digraphLowercase.length;
-    } else if (config.hasCharacter(characterLowercase) || characterLowercase === BLANK) {
-      characters.push(characterLowercase);
-      ++index;
-    } else {
-      ++index;
+    if (digraph) {
+      characters.push(digraph);
+      index += digraph.length;
+      continue;
     }
+
+    const character = finalValue[index].toLocaleLowerCase(config.locale);
+    const isDigraphPart = options?.keepDigraphParts && config.isDigraphPart(character);
+
+    if (config.hasCharacter(character) || character === BLANK || isDigraphPart) {
+      characters.push(character);
+    }
+
+    ++index;
   }
 
   return characters;
 };
+
+function findLeadingDigraph(config: Config, value: string, options?: Options): string | undefined {
+  const digraphs = config.digraphs.sort((digraphA, digraphB) => digraphB.length - digraphA.length);
+
+  return digraphs.find((digraph) => {
+    const candidate = value.substring(0, digraph.length);
+    const isSpelled = candidate.toLocaleLowerCase(config.locale) === digraph;
+
+    return isSpelled && (!options?.upperCaseDigraphsOnly || isUpperCase(config.locale, candidate));
+  });
+}
 
 const isUpperCase = (locale: Locale, value: string): boolean => {
   return value === value.toLocaleUpperCase(locale);

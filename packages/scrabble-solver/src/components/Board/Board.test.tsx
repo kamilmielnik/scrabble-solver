@@ -559,6 +559,201 @@ describe('two-letter tiles', () => {
   });
 });
 
+describe('digraphs longer than two letters', () => {
+  const settings = { ...settingsInitialState, locale: Locale.CA_ES };
+
+  it('keeps the typed letters until the last one joins them into the first cell', () => {
+    const { store } = setup({ settings });
+
+    type('A1', 'l');
+    type('B1', '·');
+
+    expect(readRow(store, 0).slice(0, 3)).toEqual(['l', '·', ' ']);
+
+    type('C1', 'l');
+
+    expect(readRow(store, 0).slice(0, 3)).toEqual(['l·l', ' ', ' ']);
+    expect(document.activeElement).toBe(getCell('B1'));
+  });
+
+  it('reads a whole word typed letter by letter', () => {
+    const { store } = setup({ settings });
+
+    type('A1', 'c');
+    type('B1', 'e');
+    type('C1', 'l');
+    type('D1', '·');
+    type('E1', 'l');
+    type('D1', 'a');
+
+    expect(readRow(store, 0).slice(0, 5)).toEqual(['c', 'e', 'l·l', 'a', ' ']);
+    expect(document.activeElement).toBe(getCell('E1'));
+  });
+
+  it('joins downwards when typing downwards', () => {
+    const { store } = setup({ settings });
+
+    fireEvent.focus(getCell('A1'));
+    press('A1', 'ArrowDown');
+    type('A1', 'l');
+    type('A2', '·');
+    type('A3', 'l');
+
+    expect(readBoard(store, 0, 0)).toBe('l·l');
+    expect(readBoard(store, 0, 1)).toBe(' ');
+    expect(readBoard(store, 0, 2)).toBe(' ');
+    expect(document.activeElement).toBe(getCell('A2'));
+  });
+
+  it('joins with the tiles above when typing sideways, staying in the cell', () => {
+    const { store } = setup({ board: createBoard({ 0: 'l', 15: '·' }), settings });
+
+    type('A3', 'l');
+
+    expect(readBoard(store, 0, 0)).toBe('l·l');
+    expect(readBoard(store, 0, 1)).toBe(' ');
+    expect(document.activeElement).toBe(getCell('A3'));
+  });
+
+  it('keeps two l tiles apart, so that cella stays a word', () => {
+    const { store } = setup({ settings });
+
+    type('A1', 'l');
+    type('B1', 'l');
+
+    expect(readRow(store, 0).slice(0, 2)).toEqual(['l', 'l']);
+  });
+
+  it('joins a missing letter between two tiles', () => {
+    const { store } = setup({ board: createBoard({ 0: 'l', 2: 'l' }), settings });
+
+    type('B1', '·');
+
+    expect(readRow(store, 0).slice(0, 3)).toEqual(['l·l', ' ', ' ']);
+    expect(document.activeElement).toBe(getCell('B1'));
+  });
+
+  it('joins in the last column, where focus cannot move on', () => {
+    const { store } = setup({ board: createBoard({ 13: 'l', 14: '·' }), settings });
+
+    fireEvent.focus(getCell('O1'));
+    paste('O1', 'l');
+
+    expect(readBoard(store, 13, 0)).toBe('l·l');
+    expect(readBoard(store, 14, 0)).toBe(' ');
+  });
+
+  it('does not join with a blank tile', () => {
+    const board = createBoard({ 0: 'l' });
+    board.rows[0][0].tile.isBlank = true;
+
+    const { store } = setup({ board, settings });
+
+    type('B1', '·');
+    type('B1', 'l');
+
+    expect(readRow(store, 0).slice(0, 2)).toEqual(['l', 'l']);
+  });
+
+  it('accepts a look-alike of the middle dot', () => {
+    const { store } = setup({ settings });
+
+    type('A1', 'l');
+    type('B1', '.');
+    type('C1', 'l');
+
+    expect(readBoard(store, 0, 0)).toBe('l·l');
+  });
+
+  it.each([
+    ['qu', 'q', 'u'],
+    ['ny', 'n', 'y'],
+  ])('joins %s, even though one of its letters is no tile', (digraph, first, second) => {
+    const { store } = setup({ settings });
+
+    type('A1', first);
+    type('B1', second);
+
+    expect(readRow(store, 0).slice(0, 2)).toEqual([digraph, ' ']);
+    expect(document.activeElement).toBe(getCell('B1'));
+  });
+
+  it('marks a letter that is no tile as invalid until it is joined', () => {
+    setup({ settings });
+
+    type('A1', 'q');
+
+    expect(getCell('A1').parentElement!.className).toContain('invalid');
+
+    type('B1', 'u');
+
+    expect(getCell('A1').parentElement!.className).not.toContain('invalid');
+  });
+
+  it.each(['·', 'y'])('drops %s when it continues no digraph', (character) => {
+    const { store } = setup({ settings });
+
+    type('A1', character);
+
+    expect(readBoard(store, 0, 0)).toBe(' ');
+    expect(document.activeElement).not.toBe(getCell('B1'));
+  });
+
+  it.each([
+    ['l', 'l·l'],
+    ['y', 'ny'],
+    ['u', 'qu'],
+  ])('inserts with ctrl and %s the digraph %s', (key, digraph) => {
+    const { store } = setup({ settings });
+
+    fireEvent.focus(getCell('A1'));
+    press('A1', key, { ctrlKey: true });
+
+    expect(readBoard(store, 0, 0)).toBe(digraph);
+    expect(document.activeElement).toBe(getCell('B1'));
+  });
+
+  it.each(['n', 'q'])('leaves ctrl and %s to the browser', (key) => {
+    const { store } = setup({ settings });
+
+    expect(fireEvent.keyDown(getCell('A1'), { ctrlKey: true, key })).toBe(true);
+    expect(readBoard(store, 0, 0)).toBe(' ');
+  });
+
+  it('pastes a word as digraphs', () => {
+    const { store } = setup({ settings });
+
+    paste('A1', 'CEL·LA');
+
+    expect(readRow(store, 0).slice(0, 4)).toEqual(['c', 'e', 'l·l', 'a']);
+    expect(document.activeElement).toBe(getCell('E1'));
+  });
+
+  it('pastes a word without the digraph as separate tiles', () => {
+    const { store } = setup({ settings });
+
+    paste('A1', 'cella');
+
+    expect(readRow(store, 0).slice(0, 5)).toEqual(['c', 'e', 'l', 'l', 'a']);
+  });
+
+  it('pastes a word that loses its accents and keeps its cedilla', () => {
+    const { store } = setup({ settings });
+
+    paste('A1', 'cançó');
+
+    expect(readRow(store, 0).slice(0, 5)).toEqual(['c', 'a', 'n', 'ç', 'o']);
+  });
+
+  it('drops a pasted part of a digraph that continues nothing', () => {
+    const { store } = setup({ settings });
+
+    paste('A1', 'a·b');
+
+    expect(readRow(store, 0).slice(0, 3)).toEqual(['a', 'b', ' ']);
+  });
+});
+
 describe('pasting', () => {
   it('writes letters along the current direction, lowercased', () => {
     const { store } = setup();
