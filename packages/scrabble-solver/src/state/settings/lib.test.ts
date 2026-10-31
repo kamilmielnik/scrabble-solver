@@ -23,6 +23,8 @@ describe('guessLocale', () => {
     [['ro-MD'], 'ro-MD', Locale.RO_RO],
     [['de-AT'], 'de-AT', Locale.DE_DE],
     [['es-MX'], 'es-MX', Locale.ES_ES],
+    [['en-CA'], 'en-CA', Locale.EN_US],
+    [['en-AU'], 'en-AU', Locale.EN_GB],
     [['caa'], 'caa', Locale.EN_US],
   ])('maps languages %j to the matching locale', (languages, language, expected) => {
     withNavigator({ language, languages }, () => {
