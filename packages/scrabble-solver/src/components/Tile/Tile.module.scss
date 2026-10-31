@@ -117,13 +117,9 @@
   height: var(--size);
   inset-block-start: 0;
   inset-inline-end: 0;
+  border-radius: 12.5%;
   border-start-end-radius: inherit;
-  background: radial-gradient(
-    var(--color--error--opposite),
-    var(--color--error--opposite) 85%,
-    transparent 85%,
-    transparent
-  );
-  color: var(--color--error);
+  background-color: var(--color--error);
+  color: var(--color--error--opposite);
   pointer-events: none;
 }

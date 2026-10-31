@@ -10,7 +10,7 @@ import {
   memo,
 } from 'react';
 
-import ExclamationSquareFill from '@/icons/ExclamationSquareFill.svg';
+import Exclamation from '@/icons/Exclamation.svg';
 
 import styles from './Tile.module.scss';
 
@@ -99,7 +99,7 @@ const TilePureBase: FunctionComponent<Props> = ({
 
     {canShowPoints && <span className={styles.points}>{pointsFormatted}</span>}
 
-    {!isValid && <ExclamationSquareFill aria-hidden="true" className={styles.alert} role="img" />}
+    {!isValid && <Exclamation aria-hidden="true" className={styles.alert} role="img" />}
   </div>
 );
 

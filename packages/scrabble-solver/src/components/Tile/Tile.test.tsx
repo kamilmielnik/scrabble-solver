@@ -81,13 +81,13 @@ describe('Tile', () => {
     setup({ character: 'a', isValid: false });
 
     expect(getTile().className).toContain('invalid');
-    expect(getTile().querySelector('[data-icon="ExclamationSquareFill.svg"]')).not.toBeNull();
+    expect(getTile().querySelector('[data-icon="Exclamation.svg"]')).not.toBeNull();
   });
 
   it('shows no warning for a valid tile', () => {
     setup({ character: 'a', isValid: true });
 
-    expect(getTile().querySelector('[data-icon="ExclamationSquareFill.svg"]')).toBeNull();
+    expect(getTile().querySelector('[data-icon="Exclamation.svg"]')).toBeNull();
   });
 
   it('marks blank and raised tiles', () => {
