@@ -27,7 +27,7 @@ const transliteratePerLocale: Record<Locale, (word: string) => string> = {
 };
 
 export function localeTransliterate(locale: Locale, value: string): string {
-  return transliteratePerLocale[locale](value);
+  return transliteratePerLocale[locale](value.normalize('NFC'));
 }
 
 function transliterateCatalan(word: string): string {

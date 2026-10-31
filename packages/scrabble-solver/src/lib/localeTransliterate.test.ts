@@ -29,4 +29,13 @@ describe('localeTransliterate', () => {
   ])(`[$locale] "$word"`, ({ locale, word, expected }) => {
     expect(localeTransliterate(locale, word)).toEqual(expected);
   });
+
+  it.each([
+    { locale: Locale.CA_ES, word: 'cançó', expected: 'canço' },
+    { locale: Locale.CA_ES, word: 'CANÇÓ', expected: 'CANÇO' },
+    { locale: Locale.ES_ES, word: 'bañó', expected: 'baño' },
+    { locale: Locale.PL_PL, word: 'źdźbło', expected: 'źdźbło' },
+  ])(`[$locale] keeps the letters of decomposed "$word"`, ({ locale, word, expected }) => {
+    expect(localeTransliterate(locale, word.normalize('NFD'))).toEqual(expected);
+  });
 });
