@@ -80,7 +80,7 @@ export class DiskCache implements Cache<Locale, Gaddag> {
       await fs.promises.writeFile(temporaryFilepath, gaddag.serialize());
       await fs.promises.rename(temporaryFilepath, filepath);
     } finally {
-      await fs.promises.rm(temporaryFilepath, { force: true });
+      await removeTemporaryFile(temporaryFilepath);
     }
   }
 
@@ -96,6 +96,14 @@ export class DiskCache implements Cache<Locale, Gaddag> {
     } catch (error) {
       logError('cache', error, { level: 'warn' });
     }
+  }
+}
+
+async function removeTemporaryFile(temporaryFilepath: string): Promise<void> {
+  try {
+    await fs.promises.rm(temporaryFilepath, { force: true });
+  } catch (error) {
+    logError('cache', error, { level: 'warn' });
   }
 }
 

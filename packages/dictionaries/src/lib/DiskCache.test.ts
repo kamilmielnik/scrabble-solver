@@ -230,6 +230,30 @@ describe('DiskCache', () => {
       expect(fs.readdirSync(directory)).toEqual([]);
     });
 
+    it('keeps the write error and warns when the temporary file cannot be removed', async () => {
+      const writeError = new Error('ENOSPC');
+      const cleanupError = new Error('EPERM');
+      const writeFileSpy = spyOn(fs.promises, 'writeFile').mockRejectedValue(writeError);
+      const rmSpy = spyOn(fs.promises, 'rm').mockRejectedValue(cleanupError);
+
+      expect(await getRejection(cache.set(LOCALE, Gaddag.fromArray(WORDS)))).toBe(writeError);
+      writeFileSpy.mockRestore();
+      rmSpy.mockRestore();
+
+      expect(logError).toHaveBeenCalledWith('cache', cleanupError, { level: 'warn' });
+    });
+
+    it('still saves the dictionary and warns when the temporary file cannot be removed', async () => {
+      const cleanupError = new Error('EPERM');
+      const rmSpy = spyOn(fs.promises, 'rm').mockRejectedValue(cleanupError);
+
+      await cache.set(LOCALE, Gaddag.fromArray(WORDS));
+      rmSpy.mockRestore();
+
+      expect((await cache.get(LOCALE))?.has('scrabble')).toBe(true);
+      expect(logError).toHaveBeenCalledWith('cache', cleanupError, { level: 'warn' });
+    });
+
     it('removes a temporary file abandoned by a killed process', async () => {
       const abandonedFilepath = writeAbandonedFile(directory);
 
