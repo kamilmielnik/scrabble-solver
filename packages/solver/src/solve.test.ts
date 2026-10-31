@@ -2,7 +2,7 @@
 
 import { Gaddag } from '@kamilmielnik/gaddag';
 import { getConfig } from '@scrabble-solver/configs';
-import { dictionaries } from '@scrabble-solver/dictionaries';
+import { DiskCache } from '@scrabble-solver/dictionaries';
 import { Board, Game, Locale, Result, Tile } from '@scrabble-solver/types';
 
 import { solve } from './solve';
@@ -57,7 +57,7 @@ describe('solve - pl-PL', () => {
   let gaddag: Gaddag | undefined;
 
   beforeAll(() => {
-    return dictionaries.get(locale).then((loadedGaddag) => {
+    return readCachedDictionary(locale).then((loadedGaddag) => {
       gaddag = loadedGaddag;
     });
   });
@@ -165,7 +165,7 @@ describe('solve - es-ES', () => {
   let gaddag: Gaddag | undefined;
 
   beforeAll(() => {
-    return dictionaries.get(locale).then((loadedGaddag) => {
+    return readCachedDictionary(locale).then((loadedGaddag) => {
       gaddag = loadedGaddag;
     });
   });
@@ -226,7 +226,7 @@ describe('solve - en-GB', () => {
   let gaddag: Gaddag | undefined;
 
   beforeAll(() => {
-    return dictionaries.get(locale).then((loadedGaddag) => {
+    return readCachedDictionary(locale).then((loadedGaddag) => {
       gaddag = loadedGaddag;
     });
   });
@@ -256,3 +256,13 @@ describe('solve - en-GB', () => {
     expect(results.length).toBe(2);
   });
 });
+
+async function readCachedDictionary(locale: Locale): Promise<Gaddag> {
+  const gaddag = await new DiskCache().get(locale);
+
+  if (!gaddag) {
+    throw new Error(`No cached ${locale} dictionary: run "bun run build" before the tests`);
+  }
+
+  return gaddag;
+}
