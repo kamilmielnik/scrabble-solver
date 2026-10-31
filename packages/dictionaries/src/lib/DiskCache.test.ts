@@ -185,25 +185,25 @@ describe('DiskCache', () => {
     expect(cache.isStale(LOCALE)).toBe(true);
   });
 
-  it('never lets a concurrent reader see, and delete, a file that is still being written', async () => {
-    await cache.set(LOCALE, Gaddag.fromArray(WORDS));
-    const filepath = getDictionaryFilepath(LOCALE, directory);
-    const previousFile = fs.readFileSync(filepath);
-    const { writeFile } = fs.promises;
-    const writeFileSpy = spyOn(fs.promises, 'writeFile').mockImplementation(async (...args) => {
-      await writeFile(...args);
-      expect(fs.readFileSync(filepath)).toEqual(previousFile);
+  describe('temporary files', () => {
+    it('never lets a concurrent reader see, and delete, a file that is still being written', async () => {
+      await cache.set(LOCALE, Gaddag.fromArray(WORDS));
+      const filepath = getDictionaryFilepath(LOCALE, directory);
+      const previousFile = fs.readFileSync(filepath);
+      const { writeFile } = fs.promises;
+      const writeFileSpy = spyOn(fs.promises, 'writeFile').mockImplementation(async (...args) => {
+        await writeFile(...args);
+        expect(fs.readFileSync(filepath)).toEqual(previousFile);
+      });
+
+      await cache.set(LOCALE, Gaddag.fromArray(['replacement']));
+
+      expect(writeFileSpy).toHaveBeenCalledTimes(1);
+      writeFileSpy.mockRestore();
+      expect((await cache.get(LOCALE))?.has('replacement')).toBe(true);
+      expect(fs.readdirSync(directory)).toEqual([path.basename(filepath)]);
     });
 
-    await cache.set(LOCALE, Gaddag.fromArray(['replacement']));
-
-    expect(writeFileSpy).toHaveBeenCalledTimes(1);
-    writeFileSpy.mockRestore();
-    expect((await cache.get(LOCALE))?.has('replacement')).toBe(true);
-    expect(fs.readdirSync(directory)).toEqual([path.basename(filepath)]);
-  });
-
-  describe('temporary files', () => {
     it('removes the temporary file and keeps the previous dictionary when writing fails', async () => {
       await cache.set(LOCALE, Gaddag.fromArray(WORDS));
       const filepath = getDictionaryFilepath(LOCALE, directory);
