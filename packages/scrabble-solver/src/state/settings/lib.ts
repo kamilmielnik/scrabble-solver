@@ -1,5 +1,14 @@
 import { Locale } from '@scrabble-solver/types';
 
+const PREFERRED_LOCALES = [
+  { languages: ['pl', 'pl-PL'], locale: Locale.PL_PL },
+  { languages: ['en-GB'], locale: Locale.EN_GB },
+  { languages: ['fa', 'fa-IR'], locale: Locale.FA_IR },
+  { languages: ['fr-FR'], locale: Locale.FR_FR },
+  { languages: ['ro', 'ro-RO'], locale: Locale.RO_RO },
+  { languages: ['ca', 'ca-ES'], locale: Locale.CA_ES },
+];
+
 export const guessLocale = (): Locale => {
   if (!globalThis.navigator) {
     return Locale.EN_US;
@@ -7,28 +16,12 @@ export const guessLocale = (): Locale => {
 
   const languages = globalThis.navigator.languages;
 
-  if (languages.includes('pl') || languages.includes('pl-PL')) {
-    return Locale.PL_PL;
-  }
+  const preferredLocale = PREFERRED_LOCALES.find((preferred) => {
+    return preferred.languages.some((language) => languages.includes(language));
+  });
 
-  if (languages.includes('en-GB')) {
-    return Locale.EN_GB;
-  }
-
-  if (languages.includes('fa') || languages.includes('fa-IR')) {
-    return Locale.FA_IR;
-  }
-
-  if (languages.includes('fr-FR')) {
-    return Locale.FR_FR;
-  }
-
-  if (languages.includes('ro') || languages.includes('ro-RO')) {
-    return Locale.RO_RO;
-  }
-
-  if (languages.includes('ca') || languages.includes('ca-ES')) {
-    return Locale.CA_ES;
+  if (preferredLocale) {
+    return preferredLocale.locale;
   }
 
   const locales = Object.values(Locale);
