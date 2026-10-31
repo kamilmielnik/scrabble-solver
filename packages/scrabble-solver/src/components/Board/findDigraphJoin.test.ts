@@ -220,6 +220,31 @@ describe('findDigraphJoin', () => {
       ).toEqual({ clearedCells: [], isBlank: true, nextPosition: { x: 1, y: 0 }, target: { x: 0, y: 0 }, value: 'ch' });
     });
 
+    it('keeps the blank on the position when the typed character takes in the following tiles', () => {
+      const board = createRow(['a', 'h', ' ']);
+      board.rows[0][0].tile.isBlank = true;
+
+      expect(
+        findDigraphJoin({ board, character: 'c', config: spanish, direction: 'horizontal', position: { x: 0, y: 0 } }),
+      ).toEqual({
+        clearedCells: [{ x: 1, y: 0 }],
+        isBlank: true,
+        nextPosition: { x: 1, y: 0 },
+        target: { x: 0, y: 0 },
+        value: 'ch',
+      });
+    });
+
+    it('ignores a blank on the position when the typed character moves to the tiles before it', () => {
+      const board = createRow(['c', 'a', ' ']);
+      board.rows[0][1].tile.isBlank = true;
+
+      expect(
+        findDigraphJoin({ board, character: 'h', config: spanish, direction: 'horizontal', position: { x: 1, y: 0 } })
+          ?.isBlank,
+      ).toBe(false);
+    });
+
     it('joins a following blank into a blank digraph', () => {
       const board = createRow([' ', 'h', ' ']);
       board.rows[0][1].tile.isBlank = true;

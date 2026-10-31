@@ -32,7 +32,7 @@ interface DigraphJoin {
 
 /**
  * Finds what typing a character next to the tiles that spell a digraph with it does to the board.
- * A digraph joined from a blank is a blank.
+ * A digraph joined from a blank, or typed over one, is a blank.
  */
 export function findDigraphJoin(options: Options): DigraphJoin | undefined {
   const { direction } = options;
@@ -110,13 +110,14 @@ function findJoinInLastCell(options: Options): DigraphJoin | undefined {
 }
 
 function createJoin(options: Options, axis: Direction, span: Span, { joinedTiles, value }: Candidate): DigraphJoin {
-  const { position } = options;
+  const { board, position } = options;
   const offsets = Array.from({ length: span.last - span.first }, (_, index) => span.first + 1 + index);
   const target = movePoint(position, axis, span.first);
+  const replacedTile = isSamePoint(target, position) ? readTile(board, position) : undefined;
 
   return {
     clearedCells: offsets.map((offset) => movePoint(position, axis, offset)),
-    isBlank: joinedTiles.some((tile) => tile.isBlank),
+    isBlank: [...joinedTiles, replacedTile].some((tile) => tile?.isBlank),
     nextPosition: findNextPosition(options, axis, target),
     target,
     value,
@@ -129,9 +130,8 @@ function createJoin(options: Options, axis: Direction, span: Span, { joinedTiles
  */
 function findNextPosition(options: Options, axis: Direction, target: Point): Point {
   const { direction, position } = options;
-  const isTargetOnPosition = target.x === position.x && target.y === position.y;
 
-  if (axis !== direction && !isTargetOnPosition) {
+  if (axis !== direction && !isSamePoint(target, position)) {
     return position;
   }
 
@@ -161,6 +161,10 @@ function readTile(board: Board, { x, y }: Point): Tile | undefined {
 
 function isLastCell({ board, direction, position }: Options): boolean {
   return direction === 'horizontal' ? position.x + 1 >= board.columnsCount : position.y + 1 >= board.rowsCount;
+}
+
+function isSamePoint(first: Point, second: Point): boolean {
+  return first.x === second.x && first.y === second.y;
 }
 
 function movePoint({ x, y }: Point, axis: Direction, offset: number): Point {

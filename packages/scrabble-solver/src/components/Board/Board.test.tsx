@@ -554,6 +554,25 @@ describe('two-letter tiles', () => {
     expect(readBoard(store, 1, 0)).toBe(' ');
   });
 
+  it.each([
+    ['horizontally', { x: 1, y: 0 }, { x: 0, y: 1 }, []],
+    ['vertically', { x: 0, y: 1 }, { x: 1, y: 0 }, ['ArrowDown']],
+  ])('keeps the blank it types over when joining the following tile %s', (_name, consumed, kept, keys) => {
+    const board = createBoard({ 0: 'a', 1: 'h', 15: 'h' });
+    board.rows[0][0].tile.isBlank = true;
+
+    const { store } = setup({ board, settings });
+
+    fireEvent.focus(getCell('A1'));
+    keys.forEach((key) => press('A1', key));
+    type('A1', 'c');
+
+    expect(readBoard(store, 0, 0)).toBe('ch');
+    expect(store.getState().board.rows[0][0].tile.isBlank).toBe(true);
+    expect(readBoard(store, consumed.x, consumed.y)).toBe(' ');
+    expect(readBoard(store, kept.x, kept.y)).toBe('h');
+  });
+
   it('joins a typed letter into a blank in the current cell, keeping the blank', () => {
     const board = createBoard({ 0: 'c' });
     board.rows[0][0].tile.isBlank = true;
