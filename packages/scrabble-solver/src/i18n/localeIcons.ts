@@ -1,9 +1,9 @@
 import { Locale } from '@scrabble-solver/types';
 import { type FunctionComponent, type SVGAttributes } from 'react';
 
+import FlagCa from '@/icons/FlagCa.svg';
 import FlagDe from '@/icons/FlagDe.svg';
 import FlagEs from '@/icons/FlagEs.svg';
-import FlagEsCt from '@/icons/FlagEsCt.svg';
 import FlagFa from '@/icons/FlagFa.svg';
 import FlagFr from '@/icons/FlagFr.svg';
 import FlagGb from '@/icons/FlagGb.svg';
@@ -13,7 +13,7 @@ import FlagTr from '@/icons/FlagTr.svg';
 import FlagUs from '@/icons/FlagUs.svg';
 
 export const LOCALE_ICONS: Record<Locale, FunctionComponent<SVGAttributes<SVGElement>>> = {
-  [Locale.CA_ES]: FlagEsCt,
+  [Locale.CA_ES]: FlagCa,
   [Locale.DE_DE]: FlagDe,
   [Locale.EN_GB]: FlagGb,
   [Locale.EN_US]: FlagUs,
