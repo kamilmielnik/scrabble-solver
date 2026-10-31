@@ -115,7 +115,16 @@ function waitForEveryPackageOnRegistry(version: string): void {
 }
 
 function isOnRegistry(name: string, version: string): boolean {
-  return read('npm', 'view', `${name}@${version}`, 'version', '--prefer-online') === version;
+  const { status, stderr, stdout } = spawnSync('npm', ['view', `${name}@${version}`, 'version', '--prefer-online'], {
+    cwd: ROOT_DIRECTORY,
+    encoding: 'utf8',
+  });
+
+  if (status !== 0 && !stderr.includes('E404')) {
+    throw new Error(`Cannot read ${name}@${version} from the registry:\n${stderr}`);
+  }
+
+  return stdout.trim() === version;
 }
 
 function createDraftRelease(version: string): void {
@@ -169,7 +178,7 @@ function readManifest(directory: string): Manifest {
 }
 
 function read(command: string, ...args: string[]): string {
-  return spawnSync(command, args, { cwd: ROOT_DIRECTORY, encoding: 'utf8' }).stdout.trim();
+  return execFileSync(command, args, { cwd: ROOT_DIRECTORY, encoding: 'utf8' }).trim();
 }
 
 function run(command: string, ...args: string[]): void {
