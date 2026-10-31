@@ -1,13 +1,6 @@
 import { Locale } from '@scrabble-solver/types';
 
-const PREFERRED_LOCALES = [
-  { language: 'pl', locale: Locale.PL_PL },
-  { language: 'en-GB', locale: Locale.EN_GB },
-  { language: 'fa', locale: Locale.FA_IR },
-  { language: 'fr-FR', locale: Locale.FR_FR },
-  { language: 'ro', locale: Locale.RO_RO },
-  { language: 'ca', locale: Locale.CA_ES },
-];
+const LOCALES = Object.values(Locale);
 
 export function guessLocale(): Locale {
   if (!globalThis.navigator) {
@@ -16,19 +9,22 @@ export function guessLocale(): Locale {
 
   const { language, languages } = globalThis.navigator;
 
-  const preferredLocale = PREFERRED_LOCALES.find((preferred) => {
-    return languages.some((tag) => belongsToLanguage(tag, preferred.language));
-  });
+  for (const tag of [...languages, language]) {
+    const locale = findLocale(tag);
 
-  if (preferredLocale) {
-    return preferredLocale.locale;
+    if (locale) {
+      return locale;
+    }
   }
 
-  const locales = Object.values(Locale);
-  const exactMatch = locales.find((locale) => language === String(locale));
-  const partialMatch = locales.find((locale) => belongsToLanguage(language, locale.substring(0, 2)));
+  return Locale.EN_US;
+}
 
-  return exactMatch ?? partialMatch ?? Locale.EN_US;
+function findLocale(tag: string): Locale | undefined {
+  const exactMatch = LOCALES.find((locale) => tag === String(locale));
+  const partialMatch = LOCALES.find((locale) => belongsToLanguage(tag, locale.substring(0, 2)));
+
+  return exactMatch ?? partialMatch;
 }
 
 function belongsToLanguage(tag: string, language: string): boolean {
