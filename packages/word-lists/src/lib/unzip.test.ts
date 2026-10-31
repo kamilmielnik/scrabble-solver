@@ -10,7 +10,7 @@ import { installTempFileSandbox } from '../test/installTempFileSandbox';
 
 import { unzip } from './unzip';
 
-installTempFileSandbox();
+const tempFiles = installTempFileSandbox();
 
 const REQUESTED_ENTRY = 'slowa.txt';
 const WORDS = 'aa\nżółć\n';
@@ -121,6 +121,19 @@ describe.each(['store', 'deflate'] as const)('unzip of a zip using %s', (compres
 
     expect((await getRejection(unzip(zipFilename, REQUESTED_ENTRY, outputFilename))).message).toContain('FILE_ENDED');
   });
+
+  it(
+    'closes the output file when the zip ends in the middle of the requested entry',
+    async () => {
+      const zip = createZip([{ content: LARGE_ENTRY, name: REQUESTED_ENTRY }], compression);
+      writeFileSync(zipFilename, zip.subarray(0, zip.length / 2));
+
+      await getRejection(unzip(zipFilename, REQUESTED_ENTRY, outputFilename));
+
+      expect(tempFiles.writeStreams.map(({ closed }) => closed)).toEqual([true]);
+    },
+    HANG_GUARD_MS,
+  );
 
   it(
     'rejects when the output file cannot be written',

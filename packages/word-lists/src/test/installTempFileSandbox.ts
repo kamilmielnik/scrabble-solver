@@ -6,6 +6,7 @@ import { join } from 'path';
 export interface TempFileSandbox {
   directory: string;
   listFiles: () => string[];
+  writeStreams: fs.WriteStream[];
 }
 
 const SANDBOX_HOME = join(os.tmpdir(), `word-lists-test-${process.pid}`);
@@ -27,7 +28,7 @@ export function installTempFileSandbox(): TempFileSandbox {
   afterEach(removeFiles);
   afterAll(removeSandbox);
 
-  return { directory, listFiles };
+  return { directory, listFiles, writeStreams };
 
   function listFiles(): string[] {
     return fs.readdirSync(directory);
