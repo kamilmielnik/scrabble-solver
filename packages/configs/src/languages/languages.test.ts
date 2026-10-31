@@ -27,6 +27,7 @@ const GAMES: Record<GameName, GameConfig> = { ...games };
 const LANGUAGES = Object.entries(CONFIGS) as [LanguageName, Config][];
 
 const BASE_GAMES: Record<LanguageName, GameName> = {
+  catalanScrabble: 'scrabble',
   englishGbCrossplay: 'crossplay',
   englishGbLetterLeague: 'letterLeague',
   englishGbLiteraki: 'literaki',
@@ -74,10 +75,16 @@ describe.each(LANGUAGES)('%s', (name, config) => {
     expect(config.alphabet.length).toBeLessThanOrEqual(MOVE_GENERATOR_MAX_ALPHABET_SIZE);
   });
 
-  it('has tiles of one or two lowercase, composed letters', () => {
+  it('has tiles of lowercase, composed letters', () => {
     const invalid = config.alphabet.filter((character) => !isTileCharacter(character, config.locale));
 
     expect(invalid).toEqual([]);
+  });
+
+  it('gives every digraph a shortcut of its own', () => {
+    const shortcuts = config.digraphs.map((digraph) => config.getDigraphShortcut(digraph));
+
+    expect(new Set(shortcuts).size).toBe(config.digraphs.length);
   });
 
   it('scores every letter between 1 and 10 points', () => {
@@ -144,6 +151,20 @@ describe('Romanian', () => {
   });
 });
 
+describe('Catalan', () => {
+  const { catalanScrabble } = languages;
+
+  it('has a digraph for the letters that have no tile of their own', () => {
+    expect(['q', 'y', '·'].filter((character) => catalanScrabble.hasCharacter(character))).toEqual([]);
+    expect(['q', 'y', '·'].filter((character) => catalanScrabble.isDigraphPart(character))).toHaveLength(3);
+  });
+
+  it('leaves l·l out of the consonants and vowels, like every other digraph', () => {
+    expect(isConsonant('l·l', Locale.CA_ES)).toBe(false);
+    expect(isVowel('l·l', Locale.CA_ES)).toBe(false);
+  });
+});
+
 describe('Persian', () => {
   it('uses the isolated letters that the word list is written in, not presentation forms', () => {
     const notBaseLetters = languages.persianScrabble.alphabet.filter((character) => !isArabicBlockLetter(character));
@@ -205,7 +226,7 @@ function isLiteraxx(name: LanguageName): boolean {
 function isTileCharacter(character: string, locale: Locale): boolean {
   const isLowercase = character === character.toLocaleLowerCase(locale);
   const isComposed = character === character.normalize('NFC');
-  const isOneOrTwoLetters = /^\p{L}{1,2}$/u.test(character);
+  const isSpelledWithLetters = /^(\p{L}{1,2}|\p{L}·\p{L})$/u.test(character);
 
-  return isLowercase && isComposed && isOneOrTwoLetters;
+  return isLowercase && isComposed && isSpelledWithLetters;
 }

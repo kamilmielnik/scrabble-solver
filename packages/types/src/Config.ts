@@ -12,6 +12,12 @@ import { type Tile } from './Tile';
 import { type TileConfig } from './TileConfig';
 import { WordBonus } from './WordBonus';
 
+/**
+ * Browsers keep Ctrl+N, Ctrl+T and Ctrl+W to themselves, and Cmd+Q quits them on macOS.
+ * The page never gets to prevent these, so they cannot be digraph shortcuts.
+ */
+const RESERVED_KEYS = ['n', 'q', 't', 'w'];
+
 export class Config {
   public static fromJson = (json: ConfigJson): Config => {
     return new Config(json);
@@ -85,6 +91,23 @@ export class Config {
     return this.pointsMap[character];
   }
 
+  public get digraphs(): string[] {
+    return this.config.tiles.filter((tile) => tile.character.length > 1).map((tile) => tile.character);
+  }
+
+  public getDigraphByShortcut(key: string): string | undefined {
+    if (key.length !== 1) {
+      return undefined;
+    }
+
+    const shortcut = key.toLocaleLowerCase(this.locale);
+    return this.digraphs.find((digraph) => getDigraphShortcut(digraph) === shortcut);
+  }
+
+  public getDigraphShortcut(digraph: string): string {
+    return getDigraphShortcut(digraph);
+  }
+
   public getTwoCharacterTileByPrefix(character: string): string | undefined {
     if (character.length !== 1) {
       return undefined;
@@ -105,8 +128,24 @@ export class Config {
     return character in this.pointsMap;
   }
 
+  public isDigraphPart(character: string): boolean {
+    return this.digraphs.some((digraph) => digraph.includes(character));
+  }
+
+  public isDigraphPrefix(characters: string): boolean {
+    return this.digraphs.some((digraph) => digraph.length > characters.length && digraph.startsWith(characters));
+  }
+
+  public isDigraphShortcut(key: string): boolean {
+    return typeof this.getDigraphByShortcut(key) !== 'undefined';
+  }
+
   public isTwoCharacterTilePrefix(character: string): boolean {
     return typeof this.getTwoCharacterTileByPrefix(character) !== 'undefined';
+  }
+
+  public get longestDigraphLength(): number {
+    return Math.max(0, ...this.digraphs.map((digraph) => digraph.length));
   }
 
   public get rackSize(): number {
@@ -139,6 +178,13 @@ const getBonuses = (config: ConfigJson): Bonus[] => {
     throw new Error(`Unsupported Bonus type: "${bonus.type}"`);
   });
 };
+
+function getDigraphShortcut(digraph: string): string {
+  return (
+    Array.from(digraph).find((character) => /\p{L}/u.test(character) && !RESERVED_KEYS.includes(character)) ??
+    digraph[0]
+  );
+}
 
 const getAlphabet = (config: ConfigJson): string[] => config.tiles.map(({ character }) => character);
 
