@@ -4,7 +4,6 @@ import { type Direction } from '@scrabble-solver/types';
 import {
   getBoardContainer,
   getBoardTile,
-  getLoading,
   getModal,
   getModalResult,
   getOpenModal,
@@ -109,7 +108,7 @@ export async function paste(target: Locator, text: string): Promise<void> {
 export async function solve(page: Page): Promise<void> {
   await getRackTile(page).evaluate((input: HTMLInputElement) => input.form?.requestSubmit());
   await expect(getResultsContainer(page)).toHaveAttribute('data-outdated', 'false', { timeout: 90_000 });
-  await expect(getLoading(page)).toHaveCount(0);
+  await expect(getResultsContainer(page).getByTestId('loading')).toHaveCount(0);
 }
 
 export async function hoverResult(page: Page, index = 0): Promise<void> {
