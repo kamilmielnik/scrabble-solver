@@ -12,12 +12,8 @@ const SECONDARY_FILE_URL =
   'https://raw.githubusercontent.com/kamilmielnik/scrabble-dictionaries/refs/heads/master/polish/sjp.txt';
 
 export const getWordList = async (): Promise<string[]> => {
-  try {
-    const words = await getPrimaryWordList();
-    return words.length < REASONABLE_VALID_WORD_COUNT_TRESHOLD ? await getBackupWordList() : words;
-  } catch {
-    return getBackupWordList();
-  }
+  const words = await getPrimaryWordList().catch(() => []);
+  return words.length < REASONABLE_VALID_WORD_COUNT_TRESHOLD ? getBackupWordList() : words;
 };
 
 const getPrimaryWordList = async (): Promise<string[]> => {

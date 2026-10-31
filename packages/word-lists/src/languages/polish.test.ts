@@ -150,6 +150,19 @@ describe('polish getWordList', () => {
     });
 
     it.each([
+      ['the primary list fails', servePageWithoutZipLink],
+      ['the primary list is too small to trust', serveTooSmallWordList],
+    ])('requests a failing backup list once when %s', async (_description, breakPrimarySource) => {
+      serveWorkingSources();
+      breakPrimarySource();
+      harness.serve(BACKUP_URL, 'gone', 404);
+
+      await getRejection(getWordList());
+
+      expect(harness.requestedUrls.filter((url) => url === BACKUP_URL)).toHaveLength(1);
+    });
+
+    it.each([
       ['the page has no zip link', servePageWithoutZipLink],
       ['the zip has no word list', serveZipWithoutWordList],
       ['the word list is empty', serveEmptyWordList],
