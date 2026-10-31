@@ -163,13 +163,35 @@ describe('getRemainingTilesGroups', () => {
     expect(group.remainingCount).toBe(-2);
   });
 
-  it('leaves out a letter outside the alphabet, which has no tiles in the bag', () => {
+  it('keeps a letter outside the alphabet in its group and counts it as overused', () => {
     const groups = getRemainingTilesGroups(
       [createTile({ character: 'ą', count: 0, usedCount: 1 }), createTile({ character: 'a', count: 9 })],
       Locale.EN_US,
     );
 
-    expect(groups.map(({ remainingCount }) => remainingCount)).toEqual([9]);
+    expect(groups.map(({ remainingCount }) => remainingCount)).toEqual([8]);
+    expect(groups[0].tiles.map(({ character }) => character)).toEqual(['ą', 'a']);
+  });
+
+  it('keeps a group that holds nothing but letters outside the alphabet', () => {
+    const groups = getRemainingTilesGroups([createTile({ character: 'ж', count: 0, usedCount: 2 })], Locale.EN_US);
+
+    expect(groups).toMatchObject([{ remainingCount: -2, translationKey: 'common.tiles', totalCount: 0 }]);
+  });
+
+  it('drops a group whose tiles are neither in the bag nor used', () => {
+    const groups = getRemainingTilesGroups([createTile({ character: BLANK, count: 0 })], Locale.EN_US);
+
+    expect(groups).toEqual([]);
+  });
+
+  it('drops a group of tiles without a count even when they are used', () => {
+    const groups = getRemainingTilesGroups(
+      [createTile({ character: 'a', count: undefined, usedCount: 1 })],
+      Locale.EN_US,
+    );
+
+    expect(groups).toEqual([]);
   });
 
   it('groups y with the consonants in Turkish and with the vowels elsewhere', () => {
@@ -208,6 +230,15 @@ describe('RemainingTilesModal', () => {
     const [left, right] = count!.split(' / ').map(toLatinDigits);
 
     expect(Number(left)).toBeGreaterThan(Number(right));
+  });
+
+  it('shows a letter outside the alphabet as overused', () => {
+    setupRemaining({ board: Board.fromStringArray(['ж ']) });
+
+    const tile = screen.getByTestId('remaining-tile-ж');
+
+    expect(tile.textContent).toContain('-1 / 0');
+    expect(tile.classList.contains('overused')).toBe(true);
   });
 
   it('marks finished and overused tiles', () => {

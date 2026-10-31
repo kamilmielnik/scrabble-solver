@@ -3,8 +3,7 @@ import { type Locale, isConsonant, isVowel } from '@scrabble-solver/types';
 
 import { type RemainingTile, type RemainingTilesGroup } from '@/types';
 
-export const getRemainingTilesGroups = (tiles: RemainingTile[], locale: Locale): RemainingTilesGroup[] => {
-  const remainingTiles = tiles.filter(isInBag);
+export const getRemainingTilesGroups = (remainingTiles: RemainingTile[], locale: Locale): RemainingTilesGroup[] => {
   const consonants = remainingTiles.filter((tile) => isConsonant(tile.character, locale));
   const vowels = remainingTiles.filter((tile) => isVowel(tile.character, locale));
   const other = remainingTiles.filter((tile) => isOther(tile, locale));
@@ -48,11 +47,11 @@ export const getRemainingTilesGroups = (tiles: RemainingTile[], locale: Locale):
     totalCount: getTotalTilesCount(blanks),
   });
 
-  return groups.filter(({ totalCount }) => totalCount > 0);
+  return groups.filter(({ tiles, totalCount }) => totalCount > 0 || tiles.some(isOverused));
 };
 
-function isInBag(tile: RemainingTile): boolean {
-  return tile.count !== 0;
+function isOverused({ count, usedCount }: RemainingTile): boolean {
+  return typeof count !== 'undefined' && usedCount > count;
 }
 
 const isTwoCharacter = (tile: RemainingTile): boolean => tile.character.length === 2;
