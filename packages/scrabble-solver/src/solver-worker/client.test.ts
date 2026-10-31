@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/await-thenable */
+
 import { type ResultJson } from '@scrabble-solver/types';
 import { afterAll, beforeEach, describe, expect, it } from 'bun:test';
 
@@ -105,6 +107,16 @@ describe('solver worker client', () => {
     respond({ data: createVerifyResult(), id: lastRequestId(), outcome: 'answered' });
 
     expect(await verify).toEqual(createVerifyResult());
+  });
+
+  it.each([
+    ['solve', () => solveLocally(solvePayload)],
+    ['verify', () => verifyLocally(verifyPayload)],
+  ])('fails a rejected %s with the worker message, so the caller does not ask the server', async (_type, run) => {
+    const answer = run();
+    respond({ id: lastRequestId(), message: 'Invalid board', outcome: 'rejected' });
+
+    await expect(answer).rejects.toThrow('Invalid board');
   });
 
   it('does not wait for a prefetch to answer', () => {

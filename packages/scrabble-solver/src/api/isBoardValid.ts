@@ -2,6 +2,8 @@ import { type BoardJson, type CellJson, type Config } from '@scrabble-solver/typ
 
 import { isRowValid } from './isRowValid';
 
+export const INVALID_BOARD_MESSAGE = 'Invalid "board" parameter';
+
 export function isBoardValid(board: BoardJson, config: Config): boolean {
   if (board.length !== config.boardHeight) {
     return false;

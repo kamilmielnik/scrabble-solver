@@ -15,7 +15,14 @@ import {
 } from '@scrabble-solver/types';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
-import { type ApiContext, BadRequestError, isBoardValid, isCharacterValid, withApiLog } from '@/api';
+import {
+  type ApiContext,
+  BadRequestError,
+  INVALID_BOARD_MESSAGE,
+  isBoardValid,
+  isCharacterValid,
+  withApiLog,
+} from '@/api';
 import { isStringArray } from '@/lib/isStringArray';
 
 interface RequestData {
@@ -82,7 +89,7 @@ function parseRequest(request: NextApiRequest): RequestData {
   }
 
   if (!isBoardJson(boardJson) || !isBoardValid(boardJson, config)) {
-    throw new BadRequestError('Invalid "board" parameter');
+    throw new BadRequestError(INVALID_BOARD_MESSAGE);
   }
 
   const board = Board.fromJson(boardJson);

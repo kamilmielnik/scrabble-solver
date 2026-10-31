@@ -6,6 +6,7 @@ import { type ResultJson, Board, Game, Locale } from '@scrabble-solver/types';
 import { afterAll, beforeEach, describe, expect, it, mock } from 'bun:test';
 
 import { noop } from '../lib/noop';
+import type * as apiSolveModule from '../pages/api/solve';
 import type * as apiVerifyModule from '../pages/api/verify';
 import type * as testApiModule from '../test/api';
 import { createDeferred, flushMicrotasks } from '../test/async';
@@ -40,6 +41,7 @@ await mock.module('@scrabble-solver/logger', () => ({ logError: noop, logEvent: 
 
 await import('./index.worker');
 
+const { default: solveRoute }: typeof apiSolveModule = await import('../pages/api/solve');
 const { default: verifyRoute }: typeof apiVerifyModule = await import('../pages/api/verify');
 const { createApiRequest, createApiResponse }: typeof testApiModule = await import('../test/api');
 
@@ -172,6 +174,29 @@ describe('verify', () => {
     const answer = await waitForResponse(id);
 
     expect((answer as { data: VerifyResult }).data).toEqual(response.body as VerifyResult);
+  });
+});
+
+describe('invalid boards', () => {
+  const board = createBoard('ch');
+
+  it.each([
+    ['solve', solveRoute, { ...solvePayload, board, locale: Locale.ES_ES }],
+    ['verify', verifyRoute, { ...verifyPayload, board, locale: Locale.ES_ES }],
+  ] as const)('rejects tiles that spell a digraph exactly like /api/%s', async (type, route, payload) => {
+    const id = ++nextId;
+    const response = createApiResponse();
+
+    await route(createApiRequest({ body: payload }), response);
+    dispatch({ id, payload, type } as SolverWorkerRequest);
+
+    expect(response.statusCode).toBe(400);
+    expect(await waitForResponse(id)).toEqual({
+      id,
+      message: (response.body as { message: string }).message,
+      outcome: 'rejected',
+    });
+    expect(getGaddag).not.toHaveBeenCalled();
   });
 });
 
