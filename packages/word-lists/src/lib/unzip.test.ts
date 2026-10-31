@@ -1,5 +1,5 @@
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
-import { mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
+import { afterEach, beforeEach, describe, expect, it, mock, spyOn } from 'bun:test';
+import fs, { mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
 
@@ -27,6 +27,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
+  mock.restore();
   rmSync(directory, { force: true, recursive: true });
 });
 
@@ -131,6 +132,20 @@ describe.each(['store', 'deflate'] as const)('unzip of a zip using %s', (compres
     HANG_GUARD_MS,
   );
 
+  it(
+    'closes the zip when the output file cannot be written',
+    async () => {
+      writeZip([{ content: LARGE_ENTRY, name: REQUESTED_ENTRY }]);
+      const unwritableFilename = join(directory, 'missing', 'output.txt');
+      const readStreams = recordReadStreams();
+
+      await getRejection(unzip(zipFilename, REQUESTED_ENTRY, unwritableFilename));
+
+      expect(readStreams.map(({ destroyed }) => destroyed)).toEqual([true]);
+    },
+    HANG_GUARD_MS,
+  );
+
   function writeZip(entries: Parameters<typeof createZip>[0]): void {
     writeFileSync(zipFilename, createZip(entries, compression));
   }
@@ -143,6 +158,15 @@ describe('unzip of a file that is not a zip', () => {
     expect((await getRejection(unzip(zipFilename, REQUESTED_ENTRY, outputFilename))).message).toContain(
       'invalid signature',
     );
+  });
+
+  it('closes a file that turns out not to be a zip', async () => {
+    writeFileSync(zipFilename, LARGE_ENTRY);
+    const readStreams = recordReadStreams();
+
+    await getRejection(unzip(zipFilename, REQUESTED_ENTRY, outputFilename));
+
+    expect(readStreams.map(({ destroyed }) => destroyed)).toEqual([true]);
   });
 
   it('rejects for an empty file', async () => {
@@ -174,4 +198,17 @@ describe('unzip of a stored entry', () => {
 
 function unzipRequestedEntry(): Promise<void> {
   return unzip(zipFilename, REQUESTED_ENTRY, outputFilename);
+}
+
+function recordReadStreams(): fs.ReadStream[] {
+  const readStreams: fs.ReadStream[] = [];
+  const { createReadStream } = fs;
+
+  spyOn(fs, 'createReadStream').mockImplementation(((...args: Parameters<typeof createReadStream>) => {
+    const readStream = createReadStream(...args);
+    readStreams.push(readStream);
+    return readStream;
+  }) as typeof createReadStream);
+
+  return readStreams;
 }

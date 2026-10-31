@@ -18,8 +18,13 @@ export async function unzip(zipFilename: string, extractFilename: string, output
 
   const read = fs.createReadStream(zipFilename);
   read.on('error', failParser);
-  await read.pipe(parser).promise();
-  await Promise.all(writes);
+
+  try {
+    await read.pipe(parser).promise();
+    await Promise.all(writes);
+  } finally {
+    read.destroy();
+  }
 
   function failParser(error: Error): void {
     parser.emit('error', error);
