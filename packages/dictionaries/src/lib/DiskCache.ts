@@ -74,23 +74,24 @@ export class DiskCache implements Cache<Locale, Gaddag> {
   public async set(locale: Locale, gaddag: Gaddag): Promise<void> {
     const filepath = getDictionaryFilepath(locale, this.directory);
     const temporaryFilepath = `${filepath}.${crypto.randomUUID()}${TEMPORARY_FILE_EXTENSION}`;
-    this.removeAbandonedTemporaryFiles();
+    await this.removeAbandonedTemporaryFiles();
 
     try {
       await fs.promises.writeFile(temporaryFilepath, gaddag.serialize());
       await fs.promises.rename(temporaryFilepath, filepath);
-    } finally {
+    } catch (error) {
       await removeTemporaryFile(temporaryFilepath);
+      throw error;
     }
   }
 
-  private removeAbandonedTemporaryFiles(): void {
+  private async removeAbandonedTemporaryFiles(): Promise<void> {
     try {
-      for (const filename of fs.readdirSync(this.directory)) {
+      for (const filename of await fs.promises.readdir(this.directory)) {
         const filepath = path.join(this.directory, filename);
 
-        if (filename.endsWith(TEMPORARY_FILE_EXTENSION) && isAbandoned(filepath)) {
-          fs.rmSync(filepath, { force: true });
+        if (filename.endsWith(TEMPORARY_FILE_EXTENSION) && (await isAbandoned(filepath))) {
+          await fs.promises.rm(filepath, { force: true });
         }
       }
     } catch (error) {
@@ -107,7 +108,7 @@ async function removeTemporaryFile(temporaryFilepath: string): Promise<void> {
   }
 }
 
-function isAbandoned(temporaryFilepath: string): boolean {
-  const stats = fs.statSync(temporaryFilepath, { throwIfNoEntry: false });
+async function isAbandoned(temporaryFilepath: string): Promise<boolean> {
+  const stats = await fs.promises.stat(temporaryFilepath, { throwIfNoEntry: false });
   return typeof stats !== 'undefined' && Date.now() - stats.mtimeMs > CACHE_STALE_THRESHOLD;
 }

@@ -243,17 +243,6 @@ describe('DiskCache', () => {
       expect(logError).toHaveBeenCalledWith('cache', cleanupError, { level: 'warn' });
     });
 
-    it('still saves the dictionary and warns when the temporary file cannot be removed', async () => {
-      const cleanupError = new Error('EPERM');
-      const rmSpy = spyOn(fs.promises, 'rm').mockRejectedValue(cleanupError);
-
-      await cache.set(LOCALE, Gaddag.fromArray(WORDS));
-      rmSpy.mockRestore();
-
-      expect((await cache.get(LOCALE))?.has('scrabble')).toBe(true);
-      expect(logError).toHaveBeenCalledWith('cache', cleanupError, { level: 'warn' });
-    });
-
     it('removes a temporary file abandoned by a killed process', async () => {
       const abandonedFilepath = writeAbandonedFile(directory);
 
@@ -265,15 +254,23 @@ describe('DiskCache', () => {
     it('still saves the dictionary and warns when an abandoned file cannot be removed', async () => {
       writeAbandonedFile(directory);
       const error = new Error('EPERM');
-      const rmSyncSpy = spyOn(fs, 'rmSync').mockImplementation(() => {
-        throw error;
-      });
+      const rmSpy = spyOn(fs.promises, 'rm').mockRejectedValue(error);
 
       await cache.set(LOCALE, Gaddag.fromArray(WORDS));
-      rmSyncSpy.mockRestore();
+      rmSpy.mockRestore();
 
       expect((await cache.get(LOCALE))?.has('scrabble')).toBe(true);
       expect(logError).toHaveBeenCalledWith('cache', error, { level: 'warn' });
+    });
+
+    it('stays silent when a concurrent write renames its temporary file during the scan', async () => {
+      const readdirSpy = spyOn(fs.promises, 'readdir').mockResolvedValue(['renamed-by-then.tmp'] as never);
+
+      await cache.set(LOCALE, Gaddag.fromArray(WORDS));
+      readdirSpy.mockRestore();
+
+      expect((await cache.get(LOCALE))?.has('scrabble')).toBe(true);
+      expect(logError).not.toHaveBeenCalled();
     });
 
     it('leaves alone a temporary file of a concurrent write', async () => {
