@@ -35,7 +35,7 @@
   "empty-state.success": "حله!",
   "empty-state.warning": "اوووخ!",
   "github": "به این پروژه در گیتهاب سر بزنید",
-  "keyMap.board-and-rack.insert-digraph": "وارد کردن کاشی دو حرفی",
+  "keyMap.board-and-rack.insert-digraph": "وارد کردن کاشی دو حرفی {{digraph}}",
   "keyMap.board-and-rack.navigate": "حرکت",
   "keyMap.board-and-rack.remove-tile": "حذف کاشی",
   "keyMap.board-and-rack.submit": "حل کردن",

@@ -35,7 +35,7 @@
   "empty-state.success": "Evet!",
   "empty-state.warning": "Aman hayır!",
   "github": "GitHub'da bu projeye bakın",
-  "keyMap.board-and-rack.insert-digraph": "İki harfli kutucuğu ekle",
+  "keyMap.board-and-rack.insert-digraph": "İki harfli kutucuğu ekle: {{digraph}}",
   "keyMap.board-and-rack.navigate": "Gezinme",
   "keyMap.board-and-rack.remove-tile": "Taşı kaldır",
   "keyMap.board-and-rack.submit": "Çöz",

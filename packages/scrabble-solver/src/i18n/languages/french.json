@@ -35,7 +35,7 @@
   "empty-state.success": "Ouais!",
   "empty-state.warning": "Oups!",
   "github": "Voir ce projet sur GitHub",
-  "keyMap.board-and-rack.insert-digraph": "Insérer un digramme",
+  "keyMap.board-and-rack.insert-digraph": "Insérer le digramme {{digraph}}",
   "keyMap.board-and-rack.navigate": "Naviguer",
   "keyMap.board-and-rack.remove-tile": "Supprimer une case",
   "keyMap.board-and-rack.submit": "Résoudre",

@@ -35,7 +35,7 @@
   "empty-state.success": "Juhuu!",
   "empty-state.warning": "Oje!",
   "github": "Schau dieses Projekt auf GitHub an",
-  "keyMap.board-and-rack.insert-digraph": "Digraph einfügen",
+  "keyMap.board-and-rack.insert-digraph": "Digraph {{digraph}} einfügen",
   "keyMap.board-and-rack.navigate": "Navigieren",
   "keyMap.board-and-rack.remove-tile": "Stein entfernen",
   "keyMap.board-and-rack.submit": "Lösen",

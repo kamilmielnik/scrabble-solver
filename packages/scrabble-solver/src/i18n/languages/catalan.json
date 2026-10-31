@@ -35,7 +35,7 @@
   "empty-state.success": "Sí!",
   "empty-state.warning": "Ep!",
   "github": "Vegeu aquest projecte a GitHub",
-  "keyMap.board-and-rack.insert-digraph": "Insereix un dígraf",
+  "keyMap.board-and-rack.insert-digraph": "Insereix el dígraf {{digraph}}",
   "keyMap.board-and-rack.navigate": "Navegació",
   "keyMap.board-and-rack.remove-tile": "Suprimeix la peça",
   "keyMap.board-and-rack.submit": "Comença a resoldre",

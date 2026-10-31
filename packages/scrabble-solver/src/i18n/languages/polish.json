@@ -35,7 +35,7 @@
   "empty-state.success": "Hurra!",
   "empty-state.warning": "Ups!",
   "github": "Zobacz ten projekt na GitHubie",
-  "keyMap.board-and-rack.insert-digraph": "Wstaw dwuznak",
+  "keyMap.board-and-rack.insert-digraph": "Wstaw dwuznak {{digraph}}",
   "keyMap.board-and-rack.navigate": "Nawigacja",
   "keyMap.board-and-rack.remove-tile": "Zdejmij płytkę",
   "keyMap.board-and-rack.submit": "Rozwiąż",

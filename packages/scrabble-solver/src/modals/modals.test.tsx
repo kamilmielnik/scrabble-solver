@@ -58,7 +58,9 @@ describe('KeyMapModal', () => {
   it('hides the digraph shortcuts for languages without them', () => {
     renderWithStore(<KeyMapModal isOpen onClose={noop} />);
 
-    expect(screen.queryByText(new RegExp(english['keyMap.board-and-rack.insert-digraph']))).toBeNull();
+    const description = english['keyMap.board-and-rack.insert-digraph'].replace('{{digraph}}', '.+');
+
+    expect(screen.queryByText(new RegExp(description))).toBeNull();
   });
 
   it.each([
@@ -341,7 +343,7 @@ describe('RemainingTilesModal', () => {
 });
 
 function getDigraphMapping(digraph: string): HTMLElement {
-  const description = `${english['keyMap.board-and-rack.insert-digraph']} ${digraph}`;
+  const description = english['keyMap.board-and-rack.insert-digraph'].replace('{{digraph}}', digraph);
   const section = screen.getByRole('region', { name: english['keyMap.board-and-rack'] });
 
   return within(section).getByText(description).parentElement!;

@@ -35,7 +35,7 @@
   "empty-state.success": "Sí!",
   "empty-state.warning": "Vaya!",
   "github": "Ver este proyecto en GitHub",
-  "keyMap.board-and-rack.insert-digraph": "Insertar dígrafo",
+  "keyMap.board-and-rack.insert-digraph": "Insertar el dígrafo {{digraph}}",
   "keyMap.board-and-rack.navigate": "Navegar",
   "keyMap.board-and-rack.remove-tile": "Quitar Letra",
   "keyMap.board-and-rack.submit": "Resolver",
