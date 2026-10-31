@@ -520,13 +520,13 @@ describe('two-letter tiles', () => {
     expect(readBoard(store, 0, 1)).toBe(' ');
   });
 
-  it('joins with the tile below when typing', () => {
+  it('keeps the tile below when typing sideways', () => {
     const { store } = setup({ board: createBoard({ 15: 'h' }), settings });
 
     type('A1', 'c');
 
     expect(readBoard(store, 0, 0)).toBe('c');
-    expect(readBoard(store, 0, 1)).toBe(' ');
+    expect(readBoard(store, 0, 1)).toBe('h');
   });
 
   it('does not join with a blank tile', () => {

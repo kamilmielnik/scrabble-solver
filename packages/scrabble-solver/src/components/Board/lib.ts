@@ -147,3 +147,7 @@ export const getWordCells = (board: Board, word: BoardWord): boolean[][] => {
 
   return wordCells;
 };
+
+export function toggleDirection(direction: Direction): Direction {
+  return direction === 'vertical' ? 'horizontal' : 'vertical';
+}

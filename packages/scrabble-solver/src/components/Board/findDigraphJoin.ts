@@ -2,6 +2,8 @@ import { type Board, type Config } from '@scrabble-solver/types';
 
 import { type Direction, type Point } from '@/types';
 
+import { toggleDirection } from './lib';
+
 const AXES: Direction[] = ['vertical', 'horizontal'];
 
 interface Options {
@@ -28,23 +30,13 @@ interface DigraphJoin {
  * Finds what typing a character next to the tiles that spell a digraph with it does to the board.
  */
 export function findDigraphJoin(options: Options): DigraphJoin | undefined {
-  for (const axis of AXES) {
-    const join = findJoinAround(options, axis);
+  const { direction } = options;
 
-    if (join) {
-      return join;
-    }
-  }
-
-  for (const axis of AXES) {
-    const join = isLastOnAxis(options, axis) ? findJoinInLastCell(options, axis) : undefined;
-
-    if (join) {
-      return join;
-    }
-  }
-
-  return undefined;
+  return (
+    findJoinAround(options, direction) ??
+    findJoinAround(options, toggleDirection(direction)) ??
+    findJoinInLastCell(options)
+  );
 }
 
 /**
@@ -78,11 +70,13 @@ function findJoinAround(options: Options, axis: Direction): DigraphJoin | undefi
         continue;
       }
 
-      if (countBefore === 0) {
-        return createJoinOfFollowingTiles(options, axis, countAfter);
+      if (countBefore > 0) {
+        return createJoin(options, axis, value, { first: -countBefore, last: countAfter === 0 ? -1 : countAfter });
       }
 
-      return createJoin(options, axis, value, { first: -countBefore, last: countAfter === 0 ? -1 : countAfter });
+      if (axis === options.direction) {
+        return createJoinOfFollowingTiles(options, countAfter);
+      }
     }
   }
 
@@ -92,21 +86,21 @@ function findJoinAround(options: Options, axis: Direction): DigraphJoin | undefi
 /**
  * Focus cannot leave the last cell, so the next character arrives in the cell that holds the previous one.
  */
-function findJoinInLastCell(options: Options, axis: Direction): DigraphJoin | undefined {
-  const { board, character, config, position } = options;
+function findJoinInLastCell(options: Options): DigraphJoin | undefined {
+  const { board, character, config, direction, position } = options;
   const lastTile = readTile(board, position);
 
-  if (typeof lastTile === 'undefined') {
+  if (!isLastCell(options) || typeof lastTile === 'undefined') {
     return undefined;
   }
 
-  const tiles = [lastTile, ...readTiles(options, axis, -1)];
+  const tiles = [lastTile, ...readTiles(options, direction, -1)];
 
   for (let count = 1; count <= tiles.length; ++count) {
     const value = spell(tiles.slice(0, count).reverse(), character);
 
     if (config.digraphs.includes(value)) {
-      return createJoin(options, axis, value, { first: 1 - count, last: 0 });
+      return createJoin(options, direction, value, { first: 1 - count, last: 0 });
     }
   }
 
@@ -124,13 +118,9 @@ function createJoin({ direction, position }: Options, axis: Direction, value: st
   };
 }
 
-function createJoinOfFollowingTiles(
-  { character, direction, position }: Options,
-  axis: Direction,
-  count: number,
-): DigraphJoin {
+function createJoinOfFollowingTiles({ character, direction, position }: Options, count: number): DigraphJoin {
   return {
-    clearedCells: Array.from({ length: count }, (_, index) => movePoint(position, axis, index + 1)),
+    clearedCells: Array.from({ length: count }, (_, index) => movePoint(position, direction, index + 1)),
     nextPosition: movePoint(position, direction, 1),
     target: position,
     value: character,
@@ -158,8 +148,8 @@ function readTile(board: Board, { x, y }: Point): string | undefined {
   return cell?.hasTile() && !cell.tile.isBlank ? cell.tile.character : undefined;
 }
 
-function isLastOnAxis({ board, position }: Options, axis: Direction): boolean {
-  return axis === 'horizontal' ? position.x + 1 >= board.columnsCount : position.y + 1 >= board.rowsCount;
+function isLastCell({ board, direction, position }: Options): boolean {
+  return direction === 'horizontal' ? position.x + 1 >= board.columnsCount : position.y + 1 >= board.rowsCount;
 }
 
 function movePoint({ x, y }: Point, axis: Direction, offset: number): Point {

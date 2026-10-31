@@ -25,9 +25,7 @@ import { boardSlice, cellFiltersSlice, selectConfig, selectLocale, useTypedSelec
 import { type Direction, type Point } from '@/types';
 
 import { continuesDigraph, findDigraphJoin } from '../findDigraphJoin';
-import { createGrid, getPositionInGrid } from '../lib';
-
-const toggleDirection = (direction: Direction) => (direction === 'vertical' ? 'horizontal' : 'vertical');
+import { createGrid, getPositionInGrid, toggleDirection } from '../lib';
 
 interface State {
   activeIndex: Point;

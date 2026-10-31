@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 import { getConfig } from '@scrabble-solver/configs';
 import { Board, Cell, Config, Game, Locale, Tile } from '@scrabble-solver/types';
 
@@ -82,6 +84,43 @@ describe('findDigraphJoin', () => {
       target: { x: 0, y: 0 },
       value: 'l·l',
     });
+  });
+
+  it('prefers joining along the typing direction', () => {
+    const board = new Board({
+      rows: [
+        [createCell(' ', 0, 0), createCell('c', 1, 0)],
+        [createCell('c', 0, 1), createCell(' ', 1, 1)],
+      ],
+    });
+
+    expect(
+      findDigraphJoin({ board, character: 'h', config: spanish, direction: 'horizontal', position: { x: 1, y: 1 } }),
+    ).toEqual({
+      clearedCells: [],
+      nextPosition: { x: 1, y: 1 },
+      target: { x: 0, y: 1 },
+      value: 'ch',
+    });
+  });
+
+  it('does not split the following tiles across the typing direction', () => {
+    const board = createColumn([' ', 'h']);
+
+    expect(
+      findDigraphJoin({ board, character: 'c', config: spanish, direction: 'horizontal', position: { x: 0, y: 0 } }),
+    ).toBeUndefined();
+  });
+
+  it('does not join inside the last cell across the typing direction', () => {
+    const board = createRow(['c', ' ']);
+
+    expect(
+      findDigraphJoin({ board, character: 'h', config: spanish, direction: 'vertical', position: { x: 0, y: 0 } }),
+    ).toEqual({ clearedCells: [], nextPosition: { x: 0, y: 0 }, target: { x: 0, y: 0 }, value: 'ch' });
+    expect(
+      findDigraphJoin({ board, character: 'h', config: spanish, direction: 'horizontal', position: { x: 0, y: 0 } }),
+    ).toBeUndefined();
   });
 
   it('prefers the shorter run of tiles before the position', () => {
