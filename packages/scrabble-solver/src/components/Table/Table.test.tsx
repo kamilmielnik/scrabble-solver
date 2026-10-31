@@ -204,6 +204,26 @@ describe('Search', () => {
     expect(input.value).toBe('ca[');
   });
 
+  it('discards an invalid expression when the reset key changes', () => {
+    const { rerender } = renderWithStore(<Search placeholder="Find" resetKey="first" value="" onChange={noop} />);
+    const input = screen.getByPlaceholderText('Find') as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: '[' } });
+    rerender(<Search placeholder="Find" resetKey="second" value="" onChange={noop} />);
+
+    expect(input.value).toBe('');
+  });
+
+  it('keeps an invalid expression while the reset key stays the same', () => {
+    const { rerender } = renderWithStore(<Search placeholder="Find" resetKey="first" value="" onChange={noop} />);
+    const input = screen.getByPlaceholderText('Find') as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: '[' } });
+    rerender(<Search placeholder="Find" resetKey="first" value="" onChange={noop} />);
+
+    expect(input.value).toBe('[');
+  });
+
   it('shows the value and placeholder', () => {
     renderWithStore(<Search placeholder="Find" value="abc" onChange={noop} />);
 

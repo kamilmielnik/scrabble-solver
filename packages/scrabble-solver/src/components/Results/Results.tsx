@@ -13,6 +13,7 @@ import {
   selectLocale,
   selectProcessedResults,
   selectResultsQuery,
+  selectResultsResults,
   selectSolveError,
   selectSolveIsLoading,
   useTranslate,
@@ -42,6 +43,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
   const { direction } = LOCALE_FEATURES[locale];
   const results = useTypedSelector(selectProcessedResults);
   const query = useTypedSelector(selectResultsQuery);
+  const unprocessedResults = useTypedSelector(selectResultsResults);
   const isLoading = useTypedSelector(selectSolveIsLoading);
   const [isLoadingDebounced] = useDebounce(isLoading, LOADING_DELAY);
   const isOutdated = useTypedSelector(selectAreResultsOutdated);
@@ -153,6 +155,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
         <Search
           className={styles.input}
           placeholder={translate('results.input.placeholder')}
+          resetKey={unprocessedResults}
           value={query}
           onChange={handleQueryChange}
         />

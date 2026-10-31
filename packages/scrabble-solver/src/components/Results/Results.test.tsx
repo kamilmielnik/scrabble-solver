@@ -140,6 +140,32 @@ describe('list updates', () => {
 });
 
 describe('search', () => {
+  it('clears an invalid expression when new results arrive, as it clears a valid one', () => {
+    const { store } = setup();
+    const input = screen.getByPlaceholderText(/Search results/) as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: '[' } });
+    act(() => {
+      store.dispatch(resultsSlice.actions.changeResults([dog, cat]));
+    });
+
+    expect(input.value).toBe('');
+  });
+
+  it('keeps an invalid expression while the results stay the same', () => {
+    const { store } = setup();
+    const input = screen.getByPlaceholderText(/Search results/) as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: 'dog' } });
+    fireEvent.change(input, { target: { value: 'dog[' } });
+    act(() => {
+      store.dispatch(resultsSlice.actions.sort(ResultColumnId.Word));
+    });
+
+    expect(input.value).toBe('dog[');
+    expect(store.getState().results.query).toBe('dog');
+  });
+
   /**
    * #342 - Incorrect sorting when filtering
    * @see https://github.com/kamilmielnik/scrabble-solver/issues/342
