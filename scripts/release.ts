@@ -30,6 +30,8 @@ const ROOT_DIRECTORY = path.resolve(import.meta.dirname, '..');
 
 const [firstArgument, ...otherArguments] = process.argv.slice(2);
 
+assertLoggedIn();
+
 if (firstArgument === 'resume') {
   restoreManifestsAfterFailedPublish();
 } else {
@@ -40,6 +42,11 @@ if (firstArgument === 'resume') {
 }
 
 publish();
+
+function assertLoggedIn(): void {
+  run('npm', 'whoami');
+  run('gh', 'auth', 'status', '--active');
+}
 
 function publish(): void {
   const { version }: { version: string } = JSON.parse(readFileSync(path.join(ROOT_DIRECTORY, 'lerna.json'), 'utf8'));
