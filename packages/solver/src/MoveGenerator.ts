@@ -42,6 +42,7 @@ export class MoveGenerator {
   private readonly alphaSize: number;
   private readonly alphaChars: string[];
   private readonly alphaLetters: Int32Array[];
+  private readonly alphaPlayable: Uint8Array;
   private readonly alphaPoints: Int32Array;
 
   /**
@@ -148,6 +149,7 @@ export class MoveGenerator {
     this.alphaSize = alphabet.length;
     this.alphaChars = alphabet;
     this.alphaLetters = alphabet.map((character) => this.getLetters(character));
+    this.alphaPlayable = Uint8Array.from(this.alphaLetters, (letters) => (areLettersPlayable(letters) ? 1 : 0));
     this.alphaPoints = new Int32Array(this.alphaSize);
 
     for (let index = 0; index < this.alphaSize; ++index) {
@@ -472,8 +474,15 @@ export class MoveGenerator {
             lettersValid = false;
           }
 
-          (crossLine < line ? preLetters : postLetters).push(...crossLetters);
-          crossCharacters[crossLine - spanLo] = this.boardChar[this.passGlobal[crossIndex]];
+          const letters = crossLine < line ? preLetters : postLetters;
+
+          for (const letter of crossLetters) {
+            letters.push(letter);
+          }
+
+          if (this.hasDigraphs) {
+            crossCharacters[crossLine - spanLo] = this.boardChar[this.passGlobal[crossIndex]];
+          }
         }
 
         this.hasCross[passIndex] = 1;
@@ -494,30 +503,32 @@ export class MoveGenerator {
 
           if (postRef !== 0) {
             for (let alpha = 0; alpha < this.alphaSize; ++alpha) {
-              const letters = this.alphaLetters[alpha];
-
-              if (!areLettersPlayable(letters)) {
+              if (this.alphaPlayable[alpha] === 0) {
                 continue;
               }
 
-              let ref = this.walkBackwards(postRef, letters);
+              let ref = this.walkBackwards(postRef, this.alphaLetters[alpha]);
 
               for (let index = preLetters.length - 1; index >= 0 && ref !== 0; --index) {
                 ref = gaddag.getArc(ref, preLetters[index]);
               }
 
-              if ((ref & 1) === 1) {
+              if ((ref & 1) === 0) {
+                continue;
+              }
+
+              if (this.hasDigraphs) {
                 crossCharacters[line - spanLo] = this.alphaChars[alpha];
 
-                if (this.hasDigraphs && this.config.spellsDigraph(crossCharacters)) {
+                if (this.config.spellsDigraph(crossCharacters)) {
                   continue;
                 }
+              }
 
-                if (alpha < 32) {
-                  maskLo |= 1 << alpha;
-                } else {
-                  maskHi |= 1 << (alpha - 32);
-                }
+              if (alpha < 32) {
+                maskLo |= 1 << alpha;
+              } else {
+                maskHi |= 1 << (alpha - 32);
               }
             }
           }
@@ -534,6 +545,10 @@ export class MoveGenerator {
   }
 
   private walkForwards(ref: number, letters: Int32Array): number {
+    if (letters.length === 1) {
+      return letters[0] > 0 ? this.gaddag.getArc(ref, letters[0]) : 0;
+    }
+
     let nextRef = ref;
 
     for (let index = 0; index < letters.length && nextRef !== 0; ++index) {
@@ -544,6 +559,10 @@ export class MoveGenerator {
   }
 
   private walkBackwards(ref: number, letters: Int32Array): number {
+    if (letters.length === 1) {
+      return letters[0] > 0 ? this.gaddag.getArc(ref, letters[0]) : 0;
+    }
+
     let nextRef = ref;
 
     for (let index = letters.length - 1; index >= 0 && nextRef !== 0; --index) {
