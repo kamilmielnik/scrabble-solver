@@ -4,8 +4,6 @@ import { type Direction, type Point } from '@/types';
 
 import { toggleDirection } from './lib';
 
-const AXES: Direction[] = ['vertical', 'horizontal'];
-
 interface Options {
   board: Board;
   character: string;
@@ -48,17 +46,15 @@ export function findDigraphJoin(options: Options): DigraphJoin | undefined {
 
 /**
  * Not every character of a digraph is a tile: Catalan has no "q" or "·" tiles.
- * Such a character has to stay on the board until the character that completes the digraph arrives.
+ * Such a character has to stay on the board until the character that completes the digraph arrives,
+ * which happens next to it in the typing direction.
  */
-export function continuesDigraph(options: Omit<Options, 'direction'>): boolean {
-  const { character, config } = options;
+export function continuesDigraph(options: Options): boolean {
+  const { character, config, direction } = options;
+  const tiles = readTiles(options, direction, -1);
 
-  return AXES.some((axis) => {
-    const tiles = readTiles(options, axis, -1);
-
-    return Array.from({ length: tiles.length + 1 }).some((_, count) => {
-      return config.isDigraphPrefix(spell(tiles.slice(0, count).reverse(), character));
-    });
+  return Array.from({ length: tiles.length + 1 }).some((_, count) => {
+    return config.isDigraphPrefix(spell(tiles.slice(0, count).reverse(), character));
   });
 }
 
@@ -87,6 +83,7 @@ function findJoinAround(options: Options, axis: Direction): DigraphJoin | undefi
 
 /**
  * Focus cannot leave the last cell, so the next character arrives in the cell that holds the previous one.
+ * That cell keeps the beginning of a digraph until the character that completes it arrives.
  */
 function findJoinInLastCell(options: Options): DigraphJoin | undefined {
   const { board, character, config, direction, position } = options;
@@ -97,17 +94,19 @@ function findJoinInLastCell(options: Options): DigraphJoin | undefined {
   }
 
   const tiles = [lastTile, ...readTiles(options, direction, -1)];
+  const candidates = tiles.map((_, index): Candidate => {
+    const joinedTiles = tiles.slice(0, index + 1).reverse();
+    return { joinedTiles, value: spell(joinedTiles, character) };
+  });
+  const join =
+    candidates.find(({ value }) => config.digraphs.includes(value)) ??
+    candidates.find(({ value }) => config.isDigraphPrefix(value));
 
-  for (let count = 1; count <= tiles.length; ++count) {
-    const joinedTiles = tiles.slice(0, count).reverse();
-    const value = spell(joinedTiles, character);
-
-    if (config.digraphs.includes(value)) {
-      return createJoin(options, direction, { first: 1 - count, last: 0 }, { joinedTiles, value });
-    }
+  if (typeof join === 'undefined') {
+    return undefined;
   }
 
-  return undefined;
+  return createJoin(options, direction, { first: 1 - join.joinedTiles.length, last: 0 }, join);
 }
 
 function createJoin(options: Options, axis: Direction, span: Span, { joinedTiles, value }: Candidate): DigraphJoin {
@@ -139,7 +138,7 @@ function findNextPosition(options: Options, axis: Direction, target: Point): Poi
   return isLastCell({ ...options, position: target }) ? target : movePoint(target, direction, 1);
 }
 
-function readTiles({ board, config, position }: Omit<Options, 'direction'>, axis: Direction, step: number): Tile[] {
+function readTiles({ board, config, position }: Options, axis: Direction, step: number): Tile[] {
   const tiles: Tile[] = [];
 
   while (tiles.length + 1 < config.longestDigraphLength) {

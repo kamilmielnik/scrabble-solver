@@ -236,6 +236,21 @@ describe('findDigraphJoin', () => {
       });
     });
   });
+
+  it('keeps the beginning of a digraph inside the last cell of a line', () => {
+    expect(join(catalan, '.l', 1, '·')).toEqual({
+      clearedCells: [],
+      isBlank: false,
+      nextPosition: { x: 1, y: 0 },
+      target: { x: 1, y: 0 },
+      value: 'l·',
+    });
+    expect(joinTiles(catalan, [' ', 'l·'], 1, 'l')?.value).toBe('l·l');
+  });
+
+  it('prefers a whole digraph inside the last cell of a line', () => {
+    expect(join(klingon, '.t', 1, 'l')?.value).toBe('tl');
+  });
 });
 
 describe('continuesDigraph', () => {
@@ -254,10 +269,20 @@ describe('continuesDigraph', () => {
     expect(continues(catalan, '..', 0, 'y')).toBe(false);
   });
 
-  it('looks for the tiles above as well', () => {
+  it('looks for the tiles before the position in the typing direction only', () => {
     const board = createColumn(['l', ' ']);
+    const options = { board, character: '·', config: catalan, position: { x: 0, y: 1 } };
 
-    expect(continuesDigraph({ board, character: '·', config: catalan, position: { x: 0, y: 1 } })).toBe(true);
+    expect(continuesDigraph({ ...options, direction: 'vertical' })).toBe(true);
+    expect(continuesDigraph({ ...options, direction: 'horizontal' })).toBe(false);
+  });
+
+  it('accepts a character that starts a digraph across the typing direction', () => {
+    const board = createColumn([' ', 'u']);
+
+    expect(
+      continuesDigraph({ board, character: 'q', config: catalan, direction: 'horizontal', position: { x: 0, y: 0 } }),
+    ).toBe(true);
   });
 });
 
@@ -272,7 +297,9 @@ function joinTiles(config: Config, tiles: string[], x: number, character: string
 }
 
 function continues(config: Config, row: string, x: number, character: string): boolean {
-  return continuesDigraph({ board: createRow(spreadRow(row)), character, config, position: { x, y: 0 } });
+  const board = createRow(spreadRow(row));
+
+  return continuesDigraph({ board, character, config, direction: 'horizontal', position: { x, y: 0 } });
 }
 
 function spreadRow(row: string): string[] {

@@ -669,16 +669,6 @@ describe('digraphs longer than two letters', () => {
     expect(document.activeElement).toBe(getCell('B1'));
   });
 
-  it('joins in the last column, where focus cannot move on', () => {
-    const { store } = setup({ board: createBoard({ 13: 'l', 14: '·' }), settings });
-
-    fireEvent.focus(getCell('O1'));
-    paste('O1', 'l');
-
-    expect(readBoard(store, 13, 0)).toBe('l·l');
-    expect(readBoard(store, 14, 0)).toBe(' ');
-  });
-
   it('joins with a blank tile into a blank digraph', () => {
     const board = createBoard({ 0: 'l' });
     board.rows[0][0].tile.isBlank = true;
@@ -690,6 +680,28 @@ describe('digraphs longer than two letters', () => {
 
     expect(readRow(store, 0).slice(0, 3)).toEqual(['l·l', ' ', ' ']);
     expect(store.getState().board.rows[0][0].tile.isBlank).toBe(true);
+  });
+
+  describe('in the last column, where focus cannot move on', () => {
+    it('joins with the tiles before it', () => {
+      const { store } = setup({ board: createBoard({ 13: 'l', 14: '·' }), settings });
+
+      fireEvent.focus(getCell('O1'));
+      paste('O1', 'l');
+
+      expect(readBoard(store, 13, 0)).toBe('l·l');
+      expect(readBoard(store, 14, 0)).toBe(' ');
+    });
+
+    it('types a digraph letter by letter inside the cell', () => {
+      const { store } = setup({ board: createBoard({ 14: 'l' }), settings });
+
+      fireEvent.focus(getCell('O1'));
+      paste('O1', '·');
+      paste('O1', 'l');
+
+      expect(readBoard(store, 14, 0)).toBe('l·l');
+    });
   });
 
   it('accepts a look-alike of the middle dot', () => {
