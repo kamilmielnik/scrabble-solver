@@ -30,17 +30,17 @@ const RELEASE_BRANCH = 'master';
 const REPOSITORY = 'kamilmielnik/scrabble-solver';
 const ROOT_DIRECTORY = path.resolve(import.meta.dirname, '..');
 
-const [firstArgument, ...otherArguments] = process.argv.slice(2);
+const releaseArguments = process.argv.slice(2);
 
 assertLoggedIn();
 
-if (firstArgument === 'resume') {
+if (releaseArguments[0] === 'resume') {
   restoreManifestsAfterFailedPublish();
 } else {
   assertCleanReleaseBranch();
   run('bun', 'run', 'clean');
   run('bun', 'install', '--frozen-lockfile');
-  run('bunx', 'lerna', 'version', ...(firstArgument ? [firstArgument] : []), ...otherArguments);
+  run('bunx', 'lerna', 'version', ...releaseArguments);
 }
 
 publish();
