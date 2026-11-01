@@ -28,6 +28,7 @@ export async function crawl(word: string): Promise<string> {
   const pages = [wordPage, ...(accentedPages.status === 'fulfilled' ? accentedPages.value : [])];
   const contents = pages.filter((page) => page.status === 'fulfilled').map((page) => page.value);
 
+  // No content means the page of the word failed too: checking its status only narrows the type to read its reason.
   if (contents.length === 0 && wordPage.status === 'rejected') {
     throw wordPage.reason;
   }
