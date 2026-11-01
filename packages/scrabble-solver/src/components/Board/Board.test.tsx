@@ -662,6 +662,17 @@ describe('two-letter tiles', () => {
     expect(document.activeElement).toBe(getCell('B1'));
   });
 
+  it('joins the letters of a word typed over itself', () => {
+    const { store } = setup({ board: createBoard({ 0: 'l', 1: 'o' }), settings });
+
+    fireEvent.focus(getCell('A1'));
+    press('A1', 'l');
+    press('B1', 'o');
+
+    expect(readRow(store, 0).slice(0, 3)).toEqual(['ll', 'o', ' ']);
+    expect(document.activeElement).toBe(getCell('C1'));
+  });
+
   it('joins a typed letter into a blank in the current cell, keeping the blank', () => {
     const board = createBoard({ 0: 'c' });
     board.rows[0][0].tile.isBlank = true;

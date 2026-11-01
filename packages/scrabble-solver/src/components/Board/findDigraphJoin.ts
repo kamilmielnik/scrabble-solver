@@ -60,6 +60,10 @@ export function continuesDigraph(options: Options): boolean {
   });
 }
 
+/**
+ * A character typed over a tile completes the digraph that the tile begins, in any cell, as in the last one.
+ * So typing a word over itself joins its letters: Spanish "lo" typed over "lo" becomes "ll", "o".
+ */
 function findJoinInCell(options: Options): DigraphJoin | undefined {
   const { board, character, config, direction, position } = options;
   const tile = readTile(board, position);
