@@ -883,11 +883,16 @@ describe('digraphs longer than two letters', () => {
     expect(document.activeElement).toBe(getCell('B1'));
   });
 
-  it('marks a letter that is no tile as invalid until it is joined', () => {
-    setup({ settings });
+  /**
+   * Intentional: the letter is kept in the board state, not in a buffer outside it, so that the user sees what they
+   * type and the app reacts to every key.
+   */
+  it('keeps a letter that is no tile on the board, marked as invalid, until it is joined', () => {
+    const { store } = setup({ settings });
 
     type('A1', 'q');
 
+    expect(readBoard(store, 0, 0)).toBe('q');
     expect(getCell('A1').parentElement!.className).toContain('invalid');
 
     type('B1', 'u');
