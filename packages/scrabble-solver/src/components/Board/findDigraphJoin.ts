@@ -49,8 +49,9 @@ export function findDigraphJoin(options: Options): DigraphJoin | undefined {
 }
 
 /**
- * Not every character of a digraph is a tile: Catalan has no "q" or "·" tiles. Such a character stays on the board
- * as an invalid tile until the character that completes the digraph arrives next to it in the typing direction.
+ * Not every character of a digraph is a tile: Catalan has no "q" or "·" tiles. Such a character goes on the board as
+ * an invalid tile, so that the character that completes the digraph next to it in the typing direction can join it.
+ * It stays there when the next character does not complete the digraph, so that the user sees the mistake and fixes it.
  * It is not kept in a buffer outside the board, so that the user sees what they type and the app reacts to every key.
  */
 export function continuesDigraph(options: Options): boolean {

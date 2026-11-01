@@ -726,6 +726,20 @@ describe('digraphs longer than two letters', () => {
     expect(document.activeElement).toBe(getCell('B1'));
   });
 
+  it('keeps a letter that is no tile when the next letter does not complete the digraph', () => {
+    const { store } = setup({ settings });
+
+    type('A1', 'q');
+    type('B1', 'a');
+    type('D1', 'l');
+    type('E1', '·');
+    type('F1', 'a');
+
+    expect(readRow(store, 0).slice(0, 6)).toEqual(['q', 'a', ' ', 'l', '·', 'a']);
+    expect(getCell('A1').parentElement?.className).toContain('invalid');
+    expect(getCell('E1').parentElement?.className).toContain('invalid');
+  });
+
   it('reads a whole word typed letter by letter', () => {
     const { store } = setup({ settings });
 
