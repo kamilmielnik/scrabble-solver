@@ -919,7 +919,11 @@ describe('MoveGenerator - digraphs longer than two characters', () => {
       'l·la',
     ],
   ] as const)('does not compose the tile where a longer perpendicular word %s', (_name, tiles, crossing) => {
-    const board = createBoard(7, 7, tiles.map(([x, y, character]) => [x, y, character]));
+    const board = createBoard(
+      7,
+      7,
+      tiles.map(([x, y, character]) => [x, y, character]),
+    );
     const results = generate(Gaddag.fromArray([crossing, 'la']), config, board, ['l', 'a']);
 
     expect(results.flatMap((result) => result.words)).not.toContain(crossing);
