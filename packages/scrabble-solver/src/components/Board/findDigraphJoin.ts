@@ -92,7 +92,12 @@ function findJoinAround(options: Options, axis: Direction): DigraphJoin | undefi
         continue;
       }
 
-      const span = { first: -countBefore, last: countAfter === 0 ? -1 : countAfter };
+      /**
+       * A character that joins only the tiles before it does not type over the position: the position keeps its tile
+       * and stays the next cell to type over.
+       */
+      const typesOverPosition = countAfter > 0;
+      const span = { first: -countBefore, last: typesOverPosition ? countAfter : -1 };
       return createJoin(options, axis, span, { tilesBefore: before, value });
     }
   }

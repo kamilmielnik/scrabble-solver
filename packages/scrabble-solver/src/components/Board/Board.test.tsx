@@ -653,6 +653,15 @@ describe('two-letter tiles', () => {
     expect(document.activeElement).toBe(getCell('C2'));
   });
 
+  it('keeps the tile it types over and focus on it when the letter joins the tile before it', () => {
+    const { store } = setup({ board: createBoard({ 0: 'c', 1: 'a', 2: 's' }), settings });
+
+    type('B1', 'h');
+
+    expect(readRow(store, 0).slice(0, 3)).toEqual(['ch', 'a', 's']);
+    expect(document.activeElement).toBe(getCell('B1'));
+  });
+
   it('joins a typed letter into a blank in the current cell, keeping the blank', () => {
     const board = createBoard({ 0: 'c' });
     board.rows[0][0].tile.isBlank = true;
