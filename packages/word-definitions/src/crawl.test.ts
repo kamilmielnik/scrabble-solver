@@ -119,10 +119,10 @@ describe('crawl - Catalan', () => {
     expect(getRequestedPages()).toEqual(['/w/rest.php/v1/page/cel%C2%B7la/html']);
   });
 
-  it('reads the pages of the accented spellings of a word', async () => {
+  it('reads the page of the first accented spelling of a word only', async () => {
     serveWiktionary(['cafè', 'café'], { cafe: 'not found', cafè: 'cafè page', café: 'café page' });
 
-    expect(await crawl(Locale.CA_ES, 'cafe')).toBe('not found\ncafè page\ncafé page');
+    expect(await crawl(Locale.CA_ES, 'cafe')).toBe('not found\ncafè page');
   });
 
   it('keeps the cedilla apart from the accents', async () => {
@@ -152,14 +152,6 @@ describe('crawl - Catalan', () => {
     expect(getRequestedPages()).toEqual(['/w/rest.php/v1/page/cases/html']);
   });
 
-  it('limits how many pages one word reads', async () => {
-    serveWiktionary(['aé', 'aè', 'àe', 'áe', 'âe', 'äe'], {});
-
-    await crawl(Locale.CA_ES, 'ae');
-
-    expect(getRequestedPages()).toHaveLength(4);
-  });
-
   it('reads only the page of the word when the search answers nonsense', async () => {
     request.mockResolvedValue('<html>Too many requests</html>');
 
@@ -177,14 +169,14 @@ describe('crawl - Catalan', () => {
     expect(await crawl(Locale.CA_ES, 'cases')).toBe('cases page');
   });
 
-  it('keeps the pages that load when another one fails', async () => {
-    serveWiktionary(['cafè', 'café'], { cafe: 'not found', cafè: new Error('timeout'), café: 'café page' });
+  it('keeps the page of the word when the accented page fails', async () => {
+    serveWiktionary(['cafè'], { cafe: 'not found', cafè: new Error('timeout') });
 
-    expect(await crawl(Locale.CA_ES, 'cafe')).toBe('not found\ncafé page');
+    expect(await crawl(Locale.CA_ES, 'cafe')).toBe('not found');
   });
 
-  // Intentional: only a word whose every page fails rejects, even when the page of the word itself fails
-  it('keeps the accented pages when the page of the word fails', async () => {
+  // Intentional: only a word whose both pages fail rejects, even when the page of the word itself fails
+  it('keeps the accented page when the page of the word fails', async () => {
     serveWiktionary(['cafè'], { cafe: new Error('timeout'), cafè: 'cafè page' });
 
     expect(await crawl(Locale.CA_ES, 'cafe')).toBe('cafè page');

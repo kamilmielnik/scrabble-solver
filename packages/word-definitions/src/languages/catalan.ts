@@ -1,6 +1,6 @@
 import { load } from 'cheerio';
 
-import { request, unique } from '../lib';
+import { request } from '../lib';
 import type { ParsingResult } from '../types';
 
 interface SearchPayload {
@@ -11,7 +11,6 @@ interface SearchPayload {
 
 const HOSTNAME = 'ca.wiktionary.org';
 const HEADERS = { 'User-Agent': 'scrabble-solver (https://github.com/kamilmielnik/scrabble-solver)' };
-const MAX_PAGES_COUNT = 4;
 const SEARCH_RESULTS_COUNT = 10;
 
 // Every combining mark except the cedilla, which makes "ç" a separate letter.
@@ -20,13 +19,14 @@ const STRIPPED_COMBINING_MARKS = /[\u0300-\u0326\u0328-\u036f]/g;
 /**
  * Words are stored without accents, like on Scrabble tiles, but Wiktionary titles have them: "canço" is "cançó".
  * One word can stand for many titles ("catorze", "catorzè"), so search for them while reading the page of the word.
- * Up to MAX_PAGES_COUNT pages are read, the word itself takes one of these, and a title outside the top
- * SEARCH_RESULTS_COUNT results is missed. A page that fails is left out; only a word whose every page fails rejects.
+ * Only the best match among the top SEARCH_RESULTS_COUNT results is read. A page that fails is left out,
+ * and a word rejects only when both its pages fail.
  */
 export async function crawl(word: string): Promise<string> {
-  const [wordPage, accentedPages] = await Promise.allSettled([crawlPage(word), crawlAccentedPages(word)]);
-  const pages = [wordPage, ...(accentedPages.status === 'fulfilled' ? accentedPages.value : [])];
-  const contents = pages.filter((page) => page.status === 'fulfilled').map((page) => page.value);
+  const [wordPage, accentedPage] = await Promise.allSettled([crawlPage(word), crawlAccentedPage(word)]);
+  const contents = [wordPage, accentedPage]
+    .map((page) => (page.status === 'fulfilled' ? page.value : undefined))
+    .filter((content) => content !== undefined);
 
   // No content means the page of the word failed too: checking its status only narrows the type to read its reason.
   if (contents.length === 0 && wordPage.status === 'rejected') {
@@ -48,21 +48,19 @@ export function parse(html: string): ParsingResult {
   };
 }
 
-async function crawlAccentedPages(word: string): Promise<PromiseSettledResult<string>[]> {
-  const titles = await findAccentedTitles(word);
-  return Promise.allSettled(titles.map(crawlPage));
+async function crawlAccentedPage(word: string): Promise<string | undefined> {
+  const title = await findAccentedTitle(word);
+  return title === undefined ? undefined : crawlPage(title);
 }
 
-async function findAccentedTitles(word: string): Promise<string[]> {
+async function findAccentedTitle(word: string): Promise<string | undefined> {
   const search = await request({
     protocol: 'https',
     hostname: HOSTNAME,
     path: `/w/api.php?action=query&list=search&format=json&srnamespace=0&srprop=&srlimit=${SEARCH_RESULTS_COUNT}&srsearch=${encodeURIComponent(`intitle:${word}`)}`,
     headers: HEADERS,
   });
-  const titles = readTitles(search).filter((title) => title !== word && stripAccents(title) === stripAccents(word));
-
-  return unique(titles).slice(0, MAX_PAGES_COUNT - 1);
+  return readTitles(search).find((title) => title !== word && stripAccents(title) === stripAccents(word));
 }
 
 function crawlPage(title: string): Promise<string> {
