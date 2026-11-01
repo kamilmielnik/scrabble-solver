@@ -26,6 +26,12 @@ describe('guessLocale', () => {
     [['en'], 'en', Locale.EN_US],
     [['en-CA'], 'en-CA', Locale.EN_US],
     [['en-AU'], 'en-AU', Locale.EN_GB],
+    [['en-IN'], 'en-IN', Locale.EN_GB],
+    [['en-PH'], 'en-PH', Locale.EN_GB],
+    [['en-PR'], 'en-PR', Locale.EN_US],
+    [['en-us'], 'en-us', Locale.EN_US],
+    [['en-US-posix'], 'en-US-posix', Locale.EN_US],
+    [['en-Latn-GB'], 'en-Latn-GB', Locale.EN_GB],
     [['caa'], 'caa', Locale.EN_US],
   ])('maps languages %j to the matching locale', (languages, language, expected) => {
     withNavigator({ language, languages }, () => {
@@ -42,6 +48,12 @@ describe('guessLocale', () => {
   ])('follows the order of browser languages %j', (languages, expected) => {
     withNavigator({ language: languages[0], languages }, () => {
       expect(guessLocale()).toBe(expected);
+    });
+  });
+
+  it('skips a language it cannot parse', () => {
+    withNavigator({ language: 'en_GB', languages: ['en_GB', 'pl'] }, () => {
+      expect(guessLocale()).toBe(Locale.PL_PL);
     });
   });
 
