@@ -24,7 +24,7 @@ import { isCtrl } from '@/lib/isCtrl';
 import { boardSlice, cellFiltersSlice, selectConfig, selectLocale, useTypedSelector } from '@/state';
 import { type Direction, type Point } from '@/types';
 
-import { continuesDigraph, findDigraphJoin } from '../findDigraphJoin';
+import { continuesDigraph, findDigraphJoin, findJoinInLastCell } from '../findDigraphJoin';
 import { createGrid, getPositionInGrid, toggleDirection } from '../lib';
 
 interface State {
@@ -101,6 +101,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
       const actions: PayloadAction<unknown>[] = [];
       let board = new Board({ rows: rowsRef.current.map((row) => row.map((cell) => cell.clone())) });
       let { x, y } = position;
+      let hasFilledLastCell = false;
 
       function changeCellValue(cell: Point, cellValue: string, isBlank = false): void {
         const action = boardSlice.actions.changeCellValue({ ...cell, isBlank, value: cellValue });
@@ -108,29 +109,34 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
         actions.push(action);
       }
 
-      characters.forEach((character) => {
-        if (x >= config.boardWidth || y >= config.boardHeight) {
-          return;
-        }
+      function moveOn(filledCell: Point, nextPosition: Point): void {
+        hasFilledLastCell = filledCell.x === nextPosition.x && filledCell.y === nextPosition.y;
+        ({ x, y } = nextPosition);
+      }
 
+      characters.forEach((character) => {
         const options = { board, character, config, direction: directionRef.current, position: { x, y } };
-        const join = findDigraphJoin(options);
+        const join = hasFilledLastCell ? findJoinInLastCell(options) : findDigraphJoin(options);
 
         if (join) {
           changeCellValue(join.target, join.value, join.isBlank);
           join.clearedCells.forEach((cell) => changeCellValue(cell, EMPTY_CELL));
-          ({ x, y } = join.nextPosition);
+          moveOn(join.target, join.nextPosition);
+          return;
+        }
+
+        if (hasFilledLastCell) {
           return;
         }
 
         if (config.hasCharacter(character) || character === BLANK || continuesDigraph(options)) {
           changeCellValue({ x, y }, character);
-
-          if (directionRef.current === 'horizontal') {
-            ++x;
-          } else {
-            ++y;
-          }
+          moveOn(
+            { x, y },
+            directionRef.current === 'horizontal'
+              ? { x: Math.min(x + 1, config.boardWidth - 1), y }
+              : { x, y: Math.min(y + 1, config.boardHeight - 1) },
+          );
         }
       });
 

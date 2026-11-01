@@ -103,7 +103,7 @@ function findJoinAround(options: Options, axis: Direction): DigraphJoin | undefi
  * Focus cannot leave the last cell, so the next character arrives in the cell that holds the previous one.
  * That cell keeps the beginning of a digraph until the character that completes it arrives.
  */
-function findJoinInLastCell(options: Options): DigraphJoin | undefined {
+export function findJoinInLastCell(options: Options): DigraphJoin | undefined {
   const { board, character, config, direction, position } = options;
   const lastTile = readTile(board, position);
 

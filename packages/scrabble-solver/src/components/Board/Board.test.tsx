@@ -749,6 +749,24 @@ describe('digraphs longer than two letters', () => {
 
       expect(readBoard(store, 14, 0)).toBe('l·l');
     });
+
+    it('joins the parts of a digraph pasted apart inside the cell, like anywhere else on the board', () => {
+      const { store } = setup({ settings });
+
+      paste('A1', 'l· l');
+      paste('O1', 'l· l');
+
+      expect(readBoard(store, 0, 0)).toBe('l·l');
+      expect(readBoard(store, 14, 0)).toBe('l·l');
+    });
+
+    it('drops a pasted letter that does not continue the cell, even if it joins the tiles before it', () => {
+      const { store } = setup({ settings });
+
+      paste('N1', 'nay');
+
+      expect(readRow(store, 0).slice(13)).toEqual(['n', 'a']);
+    });
   });
 
   it('accepts a look-alike of the middle dot', () => {
