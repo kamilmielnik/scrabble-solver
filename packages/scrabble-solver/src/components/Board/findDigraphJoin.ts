@@ -18,7 +18,7 @@ interface Span {
 }
 
 interface Candidate {
-  joinedTiles: Tile[];
+  tilesBefore: Tile[];
   value: string;
 }
 
@@ -32,7 +32,7 @@ interface DigraphJoin {
 
 /**
  * Finds what typing a character over or next to the tiles that spell a digraph with it does to the board.
- * A digraph joined from a blank, or typed over one, is a blank.
+ * The digraph is a blank only if its first tile already was one: the typed character is no blank.
  */
 export function findDigraphJoin(options: Options): DigraphJoin | undefined {
   const { direction } = options;
@@ -73,7 +73,7 @@ function findJoinInCell(options: Options): DigraphJoin | undefined {
     return undefined;
   }
 
-  return createJoin(options, direction, { first: 0, last: 0 }, { joinedTiles: [tile], value });
+  return createJoin(options, direction, { first: 0, last: 0 }, { tilesBefore: [tile], value });
 }
 
 function findJoinAround(options: Options, axis: Direction): DigraphJoin | undefined {
@@ -92,7 +92,7 @@ function findJoinAround(options: Options, axis: Direction): DigraphJoin | undefi
       }
 
       const span = { first: -countBefore, last: countAfter === 0 ? -1 : countAfter };
-      return createJoin(options, axis, span, { joinedTiles: [...before, ...after], value });
+      return createJoin(options, axis, span, { tilesBefore: before, value });
     }
   }
 
@@ -113,8 +113,8 @@ export function findJoinInLastCell(options: Options): DigraphJoin | undefined {
 
   const tiles = [lastTile, ...readTiles(options, direction, -1)];
   const candidates = tiles.map((_, index): Candidate => {
-    const joinedTiles = tiles.slice(0, index + 1).reverse();
-    return { joinedTiles, value: spell(joinedTiles, character) };
+    const tilesBefore = tiles.slice(0, index + 1).reverse();
+    return { tilesBefore, value: spell(tilesBefore, character) };
   });
   const join =
     candidates.find(({ value }) => config.digraphs.includes(value)) ??
@@ -124,18 +124,17 @@ export function findJoinInLastCell(options: Options): DigraphJoin | undefined {
     return undefined;
   }
 
-  return createJoin(options, direction, { first: 1 - join.joinedTiles.length, last: 0 }, join);
+  return createJoin(options, direction, { first: 1 - join.tilesBefore.length, last: 0 }, join);
 }
 
-function createJoin(options: Options, axis: Direction, span: Span, { joinedTiles, value }: Candidate): DigraphJoin {
-  const { board, position } = options;
+function createJoin(options: Options, axis: Direction, span: Span, { tilesBefore, value }: Candidate): DigraphJoin {
+  const { position } = options;
   const offsets = Array.from({ length: span.last - span.first }, (_, index) => span.first + 1 + index);
   const target = movePoint(position, axis, span.first);
-  const replacedTile = isSamePoint(target, position) ? readTile(board, position) : undefined;
 
   return {
     clearedCells: offsets.map((offset) => movePoint(position, axis, offset)),
-    isBlank: [...joinedTiles, replacedTile].some((tile) => tile?.isBlank),
+    isBlank: tilesBefore.at(0)?.isBlank ?? false,
     nextPosition: findNextPosition(options, axis, target),
     target,
     value,

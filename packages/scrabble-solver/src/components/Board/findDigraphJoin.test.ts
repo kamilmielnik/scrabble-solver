@@ -225,6 +225,40 @@ describe('findDigraphJoin', () => {
   });
 
   describe('blanks', () => {
+    it.each([
+      ['the first of the tiles before the position is', 0, true],
+      ['only a later tile before the position is', 1, false],
+    ])('makes a blank digraph only if %s a blank', (_name, blankX, isBlank) => {
+      const board = createRow(['t', 'l', ' ']);
+      board.rows[0][blankX].tile.isBlank = true;
+
+      expect(
+        findDigraphJoin({ board, character: 'h', config: klingon, direction: 'horizontal', position: { x: 2, y: 0 } })
+          ?.isBlank,
+      ).toBe(isBlank);
+    });
+
+    it.each([
+      ['the first of the tiles is', 0, true],
+      ['only the last cell is', 1, false],
+    ])('makes a blank digraph inside the last cell of a line only if %s a blank', (_name, blankX, isBlank) => {
+      const board = createRow(['t', 'l']);
+      board.rows[0][blankX].tile.isBlank = true;
+
+      expect(
+        findDigraphJoin({ board, character: 'h', config: klingon, direction: 'horizontal', position: { x: 1, y: 0 } }),
+      ).toMatchObject({ isBlank, target: { x: 0, y: 0 }, value: 'tlh' });
+    });
+
+    it('makes no blank of a digraph that takes in a blank across the typing direction', () => {
+      const board = createColumn([' ', 'h']);
+      board.rows[1][0].tile.isBlank = true;
+
+      expect(
+        findDigraphJoin({ board, character: 'c', config: spanish, direction: 'horizontal', position: { x: 0, y: 0 } }),
+      ).toMatchObject({ clearedCells: [{ x: 0, y: 1 }], isBlank: false, target: { x: 0, y: 0 }, value: 'ch' });
+    });
+
     it('joins a blank into a blank digraph', () => {
       const board = createRow(['c', ' ', ' ']);
       board.rows[0][0].tile.isBlank = true;
@@ -234,7 +268,7 @@ describe('findDigraphJoin', () => {
       ).toEqual({ clearedCells: [], isBlank: true, nextPosition: { x: 1, y: 0 }, target: { x: 0, y: 0 }, value: 'ch' });
     });
 
-    it('keeps the blank on the position when the typed character takes in the following tiles', () => {
+    it('makes no blank of the blank on the position when the typed character takes in the following tiles', () => {
       const board = createRow(['a', 'h', ' ']);
       board.rows[0][0].tile.isBlank = true;
 
@@ -242,7 +276,7 @@ describe('findDigraphJoin', () => {
         findDigraphJoin({ board, character: 'c', config: spanish, direction: 'horizontal', position: { x: 0, y: 0 } }),
       ).toEqual({
         clearedCells: [{ x: 1, y: 0 }],
-        isBlank: true,
+        isBlank: false,
         nextPosition: { x: 1, y: 0 },
         target: { x: 0, y: 0 },
         value: 'ch',
@@ -269,16 +303,15 @@ describe('findDigraphJoin', () => {
       ).toBe(false);
     });
 
-    it('joins a following blank into a blank digraph', () => {
+    it('makes no blank of a digraph that takes in a following blank', () => {
       const board = createRow([' ', 'h', ' ']);
       board.rows[0][1].tile.isBlank = true;
 
-      expect(join(spanish, '.h.', 0, 'c')?.isBlank).toBe(false);
       expect(
         findDigraphJoin({ board, character: 'c', config: spanish, direction: 'horizontal', position: { x: 0, y: 0 } }),
       ).toEqual({
         clearedCells: [{ x: 1, y: 0 }],
-        isBlank: true,
+        isBlank: false,
         nextPosition: { x: 1, y: 0 },
         target: { x: 0, y: 0 },
         value: 'ch',

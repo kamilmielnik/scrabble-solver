@@ -605,7 +605,7 @@ describe('two-letter tiles', () => {
   it.each([
     ['horizontally', { x: 1, y: 0 }, { x: 0, y: 1 }, []],
     ['vertically', { x: 0, y: 1 }, { x: 1, y: 0 }, ['ArrowDown']],
-  ])('keeps the blank it types over when joining the following tile %s', (_name, consumed, kept, keys) => {
+  ])('makes no blank of the blank it types over when joining the following tile %s', (_name, consumed, kept, keys) => {
     const board = createBoard({ 0: 'a', 1: 'h', 15: 'h' });
     board.rows[0][0].tile.isBlank = true;
 
@@ -616,9 +616,25 @@ describe('two-letter tiles', () => {
     type('A1', 'c');
 
     expect(readBoard(store, 0, 0)).toBe('ch');
-    expect(store.getState().board.rows[0][0].tile.isBlank).toBe(true);
+    expect(store.getState().board.rows[0][0].tile.isBlank).toBe(false);
     expect(readBoard(store, consumed.x, consumed.y)).toBe(' ');
     expect(readBoard(store, kept.x, kept.y)).toBe('h');
+  });
+
+  it.each([
+    ['along the typing direction', 1],
+    ['across the typing direction', 15],
+  ])('makes no blank of a typed letter that takes in a following blank %s', (_name, index) => {
+    const board = createBoard({ [index]: 'h' });
+    board.rows[Math.floor(index / 15)][index % 15].tile.isBlank = true;
+
+    const { store } = setup({ board, settings });
+
+    type('A1', 'c');
+
+    expect(readBoard(store, 0, 0)).toBe('ch');
+    expect(store.getState().board.rows[0][0].tile.isBlank).toBe(false);
+    expect(readBoard(store, index % 15, Math.floor(index / 15))).toBe(' ');
   });
 
   it('joins a typed letter into a blank in the current cell, keeping the blank', () => {
