@@ -474,24 +474,90 @@ describe('two-letter tiles', () => {
     expect(document.activeElement).toBe(getCell('B1'));
   });
 
-  /**
-   * A shortcut inserts a whole tile in place of a blank, the way typing a letter that joins no digraph does,
-   * even when the blank is the first letter of that digraph: only joining a typed letter into a blank keeps it.
-   */
-  it.each([
-    ['ctrl and the first letter of a digraph', () => press('A1', 'c', { ctrlKey: true }), 'ch'],
-    ['a letter that joins no digraph', () => type('A1', 'a'), 'a'],
-  ])('replaces a blank with a tile that is no blank on %s', (_name, insert, expected) => {
-    const board = createBoard({ 0: 'c' });
-    board.rows[0][0].tile.isBlank = true;
+  describe('blanks', () => {
+    /**
+     * A shortcut inserts a whole tile in place of a blank, the way typing a letter that joins no digraph does,
+     * even when the blank is the first letter of that digraph: only joining a typed letter into a blank keeps it.
+     */
+    it.each([
+      ['ctrl and the first letter of a digraph', () => press('A1', 'c', { ctrlKey: true }), 'ch'],
+      ['a letter that joins no digraph', () => type('A1', 'a'), 'a'],
+    ])('replaces a blank with a tile that is no blank on %s', (_name, insert, expected) => {
+      const board = createBoard({ 0: 'c' });
+      board.rows[0][0].tile.isBlank = true;
 
-    const { store } = setup({ board, settings });
+      const { store } = setup({ board, settings });
 
-    fireEvent.focus(getCell('A1'));
-    insert();
+      fireEvent.focus(getCell('A1'));
+      insert();
 
-    expect(readBoard(store, 0, 0)).toBe(expected);
-    expect(store.getState().board.rows[0][0].tile.isBlank).toBe(false);
+      expect(readBoard(store, 0, 0)).toBe(expected);
+      expect(store.getState().board.rows[0][0].tile.isBlank).toBe(false);
+    });
+
+    it('joins with a blank tile into a blank digraph', () => {
+      const board = createBoard({ 0: 'c' });
+      board.rows[0][0].tile.isBlank = true;
+
+      const { store } = setup({ board, settings });
+
+      type('B1', 'h');
+
+      expect(readBoard(store, 0, 0)).toBe('ch');
+      expect(store.getState().board.rows[0][0].tile.isBlank).toBe(true);
+      expect(readBoard(store, 1, 0)).toBe(' ');
+    });
+
+    it.each([
+      ['horizontally', { x: 1, y: 0 }, { x: 0, y: 1 }, []],
+      ['vertically', { x: 0, y: 1 }, { x: 1, y: 0 }, ['ArrowDown']],
+    ])(
+      'makes no blank of the blank it types over when joining the following tile %s',
+      (_name, consumed, kept, keys) => {
+        const board = createBoard({ 0: 'a', 1: 'h', 15: 'h' });
+        board.rows[0][0].tile.isBlank = true;
+
+        const { store } = setup({ board, settings });
+
+        fireEvent.focus(getCell('A1'));
+        keys.forEach((key) => press('A1', key));
+        type('A1', 'c');
+
+        expect(readBoard(store, 0, 0)).toBe('ch');
+        expect(store.getState().board.rows[0][0].tile.isBlank).toBe(false);
+        expect(readBoard(store, consumed.x, consumed.y)).toBe(' ');
+        expect(readBoard(store, kept.x, kept.y)).toBe('h');
+      },
+    );
+
+    it.each([
+      ['along the typing direction', 1],
+      ['across the typing direction', 15],
+    ])('makes no blank of a typed letter that takes in a following blank %s', (_name, index) => {
+      const board = createBoard({ [index]: 'h' });
+      board.rows[Math.floor(index / 15)][index % 15].tile.isBlank = true;
+
+      const { store } = setup({ board, settings });
+
+      type('A1', 'c');
+
+      expect(readBoard(store, 0, 0)).toBe('ch');
+      expect(store.getState().board.rows[0][0].tile.isBlank).toBe(false);
+      expect(readBoard(store, index % 15, Math.floor(index / 15))).toBe(' ');
+    });
+
+    it('joins a typed letter into a blank in the current cell, keeping the blank', () => {
+      const board = createBoard({ 0: 'c' });
+      board.rows[0][0].tile.isBlank = true;
+
+      const { store } = setup({ board, settings });
+
+      fireEvent.focus(getCell('A1'));
+      press('A1', 'h');
+
+      expect(readBoard(store, 0, 0)).toBe('ch');
+      expect(store.getState().board.rows[0][0].tile.isBlank).toBe(true);
+    });
   });
 
   it('joins a typed letter into the current cell', () => {
@@ -589,54 +655,6 @@ describe('two-letter tiles', () => {
     expect(document.activeElement).toBe(getCell('B1'));
   });
 
-  it('joins with a blank tile into a blank digraph', () => {
-    const board = createBoard({ 0: 'c' });
-    board.rows[0][0].tile.isBlank = true;
-
-    const { store } = setup({ board, settings });
-
-    type('B1', 'h');
-
-    expect(readBoard(store, 0, 0)).toBe('ch');
-    expect(store.getState().board.rows[0][0].tile.isBlank).toBe(true);
-    expect(readBoard(store, 1, 0)).toBe(' ');
-  });
-
-  it.each([
-    ['horizontally', { x: 1, y: 0 }, { x: 0, y: 1 }, []],
-    ['vertically', { x: 0, y: 1 }, { x: 1, y: 0 }, ['ArrowDown']],
-  ])('makes no blank of the blank it types over when joining the following tile %s', (_name, consumed, kept, keys) => {
-    const board = createBoard({ 0: 'a', 1: 'h', 15: 'h' });
-    board.rows[0][0].tile.isBlank = true;
-
-    const { store } = setup({ board, settings });
-
-    fireEvent.focus(getCell('A1'));
-    keys.forEach((key) => press('A1', key));
-    type('A1', 'c');
-
-    expect(readBoard(store, 0, 0)).toBe('ch');
-    expect(store.getState().board.rows[0][0].tile.isBlank).toBe(false);
-    expect(readBoard(store, consumed.x, consumed.y)).toBe(' ');
-    expect(readBoard(store, kept.x, kept.y)).toBe('h');
-  });
-
-  it.each([
-    ['along the typing direction', 1],
-    ['across the typing direction', 15],
-  ])('makes no blank of a typed letter that takes in a following blank %s', (_name, index) => {
-    const board = createBoard({ [index]: 'h' });
-    board.rows[Math.floor(index / 15)][index % 15].tile.isBlank = true;
-
-    const { store } = setup({ board, settings });
-
-    type('A1', 'c');
-
-    expect(readBoard(store, 0, 0)).toBe('ch');
-    expect(store.getState().board.rows[0][0].tile.isBlank).toBe(false);
-    expect(readBoard(store, index % 15, Math.floor(index / 15))).toBe(' ');
-  });
-
   it('keeps focus in its cell when the letter joins the tile across the typing direction', () => {
     const { store } = setup({ board: createBoard({ 1: 'c', 2: 'a', 3: 's', 4: 'a' }), settings });
 
@@ -671,19 +689,6 @@ describe('two-letter tiles', () => {
 
     expect(readRow(store, 0).slice(0, 3)).toEqual(['ll', 'o', ' ']);
     expect(document.activeElement).toBe(getCell('C1'));
-  });
-
-  it('joins a typed letter into a blank in the current cell, keeping the blank', () => {
-    const board = createBoard({ 0: 'c' });
-    board.rows[0][0].tile.isBlank = true;
-
-    const { store } = setup({ board, settings });
-
-    fireEvent.focus(getCell('A1'));
-    press('A1', 'h');
-
-    expect(readBoard(store, 0, 0)).toBe('ch');
-    expect(store.getState().board.rows[0][0].tile.isBlank).toBe(true);
   });
 
   it('joins inside the same cell at the last column', () => {
