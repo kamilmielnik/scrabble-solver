@@ -6,6 +6,7 @@ import {
   type ChangeEvent,
   type ClipboardEvent,
   type FunctionComponent,
+  type KeyboardEventHandler,
   type RefObject,
   createRef,
   useCallback,
@@ -18,7 +19,7 @@ import useOnclickOutside from 'react-cool-onclickoutside';
 import { useDispatch } from 'react-redux';
 
 import { LOCALE_FEATURES } from '@/i18n/constants';
-import { createKeyboardNavigation } from '@/lib/createKeyboardNavigation';
+import { type KeyboardNavigationHandlers, createKeyboardNavigation } from '@/lib/createKeyboardNavigation';
 import { extractCharacters } from '@/lib/extractCharacters';
 import { extractInputValue } from '@/lib/extractInputValue';
 import { isCtrl } from '@/lib/isCtrl';
@@ -127,8 +128,8 @@ export const Rack: FunctionComponent<Props> = ({ className }) => {
     setInput(uppercasedDigraphs.join(''));
   }, [floatingInputPrompt.refs, locale, rack, ref]);
 
-  const handleKeyDown = useMemo(() => {
-    return createKeyboardNavigation({
+  const keyboardNavigationHandlers = useMemo((): KeyboardNavigationHandlers => {
+    return {
       onArrowLeft: (event) => {
         event.preventDefault();
         changeActiveIndex(direction === 'ltr' ? -1 : 1);
@@ -165,8 +166,13 @@ export const Rack: FunctionComponent<Props> = ({ className }) => {
           changeActiveIndex(1);
         }
       },
-    });
+    };
   }, [changeActiveIndex, config, direction, dispatch]);
+
+  const handleKeyDown = useCallback<KeyboardEventHandler<HTMLInputElement>>(
+    (event) => createKeyboardNavigation(keyboardNavigationHandlers)(event),
+    [keyboardNavigationHandlers],
+  );
 
   return (
     <>
