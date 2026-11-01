@@ -54,8 +54,13 @@ if (releaseArguments[0] === 'resume') {
 }
 
 function assertLoggedIn(): void {
-  run('npm', 'whoami');
-  run('gh', 'auth', 'status', '--active');
+  if (!succeeds('npm', 'whoami')) {
+    throw new Error('Cannot read the npm user. If the npm session expired, first run: npm login');
+  }
+
+  if (!succeeds('gh', 'auth', 'status', '--active')) {
+    throw new Error('Cannot read the GitHub account. If the gh session expired, first run: gh auth login');
+  }
 }
 
 function publish(): void {
@@ -193,6 +198,12 @@ function readVersion(): string {
 
 function read(command: string, ...args: string[]): string {
   return execFileSync(command, args, { cwd: ROOT_DIRECTORY, encoding: 'utf8' }).trim();
+}
+
+function succeeds(command: string, ...args: string[]): boolean {
+  const { status } = spawnSync(command, args, { cwd: ROOT_DIRECTORY, stdio: 'inherit' });
+
+  return status === 0;
 }
 
 function run(command: string, ...args: string[]): void {
