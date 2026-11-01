@@ -47,6 +47,29 @@ describe('empty board', () => {
   });
 });
 
+describe('failed verify', () => {
+  it('swaps the list for the error message and hides search', () => {
+    setup({ verify: { ...verifyInitialState, error: new Error('Invalid "board" parameter') } });
+
+    expect(screen.getByText('Invalid "board" parameter')).toBeDefined();
+    expect(screen.queryByText('No created words - the board is empty.')).toBeNull();
+    expect(screen.queryByPlaceholderText(/Search words/)).toBeNull();
+  });
+
+  it('returns to the list when a verify succeeds', () => {
+    const { store } = setup({ verify: { ...verifyInitialState, error: new Error('Invalid "board" parameter') } });
+
+    act(() => {
+      store.dispatch(
+        verifySlice.actions.submitSuccess({ board: store.getState().board, invalidWords: [], validWords: [cat] }),
+      );
+    });
+
+    expect(screen.queryByText('Invalid "board" parameter')).toBeNull();
+    expect(readWords()).toEqual(['cat']);
+  });
+});
+
 describe('list', () => {
   it('renders words sorted by word by default, with coordinates and validity', () => {
     setup();

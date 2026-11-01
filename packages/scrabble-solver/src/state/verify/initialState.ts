@@ -5,6 +5,7 @@ import { boardInitialState } from '../board';
 import type { VerifyState } from './types';
 
 export const verifyInitialState: VerifyState = {
+  error: undefined,
   isLoading: false,
   lastSolvedParameters: {
     board: boardInitialState,

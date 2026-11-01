@@ -1,4 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { isError } from '@scrabble-solver/types';
 
 import { createRegExp } from '@/lib/createRegExp';
 
@@ -10,6 +11,10 @@ import { getWordCoordinates, groupWords, sortWords } from './lib';
 const selectWordIndex = (_: unknown, index: number): number => index;
 
 export const selectVerify = (state: RootState) => state.verify;
+
+export const selectVerifyError = createSelector([selectVerify], (verify) => {
+  return isError(verify.error) ? verify.error : undefined;
+});
 
 export const selectLastVerifiedBoard = createSelector([selectVerify], (verify) => verify.lastSolvedParameters.board);
 

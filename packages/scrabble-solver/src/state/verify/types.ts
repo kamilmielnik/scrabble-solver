@@ -3,6 +3,7 @@ import type { Sort, VerifiedWord, WordColumnId } from '@/types';
 import type { BoardState } from '../board';
 
 export interface VerifyState {
+  error: unknown;
   isLoading: boolean;
   lastSolvedParameters: {
     board: BoardState;

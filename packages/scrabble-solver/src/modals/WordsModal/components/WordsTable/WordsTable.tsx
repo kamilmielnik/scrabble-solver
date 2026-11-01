@@ -17,6 +17,7 @@ import {
   selectHoveredWord,
   selectLocale,
   selectProcessedWords,
+  selectVerifyError,
   selectWordsQuery,
   selectWordsSort,
   useTranslate,
@@ -43,6 +44,7 @@ export const WordsTable: FunctionComponent<Props> = ({ className, isOpen, onPrev
   const locale = useTypedSelector(selectLocale);
   const { direction } = LOCALE_FEATURES[locale];
   const words = useTypedSelector(selectProcessedWords);
+  const error = useTypedSelector(selectVerifyError);
   const query = useTypedSelector(selectWordsQuery);
   const sort = useTypedSelector(selectWordsSort);
   const hoveredWord = useTypedSelector(selectHoveredWord);
@@ -106,7 +108,11 @@ export const WordsTable: FunctionComponent<Props> = ({ className, isOpen, onPrev
       </Header>
 
       <div aria-live="polite" className={styles.content}>
-        {words.length === 0 && <EmptyState variant="info">{translate('words.empty-state.no-words')}</EmptyState>}
+        {error && <EmptyState variant="error">{error.message}</EmptyState>}
+
+        {!error && words.length === 0 && (
+          <EmptyState variant="info">{translate('words.empty-state.no-words')}</EmptyState>
+        )}
 
         {words.length > 0 && (
           <div className={styles.listContainer}>
