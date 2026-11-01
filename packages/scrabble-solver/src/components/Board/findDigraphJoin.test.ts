@@ -162,6 +162,20 @@ describe('findDigraphJoin', () => {
     ).toEqual({ clearedCells: [], isBlank: false, nextPosition: { x: 1, y: 1 }, target: { x: 1, y: 1 }, value: 'ch' });
   });
 
+  /**
+   * Intentional: joining the tiles before the position wins over a longer digraph that would take in the tiles
+   * after it. No supported language has a digraph that is the beginning of another one, so no real game gets here.
+   */
+  it('prefers joining the tiles before the position, even into a shorter digraph', () => {
+    expect(join(klingon, 't.h', 1, 'l')).toEqual({
+      clearedCells: [],
+      isBlank: false,
+      nextPosition: { x: 1, y: 0 },
+      target: { x: 0, y: 0 },
+      value: 'tl',
+    });
+  });
+
   it('prefers the shorter run of tiles before the position', () => {
     expect(join(klingon, 'ttl.', 3, 'h')?.target).toEqual({ x: 1, y: 0 });
   });
