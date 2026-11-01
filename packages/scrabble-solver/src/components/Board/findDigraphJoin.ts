@@ -96,10 +96,7 @@ function findJoinAround(options: Options, axis: Direction): DigraphJoin | undefi
         continue;
       }
 
-      /**
-       * A character that joins only the tiles before it does not type over the position: the position keeps its tile
-       * and stays the next cell to type over.
-       */
+      // A character that joins only the tiles before it does not type over the position, which keeps its tile.
       const typesOverPosition = countAfter > 0;
       const span = { first: -countBefore, last: typesOverPosition ? countAfter : -1 };
       return createJoin(options, axis, span, { tilesBefore: before, value });
