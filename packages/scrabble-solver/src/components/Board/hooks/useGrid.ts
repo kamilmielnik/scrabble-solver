@@ -25,7 +25,7 @@ import { boardSlice, cellFiltersSlice, selectConfig, selectLocale, useTypedSelec
 import { type Direction, type Point } from '@/types';
 
 import { continuesDigraph, findDigraphJoin, findJoinInLastCell } from '../findDigraphJoin';
-import { createGrid, getPositionInGrid, toggleDirection } from '../lib';
+import { createGrid, getPositionInGrid, isSamePoint, toggleDirection } from '../lib';
 
 interface State {
   activeIndex: Point;
@@ -110,7 +110,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
       }
 
       function moveOn(filledCell: Point, nextPosition: Point): void {
-        hasFilledLastCell = filledCell.x === nextPosition.x && filledCell.y === nextPosition.y;
+        hasFilledLastCell = isSamePoint(filledCell, nextPosition);
         ({ x, y } = nextPosition);
       }
 

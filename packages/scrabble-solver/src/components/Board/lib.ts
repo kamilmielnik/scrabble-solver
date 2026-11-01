@@ -148,6 +148,10 @@ export const getWordCells = (board: Board, word: BoardWord): boolean[][] => {
   return wordCells;
 };
 
+export function isSamePoint(first: Point, second: Point): boolean {
+  return first.x === second.x && first.y === second.y;
+}
+
 export function toggleDirection(direction: Direction): Direction {
   return direction === 'vertical' ? 'horizontal' : 'vertical';
 }

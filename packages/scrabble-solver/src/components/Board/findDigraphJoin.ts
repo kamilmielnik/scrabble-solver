@@ -2,7 +2,7 @@ import { type Board, type Config, type Tile } from '@scrabble-solver/types';
 
 import { type Direction, type Point } from '@/types';
 
-import { toggleDirection } from './lib';
+import { isSamePoint, toggleDirection } from './lib';
 
 interface Options {
   board: Board;
@@ -190,10 +190,6 @@ function readTile(board: Board, { x, y }: Point): Tile | undefined {
 
 function isLastCell({ board, direction, position }: Options): boolean {
   return direction === 'horizontal' ? position.x + 1 >= board.columnsCount : position.y + 1 >= board.rowsCount;
-}
-
-function isSamePoint(first: Point, second: Point): boolean {
-  return first.x === second.x && first.y === second.y;
 }
 
 function movePoint({ x, y }: Point, axis: Direction, offset: number): Point {
