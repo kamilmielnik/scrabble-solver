@@ -32,7 +32,8 @@ interface DigraphJoin {
 
 /**
  * Finds what typing a character over or next to the tiles that spell a digraph with it does to the board.
- * The digraph is a blank only if its first tile already was one: the typed character is no blank.
+ * The letters of a digraph cannot stand next to each other as separate tiles, so they join even across the typing
+ * direction. The digraph is a blank only if its first tile already was one: the typed character is no blank.
  */
 export function findDigraphJoin(options: Options): DigraphJoin | undefined {
   const { direction } = options;
@@ -143,7 +144,8 @@ function createJoin(options: Options, axis: Direction, span: Span, { tilesBefore
 
 /**
  * The typed character moves to the target, so typing continues right after it, unless the target is off the
- * typing line: then the position is still empty.
+ * typing line. Then focus stays in the position, which is still empty: moving it would break the typing direction,
+ * and it is up to the user to stop typing.
  */
 function findNextPosition(options: Options, axis: Direction, target: Point): Point {
   const { direction, position } = options;
