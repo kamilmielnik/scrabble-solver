@@ -309,6 +309,14 @@ describe('Config', () => {
     });
   });
 
+  describe('longestFirstDigraphs', () => {
+    it('lists longer digraphs first and keeps the tile order of digraphs of the same length', () => {
+      const tiles = ['ny', 'l·l', 'qu'].map((character) => ({ character, score: 1 }));
+
+      expect(createConfig({ tiles }).longestFirstDigraphs).toEqual(['l·l', 'ny', 'qu']);
+    });
+  });
+
   describe('isDigraphShortcut', () => {
     it('accepts the shortcut of a digraph, in either case', () => {
       expect(config.isDigraphShortcut('c')).toBe(true);

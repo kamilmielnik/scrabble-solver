@@ -32,6 +32,8 @@ export class Config {
 
   public readonly longestDigraphLength: number;
 
+  public readonly longestFirstDigraphs: readonly string[];
+
   public readonly pointsMap: Record<string, number>;
 
   constructor(config: ConfigJson) {
@@ -39,6 +41,7 @@ export class Config {
     this.config = config;
     this.digraphs = getDigraphs(config);
     this.longestDigraphLength = Math.max(0, ...this.digraphs.map((digraph) => digraph.length));
+    this.longestFirstDigraphs = [...this.digraphs].sort((digraphA, digraphB) => digraphB.length - digraphA.length);
     this.pointsMap = getPointsMap(this.config);
   }
 
