@@ -12,6 +12,7 @@ export const extractCharacters = (config: Config, value: string, options?: Optio
   let index = 0;
   const characters: string[] = [];
   const finalValue = localeTransliterate(config.locale, value);
+  // Sorting the few digraphs of a language takes under 1 µs, so Config keeps no longest-first list.
   const longestFirstDigraphs = [...config.digraphs].sort((digraphA, digraphB) => digraphB.length - digraphA.length);
 
   while (index < finalValue.length) {
