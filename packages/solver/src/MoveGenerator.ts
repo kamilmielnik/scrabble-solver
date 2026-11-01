@@ -545,10 +545,6 @@ export class MoveGenerator {
   }
 
   private walkForwards(ref: number, letters: Int32Array): number {
-    if (letters.length === 1) {
-      return letters[0] > 0 ? this.gaddag.getArc(ref, letters[0]) : 0;
-    }
-
     let nextRef = ref;
 
     for (let index = 0; index < letters.length && nextRef !== 0; ++index) {
@@ -559,10 +555,6 @@ export class MoveGenerator {
   }
 
   private walkBackwards(ref: number, letters: Int32Array): number {
-    if (letters.length === 1) {
-      return letters[0] > 0 ? this.gaddag.getArc(ref, letters[0]) : 0;
-    }
-
     let nextRef = ref;
 
     for (let index = letters.length - 1; index >= 0 && nextRef !== 0; --index) {
@@ -687,7 +679,8 @@ export class MoveGenerator {
             continue;
           }
 
-          const nextRef = this.walkForwards(target, alphaTail[alpha]);
+          const tail = alphaTail[alpha];
+          const nextRef = tail.length === 0 ? target : this.walkForwards(target, tail);
 
           if (nextRef === 0) {
             continue;
