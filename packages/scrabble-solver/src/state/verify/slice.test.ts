@@ -30,10 +30,10 @@ describe('verifySlice', () => {
     expect(reducer(verifyInitialState, actions.submit()).isLoading).toBe(true);
   });
 
-  it('stops loading on failure and keeps the previous words', () => {
-    const state = { ...verifyInitialState, isLoading: true, validWords: [cat] };
+  it('stops loading on failure and drops the words, which belong to another board', () => {
+    const state = { ...verifyInitialState, invalidWords: [dog], isLoading: true, validWords: [cat] };
 
-    expect(reducer(state, actions.submitFailure())).toEqual({ ...state, isLoading: false });
+    expect(reducer(state, actions.submitFailure())).toEqual({ ...verifyInitialState, isLoading: false });
   });
 
   it('stores the verified board and words on success', () => {

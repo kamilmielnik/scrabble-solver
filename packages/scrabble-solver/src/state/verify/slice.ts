@@ -25,7 +25,7 @@ export const verifySlice = createSlice({
     },
 
     submitFailure: (state) => {
-      return { ...state, isLoading: false };
+      return { ...state, invalidWords: [], isLoading: false, validWords: [] };
     },
 
     sort: (state, action: PayloadAction<WordColumnId>) => {
