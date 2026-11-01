@@ -474,6 +474,26 @@ describe('two-letter tiles', () => {
     expect(document.activeElement).toBe(getCell('B1'));
   });
 
+  /**
+   * A shortcut inserts a whole tile in place of a blank, the way typing a letter that joins no digraph does,
+   * even when the blank is the first letter of that digraph: only joining a typed letter into a blank keeps it.
+   */
+  it.each([
+    ['ctrl and the first letter of a digraph', () => press('A1', 'c', { ctrlKey: true }), 'ch'],
+    ['a letter that joins no digraph', () => type('A1', 'a'), 'a'],
+  ])('replaces a blank with a tile that is no blank on %s', (_name, insert, expected) => {
+    const board = createBoard({ 0: 'c' });
+    board.rows[0][0].tile.isBlank = true;
+
+    const { store } = setup({ board, settings });
+
+    fireEvent.focus(getCell('A1'));
+    insert();
+
+    expect(readBoard(store, 0, 0)).toBe(expected);
+    expect(store.getState().board.rows[0][0].tile.isBlank).toBe(false);
+  });
+
   it('joins a typed letter into the current cell', () => {
     const { store } = setup({ board: createBoard({ 0: 'c' }), settings });
 
