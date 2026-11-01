@@ -34,6 +34,8 @@ interface DigraphJoin {
  * Finds what typing a character over or next to the tiles that spell a digraph with it does to the board.
  * The letters of a digraph cannot stand next to each other as separate tiles, so they join even across the typing
  * direction. The digraph is a blank only if its first tile already was one: the typed character is no blank.
+ * Users type one key at a time and the next key is unknown, so a key joins as soon as it spells a digraph: across the
+ * typing direction when it spells none along it, even if the next key would have spelled one along it.
  */
 export function findDigraphJoin(options: Options): DigraphJoin | undefined {
   const { direction } = options;

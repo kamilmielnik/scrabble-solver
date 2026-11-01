@@ -770,6 +770,25 @@ describe('digraphs longer than two letters', () => {
     expect(document.activeElement).toBe(getCell('I2'));
   });
 
+  /**
+   * Intentional: the board cannot know the keys that come next. "q" typed above "una" joins its "u" at once, so the
+   * "u" of "equip" typed next becomes a tile of its own and "una" loses its "u".
+   */
+  it('joins across the typing direction as soon as a key spells a digraph, before the next key arrives', () => {
+    const { store } = setup({ board: createBoard({ 22: 'u', 37: 'n', 52: 'a' }), settings });
+
+    type('G1', 'e');
+    type('H1', 'q');
+
+    expect(readRow(store, 0).slice(6, 9)).toEqual(['e', 'qu', ' ']);
+    expect([0, 1, 2, 3].map((y) => readBoard(store, 7, y))).toEqual(['qu', ' ', 'n', 'a']);
+    expect(document.activeElement).toBe(getCell('I1'));
+
+    type('I1', 'u');
+
+    expect(readRow(store, 0).slice(6, 9)).toEqual(['e', 'qu', 'u']);
+  });
+
   it('keeps two l tiles apart, so that cella stays a word', () => {
     const { store } = setup({ settings });
 
