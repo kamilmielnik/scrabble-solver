@@ -269,14 +269,11 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
           return;
         }
 
-        const digraphCandidate = cell.tile.character + character;
+        const board = new Board({ rows: rowsRef.current });
 
-        if (config.digraphs.includes(digraphCandidate)) {
+        if (!isCtrl(event) && findDigraphJoin({ board, character, config, direction, position })) {
           event.preventDefault();
-          dispatch(
-            boardSlice.actions.changeCellValue({ ...position, isBlank: cell.tile.isBlank, value: digraphCandidate }),
-          );
-          moveFocus(1);
+          insertValue(position, character);
           return;
         }
 
@@ -307,6 +304,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
     direction,
     dispatch,
     getInputRefPosition,
+    insertValue,
     locale,
     moveFocus,
     onDirectionToggle,

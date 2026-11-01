@@ -31,13 +31,14 @@ interface DigraphJoin {
 }
 
 /**
- * Finds what typing a character next to the tiles that spell a digraph with it does to the board.
+ * Finds what typing a character over or next to the tiles that spell a digraph with it does to the board.
  * A digraph joined from a blank, or typed over one, is a blank.
  */
 export function findDigraphJoin(options: Options): DigraphJoin | undefined {
   const { direction } = options;
 
   return (
+    findJoinInCell(options) ??
     findJoinAround(options, direction) ??
     findJoinInLastCell(options) ??
     findJoinAround(options, toggleDirection(direction))
@@ -56,6 +57,23 @@ export function continuesDigraph(options: Options): boolean {
   return Array.from({ length: tiles.length + 1 }).some((_, count) => {
     return config.isDigraphPrefix(spell(tiles.slice(0, count).reverse(), character));
   });
+}
+
+function findJoinInCell(options: Options): DigraphJoin | undefined {
+  const { board, character, config, direction, position } = options;
+  const tile = readTile(board, position);
+
+  if (typeof tile === 'undefined') {
+    return undefined;
+  }
+
+  const value = spell([tile], character);
+
+  if (!config.digraphs.includes(value)) {
+    return undefined;
+  }
+
+  return createJoin(options, direction, { first: 0, last: 0 }, { joinedTiles: [tile], value });
 }
 
 function findJoinAround(options: Options, axis: Direction): DigraphJoin | undefined {

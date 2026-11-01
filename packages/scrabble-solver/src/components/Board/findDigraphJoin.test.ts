@@ -162,17 +162,6 @@ describe('findDigraphJoin', () => {
     ).toEqual({ clearedCells: [], isBlank: false, nextPosition: { x: 1, y: 1 }, target: { x: 1, y: 1 }, value: 'ch' });
   });
 
-  it('does not join inside the last cell across the typing direction', () => {
-    const board = createRow(['c', ' ']);
-
-    expect(
-      findDigraphJoin({ board, character: 'h', config: spanish, direction: 'vertical', position: { x: 0, y: 0 } }),
-    ).toEqual({ clearedCells: [], isBlank: false, nextPosition: { x: 0, y: 0 }, target: { x: 0, y: 0 }, value: 'ch' });
-    expect(
-      findDigraphJoin({ board, character: 'h', config: spanish, direction: 'horizontal', position: { x: 0, y: 0 } }),
-    ).toBeUndefined();
-  });
-
   it('prefers the shorter run of tiles before the position', () => {
     expect(join(klingon, 'ttl.', 3, 'h')?.target).toEqual({ x: 1, y: 0 });
   });
@@ -197,17 +186,28 @@ describe('findDigraphJoin', () => {
     });
   });
 
-  it('does not join inside a cell that is not the last one', () => {
-    const board = new Board({
-      rows: [
-        [createCell('c', 0, 0), createCell(' ', 1, 0)],
-        [createCell(' ', 0, 1), createCell(' ', 1, 1)],
-      ],
+  describe('inside the cell it types over', () => {
+    it('joins with the tile in it', () => {
+      expect(join(spanish, 'c..', 0, 'h')).toEqual({
+        clearedCells: [],
+        isBlank: false,
+        nextPosition: { x: 1, y: 0 },
+        target: { x: 0, y: 0 },
+        value: 'ch',
+      });
     });
 
-    expect(
-      findDigraphJoin({ board, character: 'h', config: spanish, direction: 'horizontal', position: { x: 0, y: 0 } }),
-    ).toBeUndefined();
+    it('prefers it to joining the tiles before it', () => {
+      expect(join(spanish, 'cc.', 1, 'h')?.target).toEqual({ x: 1, y: 0 });
+    });
+
+    it('stays in it only when it is the last cell of the typing direction', () => {
+      const board = createRow(['c', ' ']);
+      const options = { board, character: 'h', config: spanish, position: { x: 0, y: 0 } };
+
+      expect(findDigraphJoin({ ...options, direction: 'vertical' })?.nextPosition).toEqual({ x: 0, y: 0 });
+      expect(findDigraphJoin({ ...options, direction: 'horizontal' })?.nextPosition).toEqual({ x: 1, y: 0 });
+    });
   });
 
   describe('blanks', () => {
@@ -233,6 +233,16 @@ describe('findDigraphJoin', () => {
         target: { x: 0, y: 0 },
         value: 'ch',
       });
+    });
+
+    it('keeps the blank it types over when joining inside its cell', () => {
+      const board = createRow(['c', ' ']);
+      board.rows[0][0].tile.isBlank = true;
+
+      expect(
+        findDigraphJoin({ board, character: 'h', config: spanish, direction: 'horizontal', position: { x: 0, y: 0 } })
+          ?.isBlank,
+      ).toBe(true);
     });
 
     it('ignores a blank on the position when the typed character moves to the tiles before it', () => {

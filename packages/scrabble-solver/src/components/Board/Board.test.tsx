@@ -484,6 +484,34 @@ describe('two-letter tiles', () => {
     expect(document.activeElement).toBe(getCell('B1'));
   });
 
+  it('joins the same letter typed over itself, which fires no change event', () => {
+    const { store } = setup({ board: createBoard({ 0: 'l' }), settings });
+
+    fireEvent.focus(getCell('A1'));
+    press('A1', 'l');
+
+    expect(readBoard(store, 0, 0)).toBe('ll');
+    expect(document.activeElement).toBe(getCell('B1'));
+  });
+
+  it('joins with the tile on the left on key press, the way the change event does', () => {
+    const { store } = setup({ board: createBoard({ 0: 'c' }), settings });
+
+    fireEvent.focus(getCell('B1'));
+
+    expect(fireEvent.keyDown(getCell('B1'), { key: 'h' })).toBe(false);
+    expect(readBoard(store, 0, 0)).toBe('ch');
+    expect(readBoard(store, 1, 0)).toBe(' ');
+    expect(document.activeElement).toBe(getCell('B1'));
+  });
+
+  it('leaves ctrl and a letter that joins a digraph to the browser', () => {
+    const { store } = setup({ board: createBoard({ 0: 'c' }), settings });
+
+    expect(fireEvent.keyDown(getCell('B1'), { ctrlKey: true, key: 'h' })).toBe(true);
+    expect(readBoard(store, 0, 0)).toBe('c');
+  });
+
   it('joins with the tile on the left when typing', () => {
     const { store } = setup({ board: createBoard({ 0: 'c' }), settings });
 
