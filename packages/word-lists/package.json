@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/word-lists",
-  "version": "2.19.0-alpha.0",
+  "version": "2.19.0",
   "description": "Per-locale word list downloaders for Scrabble Solver (SOWPODS, TWL06, SJP, and more).",
   "keywords": [
     "word-list",
@@ -35,8 +35,8 @@
     "test": "bun test --timeout 180000 src"
   },
   "dependencies": {
-    "@scrabble-solver/logger": "2.19.0-alpha.0",
-    "@scrabble-solver/types": "2.19.0-alpha.0",
+    "@scrabble-solver/logger": "2.19.0",
+    "@scrabble-solver/types": "2.19.0",
     "cheerio": "1.2.0",
     "follow-redirects": "1.16.2",
     "transliteration": "2.7.0",
