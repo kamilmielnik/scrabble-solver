@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/types",
-  "version": "2.18.9",
+  "version": "2.19.0-alpha.0",
   "description": "Domain model for Scrabble Solver: Board, Cell, Tile, Result, Config, Locale, and their JSON wire shapes.",
   "keywords": [
     "scrabble",
@@ -34,6 +34,6 @@
     "test": "bun test src"
   },
   "dependencies": {
-    "@scrabble-solver/constants": "2.18.9"
+    "@scrabble-solver/constants": "2.19.0-alpha.0"
   }
 }

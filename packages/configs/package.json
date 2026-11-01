@@ -1,6 +1,6 @@
 {
   "name": "@scrabble-solver/configs",
-  "version": "2.18.9",
+  "version": "2.19.0-alpha.0",
   "description": "Game and language configs for Scrabble Solver: board layouts, bonus squares, tile distributions, and points for 9 games and 9 locales.",
   "keywords": [
     "scrabble",
@@ -38,7 +38,7 @@
     "test": "bun test src"
   },
   "dependencies": {
-    "@scrabble-solver/constants": "2.18.9",
-    "@scrabble-solver/types": "2.18.9"
+    "@scrabble-solver/constants": "2.19.0-alpha.0",
+    "@scrabble-solver/types": "2.19.0-alpha.0"
   }
 }
