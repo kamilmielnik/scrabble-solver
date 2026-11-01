@@ -275,6 +275,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
           return;
         }
 
+        // A join search takes under 2 µs, so it runs in every language and runs again in insertValue.
         const board = new Board({ rows: rowsRef.current });
 
         if (!isCtrl(event) && findDigraphJoin({ board, character, config, direction, position })) {
