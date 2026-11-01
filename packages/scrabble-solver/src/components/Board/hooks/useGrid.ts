@@ -17,7 +17,7 @@ import { useDispatch } from 'react-redux';
 
 import { useLatest } from '@/hooks/useLatest';
 import { LOCALE_FEATURES } from '@/i18n/constants';
-import { createKeyboardNavigation } from '@/lib/createKeyboardNavigation';
+import { type KeyboardNavigationHandlers, createKeyboardNavigation } from '@/lib/createKeyboardNavigation';
 import { extractCharacters } from '@/lib/extractCharacters';
 import { extractInputValue } from '@/lib/extractInputValue';
 import { isCtrl } from '@/lib/isCtrl';
@@ -183,8 +183,8 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
     setActiveIndex({ x, y });
   }, []);
 
-  const onKeyDown = useMemo(() => {
-    return createKeyboardNavigation({
+  const keyboardNavigationHandlers = useMemo((): KeyboardNavigationHandlers => {
+    return {
       onArrowDown: (event) => {
         event.preventDefault();
 
@@ -304,7 +304,7 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
         event.preventDefault();
         dispatch(boardSlice.actions.toggleCellIsBlank(position));
       },
-    });
+    };
   }, [
     changeActiveIndex,
     config,
@@ -317,6 +317,11 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
     onDirectionToggle,
     rowsRef,
   ]);
+
+  const onKeyDown = useCallback<KeyboardEventHandler<HTMLInputElement>>(
+    (event) => createKeyboardNavigation(keyboardNavigationHandlers)(event),
+    [keyboardNavigationHandlers],
+  );
 
   const onPaste = useCallback<ClipboardEventHandler>(
     (event) => {

@@ -2,7 +2,7 @@ import { type KeyboardEventHandler } from 'react';
 
 import { noop } from './noop';
 
-interface Parameters {
+export interface KeyboardNavigationHandlers {
   onArrowDown?: KeyboardEventHandler<HTMLInputElement>;
   onArrowLeft?: KeyboardEventHandler<HTMLInputElement>;
   onArrowRight?: KeyboardEventHandler<HTMLInputElement>;
@@ -24,7 +24,7 @@ export const createKeyboardNavigation = ({
   onEnter = noop,
   onKeyDown = noop,
   onSpace = noop,
-}: Parameters): KeyboardEventHandler<HTMLInputElement> => {
+}: KeyboardNavigationHandlers): KeyboardEventHandler<HTMLInputElement> => {
   const handlers: Record<string, KeyboardEventHandler<HTMLInputElement>> = {
     ArrowUp: onArrowUp,
     ArrowDown: onArrowDown,
