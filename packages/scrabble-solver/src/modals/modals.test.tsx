@@ -23,6 +23,7 @@ import { MenuModal } from './MenuModal';
 import { RemainingTilesModal } from './RemainingTilesModal';
 import { getRemainingTilesGroups } from './RemainingTilesModal/lib';
 
+const catalan = { settings: { ...settingsInitialState, locale: Locale.CA_ES } };
 const spanish = { settings: { ...settingsInitialState, locale: Locale.ES_ES } };
 const persian = { settings: { ...settingsInitialState, locale: Locale.FA_IR } };
 
@@ -54,21 +55,32 @@ describe('KeyMapModal', () => {
     expect(screen.getByRole('region', { name: english['keyMap.rack'] })).toBeDefined();
   });
 
-  it('hides the two-letter tile shortcut for languages without them', () => {
+  it('hides the digraph shortcuts for languages without them', () => {
     renderWithStore(<KeyMapModal isOpen onClose={noop} />);
 
-    expect(screen.queryByText(english['keyMap.board-and-rack.insert-two-letter-tile'])).toBeNull();
+    const description = english['keyMap.board-and-rack.insert-digraph'].replace('{{digraph}}', '.+');
+
+    expect(screen.queryByText(new RegExp(description))).toBeNull();
   });
 
-  it('lists the first letters of two-letter tiles', () => {
+  it.each([
+    ['CH', 'C'],
+    ['LL', 'L'],
+    ['RR', 'R'],
+  ])('lists the shortcut of %s in Spanish', (digraph, shortcut) => {
     renderWithStore(<KeyMapModal isOpen onClose={noop} />, { state: spanish });
 
-    const section = screen.getByRole('region', { name: english['keyMap.board-and-rack'] });
-    const mapping = within(section).getByText(english['keyMap.board-and-rack.insert-two-letter-tile']).parentElement!;
+    expect(getDigraphMapping(digraph).textContent).toEndWith(`+${shortcut}`);
+  });
 
-    expect(mapping.textContent).toContain('C');
-    expect(mapping.textContent).toContain('L');
-    expect(mapping.textContent).toContain('R');
+  it.each([
+    ['L·L', 'L'],
+    ['NY', 'Y'],
+    ['QU', 'U'],
+  ])('lists the shortcut of %s in Catalan, which browsers leave to the page', (digraph, shortcut) => {
+    renderWithStore(<KeyMapModal isOpen onClose={noop} />, { state: catalan });
+
+    expect(getDigraphMapping(digraph).textContent).toEndWith(`+${shortcut}`);
   });
 });
 
@@ -139,13 +151,21 @@ describe('getRemainingTilesGroups', () => {
     expect(groups[1]).toMatchObject({ remainingCount: 1, totalCount: 2 });
   });
 
-  it('groups digraphs and other letters', () => {
+  it('lists digraphs before other letters', () => {
     const groups = getRemainingTilesGroups(
       [createTile({ character: 'ch', count: 1 }), createTile({ character: 'ش', count: 3 })],
       Locale.EN_US,
     );
 
-    expect(groups.map(({ translationKey }) => translationKey)).toEqual(['common.tiles', 'common.two-letter-tiles']);
+    expect(groups.map(({ translationKey }) => translationKey)).toEqual(['common.digraphs', 'common.tiles']);
+  });
+
+  it('groups digraphs of any length together', () => {
+    const tiles = [createTile({ character: 'l·l', count: 1 }), createTile({ character: 'ny', count: 1 })];
+    const groups = getRemainingTilesGroups(tiles, Locale.CA_ES);
+
+    expect(groups.map(({ translationKey }) => translationKey)).toEqual(['common.digraphs']);
+    expect(groups[0].totalCount).toBe(2);
   });
 
   it('ignores tiles without a count', () => {
@@ -321,6 +341,13 @@ describe('RemainingTilesModal', () => {
     );
   });
 });
+
+function getDigraphMapping(digraph: string): HTMLElement {
+  const description = english['keyMap.board-and-rack.insert-digraph'].replace('{{digraph}}', digraph);
+  const section = screen.getByRole('region', { name: english['keyMap.board-and-rack'] });
+
+  return within(section).getByText(description).parentElement!;
+}
 
 function createMenuHandlers() {
   return {

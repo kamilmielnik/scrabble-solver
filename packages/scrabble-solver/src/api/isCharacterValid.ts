@@ -1,6 +1,8 @@
-const TWO_TILE_CHARACTER_LENGTH = 2;
+import { languages } from '@scrabble-solver/configs';
 
-const MAX_CHARACTER_LENGTH = TWO_TILE_CHARACTER_LENGTH;
+const MAX_CHARACTER_LENGTH = Object.values(languages).reduce((result, config) => {
+  return Math.max(result, config.longestDigraphLength);
+}, 1);
 
 export const isCharacterValid = (character: string): boolean => {
   /*

@@ -371,6 +371,7 @@ function setup({ sagas = true, state = {} }: Parameters<typeof renderWithStore>[
 
 function createVerifyState() {
   return {
+    error: undefined,
     invalidWords: [],
     isLoading: false,
     lastSolvedParameters: { board },

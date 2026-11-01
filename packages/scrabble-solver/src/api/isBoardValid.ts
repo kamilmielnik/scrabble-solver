@@ -2,7 +2,9 @@ import { type BoardJson, type CellJson, type Config } from '@scrabble-solver/typ
 
 import { isRowValid } from './isRowValid';
 
-export const isBoardValid = (board: BoardJson, config: Config): boolean => {
+export const INVALID_BOARD_MESSAGE = 'Invalid "board" parameter';
+
+export function isBoardValid(board: BoardJson, config: Config): boolean {
   if (board.length !== config.boardHeight) {
     return false;
   }
@@ -13,29 +15,20 @@ export const isBoardValid = (board: BoardJson, config: Config): boolean => {
     }
   }
 
-  return areTwoCharacterTilesValid(board, config);
-};
+  const columns = board[0].map((_, x) => board.map((row) => row[x]));
+  return ![...board, ...columns].some((line) => readRuns(line).some((run) => config.spellsDigraph(run)));
+}
 
-const areTwoCharacterTilesValid = (board: CellJson[][], config: Config): boolean => {
-  const cells: CellJson[] = board
-    .flat()
-    .filter((cell) => cell && cell.tile && config.isTwoCharacterTilePrefix(cell.tile.character));
+function readRuns(line: CellJson[]): string[][] {
+  const runs: string[][] = [[]];
 
-  for (const cell of cells) {
-    for (const characters of config.twoCharacterTiles) {
-      const cellDown = board[cell.y + 1]?.[cell.x];
-      const cellRight = board[cell.y]?.[cell.x + 1];
-      const canCheckDown = cell.y + 1 < board.length && Boolean(cellDown);
-      const canCheckRight = cell.x + 1 < board[0].length && Boolean(cellRight);
-      const collidesDown = canCheckDown && cellDown.tile && cellDown.tile.character === characters[1];
-      const collidesRight = canCheckRight && cellRight.tile && cellRight.tile.character === characters[1];
-      const collides = collidesDown || collidesRight;
-
-      if (cell.tile && characters.startsWith(cell.tile.character) && collides) {
-        return false;
-      }
+  for (const cell of line) {
+    if (cell.tile) {
+      runs[runs.length - 1].push(cell.tile.character);
+    } else {
+      runs.push([]);
     }
   }
 
-  return true;
-};
+  return runs;
+}

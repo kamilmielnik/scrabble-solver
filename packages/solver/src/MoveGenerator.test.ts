@@ -74,6 +74,10 @@ const BASIC_TILES: TileScores = { a: 1, b: 3, c: 3, d: 2 };
 
 const SPANISH_MINI_TILES: TileScores = { a: 1, c: 3, ch: 5, h: 4, i: 1, l: 1, ll: 8, o: 1 };
 
+const CATALAN_MINI_TILES: TileScores = { a: 1, c: 2, e: 1, l: 1, l·l: 10, n: 1, ny: 10, qu: 8, u: 1 };
+
+const KLINGON_MINI_TILES: TileScores = { a: 1, h: 4, l: 1, o: 1, t: 1, tl: 5, tlh: 10 };
+
 const MINI_TILES: TileScores = { a: 1, b: 3, c: 2, d: 5, e: 1 };
 
 const DIFFERENTIAL_SCENARIOS: DifferentialScenario[] = [
@@ -183,6 +187,30 @@ const DIFFERENTIAL_SCENARIOS: DifferentialScenario[] = [
     premiumDensity: 0.25,
     rackLength: 3,
     tileScores: SPANISH_MINI_TILES,
+    width: 6,
+  },
+  {
+    exercises: ['blanks', 'bingos', 'crossings', 'digraphs', 'singles'],
+    games: 16,
+    height: 6,
+    name: 'digraphs longer than two characters',
+    overrides: { rackSize: 3 },
+    plies: 8,
+    premiumDensity: 0.25,
+    rackLength: 3,
+    tileScores: CATALAN_MINI_TILES,
+    width: 6,
+  },
+  {
+    exercises: ['blanks', 'bingos', 'crossings', 'digraphs', 'singles'],
+    games: 16,
+    height: 6,
+    name: 'digraphs that single tiles and shorter digraphs can spell',
+    overrides: { rackSize: 3 },
+    plies: 8,
+    premiumDensity: 0.25,
+    rackLength: 3,
+    tileScores: KLINGON_MINI_TILES,
     width: 6,
   },
   {
@@ -716,6 +744,225 @@ describe('MoveGenerator - digraphs', () => {
       },
       { placed: [[2, 2, 'ch', false]], points: 6, words: ['cho'] },
     ]);
+  });
+});
+
+describe('MoveGenerator - digraphs longer than two characters', () => {
+  const config = createConfig(CATALAN_MINI_TILES);
+  const klingon = createConfig(KLINGON_MINI_TILES);
+
+  it('plays the tile as one cell in both directions', () => {
+    const gaddag = Gaddag.fromArray(['cel·la']);
+    const results = generate(gaddag, config, createBoard(7, 7), ['c', 'e', 'l·l', 'a']);
+
+    expect(results.length).toBe(8);
+    expect(toWords(results).every((word) => word === 'cel·la')).toBe(true);
+    expect(results.every((result) => result.cells.length === 4 && result.points === 14)).toBe(true);
+  });
+
+  it('tells a word with the tile from a word with the two letters', () => {
+    const gaddag = Gaddag.fromArray(['cel·la', 'cella']);
+
+    expect(toWords(generate(gaddag, config, createBoard(7, 7), ['c', 'e', 'l·l', 'a']))).toContain('cel·la');
+    expect(toWords(generate(gaddag, config, createBoard(7, 7), ['c', 'e', 'l·l', 'a']))).not.toContain('cella');
+    expect(toWords(generate(gaddag, config, createBoard(7, 7), ['c', 'e', 'l', 'l', 'a']))).toContain('cella');
+    expect(toWords(generate(gaddag, config, createBoard(7, 7), ['c', 'e', 'l', 'l', 'a']))).not.toContain('cel·la');
+  });
+
+  it('reads the tile on the board when extending to the right', () => {
+    const gaddag = Gaddag.fromArray(['cel·la']);
+    const board = createBoard(7, 7, [
+      [1, 3, 'c'],
+      [2, 3, 'e'],
+      [3, 3, 'l·l'],
+    ]);
+
+    expect(summarizeAll(generate(gaddag, config, board, ['a']))).toEqual([
+      { placed: [[4, 3, 'a', false]], points: 14, words: ['cel·la'] },
+    ]);
+  });
+
+  it('reads the tile on the board when extending to the left', () => {
+    const gaddag = Gaddag.fromArray(['cel·la']);
+    const board = createBoard(7, 7, [
+      [3, 3, 'l·l'],
+      [4, 3, 'a'],
+    ]);
+    const results = generate(gaddag, config, board, ['c', 'e']);
+
+    expect(toWords(results)).toEqual(['cel·la']);
+    expect(results[0].points).toBe(14);
+  });
+
+  it('validates perpendicular words through the tile on the board', () => {
+    const gaddag = Gaddag.fromArray(['cel·la', 'ca']);
+    const board = createBoard(7, 7, [
+      [3, 2, 'c'],
+      [3, 3, 'e'],
+      [3, 4, 'l·l'],
+      [2, 5, 'c'],
+    ]);
+
+    expect(summarizeAll(generate(gaddag, config, board, ['a']))).toContainEqual({
+      placed: [[3, 5, 'a', false]],
+      points: 17,
+      words: ['ca', 'cel·la'],
+    });
+  });
+
+  it('places the tile in a perpendicular word', () => {
+    const gaddag = Gaddag.fromArray(['cel·la', 'al·la']);
+    const board = createBoard(7, 7, [
+      [3, 2, 'c'],
+      [3, 3, 'e'],
+      [3, 5, 'a'],
+      [2, 4, 'a'],
+      [4, 4, 'a'],
+    ]);
+    const results = generate(gaddag, config, board, ['l·l']);
+
+    expect(summarizeAll(results)).toEqual([{ placed: [[3, 4, 'l·l', false]], points: 26, words: ['al·la', 'cel·la'] }]);
+  });
+
+  it('plays a blank as the tile', () => {
+    const gaddag = Gaddag.fromArray(['cel·la']);
+    const board = createBoard(7, 7, [
+      [1, 3, 'c'],
+      [2, 3, 'e'],
+      [4, 3, 'a'],
+    ]);
+    const results = generate(gaddag, config, board, [BLANK_CHARACTER]);
+
+    expect(summarizeAll(results)).toEqual([{ placed: [[3, 3, 'l·l', true]], points: 4, words: ['cel·la'] }]);
+  });
+
+  it('counts the tile as one tile for the bingo', () => {
+    const gaddag = Gaddag.fromArray(['l·la']);
+    const bingoConfig = createConfig(CATALAN_MINI_TILES, { bingo: { score: 5 }, rackSize: 2 });
+    const results = generate(gaddag, bingoConfig, createBoard(7, 7), ['l·l', 'a']);
+
+    expect(results.length).toBeGreaterThan(0);
+    expect(results.every((result) => result.points === 16)).toBe(true);
+  });
+
+  it.each([
+    { name: 'single tiles', rack: ['t', 'l', 'h', 'a'] },
+    { name: 'a shorter digraph and a single tile', rack: ['tl', 'h', 'a'] },
+  ])('does not compose the tile from $name', ({ rack }) => {
+    expect(generate(Gaddag.fromArray(['tlha']), klingon, createBoard(7, 7), [...rack])).toEqual([]);
+  });
+
+  it('prefers no spelling: the shorter digraph stays playable where the longer one is not spelled', () => {
+    const results = generate(Gaddag.fromArray(['tla']), klingon, createBoard(7, 7), ['tl', 'a']);
+
+    expect(toWords(results).every((word) => word === 'tla')).toBe(true);
+    expect(results.length).toBe(4);
+  });
+
+  it('does not compose the tile from board tiles and a placed tile', () => {
+    const board = createBoard(7, 7, [
+      [2, 3, 't'],
+      [3, 3, 'l'],
+    ]);
+
+    expect(generate(Gaddag.fromArray(['tlha']), klingon, board, ['h', 'a'])).toEqual([]);
+  });
+
+  it('does not compose the tile from board tiles around a placed tile', () => {
+    const board = createBoard(7, 7, [
+      [2, 3, 't'],
+      [4, 3, 'h'],
+      [5, 3, 'a'],
+    ]);
+
+    expect(generate(Gaddag.fromArray(['tlha']), klingon, board, ['l'])).toEqual([]);
+  });
+
+  it('does not compose the tile in a perpendicular word', () => {
+    const board = createBoard(7, 7, [
+      [3, 2, 't'],
+      [3, 3, 'l'],
+      [2, 4, 'a'],
+      [4, 4, 'a'],
+    ]);
+    const results = generate(Gaddag.fromArray(['tlh', 'aha', 'tla']), klingon, board, ['h']);
+
+    expect(results.filter((result) => toWords([result]).includes('aha'))).toEqual([]);
+  });
+
+  it('does not compose the tile through perpendicular board tiles on both sides of a placed tile', () => {
+    const board = createBoard(7, 7, [
+      [3, 2, 't'],
+      [3, 4, 'h'],
+    ]);
+
+    expect(generate(Gaddag.fromArray(['tlh', 'la']), klingon, board, ['l', 'a'])).toEqual([]);
+  });
+
+  it.each([
+    [
+      'ends',
+      [
+        [3, 1, 'a'],
+        [3, 2, 'l'],
+        [3, 3, '·'],
+      ],
+      'al·l',
+    ],
+    [
+      'starts',
+      [
+        [3, 3, '·'],
+        [3, 4, 'l'],
+        [3, 5, 'a'],
+      ],
+      'l·la',
+    ],
+  ] as const)('does not compose the tile where a longer perpendicular word %s', (_name, tiles, crossing) => {
+    const board = createBoard(
+      7,
+      7,
+      tiles.map(([x, y, character]) => [x, y, character]),
+    );
+    const results = generate(Gaddag.fromArray([crossing, 'la']), config, board, ['l', 'a']);
+
+    expect(results.flatMap((result) => result.words)).not.toContain(crossing);
+  });
+
+  it('does not finish a digraph left half-typed on the board', () => {
+    const gaddag = Gaddag.fromArray(['cel·la']);
+    const board = createBoard(7, 7, [
+      [1, 3, 'c'],
+      [2, 3, 'e'],
+      [3, 3, 'l'],
+      [4, 3, '·'],
+    ]);
+
+    expect(generate(gaddag, config, board, ['l', 'a'])).toEqual([]);
+  });
+});
+
+describe('MoveGenerator - digraphs with the real Catalan config', () => {
+  const config = getConfig(Game.Scrabble, Locale.CA_ES);
+  const gaddag = Gaddag.fromArray(['cel·la', 'cella', 'canya', 'quatre']);
+
+  it('plays cel·la through the center double-word bonus', () => {
+    const results = generate(gaddag, config, createBoard(15, 15), ['c', 'e', 'l·l', 'a']);
+
+    expect(toWords(results).every((word) => word === 'cel·la')).toBe(true);
+    expect(results.length).toBe(8);
+    expect(toSortedPoints(results).at(-1)).toBe(28);
+  });
+
+  it('needs the ny tile, because y is no tile', () => {
+    expect(generate(gaddag, config, createBoard(15, 15), ['c', 'a', 'n', 'a'])).toEqual([]);
+    expect(toWords(generate(gaddag, config, createBoard(15, 15), ['c', 'a', 'ny', 'a']))).toContain('canya');
+  });
+
+  it('needs the qu tile, because q is no tile', () => {
+    const results = generate(gaddag, config, createBoard(15, 15), ['qu', 'a', 't', 'r', 'e']);
+
+    expect(toWords(results)).toContain('quatre');
   });
 });
 
@@ -2819,7 +3066,7 @@ function transposeBoard(board: Board): Board {
 
 function pickTiles(config: Config, random: () => number): string[] {
   const singles = config.alphabet.filter((tile) => tile.length === 1);
-  return [...shuffle(singles, random).slice(0, 5), ...config.twoCharacterTiles];
+  return [...shuffle(singles, random).slice(0, 5), ...config.digraphs];
 }
 
 function createRealConfigScenario(name: string, config: Config, tiles: string[]): DifferentialScenario {

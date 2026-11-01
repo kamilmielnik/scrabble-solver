@@ -1,42 +1,60 @@
 import { Locale } from '@scrabble-solver/types';
 
-export const guessLocale = (): Locale => {
+const DEFAULT_LOCALE = Locale.EN_US;
+
+const LOCALES = Object.values(Locale);
+
+// The US, its territories and Canada play the North American word list, the rest of the world plays Collins
+const NORTH_AMERICAN_REGIONS = ['AS', 'CA', 'GU', 'MP', 'PR', 'UM', 'US', 'VI'];
+
+export function guessLocale(): Locale {
   if (!globalThis.navigator) {
+    return DEFAULT_LOCALE;
+  }
+
+  const { language, languages } = globalThis.navigator;
+
+  for (const tag of [...languages, language]) {
+    const locale = findLocale(tag);
+
+    if (locale) {
+      return locale;
+    }
+  }
+
+  return DEFAULT_LOCALE;
+}
+
+function findLocale(tag: string): Locale | undefined {
+  const parsedTag = parseTag(tag);
+
+  if (!parsedTag) {
+    return undefined;
+  }
+
+  if (parsedTag.language === 'en') {
+    return findEnglishLocale(parsedTag.region);
+  }
+
+  return LOCALES.find((locale) => getLanguage(locale) === parsedTag.language);
+}
+
+function findEnglishLocale(region: string | undefined): Locale {
+  if (typeof region === 'undefined' || NORTH_AMERICAN_REGIONS.includes(region)) {
     return Locale.EN_US;
   }
 
-  const languages = globalThis.navigator.languages;
+  return Locale.EN_GB;
+}
 
-  if (languages.includes('pl') || languages.includes('pl-PL')) {
-    return Locale.PL_PL;
+function parseTag(tag: string): Intl.Locale | undefined {
+  try {
+    return new Intl.Locale(tag);
+  } catch {
+    return undefined;
   }
+}
 
-  if (languages.includes('en-GB')) {
-    return Locale.EN_GB;
-  }
-
-  if (languages.includes('fa') || languages.includes('fa-IR')) {
-    return Locale.FA_IR;
-  }
-
-  if (languages.includes('fr-FR')) {
-    return Locale.FR_FR;
-  }
-
-  if (languages.includes('ro') || languages.includes('ro-RO')) {
-    return Locale.RO_RO;
-  }
-
-  const locales = Object.values(Locale);
-  const exactMatch = locales.find((locale) => globalThis.navigator.language === String(locale));
-
-  if (exactMatch) {
-    return exactMatch;
-  }
-
-  const partialMatch = locales.find((locale) => {
-    return globalThis.navigator.language === locale.substring(0, 2);
-  });
-
-  return partialMatch ?? Locale.EN_US;
-};
+function getLanguage(locale: Locale): string {
+  return locale.substring(0, 2);
+}

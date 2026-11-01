@@ -7,10 +7,17 @@ import { type Cell } from './Cell';
 import { CharacterBonus } from './CharacterBonus';
 import { type ConfigJson } from './ConfigJson';
 import { type Game } from './Game';
+import { spellsDigraph } from './lib';
 import { type Locale } from './Locale';
 import { type Tile } from './Tile';
 import { type TileConfig } from './TileConfig';
 import { WordBonus } from './WordBonus';
+
+/**
+ * Browsers keep Ctrl+N, Ctrl+T and Ctrl+W to themselves, and Cmd+Q quits them on macOS.
+ * The page never gets to prevent these, so they cannot be digraph shortcuts.
+ */
+const RESERVED_KEYS = ['n', 'q', 't', 'w'];
 
 export class Config {
   public static fromJson = (json: ConfigJson): Config => {
@@ -21,11 +28,20 @@ export class Config {
 
   public readonly config: ConfigJson;
 
+  public readonly digraphs: readonly string[];
+
+  public readonly longestDigraphLength: number;
+
+  public readonly longestFirstDigraphs: readonly string[];
+
   public readonly pointsMap: Record<string, number>;
 
   constructor(config: ConfigJson) {
     this.bonuses = getBonuses(config);
     this.config = config;
+    this.digraphs = getDigraphs(config);
+    this.longestDigraphLength = Math.max(0, ...this.digraphs.map((digraph) => digraph.length));
+    this.longestFirstDigraphs = [...this.digraphs].sort((digraphA, digraphB) => digraphB.length - digraphA.length);
     this.pointsMap = getPointsMap(this.config);
   }
 
@@ -61,10 +77,6 @@ export class Config {
     return this.config.locale;
   }
 
-  public get twoCharacterTiles(): string[] {
-    return this.config.tiles.filter((tile) => tile.character.length === 2).map((tile) => tile.character);
-  }
-
   public getCellBonus(cell: Cell): Bonus | undefined {
     return this.bonuses.find((bonus) => bonus.matchesCellCoordinates(cell));
   }
@@ -85,12 +97,17 @@ export class Config {
     return this.pointsMap[character];
   }
 
-  public getTwoCharacterTileByPrefix(character: string): string | undefined {
-    if (character.length !== 1) {
+  public getDigraphByShortcut(key: string): string | undefined {
+    if (key.length !== 1) {
       return undefined;
     }
 
-    return this.twoCharacterTiles.find((characters) => characters.startsWith(character.toLocaleLowerCase(this.locale)));
+    const shortcut = key.toLocaleLowerCase(this.locale);
+    return this.digraphs.find((digraph) => getDigraphShortcut(digraph) === shortcut);
+  }
+
+  public getDigraphShortcut(digraph: string): string {
+    return getDigraphShortcut(digraph);
   }
 
   public getTilePoints(tile: Tile | null): number | undefined {
@@ -105,8 +122,20 @@ export class Config {
     return character in this.pointsMap;
   }
 
-  public isTwoCharacterTilePrefix(character: string): boolean {
-    return typeof this.getTwoCharacterTileByPrefix(character) !== 'undefined';
+  public isDigraphPart(character: string): boolean {
+    return this.digraphs.some((digraph) => digraph.includes(character));
+  }
+
+  public isDigraphPrefix(characters: string): boolean {
+    return this.digraphs.some((digraph) => digraph.length > characters.length && digraph.startsWith(characters));
+  }
+
+  public isDigraphShortcut(key: string): boolean {
+    return typeof this.getDigraphByShortcut(key) !== 'undefined';
+  }
+
+  public spellsDigraph(characters: readonly string[]): boolean {
+    return spellsDigraph(characters, this);
   }
 
   public get rackSize(): number {
@@ -126,7 +155,7 @@ export class Config {
   }
 }
 
-const getBonuses = (config: ConfigJson): Bonus[] => {
+function getBonuses(config: ConfigJson): Bonus[] {
   return config.bonuses.map((bonus) => {
     if (bonus.type === BONUS_CHARACTER) {
       return new CharacterBonus(bonus);
@@ -138,11 +167,24 @@ const getBonuses = (config: ConfigJson): Bonus[] => {
 
     throw new Error(`Unsupported Bonus type: "${bonus.type}"`);
   });
-};
+}
 
-const getAlphabet = (config: ConfigJson): string[] => config.tiles.map(({ character }) => character);
+function getDigraphs(config: ConfigJson): string[] {
+  return getAlphabet(config).filter((character) => character.length > 1);
+}
+
+function getAlphabet(config: ConfigJson): string[] {
+  return config.tiles.map(({ character }) => character);
+}
 
 function getPointsMap(config: ConfigJson): Record<string, number> {
   const pointsMap = Object.create(null) as Record<string, number>;
   return Object.assign(pointsMap, Object.fromEntries(config.tiles.map(({ character, score }) => [character, score])));
+}
+
+function getDigraphShortcut(digraph: string): string {
+  return (
+    Array.from(digraph).find((character) => /\p{L}/u.test(character) && !RESERVED_KEYS.includes(character)) ??
+    digraph[0]
+  );
 }

@@ -1,5 +1,5 @@
 export { BadRequestError } from './BadRequestError';
-export { isBoardValid } from './isBoardValid';
+export { INVALID_BOARD_MESSAGE, isBoardValid } from './isBoardValid';
 export { isCellValid } from './isCellValid';
 export { isCharacterValid } from './isCharacterValid';
 export { isRowValid } from './isRowValid';

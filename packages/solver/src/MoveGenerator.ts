@@ -15,6 +15,13 @@ const MAX_ALPHABET_SIZE = 64;
 // The result sort key packs (direction, line, start, end) into one integer.
 const MAX_BOARD_DIMENSION = 32;
 
+const NO_LETTERS = new Int32Array(0);
+
+interface DigraphWindow {
+  candidateIndex: number;
+  characters: string[];
+}
+
 /**
  * Anchor-based move generation over a {@link Gaddag} (Gordon, 1994).
  *
@@ -36,23 +43,24 @@ export class MoveGenerator {
   private readonly height: number;
   private readonly cellsCount: number;
 
-  // Config alphabet (tile characters, including two-character tiles).
+  // Config alphabet (tile characters, including digraphs).
   private readonly alphaSize: number;
   private readonly alphaChars: string[];
-  private readonly alphaLetter1: Int32Array;
-  private readonly alphaLetter2: Int32Array;
+  private readonly alphaLetters: Int32Array[];
+  private readonly alphaPlayable: Uint8Array;
   private readonly alphaPoints: Int32Array;
 
-  // CSR mapping from a GADDAG letter to the alphabet entries whose leading
-  // letter (in traversal order) is that letter. Moving leftwards reads a
-  // tile's characters reversed, so a two-character tile leads with its second
-  // letter. alphaSecond* hold the remaining letter to consume (0 if none).
+  /**
+   * CSR mapping from a GADDAG letter to the alphabet entries whose leading letter (in traversal order) is that letter.
+   * Moving leftwards reads a tile's characters reversed, so a digraph leads with its last letter.
+   * alphaTail* hold the remaining letters to consume, in traversal order.
+   */
   private readonly leftAlphaStart: Int32Array;
   private readonly leftAlphaList: Int32Array;
   private readonly rightAlphaStart: Int32Array;
   private readonly rightAlphaList: Int32Array;
-  private readonly alphaSecondLeft: Int32Array;
-  private readonly alphaSecondRight: Int32Array;
+  private readonly alphaTailLeft: Int32Array[];
+  private readonly alphaTailRight: Int32Array[];
 
   // Rack.
   private readonly rackCounts: Int32Array;
@@ -69,8 +77,7 @@ export class MoveGenerator {
   private readonly boardChar: string[];
   private readonly boardIsBlank: Uint8Array;
   private readonly boardScore: Int32Array;
-  private readonly boardLetter1: Int32Array;
-  private readonly boardLetter2: Int32Array;
+  private readonly boardLetters: Int32Array[];
   private readonly anchor: Uint8Array;
   private boardIsEmpty = true;
 
@@ -79,8 +86,7 @@ export class MoveGenerator {
   private lineLength = 0;
   private linesCount = 0;
   private readonly passFilled: Uint8Array;
-  private readonly passLetter1: Int32Array;
-  private readonly passLetter2: Int32Array;
+  private readonly passLetters: Int32Array[];
   private readonly passScore: Int32Array;
   private readonly passGlobal: Int32Array;
   private readonly passAnchor: Uint8Array;
@@ -102,7 +108,8 @@ export class MoveGenerator {
   private readonly placedBlankAt: Uint8Array;
   private placedCount = 0;
 
-  private readonly digraphs: string[];
+  private readonly hasDigraphs: boolean;
+  private readonly spanCharacters: string[] = [];
   private readonly blankScore: number;
   private readonly rackSize: number;
 
@@ -132,7 +139,7 @@ export class MoveGenerator {
     this.cellsCount = this.width * this.height;
     this.blankScore = config.blankScore;
     this.rackSize = config.rackSize;
-    this.digraphs = config.twoCharacterTiles;
+    this.hasDigraphs = config.digraphs.length > 0;
 
     const alphabet = config.alphabet;
 
@@ -146,15 +153,12 @@ export class MoveGenerator {
 
     this.alphaSize = alphabet.length;
     this.alphaChars = alphabet;
-    this.alphaLetter1 = new Int32Array(this.alphaSize);
-    this.alphaLetter2 = new Int32Array(this.alphaSize);
+    this.alphaLetters = alphabet.map((character) => this.getLetters(character));
+    this.alphaPlayable = Uint8Array.from(this.alphaLetters, (letters) => (areLettersPlayable(letters) ? 1 : 0));
     this.alphaPoints = new Int32Array(this.alphaSize);
 
     for (let index = 0; index < this.alphaSize; ++index) {
-      const character = alphabet[index];
-      this.alphaLetter1[index] = gaddag.getLetter(character.charCodeAt(0));
-      this.alphaLetter2[index] = character.length > 1 ? gaddag.getLetter(character.charCodeAt(1)) : 0;
-      this.alphaPoints[index] = config.pointsMap[character] || 0;
+      this.alphaPoints[index] = config.pointsMap[alphabet[index]] || 0;
     }
 
     const lettersCount = MAX_ALPHABET_SIZE;
@@ -162,28 +166,26 @@ export class MoveGenerator {
     this.rightAlphaStart = new Int32Array(lettersCount + 1);
     this.leftAlphaList = new Int32Array(this.alphaSize);
     this.rightAlphaList = new Int32Array(this.alphaSize);
-    this.alphaSecondLeft = new Int32Array(this.alphaSize);
-    this.alphaSecondRight = new Int32Array(this.alphaSize);
+    this.alphaTailLeft = this.alphaLetters.map((letters) => letters.slice(0, -1).reverse());
+    this.alphaTailRight = this.alphaLetters.map((letters) => letters.slice(1));
 
     for (let pass = 0; pass < 2; ++pass) {
       for (let index = 0; index < this.alphaSize; ++index) {
-        const letter1 = this.alphaLetter1[index];
-        const letter2 = this.alphaLetter2[index];
+        const letters = this.alphaLetters[index];
 
-        if (letter1 <= 0 || letter2 < 0) {
+        if (!areLettersPlayable(letters)) {
           continue;
         }
 
-        const leftLead = letter2 === 0 ? letter1 : letter2;
+        const leftLead = letters[letters.length - 1];
+        const rightLead = letters[0];
 
         if (pass === 0) {
           ++this.leftAlphaStart[leftLead + 1];
-          ++this.rightAlphaStart[letter1 + 1];
+          ++this.rightAlphaStart[rightLead + 1];
         } else {
           this.leftAlphaList[this.leftAlphaStart[leftLead]++] = index;
-          this.rightAlphaList[this.rightAlphaStart[letter1]++] = index;
-          this.alphaSecondLeft[index] = letter2 === 0 ? 0 : letter1;
-          this.alphaSecondRight[index] = letter2;
+          this.rightAlphaList[this.rightAlphaStart[rightLead]++] = index;
         }
       }
 
@@ -263,8 +265,7 @@ export class MoveGenerator {
     this.boardChar = Array.from<string>({ length: this.cellsCount });
     this.boardIsBlank = new Uint8Array(this.cellsCount);
     this.boardScore = new Int32Array(this.cellsCount);
-    this.boardLetter1 = new Int32Array(this.cellsCount);
-    this.boardLetter2 = new Int32Array(this.cellsCount);
+    this.boardLetters = Array.from({ length: this.cellsCount }, () => NO_LETTERS);
     this.anchor = new Uint8Array(this.cellsCount);
 
     for (let y = 0; y < this.height; ++y) {
@@ -284,8 +285,7 @@ export class MoveGenerator {
         this.boardChar[cellIndex] = character;
         this.boardIsBlank[cellIndex] = cell.tile.isBlank ? 1 : 0;
         this.boardScore[cellIndex] = cell.tile.isBlank ? this.blankScore : config.pointsMap[character] || 0;
-        this.boardLetter1[cellIndex] = gaddag.getLetter(character.charCodeAt(0));
-        this.boardLetter2[cellIndex] = character.length > 1 ? gaddag.getLetter(character.charCodeAt(1)) : 0;
+        this.boardLetters[cellIndex] = this.getLetters(character);
       }
     }
 
@@ -306,8 +306,7 @@ export class MoveGenerator {
     }
 
     this.passFilled = new Uint8Array(this.cellsCount);
-    this.passLetter1 = new Int32Array(this.cellsCount);
-    this.passLetter2 = new Int32Array(this.cellsCount);
+    this.passLetters = Array.from({ length: this.cellsCount }, () => NO_LETTERS);
     this.passScore = new Int32Array(this.cellsCount);
     this.passGlobal = new Int32Array(this.cellsCount);
     this.passAnchor = new Uint8Array(this.cellsCount);
@@ -411,8 +410,7 @@ export class MoveGenerator {
         const globalIndex = this.isHorizontal ? passIndex : position * this.width + line;
         this.passGlobal[passIndex] = globalIndex;
         this.passFilled[passIndex] = this.boardFilled[globalIndex];
-        this.passLetter1[passIndex] = this.boardLetter1[globalIndex];
-        this.passLetter2[passIndex] = this.boardLetter2[globalIndex];
+        this.passLetters[passIndex] = this.boardLetters[globalIndex];
         this.passScore[passIndex] = this.boardScore[globalIndex];
         this.passAnchor[passIndex] = this.anchor[globalIndex];
       }
@@ -430,6 +428,8 @@ export class MoveGenerator {
     const { gaddag, lineLength, linesCount } = this;
     const preLetters: number[] = [];
     const postLetters: number[] = [];
+    const preCharacters: string[] = [];
+    const postCharacters: string[] = [];
 
     for (let line = 0; line < linesCount; ++line) {
       for (let position = 0; position < lineLength; ++position) {
@@ -461,18 +461,12 @@ export class MoveGenerator {
           ++spanHi;
         }
 
-        const hasDigraphs = this.digraphs.length > 0;
-        const previousCharacter =
-          hasDigraphs && spanLo < line ? this.boardChar[this.passGlobal[passIndex - lineLength]] : '';
-        const nextCharacter =
-          hasDigraphs && spanHi > line ? this.boardChar[this.passGlobal[passIndex + lineLength]] : '';
-
         preLetters.length = 0;
         postLetters.length = 0;
+        preCharacters.length = 0;
+        postCharacters.length = 0;
         let base = 0;
         let lettersValid = true;
-        let crossSpellingValid = true;
-        let previousCrossCharacter = '';
 
         for (let crossLine = spanLo; crossLine <= spanHi; ++crossLine) {
           if (crossLine === line) {
@@ -480,30 +474,21 @@ export class MoveGenerator {
           }
 
           const crossIndex = crossLine * lineLength + position;
+          const crossLetters = this.passLetters[crossIndex];
           base += this.passScore[crossIndex];
 
-          if (hasDigraphs) {
-            const character = this.boardChar[this.passGlobal[crossIndex]];
-
-            if (previousCrossCharacter !== '' && this.digraphs.includes(previousCrossCharacter + character)) {
-              crossSpellingValid = false;
-            }
-
-            previousCrossCharacter = crossLine === line - 1 ? '' : character;
-          }
-
-          const letters = crossLine < line ? preLetters : postLetters;
-          const letter1 = this.passLetter1[crossIndex];
-          const letter2 = this.passLetter2[crossIndex];
-
-          if (letter1 <= 0 || letter2 < 0) {
+          if (!areLettersPlayable(crossLetters)) {
             lettersValid = false;
           }
 
-          letters.push(letter1);
+          const letters = crossLine < line ? preLetters : postLetters;
 
-          if (letter2 !== 0) {
-            letters.push(letter2);
+          for (const letter of crossLetters) {
+            letters.push(letter);
+          }
+
+          if (this.hasDigraphs) {
+            (crossLine < line ? preCharacters : postCharacters).push(this.boardChar[this.passGlobal[crossIndex]]);
           }
         }
 
@@ -513,7 +498,10 @@ export class MoveGenerator {
         let maskLo = 0;
         let maskHi = 0;
 
-        if (lettersValid && crossSpellingValid) {
+        const crossSpellsDigraph =
+          this.hasDigraphs && (this.config.spellsDigraph(preCharacters) || this.config.spellsDigraph(postCharacters));
+
+        if (lettersValid && !crossSpellsDigraph) {
           // The perpendicular word is pre + tile + post; its pure-reverse GADDAG
           // path is rev(post), rev(tile characters), rev(pre). rev(post) is shared
           // across all candidate tiles.
@@ -524,40 +512,35 @@ export class MoveGenerator {
           }
 
           if (postRef !== 0) {
+            const digraphWindow = this.hasDigraphs ? this.getDigraphWindow(preCharacters, postCharacters) : undefined;
+
             for (let alpha = 0; alpha < this.alphaSize; ++alpha) {
-              const letter1 = this.alphaLetter1[alpha];
-              const letter2 = this.alphaLetter2[alpha];
-
-              if (letter1 <= 0 || letter2 < 0) {
+              if (this.alphaPlayable[alpha] === 0) {
                 continue;
               }
 
-              if (hasDigraphs && this.spellsDigraphWithNeighbor(alpha, previousCharacter, nextCharacter)) {
-                continue;
-              }
-
-              let ref = postRef;
-
-              if (letter2 !== 0) {
-                ref = gaddag.getArc(ref, letter2);
-
-                if (ref === 0) {
-                  continue;
-                }
-              }
-
-              ref = gaddag.getArc(ref, letter1);
+              let ref = this.walkBackwards(postRef, this.alphaLetters[alpha]);
 
               for (let index = preLetters.length - 1; index >= 0 && ref !== 0; --index) {
                 ref = gaddag.getArc(ref, preLetters[index]);
               }
 
-              if ((ref & 1) === 1) {
-                if (alpha < 32) {
-                  maskLo |= 1 << alpha;
-                } else {
-                  maskHi |= 1 << (alpha - 32);
+              if ((ref & 1) === 0) {
+                continue;
+              }
+
+              if (digraphWindow) {
+                digraphWindow.characters[digraphWindow.candidateIndex] = this.alphaChars[alpha];
+
+                if (this.config.spellsDigraph(digraphWindow.characters)) {
+                  continue;
                 }
+              }
+
+              if (alpha < 32) {
+                maskLo |= 1 << alpha;
+              } else {
+                maskHi |= 1 << (alpha - 32);
               }
             }
           }
@@ -569,18 +552,36 @@ export class MoveGenerator {
     }
   }
 
-  /**
-   * A digraph must be played as its single tile, so a candidate that would
-   * spell a digraph with the adjacent perpendicular tile is not placeable.
-   * {@link record} enforces the same rule along the main word.
-   */
-  private spellsDigraphWithNeighbor(alpha: number, previousCharacter: string, nextCharacter: string): boolean {
-    const character = this.alphaChars[alpha];
+  // A digraph spelled with the candidate tile reaches at most longestDigraphLength - 1 tiles on either side of it.
+  private getDigraphWindow(preCharacters: string[], postCharacters: string[]): DigraphWindow {
+    const tilesAround = this.config.longestDigraphLength - 1;
+    const before = preCharacters.slice(-tilesAround);
 
-    return (
-      (previousCharacter !== '' && this.digraphs.includes(previousCharacter + character)) ||
-      (nextCharacter !== '' && this.digraphs.includes(character + nextCharacter))
-    );
+    return { candidateIndex: before.length, characters: [...before, '', ...postCharacters.slice(0, tilesAround)] };
+  }
+
+  private getLetters(character: string): Int32Array {
+    return Int32Array.from(character, (letter) => this.gaddag.getLetter(letter.charCodeAt(0)));
+  }
+
+  private walkForwards(ref: number, letters: Int32Array): number {
+    let nextRef = ref;
+
+    for (let index = 0; index < letters.length && nextRef !== 0; ++index) {
+      nextRef = letters[index] > 0 ? this.gaddag.getArc(nextRef, letters[index]) : 0;
+    }
+
+    return nextRef;
+  }
+
+  private walkBackwards(ref: number, letters: Int32Array): number {
+    let nextRef = ref;
+
+    for (let index = letters.length - 1; index >= 0 && nextRef !== 0; --index) {
+      nextRef = letters[index] > 0 ? this.gaddag.getArc(nextRef, letters[index]) : 0;
+    }
+
+    return nextRef;
   }
 
   private isOpen(position: number): boolean {
@@ -594,19 +595,7 @@ export class MoveGenerator {
 
     if (inBounds && this.passFilled[passIndex] === 1) {
       // Read an existing tile (reversed character order when moving left).
-      const letter2 = this.passLetter2[passIndex];
-      let nextRef = ref;
-
-      if (letter2 !== 0) {
-        nextRef = letter2 > 0 ? gaddag.getArc(nextRef, letter2) : 0;
-
-        if (nextRef === 0) {
-          return;
-        }
-      }
-
-      const letter1 = this.passLetter1[passIndex];
-      nextRef = letter1 > 0 ? gaddag.getArc(nextRef, letter1) : 0;
+      const nextRef = this.walkBackwards(ref, this.passLetters[passIndex]);
 
       if (nextRef === 0) {
         return;
@@ -633,26 +622,15 @@ export class MoveGenerator {
   }
 
   private generateRight(position: number, ref: number): void {
-    const { gaddag, lineBase } = this;
+    const { lineBase } = this;
     const inBounds = position < this.lineLength;
     const passIndex = lineBase + position;
 
     if (inBounds && this.passFilled[passIndex] === 1) {
-      const letter1 = this.passLetter1[passIndex];
-      let nextRef = letter1 > 0 ? gaddag.getArc(ref, letter1) : 0;
+      const nextRef = this.walkForwards(ref, this.passLetters[passIndex]);
 
       if (nextRef === 0) {
         return;
-      }
-
-      const letter2 = this.passLetter2[passIndex];
-
-      if (letter2 !== 0) {
-        nextRef = letter2 > 0 ? gaddag.getArc(nextRef, letter2) : 0;
-
-        if (nextRef === 0) {
-          return;
-        }
       }
 
       if ((nextRef & 1) === 1 && this.isOpen(position + 1)) {
@@ -695,7 +673,7 @@ export class MoveGenerator {
     const targets = gaddag.arcTargets;
     const alphaStart = leftward ? this.leftAlphaStart : this.rightAlphaStart;
     const alphaList = leftward ? this.leftAlphaList : this.rightAlphaList;
-    const alphaSecond = leftward ? this.alphaSecondLeft : this.alphaSecondRight;
+    const alphaTail = leftward ? this.alphaTailLeft : this.alphaTailRight;
     // Restored by every recursive call, so stable across loop iterations.
     const hasBlank = this.blanksLeft > 0;
 
@@ -721,8 +699,8 @@ export class MoveGenerator {
             continue;
           }
 
-          const second = alphaSecond[alpha];
-          const nextRef = second === 0 ? target : gaddag.getArc(target, second);
+          const tail = alphaTail[alpha];
+          const nextRef = tail.length === 0 ? target : this.walkForwards(target, tail);
 
           if (nextRef === 0) {
             continue;
@@ -792,7 +770,7 @@ export class MoveGenerator {
   private record(startPosition: number, endPosition: number): void {
     const { lineBase } = this;
 
-    if (this.digraphs.length > 0 && this.hasInvalidDigraph(startPosition, endPosition)) {
+    if (this.hasDigraphs && this.spansDigraph(startPosition, endPosition)) {
       return;
     }
 
@@ -898,20 +876,17 @@ export class MoveGenerator {
     });
   }
 
-  private hasInvalidDigraph(startPosition: number, endPosition: number): boolean {
-    let previousCharacter = this.characterAt(startPosition);
+  /**
+   * Covers the main word; {@link computeCrossChecks} covers the perpendicular words.
+   */
+  private spansDigraph(startPosition: number, endPosition: number): boolean {
+    this.spanCharacters.length = endPosition - startPosition + 1;
 
-    for (let position = startPosition + 1; position <= endPosition; ++position) {
-      const character = this.characterAt(position);
-
-      if (this.digraphs.includes(previousCharacter + character)) {
-        return true;
-      }
-
-      previousCharacter = character;
+    for (let position = startPosition; position <= endPosition; ++position) {
+      this.spanCharacters[position - startPosition] = this.characterAt(position);
     }
 
-    return false;
+    return this.config.spellsDigraph(this.spanCharacters);
   }
 
   private characterAt(position: number): string {
@@ -923,4 +898,8 @@ export class MoveGenerator {
 
     return this.alphaChars[this.placedAt[position]];
   }
+}
+
+function areLettersPlayable(letters: Int32Array): boolean {
+  return letters.every((letter) => letter > 0);
 }

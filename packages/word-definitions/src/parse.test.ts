@@ -15,6 +15,10 @@ const readExpected = (filepath: string): ParsingResult => {
 };
 
 const tests = [
+  { locale: Locale.CA_ES, word: 'canço' },
+  { locale: Locale.CA_ES, word: 'cases' },
+  { locale: Locale.CA_ES, word: 'cel·la' },
+  { locale: Locale.CA_ES, word: 'xyzzyq' },
   { locale: Locale.DE_DE, word: 'hm' },
   { locale: Locale.DE_DE, word: 'ho' },
   { locale: Locale.DE_DE, word: 'kolla' },

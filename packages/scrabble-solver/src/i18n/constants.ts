@@ -13,6 +13,16 @@ interface LocaleFeatures {
 }
 
 export const LOCALE_FEATURES: Record<Locale, LocaleFeatures> = {
+  [Locale.CA_ES]: {
+    comma: COMMA_LATIN,
+    consonants: true,
+    direction: 'ltr',
+    label: 'Català',
+    locale: Locale.CA_ES,
+    name: 'Catalan',
+    separator: `${COMMA_LATIN} `,
+    vowels: true,
+  },
   [Locale.DE_DE]: {
     comma: COMMA_LATIN,
     consonants: true,

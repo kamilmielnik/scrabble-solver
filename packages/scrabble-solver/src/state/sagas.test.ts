@@ -969,14 +969,16 @@ describe('verifying', () => {
     expect(verify.lastSolvedParameters.board).toBe(board);
   });
 
-  it('stops loading on failure', async () => {
-    sdk.verify.mockImplementation(() => Promise.reject(new Error('down')));
+  it('stops loading and stores the error on failure', async () => {
+    const error = new Error('down');
+    sdk.verify.mockImplementation(() => Promise.reject(error));
     const store = setup();
 
     store.dispatch(verifySlice.actions.submit());
     await advanceTimers(SUBMIT_DELAY);
 
     expect(store.getState().verify.isLoading).toBe(false);
+    expect(store.getState().verify.error).toBe(error);
   });
 
   it('drops the response of a request overtaken by a newer board', async () => {

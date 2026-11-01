@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { Locale } from '@scrabble-solver/types';
 import { beforeEach, describe, expect, it, mock } from 'bun:test';
 
@@ -84,6 +85,128 @@ describe('crawl', () => {
     expect(request).toHaveBeenCalledTimes(1);
   });
 });
+
+describe('crawl - Catalan', () => {
+  const headers = WIKTIONARY.headers;
+
+  it('reads the page of the word while searching for its titles', async () => {
+    const search = Promise.withResolvers<string>();
+    request.mockImplementation(({ path }: { path?: string }) => {
+      return path?.startsWith('/w/api.php') ? search.promise : Promise.resolve('');
+    });
+
+    const crawling = crawl(Locale.CA_ES, 'cases');
+
+    expect(request.mock.calls.map(([options]) => options)).toStrictEqual([
+      { headers, hostname: 'ca.wiktionary.org', path: '/w/rest.php/v1/page/cases/html', protocol: 'https' },
+      {
+        headers,
+        hostname: 'ca.wiktionary.org',
+        path: '/w/api.php?action=query&list=search&format=json&srnamespace=0&srprop=&srlimit=10&srsearch=intitle%3Acases',
+        protocol: 'https',
+      },
+    ]);
+
+    search.resolve('');
+    await crawling;
+  });
+
+  it('encodes the middle dot in the title of a page', async () => {
+    serveWiktionary([], {});
+
+    await crawl(Locale.CA_ES, 'cel·la');
+
+    expect(getRequestedPages()).toEqual(['/w/rest.php/v1/page/cel%C2%B7la/html']);
+  });
+
+  it('reads the page of the first accented spelling of a word only', async () => {
+    serveWiktionary(['cafè', 'café'], { cafe: 'not found', cafè: 'cafè page', café: 'café page' });
+
+    expect(await crawl(Locale.CA_ES, 'cafe')).toBe('not found\ncafè page');
+  });
+
+  it('keeps the cedilla apart from the accents', async () => {
+    serveWiktionary(['cançó', 'canco', 'cançons'], {});
+
+    await crawl(Locale.CA_ES, 'canço');
+
+    expect(getRequestedPages()).toEqual([
+      '/w/rest.php/v1/page/can%C3%A7o/html',
+      '/w/rest.php/v1/page/can%C3%A7%C3%B3/html',
+    ]);
+  });
+
+  it('skips titles that only start with the word, or differ in case', async () => {
+    serveWiktionary(['cafeïna', 'CAFÈ', 'Cafè', 'cafè negre'], {});
+
+    await crawl(Locale.CA_ES, 'cafe');
+
+    expect(getRequestedPages()).toEqual(['/w/rest.php/v1/page/cafe/html']);
+  });
+
+  it('does not read the page of the word twice', async () => {
+    serveWiktionary(['cases'], {});
+
+    await crawl(Locale.CA_ES, 'cases');
+
+    expect(getRequestedPages()).toEqual(['/w/rest.php/v1/page/cases/html']);
+  });
+
+  it('reads only the page of the word when the search answers nonsense', async () => {
+    request.mockResolvedValue('<html>Too many requests</html>');
+
+    await crawl(Locale.CA_ES, 'cases');
+
+    expect(getRequestedPages()).toEqual(['/w/rest.php/v1/page/cases/html']);
+  });
+
+  it('reads the page of the word when the search fails', async () => {
+    request.mockImplementation((options) => {
+      const { path } = options as { path: string };
+      return path.startsWith('/w/api.php') ? Promise.reject(new Error('offline')) : Promise.resolve('cases page');
+    });
+
+    expect(await crawl(Locale.CA_ES, 'cases')).toBe('cases page');
+  });
+
+  it('keeps the page of the word when the accented page fails', async () => {
+    serveWiktionary(['cafè'], { cafe: 'not found', cafè: new Error('timeout') });
+
+    expect(await crawl(Locale.CA_ES, 'cafe')).toBe('not found');
+  });
+
+  // Intentional: only a word whose both pages fail rejects, even when the page of the word itself fails
+  it('keeps the accented page when the page of the word fails', async () => {
+    serveWiktionary(['cafè'], { cafe: new Error('timeout'), cafè: 'cafè page' });
+
+    expect(await crawl(Locale.CA_ES, 'cafe')).toBe('cafè page');
+  });
+
+  it('rejects when every request fails', async () => {
+    request.mockRejectedValue(new Error('offline'));
+
+    expect(await crawl(Locale.CA_ES, 'cases').catch(String)).toBe('Error: offline');
+  });
+});
+
+function serveWiktionary(titles: string[], pages: Record<string, Error | string>): void {
+  request.mockImplementation((options) => {
+    const { path } = options as { path: string };
+
+    if (path.startsWith('/w/api.php')) {
+      return Promise.resolve(JSON.stringify({ query: { search: titles.map((title) => ({ title })) } }));
+    }
+
+    const page = pages[decodeURIComponent(path.split('/').at(-2) ?? '')] ?? '';
+    return page instanceof Error ? Promise.reject(page) : Promise.resolve(page);
+  });
+}
+
+function getRequestedPages(): string[] {
+  return request.mock.calls
+    .map(([options]) => (options as { path: string }).path)
+    .filter((path) => path.startsWith('/w/rest.php'));
+}
 
 function getExpectedOptions({ pathPrefix, ...options }: typeof CNRTL | typeof WIKTIONARY, encodedWord: string): object {
   return { ...options, path: `${pathPrefix}${encodedWord}`, protocol: 'https' };

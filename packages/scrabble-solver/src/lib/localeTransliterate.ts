@@ -2,6 +2,10 @@ import { Locale } from '@scrabble-solver/types';
 
 const COMBINING_MARKS = /[̀-ͯ]/g;
 
+const CATALAN_MIDDLE_DOT_LOOKALIKES = /[.•‧∙⋅]/g;
+
+const MIDDLE_DOT = '·';
+
 const NON_DECOMPOSABLE: Record<string, string> = {
   Æ: 'AE',
   Œ: 'OE',
@@ -10,6 +14,7 @@ const NON_DECOMPOSABLE: Record<string, string> = {
 };
 
 const transliteratePerLocale: Record<Locale, (word: string) => string> = {
+  [Locale.CA_ES]: transliterateCatalan,
   [Locale.DE_DE]: (word) => word,
   [Locale.EN_GB]: (word) => word,
   [Locale.EN_US]: (word) => word,
@@ -22,7 +27,16 @@ const transliteratePerLocale: Record<Locale, (word: string) => string> = {
 };
 
 export function localeTransliterate(locale: Locale, value: string): string {
-  return transliteratePerLocale[locale](value);
+  return transliteratePerLocale[locale](value.normalize('NFC'));
+}
+
+function transliterateCatalan(word: string): string {
+  const withMiddleDots = word
+    .replace(CATALAN_MIDDLE_DOT_LOOKALIKES, MIDDLE_DOT)
+    .replaceAll('ŀ', `l${MIDDLE_DOT}`)
+    .replaceAll('Ŀ', `L${MIDDLE_DOT}`);
+
+  return foldDiacritics(withMiddleDots, ['ç', 'Ç']);
 }
 
 function foldDiacritics(word: string, ignore: readonly string[] = []): string {

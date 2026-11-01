@@ -5,6 +5,7 @@ import { BLANK } from '@scrabble-solver/constants';
 import { solve } from '@scrabble-solver/solver';
 import { type Locale, Board, Tile } from '@scrabble-solver/types';
 
+import { INVALID_BOARD_MESSAGE, isBoardValid } from '@/api/isBoardValid';
 import { type SolveRequestPayload, type VerifiedWord, type VerifyRequestPayload } from '@/types';
 
 import { revalidateDictionary } from './dictionaries';
@@ -34,6 +35,12 @@ self.addEventListener('message', ({ data }: MessageEvent<SolverWorkerRequest>) =
 
 async function handleSolve(id: number, payload: SolveRequestPayload): Promise<SolverWorkerResponse> {
   const { board, characters, game, locale } = payload;
+  const config = getConfig(game, locale);
+
+  if (!isBoardValid(board, config)) {
+    return { id, message: INVALID_BOARD_MESSAGE, outcome: 'rejected' };
+  }
+
   const gaddag = await getGaddag(locale);
   revalidateInBackground(locale);
 
@@ -47,15 +54,18 @@ async function handleSolve(id: number, payload: SolveRequestPayload): Promise<So
     return { id, outcome: 'superseded' };
   }
 
-  const config = getConfig(game, locale);
   const tiles = characters.map((character) => new Tile({ character, isBlank: character === BLANK }));
   return { data: solve(gaddag, config, Board.fromJson(board), tiles), id, outcome: 'answered' };
 }
 
 async function handleVerify(
   id: number,
-  { board: boardJson, locale }: VerifyRequestPayload,
+  { board: boardJson, game, locale }: VerifyRequestPayload,
 ): Promise<SolverWorkerResponse> {
+  if (!isBoardValid(boardJson, getConfig(game, locale))) {
+    return { id, message: INVALID_BOARD_MESSAGE, outcome: 'rejected' };
+  }
+
   const gaddag = await getGaddag(locale);
   revalidateInBackground(locale);
 

@@ -165,7 +165,7 @@ export class ReferenceSolver {
       return;
     }
 
-    if (this.hasAdjacentDigraph(characters)) {
+    if (this.config.spellsDigraph(characters)) {
       return;
     }
 
@@ -184,7 +184,7 @@ export class ReferenceSolver {
 
       const crossWord = cross.characters.join('');
 
-      if (!this.gaddag.has(crossWord) || this.hasAdjacentDigraph(cross.characters)) {
+      if (!this.gaddag.has(crossWord) || this.config.spellsDigraph(cross.characters)) {
         return;
       }
 
@@ -192,11 +192,6 @@ export class ReferenceSolver {
     }
 
     this.moves.add(this.createSignature(characters.join(''), crossWords));
-  }
-
-  private hasAdjacentDigraph(characters: string[]): boolean {
-    const digraphs = this.config.twoCharacterTiles;
-    return characters.some((character, index) => index > 0 && digraphs.includes(characters[index - 1] + character));
   }
 
   private isConnected(): boolean {

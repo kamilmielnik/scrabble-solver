@@ -24,8 +24,9 @@ export const verifySlice = createSlice({
       return { ...state, query: action.payload };
     },
 
-    submitFailure: (state) => {
-      return { ...state, isLoading: false };
+    submitFailure: (state, action: PayloadAction<unknown>) => {
+      const error = action.payload;
+      return { ...state, error, invalidWords: [], isLoading: false, validWords: [] };
     },
 
     sort: (state, action: PayloadAction<WordColumnId>) => {
@@ -34,7 +35,8 @@ export const verifySlice = createSlice({
 
     submitSuccess: (state, action: PayloadAction<VerifyParameters>) => {
       const { board, invalidWords, validWords } = action.payload;
-      return { ...state, isLoading: false, lastSolvedParameters: { board }, invalidWords, validWords };
+      const error = verifyInitialState.error;
+      return { ...state, error, isLoading: false, lastSolvedParameters: { board }, invalidWords, validWords };
     },
   },
 });

@@ -373,8 +373,8 @@ function* onVerify(): AnyGenerator {
       locale,
     });
     yield put(verifySlice.actions.submitSuccess({ board, invalidWords, validWords }));
-  } catch (_error) {
-    yield put(verifySlice.actions.submitFailure());
+  } catch (error) {
+    yield put(verifySlice.actions.submitFailure(error));
   }
 }
 

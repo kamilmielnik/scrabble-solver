@@ -15,6 +15,7 @@ import {
   selectProcessedWords,
   selectValidWords,
   selectVerify,
+  selectVerifyError,
   selectWordCoordinates,
   selectWordsQuery,
   selectWordsSort,
@@ -30,10 +31,20 @@ describe('verifySlice', () => {
     expect(reducer(verifyInitialState, actions.submit()).isLoading).toBe(true);
   });
 
-  it('stops loading on failure and keeps the previous words', () => {
-    const state = { ...verifyInitialState, isLoading: true, validWords: [cat] };
+  it('stores the error on failure and drops the words, which belong to another board', () => {
+    const error = new Error('Invalid board');
+    const state = { ...verifyInitialState, invalidWords: [dog], isLoading: true, validWords: [cat] };
 
-    expect(reducer(state, actions.submitFailure())).toEqual({ ...state, isLoading: false });
+    expect(reducer(state, actions.submitFailure(error))).toEqual({ ...verifyInitialState, error });
+  });
+
+  it('keeps the error while a new verify is loading and drops it on success', () => {
+    const error = new Error('Invalid board');
+    const loading = reducer({ ...verifyInitialState, error }, actions.submit());
+    const board = Board.create(1, 1);
+
+    expect(loading.error).toBe(error);
+    expect(reducer(loading, actions.submitSuccess({ board, invalidWords: [], validWords: [] })).error).toBeUndefined();
   });
 
   it('stores the verified board and words on success', () => {
@@ -85,6 +96,14 @@ describe('selectors', () => {
     expect(selectValidWords(state)).toEqual([cat]);
     expect(selectWordsQuery(state)).toBe('q');
     expect(selectWordsSort(state)).toBe(state.verify.sort);
+  });
+
+  it('selects only an Error as the verify error', () => {
+    const error = new Error('Invalid board');
+
+    expect(selectVerifyError(createState({ error }))).toBe(error);
+    expect(selectVerifyError(createState({ error: 'Invalid board' }))).toBeUndefined();
+    expect(selectVerifyError(createState())).toBeUndefined();
   });
 
   it('joins invalid and valid words', () => {

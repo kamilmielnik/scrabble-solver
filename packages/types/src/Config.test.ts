@@ -72,16 +72,20 @@ describe('Config', () => {
       expect(config.tiles).toBe(CONFIG_JSON.tiles);
     });
 
-    it('lists the alphabet in tile order, with two-character tiles as one entry', () => {
+    it('lists the alphabet in tile order, with digraphs as one entry', () => {
       expect(config.alphabet).toEqual(['a', 'ch', 'ñ', 'll', 'rr']);
     });
 
-    it('lists only the two-character tiles', () => {
-      expect(config.twoCharacterTiles).toEqual(['ch', 'll', 'rr']);
+    it('lists only the digraphs', () => {
+      expect(config.digraphs).toEqual(['ch', 'll', 'rr']);
     });
 
-    it('lists no two-character tiles in a language without them', () => {
-      expect(createConfig({ tiles: [{ character: 'a', score: 1 }] }).twoCharacterTiles).toEqual([]);
+    it('lists digraphs of any length', () => {
+      expect(createCatalanConfig().digraphs).toEqual(['l·l', 'ny', 'qu']);
+    });
+
+    it('lists no digraphs in a language without them', () => {
+      expect(createConfig({ tiles: [{ character: 'a', score: 1 }] }).digraphs).toEqual([]);
     });
 
     it('maps each character to its score', () => {
@@ -225,26 +229,26 @@ describe('Config', () => {
     });
   });
 
-  describe('getTwoCharacterTileByPrefix', () => {
-    it('finds the tile starting with the character', () => {
-      expect(config.getTwoCharacterTileByPrefix('c')).toBe('ch');
-      expect(config.getTwoCharacterTileByPrefix('l')).toBe('ll');
+  describe('getDigraphByShortcut', () => {
+    it('finds the digraph by its first letter', () => {
+      expect(config.getDigraphByShortcut('c')).toBe('ch');
+      expect(config.getDigraphByShortcut('l')).toBe('ll');
     });
 
-    it('ignores the case of the prefix', () => {
-      expect(config.getTwoCharacterTileByPrefix('C')).toBe('ch');
+    it('ignores the case of the key', () => {
+      expect(config.getDigraphByShortcut('C')).toBe('ch');
     });
 
-    it('ignores the case of the prefix using the casing rules of the locale', () => {
+    it('ignores the case of the key using the casing rules of the locale', () => {
       const turkish = createConfig({
         locale: Locale.TR_TR,
         tiles: [{ character: 'ış', count: 1, score: 1 }],
       });
 
-      expect(turkish.getTwoCharacterTileByPrefix('I')).toBe('ış');
+      expect(turkish.getDigraphByShortcut('I')).toBe('ış');
     });
 
-    it('prefers the first listed tile when two share a prefix', () => {
+    it('prefers the first listed digraph when two share a shortcut', () => {
       const shared = createConfig({
         tiles: [
           { character: 'cz', score: 1 },
@@ -252,30 +256,131 @@ describe('Config', () => {
         ],
       });
 
-      expect(shared.getTwoCharacterTileByPrefix('c')).toBe('cz');
+      expect(shared.getDigraphByShortcut('c')).toBe('cz');
     });
 
-    it('finds nothing for a character that starts no such tile', () => {
-      expect(config.getTwoCharacterTileByPrefix('h')).toBeUndefined();
-      expect(config.getTwoCharacterTileByPrefix('a')).toBeUndefined();
+    it.each(['n', 'q', 't', 'w'])('skips %s, which browsers keep for themselves', (key) => {
+      const reserved = createConfig({ tiles: [{ character: `${key}y`, score: 1 }] });
+
+      expect(reserved.getDigraphByShortcut(key)).toBeUndefined();
+      expect(reserved.getDigraphByShortcut('y')).toBe(`${key}y`);
+    });
+
+    it('skips characters that are not letters', () => {
+      const dotted = createConfig({ tiles: [{ character: 't·l', score: 1 }] });
+
+      expect(dotted.getDigraphByShortcut('·')).toBeUndefined();
+      expect(dotted.getDigraphByShortcut('l')).toBe('t·l');
+    });
+
+    it('falls back to the first letter when every letter is reserved', () => {
+      const reserved = createConfig({ tiles: [{ character: 'nt', score: 1 }] });
+
+      expect(reserved.getDigraphByShortcut('n')).toBe('nt');
+    });
+
+    it('finds nothing for a key that is no shortcut', () => {
+      expect(config.getDigraphByShortcut('h')).toBeUndefined();
+      expect(config.getDigraphByShortcut('a')).toBeUndefined();
     });
 
     it('accepts only a single character', () => {
-      expect(config.getTwoCharacterTileByPrefix('')).toBeUndefined();
-      expect(config.getTwoCharacterTileByPrefix('ch')).toBeUndefined();
+      expect(config.getDigraphByShortcut('')).toBeUndefined();
+      expect(config.getDigraphByShortcut('ch')).toBeUndefined();
     });
   });
 
-  describe('isTwoCharacterTilePrefix', () => {
-    it('accepts the first character of a two-character tile, in either case', () => {
-      expect(config.isTwoCharacterTilePrefix('c')).toBe(true);
-      expect(config.isTwoCharacterTilePrefix('R')).toBe(true);
+  describe('getDigraphShortcut', () => {
+    it('is the first letter that browsers leave to the page', () => {
+      const catalan = createCatalanConfig();
+
+      expect(catalan.digraphs.map((digraph) => catalan.getDigraphShortcut(digraph))).toEqual(['l', 'y', 'u']);
+    });
+  });
+
+  describe('longestDigraphLength', () => {
+    it('is the length of the longest digraph', () => {
+      expect(config.longestDigraphLength).toBe(2);
+      expect(createCatalanConfig().longestDigraphLength).toBe(3);
+    });
+
+    it('is zero in a language without digraphs', () => {
+      expect(createConfig({ tiles: [{ character: 'a', score: 1 }] }).longestDigraphLength).toBe(0);
+    });
+  });
+
+  describe('longestFirstDigraphs', () => {
+    it('lists longer digraphs first and keeps the tile order of digraphs of the same length', () => {
+      const tiles = ['ny', 'l·l', 'qu'].map((character) => ({ character, score: 1 }));
+
+      expect(createConfig({ tiles }).longestFirstDigraphs).toEqual(['l·l', 'ny', 'qu']);
+    });
+  });
+
+  describe('isDigraphShortcut', () => {
+    it('accepts the shortcut of a digraph, in either case', () => {
+      expect(config.isDigraphShortcut('c')).toBe(true);
+      expect(config.isDigraphShortcut('R')).toBe(true);
     });
 
     it('rejects anything else', () => {
-      expect(config.isTwoCharacterTilePrefix('h')).toBe(false);
-      expect(config.isTwoCharacterTilePrefix('ch')).toBe(false);
-      expect(config.isTwoCharacterTilePrefix('')).toBe(false);
+      expect(config.isDigraphShortcut('h')).toBe(false);
+      expect(config.isDigraphShortcut('ch')).toBe(false);
+      expect(config.isDigraphShortcut('')).toBe(false);
+    });
+  });
+
+  describe('isDigraphPart', () => {
+    it('accepts every character of a digraph, tile or not', () => {
+      const catalan = createCatalanConfig();
+
+      expect(['l', '·', 'n', 'y', 'q', 'u'].filter((character) => catalan.isDigraphPart(character))).toHaveLength(6);
+    });
+
+    it('rejects a character outside every digraph', () => {
+      expect(createCatalanConfig().isDigraphPart('a')).toBe(false);
+    });
+  });
+
+  describe('isDigraphPrefix', () => {
+    it('accepts the beginning of a digraph', () => {
+      const catalan = createCatalanConfig();
+
+      expect(catalan.isDigraphPrefix('l')).toBe(true);
+      expect(catalan.isDigraphPrefix('l·')).toBe(true);
+      expect(catalan.isDigraphPrefix('q')).toBe(true);
+    });
+
+    it('rejects a whole digraph, which has nothing left to continue', () => {
+      expect(createCatalanConfig().isDigraphPrefix('l·l')).toBe(false);
+    });
+
+    it('rejects the end of a digraph', () => {
+      const catalan = createCatalanConfig();
+
+      expect(catalan.isDigraphPrefix('·')).toBe(false);
+      expect(catalan.isDigraphPrefix('y')).toBe(false);
+    });
+  });
+
+  describe('spellsDigraph', () => {
+    it('finds neighboring characters that spell a digraph', () => {
+      expect(config.spellsDigraph(['a', 'c', 'h'])).toBe(true);
+      expect(createCatalanConfig().spellsDigraph(['l', '·', 'l', 'a'])).toBe(true);
+    });
+
+    it('finds nothing in characters that spell no digraph', () => {
+      expect(config.spellsDigraph(['c', 'a', 'h'])).toBe(false);
+      expect(config.spellsDigraph(['ch', 'a'])).toBe(false);
+      expect(config.spellsDigraph([])).toBe(false);
+    });
+
+    it('finds a digraph spelled by a digraph and a character', () => {
+      const klingon = createConfig({
+        tiles: ['t', 'l', 'h', 'tl', 'tlh'].map((character) => ({ character, score: 1 })),
+      });
+
+      expect(klingon.spellsDigraph(['tl', 'h'])).toBe(true);
     });
   });
 
@@ -331,4 +436,19 @@ describe('Config', () => {
 
 function createConfig(overrides: Partial<ConfigJson>): Config {
   return new Config({ ...CONFIG_JSON, ...overrides });
+}
+
+function createCatalanConfig(): Config {
+  return createConfig({
+    locale: Locale.CA_ES,
+    tiles: [
+      { character: 'a', score: 1 },
+      { character: 'l', score: 1 },
+      { character: 'l·l', score: 10 },
+      { character: 'n', score: 1 },
+      { character: 'ny', score: 10 },
+      { character: 'qu', score: 8 },
+      { character: 'u', score: 1 },
+    ],
+  });
 }

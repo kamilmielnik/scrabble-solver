@@ -4,7 +4,7 @@ import { logEvent } from '@scrabble-solver/logger';
 import { type Config, type Game, type Locale, Board, isBoardJson, isGame, isLocale } from '@scrabble-solver/types';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
-import { type ApiContext, BadRequestError, isBoardValid, withApiLog } from '@/api';
+import { type ApiContext, BadRequestError, INVALID_BOARD_MESSAGE, isBoardValid, withApiLog } from '@/api';
 import { type VerifiedWord } from '@/types';
 
 interface RequestData {
@@ -64,7 +64,7 @@ function parseRequest(request: NextApiRequest): RequestData {
   const config = getConfig(game, locale);
 
   if (!isBoardJson(boardJson) || !isBoardValid(boardJson, config)) {
-    throw new BadRequestError('Invalid "board" parameter');
+    throw new BadRequestError(INVALID_BOARD_MESSAGE);
   }
 
   const board = Board.fromJson(boardJson);

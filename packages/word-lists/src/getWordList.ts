@@ -1,8 +1,9 @@
 import { Locale } from '@scrabble-solver/types';
 
-import { english, french, german, persian, polish, romanian, spanish, turkish } from './languages';
+import { catalan, english, french, german, persian, polish, romanian, spanish, turkish } from './languages';
 
 const localeMap: Record<Locale, () => Promise<string[]>> = {
+  [Locale.CA_ES]: catalan.getWordList,
   [Locale.DE_DE]: german.getWordList,
   [Locale.EN_GB]: english.getWordListGb,
   [Locale.EN_US]: english.getWordListUs,

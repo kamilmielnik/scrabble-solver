@@ -31,7 +31,7 @@ export function solveLocally(payload: SolveRequestPayload): Promise<ResultJson[]
 
 export async function verifyLocally(payload: VerifyRequestPayload): Promise<VerifyResult | undefined> {
   const response = await request({ id: ++nextId, type: 'verify', payload });
-  return response.outcome === 'answered' ? (response.data as VerifyResult) : undefined;
+  return readAnswer(response) as VerifyResult | undefined;
 }
 
 export function prefetchDictionary(locale: Locale): void {
@@ -49,7 +49,18 @@ async function readSolveResponse(id: number, payload: SolveRequestPayload): Prom
     return latestSolve;
   }
 
-  return response.outcome === 'answered' ? (response.data as ResultJson[]) : undefined;
+  return readAnswer(response) as ResultJson[] | undefined;
+}
+
+/**
+ * A rejected request fails the way the server would fail it, so the caller does not ask the server.
+ */
+function readAnswer(response: SolverWorkerResponse): ResultJson[] | VerifyResult | undefined {
+  if (response.outcome === 'rejected') {
+    throw new Error(response.message);
+  }
+
+  return response.outcome === 'answered' ? response.data : undefined;
 }
 
 function request(message: SolverWorkerRequest): Promise<SolverWorkerResponse> {

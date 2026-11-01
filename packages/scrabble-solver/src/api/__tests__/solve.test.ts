@@ -71,7 +71,7 @@ describe('/api/solve', () => {
     ['empty characters', { characters: [] }, 'Invalid "characters" parameter'],
     ['a game outside the locale', { game: Game.Kelimelik }, 'No game "kelimelik" in "en-US"'],
     ['an empty character', { characters: [''] }, 'Invalid "characters" parameter'],
-    ['a long character', { characters: ['abc'] }, 'Invalid "characters" parameter'],
+    ['a long character', { characters: ['abcd'] }, 'Invalid "characters" parameter'],
     ['too many blanks', { characters: [BLANK, BLANK, BLANK] }, 'Too many blank tiles passed'],
     ['a malformed board', { board: 'nope' }, 'Invalid "board" parameter'],
     ['a badly sized board', { board: board.slice(1) }, 'Invalid "board" parameter'],

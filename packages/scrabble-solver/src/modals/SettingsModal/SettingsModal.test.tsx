@@ -128,7 +128,7 @@ describe('SettingsModal', () => {
       .getAllByRole('radio')
       .map((radio) => (radio as HTMLInputElement).value);
 
-    expect(labels[0]).toBe(Locale.EN_GB);
+    expect(labels[0]).toBe(Locale.CA_ES);
     expect(labels).toHaveLength(Object.values(Locale).length);
     expect(getSection('Language').querySelectorAll('[data-icon^="Flag"]')).toHaveLength(Object.values(Locale).length);
   });

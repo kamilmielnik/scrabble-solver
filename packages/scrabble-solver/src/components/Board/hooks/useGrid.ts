@@ -17,16 +17,15 @@ import { useDispatch } from 'react-redux';
 
 import { useLatest } from '@/hooks/useLatest';
 import { LOCALE_FEATURES } from '@/i18n/constants';
-import { createKeyboardNavigation } from '@/lib/createKeyboardNavigation';
+import { type KeyboardNavigationHandlers, createKeyboardNavigation } from '@/lib/createKeyboardNavigation';
 import { extractCharacters } from '@/lib/extractCharacters';
 import { extractInputValue } from '@/lib/extractInputValue';
 import { isCtrl } from '@/lib/isCtrl';
 import { boardSlice, cellFiltersSlice, selectConfig, selectLocale, useTypedSelector } from '@/state';
 import { type Direction, type Point } from '@/types';
 
-import { createGrid, getPositionInGrid } from '../lib';
-
-const toggleDirection = (direction: Direction) => (direction === 'vertical' ? 'horizontal' : 'vertical');
+import { continuesDigraph, findDigraphJoin, findJoinInLastCell } from '../findDigraphJoin';
+import { createGrid, getPositionInGrid, isSamePoint, toggleDirection } from '../lib';
 
 interface State {
   activeIndex: Point;
@@ -96,103 +95,55 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
 
   const insertValue = useCallback(
     (position: Point, value: string) => {
-      const characters = value ? extractCharacters(config, value).filter((character) => character !== BLANK) : [BLANK];
+      const characters = value
+        ? extractCharacters(config, value, { keepDigraphParts: true }).filter((character) => character !== BLANK)
+        : [BLANK];
       const actions: PayloadAction<unknown>[] = [];
       let board = new Board({ rows: rowsRef.current.map((row) => row.map((cell) => cell.clone())) });
       let { x, y } = position;
+      let hasFilledLastCell = false;
 
-      const scheduleMoveFocus = () => {
-        if (directionRef.current === 'horizontal') {
-          ++x;
-        } else {
-          ++y;
-        }
-      };
+      function changeCellValue(cell: Point, cellValue: string, isBlank = false): void {
+        const action = boardSlice.actions.changeCellValue({ ...cell, isBlank, value: cellValue });
+        board = boardSlice.reducer(board, action);
+        actions.push(action);
+      }
+
+      function moveOn(filledCell: Point, nextPosition: Point): void {
+        hasFilledLastCell = isSamePoint(filledCell, nextPosition);
+        ({ x, y } = nextPosition);
+      }
 
       characters.forEach((character) => {
-        if (x >= config.boardWidth || y >= config.boardHeight) {
+        const options = { board, character, config, direction: directionRef.current, position: { x, y } };
+        const join = hasFilledLastCell ? findJoinInLastCell(options) : findDigraphJoin(options);
+
+        if (join) {
+          changeCellValue(join.target, join.value, join.isBlank);
+          join.clearedCells.forEach((cell) => changeCellValue(cell, EMPTY_CELL));
+          moveOn(join.target, join.nextPosition);
           return;
         }
 
-        const canCheckUp = y > 0;
-        const canCheckLeft = x > 0;
-        const canCheckRight = x + 1 < width;
-        const canCheckDown = y + 1 < height;
-
-        if (canCheckUp) {
-          const cellUp = board.rows[y - 1][x];
-          const twoCharacterCandidate = cellUp.tile.character + character;
-
-          if (!cellUp.tile.isBlank && config.twoCharacterTiles.includes(twoCharacterCandidate)) {
-            const action = boardSlice.actions.changeCellValue({ x, y: y - 1, value: twoCharacterCandidate });
-            board = boardSlice.reducer(board, action);
-            actions.push(action);
-            return;
-          }
+        if (hasFilledLastCell) {
+          return;
         }
 
-        if (canCheckDown) {
-          const cellDown = board.rows[y + 1][x];
-          const twoCharacterCandidate = character + cellDown.tile.character;
-
-          if (!cellDown.tile.isBlank && config.twoCharacterTiles.includes(twoCharacterCandidate)) {
-            const action1 = boardSlice.actions.changeCellValue({ x, y, value: character });
-            const action2 = boardSlice.actions.changeCellValue({ x, y: y + 1, value: EMPTY_CELL });
-            board = boardSlice.reducer(boardSlice.reducer(board, action1), action2);
-            actions.push(action1, action2);
-            scheduleMoveFocus();
-            return;
-          }
+        if (config.hasCharacter(character) || character === BLANK || continuesDigraph(options)) {
+          changeCellValue({ x, y }, character);
+          moveOn(
+            { x, y },
+            directionRef.current === 'horizontal'
+              ? { x: Math.min(x + 1, config.boardWidth - 1), y }
+              : { x, y: Math.min(y + 1, config.boardHeight - 1) },
+          );
         }
-
-        if (canCheckLeft) {
-          const cellLeft = board.rows[y][x - 1];
-          const twoCharacterCandidate = cellLeft.tile.character + character;
-
-          if (!cellLeft.tile.isBlank && config.twoCharacterTiles.includes(twoCharacterCandidate)) {
-            const action = boardSlice.actions.changeCellValue({ x: x - 1, y, value: twoCharacterCandidate });
-            board = boardSlice.reducer(board, action);
-            actions.push(action);
-            return;
-          }
-        }
-
-        if (canCheckRight) {
-          const cellRight = board.rows[y][x + 1];
-          const twoCharacterCandidate = character + cellRight.tile.character;
-
-          if (!cellRight.tile.isBlank && config.twoCharacterTiles.includes(twoCharacterCandidate)) {
-            const action1 = boardSlice.actions.changeCellValue({ x, y, value: character });
-            const action2 = boardSlice.actions.changeCellValue({ x: x + 1, y, value: EMPTY_CELL });
-            board = boardSlice.reducer(boardSlice.reducer(board, action1), action2);
-            actions.push(action1, action2);
-            scheduleMoveFocus();
-            return;
-          }
-        }
-
-        if (!canCheckDown || !canCheckRight) {
-          const cell = board.rows[y][x];
-          const twoCharacterCandidate = cell.tile.character + character;
-
-          if (!cell.tile.isBlank && config.twoCharacterTiles.includes(twoCharacterCandidate)) {
-            const action = boardSlice.actions.changeCellValue({ x, y, value: twoCharacterCandidate });
-            board = boardSlice.reducer(board, action);
-            actions.push(action);
-            return;
-          }
-        }
-
-        const action = boardSlice.actions.changeCellValue({ x, y, value: character });
-        board = boardSlice.reducer(board, action);
-        actions.push(action);
-        scheduleMoveFocus();
       });
 
-      moveFocus(Math.abs(position.x - x) + Math.abs(position.y - y));
+      moveFocus(x - position.x + y - position.y);
       actions.forEach(dispatch);
     },
-    [config, directionRef, dispatch, height, moveFocus, rowsRef, width],
+    [config, directionRef, dispatch, moveFocus, rowsRef],
   );
 
   const onChange = useCallback(
@@ -232,8 +183,8 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
     setActiveIndex({ x, y });
   }, []);
 
-  const onKeyDown = useMemo(() => {
-    return createKeyboardNavigation({
+  const keyboardNavigationHandlers = useMemo((): KeyboardNavigationHandlers => {
+    return {
       onArrowDown: (event) => {
         event.preventDefault();
 
@@ -303,11 +254,11 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
 
         const { x, y } = position;
         const character = event.key.toLocaleLowerCase(config.locale);
-        const twoCharacterTile = config.getTwoCharacterTileByPrefix(character);
+        const digraph = config.getDigraphByShortcut(character);
 
-        if (isCtrl(event) && twoCharacterTile) {
+        if (isCtrl(event) && digraph) {
           event.preventDefault();
-          dispatch(boardSlice.actions.changeCellValue({ x, y, value: twoCharacterTile }));
+          dispatch(boardSlice.actions.changeCellValue({ x, y, value: digraph }));
           moveFocus(1);
           return;
         }
@@ -324,12 +275,14 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
           return;
         }
 
-        const twoCharacterCandidate = cell.tile.character + character;
+        const joinsDigraph =
+          !isCtrl(event) &&
+          config.isDigraphPart(character) &&
+          findDigraphJoin({ board: new Board({ rows: rowsRef.current }), character, config, direction, position });
 
-        if (config.twoCharacterTiles.includes(twoCharacterCandidate)) {
+        if (joinsDigraph) {
           event.preventDefault();
-          dispatch(boardSlice.actions.changeCellValue({ ...position, value: twoCharacterCandidate }));
-          moveFocus(1);
+          insertValue(position, character);
           return;
         }
 
@@ -353,18 +306,24 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
         event.preventDefault();
         dispatch(boardSlice.actions.toggleCellIsBlank(position));
       },
-    });
+    };
   }, [
     changeActiveIndex,
     config,
     direction,
     dispatch,
     getInputRefPosition,
+    insertValue,
     locale,
     moveFocus,
     onDirectionToggle,
     rowsRef,
   ]);
+
+  const onKeyDown = useCallback<KeyboardEventHandler<HTMLInputElement>>(
+    (event) => createKeyboardNavigation(keyboardNavigationHandlers)(event),
+    [keyboardNavigationHandlers],
+  );
 
   const onPaste = useCallback<ClipboardEventHandler>(
     (event) => {

@@ -6,6 +6,8 @@ import { Locale } from '@scrabble-solver/types';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
+import { readPlaceholders } from '@/lib/readPlaceholders';
+
 import { LOCALE_FEATURES } from './constants';
 import { englishTranslations, loadTranslations } from './i18n';
 import { LOCALE_ICONS } from './localeIcons';
@@ -17,6 +19,12 @@ const allKeys = Object.keys(englishTranslations).sort();
 describe('language files', () => {
   it.each(files)('%s has exactly the keys of English', (file) => {
     expect(Object.keys(readLanguage(file)).sort()).toEqual(allKeys);
+  });
+
+  it.each(files)('%s has alphabetically sorted keys, each after the keys nested in it', (file) => {
+    const keys = Object.keys(readLanguage(file));
+
+    expect(keys).toEqual(keys.toSorted(compareKeys));
   });
 
   it.each(files)('%s has only non-empty strings', (file) => {
@@ -107,8 +115,10 @@ describe('configs', () => {
   });
 });
 
-function readPlaceholders(text: string): string[] {
-  return Array.from(text.matchAll(/\{\{(\w+)\}\}/g), ([, name]) => name).sort();
+function compareKeys(keyA: string, keyB: string): number {
+  const [sortKeyA, sortKeyB] = [keyA, keyB].map((key) => `${key}.\uffff`);
+
+  return sortKeyA < sortKeyB ? -1 : 1;
 }
 
 function readLanguage(file: string): Record<string, string> {

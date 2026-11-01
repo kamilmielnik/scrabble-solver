@@ -45,6 +45,15 @@ describe('/api/dictionary/[locale]/[word]', () => {
     expect(getWordDefinition).toHaveBeenCalledWith(Locale.EN_US, 'zzz', false);
   });
 
+  // Deliberately left as it is until #472: the word is looked up as typed, with the diacritics that tiles lack
+  it('marks a word with diacritics outside the dictionary that holds it without them', async () => {
+    get.mockImplementationOnce(() => Promise.resolve(Gaddag.fromArray(['canço'])));
+
+    await request({ locale: Locale.CA_ES, word: 'cançó' });
+
+    expect(getWordDefinition).toHaveBeenCalledWith(Locale.CA_ES, 'cançó', false);
+  });
+
   it('splits, trims and de-duplicates a comma separated list', async () => {
     await define(' cat, dog ,cat,,');
 

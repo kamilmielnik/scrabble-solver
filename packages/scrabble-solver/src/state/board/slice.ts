@@ -27,11 +27,11 @@ export const boardSlice = createSlice({
       return board;
     },
 
-    changeCellValue: (state, action: PayloadAction<{ value: string; x: number; y: number }>) => {
+    changeCellValue: (state, action: PayloadAction<{ isBlank?: boolean; value: string; x: number; y: number }>) => {
       const newBoard = state.clone();
-      const { value, x, y } = action.payload;
+      const { isBlank, value, x, y } = action.payload;
       const isEmpty = !value || value === EMPTY_CELL;
-      const tile = isEmpty ? Tile.Null : new Tile({ character: value });
+      const tile = isEmpty ? Tile.Null : new Tile({ character: value, isBlank });
 
       newBoard.updateCell(x, y, (cell) => {
         return new Cell({ isEmpty, tile, x: cell.x, y: cell.y });
