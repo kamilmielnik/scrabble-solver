@@ -750,43 +750,45 @@ describe('digraphs longer than two letters', () => {
     expect(document.activeElement).toBe(getCell('A2'));
   });
 
-  it('joins with the tiles above when typing sideways, staying in the cell', () => {
-    const { store } = setup({ board: createBoard({ 0: 'l', 15: '·' }), settings });
+  describe('across the typing direction', () => {
+    it('joins with the tiles above, staying in the cell', () => {
+      const { store } = setup({ board: createBoard({ 0: 'l', 15: '·' }), settings });
 
-    type('A3', 'l');
+      type('A3', 'l');
 
-    expect(readBoard(store, 0, 0)).toBe('l·l');
-    expect(readBoard(store, 0, 1)).toBe(' ');
-    expect(document.activeElement).toBe(getCell('A3'));
-  });
+      expect(readBoard(store, 0, 0)).toBe('l·l');
+      expect(readBoard(store, 0, 1)).toBe(' ');
+      expect(document.activeElement).toBe(getCell('A3'));
+    });
 
-  it('joins a letter that is no tile with the tile below when typing sideways', () => {
-    const { store } = setup({ board: createBoard({ 37: 'u' }), settings });
+    it('joins a letter that is no tile with the tile below', () => {
+      const { store } = setup({ board: createBoard({ 37: 'u' }), settings });
 
-    type('H2', 'q');
+      type('H2', 'q');
 
-    expect(readBoard(store, 7, 1)).toBe('qu');
-    expect(readBoard(store, 7, 2)).toBe(' ');
-    expect(document.activeElement).toBe(getCell('I2'));
-  });
+      expect(readBoard(store, 7, 1)).toBe('qu');
+      expect(readBoard(store, 7, 2)).toBe(' ');
+      expect(document.activeElement).toBe(getCell('I2'));
+    });
 
-  /**
-   * Intentional: the board cannot know the keys that come next. "q" typed above "una" joins its "u" at once, so the
-   * "u" of "equip" typed next becomes a tile of its own and "una" loses its "u".
-   */
-  it('joins across the typing direction as soon as a key spells a digraph, before the next key arrives', () => {
-    const { store } = setup({ board: createBoard({ 22: 'u', 37: 'n', 52: 'a' }), settings });
+    /**
+     * Intentional: the board cannot know the keys that come next. "q" typed above "una" joins its "u" at once, so the
+     * "u" of "equip" typed next becomes a tile of its own and "una" loses its "u".
+     */
+    it('joins as soon as a key spells a digraph, before the next key arrives', () => {
+      const { store } = setup({ board: createBoard({ 22: 'u', 37: 'n', 52: 'a' }), settings });
 
-    type('G1', 'e');
-    type('H1', 'q');
+      type('G1', 'e');
+      type('H1', 'q');
 
-    expect(readRow(store, 0).slice(6, 9)).toEqual(['e', 'qu', ' ']);
-    expect([0, 1, 2, 3].map((y) => readBoard(store, 7, y))).toEqual(['qu', ' ', 'n', 'a']);
-    expect(document.activeElement).toBe(getCell('I1'));
+      expect(readRow(store, 0).slice(6, 9)).toEqual(['e', 'qu', ' ']);
+      expect([0, 1, 2, 3].map((y) => readBoard(store, 7, y))).toEqual(['qu', ' ', 'n', 'a']);
+      expect(document.activeElement).toBe(getCell('I1'));
 
-    type('I1', 'u');
+      type('I1', 'u');
 
-    expect(readRow(store, 0).slice(6, 9)).toEqual(['e', 'qu', 'u']);
+      expect(readRow(store, 0).slice(6, 9)).toEqual(['e', 'qu', 'u']);
+    });
   });
 
   it('keeps two l tiles apart, so that cella stays a word', () => {
