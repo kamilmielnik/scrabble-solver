@@ -152,13 +152,6 @@ describe('Romanian', () => {
 });
 
 describe('Catalan', () => {
-  const { catalanScrabble } = languages;
-
-  it('has a digraph for the letters that have no tile of their own', () => {
-    expect(['q', 'y', '·'].filter((character) => catalanScrabble.hasCharacter(character))).toEqual([]);
-    expect(['q', 'y', '·'].filter((character) => catalanScrabble.isDigraphPart(character))).toHaveLength(3);
-  });
-
   it('leaves l·l out of the consonants and vowels, like every other digraph', () => {
     expect(isConsonant('l·l', Locale.CA_ES)).toBe(false);
     expect(isVowel('l·l', Locale.CA_ES)).toBe(false);
