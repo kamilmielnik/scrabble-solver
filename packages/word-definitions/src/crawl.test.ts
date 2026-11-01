@@ -183,6 +183,13 @@ describe('crawl - Catalan', () => {
     expect(await crawl(Locale.CA_ES, 'cafe')).toBe('not found\ncafé page');
   });
 
+  // Intentional: only a word whose every page fails rejects, even when the page of the word itself fails
+  it('keeps the accented pages when the page of the word fails', async () => {
+    serveWiktionary(['cafè'], { cafe: new Error('timeout'), cafè: 'cafè page' });
+
+    expect(await crawl(Locale.CA_ES, 'cafe')).toBe('cafè page');
+  });
+
   it('rejects when every request fails', async () => {
     request.mockRejectedValue(new Error('offline'));
 
