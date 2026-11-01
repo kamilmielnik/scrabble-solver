@@ -151,13 +151,13 @@ describe('getRemainingTilesGroups', () => {
     expect(groups[1]).toMatchObject({ remainingCount: 1, totalCount: 2 });
   });
 
-  it('groups digraphs and other letters', () => {
+  it('lists digraphs before other letters', () => {
     const groups = getRemainingTilesGroups(
       [createTile({ character: 'ch', count: 1 }), createTile({ character: 'ش', count: 3 })],
       Locale.EN_US,
     );
 
-    expect(groups.map(({ translationKey }) => translationKey)).toEqual(['common.tiles', 'common.digraphs']);
+    expect(groups.map(({ translationKey }) => translationKey)).toEqual(['common.digraphs', 'common.tiles']);
   });
 
   it('groups digraphs of any length together', () => {

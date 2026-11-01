@@ -7,6 +7,8 @@ export const getRemainingTilesGroups = (remainingTiles: RemainingTile[], locale:
   const consonants = remainingTiles.filter((tile) => isConsonant(tile.character, locale));
   const vowels = remainingTiles.filter((tile) => isVowel(tile.character, locale));
   const other = remainingTiles.filter((tile) => isOther(tile, locale));
+  const digraphs = remainingTiles.filter(isDigraph);
+  const blanks = remainingTiles.filter(isBlank);
   const groups: RemainingTilesGroup[] = [];
 
   groups.push({
@@ -24,20 +26,17 @@ export const getRemainingTilesGroups = (remainingTiles: RemainingTile[], locale:
   });
 
   groups.push({
-    remainingCount: getRemainingTilesCount(other),
-    tiles: other,
-    translationKey: 'common.tiles',
-    totalCount: getTotalTilesCount(other),
-  });
-
-  const digraphs = remainingTiles.filter(isDigraph);
-  const blanks = remainingTiles.filter(isBlank);
-
-  groups.push({
     remainingCount: getRemainingTilesCount(digraphs),
     tiles: digraphs,
     translationKey: 'common.digraphs',
     totalCount: getTotalTilesCount(digraphs),
+  });
+
+  groups.push({
+    remainingCount: getRemainingTilesCount(other),
+    tiles: other,
+    translationKey: 'common.tiles',
+    totalCount: getTotalTilesCount(other),
   });
 
   groups.push({
