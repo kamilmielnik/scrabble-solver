@@ -275,10 +275,12 @@ export const useGrid = (rows: Cell[][]): [State, Actions] => {
           return;
         }
 
-        // A join search takes under 2 µs, so it runs in every language and runs again in insertValue.
-        const board = new Board({ rows: rowsRef.current });
+        const joinsDigraph =
+          !isCtrl(event) &&
+          config.isDigraphPart(character) &&
+          findDigraphJoin({ board: new Board({ rows: rowsRef.current }), character, config, direction, position });
 
-        if (!isCtrl(event) && findDigraphJoin({ board, character, config, direction, position })) {
+        if (joinsDigraph) {
           event.preventDefault();
           insertValue(position, character);
           return;
