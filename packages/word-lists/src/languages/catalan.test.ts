@@ -44,6 +44,16 @@ describe('catalan getWordList', () => {
     expect(await getWordList()).toEqual(['cel·la', 'cella']);
   });
 
+  /**
+   * Intentional: DISC spells l·l with the middle dot only, so the single-character ŀ needs no handling.
+   * The app reads a typed ŀ as l·, but the word list turns it into l.
+   */
+  it('turns the single-character ŀ into l', async () => {
+    harness.serve(FILE_URL, 'coŀlecció\n');
+
+    expect(await getWordList()).toEqual(['colleccio']);
+  });
+
   it('merges words that differ only by accents', async () => {
     harness.serve(FILE_URL, 'catorze\ncatorzè\n');
 
