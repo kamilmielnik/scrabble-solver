@@ -111,7 +111,7 @@
     "react-highlight-words": "1.0.0",
     "react-modal": "3.16.3",
     "react-redux": "9.3.1",
-    "react-window": "2.5.1",
+    "react-window": "2.5.2",
     "redux-saga": "1.5.1",
     "store2": "2.14.4",
     "use-debounce": "10.1.1",
@@ -134,7 +134,7 @@
     "env-cmd": "11.0.0",
     "happy-dom": "21.0.4",
     "postcss": "8.5.32",
-    "sass": "1.107.0",
+    "sass": "1.107.1",
     "workbox-webpack-plugin": "7.4.1"
   }
 }
