@@ -17,6 +17,11 @@ const MAX_BOARD_DIMENSION = 32;
 
 const NO_LETTERS = new Int32Array(0);
 
+interface DigraphWindow {
+  candidateIndex: number;
+  characters: string[];
+}
+
 /**
  * Anchor-based move generation over a {@link Gaddag} (Gordon, 1994).
  *
@@ -423,7 +428,8 @@ export class MoveGenerator {
     const { gaddag, lineLength, linesCount } = this;
     const preLetters: number[] = [];
     const postLetters: number[] = [];
-    const crossCharacters: string[] = [];
+    const preCharacters: string[] = [];
+    const postCharacters: string[] = [];
 
     for (let line = 0; line < linesCount; ++line) {
       for (let position = 0; position < lineLength; ++position) {
@@ -457,7 +463,8 @@ export class MoveGenerator {
 
         preLetters.length = 0;
         postLetters.length = 0;
-        crossCharacters.length = spanHi - spanLo + 1;
+        preCharacters.length = 0;
+        postCharacters.length = 0;
         let base = 0;
         let lettersValid = true;
 
@@ -481,7 +488,7 @@ export class MoveGenerator {
           }
 
           if (this.hasDigraphs) {
-            crossCharacters[crossLine - spanLo] = this.boardChar[this.passGlobal[crossIndex]];
+            (crossLine < line ? preCharacters : postCharacters).push(this.boardChar[this.passGlobal[crossIndex]]);
           }
         }
 
@@ -491,7 +498,10 @@ export class MoveGenerator {
         let maskLo = 0;
         let maskHi = 0;
 
-        if (lettersValid) {
+        const crossSpellsDigraph =
+          this.hasDigraphs && (this.config.spellsDigraph(preCharacters) || this.config.spellsDigraph(postCharacters));
+
+        if (lettersValid && !crossSpellsDigraph) {
           // The perpendicular word is pre + tile + post; its pure-reverse GADDAG
           // path is rev(post), rev(tile characters), rev(pre). rev(post) is shared
           // across all candidate tiles.
@@ -502,6 +512,8 @@ export class MoveGenerator {
           }
 
           if (postRef !== 0) {
+            const digraphWindow = this.hasDigraphs ? this.getDigraphWindow(preCharacters, postCharacters) : undefined;
+
             for (let alpha = 0; alpha < this.alphaSize; ++alpha) {
               if (this.alphaPlayable[alpha] === 0) {
                 continue;
@@ -517,10 +529,10 @@ export class MoveGenerator {
                 continue;
               }
 
-              if (this.hasDigraphs) {
-                crossCharacters[line - spanLo] = this.alphaChars[alpha];
+              if (digraphWindow) {
+                digraphWindow.characters[digraphWindow.candidateIndex] = this.alphaChars[alpha];
 
-                if (this.config.spellsDigraph(crossCharacters)) {
+                if (this.config.spellsDigraph(digraphWindow.characters)) {
                   continue;
                 }
               }
@@ -538,6 +550,14 @@ export class MoveGenerator {
         this.maskHi[passIndex] = maskHi;
       }
     }
+  }
+
+  // A digraph spelled with the candidate tile reaches at most longestDigraphLength - 1 tiles on either side of it.
+  private getDigraphWindow(preCharacters: string[], postCharacters: string[]): DigraphWindow {
+    const tilesAround = this.config.longestDigraphLength - 1;
+    const before = preCharacters.slice(-tilesAround);
+
+    return { candidateIndex: before.length, characters: [...before, '', ...postCharacters.slice(0, tilesAround)] };
   }
 
   private getLetters(character: string): Int32Array {

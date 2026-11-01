@@ -899,6 +899,32 @@ describe('MoveGenerator - digraphs longer than two characters', () => {
     expect(generate(Gaddag.fromArray(['tlh', 'la']), klingon, board, ['l', 'a'])).toEqual([]);
   });
 
+  it.each([
+    [
+      'ends',
+      [
+        [3, 1, 'a'],
+        [3, 2, 'l'],
+        [3, 3, '·'],
+      ],
+      'al·l',
+    ],
+    [
+      'starts',
+      [
+        [3, 3, '·'],
+        [3, 4, 'l'],
+        [3, 5, 'a'],
+      ],
+      'l·la',
+    ],
+  ] as const)('does not compose the tile where a longer perpendicular word %s', (_name, tiles, crossing) => {
+    const board = createBoard(7, 7, tiles.map(([x, y, character]) => [x, y, character]));
+    const results = generate(Gaddag.fromArray([crossing, 'la']), config, board, ['l', 'a']);
+
+    expect(results.flatMap((result) => result.words)).not.toContain(crossing);
+  });
+
   it('does not finish a digraph left half-typed on the board', () => {
     const gaddag = Gaddag.fromArray(['cel·la']);
     const board = createBoard(7, 7, [
