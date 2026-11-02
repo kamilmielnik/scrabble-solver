@@ -3,13 +3,13 @@
 
 import { Locale } from '@scrabble-solver/types';
 import { act, fireEvent, screen } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it, jest, mock } from 'bun:test';
+import { afterEach, beforeEach, describe, expect, it, jest, mock, spyOn } from 'bun:test';
 
+import { noop } from '../../lib/noop';
 import { resultsInitialState, resultsSlice } from '../../state/results';
 import { settingsInitialState } from '../../state/settings';
 import { solveInitialState } from '../../state/solve';
 import type { RootState } from '../../state/types';
-import { flushTimers } from '../../test/async';
 import { createResult } from '../../test/fixtures';
 import { setViewport } from '../../test/media';
 import { renderWithStore } from '../../test/render';
@@ -314,19 +314,32 @@ describe('loading', () => {
 });
 
 describe('scrolling', () => {
-  it('scrolls the highlighted row into view after rendering', async () => {
-    const scrollTo = mock<(options: ScrollToOptions) => void>();
-    const results = Array.from({ length: 200 }, (_, index) => createResult({ id: index + 3, points: 1, word: 'at' }));
+  const results = Array.from({ length: 200 }, (_, index) => createResult({ id: index + 3, points: 1, word: 'at' }));
+  const highlightedRowCenteredInList = 100 * 40 + 20 - 400 / 2;
+
+  afterEach(() => {
+    mock.restore();
+  });
+
+  it('centers the highlighted row once the list knows its height', () => {
+    const scrollTo = spyOn(HTMLElement.prototype, 'scrollTo').mockImplementation(noop);
 
     setup({ results: { ...resultsInitialState, results } }, { highlightedIndex: 100 });
-    Object.assign(screen.getAllByTestId('result')[0].closest('[dir]')!, { scrollTo });
-
-    expect(scrollTo).not.toHaveBeenCalled();
-
-    await flushTimers();
 
     expect(scrollTo).toHaveBeenCalledTimes(1);
-    expect(scrollTo.mock.calls[0][0]).toMatchObject({ top: 100 * 40 + 20 - 200 });
+    expect(scrollTo.mock.calls[0][0]).toMatchObject({ top: highlightedRowCenteredInList });
+  });
+
+  it('centers the highlighted row again when the results change', () => {
+    const scrollTo = spyOn(HTMLElement.prototype, 'scrollTo').mockImplementation(noop);
+    const { store } = setup({ results: { ...resultsInitialState, results } }, { highlightedIndex: 100 });
+
+    act(() => {
+      store.dispatch(resultsSlice.actions.sort(ResultColumnId.Word));
+    });
+
+    expect(scrollTo).toHaveBeenCalledTimes(2);
+    expect(scrollTo.mock.calls[1][0]).toMatchObject({ top: highlightedRowCenteredInList });
   });
 });
 
