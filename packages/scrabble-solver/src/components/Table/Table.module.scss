@@ -1,6 +1,8 @@
 @use 'styles/mixins' as *;
 
 $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
+// Room above the first row and below the last one, for their focus rings, shaded by the header and the search input.
+$list-edge-size: var(--focus-effect--size);
 
 .header {
   position: relative;
@@ -11,6 +13,8 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
   border-bottom: var(--border);
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
+  // Casts a shadow down onto the list only, over the padding above its first row.
+  box-shadow: 0 calc($list-edge-size / 2) $list-edge-size calc(-1 * $list-edge-size / 2) var(--box-shadow--color);
 }
 
 .headerButton {
@@ -96,8 +100,8 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
   // Leaves room for the focus ring of the first and the last row, also when focus scrolls a row into view.
   > [role='list'] {
-    padding-block: var(--focus-effect--size);
-    scroll-padding-block: var(--focus-effect--size);
+    padding-block: $list-edge-size;
+    scroll-padding-block: $list-edge-size;
   }
 }
 
@@ -158,6 +162,9 @@ $row-padding-horizontal: calc(var(--spacing--m) + var(--spacing--s));
 
 .search {
   @include focus-effect;
+
+  // Casts a shadow up onto the list only, over the padding below its last row.
+  box-shadow: 0 calc(-1 * $list-edge-size / 2) $list-edge-size calc(-1 * $list-edge-size / 2) var(--box-shadow--color);
 }
 
 .searchField {
