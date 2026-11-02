@@ -1,10 +1,12 @@
 import { type Result } from '@scrabble-solver/types';
 import { type RefObject, useCallback, useEffect, useState } from 'react';
-import { type ListImperativeAPI } from 'react-window';
+import { type ListImperativeAPI, type ListProps } from 'react-window';
 
 import { useLatest } from '@/hooks/useLatest';
 
-type ListResizeHandler = (size: unknown, previousSize: { height: number }) => void;
+import { type ResultData } from './types';
+
+type ListResizeHandler = NonNullable<ListProps<ResultData>['onResize']>;
 
 /**
  * Centers the highlighted result, or the first one, whenever the results change.
