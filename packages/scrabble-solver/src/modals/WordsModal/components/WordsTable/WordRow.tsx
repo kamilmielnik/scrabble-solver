@@ -54,13 +54,13 @@ export const WordRow = ({
     dispatch(hoveredWordSlice.actions.set(word));
   };
 
-  const handleFocus = () => {
+  function handleFocus() {
     pointerHighlight.onRowFocus(word);
-  };
+  }
 
-  const handleMouseEnter = () => {
+  function handleMouseEnter() {
     pointerHighlight.onRowMouseEnter(word);
-  };
+  }
 
   const handleClick = () => {
     if (!isSelected) {
