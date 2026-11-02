@@ -175,14 +175,33 @@ describe('desktop with a pointer, where the pointer owns the highlight', () => {
     expect(store.getState().hoveredWord.word).toBeNull();
   });
 
-  it('picks on focus and clears on blur', () => {
+  it('picks on keyboard focus and clears on blur', () => {
     const { store } = setup();
 
-    fireEvent.focus(getRow(cat));
+    act(() => {
+      getRow(cat).focus();
+    });
     expect(store.getState().hoveredWord.word).toEqual(cat);
 
-    fireEvent.blur(getRow(cat));
+    act(() => {
+      getRow(cat).blur();
+    });
     expect(store.getState().hoveredWord.word).toBeNull();
+  });
+
+  it('keeps the hovered row picked while keyboard focus comes and goes on another row', () => {
+    const { store } = setup();
+
+    fireEvent.mouseEnter(getRow(dog));
+    act(() => {
+      getRow(cat).focus();
+    });
+    expect(store.getState().hoveredWord.word).toEqual(dog);
+
+    act(() => {
+      getRow(cat).blur();
+    });
+    expect(store.getState().hoveredWord.word).toEqual(dog);
   });
 
   it('hands the highlight back to the keyboard-focused row when the pointer leaves the list', () => {

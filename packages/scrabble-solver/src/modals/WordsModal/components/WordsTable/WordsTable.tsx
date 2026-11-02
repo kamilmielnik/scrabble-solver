@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { List } from 'react-window';
 
 import { EmptyState } from '@/components/EmptyState';
-import { Header, HeaderButton, ListContainer, Search } from '@/components/Table';
+import { Header, HeaderButton, Search } from '@/components/Table';
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { usePointerHighlight } from '@/hooks/usePointerHighlight';
@@ -56,7 +56,7 @@ export const WordsTable: FunctionComponent<Props> = ({ className, isOpen, onPrev
     },
     [dispatch],
   );
-  const pointerHighlight = usePointerHighlight(highlightWord);
+  const pointerHighlight = usePointerHighlight(words, highlightWord);
   const rowProps = useMemo<WordRowData>(
     () => ({ highlightFollowsPointer, highlightedIndex, isTouchDevice, pointerHighlight, words, onPreview }),
     [highlightFollowsPointer, highlightedIndex, isTouchDevice, pointerHighlight, words, onPreview],
@@ -119,7 +119,7 @@ export const WordsTable: FunctionComponent<Props> = ({ className, isOpen, onPrev
         )}
 
         {words.length > 0 && (
-          <ListContainer className={styles.listContainer}>
+          <div className={styles.listContainer}>
             <List
               className={styles.list}
               dir={direction}
@@ -130,7 +130,7 @@ export const WordsTable: FunctionComponent<Props> = ({ className, isOpen, onPrev
               rowProps={rowProps}
               onMouseLeave={highlightFollowsPointer ? pointerHighlight.onListMouseLeave : undefined}
             />
-          </ListContainer>
+          </div>
         )}
       </div>
 

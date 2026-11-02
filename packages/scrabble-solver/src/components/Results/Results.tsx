@@ -22,7 +22,7 @@ import {
 
 import { EmptyState } from '../EmptyState';
 import { Loading } from '../Loading';
-import { ListContainer, Search } from '../Table';
+import { Search } from '../Table';
 
 import { Header } from './Header';
 import { Result } from './Result';
@@ -131,7 +131,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
             )}
 
             {!isOutdated && results.length > 0 && (
-              <ListContainer className={styles.listContainer}>
+              <div className={styles.listContainer}>
                 <List
                   className={classNames(styles.list, {
                     [styles.outdated]: isOutdated,
@@ -145,7 +145,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
                   rowProps={itemData}
                   onMouseLeave={callbacks.onMouseLeave}
                 />
-              </ListContainer>
+              </div>
             )}
           </>
         )}

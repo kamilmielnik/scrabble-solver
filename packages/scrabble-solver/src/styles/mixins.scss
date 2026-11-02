@@ -39,6 +39,8 @@
  * It does not work when applied on input elements.
  */
 @mixin focus-effect {
+  --focus-effect--size: 6px;
+
   position: relative;
 
   &::after {

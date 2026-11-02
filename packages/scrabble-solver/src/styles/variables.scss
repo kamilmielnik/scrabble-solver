@@ -96,8 +96,6 @@ $easeOutSine: cubic-bezier(0.61, 1, 0.88, 1);
   --transition--duration--long: #{$transition-duration-long};
   --transition--easing: #{$easeOutSine};
 
-  --focus-effect--size: 6px;
-
   --z-index--focus-effect: 1;
   --z-index--actions: 2;
   --z-index--modal: 100;
