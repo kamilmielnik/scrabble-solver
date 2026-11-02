@@ -16,7 +16,6 @@ interface Props {
   'data-testid'?: string;
   highlighted: boolean;
   inactive: boolean;
-  index: number;
   style?: CSSProperties;
   onBlur?: FocusEventHandler;
   onClick?: MouseEventHandler;
@@ -31,7 +30,6 @@ export const Row: FunctionComponent<Props> = ({
   'data-testid': dataTestId,
   highlighted,
   inactive,
-  index,
   style,
   onBlur,
   onClick,
@@ -47,7 +45,6 @@ export const Row: FunctionComponent<Props> = ({
         [styles.clickable]: Boolean(onClick),
         [styles.highlighted]: highlighted,
       })}
-      data-row-index={index}
       data-testid={dataTestId}
       style={style}
       type="button"

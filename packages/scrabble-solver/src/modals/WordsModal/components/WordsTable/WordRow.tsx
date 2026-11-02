@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { type ReactElement } from 'react';
+import { type FocusEvent, type ReactElement } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch } from 'react-redux';
 import { type RowComponentProps } from 'react-window';
@@ -54,8 +54,8 @@ export const WordRow = ({
     dispatch(hoveredWordSlice.actions.set(word));
   };
 
-  function handleFocus() {
-    pointerHighlight.onRowFocus(word);
+  function handleFocus(event: FocusEvent) {
+    pointerHighlight.onRowFocus(word, event);
   }
 
   function handleMouseEnter() {
@@ -76,7 +76,6 @@ export const WordRow = ({
       data-testid={`word-${word.x}-${word.y}-${word.direction}`}
       highlighted={isSelected}
       inactive={!isMatching}
-      index={index}
       style={style}
       onBlur={highlightFollowsPointer ? pointerHighlight.onRowBlur : undefined}
       onClick={highlightFollowsPointer ? undefined : handleClick}
