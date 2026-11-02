@@ -64,7 +64,10 @@
   }
 }
 
-// Casts a shadow from the top or the bottom edge of an element onto its neighbor on that side only.
+/**
+ * Casts a shadow from the top or the bottom edge of an element onto its neighbor on that side.
+ * At the left and right edges of the element the shadow fades out, and a faint part of it goes up to `$size / 2` past them.
+ */
 @mixin edge-shadow($edge, $size: var(--focus-effect--size)) {
   $offset: calc($size / 2);
 
