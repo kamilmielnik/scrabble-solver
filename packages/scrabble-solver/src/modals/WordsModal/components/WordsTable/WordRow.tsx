@@ -58,6 +58,10 @@ export const WordRow = ({
     pointerHighlight.onRowFocus(word);
   };
 
+  const handleMouseEnter = () => {
+    pointerHighlight.onRowMouseEnter(word);
+  };
+
   const handleClick = () => {
     if (!isSelected) {
       handleSet();
@@ -77,7 +81,7 @@ export const WordRow = ({
       onBlur={highlightFollowsPointer ? pointerHighlight.onRowBlur : undefined}
       onClick={highlightFollowsPointer ? undefined : handleClick}
       onFocus={highlightFollowsPointer ? handleFocus : undefined}
-      onMouseEnter={highlightFollowsPointer ? handleSet : undefined}
+      onMouseEnter={highlightFollowsPointer ? handleMouseEnter : undefined}
     >
       <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />
 

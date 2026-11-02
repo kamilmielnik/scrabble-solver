@@ -137,6 +137,28 @@ describe('desktop with a pointer', () => {
     expect(candidateChanges.map(({ payload }) => payload)).toEqual([cat, dog]);
   });
 
+  it('keeps the preview that the pointer picked when focus leaves the list', () => {
+    const { store } = setup();
+    const [focusedRow, hoveredRow] = screen.getAllByTestId('result');
+
+    fireEvent.focus(focusedRow);
+    fireEvent.mouseEnter(hoveredRow);
+    fireEvent.blur(focusedRow);
+
+    expect(store.getState().results.candidate).toBe(dog);
+  });
+
+  it('clears the preview when focus leaves the list after the keyboard took the preview from the pointer', () => {
+    const { store } = setup();
+    const [focusedRow, hoveredRow] = screen.getAllByTestId('result');
+
+    fireEvent.mouseEnter(hoveredRow);
+    fireEvent.focus(focusedRow);
+    fireEvent.blur(focusedRow);
+
+    expect(store.getState().results.candidate).toBeNull();
+  });
+
   it('clears the preview when the pointer leaves the list after the keyboard-focused row was removed', () => {
     const { store } = setup();
 

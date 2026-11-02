@@ -198,6 +198,26 @@ describe('desktop with a pointer, where the pointer owns the highlight', () => {
     expect(store.getState().hoveredWord.word).toEqual(cat);
   });
 
+  it('keeps the word that the pointer picked when focus leaves the list', () => {
+    const { store } = setup();
+
+    fireEvent.focus(getRow(cat));
+    fireEvent.mouseEnter(getRow(dog));
+    fireEvent.blur(getRow(cat));
+
+    expect(store.getState().hoveredWord.word).toEqual(dog);
+  });
+
+  it('clears the word when focus leaves the list after the keyboard took it from the pointer', () => {
+    const { store } = setup();
+
+    fireEvent.mouseEnter(getRow(dog));
+    fireEvent.focus(getRow(cat));
+    fireEvent.blur(getRow(cat));
+
+    expect(store.getState().hoveredWord.word).toBeNull();
+  });
+
   it('adds nothing on click and does not advertise one', () => {
     const { onPreview, store } = setup();
 
