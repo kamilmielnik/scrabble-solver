@@ -359,6 +359,20 @@ describe('closing', () => {
     expect(store.getState().hoveredWord.word).toBeNull();
   });
 
+  it('does not hand the highlight to a row while the modal animates out', () => {
+    const { rerender, store } = setup();
+
+    act(() => {
+      getRow(cat).focus();
+    });
+    fireEvent.mouseEnter(getRow(dog));
+    rerender(createModal({ isOpen: false }));
+    fireEvent.blur(getRow(cat));
+    fireEvent.mouseLeave(getRow(dog).closest('[dir]')!);
+
+    expect(store.getState().hoveredWord.word).toBeNull();
+  });
+
   it('keeps the highlight standing after Preview, which leaves through the footer', () => {
     setLayout({ isCompact: true });
     const { rerender, store } = setup();

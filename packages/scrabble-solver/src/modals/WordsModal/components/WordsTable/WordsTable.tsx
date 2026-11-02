@@ -52,9 +52,13 @@ export const WordsTable: FunctionComponent<Props> = ({ className, isOpen, onPrev
   const highlightedIndex = hoveredWord ? words.findIndex((word) => isSameBoardWord(word, hoveredWord)) : -1;
   const highlightWord = useCallback(
     (word: VerifiedWord | null) => {
-      dispatch(word ? hoveredWordSlice.actions.set(word) : hoveredWordSlice.actions.clear());
+      const isClosing = !isOpen;
+
+      if (!isClosing) {
+        dispatch(word ? hoveredWordSlice.actions.set(word) : hoveredWordSlice.actions.clear());
+      }
     },
-    [dispatch],
+    [dispatch, isOpen],
   );
   const pointerHighlight = usePointerHighlight(words, highlightWord);
   const rowProps = useMemo<WordRowData>(
