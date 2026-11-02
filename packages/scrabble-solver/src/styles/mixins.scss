@@ -64,6 +64,17 @@
   }
 }
 
+// Casts a shadow from the top or the bottom edge of an element onto its neighbor on that side only.
+@mixin edge-shadow($edge, $size: var(--focus-effect--size)) {
+  $offset: calc($size / 2);
+
+  @if $edge == top {
+    $offset: calc(-1 * $size / 2);
+  }
+
+  box-shadow: 0 $offset $size calc(-1 * $size / 2) var(--box-shadow--color);
+}
+
 @mixin disabled {
   opacity: var(--opacity--disabled);
   box-shadow: none;
