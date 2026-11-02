@@ -20,6 +20,23 @@ describe('stylesheets', () => {
     expect(wrongSide).toEqual([]);
   });
 
+  it('import the shared keyframes wherever they animate with them, because CSS modules rename the missing ones', () => {
+    const animations = readFileSync(join(sourceDirectory, 'styles/animations.scss'), 'utf8');
+    const keyframes = Array.from(animations.matchAll(/@keyframes\s+([\w-]+)/g), ([, name]) => name);
+    const withoutImport = stylesheets.filter((file) => {
+      const stylesheet = readFileSync(join(sourceDirectory, file), 'utf8');
+      const declarations = Array.from(stylesheet.matchAll(/animation(?:-name)?:([^;]+);/g));
+      const animationNames = declarations.flatMap(([, value]) => value.split(/[\s,]+/));
+
+      return (
+        animationNames.some((name) => keyframes.includes(name)) && !stylesheet.includes("@use 'styles/animations'")
+      );
+    });
+
+    expect(keyframes.length).toBeGreaterThan(0);
+    expect(withoutImport).toEqual([]);
+  });
+
   it('show a pointer only on table rows that take a click', () => {
     const table = readFileSync(join(sourceDirectory, 'components/Table/Table.module.scss'), 'utf8');
 
