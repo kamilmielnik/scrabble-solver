@@ -1,38 +1,41 @@
-import { type FocusEvent, useMemo, useRef } from 'react';
+import { type MouseEvent, useMemo } from 'react';
 
-import { isKeyboardFocused } from '@/lib/isKeyboardFocused';
+import { useLatest } from '@/hooks/useLatest';
 
 export interface PointerHighlight<T> {
-  onListMouseLeave: () => void;
+  onListMouseLeave: (event: MouseEvent) => void;
   onRowBlur: () => void;
-  onRowFocus: (row: T, event: FocusEvent) => void;
+  onRowFocus: (row: T) => void;
   onRowMouseEnter: (row: T) => void;
 }
 
 /**
  * Highlights the hovered or focused row. When the pointer leaves the list, the highlight goes back to
- * the keyboard-focused row.
+ * the keyboard-focused row. `rows` are the rows of the list, in the order of the `index` of their `Row`.
  */
-export function usePointerHighlight<T>(highlight: (row: T | null) => void): PointerHighlight<T> {
-  const keyboardFocusedRowRef = useRef<T | null>(null);
+export function usePointerHighlight<T>(rows: T[], highlight: (row: T | null) => void): PointerHighlight<T> {
+  const rowsRef = useLatest(rows);
 
-  return useMemo(
-    () => ({
-      onListMouseLeave: () => {
-        highlight(keyboardFocusedRowRef.current);
+  return useMemo(() => {
+    function findKeyboardFocusedRow(list: Element): T | null {
+      const element = list.querySelector<HTMLElement>('[data-row-index]:focus-visible');
+
+      return element ? (rowsRef.current[Number(element.dataset.rowIndex)] ?? null) : null;
+    }
+
+    return {
+      onListMouseLeave: (event: MouseEvent) => {
+        highlight(findKeyboardFocusedRow(event.currentTarget));
       },
       onRowBlur: () => {
-        keyboardFocusedRowRef.current = null;
         highlight(null);
       },
-      onRowFocus: (row: T, event: FocusEvent) => {
-        keyboardFocusedRowRef.current = isKeyboardFocused(event.target) ? row : null;
+      onRowFocus: (row: T) => {
         highlight(row);
       },
       onRowMouseEnter: (row: T) => {
         highlight(row);
       },
-    }),
-    [highlight],
-  );
+    };
+  }, [highlight, rowsRef]);
 }

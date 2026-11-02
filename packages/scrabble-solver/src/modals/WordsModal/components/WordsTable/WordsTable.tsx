@@ -56,7 +56,7 @@ export const WordsTable: FunctionComponent<Props> = ({ className, isOpen, onPrev
     },
     [dispatch],
   );
-  const pointerHighlight = usePointerHighlight(highlightWord);
+  const pointerHighlight = usePointerHighlight(words, highlightWord);
   const rowProps = useMemo<WordRowData>(
     () => ({ highlightFollowsPointer, highlightedIndex, isTouchDevice, pointerHighlight, words, onPreview }),
     [highlightFollowsPointer, highlightedIndex, isTouchDevice, pointerHighlight, words, onPreview],

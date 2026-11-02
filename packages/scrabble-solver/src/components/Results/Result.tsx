@@ -48,6 +48,7 @@ export const Result = ({
       data-testid="result"
       highlighted={index === highlightedIndex}
       inactive={!isMatching}
+      index={index}
       style={style}
       onBlur={handleBlur}
       onClick={handleClick}

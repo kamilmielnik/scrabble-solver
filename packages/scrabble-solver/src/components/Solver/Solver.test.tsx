@@ -125,6 +125,25 @@ describe('desktop with a pointer', () => {
     expect(store.getState().results.candidate).toBeNull();
   });
 
+  it('clears the preview when the pointer leaves the list after the keyboard-focused row was removed', () => {
+    const { store } = setup();
+
+    act(() => {
+      screen.getAllByTestId('result')[0].focus();
+    });
+    act(() => {
+      store.dispatch(resultsSlice.actions.changeResults([]));
+    });
+    act(() => {
+      store.dispatch(resultsSlice.actions.changeResults([cat, dog]));
+    });
+    const [, hoveredRow] = screen.getAllByTestId('result');
+    fireEvent.mouseEnter(hoveredRow);
+    fireEvent.mouseLeave(hoveredRow.closest('[dir]')!);
+
+    expect(store.getState().results.candidate).toBeNull();
+  });
+
   it('applies the result on the first click', () => {
     const { store } = setup();
 

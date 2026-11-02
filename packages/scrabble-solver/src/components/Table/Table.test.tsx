@@ -110,7 +110,7 @@ describe('Cell', () => {
 describe('Row', () => {
   it('advertises a click only when it has a handler', () => {
     const { rerender } = renderWithStore(
-      <Row aria-label="row" highlighted={false} inactive={false}>
+      <Row aria-label="row" highlighted={false} inactive={false} index={0}>
         x
       </Row>,
     );
@@ -118,7 +118,7 @@ describe('Row', () => {
     expect(screen.getByLabelText('row').className).not.toContain('clickable');
 
     rerender(
-      <Row aria-label="row" highlighted={false} inactive={false} onClick={noop}>
+      <Row aria-label="row" highlighted={false} inactive={false} index={0} onClick={noop}>
         x
       </Row>,
     );
@@ -128,7 +128,7 @@ describe('Row', () => {
 
   it('exposes the picked row', () => {
     renderWithStore(
-      <Row aria-label="row" highlighted inactive={false}>
+      <Row aria-label="row" highlighted inactive={false} index={0}>
         x
       </Row>,
     );
@@ -141,7 +141,7 @@ describe('Row', () => {
 
   it('is not current when not picked', () => {
     renderWithStore(
-      <Row aria-label="row" highlighted={false} inactive={false}>
+      <Row aria-label="row" highlighted={false} inactive={false} index={0}>
         x
       </Row>,
     );
@@ -151,7 +151,7 @@ describe('Row', () => {
 
   it('hides a dimmed row from assistive technology', () => {
     const { container } = renderWithStore(
-      <Row aria-label="row" highlighted={false} inactive>
+      <Row aria-label="row" highlighted={false} inactive index={0}>
         x
       </Row>,
     );
@@ -168,7 +168,7 @@ describe('Row', () => {
     };
 
     renderWithStore(
-      <Row aria-label="row" highlighted={false} inactive={false} {...handlers}>
+      <Row aria-label="row" highlighted={false} inactive={false} index={0} {...handlers}>
         x
       </Row>,
     );
