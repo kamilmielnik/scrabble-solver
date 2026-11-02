@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { type FunctionComponent, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import styles from './Table.module.scss';
 
@@ -11,7 +11,7 @@ interface Props {
 /**
  * Draws the focus ring of a keyboard-focused row outside the scrolling list, which would clip it.
  */
-export const ListContainer: FunctionComponent<Props> = ({ children, className }) => {
+export function ListContainer({ children, className }: Props) {
   return (
     <div className={classNames(styles.listContainer, className)}>
       {children}
@@ -19,4 +19,4 @@ export const ListContainer: FunctionComponent<Props> = ({ children, className })
       <div className={styles.focusRing} data-testid="row-focus-ring" />
     </div>
   );
-};
+}
