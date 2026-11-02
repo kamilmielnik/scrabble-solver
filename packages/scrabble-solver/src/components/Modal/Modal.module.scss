@@ -31,6 +31,8 @@
 }
 
 .beforeClose {
+  pointer-events: none;
+
   .container {
     opacity: 0;
 
