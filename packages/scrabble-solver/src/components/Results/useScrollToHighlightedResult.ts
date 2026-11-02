@@ -9,8 +9,8 @@ import { type ResultData } from './types';
 type ListResizeHandler = NonNullable<ListProps<ResultData>['onResize']>;
 
 /**
- * Centers the highlighted result, or the first one, whenever the results change.
- * react-window centers a row within its measured height, which it does not know until its first resize,
+ * Centers the highlighted result, or the first one, whenever the results change or the list is shown again.
+ * react-window centers a row within its measured height, which it does not know until the list is shown,
  * so the returned handler has to be the list's `onResize`.
  */
 export function useScrollToHighlightedResult(
@@ -18,24 +18,28 @@ export function useScrollToHighlightedResult(
   highlightedIndex: number | undefined,
   results: Result[] | undefined,
 ): ListResizeHandler {
-  const [measuredList, setMeasuredList] = useState<HTMLDivElement | null>(null);
+  const [shownList, setShownList] = useState<WeakRef<HTMLDivElement> | null>(null);
   const scrollToIndexRef = useLatest(typeof highlightedIndex === 'number' ? highlightedIndex : 0);
 
   useEffect(() => {
     const listElement = listRef.current?.element;
-    const isListMeasured = Boolean(listElement) && listElement === measuredList;
+    const isListShown = Boolean(listElement) && listElement === shownList?.deref();
 
-    if (isListMeasured) {
+    if (isListShown) {
       listRef.current?.scrollToRow({ align: 'center', behavior: 'instant', index: scrollToIndexRef.current });
     }
-  }, [results, listRef, measuredList, scrollToIndexRef]);
+  }, [results, listRef, shownList, scrollToIndexRef]);
 
   return useCallback<ListResizeHandler>(
-    (_size, previousSize) => {
-      const isFirstMeasurement = previousSize.height === 0;
+    (size, previousSize) => {
+      const listElement = listRef.current?.element;
+      const isHidden = size.height === 0;
+      const wasHidden = previousSize.height === 0;
 
-      if (isFirstMeasurement) {
-        setMeasuredList(listRef.current?.element ?? null);
+      if (isHidden) {
+        setShownList(null);
+      } else if (wasHidden && listElement) {
+        setShownList(new WeakRef(listElement));
       }
     },
     [listRef],

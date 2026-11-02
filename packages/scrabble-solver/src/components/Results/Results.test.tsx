@@ -13,7 +13,7 @@ import type { RootState } from '../../state/types';
 import { createResult } from '../../test/fixtures';
 import { setViewport } from '../../test/media';
 import { renderWithStore } from '../../test/render';
-import { installFixedSizeResizeObserver } from '../../test/virtualList';
+import { installFixedSizeResizeObserver, resizeObservedLists } from '../../test/virtualList';
 import { ResultColumnId, SortDirection } from '../../types';
 
 import { Results } from './Results';
@@ -338,6 +338,25 @@ describe('scrolling', () => {
       store.dispatch(resultsSlice.actions.sort(ResultColumnId.Word));
     });
 
+    expect(scrollTo).toHaveBeenCalledTimes(2);
+    expect(scrollTo.mock.calls[1][0]).toMatchObject({ top: highlightedRowCenteredInList });
+  });
+
+  it('centers the highlighted row when the list is shown again after the results changed while it was hidden', () => {
+    const scrollTo = spyOn(HTMLElement.prototype, 'scrollTo').mockImplementation(noop);
+    const { store } = setup({ results: { ...resultsInitialState, results } }, { highlightedIndex: 100 });
+
+    act(() => {
+      resizeObservedLists(0);
+    });
+    act(() => {
+      store.dispatch(resultsSlice.actions.sort(ResultColumnId.Word));
+    });
+    expect(scrollTo).toHaveBeenCalledTimes(1);
+
+    act(() => {
+      resizeObservedLists(400);
+    });
     expect(scrollTo).toHaveBeenCalledTimes(2);
     expect(scrollTo.mock.calls[1][0]).toMatchObject({ top: highlightedRowCenteredInList });
   });
