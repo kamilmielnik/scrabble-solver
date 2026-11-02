@@ -185,6 +185,19 @@ describe('desktop with a pointer, where the pointer owns the highlight', () => {
     expect(store.getState().hoveredWord.word).toBeNull();
   });
 
+  it('hands the highlight back to the keyboard-focused row when the pointer leaves the list', () => {
+    const { store } = setup();
+
+    act(() => {
+      getRow(cat).focus();
+    });
+    fireEvent.mouseEnter(getRow(dog));
+    expect(store.getState().hoveredWord.word).toEqual(dog);
+
+    fireEvent.mouseLeave(getRow(dog).closest('[dir]')!);
+    expect(store.getState().hoveredWord.word).toEqual(cat);
+  });
+
   it('adds nothing on click and does not advertise one', () => {
     const { onPreview, store } = setup();
 

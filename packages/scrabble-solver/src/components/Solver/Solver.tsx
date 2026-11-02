@@ -1,10 +1,11 @@
 import { type Result } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import { type FunctionComponent, type SyntheticEvent, memo, useEffect, useMemo } from 'react';
+import { type FunctionComponent, type SyntheticEvent, memo, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { usePointerHighlight } from '@/hooks/usePointerHighlight';
 import {
   resultsSlice,
   selectAreResultsOutdated,
@@ -58,25 +59,24 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
     }),
     [dispatch, store],
   );
+  const highlightResult = useCallback(
+    (result: Result | null) => {
+      dispatch(resultsSlice.actions.changeResultCandidate(result));
+    },
+    [dispatch],
+  );
+  const pointerHighlight = usePointerHighlight(highlightResult);
   const mouseCallbacks = useMemo(
     () => ({
-      onBlur: () => {
-        dispatch(resultsSlice.actions.changeResultCandidate(null));
-      },
+      onBlur: pointerHighlight.onRowBlur,
       onClick: (result: Result) => {
         dispatch(resultsSlice.actions.applyResult(result));
       },
-      onFocus: (result: Result) => {
-        dispatch(resultsSlice.actions.changeResultCandidate(result));
-      },
-      onMouseEnter: (result: Result) => {
-        dispatch(resultsSlice.actions.changeResultCandidate(result));
-      },
-      onMouseLeave: () => {
-        dispatch(resultsSlice.actions.changeResultCandidate(null));
-      },
+      onFocus: pointerHighlight.onRowFocus,
+      onMouseEnter: pointerHighlight.onRowMouseEnter,
+      onMouseLeave: pointerHighlight.onListMouseLeave,
     }),
-    [dispatch],
+    [dispatch, pointerHighlight],
   );
   const callbacks = isTouchDevice ? touchCallbacks : mouseCallbacks;
 

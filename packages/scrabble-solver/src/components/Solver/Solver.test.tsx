@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+
 import { Board } from '@scrabble-solver/types';
 import { act, fireEvent, screen } from '@testing-library/react';
 import { describe, expect, it, mock } from 'bun:test';
@@ -90,6 +92,36 @@ describe('desktop with a pointer', () => {
     expect(store.getState().results.candidate).toBe(cat);
 
     fireEvent.blur(row);
+    expect(store.getState().results.candidate).toBeNull();
+  });
+
+  it('hands the preview back to the keyboard-focused row when the pointer leaves the list', () => {
+    const { store } = setup();
+    const [focusedRow, hoveredRow] = screen.getAllByTestId('result');
+
+    act(() => {
+      focusedRow.focus();
+    });
+    fireEvent.mouseEnter(hoveredRow);
+    expect(store.getState().results.candidate).toBe(dog);
+
+    fireEvent.mouseLeave(hoveredRow.closest('[dir]')!);
+    expect(store.getState().results.candidate).toBe(cat);
+  });
+
+  it('clears the preview when the pointer leaves the list after the keyboard-focused row lost focus', () => {
+    const { store } = setup();
+    const [focusedRow, hoveredRow] = screen.getAllByTestId('result');
+
+    act(() => {
+      focusedRow.focus();
+    });
+    act(() => {
+      focusedRow.blur();
+    });
+    fireEvent.mouseEnter(hoveredRow);
+    fireEvent.mouseLeave(hoveredRow.closest('[dir]')!);
+
     expect(store.getState().results.candidate).toBeNull();
   });
 

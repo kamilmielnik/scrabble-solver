@@ -1,10 +1,11 @@
 import classNames from 'classnames';
-import { type ReactElement } from 'react';
+import { type FocusEvent, type ReactElement } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch } from 'react-redux';
 import { type RowComponentProps } from 'react-window';
 
 import { Cell, Row } from '@/components/Table';
+import { type PointerHighlight } from '@/hooks/usePointerHighlight';
 import Check from '@/icons/Check.svg';
 import Cross from '@/icons/Cross.svg';
 import { createHighlightWords } from '@/lib/createHighlightWords';
@@ -24,6 +25,7 @@ export interface WordRowData {
   highlightFollowsPointer: boolean;
   highlightedIndex: number;
   isTouchDevice: boolean;
+  pointerHighlight: PointerHighlight<VerifiedWord>;
   words: VerifiedWord[];
   onPreview: () => void;
 }
@@ -33,6 +35,7 @@ export const WordRow = ({
   highlightedIndex,
   index,
   isTouchDevice,
+  pointerHighlight,
   style,
   words,
   onPreview,
@@ -51,8 +54,8 @@ export const WordRow = ({
     dispatch(hoveredWordSlice.actions.set(word));
   };
 
-  const handleClear = () => {
-    dispatch(hoveredWordSlice.actions.clear());
+  const handleFocus = (event: FocusEvent) => {
+    pointerHighlight.onRowFocus(word, event);
   };
 
   const handleClick = () => {
@@ -70,9 +73,9 @@ export const WordRow = ({
       highlighted={isSelected}
       inactive={!isMatching}
       style={style}
-      onBlur={highlightFollowsPointer ? handleClear : undefined}
+      onBlur={highlightFollowsPointer ? pointerHighlight.onRowBlur : undefined}
       onClick={highlightFollowsPointer ? undefined : handleClick}
-      onFocus={highlightFollowsPointer ? handleSet : undefined}
+      onFocus={highlightFollowsPointer ? handleFocus : undefined}
       onMouseEnter={highlightFollowsPointer ? handleSet : undefined}
     >
       <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />

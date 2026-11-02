@@ -26,11 +26,13 @@ describe('stylesheets', () => {
     expect(table).toMatch(/\.clickable\s*\{[^}]*cursor:\s*pointer/);
   });
 
-  it('highlight a table row on keyboard focus only, so a clicked row stops looking picked', () => {
+  it('paint a table row as picked from its state only, so focus or hover on another row cannot look picked', () => {
     const table = readFileSync(join(sourceDirectory, 'components/Table/Table.module.scss'), 'utf8');
-    const rowRules = table.slice(table.indexOf('.row {'), table.indexOf('.clickable')).replace(/\/\*[\s\S]*?\*\//g, '');
+    const rowRules = table
+      .slice(table.indexOf('.row {'), table.indexOf('.clickable'))
+      .replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '');
 
-    expect(rowRules).toContain(':focus-visible');
-    expect(rowRules).not.toMatch(/:focus(?!-visible)/);
+    expect(rowRules).not.toContain(':hover');
+    expect(rowRules).not.toMatch(/:focus[^{]*\{[^}]*(background|color)/);
   });
 });
