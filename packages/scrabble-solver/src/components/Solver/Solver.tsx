@@ -1,6 +1,14 @@
 import { type Result } from '@scrabble-solver/types';
 import classNames from 'classnames';
-import { type FunctionComponent, type SyntheticEvent, memo, useCallback, useEffect, useMemo } from 'react';
+import {
+  type FocusEvent,
+  type FunctionComponent,
+  type SyntheticEvent,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+} from 'react';
 import { useDispatch } from 'react-redux';
 
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
@@ -68,7 +76,9 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
   const pointerHighlight = usePointerHighlight(results ?? [], highlightResult);
   const mouseCallbacks = useMemo(
     () => ({
-      onBlur: pointerHighlight.onRowBlur,
+      onBlur: (_result: Result, event: FocusEvent) => {
+        pointerHighlight.onRowBlur(event);
+      },
       onClick: (result: Result) => {
         dispatch(resultsSlice.actions.applyResult(result));
       },

@@ -48,6 +48,23 @@ test.describe('#442 - Keyboard-focused result stays selected after hovering anot
     await expect(page.locator('[role="mark"]').first()).toBeVisible();
   });
 
+  test('keeps the highlight on the hovered result when focus leaves the list', async ({ page }) => {
+    await Lib.visitIndex(page);
+    await Lib.typeRack(page, 'aet');
+    await Lib.solve(page);
+
+    const focused = Lib.getResult(page, 0);
+    const hovered = Lib.getResult(page, 1);
+    await focused.focus();
+    await Lib.hoverResult(page, 1);
+    await expect(hovered).toHaveAttribute('aria-current', 'true');
+
+    await page.keyboard.press('Shift+Tab');
+    await expect(focused).not.toBeFocused();
+    await expect(hovered).toHaveAttribute('aria-current', 'true');
+    await expect(page.locator('[role="mark"]').first()).toBeVisible();
+  });
+
   test('draws the focus ring around the focused result, and keeps it there while the list scrolls', async ({
     page,
   }) => {

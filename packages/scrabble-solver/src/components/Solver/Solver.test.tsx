@@ -125,6 +125,18 @@ describe('desktop with a pointer', () => {
     expect(store.getState().results.candidate).toBeNull();
   });
 
+  it('moves the preview from the focused row to the next focused row without clearing it in between', () => {
+    const { store } = setup();
+    const [focusedRow, nextRow] = screen.getAllByTestId('result');
+
+    fireEvent.focus(focusedRow);
+    fireEvent.blur(focusedRow, { relatedTarget: nextRow });
+    fireEvent.focus(nextRow);
+
+    const candidateChanges = store.actions.filter(resultsSlice.actions.changeResultCandidate.match);
+    expect(candidateChanges.map(({ payload }) => payload)).toEqual([cat, dog]);
+  });
+
   it('clears the preview when the pointer leaves the list after the keyboard-focused row was removed', () => {
     const { store } = setup();
 
