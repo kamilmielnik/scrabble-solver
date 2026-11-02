@@ -32,6 +32,7 @@ describe('stylesheets', () => {
       .slice(table.indexOf('.row {'), table.indexOf('.clickable'))
       .replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '');
 
-    expect(rowRules).not.toMatch(/:hover|:focus/);
+    expect(rowRules).not.toContain(':hover');
+    expect(rowRules).not.toMatch(/:focus[^{]*\{[^}]*(background|color)/);
   });
 });

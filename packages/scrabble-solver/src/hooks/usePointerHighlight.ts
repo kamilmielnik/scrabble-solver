@@ -1,4 +1,4 @@
-import { type FocusEvent, useEffect, useMemo, useRef } from 'react';
+import { type FocusEvent, useMemo, useRef } from 'react';
 
 import { isKeyboardFocused } from '@/lib/isKeyboardFocused';
 
@@ -10,43 +10,29 @@ export interface PointerHighlight<T> {
 }
 
 /**
- * Highlights the hovered row, or the keyboard-focused row while no row is hovered.
- * Both are forgotten when the rows change, so that a row of an earlier list is never highlighted.
+ * Highlights the hovered or focused row. When the pointer leaves the list, the highlight goes back to
+ * the keyboard-focused row.
  */
-export const usePointerHighlight = <T>(
-  rows: readonly T[] | undefined,
-  highlight: (row: T | null) => void,
-): PointerHighlight<T> => {
-  const hoveredRowRef = useRef<T | null>(null);
+export const usePointerHighlight = <T>(highlight: (row: T | null) => void): PointerHighlight<T> => {
   const keyboardFocusedRowRef = useRef<T | null>(null);
 
-  useEffect(() => {
-    hoveredRowRef.current = null;
-    keyboardFocusedRowRef.current = null;
-  }, [rows]);
-
-  return useMemo(() => {
-    const highlightHoveredOrKeyboardFocusedRow = () => {
-      highlight(hoveredRowRef.current ?? keyboardFocusedRowRef.current);
-    };
-
-    return {
+  return useMemo(
+    () => ({
       onListMouseLeave: () => {
-        hoveredRowRef.current = null;
-        highlightHoveredOrKeyboardFocusedRow();
+        highlight(keyboardFocusedRowRef.current);
       },
       onRowBlur: () => {
         keyboardFocusedRowRef.current = null;
-        highlightHoveredOrKeyboardFocusedRow();
+        highlight(null);
       },
       onRowFocus: (row: T, event: FocusEvent) => {
         keyboardFocusedRowRef.current = isKeyboardFocused(event.target) ? row : null;
-        highlightHoveredOrKeyboardFocusedRow();
+        highlight(row);
       },
       onRowMouseEnter: (row: T) => {
-        hoveredRowRef.current = row;
-        highlightHoveredOrKeyboardFocusedRow();
+        highlight(row);
       },
-    };
-  }, [highlight]);
+    }),
+    [highlight],
+  );
 };

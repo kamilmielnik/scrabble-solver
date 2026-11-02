@@ -65,7 +65,7 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
     },
     [dispatch],
   );
-  const pointerHighlight = usePointerHighlight(results, highlightResult);
+  const pointerHighlight = usePointerHighlight(highlightResult);
   const mouseCallbacks = useMemo(
     () => ({
       onBlur: pointerHighlight.onRowBlur,

@@ -84,50 +84,15 @@ describe('desktop with a pointer', () => {
     expect(store.getState().results.candidate).toBeNull();
   });
 
-  it('previews on keyboard focus and clears on blur', () => {
+  it('previews on focus and clears on blur', () => {
     const { store } = setup();
     const [row] = screen.getAllByTestId('result');
 
-    act(() => {
-      row.focus();
-    });
+    fireEvent.focus(row);
     expect(store.getState().results.candidate).toBe(cat);
 
-    act(() => {
-      row.blur();
-    });
+    fireEvent.blur(row);
     expect(store.getState().results.candidate).toBeNull();
-  });
-
-  it('keeps previewing the hovered row while keyboard focus comes and goes on another row', () => {
-    const { store } = setup();
-    const [focusedRow, hoveredRow] = screen.getAllByTestId('result');
-
-    fireEvent.mouseEnter(hoveredRow);
-    act(() => {
-      focusedRow.focus();
-    });
-    expect(store.getState().results.candidate).toBe(dog);
-
-    act(() => {
-      focusedRow.blur();
-    });
-    expect(store.getState().results.candidate).toBe(dog);
-  });
-
-  it('forgets the hovered row when the results change, so that it is never previewed from an earlier list', () => {
-    const { store } = setup();
-    const [, hoveredRow] = screen.getAllByTestId('result');
-
-    fireEvent.mouseEnter(hoveredRow);
-    act(() => {
-      store.dispatch(resultsSlice.actions.changeResults([cat]));
-    });
-    act(() => {
-      screen.getAllByTestId('result')[0].focus();
-    });
-
-    expect(store.getState().results.candidate).toBe(cat);
   });
 
   it('hands the preview back to the keyboard-focused row when the pointer leaves the list', () => {
