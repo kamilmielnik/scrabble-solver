@@ -13,7 +13,7 @@ export interface PointerHighlight<T> {
  * Highlights the hovered or focused row. When the pointer leaves the list, the highlight goes back to
  * the keyboard-focused row.
  */
-export const usePointerHighlight = <T>(highlight: (row: T | null) => void): PointerHighlight<T> => {
+export function usePointerHighlight<T>(highlight: (row: T | null) => void): PointerHighlight<T> {
   const keyboardFocusedRowRef = useRef<T | null>(null);
 
   return useMemo(
@@ -35,4 +35,4 @@ export const usePointerHighlight = <T>(highlight: (row: T | null) => void): Poin
     }),
     [highlight],
   );
-};
+}

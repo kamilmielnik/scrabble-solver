@@ -11,11 +11,11 @@ type ListResizeHandler = (size: unknown, previousSize: { height: number }) => vo
  * react-window centers a row within its measured height, which it does not know until its first resize,
  * so the returned handler has to be the list's `onResize`.
  */
-export const useScrollToHighlightedResult = (
+export function useScrollToHighlightedResult(
   listRef: RefObject<ListImperativeAPI | null>,
   highlightedIndex: number | undefined,
   results: Result[] | undefined,
-): ListResizeHandler => {
+): ListResizeHandler {
   const [measuredList, setMeasuredList] = useState<HTMLDivElement | null>(null);
   const scrollToIndexRef = useLatest(typeof highlightedIndex === 'number' ? highlightedIndex : 0);
 
@@ -38,4 +38,4 @@ export const useScrollToHighlightedResult = (
     },
     [listRef],
   );
-};
+}
