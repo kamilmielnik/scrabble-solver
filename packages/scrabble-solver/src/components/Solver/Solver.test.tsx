@@ -178,6 +178,40 @@ describe('desktop with a pointer', () => {
     expect(store.getState().results.candidate).toBeNull();
   });
 
+  it('keeps the preview on the keyboard-focused row when another row scrolls under a pointer that did not move', () => {
+    const { store } = setup();
+    const [focusedRow, scrolledRow] = screen.getAllByTestId('result');
+
+    fireEvent.focus(focusedRow);
+    fireEvent.mouseMove(scrolledRow.closest('[dir]')!, { clientX: 10, clientY: 20 });
+    fireEvent.mouseEnter(scrolledRow, { clientX: 10, clientY: 20 });
+
+    expect(store.getState().results.candidate).toBe(cat);
+  });
+
+  it('previews the row that the pointer moved onto after the keyboard focused another row', () => {
+    const { store } = setup();
+    const [focusedRow, hoveredRow] = screen.getAllByTestId('result');
+
+    fireEvent.focus(focusedRow);
+    fireEvent.mouseMove(hoveredRow.closest('[dir]')!, { clientX: 10, clientY: 20 });
+    fireEvent.mouseEnter(hoveredRow, { clientX: 10, clientY: 30 });
+
+    expect(store.getState().results.candidate).toBe(dog);
+  });
+
+  it('previews a row that the pointer enters the list on, even where it left the list before', () => {
+    const { store } = setup();
+    const [row] = screen.getAllByTestId('result');
+    const list = row.closest('[dir]')!;
+
+    fireEvent.mouseMove(list, { clientX: 10, clientY: 20 });
+    fireEvent.mouseLeave(list);
+    fireEvent.mouseEnter(row, { clientX: 10, clientY: 20 });
+
+    expect(store.getState().results.candidate).toBe(cat);
+  });
+
   it('applies the result on the first click', () => {
     const { store } = setup();
 

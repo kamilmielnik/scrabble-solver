@@ -85,6 +85,7 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
       onFocus: pointerHighlight.onRowFocus,
       onMouseEnter: pointerHighlight.onRowMouseEnter,
       onMouseLeave: pointerHighlight.onListMouseLeave,
+      onMouseMove: pointerHighlight.onListMouseMove,
     }),
     [dispatch, pointerHighlight],
   );

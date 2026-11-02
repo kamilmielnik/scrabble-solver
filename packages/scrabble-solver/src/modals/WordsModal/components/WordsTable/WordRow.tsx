@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { type FocusEvent, type ReactElement } from 'react';
+import { type FocusEvent, type MouseEvent, type ReactElement } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch } from 'react-redux';
 import { type RowComponentProps } from 'react-window';
@@ -58,8 +58,8 @@ export const WordRow = ({
     pointerHighlight.onRowFocus(word, event);
   }
 
-  function handleMouseEnter() {
-    pointerHighlight.onRowMouseEnter(word);
+  function handleMouseEnter(event: MouseEvent) {
+    pointerHighlight.onRowMouseEnter(word, event);
   }
 
   const handleClick = () => {

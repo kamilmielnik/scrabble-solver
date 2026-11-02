@@ -1,4 +1,4 @@
-import { type Locator, expect, test } from '@playwright/test';
+import { type Locator, type Page, expect, test } from '@playwright/test';
 
 import * as Lib from '../lib';
 
@@ -85,6 +85,26 @@ test.describe('#442 - Keyboard-focused result stays selected after hovering anot
     await expect(page.locator('[role="mark"]')).toHaveCount(0);
   });
 
+  test('keeps the highlight on the focused result when focus scrolls another result under a pointer that does not move', async ({
+    page,
+  }) => {
+    await Lib.visitIndex(page);
+    await Lib.typeRack(page, 'aet');
+    await Lib.solve(page);
+
+    const list = Lib.getResultsContainer(page).locator('[role="list"]');
+    await Lib.hoverResult(page, 1);
+    const pointer = await getCenter(Lib.getResult(page, 1));
+    await Lib.getResult(page, 0).focus();
+
+    await tabUntilScrolled(page, list);
+    await expect.poll(() => isHoveredRowAt(page, pointer)).toBe(true);
+    await waitForRender(page);
+
+    await expect(list.locator(':focus')).toHaveAttribute('aria-current', 'true');
+    await expect(Lib.getResults(page).and(page.locator('[aria-current]'))).toHaveCount(1);
+  });
+
   test('draws the focus ring around the focused result, and keeps it there while the list scrolls', async ({
     page,
   }) => {
@@ -154,6 +174,49 @@ test.describe('#442 - Keyboard-focused result stays selected after hovering anot
 
 function getBackgroundColor(row: Locator): Promise<string> {
   return row.evaluate((element) => globalThis.getComputedStyle(element).backgroundColor);
+}
+
+async function getCenter(locator: Locator): Promise<{ x: number; y: number }> {
+  const box = await locator.boundingBox();
+
+  if (!box) {
+    throw new Error('Expected the element to be visible');
+  }
+
+  return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+}
+
+async function tabUntilScrolled(page: Page, list: Locator): Promise<void> {
+  const maxTabs = 50;
+
+  for (let tab = 0; tab < maxTabs; ++tab) {
+    await page.keyboard.press('Tab');
+
+    if (await list.evaluate((element) => element.scrollTop > 0)) {
+      return;
+    }
+  }
+
+  throw new Error('Expected Tab to scroll the list');
+}
+
+/**
+ * The browser tells the page that a row scrolled under the pointer only after the scroll ends, and it updates
+ * `:hover` at the same time, so this keeps returning false until the page knows which row is under the pointer.
+ */
+function isHoveredRowAt(page: Page, point: { x: number; y: number }): Promise<boolean> {
+  return page.evaluate(({ x, y }) => {
+    const row = document.elementFromPoint(x, y)?.closest('[data-testid="result"]');
+
+    return Boolean(row?.matches(':hover') && !row.matches(':focus'));
+  }, point);
+}
+
+function waitForRender(page: Page): Promise<void> {
+  return page.evaluate(async () => {
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+  });
 }
 
 async function expectSameBox(locator: Locator, expected: Locator): Promise<void> {

@@ -133,6 +133,7 @@ export const WordsTable: FunctionComponent<Props> = ({ className, isOpen, onPrev
               rowHeight={RESULTS_ITEM_HEIGHT}
               rowProps={rowProps}
               onMouseLeave={highlightFollowsPointer ? pointerHighlight.onListMouseLeave : undefined}
+              onMouseMove={highlightFollowsPointer ? pointerHighlight.onListMouseMove : undefined}
             />
           </ListContainer>
         )}
