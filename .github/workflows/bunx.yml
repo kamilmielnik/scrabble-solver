@@ -41,7 +41,7 @@ jobs:
           ref: ${{ env.VERSION }}
       - run: bun install --frozen-lockfile
       - name: Install Playwright browsers
-        run: bunx playwright install --with-deps chromium
+        run: bunx playwright install --with-deps chromium firefox webkit
       - name: Install the published package globally
         run: bun add --global scrabble-solver@${{ env.VERSION }}
       - name: Pre-warm dictionaries cache

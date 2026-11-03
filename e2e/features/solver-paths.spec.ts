@@ -193,6 +193,10 @@ test.describe('Solver paths', () => {
     }
   });
 
+  /**
+   * A second tab gives the page a fresh worker, like a reload would, but keeps the
+   * Cache API, which WebKit empties on reload in Playwright's ephemeral contexts.
+   */
   test.describe('dictionary cache', () => {
     test('stores the dictionary decompressed, although the server sent it compressed', async ({ page, request }) => {
       const plainDictionary = await request.get('/api/dictionary/en-US', {
@@ -205,20 +209,21 @@ test.describe('Solver paths', () => {
       expect(await page.evaluate(readCachedDictionaryLength)).toBe((await plainDictionary.body()).byteLength);
     });
 
-    test('revalidates with the stored ETag and keeps the body on a 304', async ({ page }) => {
+    test('revalidates with the stored ETag and keeps the body on a 304', async ({ context, page }) => {
       await Lib.visitIndex(page);
       await page.keyboard.press('Shift');
       await Lib.waitForCachedDictionary(page);
       await page.evaluate(() => caches.delete('dictionary-revalidated-at'));
-      const revalidation = page.waitForResponse('**/api/dictionary/en-US');
-      await page.reload();
-      await page.keyboard.press('Shift');
+      const secondTab = await context.newPage();
+      const revalidation = secondTab.waitForResponse('**/api/dictionary/en-US');
+      await Lib.visitIndex(secondTab);
+      await secondTab.keyboard.press('Shift');
 
       expect((await revalidation).status()).toBe(304);
-      expect(await Lib.isDictionaryCached(page)).toBe(true);
+      expect(await Lib.isDictionaryCached(secondTab)).toBe(true);
     });
 
-    test('replaces a dictionary it cannot read, and solves through the server meanwhile', async ({ page }) => {
+    test('replaces a dictionary it cannot read, and solves through the server meanwhile', async ({ context, page }) => {
       await Lib.visitIndex(page);
       await page.keyboard.press('Shift');
       await Lib.waitForCachedDictionary(page);
@@ -226,14 +231,15 @@ test.describe('Solver paths', () => {
         const cache = await caches.open('dictionary-api-cache');
         await cache.put('/api/dictionary/en-US', new Response('corrupt', { headers: { etag: '"corrupt"' } }));
       });
-      await page.reload();
-      await Lib.typeBoard(page, 'i', 'horizontal', { x: 7, y: 7 });
-      await Lib.typeRack(page, 'q');
-      await Lib.solve(page);
+      const secondTab = await context.newPage();
+      await Lib.visitIndex(secondTab);
+      await Lib.typeBoard(secondTab, 'i', 'horizontal', { x: 7, y: 7 });
+      await Lib.typeRack(secondTab, 'q');
+      await Lib.solve(secondTab);
 
-      await Lib.assertResult(page, 0, 'qi', 11);
+      await Lib.assertResult(secondTab, 0, 'qi', 11);
       await expect
-        .poll(() => page.evaluate(readCachedDictionaryLength), { timeout: 60_000 })
+        .poll(() => secondTab.evaluate(readCachedDictionaryLength), { timeout: 60_000 })
         .toBeGreaterThan('corrupt'.length);
     });
   });

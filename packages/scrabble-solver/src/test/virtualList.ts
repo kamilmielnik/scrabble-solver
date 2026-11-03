@@ -1,3 +1,5 @@
+import { noop } from '../lib/noop';
+
 type Size = { height: number; width: number };
 
 type ResizeCallback = (entries: { contentRect: Size; target: Element }[]) => void;
@@ -20,6 +22,36 @@ export function resizeObservedLists(height: number): void {
   for (const [target, callback] of observedElements) {
     callback([{ contentRect: { ...LIST_SIZE, height }, target }]);
   }
+}
+
+/**
+ * Firefox and WebKit can run a zero-delay timer before the first ResizeObserver
+ * callback. Returns the function that delivers the size to every observed list.
+ */
+export function installDeferredResizeObserver(): () => void {
+  const pending: (() => void)[] = [];
+
+  window.ResizeObserver = class {
+    private readonly callback: ResizeCallback;
+
+    constructor(callback: ResizeCallback) {
+      this.callback = callback;
+    }
+
+    public disconnect = noop;
+
+    public observe(target: Element): void {
+      pending.push(() => this.callback([{ contentRect: LIST_SIZE, target }]));
+    }
+
+    public unobserve = noop;
+  } as unknown as typeof ResizeObserver;
+
+  return function measureLists() {
+    for (const measure of pending.splice(0)) {
+      measure();
+    }
+  };
 }
 
 class FixedSizeResizeObserver {

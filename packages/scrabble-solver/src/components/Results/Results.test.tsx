@@ -13,7 +13,11 @@ import type { RootState } from '../../state/types';
 import { createResult } from '../../test/fixtures';
 import { setViewport } from '../../test/media';
 import { renderWithStore } from '../../test/render';
-import { installFixedSizeResizeObserver, resizeObservedLists } from '../../test/virtualList';
+import {
+  installDeferredResizeObserver,
+  installFixedSizeResizeObserver,
+  resizeObservedLists,
+} from '../../test/virtualList';
 import { ResultColumnId, SortDirection } from '../../types';
 
 import { Results } from './Results';
@@ -319,6 +323,7 @@ describe('scrolling', () => {
 
   afterEach(() => {
     mock.restore();
+    installFixedSizeResizeObserver();
   });
 
   it('centers the highlighted row once the list knows its height', () => {
@@ -410,6 +415,17 @@ describe('scrolling', () => {
     rerender(<Results callbacks={createCallbacks()} highlightedIndex={100} />);
 
     expect(scrollTo).toHaveBeenCalledTimes(1);
+  });
+
+  it('centers the highlighted row when the list measures its height only after rendering', () => {
+    const measureLists = installDeferredResizeObserver();
+    const scrollTo = spyOn(HTMLElement.prototype, 'scrollTo').mockImplementation(noop);
+
+    setup({ results: { ...resultsInitialState, results } }, { highlightedIndex: 100 });
+    act(measureLists);
+
+    expect(scrollTo).toHaveBeenCalledTimes(1);
+    expect(scrollTo.mock.calls[0][0]).toMatchObject({ top: highlightedRowCenteredInList });
   });
 });
 
