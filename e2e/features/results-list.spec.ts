@@ -17,11 +17,16 @@ test.describe('Results list in a real layout', () => {
       await Lib.solve(page);
     });
 
-    test('starts at the first result', async ({ page }) => {
-      const list = getList(page.getByTestId('results'));
-      await waitForFrames(list, 3);
+    test('scrolls back to the first result when a sort changes the results', async ({ page }) => {
+      const results = page.getByTestId('results');
+      const list = getList(results);
+      await list.evaluate((element) => {
+        element.scrollTop = element.scrollHeight;
+      });
 
-      expect(await list.evaluate((element) => element.scrollTop)).toBe(0);
+      await results.getByRole('button', { name: 'Points', exact: true }).click();
+
+      await expect.poll(() => list.evaluate((element) => element.scrollTop)).toBe(0);
     });
 
     test('renders only the rows in view', async ({ page }) => {
@@ -88,15 +93,4 @@ test.describe('Results list in a real layout', () => {
 
 function getList(results: Locator): Locator {
   return results.locator('[role="list"]');
-}
-
-/**
- * Lets the list measure itself (a ResizeObserver reports once per frame) and act on the measurement.
- */
-async function waitForFrames(list: Locator, count: number): Promise<void> {
-  await list.evaluate(async (_element, frames) => {
-    for (let frame = 0; frame < frames; ++frame) {
-      await new Promise((resolve) => requestAnimationFrame(resolve));
-    }
-  }, count);
 }
