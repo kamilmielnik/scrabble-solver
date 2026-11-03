@@ -5,9 +5,11 @@ import { useDispatch } from 'react-redux';
 import { List } from 'react-window';
 
 import { EmptyState } from '@/components/EmptyState';
-import { Header, HeaderButton, Search } from '@/components/Table';
+import { Header, HeaderButton, ListContainer, Search } from '@/components/Table';
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
+import { useLatest } from '@/hooks/useLatest';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { usePointerHighlight } from '@/hooks/usePointerHighlight';
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import GeoAlt from '@/icons/GeoAlt.svg';
 import QuestionSquare from '@/icons/QuestionSquare.svg';
@@ -24,7 +26,7 @@ import {
   useTypedSelector,
   verifySlice,
 } from '@/state';
-import { WordColumnId } from '@/types';
+import { type VerifiedWord, WordColumnId } from '@/types';
 
 import { type WordRowData, WordRow } from './WordRow';
 import styles from './WordsTable.module.scss';
@@ -42,16 +44,27 @@ export const WordsTable: FunctionComponent<Props> = ({ className, isOpen, onPrev
   const isCompactLayout = useMediaQuery('<l');
   const highlightFollowsPointer = !isTouchDevice && !isCompactLayout;
   const locale = useTypedSelector(selectLocale);
-  const { direction } = LOCALE_FEATURES[locale];
   const words = useTypedSelector(selectProcessedWords);
   const error = useTypedSelector(selectVerifyError);
   const query = useTypedSelector(selectWordsQuery);
   const sort = useTypedSelector(selectWordsSort);
   const hoveredWord = useTypedSelector(selectHoveredWord);
   const highlightedIndex = hoveredWord ? words.findIndex((word) => isSameBoardWord(word, hoveredWord)) : -1;
+  const isOpenRef = useLatest(isOpen);
+  const highlightWord = useCallback(
+    (word: VerifiedWord | null) => {
+      const isClosing = !isOpenRef.current;
+
+      if (!isClosing) {
+        dispatch(word ? hoveredWordSlice.actions.set(word) : hoveredWordSlice.actions.clear());
+      }
+    },
+    [dispatch, isOpenRef],
+  );
+  const pointerHighlight = usePointerHighlight(highlightWord);
   const rowProps = useMemo<WordRowData>(
-    () => ({ highlightFollowsPointer, highlightedIndex, isTouchDevice, words, onPreview }),
-    [highlightFollowsPointer, highlightedIndex, isTouchDevice, words, onPreview],
+    () => ({ highlightFollowsPointer, highlightedIndex, isTouchDevice, pointerHighlight, words, onPreview }),
+    [highlightFollowsPointer, highlightedIndex, isTouchDevice, pointerHighlight, words, onPreview],
   );
 
   const handleSort = useCallback(
@@ -67,10 +80,6 @@ export const WordsTable: FunctionComponent<Props> = ({ className, isOpen, onPrev
     },
     [dispatch],
   );
-
-  const handleMouseLeave = useCallback(() => {
-    dispatch(hoveredWordSlice.actions.clear());
-  }, [dispatch]);
 
   useEffect(() => {
     if (isOpen && isCompactLayout && words.length > 0 && highlightedIndex === -1) {
@@ -115,18 +124,18 @@ export const WordsTable: FunctionComponent<Props> = ({ className, isOpen, onPrev
         )}
 
         {words.length > 0 && (
-          <div className={styles.listContainer}>
+          <ListContainer className={styles.listContainer}>
             <List
               className={styles.list}
-              dir={direction}
+              dir={LOCALE_FEATURES[locale].direction}
               overscanCount={RESULTS_OVERSCAN_COUNT}
               rowComponent={WordRow}
               rowCount={words.length}
               rowHeight={RESULTS_ITEM_HEIGHT}
               rowProps={rowProps}
-              onMouseLeave={highlightFollowsPointer ? handleMouseLeave : undefined}
+              onMouseLeave={highlightFollowsPointer ? pointerHighlight.onListMouseLeave : undefined}
             />
-          </div>
+          </ListContainer>
         )}
       </div>
 

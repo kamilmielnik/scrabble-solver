@@ -39,8 +39,6 @@
  * It does not work when applied on input elements.
  */
 @mixin focus-effect {
-  --focus-effect--size: 6px;
-
   position: relative;
 
   &::after {
@@ -64,6 +62,20 @@
       box-shadow: 0 0 0 var(--focus-effect--size) var(--color--focus);
     }
   }
+}
+
+/**
+ * Casts a shadow from the top or the bottom edge of an element onto its neighbor on that side.
+ * At the left and right edges of the element the shadow fades out, and a faint part of it goes up to `$size / 2` past them.
+ */
+@mixin edge-shadow($edge, $size: var(--focus-effect--size)) {
+  $offset: calc($size / 2);
+
+  @if $edge == top {
+    $offset: calc(-1 * $size / 2);
+  }
+
+  box-shadow: 0 $offset $size calc(-1 * $size / 2) var(--box-shadow--color);
 }
 
 @mixin disabled {

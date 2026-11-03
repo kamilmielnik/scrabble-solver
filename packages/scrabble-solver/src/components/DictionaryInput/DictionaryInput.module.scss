@@ -2,6 +2,7 @@
 
 .dictionaryInput {
   @include focus-effect;
+  @include edge-shadow(top);
 }
 
 .input {

@@ -1,10 +1,11 @@
 import classNames from 'classnames';
-import { type ReactElement } from 'react';
+import { type FocusEvent, type MouseEvent, type ReactElement } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch } from 'react-redux';
 import { type RowComponentProps } from 'react-window';
 
 import { Cell, Row } from '@/components/Table';
+import { type PointerHighlight } from '@/hooks/usePointerHighlight';
 import Check from '@/icons/Check.svg';
 import Cross from '@/icons/Cross.svg';
 import { createHighlightWords } from '@/lib/createHighlightWords';
@@ -24,6 +25,7 @@ export interface WordRowData {
   highlightFollowsPointer: boolean;
   highlightedIndex: number;
   isTouchDevice: boolean;
+  pointerHighlight: PointerHighlight<VerifiedWord>;
   words: VerifiedWord[];
   onPreview: () => void;
 }
@@ -33,6 +35,7 @@ export const WordRow = ({
   highlightedIndex,
   index,
   isTouchDevice,
+  pointerHighlight,
   style,
   words,
   onPreview,
@@ -47,21 +50,29 @@ export const WordRow = ({
   const validityLabel = translate(word.isValid ? 'words.valid' : 'words.invalid');
   const Icon = word.isValid ? Check : Cross;
 
-  const handleSet = () => {
+  function handleSet() {
     dispatch(hoveredWordSlice.actions.set(word));
-  };
+  }
 
-  const handleClear = () => {
-    dispatch(hoveredWordSlice.actions.clear());
-  };
+  function handleBlur(event: FocusEvent) {
+    pointerHighlight.onRowBlur(word, event);
+  }
 
-  const handleClick = () => {
+  function handleFocus(event: FocusEvent) {
+    pointerHighlight.onRowFocus(word, event);
+  }
+
+  function handleMouseMove(event: MouseEvent) {
+    pointerHighlight.onRowMouseMove(word, event);
+  }
+
+  function handleClick() {
     if (!isSelected) {
       handleSet();
     } else if (isTouchDevice) {
       onPreview();
     }
-  };
+  }
 
   return (
     <Row
@@ -70,10 +81,10 @@ export const WordRow = ({
       highlighted={isSelected}
       inactive={!isMatching}
       style={style}
-      onBlur={highlightFollowsPointer ? handleClear : undefined}
+      onBlur={highlightFollowsPointer ? handleBlur : undefined}
       onClick={highlightFollowsPointer ? undefined : handleClick}
-      onFocus={highlightFollowsPointer ? handleSet : undefined}
-      onMouseEnter={highlightFollowsPointer ? handleSet : undefined}
+      onFocus={highlightFollowsPointer ? handleFocus : undefined}
+      onMouseMove={highlightFollowsPointer ? handleMouseMove : undefined}
     >
       <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />
 

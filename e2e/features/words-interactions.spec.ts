@@ -116,6 +116,26 @@ test.describe('Created words interactions', () => {
       await expect(Lib.getWord(page, 1)).not.toHaveAttribute('aria-current');
       await Lib.expectTileNotHighlighted(Lib.getBoardTile(page, 3, 5));
     });
+
+    test('hands the highlight back to a clicked row once a key press shows its focus ring', async ({
+      browserName,
+      page,
+    }) => {
+      test.skip(browserName === 'firefox', 'Firefox shows no focus ring on a clicked row, whatever key is pressed');
+      await openWords(page);
+      const clicked = Lib.getWord(page, 1);
+
+      await clicked.click();
+      // WebKit shows the focus ring of a clicked element at the next key press, but not for a modifier key alone.
+      await page.keyboard.press('ArrowRight');
+      await expect.poll(() => isFocusVisible(clicked)).toBe(true);
+      await Lib.hoverWord(page, 3, 3, 'horizontal');
+      await expect(Lib.getWord(page, 0)).toHaveAttribute('aria-current', 'true');
+
+      await Lib.moveMouseAway(page);
+      await expect(clicked).toHaveAttribute('aria-current', 'true');
+      await Lib.expectTileHighlighted(Lib.getBoardTile(page, 3, 5));
+    });
   });
 
   test.describe('desktop, touch', () => {
@@ -176,4 +196,8 @@ async function openWords(page: Page): Promise<void> {
 
 function getBackgroundColor(row: Locator): Promise<string> {
   return row.evaluate((element) => globalThis.getComputedStyle(element).backgroundColor);
+}
+
+function isFocusVisible(row: Locator): Promise<boolean> {
+  return row.evaluate((element) => element.matches(':focus-visible'));
 }

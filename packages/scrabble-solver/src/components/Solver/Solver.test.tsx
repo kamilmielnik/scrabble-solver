@@ -1,6 +1,8 @@
+/* eslint-disable max-lines */
+
 import { Board } from '@scrabble-solver/types';
 import { act, fireEvent, screen } from '@testing-library/react';
-import { describe, expect, it, mock } from 'bun:test';
+import { afterEach, describe, expect, it, mock, spyOn } from 'bun:test';
 
 import { noop } from '../../lib/noop';
 import { resultsInitialState, resultsSlice } from '../../state/results';
@@ -15,8 +17,13 @@ import { Solver } from './Solver';
 
 installFixedSizeResizeObserver();
 
+afterEach(() => {
+  mock.restore();
+});
+
 const cat = createResult({ id: 1, points: 30, word: 'cat', x: 0, y: 0 });
 const dog = createResult({ id: 2, points: 10, word: 'dog', x: 0, y: 1 });
+const emu = createResult({ id: 3, points: 5, word: 'emu', x: 0, y: 2 });
 const board = Board.create(15, 15);
 
 describe('layout', () => {
@@ -75,7 +82,7 @@ describe('desktop with a pointer', () => {
     const { store } = setup();
     const [row] = screen.getAllByTestId('result');
 
-    fireEvent.mouseEnter(row);
+    fireEvent.mouseMove(row);
     expect(store.getState().results.candidate).toBe(cat);
 
     fireEvent.mouseLeave(row.closest('[dir]')!);
@@ -91,6 +98,207 @@ describe('desktop with a pointer', () => {
 
     fireEvent.blur(row);
     expect(store.getState().results.candidate).toBeNull();
+  });
+
+  it('hands the preview back to the keyboard-focused row when the pointer leaves the list', () => {
+    const { store } = setup();
+    const [focusedRow, hoveredRow] = screen.getAllByTestId('result');
+
+    act(() => {
+      focusedRow.focus();
+    });
+    fireEvent.mouseMove(hoveredRow);
+    expect(store.getState().results.candidate).toBe(dog);
+
+    fireEvent.mouseLeave(hoveredRow.closest('[dir]')!);
+    expect(store.getState().results.candidate).toBe(cat);
+  });
+
+  it('keeps the scroll position when the pointer leaves the list and hands the preview back to the focused row', () => {
+    const scrollTo = spyOn(HTMLElement.prototype, 'scrollTo').mockImplementation(noop);
+    setup();
+    const [focusedRow, hoveredRow] = screen.getAllByTestId('result');
+
+    act(() => {
+      focusedRow.focus();
+    });
+    fireEvent.mouseMove(hoveredRow);
+    const scrollCount = scrollTo.mock.calls.length;
+    fireEvent.mouseLeave(hoveredRow.closest('[dir]')!);
+
+    expect(scrollTo).toHaveBeenCalledTimes(scrollCount);
+  });
+
+  it('clears the preview when the pointer leaves the list after the keyboard-focused row lost focus', () => {
+    const { store } = setup();
+    const [focusedRow, hoveredRow] = screen.getAllByTestId('result');
+
+    act(() => {
+      focusedRow.focus();
+    });
+    act(() => {
+      focusedRow.blur();
+    });
+    fireEvent.mouseMove(hoveredRow);
+    fireEvent.mouseLeave(hoveredRow.closest('[dir]')!);
+
+    expect(store.getState().results.candidate).toBeNull();
+  });
+
+  it('moves the preview from the focused row to the next focused row without clearing it in between', () => {
+    const { store } = setup();
+    const [focusedRow, nextRow] = screen.getAllByTestId('result');
+
+    fireEvent.focus(focusedRow);
+    fireEvent.blur(focusedRow, { relatedTarget: nextRow });
+    fireEvent.focus(nextRow);
+
+    const candidateChanges = store.actions.filter(resultsSlice.actions.changeResultCandidate.match);
+    expect(candidateChanges.map(({ payload }) => payload)).toEqual([cat, dog]);
+  });
+
+  it('keeps the preview that the pointer picked when focus leaves the list', () => {
+    const { store } = setup();
+    const [focusedRow, hoveredRow] = screen.getAllByTestId('result');
+
+    fireEvent.focus(focusedRow);
+    fireEvent.mouseMove(hoveredRow);
+    fireEvent.blur(focusedRow);
+
+    expect(store.getState().results.candidate).toBe(dog);
+  });
+
+  it('clears the preview when focus leaves the list after the keyboard took the preview from the pointer', () => {
+    const { store } = setup();
+    const [focusedRow, hoveredRow] = screen.getAllByTestId('result');
+
+    fireEvent.mouseMove(hoveredRow);
+    fireEvent.focus(focusedRow);
+    fireEvent.blur(focusedRow);
+
+    expect(store.getState().results.candidate).toBeNull();
+  });
+
+  it('clears the preview when the pointer leaves the list after the keyboard-focused row was removed', () => {
+    const { store } = setup();
+
+    act(() => {
+      screen.getAllByTestId('result')[0].focus();
+    });
+    act(() => {
+      store.dispatch(resultsSlice.actions.changeResults([]));
+    });
+    act(() => {
+      store.dispatch(resultsSlice.actions.changeResults([cat, dog]));
+    });
+    const [, hoveredRow] = screen.getAllByTestId('result');
+    fireEvent.mouseMove(hoveredRow);
+    fireEvent.mouseLeave(hoveredRow.closest('[dir]')!);
+
+    expect(store.getState().results.candidate).toBeNull();
+  });
+
+  it('keeps the preview on the keyboard-focused row when another row scrolls under a pointer that never moved', () => {
+    const { store } = setup();
+    const [focusedRow, scrolledRow] = screen.getAllByTestId('result');
+
+    fireEvent.focus(focusedRow);
+    fireEvent.mouseEnter(scrolledRow);
+
+    expect(store.getState().results.candidate).toBe(cat);
+  });
+
+  it('keeps the preview on the keyboard-focused row when the browser reports a move to the row that scrolled under the pointer', () => {
+    const { store } = setup({ results: { ...resultsInitialState, results: [cat, dog, emu] } });
+    const [pointedRow, focusedRow, scrolledRow] = screen.getAllByTestId('result');
+
+    fireEvent.mouseMove(pointedRow, { clientX: 10, clientY: 20 });
+    fireEvent.focus(focusedRow);
+    fireEvent.mouseEnter(scrolledRow, { clientX: 10, clientY: 20 });
+    fireEvent.mouseMove(scrolledRow, { clientX: 10, clientY: 20 });
+
+    expect(store.getState().results.candidate).toBe(dog);
+  });
+
+  it('previews the row that scrolled under the pointer once the pointer moves inside it', () => {
+    const { store } = setup();
+    const [pointedRow, scrolledRow] = screen.getAllByTestId('result');
+
+    fireEvent.mouseMove(pointedRow, { clientX: 10, clientY: 20 });
+    fireEvent.mouseEnter(scrolledRow, { clientX: 10, clientY: 20 });
+    fireEvent.mouseMove(scrolledRow, { clientX: 11, clientY: 20 });
+
+    expect(store.getState().results.candidate).toBe(dog);
+  });
+
+  it('keeps the preview on the keyboard-focused row while the pointer moves inside the row it already picked', () => {
+    const { store } = setup();
+    const [pointedRow, focusedRow] = screen.getAllByTestId('result');
+
+    fireEvent.mouseMove(pointedRow, { clientX: 10, clientY: 20 });
+    fireEvent.focus(focusedRow);
+    fireEvent.mouseMove(pointedRow, { clientX: 11, clientY: 20 });
+
+    expect(store.getState().results.candidate).toBe(dog);
+  });
+
+  describe('when focus leaves the list', () => {
+    it('clears the preview when focus moves from a row to the list itself, which Firefox lets the keyboard focus', () => {
+      const { store } = setup();
+      const [focusedRow] = screen.getAllByTestId('result');
+
+      fireEvent.focus(focusedRow);
+      fireEvent.blur(focusedRow, { relatedTarget: focusedRow.closest('[role="list"]') });
+
+      expect(store.getState().results.candidate).toBeNull();
+    });
+
+    it('previews the row under the pointer at its next move, after the preview was cleared', () => {
+      const { store } = setup();
+      const [pointedRow, focusedRow] = screen.getAllByTestId('result');
+
+      fireEvent.mouseMove(pointedRow, { clientX: 10, clientY: 20 });
+      fireEvent.focus(focusedRow);
+      fireEvent.blur(focusedRow);
+      fireEvent.mouseMove(pointedRow, { clientX: 11, clientY: 20 });
+
+      expect(store.getState().results.candidate).toBe(cat);
+    });
+
+    it('previews the clicked row at the next move inside it, after the preview was cleared', () => {
+      const { store } = setup();
+      const [row] = screen.getAllByTestId('result');
+
+      fireEvent.mouseMove(row, { clientX: 10, clientY: 20 });
+      fireEvent.focus(row);
+      fireEvent.blur(row);
+      fireEvent.mouseMove(row, { clientX: 11, clientY: 20 });
+
+      expect(store.getState().results.candidate).toBe(cat);
+    });
+
+    it('keeps the preview cleared when the browser reports a move to the row under a pointer that did not move', () => {
+      const { store } = setup();
+      const [pointedRow, focusedRow] = screen.getAllByTestId('result');
+
+      fireEvent.mouseMove(pointedRow, { clientX: 10, clientY: 20 });
+      fireEvent.focus(focusedRow);
+      fireEvent.blur(focusedRow);
+      fireEvent.mouseMove(pointedRow, { clientX: 10, clientY: 20 });
+
+      expect(store.getState().results.candidate).toBeNull();
+    });
+  });
+
+  it('previews the row that the pointer comes back to after leaving the list', () => {
+    const { store } = setup();
+    const [row] = screen.getAllByTestId('result');
+
+    fireEvent.mouseMove(row, { clientX: 10, clientY: 20 });
+    fireEvent.mouseLeave(row.closest('[dir]')!);
+    fireEvent.mouseMove(row, { clientX: 10, clientY: 20 });
+
+    expect(store.getState().results.candidate).toBe(cat);
   });
 
   it('applies the result on the first click', () => {
@@ -132,7 +340,7 @@ describe('touch', () => {
     setLayout({ isCompact: false, isTouch: true });
     const { store } = setup();
 
-    fireEvent.mouseEnter(screen.getAllByTestId('result')[0]);
+    fireEvent.mouseMove(screen.getAllByTestId('result')[0]);
 
     expect(store.getState().results.candidate).toBeNull();
   });

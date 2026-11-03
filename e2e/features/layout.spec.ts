@@ -215,6 +215,19 @@ test.describe('Layout', () => {
   });
 
   test.describe('modals', () => {
+    test('take a second click on the close button while they close, so that it does not reach the page', async ({
+      page,
+    }) => {
+      await Lib.visitIndex(page);
+      await Lib.openSettingsModal(page);
+      await waitForAnimations(Lib.getOpenModal(page));
+      const closeButton = await getBox(Lib.getOpenModal(page).getByLabel('Close', { exact: true }));
+
+      await page.mouse.dblclick(closeButton.x + closeButton.width / 2, closeButton.y + closeButton.height / 2);
+
+      await expect(Lib.getModal(page)).toHaveCount(0);
+    });
+
     test.describe('on a short screen', () => {
       test.use({ viewport: { width: 800, height: 400 } });
 
@@ -319,6 +332,15 @@ async function getBox(locator: Locator): Promise<{ height: number; width: number
   }
 
   return box;
+}
+
+/**
+ * A modal slides in, so its buttons are somewhere else until the transition ends.
+ */
+async function waitForAnimations(locator: Locator): Promise<void> {
+  await locator.evaluate(async (element) => {
+    await Promise.all(element.getAnimations({ subtree: true }).map((animation) => animation.finished));
+  });
 }
 
 function getHorizontalOverflow(page: Page): Promise<number> {

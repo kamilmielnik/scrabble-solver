@@ -40,7 +40,7 @@ describe('compact pointer layout', () => {
     setLayout({ isCompact: true });
     const { store } = setup();
 
-    fireEvent.mouseEnter(getRow(0));
+    fireEvent.mouseMove(getRow(0));
 
     expect(store.getState().results.candidate).toBeNull();
   });

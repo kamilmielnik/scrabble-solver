@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { type FunctionComponent, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { List } from 'react-window';
+import { List, useListRef } from 'react-window';
 import { useDebounce } from 'use-debounce';
 
 import { LOCALE_FEATURES } from '@/i18n/constants';
@@ -21,22 +21,28 @@ import {
 
 import { EmptyState } from '../EmptyState';
 import { Loading } from '../Loading';
-import { Search } from '../Table';
+import { ListContainer, Search } from '../Table';
 
 import { Header } from './Header';
 import { Result } from './Result';
 import styles from './Results.module.scss';
 import { SolveButton } from './SolveButton';
 import { type ResultCallbacks, type ResultData } from './types';
-import { useCenteredRow } from './useCenteredRow';
+import { useScrollToHighlightedResult } from './useScrollToHighlightedResult';
 
 interface Props {
   callbacks: ResultCallbacks;
   className?: string;
+  highlightFollowsPointer?: boolean;
   highlightedIndex?: number;
 }
 
-export const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIndex }) => {
+export const Results: FunctionComponent<Props> = ({
+  callbacks,
+  className,
+  highlightFollowsPointer = false,
+  highlightedIndex,
+}) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
@@ -55,11 +61,12 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
       onBlur: callbacks.onBlur,
       onClick: callbacks.onClick,
       onFocus: callbacks.onFocus,
-      onMouseEnter: callbacks.onMouseEnter,
+      onMouseMove: callbacks.onMouseMove,
     }),
     [callbacks, highlightedIndex, results],
   );
-  const { handleResize, listRef } = useCenteredRow(highlightedIndex ?? 0, results);
+  const listRef = useListRef(null);
+  const handleListResize = useScrollToHighlightedResult(listRef, highlightedIndex, results, highlightFollowsPointer);
   const hasResults = typeof error === 'undefined' && typeof results !== 'undefined';
   const showSearch = hasResults && results.length > 0 && !isOutdated;
 
@@ -113,7 +120,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
             )}
 
             {!isOutdated && results.length > 0 && (
-              <div className={styles.listContainer}>
+              <ListContainer className={styles.listContainer}>
                 <List
                   className={classNames(styles.list, {
                     [styles.outdated]: isOutdated,
@@ -126,9 +133,9 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
                   rowHeight={RESULTS_ITEM_HEIGHT}
                   rowProps={itemData}
                   onMouseLeave={callbacks.onMouseLeave}
-                  onResize={handleResize}
+                  onResize={handleListResize}
                 />
-              </div>
+              </ListContainer>
             )}
           </>
         )}

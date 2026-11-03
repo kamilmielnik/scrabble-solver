@@ -168,7 +168,7 @@ describe('desktop with a pointer, where the pointer owns the highlight', () => {
   it('picks on hover and clears on leaving the list (#427)', () => {
     const { store } = setup();
 
-    fireEvent.mouseEnter(getRow(cat));
+    fireEvent.mouseMove(getRow(cat));
     expect(store.getState().hoveredWord.word).toEqual(cat);
 
     fireEvent.mouseLeave(getRow(cat).closest('[dir]')!);
@@ -182,6 +182,39 @@ describe('desktop with a pointer, where the pointer owns the highlight', () => {
     expect(store.getState().hoveredWord.word).toEqual(cat);
 
     fireEvent.blur(getRow(cat));
+    expect(store.getState().hoveredWord.word).toBeNull();
+  });
+
+  it('hands the highlight back to the keyboard-focused row when the pointer leaves the list', () => {
+    const { store } = setup();
+
+    act(() => {
+      getRow(cat).focus();
+    });
+    fireEvent.mouseMove(getRow(dog));
+    expect(store.getState().hoveredWord.word).toEqual(dog);
+
+    fireEvent.mouseLeave(getRow(dog).closest('[dir]')!);
+    expect(store.getState().hoveredWord.word).toEqual(cat);
+  });
+
+  it('keeps the word that the pointer picked when focus leaves the list', () => {
+    const { store } = setup();
+
+    fireEvent.focus(getRow(cat));
+    fireEvent.mouseMove(getRow(dog));
+    fireEvent.blur(getRow(cat));
+
+    expect(store.getState().hoveredWord.word).toEqual(dog);
+  });
+
+  it('clears the word when focus leaves the list after the keyboard took it from the pointer', () => {
+    const { store } = setup();
+
+    fireEvent.mouseMove(getRow(dog));
+    fireEvent.focus(getRow(cat));
+    fireEvent.blur(getRow(cat));
+
     expect(store.getState().hoveredWord.word).toBeNull();
   });
 
@@ -242,7 +275,7 @@ describe.each([
     setLayout(layout);
     const { store } = setup({ hoveredWord: { word: dog } });
 
-    fireEvent.mouseEnter(getRow(cat));
+    fireEvent.mouseMove(getRow(cat));
     expect(store.getState().hoveredWord.word).toEqual(dog);
 
     fireEvent.mouseLeave(getRow(cat).closest('[dir]')!);
@@ -342,6 +375,20 @@ describe('closing', () => {
       store.dispatch(hoveredWordSlice.actions.set(cat));
     });
     rerender(createModal({ isOpen: false }));
+
+    expect(store.getState().hoveredWord.word).toBeNull();
+  });
+
+  it('does not hand the highlight to a row while the modal animates out', () => {
+    const { rerender, store } = setup();
+
+    act(() => {
+      getRow(cat).focus();
+    });
+    fireEvent.mouseMove(getRow(dog));
+    rerender(createModal({ isOpen: false }));
+    fireEvent.blur(getRow(cat));
+    fireEvent.mouseLeave(getRow(dog).closest('[dir]')!);
 
     expect(store.getState().hoveredWord.word).toBeNull();
   });

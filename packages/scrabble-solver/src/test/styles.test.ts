@@ -20,17 +20,42 @@ describe('stylesheets', () => {
     expect(wrongSide).toEqual([]);
   });
 
+  it('import the shared keyframes wherever they animate with them, because CSS modules rename the missing ones', () => {
+    const animations = readFileSync(join(sourceDirectory, 'styles/animations.scss'), 'utf8');
+    const keyframes = Array.from(animations.matchAll(/@keyframes\s+([\w-]+)/g), ([, name]) => name);
+    const withoutImport = stylesheets.filter((file) => {
+      const stylesheet = readFileSync(join(sourceDirectory, file), 'utf8');
+      const declarations = Array.from(stylesheet.matchAll(/animation(?:-name)?:([^;]+);/g));
+      const animationNames = declarations.flatMap(([, value]) => value.split(/[\s,]+/));
+
+      return (
+        animationNames.some((name) => keyframes.includes(name)) && !stylesheet.includes("@use 'styles/animations'")
+      );
+    });
+
+    expect(keyframes.length).toBeGreaterThan(0);
+    expect(withoutImport).toEqual([]);
+  });
+
   it('show a pointer only on table rows that take a click', () => {
     const table = readFileSync(join(sourceDirectory, 'components/Table/Table.module.scss'), 'utf8');
 
     expect(table).toMatch(/\.clickable\s*\{[^}]*cursor:\s*pointer/);
   });
 
-  it('highlight a table row on keyboard focus only, so a clicked row stops looking picked', () => {
-    const table = readFileSync(join(sourceDirectory, 'components/Table/Table.module.scss'), 'utf8');
-    const rowRules = table.slice(table.indexOf('.row {'), table.indexOf('.clickable')).replace(/\/\*[\s\S]*?\*\//g, '');
+  it('let the content of a closing modal ignore the pointer, so that a row it slides out from under cannot be picked again', () => {
+    const modal = readFileSync(join(sourceDirectory, 'components/Modal/Modal.module.scss'), 'utf8');
 
-    expect(rowRules).toContain(':focus-visible');
-    expect(rowRules).not.toMatch(/:focus(?!-visible)/);
+    expect(modal).toMatch(/\.beforeClose\s*\{\s*\.container\s*\{[^}]*pointer-events:\s*none/);
+  });
+
+  it('paint a table row as picked from its state only, so focus or hover on another row cannot look picked', () => {
+    const table = readFileSync(join(sourceDirectory, 'components/Table/Table.module.scss'), 'utf8');
+    const rowRules = table
+      .slice(table.indexOf('.row {'), table.indexOf('.clickable'))
+      .replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '');
+
+    expect(rowRules).not.toContain(':hover');
+    expect(rowRules).not.toMatch(/:focus[^{]*\{[^}]*(background|color)/);
   });
 });
