@@ -20,13 +20,15 @@ interface Pointer<T> {
 
 /**
  * Highlights the row that the pointer moves onto, or the focused row. A row that only scrolled under a pointer that
- * did not move is not picked. When the pointer leaves the list, the highlight goes back to the keyboard-focused row.
- * When focus leaves the list, the highlight stays only if the pointer picked it.
+ * did not move is not picked. While nothing is highlighted, the pointer also picks the row it moves inside. When the
+ * pointer leaves the list, the highlight goes back to the keyboard-focused row. When focus leaves the list,
+ * the highlight stays only if the pointer picked it.
  */
 export function usePointerHighlight<T>(highlight: (row: T | null) => void): PointerHighlight<T> {
   const focusedRowRef = useRef<FocusedRow<T> | null>(null);
   const pointerRef = useRef<Pointer<T> | null>(null);
   const isPickedByPointerRef = useRef(false);
+  const isAnyRowHighlightedRef = useRef(false);
 
   return useMemo(() => {
     return {
@@ -57,7 +59,7 @@ export function usePointerHighlight<T>(highlight: (row: T | null) => void): Poin
         const isNewRow = pointerRef.current?.row !== row;
         pointerRef.current = { row, x: event.clientX, y: event.clientY };
 
-        if (isNewRow) {
+        if (isNewRow || !isAnyRowHighlightedRef.current) {
           pick(row, true);
         }
       },
@@ -77,6 +79,7 @@ export function usePointerHighlight<T>(highlight: (row: T | null) => void): Poin
 
     function pick(row: T | null, isPickedByPointer: boolean) {
       isPickedByPointerRef.current = isPickedByPointer;
+      isAnyRowHighlightedRef.current = row !== null;
       highlight(row);
     }
   }, [highlight]);
