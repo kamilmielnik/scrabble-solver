@@ -117,12 +117,17 @@ test.describe('Created words interactions', () => {
       await Lib.expectTileNotHighlighted(Lib.getBoardTile(page, 3, 5));
     });
 
-    test('hands the highlight back to a clicked row once a key press shows its focus ring', async ({ page }) => {
+    test('hands the highlight back to a clicked row once a key press shows its focus ring', async ({
+      browserName,
+      page,
+    }) => {
+      test.skip(browserName === 'firefox', 'Firefox shows no focus ring on a clicked row, whatever key is pressed');
       await openWords(page);
       const clicked = Lib.getWord(page, 1);
 
       await clicked.click();
-      await page.keyboard.press('Shift');
+      // WebKit shows the focus ring of a clicked element at the next key press, but not for a modifier key alone.
+      await page.keyboard.press('ArrowRight');
       await expect.poll(() => isFocusVisible(clicked)).toBe(true);
       await Lib.hoverWord(page, 3, 3, 'horizontal');
       await expect(Lib.getWord(page, 0)).toHaveAttribute('aria-current', 'true');
