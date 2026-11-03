@@ -31,9 +31,8 @@
 }
 
 .beforeClose {
-  pointer-events: none;
-
   .container {
+    pointer-events: none;
     opacity: 0;
 
     [dir='ltr'] & {

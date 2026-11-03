@@ -43,10 +43,10 @@ describe('stylesheets', () => {
     expect(table).toMatch(/\.clickable\s*\{[^}]*cursor:\s*pointer/);
   });
 
-  it('let a closing modal ignore the pointer, so that a row it slides out from under cannot be picked again', () => {
+  it('let the content of a closing modal ignore the pointer, so that a row it slides out from under cannot be picked again', () => {
     const modal = readFileSync(join(sourceDirectory, 'components/Modal/Modal.module.scss'), 'utf8');
 
-    expect(modal).toMatch(/\.beforeClose\s*\{[^}]*pointer-events:\s*none/);
+    expect(modal).toMatch(/\.beforeClose\s*\{\s*\.container\s*\{[^}]*pointer-events:\s*none/);
   });
 
   it('paint a table row as picked from its state only, so focus or hover on another row cannot look picked', () => {
