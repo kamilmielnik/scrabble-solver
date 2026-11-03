@@ -50,9 +50,9 @@ export const WordRow = ({
   const validityLabel = translate(word.isValid ? 'words.valid' : 'words.invalid');
   const Icon = word.isValid ? Check : Cross;
 
-  const handleSet = () => {
+  function handleSet() {
     dispatch(hoveredWordSlice.actions.set(word));
-  };
+  }
 
   function handleFocus(event: FocusEvent) {
     pointerHighlight.onRowFocus(word, event);
@@ -62,13 +62,13 @@ export const WordRow = ({
     pointerHighlight.onRowMouseEnter(word, event);
   }
 
-  const handleClick = () => {
+  function handleClick() {
     if (!isSelected) {
       handleSet();
     } else if (isTouchDevice) {
       onPreview();
     }
-  };
+  }
 
   return (
     <Row
