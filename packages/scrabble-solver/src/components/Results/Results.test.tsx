@@ -360,6 +360,48 @@ describe('scrolling', () => {
     expect(scrollTo).toHaveBeenCalledTimes(2);
     expect(scrollTo.mock.calls[1][0]).toMatchObject({ top: highlightedRowCenteredInList });
   });
+
+  it('centers a result that becomes highlighted where the list renders no row', () => {
+    const scrollTo = spyOn(HTMLElement.prototype, 'scrollTo').mockImplementation(noop);
+    const { rerender } = setup({ results: { ...resultsInitialState, results } }, { highlightedIndex: 0 });
+
+    rerender(<Results callbacks={createCallbacks()} highlightedIndex={100} />);
+
+    expect(scrollTo).toHaveBeenCalledTimes(2);
+    expect(scrollTo.mock.calls[1][0]).toMatchObject({ top: highlightedRowCenteredInList });
+  });
+
+  it('centers a result that becomes highlighted in a rendered row out of view', () => {
+    const scrollTo = spyOn(HTMLElement.prototype, 'scrollTo').mockImplementation(noop);
+    placeHighlightedRow({ top: 500 });
+    const { rerender } = setup({ results: { ...resultsInitialState, results } }, { highlightedIndex: 0 });
+
+    rerender(<Results callbacks={createCallbacks()} highlightedIndex={1} />);
+
+    expect(scrollTo).toHaveBeenCalledTimes(2);
+  });
+
+  it('does not scroll to a result that becomes highlighted in view, as hover and focus highlight it', () => {
+    const scrollTo = spyOn(HTMLElement.prototype, 'scrollTo').mockImplementation(noop);
+    placeHighlightedRow({ top: 390 });
+    const { rerender } = setup({ results: { ...resultsInitialState, results } }, { highlightedIndex: 0 });
+
+    rerender(<Results callbacks={createCallbacks()} highlightedIndex={1} />);
+
+    expect(scrollTo).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not scroll to a result that becomes highlighted while the list is hidden', () => {
+    const scrollTo = spyOn(HTMLElement.prototype, 'scrollTo').mockImplementation(noop);
+    const { rerender } = setup({ results: { ...resultsInitialState, results } }, { highlightedIndex: 0 });
+
+    act(() => {
+      resizeObservedLists(0);
+    });
+    rerender(<Results callbacks={createCallbacks()} highlightedIndex={100} />);
+
+    expect(scrollTo).toHaveBeenCalledTimes(1);
+  });
 });
 
 function setup(
@@ -379,6 +421,18 @@ function createCallbacks() {
     onMouseLeave: mock(),
     onMouseMove: mock<(result: unknown) => void>(),
   };
+}
+
+/**
+ * Places the highlighted row `top` pixels below the top of a 400px high list, which happy-dom cannot lay out.
+ */
+function placeHighlightedRow({ top }: { top: number }) {
+  spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (this: HTMLElement) {
+    const rowTop = this.matches('[aria-current="true"]') ? top : 0;
+    const height = this.matches('[role="list"]') ? 400 : 40;
+
+    return { bottom: rowTop + height, top: rowTop } as DOMRect;
+  });
 }
 
 function readWords(): (string | null)[] {

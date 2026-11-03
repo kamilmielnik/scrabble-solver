@@ -69,6 +69,20 @@ test.describe('Results list in a real layout', () => {
 
       await expect(Lib.getOpenModal(page).locator('[aria-current="true"]')).toBeInViewport({ ratio: 1 });
     });
+
+    test('scrolls to the result that a sort picks', async ({ page }) => {
+      await Lib.visitIndex(page);
+      await Lib.typeRack(page, LONG_RACK);
+      await Lib.solve(page);
+      await Lib.openResultsModal(page);
+      const modal = Lib.getOpenModal(page);
+      await Lib.getModalResult(page, 2).click();
+      await expect(Lib.getModalResult(page, 2)).toHaveAttribute('aria-current', 'true');
+
+      await modal.getByRole('button', { name: 'Points', exact: true }).click();
+
+      await expect(modal.locator('[aria-current="true"]')).toBeInViewport({ ratio: 1 });
+    });
   });
 });
 
