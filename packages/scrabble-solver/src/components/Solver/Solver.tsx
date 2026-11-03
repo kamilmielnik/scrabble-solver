@@ -83,9 +83,8 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
         dispatch(resultsSlice.actions.applyResult(result));
       },
       onFocus: pointerHighlight.onRowFocus,
-      onMouseEnter: pointerHighlight.onRowMouseEnter,
       onMouseLeave: pointerHighlight.onListMouseLeave,
-      onMouseMove: pointerHighlight.onListMouseMove,
+      onMouseMove: pointerHighlight.onRowMouseMove,
     }),
     [dispatch, pointerHighlight],
   );

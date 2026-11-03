@@ -58,8 +58,8 @@ export const WordRow = ({
     pointerHighlight.onRowFocus(word, event);
   }
 
-  function handleMouseEnter(event: MouseEvent) {
-    pointerHighlight.onRowMouseEnter(word, event);
+  function handleMouseMove(event: MouseEvent) {
+    pointerHighlight.onRowMouseMove(word, event);
   }
 
   function handleClick() {
@@ -80,7 +80,7 @@ export const WordRow = ({
       onBlur={highlightFollowsPointer ? pointerHighlight.onRowBlur : undefined}
       onClick={highlightFollowsPointer ? undefined : handleClick}
       onFocus={highlightFollowsPointer ? handleFocus : undefined}
-      onMouseEnter={highlightFollowsPointer ? handleMouseEnter : undefined}
+      onMouseMove={highlightFollowsPointer ? handleMouseMove : undefined}
     >
       <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />
 

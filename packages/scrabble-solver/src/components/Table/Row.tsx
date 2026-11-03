@@ -20,7 +20,7 @@ interface Props {
   onBlur?: FocusEventHandler;
   onClick?: MouseEventHandler;
   onFocus?: FocusEventHandler;
-  onMouseEnter?: MouseEventHandler;
+  onMouseMove?: MouseEventHandler;
 }
 
 export const Row: FunctionComponent<Props> = ({
@@ -34,7 +34,7 @@ export const Row: FunctionComponent<Props> = ({
   onBlur,
   onClick,
   onFocus,
-  onMouseEnter,
+  onMouseMove,
 }) => {
   return (
     <button
@@ -51,7 +51,7 @@ export const Row: FunctionComponent<Props> = ({
       onBlur={onBlur}
       onClick={onClick}
       onFocus={onFocus}
-      onMouseEnter={onMouseEnter}
+      onMouseMove={onMouseMove}
     >
       <span className={styles.rowContent}>{children}</span>
     </button>

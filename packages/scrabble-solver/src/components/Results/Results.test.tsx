@@ -253,12 +253,12 @@ describe('row callbacks', () => {
 
     const row = screen.getAllByTestId('result')[0];
 
-    fireEvent.mouseEnter(row);
+    fireEvent.mouseMove(row);
     fireEvent.focus(row);
     fireEvent.blur(row);
     fireEvent.click(row);
 
-    expect(callbacks.onMouseEnter.mock.calls[0][0]).toBe(cat);
+    expect(callbacks.onMouseMove.mock.calls[0][0]).toBe(cat);
     expect(callbacks.onFocus.mock.calls[0][0]).toBe(cat);
     expect(callbacks.onBlur.mock.calls[0][0]).toBe(cat);
     expect(callbacks.onClick.mock.calls[0][0]).toBe(cat);
@@ -376,8 +376,8 @@ function createCallbacks() {
     onBlur: mock<(result: unknown) => void>(),
     onClick: mock<(result: unknown) => void>(),
     onFocus: mock<(result: unknown) => void>(),
-    onMouseEnter: mock<(result: unknown) => void>(),
     onMouseLeave: mock(),
+    onMouseMove: mock<(result: unknown) => void>(),
   };
 }
 

@@ -55,7 +55,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
       onBlur: callbacks.onBlur,
       onClick: callbacks.onClick,
       onFocus: callbacks.onFocus,
-      onMouseEnter: callbacks.onMouseEnter,
+      onMouseMove: callbacks.onMouseMove,
     }),
     [callbacks, highlightedIndex, results],
   );
@@ -127,7 +127,6 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
                   rowHeight={RESULTS_ITEM_HEIGHT}
                   rowProps={itemData}
                   onMouseLeave={callbacks.onMouseLeave}
-                  onMouseMove={callbacks.onMouseMove}
                   onResize={handleListResize}
                 />
               </ListContainer>

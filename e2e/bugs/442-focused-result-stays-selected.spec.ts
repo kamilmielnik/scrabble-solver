@@ -105,6 +105,28 @@ test.describe('#442 - Keyboard-focused result stays selected after hovering anot
     await expect(Lib.getResults(page).and(page.locator('[aria-current]'))).toHaveCount(1);
   });
 
+  test('hands the highlight to the result that the wheel scrolled under the pointer once the pointer moves', async ({
+    page,
+  }) => {
+    await Lib.visitIndex(page);
+    await Lib.typeRack(page, 'aet');
+    await Lib.solve(page);
+
+    await Lib.hoverResult(page, 1);
+    const pointer = await getCenter(Lib.getResult(page, 1));
+    const pointedIndex = await getRowIndexAt(page, pointer);
+
+    await page.mouse.wheel(0, 100);
+    await expect.poll(() => getRowIndexAt(page, pointer)).not.toBe(pointedIndex);
+    const scrolledIndex = await getRowIndexAt(page, pointer);
+    await page.mouse.move(pointer.x + 1, pointer.y);
+
+    await expect(Lib.getResults(page).and(page.locator('[aria-current]'))).toHaveAttribute(
+      'data-react-window-index',
+      scrolledIndex!,
+    );
+  });
+
   test('draws the focus ring around the focused result, and keeps it there while the list scrolls', async ({
     page,
   }) => {
@@ -184,6 +206,17 @@ async function getCenter(locator: Locator): Promise<{ x: number; y: number }> {
   }
 
   return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+}
+
+function getRowIndexAt(page: Page, { x, y }: { x: number; y: number }): Promise<string | null> {
+  return page.evaluate(
+    (point) => {
+      const row = document.elementFromPoint(point.x, point.y)?.closest('[data-testid="result"]');
+
+      return row?.getAttribute('data-react-window-index') ?? null;
+    },
+    { x, y },
+  );
 }
 
 async function tabUntilScrolled(page: Page, list: Locator): Promise<void> {

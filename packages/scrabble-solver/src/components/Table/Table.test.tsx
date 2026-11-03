@@ -164,7 +164,7 @@ describe('Row', () => {
       onBlur: mock(),
       onClick: mock(),
       onFocus: mock(),
-      onMouseEnter: mock(),
+      onMouseMove: mock(),
     };
 
     renderWithStore(
@@ -177,7 +177,7 @@ describe('Row', () => {
 
     fireEvent.focus(row);
     fireEvent.blur(row);
-    fireEvent.mouseEnter(row);
+    fireEvent.mouseMove(row);
     fireEvent.click(row);
 
     for (const handler of Object.values(handlers)) {

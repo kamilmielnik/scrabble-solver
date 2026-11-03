@@ -19,6 +19,7 @@ installFixedSizeResizeObserver();
 
 const cat = createResult({ id: 1, points: 30, word: 'cat', x: 0, y: 0 });
 const dog = createResult({ id: 2, points: 10, word: 'dog', x: 0, y: 1 });
+const emu = createResult({ id: 3, points: 5, word: 'emu', x: 0, y: 2 });
 const board = Board.create(15, 15);
 
 describe('layout', () => {
@@ -77,7 +78,7 @@ describe('desktop with a pointer', () => {
     const { store } = setup();
     const [row] = screen.getAllByTestId('result');
 
-    fireEvent.mouseEnter(row);
+    fireEvent.mouseMove(row);
     expect(store.getState().results.candidate).toBe(cat);
 
     fireEvent.mouseLeave(row.closest('[dir]')!);
@@ -102,7 +103,7 @@ describe('desktop with a pointer', () => {
     act(() => {
       focusedRow.focus();
     });
-    fireEvent.mouseEnter(hoveredRow);
+    fireEvent.mouseMove(hoveredRow);
     expect(store.getState().results.candidate).toBe(dog);
 
     fireEvent.mouseLeave(hoveredRow.closest('[dir]')!);
@@ -119,7 +120,7 @@ describe('desktop with a pointer', () => {
     act(() => {
       focusedRow.blur();
     });
-    fireEvent.mouseEnter(hoveredRow);
+    fireEvent.mouseMove(hoveredRow);
     fireEvent.mouseLeave(hoveredRow.closest('[dir]')!);
 
     expect(store.getState().results.candidate).toBeNull();
@@ -142,7 +143,7 @@ describe('desktop with a pointer', () => {
     const [focusedRow, hoveredRow] = screen.getAllByTestId('result');
 
     fireEvent.focus(focusedRow);
-    fireEvent.mouseEnter(hoveredRow);
+    fireEvent.mouseMove(hoveredRow);
     fireEvent.blur(focusedRow);
 
     expect(store.getState().results.candidate).toBe(dog);
@@ -152,7 +153,7 @@ describe('desktop with a pointer', () => {
     const { store } = setup();
     const [focusedRow, hoveredRow] = screen.getAllByTestId('result');
 
-    fireEvent.mouseEnter(hoveredRow);
+    fireEvent.mouseMove(hoveredRow);
     fireEvent.focus(focusedRow);
     fireEvent.blur(focusedRow);
 
@@ -172,42 +173,63 @@ describe('desktop with a pointer', () => {
       store.dispatch(resultsSlice.actions.changeResults([cat, dog]));
     });
     const [, hoveredRow] = screen.getAllByTestId('result');
-    fireEvent.mouseEnter(hoveredRow);
+    fireEvent.mouseMove(hoveredRow);
     fireEvent.mouseLeave(hoveredRow.closest('[dir]')!);
 
     expect(store.getState().results.candidate).toBeNull();
   });
 
-  it('keeps the preview on the keyboard-focused row when another row scrolls under a pointer that did not move', () => {
+  it('keeps the preview on the keyboard-focused row when another row scrolls under a pointer that never moved', () => {
     const { store } = setup();
     const [focusedRow, scrolledRow] = screen.getAllByTestId('result');
 
     fireEvent.focus(focusedRow);
-    fireEvent.mouseMove(scrolledRow.closest('[dir]')!, { clientX: 10, clientY: 20 });
-    fireEvent.mouseEnter(scrolledRow, { clientX: 10, clientY: 20 });
+    fireEvent.mouseEnter(scrolledRow);
 
     expect(store.getState().results.candidate).toBe(cat);
   });
 
-  it('previews the row that the pointer moved onto after the keyboard focused another row', () => {
-    const { store } = setup();
-    const [focusedRow, hoveredRow] = screen.getAllByTestId('result');
+  it('keeps the preview on the keyboard-focused row when the browser reports a move to the row that scrolled under the pointer', () => {
+    const { store } = setup({ results: { ...resultsInitialState, results: [cat, dog, emu] } });
+    const [pointedRow, focusedRow, scrolledRow] = screen.getAllByTestId('result');
 
+    fireEvent.mouseMove(pointedRow, { clientX: 10, clientY: 20 });
     fireEvent.focus(focusedRow);
-    fireEvent.mouseMove(hoveredRow.closest('[dir]')!, { clientX: 10, clientY: 20 });
-    fireEvent.mouseEnter(hoveredRow, { clientX: 10, clientY: 30 });
+    fireEvent.mouseEnter(scrolledRow, { clientX: 10, clientY: 20 });
+    fireEvent.mouseMove(scrolledRow, { clientX: 10, clientY: 20 });
 
     expect(store.getState().results.candidate).toBe(dog);
   });
 
-  it('previews a row that the pointer enters the list on, even where it left the list before', () => {
+  it('previews the row that scrolled under the pointer once the pointer moves inside it', () => {
+    const { store } = setup();
+    const [pointedRow, scrolledRow] = screen.getAllByTestId('result');
+
+    fireEvent.mouseMove(pointedRow, { clientX: 10, clientY: 20 });
+    fireEvent.mouseEnter(scrolledRow, { clientX: 10, clientY: 20 });
+    fireEvent.mouseMove(scrolledRow, { clientX: 11, clientY: 20 });
+
+    expect(store.getState().results.candidate).toBe(dog);
+  });
+
+  it('keeps the preview on the keyboard-focused row while the pointer moves inside the row it already picked', () => {
+    const { store } = setup();
+    const [pointedRow, focusedRow] = screen.getAllByTestId('result');
+
+    fireEvent.mouseMove(pointedRow, { clientX: 10, clientY: 20 });
+    fireEvent.focus(focusedRow);
+    fireEvent.mouseMove(pointedRow, { clientX: 11, clientY: 20 });
+
+    expect(store.getState().results.candidate).toBe(dog);
+  });
+
+  it('previews the row that the pointer comes back to after leaving the list', () => {
     const { store } = setup();
     const [row] = screen.getAllByTestId('result');
-    const list = row.closest('[dir]')!;
 
-    fireEvent.mouseMove(list, { clientX: 10, clientY: 20 });
-    fireEvent.mouseLeave(list);
-    fireEvent.mouseEnter(row, { clientX: 10, clientY: 20 });
+    fireEvent.mouseMove(row, { clientX: 10, clientY: 20 });
+    fireEvent.mouseLeave(row.closest('[dir]')!);
+    fireEvent.mouseMove(row, { clientX: 10, clientY: 20 });
 
     expect(store.getState().results.candidate).toBe(cat);
   });
@@ -251,7 +273,7 @@ describe('touch', () => {
     setLayout({ isCompact: false, isTouch: true });
     const { store } = setup();
 
-    fireEvent.mouseEnter(screen.getAllByTestId('result')[0]);
+    fireEvent.mouseMove(screen.getAllByTestId('result')[0]);
 
     expect(store.getState().results.candidate).toBeNull();
   });

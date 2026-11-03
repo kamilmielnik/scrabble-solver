@@ -5,12 +5,11 @@ export interface ResultCallbacks {
   onBlur?: (result: Result, event: FocusEvent) => void;
   onClick?: (result: Result, event: MouseEvent) => void;
   onFocus?: (result: Result, event: FocusEvent) => void;
-  onMouseEnter?: (result: Result, event: MouseEvent) => void;
   onMouseLeave?: MouseEventHandler;
-  onMouseMove?: MouseEventHandler;
+  onMouseMove?: (result: Result, event: MouseEvent) => void;
 }
 
-export interface ResultData extends Omit<ResultCallbacks, 'onMouseLeave' | 'onMouseMove'> {
+export interface ResultData extends Omit<ResultCallbacks, 'onMouseLeave'> {
   highlightedIndex?: number;
   results: Result[] | undefined;
 }

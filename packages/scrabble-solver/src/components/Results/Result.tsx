@@ -25,7 +25,7 @@ export const Result = ({
   onBlur,
   onClick,
   onFocus,
-  onMouseEnter,
+  onMouseMove,
   style,
 }: RowComponentProps<ResultData>): ReactElement => {
   const columns = useColumns();
@@ -38,7 +38,7 @@ export const Result = ({
   const coordinates = useTypedSelector((state) => selectResultCoordinates(state, index));
 
   const handleClick: MouseEventHandler | undefined = onClick && ((event) => onClick(result, event));
-  const handleMouseEnter: MouseEventHandler | undefined = onMouseEnter && ((event) => onMouseEnter(result, event));
+  const handleMouseMove: MouseEventHandler | undefined = onMouseMove && ((event) => onMouseMove(result, event));
   const handleBlur: FocusEventHandler | undefined = onBlur && ((event) => onBlur(result, event));
   const handleFocus: FocusEventHandler | undefined = onFocus && ((event) => onFocus(result, event));
 
@@ -52,7 +52,7 @@ export const Result = ({
       onBlur={handleBlur}
       onClick={handleClick}
       onFocus={handleFocus}
-      onMouseEnter={handleMouseEnter}
+      onMouseMove={handleMouseMove}
     >
       {columns[ResultColumnId.Coordinates] && (
         <Cell className={styles.coordinates} translationKey="settings.showCoordinates" value={coordinates} />
