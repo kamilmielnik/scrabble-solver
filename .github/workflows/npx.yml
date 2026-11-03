@@ -44,7 +44,7 @@ jobs:
       # Only the test tools from the root package. Bun stays off this runner: the app must not need it.
       - run: npm install --no-save --no-package-lock --ignore-scripts --workspaces=false
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps chromium firefox webkit
       - name: Install the published package globally
         run: npm install --global scrabble-solver@${{ env.VERSION }}
       - name: Pre-warm dictionaries cache
