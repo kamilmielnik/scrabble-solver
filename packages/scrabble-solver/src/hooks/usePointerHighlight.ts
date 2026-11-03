@@ -2,7 +2,7 @@ import { type FocusEvent, type MouseEvent, useMemo, useRef } from 'react';
 
 export interface PointerHighlight<T> {
   onListMouseLeave: () => void;
-  onRowBlur: (event: FocusEvent) => void;
+  onRowBlur: (row: T, event: FocusEvent) => void;
   onRowFocus: (row: T, event: FocusEvent) => void;
   onRowMouseMove: (row: T, event: MouseEvent) => void;
 }
@@ -36,7 +36,7 @@ export function usePointerHighlight<T>(highlight: (row: T | null) => void): Poin
         pointerRef.current = null;
         pick(findKeyboardFocusedRow(), false);
       },
-      onRowBlur: (event: FocusEvent) => {
+      onRowBlur: (_row: T, event: FocusEvent) => {
         const list = event.currentTarget.closest('[role="list"]');
         const nextFocused = event.relatedTarget;
         const isFocusMovingToAnotherRow =

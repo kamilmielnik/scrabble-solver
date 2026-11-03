@@ -54,6 +54,10 @@ export const WordRow = ({
     dispatch(hoveredWordSlice.actions.set(word));
   }
 
+  function handleBlur(event: FocusEvent) {
+    pointerHighlight.onRowBlur(word, event);
+  }
+
   function handleFocus(event: FocusEvent) {
     pointerHighlight.onRowFocus(word, event);
   }
@@ -77,7 +81,7 @@ export const WordRow = ({
       highlighted={isSelected}
       inactive={!isMatching}
       style={style}
-      onBlur={highlightFollowsPointer ? pointerHighlight.onRowBlur : undefined}
+      onBlur={highlightFollowsPointer ? handleBlur : undefined}
       onClick={highlightFollowsPointer ? undefined : handleClick}
       onFocus={highlightFollowsPointer ? handleFocus : undefined}
       onMouseMove={highlightFollowsPointer ? handleMouseMove : undefined}
