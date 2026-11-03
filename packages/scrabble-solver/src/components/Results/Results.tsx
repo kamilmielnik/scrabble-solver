@@ -1,10 +1,9 @@
 import classNames from 'classnames';
-import { type FunctionComponent, useCallback, useEffect, useMemo } from 'react';
+import { type FunctionComponent, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { List, useListRef } from 'react-window';
+import { List } from 'react-window';
 import { useDebounce } from 'use-debounce';
 
-import { useLatest } from '@/hooks/useLatest';
 import { LOCALE_FEATURES } from '@/i18n/constants';
 import { LOADING_DELAY, RESULTS_ITEM_HEIGHT, RESULTS_OVERSCAN_COUNT } from '@/parameters';
 import {
@@ -29,6 +28,7 @@ import { Result } from './Result';
 import styles from './Results.module.scss';
 import { SolveButton } from './SolveButton';
 import { type ResultCallbacks, type ResultData } from './types';
+import { useCenteredRow } from './useCenteredRow';
 
 interface Props {
   callbacks: ResultCallbacks;
@@ -59,9 +59,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
     }),
     [callbacks, highlightedIndex, results],
   );
-  const listRef = useListRef(null);
-  const scrollToIndex = typeof highlightedIndex === 'number' ? highlightedIndex : 0;
-  const scrollToIndexRef = useLatest(scrollToIndex);
+  const { handleResize, listRef } = useCenteredRow(highlightedIndex ?? 0, results);
   const hasResults = typeof error === 'undefined' && typeof results !== 'undefined';
   const showSearch = hasResults && results.length > 0 && !isOutdated;
 
@@ -71,22 +69,6 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
     },
     [dispatch],
   );
-
-  useEffect(() => {
-    // without setTimeout, the initial scrolling offset is calculated
-    // incorrectly, as the list is not fully rendered by the browser yet
-    const timeout = globalThis.setTimeout(() => {
-      listRef.current?.scrollToRow({
-        align: 'center',
-        behavior: 'instant',
-        index: scrollToIndexRef.current,
-      });
-    }, 0);
-
-    return () => {
-      globalThis.clearTimeout(timeout);
-    };
-  }, [results, listRef, scrollToIndexRef]);
 
   return (
     <div
@@ -144,6 +126,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
                   rowHeight={RESULTS_ITEM_HEIGHT}
                   rowProps={itemData}
                   onMouseLeave={callbacks.onMouseLeave}
+                  onResize={handleResize}
                 />
               </div>
             )}
