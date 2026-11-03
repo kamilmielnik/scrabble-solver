@@ -242,40 +242,52 @@ describe('desktop with a pointer', () => {
     expect(store.getState().results.candidate).toBe(dog);
   });
 
-  it('previews the row under the pointer at its next move after focus leaving the list cleared the preview', () => {
-    const { store } = setup();
-    const [pointedRow, focusedRow] = screen.getAllByTestId('result');
+  describe('when focus leaves the list', () => {
+    it('clears the preview when focus moves from a row to the list itself, which Firefox lets the keyboard focus', () => {
+      const { store } = setup();
+      const [focusedRow] = screen.getAllByTestId('result');
 
-    fireEvent.mouseMove(pointedRow, { clientX: 10, clientY: 20 });
-    fireEvent.focus(focusedRow);
-    fireEvent.blur(focusedRow);
-    fireEvent.mouseMove(pointedRow, { clientX: 11, clientY: 20 });
+      fireEvent.focus(focusedRow);
+      fireEvent.blur(focusedRow, { relatedTarget: focusedRow.closest('[role="list"]') });
 
-    expect(store.getState().results.candidate).toBe(cat);
-  });
+      expect(store.getState().results.candidate).toBeNull();
+    });
 
-  it('previews the clicked row at the next move inside it after focus leaving the list cleared the preview', () => {
-    const { store } = setup();
-    const [row] = screen.getAllByTestId('result');
+    it('previews the row under the pointer at its next move, after the preview was cleared', () => {
+      const { store } = setup();
+      const [pointedRow, focusedRow] = screen.getAllByTestId('result');
 
-    fireEvent.mouseMove(row, { clientX: 10, clientY: 20 });
-    fireEvent.focus(row);
-    fireEvent.blur(row);
-    fireEvent.mouseMove(row, { clientX: 11, clientY: 20 });
+      fireEvent.mouseMove(pointedRow, { clientX: 10, clientY: 20 });
+      fireEvent.focus(focusedRow);
+      fireEvent.blur(focusedRow);
+      fireEvent.mouseMove(pointedRow, { clientX: 11, clientY: 20 });
 
-    expect(store.getState().results.candidate).toBe(cat);
-  });
+      expect(store.getState().results.candidate).toBe(cat);
+    });
 
-  it('keeps the preview cleared when the browser reports a move to the row under a pointer that did not move', () => {
-    const { store } = setup();
-    const [pointedRow, focusedRow] = screen.getAllByTestId('result');
+    it('previews the clicked row at the next move inside it, after the preview was cleared', () => {
+      const { store } = setup();
+      const [row] = screen.getAllByTestId('result');
 
-    fireEvent.mouseMove(pointedRow, { clientX: 10, clientY: 20 });
-    fireEvent.focus(focusedRow);
-    fireEvent.blur(focusedRow);
-    fireEvent.mouseMove(pointedRow, { clientX: 10, clientY: 20 });
+      fireEvent.mouseMove(row, { clientX: 10, clientY: 20 });
+      fireEvent.focus(row);
+      fireEvent.blur(row);
+      fireEvent.mouseMove(row, { clientX: 11, clientY: 20 });
 
-    expect(store.getState().results.candidate).toBeNull();
+      expect(store.getState().results.candidate).toBe(cat);
+    });
+
+    it('keeps the preview cleared when the browser reports a move to the row under a pointer that did not move', () => {
+      const { store } = setup();
+      const [pointedRow, focusedRow] = screen.getAllByTestId('result');
+
+      fireEvent.mouseMove(pointedRow, { clientX: 10, clientY: 20 });
+      fireEvent.focus(focusedRow);
+      fireEvent.blur(focusedRow);
+      fireEvent.mouseMove(pointedRow, { clientX: 10, clientY: 20 });
+
+      expect(store.getState().results.candidate).toBeNull();
+    });
   });
 
   it('previews the row that the pointer comes back to after leaving the list', () => {

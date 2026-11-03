@@ -39,7 +39,8 @@ export function usePointerHighlight<T>(highlight: (row: T | null) => void): Poin
       onRowBlur: (event: FocusEvent) => {
         const list = event.currentTarget.closest('[role="list"]');
         const nextFocused = event.relatedTarget;
-        const isFocusMovingToAnotherRow = nextFocused instanceof Element && Boolean(list?.contains(nextFocused));
+        const isFocusMovingToAnotherRow =
+          nextFocused instanceof Element && nextFocused !== list && Boolean(list?.contains(nextFocused));
 
         focusedRowRef.current = null;
 
