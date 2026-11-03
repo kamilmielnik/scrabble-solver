@@ -29,23 +29,6 @@ export function usePointerHighlight<T>(highlight: (row: T | null) => void): Poin
   const isPickedByPointerRef = useRef(false);
 
   return useMemo(() => {
-    function findKeyboardFocusedRow(): T | null {
-      const focusedRow = focusedRowRef.current;
-
-      return focusedRow?.element.matches(':focus-visible') ? focusedRow.row : null;
-    }
-
-    function hasPointerMoved(event: MouseEvent): boolean {
-      const position = pointerPositionRef.current;
-
-      return !position || position.x !== event.clientX || position.y !== event.clientY;
-    }
-
-    function pick(row: T | null, isPickedByPointer: boolean) {
-      isPickedByPointerRef.current = isPickedByPointer;
-      highlight(row);
-    }
-
     return {
       onListMouseLeave: () => {
         pointerPositionRef.current = null;
@@ -75,5 +58,22 @@ export function usePointerHighlight<T>(highlight: (row: T | null) => void): Poin
         }
       },
     };
+
+    function findKeyboardFocusedRow(): T | null {
+      const focusedRow = focusedRowRef.current;
+
+      return focusedRow?.element.matches(':focus-visible') ? focusedRow.row : null;
+    }
+
+    function hasPointerMoved(event: MouseEvent): boolean {
+      const position = pointerPositionRef.current;
+
+      return !position || position.x !== event.clientX || position.y !== event.clientY;
+    }
+
+    function pick(row: T | null, isPickedByPointer: boolean) {
+      isPickedByPointerRef.current = isPickedByPointer;
+      highlight(row);
+    }
   }, [highlight]);
 }
