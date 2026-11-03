@@ -7,6 +7,7 @@ import { List } from 'react-window';
 import { EmptyState } from '@/components/EmptyState';
 import { Header, HeaderButton, ListContainer, Search } from '@/components/Table';
 import { useIsTouchDevice } from '@/hooks/useIsTouchDevice';
+import { useLatest } from '@/hooks/useLatest';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { usePointerHighlight } from '@/hooks/usePointerHighlight';
 import { LOCALE_FEATURES } from '@/i18n/constants';
@@ -50,15 +51,16 @@ export const WordsTable: FunctionComponent<Props> = ({ className, isOpen, onPrev
   const sort = useTypedSelector(selectWordsSort);
   const hoveredWord = useTypedSelector(selectHoveredWord);
   const highlightedIndex = hoveredWord ? words.findIndex((word) => isSameBoardWord(word, hoveredWord)) : -1;
+  const isOpenRef = useLatest(isOpen);
   const highlightWord = useCallback(
     (word: VerifiedWord | null) => {
-      const isClosing = !isOpen;
+      const isClosing = !isOpenRef.current;
 
       if (!isClosing) {
         dispatch(word ? hoveredWordSlice.actions.set(word) : hoveredWordSlice.actions.clear());
       }
     },
-    [dispatch, isOpen],
+    [dispatch, isOpenRef],
   );
   const pointerHighlight = usePointerHighlight(highlightWord);
   const rowProps = useMemo<WordRowData>(
