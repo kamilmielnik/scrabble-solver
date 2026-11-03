@@ -325,16 +325,20 @@ async function getRingBands(list: Locator): Promise<Record<'aboveList' | 'belowL
     throw new Error('Expected the results list to be visible and the focus ring to have a size');
   }
 
+  // Whole pixels outside the list, because a pixel that the list partly covers changes when the list scrolls.
+  const listTop = Math.floor(listBox.y);
+  const listBottom = Math.ceil(listBox.y + listBox.height);
+
   return {
     aboveList: {
       x: listBox.x - ringSize,
-      y: listBox.y - ringSize,
+      y: listTop - ringSize,
       width: listBox.width + 2 * ringSize,
       height: ringSize,
     },
     belowList: {
       x: listBox.x - ringSize,
-      y: listBox.y + listBox.height,
+      y: listBottom,
       width: listBox.width + 2 * ringSize,
       height: ringSize,
     },
