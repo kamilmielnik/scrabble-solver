@@ -44,7 +44,6 @@ export const WordsTable: FunctionComponent<Props> = ({ className, isOpen, onPrev
   const isCompactLayout = useMediaQuery('<l');
   const highlightFollowsPointer = !isTouchDevice && !isCompactLayout;
   const locale = useTypedSelector(selectLocale);
-  const { direction } = LOCALE_FEATURES[locale];
   const words = useTypedSelector(selectProcessedWords);
   const error = useTypedSelector(selectVerifyError);
   const query = useTypedSelector(selectWordsQuery);
@@ -128,7 +127,7 @@ export const WordsTable: FunctionComponent<Props> = ({ className, isOpen, onPrev
           <ListContainer className={styles.listContainer}>
             <List
               className={styles.list}
-              dir={direction}
+              dir={LOCALE_FEATURES[locale].direction}
               overscanCount={RESULTS_OVERSCAN_COUNT}
               rowComponent={WordRow}
               rowCount={words.length}
