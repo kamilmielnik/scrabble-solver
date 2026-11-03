@@ -2,7 +2,7 @@
 
 import { Board } from '@scrabble-solver/types';
 import { act, fireEvent, screen } from '@testing-library/react';
-import { describe, expect, it, mock } from 'bun:test';
+import { afterEach, describe, expect, it, mock, spyOn } from 'bun:test';
 
 import { noop } from '../../lib/noop';
 import { resultsInitialState, resultsSlice } from '../../state/results';
@@ -16,6 +16,10 @@ import { installFixedSizeResizeObserver } from '../../test/virtualList';
 import { Solver } from './Solver';
 
 installFixedSizeResizeObserver();
+
+afterEach(() => {
+  mock.restore();
+});
 
 const cat = createResult({ id: 1, points: 30, word: 'cat', x: 0, y: 0 });
 const dog = createResult({ id: 2, points: 10, word: 'dog', x: 0, y: 1 });
@@ -108,6 +112,21 @@ describe('desktop with a pointer', () => {
 
     fireEvent.mouseLeave(hoveredRow.closest('[dir]')!);
     expect(store.getState().results.candidate).toBe(cat);
+  });
+
+  it('keeps the scroll position when the pointer leaves the list and hands the preview back to the focused row', () => {
+    const scrollTo = spyOn(HTMLElement.prototype, 'scrollTo').mockImplementation(noop);
+    setup();
+    const [focusedRow, hoveredRow] = screen.getAllByTestId('result');
+
+    act(() => {
+      focusedRow.focus();
+    });
+    fireEvent.mouseMove(hoveredRow);
+    const scrollCount = scrollTo.mock.calls.length;
+    fireEvent.mouseLeave(hoveredRow.closest('[dir]')!);
+
+    expect(scrollTo).toHaveBeenCalledTimes(scrollCount);
   });
 
   it('clears the preview when the pointer leaves the list after the keyboard-focused row lost focus', () => {

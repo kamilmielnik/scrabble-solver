@@ -9,14 +9,16 @@ import { type ResultData } from './types';
 type ListResizeHandler = NonNullable<ListProps<ResultData>['onResize']>;
 
 /**
- * Centers the highlighted result, or the first one, whenever the results change or the list is shown again,
- * and centers a result that becomes highlighted out of view. react-window centers a row within its measured height,
- * which it does not know until the list is shown, so the returned handler has to be the list's `onResize`.
+ * Centers the highlighted result, or the first one, whenever the results change or the list is shown again.
+ * Where the highlight does not follow the pointer, it also centers a result that becomes highlighted out of view.
+ * react-window centers a row within its measured height, which it does not know until the list is shown,
+ * so the returned handler has to be the list's `onResize`.
  */
 export function useScrollToHighlightedResult(
   listRef: RefObject<ListImperativeAPI | null>,
   highlightedIndex: number | undefined,
   results: Result[] | undefined,
+  highlightFollowsPointer: boolean,
 ): ListResizeHandler {
   const [shownList, setShownList] = useState<WeakRef<HTMLDivElement> | null>(null);
   const shownListRef = useLatest(shownList);
@@ -32,13 +34,14 @@ export function useScrollToHighlightedResult(
     const listElement = listRef.current?.element;
 
     if (
+      !highlightFollowsPointer &&
       typeof highlightedIndex === 'number' &&
       isShown(listElement, shownListRef.current) &&
       !isHighlightedRowInView(listElement)
     ) {
       listRef.current?.scrollToRow({ align: 'center', behavior: 'instant', index: highlightedIndex });
     }
-  }, [highlightedIndex, listRef, shownListRef]);
+  }, [highlightFollowsPointer, highlightedIndex, listRef, shownListRef]);
 
   return useCallback<ListResizeHandler>(
     (size, previousSize) => {

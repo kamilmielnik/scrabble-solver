@@ -33,10 +33,16 @@ import { useScrollToHighlightedResult } from './useScrollToHighlightedResult';
 interface Props {
   callbacks: ResultCallbacks;
   className?: string;
+  highlightFollowsPointer?: boolean;
   highlightedIndex?: number;
 }
 
-export const Results: FunctionComponent<Props> = ({ callbacks, className, highlightedIndex }) => {
+export const Results: FunctionComponent<Props> = ({
+  callbacks,
+  className,
+  highlightFollowsPointer = false,
+  highlightedIndex,
+}) => {
   const dispatch = useDispatch();
   const translate = useTranslate();
   const locale = useTypedSelector(selectLocale);
@@ -60,7 +66,7 @@ export const Results: FunctionComponent<Props> = ({ callbacks, className, highli
     [callbacks, highlightedIndex, results],
   );
   const listRef = useListRef(null);
-  const handleListResize = useScrollToHighlightedResult(listRef, highlightedIndex, results);
+  const handleListResize = useScrollToHighlightedResult(listRef, highlightedIndex, results, highlightFollowsPointer);
   const hasResults = typeof error === 'undefined' && typeof results !== 'undefined';
   const showSearch = hasResults && results.length > 0 && !isOutdated;
 

@@ -391,6 +391,15 @@ describe('scrolling', () => {
     expect(scrollTo).toHaveBeenCalledTimes(1);
   });
 
+  it('does not scroll to a result that becomes highlighted out of view where the highlight follows the pointer', () => {
+    const scrollTo = spyOn(HTMLElement.prototype, 'scrollTo').mockImplementation(noop);
+    const { rerender } = setup({ results: { ...resultsInitialState, results } }, { highlightedIndex: 0 });
+
+    rerender(<Results callbacks={createCallbacks()} highlightedIndex={100} highlightFollowsPointer />);
+
+    expect(scrollTo).toHaveBeenCalledTimes(1);
+  });
+
   it('does not scroll to a result that becomes highlighted while the list is hidden', () => {
     const scrollTo = spyOn(HTMLElement.prototype, 'scrollTo').mockImplementation(noop);
     const { rerender } = setup({ results: { ...resultsInitialState, results } }, { highlightedIndex: 0 });

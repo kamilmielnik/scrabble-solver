@@ -127,6 +127,31 @@ test.describe('#442 - Keyboard-focused result stays selected after hovering anot
     );
   });
 
+  test('keeps the scroll position when the pointer leaves the list and hands the highlight back to a focused result out of view', async ({
+    page,
+  }) => {
+    await Lib.visitIndex(page);
+    await Lib.typeRack(page, 'aeiorst');
+    await Lib.solve(page);
+
+    const list = Lib.getResultsContainer(page).locator('[role="list"]');
+    const focused = Lib.getResult(page, 0);
+    await focused.focus();
+    await expect.poll(() => focused.evaluate((element) => element.matches(':focus-visible'))).toBe(true);
+    await Lib.hoverResult(page, 1);
+    await page.mouse.wheel(0, 120);
+    await expect.poll(() => isFocusedRowOutOfView(list)).toBe(true);
+    const pointer = await getCenter(list);
+    await page.mouse.move(pointer.x, pointer.y);
+    const scrollTop = await list.evaluate((element) => element.scrollTop);
+
+    await Lib.moveMouseAway(page);
+    await expect(page.locator('[role="mark"]').first()).toBeVisible();
+    await waitForRender(page);
+
+    expect(await list.evaluate((element) => element.scrollTop)).toBe(scrollTop);
+  });
+
   test('draws the focus ring around the focused result, and keeps it there while the list scrolls', async ({
     page,
   }) => {
@@ -206,6 +231,19 @@ async function getCenter(locator: Locator): Promise<{ x: number; y: number }> {
   }
 
   return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+}
+
+/**
+ * The focused row has to stay rendered for the pointer to hand the highlight back to it, so the list scrolls
+ * only until the row leaves the view.
+ */
+function isFocusedRowOutOfView(list: Locator): Promise<boolean> {
+  return list.evaluate((element) => {
+    const row = element.querySelector(':focus');
+    const listBox = element.getBoundingClientRect();
+
+    return Boolean(row && row.getBoundingClientRect().bottom <= listBox.top);
+  });
 }
 
 function getRowIndexAt(page: Page, { x, y }: { x: number; y: number }): Promise<string | null> {

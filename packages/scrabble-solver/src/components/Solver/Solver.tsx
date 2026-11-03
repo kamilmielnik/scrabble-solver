@@ -112,7 +112,12 @@ const SolverBase: FunctionComponent<Props> = ({ className, onShowResults }) => {
           </form>
 
           <div className={styles.column}>
-            <Results callbacks={callbacks} className={styles.results} highlightedIndex={highlightedIndex} />
+            <Results
+              callbacks={callbacks}
+              className={styles.results}
+              highlightedIndex={highlightedIndex}
+              highlightFollowsPointer={!isTouchDevice}
+            />
 
             <div className={styles.dictionaryContainer} data-testid="dictionary">
               <Dictionary className={styles.dictionary} />
