@@ -26,7 +26,7 @@ test.describe('Results list in a real layout', () => {
 
       await results.getByRole('button', { name: 'Points', exact: true }).click();
 
-      await expect.poll(() => list.evaluate((element) => element.scrollTop)).toBe(0);
+      await expect.poll(() => getScrollTop(list)).toBe(0);
     });
 
     test('renders only the rows in view', async ({ page }) => {
@@ -93,4 +93,8 @@ test.describe('Results list in a real layout', () => {
 
 function getList(results: Locator): Locator {
   return results.locator('[role="list"]');
+}
+
+function getScrollTop(list: Locator): Promise<number> {
+  return list.evaluate((element) => element.scrollTop);
 }
