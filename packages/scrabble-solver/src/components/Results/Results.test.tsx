@@ -3,17 +3,16 @@
 
 import { Locale } from '@scrabble-solver/types';
 import { act, fireEvent, screen } from '@testing-library/react';
-import { afterEach, beforeEach, describe, expect, it, jest, mock } from 'bun:test';
+import { afterEach, beforeEach, describe, expect, it, jest, mock, spyOn } from 'bun:test';
 
 import { resultsInitialState, resultsSlice } from '../../state/results';
 import { settingsInitialState } from '../../state/settings';
 import { solveInitialState } from '../../state/solve';
 import type { RootState } from '../../state/types';
-import { flushTimers } from '../../test/async';
 import { createResult } from '../../test/fixtures';
 import { setViewport } from '../../test/media';
 import { renderWithStore } from '../../test/render';
-import { installFixedSizeResizeObserver } from '../../test/virtualList';
+import { installDeferredResizeObserver, installFixedSizeResizeObserver } from '../../test/virtualList';
 import { ResultColumnId, SortDirection } from '../../types';
 
 import { Results } from './Results';
@@ -23,6 +22,8 @@ installFixedSizeResizeObserver();
 
 const cat = createResult({ id: 1, points: 30, word: 'cat', x: 0, y: 0 });
 const dog = createResult({ collisions: ['ox'], id: 2, points: 10, word: 'dog', x: 0, y: 1 });
+// Row 100 of 40 px rows, centered in the 400 px list of `test/virtualList`.
+const CENTERED_ROW_100_TOP = 100 * 40 + 20 - 200;
 
 describe('empty states', () => {
   it('invites to solve before the first solve', () => {
@@ -314,19 +315,34 @@ describe('loading', () => {
 });
 
 describe('scrolling', () => {
-  it('scrolls the highlighted row into view after rendering', async () => {
-    const scrollTo = mock<(options: ScrollToOptions) => void>();
-    const results = Array.from({ length: 200 }, (_, index) => createResult({ id: index + 3, points: 1, word: 'at' }));
+  afterEach(() => {
+    installFixedSizeResizeObserver();
+  });
 
-    setup({ results: { ...resultsInitialState, results } }, { highlightedIndex: 100 });
-    Object.assign(screen.getAllByTestId('result')[0].closest('[dir]')!, { scrollTo });
+  it('centers the highlighted row', () => {
+    const scrollTo = spyOn(HTMLElement.prototype, 'scrollTo');
 
-    expect(scrollTo).not.toHaveBeenCalled();
+    try {
+      setup({ results: { ...resultsInitialState, results: createManyResults() } }, { highlightedIndex: 100 });
 
-    await flushTimers();
+      expect(scrollTo.mock.calls.at(-1)?.[0]).toMatchObject({ top: CENTERED_ROW_100_TOP });
+    } finally {
+      scrollTo.mockRestore();
+    }
+  });
 
-    expect(scrollTo).toHaveBeenCalledTimes(1);
-    expect(scrollTo.mock.calls[0][0]).toMatchObject({ top: 100 * 40 + 20 - 200 });
+  it('centers the highlighted row when the list measures its height only after rendering', () => {
+    const measureLists = installDeferredResizeObserver();
+    const scrollTo = spyOn(HTMLElement.prototype, 'scrollTo');
+
+    try {
+      setup({ results: { ...resultsInitialState, results: createManyResults() } }, { highlightedIndex: 100 });
+      act(measureLists);
+
+      expect(scrollTo.mock.calls.at(-1)?.[0]).toMatchObject({ top: CENTERED_ROW_100_TOP });
+    } finally {
+      scrollTo.mockRestore();
+    }
   });
 });
 
@@ -351,4 +367,8 @@ function createCallbacks() {
 
 function readWords(): (string | null)[] {
   return Array.from(document.querySelectorAll('[data-testid="result"]'), (row) => row.getAttribute('aria-label'));
+}
+
+function createManyResults() {
+  return Array.from({ length: 200 }, (_, index) => createResult({ id: index + 3, points: 1, word: 'at' }));
 }

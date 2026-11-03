@@ -79,6 +79,7 @@ test.describe('app', () => {
       await assertResult(page, 0, 'ba', 8);
       const nextDefinitionsResponse = waitForDictionaryResponse(page);
       await hoverResult(page, 0);
+      await expect(getLoading(page)).toBeVisible();
       await expectTileHighlighted(getRackTile(page, 0));
       await expectTileHighlighted(getRackTile(page, 1));
       await expectTileNotHighlighted(getRackTile(page, 2));
@@ -89,7 +90,6 @@ test.describe('app', () => {
       await expectTileHighlighted(getBoardTile(page, 6, 7));
       await expectTileHighlighted(getBoardTile(page, 7, 7));
       await expect(getDictionaryInput(page)).toHaveValue('ba');
-      await expect(getLoading(page)).toBeVisible();
       await nextDefinitionsResponse;
       await expect(getLoading(page)).toHaveCount(0);
       await expect(getDictionaryTitles(page)).toHaveCount(1);

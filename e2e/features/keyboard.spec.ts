@@ -1,7 +1,8 @@
-import { type Page, expect, test } from '@playwright/test';
+import { type Locator, type Page, expect, test } from '@playwright/test';
 
 import * as Lib from '../lib';
 
+const CLIPBOARD_SOURCE_TEST_ID = 'clipboard-source';
 const TAB_PRESSES = 12;
 
 test.describe('Real keyboard and focus', () => {
@@ -52,10 +53,11 @@ test.describe('Real keyboard and focus', () => {
 
     test('walks out of the rack in one Tab, too', async ({ page }) => {
       await Lib.visitIndex(page);
+      const nextTabStop = await appendTabStop(page);
       await Lib.getRackTile(page, 0).focus();
       await page.keyboard.press('Tab');
 
-      await expect(Lib.getRackContainer(page).locator(':focus')).toHaveCount(0);
+      await expect(nextTabStop).toBeFocused();
     });
 
     test('previews a result reached with Tab and applies it with Enter', async ({ page }) => {
@@ -197,8 +199,6 @@ test.describe('Real keyboard and focus', () => {
   });
 
   test.describe('real clipboard', () => {
-    test.use({ permissions: ['clipboard-read', 'clipboard-write'] });
-
     test('pastes a word onto the board along the typing direction', async ({ page }) => {
       await Lib.visitIndex(page);
       await writeClipboard(page, 'CAT');
@@ -348,12 +348,42 @@ test.describe('Real keyboard and focus', () => {
   });
 });
 
+/**
+ * The rack holds the last tab stop of the page, and Tab past the last one leaves
+ * the document in Chromium and WebKit but stays put in headless Firefox.
+ */
+async function appendTabStop(page: Page): Promise<Locator> {
+  await page.evaluate(() => {
+    const button = document.createElement('button');
+    button.textContent = 'Next tab stop';
+    document.body.append(button);
+  });
+
+  return page.getByRole('button', { name: 'Next tab stop' });
+}
+
+/**
+ * Copies with the keyboard, as a user would: writing through `navigator.clipboard`
+ * needs permissions that Firefox and WebKit reject.
+ */
+async function writeClipboard(page: Page, text: string): Promise<void> {
+  await page.evaluate(
+    ({ testId, value }) => {
+      const source = document.createElement('textarea');
+      source.dataset.testid = testId;
+      source.value = value;
+      document.body.append(source);
+    },
+    { testId: CLIPBOARD_SOURCE_TEST_ID, value: text },
+  );
+  const source = page.getByTestId(CLIPBOARD_SOURCE_TEST_ID);
+  await source.selectText();
+  await page.keyboard.press('ControlOrMeta+KeyC');
+  await source.evaluate((element) => element.remove());
+}
+
 function isFocusInApp(page: Page): Promise<boolean> {
   return page.evaluate(() => {
     return document.activeElement?.closest('main, nav') !== null;
   });
-}
-
-async function writeClipboard(page: Page, text: string): Promise<void> {
-  await page.evaluate((value) => navigator.clipboard.writeText(value), text);
 }

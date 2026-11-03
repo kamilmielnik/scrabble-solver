@@ -135,6 +135,12 @@ bun install
 bun run build
 ```
 
+To run the e2e tests, also install the browsers they use. `--with-deps` installs the system libraries the browsers need too, so it asks for the `sudo` password on Linux.
+
+```Shell
+bunx playwright install --with-deps chromium firefox webkit
+```
+
 ### Run app dev server
 
 The following command will serve the app at http://localhost:3000/.

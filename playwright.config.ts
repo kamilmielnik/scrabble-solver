@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const VIEWPORT = { height: 900, width: 1440 };
+
 // eslint-disable-next-line no-restricted-exports
 export default defineConfig({
   expect: {
@@ -10,10 +12,15 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: {
-        ...devices['Desktop Chrome'],
-        viewport: { height: 900, width: 1440 },
-      },
+      use: { ...devices['Desktop Chrome'], viewport: VIEWPORT },
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'], viewport: VIEWPORT },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'], viewport: VIEWPORT },
     },
   ],
   reporter: [['list'], ['html', { open: 'never' }]],

@@ -18,7 +18,12 @@ test.describe('Offline', () => {
     expect(await page.evaluate(() => caches.keys())).toContain('app-shell');
   });
 
-  test('styles a modal offline from the precache, even after the HTTP cache is cleared', async ({ context, page }) => {
+  test('styles a modal offline from the precache, even after the HTTP cache is cleared', async ({
+    browserName,
+    context,
+    page,
+  }) => {
+    test.skip(browserName !== 'chromium', 'Only Chromium can clear the HTTP cache, through CDP');
     await page.keyboard.press('Shift');
     await Lib.waitForCachedDictionary(page);
     const session = await context.newCDPSession(page);
