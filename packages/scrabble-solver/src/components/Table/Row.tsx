@@ -46,7 +46,7 @@ export const Row: FunctionComponent<Props> = ({
         [styles.highlighted]: highlighted,
       })}
       data-testid={dataTestId}
-      style={style}
+      style={style && withoutTransform(style)}
       type="button"
       onBlur={onBlur}
       onClick={onClick}
@@ -57,3 +57,13 @@ export const Row: FunctionComponent<Props> = ({
     </button>
   );
 };
+
+/**
+ * react-window moves rows with `transform`, which anchor positioning ignores in Firefox and Safari, so the focus ring
+ * would stay where the first row is. A margin moves the row in layout instead.
+ */
+function withoutTransform(style: CSSProperties): CSSProperties {
+  const offset = /^translateY\((?<offset>[^)]+)\)$/.exec(String(style.transform))?.groups?.offset;
+
+  return offset ? { ...style, marginTop: offset, transform: undefined } : style;
+}

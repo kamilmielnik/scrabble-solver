@@ -159,6 +159,24 @@ describe('Row', () => {
     expect(container.querySelector('button')?.getAttribute('aria-hidden')).toBe('true');
   });
 
+  it('moves to its place in the list without a transform, which anchor positioning ignores in Firefox', () => {
+    renderWithStore(
+      <Row
+        aria-label="row"
+        highlighted={false}
+        inactive={false}
+        style={{ position: 'absolute', transform: 'translateY(120px)' }}
+      >
+        x
+      </Row>,
+    );
+
+    const { style } = screen.getByLabelText('row');
+
+    expect(style.transform).toBe('');
+    expect(style.marginTop).toBe('120px');
+  });
+
   it('calls its handlers', () => {
     const handlers = {
       onBlur: mock(),
