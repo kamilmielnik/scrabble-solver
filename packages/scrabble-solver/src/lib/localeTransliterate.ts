@@ -19,7 +19,7 @@ const transliteratePerLocale: Record<Locale, (word: string) => string> = {
   [Locale.EN_GB]: (word) => word,
   [Locale.EN_US]: (word) => word,
   [Locale.ES_ES]: (word) => foldDiacritics(word, ['ñ', 'Ñ']),
-  [Locale.FA_IR]: (word) => word,
+  [Locale.FA_IR]: (word) => word.replaceAll('آ', 'ا'),
   [Locale.FR_FR]: (word) => foldDiacritics(word),
   [Locale.PL_PL]: (word) => word,
   [Locale.RO_RO]: (word) => foldDiacritics(word),
