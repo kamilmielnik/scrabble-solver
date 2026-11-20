@@ -3,7 +3,7 @@ export const extractWords = (file: string, locale: string): string[] => {
     .toLocaleLowerCase(locale)
     .split(/\r?\n/g)
     .map((line) => line.trim())
-    .filter(Boolean);
+    .filter((line) => line.length > 1);
 
   if (words.length === 0) {
     throw new Error('Cannot find any words in the file');
